@@ -406,7 +406,12 @@
                 type: 'siswa',
                 data: {
                     nis: nis,
+                    // index.html membaca 'name' dan 'kelas_name' (header + kiriman
+                    // hasil CBT ke Google Sheets). 'nama'/'kelas' ikut ditulis
+                    // supaya tetap cocok kalau ada kode lain yang memakainya.
+                    name: student.nama,
                     nama: student.nama,
+                    kelas_name: student.kelas,
                     kelas: student.kelas,
                     access_level: student.access_level
                 },
