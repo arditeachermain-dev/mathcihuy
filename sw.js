@@ -1,12 +1,9 @@
-﻿// Service worker Portal Matematika XII.
-// Strategi: cache-first untuk kerangka aplikasi (satu berkas HTML mandiri
-// berisi seluruh soal, rumus, font, dan ikon), sehingga portal terbuka penuh
-// tanpa jaringan. Pembaruan diunduh di latar dan baru dipakai setelah guru
-// menyetujui muat ulang.
-const VERSI = 'gis-math-xii-200265';
+// Service worker Portal Matematika XII
+const VERSI = 'gis-math-xii-v5-fixed';
 const ISI = ['./', './index.html', './login.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   e.waitUntil(caches.open(VERSI).then((c) => c.addAll(ISI)).catch(() => {}));
 });
 
@@ -28,9 +25,13 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  // Navigasi: pakai simpanan lebih dulu supaya portal tetap terbuka saat
-  // jaringan sekolah mati, lalu segarkan simpanan di latar.
   if (req.mode === 'navigate') {
+    if (url.pathname.includes('login')) {
+      e.respondWith(
+        fetch(req).catch(() => caches.match('./login.html'))
+      );
+      return;
+    }
     e.respondWith(
       caches.match('./index.html').then((tersimpan) => {
         const dariJaringan = fetch(req).then((res) => {
