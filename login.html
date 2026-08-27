@@ -371,111 +371,118 @@
             event.target.classList.add('active');
         }
 
+        // ===== PINDAH KE PORTAL =====
+        // Portal ada di '/', BUKAN '/index.html'.
+        // Cloudflare Pages memantulkan '/index.html' ke '/' (308) -> itu sumber loop.
+        function gotoPortal() {
+            sessionStorage.setItem('redirect_guard', '1');
+            window.location.replace('/');
+        }
+
         // ===== SISWA LOGIN =====
         function loginSiswa(e) {
             e.preventDefault();
-            const nis = document.getElementById('nis').value.toUpperCase();
-            const password = document.getElementById('password_siswa').value;
-            const errorEl = document.getElementById('error_siswa');
-            const successEl = document.getElementById('success_siswa');
+            var nis = document.getElementById('nis').value.toUpperCase();
+            var password = document.getElementById('password_siswa').value;
+            var errorEl = document.getElementById('error_siswa');
+            var successEl = document.getElementById('success_siswa');
 
             errorEl.style.display = 'none';
             successEl.style.display = 'none';
 
             if (!STUDENTS_DATA[nis]) {
-                errorEl.textContent = '❌ NIS tidak ditemukan';
+                errorEl.textContent = 'NIS tidak ditemukan';
                 errorEl.style.display = 'block';
                 return;
             }
-
             if (password !== '1234') {
-                errorEl.textContent = '❌ Password salah';
+                errorEl.textContent = 'Password salah';
                 errorEl.style.display = 'block';
                 return;
             }
 
-            const student = STUDENTS_DATA[nis];
-            const session = {
+            var student = STUDENTS_DATA[nis];
+            localStorage.setItem('portal_session', JSON.stringify({
                 type: 'siswa',
-                nis: nis,
-                nama: student.nama,
-                kelas: student.kelas,
-                access_level: student.access_level,
-                login_time: Date.now()
-            };
+                data: {
+                    nis: nis,
+                    nama: student.nama,
+                    kelas: student.kelas,
+                    access_level: student.access_level
+                },
+                timestamp: Date.now()
+            }));
 
-            localStorage.setItem('tka_session', JSON.stringify(session));
-
-            successEl.textContent = '✓ Login berhasil! Mengalihkan...';
+            successEl.textContent = 'Login berhasil! Mengalihkan...';
             successEl.style.display = 'block';
-
-            setTimeout(() => {
-                window.location.href = '/index.html';
-            }, 500);
+            setTimeout(gotoPortal, 500);
         }
 
         // ===== GURU LOGIN =====
         function loginGuru(e) {
             e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password_guru').value;
-            const errorEl = document.getElementById('error_guru');
-            const successEl = document.getElementById('success_guru');
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password_guru').value;
+            var errorEl = document.getElementById('error_guru');
+            var successEl = document.getElementById('success_guru');
 
             errorEl.style.display = 'none';
             successEl.style.display = 'none';
 
             if (username !== GURU_CREDENTIALS.username) {
-                errorEl.textContent = '❌ Username tidak ditemukan';
+                errorEl.textContent = 'Username tidak ditemukan';
                 errorEl.style.display = 'block';
                 return;
             }
-
             if (password !== 'gis2cihuy') {
-                errorEl.textContent = '❌ Password salah';
+                errorEl.textContent = 'Password salah';
                 errorEl.style.display = 'block';
                 return;
             }
 
-            const session = {
+            localStorage.setItem('portal_session', JSON.stringify({
                 type: 'guru',
-                username: username,
-                nama: 'M. Ardiansyah, S.Pd.Gr.',
-                login_time: Date.now()
-            };
+                data: {
+                    username: username,
+                    nama: 'M. Ardiansyah, S.Pd.Gr.'
+                },
+                timestamp: Date.now()
+            }));
 
-            localStorage.setItem('tka_session', JSON.stringify(session));
-
-            successEl.textContent = '✓ Login berhasil! Mengalihkan...';
+            successEl.textContent = 'Login berhasil! Mengalihkan...';
             successEl.style.display = 'block';
-
-            setTimeout(() => {
-                window.location.href = '/index.html';
-            }, 500);
+            setTimeout(gotoPortal, 500);
         }
 
-        // ===== CHECK EXISTING SESSION =====
+        // ===== CEK SESI SAAT HALAMAN DIBUKA =====
         function checkExistingSession() {
-            const session = localStorage.getItem('tka_session');
-            if (session) {
-                try {
-                    const parsed = JSON.parse(session);
-                    const loginTime = parsed.login_time || 0;
-                    const now = Date.now();
-                    const expiryTime = 24 * 60 * 60 * 1000; // 24 jam
-
-                    if (now - loginTime < expiryTime) {
-                        window.location.href = '/index.html';
-                    } else {
-                        localStorage.removeItem('tka_session');
-                    }
-                } catch (e) {
-                    localStorage.removeItem('tka_session');
-                }
+            // Pengaman: kalau baru dilempar balik dari portal, sesi ditolak.
+            // Hapus sesi dan berhenti di sini -- jangan berputar lagi.
+            if (sessionStorage.getItem('redirect_guard') === '1') {
+                sessionStorage.removeItem('redirect_guard');
+                localStorage.removeItem('portal_session');
+                return;
             }
+
+            var raw = localStorage.getItem('portal_session');
+            if (!raw) return;
+
+            var parsed;
+            try {
+                parsed = JSON.parse(raw);
+            } catch (err) {
+                localStorage.removeItem('portal_session');
+                return;
+            }
+
+            if (Date.now() - (parsed.timestamp || 0) >= 24 * 60 * 60 * 1000) {
+                localStorage.removeItem('portal_session');
+                return;
+            }
+
+            gotoPortal();
         }
 
-        // Check on page load
         window.addEventListener('DOMContentLoaded', checkExistingSession);
     </script>
 </body>
