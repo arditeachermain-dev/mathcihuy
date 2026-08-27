@@ -1,10 +1,10 @@
-// Service worker Portal Matematika XII.
+﻿// Service worker Portal Matematika XII.
 // Strategi: cache-first untuk kerangka aplikasi (satu berkas HTML mandiri
 // berisi seluruh soal, rumus, font, dan ikon), sehingga portal terbuka penuh
 // tanpa jaringan. Pembaruan diunduh di latar dan baru dipakai setelah guru
 // menyetujui muat ulang.
-const VERSI = 'gis-math-xii-1b5a56c83de6';
-const ISI = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+const VERSI = 'gis-math-xii-200265';
+const ISI = ['./', './index.html', './login.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSI).then((c) => c.addAll(ISI)).catch(() => {}));
