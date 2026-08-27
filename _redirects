@@ -1,3 +1,4 @@
-/               /login.html     200
-/index.html     /index.html     200
-/*              /index.html     200
+# Dikosongkan. Aturan "/  /login.html  200" adalah penyebab redirect loop:
+# Cloudflare Pages membuang akhiran .html, jadi /index.html dipantulkan (308)
+# ke / lalu / dipantulkan ke /login -- portal tidak pernah bisa dibuka.
+# Portal memakai hash routing (/#/home), jadi aturan SPA tidak diperlukan.
