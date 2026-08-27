@@ -1,8 +1,471 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id" class="h-full text-slate-100" style="background:#040914">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Login • Portal Matematika Kelas XII SMA GIS 2 Serpong</title>
   
-  <link rel="icon" href="data:image/png;base64,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=
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#040914">
+  <meta name="description" content="Masuk ke Portal Resmi Pembelajaran Matematika Kelas XII SMA Global Islamic School 2 Serpong.">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Tailwind CDN & Font Awesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
+  <style>
+    body {
+      background-color: #040914;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.08) 0px, transparent 50%);
+    }
+  </style>
+</head>
+<body class="h-full min-h-screen flex flex-col justify-between items-center p-4 sm:p-6 font-sans">
+
+  <!-- Top Logo & Identity -->
+  <header class="w-full max-w-md text-center py-4 sm:py-6 space-y-2">
+    <div class="inline-flex items-center justify-center p-3 bg-slate-900/90 border border-slate-800 rounded-2xl shadow-2xl mb-1">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-amber-500 flex items-center justify-center text-white text-2xl font-black shadow-lg">
+        <i class="fa-solid fa-shapes"></i>
+      </div>
+    </div>
+    <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-wide">
+      PORTAL MATEMATIKA XII
+    </h1>
+    <p class="text-xs text-amber-400 font-semibold uppercase tracking-wider">
+      SMA Global Islamic School 2 Serpong
+    </p>
+    <p class="text-[11px] text-slate-400">
+      Pengampu: M. Ardiansyah, S.Pd.Gr.
+    </p>
+  </header>
+
+  <!-- Login Card Container -->
+  <main class="w-full max-w-md bg-slate-900/95 border border-[#1a2f4a] rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+    
+    <!-- Tab Switcher -->
+    <div class="flex items-center p-1 bg-slate-950/80 border border-slate-800 rounded-2xl mb-6 shadow-inner">
+      <button id="tab-btn-siswa" onclick="switchLoginTab('siswa')" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>Siswa</span>
+      </button>
+      <button id="tab-btn-guru" onclick="switchLoginTab('guru')" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
+        <i class="fa-solid fa-chalkboard-user"></i>
+        <span>Guru Pengampu</span>
+      </button>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="login-alert" class="hidden p-3 rounded-xl text-xs font-semibold mb-4 border flex items-center gap-2.5">
+      <i id="alert-icon" class="fa-solid fa-circle-exclamation text-sm shrink-0"></i>
+      <span id="alert-text" class="flex-1"></span>
+    </div>
+
+    <!-- FORM SISWA -->
+    <form id="form-siswa" onsubmit="handleSiswaLogin(event)" class="space-y-4">
+      <div>
+        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+          <i class="fa-solid fa-school text-amber-400 mr-1"></i> Pilih Kelas
+        </label>
+        <select id="siswa-kelas" onchange="handleKelasChange()" class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-blue-500 rounded-xl text-white text-sm focus:outline-none transition" required>
+          <option value="">-- Pilih Kelas Anda --</option>
+          <option value="XII_F1">Kelas XII F1 (Wajib)</option>
+          <option value="XII_F2">Kelas XII F2 (Wajib)</option>
+          <option value="XII_F3">Kelas XII F3 (Wajib, Minat, CLIL)</option>
+          <option value="XII_F4">Kelas XII F4 (Wajib, Minat, CLIL)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+          <i class="fa-solid fa-user text-blue-400 mr-1"></i> Nama Siswa
+        </label>
+        <select id="siswa-nama" onchange="handleNamaChange()" class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-blue-500 rounded-xl text-white text-sm focus:outline-none transition" disabled required>
+          <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+          <i class="fa-solid fa-id-card text-emerald-400 mr-1"></i> Nomor Induk Siswa (NIS)
+        </label>
+        <input id="siswa-nis" type="text" placeholder="Masukkan atau verifikasi NIS (8 digit)" maxlength="8"
+          class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-blue-500 rounded-xl text-white font-mono text-sm focus:outline-none transition" required>
+      </div>
+
+      <div id="siswa-access-badge" class="hidden p-2.5 bg-slate-950/60 rounded-xl border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+        <span>Tingkat Akses Modul:</span>
+        <span id="access-label" class="font-bold text-emerald-400"></span>
+      </div>
+
+      <button type="submit" id="btn-login-siswa" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2 active:scale-98">
+        <span>Masuk ke Portal Pembelajaran</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </form>
+
+    <!-- FORM GURU -->
+    <form id="form-guru" onsubmit="handleGuruLogin(event)" class="hidden space-y-4">
+      <div>
+        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+          <i class="fa-solid fa-user-tie text-amber-400 mr-1"></i> Username Guru
+        </label>
+        <input id="guru-username" type="text" placeholder="mathcihuy"
+          class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-amber-500 rounded-xl text-white text-sm focus:outline-none transition" required>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+          <i class="fa-solid fa-lock text-amber-400 mr-1"></i> Password
+        </label>
+        <div class="relative">
+          <input id="guru-password" type="password" placeholder="••••••••"
+            class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-amber-500 rounded-xl text-white text-sm focus:outline-none transition pr-10" required>
+          <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-xs">
+            <i id="eye-icon" class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" id="btn-login-guru" class="w-full py-3 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2 active:scale-98">
+        <span>Masuk ke Dashboard Guru</span>
+        <i class="fa-solid fa-shield-halved"></i>
+      </button>
+    </form>
+  </main>
+
+  <!-- Footer Info -->
+  <footer class="w-full max-w-md text-center py-4 text-xs text-slate-500">
+    <p>© 2026 SMA Global Islamic School 2 Serpong</p>
+    <p class="text-[10px] text-slate-600 mt-1">Portal Terpadu KBM & CBT TKA / UTBK-SNBT 2027</p>
+  </footer>
+
+  <!-- LOGIN LOGIC SCRIPT -->
+  <script>
+    // 1. MASTER DATABASE SISWA 100 ORANG
+    const STUDENTS_DB = {
+      "XII_F1": {
+        "kelas_name": "Kelas XII F1",
+        "access_level": "wajib_only",
+        "students": [
+          {"nis": "24400004", "name": "Aisyah Rachma Ufaira"},
+          {"nis": "24400005", "name": "Al Atha Uqail Ahmad Yudanto"},
+          {"nis": "24400006", "name": "Alifatis Muhammad Khalid"},
+          {"nis": "24400007", "name": "Alifia Nur Arfa Dinata"},
+          {"nis": "24400008", "name": "Alika Ayu Namira"},
+          {"nis": "24400010", "name": "Almira Latifah Alma Suryana"},
+          {"nis": "24400012", "name": "Aqeela Khumaira Hardian"},
+          {"nis": "24400019", "name": "Athalariq Akbar Mukti"},
+          {"nis": "24400024", "name": "Bilqis Zhafif Khumaira"},
+          {"nis": "24400028", "name": "Danish Attaya Akbar"},
+          {"nis": "24400031", "name": "Fazila Kayla Shiva"},
+          {"nis": "24400037", "name": "Hamzah Athaullah Sathi"},
+          {"nis": "24400044", "name": "Kaori Yobi Kalevi"},
+          {"nis": "24400046", "name": "Keisha Maritza Ahmad"},
+          {"nis": "24400047", "name": "Khayra Putri Ariny"},
+          {"nis": "24400052", "name": "Maheswari Kirana Paramitha Riyadh"},
+          {"nis": "24400058", "name": "Muhammad Fachrizky Athaya"},
+          {"nis": "24400065", "name": "Nala Ardika Naraditya Althaf"},
+          {"nis": "24400075", "name": "Nesya Linetta Sarostha"},
+          {"nis": "24400076", "name": "Nur Hanifah Qiani"},
+          {"nis": "24400078", "name": "Prinsa Amikal Suria"},
+          {"nis": "24400081", "name": "Rakei Friandary"},
+          {"nis": "24400088", "name": "Rhania Syifa Evliya"},
+          {"nis": "24400091", "name": "Satoru Kenzie"},
+          {"nis": "24400097", "name": "Yusfa Nova Almira"}
+        ]
+      },
+      "XII_F2": {
+        "kelas_name": "Kelas XII F2",
+        "access_level": "wajib_only",
+        "students": [
+          {"nis": "24400003", "name": "Ahmad Dzaka Fithraya Rasalhague"},
+          {"nis": "24400009", "name": "Alliyah Noor"},
+          {"nis": "24400011", "name": "Anezka Kendra Cielika"},
+          {"nis": "24400013", "name": "Arfa Adiwinata Setyadi"},
+          {"nis": "24400014", "name": "Arizty Al Ghayda Mahardhika"},
+          {"nis": "24400015", "name": "Arjuna Satrio Lanang"},
+          {"nis": "24400029", "name": "Emir Kaysan Askar"},
+          {"nis": "25400101", "name": "Galuh Chandra Kirana"},
+          {"nis": "24400035", "name": "Ghazi Saverio Wangkoro"},
+          {"nis": "24400040", "name": "Hilgan Rabbani Kusnadi"},
+          {"nis": "24400045", "name": "Kayla Asyifa Jasmine"},
+          {"nis": "24400048", "name": "Kiminurintani Ghimaz Pratiwi"},
+          {"nis": "24400057", "name": "Muhammad Bintang Satria"},
+          {"nis": "24400061", "name": "Muhammad Hanif Hafuza Martono"},
+          {"nis": "24400064", "name": "Nadifa Misyka Alfarisi"},
+          {"nis": "24400068", "name": "Nasya Bintang Atifa"},
+          {"nis": "24400069", "name": "Nasya Shifra Edgina"},
+          {"nis": "24400073", "name": "Nayla Rasya"},
+          {"nis": "24400077", "name": "Oryza Sativa"},
+          {"nis": "24400087", "name": "Revayya Almira Radhiza"},
+          {"nis": "24400090", "name": "Sashikianna Putri Sugiharjo"},
+          {"nis": "24400092", "name": "Sausan Audrey Lathifah"},
+          {"nis": "24400095", "name": "Tzeirasuva Mustika Ananta Ralliargya"},
+          {"nis": "24400096", "name": "Vania Azzara"},
+          {"nis": "24400098", "name": "Zahra Kaila Putri"}
+        ]
+      },
+      "XII_F3": {
+        "kelas_name": "Kelas XII F3",
+        "access_level": "full",
+        "students": [
+          {"nis": "24400001", "name": "Abdurrahman Athar"},
+          {"nis": "24400016", "name": "Asha Maulida Nasuha"},
+          {"nis": "24400017", "name": "Assyifa Q Aina"},
+          {"nis": "24400018", "name": "Atha Maiva Dialfi"},
+          {"nis": "24400021", "name": "Auriel Latisha Rustiadi"},
+          {"nis": "24400026", "name": "Chalisa Nasha Janitra"},
+          {"nis": "24400027", "name": "Cyrilla Qanita Salsabila"},
+          {"nis": "24400032", "name": "Fazli Fayyaz Bibra"},
+          {"nis": "24400033", "name": "Gavin Ananta Mudiartono"},
+          {"nis": "24400034", "name": "Gede Radheya Javaskalki Nararya"},
+          {"nis": "24400043", "name": "Jae Hwa Evelyn Az Zahra"},
+          {"nis": "24400049", "name": "Kinanthi Sekarlangit"},
+          {"nis": "24400050", "name": "Kyara Najla Putri"},
+          {"nis": "24400053", "name": "Miftahul Rizqi Rabani"},
+          {"nis": "24400054", "name": "Milan Adyaraka Sudiro"},
+          {"nis": "24400055", "name": "Mohammed Febro Arkenzie"},
+          {"nis": "24400056", "name": "Muhammad Arkan Wicaksena"},
+          {"nis": "24400062", "name": "Muhammad Mufid Zhafran"},
+          {"nis": "24400066", "name": "Nararya Fatih Mainza"},
+          {"nis": "24400070", "name": "Naufal Indriatno"},
+          {"nis": "24400071", "name": "Navira Qisya Camilla"},
+          {"nis": "24400072", "name": "Nayla Adriani Noormandiri"},
+          {"nis": "24400074", "name": "Nazwa Avrilia Putri Abzis"},
+          {"nis": "24400085", "name": "Raydhan Jiffar Seniawanputra"},
+          {"nis": "24400094", "name": "Syahra Lenira Rangkuti"}
+        ]
+      },
+      "XII_F4": {
+        "kelas_name": "Kelas XII F4",
+        "access_level": "full",
+        "students": [
+          {"nis": "24400002", "name": "Ahmad Bayanaka Rajab"},
+          {"nis": "24400020", "name": "Atsyla Athano Biandra"},
+          {"nis": "24400022", "name": "Azzadin Al Azzam"},
+          {"nis": "24400023", "name": "Bianda Alana Bilham"},
+          {"nis": "24400025", "name": "Bima Fattah Ghaisan"},
+          {"nis": "24400030", "name": "Fabian Putra Anzil Firdaus"},
+          {"nis": "24400036", "name": "Gwen Rasendriya Doanda"},
+          {"nis": "24400038", "name": "Hanako Marihot Kiarra Tampubolon"},
+          {"nis": "24400039", "name": "Hazika Hanin Aqilani"},
+          {"nis": "24400041", "name": "Ikram Apriliano Putra Keisa"},
+          {"nis": "24400042", "name": "Izzan Maulana"},
+          {"nis": "24400059", "name": "Muhammad Farras Afif"},
+          {"nis": "24400060", "name": "Muhammad Firman Thaheer"},
+          {"nis": "24400063", "name": "Muhammad Regan Arrizki"},
+          {"nis": "24400067", "name": "Naryama Damai Abyasa"},
+          {"nis": "24400079", "name": "Raden Zaviero Marcega"},
+          {"nis": "24400080", "name": "Raditya Kara Nararya"},
+          {"nis": "24400082", "name": "Rakha Sanjaya"},
+          {"nis": "24400083", "name": "Rania Zivanka Kurniawan"},
+          {"nis": "24400084", "name": "Raushan Garlen Disiyona"},
+          {"nis": "24400086", "name": "Reyhan Putra Sahlan"},
+          {"nis": "24400089", "name": "Safa Klarisza Praja Darma"},
+          {"nis": "24400093", "name": "Setia Muhammad Abrar"},
+          {"nis": "24400099", "name": "Zerlinda Arissa Hudoyo"},
+          {"nis": "24400100", "name": "Zharfa Qisthina Alifah"}
+        ]
+      }
+    };
+
+    const GURU_CREDS = {
+      "username": "mathcihuy",
+      "password_hash": "4e628845fe7f6f843d6cb657b3a14f862dc482385696a5387e915beb959dbb65"
+    };
+
+    const SESSION_KEY = 'portal_session';
+
+    // 2. CEK APAKAH SUDAH LOGIN
+    window.addEventListener('DOMContentLoaded', () => {
+      const sess = localStorage.getItem(SESSION_KEY);
+      if (sess) {
+        try {
+          const parsed = JSON.parse(sess);
+          if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
+            window.location.href = 'index.html';
+          }
+        } catch (e) {}
+      }
+    });
+
+    // 3. TAB SWITCHING
+    function switchLoginTab(type) {
+      hideAlert();
+      const btnSiswa = document.getElementById('tab-btn-siswa');
+      const btnGuru = document.getElementById('tab-btn-guru');
+      const formSiswa = document.getElementById('form-siswa');
+      const formGuru = document.getElementById('form-guru');
+
+      if (type === 'siswa') {
+        btnSiswa.className = "flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg";
+        btnGuru.className = "flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200";
+        formSiswa.classList.remove('hidden');
+        formGuru.classList.add('hidden');
+      } else {
+        btnGuru.className = "flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 bg-amber-600 text-white shadow-lg";
+        btnSiswa.className = "flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200";
+        formGuru.classList.remove('hidden');
+        formSiswa.classList.add('hidden');
+      }
+    }
+
+    // 4. DROPDOWN HANDLERS
+    function handleKelasChange() {
+      const kelasSelect = document.getElementById('siswa-kelas');
+      const namaSelect = document.getElementById('siswa-nama');
+      const nisInput = document.getElementById('siswa-nis');
+      const badge = document.getElementById('siswa-access-badge');
+      const accessLabel = document.getElementById('access-label');
+
+      const k = kelasSelect.value;
+      namaSelect.innerHTML = '<option value="">-- Pilih Nama Siswa --</option>';
+      nisInput.value = '';
+
+      if (!k || !STUDENTS_DB[k]) {
+        namaSelect.disabled = true;
+        badge.classList.add('hidden');
+        return;
+      }
+
+      namaSelect.disabled = false;
+      const data = STUDENTS_DB[k];
+      data.students.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.nis;
+        opt.textContent = s.name;
+        namaSelect.appendChild(opt);
+      });
+
+      badge.classList.remove('hidden');
+      if (data.access_level === 'full') {
+        accessLabel.textContent = 'Akses Penuh (Wajib, Minat, CLIL)';
+        accessLabel.className = 'font-bold text-emerald-400';
+      } else {
+        accessLabel.textContent = 'Matematika Wajib (F1/F2)';
+        accessLabel.className = 'font-bold text-blue-400';
+      }
+    }
+
+    function handleNamaChange() {
+      const namaSelect = document.getElementById('siswa-nama');
+      const nisInput = document.getElementById('siswa-nis');
+      if (namaSelect.value) {
+        nisInput.value = namaSelect.value;
+      }
+    }
+
+    // 5. LOGIN SUBMISSIONS
+    function handleSiswaLogin(e) {
+      e.preventDefault();
+      hideAlert();
+
+      const kelas = document.getElementById('siswa-kelas').value;
+      const nis = document.getElementById('siswa-nis').value.trim();
+
+      if (!kelas || !STUDENTS_DB[kelas]) {
+        showAlert('Silakan pilih kelas terlebih dahulu', 'error');
+        return;
+      }
+
+      const student = STUDENTS_DB[kelas].students.find(s => s.nis === nis);
+      if (!student) {
+        showAlert('NIS tidak ditemukan di kelas yang dipilih. Pastikan NIS 8 digit sesuai.', 'error');
+        return;
+      }
+
+      const sessionData = {
+        type: 'siswa',
+        data: {
+          nis: student.nis,
+          name: student.name,
+          kelas: kelas,
+          kelas_name: STUDENTS_DB[kelas].kelas_name,
+          access_level: STUDENTS_DB[kelas].access_level
+        },
+        timestamp: Date.now()
+      };
+
+      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+      showAlert(`Selamat datang, ${student.name}! Mengalihkan...`, 'success');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 500);
+    }
+
+    function handleGuruLogin(e) {
+      e.preventDefault();
+      hideAlert();
+
+      const u = document.getElementById('guru-username').value.trim();
+      const p = document.getElementById('guru-password').value;
+
+      if (u !== GURU_CREDS.username) {
+        showAlert('Username guru tidak valid', 'error');
+        return;
+      }
+
+      const hash = CryptoJS.SHA256(p).toString();
+      if (hash !== GURU_CREDS.password_hash) {
+        showAlert('Password guru salah', 'error');
+        return;
+      }
+
+      const sessionData = {
+        type: 'guru',
+        data: {
+          username: u,
+          name: 'M. Ardiansyah, S.Pd.Gr.'
+        },
+        timestamp: Date.now()
+      };
+
+      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+      showAlert('Login Guru berhasil! Mengalihkan ke portal...', 'success');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 500);
+    }
+
+    // 6. UI HELPERS
+    function showAlert(msg, type) {
+      const box = document.getElementById('login-alert');
+      const icon = document.getElementById('alert-icon');
+      const text = document.getElementById('alert-text');
+
+      box.classList.remove('hidden');
+      text.textContent = msg;
+
+      if (type === 'success') {
+        box.className = "p-3 rounded-xl text-xs font-semibold mb-4 border flex items-center gap-2.5 bg-emerald-950/80 border-emerald-500/50 text-emerald-300";
+        icon.className = "fa-solid fa-circle-check text-emerald-400 text-sm shrink-0";
+      } else {
+        box.className = "p-3 rounded-xl text-xs font-semibold mb-4 border flex items-center gap-2.5 bg-rose-950/80 border-rose-500/50 text-rose-300";
+        icon.className = "fa-solid fa-circle-exclamation text-rose-400 text-sm shrink-0";
+      }
+    }
+
+    function hideAlert() {
+      document.getElementById('login-alert').classList.add('hidden');
+    }
+
+    function togglePasswordVisibility() {
+      const pass = document.getElementById('guru-password');
+      const icon = document.getElementById('eye-icon');
+      if (pass.type === 'password') {
+        pass.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash';
+      } else {
+        pass.type = 'password';
+        icon.className = 'fa-solid fa-eye';
+      }
+    }
+  </script>
+</body>
+</html>
