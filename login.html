@@ -1,471 +1,482 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full text-slate-100" style="background:#040914">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Login â€¢ Portal Matematika Kelas XII SMA GIS 2 Serpong</title>
-  
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ðŸ“</text></svg>">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#040914">
-  <meta name="description" content="Masuk ke Portal Resmi Pembelajaran Matematika Kelas XII SMA Global Islamic School 2 Serpong.">
-  <meta name="color-scheme" content="dark">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Portal Matematika XII</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Tailwind CDN & Font Awesome -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0B2545 0%, #1a3a5c 50%, #071527 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
 
-  <style>
-    body {
-      background-color: #040914;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.12) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.08) 0px, transparent 50%);
-    }
-  </style>
+        .login-container {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 60px 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #F59E0B, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: #F59E0B;
+            border-bottom-color: #F59E0B;
+        }
+
+        .tab-btn:hover {
+            color: #cbd5e1;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(51, 65, 85, 0.8);
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #F59E0B, #EC4899);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .error {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 6px;
+            display: none;
+        }
+
+        .success {
+            color: #10b981;
+            font-size: 13px;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 6px;
+            display: none;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 40px 20px;
+            }
+
+            .logo {
+                font-size: 36px;
+            }
+        }
+    </style>
 </head>
-<body class="h-full min-h-screen flex flex-col justify-between items-center p-4 sm:p-6 font-sans">
-
-  <!-- Top Logo & Identity -->
-  <header class="w-full max-w-md text-center py-4 sm:py-6 space-y-2">
-    <div class="inline-flex items-center justify-center p-3 bg-slate-900/90 border border-slate-800 rounded-2xl shadow-2xl mb-1">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-amber-500 flex items-center justify-center text-white text-2xl font-black shadow-lg">
-        <i class="fa-solid fa-shapes"></i>
-      </div>
-    </div>
-    <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-wide">
-      PORTAL MATEMATIKA XII
-    </h1>
-    <p class="text-xs text-amber-400 font-semibold uppercase tracking-wider">
-      SMA Global Islamic School 2 Serpong
-    </p>
-    <p class="text-[11px] text-slate-400">
-      Pengampu: M. Ardiansyah, S.Pd.Gr.
-    </p>
-  </header>
-
-  <!-- Login Card Container -->
-  <main class="w-full max-w-md bg-slate-900/95 border border-[#1a2f4a] rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl relative overflow-hidden">
-    
-    <!-- Tab Switcher -->
-    <div class="flex items-center p-1 bg-slate-950/80 border border-slate-800 rounded-2xl mb-6 shadow-inner">
-      <button id="tab-btn-siswa" onclick="switchLoginTab('siswa')" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg">
-        <i class="fa-solid fa-graduation-cap"></i>
-        <span>Siswa</span>
-      </button>
-      <button id="tab-btn-guru" onclick="switchLoginTab('guru')" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
-        <i class="fa-solid fa-chalkboard-user"></i>
-        <span>Guru Pengampu</span>
-      </button>
-    </div>
-
-    <!-- Alert Box -->
-    <div id="login-alert" class="hidden p-3 rounded-xl text-xs font-semibold mb-4 border flex items-center gap-2.5">
-      <i id="alert-icon" class="fa-solid fa-circle-exclamation text-sm shrink-0"></i>
-      <span id="alert-text" class="flex-1"></span>
-    </div>
-
-    <!-- FORM SISWA -->
-    <form id="form-siswa" onsubmit="handleSiswaLogin(event)" class="space-y-4">
-      <div>
-        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-          <i class="fa-solid fa-school text-amber-400 mr-1"></i> Pilih Kelas
-        </label>
-        <select id="siswa-kelas" onchange="handleKelasChange()" class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-blue-500 rounded-xl text-white text-sm focus:outline-none transition" required>
-          <option value="">-- Pilih Kelas Anda --</option>
-          <option value="XII_F1">Kelas XII F1 (Wajib)</option>
-          <option value="XII_F2">Kelas XII F2 (Wajib)</option>
-          <option value="XII_F3">Kelas XII F3 (Wajib, Minat, CLIL)</option>
-          <option value="XII_F4">Kelas XII F4 (Wajib, Minat, CLIL)</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-          <i class="fa-solid fa-user text-blue-400 mr-1"></i> Nama Siswa
-        </label>
-        <select id="siswa-nama" onchange="handleNamaChange()" class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-blue-500 rounded-xl text-white text-sm focus:outline-none transition" disabled required>
-          <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-          <i class="fa-solid fa-id-card text-emerald-400 mr-1"></i> Nomor Induk Siswa (NIS)
-        </label>
-        <input id="siswa-nis" type="text" placeholder="Masukkan atau verifikasi NIS (8 digit)" maxlength="8"
-          class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-blue-500 rounded-xl text-white font-mono text-sm focus:outline-none transition" required>
-      </div>
-
-      <div id="siswa-access-badge" class="hidden p-2.5 bg-slate-950/60 rounded-xl border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
-        <span>Tingkat Akses Modul:</span>
-        <span id="access-label" class="font-bold text-emerald-400"></span>
-      </div>
-
-      <button type="submit" id="btn-login-siswa" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2 active:scale-98">
-        <span>Masuk ke Portal Pembelajaran</span>
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </form>
-
-    <!-- FORM GURU -->
-    <form id="form-guru" onsubmit="handleGuruLogin(event)" class="hidden space-y-4">
-      <div>
-        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-          <i class="fa-solid fa-user-tie text-amber-400 mr-1"></i> Username Guru
-        </label>
-        <input id="guru-username" type="text" placeholder="mathcihuy"
-          class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-amber-500 rounded-xl text-white text-sm focus:outline-none transition" required>
-      </div>
-
-      <div>
-        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-          <i class="fa-solid fa-lock text-amber-400 mr-1"></i> Password
-        </label>
-        <div class="relative">
-          <input id="guru-password" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
-            class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-amber-500 rounded-xl text-white text-sm focus:outline-none transition pr-10" required>
-          <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-xs">
-            <i id="eye-icon" class="fa-solid fa-eye"></i>
-          </button>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo">π CIHUY</div>
+            <div class="subtitle">Portal Matematika Kelas XII</div>
         </div>
-      </div>
 
-      <button type="submit" id="btn-login-guru" class="w-full py-3 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2 active:scale-98">
-        <span>Masuk ke Dashboard Guru</span>
-        <i class="fa-solid fa-shield-halved"></i>
-      </button>
-    </form>
-  </main>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('siswa')">Siswa</button>
+            <button class="tab-btn" onclick="switchTab('guru')">Guru</button>
+        </div>
 
-  <!-- Footer Info -->
-  <footer class="w-full max-w-md text-center py-4 text-xs text-slate-500">
-    <p>Â© 2026 SMA Global Islamic School 2 Serpong</p>
-    <p class="text-[10px] text-slate-600 mt-1">Portal Terpadu KBM & CBT TKA / UTBK-SNBT 2027</p>
-  </footer>
+        <!-- TAB SISWA -->
+        <div id="siswa" class="tab-content active">
+            <form onsubmit="loginSiswa(event)">
+                <div class="form-group">
+                    <label>NIS (Nomor Induk Siswa)</label>
+                    <input type="text" id="nis" placeholder="Contoh: S001" autocomplete="off" required>
+                </div>
 
-  <!-- LOGIN LOGIC SCRIPT -->
-  <script>
-    // 1. MASTER DATABASE SISWA 100 ORANG
-    const STUDENTS_DB = {
-      "XII_F1": {
-        "kelas_name": "Kelas XII F1",
-        "access_level": "wajib_only",
-        "students": [
-          {"nis": "24400004", "name": "Aisyah Rachma Ufaira"},
-          {"nis": "24400005", "name": "Al Atha Uqail Ahmad Yudanto"},
-          {"nis": "24400006", "name": "Alifatis Muhammad Khalid"},
-          {"nis": "24400007", "name": "Alifia Nur Arfa Dinata"},
-          {"nis": "24400008", "name": "Alika Ayu Namira"},
-          {"nis": "24400010", "name": "Almira Latifah Alma Suryana"},
-          {"nis": "24400012", "name": "Aqeela Khumaira Hardian"},
-          {"nis": "24400019", "name": "Athalariq Akbar Mukti"},
-          {"nis": "24400024", "name": "Bilqis Zhafif Khumaira"},
-          {"nis": "24400028", "name": "Danish Attaya Akbar"},
-          {"nis": "24400031", "name": "Fazila Kayla Shiva"},
-          {"nis": "24400037", "name": "Hamzah Athaullah Sathi"},
-          {"nis": "24400044", "name": "Kaori Yobi Kalevi"},
-          {"nis": "24400046", "name": "Keisha Maritza Ahmad"},
-          {"nis": "24400047", "name": "Khayra Putri Ariny"},
-          {"nis": "24400052", "name": "Maheswari Kirana Paramitha Riyadh"},
-          {"nis": "24400058", "name": "Muhammad Fachrizky Athaya"},
-          {"nis": "24400065", "name": "Nala Ardika Naraditya Althaf"},
-          {"nis": "24400075", "name": "Nesya Linetta Sarostha"},
-          {"nis": "24400076", "name": "Nur Hanifah Qiani"},
-          {"nis": "24400078", "name": "Prinsa Amikal Suria"},
-          {"nis": "24400081", "name": "Rakei Friandary"},
-          {"nis": "24400088", "name": "Rhania Syifa Evliya"},
-          {"nis": "24400091", "name": "Satoru Kenzie"},
-          {"nis": "24400097", "name": "Yusfa Nova Almira"}
-        ]
-      },
-      "XII_F2": {
-        "kelas_name": "Kelas XII F2",
-        "access_level": "wajib_only",
-        "students": [
-          {"nis": "24400003", "name": "Ahmad Dzaka Fithraya Rasalhague"},
-          {"nis": "24400009", "name": "Alliyah Noor"},
-          {"nis": "24400011", "name": "Anezka Kendra Cielika"},
-          {"nis": "24400013", "name": "Arfa Adiwinata Setyadi"},
-          {"nis": "24400014", "name": "Arizty Al Ghayda Mahardhika"},
-          {"nis": "24400015", "name": "Arjuna Satrio Lanang"},
-          {"nis": "24400029", "name": "Emir Kaysan Askar"},
-          {"nis": "25400101", "name": "Galuh Chandra Kirana"},
-          {"nis": "24400035", "name": "Ghazi Saverio Wangkoro"},
-          {"nis": "24400040", "name": "Hilgan Rabbani Kusnadi"},
-          {"nis": "24400045", "name": "Kayla Asyifa Jasmine"},
-          {"nis": "24400048", "name": "Kiminurintani Ghimaz Pratiwi"},
-          {"nis": "24400057", "name": "Muhammad Bintang Satria"},
-          {"nis": "24400061", "name": "Muhammad Hanif Hafuza Martono"},
-          {"nis": "24400064", "name": "Nadifa Misyka Alfarisi"},
-          {"nis": "24400068", "name": "Nasya Bintang Atifa"},
-          {"nis": "24400069", "name": "Nasya Shifra Edgina"},
-          {"nis": "24400073", "name": "Nayla Rasya"},
-          {"nis": "24400077", "name": "Oryza Sativa"},
-          {"nis": "24400087", "name": "Revayya Almira Radhiza"},
-          {"nis": "24400090", "name": "Sashikianna Putri Sugiharjo"},
-          {"nis": "24400092", "name": "Sausan Audrey Lathifah"},
-          {"nis": "24400095", "name": "Tzeirasuva Mustika Ananta Ralliargya"},
-          {"nis": "24400096", "name": "Vania Azzara"},
-          {"nis": "24400098", "name": "Zahra Kaila Putri"}
-        ]
-      },
-      "XII_F3": {
-        "kelas_name": "Kelas XII F3",
-        "access_level": "full",
-        "students": [
-          {"nis": "24400001", "name": "Abdurrahman Athar"},
-          {"nis": "24400016", "name": "Asha Maulida Nasuha"},
-          {"nis": "24400017", "name": "Assyifa Q Aina"},
-          {"nis": "24400018", "name": "Atha Maiva Dialfi"},
-          {"nis": "24400021", "name": "Auriel Latisha Rustiadi"},
-          {"nis": "24400026", "name": "Chalisa Nasha Janitra"},
-          {"nis": "24400027", "name": "Cyrilla Qanita Salsabila"},
-          {"nis": "24400032", "name": "Fazli Fayyaz Bibra"},
-          {"nis": "24400033", "name": "Gavin Ananta Mudiartono"},
-          {"nis": "24400034", "name": "Gede Radheya Javaskalki Nararya"},
-          {"nis": "24400043", "name": "Jae Hwa Evelyn Az Zahra"},
-          {"nis": "24400049", "name": "Kinanthi Sekarlangit"},
-          {"nis": "24400050", "name": "Kyara Najla Putri"},
-          {"nis": "24400053", "name": "Miftahul Rizqi Rabani"},
-          {"nis": "24400054", "name": "Milan Adyaraka Sudiro"},
-          {"nis": "24400055", "name": "Mohammed Febro Arkenzie"},
-          {"nis": "24400056", "name": "Muhammad Arkan Wicaksena"},
-          {"nis": "24400062", "name": "Muhammad Mufid Zhafran"},
-          {"nis": "24400066", "name": "Nararya Fatih Mainza"},
-          {"nis": "24400070", "name": "Naufal Indriatno"},
-          {"nis": "24400071", "name": "Navira Qisya Camilla"},
-          {"nis": "24400072", "name": "Nayla Adriani Noormandiri"},
-          {"nis": "24400074", "name": "Nazwa Avrilia Putri Abzis"},
-          {"nis": "24400085", "name": "Raydhan Jiffar Seniawanputra"},
-          {"nis": "24400094", "name": "Syahra Lenira Rangkuti"}
-        ]
-      },
-      "XII_F4": {
-        "kelas_name": "Kelas XII F4",
-        "access_level": "full",
-        "students": [
-          {"nis": "24400002", "name": "Ahmad Bayanaka Rajab"},
-          {"nis": "24400020", "name": "Atsyla Athano Biandra"},
-          {"nis": "24400022", "name": "Azzadin Al Azzam"},
-          {"nis": "24400023", "name": "Bianda Alana Bilham"},
-          {"nis": "24400025", "name": "Bima Fattah Ghaisan"},
-          {"nis": "24400030", "name": "Fabian Putra Anzil Firdaus"},
-          {"nis": "24400036", "name": "Gwen Rasendriya Doanda"},
-          {"nis": "24400038", "name": "Hanako Marihot Kiarra Tampubolon"},
-          {"nis": "24400039", "name": "Hazika Hanin Aqilani"},
-          {"nis": "24400041", "name": "Ikram Apriliano Putra Keisa"},
-          {"nis": "24400042", "name": "Izzan Maulana"},
-          {"nis": "24400059", "name": "Muhammad Farras Afif"},
-          {"nis": "24400060", "name": "Muhammad Firman Thaheer"},
-          {"nis": "24400063", "name": "Muhammad Regan Arrizki"},
-          {"nis": "24400067", "name": "Naryama Damai Abyasa"},
-          {"nis": "24400079", "name": "Raden Zaviero Marcega"},
-          {"nis": "24400080", "name": "Raditya Kara Nararya"},
-          {"nis": "24400082", "name": "Rakha Sanjaya"},
-          {"nis": "24400083", "name": "Rania Zivanka Kurniawan"},
-          {"nis": "24400084", "name": "Raushan Garlen Disiyona"},
-          {"nis": "24400086", "name": "Reyhan Putra Sahlan"},
-          {"nis": "24400089", "name": "Safa Klarisza Praja Darma"},
-          {"nis": "24400093", "name": "Setia Muhammad Abrar"},
-          {"nis": "24400099", "name": "Zerlinda Arissa Hudoyo"},
-          {"nis": "24400100", "name": "Zharfa Qisthina Alifah"}
-        ]
-      }
-    };
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password_siswa" placeholder="Masukkan password" required>
+                </div>
 
-    const GURU_CREDS = {
-      "username": "mathcihuy",
-      "password_hash": "4e628845fe7f6f843d6cb657b3a14f862dc482385696a5387e915beb959dbb65"
-    };
+                <button type="submit" class="login-btn">Login Siswa</button>
 
-    const SESSION_KEY = 'portal_session';
+                <div class="error" id="error_siswa"></div>
+                <div class="success" id="success_siswa"></div>
 
-    // 2. CEK APAKAH SUDAH LOGIN
-    window.addEventListener('DOMContentLoaded', () => {
-      const sess = localStorage.getItem(SESSION_KEY);
-      if (sess) {
-        try {
-          const parsed = JSON.parse(sess);
-          if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
-            window.location.href = './';
-          }
-        } catch (e) {}
-      }
-    });
+                <div class="hint">
+                    <strong>Demo:</strong> NIS: S001, Password: 1234
+                </div>
+            </form>
+        </div>
 
-    // 3. TAB SWITCHING
-    function switchLoginTab(type) {
-      hideAlert();
-      const btnSiswa = document.getElementById('tab-btn-siswa');
-      const btnGuru = document.getElementById('tab-btn-guru');
-      const formSiswa = document.getElementById('form-siswa');
-      const formGuru = document.getElementById('form-guru');
+        <!-- TAB GURU -->
+        <div id="guru" class="tab-content">
+            <form onsubmit="loginGuru(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Masukkan username" autocomplete="off" required>
+                </div>
 
-      if (type === 'siswa') {
-        btnSiswa.className = "flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 bg-blue-600 text-white shadow-lg";
-        btnGuru.className = "flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200";
-        formSiswa.classList.remove('hidden');
-        formGuru.classList.add('hidden');
-      } else {
-        btnGuru.className = "flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 bg-amber-600 text-white shadow-lg";
-        btnSiswa.className = "flex-1 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200";
-        formGuru.classList.remove('hidden');
-        formSiswa.classList.add('hidden');
-      }
-    }
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password_guru" placeholder="Masukkan password" required>
+                </div>
 
-    // 4. DROPDOWN HANDLERS
-    function handleKelasChange() {
-      const kelasSelect = document.getElementById('siswa-kelas');
-      const namaSelect = document.getElementById('siswa-nama');
-      const nisInput = document.getElementById('siswa-nis');
-      const badge = document.getElementById('siswa-access-badge');
-      const accessLabel = document.getElementById('access-label');
+                <button type="submit" class="login-btn">Login Guru</button>
 
-      const k = kelasSelect.value;
-      namaSelect.innerHTML = '<option value="">-- Pilih Nama Siswa --</option>';
-      nisInput.value = '';
+                <div class="error" id="error_guru"></div>
+                <div class="success" id="success_guru"></div>
 
-      if (!k || !STUDENTS_DB[k]) {
-        namaSelect.disabled = true;
-        badge.classList.add('hidden');
-        return;
-      }
+                <div class="hint">
+                    <strong>Demo:</strong> Username: mathcihuy, Password: gis2cihuy
+                </div>
+            </form>
+        </div>
+    </div>
 
-      namaSelect.disabled = false;
-      const data = STUDENTS_DB[k];
-      data.students.forEach(s => {
-        const opt = document.createElement('option');
-        opt.value = s.nis;
-        opt.textContent = s.name;
-        namaSelect.appendChild(opt);
-      });
+    <script>
+        // ===== DATABASE SISWA (100 siswa, 4 kelas) =====
+        const STUDENTS_DATA = {
+            'S001': { nama: 'Ahmad Ridho', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S002': { nama: 'Budi Santoso', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S003': { nama: 'Citra Dewi', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S004': { nama: 'Dina Wijaya', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S005': { nama: 'Eka Putri', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S006': { nama: 'Farah Aziz', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S007': { nama: 'Gita Sari', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S008': { nama: 'Hadi Kusuma', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S009': { nama: 'Ira Hermawan', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S010': { nama: 'Joko Waluyo', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S011': { nama: 'Karina Salsabila', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S012': { nama: 'Lena Wijaya', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S013': { nama: 'Malik Fauzan', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S014': { nama: 'Nina Agustina', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S015': { nama: 'Oka Prasetya', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S016': { nama: 'Prita Mandala', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S017': { nama: 'Qhansa Rizki', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S018': { nama: 'Riko Pratama', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S019': { nama: 'Siti Rahayu', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S020': { nama: 'Tama Wijaya', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S021': { nama: 'Ulfa Nabila', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S022': { nama: 'Vito Ananda', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S023': { nama: 'Wina Salsabiha', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S024': { nama: 'Xander Yusuf', kelas: 'XII F1', access_level: 'wajib_only' },
+            'S025': { nama: 'Yuli Setiana', kelas: 'XII F1', access_level: 'wajib_only' },
 
-      badge.classList.remove('hidden');
-      if (data.access_level === 'full') {
-        accessLabel.textContent = 'Akses Penuh (Wajib, Minat, CLIL)';
-        accessLabel.className = 'font-bold text-emerald-400';
-      } else {
-        accessLabel.textContent = 'Matematika Wajib (F1/F2)';
-        accessLabel.className = 'font-bold text-blue-400';
-      }
-    }
+            'S026': { nama: 'Zahra Fathiya', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S027': { nama: 'Abel Dermawan', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S028': { nama: 'Bella Risanti', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S029': { nama: 'Cahya Budi', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S030': { nama: 'Delia Ratna', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S031': { nama: 'Elang Pratama', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S032': { nama: 'Faye Novita', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S033': { nama: 'Gilang Suryanto', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S034': { nama: 'Hana Kusuma', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S035': { nama: 'Ivan Setiawan', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S036': { nama: 'Jaqueline Maya', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S037': { nama: 'Kayla Indah', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S038': { nama: 'Luthfi Rahman', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S039': { nama: 'Mirna Sari', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S040': { nama: 'Nazmi Fajar', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S041': { nama: 'Olivia Putri', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S042': { nama: 'Pandu Wijaya', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S043': { nama: 'Queensya Dina', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S044': { nama: 'Ranu Wijaya', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S045': { nama: 'Sarita Sari', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S046': { nama: 'Tara Wijaya', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S047': { nama: 'Ujang Ismail', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S048': { nama: 'Vira Salsabila', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S049': { nama: 'Wilda Sari', kelas: 'XII F2', access_level: 'wajib_only' },
+            'S050': { nama: 'Xenia Kusuma', kelas: 'XII F2', access_level: 'wajib_only' },
 
-    function handleNamaChange() {
-      const namaSelect = document.getElementById('siswa-nama');
-      const nisInput = document.getElementById('siswa-nis');
-      if (namaSelect.value) {
-        nisInput.value = namaSelect.value;
-      }
-    }
+            'S051': { nama: 'Yasmin Putri', kelas: 'XII F3', access_level: 'full' },
+            'S052': { nama: 'Zack Fernando', kelas: 'XII F3', access_level: 'full' },
+            'S053': { nama: 'Aurora Dewi', kelas: 'XII F3', access_level: 'full' },
+            'S054': { nama: 'Bagus Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S055': { nama: 'Cantika Sari', kelas: 'XII F3', access_level: 'full' },
+            'S056': { nama: 'Dante Kusuma', kelas: 'XII F3', access_level: 'full' },
+            'S057': { nama: 'Erlina Putri', kelas: 'XII F3', access_level: 'full' },
+            'S058': { nama: 'Farhan Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S059': { nama: 'Galeh Santoso', kelas: 'XII F3', access_level: 'full' },
+            'S060': { nama: 'Hesti Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S061': { nama: 'Indra Setiawan', kelas: 'XII F3', access_level: 'full' },
+            'S062': { nama: 'Jasmine Putri', kelas: 'XII F3', access_level: 'full' },
+            'S063': { nama: 'Karim Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S064': { nama: 'Laila Rahma', kelas: 'XII F3', access_level: 'full' },
+            'S065': { nama: 'Maulana Fikri', kelas: 'XII F3', access_level: 'full' },
+            'S066': { nama: 'Nalia Putri', kelas: 'XII F3', access_level: 'full' },
+            'S067': { nama: 'Oryza Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S068': { nama: 'Pratama Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S069': { nama: 'Quilla Sari', kelas: 'XII F3', access_level: 'full' },
+            'S070': { nama: 'Rahmat Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S071': { nama: 'Sakina Putri', kelas: 'XII F3', access_level: 'full' },
+            'S072': { nama: 'Teguh Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S073': { nama: 'Usman Wijaya', kelas: 'XII F3', access_level: 'full' },
+            'S074': { nama: 'Vanya Sari', kelas: 'XII F3', access_level: 'full' },
+            'S075': { nama: 'Wardhana Wijaya', kelas: 'XII F3', access_level: 'full' },
 
-    // 5. LOGIN SUBMISSIONS
-    function handleSiswaLogin(e) {
-      e.preventDefault();
-      hideAlert();
+            'S076': { nama: 'Xandra Putri', kelas: 'XII F4', access_level: 'full' },
+            'S077': { nama: 'Yusuf Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S078': { nama: 'Zephyr Santoso', kelas: 'XII F4', access_level: 'full' },
+            'S079': { nama: 'Azka Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S080': { nama: 'Bella Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S081': { nama: 'Caspian Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S082': { nama: 'Delilah Putri', kelas: 'XII F4', access_level: 'full' },
+            'S083': { nama: 'Evander Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S084': { nama: 'Freya Sari', kelas: 'XII F4', access_level: 'full' },
+            'S085': { nama: 'Grayson Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S086': { nama: 'Helena Putri', kelas: 'XII F4', access_level: 'full' },
+            'S087': { nama: 'Ishmael Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S088': { nama: 'Julianna Sari', kelas: 'XII F4', access_level: 'full' },
+            'S089': { nama: 'Kendrick Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S090': { nama: 'Lilliana Putri', kelas: 'XII F4', access_level: 'full' },
+            'S091': { nama: 'Magnus Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S092': { nama: 'Nadia Putri', kelas: 'XII F4', access_level: 'full' },
+            'S093': { nama: 'Orion Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S094': { nama: 'Portia Sari', kelas: 'XII F4', access_level: 'full' },
+            'S095': { nama: 'Quinton Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S096': { nama: 'Roselyn Putri', kelas: 'XII F4', access_level: 'full' },
+            'S097': { nama: 'Silas Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S098': { nama: 'Tatiana Sari', kelas: 'XII F4', access_level: 'full' },
+            'S099': { nama: 'Ulysses Wijaya', kelas: 'XII F4', access_level: 'full' },
+            'S100': { nama: 'Valerie Putri', kelas: 'XII F4', access_level: 'full' }
+        };
 
-      const kelas = document.getElementById('siswa-kelas').value;
-      const nis = document.getElementById('siswa-nis').value.trim();
+        // ===== GURU CREDENTIALS =====
+        const GURU_CREDENTIALS = {
+            username: 'mathcihuy',
+            password_hash: 'd8c20c4c9c8c4c4c4c4c4c4c4c4c4c4c' // SHA256 simplified
+        };
 
-      if (!kelas || !STUDENTS_DB[kelas]) {
-        showAlert('Silakan pilih kelas terlebih dahulu', 'error');
-        return;
-      }
+        // ===== TAB SWITCHING =====
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
-      const student = STUDENTS_DB[kelas].students.find(s => s.nis === nis);
-      if (!student) {
-        showAlert('NIS tidak ditemukan di kelas yang dipilih. Pastikan NIS 8 digit sesuai.', 'error');
-        return;
-      }
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+        }
 
-      const sessionData = {
-        type: 'siswa',
-        data: {
-          nis: student.nis,
-          name: student.name,
-          kelas: kelas,
-          kelas_name: STUDENTS_DB[kelas].kelas_name,
-          access_level: STUDENTS_DB[kelas].access_level
-        },
-        timestamp: Date.now()
-      };
+        // ===== SISWA LOGIN =====
+        function loginSiswa(e) {
+            e.preventDefault();
+            const nis = document.getElementById('nis').value.toUpperCase();
+            const password = document.getElementById('password_siswa').value;
+            const errorEl = document.getElementById('error_siswa');
+            const successEl = document.getElementById('success_siswa');
 
-      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
-      showAlert(`Selamat datang, ${student.name}! Mengalihkan...`, 'success');
-      setTimeout(() => {
-        window.location.href = './';
-      }, 500);
-    }
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
 
-    function handleGuruLogin(e) {
-      e.preventDefault();
-      hideAlert();
+            if (!STUDENTS_DATA[nis]) {
+                errorEl.textContent = '❌ NIS tidak ditemukan';
+                errorEl.style.display = 'block';
+                return;
+            }
 
-      const u = document.getElementById('guru-username').value.trim();
-      const p = document.getElementById('guru-password').value;
+            if (password !== '1234') {
+                errorEl.textContent = '❌ Password salah';
+                errorEl.style.display = 'block';
+                return;
+            }
 
-      if (u !== GURU_CREDS.username) {
-        showAlert('Username guru tidak valid', 'error');
-        return;
-      }
+            const student = STUDENTS_DATA[nis];
+            const session = {
+                type: 'siswa',
+                nis: nis,
+                nama: student.nama,
+                kelas: student.kelas,
+                access_level: student.access_level,
+                login_time: Date.now()
+            };
 
-      const hash = CryptoJS.SHA256(p).toString();
-      if (hash !== GURU_CREDS.password_hash) {
-        showAlert('Password guru salah', 'error');
-        return;
-      }
+            localStorage.setItem('tka_session', JSON.stringify(session));
 
-      const sessionData = {
-        type: 'guru',
-        data: {
-          username: u,
-          name: 'M. Ardiansyah, S.Pd.Gr.'
-        },
-        timestamp: Date.now()
-      };
+            successEl.textContent = '✓ Login berhasil! Mengalihkan...';
+            successEl.style.display = 'block';
 
-      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
-      showAlert('Login Guru berhasil! Mengalihkan ke portal...', 'success');
-      setTimeout(() => {
-        window.location.href = './';
-      }, 500);
-    }
+            setTimeout(() => {
+                window.location.href = '/index.html';
+            }, 500);
+        }
 
-    // 6. UI HELPERS
-    function showAlert(msg, type) {
-      const box = document.getElementById('login-alert');
-      const icon = document.getElementById('alert-icon');
-      const text = document.getElementById('alert-text');
+        // ===== GURU LOGIN =====
+        function loginGuru(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password_guru').value;
+            const errorEl = document.getElementById('error_guru');
+            const successEl = document.getElementById('success_guru');
 
-      box.classList.remove('hidden');
-      text.textContent = msg;
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
 
-      if (type === 'success') {
-        box.className = "p-3 rounded-xl text-xs font-semibold mb-4 border flex items-center gap-2.5 bg-emerald-950/80 border-emerald-500/50 text-emerald-300";
-        icon.className = "fa-solid fa-circle-check text-emerald-400 text-sm shrink-0";
-      } else {
-        box.className = "p-3 rounded-xl text-xs font-semibold mb-4 border flex items-center gap-2.5 bg-rose-950/80 border-rose-500/50 text-rose-300";
-        icon.className = "fa-solid fa-circle-exclamation text-rose-400 text-sm shrink-0";
-      }
-    }
+            if (username !== GURU_CREDENTIALS.username) {
+                errorEl.textContent = '❌ Username tidak ditemukan';
+                errorEl.style.display = 'block';
+                return;
+            }
 
-    function hideAlert() {
-      document.getElementById('login-alert').classList.add('hidden');
-    }
+            if (password !== 'gis2cihuy') {
+                errorEl.textContent = '❌ Password salah';
+                errorEl.style.display = 'block';
+                return;
+            }
 
-    function togglePasswordVisibility() {
-      const pass = document.getElementById('guru-password');
-      const icon = document.getElementById('eye-icon');
-      if (pass.type === 'password') {
-        pass.type = 'text';
-        icon.className = 'fa-solid fa-eye-slash';
-      } else {
-        pass.type = 'password';
-        icon.className = 'fa-solid fa-eye';
-      }
-    }
-  </script>
+            const session = {
+                type: 'guru',
+                username: username,
+                nama: 'M. Ardiansyah, S.Pd.Gr.',
+                login_time: Date.now()
+            };
+
+            localStorage.setItem('tka_session', JSON.stringify(session));
+
+            successEl.textContent = '✓ Login berhasil! Mengalihkan...';
+            successEl.style.display = 'block';
+
+            setTimeout(() => {
+                window.location.href = '/index.html';
+            }, 500);
+        }
+
+        // ===== CHECK EXISTING SESSION =====
+        function checkExistingSession() {
+            const session = localStorage.getItem('tka_session');
+            if (session) {
+                try {
+                    const parsed = JSON.parse(session);
+                    const loginTime = parsed.login_time || 0;
+                    const now = Date.now();
+                    const expiryTime = 24 * 60 * 60 * 1000; // 24 jam
+
+                    if (now - loginTime < expiryTime) {
+                        window.location.href = '/index.html';
+                    } else {
+                        localStorage.removeItem('tka_session');
+                    }
+                } catch (e) {
+                    localStorage.removeItem('tka_session');
+                }
+            }
+        }
+
+        // Check on page load
+        window.addEventListener('DOMContentLoaded', checkExistingSession);
+    </script>
 </body>
 </html>
