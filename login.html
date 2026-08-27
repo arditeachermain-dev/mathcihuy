@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Login • Portal Matematika Kelas XII SMA GIS 2 Serpong</title>
+  <title>Login â€¢ Portal Matematika Kelas XII SMA GIS 2 Serpong</title>
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ðŸ“</text></svg>">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#040914">
   <meta name="description" content="Masuk ke Portal Resmi Pembelajaran Matematika Kelas XII SMA Global Islamic School 2 Serpong.">
@@ -124,7 +124,7 @@
           <i class="fa-solid fa-lock text-amber-400 mr-1"></i> Password
         </label>
         <div class="relative">
-          <input id="guru-password" type="password" placeholder="••••••••"
+          <input id="guru-password" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
             class="w-full px-3.5 py-2.5 bg-slate-950/90 border border-slate-800 focus:border-amber-500 rounded-xl text-white text-sm focus:outline-none transition pr-10" required>
           <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-xs">
             <i id="eye-icon" class="fa-solid fa-eye"></i>
@@ -141,7 +141,7 @@
 
   <!-- Footer Info -->
   <footer class="w-full max-w-md text-center py-4 text-xs text-slate-500">
-    <p>© 2026 SMA Global Islamic School 2 Serpong</p>
+    <p>Â© 2026 SMA Global Islamic School 2 Serpong</p>
     <p class="text-[10px] text-slate-600 mt-1">Portal Terpadu KBM & CBT TKA / UTBK-SNBT 2027</p>
   </footer>
 
@@ -289,7 +289,7 @@
         try {
           const parsed = JSON.parse(sess);
           if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
-            window.location.href = 'index.html';
+            window.location.href = './';
           }
         } catch (e) {}
       }
@@ -395,7 +395,7 @@
       localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
       showAlert(`Selamat datang, ${student.name}! Mengalihkan...`, 'success');
       setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = './';
       }, 500);
     }
 
@@ -429,7 +429,7 @@
       localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
       showAlert('Login Guru berhasil! Mengalihkan ke portal...', 'success');
       setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = './';
       }, 500);
     }
 

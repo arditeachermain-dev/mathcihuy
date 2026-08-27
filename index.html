@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id" class="h-full text-slate-100" style="background:#040914">
 <head>
   <meta charset="UTF-8">
@@ -3676,14 +3676,14 @@
 
     function logoutSession() {
         localStorage.removeItem(SESSION_KEY);
-        window.location.href = 'login.html';
+        window.location.href = 'login';
     }
 
     // Check session saat halaman load
     function checkSessionOnLoad() {
         const sess = getSession();
         if (!sess) {
-            window.location.href = 'login.html';
+            window.location.href = 'login';
             return;
         }
 
