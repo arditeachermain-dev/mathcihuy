@@ -1,0 +1,52 @@
+{
+  "name": "Portal Matematika XII - SMA GIS 2 Serpong",
+  "short_name": "Math GIS 2",
+  "description": "Portal Pembelajaran Matematika Kelas XII Fase F - Kurikulum & Drilling CBT TKA Nasional",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#040914",
+  "theme_color": "#040914",
+  "orientation": "any",
+  "categories": [
+    "education"
+  ],
+  "lang": "id",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Matematika Wajib",
+      "short_name": "Wajib",
+      "url": "./index.html#/wajib/P01/slide/1"
+    },
+    {
+      "name": "Matematika Peminatan",
+      "short_name": "Peminatan",
+      "url": "./index.html#/minat/P01/slide/1"
+    },
+    {
+      "name": "Arena Drilling CBT",
+      "short_name": "CBT",
+      "url": "./index.html#/cbt/wajib/P01/q/1"
+    }
+  ]
+}
