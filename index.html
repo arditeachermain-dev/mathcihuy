@@ -9126,7 +9126,11 @@ function catatSesiCbt(subj, pkgId) {
 
     <script>
     function openGuruDashboard() {
-        const sess = getSession();
+        let sess = null;
+        try {
+          sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        } catch(e) {}
+
         if (!sess || sess.type !== 'guru') {
             alert('Hanya guru yang dapat akses dashboard');
             return;
@@ -9135,11 +9139,7 @@ function catatSesiCbt(subj, pkgId) {
         document.getElementById('guru-dashboard-modal').classList.remove('hidden');
         document.getElementById('guru-dashboard-modal').classList.add('flex');
         loadGuruDashboardData();
-        tarikNilaiDariCloud(false); // Otomatis tarik nilai terbaru dari Google Sheets Cloud
-
-        // Load webhook URL dari localStorage
-        const webhookUrl = localStorage.getItem('webhook_url') || '';
-        document.getElementById('guru-webhook-url').value = webhookUrl;
+        tarikNilaiDariCloud(false);
     }
 
     function closeGuruDashboard() {
