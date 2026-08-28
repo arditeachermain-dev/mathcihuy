@@ -9294,29 +9294,26 @@ function catatSesiCbt(subj, pkgId) {
     }
 
     // Tarik nilai langsung dari Database Supabase Cloud (Menggabungkan Nilai Akhir & Live Progress)
+    // Tarik nilai resmi (yang sudah disubmit) dari Database Supabase Cloud
     async function tarikNilaiDariCloud(manual) {
       const statusEl = document.getElementById('cloud-sync-status');
       if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan Supabase SQL...</span>';
       
       if (supabaseClient) {
         try {
-          // 1. Ambil Nilai Akhir yang Sudah Tuntas
+          // Hanya tarik nilai resmi yang sudah disubmit siswa (nilai_cbt)
           const resNilai = await supabaseClient.from('nilai_cbt').select('*').order('waktu_submit', { ascending: false });
           const dataNilai = (!resNilai.error && Array.isArray(resNilai.data)) ? resNilai.data : [];
 
-          // 2. Ambil Jawaban Live Real-Time yang Sedang Berjalan
-          const resLive = await supabaseClient.from('cbt_live_answers').select('*').order('updated_at', { ascending: false });
-          const dataLive = (!resLive.error && Array.isArray(resLive.data)) ? resLive.data : [];
-
           const log = sinkAmbil(CBT_LOKAL_KEY, []);
 
-          // Masukkan Data Nilai Akhir
           dataNilai.forEach(function(p) {
+            const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[p.nis]) ? STUDENTS_DATA[p.nis] : null;
             const mapped = {
               timestamp: p.waktu_submit,
               nis: String(p.nis || ''),
-              nama: String(p.nama || (STUDENTS_DATA[p.nis] ? STUDENTS_DATA[p.nis].nama : '')),
-              kelas: String(p.kelas || (STUDENTS_DATA[p.nis] ? STUDENTS_DATA[p.nis].kelas : '')),
+              nama: String(p.nama || (std ? std.nama : 'Siswa ' + p.nis)),
+              kelas: String(p.kelas || (std ? std.kelas : 'XII')),
               mapel: String(p.mapel || 'wajib'),
               kode_pertemuan: String(p.kode_pertemuan || ''),
               skor: Number(p.skor) || 0,
@@ -9324,8 +9321,7 @@ function catatSesiCbt(subj, pkgId) {
               jumlah_benar: Number(p.jumlah_benar) || 0,
               jumlah_salah: Number(p.jumlah_salah) || 0,
               durasi_detik: Number(p.durasi_detik) || 0,
-              durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 6) / 10,
-              is_live: false
+              durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 6) / 10
             };
             const f = sinkSidik(mapped);
             const i = log.findIndex(function(x) { 
@@ -9334,57 +9330,11 @@ function catatSesiCbt(subj, pkgId) {
             if (i === -1) log.push(mapped); else log[i] = Object.assign(log[i], mapped);
           });
 
-          // Masukkan Data Live Progress (Jika belum ada nilai akhir)
-          const liveMap = {};
-          dataLive.forEach(function(a) {
-            const k = `${a.nis}__${a.mapel}__${a.kode_pertemuan}`;
-            if (!liveMap[k]) liveMap[k] = [];
-            liveMap[k].push(a);
-          });
-
-          Object.keys(liveMap).forEach(function(k) {
-            const answers = liveMap[k];
-            const sample = answers[0];
-            const nis = sample.nis;
-            const mapel = sample.mapel;
-            const kode = sample.kode_pertemuan;
-
-            // Cek apakah sudah ada rekaman tuntas
-            const existing = log.find(function(x) { return x.nis === nis && x.mapel === mapel && x.kode_pertemuan === kode; });
-            if (!existing || existing.is_live) {
-              const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : { nama: 'Siswa ' + nis, kelas: 'XII' };
-              const correct = answers.filter(function(x) { return x.is_right === true; }).length;
-              const totalJawab = answers.length;
-              const latestTime = answers.reduce(function(acc, cur) { return cur.updated_at > acc ? cur.updated_at : acc; }, sample.updated_at);
-              
-              const mappedLive = {
-                timestamp: latestTime,
-                nis: String(nis),
-                nama: String(std.nama || std.name || ''),
-                kelas: String(std.kelas || std.kelas_name || ''),
-                mapel: String(mapel),
-                kode_pertemuan: String(kode),
-                skor: Math.round((correct / 10) * 100),
-                jumlah_soal: 10,
-                jumlah_benar: correct,
-                jumlah_salah: totalJawab - correct,
-                durasi_detik: 0,
-                durasi_menit: 0,
-                is_live: true,
-                progress_soal: totalJawab
-              };
-              
-              const idx = log.findIndex(function(x) { return x.nis === nis && x.mapel === mapel && x.kode_pertemuan === kode; });
-              if (idx === -1) log.push(mappedLive);
-              else log[idx] = Object.assign(log[idx], mappedLive);
-            }
-          });
-
           sinkSimpan(CBT_LOKAL_KEY, log);
           const totalRecords = log.length;
-          if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Supabase Terhubung (${totalRecords} data live)</span>`;
+          if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Supabase Terhubung (${totalRecords} data nilai)</span>`;
           loadGuruDashboardData();
-          if (manual) alert(`✅ Berhasil menyinkronkan ${totalRecords} data nilai & progress siswa dari Supabase SQL!`);
+          if (manual) alert(`✅ Berhasil menyinkronkan ${totalRecords} data nilai siswa dari Supabase SQL!`);
           return;
         } catch (e) {
           console.warn("Supabase fetch exception:", e);
@@ -9467,33 +9417,26 @@ function catatSesiCbt(subj, pkgId) {
         }
 
         tbody.innerHTML = filtered.map((r, idx) => {
-            const skorDisplay = r.is_live 
-              ? `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 inline-flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-400 animate-pulse"></i> Sedang Mengerjakan</span>`
-              : `<span class="font-bold ${Number(r.skor) >= 75 ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span>`;
-            
-            const detailDisplay = r.is_live
-              ? `<span class="text-xs text-amber-200 font-mono font-semibold">${r.progress_soal || 0}/10 Soal Terisi</span>`
-              : `<span class="text-xs text-slate-200">${r.jumlah_benar}/${r.jumlah_soal || (Number(r.jumlah_benar) + Number(r.jumlah_salah))}</span>`;
-
-            const durasiDisplay = r.is_live
-              ? `<span class="text-xs text-cyan-300 font-mono italic">Live</span>`
-              : `<span class="text-xs text-slate-300 font-mono">${Math.round(r.durasi_detik / 60)}m</span>`;
+            const skorClass = Number(r.skor) >= 75 ? 'text-emerald-400' : 'text-rose-400';
+            const kktpBadge = Number(r.skor) >= 75 
+              ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 ml-1.5">TUNTAS</span>`
+              : `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-950/80 text-rose-300 border border-rose-500/40 ml-1.5">REMEDIAL</span>`;
 
             const tanggalDisplay = r.timestamp ? new Date(r.timestamp).toLocaleDateString('id-ID') : '-';
 
             return `
-            <tr class="border-b border-slate-700 ${r.is_live ? 'bg-amber-950/20 hover:bg-amber-900/30' : 'hover:bg-slate-800'} transition">
-                <td class="border border-slate-700 px-4 py-2 font-mono text-xs font-bold text-slate-300">${r.nis}</td>
-                <td class="border border-slate-700 px-4 py-2 font-semibold text-slate-100">${r.nama}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${(typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib')}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs font-mono font-bold text-cyan-300">${r.kode_pertemuan || '-'}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center">${skorDisplay}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center">${detailDisplay}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center">${durasiDisplay}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs font-mono text-slate-400">${tanggalDisplay}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center">
-                    <button onclick="resetNilaiSiswa('${r.nis}')" 
+            <tr class="border-b border-slate-700 hover:bg-slate-800 transition">
+                <td class="border border-slate-700 px-4 py-2.5 font-mono text-xs font-bold text-slate-300">${r.nis}</td>
+                <td class="border border-slate-700 px-4 py-2.5 font-semibold text-slate-100">${r.nama}</td>
+                <td class="border border-slate-700 px-4 py-2.5 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
+                <td class="border border-slate-700 px-4 py-2.5 text-center text-xs">${(typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib')}</td>
+                <td class="border border-slate-700 px-4 py-2.5 text-center text-xs font-mono font-bold text-cyan-300">${r.kode_pertemuan || '-'}</td>
+                <td class="border border-slate-700 px-4 py-2.5 text-center font-bold font-mono ${skorClass}">${r.skor}/100 ${kktpBadge}</td>
+                <td class="border border-slate-700 px-4 py-2.5 text-center text-xs font-mono text-slate-200">${r.jumlah_benar}/${r.jumlah_soal || (Number(r.jumlah_benar) + Number(r.jumlah_salah))}</td>
+                <td class="border border-slate-700 px-4 py-2.5 text-center text-xs text-slate-300 font-mono">${Math.round((r.durasi_detik || 0) / 60)}m</td>
+                <td class="border border-slate-700 px-4 py-2.5 text-center text-xs font-mono text-slate-400">${tanggalDisplay}</td>
+                <td class="border border-slate-700 px-4 py-2.5 text-center">
+                    <button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" 
                         class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-500 text-white rounded text-xs font-bold transition shadow">
                         Reset
                     </button>
