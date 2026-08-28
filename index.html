@@ -4730,33 +4730,38 @@
     }
 
 
-function catatSesiCbt(subj, pkgId) {
+function catatSesiCbt(subj, pkgId, forceSubmit) {
       pastikanKemajuan();
       const src = tkaSrc(subj);
       const pk = src && src[pkgId];
       if (!pk) return;
-      // Jam pengerjaan paket mulai dihitung pada jawaban pertama.
       if (typeof tandaiMulaiPaket === 'function') tandaiMulaiPaket(subj, pkgId);
       const n = (pk.questions || []).length;
+      if (n === 0) return;
+
       let jawab = 0, benar = 0;
       for (let i = 0; i < n; i++) {
         const v = userSessionScores[subj + '_' + pkgId + '_' + i];
         if (v !== undefined) { jawab++; if (v === true) benar++; }
       }
-      if (jawab < n || n === 0) return;                    // hanya paket tuntas yang masuk riwayat
+      
+      // Jika belum selesai 10 soal dan bukan forceSubmit (belum klik Skor Akhir), lewati
+      if (!forceSubmit && jawab < n) return;
+
       const pct = Math.round((benar / n) * 100);
       const akhir = cbtHistory[cbtHistory.length - 1];
-      if (akhir && akhir.subj === subj && akhir.pkg === pkgId && akhir.pct === pct && akhir.n === n) return;
+      if (akhir && akhir.subj === subj && akhir.pkg === pkgId && akhir.pct === pct && akhir.n === n && !forceSubmit) return;
       cbtHistory.push({ ts: Date.now(), subj: subj, pkg: pkgId, benar: benar, n: n, pct: pct });
       simpanKemajuan();
 
-      // Paket tuntas -> kirim ke database Supabase & antrean lokal
+      // Submit ke Supabase PostgreSQL & antrean lokal
       try {
         const sesi = getSession();
         if (sesi && sesi.type === 'siswa' && supabaseClient) {
           const nis = sesi.data.nis;
-          const nama = sesi.data.name || sesi.data.nama || '';
-          const kelas = sesi.data.kelas_name || sesi.data.kelas || '';
+          const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
+          const nama = sesi.data.name || sesi.data.nama || (std ? std.nama : 'Siswa ' + nis);
+          const kelas = sesi.data.kelas_name || sesi.data.kelas || (std ? std.kelas : 'XII');
           const durasi = (typeof ambilDurasiPaket === 'function') ? ambilDurasiPaket(subj, pkgId) : 0;
           
           supabaseClient.from('nilai_cbt').upsert({
@@ -4772,29 +4777,15 @@ function catatSesiCbt(subj, pkgId) {
             durasi_detik: Number(durasi),
             waktu_submit: new Date().toISOString()
           }, { onConflict: 'nis,mapel,kode_pertemuan' }).then(res => {
-            if (res.error) console.warn("Supabase final score upsert error:", res.error);
-            else console.log("Final CBT score saved to Supabase successfully!");
+            console.log('✅ Nilai CBT berhasil disubmit ke Supabase:', res);
+          }).catch(err => {
+            console.warn('Supabase submission error:', err);
           });
         }
-        if (sesi && sesi.type === 'siswa' && typeof sinkronHasilCbt === 'function') {
-          sinkronHasilCbt({
-            timestamp: new Date().toISOString(),
-            nis: sesi.data.nis,
-            nama: sesi.data.name || sesi.data.nama || '',
-            kelas: sesi.data.kelas_name || sesi.data.kelas || '',
-            mapel: subj,
-            kode_pertemuan: pkgId,
-            skor: pct,
-            jumlah_soal: n,
-            jumlah_benar: benar,
-            jumlah_salah: n - benar,
-            durasi_detik: ambilDurasiPaket(subj, pkgId)
-          });
-        }
-      } catch (e) { /* sinkronisasi tidak boleh mengganggu pembelajaran */ }
-    }
-
-    // ---------------------------------------------------------------
+      } catch (e) {
+        console.warn('Supabase catatSesi error:', e);
+      }
+    }   // ---------------------------------------------------------------
     // CUSTOM TRY OUT BUILDER
     // ---------------------------------------------------------------
     // Taksonomi pada data memakai label C3/C4/C5; guru menyebutnya
