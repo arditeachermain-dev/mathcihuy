@@ -22,3 +22,8 @@ desktop.ini
 # Berkas cadangan editor
 *.bak
 *~
+
+# Dokumen kerja untuk melengkapi materi (bukan bagian situs)
+PROMPT-LENGKAPI-MATERI.md
+materi-slide-lengkap.json
+contoh-satu-pertemuan.json
