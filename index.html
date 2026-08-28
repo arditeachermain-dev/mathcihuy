@@ -8895,6 +8895,9 @@ function catatSesiCbt(subj, pkgId) {
 
     // SCORECARD MODAL
     function showTkaScorecardModal() {
+      if (typeof pulihkanDraftJawaban === 'function') {
+        pulihkanDraftJawaban(tkaSubj, tkaPkgId);
+      }
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       if (!pkg || !pkg.questions) return;
