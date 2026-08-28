@@ -86,8 +86,46 @@ function doPost(e) {
 
 
 /** Dipakai untuk mengecek dari browser bahwa URL-nya hidup. */
-function doGet() {
-  return balas_({ ok: true, pesan: 'Penerima hasil CBT Math Cihuy aktif.' });
+/**
+ * Dipakai untuk mengambil data nilai siswa ke Dashboard Guru di semua browser
+ * dan mengecek status aktif Webhook.
+ */
+function doGet(e) {
+  try {
+    var sheet = ambilSheet_();
+    var jml = sheet.getLastRow() - 1;
+    if (jml < 1) {
+      return balas_({ ok: true, pesan: 'Penerima hasil CBT Math Cihuy aktif (Belum ada data).', data: [] });
+    }
+
+    var data = sheet.getRange(2, 1, jml, KOLOM.length).getValues();
+    var hasil = [];
+
+    for (var i = 0; i < data.length; i++) {
+      var row = data[i];
+      if (!row[1]) continue; // Skip jika NIS kosong
+      
+      var detik = Number(row[10]) || 0;
+      hasil.push({
+        timestamp: row[0] instanceof Date ? row[0].toISOString() : (row[0] || new Date().toISOString()),
+        nis: String(row[1] || '').trim(),
+        nama: String(row[2] || '').trim(),
+        kelas: String(row[3] || '').trim(),
+        mapel: String(row[4] || '').trim(),
+        kode_pertemuan: String(row[5] || '').trim(),
+        skor: Number(row[6]) || 0,
+        jumlah_soal: Number(row[7]) || 0,
+        jumlah_benar: Number(row[8]) || 0,
+        jumlah_salah: Number(row[9]) || 0,
+        durasi_detik: detik,
+        durasi_menit: Number(row[11]) || (Math.round(detik / 6) / 10)
+      });
+    }
+
+    return balas_({ ok: true, count: hasil.length, data: hasil });
+  } catch (err) {
+    return balas_({ ok: false, pesan: 'Gagal membaca spreadsheet: ' + String(err), data: [] });
+  }
 }
 
 

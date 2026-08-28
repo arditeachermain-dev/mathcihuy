@@ -8994,13 +8994,69 @@
 
     const NAMA_MAPEL = { wajib: 'Wajib', minat: 'Peminatan', peminatan: 'Peminatan', clil: 'CLIL', custom: 'Racikan' };
 
+    // State filter status pengerjaan guru
+    window._guruFilterStatus = 'semua'; // 'semua' | 'sudah' | 'belum'
+
+    function setGuruStatusFilter(status) {
+      window._guruFilterStatus = status;
+      ['btn-status-semua', 'btn-status-sudah', 'btn-status-belum'].forEach(id => {
+        const b = document.getElementById(id);
+        if (b) {
+          b.className = (id === 'btn-status-' + status)
+            ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-md'
+            : 'px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700';
+        }
+      });
+      loadGuruDashboardData();
+    }
+
+    // Tarik nilai langsung dari Google Sheets Cloud
+    async function tarikNilaiDariCloud(manual = false) {
+      const url = sinkUrl();
+      const statusEl = document.getElementById('cloud-sync-status');
+      if (!url) {
+        if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Webhook URL belum diatur</span>';
+        if (manual) alert('Silakan tempel dan simpan Webhook URL Google Sheets terlebih dahulu di bagian bawah.');
+        return;
+      }
+
+      if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Google Sheets...</span>';
+      
+      try {
+        const resp = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now());
+        const json = await resp.json();
+        if (json && json.ok && Array.isArray(json.data)) {
+          // Gabungkan ke penyimpanan lokal
+          const cloudData = json.data;
+          const log = sinkAmbil(CBT_LOKAL_KEY, []);
+          
+          cloudData.forEach(p => {
+            const f = sinkSidik(p);
+            const i = log.findIndex(x => sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel));
+            if (i === -1) log.push(p); else log[i] = Object.assign(log[i], p);
+          });
+
+          sinkSimpan(CBT_LOKAL_KEY, log);
+          if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (${cloudData.length} data tersinkron)</span>`;
+          loadGuruDashboardData();
+          if (manual) alert(`Berhasil menyinkronkan ${cloudData.length} data nilai dari Google Sheets!`);
+        } else {
+          if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Respon cloud tidak valid</span>';
+        }
+      } catch (err) {
+        console.warn('Cloud sync fetch error:', err);
+        if (statusEl) statusEl.innerHTML = '<span class="text-slate-400 font-mono text-xs"><i class="fa-solid fa-cloud"></i> Mode Offline / Local Cache</span>';
+      }
+    }
+
     function loadGuruDashboardData() {
         const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
         const kelas = document.getElementById('guru-filter-kelas').value;
         const mapel = document.getElementById('guru-filter-mapel').value;
+        const statusFilter = window._guruFilterStatus || 'semua';
 
         let filtered = rekam;
-        if (kelas) filtered = filtered.filter(r => (r.kelas || '').includes(kelas.replace('_', ' ')));
+        if (kelas) filtered = filtered.filter(r => (r.kelas || '').replace(/\s+/g, '').toLowerCase().includes(kelas.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()));
         if (mapel) {
             const cari = mapel === 'peminatan' ? 'minat' : mapel;
             filtered = filtered.filter(r => (r.mapel || 'wajib') === cari);
@@ -9008,25 +9064,76 @@
         filtered = filtered.slice().sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp)));
         tampilkanStatusSinkron();
 
+        // Rekap Statistik Rombel
+        const totalSiswaRombel = 100; // 4 kelas x 25
+        const nisSudah = new Set(filtered.map(r => String(r.nis)));
+        
+        // Ambil daftar seluruh siswa terdaftar jika ada
+        const semuaSiswa = (typeof STUDENTS_DATA !== 'undefined') ? Object.keys(STUDENTS_DATA).map(n => ({
+          nis: n,
+          nama: STUDENTS_DATA[n].nama,
+          kelas: STUDENTS_DATA[n].kelas,
+          access_level: STUDENTS_DATA[n].access_level
+        })) : [];
+
+        // Hitung siswa yang belum mengerjakan
+        let belumList = semuaSiswa.filter(s => !nisSudah.has(String(s.nis)));
+        if (kelas) {
+          belumList = belumList.filter(s => (s.kelas || '').replace(/\s+/g, '').toLowerCase().includes(kelas.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()));
+        }
+
+        // Update badge count
+        const countSudahEl = document.getElementById('count-sudah');
+        const countBelumEl = document.getElementById('count-belum');
+        if (countSudahEl) countSudahEl.textContent = nisSudah.size;
+        if (countBelumEl) countBelumEl.textContent = belumList.length;
+
         const tbody = document.getElementById('guru-results-tbody');
+        
+        // TAMPILKAN MODE BELUM MENGERJAKAN
+        if (statusFilter === 'belum') {
+          if (belumList.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="10" class="text-center py-8 text-emerald-400 font-bold">🎉 Semua siswa di kelas ini sudah mengerjakan CBT!</td></tr>';
+            return;
+          }
+          tbody.innerHTML = belumList.map((s, idx) => `
+            <tr class="border-b border-slate-700 bg-rose-950/20 hover:bg-rose-900/30">
+                <td class="border border-slate-700 px-4 py-2 font-mono text-xs text-rose-300 font-bold">${s.nis}</td>
+                <td class="border border-slate-700 px-4 py-2 font-medium text-slate-200">${s.nama}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-300">${s.kelas}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-400">-</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-400">-</td>
+                <td class="border border-slate-700 px-4 py-2 text-center"><span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-900/80 text-rose-200 border border-rose-700">BELUM SUBMIT</span></td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-500">0 / 10</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-500">-</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-500">-</td>
+                <td class="border border-slate-700 px-4 py-2 text-center">
+                    <span class="text-xs text-slate-500 italic">Menunggu pengerjaan</span>
+                </td>
+            </tr>
+          `).join('');
+          return;
+        }
+
+        // TAMPILKAN MODE SUDAH / SEMUA
         if (filtered.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="10" class="text-center py-8 text-slate-500">Belum ada data</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="10" class="text-center py-8 text-slate-500">Belum ada siswa yang mengerjakan pada filter ini</td></tr>';
             return;
         }
 
         tbody.innerHTML = filtered.map((r, idx) => `
             <tr class="border-b border-slate-700 hover:bg-slate-800">
-                <td class="border border-slate-700 px-4 py-2">${r.nis}</td>
-                <td class="border border-slate-700 px-4 py-2">${r.nama}</td>
-                <td class="border border-slate-700 px-4 py-2">${r.kelas}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${NAMA_MAPEL[r.mapel] || 'Wajib'}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${r.kode_pertemuan || '-'}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center font-bold text-green-400">${r.skor}/100</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${r.jumlah_benar}/${r.jumlah_soal || (r.jumlah_benar + r.jumlah_salah)}</td>
+                <td class="border border-slate-700 px-4 py-2 font-mono text-xs">${r.nis}</td>
+                <td class="border border-slate-700 px-4 py-2 font-semibold text-slate-100">${r.nama}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${NAMA_MAPEL[r.mapel] || r.mapel || 'Wajib'}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs font-mono">${r.kode_pertemuan || '-'}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center font-bold ${Number(r.skor) >= 75 ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${r.jumlah_benar}/${r.jumlah_soal || (Number(r.jumlah_benar) + Number(r.jumlah_salah))}</td>
                 <td class="border border-slate-700 px-4 py-2 text-center text-xs">${Math.round(r.durasi_detik / 60)}m</td>
                 <td class="border border-slate-700 px-4 py-2 text-center text-xs">${new Date(r.timestamp).toLocaleDateString('id-ID')}</td>
                 <td class="border border-slate-700 px-4 py-2 text-center">
-                    <button onclick="resetNilaiSiswa('${r.nis}')" class="px-2 py-1 bg-amber-600 hover:bg-amber-700 text-white text-xs rounded">Reset</button>
+                    <button onclick="resetNilaiSiswa('${r.nis}')" class="px-2 py-1 bg-amber-600/80 hover:bg-amber-600 text-white text-xs rounded transition-colors">Reset</button>
                 </td>
             </tr>
         `).join('');
