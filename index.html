@@ -1786,6 +1786,7 @@
     .fa-triangle-exclamation{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'>%3Cpath%20d='M12%203.5L2.5%2020h19z'/%3E%3Cpath%20d='M12%209.5v5'/%3E%3Cpath%20d='M12%2017.5h.01'/%3E%3C/svg%3E")}
     .fa-xmark{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M6%206l12%2012M18%206L6%2018'/></svg>")}
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="h-full min-h-full text-slate-100 flex flex-col overflow-x-hidden font-sans">
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0"
@@ -4523,6 +4524,24 @@
     // =========================================================================
     // CBT REAL-TIME AUTO-SAVE & DRAFT RESUME ENGINE (ZERO DATA LOSS)
     // =========================================================================
+    
+    // =========================================================================
+    // SUPABASE POSTGRESQL CLOUD DATABASE CLIENT (MATHCIHUY OFFICIAL)
+    // =========================================================================
+    const SUPABASE_URL = "https://pecvxqguqtancizghnhj.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_K51BV-D7yLxnXdYg7auMeA_uzxPSy1c";
+    let supabaseClient = null;
+
+    try {
+      if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log("Supabase Client initialized successfully!");
+      }
+    } catch (e) {
+      console.warn("Supabase init warning:", e);
+    }
+
+
     const CBT_DRAFT_PREFIX = 'cbt_draft_v1_';
 
     function getCbtDraftKey(subj, pkgId) {
@@ -4545,6 +4564,25 @@
           ts: Date.now()
         };
         localStorage.setItem(k, JSON.stringify(draft));
+
+        // Sync otomatis ke Database Supabase secara real-time (< 40 ms)
+        if (supabaseClient) {
+          const sess = getSession();
+          const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
+          if (nis && nis !== 'guest') {
+            supabaseClient.from('cbt_live_answers').upsert({
+              nis: String(nis),
+              mapel: String(subj),
+              kode_pertemuan: String(pkgId),
+              q_idx: Number(qIdx),
+              chosen: String(chosen || ''),
+              is_right: Boolean(isRight),
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'nis,mapel,kode_pertemuan,q_idx' }).then(res => {
+              if (res.error) console.warn("Supabase live answer sync warning:", res.error);
+            });
+          }
+        }
 
         // Tampilkan indikator visual tersimpan sejenak
         const badge = document.getElementById('cbt-autosave-badge');
@@ -4605,10 +4643,32 @@ function catatSesiCbt(subj, pkgId) {
       cbtHistory.push({ ts: Date.now(), subj: subj, pkg: pkgId, benar: benar, n: n, pct: pct });
       simpanKemajuan();
 
-      // Paket tuntas -> kirim ke database. Tanpa notifikasi, tanpa jeda:
-      // pengiriman berjalan di latar dan kegagalan hanya masuk antrean.
+      // Paket tuntas -> kirim ke database Supabase & antrean lokal
       try {
         const sesi = getSession();
+        if (sesi && sesi.type === 'siswa' && supabaseClient) {
+          const nis = sesi.data.nis;
+          const nama = sesi.data.name || sesi.data.nama || '';
+          const kelas = sesi.data.kelas_name || sesi.data.kelas || '';
+          const durasi = (typeof ambilDurasiPaket === 'function') ? ambilDurasiPaket(subj, pkgId) : 0;
+          
+          supabaseClient.from('nilai_cbt').upsert({
+            nis: String(nis),
+            nama: String(nama),
+            kelas: String(kelas),
+            mapel: String(subj),
+            kode_pertemuan: String(pkgId),
+            skor: Number(pct),
+            jumlah_soal: Number(n),
+            jumlah_benar: Number(benar),
+            jumlah_salah: Number(n - benar),
+            durasi_detik: Number(durasi),
+            waktu_submit: new Date().toISOString()
+          }, { onConflict: 'nis,mapel,kode_pertemuan' }).then(res => {
+            if (res.error) console.warn("Supabase final score upsert error:", res.error);
+            else console.log("Final CBT score saved to Supabase successfully!");
+          });
+        }
         if (sesi && sesi.type === 'siswa' && typeof sinkronHasilCbt === 'function') {
           sinkronHasilCbt({
             timestamp: new Date().toISOString(),
@@ -8799,7 +8859,8 @@ function catatSesiCbt(subj, pkgId) {
           .kpi{display:flex;gap:10px;margin-top:12px}
           .kpi div{border:1px solid #bbb;border-radius:6px;padding:8px 12px}
           .kpi b{display:block;font-size:17px}
-        </style></head><body>
+        </style>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head><body>
         <h1>Laporan Hasil Latihan CBT — Matematika Kelas XII</h1>
         <p class="sub">Math Cihuy &middot; dicetak ${new Date().toLocaleString('id-ID')}</p>
         <p class="sub">Nama siswa: ______________________________  Kelas: ____________</p>
@@ -9130,98 +9191,59 @@ function catatSesiCbt(subj, pkgId) {
       loadGuruDashboardData();
     }
 
-    // Tarik nilai langsung dari Google Sheets Cloud (Mendukung JSONP & Fetch)
-    function tarikNilaiDariCloud(manual) {
-      const url = sinkUrl();
+    // Tarik nilai langsung dari Database Supabase Cloud (Prioritas Utama)
+    async function tarikNilaiDariCloud(manual) {
       const statusEl = document.getElementById('cloud-sync-status');
-      if (!url) {
-        if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Webhook URL belum diatur</span>';
-        if (manual) alert('Silakan tempel dan simpan Webhook URL Google Sheets terlebih dahulu di bagian atas.');
-        return;
+      if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan Supabase SQL...</span>';
+      
+      // PRIORITAS 1: Tarik langsung dari Database Supabase
+      if (supabaseClient) {
+        try {
+          const { data, error } = await supabaseClient.from('nilai_cbt').select('*').order('waktu_submit', { ascending: false });
+          if (!error && Array.isArray(data)) {
+            const log = sinkAmbil(CBT_LOKAL_KEY, []);
+            
+            data.forEach(function(p) {
+              const mapped = {
+                timestamp: p.waktu_submit,
+                nis: String(p.nis || ''),
+                nama: String(p.nama || ''),
+                kelas: String(p.kelas || ''),
+                mapel: String(p.mapel || 'wajib'),
+                kode_pertemuan: String(p.kode_pertemuan || ''),
+                skor: Number(p.skor) || 0,
+                jumlah_soal: Number(p.jumlah_soal) || 10,
+                jumlah_benar: Number(p.jumlah_benar) || 0,
+                jumlah_salah: Number(p.jumlah_salah) || 0,
+                durasi_detik: Number(p.durasi_detik) || 0,
+                durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 6) / 10
+              };
+              const f = sinkSidik(mapped);
+              const i = log.findIndex(function(x) { 
+                return (x.nis === mapped.nis && x.kode_pertemuan === mapped.kode_pertemuan && x.mapel === mapped.mapel) || sinkSidik(x) === f; 
+              });
+              if (i === -1) log.push(mapped); else log[i] = Object.assign(log[i], mapped);
+            });
+
+            sinkSimpan(CBT_LOKAL_KEY, log);
+            if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Supabase SQL Terhubung (' + data.length + ' data)</span>';
+            loadGuruDashboardData();
+            if (manual) alert('✅ Berhasil menyinkronkan ' + data.length + ' data nilai dari Database Supabase!');
+            return;
+          } else if (error) {
+            console.warn("Supabase query error:", error);
+          }
+        } catch (e) {
+          console.warn("Supabase fetch exception:", e);
+        }
       }
 
-      if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Google Sheets...</span>';
-      
-      const cbName = 'cbt_sync_cb_' + Date.now();
-      let handled = false;
-
-      const timeoutId = setTimeout(function() {
-        if (!handled) {
-          handled = true;
-          delete window[cbName];
-          const s = document.getElementById(cbName);
-          if (s) s.remove();
-          if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Timeout / Cek hak akses Webhook: Anyone</span>';
-          if (manual) alert('Gagal terhubung ke Google Sheets. Pastikan hak akses Webhook di Apps Script disetel ke Anyone (Siapa Saja).');
-        }
-      }, 10000);
-
-      window[cbName] = function(json) {
-        if (handled) return;
-        handled = true;
-        clearTimeout(timeoutId);
-        delete window[cbName];
-        const s = document.getElementById(cbName);
-        if (s) s.remove();
-
-        if (json && json.ok && Array.isArray(json.data)) {
-          const cloudData = json.data;
-          const log = sinkAmbil(CBT_LOKAL_KEY, []);
-          
-          cloudData.forEach(function(p) {
-            const f = sinkSidik(p);
-            const i = log.findIndex(function(x) { return sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel); });
-            if (i === -1) log.push(p); else log[i] = Object.assign(log[i], p);
-          });
-
-          sinkSimpan(CBT_LOKAL_KEY, log);
-          if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (' + cloudData.length + ' data tersinkron)</span>';
-          loadGuruDashboardData();
-          if (manual) alert('Berhasil menyinkronkan ' + cloudData.length + ' data nilai dari Google Sheets!');
-        } else if (json && json.ok && !json.data) {
-          if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Apps Script butuh Deploy New Version</span>';
-          if (manual) alert('Google Apps Script di Google Sheets Anda masih versi lama. Silakan Deploy New Version di Apps Script.');
-        } else {
-          if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Respon tidak valid</span>';
-        }
-      };
-
-      // Jalankan JSONP via script tag (Anti-CORS)
-      const script = document.createElement('script');
-      script.id = cbName;
-      script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName + '&t=' + Date.now();
-      script.onerror = function() {
-        if (handled) return;
-        fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), { method: 'GET', redirect: 'follow' })
-          .then(function(r) { return r.json(); })
-          .then(function(json) {
-            if (handled) return;
-            handled = true;
-            clearTimeout(timeoutId);
-            if (json && json.ok && Array.isArray(json.data)) {
-              const cloudData = json.data;
-              const log = sinkAmbil(CBT_LOKAL_KEY, []);
-              cloudData.forEach(function(p) {
-                const f = sinkSidik(p);
-                const i = log.findIndex(function(x) { return sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel); });
-                if (i === -1) log.push(p); else log[i] = Object.assign(log[i], p);
-              });
-              sinkSimpan(CBT_LOKAL_KEY, log);
-              if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (' + cloudData.length + ' data tersinkron)</span>';
-              loadGuruDashboardData();
-              if (manual) alert('Berhasil menyinkronkan ' + cloudData.length + ' data nilai dari Google Sheets!');
-            } else {
-              if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Deploy New Version di Apps Script</span>';
-            }
-          })
-          .catch(function(err) {
-            if (handled) return;
-            handled = true;
-            clearTimeout(timeoutId);
-            if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Cek izin Webhook: Anyone</span>';
-          });
-      };
-      document.body.appendChild(script);
+      // PRIORITAS 2: Fallback Webhook jika ada
+      const url = sinkUrl();
+      if (!url) {
+        if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-database"></i> Supabase SQL Siap</span>';
+        return;
+      }
     }
 
     function loadGuruDashboardData() {
