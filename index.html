@@ -9187,75 +9187,106 @@ function catatSesiCbt(subj, pkgId) {
       loadGuruDashboardData();
     }
 
-    // Tarik nilai langsung dari Database Supabase Cloud (Prioritas Utama)
+    // Tarik nilai langsung dari Database Supabase Cloud (Menggabungkan Nilai Akhir & Live Progress)
     async function tarikNilaiDariCloud(manual) {
       const statusEl = document.getElementById('cloud-sync-status');
       if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan Supabase SQL...</span>';
       
-      // PRIORITAS 1: Tarik langsung dari Database Supabase
       if (supabaseClient) {
         try {
-          const { data, error } = await supabaseClient.from('nilai_cbt').select('*').order('waktu_submit', { ascending: false });
-          if (!error && Array.isArray(data)) {
-            const log = sinkAmbil(CBT_LOKAL_KEY, []);
-            
-            data.forEach(function(p) {
-              const mapped = {
-                timestamp: p.waktu_submit,
-                nis: String(p.nis || ''),
-                nama: String(p.nama || ''),
-                kelas: String(p.kelas || ''),
-                mapel: String(p.mapel || 'wajib'),
-                kode_pertemuan: String(p.kode_pertemuan || ''),
-                skor: Number(p.skor) || 0,
-                jumlah_soal: Number(p.jumlah_soal) || 10,
-                jumlah_benar: Number(p.jumlah_benar) || 0,
-                jumlah_salah: Number(p.jumlah_salah) || 0,
-                durasi_detik: Number(p.durasi_detik) || 0,
-                durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 6) / 10
-              };
-              const f = sinkSidik(mapped);
-              const i = log.findIndex(function(x) { 
-                return (x.nis === mapped.nis && x.kode_pertemuan === mapped.kode_pertemuan && x.mapel === mapped.mapel) || sinkSidik(x) === f; 
-              });
-              if (i === -1) log.push(mapped); else log[i] = Object.assign(log[i], mapped);
-            });
+          // 1. Ambil Nilai Akhir yang Sudah Tuntas
+          const resNilai = await supabaseClient.from('nilai_cbt').select('*').order('waktu_submit', { ascending: false });
+          const dataNilai = (!resNilai.error && Array.isArray(resNilai.data)) ? resNilai.data : [];
 
-            sinkSimpan(CBT_LOKAL_KEY, log);
-            if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Supabase SQL Terhubung (' + data.length + ' data)</span>';
-            loadGuruDashboardData();
-            if (manual) alert('✅ Berhasil menyinkronkan ' + data.length + ' data nilai dari Database Supabase!');
-            return;
-          } else if (error) {
-            console.warn("Supabase query error:", error);
-          }
+          // 2. Ambil Jawaban Live Real-Time yang Sedang Berjalan
+          const resLive = await supabaseClient.from('cbt_live_answers').select('*').order('updated_at', { ascending: false });
+          const dataLive = (!resLive.error && Array.isArray(resLive.data)) ? resLive.data : [];
+
+          const log = sinkAmbil(CBT_LOKAL_KEY, []);
+
+          // Masukkan Data Nilai Akhir
+          dataNilai.forEach(function(p) {
+            const mapped = {
+              timestamp: p.waktu_submit,
+              nis: String(p.nis || ''),
+              nama: String(p.nama || (STUDENTS_DATA[p.nis] ? STUDENTS_DATA[p.nis].nama : '')),
+              kelas: String(p.kelas || (STUDENTS_DATA[p.nis] ? STUDENTS_DATA[p.nis].kelas : '')),
+              mapel: String(p.mapel || 'wajib'),
+              kode_pertemuan: String(p.kode_pertemuan || ''),
+              skor: Number(p.skor) || 0,
+              jumlah_soal: Number(p.jumlah_soal) || 10,
+              jumlah_benar: Number(p.jumlah_benar) || 0,
+              jumlah_salah: Number(p.jumlah_salah) || 0,
+              durasi_detik: Number(p.durasi_detik) || 0,
+              durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 6) / 10,
+              is_live: false
+            };
+            const f = sinkSidik(mapped);
+            const i = log.findIndex(function(x) { 
+              return (x.nis === mapped.nis && x.kode_pertemuan === mapped.kode_pertemuan && x.mapel === mapped.mapel) || sinkSidik(x) === f; 
+            });
+            if (i === -1) log.push(mapped); else log[i] = Object.assign(log[i], mapped);
+          });
+
+          // Masukkan Data Live Progress (Jika belum ada nilai akhir)
+          const liveMap = {};
+          dataLive.forEach(function(a) {
+            const k = `${a.nis}__${a.mapel}__${a.kode_pertemuan}`;
+            if (!liveMap[k]) liveMap[k] = [];
+            liveMap[k].push(a);
+          });
+
+          Object.keys(liveMap).forEach(function(k) {
+            const answers = liveMap[k];
+            const sample = answers[0];
+            const nis = sample.nis;
+            const mapel = sample.mapel;
+            const kode = sample.kode_pertemuan;
+
+            // Cek apakah sudah ada rekaman tuntas
+            const existing = log.find(function(x) { return x.nis === nis && x.mapel === mapel && x.kode_pertemuan === kode; });
+            if (!existing || existing.is_live) {
+              const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : { nama: 'Siswa ' + nis, kelas: 'XII' };
+              const correct = answers.filter(function(x) { return x.is_right === true; }).length;
+              const totalJawab = answers.length;
+              const latestTime = answers.reduce(function(acc, cur) { return cur.updated_at > acc ? cur.updated_at : acc; }, sample.updated_at);
+              
+              const mappedLive = {
+                timestamp: latestTime,
+                nis: String(nis),
+                nama: String(std.nama || std.name || ''),
+                kelas: String(std.kelas || std.kelas_name || ''),
+                mapel: String(mapel),
+                kode_pertemuan: String(kode),
+                skor: Math.round((correct / 10) * 100),
+                jumlah_soal: 10,
+                jumlah_benar: correct,
+                jumlah_salah: totalJawab - correct,
+                durasi_detik: 0,
+                durasi_menit: 0,
+                is_live: true,
+                progress_soal: totalJawab
+              };
+              
+              const idx = log.findIndex(function(x) { return x.nis === nis && x.mapel === mapel && x.kode_pertemuan === kode; });
+              if (idx === -1) log.push(mappedLive);
+              else log[idx] = Object.assign(log[idx], mappedLive);
+            }
+          });
+
+          sinkSimpan(CBT_LOKAL_KEY, log);
+          const totalRecords = log.length;
+          if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Supabase Terhubung (${totalRecords} data live)</span>`;
+          loadGuruDashboardData();
+          if (manual) alert(`✅ Berhasil menyinkronkan ${totalRecords} data nilai & progress siswa dari Supabase SQL!`);
+          return;
         } catch (e) {
           console.warn("Supabase fetch exception:", e);
         }
       }
 
-      // PRIORITAS 2: Fallback Webhook jika ada
-      const url = sinkUrl();
-      if (!url) {
-        if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-database"></i> Supabase SQL Siap</span>';
-        return;
-      }
+      if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-database"></i> Supabase SQL Siap</span>';
     }
-
-    
-    // ==== GLOBAL CBT & SYNC HELPERS ====
-
-    function sinkAmbil(kunci, bawaan) {
-      try { const v = JSON.parse(localStorage.getItem(kunci)); return v === null ? bawaan : v; }
-      catch (e) { return bawaan; }
-    }
-    function sinkSimpan(kunci, nilai) {
-      try { localStorage.setItem(kunci, JSON.stringify(nilai)); } catch (e) {}
-    }
-    function sinkSidik(p) {
-      return [String(p.nis || ''), String(p.mapel || ''), String(p.kode_pertemuan || ''), Number(p.skor || 0)].join('__');
-    }
-    function tampilkanStatusSinkron() {}
 
     function loadGuruDashboardData() {
         const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
