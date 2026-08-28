@@ -8954,6 +8954,7 @@
         document.getElementById('guru-dashboard-modal').classList.remove('hidden');
         document.getElementById('guru-dashboard-modal').classList.add('flex');
         loadGuruDashboardData();
+        tarikNilaiDariCloud(false); // Otomatis tarik nilai terbaru dari Google Sheets Cloud
 
         // Load webhook URL dari localStorage
         const webhookUrl = localStorage.getItem('webhook_url') || '';
