@@ -1,0 +1,24 @@
+# Berkas yang tidak ikut diunggah ke GitHub.
+# Repositori mathcihuy bersifat PUBLIK, jadi apa pun yang di-commit
+# bisa dibaca siapa saja di internet.
+
+# Daftar akun siswa: memuat nama, NIS, dan password.
+# Sengaja disimpan hanya di komputer, tidak diunggah.
+daftar_akun_xii.md
+
+# Arsip unduhan (mathcihuy-main.zip dsb.)
+*.zip
+
+# Folder "math" berisi repositori git tersendiri sisa percobaan lama.
+# Kalau ikut terbawa, GitHub Desktop akan menandainya sebagai submodule
+# dan isinya tidak pernah benar-benar terunggah.
+math/
+
+# Berkas sementara Windows / macOS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Berkas cadangan editor
+*.bak
+*~

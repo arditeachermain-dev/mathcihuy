@@ -204,7 +204,7 @@
             <form onsubmit="loginSiswa(event)">
                 <div class="form-group">
                     <label>NIS (Nomor Induk Siswa)</label>
-                    <input type="text" id="nis" placeholder="Contoh: S001" autocomplete="off" required>
+                    <input type="text" id="nis" placeholder="Masukkan NIS" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
@@ -217,9 +217,6 @@
                 <div class="error" id="error_siswa"></div>
                 <div class="success" id="success_siswa"></div>
 
-                <div class="hint">
-                    <strong>Demo:</strong> NIS: S001, Password: 1234
-                </div>
             </form>
         </div>
 
@@ -241,9 +238,6 @@
                 <div class="error" id="error_guru"></div>
                 <div class="success" id="success_guru"></div>
 
-                <div class="hint">
-                    <strong>Demo:</strong> Username: mathcihuy, Password: gis2cihuy
-                </div>
             </form>
         </div>
     </div>
@@ -251,109 +245,106 @@
     <script>
         // ===== DATABASE SISWA (100 siswa, 4 kelas) =====
         const STUDENTS_DATA = {
-            'S001': { nama: 'Ahmad Ridho', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S002': { nama: 'Budi Santoso', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S003': { nama: 'Citra Dewi', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S004': { nama: 'Dina Wijaya', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S005': { nama: 'Eka Putri', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S006': { nama: 'Farah Aziz', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S007': { nama: 'Gita Sari', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S008': { nama: 'Hadi Kusuma', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S009': { nama: 'Ira Hermawan', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S010': { nama: 'Joko Waluyo', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S011': { nama: 'Karina Salsabila', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S012': { nama: 'Lena Wijaya', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S013': { nama: 'Malik Fauzan', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S014': { nama: 'Nina Agustina', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S015': { nama: 'Oka Prasetya', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S016': { nama: 'Prita Mandala', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S017': { nama: 'Qhansa Rizki', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S018': { nama: 'Riko Pratama', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S019': { nama: 'Siti Rahayu', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S020': { nama: 'Tama Wijaya', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S021': { nama: 'Ulfa Nabila', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S022': { nama: 'Vito Ananda', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S023': { nama: 'Wina Salsabiha', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S024': { nama: 'Xander Yusuf', kelas: 'XII F1', access_level: 'wajib_only' },
-            'S025': { nama: 'Yuli Setiana', kelas: 'XII F1', access_level: 'wajib_only' },
-
-            'S026': { nama: 'Zahra Fathiya', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S027': { nama: 'Abel Dermawan', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S028': { nama: 'Bella Risanti', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S029': { nama: 'Cahya Budi', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S030': { nama: 'Delia Ratna', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S031': { nama: 'Elang Pratama', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S032': { nama: 'Faye Novita', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S033': { nama: 'Gilang Suryanto', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S034': { nama: 'Hana Kusuma', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S035': { nama: 'Ivan Setiawan', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S036': { nama: 'Jaqueline Maya', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S037': { nama: 'Kayla Indah', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S038': { nama: 'Luthfi Rahman', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S039': { nama: 'Mirna Sari', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S040': { nama: 'Nazmi Fajar', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S041': { nama: 'Olivia Putri', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S042': { nama: 'Pandu Wijaya', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S043': { nama: 'Queensya Dina', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S044': { nama: 'Ranu Wijaya', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S045': { nama: 'Sarita Sari', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S046': { nama: 'Tara Wijaya', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S047': { nama: 'Ujang Ismail', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S048': { nama: 'Vira Salsabila', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S049': { nama: 'Wilda Sari', kelas: 'XII F2', access_level: 'wajib_only' },
-            'S050': { nama: 'Xenia Kusuma', kelas: 'XII F2', access_level: 'wajib_only' },
-
-            'S051': { nama: 'Yasmin Putri', kelas: 'XII F3', access_level: 'full' },
-            'S052': { nama: 'Zack Fernando', kelas: 'XII F3', access_level: 'full' },
-            'S053': { nama: 'Aurora Dewi', kelas: 'XII F3', access_level: 'full' },
-            'S054': { nama: 'Bagus Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S055': { nama: 'Cantika Sari', kelas: 'XII F3', access_level: 'full' },
-            'S056': { nama: 'Dante Kusuma', kelas: 'XII F3', access_level: 'full' },
-            'S057': { nama: 'Erlina Putri', kelas: 'XII F3', access_level: 'full' },
-            'S058': { nama: 'Farhan Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S059': { nama: 'Galeh Santoso', kelas: 'XII F3', access_level: 'full' },
-            'S060': { nama: 'Hesti Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S061': { nama: 'Indra Setiawan', kelas: 'XII F3', access_level: 'full' },
-            'S062': { nama: 'Jasmine Putri', kelas: 'XII F3', access_level: 'full' },
-            'S063': { nama: 'Karim Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S064': { nama: 'Laila Rahma', kelas: 'XII F3', access_level: 'full' },
-            'S065': { nama: 'Maulana Fikri', kelas: 'XII F3', access_level: 'full' },
-            'S066': { nama: 'Nalia Putri', kelas: 'XII F3', access_level: 'full' },
-            'S067': { nama: 'Oryza Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S068': { nama: 'Pratama Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S069': { nama: 'Quilla Sari', kelas: 'XII F3', access_level: 'full' },
-            'S070': { nama: 'Rahmat Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S071': { nama: 'Sakina Putri', kelas: 'XII F3', access_level: 'full' },
-            'S072': { nama: 'Teguh Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S073': { nama: 'Usman Wijaya', kelas: 'XII F3', access_level: 'full' },
-            'S074': { nama: 'Vanya Sari', kelas: 'XII F3', access_level: 'full' },
-            'S075': { nama: 'Wardhana Wijaya', kelas: 'XII F3', access_level: 'full' },
-
-            'S076': { nama: 'Xandra Putri', kelas: 'XII F4', access_level: 'full' },
-            'S077': { nama: 'Yusuf Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S078': { nama: 'Zephyr Santoso', kelas: 'XII F4', access_level: 'full' },
-            'S079': { nama: 'Azka Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S080': { nama: 'Bella Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S081': { nama: 'Caspian Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S082': { nama: 'Delilah Putri', kelas: 'XII F4', access_level: 'full' },
-            'S083': { nama: 'Evander Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S084': { nama: 'Freya Sari', kelas: 'XII F4', access_level: 'full' },
-            'S085': { nama: 'Grayson Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S086': { nama: 'Helena Putri', kelas: 'XII F4', access_level: 'full' },
-            'S087': { nama: 'Ishmael Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S088': { nama: 'Julianna Sari', kelas: 'XII F4', access_level: 'full' },
-            'S089': { nama: 'Kendrick Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S090': { nama: 'Lilliana Putri', kelas: 'XII F4', access_level: 'full' },
-            'S091': { nama: 'Magnus Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S092': { nama: 'Nadia Putri', kelas: 'XII F4', access_level: 'full' },
-            'S093': { nama: 'Orion Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S094': { nama: 'Portia Sari', kelas: 'XII F4', access_level: 'full' },
-            'S095': { nama: 'Quinton Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S096': { nama: 'Roselyn Putri', kelas: 'XII F4', access_level: 'full' },
-            'S097': { nama: 'Silas Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S098': { nama: 'Tatiana Sari', kelas: 'XII F4', access_level: 'full' },
-            'S099': { nama: 'Ulysses Wijaya', kelas: 'XII F4', access_level: 'full' },
-            'S100': { nama: 'Valerie Putri', kelas: 'XII F4', access_level: 'full' }
+            '24400004': { nama: 'Aisyah Rachma Ufaira', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400005': { nama: 'Al Atha Uqail Ahmad Yudanto', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400006': { nama: 'Alifatis Muhammad Khalid', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400007': { nama: 'Alifia Nur Arfa Dinata', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400008': { nama: 'Alika Ayu Namira', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400010': { nama: 'Almira Latifah Alma Suryana', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400012': { nama: 'Aqeela Khumaira Hardian', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400019': { nama: 'Athalariq Akbar Mukti', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400024': { nama: 'Bilqis Zhafif Khumaira', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400028': { nama: 'Danish Attaya Akbar', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400031': { nama: 'Fazila Kayla Shiva', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400037': { nama: 'Hamzah Athaullah Sathi', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400044': { nama: 'Kaori Yobi Kalevi', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400046': { nama: 'Keisha Maritza Ahmad', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400047': { nama: 'Khayra Putri Ariny', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400052': { nama: 'Maheswari Kirana Paramitha Riyadh', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400058': { nama: 'Muhammad Fachrizky Athaya', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400065': { nama: 'Nala Ardika Naraditya Althaf', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400075': { nama: 'Nesya Linetta Sarostha', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400076': { nama: 'Nur Hanifah Qiani', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400078': { nama: 'Prinsa Amikal Suria', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400081': { nama: 'Rakei Friandary', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400088': { nama: 'Rhania Syifa Evliya', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400091': { nama: 'Satoru Kenzie', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400097': { nama: 'Yusfa Nova Almira', kelas: 'XII F1', access_level: 'wajib_only' },
+            '24400003': { nama: 'Ahmad Dzaka Fithraya Rasalhague', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400009': { nama: 'Alliyah Noor', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400011': { nama: 'Anezka Kendra Cielika', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400013': { nama: 'Arfa Adiwinata Setyadi', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400014': { nama: 'Arizty Al Ghayda Mahardhika', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400015': { nama: 'Arjuna Satrio Lanang', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400029': { nama: 'Emir Kaysan Askar', kelas: 'XII F2', access_level: 'wajib_only' },
+            '25400101': { nama: 'Galuh Chandra Kirana', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400035': { nama: 'Ghazi Saverio Wangkoro', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400040': { nama: 'Hilgan Rabbani Kusnadi', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400045': { nama: 'Kayla Asyifa Jasmine', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400048': { nama: 'Kiminurintani Ghimaz Pratiwi', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400057': { nama: 'Muhammad Bintang Satria', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400061': { nama: 'Muhammad Hanif Hafuza Martono', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400064': { nama: 'Nadifa Misyka Alfarisi', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400068': { nama: 'Nasya Bintang Atifa', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400069': { nama: 'Nasya Shifra Edgina', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400073': { nama: 'Nayla Rasya', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400077': { nama: 'Oryza Sativa', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400087': { nama: 'Revayya Almira Radhiza', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400090': { nama: 'Sashikianna Putri Sugiharjo', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400092': { nama: 'Sausan Audrey Lathifah', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400095': { nama: 'Tzeirasuva Mustika Ananta Ralliargya', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400096': { nama: 'Vania Azzara', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400098': { nama: 'Zahra Kaila Putri', kelas: 'XII F2', access_level: 'wajib_only' },
+            '24400001': { nama: 'Abdurrahman Athar', kelas: 'XII F3', access_level: 'full' },
+            '24400016': { nama: 'Asha Maulida Nasuha', kelas: 'XII F3', access_level: 'full' },
+            '24400017': { nama: 'Assyifa Q Aina', kelas: 'XII F3', access_level: 'full' },
+            '24400018': { nama: 'Atha Maiva Dialfi', kelas: 'XII F3', access_level: 'full' },
+            '24400021': { nama: 'Auriel Latisha Rustiadi', kelas: 'XII F3', access_level: 'full' },
+            '24400026': { nama: 'Chalisa Nasha Janitra', kelas: 'XII F3', access_level: 'full' },
+            '24400027': { nama: 'Cyrilla Qanita Salsabila', kelas: 'XII F3', access_level: 'full' },
+            '24400032': { nama: 'Fazli Fayyaz Bibra', kelas: 'XII F3', access_level: 'full' },
+            '24400033': { nama: 'Gavin Ananta Mudiartono', kelas: 'XII F3', access_level: 'full' },
+            '24400034': { nama: 'Gede Radheya Javaskalki Nararya', kelas: 'XII F3', access_level: 'full' },
+            '24400043': { nama: 'Jae Hwa Evelyn Az Zahra', kelas: 'XII F3', access_level: 'full' },
+            '24400049': { nama: 'Kinanthi Sekarlangit', kelas: 'XII F3', access_level: 'full' },
+            '24400050': { nama: 'Kyara Najla Putri', kelas: 'XII F3', access_level: 'full' },
+            '24400053': { nama: 'Miftahul Rizqi Rabani', kelas: 'XII F3', access_level: 'full' },
+            '24400054': { nama: 'Milan Adyaraka Sudiro', kelas: 'XII F3', access_level: 'full' },
+            '24400055': { nama: 'Mohammed Febro Arkenzie', kelas: 'XII F3', access_level: 'full' },
+            '24400056': { nama: 'Muhammad Arkan Wicaksena', kelas: 'XII F3', access_level: 'full' },
+            '24400062': { nama: 'Muhammad Mufid Zhafran', kelas: 'XII F3', access_level: 'full' },
+            '24400066': { nama: 'Nararya Fatih Mainza', kelas: 'XII F3', access_level: 'full' },
+            '24400070': { nama: 'Naufal Indriatno', kelas: 'XII F3', access_level: 'full' },
+            '24400071': { nama: 'Navira Qisya Camilla', kelas: 'XII F3', access_level: 'full' },
+            '24400072': { nama: 'Nayla Adriani Noormandiri', kelas: 'XII F3', access_level: 'full' },
+            '24400074': { nama: 'Nazwa Avrilia Putri Abzis', kelas: 'XII F3', access_level: 'full' },
+            '24400085': { nama: 'Raydhan Jiffar Seniawanputra', kelas: 'XII F3', access_level: 'full' },
+            '24400094': { nama: 'Syahra Lenira Rangkuti', kelas: 'XII F3', access_level: 'full' },
+            '24400002': { nama: 'Ahmad Bayanaka Rajab', kelas: 'XII F4', access_level: 'full' },
+            '24400020': { nama: 'Atsyla Athano Biandra', kelas: 'XII F4', access_level: 'full' },
+            '24400022': { nama: 'Azzadin Al Azzam', kelas: 'XII F4', access_level: 'full' },
+            '24400023': { nama: 'Bianda Alana Bilham', kelas: 'XII F4', access_level: 'full' },
+            '24400025': { nama: 'Bima Fattah Ghaisan', kelas: 'XII F4', access_level: 'full' },
+            '24400030': { nama: 'Fabian Putra Anzil Firdaus', kelas: 'XII F4', access_level: 'full' },
+            '24400036': { nama: 'Gwen Rasendriya Doanda', kelas: 'XII F4', access_level: 'full' },
+            '24400038': { nama: 'Hanako Marihot Kiarra Tampubolon', kelas: 'XII F4', access_level: 'full' },
+            '24400039': { nama: 'Hazika Hanin Aqilani', kelas: 'XII F4', access_level: 'full' },
+            '24400041': { nama: 'Ikram Apriliano Putra Keisa', kelas: 'XII F4', access_level: 'full' },
+            '24400042': { nama: 'Izzan Maulana', kelas: 'XII F4', access_level: 'full' },
+            '24400059': { nama: 'Muhammad Farras Afif', kelas: 'XII F4', access_level: 'full' },
+            '24400060': { nama: 'Muhammad Firman Thaheer', kelas: 'XII F4', access_level: 'full' },
+            '24400063': { nama: 'Muhammad Regan Arrizki', kelas: 'XII F4', access_level: 'full' },
+            '24400067': { nama: 'Naryama Damai Abyasa', kelas: 'XII F4', access_level: 'full' },
+            '24400079': { nama: 'Raden Zaviero Marcega', kelas: 'XII F4', access_level: 'full' },
+            '24400080': { nama: 'Raditya Kara Nararya', kelas: 'XII F4', access_level: 'full' },
+            '24400082': { nama: 'Rakha Sanjaya', kelas: 'XII F4', access_level: 'full' },
+            '24400083': { nama: 'Rania Zivanka Kurniawan', kelas: 'XII F4', access_level: 'full' },
+            '24400084': { nama: 'Raushan Garlen Disiyona', kelas: 'XII F4', access_level: 'full' },
+            '24400086': { nama: 'Reyhan Putra Sahlan', kelas: 'XII F4', access_level: 'full' },
+            '24400089': { nama: 'Safa Klarisza Praja Darma', kelas: 'XII F4', access_level: 'full' },
+            '24400093': { nama: 'Setia Muhammad Abrar', kelas: 'XII F4', access_level: 'full' },
+            '24400099': { nama: 'Zerlinda Arissa Hudoyo', kelas: 'XII F4', access_level: 'full' },
+            '24400100': { nama: 'Zharfa Qisthina Alifah', kelas: 'XII F4', access_level: 'full' }
         };
 
         // ===== GURU CREDENTIALS =====
@@ -371,111 +362,123 @@
             event.target.classList.add('active');
         }
 
+        // ===== PINDAH KE PORTAL =====
+        // Portal ada di '/', BUKAN '/index.html'.
+        // Cloudflare Pages memantulkan '/index.html' ke '/' (308) -> itu sumber loop.
+        function gotoPortal() {
+            sessionStorage.setItem('redirect_guard', '1');
+            window.location.replace('/');
+        }
+
         // ===== SISWA LOGIN =====
         function loginSiswa(e) {
             e.preventDefault();
-            const nis = document.getElementById('nis').value.toUpperCase();
-            const password = document.getElementById('password_siswa').value;
-            const errorEl = document.getElementById('error_siswa');
-            const successEl = document.getElementById('success_siswa');
+            var nis = document.getElementById('nis').value.trim();
+            var password = document.getElementById('password_siswa').value;
+            var errorEl = document.getElementById('error_siswa');
+            var successEl = document.getElementById('success_siswa');
 
             errorEl.style.display = 'none';
             successEl.style.display = 'none';
 
             if (!STUDENTS_DATA[nis]) {
-                errorEl.textContent = '❌ NIS tidak ditemukan';
+                errorEl.textContent = 'NIS tidak ditemukan';
                 errorEl.style.display = 'block';
                 return;
             }
-
             if (password !== '1234') {
-                errorEl.textContent = '❌ Password salah';
+                errorEl.textContent = 'Password salah';
                 errorEl.style.display = 'block';
                 return;
             }
 
-            const student = STUDENTS_DATA[nis];
-            const session = {
+            var student = STUDENTS_DATA[nis];
+            localStorage.setItem('portal_session', JSON.stringify({
                 type: 'siswa',
-                nis: nis,
-                nama: student.nama,
-                kelas: student.kelas,
-                access_level: student.access_level,
-                login_time: Date.now()
-            };
+                data: {
+                    nis: nis,
+                    // index.html membaca 'name' dan 'kelas_name' (header + kiriman
+                    // hasil CBT ke Google Sheets). 'nama'/'kelas' ikut ditulis
+                    // supaya tetap cocok kalau ada kode lain yang memakainya.
+                    name: student.nama,
+                    nama: student.nama,
+                    kelas_name: student.kelas,
+                    kelas: student.kelas,
+                    access_level: student.access_level
+                },
+                timestamp: Date.now()
+            }));
 
-            localStorage.setItem('tka_session', JSON.stringify(session));
-
-            successEl.textContent = '✓ Login berhasil! Mengalihkan...';
+            successEl.textContent = 'Login berhasil! Mengalihkan...';
             successEl.style.display = 'block';
-
-            setTimeout(() => {
-                window.location.href = '/index.html';
-            }, 500);
+            setTimeout(gotoPortal, 500);
         }
 
         // ===== GURU LOGIN =====
         function loginGuru(e) {
             e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password_guru').value;
-            const errorEl = document.getElementById('error_guru');
-            const successEl = document.getElementById('success_guru');
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password_guru').value;
+            var errorEl = document.getElementById('error_guru');
+            var successEl = document.getElementById('success_guru');
 
             errorEl.style.display = 'none';
             successEl.style.display = 'none';
 
             if (username !== GURU_CREDENTIALS.username) {
-                errorEl.textContent = '❌ Username tidak ditemukan';
+                errorEl.textContent = 'Username tidak ditemukan';
                 errorEl.style.display = 'block';
                 return;
             }
-
             if (password !== 'gis2cihuy') {
-                errorEl.textContent = '❌ Password salah';
+                errorEl.textContent = 'Password salah';
                 errorEl.style.display = 'block';
                 return;
             }
 
-            const session = {
+            localStorage.setItem('portal_session', JSON.stringify({
                 type: 'guru',
-                username: username,
-                nama: 'M. Ardiansyah, S.Pd.Gr.',
-                login_time: Date.now()
-            };
+                data: {
+                    username: username,
+                    nama: 'M. Ardiansyah, S.Pd.Gr.'
+                },
+                timestamp: Date.now()
+            }));
 
-            localStorage.setItem('tka_session', JSON.stringify(session));
-
-            successEl.textContent = '✓ Login berhasil! Mengalihkan...';
+            successEl.textContent = 'Login berhasil! Mengalihkan...';
             successEl.style.display = 'block';
-
-            setTimeout(() => {
-                window.location.href = '/index.html';
-            }, 500);
+            setTimeout(gotoPortal, 500);
         }
 
-        // ===== CHECK EXISTING SESSION =====
+        // ===== CEK SESI SAAT HALAMAN DIBUKA =====
         function checkExistingSession() {
-            const session = localStorage.getItem('tka_session');
-            if (session) {
-                try {
-                    const parsed = JSON.parse(session);
-                    const loginTime = parsed.login_time || 0;
-                    const now = Date.now();
-                    const expiryTime = 24 * 60 * 60 * 1000; // 24 jam
-
-                    if (now - loginTime < expiryTime) {
-                        window.location.href = '/index.html';
-                    } else {
-                        localStorage.removeItem('tka_session');
-                    }
-                } catch (e) {
-                    localStorage.removeItem('tka_session');
-                }
+            // Pengaman: kalau baru dilempar balik dari portal, sesi ditolak.
+            // Hapus sesi dan berhenti di sini -- jangan berputar lagi.
+            if (sessionStorage.getItem('redirect_guard') === '1') {
+                sessionStorage.removeItem('redirect_guard');
+                localStorage.removeItem('portal_session');
+                return;
             }
+
+            var raw = localStorage.getItem('portal_session');
+            if (!raw) return;
+
+            var parsed;
+            try {
+                parsed = JSON.parse(raw);
+            } catch (err) {
+                localStorage.removeItem('portal_session');
+                return;
+            }
+
+            if (Date.now() - (parsed.timestamp || 0) >= 24 * 60 * 60 * 1000) {
+                localStorage.removeItem('portal_session');
+                return;
+            }
+
+            gotoPortal();
         }
 
-        // Check on page load
         window.addEventListener('DOMContentLoaded', checkExistingSession);
     </script>
 </body>

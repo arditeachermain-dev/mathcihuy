@@ -3,7 +3,7 @@
 // berisi seluruh soal, rumus, font, dan ikon), sehingga portal terbuka penuh
 // tanpa jaringan. Pembaruan diunduh di latar dan baru dipakai setelah guru
 // menyetujui muat ulang.
-const VERSI = 'gis-math-xii-1b5a56c83de6';
+const VERSI = 'gis-math-xii-4d2e-svg-mandiri';
 const ISI = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {
@@ -31,6 +31,12 @@ self.addEventListener('fetch', (e) => {
   // Navigasi: pakai simpanan lebih dulu supaya portal tetap terbuka saat
   // jaringan sekolah mati, lalu segarkan simpanan di latar.
   if (req.mode === 'navigate') {
+    // Halaman login harus selalu dari jaringan. Kalau dilayani dari simpanan
+    // portal, /login malah menampilkan index.html dan terjadi putaran redirect.
+    if (url.pathname === '/login' || url.pathname === '/login.html') {
+      e.respondWith(fetch(req).catch(() => caches.match('./login.html')));
+      return;
+    }
     e.respondWith(
       caches.match('./index.html').then((tersimpan) => {
         const dariJaringan = fetch(req).then((res) => {
