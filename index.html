@@ -9247,6 +9247,24 @@ function catatSesiCbt(subj, pkgId) {
       }
     }
 
+    
+    // ==== GLOBAL CBT & SYNC HELPERS ====
+    const CBT_LOKAL_KEY = 'cbt_hasil_lokal';
+    const CBT_ANTRE_KEY = 'cbt_hasil_antre';
+    const CBT_OK_KEY    = 'cbt_hasil_ok';
+
+    function sinkAmbil(kunci, bawaan) {
+      try { const v = JSON.parse(localStorage.getItem(kunci)); return v === null ? bawaan : v; }
+      catch (e) { return bawaan; }
+    }
+    function sinkSimpan(kunci, nilai) {
+      try { localStorage.setItem(kunci, JSON.stringify(nilai)); } catch (e) {}
+    }
+    function sinkSidik(p) {
+      return [String(p.nis || ''), String(p.mapel || ''), String(p.kode_pertemuan || ''), Number(p.skor || 0)].join('__');
+    }
+    function tampilkanStatusSinkron() {}
+
     function loadGuruDashboardData() {
         const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
         const kelas = document.getElementById('guru-filter-kelas').value;
