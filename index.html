@@ -4482,7 +4482,73 @@
       if (a.indexOf(idx) < 0) { a.push(idx); simpanKemajuan(); }
     }
 
-    function catatSesiCbt(subj, pkgId) {
+    
+    // =========================================================================
+    // CBT REAL-TIME AUTO-SAVE & DRAFT RESUME ENGINE (ZERO DATA LOSS)
+    // =========================================================================
+    const CBT_DRAFT_PREFIX = 'cbt_draft_v1_';
+
+    function getCbtDraftKey(subj, pkgId) {
+      const sess = getSession();
+      const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : 'guest';
+      return `${CBT_DRAFT_PREFIX}${nis}_${subj}_${pkgId}`;
+    }
+
+    function simpanDraftJawaban(subj, pkgId, qIdx, chosen, isRight, details) {
+      try {
+        const k = getCbtDraftKey(subj, pkgId);
+        const draft = JSON.parse(localStorage.getItem(k) || '{}');
+        draft.lastUpdated = Date.now();
+        draft.qIdx = qIdx;
+        if (!draft.answers) draft.answers = {};
+        draft.answers[qIdx] = {
+          chosen: chosen,
+          isRight: isRight,
+          details: details || null,
+          ts: Date.now()
+        };
+        localStorage.setItem(k, JSON.stringify(draft));
+
+        // Tampilkan indikator visual tersimpan sejenak
+        const badge = document.getElementById('cbt-autosave-badge');
+        if (badge) {
+          badge.innerHTML = '<i class="fa-solid fa-check-double text-emerald-300"></i> Tersimpan';
+          badge.className = 'text-[11px] font-mono text-emerald-300 bg-emerald-900/80 border border-emerald-400 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow scale-105 transition-all duration-200';
+          setTimeout(() => {
+            badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-emerald-400"></i> Auto-Saved';
+            badge.className = 'text-[11px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm transition-all duration-300';
+          }, 1200);
+        }
+      } catch (e) {
+        console.warn('Auto-save error:', e);
+      }
+    }
+
+    function pulihkanDraftJawaban(subj, pkgId) {
+      try {
+        const k = getCbtDraftKey(subj, pkgId);
+        const draft = JSON.parse(localStorage.getItem(k) || '{}');
+        if (draft && draft.answers) {
+          Object.keys(draft.answers).forEach(qIdx => {
+            const ans = draft.answers[qIdx];
+            const scoreKey = `${subj}_${pkgId}_${qIdx}`;
+            userSessionScores[scoreKey] = ans.isRight;
+          });
+          return draft;
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    function bersihkanDraftJawaban(subj, pkgId) {
+      try {
+        const k = getCbtDraftKey(subj, pkgId);
+        localStorage.removeItem(k);
+      } catch (e) {}
+    }
+
+
+function catatSesiCbt(subj, pkgId) {
       pastikanKemajuan();
       const src = tkaSrc(subj);
       const pk = src && src[pkgId];
@@ -6106,6 +6172,10 @@
 
     // RENDER TKA QUESTION (WITH 3-MINUTE QUESTION TIMER & INTERACTIVE CBT FEEDBACK)
     function renderTkaQuestion() {
+      // Pulihkan draft jika ada
+      pulihkanDraftJawaban(tkaSubj, tkaPkgId);
+      // Pulihkan draft jika ada
+      pulihkanDraftJawaban(tkaSubj, tkaPkgId);
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       if (!pkg || !pkg.questions || pkg.questions.length === 0) {
@@ -6333,6 +6403,7 @@
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       const isRight = (chosen.toUpperCase() === correct.toUpperCase());
       userSessionScores[key] = isRight;
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', correct: correct });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
       document.querySelectorAll('.opt-btn').forEach(btn => {
