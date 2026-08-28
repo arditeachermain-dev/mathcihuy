@@ -9248,9 +9248,6 @@ function catatSesiCbt(subj, pkgId) {
 
     
     // ==== GLOBAL CBT & SYNC HELPERS ====
-    var CBT_LOKAL_KEY = 'cbt_hasil_lokal';
-    var CBT_ANTRE_KEY = 'cbt_hasil_antre';
-    var CBT_OK_KEY    = 'cbt_hasil_ok';
 
     function sinkAmbil(kunci, bawaan) {
       try { const v = JSON.parse(localStorage.getItem(kunci)); return v === null ? bawaan : v; }
