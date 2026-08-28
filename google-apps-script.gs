@@ -1,35 +1,6 @@
 /**
- * PENERIMA HASIL CBT — MATH CIHUY
- * ================================
- * Skrip ini dipasang di Google Sheets dan menjadi "database" tempat
- * portal mengirim hasil CBT siswa secara otomatis.
- *
- * CARA MEMASANG
- * -------------
- * 1. Buat Google Spreadsheet baru.
- * 2. Menu Ekstensi -> Apps Script.
- * 3. Hapus isi Code.gs, tempel seluruh berkas ini, lalu simpan.
- * 4. Klik Deploy -> New deployment.
- *      Jenis    : Web app
- *      Execute as   : Me
- *      Who has access: Anyone            <- WAJIB, kalau "Anyone with
- *                                           Google account" portal akan
- *                                           ditolak karena siswa tidak login.
- * 5. Salin URL yang berakhiran /exec.
- * 6. Buka portal, login guru, tombol Dashboard -> tempel URL itu di
- *    kolom "Webhook URL" -> Simpan URL.
- *
- * Setelah itu tidak ada lagi yang perlu dilakukan: setiap siswa yang
- * menuntaskan satu paket CBT hasilnya masuk sendiri ke sheet ini.
- *
- * CATATAN
- * -------
- * - Baris header dibuat otomatis pada kiriman pertama.
- * - Kiriman ganda ditolak: kunci uniknya NIS + mapel + paket + skor.
- *   Kalau siswa mengulang dan skornya berubah, barisnya diperbarui,
- *   bukan ditambah.
- * - Setiap perubahan skrip ini perlu Deploy ulang (Manage deployments ->
- *   ikon pensil -> Version: New version) supaya URL yang lama tetap sama.
+ * PENERIMA HASIL CBT — MATH CIHUY (FAIL-SAFE VERSION)
+ * ===================================================
  */
 
 var NAMA_SHEET = 'Hasil CBT';
@@ -56,56 +27,28 @@ var NAMA_MAPEL = {
   custom: 'Tryout Racikan'
 };
 
-
-function doPost(e) {
-  var kunci = LockService.getScriptLock();
-  try {
-    // Dua siswa bisa selesai pada detik yang sama; tanpa kunci barisnya
-    // bisa saling menimpa.
-    kunci.waitLock(20000);
-
-    var data = JSON.parse(e.postData.contents);
-    var sheet = ambilSheet_();
-    var baris = susunBaris_(data);
-
-    var adaDi = cariBarisSama_(sheet, data);
-    if (adaDi > 0) {
-      sheet.getRange(adaDi, 1, 1, baris.length).setValues([baris]);
-      return balas_({ ok: true, status: 'diperbarui', baris: adaDi });
-    }
-
-    sheet.appendRow(baris);
-    return balas_({ ok: true, status: 'ditambahkan', baris: sheet.getLastRow() });
-
-  } catch (err) {
-    return balas_({ ok: false, pesan: String(err) });
-  } finally {
-    kunci.releaseLock();
-  }
-}
-
-
-/** Dipakai untuk mengecek dari browser bahwa URL-nya hidup. */
 /**
- * Dipakai untuk mengambil data nilai siswa ke Dashboard Guru di semua browser
- * dan mengecek status aktif Webhook.
- */
-/**
- * Dipakai untuk mengambil data nilai siswa ke Dashboard Guru di semua browser
- * Mendukung JSON langsung dan JSONP (Anti-CORS).
+ * PENGAMBILAN DATA (doGet) — Mendukung JSON dan JSONP
  */
 function doGet(e) {
-  var callback = e && e.parameter && e.parameter.callback;
+  var callback = (e && e.parameter && e.parameter.callback) ? e.parameter.callback : null;
   try {
     var sheet = ambilSheet_();
-    var jml = sheet.getLastRow() - 1;
+    if (!sheet) {
+      return balasJsonP_({ ok: false, pesan: 'Sheet tidak ditemukan atau spreadsheet tidak aktif', data: [] }, callback);
+    }
+
+    var lastRow = sheet.getLastRow();
     var hasil = [];
 
-    if (jml >= 1) {
-      var data = sheet.getRange(2, 1, jml, KOLOM.length).getValues();
+    if (lastRow > 1) {
+      var jml = lastRow - 1;
+      var numCols = Math.min(sheet.getLastColumn(), KOLOM.length);
+      var data = sheet.getRange(2, 1, jml, numCols).getValues();
+
       for (var i = 0; i < data.length; i++) {
         var row = data[i];
-        if (!row[1]) continue; // Skip jika NIS kosong
+        if (!row[1]) continue; // Lewati jika kolom NIS kosong
         
         var detik = Number(row[10]) || 0;
         hasil.push({
@@ -125,44 +68,65 @@ function doGet(e) {
       }
     }
 
-    var resObj = { ok: true, count: hasil.length, data: hasil };
-    return balasJsonP_(resObj, callback);
+    return balasJsonP_({ ok: true, count: hasil.length, data: hasil }, callback);
+
   } catch (err) {
-    var errObj = { ok: false, pesan: 'Gagal membaca spreadsheet: ' + String(err), data: [] };
-    return balasJsonP_(errObj, callback);
+    return balasJsonP_({ ok: false, pesan: 'Error server: ' + String(err.message || err), data: [] }, callback);
   }
 }
 
-function balasJsonP_(obj, callback) {
-  var outputText = JSON.stringify(obj);
-  if (callback) {
-    return ContentService
-      .createTextOutput(callback + '(' + outputText + ')')
-      .setMimeType(ContentService.MimeType.JAVASCRIPT);
-  }
-  return ContentService
-    .createTextOutput(outputText)
-    .setMimeType(ContentService.MimeType.JSON);
-}
+/**
+ * PENERIMAAN DATA HASIL CBT (doPost)
+ */
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(15000);
 
+    var contents = (e && e.postData && e.postData.contents) ? e.postData.contents : '{}';
+    var data = JSON.parse(contents);
+    var sheet = ambilSheet_();
+    if (!sheet) {
+      return balasJsonP_({ ok: false, pesan: 'Gagal membuka sheet' });
+    }
+
+    var baris = susunBaris_(data);
+    var adaDi = cariBarisSama_(sheet, data);
+
+    if (adaDi > 0) {
+      sheet.getRange(adaDi, 1, 1, baris.length).setValues([baris]);
+      return balasJsonP_({ ok: true, status: 'diperbarui', baris: adaDi });
+    }
+
+    sheet.appendRow(baris);
+    return balasJsonP_({ ok: true, status: 'ditambahkan', baris: sheet.getLastRow() });
+
+  } catch (err) {
+    return balasJsonP_({ ok: false, pesan: String(err.message || err) });
+  } finally {
+    try { lock.releaseLock(); } catch(ign) {}
+  }
+}
 
 function ambilSheet_() {
   var buku = SpreadsheetApp.getActiveSpreadsheet();
+  if (!buku) return null;
+
   var sheet = buku.getSheetByName(NAMA_SHEET);
   if (!sheet) sheet = buku.insertSheet(NAMA_SHEET);
 
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(KOLOM);
-    var kepala = sheet.getRange(1, 1, 1, KOLOM.length);
-    kepala.setFontWeight('bold')
-          .setBackground('#0B1220')
-          .setFontColor('#FFFFFF');
-    sheet.setFrozenRows(1);
-    sheet.autoResizeColumns(1, KOLOM.length);
+    try {
+      var kepala = sheet.getRange(1, 1, 1, KOLOM.length);
+      kepala.setFontWeight('bold')
+            .setBackground('#0B1220')
+            .setFontColor('#FFFFFF');
+      sheet.setFrozenRows(1);
+    } catch(e) {}
   }
   return sheet;
 }
-
 
 function susunBaris_(d) {
   var detik = Number(d.durasi_detik) || 0;
@@ -182,33 +146,34 @@ function susunBaris_(d) {
   ];
 }
 
-
-/**
- * Mencari baris dengan NIS + mapel + paket yang sama.
- * Mengembalikan nomor barisnya, atau 0 kalau belum ada.
- */
 function cariBarisSama_(sheet, d) {
-  var jml = sheet.getLastRow() - 1;
-  if (jml < 1) return 0;
+  var lastRow = sheet.getLastRow();
+  if (lastRow <= 1) return 0;
 
-  var nilai = sheet.getRange(2, 2, jml, 5).getValues();   // NIS..Kode Pertemuan
-  var nis = String(d.nis || '');
+  var jml = lastRow - 1;
+  var nilai = sheet.getRange(2, 2, jml, 5).getValues(); // NIS..Kode Pertemuan
+  var nis = String(d.nis || '').trim();
   var mapel = NAMA_MAPEL[d.mapel] || d.mapel || 'Matematika Wajib';
-  var paket = d.kode_pertemuan || '';
+  var paket = String(d.kode_pertemuan || '').trim();
 
   for (var i = 0; i < nilai.length; i++) {
-    if (String(nilai[i][0]) === nis &&
-        String(nilai[i][3]) === mapel &&
-        String(nilai[i][4]) === paket) {
+    if (String(nilai[i][0]).trim() === nis &&
+        String(nilai[i][3]).trim() === mapel &&
+        String(nilai[i][4]).trim() === paket) {
       return i + 2;
     }
   }
   return 0;
 }
 
-
-function balas_(obj) {
+function balasJsonP_(obj, callback) {
+  var str = JSON.stringify(obj);
+  if (callback) {
+    return ContentService
+      .createTextOutput(callback + '(' + str + ')')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
   return ContentService
-    .createTextOutput(JSON.stringify(obj))
+    .createTextOutput(str)
     .setMimeType(ContentService.MimeType.JSON);
 }
