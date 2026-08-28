@@ -436,7 +436,7 @@
     /* --- pemetaan permukaan: satu aturan berlaku untuk seluruh halaman --- */
     .bg-slate-900, .bg-\[\#0D1A2E\]          { background-color: var(--lux-glass); }
     .bg-slate-950, .bg-\[\#050D1A\]          { background-color: var(--lux-well); }
-    .bg-slate-800                             { background-color: var(--lux-raise); }
+    .bg-slate-800, .bg-slate-700, .bg-slate-600 { background-color: var(--lux-raise); }
     .bg-\[\#071527\], .bg-\[\#0B1220\]     { background-color: var(--lux-bar); }
     .bg-slate-900\/90, .bg-slate-900\/70, .bg-slate-900\/60 { background-color: var(--lux-glass); }
     .bg-slate-950\/95, .bg-slate-950\/90, .bg-slate-950\/80, .bg-slate-950\/70 { background-color: var(--lux-well); }
@@ -1747,6 +1747,43 @@
     .fa-wand-magic-sparkles{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M4%2020L15%209'/><path%20d='M14%204l1%202.5L17.5%207.5%2015%208.5%2014%2011l-1-2.5L10.5%207.5%2013%206.5%2014%204z'/><path%20d='M19.5%2013l.6%201.4%201.4.6-1.4.6-.6%201.4-.6-1.4-1.4-.6%201.4-.6.6-1.4z'/></svg>")}
     .fa-wand-sparkles{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M4%2020L15%209'/><path%20d='M14%204l1%202.5L17.5%207.5%2015%208.5%2014%2011l-1-2.5L10.5%207.5%2013%206.5%2014%204z'/><path%20d='M19.5%2013l.6%201.4%201.4.6-1.4.6-.6%201.4-.6-1.4-1.4-.6%201.4-.6.6-1.4z'/></svg>")}
     .fa-wave-square{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M2%2018h5V6h5v12h5V6h5'/></svg>")}
+    /* ------------------------------------------------------------------
+       Tailwind pada berkas ini sudah dikompilasi dan ditanam, jadi kelas
+       utilitas yang belum pernah dipakai sebelumnya TIDAK punya aturan sama
+       sekali dan diam-diam tidak berefek. Kelas-kelas di bawah dipakai oleh
+       fitur dasbor guru yang ditambahkan belakangan; nilainya disalin persis
+       dari skala bawaan Tailwind.
+       ------------------------------------------------------------------ */
+    .mb-4  { margin-bottom: 1rem; }
+    .mb-5  { margin-bottom: 1.25rem; }
+    .pr-1\.5 { padding-right: 0.375rem; }
+    .max-h-\[420px\] { max-height: 420px; }
+
+    .transition-colors {
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+    }
+    .duration-200 { transition-duration: 200ms; }
+
+    .bg-emerald-900\/80 { background-color: rgba(6, 78, 59, .8); }
+    .bg-rose-900\/80    { background-color: rgba(136, 19, 55, .8); }
+    .bg-rose-950\/20    { background-color: rgba(76, 5, 25, .2); }
+    .border-rose-500\/30 { border-color: rgba(244, 63, 94, .3); }
+
+    .hover\:bg-amber-600:hover     { background-color: #D97706; }
+    .hover\:bg-slate-600:hover     { background-color: #475569; }
+    .hover\:bg-rose-900\/30:hover { background-color: rgba(136, 19, 55, .3); }
+
+    /* Ikon yang ditambahkan menyusul bersama fitur dasbor guru.
+       Tanpa baris-baris ini elemennya tampil sebagai kotak berwarna
+       penuh, karena masker CSS-nya tidak punya gambar. */
+    .fa-circle-xmark{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'>%3Ccircle%20cx='12'%20cy='12'%20r='9'/%3E%3Cpath%20d='M9%209l6%206M15%209l-6%206'/%3E%3C/svg%3E")}
+    .fa-cloud-arrow-up{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'>%3Cpath%20d='M6.5%2018.5A4%204%200%200%201%207%2010.6a5%205%200%200%201%209.6-1.1A3.5%203.5%200%200%201%2018%2018.5'/%3E%3Cpath%20d='M12%2021v-8'/%3E%3Cpath%20d='M9%2015.5l3-3%203%203'/%3E%3C/svg%3E")}
+    .fa-file-excel{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'>%3Cpath%20d='M14%203H7a2%202%200%200%200-2%202v14a2%202%200%200%200%202%202h10a2%202%200%200%200%202-2V8z'/%3E%3Cpath%20d='M14%203v5h5'/%3E%3Cpath%20d='M9.5%2012.5l5%205M14.5%2012.5l-5%205'/%3E%3C/svg%3E")}
+    .fa-floppy-disk{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'>%3Cpath%20d='M5%203h11l3%203v15H5z'/%3E%3Cpath%20d='M8%203v6h7V3'/%3E%3Crect%20x='8'%20y='13'%20width='8'%20height='8'/%3E%3C/svg%3E")}
+    .fa-rotate{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'>%3Cpath%20d='M20%2012a8%208%200%201%201-2.6-5.9'/%3E%3Cpath%20d='M20%204v5h-5'/%3E%3C/svg%3E")}
+    .fa-triangle-exclamation{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'>%3Cpath%20d='M12%203.5L2.5%2020h19z'/%3E%3Cpath%20d='M12%209.5v5'/%3E%3Cpath%20d='M12%2017.5h.01'/%3E%3C/svg%3E")}
     .fa-xmark{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M6%206l12%2012M18%206L6%2018'/></svg>")}
   </style>
 </head>
