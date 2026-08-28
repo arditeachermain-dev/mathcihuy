@@ -9430,14 +9430,60 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         }).join('');
     }
 
-    function resetNilaiSiswa(nis) {
-        if (!confirm(`Reset nilai untuk siswa ${nis}? Siswa bisa mengulang tes.`)) return;
+    async function resetNilaiSiswa(nis, kodePertemuan, mapel) {
+        const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
+        const namaSiswa = std ? std.nama : ('Siswa ' + nis);
+        const infoPaket = kodePertemuan ? ` paket ${kodePertemuan} (${mapel || 'wajib'})` : '';
+        
+        if (!confirm(`Apakah Bapak yakin ingin mereset nilai untuk ${namaSiswa} (${nis})${infoPaket}?\n\nData nilai di Cloud SQL dan riwayat pengerjaan siswa akan dihapus, sehingga siswa dapat mengerjakan ulang dari awal.`)) {
+            return;
+        }
 
-        sinkSimpan(CBT_LOKAL_KEY, sinkAmbil(CBT_LOKAL_KEY, []).filter(r => r.nis !== nis));
-        sinkSimpan(CBT_ANTRE_KEY, sinkAmbil(CBT_ANTRE_KEY, []).filter(r => r.nis !== nis));
-        sinkSimpan(CBT_OK_KEY, []);   // supaya pengerjaan ulang bisa terkirim lagi
+        // 1. Hapus dari Database Supabase Cloud
+        if (supabaseClient) {
+            try {
+                let qNilai = supabaseClient.from('nilai_cbt').delete().eq('nis', String(nis));
+                let qLive = supabaseClient.from('cbt_live_answers').delete().eq('nis', String(nis));
+                
+                if (kodePertemuan) {
+                    qNilai = qNilai.eq('kode_pertemuan', String(kodePertemuan));
+                    qLive = qLive.eq('kode_pertemuan', String(kodePertemuan));
+                }
+                if (mapel) {
+                    qNilai = qNilai.eq('mapel', String(mapel));
+                    qLive = qLive.eq('mapel', String(mapel));
+                }
 
-        alert('Nilai siswa berhasil direset');
+                const [resNilai, resLive] = await Promise.all([qNilai, qLive]);
+                if (resNilai.error) console.warn('Supabase delete nilai error:', resNilai.error);
+                if (resLive.error) console.warn('Supabase delete live error:', resLive.error);
+                console.log('✅ Supabase delete records success for NIS:', nis);
+            } catch (e) {
+                console.warn('Supabase delete exception:', e);
+            }
+        }
+
+        // 2. Hapus dari Cache Lokal Guru
+        const log = sinkAmbil(CBT_LOKAL_KEY, []);
+        const filtered = log.filter(r => {
+            if (String(r.nis) !== String(nis)) return true;
+            if (kodePertemuan && String(r.kode_pertemuan) !== String(kodePertemuan)) return true;
+            if (mapel && String(r.mapel) !== String(mapel)) return true;
+            return false;
+        });
+        sinkSimpan(CBT_LOKAL_KEY, filtered);
+
+        // 3. Bersihkan Kunci Draft Pengerjaan Siswa
+        try {
+            if (kodePertemuan && mapel) {
+                localStorage.removeItem(`cbt_draft_v1_${nis}_${mapel}_${kodePertemuan}`);
+            }
+        } catch (e) {}
+
+        sinkSimpan(CBT_ANTRE_KEY, sinkAmbil(CBT_ANTRE_KEY, []).filter(r => String(r.nis) !== String(nis)));
+        sinkSimpan(CBT_OK_KEY, []);
+
+        alert(`✅ Nilai ${namaSiswa} berhasil direset! Siswa sekarang dapat mengulang ujian.`);
         loadGuruDashboardData();
     }
 
