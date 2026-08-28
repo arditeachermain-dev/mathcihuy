@@ -9360,22 +9360,41 @@ function catatSesiCbt(subj, pkgId) {
             return;
         }
 
-        tbody.innerHTML = filtered.map((r, idx) => `
-            <tr class="border-b border-slate-700 hover:bg-slate-800">
-                <td class="border border-slate-700 px-4 py-2 font-mono text-xs">${r.nis}</td>
+        tbody.innerHTML = filtered.map((r, idx) => {
+            const skorDisplay = r.is_live 
+              ? `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 inline-flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-400 animate-pulse"></i> Sedang Mengerjakan</span>`
+              : `<span class="font-bold ${Number(r.skor) >= 75 ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span>`;
+            
+            const detailDisplay = r.is_live
+              ? `<span class="text-xs text-amber-200 font-mono font-semibold">${r.progress_soal || 0}/10 Soal Terisi</span>`
+              : `<span class="text-xs text-slate-200">${r.jumlah_benar}/${r.jumlah_soal || (Number(r.jumlah_benar) + Number(r.jumlah_salah))}</span>`;
+
+            const durasiDisplay = r.is_live
+              ? `<span class="text-xs text-cyan-300 font-mono italic">Live</span>`
+              : `<span class="text-xs text-slate-300 font-mono">${Math.round(r.durasi_detik / 60)}m</span>`;
+
+            const tanggalDisplay = r.timestamp ? new Date(r.timestamp).toLocaleDateString('id-ID') : '-';
+
+            return `
+            <tr class="border-b border-slate-700 ${r.is_live ? 'bg-amber-950/20 hover:bg-amber-900/30' : 'hover:bg-slate-800'} transition">
+                <td class="border border-slate-700 px-4 py-2 font-mono text-xs font-bold text-slate-300">${r.nis}</td>
                 <td class="border border-slate-700 px-4 py-2 font-semibold text-slate-100">${r.nama}</td>
                 <td class="border border-slate-700 px-4 py-2 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${NAMA_MAPEL[r.mapel] || r.mapel || 'Wajib'}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs font-mono">${r.kode_pertemuan || '-'}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center font-bold ${Number(r.skor) >= 75 ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${r.jumlah_benar}/${r.jumlah_soal || (Number(r.jumlah_benar) + Number(r.jumlah_salah))}</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${Math.round(r.durasi_detik / 60)}m</td>
-                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${new Date(r.timestamp).toLocaleDateString('id-ID')}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${(typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib')}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs font-mono font-bold text-cyan-300">${r.kode_pertemuan || '-'}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center">${skorDisplay}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center">${detailDisplay}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center">${durasiDisplay}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs font-mono text-slate-400">${tanggalDisplay}</td>
                 <td class="border border-slate-700 px-4 py-2 text-center">
-                    <button onclick="resetNilaiSiswa('${r.nis}')" class="px-2 py-1 bg-amber-600/80 hover:bg-amber-600 text-white text-xs rounded transition-colors">Reset</button>
+                    <button onclick="resetNilaiSiswa('${r.nis}')" 
+                        class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-500 text-white rounded text-xs font-bold transition shadow">
+                        Reset
+                    </button>
                 </td>
             </tr>
-        `).join('');
+            `;
+        }).join('');
     }
 
     function resetNilaiSiswa(nis) {
