@@ -8988,10 +8988,14 @@ function catatSesiCbt(subj, pkgId) {
       }
     }
 
-    // SCORECARD MODAL
+    // SCORECARD MODAL (SUBMIT NILAI AKHIR KE SUPABASE)
     function showTkaScorecardModal() {
       if (typeof pulihkanDraftJawaban === 'function') {
         pulihkanDraftJawaban(tkaSubj, tkaPkgId);
+      }
+      // Catat & Submit Nilai Resmi ke Supabase (meskipun baru mengerjakan beberapa soal)
+      if (typeof catatSesiCbt === 'function') {
+        catatSesiCbt(tkaSubj, tkaPkgId, true);
       }
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
