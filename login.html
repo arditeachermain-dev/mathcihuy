@@ -373,7 +373,8 @@
         // ===== SISWA LOGIN =====
         function loginSiswa(e) {
             e.preventDefault();
-            var nis = document.getElementById('nis').value.trim();
+            var nis = document.getElementById('nis').value.trim().toUpperCase();
+
             var password = document.getElementById('password_siswa').value;
             var errorEl = document.getElementById('error_siswa');
             var successEl = document.getElementById('success_siswa');
