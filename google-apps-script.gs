@@ -90,42 +90,59 @@ function doPost(e) {
  * Dipakai untuk mengambil data nilai siswa ke Dashboard Guru di semua browser
  * dan mengecek status aktif Webhook.
  */
+/**
+ * Dipakai untuk mengambil data nilai siswa ke Dashboard Guru di semua browser
+ * Mendukung JSON langsung dan JSONP (Anti-CORS).
+ */
 function doGet(e) {
+  var callback = e && e.parameter && e.parameter.callback;
   try {
     var sheet = ambilSheet_();
     var jml = sheet.getLastRow() - 1;
-    if (jml < 1) {
-      return balas_({ ok: true, pesan: 'Penerima hasil CBT Math Cihuy aktif (Belum ada data).', data: [] });
-    }
-
-    var data = sheet.getRange(2, 1, jml, KOLOM.length).getValues();
     var hasil = [];
 
-    for (var i = 0; i < data.length; i++) {
-      var row = data[i];
-      if (!row[1]) continue; // Skip jika NIS kosong
-      
-      var detik = Number(row[10]) || 0;
-      hasil.push({
-        timestamp: row[0] instanceof Date ? row[0].toISOString() : (row[0] || new Date().toISOString()),
-        nis: String(row[1] || '').trim(),
-        nama: String(row[2] || '').trim(),
-        kelas: String(row[3] || '').trim(),
-        mapel: String(row[4] || '').trim(),
-        kode_pertemuan: String(row[5] || '').trim(),
-        skor: Number(row[6]) || 0,
-        jumlah_soal: Number(row[7]) || 0,
-        jumlah_benar: Number(row[8]) || 0,
-        jumlah_salah: Number(row[9]) || 0,
-        durasi_detik: detik,
-        durasi_menit: Number(row[11]) || (Math.round(detik / 6) / 10)
-      });
+    if (jml >= 1) {
+      var data = sheet.getRange(2, 1, jml, KOLOM.length).getValues();
+      for (var i = 0; i < data.length; i++) {
+        var row = data[i];
+        if (!row[1]) continue; // Skip jika NIS kosong
+        
+        var detik = Number(row[10]) || 0;
+        hasil.push({
+          timestamp: row[0] instanceof Date ? row[0].toISOString() : (row[0] || new Date().toISOString()),
+          nis: String(row[1] || '').trim(),
+          nama: String(row[2] || '').trim(),
+          kelas: String(row[3] || '').trim(),
+          mapel: String(row[4] || '').trim(),
+          kode_pertemuan: String(row[5] || '').trim(),
+          skor: Number(row[6]) || 0,
+          jumlah_soal: Number(row[7]) || 0,
+          jumlah_benar: Number(row[8]) || 0,
+          jumlah_salah: Number(row[9]) || 0,
+          durasi_detik: detik,
+          durasi_menit: Number(row[11]) || (Math.round(detik / 6) / 10)
+        });
+      }
     }
 
-    return balas_({ ok: true, count: hasil.length, data: hasil });
+    var resObj = { ok: true, count: hasil.length, data: hasil };
+    return balasJsonP_(resObj, callback);
   } catch (err) {
-    return balas_({ ok: false, pesan: 'Gagal membaca spreadsheet: ' + String(err), data: [] });
+    var errObj = { ok: false, pesan: 'Gagal membaca spreadsheet: ' + String(err), data: [] };
+    return balasJsonP_(errObj, callback);
   }
+}
+
+function balasJsonP_(obj, callback) {
+  var outputText = JSON.stringify(obj);
+  if (callback) {
+    return ContentService
+      .createTextOutput(callback + '(' + outputText + ')')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  return ContentService
+    .createTextOutput(outputText)
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 

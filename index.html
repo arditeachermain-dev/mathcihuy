@@ -9094,7 +9094,8 @@ function catatSesiCbt(subj, pkgId) {
     }
 
     // Tarik nilai langsung dari Google Sheets Cloud
-    async function tarikNilaiDariCloud(manual = false) {
+    // Tarik nilai langsung dari Google Sheets Cloud (Mendukung JSONP & Fetch)
+    function tarikNilaiDariCloud(manual = false) {
       const url = sinkUrl();
       const statusEl = document.getElementById('cloud-sync-status');
       if (!url) {
@@ -9105,15 +9106,33 @@ function catatSesiCbt(subj, pkgId) {
 
       if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Google Sheets...</span>';
       
-      try {
-        const resp = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), {
-          method: 'GET',
-          redirect: 'follow'
-        });
-        const json = await resp.json();
-        
+      const cbName = 'cbt_sync_cb_' + Date.now();
+      let handled = false;
+
+      const timeoutId = setTimeout(() => {
+        if (!handled) {
+          handled = true;
+          delete window[cbName];
+          const s = document.getElementById(cbName);
+          if (s) s.remove();
+          if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Timeout / Cek hak akses Webhook: Anyone</span>';
+          if (manual) alert('⚠️ Gagal terhubung ke Google Sheets.
+
+Pastikan saat Deploy Apps Script:
+Who has access / Siapa yang memiliki akses dipilih: ANYONE (Siapa Saja).
+Jika dipilih "Only myself", browser tidak diizinkan membaca data.');
+        }
+      }, 10000);
+
+      window[cbName] = function(json) {
+        if (handled) return;
+        handled = true;
+        clearTimeout(timeoutId);
+        delete window[cbName];
+        const s = document.getElementById(cbName);
+        if (s) s.remove();
+
         if (json && json.ok && Array.isArray(json.data)) {
-          // Gabungkan ke penyimpanan lokal
           const cloudData = json.data;
           const log = sinkAmbil(CBT_LOKAL_KEY, []);
           
@@ -9128,18 +9147,56 @@ function catatSesiCbt(subj, pkgId) {
           loadGuruDashboardData();
           if (manual) alert(`✅ Berhasil menyinkronkan ${cloudData.length} data nilai dari Google Sheets!`);
         } else if (json && json.ok && !json.data) {
-          // Google Apps Script masih versi lama yang belum mengembalikan array data
-          if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs font-semibold"><i class="fa-solid fa-triangle-exclamation"></i> Apps Script butuh Deploy New Version</span>';
-          if (manual) {
-            alert('⚠️ Google Apps Script di Google Sheets Anda masih versi lama.\n\nSilakan:\n1. Buka Spreadsheet -> Ekstensi -> Apps Script.\n2. Paste kode baru dari google-apps-script.gs.\n3. Klik Deploy -> Manage Deployments -> Edit -> Version: New Version -> Deploy.');
-          }
+          if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Apps Script butuh Deploy New Version</span>';
+          if (manual) alert('⚠️ Google Apps Script di Google Sheets Anda masih versi lama.
+
+Silakan:
+1. Buka Spreadsheet -> Ekstensi -> Apps Script.
+2. Paste kode baru dari google-apps-script.gs.
+3. Klik Deploy -> Manage Deployments -> Edit -> Version: New Version -> Deploy.');
         } else {
-          if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Respon cloud tidak valid</span>';
+          if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Respon tidak valid</span>';
         }
-      } catch (err) {
-        console.warn('Cloud sync fetch error:', err);
-        if (statusEl) statusEl.innerHTML = '<span class="text-slate-400 font-mono text-xs"><i class="fa-solid fa-cloud"></i> Mode Offline / Local Cache</span>';
-      }
+      };
+
+      // Jalankan JSONP via script tag (Anti-CORS)
+      const script = document.createElement('script');
+      script.id = cbName;
+      script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName + '&t=' + Date.now();
+      script.onerror = function() {
+        if (handled) return;
+        // Fallback ke standard fetch
+        fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), { method: 'GET', redirect: 'follow' })
+          .then(r => r.json())
+          .then(json => {
+            if (handled) return;
+            handled = true;
+            clearTimeout(timeoutId);
+            if (json && json.ok && Array.isArray(json.data)) {
+              const cloudData = json.data;
+              const log = sinkAmbil(CBT_LOKAL_KEY, []);
+              cloudData.forEach(p => {
+                const f = sinkSidik(p);
+                const i = log.findIndex(x => sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel));
+                if (i === -1) log.push(p); else log[i] = Object.assign(log[i], p);
+              });
+              sinkSimpan(CBT_LOKAL_KEY, log);
+              if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (${cloudData.length} data tersinkron)</span>`;
+              loadGuruDashboardData();
+              if (manual) alert(`✅ Berhasil menyinkronkan ${cloudData.length} data nilai dari Google Sheets!`);
+            } else {
+              if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Deploy New Version di Apps Script</span>';
+            }
+          })
+          .catch(err => {
+            if (handled) return;
+            handled = true;
+            clearTimeout(timeoutId);
+            console.warn('Fetch fallback error:', err);
+            if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Cek izin Webhook: Anyone (Siapa Saja)</span>';
+          });
+      };
+      document.body.appendChild(script);
     }
 
     const STUDENTS_DATA = {
