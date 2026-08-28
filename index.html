@@ -6607,32 +6607,21 @@ function catatSesiCbt(subj, pkgId) {
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       const isRight = (chosen.toUpperCase() === correct.toUpperCase());
       userSessionScores[key] = isRight;
-      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', correct: correct });
-      catatSesiCbt(tkaSubj, tkaPkgId);
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', chosen: chosen, correct: correct });
 
-      document.querySelectorAll('.opt-btn').forEach(btn => {
-        btn.disabled = true;
-        btn.classList.remove('hover:bg-slate-700', 'active:scale-95');
-      });
-
-      const chosenBtn = document.getElementById('opt-btn-' + chosen);
-      const correctBtn = document.getElementById('opt-btn-' + correct);
-
-      const mark = (btn, html) => { const t = btn && btn.querySelector('.opt-mark'); if (t) t.innerHTML = html; };
+      // Highlight opsi yang dipilih siswa (simpan pilihan tanpa bocorkan kunci/pembahasan sebelum submit)
       const span = b => b.classList.contains('md:col-span-2') ? ' md:col-span-2' : '';
       document.querySelectorAll('.opt-btn').forEach(b => {
-        if (b !== chosenBtn && b !== correctBtn) b.className = 'opt-btn' + span(b) + ' ' + OPT_MUTED;
+        const letter = b.getAttribute('data-letter');
+        const markEl = b.querySelector('.opt-mark');
+        if (letter === chosen) {
+          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-cyan-950/90 border-2 border-cyan-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-cyan-950/50 transition';
+          if (markEl) markEl.innerHTML = '<i class="fa-solid fa-circle-check text-cyan-400 text-sm"></i>';
+        } else {
+          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow';
+          if (markEl) markEl.innerHTML = '';
+        }
       });
-      if (isRight) {
-        if (chosenBtn) { chosenBtn.className = 'opt-btn' + span(chosenBtn) + ' ' + OPT_RIGHT; mark(chosenBtn, '<i class="fa-solid fa-check text-emerald-300"></i>'); }
-        confettiCelebration();
-      } else {
-        if (chosenBtn) { chosenBtn.className = 'opt-btn' + span(chosenBtn) + ' ' + OPT_WRONG; mark(chosenBtn, '<i class="fa-solid fa-xmark text-rose-300"></i>'); }
-        if (correctBtn) { correctBtn.className = 'opt-btn' + span(correctBtn) + ' ' + OPT_MISSED; mark(correctBtn, '<i class="fa-solid fa-check text-emerald-300"></i>'); }
-      }
-
-      document.getElementById('tka-solution-box').classList.remove('hidden');
-      renderMath(document.getElementById('tka-solution-box'));
       saveAppState();
     }
 
