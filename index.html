@@ -8882,44 +8882,55 @@
                 <button onclick="closeGuruDashboard()" class="text-2xl text-slate-400 hover:text-white">&times;</button>
             </div>
 
-            <!-- Filter & Config -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                                    <!-- Filter & Config -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                 <div>
-                    <label class="text-xs font-bold text-slate-400 uppercase">Kelas</label>
-                    <select id="guru-filter-kelas" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded text-white text-sm">
-                        <option value="">Semua Kelas</option>
-                        <option value="XII_F1">XII F1</option>
-                        <option value="XII_F2">XII F2</option>
-                        <option value="XII_F3">XII F3</option>
-                        <option value="XII_F4">XII F4</option>
+                    <label class="text-xs font-bold text-slate-400 uppercase">Pilih Rombel / Kelas</label>
+                    <select id="guru-filter-kelas" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm font-semibold">
+                        <option value="">Semua Kelas (100 Siswa)</option>
+                        <option value="XII_F1">XII F1 (25 Siswa)</option>
+                        <option value="XII_F2">XII F2 (25 Siswa)</option>
+                        <option value="XII_F3">XII F3 (25 Siswa)</option>
+                        <option value="XII_F4">XII F4 (25 Siswa)</option>
                     </select>
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-400 uppercase">Mata Pelajaran</label>
-                    <select id="guru-filter-mapel" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded text-white text-sm">
+                    <select id="guru-filter-mapel" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm font-semibold">
                         <option value="">Semua Mapel</option>
                         <option value="wajib">Matematika Wajib</option>
                         <option value="peminatan">Matematika Peminatan</option>
-                        <option value="clil">CLIL</option>
+                        <option value="clil">CLIL English</option>
                     </select>
                 </div>
                 <div>
-                    <label class="text-xs font-bold text-slate-400 uppercase">Webhook URL</label>
-                    <input id="guru-webhook-url" type="text" placeholder="https://script.google.com/..."
-                        class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded text-white text-sm"
+                    <label class="text-xs font-bold text-slate-400 uppercase">Google Sheets Webhook URL</label>
+                    <input id="guru-webhook-url" type="text" placeholder="https://script.google.com/macros/s/.../exec"
+                        class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-xs font-mono"
                         value="">
                 </div>
                 <div class="flex items-end gap-2">
-                    <button onclick="saveWebhookURL()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-bold text-sm">Simpan URL</button>
-                    <button onclick="exportToExcel()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold text-sm">Ekspor Excel</button>
+                    <button onclick="saveWebhookURL()" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold text-xs shadow transition-colors flex items-center gap-1.5"><i class="fa-solid fa-floppy-disk"></i> Simpan URL</button>
+                    <button onclick="exportToExcel()" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-bold text-xs shadow transition-colors flex items-center gap-1.5"><i class="fa-solid fa-file-excel"></i> Ekspor CSV</button>
                 </div>
             </div>
 
-            <!-- Status sinkronisasi: hanya terlihat guru, tidak pernah muncul di layar siswa. -->
-            <div id="guru-status-sinkron" class="mb-3 text-xs text-slate-400 flex flex-wrap items-center gap-x-4 gap-y-1"></div>
+            <!-- TAB STATUS PENGERJAAN & CLOUD SYNC BAR -->
+            <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-950/80 rounded-xl border border-slate-800 mb-5">
+                <div class="flex items-center gap-2">
+                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all">📋 Semua Riwayat</button>
+                    <button type="button" id="btn-status-sudah" onclick="setGuruStatusFilter('sudah')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-emerald-400 hover:bg-slate-700 transition-all border border-emerald-500/30">🟢 Sudah Mengerjakan (<span id="count-sudah">0</span>)</button>
+                    <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-rose-400 hover:bg-slate-700 transition-all border border-rose-500/30">🔴 Belum Mengerjakan (<span id="count-belum">0</span>)</button>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="cloud-sync-status" class="text-xs"></span>
+                    <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-lg transition-all">
+                        <i class="fa-solid fa-rotate"></i> Tarik Nilai dari Google Sheets
+                    </button>
+                </div>
+            </div>
 
-            <!-- Tabel Nilai Siswa -->
-            <div class="overflow-x-auto">
+<div class="overflow-x-auto">
                 <table class="w-full text-sm border-collapse">
                     <thead>
                         <tr class="bg-slate-800 text-slate-300 font-bold">
