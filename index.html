@@ -9093,9 +9093,8 @@ function catatSesiCbt(subj, pkgId) {
       loadGuruDashboardData();
     }
 
-    // Tarik nilai langsung dari Google Sheets Cloud
     // Tarik nilai langsung dari Google Sheets Cloud (Mendukung JSONP & Fetch)
-    function tarikNilaiDariCloud(manual = false) {
+    function tarikNilaiDariCloud(manual) {
       const url = sinkUrl();
       const statusEl = document.getElementById('cloud-sync-status');
       if (!url) {
@@ -9109,18 +9108,14 @@ function catatSesiCbt(subj, pkgId) {
       const cbName = 'cbt_sync_cb_' + Date.now();
       let handled = false;
 
-      const timeoutId = setTimeout(() => {
+      const timeoutId = setTimeout(function() {
         if (!handled) {
           handled = true;
           delete window[cbName];
           const s = document.getElementById(cbName);
           if (s) s.remove();
           if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Timeout / Cek hak akses Webhook: Anyone</span>';
-          if (manual) alert('⚠️ Gagal terhubung ke Google Sheets.
-
-Pastikan saat Deploy Apps Script:
-Who has access / Siapa yang memiliki akses dipilih: ANYONE (Siapa Saja).
-Jika dipilih "Only myself", browser tidak diizinkan membaca data.');
+          if (manual) alert('Gagal terhubung ke Google Sheets. Pastikan hak akses Webhook di Apps Script disetel ke Anyone (Siapa Saja).');
         }
       }, 10000);
 
@@ -9136,24 +9131,19 @@ Jika dipilih "Only myself", browser tidak diizinkan membaca data.');
           const cloudData = json.data;
           const log = sinkAmbil(CBT_LOKAL_KEY, []);
           
-          cloudData.forEach(p => {
+          cloudData.forEach(function(p) {
             const f = sinkSidik(p);
-            const i = log.findIndex(x => sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel));
+            const i = log.findIndex(function(x) { return sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel); });
             if (i === -1) log.push(p); else log[i] = Object.assign(log[i], p);
           });
 
           sinkSimpan(CBT_LOKAL_KEY, log);
-          if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (${cloudData.length} data tersinkron)</span>`;
+          if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (' + cloudData.length + ' data tersinkron)</span>';
           loadGuruDashboardData();
-          if (manual) alert(`✅ Berhasil menyinkronkan ${cloudData.length} data nilai dari Google Sheets!`);
+          if (manual) alert('Berhasil menyinkronkan ' + cloudData.length + ' data nilai dari Google Sheets!');
         } else if (json && json.ok && !json.data) {
           if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Apps Script butuh Deploy New Version</span>';
-          if (manual) alert('⚠️ Google Apps Script di Google Sheets Anda masih versi lama.
-
-Silakan:
-1. Buka Spreadsheet -> Ekstensi -> Apps Script.
-2. Paste kode baru dari google-apps-script.gs.
-3. Klik Deploy -> Manage Deployments -> Edit -> Version: New Version -> Deploy.');
+          if (manual) alert('Google Apps Script di Google Sheets Anda masih versi lama. Silakan Deploy New Version di Apps Script.');
         } else {
           if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Respon tidak valid</span>';
         }
@@ -9165,144 +9155,39 @@ Silakan:
       script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName + '&t=' + Date.now();
       script.onerror = function() {
         if (handled) return;
-        // Fallback ke standard fetch
         fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), { method: 'GET', redirect: 'follow' })
-          .then(r => r.json())
-          .then(json => {
+          .then(function(r) { return r.json(); })
+          .then(function(json) {
             if (handled) return;
             handled = true;
             clearTimeout(timeoutId);
             if (json && json.ok && Array.isArray(json.data)) {
               const cloudData = json.data;
               const log = sinkAmbil(CBT_LOKAL_KEY, []);
-              cloudData.forEach(p => {
+              cloudData.forEach(function(p) {
                 const f = sinkSidik(p);
-                const i = log.findIndex(x => sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel));
+                const i = log.findIndex(function(x) { return sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel); });
                 if (i === -1) log.push(p); else log[i] = Object.assign(log[i], p);
               });
               sinkSimpan(CBT_LOKAL_KEY, log);
-              if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (${cloudData.length} data tersinkron)</span>`;
+              if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (' + cloudData.length + ' data tersinkron)</span>';
               loadGuruDashboardData();
-              if (manual) alert(`✅ Berhasil menyinkronkan ${cloudData.length} data nilai dari Google Sheets!`);
+              if (manual) alert('Berhasil menyinkronkan ' + cloudData.length + ' data nilai dari Google Sheets!');
             } else {
               if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Deploy New Version di Apps Script</span>';
             }
           })
-          .catch(err => {
+          .catch(function(err) {
             if (handled) return;
             handled = true;
             clearTimeout(timeoutId);
-            console.warn('Fetch fallback error:', err);
-            if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Cek izin Webhook: Anyone (Siapa Saja)</span>';
+            if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Cek izin Webhook: Anyone</span>';
           });
       };
       document.body.appendChild(script);
     }
 
-    const STUDENTS_DATA = {
-            '24400004': { nama: 'Aisyah Rachma Ufaira', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400005': { nama: 'Al Atha Uqail Ahmad Yudanto', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400006': { nama: 'Alifatis Muhammad Khalid', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400007': { nama: 'Alifia Nur Arfa Dinata', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400008': { nama: 'Alika Ayu Namira', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400010': { nama: 'Almira Latifah Alma Suryana', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400012': { nama: 'Aqeela Khumaira Hardian', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400019': { nama: 'Athalariq Akbar Mukti', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400024': { nama: 'Bilqis Zhafif Khumaira', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400028': { nama: 'Danish Attaya Akbar', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400031': { nama: 'Fazila Kayla Shiva', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400037': { nama: 'Hamzah Athaullah Sathi', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400044': { nama: 'Kaori Yobi Kalevi', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400046': { nama: 'Keisha Maritza Ahmad', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400047': { nama: 'Khayra Putri Ariny', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400052': { nama: 'Maheswari Kirana Paramitha Riyadh', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400058': { nama: 'Muhammad Fachrizky Athaya', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400065': { nama: 'Nala Ardika Naraditya Althaf', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400075': { nama: 'Nesya Linetta Sarostha', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400076': { nama: 'Nur Hanifah Qiani', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400078': { nama: 'Prinsa Amikal Suria', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400081': { nama: 'Rakei Friandary', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400088': { nama: 'Rhania Syifa Evliya', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400091': { nama: 'Satoru Kenzie', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400097': { nama: 'Yusfa Nova Almira', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400003': { nama: 'Ahmad Dzaka Fithraya Rasalhague', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400009': { nama: 'Alliyah Noor', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400011': { nama: 'Anezka Kendra Cielika', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400013': { nama: 'Arfa Adiwinata Setyadi', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400014': { nama: 'Arizty Al Ghayda Mahardhika', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400015': { nama: 'Arjuna Satrio Lanang', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400029': { nama: 'Emir Kaysan Askar', kelas: 'XII F2', access_level: 'wajib_only' },
-            '25400101': { nama: 'Galuh Chandra Kirana', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400035': { nama: 'Ghazi Saverio Wangkoro', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400040': { nama: 'Hilgan Rabbani Kusnadi', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400045': { nama: 'Kayla Asyifa Jasmine', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400048': { nama: 'Kiminurintani Ghimaz Pratiwi', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400057': { nama: 'Muhammad Bintang Satria', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400061': { nama: 'Muhammad Hanif Hafuza Martono', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400064': { nama: 'Nadifa Misyka Alfarisi', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400068': { nama: 'Nasya Bintang Atifa', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400069': { nama: 'Nasya Shifra Edgina', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400073': { nama: 'Nayla Rasya', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400077': { nama: 'Oryza Sativa', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400087': { nama: 'Revayya Almira Radhiza', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400090': { nama: 'Sashikianna Putri Sugiharjo', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400092': { nama: 'Sausan Audrey Lathifah', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400095': { nama: 'Tzeirasuva Mustika Ananta Ralliargya', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400096': { nama: 'Vania Azzara', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400098': { nama: 'Zahra Kaila Putri', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400001': { nama: 'Abdurrahman Athar', kelas: 'XII F3', access_level: 'full' },
-            '24400016': { nama: 'Asha Maulida Nasuha', kelas: 'XII F3', access_level: 'full' },
-            '24400017': { nama: 'Assyifa Q Aina', kelas: 'XII F3', access_level: 'full' },
-            '24400018': { nama: 'Atha Maiva Dialfi', kelas: 'XII F3', access_level: 'full' },
-            '24400021': { nama: 'Auriel Latisha Rustiadi', kelas: 'XII F3', access_level: 'full' },
-            '24400026': { nama: 'Chalisa Nasha Janitra', kelas: 'XII F3', access_level: 'full' },
-            '24400027': { nama: 'Cyrilla Qanita Salsabila', kelas: 'XII F3', access_level: 'full' },
-            '24400032': { nama: 'Fazli Fayyaz Bibra', kelas: 'XII F3', access_level: 'full' },
-            '24400033': { nama: 'Gavin Ananta Mudiartono', kelas: 'XII F3', access_level: 'full' },
-            '24400034': { nama: 'Gede Radheya Javaskalki Nararya', kelas: 'XII F3', access_level: 'full' },
-            '24400043': { nama: 'Jae Hwa Evelyn Az Zahra', kelas: 'XII F3', access_level: 'full' },
-            '24400049': { nama: 'Kinanthi Sekarlangit', kelas: 'XII F3', access_level: 'full' },
-            '24400050': { nama: 'Kyara Najla Putri', kelas: 'XII F3', access_level: 'full' },
-            '24400053': { nama: 'Miftahul Rizqi Rabani', kelas: 'XII F3', access_level: 'full' },
-            '24400054': { nama: 'Milan Adyaraka Sudiro', kelas: 'XII F3', access_level: 'full' },
-            '24400055': { nama: 'Mohammed Febro Arkenzie', kelas: 'XII F3', access_level: 'full' },
-            '24400056': { nama: 'Muhammad Arkan Wicaksena', kelas: 'XII F3', access_level: 'full' },
-            '24400062': { nama: 'Muhammad Mufid Zhafran', kelas: 'XII F3', access_level: 'full' },
-            '24400066': { nama: 'Nararya Fatih Mainza', kelas: 'XII F3', access_level: 'full' },
-            '24400070': { nama: 'Naufal Indriatno', kelas: 'XII F3', access_level: 'full' },
-            '24400071': { nama: 'Navira Qisya Camilla', kelas: 'XII F3', access_level: 'full' },
-            '24400072': { nama: 'Nayla Adriani Noormandiri', kelas: 'XII F3', access_level: 'full' },
-            '24400074': { nama: 'Nazwa Avrilia Putri Abzis', kelas: 'XII F3', access_level: 'full' },
-            '24400085': { nama: 'Raydhan Jiffar Seniawanputra', kelas: 'XII F3', access_level: 'full' },
-            '24400094': { nama: 'Syahra Lenira Rangkuti', kelas: 'XII F3', access_level: 'full' },
-            '24400002': { nama: 'Ahmad Bayanaka Rajab', kelas: 'XII F4', access_level: 'full' },
-            '24400020': { nama: 'Atsyla Athano Biandra', kelas: 'XII F4', access_level: 'full' },
-            '24400022': { nama: 'Azzadin Al Azzam', kelas: 'XII F4', access_level: 'full' },
-            '24400023': { nama: 'Bianda Alana Bilham', kelas: 'XII F4', access_level: 'full' },
-            '24400025': { nama: 'Bima Fattah Ghaisan', kelas: 'XII F4', access_level: 'full' },
-            '24400030': { nama: 'Fabian Putra Anzil Firdaus', kelas: 'XII F4', access_level: 'full' },
-            '24400036': { nama: 'Gwen Rasendriya Doanda', kelas: 'XII F4', access_level: 'full' },
-            '24400038': { nama: 'Hanako Marihot Kiarra Tampubolon', kelas: 'XII F4', access_level: 'full' },
-            '24400039': { nama: 'Hazika Hanin Aqilani', kelas: 'XII F4', access_level: 'full' },
-            '24400041': { nama: 'Ikram Apriliano Putra Keisa', kelas: 'XII F4', access_level: 'full' },
-            '24400042': { nama: 'Izzan Maulana', kelas: 'XII F4', access_level: 'full' },
-            '24400059': { nama: 'Muhammad Farras Afif', kelas: 'XII F4', access_level: 'full' },
-            '24400060': { nama: 'Muhammad Firman Thaheer', kelas: 'XII F4', access_level: 'full' },
-            '24400063': { nama: 'Muhammad Regan Arrizki', kelas: 'XII F4', access_level: 'full' },
-            '24400067': { nama: 'Naryama Damai Abyasa', kelas: 'XII F4', access_level: 'full' },
-            '24400079': { nama: 'Raden Zaviero Marcega', kelas: 'XII F4', access_level: 'full' },
-            '24400080': { nama: 'Raditya Kara Nararya', kelas: 'XII F4', access_level: 'full' },
-            '24400082': { nama: 'Rakha Sanjaya', kelas: 'XII F4', access_level: 'full' },
-            '24400083': { nama: 'Rania Zivanka Kurniawan', kelas: 'XII F4', access_level: 'full' },
-            '24400084': { nama: 'Raushan Garlen Disiyona', kelas: 'XII F4', access_level: 'full' },
-            '24400086': { nama: 'Reyhan Putra Sahlan', kelas: 'XII F4', access_level: 'full' },
-            '24400089': { nama: 'Safa Klarisza Praja Darma', kelas: 'XII F4', access_level: 'full' },
-            '24400093': { nama: 'Setia Muhammad Abrar', kelas: 'XII F4', access_level: 'full' },
-            '24400099': { nama: 'Zerlinda Arissa Hudoyo', kelas: 'XII F4', access_level: 'full' },
-            '24400100': { nama: 'Zharfa Qisthina Alifah', kelas: 'XII F4', access_level: 'full' }
-        };
-
-function loadGuruDashboardData() {
+    function loadGuruDashboardData() {
         const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
         const kelas = document.getElementById('guru-filter-kelas').value;
         const mapel = document.getElementById('guru-filter-mapel').value;
