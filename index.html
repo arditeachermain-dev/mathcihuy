@@ -10,7 +10,7 @@
   <link rel="manifest" href="manifest.json">
 
   <meta name="theme-color" content="#040914">
-  <meta name="description" content="Math Cihuy - portal pembelajaran Matematika Kelas XII: Matematika Wajib, Peminatan, CLIL English Stream, dan 570 soal drilling CBT TKA & UTBK-SNBT.">
+  <meta name="description" content="Semua materi Matematika Kelas XII dalam satu tempat — Wajib, Peminatan, CLIL, dan 570 soal drilling untuk TKA dan UTBK-SNBT. Sekali dibuka, bisa dipakai tanpa internet.">
   <meta name="color-scheme" content="dark light">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1786,7 +1786,6 @@
     .fa-triangle-exclamation{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'>%3Cpath%20d='M12%203.5L2.5%2020h19z'/%3E%3Cpath%20d='M12%209.5v5'/%3E%3Cpath%20d='M12%2017.5h.01'/%3E%3C/svg%3E")}
     .fa-xmark{--ikon:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M6%206l12%2012M18%206L6%2018'/></svg>")}
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="h-full min-h-full text-slate-100 flex flex-col overflow-x-hidden font-sans">
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0"
@@ -1923,11 +1922,12 @@
                 TP 2026/2027 • Kelas XII (Fase F)
               </span>
             </div>
+            <p id="sapaan-waktu" class="text-sm md:text-base font-bold text-amber-400 mb-1"></p>
             <h2 class="text-xl md:text-3xl font-black text-white leading-tight tracking-tight [text-wrap:balance]">
-              PORTAL RESMI MATEMATIKA KELAS XII
+              Susah, tapi cihuy.
             </h2>
             <p class="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Platform Pembelajaran Digital Terpadu Berbasis <em>Building Thinking Classrooms (BTC)</em>, Matematika Wajib, Peminatan, <em>CLIL English Stream</em>, & Asesmen Drilling CBT TKA Nasional 2026 / UTBK-SNBT 2027.
+              Materi Wajib, Peminatan, dan CLIL dalam satu tempat &mdash; plus 570 soal drilling buat TKA dan UTBK. Buka sekali, tetap bisa dipakai waktu sinyal hilang.
             </p>
             <div class="pt-1 flex flex-wrap items-center gap-2 text-xs text-slate-400 font-medium">
               <span class="inline-flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-lg border border-slate-800 text-slate-200">
@@ -1940,10 +1940,10 @@
         <!-- HERO QUICK ACTIONS -->
         <div class="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0 relative z-10">
           <button onclick="switchSubject('wajib')" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-extrabold rounded-xl text-xs shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
-            <i class="fa-solid fa-shapes"></i> <span>Mulai Belajar (Wajib)</span>
+            <i class="fa-solid fa-shapes"></i> <span>Mulai Belajar</span>
           </button>
           <button onclick="switchSubject('tka')" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-black rounded-xl text-xs shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
-            <i class="fa-solid fa-crosshairs"></i> <span>Arena Drilling CBT</span>
+            <i class="fa-solid fa-crosshairs"></i> <span>Langsung ke Arena CBT</span>
           </button>
           <button onclick="openScheduleModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
             <i class="fa-solid fa-calendar-days text-emerald-400"></i> <span>Jadwal & Agenda Ujian</span>
@@ -1975,12 +1975,12 @@
               <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-400/40 flex items-center justify-center text-blue-400 text-lg shadow-sm">
                 <i class="fa-solid fa-shapes"></i>
               </div>
-              <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-[10px] font-bold">16 JP • 21 Bab</span>
+              <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-[10px] font-bold">16 JP • 21 Pertemuan</span>
             </div>
             <div>
               <h3 class="text-sm md:text-base font-extrabold text-white group-hover:text-blue-300 transition">Matematika Wajib</h3>
               <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                Kaidah Pencacahan, Dimensi Tiga Ruang, dan Analisis Statistika Data Bivariat.
+                Materi inti yang keluar di Asesmen Sekolah dan TKA. Mulai dari sini kalau bingung mau mulai dari mana.
               </p>
             </div>
           </div>
@@ -1996,12 +1996,12 @@
               <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg shadow-sm">
                 <i class="fa-solid fa-infinity"></i>
               </div>
-              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold">8 JP • 30 Bab</span>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold">8 JP • 30 Pertemuan</span>
             </div>
             <div>
               <h3 class="text-sm md:text-base font-extrabold text-white group-hover:text-amber-300 transition">Matematika Peminatan</h3>
               <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                Geometri Analitik Lingkaran, Teorema Limit Trigonometri, Turunan, & Integral Kalkulus.
+                Bagian yang menaikkan nilai UTBK. Lebih dalam, lebih menantang, dan lebih puas waktu ketemu jawabannya.
               </p>
             </div>
           </div>
@@ -2022,7 +2022,7 @@
             <div>
               <h3 class="text-sm md:text-base font-extrabold text-white group-hover:text-emerald-300 transition">CLIL English Stream</h3>
               <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                International Calculus: Tabular Integration, Definite Integrals, & Islamic Solids.
+                Matematika yang sama, bahasanya Inggris. Supaya waktu ketemu soal berbahasa Inggris kamu tidak kaget.
               </p>
             </div>
           </div>
@@ -2043,7 +2043,7 @@
             <div>
               <h3 class="text-sm md:text-base font-extrabold text-white group-hover:text-purple-300 transition">Drilling CBT TKA & UTBK</h3>
               <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                57 Paket Soal Interaktif Standar TKA Nasional & UTBK 2027 dengan Timer & Skor Instan.
+                Latihan dengan tampilan dan hitungan waktu seperti ujian aslinya. Salah di sini gratis &mdash; salah di sana mahal.
               </p>
             </div>
           </div>
@@ -2358,7 +2358,7 @@
     <div class="p-3 border-b border-slate-800/80 shrink-0">
       <div class="relative">
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-        <input type="text" id="drawer-search-input" oninput="filterDrawerMeetings(this.value)" placeholder="Cari materi / bab / kode..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-400 transition">
+        <input type="text" id="drawer-search-input" oninput="filterDrawerMeetings(this.value)" placeholder="Cari bab, rumus, atau soal&hellip;" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-400 transition">
       </div>
       <button type="button" onclick="openPeta()" id="peta-btn"
         class="mt-2 w-full flex items-center justify-center gap-2 px-3 py-2 bg-cyan-500/12 hover:bg-cyan-500/22 border border-cyan-400/35 text-cyan-300 rounded-xl text-xs font-bold transition"
@@ -2457,7 +2457,7 @@
       </div>
 
       <div class="px-5 md:px-7 py-4 border-t border-slate-800 flex items-center justify-between gap-3 shrink-0">
-        <button onclick="tryoutReset()" class="lab-btn"><i class="fa-solid fa-rotate-left"></i> Kembalikan</button>
+        <button onclick="tryoutReset()" class="lab-btn"><i class="fa-solid fa-rotate-left"></i> Kerjakan Ulang</button>
         <button id="to-mulai" onclick="tryoutMulai()"
           class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-sm font-black shadow-lg active:scale-95 transition flex items-center gap-2">
           <i class="fa-solid fa-play"></i> Mulai Simulasi
@@ -2576,7 +2576,7 @@
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass mp-cari-ikon absolute top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
           <input id="picker-search" type="text" autocomplete="off"
-            placeholder="Cari topik, rumus, atau nomor pertemuan&hellip;"
+            placeholder="Cari bab, rumus, atau soal&hellip;"
             oninput="renderMeetingPicker(this.value)"
             class="w-full bg-slate-950 border border-slate-800 focus:border-amber-400/70 mp-input rounded-xl py-2 pr-3 text-sm text-white placeholder-slate-500 focus:outline-none transition">
         </div>
@@ -3111,6 +3111,74 @@
       }
     }
 
+
+
+    // ---------------------------------------------------------------
+    // BANK KALIMAT
+    // Ditampilkan satu secara acak saat jawaban salah. Sengaja pendek
+    // supaya terbaca sekilas, dan menghindari nada sorak-sorai.
+    // ---------------------------------------------------------------
+    const KALIMAT_SALAH = [
+      'Salah itu data. Lanjut.',
+      'Kalau langsung bisa, namanya bukan latihan.',
+      'Yang salah hari ini adalah soal yang kamu kuasai bulan depan.',
+      'Otak perlu macet dulu sebelum lancar.',
+      'Belum paham di menit pertama itu normal. Berhenti di menit pertama yang tidak.',
+      'Baca ulang soalnya. Pelan. Sekali lagi.',
+      'Rumusnya tidak berubah. Kamu yang makin kenal.',
+      'Hafal rumus itu bonus. Paham jalannya itu wajib.'
+    ];
+
+    function tampilkanKalimatSalah() {
+      const kotak = document.getElementById('tka-solution-box');
+      if (!kotak) return;
+      let el = document.getElementById('kalimat-salah');
+      if (!el) {
+        el = document.createElement('p');
+        el.id = 'kalimat-salah';
+        el.className = 'text-xs md:text-sm text-amber-300 font-semibold italic mb-1';
+        kotak.insertBefore(el, kotak.firstChild);
+      }
+      el.textContent = KALIMAT_SALAH[Math.floor(Math.random() * KALIMAT_SALAH.length)];
+      el.style.display = '';
+    }
+
+    function sembunyikanKalimatSalah() {
+      const el = document.getElementById('kalimat-salah');
+      if (el) el.style.display = 'none';
+    }
+
+    // ---------------------------------------------------------------
+    // SAPAAN MENURUT WAKTU
+    // Sapaan yang berubah membuat portal terasa hidup, bukan halaman
+    // statis. Nama panggilan diambil dari kata pertama nama siswa.
+    // ---------------------------------------------------------------
+    function panggilanSiswa() {
+      try {
+        const sesi = getSession();
+        if (!sesi || sesi.type !== 'siswa') return '';
+        const nama = (sesi.data.name || sesi.data.nama || '').trim();
+        return nama ? nama.split(/\s+/)[0] : '';
+      } catch (e) { return ''; }
+    }
+
+    function sapaanWaktu() {
+      const nama = panggilanSiswa();
+      if (!nama) return '';
+      const jam = new Date().getHours();
+      if (jam < 11)  return 'Pagi, ' + nama + '. Mau mulai dari mana?';
+      if (jam < 18)  return 'Siang, ' + nama + '. Sisa harinya masih panjang.';
+      return 'Malam, ' + nama + '. Sepuluh soal dulu, baru tidur?';
+    }
+
+    function pasangSapaan() {
+      const el = document.getElementById('sapaan-waktu');
+      if (!el) return;
+      const t = sapaanWaktu();
+      el.textContent = t;
+      el.style.display = t ? '' : 'none';
+    }
+
     // PARSE HASH ROUTE
 
     // ===== KUNCI MAPEL BERDASARKAN HAK AKSES KELAS =====
@@ -3295,6 +3363,7 @@
         ribbon.classList.add('hidden');
         document.getElementById('header-subject-label').innerText = 'Beranda Kurikulum & Portal Pembelajaran';
         renderAcademicCalendar(currentCalFilter, 'home-academic-calendar');
+        pasangSapaan();
         renderMath(homeStage);
       } else if (currentMode === 'tka') {
         homeStage.classList.add('hidden');
@@ -3914,7 +3983,7 @@
             '<div class="lab-toggles"></div>' +
             '<div class="lab-read"></div>' +
             '<div class="lab-act">' +
-              '<button type="button" class="lab-btn lab-reset"><i class="fa-solid fa-rotate-left"></i> Kembalikan</button>' +
+              '<button type="button" class="lab-btn lab-reset"><i class="fa-solid fa-rotate-left"></i> Setel Ulang</button>' +
               (kompak ? '<button type="button" class="lab-btn lab-big"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Perbesar</button>' : '') +
             '</div>' +
           '</div>' +
@@ -4211,7 +4280,6 @@
             return null;
         }
     }
-    window.getSession = getSession;
 
     function setSession(type, data) {
         const sess = {
@@ -4223,6 +4291,8 @@
     }
 
     function logoutSession() {
+        // Tombolnya menyebut akibatnya, bukan "Ya/Tidak".
+        if (!confirm('Keluar dari Math Cihuy? Progres kamu tetap tersimpan.')) return;
         localStorage.removeItem(SESSION_KEY);
         window.location.href = 'login.html';
     }
@@ -4303,112 +4373,6 @@
     // Versi sebelumnya memakai satu kunci untuk semua keperluan, sehingga
     // tabel nilai guru ikut kosong begitu antrean berhasil dikirim.
     // ---------------------------------------------------------------
-
-    
-    // ===== DAFTAR 100 SISWA RESMI KELAS XII (12 F.1 s.d 12 F.4) =====
-    window.STUDENTS_DATA = {
-            '24400004': { nama: 'Aisyah Rachma Ufaira', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400005': { nama: 'Al Atha Uqail Ahmad Yudanto', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400006': { nama: 'Alifatis Muhammad Khalid', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400007': { nama: 'Alifia Nur Arfa Dinata', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400008': { nama: 'Alika Ayu Namira', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400010': { nama: 'Almira Latifah Alma Suryana', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400012': { nama: 'Aqeela Khumaira Hardian', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400019': { nama: 'Athalariq Akbar Mukti', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400024': { nama: 'Bilqis Zhafif Khumaira', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400028': { nama: 'Danish Attaya Akbar', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400031': { nama: 'Fazila Kayla Shiva', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400037': { nama: 'Hamzah Athaullah Sathi', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400044': { nama: 'Kaori Yobi Kalevi', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400046': { nama: 'Keisha Maritza Ahmad', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400047': { nama: 'Khayra Putri Ariny', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400052': { nama: 'Maheswari Kirana Paramitha Riyadh', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400058': { nama: 'Muhammad Fachrizky Athaya', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400065': { nama: 'Nala Ardika Naraditya Althaf', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400075': { nama: 'Nesya Linetta Sarostha', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400076': { nama: 'Nur Hanifah Qiani', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400078': { nama: 'Prinsa Amikal Suria', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400081': { nama: 'Rakei Friandary', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400088': { nama: 'Rhania Syifa Evliya', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400091': { nama: 'Satoru Kenzie', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400097': { nama: 'Yusfa Nova Almira', kelas: 'XII F1', access_level: 'wajib_only' },
-            '24400003': { nama: 'Ahmad Dzaka Fithraya Rasalhague', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400009': { nama: 'Alliyah Noor', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400011': { nama: 'Anezka Kendra Cielika', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400013': { nama: 'Arfa Adiwinata Setyadi', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400014': { nama: 'Arizty Al Ghayda Mahardhika', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400015': { nama: 'Arjuna Satrio Lanang', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400029': { nama: 'Emir Kaysan Askar', kelas: 'XII F2', access_level: 'wajib_only' },
-            '25400101': { nama: 'Galuh Chandra Kirana', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400035': { nama: 'Ghazi Saverio Wangkoro', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400040': { nama: 'Hilgan Rabbani Kusnadi', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400045': { nama: 'Kayla Asyifa Jasmine', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400048': { nama: 'Kiminurintani Ghimaz Pratiwi', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400057': { nama: 'Muhammad Bintang Satria', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400061': { nama: 'Muhammad Hanif Hafuza Martono', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400064': { nama: 'Nadifa Misyka Alfarisi', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400068': { nama: 'Nasya Bintang Atifa', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400069': { nama: 'Nasya Shifra Edgina', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400073': { nama: 'Nayla Rasya', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400077': { nama: 'Oryza Sativa', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400087': { nama: 'Revayya Almira Radhiza', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400090': { nama: 'Sashikianna Putri Sugiharjo', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400092': { nama: 'Sausan Audrey Lathifah', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400095': { nama: 'Tzeirasuva Mustika Ananta Ralliargya', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400096': { nama: 'Vania Azzara', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400098': { nama: 'Zahra Kaila Putri', kelas: 'XII F2', access_level: 'wajib_only' },
-            '24400001': { nama: 'Abdurrahman Athar', kelas: 'XII F3', access_level: 'full' },
-            '24400016': { nama: 'Asha Maulida Nasuha', kelas: 'XII F3', access_level: 'full' },
-            '24400017': { nama: 'Assyifa Q Aina', kelas: 'XII F3', access_level: 'full' },
-            '24400018': { nama: 'Atha Maiva Dialfi', kelas: 'XII F3', access_level: 'full' },
-            '24400021': { nama: 'Auriel Latisha Rustiadi', kelas: 'XII F3', access_level: 'full' },
-            '24400026': { nama: 'Chalisa Nasha Janitra', kelas: 'XII F3', access_level: 'full' },
-            '24400027': { nama: 'Cyrilla Qanita Salsabila', kelas: 'XII F3', access_level: 'full' },
-            '24400032': { nama: 'Fazli Fayyaz Bibra', kelas: 'XII F3', access_level: 'full' },
-            '24400033': { nama: 'Gavin Ananta Mudiartono', kelas: 'XII F3', access_level: 'full' },
-            '24400034': { nama: 'Gede Radheya Javaskalki Nararya', kelas: 'XII F3', access_level: 'full' },
-            '24400043': { nama: 'Jae Hwa Evelyn Az Zahra', kelas: 'XII F3', access_level: 'full' },
-            '24400049': { nama: 'Kinanthi Sekarlangit', kelas: 'XII F3', access_level: 'full' },
-            '24400050': { nama: 'Kyara Najla Putri', kelas: 'XII F3', access_level: 'full' },
-            '24400053': { nama: 'Miftahul Rizqi Rabani', kelas: 'XII F3', access_level: 'full' },
-            '24400054': { nama: 'Milan Adyaraka Sudiro', kelas: 'XII F3', access_level: 'full' },
-            '24400055': { nama: 'Mohammed Febro Arkenzie', kelas: 'XII F3', access_level: 'full' },
-            '24400056': { nama: 'Muhammad Arkan Wicaksena', kelas: 'XII F3', access_level: 'full' },
-            '24400062': { nama: 'Muhammad Mufid Zhafran', kelas: 'XII F3', access_level: 'full' },
-            '24400066': { nama: 'Nararya Fatih Mainza', kelas: 'XII F3', access_level: 'full' },
-            '24400070': { nama: 'Naufal Indriatno', kelas: 'XII F3', access_level: 'full' },
-            '24400071': { nama: 'Navira Qisya Camilla', kelas: 'XII F3', access_level: 'full' },
-            '24400072': { nama: 'Nayla Adriani Noormandiri', kelas: 'XII F3', access_level: 'full' },
-            '24400074': { nama: 'Nazwa Avrilia Putri Abzis', kelas: 'XII F3', access_level: 'full' },
-            '24400085': { nama: 'Raydhan Jiffar Seniawanputra', kelas: 'XII F3', access_level: 'full' },
-            '24400094': { nama: 'Syahra Lenira Rangkuti', kelas: 'XII F3', access_level: 'full' },
-            '24400002': { nama: 'Ahmad Bayanaka Rajab', kelas: 'XII F4', access_level: 'full' },
-            '24400020': { nama: 'Atsyla Athano Biandra', kelas: 'XII F4', access_level: 'full' },
-            '24400022': { nama: 'Azzadin Al Azzam', kelas: 'XII F4', access_level: 'full' },
-            '24400023': { nama: 'Bianda Alana Bilham', kelas: 'XII F4', access_level: 'full' },
-            '24400025': { nama: 'Bima Fattah Ghaisan', kelas: 'XII F4', access_level: 'full' },
-            '24400030': { nama: 'Fabian Putra Anzil Firdaus', kelas: 'XII F4', access_level: 'full' },
-            '24400036': { nama: 'Gwen Rasendriya Doanda', kelas: 'XII F4', access_level: 'full' },
-            '24400038': { nama: 'Hanako Marihot Kiarra Tampubolon', kelas: 'XII F4', access_level: 'full' },
-            '24400039': { nama: 'Hazika Hanin Aqilani', kelas: 'XII F4', access_level: 'full' },
-            '24400041': { nama: 'Ikram Apriliano Putra Keisa', kelas: 'XII F4', access_level: 'full' },
-            '24400042': { nama: 'Izzan Maulana', kelas: 'XII F4', access_level: 'full' },
-            '24400059': { nama: 'Muhammad Farras Afif', kelas: 'XII F4', access_level: 'full' },
-            '24400060': { nama: 'Muhammad Firman Thaheer', kelas: 'XII F4', access_level: 'full' },
-            '24400063': { nama: 'Muhammad Regan Arrizki', kelas: 'XII F4', access_level: 'full' },
-            '24400067': { nama: 'Naryama Damai Abyasa', kelas: 'XII F4', access_level: 'full' },
-            '24400079': { nama: 'Raden Zaviero Marcega', kelas: 'XII F4', access_level: 'full' },
-            '24400080': { nama: 'Raditya Kara Nararya', kelas: 'XII F4', access_level: 'full' },
-            '24400082': { nama: 'Rakha Sanjaya', kelas: 'XII F4', access_level: 'full' },
-            '24400083': { nama: 'Rania Zivanka Kurniawan', kelas: 'XII F4', access_level: 'full' },
-            '24400084': { nama: 'Raushan Garlen Disiyona', kelas: 'XII F4', access_level: 'full' },
-            '24400086': { nama: 'Reyhan Putra Sahlan', kelas: 'XII F4', access_level: 'full' },
-            '24400089': { nama: 'Safa Klarisza Praja Darma', kelas: 'XII F4', access_level: 'full' },
-            '24400093': { nama: 'Setia Muhammad Abrar', kelas: 'XII F4', access_level: 'full' },
-            '24400099': { nama: 'Zerlinda Arissa Hudoyo', kelas: 'XII F4', access_level: 'full' },
-            '24400100': { nama: 'Zharfa Qisthina Alifah', kelas: 'XII F4', access_level: 'full' }
-        };
-    const STUDENTS_DATA = window.STUDENTS_DATA;
 
     const CBT_LOKAL_KEY  = 'cbt_hasil_lokal';
     const CBT_ANTRE_KEY  = 'cbt_kirim_antre';
@@ -4631,24 +4595,6 @@
     // =========================================================================
     // CBT REAL-TIME AUTO-SAVE & DRAFT RESUME ENGINE (ZERO DATA LOSS)
     // =========================================================================
-    
-    // =========================================================================
-    // SUPABASE POSTGRESQL CLOUD DATABASE CLIENT (MATHCIHUY OFFICIAL)
-    // =========================================================================
-    const SUPABASE_URL = "https://pecvxqguqtancizghnhj.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_K51BV-D7yLxnXdYg7auMeA_uzxPSy1c";
-    let supabaseClient = null;
-
-    try {
-      if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log("Supabase Client initialized successfully!");
-      }
-    } catch (e) {
-      console.warn("Supabase init warning:", e);
-    }
-
-
     const CBT_DRAFT_PREFIX = 'cbt_draft_v1_';
 
     function getCbtDraftKey(subj, pkgId) {
@@ -4671,25 +4617,6 @@
           ts: Date.now()
         };
         localStorage.setItem(k, JSON.stringify(draft));
-
-        // Sync otomatis ke Database Supabase secara real-time (< 40 ms)
-        if (supabaseClient) {
-          const sess = getSession();
-          const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
-          if (nis && nis !== 'guest') {
-            supabaseClient.from('cbt_live_answers').upsert({
-              nis: String(nis),
-              mapel: String(subj),
-              kode_pertemuan: String(pkgId),
-              q_idx: Number(qIdx),
-              chosen: String(chosen || ''),
-              is_right: Boolean(isRight),
-              updated_at: new Date().toISOString()
-            }, { onConflict: 'nis,mapel,kode_pertemuan,q_idx' }).then(res => {
-              if (res.error) console.warn("Supabase live answer sync warning:", res.error);
-            });
-          }
-        }
 
         // Tampilkan indikator visual tersimpan sejenak
         const badge = document.getElementById('cbt-autosave-badge');
@@ -4730,62 +4657,49 @@
     }
 
 
-function catatSesiCbt(subj, pkgId, forceSubmit) {
+function catatSesiCbt(subj, pkgId) {
       pastikanKemajuan();
       const src = tkaSrc(subj);
       const pk = src && src[pkgId];
       if (!pk) return;
+      // Jam pengerjaan paket mulai dihitung pada jawaban pertama.
       if (typeof tandaiMulaiPaket === 'function') tandaiMulaiPaket(subj, pkgId);
       const n = (pk.questions || []).length;
-      if (n === 0) return;
-
       let jawab = 0, benar = 0;
       for (let i = 0; i < n; i++) {
         const v = userSessionScores[subj + '_' + pkgId + '_' + i];
         if (v !== undefined) { jawab++; if (v === true) benar++; }
       }
-      
-      // Jika belum selesai 10 soal dan bukan forceSubmit (belum klik Skor Akhir), lewati
-      if (!forceSubmit && jawab < n) return;
-
+      if (jawab < n || n === 0) return;                    // hanya paket tuntas yang masuk riwayat
       const pct = Math.round((benar / n) * 100);
       const akhir = cbtHistory[cbtHistory.length - 1];
-      if (akhir && akhir.subj === subj && akhir.pkg === pkgId && akhir.pct === pct && akhir.n === n && !forceSubmit) return;
+      if (akhir && akhir.subj === subj && akhir.pkg === pkgId && akhir.pct === pct && akhir.n === n) return;
       cbtHistory.push({ ts: Date.now(), subj: subj, pkg: pkgId, benar: benar, n: n, pct: pct });
       simpanKemajuan();
 
-      // Submit ke Supabase PostgreSQL & antrean lokal
+      // Paket tuntas -> kirim ke database. Tanpa notifikasi, tanpa jeda:
+      // pengiriman berjalan di latar dan kegagalan hanya masuk antrean.
       try {
         const sesi = getSession();
-        if (sesi && sesi.type === 'siswa' && supabaseClient) {
-          const nis = sesi.data.nis;
-          const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
-          const nama = sesi.data.name || sesi.data.nama || (std ? std.nama : 'Siswa ' + nis);
-          const kelas = sesi.data.kelas_name || sesi.data.kelas || (std ? std.kelas : 'XII');
-          const durasi = (typeof ambilDurasiPaket === 'function') ? ambilDurasiPaket(subj, pkgId) : 0;
-          
-          supabaseClient.from('nilai_cbt').upsert({
-            nis: String(nis),
-            nama: String(nama),
-            kelas: String(kelas),
-            mapel: String(subj),
-            kode_pertemuan: String(pkgId),
-            skor: Number(pct),
-            jumlah_soal: Number(n),
-            jumlah_benar: Number(benar),
-            jumlah_salah: Number(n - benar),
-            durasi_detik: Number(durasi),
-            waktu_submit: new Date().toISOString()
-          }, { onConflict: 'nis,mapel,kode_pertemuan' }).then(res => {
-            console.log('✅ Nilai CBT berhasil disubmit ke Supabase:', res);
-          }).catch(err => {
-            console.warn('Supabase submission error:', err);
+        if (sesi && sesi.type === 'siswa' && typeof sinkronHasilCbt === 'function') {
+          sinkronHasilCbt({
+            timestamp: new Date().toISOString(),
+            nis: sesi.data.nis,
+            nama: sesi.data.name || sesi.data.nama || '',
+            kelas: sesi.data.kelas_name || sesi.data.kelas || '',
+            mapel: subj,
+            kode_pertemuan: pkgId,
+            skor: pct,
+            jumlah_soal: n,
+            jumlah_benar: benar,
+            jumlah_salah: n - benar,
+            durasi_detik: ambilDurasiPaket(subj, pkgId)
           });
         }
-      } catch (e) {
-        console.warn('Supabase catatSesi error:', e);
-      }
-    }   // ---------------------------------------------------------------
+      } catch (e) { /* sinkronisasi tidak boleh mengganggu pembelajaran */ }
+    }
+
+    // ---------------------------------------------------------------
     // CUSTOM TRY OUT BUILDER
     // ---------------------------------------------------------------
     // Taksonomi pada data memakai label C3/C4/C5; guru menyebutnya
@@ -5753,7 +5667,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       body.innerHTML = '';
       if (!tampil.length) {
         body.innerHTML = '<div class="py-14 text-center"><i class="fa-regular fa-face-frown text-3xl text-slate-700"></i>' +
-          '<p class="mt-3 text-sm text-slate-400">Tidak ada pertemuan yang cocok dengan pencarian itu.</p></div>';
+          '<p class="mt-3 text-sm text-slate-400">Tidak ketemu. Coba kata yang lebih pendek — misalnya “integral” saja.</p></div>';
         return;
       }
 
@@ -6598,21 +6512,34 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       const isRight = (chosen.toUpperCase() === correct.toUpperCase());
       userSessionScores[key] = isRight;
-      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', chosen: chosen, correct: correct });
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', correct: correct });
+      catatSesiCbt(tkaSubj, tkaPkgId);
 
-      // Highlight opsi yang dipilih siswa (simpan pilihan tanpa bocorkan kunci/pembahasan sebelum submit)
+      document.querySelectorAll('.opt-btn').forEach(btn => {
+        btn.disabled = true;
+        btn.classList.remove('hover:bg-slate-700', 'active:scale-95');
+      });
+
+      const chosenBtn = document.getElementById('opt-btn-' + chosen);
+      const correctBtn = document.getElementById('opt-btn-' + correct);
+
+      const mark = (btn, html) => { const t = btn && btn.querySelector('.opt-mark'); if (t) t.innerHTML = html; };
       const span = b => b.classList.contains('md:col-span-2') ? ' md:col-span-2' : '';
       document.querySelectorAll('.opt-btn').forEach(b => {
-        const letter = b.getAttribute('data-letter');
-        const markEl = b.querySelector('.opt-mark');
-        if (letter === chosen) {
-          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-cyan-950/90 border-2 border-cyan-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-cyan-950/50 transition';
-          if (markEl) markEl.innerHTML = '<i class="fa-solid fa-circle-check text-cyan-400 text-sm"></i>';
-        } else {
-          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow';
-          if (markEl) markEl.innerHTML = '';
-        }
+        if (b !== chosenBtn && b !== correctBtn) b.className = 'opt-btn' + span(b) + ' ' + OPT_MUTED;
       });
+      if (isRight) {
+        if (chosenBtn) { chosenBtn.className = 'opt-btn' + span(chosenBtn) + ' ' + OPT_RIGHT; mark(chosenBtn, '<i class="fa-solid fa-check text-emerald-300"></i>'); }
+        sembunyikanKalimatSalah();
+        confettiCelebration();
+      } else {
+        if (chosenBtn) { chosenBtn.className = 'opt-btn' + span(chosenBtn) + ' ' + OPT_WRONG; mark(chosenBtn, '<i class="fa-solid fa-xmark text-rose-300"></i>'); }
+        tampilkanKalimatSalah();
+        if (correctBtn) { correctBtn.className = 'opt-btn' + span(correctBtn) + ' ' + OPT_MISSED; mark(correctBtn, '<i class="fa-solid fa-check text-emerald-300"></i>'); }
+      }
+
+      document.getElementById('tka-solution-box').classList.remove('hidden');
+      renderMath(document.getElementById('tka-solution-box'));
       saveAppState();
     }
 
@@ -8318,7 +8245,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const matches = allItems.filter(item => !q || item.text.toLowerCase().includes(q)).slice(0, 12);
 
       if (matches.length === 0) {
-        resContainer.innerHTML = '<div class="p-6 text-center text-xs text-slate-400">Tidak ada materi yang cocok dengan pencarian Anda.</div>';
+        resContainer.innerHTML = '<div class="p-6 text-center text-xs text-slate-400">Tidak ketemu. Coba kata yang lebih pendek — misalnya “integral” saja.</div>';
         return;
       }
 
@@ -8979,15 +8906,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }
     }
 
-    // SCORECARD MODAL (SUBMIT NILAI AKHIR KE SUPABASE)
+    // SCORECARD MODAL
     function showTkaScorecardModal() {
-      if (typeof pulihkanDraftJawaban === 'function') {
-        pulihkanDraftJawaban(tkaSubj, tkaPkgId);
-      }
-      // Catat & Submit Nilai Resmi ke Supabase (meskipun baru mengerjakan beberapa soal)
-      if (typeof catatSesiCbt === 'function') {
-        catatSesiCbt(tkaSubj, tkaPkgId, true);
-      }
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       if (!pkg || !pkg.questions) return;
@@ -9017,20 +8937,20 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
       if (score >= 85) {
         badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
-        predEl.innerText = "🌟 ISTIMEWA • SANGAT SIAP TKA & UTBK 2027";
+        predEl.innerText = "Mantap. Ini bukan hoki — kamu memang sudah paham.";
         predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-emerald-500/40";
         confettiCelebration();
       } else if (score >= 70) {
         badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
-        predEl.innerText = "✨ SANGAT BAIK • KOMPETENSI TERCAPAI";
+        predEl.innerText = "Aman. Tinggal rapikan yang beberapa meleset tadi.";
         predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
       } else if (score >= 50) {
         badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
-        predEl.innerText = "⚡ CUKUP • PERLU MEMPERKUAT RUMUS UTAMA";
+        predEl.innerText = "Setengah jalan. Justru yang salah tadi bagian paling berguna buat dibedah.";
         predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
       } else {
         badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
-        predEl.innerText = "⚠️ PERLU REMEDIAL & REVIEW PEMBAHASAN";
+        predEl.innerText = "Belum. Kata kuncinya belum, bukan tidak bisa. Balik ke babnya, lalu ke sini lagi.";
         predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
       }
 
@@ -9144,71 +9064,50 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 <button onclick="closeGuruDashboard()" class="text-2xl text-slate-400 hover:text-white">&times;</button>
             </div>
 
-                                                <!-- Filter & Action Controls -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4 items-end">
+                                    <!-- Filter & Config -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-users-viewfinder text-cyan-400 mr-1"></i> Pilih Rombel / Kelas</label>
-                    <select id="guru-filter-kelas" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-cyan-400 focus:outline-none transition">
+                    <label class="text-xs font-bold text-slate-400 uppercase">Pilih Rombel / Kelas</label>
+                    <select id="guru-filter-kelas" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm font-semibold">
                         <option value="">Semua Kelas (100 Siswa)</option>
-                        <option value="XII_F1">12 F.1 (25 Siswa)</option>
-                        <option value="XII_F2">12 F.2 (25 Siswa)</option>
-                        <option value="XII_F3">12 F.3 (25 Siswa)</option>
-                        <option value="XII_F4">12 F.4 (25 Siswa)</option>
+                        <option value="XII_F1">XII F1 (25 Siswa)</option>
+                        <option value="XII_F2">XII F2 (25 Siswa)</option>
+                        <option value="XII_F3">XII F3 (25 Siswa)</option>
+                        <option value="XII_F4">XII F4 (25 Siswa)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-book-open text-amber-400 mr-1"></i> Mata Pelajaran</label>
-                    <select id="guru-filter-mapel" onchange="updateGuruPertemuanOptions(); loadGuruDashboardData();" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-amber-400 focus:outline-none transition">
+                    <label class="text-xs font-bold text-slate-400 uppercase">Mata Pelajaran</label>
+                    <select id="guru-filter-mapel" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm font-semibold">
                         <option value="">Semua Mapel</option>
-                        <option value="wajib">Matematika Wajib (21 Pertemuan)</option>
-                        <option value="peminatan">Additional Mathematics (30 Pertemuan)</option>
-                        <option value="clil">CLIL English (6 Unit)</option>
+                        <option value="wajib">Matematika Wajib</option>
+                        <option value="peminatan">Matematika Peminatan</option>
+                        <option value="clil">CLIL English</option>
                     </select>
                 </div>
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-bullseye text-emerald-400 mr-1"></i> Pilih Pertemuan / Bab</label>
-                    <select id="guru-filter-pertemuan" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-emerald-400 focus:outline-none transition">
-                        <option value="">Semua Pertemuan</option>
-                        <option value="P01">P01 - Kaidah Pencacahan 1</option>
-                        <option value="P02">P02 - Notasi Faktorial & Permutasi</option>
-                        <option value="P03">P03 - Permutasi Unsur Sama & Siklis</option>
-                        <option value="P04">P04 - Kombinasi & Delegasi</option>
-                        <option value="P05">P05 - Peluang Kejadian Tunggal</option>
-                        <option value="P06">P06 - Asesmen Sumatif 1</option>
-                        <option value="P07">P07 - Peluang Saling Lepas</option>
-                        <option value="P08">P08 - Peluang Saling Bebas & Bersyarat</option>
-                        <option value="P09">P09 - Kedudukan Titik Garis Bidang</option>
-                        <option value="P10">P10 - Jarak Titik ke Titik</option>
-                        <option value="P11">P11 - Jarak Titik ke Garis</option>
-                        <option value="P12">P12 - Jarak Titik ke Bidang</option>
-                        <option value="P13">P13 - Sudut Ruang Tiga Dimensi</option>
-                        <option value="P14">P14 - Asesmen Sumatif Terpadu Dimensi 3</option>
-                        <option value="P15">P15 - Penyajian Data Berkelompok</option>
-                        <option value="P16">P16 - Rata-rata Hitung (Mean)</option>
-                        <option value="P17">P17 - Median dan Modus</option>
-                        <option value="P18">P18 - Ukuran Letak Data</option>
-                        <option value="P19">P19 - Ukuran Penyebaran Data</option>
-                        <option value="P20">P20 - Analisis Data Bivariat</option>
-                        <option value="P21">P21 - Asesmen Sumatif Statistika</option>
-                    </select>
+                    <label class="text-xs font-bold text-slate-400 uppercase">Google Sheets Webhook URL</label>
+                    <input id="guru-webhook-url" type="text" placeholder="https://script.google.com/macros/s/.../exec"
+                        class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-xs font-mono"
+                        value="">
                 </div>
-                <div>
-                    <button onclick="exportToExcel()" class="w-full px-4 py-2.5 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 rounded-xl font-bold text-xs shadow transition flex items-center justify-center gap-2"><i class="fa-solid fa-file-excel text-emerald-400"></i> Ekspor CSV / Excel</button>
+                <div class="flex items-end gap-2">
+                    <button onclick="saveWebhookURL()" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold text-xs shadow transition-colors flex items-center gap-1.5"><i class="fa-solid fa-floppy-disk"></i> Simpan URL</button>
+                    <button onclick="exportToExcel()" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-bold text-xs shadow transition-colors flex items-center gap-1.5"><i class="fa-solid fa-file-excel"></i> Ekspor CSV</button>
                 </div>
             </div>
 
             <!-- TAB STATUS PENGERJAAN & CLOUD SYNC BAR -->
             <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-950/80 rounded-xl border border-slate-800 mb-5">
-                <div class="flex flex-wrap items-center gap-2">
-                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all">📋 Semua Data (<span id="count-semua">0</span>)</button>
+                <div class="flex items-center gap-2">
+                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all">📋 Semua Riwayat</button>
                     <button type="button" id="btn-status-sudah" onclick="setGuruStatusFilter('sudah')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-emerald-400 hover:bg-slate-700 transition-all border border-emerald-500/30">🟢 Sudah Mengerjakan (<span id="count-sudah">0</span>)</button>
-                    <button type="button" id="btn-status-sedang" onclick="setGuruStatusFilter('sedang')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-amber-300 hover:bg-slate-700 transition-all border border-amber-500/30">⚡ Sedang Mengerjakan (<span id="count-sedang">0</span>)</button>
                     <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-rose-400 hover:bg-slate-700 transition-all border border-rose-500/30">🔴 Belum Mengerjakan (<span id="count-belum">0</span>)</button>
                 </div>
                 <div class="flex items-center gap-3">
                     <span id="cloud-sync-status" class="text-xs"></span>
                     <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-lg transition-all">
-                        <i class="fa-solid fa-rotate"></i> Tarik Nilai Supabase Cloud
+                        <i class="fa-solid fa-rotate"></i> Tarik Nilai dari Google Sheets
                     </button>
                 </div>
             </div>
@@ -9239,11 +9138,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     <script>
     function openGuruDashboard() {
-        let sess = null;
-        try {
-          sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
-        } catch(e) {}
-
+        const sess = getSession();
         if (!sess || sess.type !== 'guru') {
             alert('Hanya guru yang dapat akses dashboard');
             return;
@@ -9252,7 +9147,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         document.getElementById('guru-dashboard-modal').classList.remove('hidden');
         document.getElementById('guru-dashboard-modal').classList.add('flex');
         loadGuruDashboardData();
-        tarikNilaiDariCloud(false);
+        tarikNilaiDariCloud(false); // Otomatis tarik nilai terbaru dari Google Sheets Cloud
+
+        // Load webhook URL dari localStorage
+        const webhookUrl = localStorage.getItem('webhook_url') || '';
+        document.getElementById('guru-webhook-url').value = webhookUrl;
     }
 
     function closeGuruDashboard() {
@@ -9305,401 +9204,198 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       loadGuruDashboardData();
     }
 
-    // Tarik nilai langsung dari Database Supabase Cloud (Menggabungkan Nilai Akhir & Live Progress)
-    // Tarik nilai resmi (yang sudah disubmit) dari Database Supabase Cloud
-    // =========================================================================
-    // ENGINE DASHBOARD MONITORING GURU (3-STATE: SUDAH / SEDANG / BELUM + FILTER PERTEMUAN)
-    // =========================================================================
-    window._guruFilterStatus = 'semua';
-    window._guruLiveAnswersCache = [];
-
-    function updateGuruPertemuanOptions() {
-      const mapel = document.getElementById('guru-filter-mapel').value;
-      const selectPertemuan = document.getElementById('guru-filter-pertemuan');
-      if (!selectPertemuan) return;
-
-      let options = '<option value="">Semua Pertemuan / Bab</option>';
-      if (mapel === 'peminatan') {
-        const minatTitles = [
-          "Persamaan Lingkaran Pusat O(0,0)", "Persamaan Lingkaran Pusat P(a,b)", "Bentuk Umum Lingkaran",
-          "Kedudukan Titik terhadap Lingkaran", "Kedudukan Garis terhadap Lingkaran", "PGSL Melalui Titik pada Lingkaran",
-          "PGSL Gradien Tertentu (m)", "PGSL Titik di Luar Lingkaran", "Asesmen Sumatif Lingkaran",
-          "Konsep & Sifat Limit Trigonometri", "Bentuk Tak Tentu 0/0", "Metode Substitusi & Faktorisasi",
-          "Limit Menuju Tak Hingga Aljabar", "Limit Menuju Tak Hingga Trigonometri", "Asimtot Datar & Tegak",
-          "Asesmen Sumatif Limit", "Turunan Dasar Sinus & Cosinus", "Aturan Rantai Trigonometri",
-          "Turunan Tingkat Tinggi Trigonometri", "Persamaan Garis Singgung & Normal", "Kemonotonan & Nilai Stasioner",
-          "Titik Belok & Kecekungan Kurva", "Aplikasi Optimasi Kontekstual", "Asesmen Sumatif Turunan",
-          "Integral Tak Tentu Trigonometri", "Integral Substitusi Aljabar-Trigonometri", "Integral Parsial (Metode Tanzalin)",
-          "Integral Tentu Trigonometri", "Aplikasi Luas Daerah Kurva", "Simulasi Komprehensif ASAS"
-        ];
-        for (let i = 1; i <= 30; i++) {
-          const code = `P${String(i).padStart(2, '0')}`;
-          options += `<option value="${code}">${code} - ${minatTitles[i-1] || 'Additional Math'}</option>`;
-        }
-      } else if (mapel === 'clil') {
-        const clilTitles = [
-          "Unit 1: Combinatorics & Permutations", "Unit 2: Probability & Conditional Events",
-          "Unit 3: 3D Geometry & Spatial Distances", "Unit 4: Grouped Statistics & Measures",
-          "Unit 5: Bivariate Data & Linear Regression", "Unit 6: Comprehensive Mastery Check"
-        ];
-        for (let i = 1; i <= 6; i++) {
-          const code = `U0${i}`;
-          options += `<option value="${code}">${clilTitles[i-1]}</option>`;
-        }
-      } else {
-        // Wajib (default)
-        const wajibTitles = [
-          "Kaidah Pencacahan 1: Filling Slots", "Notasi Faktorial & Permutasi", "Permutasi Unsur Sama & Siklis",
-          "Kombinasi & Pemilihan Delegasi", "Peluang Kejadian Tunggal", "Asesmen Sumatif 1",
-          "Peluang Saling Lepas & Tidak Lepas", "Peluang Saling Bebas & Bersyarat", "Kedudukan Titik, Garis, Bidang",
-          "Jarak Titik ke Titik (3D)", "Jarak Titik ke Garis", "Jarak Titik ke Bidang",
-          "Sudut Garis & Dua Bidang", "Asesmen Sumatif Terpadu Dimensi 3", "Penyajian Data Berkelompok",
-          "Rata-rata Hitung (Mean)", "Median dan Modus Berkelompok", "Ukuran Letak Data (Kuartil & Desil)",
-          "Ukuran Penyebaran Data (Varians & SB)", "Analisis Data Bivariat & Regresi", "Asesmen Sumatif Statistika"
-        ];
-        for (let i = 1; i <= 21; i++) {
-          const code = `P${String(i).padStart(2, '0')}`;
-          options += `<option value="${code}">${code} - ${wajibTitles[i-1] || 'Matematika Wajib'}</option>`;
-        }
-      }
-      selectPertemuan.innerHTML = options;
-    }
-
-    function setGuruStatusFilter(status) {
-      window._guruFilterStatus = status;
-      const tabs = [
-        { id: 'btn-status-semua', activeClass: 'bg-amber-500 text-slate-950 shadow-md font-bold' },
-        { id: 'btn-status-sudah', activeClass: 'bg-emerald-600 text-white shadow-md font-bold border-emerald-400' },
-        { id: 'btn-status-sedang', activeClass: 'bg-amber-600 text-white shadow-md font-bold border-amber-400' },
-        { id: 'btn-status-belum', activeClass: 'bg-rose-700 text-white shadow-md font-bold border-rose-400' }
-      ];
-
-      tabs.forEach(t => {
-        const el = document.getElementById(t.id);
-        if (!el) return;
-        if (t.id === `btn-status-${status}`) {
-          el.className = `px-3.5 py-1.5 rounded-lg text-xs transition-all ${t.activeClass}`;
-        } else {
-          el.className = `px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all border border-slate-700`;
-        }
-      });
-
-      loadGuruDashboardData();
-    }
-
-    async function tarikNilaiDariCloud(manual) {
+    // Tarik nilai langsung dari Google Sheets Cloud (Mendukung JSONP & Fetch)
+    function tarikNilaiDariCloud(manual) {
+      const url = sinkUrl();
       const statusEl = document.getElementById('cloud-sync-status');
-      if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan Supabase SQL...</span>';
-      
-      if (supabaseClient) {
-        try {
-          // 1. Tarik Nilai Resmi yang Sudah Disubmit (nilai_cbt)
-          const resNilai = await supabaseClient.from('nilai_cbt').select('*').order('waktu_submit', { ascending: false });
-          const dataNilai = (!resNilai.error && Array.isArray(resNilai.data)) ? resNilai.data : [];
-
-          // 2. Tarik Jawaban Real-Time yang Sedang Aktif (cbt_live_answers)
-          const resLive = await supabaseClient.from('cbt_live_answers').select('*').order('updated_at', { ascending: false });
-          window._guruLiveAnswersCache = (!resLive.error && Array.isArray(resLive.data)) ? resLive.data : [];
-
-          const log = [];
-          dataNilai.forEach(function(p) {
-            const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[p.nis]) ? STUDENTS_DATA[p.nis] : null;
-            const mapped = {
-              timestamp: p.waktu_submit,
-              nis: String(p.nis || ''),
-              nama: String(p.nama || (std ? std.nama : 'Siswa ' + p.nis)),
-              kelas: String(p.kelas || (std ? std.kelas : 'XII')),
-              mapel: String(p.mapel || 'wajib'),
-              kode_pertemuan: String(p.kode_pertemuan || ''),
-              skor: Number(p.skor) || 0,
-              jumlah_soal: Number(p.jumlah_soal) || 10,
-              jumlah_benar: Number(p.jumlah_benar) || 0,
-              jumlah_salah: Number(p.jumlah_salah) || 0,
-              durasi_detik: Number(p.durasi_detik) || 0,
-              durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 60),
-              status: 'sudah'
-            };
-            log.push(mapped);
-          });
-
-          sinkSimpan(CBT_LOKAL_KEY, log);
-          const totalRecords = log.length;
-          if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Supabase Terhubung (${totalRecords} nilai disubmit)</span>`;
-          loadGuruDashboardData();
-          if (manual) alert(`✅ Berhasil menyinkronkan data dari Supabase SQL!\n- Nilai Disubmit: ${totalRecords}\n- Jawaban Live: ${window._guruLiveAnswersCache.length}`);
-          return;
-        } catch (e) {
-          console.warn("Supabase fetch exception:", e);
-        }
-      }
-
-      if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-database"></i> Supabase SQL Siap</span>';
-    }
-
-    function loadGuruDashboardData() {
-      const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
-      const liveAnswers = window._guruLiveAnswersCache || [];
-      const kelasFilter = (document.getElementById('guru-filter-kelas')?.value || '').trim();
-      const mapelFilter = (document.getElementById('guru-filter-mapel')?.value || '').trim();
-      const pertemuanFilter = (document.getElementById('guru-filter-pertemuan')?.value || '').trim();
-      const statusFilter = window._guruFilterStatus || 'semua';
-
-      // 1. DAFTAR SEMUA SISWA TERDAFTAR SESUAI FILTER KELAS
-      let daftarSiswa = (typeof STUDENTS_DATA !== 'undefined') ? Object.keys(STUDENTS_DATA).map(n => ({
-        nis: String(n),
-        nama: STUDENTS_DATA[n].nama,
-        kelas: STUDENTS_DATA[n].kelas,
-        access_level: STUDENTS_DATA[n].access_level
-      })) : [];
-
-      if (kelasFilter) {
-        const cleanK = kelasFilter.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-        daftarSiswa = daftarSiswa.filter(s => (s.kelas || '').replace(/[^a-zA-Z0-9]/g, '').toLowerCase().includes(cleanK));
-      }
-
-      // 2. KELOMPOK SUDAH MENGERJAKAN
-      let listSudah = rekam.filter(r => {
-        if (kelasFilter) {
-          const cleanK = kelasFilter.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-          if (!(r.kelas || '').replace(/[^a-zA-Z0-9]/g, '').toLowerCase().includes(cleanK)) return false;
-        }
-        if (mapelFilter) {
-          const cari = mapelFilter === 'peminatan' ? 'minat' : mapelFilter;
-          if ((r.mapel || 'wajib') !== cari) return false;
-        }
-        if (pertemuanFilter && String(r.kode_pertemuan).toUpperCase() !== String(pertemuanFilter).toUpperCase()) {
-          return false;
-        }
-        return true;
-      });
-
-      // Kumpulan NIS yang sudah submit
-      const nisSudahSubmit = new Set(listSudah.map(r => `${r.nis}__${r.mapel || 'wajib'}__${r.kode_pertemuan}`));
-
-      // 3. KELOMPOK SEDANG MENGERJAKAN (Ada di cbt_live_answers, tapi belum submit di nilai_cbt)
-      const liveGroups = {};
-      liveAnswers.forEach(a => {
-        const k = `${a.nis}__${a.mapel}__${a.kode_pertemuan}`;
-        if (!liveGroups[k]) liveGroups[k] = [];
-        liveGroups[k].push(a);
-      });
-
-      let listSedang = [];
-      Object.keys(liveGroups).forEach(k => {
-        // Jika siswa sudah submit di nilai_cbt untuk paket ini, jangan masukkan ke 'sedang'
-        if (nisSudahSubmit.has(k)) return;
-
-        const answers = liveGroups[k];
-        const sample = answers[0];
-        const nis = String(sample.nis);
-        const mapel = sample.mapel;
-        const kode = sample.kode_pertemuan;
-
-        // Cek filter
-        if (mapelFilter) {
-          const cari = mapelFilter === 'peminatan' ? 'minat' : mapelFilter;
-          if (mapel !== cari) return;
-        }
-        if (pertemuanFilter && String(kode).toUpperCase() !== String(pertemuanFilter).toUpperCase()) {
-          return;
-        }
-
-        const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
-        const sKelas = std ? std.kelas : 'XII';
-        if (kelasFilter) {
-          const cleanK = kelasFilter.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-          if (!sKelas.replace(/[^a-zA-Z0-9]/g, '').toLowerCase().includes(cleanK)) return;
-        }
-
-        const totalJawab = answers.length;
-        const totalBenar = answers.filter(x => x.is_right === true).length;
-        const latestTime = answers.reduce((acc, cur) => cur.updated_at > acc ? cur.updated_at : acc, sample.updated_at);
-
-        listSedang.push({
-          timestamp: latestTime,
-          nis: nis,
-          nama: std ? std.nama : ('Siswa ' + nis),
-          kelas: sKelas,
-          mapel: mapel,
-          kode_pertemuan: kode,
-          skor: Math.round((totalBenar / 10) * 100),
-          jumlah_soal: 10,
-          jumlah_benar: totalBenar,
-          jumlah_salah: totalJawab - totalBenar,
-          progress_soal: totalJawab,
-          durasi_detik: 0,
-          durasi_menit: 0,
-          status: 'sedang'
-        });
-      });
-
-      // 4. KELOMPOK BELUM MENGERJAKAN
-      const nisAktifSet = new Set([
-        ...listSudah.map(r => r.nis),
-        ...listSedang.map(r => r.nis)
-      ]);
-
-      let listBelum = daftarSiswa.filter(s => !nisAktifSet.has(s.nis)).map(s => ({
-        timestamp: null,
-        nis: s.nis,
-        nama: s.nama,
-        kelas: s.kelas,
-        mapel: mapelFilter || 'wajib',
-        kode_pertemuan: pertemuanFilter || '-',
-        skor: 0,
-        jumlah_soal: 10,
-        jumlah_benar: 0,
-        jumlah_salah: 0,
-        durasi_detik: 0,
-        durasi_menit: 0,
-        status: 'belum'
-      }));
-
-      // Update Counter Badges
-      const countSemuaEl = document.getElementById('count-semua');
-      const countSudahEl = document.getElementById('count-sudah');
-      const countSedangEl = document.getElementById('count-sedang');
-      const countBelumEl = document.getElementById('count-belum');
-
-      const totalSemua = listSudah.length + listSedang.length;
-      if (countSemuaEl) countSemuaEl.textContent = totalSemua;
-      if (countSudahEl) countSudahEl.textContent = listSudah.length;
-      if (countSedangEl) countSedangEl.textContent = listSedang.length;
-      if (countBelumEl) countBelumEl.textContent = listBelum.length;
-
-      const tbody = document.getElementById('guru-results-tbody');
-      if (!tbody) return;
-
-      // Filter Data Tampil Berdasarkan Tab Aktif
-      let displayList = [];
-      if (statusFilter === 'sudah') {
-        displayList = listSudah;
-      } else if (statusFilter === 'sedang') {
-        displayList = listSedang;
-      } else if (statusFilter === 'belum') {
-        displayList = listBelum;
-      } else {
-        // 'semua': gabungan sudah + sedang
-        displayList = [...listSudah, ...listSedang].sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp)));
-      }
-
-      if (displayList.length === 0) {
-        const pesanKosong = {
-          semua: 'Belum ada rekaman ujian pada filter ini.',
-          sudah: 'Belum ada siswa yang menyelesaikan/submit ujian pada filter ini.',
-          sedang: 'Tidak ada siswa yang sedang aktif mengerjakan saat ini.',
-          belum: '🎉 Luar biasa! Semua siswa di kelas ini sudah mengerjakan CBT!'
-        };
-        tbody.innerHTML = `<tr><td colspan="10" class="text-center py-10 text-slate-400 font-medium">${pesanKosong[statusFilter] || 'Tidak ada data'}</td></tr>`;
+      if (!url) {
+        if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Webhook URL belum diatur</span>';
+        if (manual) alert('Silakan tempel dan simpan Webhook URL Google Sheets terlebih dahulu di bagian atas.');
         return;
       }
 
-      tbody.innerHTML = displayList.map(r => {
-        let statusBadge = '';
-        let skorDisplay = '';
-        let detailDisplay = '';
-        let durasiDisplay = '';
-        let aksiButton = '';
-        let trBg = 'hover:bg-slate-800/80';
+      if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke Google Sheets...</span>';
+      
+      const cbName = 'cbt_sync_cb_' + Date.now();
+      let handled = false;
 
-        if (r.status === 'sudah') {
-          const isTuntas = Number(r.skor) >= 75;
-          const kktpText = isTuntas ? 'TUNTAS' : 'REMEDIAL';
-          const kktpBg = isTuntas ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40' : 'bg-rose-950/80 text-rose-300 border-rose-500/40';
-          statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-black ${kktpBg} border ml-1.5">${kktpText}</span>`;
-          skorDisplay = `<span class="font-bold font-mono ${isTuntas ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span> ${statusBadge}`;
-          detailDisplay = `<span class="text-xs font-mono text-slate-200">${r.jumlah_benar}/${r.jumlah_soal}</span>`;
-          durasiDisplay = `<span class="text-xs text-slate-300 font-mono">${r.durasi_menit || 0}m</span>`;
-          aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-500 text-white rounded text-xs font-bold transition shadow">Reset</button>`;
-        } else if (r.status === 'sedang') {
-          trBg = 'bg-amber-950/20 hover:bg-amber-900/30';
-          skorDisplay = `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 inline-flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-400 animate-pulse"></i> Sedang Aktif</span>`;
-          detailDisplay = `<span class="text-xs text-amber-200 font-mono font-semibold">${r.progress_soal}/10 Soal Terisi</span>`;
-          durasiDisplay = `<span class="text-xs text-cyan-300 font-mono italic">Live</span>`;
-          aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-500 text-white rounded text-xs font-bold transition shadow">Reset</button>`;
-        } else {
-          // 'belum'
-          trBg = 'bg-rose-950/15 hover:bg-rose-900/25';
-          skorDisplay = `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-900/40 text-rose-300 border border-rose-700/50">BELUM SUBMIT</span>`;
-          detailDisplay = `<span class="text-xs text-slate-500 font-mono">0/10 Soal</span>`;
-          durasiDisplay = `<span class="text-xs text-slate-500">-</span>`;
-          aksiButton = `<span class="text-xs text-slate-500 italic">Menunggu</span>`;
+      const timeoutId = setTimeout(function() {
+        if (!handled) {
+          handled = true;
+          delete window[cbName];
+          const s = document.getElementById(cbName);
+          if (s) s.remove();
+          if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Timeout / Cek hak akses Webhook: Anyone</span>';
+          if (manual) alert('Gagal terhubung ke Google Sheets. Pastikan hak akses Webhook di Apps Script disetel ke Anyone (Siapa Saja).');
         }
+      }, 10000);
 
-        const tgl = r.timestamp ? new Date(r.timestamp).toLocaleDateString('id-ID') : '-';
-        const namaMapel = (typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib');
+      window[cbName] = function(json) {
+        if (handled) return;
+        handled = true;
+        clearTimeout(timeoutId);
+        delete window[cbName];
+        const s = document.getElementById(cbName);
+        if (s) s.remove();
 
-        return `
-          <tr class="border-b border-slate-700 ${trBg} transition">
-            <td class="border border-slate-700 px-4 py-2.5 font-mono text-xs font-bold text-slate-300">${r.nis}</td>
-            <td class="border border-slate-700 px-4 py-2.5 font-semibold text-slate-100">${r.nama}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center text-xs uppercase text-slate-300">${namaMapel}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center text-xs font-mono font-bold text-cyan-300">${r.kode_pertemuan || '-'}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${skorDisplay}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${detailDisplay}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${durasiDisplay}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center text-xs font-mono text-slate-400">${tgl}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${aksiButton}</td>
-          </tr>
-        `;
-      }).join('');
+        if (json && json.ok && Array.isArray(json.data)) {
+          const cloudData = json.data;
+          const log = sinkAmbil(CBT_LOKAL_KEY, []);
+          
+          cloudData.forEach(function(p) {
+            const f = sinkSidik(p);
+            const i = log.findIndex(function(x) { return sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel); });
+            if (i === -1) log.push(p); else log[i] = Object.assign(log[i], p);
+          });
+
+          sinkSimpan(CBT_LOKAL_KEY, log);
+          if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (' + cloudData.length + ' data tersinkron)</span>';
+          loadGuruDashboardData();
+          if (manual) alert('Berhasil menyinkronkan ' + cloudData.length + ' data nilai dari Google Sheets!');
+        } else if (json && json.ok && !json.data) {
+          if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Apps Script butuh Deploy New Version</span>';
+          if (manual) alert('Google Apps Script di Google Sheets Anda masih versi lama. Silakan Deploy New Version di Apps Script.');
+        } else {
+          if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Respon tidak valid</span>';
+        }
+      };
+
+      // Jalankan JSONP via script tag (Anti-CORS)
+      const script = document.createElement('script');
+      script.id = cbName;
+      script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName + '&t=' + Date.now();
+      script.onerror = function() {
+        if (handled) return;
+        fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), { method: 'GET', redirect: 'follow' })
+          .then(function(r) { return r.json(); })
+          .then(function(json) {
+            if (handled) return;
+            handled = true;
+            clearTimeout(timeoutId);
+            if (json && json.ok && Array.isArray(json.data)) {
+              const cloudData = json.data;
+              const log = sinkAmbil(CBT_LOKAL_KEY, []);
+              cloudData.forEach(function(p) {
+                const f = sinkSidik(p);
+                const i = log.findIndex(function(x) { return sinkSidik(x) === f || (x.nis === p.nis && x.kode_pertemuan === p.kode_pertemuan && x.mapel === p.mapel); });
+                if (i === -1) log.push(p); else log[i] = Object.assign(log[i], p);
+              });
+              sinkSimpan(CBT_LOKAL_KEY, log);
+              if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloud Terhubung (' + cloudData.length + ' data tersinkron)</span>';
+              loadGuruDashboardData();
+              if (manual) alert('Berhasil menyinkronkan ' + cloudData.length + ' data nilai dari Google Sheets!');
+            } else {
+              if (statusEl) statusEl.innerHTML = '<span class="text-amber-400 font-mono text-xs"><i class="fa-solid fa-triangle-exclamation"></i> Deploy New Version di Apps Script</span>';
+            }
+          })
+          .catch(function(err) {
+            if (handled) return;
+            handled = true;
+            clearTimeout(timeoutId);
+            if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs"><i class="fa-solid fa-circle-xmark"></i> Cek izin Webhook: Anyone</span>';
+          });
+      };
+      document.body.appendChild(script);
     }
 
-    async function resetNilaiSiswa(nis, kodePertemuan, mapel) {
-        const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
-        const namaSiswa = std ? std.nama : ('Siswa ' + nis);
-        const infoPaket = kodePertemuan ? ` paket ${kodePertemuan} (${mapel || 'wajib'})` : '';
+    function loadGuruDashboardData() {
+        const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
+        const kelas = document.getElementById('guru-filter-kelas').value;
+        const mapel = document.getElementById('guru-filter-mapel').value;
+        const statusFilter = window._guruFilterStatus || 'semua';
+
+        let filtered = rekam;
+        if (kelas) filtered = filtered.filter(r => (r.kelas || '').replace(/\s+/g, '').toLowerCase().includes(kelas.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()));
+        if (mapel) {
+            const cari = mapel === 'peminatan' ? 'minat' : mapel;
+            filtered = filtered.filter(r => (r.mapel || 'wajib') === cari);
+        }
+        filtered = filtered.slice().sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp)));
+        tampilkanStatusSinkron();
+
+        // Rekap Statistik Rombel
+        const totalSiswaRombel = 100; // 4 kelas x 25
+        const nisSudah = new Set(filtered.map(r => String(r.nis)));
         
-        if (!confirm(`Apakah Bapak yakin ingin mereset nilai untuk ${namaSiswa} (${nis})${infoPaket}?\n\nData nilai di Cloud SQL dan riwayat pengerjaan siswa akan dihapus, sehingga siswa dapat mengerjakan ulang dari awal.`)) {
+        // Ambil daftar seluruh siswa terdaftar jika ada
+        const semuaSiswa = (typeof STUDENTS_DATA !== 'undefined') ? Object.keys(STUDENTS_DATA).map(n => ({
+          nis: n,
+          nama: STUDENTS_DATA[n].nama,
+          kelas: STUDENTS_DATA[n].kelas,
+          access_level: STUDENTS_DATA[n].access_level
+        })) : [];
+
+        // Hitung siswa yang belum mengerjakan
+        let belumList = semuaSiswa.filter(s => !nisSudah.has(String(s.nis)));
+        if (kelas) {
+          belumList = belumList.filter(s => (s.kelas || '').replace(/\s+/g, '').toLowerCase().includes(kelas.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()));
+        }
+
+        // Update badge count
+        const countSudahEl = document.getElementById('count-sudah');
+        const countBelumEl = document.getElementById('count-belum');
+        if (countSudahEl) countSudahEl.textContent = nisSudah.size;
+        if (countBelumEl) countBelumEl.textContent = belumList.length;
+
+        const tbody = document.getElementById('guru-results-tbody');
+        
+        // TAMPILKAN MODE BELUM MENGERJAKAN
+        if (statusFilter === 'belum') {
+          if (belumList.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="10" class="text-center py-8 text-emerald-400 font-bold">🎉 Semua siswa di kelas ini sudah mengerjakan CBT!</td></tr>';
+            return;
+          }
+          tbody.innerHTML = belumList.map((s, idx) => `
+            <tr class="border-b border-slate-700 bg-rose-950/20 hover:bg-rose-900/30">
+                <td class="border border-slate-700 px-4 py-2 font-mono text-xs text-rose-300 font-bold">${s.nis}</td>
+                <td class="border border-slate-700 px-4 py-2 font-medium text-slate-200">${s.nama}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-300">${s.kelas}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-400">-</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-400">-</td>
+                <td class="border border-slate-700 px-4 py-2 text-center"><span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-900/80 text-rose-200 border border-rose-700">BELUM SUBMIT</span></td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-500">0 / 10</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-500">-</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-slate-500">-</td>
+                <td class="border border-slate-700 px-4 py-2 text-center">
+                    <span class="text-xs text-slate-500 italic">Menunggu pengerjaan</span>
+                </td>
+            </tr>
+          `).join('');
+          return;
+        }
+
+        // TAMPILKAN MODE SUDAH / SEMUA
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="10" class="text-center py-8 text-slate-500">Belum ada siswa yang mengerjakan pada filter ini</td></tr>';
             return;
         }
 
-        // 1. Hapus dari Database Supabase Cloud
-        if (supabaseClient) {
-            try {
-                let qNilai = supabaseClient.from('nilai_cbt').delete().eq('nis', String(nis));
-                let qLive = supabaseClient.from('cbt_live_answers').delete().eq('nis', String(nis));
-                
-                if (kodePertemuan) {
-                    qNilai = qNilai.eq('kode_pertemuan', String(kodePertemuan));
-                    qLive = qLive.eq('kode_pertemuan', String(kodePertemuan));
-                }
-                if (mapel) {
-                    qNilai = qNilai.eq('mapel', String(mapel));
-                    qLive = qLive.eq('mapel', String(mapel));
-                }
+        tbody.innerHTML = filtered.map((r, idx) => `
+            <tr class="border-b border-slate-700 hover:bg-slate-800">
+                <td class="border border-slate-700 px-4 py-2 font-mono text-xs">${r.nis}</td>
+                <td class="border border-slate-700 px-4 py-2 font-semibold text-slate-100">${r.nama}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${NAMA_MAPEL[r.mapel] || r.mapel || 'Wajib'}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs font-mono">${r.kode_pertemuan || '-'}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center font-bold ${Number(r.skor) >= 75 ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${r.jumlah_benar}/${r.jumlah_soal || (Number(r.jumlah_benar) + Number(r.jumlah_salah))}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${Math.round(r.durasi_detik / 60)}m</td>
+                <td class="border border-slate-700 px-4 py-2 text-center text-xs">${new Date(r.timestamp).toLocaleDateString('id-ID')}</td>
+                <td class="border border-slate-700 px-4 py-2 text-center">
+                    <button onclick="resetNilaiSiswa('${r.nis}')" class="px-2 py-1 bg-amber-600/80 hover:bg-amber-600 text-white text-xs rounded transition-colors">Reset</button>
+                </td>
+            </tr>
+        `).join('');
+    }
 
-                const [resNilai, resLive] = await Promise.all([qNilai, qLive]);
-                if (resNilai.error) console.warn('Supabase delete nilai error:', resNilai.error);
-                if (resLive.error) console.warn('Supabase delete live error:', resLive.error);
-                console.log('✅ Supabase delete records success for NIS:', nis);
-            } catch (e) {
-                console.warn('Supabase delete exception:', e);
-            }
-        }
+    function resetNilaiSiswa(nis) {
+        if (!confirm(`Reset nilai untuk siswa ${nis}? Siswa bisa mengulang tes.`)) return;
 
-        // 2. Hapus dari Cache Lokal Guru
-        const log = sinkAmbil(CBT_LOKAL_KEY, []);
-        const filtered = log.filter(r => {
-            if (String(r.nis) !== String(nis)) return true;
-            if (kodePertemuan && String(r.kode_pertemuan) !== String(kodePertemuan)) return true;
-            if (mapel && String(r.mapel) !== String(mapel)) return true;
-            return false;
-        });
-        sinkSimpan(CBT_LOKAL_KEY, filtered);
+        sinkSimpan(CBT_LOKAL_KEY, sinkAmbil(CBT_LOKAL_KEY, []).filter(r => r.nis !== nis));
+        sinkSimpan(CBT_ANTRE_KEY, sinkAmbil(CBT_ANTRE_KEY, []).filter(r => r.nis !== nis));
+        sinkSimpan(CBT_OK_KEY, []);   // supaya pengerjaan ulang bisa terkirim lagi
 
-        // 3. Bersihkan Kunci Draft Pengerjaan Siswa
-        try {
-            if (kodePertemuan && mapel) {
-                localStorage.removeItem(`cbt_draft_v1_${nis}_${mapel}_${kodePertemuan}`);
-            }
-        } catch (e) {}
-
-        sinkSimpan(CBT_ANTRE_KEY, sinkAmbil(CBT_ANTRE_KEY, []).filter(r => String(r.nis) !== String(nis)));
-        sinkSimpan(CBT_OK_KEY, []);
-
-        alert(`✅ Nilai ${namaSiswa} berhasil direset! Siswa sekarang dapat mengulang ujian.`);
+        alert('Nilai siswa berhasil direset');
         loadGuruDashboardData();
     }
 
