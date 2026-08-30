@@ -27,3 +27,8 @@ desktop.ini
 PROMPT-LENGKAPI-MATERI.md
 materi-slide-lengkap.json
 contoh-satu-pertemuan.json
+
+# Folder unggah langsung ke Cloudflare (dibuat ulang tiap kali deploy).
+# Isinya hanya salinan 9 berkas situs -- bukan sumber, jadi tidak perlu
+# ikut ke GitHub.
+_deploy/
