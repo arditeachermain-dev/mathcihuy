@@ -1828,7 +1828,8 @@
   body.sidebar-tetap main { padding-left: 24rem; }
 
   /* Tombol buka dan tombol tutup tidak berguna lagi ketika sidebar menetap. */
-  body.sidebar-tetap .laci-hanya-sempit { display: none !important; }
+  /* Allow toggle buttons even when sidebar is pinned */
+  /* body.sidebar-tetap .laci-hanya-sempit { display: none !important; } */
 }
 
 /* Penanda pertemuan yang sedang dibuka pada daftar sidebar. */

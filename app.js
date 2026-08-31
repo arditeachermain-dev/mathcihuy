@@ -5492,6 +5492,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     // DRAWER & MODAL TOGGLES
     // SIDEBAR DRAWER & ACCORDION TOGGLES
+    // =========================================================================
+    // SIDEBAR DRAWER COLLAPSE & HIERARCHICAL SUB-MENUS
+    // =========================================================================
     function sidebarMenetap() {
       return document.body.classList.contains('sidebar-tetap') &&
              window.matchMedia('(min-width: 1280px)').matches;
@@ -5500,11 +5503,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     function toggleCurriculumDrawer() {
       const drawer = document.getElementById('curriculum-drawer');
       const backdrop = document.getElementById('curriculum-drawer-backdrop');
+      const floatBtn = document.getElementById('btn-floating-open-sidebar');
       if (!drawer) return;
 
       const isDesktop = window.matchMedia('(min-width: 1280px)').matches;
       if (isDesktop) {
-        // Mode Desktop: toggle class sidebar-tetap on document.body
         const isCurrentlyPinned = document.body.classList.contains('sidebar-tetap');
         if (isCurrentlyPinned) {
           // Collapse sidebar on desktop
@@ -5512,6 +5515,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           drawer.classList.add('-translate-x-full', 'pointer-events-none');
           drawer.classList.remove('pointer-events-auto');
           if (backdrop) backdrop.classList.add('hidden');
+          if (floatBtn) floatBtn.classList.remove('hidden');
           try { localStorage.setItem('sidebar_desktop_collapsed', 'true'); } catch (e) {}
         } else {
           // Expand sidebar on desktop
@@ -5519,10 +5523,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           drawer.classList.remove('-translate-x-full', 'pointer-events-none');
           drawer.classList.add('pointer-events-auto');
           if (backdrop) backdrop.classList.add('hidden');
+          if (floatBtn) floatBtn.classList.add('hidden');
           try { localStorage.setItem('sidebar_desktop_collapsed', 'false'); } catch (e) {}
         }
       } else {
-        // Mode Mobile / Tablet: slide overlay drawer
+        // Mobile / Tablet Slide Drawer
         if (drawer.classList.contains('-translate-x-full')) {
           drawer.classList.remove('-translate-x-full', 'pointer-events-none');
           drawer.classList.add('pointer-events-auto');
@@ -5568,15 +5573,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const shouldPin = cocok && !isCollapsed;
         document.body.classList.toggle('sidebar-tetap', shouldPin);
         const drawer = document.getElementById('curriculum-drawer');
+        const floatBtn = document.getElementById('btn-floating-open-sidebar');
         if (!drawer) return;
         if (shouldPin) {
           drawer.classList.remove('-translate-x-full', 'pointer-events-none');
           drawer.classList.add('pointer-events-auto');
           const bd = document.getElementById('curriculum-drawer-backdrop');
           if (bd) bd.classList.add('hidden');
+          if (floatBtn) floatBtn.classList.add('hidden');
         } else {
           drawer.classList.add('-translate-x-full', 'pointer-events-none');
           drawer.classList.remove('pointer-events-auto');
+          if (floatBtn && cocok) floatBtn.classList.remove('hidden');
         }
         if (typeof renderCurriculumDrawer === 'function') {
           const cari = document.getElementById('drawer-search-input');
@@ -5597,31 +5605,26 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       let totalMeetings = 0;
       let completedMeetings = 0;
 
-      // Prefix huruf untuk Mata Pelajaran
       const streamMeta = {
         'wajib': { prefix: 'A', name: 'Matematika Wajib', icon: 'fa-solid fa-shapes text-cyan-400' },
         'minat': { prefix: 'B', name: 'Additional Mathematics', icon: 'fa-solid fa-infinity text-amber-400' },
         'clil': { prefix: 'C', name: 'Program Khusus CLIL', icon: 'fa-solid fa-globe text-emerald-400' }
       };
 
-      // State penyimpanan accordion yang terbuka
       if (!window._openDrawerSubjects) window._openDrawerSubjects = {};
       if (!window._openDrawerBabs) window._openDrawerBabs = {};
 
-      // Buka subject & bab yang sedang aktif secara default
-      if (!q) {
-        window._openDrawerSubjects[currentMode] = true;
-        const currentM = (db[currentMode] || [])[currentMeetingIdx];
-        if (currentM && currentM.bab) {
-          window._openDrawerBabs[`${currentMode}__${currentM.bab}`] = true;
-        }
+      // Buka subject aktif dan Bab 1 secara default
+      window._openDrawerSubjects[currentMode || 'wajib'] = true;
+      const currentM = (db[currentMode || 'wajib'] || [])[currentMeetingIdx || 0];
+      if (currentM && currentM.bab) {
+        window._openDrawerBabs[`${currentMode || 'wajib'}__${currentM.bab}`] = true;
       }
 
       ['wajib', 'minat', 'clil'].forEach(subj => {
         const meetings = db[subj] || [];
         if (meetings.length === 0) return;
 
-        // Kelompokkan pertemuan berdasarkan Bab
         const babsMap = {};
         meetings.forEach(m => {
           const babName = m.bab || 'Materi Pembelajaran';
@@ -5629,7 +5632,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           babsMap[babName].push(m);
         });
 
-        // Filter pencarian jika ada
         const filteredBabs = {};
         let subjMatchCount = 0;
 
@@ -5657,7 +5659,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         const subjHeader = document.createElement('button');
         subjHeader.type = "button";
-        subjHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60";
+        subjHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60 cursor-pointer";
         subjHeader.innerHTML = `
           <div class="flex items-center gap-2 min-w-0">
             <span class="w-5 h-5 rounded-lg bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40">
@@ -5676,7 +5678,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         `;
 
         const subjBody = document.createElement('div');
-        subjBody.className = isSubjOpen ? "p-2 space-y-2.5 block" : "p-2 space-y-2.5 hidden";
+        subjBody.className = isSubjOpen ? "p-2 space-y-2 block" : "p-2 space-y-2 hidden";
 
         subjHeader.onclick = () => {
           const currentlyOpen = !subjBody.classList.contains('hidden');
@@ -5695,15 +5697,16 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         Object.keys(filteredBabs).forEach((bName, bIdx) => {
           const mList = filteredBabs[bName];
           const babKey = `${subj}__${bName}`;
-          // Jika bab aktif atau ada pencarian, buka otomatis
-          const isBabOpen = q ? true : (window._openDrawerBabs[babKey] || (currentMode === subj && bIdx === 0 && window._openDrawerBabs[babKey] === undefined));
+          
+          // Buka bab jika aktif, jika ada pencarian, atau default Bab 1 pada mata pelajaran aktif
+          const isBabOpen = q ? true : (window._openDrawerBabs[babKey] !== undefined ? window._openDrawerBabs[babKey] : (subj === (currentMode || 'wajib') && bIdx === 0));
 
           const babWrapper = document.createElement('div');
           babWrapper.className = "rounded-xl border border-slate-800 bg-slate-950/60 overflow-hidden";
 
           const babHeader = document.createElement('button');
           babHeader.type = "button";
-          babHeader.className = "w-full px-3 py-2 bg-slate-900/80 hover:bg-slate-850 flex items-center justify-between text-left transition border-b border-slate-800/40";
+          babHeader.className = "w-full px-3 py-2 bg-slate-900/80 hover:bg-slate-850 flex items-center justify-between text-left transition border-b border-slate-800/40 cursor-pointer";
           babHeader.innerHTML = `
             <div class="flex items-center gap-2 min-w-0">
               <i class="fa-regular fa-folder-open text-amber-400 text-xs shrink-0"></i>
@@ -5743,7 +5746,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
             const item = document.createElement('button');
             item.type = "button";
-            item.className = "w-full text-left px-2.5 py-2 rounded-lg flex items-center gap-2.5 transition group " +
+            item.className = "w-full text-left px-2.5 py-2 rounded-lg flex items-center gap-2.5 transition group cursor-pointer " +
               (sedangDibuka 
                 ? "bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow-sm font-bold" 
                 : "bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white border border-transparent");
@@ -5780,7 +5783,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         container.appendChild(subjWrapper);
       });
 
-      // Render KaTeX jika ada di judul
       renderMath(container);
 
       const progressLabel = document.getElementById('drawer-progress-label');
