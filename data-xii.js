@@ -7535,7 +7535,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 9,0 satuan"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Mengidentifikasi interpretasi gradien kemiringan ($b = 2{,}5$) pada garis regresi $\\hat{y} = 20 + 2{,}5x$:\nModel regresi linier sederhana menyatakan laju perubahan marginal variabel dependen $Y$ terhadap variabel independen $X$.\n\nLangkah 2: Menafsirkan koefisien $b$:\nSetiap kenaikan $1$ satuan pada variabel $X$ akan menyebabkan peningkatan rata-rata sebesar **2,5 satuan pada variabel Y**.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Mengidentifikasi hubungan perubahan nilai pada garis regresi $\\hat{y} = a + bx$:\nPada model regresi linier sederhana $\\hat{y} = 25 + 1{,}8x$, gradien kemiringan adalah $b = 1{,}8$.\nGradien $b$ menyatakan perubahan nilai estimasi $\\hat{y}$ untuk setiap kenaikan $1$ satuan pada variabel $x$.\n\nLangkah 2: Menghitung estimasi kenaikan nilai $\\hat{y}$ saat $x$ bertambah $\\Delta x = 5$ satuan:\n$$\\Delta\\hat{y} = b \\times \\Delta x$$\n\nLangkah 3: Mensubstitusikan nilai:\n$$\\Delta\\hat{y} = 1{,}8 \\times 5 = 9{,}0 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "regresi",
             "src": "Pada analisis regresi linier sederhana $\\hat{y} = 25 + 1{,}8x$, jika variabel independen $x$ bertambah 5 satuan, maka estimasi kenaikan nilai $\\hat{y}$ adalah ..."
