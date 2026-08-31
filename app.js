@@ -5785,6 +5785,187 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         container.appendChild(subjWrapper);
       });
 
+      // =======================================================================
+      // KONTEN LEVEL 1 (TAMBAHAN): JADWAL KBM REGULER KELAS XII (SIDEBAR)
+      // =======================================================================
+      const isJadwalOpen = window._openDrawerJadwal === true;
+      const jadwalWrapper = document.createElement('div');
+      jadwalWrapper.className = "rounded-2xl border border-slate-700/80 bg-slate-900/90 overflow-hidden shadow-md mb-3";
+
+      const jadwalHeader = document.createElement('button');
+      jadwalHeader.type = "button";
+      jadwalHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60 cursor-pointer";
+      jadwalHeader.innerHTML = `
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="w-5 h-5 rounded-lg bg-blue-500/20 text-blue-300 font-black text-xs flex items-center justify-center shrink-0 border border-blue-500/40">
+            <i class="fa-solid fa-clock text-[10px]"></i>
+          </span>
+          <span class="text-xs font-black text-slate-100 uppercase tracking-wider truncate flex items-center gap-1.5">
+            <i class="fa-solid fa-calendar-week text-blue-400 text-xs"></i> Jadwal KBM Reguler XII
+          </span>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="px-2 py-0.5 rounded-md bg-blue-950 text-[10px] font-mono font-bold text-blue-300 border border-blue-800/60">
+            24 JP
+          </span>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isJadwalOpen ? 'rotate-180' : ''}"></i>
+        </div>
+      `;
+
+      const jadwalBody = document.createElement('div');
+      jadwalBody.className = isJadwalOpen ? "p-2.5 space-y-2.5 block text-xs" : "p-2.5 space-y-2.5 hidden text-xs";
+      jadwalBody.innerHTML = `
+        <!-- 12 F.1 -->
+        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
+            <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.1</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-900/40 text-blue-300 border border-blue-700/50">Wajib 4 JP</span>
+          </div>
+          <div class="space-y-1 font-mono text-[11px] text-slate-300">
+            <div class="flex justify-between"><span>Senin (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.15</span></div>
+            <div class="flex justify-between"><span>Rabu (1 JP):</span><span class="text-slate-100 font-bold">07.30 - 08.00</span></div>
+            <div class="flex justify-between"><span>Kamis (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.15</span></div>
+          </div>
+        </div>
+
+        <!-- 12 F.2 -->
+        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
+            <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.2</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-900/40 text-blue-300 border border-blue-700/50">Wajib 4 JP</span>
+          </div>
+          <div class="space-y-1 font-mono text-[11px] text-slate-300">
+            <div class="flex justify-between"><span>Rabu (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.20</span></div>
+            <div class="flex justify-between"><span>Jumat (2 JP):</span><span class="text-slate-100 font-bold">13.15 - 14.25</span></div>
+          </div>
+        </div>
+
+        <!-- 12 F.3 -->
+        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
+            <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.3</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-900/40 text-amber-300 border border-amber-700/50">Wajib & Minat 8 JP</span>
+          </div>
+          <div class="space-y-1 font-mono text-[11px] text-slate-300">
+            <div class="flex justify-between"><span>Senin Wajib (2 JP):</span><span class="text-slate-100 font-bold">14.15 - 15.30</span></div>
+            <div class="flex justify-between"><span>Selasa Minat (2 JP):</span><span class="text-slate-100 font-bold">14.20 - 15.30</span></div>
+            <div class="flex justify-between"><span>Rabu Wajib (1 JP):</span><span class="text-slate-100 font-bold">07.30 - 08.00</span></div>
+            <div class="flex justify-between"><span>Kamis Minat (2 JP):</span><span class="text-slate-100 font-bold">09.10 - 10.40</span></div>
+            <div class="flex justify-between"><span>Jumat Wajib (1 JP):</span><span class="text-slate-100 font-bold">14.25 - 14.50</span></div>
+          </div>
+        </div>
+
+        <!-- 12 F.4 -->
+        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
+            <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.4</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-900/40 text-amber-300 border border-amber-700/50">Wajib & Minat 8 JP</span>
+          </div>
+          <div class="space-y-1 font-mono text-[11px] text-slate-300">
+            <div class="flex justify-between"><span>Senin Wajib (2 JP):</span><span class="text-slate-100 font-bold">10.15 - 12.00</span></div>
+            <div class="flex justify-between"><span>Selasa Minat (2 JP):</span><span class="text-slate-100 font-bold">10.40 - 12.00</span></div>
+            <div class="flex justify-between"><span>Kamis Minat (2 JP):</span><span class="text-slate-100 font-bold">10.40 - 12.00</span></div>
+            <div class="flex justify-between"><span>Jumat Wajib (2 JP):</span><span class="text-slate-100 font-bold">08.00 - 09.20</span></div>
+          </div>
+        </div>
+
+        <!-- TUGAS TAMBAHAN & WALAS -->
+        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+          <div class="font-bold text-cyan-300 text-[11px] flex items-center gap-1.5">
+            <i class="fa-solid fa-user-tie text-[10px]"></i> Tugas Tambahan / Walas
+          </div>
+          <p class="text-[10px] text-slate-400">Jumat 06.30 (Morning Greetings) | 07.00 (Dhuha) | 14.50 (Sesi P1 Walas)</p>
+        </div>
+      `;
+
+      jadwalHeader.onclick = () => {
+        const currentlyOpen = !jadwalBody.classList.contains('hidden');
+        if (currentlyOpen) {
+          jadwalBody.classList.add('hidden');
+          jadwalHeader.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+          window._openDrawerJadwal = false;
+        } else {
+          jadwalBody.classList.remove('hidden');
+          jadwalHeader.querySelector('.fa-chevron-down').classList.add('rotate-180');
+          window._openDrawerJadwal = true;
+        }
+      };
+
+      jadwalWrapper.appendChild(jadwalHeader);
+      jadwalWrapper.appendChild(jadwalBody);
+      container.appendChild(jadwalWrapper);
+
+      // =======================================================================
+      // KONTEN LEVEL 1 (TAMBAHAN): KALENDER PENDIDIKAN & AGENDA AKADEMIK 2026/2027
+      // =======================================================================
+      const isCalOpen = window._openDrawerCalendar === true;
+      const calWrapper = document.createElement('div');
+      calWrapper.className = "rounded-2xl border border-slate-700/80 bg-slate-900/90 overflow-hidden shadow-md mb-3";
+
+      const calHeader = document.createElement('button');
+      calHeader.type = "button";
+      calHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60 cursor-pointer";
+      calHeader.innerHTML = `
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="w-5 h-5 rounded-lg bg-emerald-500/20 text-emerald-300 font-black text-xs flex items-center justify-center shrink-0 border border-emerald-500/40">
+            <i class="fa-solid fa-calendar-days text-[10px]"></i>
+          </span>
+          <span class="text-xs font-black text-slate-100 uppercase tracking-wider truncate flex items-center gap-1.5">
+            <i class="fa-solid fa-bullhorn text-emerald-400 text-xs"></i> Kalender & Agenda Ujian
+          </span>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="px-2 py-0.5 rounded-md bg-emerald-950 text-[10px] font-mono font-bold text-emerald-300 border border-emerald-800/60">
+            2026/2027
+          </span>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isCalOpen ? 'rotate-180' : ''}"></i>
+        </div>
+      `;
+
+      const calBody = document.createElement('div');
+      calBody.className = isCalOpen ? "p-2.5 space-y-2 block text-xs" : "p-2.5 space-y-2 hidden text-xs";
+      calBody.innerHTML = `
+        <div class="space-y-1.5">
+          <div class="p-2 bg-purple-950/40 border border-purple-800/50 rounded-xl">
+            <div class="flex justify-between items-center"><span class="font-bold text-purple-300 text-[11px]">Gladi Bersih TKA & ANBK</span><span class="font-mono text-[10px] text-purple-400">12 - 18 Okt 2026</span></div>
+            <p class="text-[10px] text-slate-400 mt-0.5">Gelombang 2 SMA GIS 2 Serpong</p>
+          </div>
+          <div class="p-2 bg-rose-950/40 border border-rose-800/50 rounded-xl">
+            <div class="flex justify-between items-center"><span class="font-bold text-rose-300 text-[11px]">Pelaksanaan UTAMA TKA</span><span class="font-mono text-[10px] text-rose-400">2 - 5 Nov 2026</span></div>
+            <p class="text-[10px] text-slate-400 mt-0.5">Asesmen Standar Nasional</p>
+          </div>
+          <div class="p-2 bg-amber-950/40 border border-amber-800/50 rounded-xl">
+            <div class="flex justify-between items-center"><span class="font-bold text-amber-300 text-[11px]">Pengumuman Nilai TKA</span><span class="font-mono text-[10px] text-amber-400">23 Des 2026</span></div>
+            <p class="text-[10px] text-slate-400 mt-0.5">Hasil Resmi Kemdikbudristek</p>
+          </div>
+          <div class="p-2 bg-cyan-950/40 border border-cyan-800/50 rounded-xl">
+            <div class="flex justify-between items-center"><span class="font-bold text-cyan-300 text-[11px]">Pelaksanaan UTBK-SNBT</span><span class="font-mono text-[10px] text-cyan-400">21 - 30 Apr 2027</span></div>
+            <p class="text-[10px] text-slate-400 mt-0.5">Seleksi Nasional Masuk PTN 2027</p>
+          </div>
+          <div class="p-2 bg-emerald-950/40 border border-emerald-800/50 rounded-xl">
+            <div class="flex justify-between items-center"><span class="font-bold text-emerald-300 text-[11px]">Pengumuman SNBT 2027</span><span class="font-mono text-[10px] text-emerald-400">25 Mei 2027</span></div>
+            <p class="text-[10px] text-slate-400 mt-0.5">Pengumuman Kelulusan PTN</p>
+          </div>
+        </div>
+      `;
+
+      calHeader.onclick = () => {
+        const currentlyOpen = !calBody.classList.contains('hidden');
+        if (currentlyOpen) {
+          calBody.classList.add('hidden');
+          calHeader.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+          window._openDrawerCalendar = false;
+        } else {
+          calBody.classList.remove('hidden');
+          calHeader.querySelector('.fa-chevron-down').classList.add('rotate-180');
+          window._openDrawerCalendar = true;
+        }
+      };
+
+      calWrapper.appendChild(calHeader);
+      calWrapper.appendChild(calBody);
+      container.appendChild(calWrapper);
+
       renderMath(container);
 
       const progressLabel = document.getElementById('drawer-progress-label');
