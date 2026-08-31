@@ -4009,7 +4009,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 480 bilangan"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Digit ribuan yang mungkin: {2, 3, 4, 5} $\\implies 4$ pilihan.\n\nLangkah 2: Sisa 3 digit dari 6 angka $= 6 \\times 5 \\times 4 = 120$ cara.\n\nLangkah 3: Total bilangan $= 4 \\times 120 = 480$ bilangan.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menentukan pilihan angka untuk Posisi Ribuan (Kotak 1):\nBilangan harus bernilai antara $2.000$ dan $6.000$, sehingga angka ribuan yang memenuhi syarat hanyalah $\\{2, 3, 4, 5\\}$.\n$\\implies$ Terdapat $4$ pilihan angka untuk posisi ribuan.\n*(Catatan: Angka $1$ tidak boleh karena nilainya $< 2.000$; angka $6$ dan $7$ tidak boleh karena nilainya $> 6.000$)*.\n\nLangkah 2: Menentukan pilihan angka untuk Posisi Ratusan, Puluhan, dan Satuan (Tanpa Perulangan):\nTersedia total $7$ angka $\\{1, 2, 3, 4, 5, 6, 7\\}$.\n- Posisi Ratusan (Kotak 2): Dari 7 angka, sudah terpakai 1 angka di ribuan $\\implies$ tersisa $7 - 1 = 6$ pilihan angka.\n- Posisi Puluhan (Kotak 3): Sudah terpakai 2 angka di ribuan & ratusan $\\implies$ tersisa $7 - 2 = 5$ pilihan angka.\n- Posisi Satuan (Kotak 4): Sudah terpakai 3 angka di posisi sebelumnya $\\implies$ tersisa $7 - 3 = 4$ pilihan angka.\n\nLangkah 3: Menghitung total variasi bilangan dengan Aturan Perkalian (Filling Slots):\n$$\\text{Total Bilangan} = \\underbrace{4}_{\\text{Ribuan}} \\times \\underbrace{6}_{\\text{Ratusan}} \\times \\underbrace{5}_{\\text{Puluhan}} \\times \\underbrace{4}_{\\text{Satuan}} = 4 \\times 120 = 480 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 3,
@@ -4025,7 +4025,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1.500 variasi"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Dua huruf vokal berbeda dari {A, I, U, E, O} $= 5 \\times 4 = 20$.\n\nLangkah 2: Tiga angka ganjil berbeda dari {1, 3, 5, 7, 9} $= 5 \\times 4 \\times 3 = 60$.\n\nLangkah 3: Total kode $= 20 \\times 60 = 1.200$ variasi.\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Menentukan variasi susunan 2 huruf vokal kapital berbeda:\nHuruf vokal kapital adalah $\\{A, I, U, E, O\\}$ (total $5$ huruf).\n- Posisi huruf ke-1: $5$ pilihan huruf.\n- Posisi huruf ke-2: $4$ pilihan huruf tersisa (karena disyaratkan berbeda).\nBanyak susunan huruf vokal $= 5 \\times 4 = 20$ susunan.\n\nLangkah 2: Menentukan variasi susunan 3 angka ganjil berbeda:\nAngka ganjil adalah $\\{1, 3, 5, 7, 9\\}$ (total $5$ angka).\n- Posisi angka ke-1: $5$ pilihan angka.\n- Posisi angka ke-2: $4$ pilihan angka tersisa.\n- Posisi angka ke-3: $3$ pilihan angka tersisa.\nBanyak susunan angka ganjil $= 5 \\times 4 \\times 3 = 60$ susunan.\n\nLangkah 3: Menghitung total kombinasi kode brankas dengan Aturan Perkalian:\n$$\\text{Total Variasi Kode} = \\underbrace{20}_{\\text{2 Vokal}} \\times \\underbrace{60}_{\\text{3 Ganjil}} = 1.200 \\text{ variasi}$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 4,
@@ -4119,7 +4119,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1.680 bilangan"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Digit ribuan {3, 4, 5, 6} $\\implies 4$ pilihan.\n\nLangkah 2: Sisa 3 digit $= 7 \\times 6 \\times 5 = 210$.\n\nLangkah 3: Total $= 4 \\times 210 = 840$ bilangan.\nKesimpulan: Kunci Jawaban D."
+          "bahas": "Langkah 1: Menentukan pilihan angka untuk Posisi Ribuan:\nBilangan bernilai antara $3.000$ dan $7.000$, sehingga angka ribuan yang memenuhi syarat adalah $\\{3, 4, 5, 6\\}$.\n$\\implies$ Terdapat $4$ pilihan angka untuk posisi ribuan.\n\nLangkah 2: Menentukan pilihan untuk 3 digit berikutnya tanpa perulangan angka:\nTersedia $8$ angka $\\{1, 2, 3, 4, 5, 6, 7, 8\\}$.\n- Posisi Ratusan: Tersisa $8 - 1 = 7$ pilihan angka.\n- Posisi Puluhan: Tersisa $8 - 2 = 6$ pilihan angka.\n- Posisi Satuan: Tersisa $8 - 3 = 5$ pilihan angka.\nBanyak cara mengisi 3 digit di belakang $= 7 \\times 6 \\times 5 = 210$ cara.\n\nLangkah 3: Menghitung total variasi bilangan:\n$$\\text{Total Bilangan} = 4 \\times (7 \\times 6 \\times 5) = 4 \\times 210 = 840 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 10,
@@ -4129,7 +4129,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P01-Q10] Banyak bilangan genap 4 angka tanpa angka berulang yang dapat dibentuk dari himpunan angka {0, 1, 2, 3, 4, 5, 6} adalah ...",
           "opsi": [],
           "kunci": "420",
-          "bahas": "Langkah 1: Kasus 1 (Satuan 0) $= 6 \\times 5 \\times 4 \\times 1 = 120$.\n\nLangkah 2: Kasus 2 (Satuan 2, 4, 6) $= 5 \\times 5 \\times 4 \\times 3 = 300$.\n\nLangkah 3: Total $= 120 + 300 = 420$.\nKesimpulan: Jawaban Akhir 420.\nKesimpulan: Kunci Jawaban 420."
+          "bahas": "Langkah 1: Analisis Kasus 1 (Angka Satuan bernilai 0):\n- Posisi Satuan: $1$ pilihan angka (angka $0$).\n- Posisi Ribuan: $6$ pilihan angka $\\{1, 2, 3, 4, 5, 6\\}$ (karena $0$ sudah di satuan, maka semua angka $\\ge 1$ boleh di ribuan).\n- Posisi Ratusan: $5$ pilihan angka tersisa.\n- Posisi Puluhan: $4$ pilihan angka tersisa.\nBanyak bilangan Kasus 1 $= 6 \\times 5 \\times 4 \\times 1 = 120$ bilangan.\n\nLangkah 2: Analisis Kasus 2 (Angka Satuan bernilai genap bukan nol: {2, 4, 6}):\n- Posisi Satuan: $3$ pilihan angka $\\{2, 4, 6\\}$.\n- Posisi Ribuan: $5$ pilihan angka (karena angka $0$ tidak boleh di ribuan dan $1$ angka genap sudah dipakai di satuan).\n- Posisi Ratusan: $5$ pilihan angka tersisa (angka $0$ sudah boleh dipakai di ratusan).\n- Posisi Puluhan: $4$ pilihan angka tersisa.\nBanyak bilangan Kasus 2 $= 5 \\times 5 \\times 4 \\times 3 = 300$ bilangan.\n\nLangkah 3: Menjumlahkan seluruh kasus yang saling lepas:\n$$\\text{Total Bilangan Genap} = 120 + 300 = 420 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban 420."
         }
       ]
     },
