@@ -5491,27 +5491,63 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     }
 
     // DRAWER & MODAL TOGGLES
+    // SIDEBAR DRAWER & ACCORDION TOGGLES
+    function sidebarMenetap() {
+      return document.body.classList.contains('sidebar-tetap') &&
+             window.matchMedia('(min-width: 1280px)').matches;
+    }
+
     function toggleCurriculumDrawer() {
-      if (sidebarMenetap()) return;
       const drawer = document.getElementById('curriculum-drawer');
       const backdrop = document.getElementById('curriculum-drawer-backdrop');
-      if (drawer.classList.contains('-translate-x-full')) {
-        drawer.classList.remove('-translate-x-full', 'pointer-events-none');
-        drawer.classList.add('pointer-events-auto');
-        backdrop.classList.remove('hidden');
+      if (!drawer) return;
+
+      const isDesktop = window.matchMedia('(min-width: 1280px)').matches;
+      if (isDesktop) {
+        // Mode Desktop: toggle class sidebar-tetap on document.body
+        const isCurrentlyPinned = document.body.classList.contains('sidebar-tetap');
+        if (isCurrentlyPinned) {
+          // Collapse sidebar on desktop
+          document.body.classList.remove('sidebar-tetap');
+          drawer.classList.add('-translate-x-full', 'pointer-events-none');
+          drawer.classList.remove('pointer-events-auto');
+          if (backdrop) backdrop.classList.add('hidden');
+          try { localStorage.setItem('sidebar_desktop_collapsed', 'true'); } catch (e) {}
+        } else {
+          // Expand sidebar on desktop
+          document.body.classList.add('sidebar-tetap');
+          drawer.classList.remove('-translate-x-full', 'pointer-events-none');
+          drawer.classList.add('pointer-events-auto');
+          if (backdrop) backdrop.classList.add('hidden');
+          try { localStorage.setItem('sidebar_desktop_collapsed', 'false'); } catch (e) {}
+        }
       } else {
-        drawer.classList.add('-translate-x-full', 'pointer-events-none');
-        drawer.classList.remove('pointer-events-auto');
-        backdrop.classList.add('hidden');
+        // Mode Mobile / Tablet: slide overlay drawer
+        if (drawer.classList.contains('-translate-x-full')) {
+          drawer.classList.remove('-translate-x-full', 'pointer-events-none');
+          drawer.classList.add('pointer-events-auto');
+          if (backdrop) backdrop.classList.remove('hidden');
+        } else {
+          drawer.classList.add('-translate-x-full', 'pointer-events-none');
+          drawer.classList.remove('pointer-events-auto');
+          if (backdrop) backdrop.classList.add('hidden');
+        }
       }
     }
 
-    // Sidebar hanya menetap kalau layarnya memang cukup lebar. Pemasangannya
-    // memakai matchMedia supaya perubahan ukuran jendela -- termasuk memutar
-    // tablet -- langsung ditanggapi tanpa memuat ulang halaman.
-    // Tinggi header tidak tetap: pada lebar tertentu barisnya melipat menjadi
-    // dua, sehingga tingginya berubah. Sidebar harus dimulai persis di
-    // bawahnya, jadi angkanya diukur -- bukan ditebak.
+    function closeCurriculumDrawer() {
+      const isDesktop = window.matchMedia('(min-width: 1280px)').matches;
+      if (!isDesktop) {
+        const drawer = document.getElementById('curriculum-drawer');
+        if (drawer) {
+          drawer.classList.add('-translate-x-full', 'pointer-events-none');
+          drawer.classList.remove('pointer-events-auto');
+        }
+        const backdrop = document.getElementById('curriculum-drawer-backdrop');
+        if (backdrop) backdrop.classList.add('hidden');
+      }
+    }
+
     function ukurTinggiHeader() {
       const h = document.getElementById('app-header');
       if (!h) return;
@@ -5527,12 +5563,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }
       const mq = window.matchMedia('(min-width: 1280px)');
       const terapkan = function (cocok) {
-        document.body.classList.toggle('sidebar-tetap', cocok);
+        let isCollapsed = false;
+        try { isCollapsed = (localStorage.getItem('sidebar_desktop_collapsed') === 'true'); } catch (e) {}
+        const shouldPin = cocok && !isCollapsed;
+        document.body.classList.toggle('sidebar-tetap', shouldPin);
         const drawer = document.getElementById('curriculum-drawer');
         if (!drawer) return;
-        if (cocok) {
-          // Kelas Tailwind yang menyembunyikan laci dilepas; CSS .sidebar-tetap
-          // yang kemudian mengatur letaknya.
+        if (shouldPin) {
           drawer.classList.remove('-translate-x-full', 'pointer-events-none');
           drawer.classList.add('pointer-events-auto');
           const bd = document.getElementById('curriculum-drawer-backdrop');
@@ -5551,81 +5588,176 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       else if (mq.addListener) mq.addListener(function (e) { terapkan(e.matches); });
     }
 
-    function sidebarMenetap() {
-      return document.body.classList.contains('sidebar-tetap') &&
-             window.matchMedia('(min-width: 1280px)').matches;
-    }
-
-    function closeCurriculumDrawer() {
-      // Ketika sidebar menetap, tidak ada yang perlu ditutup -- memilih
-      // pertemuan tidak boleh membuat daftarnya menghilang.
-      if (sidebarMenetap()) return;
-      const drawer = document.getElementById('curriculum-drawer');
-      if (drawer) {
-        drawer.classList.add('-translate-x-full', 'pointer-events-none');
-        drawer.classList.remove('pointer-events-auto');
-      }
-      const backdrop = document.getElementById('curriculum-drawer-backdrop');
-      if (backdrop) backdrop.classList.add('hidden');
-    }
-
     function renderCurriculumDrawer(filterText = '') {
       const container = document.getElementById('drawer-meetings-container');
+      if (!container) return;
       container.innerHTML = '';
       const q = filterText.toLowerCase().trim();
 
       let totalMeetings = 0;
       let completedMeetings = 0;
 
+      // Prefix huruf untuk Mata Pelajaran
+      const streamMeta = {
+        'wajib': { prefix: 'A', name: 'Matematika Wajib', icon: 'fa-solid fa-shapes text-cyan-400' },
+        'minat': { prefix: 'B', name: 'Additional Mathematics', icon: 'fa-solid fa-infinity text-amber-400' },
+        'clil': { prefix: 'C', name: 'Program Khusus CLIL', icon: 'fa-solid fa-globe text-emerald-400' }
+      };
+
+      // State penyimpanan accordion yang terbuka
+      if (!window._openDrawerSubjects) window._openDrawerSubjects = {};
+      if (!window._openDrawerBabs) window._openDrawerBabs = {};
+
+      // Buka subject & bab yang sedang aktif secara default
+      if (!q) {
+        window._openDrawerSubjects[currentMode] = true;
+        const currentM = (db[currentMode] || [])[currentMeetingIdx];
+        if (currentM && currentM.bab) {
+          window._openDrawerBabs[`${currentMode}__${currentM.bab}`] = true;
+        }
+      }
+
       ['wajib', 'minat', 'clil'].forEach(subj => {
         const meetings = db[subj] || [];
-        const filtered = meetings.filter(m => !q || m.title.toLowerCase().includes(q) || m.id.toLowerCase().includes(q) || (m.bab && m.bab.toLowerCase().includes(q)));
-        
-        if (filtered.length > 0) {
-          const section = document.createElement('div');
-          section.className = "space-y-1.5";
-          
-          const namaMapel = { 'wajib': '📘 Matematika Wajib',
-                              'minat': '📙 Matematika Peminatan',
-                              'clil': '🌐 Program Khusus CLIL' };
-          const titleMap = {};
-          Object.keys(namaMapel).forEach(function (k) {
-            const n = (db[k] || []).length;
-            titleMap[k] = namaMapel[k] + (n ? ' (' + n + ' Pertemuan)' : '');
-          });
+        if (meetings.length === 0) return;
 
-          section.innerHTML = `
-            <div class="px-2 py-1 bg-slate-950/80 rounded-lg text-[11px] font-black text-amber-400 uppercase tracking-wider flex items-center justify-between">
-              <span>${titleMap[subj]}</span>
-              <span class="text-slate-500 font-mono text-[10px]">${filtered.length}</span>
+        // Kelompokkan pertemuan berdasarkan Bab
+        const babsMap = {};
+        meetings.forEach(m => {
+          const babName = m.bab || 'Materi Pembelajaran';
+          if (!babsMap[babName]) babsMap[babName] = [];
+          babsMap[babName].push(m);
+        });
+
+        // Filter pencarian jika ada
+        const filteredBabs = {};
+        let subjMatchCount = 0;
+
+        Object.keys(babsMap).forEach(bName => {
+          const mList = babsMap[bName];
+          const matched = mList.filter(m => !q || 
+            m.title.toLowerCase().includes(q) || 
+            m.id.toLowerCase().includes(q) || 
+            bName.toLowerCase().includes(q)
+          );
+          if (matched.length > 0) {
+            filteredBabs[bName] = matched;
+            subjMatchCount += matched.length;
+          }
+        });
+
+        if (subjMatchCount === 0) return;
+
+        const meta = streamMeta[subj] || { prefix: '', name: subj, icon: 'fa-solid fa-book' };
+        const isSubjOpen = q ? true : (window._openDrawerSubjects[subj] !== false);
+
+        // 1. KONTEN LEVEL 1: ACCORDION MATA PELAJARAN (A. MATEMATIKA WAJIB)
+        const subjWrapper = document.createElement('div');
+        subjWrapper.className = "rounded-2xl border border-slate-700/80 bg-slate-900/90 overflow-hidden shadow-md mb-3";
+
+        const subjHeader = document.createElement('button');
+        subjHeader.type = "button";
+        subjHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60";
+        subjHeader.innerHTML = `
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-5 h-5 rounded-lg bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40">
+              ${meta.prefix}
+            </span>
+            <span class="text-xs font-black text-slate-100 uppercase tracking-wider truncate flex items-center gap-1.5">
+              <i class="${meta.icon} text-xs"></i> ${meta.name}
+            </span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="px-2 py-0.5 rounded-md bg-slate-800 text-[10px] font-mono font-bold text-slate-400 border border-slate-700">
+              ${subjMatchCount} Pertemuan
+            </span>
+            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isSubjOpen ? 'rotate-180' : ''}"></i>
+          </div>
+        `;
+
+        const subjBody = document.createElement('div');
+        subjBody.className = isSubjOpen ? "p-2 space-y-2.5 block" : "p-2 space-y-2.5 hidden";
+
+        subjHeader.onclick = () => {
+          const currentlyOpen = !subjBody.classList.contains('hidden');
+          if (currentlyOpen) {
+            subjBody.classList.add('hidden');
+            subjHeader.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+            window._openDrawerSubjects[subj] = false;
+          } else {
+            subjBody.classList.remove('hidden');
+            subjHeader.querySelector('.fa-chevron-down').classList.add('rotate-180');
+            window._openDrawerSubjects[subj] = true;
+          }
+        };
+
+        // 2. KONTEN LEVEL 2: ACCORDION BAB / SUB-MENU (Bab 1: Kaidah Pencacahan)
+        Object.keys(filteredBabs).forEach((bName, bIdx) => {
+          const mList = filteredBabs[bName];
+          const babKey = `${subj}__${bName}`;
+          // Jika bab aktif atau ada pencarian, buka otomatis
+          const isBabOpen = q ? true : (window._openDrawerBabs[babKey] || (currentMode === subj && bIdx === 0 && window._openDrawerBabs[babKey] === undefined));
+
+          const babWrapper = document.createElement('div');
+          babWrapper.className = "rounded-xl border border-slate-800 bg-slate-950/60 overflow-hidden";
+
+          const babHeader = document.createElement('button');
+          babHeader.type = "button";
+          babHeader.className = "w-full px-3 py-2 bg-slate-900/80 hover:bg-slate-850 flex items-center justify-between text-left transition border-b border-slate-800/40";
+          babHeader.innerHTML = `
+            <div class="flex items-center gap-2 min-w-0">
+              <i class="fa-regular fa-folder-open text-amber-400 text-xs shrink-0"></i>
+              <span class="text-xs font-bold text-slate-200 truncate">${bName}</span>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span class="text-[10px] font-mono text-slate-400 font-semibold">${mList.length}</span>
+              <i class="fa-solid fa-chevron-down text-slate-500 text-[10px] transition-transform duration-200 ${isBabOpen ? 'rotate-180' : ''}"></i>
             </div>
           `;
 
-          filtered.forEach(m => {
+          const babBody = document.createElement('div');
+          babBody.className = isBabOpen ? "p-1.5 space-y-1 block" : "p-1.5 space-y-1 hidden";
+
+          babHeader.onclick = () => {
+            const isNowOpen = !babBody.classList.contains('hidden');
+            if (isNowOpen) {
+              babBody.classList.add('hidden');
+              babHeader.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+              window._openDrawerBabs[babKey] = false;
+            } else {
+              babBody.classList.remove('hidden');
+              babHeader.querySelector('.fa-chevron-down').classList.add('rotate-180');
+              window._openDrawerBabs[babKey] = true;
+            }
+          };
+
+          // 3. KONTEN LEVEL 3: SUB-MENU PERTEMUAN (P01, P02, dst.)
+          mList.forEach(m => {
             totalMeetings++;
             const hasQuizDone = userSessionScores[`${subj}_${m.id}_0`] !== undefined;
             if (hasQuizDone) completedMeetings++;
 
-            // Pertemuan yang sedang dibuka ditandai, supaya pada sidebar yang
-            // menetap pembaca selalu tahu ia sedang berada di mana.
             const sedangDibuka = (currentMode === subj) &&
               (db[subj] || [])[currentMeetingIdx] &&
               (db[subj] || [])[currentMeetingIdx].id === m.id;
 
             const item = document.createElement('button');
-            item.className = "w-full text-left p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 flex items-start gap-2.5 transition group shadow-sm" +
-              (sedangDibuka ? " pertemuan-aktif" : "");
+            item.type = "button";
+            item.className = "w-full text-left px-2.5 py-2 rounded-lg flex items-center gap-2.5 transition group " +
+              (sedangDibuka 
+                ? "bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow-sm font-bold" 
+                : "bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white border border-transparent");
+            
             if (sedangDibuka) item.setAttribute('aria-current', 'true');
+
             item.innerHTML = `
-              <span class="kode-pertemuan w-7 h-7 rounded-lg bg-slate-900 border border-slate-700 text-amber-300 font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 group-hover:border-amber-400 transition">
+              <span class="w-7 h-6 rounded-md bg-slate-950 border border-slate-700 text-amber-300 font-mono font-black text-[11px] flex items-center justify-center shrink-0 group-hover:border-amber-400 transition">
                 ${m.id}
               </span>
-              <div class="flex-1 min-w-0">
-                <div class="text-xs font-semibold text-slate-200 group-hover:text-white truncate">${m.title}</div>
-                <div class="text-[10px] text-slate-400 truncate">${m.bab || ''}</div>
-              </div>
-              ${hasQuizDone ? '<i class="fa-solid fa-circle-check text-emerald-400 text-xs shrink-0 mt-1.5"></i>' : ''}
+              <span class="text-xs truncate flex-1 leading-snug">${m.title}</span>
+              ${hasQuizDone ? '<i class="fa-solid fa-circle-check text-emerald-400 text-xs shrink-0"></i>' : '<i class="fa-solid fa-angle-right text-slate-600 group-hover:text-slate-400 text-[10px] shrink-0"></i>'}
             `;
+
             item.onclick = () => {
               currentMode = subj;
               const idx = meetings.findIndex(x => x.id === m.id);
@@ -5634,18 +5766,25 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               renderAppView();
               closeCurriculumDrawer();
             };
-            section.appendChild(item);
+
+            babBody.appendChild(item);
           });
 
-          container.appendChild(section);
-        }
+          babWrapper.appendChild(babHeader);
+          babWrapper.appendChild(babBody);
+          subjBody.appendChild(babWrapper);
+        });
+
+        subjWrapper.appendChild(subjHeader);
+        subjWrapper.appendChild(subjBody);
+        container.appendChild(subjWrapper);
       });
 
-      // Judul pertemuan boleh memuat rumus (misalnya "Pembagian oleh $(x-k)$").
-      // Tanpa baris ini, tanda dolarnya tampil apa adanya di daftar.
+      // Render KaTeX jika ada di judul
       renderMath(container);
 
-      document.getElementById('drawer-progress-label').innerText = `${completedMeetings} / ${totalMeetings} Pertemuan Dipelajari`;
+      const progressLabel = document.getElementById('drawer-progress-label');
+      if (progressLabel) progressLabel.innerText = `${completedMeetings} / ${totalMeetings} Pertemuan Dipelajari`;
     }
 
     function filterDrawerMeetings(val) {
