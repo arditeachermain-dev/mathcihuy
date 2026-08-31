@@ -3658,10 +3658,145 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     }
 
     // RENDER TKA QUESTION (WITH 3-MINUTE QUESTION TIMER & INTERACTIVE CBT FEEDBACK)
+    // =========================================================================
+    // CBT REVIEW MODE & SCORECARD ACTIONS
+    // =========================================================================
+    window._tkaReviewMode = false;
+
+    function startTkaReviewMode() {
+      window._tkaReviewMode = true;
+      closeTkaScorecardModal();
+      tkaQIdx = 0;
+      renderAppView();
+    }
+
+    function openTkaQuestionInReview(idx) {
+      window._tkaReviewMode = true;
+      closeTkaScorecardModal();
+      tkaQIdx = idx;
+      renderAppView();
+    }
+
+    function retakeCurrentTkaPkg() {
+      window._tkaReviewMode = false;
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      if (pkg && pkg.questions) {
+        pkg.questions.forEach((_, idx) => {
+          delete userSessionScores[`${tkaSubj}_${tkaPkgId}_${idx}`];
+        });
+      }
+      try {
+        localStorage.removeItem(getCbtDraftKey(tkaSubj, tkaPkgId));
+      } catch (e) {}
+      closeTkaScorecardModal();
+      tkaQIdx = 0;
+      renderAppView();
+    }
+
+    function showTkaScorecardModal() {
+      if (typeof pulihkanDraftJawaban === 'function') {
+        pulihkanDraftJawaban(tkaSubj, tkaPkgId);
+      }
+      // Catat & Submit Nilai Resmi ke Supabase
+      if (typeof catatSesiCbt === 'function') {
+        catatSesiCbt(tkaSubj, tkaPkgId, true);
+      }
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      if (!pkg || !pkg.questions) return;
+
+      const totalQ = pkg.questions.length;
+      let correctCount = 0;
+      let answeredCount = 0;
+
+      for (let i = 0; i < totalQ; i++) {
+        const key = `${tkaSubj}_${tkaPkgId}_${i}`;
+        if (userSessionScores[key] !== undefined) {
+          answeredCount++;
+          if (userSessionScores[key] === true) correctCount++;
+        }
+      }
+
+      const score = Math.round((correctCount / totalQ) * 100);
+      const wrongCount = answeredCount - correctCount;
+
+      const pkgTitleEl = document.getElementById('scorecard-pkg-title');
+      if (pkgTitleEl) pkgTitleEl.innerText = `${tkaPkgId} • ${pkg.title}`;
+      const totScoreEl = document.getElementById('scorecard-total-score');
+      if (totScoreEl) totScoreEl.innerText = score;
+      const corCntEl = document.getElementById('scorecard-correct-count');
+      if (corCntEl) corCntEl.innerText = `${correctCount} / ${totalQ}`;
+      const wrgCntEl = document.getElementById('scorecard-wrong-count');
+      if (wrgCntEl) wrgCntEl.innerText = `${wrongCount} / ${totalQ}`;
+
+      const badgeEl = document.getElementById('scorecard-badge');
+      const predEl = document.getElementById('scorecard-predicate');
+
+      if (score >= 85) {
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
+        if (predEl) {
+          predEl.innerText = "🏆 Mantap! Kompetensi Tercapai Maksimal!";
+          predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-emerald-500/40";
+        }
+        confettiCelebration();
+      } else if (score >= 70) {
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
+        if (predEl) {
+          predEl.innerText = "✨ Sangat Baik! Kuasai beberapa detail lagi.";
+          predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
+        }
+      } else if (score >= 50) {
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
+        if (predEl) {
+          predEl.innerText = "💡 Cukup Baik! Bedah bagian pembahasan di bawah.";
+          predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
+        }
+      } else {
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
+        if (predEl) {
+          predEl.innerText = "📚 Perlu Penguatan! Review pembahasan lengkap.";
+          predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
+        }
+      }
+
+      const matrixEl = document.getElementById('scorecard-q-matrix');
+      if (matrixEl) {
+        matrixEl.innerHTML = '';
+        for (let i = 0; i < totalQ; i++) {
+          const key = `${tkaSubj}_${tkaPkgId}_${i}`;
+          const st = userSessionScores[key];
+          let qBg = "bg-slate-800 border-slate-700 text-slate-400";
+          let icon = `<i class="fa-solid fa-minus text-[10px]"></i>`;
+          
+          if (st === true) {
+            qBg = "bg-emerald-950 border-emerald-400 text-emerald-300";
+            icon = `<i class="fa-solid fa-check text-[10px]"></i>`;
+          } else if (st === false) {
+            qBg = "bg-rose-950 border-rose-400 text-rose-300";
+            icon = `<i class="fa-solid fa-xmark text-[10px]"></i>`;
+          }
+
+          const item = document.createElement('button');
+          item.className = `p-2 rounded-xl border text-center text-xs font-mono font-bold flex flex-col items-center justify-center gap-0.5 transition active:scale-95 cursor-pointer ${qBg} hover:brightness-125`;
+          item.innerHTML = `<span>Q${i + 1}</span> ${icon}`;
+          item.onclick = () => {
+            openTkaQuestionInReview(i);
+          };
+          matrixEl.appendChild(item);
+        }
+      }
+
+      const modal = document.getElementById('tka-scorecard-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeTkaScorecardModal() {
+      const modal = document.getElementById('tka-scorecard-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
     function renderTkaQuestion() {
-      // Pulihkan draft jika ada
-      pulihkanDraftJawaban(tkaSubj, tkaPkgId);
-      // Pulihkan draft jika ada
       pulihkanDraftJawaban(tkaSubj, tkaPkgId);
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
@@ -3677,40 +3812,55 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       userMultiAnswers = [];
       userTfAnswers = {};
 
-      // Sebagian judul paket sudah diawali kodenya sendiri ("P12 • ..."),
-      // jadi kodenya hanya ditambahkan kalau memang belum ada -- kalau tidak,
-      // labelnya terbaca "P12 • P12 • ...". Judul juga boleh memuat rumus.
+      const isReviewMode = window._tkaReviewMode === true;
+      const draftObj = (typeof ambilDraftSemua === 'function') ? ambilDraftSemua(tkaSubj, tkaPkgId) : {};
+      const qDraft = draftObj[tkaQIdx];
+      const userChosen = qDraft ? qDraft.chosen : null;
+
       const judulPkg = String(pkg.title || '');
       const sudahBerkode = judulPkg.indexOf(tkaPkgId) === 0;
       const labelEl = document.getElementById('tka-pkg-name');
-      labelEl.innerText = sudahBerkode ? judulPkg : (tkaPkgId + ' • ' + judulPkg);
-      if (judulPkg.indexOf('$') !== -1) renderMath(labelEl);
+      if (labelEl) {
+        labelEl.innerText = sudahBerkode ? judulPkg : (tkaPkgId + ' • ' + judulPkg);
+        if (judulPkg.indexOf('$') !== -1) renderMath(labelEl);
+      }
 
+      // Render Question Nav Pills
       const pillsContainer = document.getElementById('tka-q-pills');
-      pillsContainer.innerHTML = '';
-      pkg.questions.forEach((item, idx) => {
-        const isAnswered = userSessionScores[`${tkaSubj}_${tkaPkgId}_${idx}`] !== undefined;
-        const pBtn = document.createElement('button');
-        let pillClass = `w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center active:scale-95 `;
-        if (idx === tkaQIdx) {
-          pillClass += 'bg-amber-500 text-slate-950 font-black shadow-lg scale-105';
-        } else if (isAnswered) {
-          pillClass += 'bg-blue-900/80 text-blue-200 border border-blue-500/40';
-        } else {
-          pillClass += 'bg-slate-800 text-slate-300 hover:bg-slate-700';
-        }
-        pBtn.className = pillClass;
-        pBtn.innerText = idx + 1;
-        pBtn.onclick = () => { tkaQIdx = idx; renderAppView(); };
-        pillsContainer.appendChild(pBtn);
-      });
+      if (pillsContainer) {
+        pillsContainer.innerHTML = '';
+        pkg.questions.forEach((item, idx) => {
+          const scoreVal = userSessionScores[`${tkaSubj}_${tkaPkgId}_${idx}`];
+          const isAnswered = scoreVal !== undefined;
+          const pBtn = document.createElement('button');
+          let pillClass = `w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center active:scale-95 cursor-pointer `;
+          
+          if (idx === tkaQIdx) {
+            pillClass += 'bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+          } else if (isReviewMode) {
+            if (scoreVal === true) pillClass += 'bg-emerald-950 text-emerald-300 border border-emerald-500';
+            else if (scoreVal === false) pillClass += 'bg-rose-950 text-rose-300 border border-rose-500';
+            else pillClass += 'bg-slate-800 text-slate-400';
+          } else if (isAnswered) {
+            pillClass += 'bg-blue-900/80 text-blue-200 border border-blue-500/40';
+          } else {
+            pillClass += 'bg-slate-800 text-slate-300 hover:bg-slate-700';
+          }
+          pBtn.className = pillClass;
+          pBtn.innerText = idx + 1;
+          pBtn.onclick = () => { tkaQIdx = idx; renderAppView(); };
+          pillsContainer.appendChild(pBtn);
+        });
+      }
 
       const body = document.getElementById('tka-body');
+      if (!body) return;
+
       const qType = q.tipe || q.type || (tkaSubj === 'clil' ? 'Multiple Choice' : 'Pilihan Ganda Tunggal');
       const isNumeric = (!q.opsi || q.opsi.length === 0);
       const isTF = !isNumeric && (qType === 'Pilihan Benar / Salah' || (q.kunci && /^[BS]\s*-\s*[BS]/i.test(q.kunci)));
-      const isMulti = !isNumeric && !isTF && (qType === 'Pilihan Ganda Kompleks' || (q.kunci && q.kunci.includes(',')));
-      // the badge must describe what is actually on screen
+      const isMulti = !isNumeric && !isTF && (qType === 'Pilihan Ganda Kompleks' || (q.kunci && String(q.kunci).includes(',')));
+      
       const EN = { 'Pilihan Ganda Tunggal': 'Multiple Choice', 'Pilihan Ganda Kompleks': 'Multiple Response',
                    'Pilihan Benar / Salah': 'True / False', 'Isian Singkat Numerik': 'Numeric Entry',
                    'Kecukupan Data': 'Data Sufficiency' };
@@ -3725,44 +3875,45 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (isTF) {
         let statements = [];
         if (q.opsi && q.opsi.length > 0) {
-          statements = q.opsi.map(opt => opt.replace(/\s*\[\s*[BS\s\/]+\s*\]\s*$/, '').replace(/^\(\d+\)\s*/, '').replace(/^[A-E]\.\s*/, ''));
+          statements = q.opsi.map(opt => opt.replace(/^[A-E]\.\s*/, ''));
+        } else {
+          statements = extractTfStatements(q.tanya);
         }
-        if (statements.length === 0) {
-          statements = ["Pernyataan Matematis 1", "Pernyataan Matematis 2", "Pernyataan Matematis 3"];
-        }
+        const correctParts = String(q.kunci || '').split('-').map(s => s.trim().toUpperCase());
 
         optionsHtml = `
           <div class="space-y-3">
-            <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-bold text-amber-300 shadow-sm">
-              <span class="flex items-center gap-1.5"><i class="fa-solid fa-list-check"></i> Pernyataan / Pernyataan Matematis:</span>
-              <span>Pilihan Jawaban</span>
-            </div>
-            ${statements.map((stmtText, idx) => `
-                <div id="tf-row-${idx}" class="p-3.5 md:p-4 bg-slate-800/90 border-2 border-slate-700 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow transition">
-                  <div class="flex items-start gap-3 flex-1 min-w-0">
-                    <span class="w-6 h-6 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
+            ${statements.map((stmt, idx) => {
+              const correctChoice = correctParts[idx] || 'B';
+              return `
+                <div id="tf-row-${idx}" class="p-3.5 md:p-4 rounded-2xl bg-slate-800/90 border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow">
+                  <div class="flex items-start gap-2.5 flex-1">
+                    <span class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 text-amber-300 font-bold flex items-center justify-center shrink-0 text-xs mt-0.5">
                       ${idx + 1}
                     </span>
-                    <span class="text-sm font-semibold text-slate-100 leading-relaxed">${stmtText}</span>
+                    <span class="text-xs md:text-sm text-slate-100 leading-relaxed">${stmt}</span>
                   </div>
-                  <span id="tf-verdict-${idx}" class="hidden shrink-0"></span>
-                  <div class="flex items-center gap-2 shrink-0 self-end md:self-auto">
-                    <button id="tf-b-${idx}" onclick="selectTfAnswer(${idx}, 'B')" class="px-4 py-2 rounded-xl text-xs font-bold border border-slate-600 bg-slate-900 hover:bg-slate-700 text-slate-200 transition active:scale-95 shadow">
+                  <div class="flex items-center gap-2 shrink-0 self-end md:self-center">
+                    <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${isReviewMode && correctChoice === 'B' ? 'border-emerald-400 bg-emerald-600 text-white font-black' : 'border-slate-600 bg-slate-900 text-slate-200'} transition shadow">
                       <i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> BENAR
                     </button>
-                    <button id="tf-s-${idx}" onclick="selectTfAnswer(${idx}, 'S')" class="px-4 py-2 rounded-xl text-xs font-bold border border-slate-600 bg-slate-900 hover:bg-slate-700 text-slate-200 transition active:scale-95 shadow">
+                    <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${isReviewMode && correctChoice === 'S' ? 'border-rose-400 bg-rose-600 text-white font-black' : 'border-slate-600 bg-slate-900 text-slate-200'} transition shadow">
                       <i class="fa-solid fa-xmark text-rose-400 mr-1.5"></i> SALAH
                     </button>
                   </div>
                 </div>
-            `).join('')}
-            <p id="tf-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
-            <button id="tf-submit" onclick="submitTfAnswer('${q.kunci}', ${statements.length})" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2 mt-2">
-              <i class="fa-solid fa-circle-check"></i> PERIKSA SEMUA JAWABAN BENAR / SALAH
-            </button>
+              `;
+            }).join('')}
+            ${!isReviewMode ? `
+              <p id="tf-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
+              <button id="tf-submit" onclick="submitTfAnswer('${q.kunci}', ${statements.length})" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2 mt-2">
+                <i class="fa-solid fa-circle-check"></i> SIMPAN JAWABAN BENAR / SALAH
+              </button>
+            ` : ''}
           </div>
         `;
       } else if (isMulti) {
+        const correctLetters = String(q.kunci || '').split(',').map(s => s.trim().toUpperCase());
         optionsHtml = `
           <div class="space-y-3">
             <div class="p-2.5 bg-blue-950/40 border border-blue-500/30 rounded-xl text-xs text-blue-300 font-bold flex items-center gap-2">
@@ -3773,54 +3924,94 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 const letter = opt.match(/^[A-E]/) ? opt.substring(0, 1) : String.fromCharCode(65 + i);
                 const cleanText = opt.replace(/^[A-E]\.\s*/, '');
                 const span = (q.opsi.length % 2 === 1 && i === q.opsi.length - 1) ? ' md:col-span-2' : '';
+                const isCorrectLetter = correctLetters.includes(letter);
+                
+                let btnStyle = "bg-slate-800/90 border-slate-700 text-slate-200";
+                let markBadge = "";
+                if (isReviewMode) {
+                  if (isCorrectLetter) {
+                    btnStyle = "bg-emerald-950/90 border-2 border-emerald-400 text-white font-semibold";
+                    markBadge = '<span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-950 text-[10px] font-black"><i class="fa-solid fa-check mr-1"></i>BENAR</span>';
+                  }
+                }
+
                 return `
-                  <button id="multi-opt-${letter}" data-letter="${letter}" onclick="toggleMultiOption('${letter}')" class="multi-opt-btn${span} p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow">
-                    <span id="chk-${letter}" class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 text-slate-400 font-bold flex items-center justify-center shrink-0 text-xs">
+                  <button id="multi-opt-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `toggleMultiOption('${letter}')`}" class="multi-opt-btn${span} p-3.5 md:p-4 border rounded-2xl text-left text-sm flex items-start gap-3 transition shadow ${btnStyle}">
+                    <span id="chk-${letter}" class="w-6 h-6 rounded-lg ${isReviewMode && isCorrectLetter ? 'bg-emerald-600 border-emerald-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-400'} font-bold flex items-center justify-center shrink-0 text-xs">
                       ${letter}
                     </span>
                     <span class="flex-1 pt-0.5 text-slate-100 leading-relaxed">${cleanText}</span>
-                    <span class="opt-mark shrink-0 pt-0.5"></span>
+                    <span class="opt-mark shrink-0 pt-0.5">${markBadge}</span>
                   </button>
                 `;
               }).join('')}
             </div>
-            <p id="multi-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
-            <button id="multi-submit" onclick="submitMultiAnswer('${q.kunci}')" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
-              <i class="fa-solid fa-check-double"></i> PERIKSA SEMUA PILIHAN JAWABAN
-            </button>
+            ${!isReviewMode ? `
+              <p id="multi-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
+              <button id="multi-submit" onclick="submitMultiAnswer('${q.kunci}')" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-check-double"></i> SIMPAN PILIHAN JAWABAN
+              </button>
+            ` : ''}
           </div>
         `;
       } else if (isNumeric) {
         optionsHtml = `
           <div class="p-6 bg-slate-800/90 border border-slate-700 rounded-2xl space-y-3 text-center max-w-md mx-auto shadow-xl">
             <span class="text-xs font-bold text-amber-300 uppercase block">${tkaSubj === 'clil' ? 'Numeric Entry:' : 'Isian Singkat Numerik:'}</span>
-            <input type="text" inputmode="text" autocomplete="off" id="numeric-input" onkeydown="if(event.key==='Enter'){event.preventDefault();submitNumericAnswer('${String(q.kunci).replace(/'/g, "\\'")}');}" placeholder="${tkaSubj === 'clil' ? 'Type the final value…' : 'Ketik nilai akhirnya…'}" class="w-full bg-slate-950 border border-slate-700 rounded-2xl py-3 px-4 text-center text-lg font-mono font-bold text-white focus:outline-none focus:border-amber-400 shadow-inner">
-            <p class="text-[11px] text-slate-400 leading-relaxed">${tkaSubj === 'clil' ? 'Decimals and fractions are both accepted (e.g. <span class="font-mono text-slate-300">0.75</span> or <span class="font-mono text-slate-300">3/4</span>).' : 'Boleh desimal maupun pecahan — <span class="font-mono text-slate-300">0,75</span>, <span class="font-mono text-slate-300">0.75</span>, dan <span class="font-mono text-slate-300">3/4</span> semuanya diterima.'}</p>
-            <p id="numeric-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
-            <button id="numeric-submit" onclick="submitNumericAnswer('${String(q.kunci).replace(/'/g, "\\'")}')" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
-              <i class="fa-solid fa-paper-plane"></i> KIRIM JAWABAN NUMERIK
-            </button>
+            <input type="text" id="numeric-input" value="${isReviewMode ? String(q.kunci) : (userChosen || '')}" ${isReviewMode ? 'readonly' : ''} class="w-full ${isReviewMode ? 'bg-emerald-950 border-2 border-emerald-400 text-white' : 'bg-slate-950 border-slate-700 text-white'} border rounded-2xl py-3 px-4 text-center text-lg font-mono font-bold focus:outline-none focus:border-amber-400 shadow-inner">
+            ${isReviewMode ? `
+              <p class="text-xs text-emerald-300 font-bold">Kunci Jawaban Tepat: <span class="font-mono text-white text-sm">${q.kunci}</span></p>
+            ` : `
+              <p class="text-[11px] text-slate-400 leading-relaxed">Boleh desimal maupun pecahan (contoh: <span class="font-mono text-slate-300">0.75</span> atau <span class="font-mono text-slate-300">3/4</span>).</p>
+              <button id="numeric-submit" onclick="submitNumericAnswer('${String(q.kunci).replace(/'/g, "\'")}')" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i> SIMPAN JAWABAN NUMERIK
+              </button>
+            `}
           </div>
         `;
       } else {
         // SINGLE CHOICE A/B/C/D/E
-        // long options read badly side-by-side, and 5 short ones leave an orphan
-        const longest = Math.max(...q.opsi.map(o => o.replace(/^[A-E]\.\s*/, '').length));
+        const longest = Math.max(...(q.opsi || []).map(o => o.replace(/^[A-E]\.\s*/, '').length));
         const twoCol = longest <= 40;
         const oddLast = twoCol && (q.opsi.length % 2 === 1);
+        const correctLetter = String(q.kunci || '').trim().toUpperCase();
+
         optionsHtml = `
           <div class="grid grid-cols-1 ${twoCol ? 'md:grid-cols-2' : ''} gap-2.5">
-            ${q.opsi.map((opt, i) => {
+            ${(q.opsi || []).map((opt, i) => {
               const span = (oddLast && i === q.opsi.length - 1) ? ' md:col-span-2' : '';
               const letter = opt.match(/^[A-E]/) ? opt.substring(0, 1) : String.fromCharCode(65 + i);
               const cleanText = opt.replace(/^[A-E]\.\s*/, '');
+              
+              let btnClass = "p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow cursor-pointer";
+              let badgeHtml = "";
+
+              if (isReviewMode) {
+                if (letter === correctLetter) {
+                  btnClass = "p-3.5 md:p-4 bg-emerald-950/90 border-2 border-emerald-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-emerald-950/50";
+                  if (userChosen === correctLetter) {
+                    badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-emerald-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> JAWABAN ANDA TEPAT (+10)</span>';
+                  } else {
+                    badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-emerald-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-check"></i> KUNCI JAWABAN BENAR</span>';
+                  }
+                } else if (userChosen === letter) {
+                  btnClass = "p-3.5 md:p-4 bg-rose-950/90 border-2 border-rose-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-rose-950/50";
+                  badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-xmark"></i> JAWABAN ANDA</span>';
+                } else {
+                  btnClass = "p-3.5 md:p-4 bg-slate-900/60 border border-slate-800 rounded-2xl text-left text-sm text-slate-400 flex items-start gap-3 opacity-60";
+                }
+              } else if (userChosen === letter) {
+                btnClass = "p-3.5 md:p-4 bg-cyan-950/90 border-2 border-cyan-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-cyan-950/50";
+                badgeHtml = '<i class="fa-solid fa-circle-check text-cyan-400 text-sm"></i>';
+              }
+
               return `
-                <button id="opt-btn-${letter}" data-letter="${letter}" onclick="selectAnswer('${letter}', '${q.kunci}')" class="opt-btn${span} p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow">
-                  <span class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 text-amber-400 font-black flex items-center justify-center shrink-0 text-xs">
+                <button id="opt-btn-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `selectAnswer('${letter}', '${q.kunci}')`}" class="opt-btn${span} ${btnClass}">
+                  <span class="w-6 h-6 rounded-lg ${isReviewMode && letter === correctLetter ? 'bg-emerald-500 text-slate-950 font-black' : 'bg-slate-900 border border-slate-700 text-amber-400 font-black'} flex items-center justify-center shrink-0 text-xs">
                     ${letter}
                   </span>
                   <span class="flex-1 pt-0.5 text-slate-100 font-medium leading-relaxed">${cleanText}</span>
-                  <span class="opt-mark shrink-0 pt-0.5"></span>
+                  <span class="opt-mark shrink-0 pt-0.5">${badgeHtml}</span>
                 </button>
               `;
             }).join('')}
@@ -3828,8 +4019,28 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         `;
       }
 
+      // Review Header Banner
+      const reviewHeaderBanner = isReviewMode ? `
+        <div class="p-3 bg-gradient-to-r from-emerald-950/95 to-slate-900/95 border border-emerald-500/60 rounded-2xl flex flex-wrap items-center justify-between gap-2.5 shadow-xl mb-4">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 text-sm">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </span>
+            <div>
+              <span class="text-xs font-black text-emerald-300 uppercase tracking-wide">Mode Review Pembahasan & Kunci Jawaban</span>
+              <p class="text-[10px] text-slate-300">Langkah penyelesaian terstruktur dan evaluasi per butir soal</p>
+            </div>
+          </div>
+          <button onclick="showTkaScorecardModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 cursor-pointer active:scale-95">
+            <i class="fa-solid fa-chart-pie"></i> <span>Lihat Skor Akhir</span>
+          </button>
+        </div>
+      ` : '';
+
       body.innerHTML = `
         <div class="space-y-4">
+          ${reviewHeaderBanner}
+
           <div class="p-4 md:p-6 bg-slate-900/90 rounded-2xl border border-amber-500/40 shadow-xl space-y-3">
             <div class="flex flex-wrap items-center gap-x-2 gap-y-1 justify-between border-b border-slate-800 pb-2">
               <div class="flex items-center gap-2 min-w-0">
@@ -3850,18 +4061,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           <!-- OPTIONS -->
           ${optionsHtml}
 
-          <!-- STEP-BY-STEP SOLUTION CARD (HIDDEN INITIALLY) -->
-          <div id="tka-solution-box" class="hidden p-4 md:p-6 bg-slate-900 rounded-2xl border border-emerald-500/40 shadow-2xl space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-              <span class="text-xs font-black text-emerald-400 flex items-center gap-1.5 uppercase">
-                <i class="fa-solid fa-square-check text-emerald-400"></i> ${tkaSubj === 'clil' ? 'Step-by-Step Structured Solution:' : 'Langkah Pembahasan Terstruktur:'}
+          <!-- STEP-BY-STEP SOLUTION CARD -->
+          <div id="tka-solution-box" class="${isReviewMode ? 'block' : 'hidden'} p-4 md:p-6 bg-slate-900/95 rounded-2xl border-2 border-emerald-500/60 shadow-2xl space-y-3 mb-10 pb-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+              <span class="text-xs font-black text-emerald-400 flex items-center gap-2 uppercase tracking-wide">
+                <i class="fa-solid fa-lightbulb text-amber-400"></i> ${tkaSubj === 'clil' ? 'Step-by-Step Structured Solution:' : 'Langkah Pembahasan Terstruktur & Kunci Jawaban:'}
               </span>
-              <span class="text-xs font-mono font-bold text-amber-300 bg-slate-950 px-2.5 py-0.5 rounded-lg border border-slate-800" id="tka-correct-key-label">
-                ${tkaSubj === 'clil' ? 'Key Answer' : 'Kunci'}: ${q.kunci}
+              <span class="text-xs font-mono font-black text-amber-300 bg-slate-950 px-3 py-1 rounded-xl border border-amber-500/40 shadow-inner" id="tka-correct-key-label">
+                ${tkaSubj === 'clil' ? 'Key Answer' : 'Kunci Jawaban'}: <span class="text-emerald-400 text-sm font-black">${q.kunci}</span>
               </span>
             </div>
-            <div class="text-xs md:text-sm text-slate-200">
-              ${formatSolutionHtml(q.bahas)}
+            <div class="text-xs md:text-sm text-slate-100 leading-relaxed space-y-2 pt-1 font-sans" id="tka-solution-content">
+              ${formatSolutionHtml(q.bahas || q.pembahasan || q.solusi || 'Pembahasan terstruktur sedang disiapkan.')}
             </div>
           </div>
         </div>
@@ -3870,8 +4081,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       renderMath(body);
     }
 
-    // Gambar disembunyikan dulu agar siswa berpikir sendiri lebih dahulu,
-    // tetapi hanya satu ketukan untuk membukanya.
     let vizOpen = false;
     function vizBlock(q) {
       const html = vzRender(q.viz);
