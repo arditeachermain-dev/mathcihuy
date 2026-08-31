@@ -1,0 +1,234 @@
+{
+  "_catatan": "Paket P01 Matematika Tingkat Lanjut (Peminatan) Kelas XI Fase F. Bagian 'materi' masuk ke db.minat (array), bagian 'soal' masuk ke db.tka_minat dengan kunci 'P01'. Struktur sudah disamakan persis dengan paket kelas 12.",
+  "materi": {
+    "id": "P01",
+    "bab": "Bab 1: Polinomial",
+    "title": "Bentuk Umum, Derajat, dan Nilai Polinomial (Substitusi & Horner)",
+    "obj": [
+      "Mengenali bentuk umum polinomial $P(x)=a_nx^n+a_{n-1}x^{n-1}+\\dots+a_1x+a_0$ serta menentukan derajat, koefisien utama, dan suku tetapnya.",
+      "Menghitung nilai polinomial $P(k)$ dengan substitusi langsung maupun skema Horner, dan menjelaskan mengapa Horner lebih hemat perhitungan.",
+      "Menentukan koefisien yang belum diketahui dari sebuah polinomial jika salah satu nilai $P(k)$ diketahui."
+    ],
+    "hook": "Kalkulator dan komputer tidak pernah benar-benar menghitung $x^{20}$ dengan mengalikan $x$ sebanyak dua puluh kali. Mereka memakai satu trik berumur 200 tahun yang memangkas jumlah perkalian hingga tinggal sepersekian. Trik itu bernama skema Horner, dan hari ini Anda akan memakainya sendiri.",
+    "toolkit": [
+      {
+        "name": "Bentuk Umum Polinomial",
+        "math": "$$P(x) = a_nx^n + a_{n-1}x^{n-1} + \\dots + a_1x + a_0, \\quad a_n \\neq 0$$"
+      },
+      {
+        "name": "Derajat, Koefisien Utama, dan Suku Tetap",
+        "math": "$$\\deg P = n, \\qquad \\text{koef. utama} = a_n, \\qquad \\text{suku tetap} = a_0 = P(0)$$"
+      },
+      {
+        "name": "Nilai Polinomial (Substitusi Langsung)",
+        "math": "$$P(k) = a_nk^n + a_{n-1}k^{n-1} + \\dots + a_1k + a_0$$"
+      },
+      {
+        "name": "Skema Horner (Bentuk Bersarang)",
+        "math": "$$P(k) = \\Big(\\big((a_nk + a_{n-1})k + a_{n-2}\\big)k + \\dots\\Big)k + a_0$$"
+      },
+      {
+        "name": "Jumlah Seluruh Koefisien",
+        "math": "$$a_n + a_{n-1} + \\dots + a_1 + a_0 = P(1)$$"
+      }
+    ],
+    "examples": [
+      {
+        "problem": "Diberikan $P(x) = 4x^3 - 2x^5 + 7x - 1 + x^2$. Tentukan derajat, koefisien utama, dan suku tetapnya!",
+        "solution": "Langkah 1: Susun ulang menurut pangkat menurun. Bentuk umum polinomial menuntut urutan ini, dan soal sengaja mengacaknya:\n$P(x) = -2x^5 + 4x^3 + x^2 + 7x - 1$.\n\nLangkah 2: Derajat adalah pangkat tertinggi, yaitu $n = 5$. Perhatikan bahwa suku $-2x^5$ tadinya berada di tengah, bukan di depan.\n\nLangkah 3: Koefisien utama adalah koefisien dari $x^5$, yaitu $a_5 = -2$. Tandanya ikut terbawa.\n\nLangkah 4: Suku tetap adalah suku tanpa $x$, yaitu $a_0 = -1$. Bisa diperiksa lewat $P(0) = -1$.\n\nKesimpulan: Derajat $5$, koefisien utama $-2$, suku tetap $-1$."
+      },
+      {
+        "problem": "Diberikan $P(x) = 2x^3 - 5x^2 + 3x - 7$. Hitung $P(3)$ dengan substitusi langsung!",
+        "solution": "Langkah 1: Substitusikan $x = 3$ ke setiap suku:\n$P(3) = 2(3)^3 - 5(3)^2 + 3(3) - 7$.\n\nLangkah 2: Hitung pangkatnya lebih dulu: $3^3 = 27$ dan $3^2 = 9$.\n$P(3) = 2(27) - 5(9) + 9 - 7$.\n\nLangkah 3: Kalikan: $P(3) = 54 - 45 + 9 - 7$.\n\nLangkah 4: Jumlahkan berurutan: $54 - 45 = 9$, lalu $9 + 9 = 18$, lalu $18 - 7 = 11$.\n\nKesimpulan: $P(3) = 11$. Cara ini memerlukan 5 kali perkalian."
+      },
+      {
+        "problem": "Hitung ulang $P(3)$ untuk $P(x) = 2x^3 - 5x^2 + 3x - 7$ dengan skema Horner, lalu bandingkan banyaknya perkalian.",
+        "solution": "Langkah 1: Tulis koefisien berurutan dari derajat tertinggi, termasuk yang bernilai nol jika ada:\n$2 \\quad -5 \\quad 3 \\quad -7$, dengan $k = 3$.\n\nLangkah 2: Turunkan koefisien pertama apa adanya: $b_3 = 2$.\n\nLangkah 3: Kalikan dengan $k$ lalu tambahkan koefisien berikutnya, berulang:\n$b_2 = -5 + 3(2) = 1$\n$b_1 = 3 + 3(1) = 6$\n$b_0 = -7 + 3(6) = 11$\n\nLangkah 4: Bilangan terakhir adalah nilai yang dicari, $P(3) = 11$ — sama dengan hasil substitusi langsung.\n\nKesimpulan: $P(3) = 11$, diperoleh hanya dengan 3 kali perkalian. Untuk derajat $n$, Horner memerlukan $n$ perkalian, sedangkan substitusi langsung memerlukan jauh lebih banyak. Inilah sebabnya komputer memakai Horner."
+      },
+      {
+        "problem": "Diketahui $P(x) = x^3 + ax^2 - 4x + 6$ dan $P(2) = 10$. Tentukan nilai $a$!",
+        "solution": "Langkah 1: Substitusikan $x = 2$, biarkan $a$ tetap sebagai huruf:\n$P(2) = (2)^3 + a(2)^2 - 4(2) + 6$.\n\nLangkah 2: Hitung yang bisa dihitung: $8 + 4a - 8 + 6$.\n\nLangkah 3: Sederhanakan suku angkanya: $8 - 8 + 6 = 6$, sehingga $P(2) = 4a + 6$.\n\nLangkah 4: Samakan dengan nilai yang diketahui: $4a + 6 = 10 \\implies 4a = 4 \\implies a = 1$.\n\nLangkah 5: Periksa kembali dengan $a = 1$: $P(2) = 8 + 4 - 8 + 6 = 10$. Cocok.\n\nKesimpulan: $a = 1$."
+      },
+      {
+        "problem": "Sebuah kardus tanpa tutup dibuat dari karton. Panjang alasnya $(x+2)$ cm, lebarnya $(x+1)$ cm, dan tingginya $(x-1)$ cm. Nyatakan volumenya sebagai polinomial dalam $x$, lalu hitung volumenya saat $x = 5$ cm.",
+        "solution": "Langkah 1: Volume balok adalah hasil kali ketiga ukurannya:\n$V(x) = (x+2)(x+1)(x-1)$.\n\nLangkah 2: Kalikan dua faktor yang paling mudah lebih dulu. Pilih $(x+1)(x-1)$ karena membentuk selisih kuadrat:\n$(x+1)(x-1) = x^2 - 1$.\n\nLangkah 3: Kalikan dengan faktor sisanya:\n$V(x) = (x+2)(x^2-1) = x^3 - x + 2x^2 - 2$.\n\nLangkah 4: Susun menurut pangkat menurun: $V(x) = x^3 + 2x^2 - x - 2$, sebuah polinomial berderajat 3.\n\nLangkah 5: Hitung $V(5)$ dengan Horner. Koefisien $1 \\quad 2 \\quad -1 \\quad -2$ dengan $k = 5$:\n$1$; $2 + 5(1) = 7$; $-1 + 5(7) = 34$; $-2 + 5(34) = 168$.\n\nLangkah 6: Periksa lewat ukuran aslinya: $7 \\times 6 \\times 4 = 168$. Cocok.\n\nKesimpulan: $V(x) = x^3 + 2x^2 - x - 2$ dan $V(5) = 168$ cm³."
+      }
+    ],
+    "btc": "Kelompok VNPS: Diberikan $P(x) = x^3 - 2x^2 + mx + n$. Diketahui $P(1) = 0$ dan $P(-1) = -8$. Tentukan $m$ dan $n$, lalu tuliskan polinomial lengkapnya. Selesaikan di papan dengan menyusun dua persamaan dari dua informasi tersebut — jangan menebak.",
+    "summary_data": {
+      "summary": [
+        "Bentuk umum polinomial: $P(x) = a_nx^n + \\dots + a_1x + a_0$ dengan $a_n \\neq 0$. Pangkat harus bilangan bulat tak negatif — $\\sqrt{x}$ dan $x^{-2}$ bukan suku polinomial.",
+        "Derajat adalah pangkat tertinggi, koefisien utama adalah $a_n$, dan suku tetap adalah $a_0 = P(0)$. Susun dulu menurut pangkat menurun sebelum membacanya.",
+        "Skema Horner menghitung $P(k)$ hanya dengan $n$ perkalian: turunkan koefisien pertama, lalu berulang kali kalikan $k$ dan tambahkan koefisien berikutnya.",
+        "Jumlah seluruh koefisien sebuah polinomial selalu sama dengan $P(1)$, dan suku tetapnya sama dengan $P(0)$."
+      ],
+      "islamic": "Sebuah polinomial dinilai dari suku berpangkat tertinggi, tetapi nilainya tidak pernah lengkap tanpa suku tetap yang paling kecil. Begitu pula amal: yang besar menentukan derajat, namun yang kecil dan tersembunyi tetap ikut diperhitungkan. \"Barang siapa mengerjakan kebaikan seberat zarah pun, niscaya dia akan melihat balasannya.\" (QS. Az-Zalzalah: 7)"
+    },
+    "collab_cases": [
+      "Tentukan derajat, koefisien utama, dan suku tetap dari $Q(x) = 6x^2 - x^4 + 9 - 3x^7 + 2x$. Jelaskan mengapa jawabannya bukan $6$ meski itu angka terbesar yang terlihat.",
+      "Hitung $P(-4)$ untuk $P(x) = x^4 + 3x^3 - 2x^2 + 5x - 1$ dengan skema Horner. Perhatikan baik-baik tanda negatif pada setiap langkah.",
+      "Diketahui $P(x) = 2x^3 + px^2 - 5x + q$ dengan $P(0) = 3$ dan $P(1) = 4$. Tentukan $p$ dan $q$.",
+      "Tanpa menjabarkan perkaliannya, tentukan jumlah seluruh koefisien dari $P(x) = (3x - 2)^4(x + 1)^2$. Petunjuk: gunakan sifat $P(1)$.",
+      "Manakah di antara $f(x) = x^3 - \\frac{2}{x}$, $g(x) = 4x^2 - \\sqrt{5}\\,x + 1$, dan $h(x) = \\sqrt{x} + x^2$ yang merupakan polinomial? Jelaskan alasannya satu per satu — perhatikan bahwa akar pada koefisien berbeda kedudukannya dengan akar pada variabel."
+    ]
+  },
+  "soal": {
+    "id": "P01",
+    "subject": "minat",
+    "title": "P01 • Bentuk Umum, Derajat, dan Nilai Polinomial",
+    "questions": [
+      {
+        "no": 1,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C2 Pemahaman",
+        "bobot": 10,
+        "tanya": "[P01-Q1] Derajat dari polinomial $P(x) = 5x^2 - 3x^7 + 2x^4 - 8$ adalah ...",
+        "opsi": [
+          "A. $2$",
+          "B. $4$",
+          "C. $5$",
+          "D. $7$",
+          "E. $8$"
+        ],
+        "kunci": "D",
+        "bahas": "Langkah 1: Derajat adalah pangkat tertinggi dari variabel, bukan koefisien terbesar dan bukan suku yang ditulis paling depan.\n\nLangkah 2: Kumpulkan seluruh pangkat yang muncul: $2$, $7$, $4$, dan $0$ (dari suku tetap $-8$).\n\nLangkah 3: Pangkat tertinggi di antaranya adalah $7$, berasal dari suku $-3x^7$.\n\nLangkah 4: Jebakan di soal ini ada pada urutan penulisan yang diacak dan pada angka $8$ yang besar tetapi hanya suku tetap.\nKesimpulan: Kunci Jawaban D."
+      },
+      {
+        "no": 2,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C3 Penerapan",
+        "bobot": 10,
+        "tanya": "[P01-Q2] Jika $P(x) = x^3 - 4x^2 + 2x + 5$, maka nilai $P(-2)$ adalah ...",
+        "opsi": [
+          "A. $-23$",
+          "B. $-15$",
+          "C. $-7$",
+          "D. $9$",
+          "E. $25$"
+        ],
+        "kunci": "A",
+        "bahas": "Langkah 1: Substitusikan $x = -2$ dengan tanda kurung pada setiap pangkat, agar tandanya tidak hilang:\n$P(-2) = (-2)^3 - 4(-2)^2 + 2(-2) + 5$.\n\nLangkah 2: Hitung pangkatnya: $(-2)^3 = -8$ (pangkat ganjil, tetap negatif) dan $(-2)^2 = 4$ (pangkat genap, menjadi positif).\n$P(-2) = -8 - 4(4) - 4 + 5$.\n\nLangkah 3: Kalikan: $P(-2) = -8 - 16 - 4 + 5$.\n\nLangkah 4: Jumlahkan berurutan: $-8 - 16 = -24$; $-24 - 4 = -28$; $-28 + 5 = -23$.\nKesimpulan: Kunci Jawaban A."
+      },
+      {
+        "no": 3,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C3 Penerapan",
+        "bobot": 10,
+        "tanya": "[P01-Q3] Dengan skema Horner, nilai $P(2)$ untuk $P(x) = 2x^3 + x^2 - 5x + 2$ adalah ...",
+        "opsi": [
+          "A. $2$",
+          "B. $5$",
+          "C. $8$",
+          "D. $12$",
+          "E. $16$"
+        ],
+        "kunci": "D",
+        "bahas": "Langkah 1: Tulis koefisien berurutan dari pangkat tertinggi: $2 \\quad 1 \\quad -5 \\quad 2$, dengan $k = 2$.\n\nLangkah 2: Turunkan koefisien pertama apa adanya: $2$.\n\nLangkah 3: Kalikan $k$ lalu tambahkan koefisien berikutnya, berulang sampai habis:\n$1 + 2(2) = 5$\n$-5 + 2(5) = 5$\n$2 + 2(5) = 12$\n\nLangkah 4: Bilangan terakhir adalah $P(2) = 12$. Sebagai pemeriksaan, substitusi langsung memberi $2(8) + 4 - 10 + 2 = 16 + 4 - 10 + 2 = 12$.\nKesimpulan: Kunci Jawaban D."
+      },
+      {
+        "no": 4,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C2 Pemahaman",
+        "bobot": 10,
+        "tanya": "[P01-Q4] Manakah bentuk berikut yang BUKAN merupakan polinomial?",
+        "opsi": [
+          "A. $4x^3 - x + 7$",
+          "B. $x^2 - \\sqrt{3}\\,x + 1$",
+          "C. $\\dfrac{5}{x^2} + 2x$",
+          "D. $-9$",
+          "E. $\\dfrac{1}{2}x^4 + \\dfrac{2}{3}x$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Syarat polinomial terletak pada PANGKAT variabelnya: harus bilangan bulat tak negatif. Koefisiennya sendiri boleh pecahan maupun bentuk akar.\n\nLangkah 2: Periksa opsi C: $\\frac{5}{x^2} = 5x^{-2}$, pangkatnya $-2$ yang bernilai negatif. Ini bukan polinomial.\n\nLangkah 3: Opsi B tetap polinomial karena $\\sqrt{3}$ berada pada koefisien, bukan pada variabel. Begitu pula opsi E yang koefisiennya pecahan.\n\nLangkah 4: Opsi D adalah polinomial berderajat $0$ (polinomial konstan), dan itu sah.\nKesimpulan: Kunci Jawaban C."
+      },
+      {
+        "no": 5,
+        "tipe": "Pilihan Benar / Salah",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P01-Q5] Tentukan kebenaran setiap pernyataan berikut untuk $P(x) = 3x^4 - x^2 + 6$:\n(1) Derajat polinomial tersebut adalah 4.\n(2) Koefisien dari $x^3$ adalah 0.\n(3) Nilai $P(-1) = -8$.",
+        "opsi": [
+          "Derajat polinomial tersebut adalah 4",
+          "Koefisien dari $x^3$ adalah 0",
+          "Nilai $P(-1) = -8$"
+        ],
+        "kunci": "B - B - S",
+        "bahas": "Langkah 1: Analisis pernyataan (1):\nPangkat tertinggi adalah $4$ pada suku $3x^4$.\n$\\implies$ Pernyataan (1) BENAR.\n\nLangkah 2: Analisis pernyataan (2):\nSuku $x^3$ memang tidak tertulis, dan itu berarti koefisiennya $0$ — bukan berarti tidak ada. Bentuk lengkapnya $3x^4 + 0x^3 - x^2 + 0x + 6$.\n$\\implies$ Pernyataan (2) BENAR.\n\nLangkah 3: Analisis pernyataan (3):\n$P(-1) = 3(-1)^4 - (-1)^2 + 6 = 3(1) - 1 + 6 = 8$, bukan $-8$. Pangkat genap membuat hasilnya positif.\n$\\implies$ Pernyataan (3) SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+      },
+      {
+        "no": 6,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P01-Q6] Diketahui $P(x) = 2x^3 + ax^2 - 7x + 3$ dan $P(1) = 0$. Nilai $a$ adalah ...",
+        "opsi": [
+          "A. $-2$",
+          "B. $-1$",
+          "C. $0$",
+          "D. $1$",
+          "E. $2$"
+        ],
+        "kunci": "E",
+        "bahas": "Langkah 1: Substitusikan $x = 1$ dan biarkan $a$ tetap sebagai huruf:\n$P(1) = 2(1)^3 + a(1)^2 - 7(1) + 3$.\n\nLangkah 2: Karena setiap pangkat dari $1$ bernilai $1$, bentuknya menjadi $2 + a - 7 + 3$.\n\nLangkah 3: Sederhanakan suku angkanya: $2 - 7 + 3 = -2$, sehingga $P(1) = a - 2$.\n\nLangkah 4: Samakan dengan yang diketahui: $a - 2 = 0 \\implies a = 2$.\n\nLangkah 5: Periksa: $2 + 2 - 7 + 3 = 0$. Cocok.\nKesimpulan: Kunci Jawaban E."
+      },
+      {
+        "no": 7,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P01-Q7] Jumlah seluruh koefisien pada penjabaran $P(x) = (2x - 1)^3$ adalah ...",
+        "opsi": [
+          "A. $-1$",
+          "B. $0$",
+          "C. $1$",
+          "D. $7$",
+          "E. $8$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Jumlah seluruh koefisien sebuah polinomial selalu sama dengan $P(1)$, karena mensubstitusi $x = 1$ membuat setiap $x^k$ bernilai $1$ dan yang tersisa hanya koefisiennya.\n\nLangkah 2: Maka tidak perlu menjabarkan perkaliannya. Cukup hitung $P(1) = (2(1) - 1)^3 = (1)^3 = 1$.\n\nLangkah 3: Sebagai pemeriksaan, penjabaran lengkapnya adalah $8x^3 - 12x^2 + 6x - 1$, dan $8 - 12 + 6 - 1 = 1$. Cocok.\n\nLangkah 4: Opsi $8$ adalah jebakan bagi yang hanya melihat koefisien utama, dan $-1$ jebakan bagi yang hanya melihat suku tetap.\nKesimpulan: Kunci Jawaban C."
+      },
+      {
+        "no": 8,
+        "tipe": "Pilihan Ganda Kompleks",
+        "level": "C5 Evaluasi",
+        "bobot": 10,
+        "tanya": "[P01-Q8] Diberikan $P(x) = x^4 - 3x^2 + 2$. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+        "opsi": [
+          "A. Derajat polinomial adalah 4.",
+          "B. Nilai $P(1) = 0$.",
+          "C. Nilai $P(-1) = 0$.",
+          "D. Suku tetapnya adalah $-3$.",
+          "E. Koefisien dari $x^3$ adalah 0."
+        ],
+        "kunci": "A, B, C, E",
+        "bahas": "Langkah 1: Analisis opsi A:\nPangkat tertinggi adalah $4$.\n$\\implies$ A BENAR.\n\nLangkah 2: Analisis opsi B:\n$P(1) = 1 - 3 + 2 = 0$.\n$\\implies$ B BENAR.\n\nLangkah 3: Analisis opsi C:\n$P(-1) = (-1)^4 - 3(-1)^2 + 2 = 1 - 3 + 2 = 0$. Seluruh pangkatnya genap, sehingga hasilnya sama dengan $P(1)$.\n$\\implies$ C BENAR.\n\nLangkah 4: Analisis opsi D:\nSuku tetap adalah suku tanpa $x$, yaitu $+2$. Angka $-3$ itu koefisien dari $x^2$.\n$\\implies$ D SALAH.\n\nLangkah 5: Analisis opsi E:\nSuku $x^3$ tidak tertulis, artinya koefisiennya $0$.\n$\\implies$ E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E."
+      },
+      {
+        "no": 9,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P01-Q9] Polinomial $P(x) = x^3 + 2x^2 - 5x + k$ memenuhi $P(2) = 7$. Nilai $k$ adalah ...",
+        "opsi": [
+          "A. $-6$",
+          "B. $-1$",
+          "C. $1$",
+          "D. $6$",
+          "E. $13$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Substitusikan $x = 2$ dengan $k$ dibiarkan sebagai huruf:\n$P(2) = (2)^3 + 2(2)^2 - 5(2) + k$.\n\nLangkah 2: Hitung tiap suku: $8 + 2(4) - 10 + k = 8 + 8 - 10 + k$.\n\nLangkah 3: Sederhanakan: $8 + 8 - 10 = 6$, sehingga $P(2) = 6 + k$.\n\nLangkah 4: Samakan dengan yang diketahui: $6 + k = 7 \\implies k = 1$.\n\nLangkah 5: Periksa: $8 + 8 - 10 + 1 = 7$. Cocok.\nKesimpulan: Kunci Jawaban C."
+      },
+      {
+        "no": 10,
+        "tipe": "Isian Singkat Numerik",
+        "level": "C3 Penerapan",
+        "bobot": 10,
+        "tanya": "[P01-Q10] Jika $P(x) = 3x^3 - 2x^2 + x - 5$, maka nilai $P(2)$ adalah ...",
+        "opsi": [],
+        "kunci": "13",
+        "bahas": "Langkah 1: Gunakan skema Horner. Tulis koefisiennya berurutan: $3 \\quad -2 \\quad 1 \\quad -5$, dengan $k = 2$.\n\nLangkah 2: Turunkan koefisien pertama: $3$.\n\nLangkah 3: Kalikan $k$ lalu tambahkan koefisien berikutnya, berulang:\n$-2 + 2(3) = 4$\n$1 + 2(4) = 9$\n$-5 + 2(9) = 13$\n\nLangkah 4: Periksa dengan substitusi langsung: $3(8) - 2(4) + 2 - 5 = 24 - 8 + 2 - 5 = 13$. Cocok.\nKesimpulan: Kunci Jawaban 13."
+      }
+    ]
+  }
+}

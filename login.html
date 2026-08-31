@@ -369,9 +369,21 @@
         // ===== PINDAH KE PORTAL =====
         // Portal ada di '/', BUKAN '/index.html'.
         // Cloudflare Pages memantulkan '/index.html' ke '/' (308) -> itu sumber loop.
-        function gotoPortal() {
+        // Tiap tingkat punya halamannya sendiri: kelas 12 di '/', kelas 11 di
+        // '/11'. Siswa diarahkan menurut kelasnya, jadi ia tidak pernah membuka
+        // -- apalagi mengunduh -- materi tingkat lain.
+        // Urutan pemeriksaan penting: 'XII F1' juga diawali 'XI' dan 'X'.
+        function halamanTingkat(kelas) {
+            var k = String(kelas || '').trim().toUpperCase();
+            if (k.indexOf('XII') === 0) return '/';
+            if (k.indexOf('XI') === 0) return '/11';
+            if (k.indexOf('X') === 0) return '/10';
+            return '/';
+        }
+
+        function gotoPortal(kelas) {
             sessionStorage.setItem('redirect_guard', '1');
-            window.location.replace('/');
+            window.location.replace(halamanTingkat(kelas));
         }
 
         // ===== SISWA LOGIN =====
@@ -415,7 +427,9 @@
 
             successEl.textContent = 'Berhasil masuk. Sebentar, ya.';
             successEl.style.display = 'block';
-            setTimeout(gotoPortal, 500);
+            // gotoPortal harus menerima kelas siswa; setTimeout(gotoPortal, 500)
+            // akan mengirim id timer sebagai argumen, bukan kelasnya.
+            setTimeout(function () { gotoPortal(student.kelas); }, 500);
         }
 
         // ===== GURU LOGIN =====
@@ -451,7 +465,9 @@
 
             successEl.textContent = 'Berhasil masuk. Sebentar, ya.';
             successEl.style.display = 'block';
-            setTimeout(gotoPortal, 500);
+            // Guru mengajar semua tingkat; dibawa ke halaman kelas 12 dulu,
+            // lalu bisa berpindah lewat tombol tingkat di header.
+            setTimeout(function () { gotoPortal('XII'); }, 500);
         }
 
         // ===== CEK SESI SAAT HALAMAN DIBUKA =====
@@ -480,7 +496,7 @@
                 return;
             }
 
-            gotoPortal();
+            gotoPortal((parsed.data && (parsed.data.kelas_name || parsed.data.kelas)) || '');
         }
 
         window.addEventListener('DOMContentLoaded', checkExistingSession);

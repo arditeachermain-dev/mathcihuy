@@ -1,5 +1,5 @@
-# index.html: always revalidate so a redeploy reaches students immediately,
-# but allow a 304 instead of re-downloading the whole file on every page view.
+# Halaman: selalu diperiksa ulang supaya deploy baru langsung sampai ke siswa,
+# tetapi boleh dijawab 304 sehingga tidak diunduh ulang setiap kali dibuka.
 /index.html
   Cache-Control: no-cache
   X-Content-Type-Options: nosniff
@@ -7,6 +7,42 @@
 
 /
   Cache-Control: no-cache
+
+/11.html
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/11
+  Cache-Control: no-cache
+
+# Berkas kode & data dipakai bersama semua tingkat dan berukuran besar, tetapi
+# tetap harus diperiksa ulang. Kalau di-cache lama, perbaikan tidak akan pernah
+# sampai ke perangkat siswa; dengan no-cache, yang berubah saja yang diunduh
+# ulang (sisanya dijawab 304 dan nyaris tanpa biaya).
+/mathcihuy.css
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
+
+/vendor.js
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
+
+/app.js
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
+
+/app-akhir.js
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
+
+/data-xii.js
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
+
+/data-xi.js
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
 
 # ikon dan manifest jarang berubah
 /icon-*.png

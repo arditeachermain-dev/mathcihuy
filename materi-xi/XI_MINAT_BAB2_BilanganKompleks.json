@@ -1,0 +1,1176 @@
+{
+  "_catatan": "Bab 2 Bilangan Kompleks, Matematika Tingkat Lanjut (Peminatan) Kelas XI Fase F. 'materi' masuk ke db.minat (larik), 'soal' masuk ke db.tka_minat dengan kunci id-nya.",
+  "paket": [
+    {
+      "id": "P09",
+      "judul": "Definisi, Bentuk Umum, dan Kesamaan Bilangan Kompleks",
+      "materi": {
+        "id": "P09",
+        "bab": "Bab 2: Bilangan Kompleks",
+        "title": "Definisi, Bentuk Umum, dan Kesamaan Bilangan Kompleks",
+        "obj": [
+          "Menjelaskan satuan imajiner $i = \\sqrt{-1}$ dengan sifat $i^2 = -1$, serta menuliskan bilangan kompleks dalam bentuk $z = a + bi$.",
+          "Menentukan bagian real $\\operatorname{Re}(z)$ dan bagian imajiner $\\operatorname{Im}(z)$, serta mengenali bilangan real dan imajiner murni sebagai kasus khususnya.",
+          "Menerapkan syarat kesamaan dua bilangan kompleks untuk menentukan nilai yang belum diketahui, termasuk pada persamaan kuadrat berdiskriminan negatif."
+        ],
+        "hook": "Selama bertahun-tahun Anda diajari bahwa $x^2 = -1$ tidak punya penyelesaian. Pernyataan itu sebenarnya belum lengkap: tidak punya penyelesaian DI HIMPUNAN BILANGAN REAL. Begitu satu simbol baru diperkenalkan, seluruh persamaan kuadrat — tanpa kecuali — punya akar.",
+        "toolkit": [
+          {
+            "name": "Satuan Imajiner",
+            "math": "$$i = \\sqrt{-1} \\quad \\text{sehingga} \\quad i^2 = -1$$"
+          },
+          {
+            "name": "Bentuk Umum Bilangan Kompleks",
+            "math": "$$z = a + bi, \\qquad a, b \\in \\mathbb{R}$$"
+          },
+          {
+            "name": "Bagian Real dan Imajiner",
+            "math": "$$\\operatorname{Re}(z) = a, \\qquad \\operatorname{Im}(z) = b$$"
+          },
+          {
+            "name": "Akar Bilangan Negatif",
+            "math": "$$\\sqrt{-p} = i\\sqrt{p}, \\qquad p > 0$$"
+          },
+          {
+            "name": "Kesamaan Bilangan Kompleks",
+            "math": "$$a + bi = c + di \\iff a = c \\ \\text{dan}\\ b = d$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Nyatakan $\\sqrt{-9}$, $\\sqrt{-49}$, dan $\\sqrt{-12}$ dalam bentuk bilangan imajiner.",
+            "solution": "Langkah 1: Pisahkan tanda negatifnya lebih dulu, lalu ganti $\\sqrt{-1}$ dengan $i$.\n$\\sqrt{-p} = \\sqrt{p} \\cdot \\sqrt{-1} = i\\sqrt{p}$\n\nLangkah 2: Kerjakan yang pertama.\n$\\sqrt{-9} = i\\sqrt{9} = 3i$\n\nLangkah 3: Kerjakan yang kedua.\n$\\sqrt{-49} = i\\sqrt{49} = 7i$\n\nLangkah 4: Yang ketiga akarnya belum sempurna, jadi sederhanakan dulu.\n$\\sqrt{-12} = i\\sqrt{12} = i\\sqrt{4 \\cdot 3} = 2i\\sqrt{3}$\n\nLangkah 5: Perhatikan bahwa $i$ ditulis di DEPAN akar, supaya tidak terbaca seolah ikut masuk ke dalam tanda akar.\n\nKesimpulan: $3i$, $\\quad 7i$, $\\quad 2i\\sqrt{3}$."
+          },
+          {
+            "problem": "Tentukan bagian real dan bagian imajiner dari $z_1 = 3 + 4i$, $z_2 = -7i$, dan $z_3 = 6$.",
+            "solution": "Langkah 1: Tulis setiap bilangan dalam bentuk baku $a + bi$, termasuk bagian yang bernilai nol.\n$z_1 = 3 + 4i$\n$z_2 = 0 + (-7)i$\n$z_3 = 6 + 0i$\n\nLangkah 2: Baca bagian realnya, yaitu suku tanpa $i$.\n$\\operatorname{Re}(z_1) = 3$, $\\quad \\operatorname{Re}(z_2) = 0$, $\\quad \\operatorname{Re}(z_3) = 6$\n\nLangkah 3: Baca bagian imajinernya, yaitu KOEFISIEN dari $i$ — bukan $4i$, melainkan $4$.\n$\\operatorname{Im}(z_1) = 4$, $\\quad \\operatorname{Im}(z_2) = -7$, $\\quad \\operatorname{Im}(z_3) = 0$\n\nLangkah 4: Kenali kasus khususnya. $z_2$ disebut imajiner murni karena bagian realnya nol, dan $z_3$ tetap bilangan real karena bagian imajinernya nol.\n\nKesimpulan: Setiap bilangan real adalah bilangan kompleks dengan $b = 0$."
+          },
+          {
+            "problem": "Tentukan penyelesaian dari $x^2 + 4 = 0$ dan $x^2 - 2x + 5 = 0$.",
+            "solution": "Langkah 1: Selesaikan yang pertama secara langsung.\n$x^2 = -4 \\implies x = \\pm\\sqrt{-4} = \\pm 2i$\n\nLangkah 2: Untuk yang kedua, hitung diskriminannya lebih dulu.\n$D = (-2)^2 - 4(1)(5) = 4 - 20 = -16$\n\nLangkah 3: Diskriminan negatif. Dahulu ini berarti 'tidak punya akar'; sekarang berarti akarnya kompleks.\n$x = \\frac{-b \\pm \\sqrt{D}}{2a} = \\frac{2 \\pm \\sqrt{-16}}{2}$\n\nLangkah 4: Ubah akar negatifnya.\n$\\sqrt{-16} = 4i \\implies x = \\frac{2 \\pm 4i}{2}$\n\nLangkah 5: Bagi setiap suku dengan 2.\n$x = 1 \\pm 2i$\n\nLangkah 6: Perhatikan bahwa kedua akarnya selalu berpasangan — bagian realnya sama, bagian imajinernya berlawanan tanda.\n\nKesimpulan: $x = \\pm 2i$ dan $x = 1 \\pm 2i$."
+          },
+          {
+            "problem": "Tentukan $a$ dan $b$ jika $(2a - 1) + (b + 3)i = 5 - 2i$.",
+            "solution": "Langkah 1: Dua bilangan kompleks sama jika dan hanya jika bagian realnya sama DAN bagian imajinernya sama. Satu persamaan kompleks memberi dua persamaan real sekaligus.\n\nLangkah 2: Samakan bagian realnya.\n$2a - 1 = 5$\n\nLangkah 3: Selesaikan.\n$2a = 6 \\implies a = 3$\n\nLangkah 4: Samakan bagian imajinernya. Perhatikan bahwa yang dibandingkan adalah koefisien $i$, yaitu $-2$.\n$b + 3 = -2 \\implies b = -5$\n\nLangkah 5: Periksa. $(2(3) - 1) + ((-5) + 3)i = 5 + (-2)i = 5 - 2i$. Cocok.\n\nKesimpulan: $a = 3$ dan $b = -5$."
+          },
+          {
+            "problem": "Sebuah rangkaian listrik arus bolak-balik memiliki impedansi $Z = R + Xi$ ohm, dengan $R$ hambatan dan $X$ reaktansi. Diketahui $Z = (3p + 1) + (2q - 4)i$ dan pengukuran memberi $Z = 10 + 6i$ ohm. Tentukan $p$ dan $q$.",
+            "solution": "Langkah 1: Ini penerapan langsung syarat kesamaan — impedansi memang dimodelkan sebagai bilangan kompleks dalam teknik elektro.\n\nLangkah 2: Samakan bagian real, yaitu hambatannya.\n$3p + 1 = 10 \\implies 3p = 9 \\implies p = 3$\n\nLangkah 3: Samakan bagian imajiner, yaitu reaktansinya.\n$2q - 4 = 6 \\implies 2q = 10 \\implies q = 5$\n\nLangkah 4: Periksa. $(3(3)+1) + (2(5)-4)i = 10 + 6i$. Cocok.\n\nLangkah 5: Perhatikan bahwa dua besaran fisis yang berbeda — hambatan dan reaktansi — dibawa sekaligus oleh satu bilangan. Inilah alasan praktis bilangan kompleks dipakai di luar matematika murni.\n\nKesimpulan: $p = 3$ dan $q = 5$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Tentukan $x$ dan $y$ real yang memenuhi $(x + 2y) + (x - y)i = 7 + i$. Setelah itu, susun sendiri sebuah persamaan kuadrat berkoefisien real yang akar-akarnya $2 + 3i$ dan $2 - 3i$, lalu jelaskan di papan mengapa akar kompleks pada persamaan berkoefisien real selalu muncul berpasangan.",
+        "summary_data": {
+          "summary": [
+            "$i = \\sqrt{-1}$ dan $i^2 = -1$. Dari sini $\\sqrt{-p} = i\\sqrt{p}$ untuk $p > 0$.",
+            "Bentuk baku $z = a + bi$: $\\operatorname{Re}(z) = a$ dan $\\operatorname{Im}(z) = b$ — bagian imajiner adalah KOEFISIENNYA, bukan $bi$.",
+            "Bilangan real adalah bilangan kompleks dengan $b = 0$; imajiner murni adalah yang $a = 0$. Keduanya kasus khusus, bukan jenis terpisah.",
+            "Satu persamaan kesamaan kompleks setara dengan dua persamaan real: bagian real sama, dan bagian imajiner sama."
+          ],
+          "islamic": "Sesuatu yang semula dianggap mustahil ternyata hanya belum ditemukan cara memandangnya. \"Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu... Allah mengetahui, sedang kamu tidak mengetahui.\" (QS. Al-Baqarah: 216)"
+        },
+        "collab_cases": [
+          "Nyatakan $\\sqrt{-25}$, $\\sqrt{-8}$, dan $\\sqrt{-45}$ dalam bentuk $bi$ dengan akar yang sudah disederhanakan.",
+          "Tentukan penyelesaian $x^2 + 4x + 13 = 0$, lalu tunjukkan bahwa kedua akarnya berpasangan.",
+          "Tentukan $m$ dan $n$ jika $(m - 2) + (3n + 1)i = 4 - 5i$.",
+          "Tunjukkan bahwa $\\sqrt{-4} \\cdot \\sqrt{-9} \\neq \\sqrt{36}$. Jelaskan mengapa aturan $\\sqrt{a}\\sqrt{b} = \\sqrt{ab}$ gagal ketika keduanya negatif.",
+          "Sebutkan syarat agar $z = (k^2 - 4) + (k + 2)i$ merupakan bilangan imajiner murni. Perhatikan bahwa ada nilai $k$ yang harus ditolak."
+        ]
+      },
+      "soal": {
+        "id": "P09",
+        "subject": "minat",
+        "title": "P09 • Definisi dan Kesamaan Bilangan Kompleks",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P09-Q1] Bentuk imajiner dari $\\sqrt{-49}$ adalah $\\dots$",
+            "opsi": [
+              "A. $-7$",
+              "B. $-7i$",
+              "C. $7$",
+              "D. $7i$",
+              "E. $49i$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Pisahkan tanda negatifnya.\n$\\sqrt{-49} = \\sqrt{49} \\cdot \\sqrt{-1}$\n\nLangkah 2: Ganti $\\sqrt{-1}$ dengan $i$.\n$= 7i$\n\nLangkah 3: Opsi A adalah jebakan bagi yang mengira tanda negatif di dalam akar keluar sebagai tanda bilangan.\n\nLangkah 4: Periksa dengan mengkuadratkan: $(7i)^2 = 49i^2 = 49(-1) = -49$. Cocok.\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P09-Q2] Bagian imajiner dari $z = 5 - 3i$ adalah $\\dots$",
+            "opsi": [
+              "A. $-3i$",
+              "B. $-3$",
+              "C. $3$",
+              "D. $5$",
+              "E. $5 - 3i$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Tulis dalam bentuk baku $z = a + bi$.\n$z = 5 + (-3)i$\n\nLangkah 2: Bagian imajiner adalah KOEFISIEN dari $i$, yaitu bilangan realnya saja — bukan beserta $i$-nya.\n$\\operatorname{Im}(z) = -3$\n\nLangkah 3: Opsi A adalah kesalahan paling sering: menyertakan $i$ ke dalam jawaban.\n\nLangkah 4: Tandanya ikut. Karena bentuknya $5 - 3i$, koefisiennya $-3$, bukan $3$.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P09-Q3] Himpunan penyelesaian dari $x^2 + 9 = 0$ adalah $\\dots$",
+            "opsi": [
+              "A. $\\{3, -3\\}$",
+              "B. $\\{3i\\}$",
+              "C. $\\{3i, -3i\\}$",
+              "D. $\\{9i, -9i\\}$",
+              "E. tidak ada penyelesaian"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Pindahkan ruas.\n$x^2 = -9$\n\nLangkah 2: Akarkan kedua ruas, jangan lupa dua tanda.\n$x = \\pm\\sqrt{-9} = \\pm 3i$\n\nLangkah 3: Periksa: $(3i)^2 = 9i^2 = -9$ dan $(-3i)^2 = 9i^2 = -9$. Keduanya memenuhi.\n\nLangkah 4: Opsi E benar di himpunan bilangan real, tetapi keliru di himpunan bilangan kompleks — dan itulah pokok bab ini.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P09-Q4] Jika $(3a + 2) + (b - 1)i = 11 + 4i$, maka nilai $a$ dan $b$ berturut-turut adalah $\\dots$",
+            "opsi": [
+              "A. $3$ dan $5$",
+              "B. $3$ dan $3$",
+              "C. $5$ dan $3$",
+              "D. $2$ dan $5$",
+              "E. $5$ dan $5$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Satu kesamaan kompleks memberi dua persamaan real sekaligus.\n\nLangkah 2: Samakan bagian real.\n$3a + 2 = 11 \\implies 3a = 9 \\implies a = 3$\n\nLangkah 3: Samakan bagian imajiner.\n$b - 1 = 4 \\implies b = 5$\n\nLangkah 4: Periksa: $(3(3)+2) + (5-1)i = 11 + 4i$. Cocok.\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P09-Q5] Tentukan kebenaran setiap pernyataan berikut:\n(1) Setiap bilangan real merupakan bilangan kompleks.\n(2) Bagian imajiner dari $z = 2 + 7i$ adalah $7i$.\n(3) Persamaan $x^2 - 2x + 5 = 0$ mempunyai dua akar kompleks yang berpasangan.",
+            "opsi": [
+              "Setiap bilangan real merupakan bilangan kompleks",
+              "Bagian imajiner dari $z = 2 + 7i$ adalah $7i$",
+              "Persamaan $x^2 - 2x + 5 = 0$ mempunyai dua akar kompleks yang berpasangan"
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Analisis (1).\nBilangan real $a$ dapat ditulis $a + 0i$, yang memenuhi bentuk baku bilangan kompleks.\n$\\implies$ (1) BENAR.\n\nLangkah 2: Analisis (2).\nBagian imajiner adalah koefisien $i$, yaitu $7$ — sebuah bilangan real, bukan $7i$.\n$\\implies$ (2) SALAH.\n\nLangkah 3: Analisis (3).\n$D = 4 - 20 = -16 < 0$, sehingga akarnya $x = \\frac{2 \\pm 4i}{2} = 1 \\pm 2i$. Keduanya sama bagian realnya dan berlawanan bagian imajinernya.\n$\\implies$ (3) BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P09-Q6] Akar-akar persamaan $x^2 - 6x + 25 = 0$ adalah $\\dots$",
+            "opsi": [
+              "A. $3 \\pm 4i$",
+              "B. $-3 \\pm 4i$",
+              "C. $3 \\pm 16i$",
+              "D. $6 \\pm 4i$",
+              "E. $4 \\pm 3i$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Hitung diskriminannya.\n$D = (-6)^2 - 4(1)(25) = 36 - 100 = -64$\n\nLangkah 2: Diskriminan negatif, sehingga akarnya kompleks.\n$x = \\frac{6 \\pm \\sqrt{-64}}{2}$\n\nLangkah 3: Ubah akar negatifnya.\n$\\sqrt{-64} = 8i \\implies x = \\frac{6 \\pm 8i}{2}$\n\nLangkah 4: Bagi SETIAP suku dengan 2.\n$x = 3 \\pm 4i$\n\nLangkah 5: Opsi D adalah jebakan bagi yang hanya membagi suku imajinernya.\nPeriksa lewat Vieta: jumlah akar $= 6$, dan $(3+4i)+(3-4i) = 6$. Cocok.\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P09-Q7] Bentuk paling sederhana dari $\\sqrt{-8}$ adalah $\\dots$",
+            "opsi": [
+              "A. $8i$",
+              "B. $4i\\sqrt{2}$",
+              "C. $2i\\sqrt{2}$",
+              "D. $2i\\sqrt{3}$",
+              "E. $i\\sqrt{8}$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Keluarkan satuan imajinernya.\n$\\sqrt{-8} = i\\sqrt{8}$\n\nLangkah 2: Sederhanakan akarnya dengan mencari faktor kuadrat sempurna.\n$\\sqrt{8} = \\sqrt{4 \\cdot 2} = 2\\sqrt{2}$\n\nLangkah 3: Gabungkan.\n$\\sqrt{-8} = 2i\\sqrt{2}$\n\nLangkah 4: Opsi E benar nilainya tetapi belum sederhana, sehingga bukan jawaban yang diminta.\nPeriksa: $(2i\\sqrt{2})^2 = 4i^2 \\cdot 2 = -8$. Cocok.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C5 Evaluasi",
+            "bobot": 10,
+            "tanya": "[P09-Q8] Diberikan $z = -4 + 0i$, $w = 0 + 5i$, dan $v = 2 - 3i$. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+            "opsi": [
+              "A. $z$ adalah bilangan real.",
+              "B. $w$ adalah bilangan imajiner murni.",
+              "C. $\\operatorname{Im}(v) = -3$.",
+              "D. $\\operatorname{Re}(w) = 5$.",
+              "E. Ketiganya termasuk bilangan kompleks."
+            ],
+            "kunci": "A, B, C, E",
+            "bahas": "Langkah 1: Analisis A.\n$z = -4 + 0i$ punya bagian imajiner nol, sehingga ia bilangan real.\n$\\implies$ A BENAR.\n\nLangkah 2: Analisis B.\n$w = 0 + 5i$ punya bagian real nol dan bagian imajiner tak nol — itulah definisi imajiner murni.\n$\\implies$ B BENAR.\n\nLangkah 3: Analisis C.\n$v = 2 + (-3)i$, sehingga koefisien $i$-nya $-3$.\n$\\implies$ C BENAR.\n\nLangkah 4: Analisis D.\n$\\operatorname{Re}(w) = 0$, bukan $5$. Angka $5$ itu bagian imajinernya.\n$\\implies$ D SALAH.\n\nLangkah 5: Analisis E.\nSemua bilangan yang dapat ditulis $a + bi$ dengan $a,b$ real adalah bilangan kompleks — termasuk yang salah satu bagiannya nol.\n$\\implies$ E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C5 Evaluasi",
+            "bobot": 10,
+            "tanya": "[P09-Q9] Agar $z = (m^2 - 9) + (m - 3)i$ merupakan bilangan imajiner murni, maka nilai $m$ adalah $\\dots$",
+            "opsi": [
+              "A. $-3$",
+              "B. $0$",
+              "C. $3$",
+              "D. $3$ atau $-3$",
+              "E. tidak ada nilai $m$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Imajiner murni menuntut DUA syarat sekaligus: bagian real nol, DAN bagian imajiner tidak nol.\n\nLangkah 2: Syarat pertama.\n$m^2 - 9 = 0 \\implies m = 3$ atau $m = -3$\n\nLangkah 3: Uji syarat kedua untuk $m = 3$.\nBagian imajinernya $3 - 3 = 0$, sehingga $z = 0$ — bukan imajiner murni. Nilai ini ditolak.\n\nLangkah 4: Uji untuk $m = -3$.\nBagian imajinernya $-3 - 3 = -6 \\neq 0$, dan bagian realnya $9 - 9 = 0$. Memenuhi.\n\nLangkah 5: Opsi D adalah jebakan bagi yang berhenti setelah syarat pertama.\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P09-Q10] Jika $(2p - 3) + (q + 4)i = 7 - i$, maka nilai $p + q$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "0",
+            "bahas": "Langkah 1: Samakan bagian real.\n$2p - 3 = 7 \\implies 2p = 10 \\implies p = 5$\n\nLangkah 2: Samakan bagian imajiner. Perhatikan bahwa $7 - i$ berarti koefisien $i$-nya $-1$.\n$q + 4 = -1 \\implies q = -5$\n\nLangkah 3: Jumlahkan.\n$p + q = 5 + (-5) = 0$\n\nLangkah 4: Periksa: $(2(5)-3) + ((-5)+4)i = 7 + (-1)i = 7 - i$. Cocok.\nKesimpulan: Kunci Jawaban 0."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P10",
+      "judul": "Operasi Aljabar dan Pangkat Satuan Imajiner",
+      "materi": {
+        "id": "P10",
+        "bab": "Bab 2: Bilangan Kompleks",
+        "title": "Operasi Aljabar dan Pangkat Satuan Imajiner",
+        "obj": [
+          "Menjumlahkan dan mengurangkan bilangan kompleks dengan menggabungkan bagian real dan bagian imajiner secara terpisah.",
+          "Mengalikan dua bilangan kompleks dengan sifat distributif, lalu menyederhanakan memakai $i^2 = -1$.",
+          "Menentukan $i^n$ untuk pangkat berapa pun dengan memanfaatkan pola berulang setiap empat langkah."
+        ],
+        "hook": "Berapa nilai $i^{2026}$? Menghitungnya satu per satu mustahil. Tetapi pangkat $i$ hanya punya empat wajah yang terus berputar — dan begitu polanya terlihat, pangkat sebesar apa pun selesai dalam satu pembagian.",
+        "toolkit": [
+          {
+            "name": "Penjumlahan dan Pengurangan",
+            "math": "$$(a+bi) \\pm (c+di) = (a \\pm c) + (b \\pm d)i$$"
+          },
+          {
+            "name": "Perkalian",
+            "math": "$$(a+bi)(c+di) = (ac - bd) + (ad + bc)i$$"
+          },
+          {
+            "name": "Kunci Penyederhanaan",
+            "math": "$$i^2 = -1$$"
+          },
+          {
+            "name": "Pola Pangkat Berulang",
+            "math": "$$i^1=i, \\quad i^2=-1, \\quad i^3=-i, \\quad i^4=1$$"
+          },
+          {
+            "name": "Pangkat Besar",
+            "math": "$$i^n = i^{\\,n \\bmod 4}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Diketahui $z_1 = 3 + 4i$ dan $z_2 = 1 - 2i$. Tentukan $z_1 + z_2$ dan $z_1 - z_2$.",
+            "solution": "Langkah 1: Penjumlahan dikerjakan per bagian — bagian real dengan bagian real, bagian imajiner dengan bagian imajiner. Persis seperti menggabungkan suku sejenis.\n\nLangkah 2: Jumlahkan.\nbagian real: $3 + 1 = 4$\nbagian imajiner: $4 + (-2) = 2$\n$z_1 + z_2 = 4 + 2i$\n\nLangkah 3: Kurangkan. Tanda negatif berlaku untuk KEDUA bagian $z_2$.\nbagian real: $3 - 1 = 2$\nbagian imajiner: $4 - (-2) = 4 + 2 = 6$\n$z_1 - z_2 = 2 + 6i$\n\nLangkah 4: Perhatikan bagian imajinernya: $4 - (-2)$ menjadi $+6$, bukan $+2$.\n\nKesimpulan: $z_1 + z_2 = 4 + 2i$ dan $z_1 - z_2 = 2 + 6i$."
+          },
+          {
+            "problem": "Tentukan hasil kali $(3 + 4i)(1 - 2i)$.",
+            "solution": "Langkah 1: Kalikan seperti dua bentuk aljabar biasa, suku demi suku.\n$3 \\cdot 1 = 3$\n$3 \\cdot (-2i) = -6i$\n$4i \\cdot 1 = 4i$\n$4i \\cdot (-2i) = -8i^2$\n\nLangkah 2: Di sinilah langkah kuncinya. Ganti $i^2$ dengan $-1$.\n$-8i^2 = -8(-1) = +8$\n\nLangkah 3: Kumpulkan bagian real.\n$3 + 8 = 11$\n\nLangkah 4: Kumpulkan bagian imajiner.\n$-6i + 4i = -2i$\n\nLangkah 5: Perhatikan bahwa suku $i^2$ berpindah menjadi bagian REAL. Inilah sebabnya perkalian bilangan kompleks tidak sekadar mengalikan bagian-bagiannya.\n\nKesimpulan: $(3+4i)(1-2i) = 11 - 2i$."
+          },
+          {
+            "problem": "Tentukan $(2 + 3i)^2$ dan $(1 + 2i)(1 - 2i)$.",
+            "solution": "Langkah 1: Untuk yang pertama, gunakan $(a+b)^2 = a^2 + 2ab + b^2$.\n$(2+3i)^2 = 4 + 12i + 9i^2$\n\nLangkah 2: Ganti $i^2 = -1$.\n$= 4 + 12i - 9 = -5 + 12i$\n\nLangkah 3: Untuk yang kedua, kenali bentuk selisih kuadrat $(a+b)(a-b) = a^2 - b^2$.\n$(1+2i)(1-2i) = 1 - 4i^2$\n\nLangkah 4: Ganti $i^2 = -1$.\n$= 1 - 4(-1) = 1 + 4 = 5$\n\nLangkah 5: Hasilnya bilangan REAL. Ini bukan kebetulan — mengalikan bilangan kompleks dengan pasangannya selalu menghapus bagian imajinernya, dan sifat itu yang akan dipakai untuk pembagian nanti.\n\nKesimpulan: $(2+3i)^2 = -5 + 12i$ dan $(1+2i)(1-2i) = 5$."
+          },
+          {
+            "problem": "Tentukan nilai $i^{40}$, $i^{101}$, dan $i^{2026}$.",
+            "solution": "Langkah 1: Tuliskan pola dasarnya.\n$i^1 = i$, $\\quad i^2 = -1$, $\\quad i^3 = i^2 \\cdot i = -i$, $\\quad i^4 = i^2 \\cdot i^2 = 1$\n\nLangkah 2: Karena $i^4 = 1$, pola ini berulang setiap empat langkah. Yang menentukan hanyalah SISA pembagian pangkat oleh 4.\n\nLangkah 3: Untuk $i^{40}$: $40 \\div 4$ bersisa $0$, sehingga sama dengan $i^4 = 1$.\n\nLangkah 4: Untuk $i^{101}$: $101 = 4(25) + 1$, sisanya $1$, sehingga sama dengan $i^1 = i$.\n\nLangkah 5: Untuk $i^{2026}$: $2026 = 4(506) + 2$, sisanya $2$, sehingga sama dengan $i^2 = -1$.\n\nLangkah 6: Ringkasnya, cukup bagi pangkatnya dengan 4 lalu lihat sisanya: $0 \\to 1$, $1 \\to i$, $2 \\to -1$, $3 \\to -i$.\n\nKesimpulan: $i^{40} = 1$, $\\quad i^{101} = i$, $\\quad i^{2026} = -1$."
+          },
+          {
+            "problem": "Sederhanakan $(2 - i)(3 + 2i) + i^{18}$.",
+            "solution": "Langkah 1: Kerjakan perkaliannya lebih dulu.\n$2 \\cdot 3 = 6$\n$2 \\cdot 2i = 4i$\n$-i \\cdot 3 = -3i$\n$-i \\cdot 2i = -2i^2 = +2$\n\nLangkah 2: Kumpulkan.\nbagian real: $6 + 2 = 8$\nbagian imajiner: $4i - 3i = i$\n$(2-i)(3+2i) = 8 + i$\n\nLangkah 3: Sederhanakan pangkatnya. $18 = 4(4) + 2$, sisanya $2$.\n$i^{18} = i^2 = -1$\n\nLangkah 4: Jumlahkan keduanya.\n$(8 + i) + (-1) = 7 + i$\n\nLangkah 5: Perhatikan bahwa $i^{18}$ menyumbang ke bagian REAL, karena nilainya $-1$ — bukan ke bagian imajiner meski simbolnya $i$.\n\nKesimpulan: $(2-i)(3+2i) + i^{18} = 7 + i$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Sederhanakan $i + i^2 + i^3 + i^4 + \\dots + i^{100}$. Kerjakan di papan dengan menjumlahkan empat suku berurutan lebih dulu, lalu jelaskan mengapa jawabannya menjadi sesederhana itu. Setelah selesai, tentukan pula $i + i^2 + \\dots + i^{2026}$ tanpa menghitung ulang dari awal.",
+        "summary_data": {
+          "summary": [
+            "Penjumlahan dan pengurangan bekerja per bagian. Pada pengurangan, tanda negatif berlaku untuk bagian real DAN bagian imajiner.",
+            "Perkalian dikerjakan distributif seperti aljabar biasa, lalu setiap $i^2$ diganti $-1$ — dan suku itu berpindah menjadi bagian real.",
+            "$(a+bi)(a-bi) = a^2 + b^2$ selalu menghasilkan bilangan real. Sifat ini menjadi dasar pembagian bilangan kompleks.",
+            "$i^n$ berulang setiap 4: sisa $0 \\to 1$, $1 \\to i$, $2 \\to -1$, $3 \\to -i$. Cukup bagi pangkatnya dengan 4."
+          ],
+          "islamic": "Yang tampak berputar-putar ternyata mengikuti pola yang tetap dan dapat dikenali. \"Dan matahari berjalan di tempat peredarannya. Demikianlah ketetapan Yang Maha Perkasa lagi Maha Mengetahui.\" (QS. Yasin: 38)"
+        },
+        "collab_cases": [
+          "Diketahui $z_1 = -2 + 5i$ dan $z_2 = 4 - i$. Tentukan $z_1 + z_2$, $z_1 - z_2$, dan $z_2 - z_1$, lalu bandingkan dua hasil terakhir.",
+          "Tentukan hasil kali $(5 - 2i)(1 + 3i)$ dan tunjukkan langkah penggantian $i^2$ secara terpisah.",
+          "Hitung $i^{35}$, $i^{60}$, dan $i^{2027}$ hanya dengan melihat sisa pembagian oleh 4.",
+          "Buktikan bahwa $(a+bi)(a-bi)$ selalu bernilai real untuk sembarang $a, b$ real, lalu kaitkan dengan bentuk $a^2 + b^2$.",
+          "Tentukan $(1+i)^4$ dengan dua cara: menjabarkan langsung, dan memakai hasil $(1+i)^2$ lebih dulu. Bandingkan mana yang lebih ringan."
+        ]
+      },
+      "soal": {
+        "id": "P10",
+        "subject": "minat",
+        "title": "P10 • Operasi Aljabar dan Pangkat $i$",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P10-Q1] Hasil dari $(2 + 5i) + (3 - 2i)$ adalah $\\dots$",
+            "opsi": [
+              "A. $5 + 3i$",
+              "B. $5 + 7i$",
+              "C. $-1 + 3i$",
+              "D. $5 - 3i$",
+              "E. $6 - 10i$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Jumlahkan bagian real dengan bagian real.\n$2 + 3 = 5$\n\nLangkah 2: Jumlahkan bagian imajiner dengan bagian imajiner.\n$5 + (-2) = 3$\n\nLangkah 3: Susun kembali.\n$(2+5i) + (3-2i) = 5 + 3i$\n\nLangkah 4: Opsi E adalah jebakan bagi yang mengalikan alih-alih menjumlahkan.\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P10-Q2] Hasil dari $(4 - i) - (2 + 3i)$ adalah $\\dots$",
+            "opsi": [
+              "A. $2 + 2i$",
+              "B. $2 - 4i$",
+              "C. $6 + 2i$",
+              "D. $2 + 4i$",
+              "E. $-2 - 4i$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Tanda negatif berlaku untuk KEDUA bagian bilangan pengurang.\n$-(2 + 3i) = -2 - 3i$\n\nLangkah 2: Jumlahkan bagian real.\n$4 - 2 = 2$\n\nLangkah 3: Jumlahkan bagian imajiner.\n$-1 + (-3) = -4$\n\nLangkah 4: Hasilnya $2 - 4i$. Opsi A muncul kalau tanda pada bagian imajiner pengurang tidak ikut dibalik.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P10-Q3] Hasil dari $(3 + 2i)(1 - i)$ adalah $\\dots$",
+            "opsi": [
+              "A. $3 - i$",
+              "B. $1 - i$",
+              "C. $5 - i$",
+              "D. $5 + i$",
+              "E. $3 - 2i$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Kalikan suku demi suku.\n$3 \\cdot 1 = 3$; $\\quad 3 \\cdot (-i) = -3i$\n$2i \\cdot 1 = 2i$; $\\quad 2i \\cdot (-i) = -2i^2$\n\nLangkah 2: Ganti $i^2 = -1$.\n$-2i^2 = -2(-1) = +2$\n\nLangkah 3: Kumpulkan bagian real.\n$3 + 2 = 5$\n\nLangkah 4: Kumpulkan bagian imajiner.\n$-3i + 2i = -i$\n\nLangkah 5: Opsi A muncul kalau suku $-2i^2$ dibiarkan sebagai $-2$, yaitu lupa bahwa $i^2$ bernilai negatif.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P10-Q4] Nilai dari $i^{2026}$ adalah $\\dots$",
+            "opsi": [
+              "A. $-i$",
+              "B. $-1$",
+              "C. $0$",
+              "D. $1$",
+              "E. $i$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Pola pangkat $i$ berulang setiap empat langkah: $i, -1, -i, 1$.\n\nLangkah 2: Yang menentukan hanyalah sisa pembagian pangkat oleh 4.\n$2026 = 4 \\times 506 + 2$\n\nLangkah 3: Sisanya $2$, sehingga nilainya sama dengan $i^2$.\n$i^{2026} = i^2 = -1$\n\nLangkah 4: Pemetaannya: sisa $0 \\to 1$, $1 \\to i$, $2 \\to -1$, $3 \\to -i$.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P10-Q5] Tentukan kebenaran setiap pernyataan berikut:\n(1) $i^4 = 1$.\n(2) Hasil kali dua bilangan kompleks selalu berupa bilangan kompleks yang bagian imajinernya tidak nol.\n(3) $(a+bi)(a-bi) = a^2 + b^2$.",
+            "opsi": [
+              "$i^4 = 1$",
+              "Hasil kali dua bilangan kompleks selalu berupa bilangan kompleks yang bagian imajinernya tidak nol",
+              "$(a+bi)(a-bi) = a^2 + b^2$"
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Analisis (1).\n$i^4 = i^2 \\cdot i^2 = (-1)(-1) = 1$.\n$\\implies$ (1) BENAR.\n\nLangkah 2: Analisis (2).\nAmbil penyangkal $(1+2i)(1-2i) = 1 - 4i^2 = 5$, sebuah bilangan real dengan bagian imajiner nol.\n$\\implies$ (2) SALAH.\n\nLangkah 3: Analisis (3).\n$(a+bi)(a-bi) = a^2 - (bi)^2 = a^2 - b^2i^2 = a^2 + b^2$.\n$\\implies$ (3) BENAR. Perhatikan bahwa hasilnya PENJUMLAHAN, karena $-b^2i^2$ berubah tanda.\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P10-Q6] Hasil dari $(1 + i)^2$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $-2$",
+              "C. $2i$",
+              "D. $1 + i$",
+              "E. $1 + 2i$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Gunakan $(a+b)^2 = a^2 + 2ab + b^2$.\n$(1+i)^2 = 1 + 2i + i^2$\n\nLangkah 2: Ganti $i^2 = -1$.\n$= 1 + 2i - 1$\n\nLangkah 3: Bagian realnya saling menghapus.\n$1 - 1 = 0$, sehingga tersisa $2i$.\n\nLangkah 4: Opsi E muncul kalau suku $i^2$ dilupakan sama sekali.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P10-Q7] Hasil dari $(2 - 3i)(2 + 3i)$ adalah $\\dots$",
+            "opsi": [
+              "A. $-5$",
+              "B. $4 - 9i$",
+              "C. $4 + 9i$",
+              "D. $13$",
+              "E. $13i$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Kenali bentuk selisih kuadrat $(a-b)(a+b) = a^2 - b^2$ dengan $a = 2$ dan $b = 3i$.\n$= 2^2 - (3i)^2$\n\nLangkah 2: Hitung $(3i)^2 = 9i^2 = -9$.\n\nLangkah 3: Substitusikan.\n$= 4 - (-9) = 4 + 9 = 13$\n\nLangkah 4: Hasilnya bilangan REAL, sesuai sifat $(a+bi)(a-bi) = a^2 + b^2$. Di sini $2^2 + 3^2 = 13$.\nOpsi A muncul kalau $(3i)^2$ dianggap $+9$.\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C5 Evaluasi",
+            "bobot": 10,
+            "tanya": "[P10-Q8] Diberikan $z = 2 + i$. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+            "opsi": [
+              "A. $z^2 = 3 + 4i$.",
+              "B. $\\operatorname{Re}(z^2) = 3$.",
+              "C. $z \\cdot (2 - i) = 5$.",
+              "D. $z^2 = 4 + i$.",
+              "E. $\\operatorname{Im}(z^2) = 4$."
+            ],
+            "kunci": "A, B, C, E",
+            "bahas": "Langkah 1: Hitung $z^2$ lebih dulu.\n$(2+i)^2 = 4 + 4i + i^2 = 4 + 4i - 1 = 3 + 4i$\n\nLangkah 2: Analisis A.\nHasilnya persis $3 + 4i$.\n$\\implies$ A BENAR.\n\nLangkah 3: Analisis B.\nBagian realnya $3$.\n$\\implies$ B BENAR.\n\nLangkah 4: Analisis C.\n$(2+i)(2-i) = 4 - i^2 = 4 + 1 = 5$.\n$\\implies$ C BENAR.\n\nLangkah 5: Analisis D.\n$z^2 = 3 + 4i$, bukan $4 + i$. Bentuk $4 + i$ muncul kalau suku $i^2$ dan suku tengahnya dilupakan.\n$\\implies$ D SALAH.\n\nLangkah 6: Analisis E.\nKoefisien $i$ pada $3 + 4i$ adalah $4$.\n$\\implies$ E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P10-Q9] Nilai dari $i^{35}$ adalah $\\dots$",
+            "opsi": [
+              "A. $-i$",
+              "B. $-1$",
+              "C. $1$",
+              "D. $i$",
+              "E. $35i$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Bagi pangkatnya dengan 4.\n$35 = 4 \\times 8 + 3$\n\nLangkah 2: Sisanya $3$, sehingga nilainya sama dengan $i^3$.\n\nLangkah 3: Hitung $i^3$.\n$i^3 = i^2 \\cdot i = (-1)(i) = -i$\n\nLangkah 4: Jadi $i^{35} = -i$.\nOpsi D muncul kalau sisanya salah dihitung menjadi 1.\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P10-Q10] Bagian real dari hasil kali $(1 + 2i)(3 - i)$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "5",
+            "bahas": "Langkah 1: Kalikan suku demi suku.\n$1 \\cdot 3 = 3$; $\\quad 1 \\cdot (-i) = -i$\n$2i \\cdot 3 = 6i$; $\\quad 2i \\cdot (-i) = -2i^2$\n\nLangkah 2: Ganti $i^2 = -1$.\n$-2i^2 = +2$\n\nLangkah 3: Kumpulkan bagian real.\n$3 + 2 = 5$\n\nLangkah 4: Sebagai pemeriksaan, bagian imajinernya $-i + 6i = 5i$, sehingga hasil lengkapnya $5 + 5i$. Yang ditanya hanya bagian realnya.\nKesimpulan: Kunci Jawaban 5."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P11",
+      "judul": "Konjugat dan Pembagian Bilangan Kompleks",
+      "materi": {
+        "id": "P11",
+        "bab": "Bab 2: Bilangan Kompleks",
+        "title": "Konjugat dan Pembagian Bilangan Kompleks",
+        "obj": [
+          "Menentukan konjugat $\\bar{z} = a - bi$ dan menggunakan sifat $z \\cdot \\bar{z} = a^2 + b^2$ yang selalu bernilai real.",
+          "Membagi dua bilangan kompleks dengan mengalikan pembilang dan penyebut oleh konjugat penyebutnya.",
+          "Menerapkan sifat-sifat konjugat: $\\overline{z_1 \\pm z_2} = \\bar{z_1} \\pm \\bar{z_2}$ dan $\\overline{z_1 z_2} = \\bar{z_1}\\,\\bar{z_2}$."
+        ],
+        "hook": "Menuliskan $\\dfrac{3+4i}{1-2i}$ bukan jawaban — bentuk baku bilangan kompleks tidak boleh menyisakan $i$ di penyebut. Cara membersihkannya persis sama dengan merasionalkan penyebut berbentuk akar, hanya dengan alat yang berbeda namanya.",
+        "toolkit": [
+          {
+            "name": "Konjugat",
+            "math": "$$z = a + bi \\ \\Longrightarrow\\ \\bar{z} = a - bi$$"
+          },
+          {
+            "name": "Hasil Kali dengan Konjugatnya",
+            "math": "$$z \\cdot \\bar{z} = a^2 + b^2 \\in \\mathbb{R}$$"
+          },
+          {
+            "name": "Pembagian",
+            "math": "$$\\frac{z_1}{z_2} = \\frac{z_1}{z_2} \\cdot \\frac{\\bar{z_2}}{\\bar{z_2}} = \\frac{z_1 \\bar{z_2}}{|z_2|^2}$$"
+          },
+          {
+            "name": "Jumlah dan Selisih dengan Konjugat",
+            "math": "$$z + \\bar{z} = 2a, \\qquad z - \\bar{z} = 2bi$$"
+          },
+          {
+            "name": "Sifat Konjugat",
+            "math": "$$\\overline{z_1 \\pm z_2} = \\bar{z_1} \\pm \\bar{z_2}, \\qquad \\overline{z_1 z_2} = \\bar{z_1}\\,\\bar{z_2}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan konjugat dari $z_1 = 3 + 4i$, $z_2 = -2 + 5i$, $z_3 = 7i$, dan $z_4 = 6$. Hitung pula $z_1 \\cdot \\bar{z_1}$.",
+            "solution": "Langkah 1: Konjugat diperoleh dengan membalik tanda bagian IMAJINERNYA saja; bagian real tidak disentuh.\n$\\bar{z_1} = 3 - 4i$\n$\\bar{z_2} = -2 - 5i$\n\nLangkah 2: Untuk yang imajiner murni, bagian realnya nol.\n$z_3 = 0 + 7i \\implies \\bar{z_3} = -7i$\n\nLangkah 3: Untuk bilangan real, bagian imajinernya sudah nol, sehingga konjugatnya dirinya sendiri.\n$\\bar{z_4} = 6$\n\nLangkah 4: Hitung hasil kali dengan konjugatnya.\n$z_1 \\bar{z_1} = (3+4i)(3-4i) = 9 - 16i^2 = 9 + 16 = 25$\n\nLangkah 5: Perhatikan bahwa $25 = 3^2 + 4^2$. Hasilnya selalu real dan tidak pernah negatif.\n\nKesimpulan: Konjugat membalik tanda bagian imajiner, dan $z\\bar{z} = a^2 + b^2$."
+          },
+          {
+            "problem": "Sederhanakan $\\dfrac{3 + 4i}{1 - 2i}$ ke bentuk $a + bi$.",
+            "solution": "Langkah 1: Penyebutnya masih memuat $i$, sehingga belum berbentuk baku. Kalikan pembilang dan penyebut dengan konjugat PENYEBUTNYA, yaitu $1 + 2i$.\n$\\frac{3+4i}{1-2i} \\cdot \\frac{1+2i}{1+2i}$\n\nLangkah 2: Kerjakan penyebutnya lebih dulu — hasilnya pasti real.\n$(1-2i)(1+2i) = 1 - 4i^2 = 1 + 4 = 5$\n\nLangkah 3: Kerjakan pembilangnya.\n$(3+4i)(1+2i) = 3 + 6i + 4i + 8i^2 = 3 + 10i - 8 = -5 + 10i$\n\nLangkah 4: Bagi setiap bagian dengan penyebutnya.\n$\\frac{-5 + 10i}{5} = -1 + 2i$\n\nLangkah 5: Periksa dengan mengalikan kembali: $(-1+2i)(1-2i) = -1 + 2i + 2i - 4i^2 = -1 + 4i + 4 = 3 + 4i$. Cocok.\n\nKesimpulan: $\\frac{3+4i}{1-2i} = -1 + 2i$."
+          },
+          {
+            "problem": "Sederhanakan $\\dfrac{5}{1 + 2i}$ dan $\\dfrac{1}{i}$.",
+            "solution": "Langkah 1: Untuk yang pertama, kalikan dengan konjugat penyebut $1 - 2i$.\n$\\frac{5}{1+2i} \\cdot \\frac{1-2i}{1-2i}$\n\nLangkah 2: Penyebut: $(1+2i)(1-2i) = 1 + 4 = 5$. Pembilang: $5(1-2i) = 5 - 10i$.\n$\\frac{5 - 10i}{5} = 1 - 2i$\n\nLangkah 3: Untuk $\\frac{1}{i}$, konjugat dari $i$ adalah $-i$.\n$\\frac{1}{i} \\cdot \\frac{-i}{-i} = \\frac{-i}{-i^2} = \\frac{-i}{1} = -i$\n\nLangkah 4: Ada cara lebih cepat untuk yang kedua: kalikan atas-bawah dengan $i$ saja.\n$\\frac{1}{i} \\cdot \\frac{i}{i} = \\frac{i}{i^2} = \\frac{i}{-1} = -i$\n\nLangkah 5: Periksa: $i \\cdot (-i) = -i^2 = 1$. Benar, keduanya saling berkebalikan.\n\nKesimpulan: $\\frac{5}{1+2i} = 1 - 2i$ dan $\\frac{1}{i} = -i$."
+          },
+          {
+            "problem": "Sederhanakan $\\dfrac{2 + 3i}{1 + i}$, lalu jelaskan mengapa hasilnya boleh berbentuk pecahan.",
+            "solution": "Langkah 1: Kalikan dengan konjugat penyebut $1 - i$.\n$\\frac{2+3i}{1+i} \\cdot \\frac{1-i}{1-i}$\n\nLangkah 2: Penyebut.\n$(1+i)(1-i) = 1 - i^2 = 1 + 1 = 2$\n\nLangkah 3: Pembilang.\n$(2+3i)(1-i) = 2 - 2i + 3i - 3i^2 = 2 + i + 3 = 5 + i$\n\nLangkah 4: Bagi.\n$\\frac{5+i}{2} = \\frac{5}{2} + \\frac{1}{2}i$\n\nLangkah 5: Bentuk baku $a + bi$ hanya menuntut $a$ dan $b$ bilangan REAL — pecahan termasuk bilangan real, jadi jawaban ini sudah baku dan tidak perlu diubah lagi.\n\nLangkah 6: Periksa: $\\left(\\frac{5}{2} + \\frac{1}{2}i\\right)(1+i) = \\frac{5}{2} + \\frac{5}{2}i + \\frac{1}{2}i + \\frac{1}{2}i^2 = \\frac{5}{2} + 3i - \\frac{1}{2} = 2 + 3i$. Cocok.\n\nKesimpulan: $\\frac{2+3i}{1+i} = \\frac{5}{2} + \\frac{1}{2}i$."
+          },
+          {
+            "problem": "Dengan $z_1 = 3 + 4i$ dan $z_2 = 1 - 2i$, tunjukkan bahwa $\\overline{z_1 z_2} = \\bar{z_1} \\cdot \\bar{z_2}$.",
+            "solution": "Langkah 1: Kerjakan ruas kiri. Hitung hasil kalinya lebih dulu.\n$z_1 z_2 = (3+4i)(1-2i) = 3 - 6i + 4i - 8i^2 = 3 - 2i + 8 = 11 - 2i$\n\nLangkah 2: Ambil konjugatnya.\n$\\overline{z_1 z_2} = 11 + 2i$\n\nLangkah 3: Kerjakan ruas kanan. Ambil konjugat masing-masing lebih dulu.\n$\\bar{z_1} = 3 - 4i$, $\\quad \\bar{z_2} = 1 + 2i$\n\nLangkah 4: Kalikan.\n$(3-4i)(1+2i) = 3 + 6i - 4i - 8i^2 = 3 + 2i + 8 = 11 + 2i$\n\nLangkah 5: Kedua ruas memberi $11 + 2i$. Terbukti untuk kasus ini.\n\nLangkah 6: Sifat ini berlaku umum, dan berguna karena memungkinkan konjugat 'masuk ke dalam' operasi — bukan hanya di sini, tetapi juga pada penjumlahan dan pembagian.\n\nKesimpulan: $\\overline{z_1 z_2} = \\bar{z_1}\\bar{z_2} = 11 + 2i$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Tentukan bilangan kompleks $z$ yang memenuhi $(2 + i)z = 5 - 5i$. Kerjakan di papan dengan dua cara — membagi kedua ruas, dan memisalkan $z = a + bi$ lalu menyamakan bagian real dan imajiner — kemudian bandingkan mana yang lebih cepat dan mengapa.",
+        "summary_data": {
+          "summary": [
+            "Konjugat $\\bar{z} = a - bi$ hanya membalik tanda bagian imajiner. Konjugat bilangan real adalah dirinya sendiri.",
+            "$z \\cdot \\bar{z} = a^2 + b^2$ selalu real dan tak negatif. Inilah alat yang membersihkan $i$ dari penyebut.",
+            "Membagi berarti mengalikan pembilang dan penyebut dengan konjugat PENYEBUT — bukan konjugat pembilang.",
+            "Hasil pembagian boleh berupa pecahan; bentuk $a+bi$ hanya menuntut $a$ dan $b$ bilangan real."
+          ],
+          "islamic": "Sesuatu yang berpasangan justru saling menyempurnakan dan menghasilkan yang utuh. \"Dan segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat kebesaran Allah.\" (QS. Az-Zariyat: 49)"
+        },
+        "collab_cases": [
+          "Tentukan konjugat dari $-4 + 9i$, $-3i$, dan $12$, lalu hitung hasil kali masing-masing dengan konjugatnya.",
+          "Sederhanakan $\\dfrac{4 - 3i}{2 + i}$ ke bentuk $a + bi$ dan periksa jawabannya dengan mengalikan kembali.",
+          "Sederhanakan $\\dfrac{6 + 2i}{1 - i}$, lalu bandingkan hasilnya dengan $\\dfrac{1-i}{6+2i}$. Apa hubungan keduanya?",
+          "Tunjukkan bahwa $z + \\bar{z}$ selalu real dan $z - \\bar{z}$ selalu imajiner murni, untuk sembarang $z$.",
+          "Tentukan semua bilangan kompleks $z$ yang memenuhi $z = \\bar{z}$. Jelaskan jawabannya dalam kata-kata, bukan hanya rumus."
+        ]
+      },
+      "soal": {
+        "id": "P11",
+        "subject": "minat",
+        "title": "P11 • Konjugat dan Pembagian Bilangan Kompleks",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P11-Q1] Konjugat dari $z = -5 + 2i$ adalah $\\dots$",
+            "opsi": [
+              "A. $5 - 2i$",
+              "B. $-5 - 2i$",
+              "C. $5 + 2i$",
+              "D. $-2 + 5i$",
+              "E. $-5 + 2i$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Konjugat membalik tanda bagian IMAJINER saja. Bagian real tidak disentuh.\n\nLangkah 2: Bagian realnya $-5$, tetap $-5$.\n\nLangkah 3: Bagian imajinernya $+2$, menjadi $-2$.\n$\\bar{z} = -5 - 2i$\n\nLangkah 4: Opsi A adalah jebakan bagi yang membalik KEDUA tandanya.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P11-Q2] Untuk menyederhanakan $\\dfrac{z_1}{z_2}$, pembilang dan penyebut dikalikan dengan $\\dots$",
+            "opsi": [
+              "A. konjugat pembilang",
+              "B. konjugat penyebut",
+              "C. penyebut itu sendiri",
+              "D. $i$",
+              "E. modulus penyebut"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Tujuannya menghilangkan $i$ dari PENYEBUT, sehingga yang harus diubah adalah penyebutnya.\n\nLangkah 2: Sifat yang dipakai: $z\\bar{z} = a^2 + b^2$, yang selalu real. Maka penyebut dikalikan konjugatnya sendiri.\n\nLangkah 3: Agar nilai pecahannya tidak berubah, pembilang harus dikalikan bilangan yang sama.\n$\\frac{z_1}{z_2} \\cdot \\frac{\\bar{z_2}}{\\bar{z_2}}$\n\nLangkah 4: Opsi C keliru: mengalikan penyebut dengan dirinya sendiri justru menghasilkan bilangan kompleks lain, bukan bilangan real.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P11-Q3] Bentuk sederhana dari $\\dfrac{3 + 4i}{1 - 2i}$ adalah $\\dots$",
+            "opsi": [
+              "A. $-1 + 2i$",
+              "B. $1 - 2i$",
+              "C. $-1 - 2i$",
+              "D. $\\dfrac{3}{1} + \\dfrac{4}{2}i$",
+              "E. $11 - 2i$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Kalikan dengan konjugat penyebut, yaitu $1 + 2i$.\n\nLangkah 2: Penyebut.\n$(1-2i)(1+2i) = 1 - 4i^2 = 1 + 4 = 5$\n\nLangkah 3: Pembilang.\n$(3+4i)(1+2i) = 3 + 6i + 4i + 8i^2 = 3 + 10i - 8 = -5 + 10i$\n\nLangkah 4: Bagi setiap bagian dengan 5.\n$\\frac{-5 + 10i}{5} = -1 + 2i$\n\nLangkah 5: Opsi D adalah kesalahan membagi bagian per bagian — pembagian bilangan kompleks tidak bekerja begitu.\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P11-Q4] Bentuk sederhana dari $\\dfrac{5}{1 + 2i}$ adalah $\\dots$",
+            "opsi": [
+              "A. $1 + 2i$",
+              "B. $1 - 2i$",
+              "C. $5 - 10i$",
+              "D. $-1 + 2i$",
+              "E. $\\dfrac{5}{5}i$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Kalikan dengan konjugat penyebut $1 - 2i$.\n\nLangkah 2: Penyebut.\n$(1+2i)(1-2i) = 1 + 4 = 5$\n\nLangkah 3: Pembilang.\n$5(1-2i) = 5 - 10i$\n\nLangkah 4: Bagi.\n$\\frac{5 - 10i}{5} = 1 - 2i$\n\nLangkah 5: Periksa dengan mengalikan kembali: $(1-2i)(1+2i) = 5$. Cocok.\nOpsi C adalah pembilang yang lupa dibagi penyebutnya.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P11-Q5] Tentukan kebenaran setiap pernyataan berikut:\n(1) Konjugat dari bilangan real adalah bilangan itu sendiri.\n(2) $z \\cdot \\bar{z}$ selalu berupa bilangan real tak negatif.\n(3) $z + \\bar{z}$ selalu berupa bilangan imajiner murni.",
+            "opsi": [
+              "Konjugat dari bilangan real adalah bilangan itu sendiri",
+              "$z \\cdot \\bar{z}$ selalu berupa bilangan real tak negatif",
+              "$z + \\bar{z}$ selalu berupa bilangan imajiner murni"
+            ],
+            "kunci": "B - B - S",
+            "bahas": "Langkah 1: Analisis (1).\nBilangan real berbentuk $a + 0i$. Membalik tanda nol tetap nol, sehingga $\\bar{z} = a - 0i = a$.\n$\\implies$ (1) BENAR.\n\nLangkah 2: Analisis (2).\n$z\\bar{z} = a^2 + b^2$. Jumlah dua kuadrat tidak pernah negatif, dan tidak memuat $i$.\n$\\implies$ (2) BENAR.\n\nLangkah 3: Analisis (3).\n$z + \\bar{z} = (a+bi) + (a-bi) = 2a$ — sebuah bilangan REAL, bukan imajiner. Yang imajiner murni justru $z - \\bar{z} = 2bi$.\n$\\implies$ (3) SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P11-Q6] Bentuk sederhana dari $\\dfrac{4 - 3i}{2 + i}$ adalah $\\dots$",
+            "opsi": [
+              "A. $1 + 2i$",
+              "B. $2 - i$",
+              "C. $1 - 2i$",
+              "D. $2 + i$",
+              "E. $\\dfrac{11}{5} - \\dfrac{2}{5}i$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Kalikan dengan konjugat penyebut $2 - i$.\n\nLangkah 2: Penyebut.\n$(2+i)(2-i) = 4 - i^2 = 4 + 1 = 5$\n\nLangkah 3: Pembilang.\n$(4-3i)(2-i) = 8 - 4i - 6i + 3i^2 = 8 - 10i - 3 = 5 - 10i$\n\nLangkah 4: Bagi.\n$\\frac{5 - 10i}{5} = 1 - 2i$\n\nLangkah 5: Periksa: $(1-2i)(2+i) = 2 + i - 4i - 2i^2 = 2 - 3i + 2 = 4 - 3i$. Cocok.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P11-Q7] Jika $z = -2 + 5i$, maka nilai $z \\cdot \\bar{z}$ adalah $\\dots$",
+            "opsi": [
+              "A. $-29$",
+              "B. $-21$",
+              "C. $21$",
+              "D. $29$",
+              "E. $-4 + 25i$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Gunakan sifat $z\\bar{z} = a^2 + b^2$, tanpa perlu menjabarkan perkaliannya.\n\nLangkah 2: Di sini $a = -2$ dan $b = 5$.\n$z\\bar{z} = (-2)^2 + 5^2$\n\nLangkah 3: Hitung.\n$= 4 + 25 = 29$\n\nLangkah 4: Periksa lewat penjabaran: $(-2+5i)(-2-5i) = 4 + 10i - 10i - 25i^2 = 4 + 25 = 29$. Cocok.\n\nLangkah 5: Opsi B muncul kalau $-25i^2$ dianggap $-25$, yaitu lupa bahwa $i^2$ negatif.\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C5 Evaluasi",
+            "bobot": 10,
+            "tanya": "[P11-Q8] Diberikan $z = 1 - i$. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+            "opsi": [
+              "A. $\\bar{z} = 1 + i$.",
+              "B. $z \\cdot \\bar{z} = 2$.",
+              "C. $z + \\bar{z} = 2$.",
+              "D. $z - \\bar{z} = 2i$.",
+              "E. $\\dfrac{1}{z} = \\dfrac{1}{2} + \\dfrac{1}{2}i$."
+            ],
+            "kunci": "A, B, C, E",
+            "bahas": "Langkah 1: Analisis A.\nMembalik tanda bagian imajiner: $\\bar{z} = 1 + i$.\n$\\implies$ A BENAR.\n\nLangkah 2: Analisis B.\n$z\\bar{z} = 1^2 + (-1)^2 = 2$.\n$\\implies$ B BENAR.\n\nLangkah 3: Analisis C.\n$z + \\bar{z} = 2a = 2(1) = 2$.\n$\\implies$ C BENAR.\n\nLangkah 4: Analisis D.\n$z - \\bar{z} = 2bi = 2(-1)i = -2i$, bukan $+2i$. Tandanya terbalik karena $b = -1$.\n$\\implies$ D SALAH.\n\nLangkah 5: Analisis E.\n$\\frac{1}{1-i} \\cdot \\frac{1+i}{1+i} = \\frac{1+i}{2} = \\frac{1}{2} + \\frac{1}{2}i$.\n$\\implies$ E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P11-Q9] Bentuk sederhana dari $\\dfrac{1}{i}$ adalah $\\dots$",
+            "opsi": [
+              "A. $-i$",
+              "B. $i$",
+              "C. $1$",
+              "D. $-1$",
+              "E. $0$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Kalikan pembilang dan penyebut dengan $i$.\n$\\frac{1}{i} \\cdot \\frac{i}{i} = \\frac{i}{i^2}$\n\nLangkah 2: Ganti $i^2 = -1$.\n$= \\frac{i}{-1} = -i$\n\nLangkah 3: Periksa: kalau $\\frac{1}{i} = -i$, maka $i \\cdot (-i)$ harus bernilai 1.\n$i \\cdot (-i) = -i^2 = -(-1) = 1$. Cocok.\n\nLangkah 4: Opsi B adalah jebakan bagi yang mengira kebalikan $i$ adalah $i$ sendiri.\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P11-Q10] Bagian imajiner dari $\\dfrac{6 + 2i}{1 - i}$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "4",
+            "bahas": "Langkah 1: Kalikan dengan konjugat penyebut $1 + i$.\n\nLangkah 2: Penyebut.\n$(1-i)(1+i) = 1 - i^2 = 1 + 1 = 2$\n\nLangkah 3: Pembilang.\n$(6+2i)(1+i) = 6 + 6i + 2i + 2i^2 = 6 + 8i - 2 = 4 + 8i$\n\nLangkah 4: Bagi.\n$\\frac{4 + 8i}{2} = 2 + 4i$\n\nLangkah 5: Bagian imajinernya adalah koefisien $i$, yaitu $4$ — bukan $4i$, dan bukan bagian realnya yang bernilai 2.\nKesimpulan: Kunci Jawaban 4."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P12",
+      "judul": "Modulus dan Bidang Argand",
+      "materi": {
+        "id": "P12",
+        "bab": "Bab 2: Bilangan Kompleks",
+        "title": "Modulus dan Bidang Argand",
+        "obj": [
+          "Menggambarkan bilangan kompleks sebagai titik atau vektor pada bidang Argand, dengan sumbu real mendatar dan sumbu imajiner tegak.",
+          "Menghitung modulus $|z| = \\sqrt{a^2+b^2}$ dan menafsirkannya sebagai jarak dari titik asal.",
+          "Menerapkan sifat $|z_1 z_2| = |z_1||z_2|$ serta menghitung jarak antara dua bilangan kompleks sebagai $|z_1 - z_2|$."
+        ],
+        "hook": "Bilangan real cukup digambar pada satu garis. Bilangan kompleks tidak muat di garis — ia butuh bidang. Dan begitu digambar, rumus modulusnya ternyata bukan hal baru sama sekali: itu teorema Pythagoras yang sudah Anda kenal sejak SMP.",
+        "toolkit": [
+          {
+            "name": "Bidang Argand",
+            "math": "$$z = a + bi \\ \\longleftrightarrow \\ \\text{titik } (a,\\ b)$$"
+          },
+          {
+            "name": "Modulus",
+            "math": "$$|z| = \\sqrt{a^2 + b^2}$$"
+          },
+          {
+            "name": "Hubungan dengan Konjugat",
+            "math": "$$|z|^2 = z \\cdot \\bar{z} = a^2 + b^2$$"
+          },
+          {
+            "name": "Modulus Hasil Kali dan Bagi",
+            "math": "$$|z_1 z_2| = |z_1||z_2|, \\qquad \\left|\\frac{z_1}{z_2}\\right| = \\frac{|z_1|}{|z_2|}$$"
+          },
+          {
+            "name": "Jarak Dua Bilangan Kompleks",
+            "math": "$$d(z_1, z_2) = |z_1 - z_2|$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Hitung modulus dari $z_1 = 3 + 4i$, $z_2 = -5 + 12i$, dan $z_3 = 1 + i$.",
+            "solution": "Langkah 1: Modulus adalah jarak titik $(a,b)$ ke titik asal, yang menurut Pythagoras bernilai $\\sqrt{a^2+b^2}$.\n\nLangkah 2: Hitung yang pertama.\n$|z_1| = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5$\n\nLangkah 3: Hitung yang kedua. Tanda negatif hilang karena dikuadratkan.\n$|z_2| = \\sqrt{(-5)^2 + 12^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13$\n\nLangkah 4: Hitung yang ketiga. Tidak semua modulus berupa bilangan bulat.\n$|z_3| = \\sqrt{1^2 + 1^2} = \\sqrt{2}$\n\nLangkah 5: Perhatikan bahwa modulus tidak pernah negatif — ia sebuah jarak.\n\nKesimpulan: $|z_1| = 5$, $\\quad |z_2| = 13$, $\\quad |z_3| = \\sqrt{2}$."
+          },
+          {
+            "problem": "Gambarkan $z_1 = 3+4i$ dan $z_2 = -3-4i$ pada bidang Argand, lalu bandingkan modulusnya.",
+            "solution": "Langkah 1: Bidang Argand memakai sumbu mendatar untuk bagian real dan sumbu tegak untuk bagian imajiner.\n$z_1 \\to (3, 4)$ berada di kuadran I\n$z_2 \\to (-3, -4)$ berada di kuadran III\n\nLangkah 2: Hitung modulus keduanya.\n$|z_1| = \\sqrt{9+16} = 5$\n$|z_2| = \\sqrt{(-3)^2 + (-4)^2} = \\sqrt{9+16} = 5$\n\nLangkah 3: Modulusnya SAMA meski letaknya berlawanan. Sebabnya kedua koordinat dikuadratkan, sehingga tandanya hilang.\n\nLangkah 4: Secara gambar, keduanya berada pada lingkaran yang sama berpusat di titik asal dengan jari-jari 5, hanya pada sisi yang berseberangan.\n\nLangkah 5: Kesimpulan pentingnya: modulus menyimpan informasi JARAK, tetapi tidak menyimpan informasi ARAH. Arah itulah yang nanti diwakili oleh argumen.\n\nKesimpulan: $|z_1| = |z_2| = 5$, tetapi $z_1 \\neq z_2$."
+          },
+          {
+            "problem": "Dengan $z_1 = 3+4i$ dan $z_2 = 1-2i$, periksa apakah $|z_1 z_2| = |z_1| \\cdot |z_2|$.",
+            "solution": "Langkah 1: Hitung ruas kanan lebih dulu, karena lebih ringan.\n$|z_1| = 5$\n$|z_2| = \\sqrt{1^2 + (-2)^2} = \\sqrt{5}$\n$|z_1||z_2| = 5\\sqrt{5}$\n\nLangkah 2: Untuk ruas kiri, hitung hasil kalinya lebih dulu.\n$z_1 z_2 = (3+4i)(1-2i) = 3 - 6i + 4i - 8i^2 = 11 - 2i$\n\nLangkah 3: Hitung modulusnya.\n$|11 - 2i| = \\sqrt{121 + 4} = \\sqrt{125}$\n\nLangkah 4: Sederhanakan.\n$\\sqrt{125} = \\sqrt{25 \\cdot 5} = 5\\sqrt{5}$\n\nLangkah 5: Kedua ruas sama. Sifat ini menghemat banyak pekerjaan — modulus hasil kali dapat dihitung tanpa mengalikan bilangannya lebih dulu.\n\nKesimpulan: $|z_1 z_2| = |z_1||z_2| = 5\\sqrt{5}$."
+          },
+          {
+            "problem": "Tentukan jarak antara $z_1 = 5 + 2i$ dan $z_2 = 1 - i$ pada bidang Argand.",
+            "solution": "Langkah 1: Jarak antara dua bilangan kompleks adalah modulus SELISIHNYA.\n$d = |z_1 - z_2|$\n\nLangkah 2: Hitung selisihnya.\n$z_1 - z_2 = (5 - 1) + (2 - (-1))i = 4 + 3i$\n\nLangkah 3: Hitung modulusnya.\n$|4 + 3i| = \\sqrt{16 + 9} = \\sqrt{25} = 5$\n\nLangkah 4: Periksa lewat cara koordinat biasa. Titiknya $(5,2)$ dan $(1,-1)$.\n$d = \\sqrt{(5-1)^2 + (2-(-1))^2} = \\sqrt{16+9} = 5$. Sama persis.\n\nLangkah 5: Jadi rumus jarak pada bidang Argand bukan rumus baru — ia rumus jarak dua titik yang sudah Anda kenal, ditulis dengan lambang modulus.\n\nKesimpulan: Jaraknya $5$ satuan."
+          },
+          {
+            "problem": "Tentukan tempat kedudukan semua titik $z$ pada bidang Argand yang memenuhi $|z| = 5$, lalu sebutkan tiga anggotanya.",
+            "solution": "Langkah 1: Misalkan $z = x + yi$, sehingga syaratnya menjadi\n$\\sqrt{x^2 + y^2} = 5$\n\nLangkah 2: Kuadratkan kedua ruas.\n$x^2 + y^2 = 25$\n\nLangkah 3: Kenali bentuknya. Ini persamaan LINGKARAN berpusat di titik asal dengan jari-jari 5.\n\nLangkah 4: Sebut tiga anggotanya. Cari pasangan yang memenuhi $x^2+y^2 = 25$.\n$3 + 4i$ karena $9 + 16 = 25$\n$-3 - 4i$ karena $9 + 16 = 25$\n$5 + 0i$ karena $25 + 0 = 25$\n\nLangkah 5: Perhatikan bahwa anggotanya tak berhingga banyaknya — seluruh titik pada lingkaran itu. Satu persamaan modulus menentukan sebuah kurva, bukan satu titik.\n\nKesimpulan: Tempat kedudukannya lingkaran $x^2+y^2 = 25$, di antaranya $3+4i$, $-3-4i$, dan $5$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Tentukan tempat kedudukan titik $z$ pada bidang Argand yang memenuhi $|z - 2i| = 3$. Gambarkan di papan, tentukan pusat dan jari-jarinya, lalu bandingkan dengan $|z| = 3$. Diskusikan apa arti geometris dari pengurangan $2i$ tersebut.",
+        "summary_data": {
+          "summary": [
+            "Bidang Argand memetakan $z = a+bi$ ke titik $(a,b)$: sumbu mendatar untuk bagian real, sumbu tegak untuk bagian imajiner.",
+            "$|z| = \\sqrt{a^2+b^2}$ adalah jarak ke titik asal, sehingga tidak pernah negatif. Ia juga memenuhi $|z|^2 = z\\bar{z}$.",
+            "$|z_1z_2| = |z_1||z_2|$ dan $\\left|\\frac{z_1}{z_2}\\right| = \\frac{|z_1|}{|z_2|}$ — modulus dapat dihitung tanpa mengalikan bilangannya lebih dulu.",
+            "Jarak dua bilangan kompleks adalah $|z_1 - z_2|$, dan $|z - z_0| = r$ menyatakan lingkaran berpusat $z_0$ berjari-jari $r$."
+          ],
+          "islamic": "Dua hal boleh berjarak sama dari pusat, namun berada di arah yang sepenuhnya berlawanan. Jarak saja belum menerangkan kedudukan. \"Sesungguhnya Allah tidak melihat rupa dan hartamu, tetapi Dia melihat hatimu dan amalmu.\" (HR. Muslim)"
+        },
+        "collab_cases": [
+          "Hitung $|{-8} + 6i|$, $|7 + 24i|$, dan $|{-4i}|$. Perhatikan bahwa tanda negatif tidak memengaruhi hasilnya.",
+          "Tunjukkan bahwa $|z| = |\\bar{z}|$ untuk sembarang $z$, lalu jelaskan artinya pada gambar bidang Argand.",
+          "Diketahui $|z_1| = 6$ dan $|z_2| = 2$. Tentukan $|z_1 z_2|$ dan $\\left|\\frac{z_1}{z_2}\\right|$ tanpa mengetahui bilangannya.",
+          "Tentukan jarak antara $-2 + 3i$ dan $4 - 5i$ pada bidang Argand.",
+          "Gambarkan himpunan titik yang memenuhi $|z| \\le 2$. Apakah berupa kurva atau daerah? Jelaskan perbedaannya dengan $|z| = 2$."
+        ]
+      },
+      "soal": {
+        "id": "P12",
+        "subject": "minat",
+        "title": "P12 • Modulus dan Bidang Argand",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P12-Q1] Nilai dari $|{-5} + 12i|$ adalah $\\dots$",
+            "opsi": [
+              "A. $7$",
+              "B. $12$",
+              "C. $13$",
+              "D. $17$",
+              "E. $169$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Gunakan $|z| = \\sqrt{a^2+b^2}$ dengan $a = -5$ dan $b = 12$.\n\nLangkah 2: Kuadratkan keduanya. Tanda negatif hilang saat dikuadratkan.\n$(-5)^2 = 25$, $\\quad 12^2 = 144$\n\nLangkah 3: Jumlahkan lalu akarkan.\n$\\sqrt{25 + 144} = \\sqrt{169} = 13$\n\nLangkah 4: Opsi A adalah $-5 + 12$, yaitu menjumlahkan begitu saja tanpa mengkuadratkan. Opsi E lupa mengakarkan.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P12-Q2] Pada bidang Argand, bilangan $z = -3 + 5i$ digambarkan sebagai titik $\\dots$",
+            "opsi": [
+              "A. $(5, -3)$",
+              "B. $(-3, 5)$",
+              "C. $(3, 5)$",
+              "D. $(-3, 5i)$",
+              "E. $(-3, -5)$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Pada bidang Argand, sumbu mendatar memuat bagian REAL dan sumbu tegak memuat bagian IMAJINER.\n\nLangkah 2: Bagian realnya $-3$, menjadi koordinat mendatar.\n\nLangkah 3: Bagian imajinernya $5$ — koefisiennya saja, bukan $5i$ — menjadi koordinat tegak.\n\nLangkah 4: Jadi titiknya $(-3, 5)$, berada di kuadran II.\nOpsi D keliru karena menuliskan $i$ pada koordinat; koordinat selalu bilangan real.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P12-Q3] Nilai dari $|1 + i|$ adalah $\\dots$",
+            "opsi": [
+              "A. $1$",
+              "B. $\\sqrt{2}$",
+              "C. $2$",
+              "D. $\\sqrt{3}$",
+              "E. $0$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Terapkan rumusnya dengan $a = 1$ dan $b = 1$.\n$|1+i| = \\sqrt{1^2 + 1^2}$\n\nLangkah 2: Hitung.\n$= \\sqrt{1 + 1} = \\sqrt{2}$\n\nLangkah 3: Nilainya sekitar $1{,}41$ — tidak harus bilangan bulat.\n\nLangkah 4: Opsi C muncul kalau kedua bagian dijumlahkan langsung tanpa dikuadratkan.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P12-Q4] Jika $|z_1| = 6$ dan $|z_2| = 2$, maka nilai $|z_1 z_2|$ adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $4$",
+              "C. $8$",
+              "D. $12$",
+              "E. tidak dapat ditentukan"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Berlaku sifat $|z_1 z_2| = |z_1| \\cdot |z_2|$.\n\nLangkah 2: Substitusikan.\n$= 6 \\times 2 = 12$\n\nLangkah 3: Perhatikan bahwa bilangan $z_1$ dan $z_2$ sendiri tidak perlu diketahui — hanya modulusnya. Karena itu opsi E keliru.\n\nLangkah 4: Opsi A adalah $|z_1|/|z_2|$, yang menjawab pertanyaan berbeda.\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P12-Q5] Tentukan kebenaran setiap pernyataan berikut:\n(1) Modulus sebuah bilangan kompleks tidak pernah negatif.\n(2) Jika $|z_1| = |z_2|$ maka $z_1 = z_2$.\n(3) $|z| = |\\bar{z}|$ untuk sembarang bilangan kompleks $z$.",
+            "opsi": [
+              "Modulus sebuah bilangan kompleks tidak pernah negatif",
+              "Jika $|z_1| = |z_2|$ maka $z_1 = z_2$",
+              "$|z| = |\\bar{z}|$ untuk sembarang bilangan kompleks $z$"
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Analisis (1).\n$|z| = \\sqrt{a^2+b^2}$ adalah akar dari jumlah dua kuadrat, sehingga selalu $\\ge 0$. Ia menyatakan jarak.\n$\\implies$ (1) BENAR.\n\nLangkah 2: Analisis (2).\nPenyangkalnya: $|3+4i| = 5$ dan $|-3-4i| = 5$, padahal kedua bilangan itu berbeda. Modulus menyimpan jarak, bukan arah.\n$\\implies$ (2) SALAH.\n\nLangkah 3: Analisis (3).\n$|\\bar{z}| = \\sqrt{a^2 + (-b)^2} = \\sqrt{a^2+b^2} = |z|$. Membalik tanda $b$ tidak mengubah kuadratnya.\n$\\implies$ (3) BENAR. Pada gambar, $z$ dan $\\bar{z}$ adalah dua titik yang saling mencerminkan terhadap sumbu real.\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P12-Q6] Jarak antara $z_1 = 5 + 2i$ dan $z_2 = 1 - i$ pada bidang Argand adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $4$",
+              "C. $5$",
+              "D. $7$",
+              "E. $\\sqrt{17}$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Jarak dua bilangan kompleks adalah modulus SELISIHNYA.\n$d = |z_1 - z_2|$\n\nLangkah 2: Hitung selisihnya per bagian.\nbagian real: $5 - 1 = 4$\nbagian imajiner: $2 - (-1) = 3$\n$z_1 - z_2 = 4 + 3i$\n\nLangkah 3: Hitung modulusnya.\n$|4+3i| = \\sqrt{16+9} = \\sqrt{25} = 5$\n\nLangkah 4: Kesalahan yang sering terjadi ada di bagian imajiner: $2 - (-1)$ bernilai $3$, bukan $1$.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C5 Evaluasi",
+            "bobot": 10,
+            "tanya": "[P12-Q7] Himpunan titik $z$ pada bidang Argand yang memenuhi $|z| = 4$ berupa $\\dots$",
+            "opsi": [
+              "A. sebuah titik",
+              "B. sebuah garis lurus",
+              "C. lingkaran berpusat di titik asal dengan jari-jari 4",
+              "D. lingkaran berpusat di $(4,0)$ dengan jari-jari 1",
+              "E. daerah di dalam lingkaran berjari-jari 4"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Misalkan $z = x + yi$, sehingga syaratnya menjadi $\\sqrt{x^2+y^2} = 4$.\n\nLangkah 2: Kuadratkan kedua ruas.\n$x^2 + y^2 = 16$\n\nLangkah 3: Bentuk ini adalah persamaan lingkaran berpusat $(0,0)$ dengan jari-jari $4$.\n\nLangkah 4: Opsi E keliru karena itu jawaban untuk PERTIDAKSAMAAN $|z| \\le 4$, bukan persamaan. Tanda sama dengan memberi kurva; tanda kurang dari memberi daerah.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C5 Evaluasi",
+            "bobot": 10,
+            "tanya": "[P12-Q8] Diberikan $z = -6 + 8i$. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+            "opsi": [
+              "A. $|z| = 10$.",
+              "B. Titiknya berada di kuadran II.",
+              "C. $|\\bar{z}| = 10$.",
+              "D. $z \\cdot \\bar{z} = 100$.",
+              "E. $|z| = -10$ juga memenuhi karena bagian realnya negatif."
+            ],
+            "kunci": "A, B, C, D",
+            "bahas": "Langkah 1: Analisis A.\n$|z| = \\sqrt{(-6)^2 + 8^2} = \\sqrt{36+64} = \\sqrt{100} = 10$.\n$\\implies$ A BENAR.\n\nLangkah 2: Analisis B.\nTitiknya $(-6, 8)$: mendatar negatif, tegak positif — itu kuadran II.\n$\\implies$ B BENAR.\n\nLangkah 3: Analisis C.\n$\\bar{z} = -6 - 8i$, dan $\\sqrt{36+64} = 10$. Konjugat tidak mengubah modulus.\n$\\implies$ C BENAR.\n\nLangkah 4: Analisis D.\n$z\\bar{z} = |z|^2 = 100$.\n$\\implies$ D BENAR.\n\nLangkah 5: Analisis E.\nModulus adalah jarak, sehingga tidak pernah negatif. Tanda bagian realnya tidak berpengaruh karena sudah dikuadratkan.\n$\\implies$ E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P12-Q9] Jika $z_1 = 3 + 4i$ dan $z_2 = 1 - 2i$, maka $|z_1 z_2|$ adalah $\\dots$",
+            "opsi": [
+              "A. $5$",
+              "B. $\\sqrt{5}$",
+              "C. $5\\sqrt{5}$",
+              "D. $25$",
+              "E. $125$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Pakai sifat $|z_1z_2| = |z_1||z_2|$, tanpa perlu mengalikan bilangannya.\n\nLangkah 2: Hitung masing-masing.\n$|z_1| = \\sqrt{9+16} = 5$\n$|z_2| = \\sqrt{1+4} = \\sqrt{5}$\n\nLangkah 3: Kalikan.\n$|z_1z_2| = 5\\sqrt{5}$\n\nLangkah 4: Periksa lewat jalan panjang. $z_1z_2 = 11 - 2i$, dan $|11-2i| = \\sqrt{121+4} = \\sqrt{125} = 5\\sqrt{5}$. Cocok.\n\nLangkah 5: Opsi E adalah $|z_1z_2|^2$, yaitu lupa mengakarkan.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P12-Q10] Jarak antara $-2 + 3i$ dan $4 - 5i$ pada bidang Argand adalah $\\dots$",
+            "opsi": [],
+            "kunci": "10",
+            "bahas": "Langkah 1: Hitung selisihnya lebih dulu.\nbagian real: $-2 - 4 = -6$\nbagian imajiner: $3 - (-5) = 8$\nselisih $= -6 + 8i$\n\nLangkah 2: Hitung modulus selisihnya.\n$|-6 + 8i| = \\sqrt{36 + 64} = \\sqrt{100} = 10$\n\nLangkah 3: Periksa dengan rumus jarak dua titik $(-2,3)$ dan $(4,-5)$.\n$\\sqrt{(-2-4)^2 + (3-(-5))^2} = \\sqrt{36+64} = 10$. Cocok.\n\nLangkah 4: Urutan pengurangan tidak berpengaruh, karena hasilnya dikuadratkan.\nKesimpulan: Kunci Jawaban 10."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P13",
+      "judul": "Argumen dan Bentuk Kutub Bilangan Kompleks",
+      "materi": {
+        "id": "P13",
+        "bab": "Bab 2: Bilangan Kompleks",
+        "title": "Argumen dan Bentuk Kutub Bilangan Kompleks",
+        "obj": [
+          "Menentukan argumen $\\theta$ sebuah bilangan kompleks dari $\\tan\\theta = \\frac{b}{a}$, dengan memperhatikan kuadran tempat titiknya berada.",
+          "Menuliskan bilangan kompleks dalam bentuk kutub $z = r(\\cos\\theta + i\\sin\\theta)$ dan mengubahnya kembali ke bentuk $a+bi$.",
+          "Menjelaskan bahwa modulus menyatakan panjang dan argumen menyatakan arah, sehingga keduanya bersama-sama menentukan $z$ secara tunggal."
+        ],
+        "hook": "Modulus memberi tahu seberapa jauh, tetapi tidak ke arah mana — $3+4i$ dan $-3-4i$ punya modulus yang sama persis. Yang membedakan keduanya adalah sudut. Begitu sudut itu ikut dicatat, sebuah bilangan kompleks dapat ditulis tanpa memakai koordinat sama sekali.",
+        "toolkit": [
+          {
+            "name": "Modulus dan Argumen",
+            "math": "$$r = |z| = \\sqrt{a^2+b^2}, \\qquad \\tan\\theta = \\frac{b}{a}$$"
+          },
+          {
+            "name": "Bentuk Kutub",
+            "math": "$$z = r(\\cos\\theta + i\\sin\\theta)$$"
+          },
+          {
+            "name": "Kembali ke Bentuk Baku",
+            "math": "$$a = r\\cos\\theta, \\qquad b = r\\sin\\theta$$"
+          },
+          {
+            "name": "Penentu Kuadran",
+            "math": "$$\\text{tanda } a \\text{ dan } b \\ \\Longrightarrow \\ \\text{kuadran } \\theta$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Nyatakan $z = 1 + i\\sqrt{3}$ dalam bentuk kutub.",
+            "solution": "Langkah 1: Hitung modulusnya.\n$r = \\sqrt{1^2 + (\\sqrt{3})^2} = \\sqrt{1+3} = \\sqrt{4} = 2$\n\nLangkah 2: Hitung nilai tangen argumennya.\n$\\tan\\theta = \\frac{b}{a} = \\frac{\\sqrt{3}}{1} = \\sqrt{3}$\n\nLangkah 3: Tentukan kuadrannya SEBELUM memilih sudut. Di sini $a = 1 > 0$ dan $b = \\sqrt{3} > 0$, sehingga titiknya di kuadran I.\n\nLangkah 4: Sudut di kuadran I dengan tangen $\\sqrt{3}$ adalah $\\theta = 60^\\circ$.\n\nLangkah 5: Susun bentuk kutubnya.\n$z = 2(\\cos 60^\\circ + i\\sin 60^\\circ)$\n\nLangkah 6: Periksa dengan mengembalikannya. $2\\left(\\frac{1}{2}\\right) = 1$ dan $2\\left(\\frac{\\sqrt{3}}{2}\\right) = \\sqrt{3}$, sehingga $z = 1 + i\\sqrt{3}$. Cocok.\n\nKesimpulan: $z = 2(\\cos 60^\\circ + i\\sin 60^\\circ)$."
+          },
+          {
+            "problem": "Nyatakan $z = -1 + i$ dalam bentuk kutub.",
+            "solution": "Langkah 1: Hitung modulusnya.\n$r = \\sqrt{(-1)^2 + 1^2} = \\sqrt{2}$\n\nLangkah 2: Hitung tangennya.\n$\\tan\\theta = \\frac{1}{-1} = -1$\n\nLangkah 3: Di sinilah letak jebakannya. Kalkulator akan menjawab $-45^\\circ$, padahal $a = -1 < 0$ dan $b = 1 > 0$ menempatkan titiknya di kuadran II.\n\nLangkah 4: Cari sudut di KUADRAN II yang tangennya $-1$.\n$\\theta = 180^\\circ - 45^\\circ = 135^\\circ$\n\nLangkah 5: Susun bentuk kutubnya.\n$z = \\sqrt{2}(\\cos 135^\\circ + i\\sin 135^\\circ)$\n\nLangkah 6: Periksa. $\\sqrt{2}\\left(-\\frac{\\sqrt{2}}{2}\\right) = -1$ dan $\\sqrt{2}\\left(\\frac{\\sqrt{2}}{2}\\right) = 1$, sehingga $z = -1 + i$. Cocok.\n\nKesimpulan: $z = \\sqrt{2}(\\cos 135^\\circ + i\\sin 135^\\circ)$. Tangen saja tidak pernah cukup — kuadran harus diperiksa."
+          },
+          {
+            "problem": "Tentukan modulus dan argumen dari $z_1 = 3i$, $z_2 = -2$, dan $z_3 = 4$.",
+            "solution": "Langkah 1: Untuk $z_1 = 0 + 3i$, titiknya $(0,3)$ — tepat pada sumbu imajiner positif.\n$r = 3$, $\\quad \\theta = 90^\\circ$\n\nLangkah 2: Perhatikan bahwa $\\tan\\theta = \\frac{3}{0}$ tidak terdefinisi. Untuk titik pada sumbu, argumennya dibaca langsung dari gambar, bukan dihitung dari tangen.\n\nLangkah 3: Untuk $z_2 = -2 + 0i$, titiknya $(-2, 0)$ — pada sumbu real negatif.\n$r = 2$, $\\quad \\theta = 180^\\circ$\n\nLangkah 4: Untuk $z_3 = 4 + 0i$, titiknya $(4,0)$ — pada sumbu real positif.\n$r = 4$, $\\quad \\theta = 0^\\circ$\n\nLangkah 5: Keempat sudut istimewa yang perlu dihafal: sumbu real positif $0^\\circ$, imajiner positif $90^\\circ$, real negatif $180^\\circ$, imajiner negatif $270^\\circ$ (atau $-90^\\circ$).\n\nKesimpulan: $3(\\cos 90^\\circ + i\\sin 90^\\circ)$, $\\ 2(\\cos 180^\\circ + i\\sin 180^\\circ)$, $\\ 4(\\cos 0^\\circ + i\\sin 0^\\circ)$."
+          },
+          {
+            "problem": "Ubah $z = 4(\\cos 30^\\circ + i\\sin 30^\\circ)$ ke bentuk $a + bi$.",
+            "solution": "Langkah 1: Gunakan $a = r\\cos\\theta$ dan $b = r\\sin\\theta$.\n\nLangkah 2: Hitung bagian realnya.\n$a = 4\\cos 30^\\circ = 4 \\cdot \\frac{\\sqrt{3}}{2} = 2\\sqrt{3}$\n\nLangkah 3: Hitung bagian imajinernya.\n$b = 4\\sin 30^\\circ = 4 \\cdot \\frac{1}{2} = 2$\n\nLangkah 4: Susun bentuk bakunya.\n$z = 2\\sqrt{3} + 2i$\n\nLangkah 5: Periksa modulusnya kembali.\n$|z| = \\sqrt{(2\\sqrt{3})^2 + 2^2} = \\sqrt{12 + 4} = \\sqrt{16} = 4$. Cocok dengan $r$ semula.\n\nKesimpulan: $z = 2\\sqrt{3} + 2i$."
+          },
+          {
+            "problem": "Nyatakan $z = \\sqrt{3} - i$ dalam bentuk kutub, lalu jelaskan mengapa argumennya boleh ditulis dua cara.",
+            "solution": "Langkah 1: Hitung modulusnya.\n$r = \\sqrt{(\\sqrt{3})^2 + (-1)^2} = \\sqrt{3+1} = 2$\n\nLangkah 2: Hitung tangennya.\n$\\tan\\theta = \\frac{-1}{\\sqrt{3}} = -\\frac{1}{\\sqrt{3}}$\n\nLangkah 3: Periksa kuadrannya. $a = \\sqrt{3} > 0$ dan $b = -1 < 0$, sehingga titiknya di kuadran IV.\n\nLangkah 4: Sudut di kuadran IV dengan tangen $-\\frac{1}{\\sqrt{3}}$ adalah $\\theta = -30^\\circ$.\n\nLangkah 5: Sudut yang sama boleh ditulis sebagai $360^\\circ - 30^\\circ = 330^\\circ$. Keduanya menunjuk arah yang persis sama, hanya diukur dari arah putaran yang berbeda.\n$z = 2(\\cos(-30^\\circ) + i\\sin(-30^\\circ)) = 2(\\cos 330^\\circ + i\\sin 330^\\circ)$\n\nLangkah 6: Karena itulah argumen biasanya dibatasi pada satu selang — misalnya $0^\\circ \\le \\theta < 360^\\circ$ — supaya penulisannya tunggal.\n\nKesimpulan: $z = 2(\\cos 330^\\circ + i\\sin 330^\\circ)$, setara dengan $\\theta = -30^\\circ$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Nyatakan $z_1 = -\\sqrt{3} + i$ dan $z_2 = -1 - i\\sqrt{3}$ dalam bentuk kutub. Gambarkan keduanya di papan pada satu bidang Argand, tunjukkan letak kuadrannya, lalu jelaskan mengapa keduanya bermodulus sama tetapi berargumen berbeda. Diskusikan pula: berapa besar sudut antara keduanya?",
+        "summary_data": {
+          "summary": [
+            "$r = |z|$ menyatakan panjang, $\\theta$ menyatakan arah. Keduanya bersama-sama menentukan $z$ secara tunggal.",
+            "$\\tan\\theta = \\frac{b}{a}$ hanya memberi calon sudut. KUADRAN harus diperiksa dari tanda $a$ dan $b$ sebelum sudutnya ditetapkan.",
+            "Bentuk kutub: $z = r(\\cos\\theta + i\\sin\\theta)$; kembalinya lewat $a = r\\cos\\theta$ dan $b = r\\sin\\theta$.",
+            "Untuk titik pada sumbu, argumennya dibaca dari gambar: $0^\\circ$, $90^\\circ$, $180^\\circ$, dan $270^\\circ$."
+          ],
+          "islamic": "Mengetahui sejauh mana perjalanan belum cukup tanpa mengetahui ke arah mana ia menuju. \"Tunjukilah kami jalan yang lurus.\" (QS. Al-Fatihah: 6)"
+        },
+        "collab_cases": [
+          "Nyatakan $z = 2 + 2i$ dalam bentuk kutub, lengkap dengan pemeriksaan kuadrannya.",
+          "Ubah $z = 6(\\cos 120^\\circ + i\\sin 120^\\circ)$ ke bentuk $a+bi$, lalu periksa modulusnya kembali.",
+          "Tentukan argumen dari $-5i$ dan $-7$. Jelaskan mengapa keduanya tidak dapat dicari lewat $\\tan\\theta$.",
+          "Dua bilangan kompleks bermodulus sama, yaitu 4, dengan argumen $30^\\circ$ dan $150^\\circ$. Tuliskan keduanya dalam bentuk $a+bi$ dan bandingkan letaknya.",
+          "Jelaskan mengapa $\\tan\\theta = 1$ dapat berasal dari dua bilangan kompleks yang letaknya berseberangan. Berikan satu contoh untuk masing-masing."
+        ]
+      },
+      "soal": {
+        "id": "P13",
+        "subject": "minat",
+        "title": "P13 • Argumen dan Bentuk Kutub",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P13-Q1] Modulus dari $z = 1 + i\\sqrt{3}$ adalah $\\dots$",
+            "opsi": [
+              "A. $1$",
+              "B. $\\sqrt{3}$",
+              "C. $2$",
+              "D. $4$",
+              "E. $1 + \\sqrt{3}$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Terapkan $r = \\sqrt{a^2+b^2}$ dengan $a = 1$ dan $b = \\sqrt{3}$.\n\nLangkah 2: Kuadratkan bagian imajinernya dengan hati-hati.\n$(\\sqrt{3})^2 = 3$\n\nLangkah 3: Jumlahkan lalu akarkan.\n$r = \\sqrt{1 + 3} = \\sqrt{4} = 2$\n\nLangkah 4: Opsi E adalah penjumlahan langsung tanpa mengkuadratkan.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P13-Q2] Argumen dari $z = 1 + i\\sqrt{3}$ adalah $\\dots$",
+            "opsi": [
+              "A. $30^\\circ$",
+              "B. $45^\\circ$",
+              "C. $60^\\circ$",
+              "D. $120^\\circ$",
+              "E. $240^\\circ$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Hitung tangennya.\n$\\tan\\theta = \\frac{b}{a} = \\frac{\\sqrt{3}}{1} = \\sqrt{3}$\n\nLangkah 2: Periksa kuadrannya. $a = 1 > 0$ dan $b = \\sqrt{3} > 0$, sehingga titiknya di kuadran I.\n\nLangkah 3: Sudut di kuadran I dengan $\\tan\\theta = \\sqrt{3}$ adalah $60^\\circ$.\n\nLangkah 4: Opsi A adalah jebakan bagi yang tertukar antara $\\tan 30^\\circ = \\frac{1}{\\sqrt{3}}$ dan $\\tan 60^\\circ = \\sqrt{3}$.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P13-Q3] Bentuk kutub dari $z = -1 + i$ adalah $\\dots$",
+            "opsi": [
+              "A. $\\sqrt{2}(\\cos 45^\\circ + i\\sin 45^\\circ)$",
+              "B. $\\sqrt{2}(\\cos 135^\\circ + i\\sin 135^\\circ)$",
+              "C. $\\sqrt{2}(\\cos 225^\\circ + i\\sin 225^\\circ)$",
+              "D. $2(\\cos 135^\\circ + i\\sin 135^\\circ)$",
+              "E. $\\sqrt{2}(\\cos(-45^\\circ) + i\\sin(-45^\\circ))$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Hitung modulusnya.\n$r = \\sqrt{(-1)^2 + 1^2} = \\sqrt{2}$\n\nLangkah 2: Hitung tangennya.\n$\\tan\\theta = \\frac{1}{-1} = -1$\n\nLangkah 3: Periksa kuadrannya. $a = -1 < 0$ dan $b = 1 > 0$ menempatkan titiknya di kuadran II — meski kalkulator menjawab $-45^\\circ$.\n\nLangkah 4: Sudut di kuadran II dengan tangen $-1$ adalah $180^\\circ - 45^\\circ = 135^\\circ$.\n\nLangkah 5: Periksa: $\\sqrt{2}\\cos 135^\\circ = \\sqrt{2}\\left(-\\frac{\\sqrt{2}}{2}\\right) = -1$ dan $\\sqrt{2}\\sin 135^\\circ = 1$. Cocok.\nOpsi E adalah jawaban kalkulator yang belum dikoreksi kuadrannya.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P13-Q4] Bentuk $a + bi$ dari $z = 4(\\cos 30^\\circ + i\\sin 30^\\circ)$ adalah $\\dots$",
+            "opsi": [
+              "A. $2 + 2\\sqrt{3}i$",
+              "B. $2\\sqrt{3} + 2i$",
+              "C. $4 + 4i$",
+              "D. $2\\sqrt{3} - 2i$",
+              "E. $\\dfrac{\\sqrt{3}}{2} + \\dfrac{1}{2}i$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Gunakan $a = r\\cos\\theta$ dan $b = r\\sin\\theta$.\n\nLangkah 2: Hitung bagian realnya.\n$a = 4\\cos 30^\\circ = 4 \\cdot \\frac{\\sqrt{3}}{2} = 2\\sqrt{3}$\n\nLangkah 3: Hitung bagian imajinernya.\n$b = 4\\sin 30^\\circ = 4 \\cdot \\frac{1}{2} = 2$\n\nLangkah 4: Susun: $z = 2\\sqrt{3} + 2i$.\n\nLangkah 5: Opsi A tertukar antara sinus dan kosinus. Opsi E lupa mengalikan dengan $r$.\nPeriksa: $\\sqrt{12+4} = 4$, sama dengan $r$. Cocok.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P13-Q5] Tentukan kebenaran setiap pernyataan berikut:\n(1) Nilai $\\tan\\theta$ saja sudah cukup untuk menentukan argumen secara tunggal.\n(2) Argumen dari bilangan real positif adalah $0^\\circ$.\n(3) Dua bilangan kompleks dengan modulus dan argumen yang sama pasti bilangan yang sama.",
+            "opsi": [
+              "Nilai $\\tan\\theta$ saja sudah cukup untuk menentukan argumen secara tunggal",
+              "Argumen dari bilangan real positif adalah $0^\\circ$",
+              "Dua bilangan kompleks dengan modulus dan argumen yang sama pasti bilangan yang sama"
+            ],
+            "kunci": "S - B - B",
+            "bahas": "Langkah 1: Analisis (1).\n$\\tan 45^\\circ = \\tan 225^\\circ = 1$, padahal $1+i$ dan $-1-i$ adalah bilangan yang berbeda. Kuadran harus diperiksa dari tanda $a$ dan $b$.\n$\\implies$ (1) SALAH.\n\nLangkah 2: Analisis (2).\nBilangan real positif terletak pada sumbu real positif, yaitu arah $0^\\circ$ dari titik asal.\n$\\implies$ (2) BENAR.\n\nLangkah 3: Analisis (3).\nModulus menentukan panjang dan argumen menentukan arah. Panjang dan arah yang sama menunjuk satu titik yang sama pada bidang.\n$\\implies$ (3) BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P13-Q6] Argumen dari $z = 3i$ adalah $\\dots$",
+            "opsi": [
+              "A. $0^\\circ$",
+              "B. $45^\\circ$",
+              "C. $90^\\circ$",
+              "D. $180^\\circ$",
+              "E. tidak terdefinisi"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Tulis dalam bentuk baku: $z = 0 + 3i$, sehingga titiknya $(0, 3)$.\n\nLangkah 2: Titik itu berada tepat pada sumbu imajiner POSITIF.\n\nLangkah 3: Arah sumbu imajiner positif dari titik asal adalah $90^\\circ$.\n\nLangkah 4: Perhatikan bahwa $\\tan\\theta = \\frac{3}{0}$ memang tidak terdefinisi — tetapi itu keterbatasan rumus tangennya, bukan berarti argumennya tidak ada. Untuk titik pada sumbu, argumen dibaca langsung dari gambar. Karena itu opsi E keliru.\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C5 Evaluasi",
+            "bobot": 10,
+            "tanya": "[P13-Q7] Argumen dari $z = \\sqrt{3} - i$, dinyatakan dalam selang $0^\\circ \\le \\theta < 360^\\circ$, adalah $\\dots$",
+            "opsi": [
+              "A. $30^\\circ$",
+              "B. $150^\\circ$",
+              "C. $210^\\circ$",
+              "D. $330^\\circ$",
+              "E. $60^\\circ$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Hitung tangennya.\n$\\tan\\theta = \\frac{-1}{\\sqrt{3}} = -\\frac{1}{\\sqrt{3}}$\n\nLangkah 2: Periksa kuadrannya. $a = \\sqrt{3} > 0$ dan $b = -1 < 0$, sehingga titiknya di kuadran IV.\n\nLangkah 3: Sudut acuannya adalah $30^\\circ$, karena $\\tan 30^\\circ = \\frac{1}{\\sqrt{3}}$.\n\nLangkah 4: Di kuadran IV, sudutnya $360^\\circ - 30^\\circ = 330^\\circ$.\n\nLangkah 5: Nilai $-30^\\circ$ juga menunjuk arah yang sama, tetapi berada di luar selang yang diminta. Opsi C adalah kuadran III, yang keliru karena bagian realnya positif.\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C5 Evaluasi",
+            "bobot": 10,
+            "tanya": "[P13-Q8] Diberikan $z = 2 + 2i$. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+            "opsi": [
+              "A. $|z| = 2\\sqrt{2}$.",
+              "B. Argumennya $45^\\circ$.",
+              "C. Titiknya berada di kuadran I.",
+              "D. $z = 2\\sqrt{2}(\\cos 45^\\circ + i\\sin 45^\\circ)$.",
+              "E. $|z| = 4$."
+            ],
+            "kunci": "A, B, C, D",
+            "bahas": "Langkah 1: Analisis A.\n$|z| = \\sqrt{4+4} = \\sqrt{8} = 2\\sqrt{2}$.\n$\\implies$ A BENAR.\n\nLangkah 2: Analisis B.\n$\\tan\\theta = \\frac{2}{2} = 1$, dan kedua bagiannya positif sehingga kuadran I. Maka $\\theta = 45^\\circ$.\n$\\implies$ B BENAR.\n\nLangkah 3: Analisis C.\nTitiknya $(2,2)$, keduanya positif — kuadran I.\n$\\implies$ C BENAR.\n\nLangkah 4: Analisis D.\nMenggabungkan hasil A dan B memberi bentuk kutub tersebut. Periksa: $2\\sqrt{2} \\cdot \\frac{\\sqrt{2}}{2} = 2$ untuk kedua bagian. Cocok.\n$\\implies$ D BENAR.\n\nLangkah 5: Analisis E.\n$\\sqrt{8} \\approx 2{,}83$, bukan $4$. Angka $4$ muncul kalau lupa mengakarkan.\n$\\implies$ E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P13-Q9] Bentuk $a+bi$ dari $z = 6(\\cos 120^\\circ + i\\sin 120^\\circ)$ adalah $\\dots$",
+            "opsi": [
+              "A. $3 + 3\\sqrt{3}i$",
+              "B. $-3 + 3\\sqrt{3}i$",
+              "C. $-3\\sqrt{3} + 3i$",
+              "D. $3\\sqrt{3} - 3i$",
+              "E. $-6 + 6i$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Hitung bagian realnya. Di kuadran II, kosinus bernilai negatif.\n$a = 6\\cos 120^\\circ = 6\\left(-\\frac{1}{2}\\right) = -3$\n\nLangkah 2: Hitung bagian imajinernya. Di kuadran II, sinus bernilai positif.\n$b = 6\\sin 120^\\circ = 6\\left(\\frac{\\sqrt{3}}{2}\\right) = 3\\sqrt{3}$\n\nLangkah 3: Susun.\n$z = -3 + 3\\sqrt{3}i$\n\nLangkah 4: Periksa modulusnya.\n$\\sqrt{9 + 27} = \\sqrt{36} = 6$. Cocok dengan $r$ semula.\n\nLangkah 5: Opsi A lupa tanda negatif pada kosinusnya.\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P13-Q10] Argumen dari $z = -2$, dinyatakan dalam derajat pada selang $0^\\circ \\le \\theta < 360^\\circ$, adalah $\\dots$",
+            "opsi": [],
+            "kunci": "180",
+            "bahas": "Langkah 1: Tulis dalam bentuk baku: $z = -2 + 0i$, sehingga titiknya $(-2, 0)$.\n\nLangkah 2: Titik itu berada tepat pada sumbu real NEGATIF.\n\nLangkah 3: Arah sumbu real negatif dari titik asal adalah setengah putaran penuh, yaitu $180^\\circ$.\n\nLangkah 4: Periksa lewat bentuk kutubnya: $2(\\cos 180^\\circ + i\\sin 180^\\circ) = 2(-1 + 0i) = -2$. Cocok.\n\nLangkah 5: Jawaban $0^\\circ$ keliru — itu argumen bilangan real POSITIF.\nKesimpulan: Kunci Jawaban 180."
+          }
+        ]
+      }
+    }
+  ]
+}
