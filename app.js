@@ -5614,11 +5614,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (!window._openDrawerSubjects) window._openDrawerSubjects = {};
       if (!window._openDrawerBabs) window._openDrawerBabs = {};
 
-      // Buka subject aktif dan Bab 1 secara default
-      window._openDrawerSubjects[currentMode || 'wajib'] = true;
-      const currentM = (db[currentMode || 'wajib'] || [])[currentMeetingIdx || 0];
+      // Tentukan subject aktif (default ke 'wajib' jika di beranda)
+      const activeSubj = (currentMode && currentMode !== 'home') ? currentMode : 'wajib';
+      window._openDrawerSubjects[activeSubj] = true;
+      
+      const currentM = (db[activeSubj] || [])[currentMeetingIdx || 0];
       if (currentM && currentM.bab) {
-        window._openDrawerBabs[`${currentMode || 'wajib'}__${currentM.bab}`] = true;
+        window._openDrawerBabs[`${activeSubj}__${currentM.bab}`] = true;
       }
 
       ['wajib', 'minat', 'clil'].forEach(subj => {
@@ -5699,7 +5701,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           const babKey = `${subj}__${bName}`;
           
           // Buka bab jika aktif, jika ada pencarian, atau default Bab 1 pada mata pelajaran aktif
-          const isBabOpen = q ? true : (window._openDrawerBabs[babKey] !== undefined ? window._openDrawerBabs[babKey] : (subj === (currentMode || 'wajib') && bIdx === 0));
+          const isBabOpen = q ? true : (window._openDrawerBabs[babKey] !== undefined ? window._openDrawerBabs[babKey] : (subj === activeSubj && bIdx === 0));
 
           const babWrapper = document.createElement('div');
           babWrapper.className = "rounded-xl border border-slate-800 bg-slate-950/60 overflow-hidden";
