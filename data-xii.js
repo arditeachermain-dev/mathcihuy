@@ -3993,7 +3993,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 96 rute"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menghitung rute berangkat dari kota A ke C melalui B:\nTersedia 4 pilihan jalur dari A ke B dan 3 pilihan jalur dari B ke C.\nBanyak rute berangkat $= 4 \\times 3 = 12$ rute.\n\nLangkah 2: Menghitung rute kembali dari kota C ke A melalui B tanpa menggunakan jalur yang sama saat berangkat:\n- Jalur dari C ke B tersisa $3 - 1 = 2$ pilihan jalur.\n- Jalur dari B ke A tersisa $4 - 1 = 3$ pilihan jalur.\nBanyak rute pulang $= 2 \\times 3 = 6$ rute.\n\nLangkah 3: Menghitung total variasi rute perjalanan pulang-pergi:\nTotal rute PP $= 12 \\times 6 = 72$ rute.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Menghitung rute berangkat dari kota A ke C melalui B:\nTersedia 4 pilihan jalur dari kota A ke B dan 3 pilihan jalur dari kota B ke C.\nBerdasarkan aturan perkalian:\n$$\\text{Banyak rute berangkat} = 4 \\times 3 = 12 \\text{ rute}$$\n\nLangkah 2: Menghitung rute kembali dari kota C ke A melalui B tanpa menggunakan jalur yang sama saat berangkat:\n- Jalur dari C ke B tersisa $3 - 1 = 2$ pilihan jalur (karena 1 jalur sudah dilewati saat berangkat).\n- Jalur dari B ke A tersisa $4 - 1 = 3$ pilihan jalur (karena 1 jalur sudah dilewati saat berangkat).\n$$\\text{Banyak rute pulang} = 2 \\times 3 = 6 \\text{ rute}$$\n\nLangkah 3: Menghitung total variasi rute perjalanan pulang-pergi (PP):\n$$\\text{Total Rute PP} = \\text{Rute Berangkat} \\times \\text{Rute Pulang} = 12 \\times 6 = 72 \\text{ rute}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 2,
@@ -4009,7 +4009,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 480 bilangan"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Menentukan pilihan angka untuk Posisi Ribuan (Kotak 1):\nBilangan harus bernilai antara $2.000$ dan $6.000$, sehingga angka ribuan yang memenuhi syarat hanyalah $\\{2, 3, 4, 5\\}$.\n$\\implies$ Terdapat $4$ pilihan angka untuk posisi ribuan.\n*(Catatan: Angka $1$ tidak boleh karena nilainya $< 2.000$; angka $6$ dan $7$ tidak boleh karena nilainya $> 6.000$)*.\n\nLangkah 2: Menentukan pilihan angka untuk Posisi Ratusan, Puluhan, dan Satuan (Tanpa Perulangan):\nTersedia total $7$ angka $\\{1, 2, 3, 4, 5, 6, 7\\}$.\n- Posisi Ratusan (Kotak 2): Dari 7 angka, sudah terpakai 1 angka di ribuan $\\implies$ tersisa $7 - 1 = 6$ pilihan angka.\n- Posisi Puluhan (Kotak 3): Sudah terpakai 2 angka di ribuan & ratusan $\\implies$ tersisa $7 - 2 = 5$ pilihan angka.\n- Posisi Satuan (Kotak 4): Sudah terpakai 3 angka di posisi sebelumnya $\\implies$ tersisa $7 - 3 = 4$ pilihan angka.\n\nLangkah 3: Menghitung total variasi bilangan dengan Aturan Perkalian (Filling Slots):\n$$\\text{Total Bilangan} = \\underbrace{4}_{\\text{Ribuan}} \\times \\underbrace{6}_{\\text{Ratusan}} \\times \\underbrace{5}_{\\text{Puluhan}} \\times \\underbrace{4}_{\\text{Satuan}} = 4 \\times 120 = 480 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menentukan pilihan angka untuk Posisi Ribuan (Kotak 1):\nBilangan ribuan 4 angka harus bernilai antara $2.000$ dan $6.000$.\nAngka ribuan yang memenuhi syarat adalah $\\{2, 3, 4, 5\\}$.\n$\\implies$ Terdapat $4$ pilihan angka untuk posisi ribuan.\n*(Catatan: Angka $1$ tidak boleh karena nilainya $< 2.000$; angka $6$ dan $7$ tidak boleh karena nilainya $> 6.000$)*.\n\nLangkah 2: Menentukan pilihan angka untuk Posisi Ratusan, Puluhan, dan Satuan (Tanpa Perulangan):\nTersedia $7$ angka $\\{1, 2, 3, 4, 5, 6, 7\\}$.\n- Posisi Ratusan (Kotak 2): Dari 7 angka, sudah terpakai 1 di ribuan $\\implies$ tersisa $7 - 1 = 6$ pilihan.\n- Posisi Puluhan (Kotak 3): Sudah terpakai 2 angka di ribuan & ratusan $\\implies$ tersisa $7 - 2 = 5$ pilihan.\n- Posisi Satuan (Kotak 4): Sudah terpakai 3 angka sebelumnya $\\implies$ tersisa $7 - 3 = 4$ pilihan.\n\nLangkah 3: Menghitung total variasi bilangan dengan Aturan Perkalian (Filling Slots):\n$$\\text{Total Bilangan} = \\underbrace{4}_{\\text{Ribuan}} \\times \\underbrace{6}_{\\text{Ratusan}} \\times \\underbrace{5}_{\\text{Puluhan}} \\times \\underbrace{4}_{\\text{Satuan}} = 4 \\times 120 = 480 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 3,
@@ -4025,7 +4025,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1.500 variasi"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Menentukan variasi susunan 2 huruf vokal kapital berbeda:\nHuruf vokal kapital adalah $\\{A, I, U, E, O\\}$ (total $5$ huruf).\n- Posisi huruf ke-1: $5$ pilihan huruf.\n- Posisi huruf ke-2: $4$ pilihan huruf tersisa (karena disyaratkan berbeda).\nBanyak susunan huruf vokal $= 5 \\times 4 = 20$ susunan.\n\nLangkah 2: Menentukan variasi susunan 3 angka ganjil berbeda:\nAngka ganjil adalah $\\{1, 3, 5, 7, 9\\}$ (total $5$ angka).\n- Posisi angka ke-1: $5$ pilihan angka.\n- Posisi angka ke-2: $4$ pilihan angka tersisa.\n- Posisi angka ke-3: $3$ pilihan angka tersisa.\nBanyak susunan angka ganjil $= 5 \\times 4 \\times 3 = 60$ susunan.\n\nLangkah 3: Menghitung total kombinasi kode brankas dengan Aturan Perkalian:\n$$\\text{Total Variasi Kode} = \\underbrace{20}_{\\text{2 Vokal}} \\times \\underbrace{60}_{\\text{3 Ganjil}} = 1.200 \\text{ variasi}$$\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Menentukan variasi susunan 2 huruf vokal kapital berbeda:\nHuruf vokal adalah $\\{A, I, U, E, O\\}$ (total $5$ huruf).\n- Posisi vokal ke-1: $5$ pilihan huruf.\n- Posisi vokal ke-2: $4$ pilihan huruf tersisa (karena disyaratkan berbeda).\n$$\\text{Banyak susunan vokal} = 5 \\times 4 = 20 \\text{ susunan}$$\n\nLangkah 2: Menentukan variasi susunan 3 angka ganjil berbeda:\nAngka ganjil adalah $\\{1, 3, 5, 7, 9\\}$ (total $5$ angka).\n- Posisi angka ke-1: $5$ pilihan angka.\n- Posisi angka ke-2: $4$ pilihan angka tersisa.\n- Posisi angka ke-3: $3$ pilihan angka tersisa.\n$$\\text{Banyak susunan angka ganjil} = 5 \\times 4 \\times 3 = 60 \\text{ susunan}$$\n\nLangkah 3: Menghitung total variasi kode brankas:\n$$\\text{Total Variasi Kode} = \\underbrace{20}_{\\text{2 Vokal}} \\times \\underbrace{60}_{\\text{3 Ganjil}} = 1.200 \\text{ variasi}$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 4,
@@ -4041,7 +4041,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 60 bilangan"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Analisis Kasus 1 (Angka ratusan genap: {4, 6}):\n- Posisi Ratusan: 2 pilihan angka ({4, 6} agar nilai > 400).\n- Posisi Satuan: 3 pilihan angka ganjil ({3, 5, 7}).\n- Posisi Puluhan: 4 pilihan angka tersisa dari himpunan 6 angka.\nBanyak bilangan Kasus 1 $= 2 \\times 3 \\times 4 = 24$ bilangan.\n\nLangkah 2: Analisis Kasus 2 (Angka ratusan ganjil: {5, 7}):\n- Posisi Ratusan: 2 pilihan angka ({5, 7} agar nilai > 400).\n- Posisi Satuan: 2 pilihan angka ganjil tersisa (karena 1 angka ganjil sudah dipakai di ratusan).\n- Posisi Puluhan: 4 pilihan angka tersisa dari himpunan 6 angka.\nBanyak bilangan Kasus 2 $= 2 \\times 2 \\times 4 = 16$ bilangan.\n\nLangkah 3: Menjumlahkan kedua kasus:\nTotal bilangan ganjil $> 400 = 24 + 16 = 40$ bilangan.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Analisis Kasus 1 (Angka ratusan genap: {4, 6}):\nAgar bilangan bernilai $> 400$, angka ratusan yang genap adalah $4$ atau $6$.\n- Posisi Ratusan: $2$ pilihan angka $(\\{4, 6\\})$.\n- Posisi Satuan Ganjil: $3$ pilihan angka $(\\{3, 5, 7\\})$.\n- Posisi Puluhan: $6 - 2 = 4$ pilihan angka tersisa dari himpunan $\\{2,3,4,5,6,7\\}$.\n$$\\text{Banyak bilangan Kasus 1} = 2 \\times 3 \\times 4 = 24 \\text{ bilangan}$$\n\nLangkah 2: Analisis Kasus 2 (Angka ratusan ganjil: {5, 7}):\nAgar bilangan bernilai $> 400$, angka ratusan yang ganjil adalah $5$ atau $7$.\n- Posisi Ratusan: $2$ pilihan angka $(\\{5, 7\\})$.\n- Posisi Satuan Ganjil: $3 - 1 = 2$ pilihan angka tersisa (karena 1 angka ganjil sudah dipakai di ratusan).\n- Posisi Puluhan: $6 - 2 = 4$ pilihan angka tersisa.\n$$\\text{Banyak bilangan Kasus 2} = 2 \\times 2 \\times 4 = 16 \\text{ bilangan}$$\n\nLangkah 3: Menjumlahkan kedua kasus yang saling lepas:\n$$\\text{Total Bilangan Ganjil } > 400 = 24 + 16 = 40 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 5,
@@ -4055,7 +4055,7 @@ const NAMA_TINGKAT = 'XII';
             "Banyaknya bilangan ganjil 3 angka berbeda yang dapat disusun dari {1, 2, 3, 4, 6} adalah 24 bilangan"
           ],
           "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nUntuk menyusun bilangan ratusan 3 angka dari 5 angka berlainan tanpa pengulangan:\n- Posisi Ratusan: 5 pilihan angka.\n- Posisi Puluhan: 4 pilihan angka.\n- Posisi Satuan: 3 pilihan angka.\nTotal bilangan $= 5 \\times 4 \\times 3 = 60$ susunan.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nBilangan ribuan 4 digit disyaratkan memiliki nilai tempat ribuan $\\ge 1.000$. Jika angka 0 berada di posisi ribuan terdepan (misal 0345), bilangan tersebut bernilai 345 (bilangan ratusan 3 digit). Maka angka 0 tidak boleh berada di posisi ribuan paling depan.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nBilangan ganjil 3 angka dari $\\{1, 2, 3, 4, 6\\}$ (5 angka):\n- Satuan ganjil $\\{1, 3\\}$: 2 pilihan angka.\n- Ratusan: 4 pilihan angka tersisa.\n- Puluhan: 3 pilihan angka tersisa.\nTotal bilangan ganjil $= 4 \\times 3 \\times 2 = 24$ susunan.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBilangan ratusan 3 angka dari 5 angka $\\{1, 2, 3, 4, 5\\}$ tanpa pengulangan:\n- Ratusan: $5$ pilihan angka.\n- Puluhan: $4$ pilihan angka tersisa.\n- Satuan: $3$ pilihan angka tersisa.\n$$\\text{Total} = 5 \\times 4 \\times 3 = 60 \\text{ susunan}$$\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nBilangan ribuan 4 digit disyaratkan memiliki nilai tempat ribuan $\\ge 1.000$. Jika angka 0 berada di posisi terdepan (misal 0345), bilangan bernilai 345 (ratusan 3 digit). Maka angka 0 tidak boleh di depan.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nBilangan ganjil 3 angka dari $\\{1, 2, 3, 4, 6\\}$ (5 angka):\n- Satuan ganjil $\\{1, 3\\}$: $2$ pilihan angka.\n- Ratusan: $4$ pilihan angka tersisa.\n- Puluhan: $3$ pilihan angka tersisa.\n$$\\text{Total} = 4 \\times 3 \\times 2 = 24 \\text{ susunan}$$\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
         },
         {
           "no": 6,
@@ -4071,7 +4071,7 @@ const NAMA_TINGKAT = 'XII';
             "E. DUA pernyataan BERSAMA-SAMA cukup"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: (1) saja belum tahu apakah boleh berulang atau tidak.\n\nLangkah 2: (2) saja belum tahu anggota himpunan angkanya.\n\nLangkah 3: Bersama-sama: $n = 6$, ratusan genap $= 4 \\times 5 \\times 3 = 60$ (Cukup).\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Analisis Pernyataan (1) SAJA:\n$S = \\{1, 2, 3, 4, 5, 6\\}$ (ada 6 anggota). Namun tidak ada keterangan apakah angka boleh berulang atau tidak. Jika boleh berulang hasilnya $6 \\times 6 \\times 3 = 108$, jika tidak boleh berulang hasilnya $4 \\times 5 \\times 3 = 60$. Jadi Pernyataan (1) SAJA TIDAK CUKUP.\n\nLangkah 2: Analisis Pernyataan (2) SAJA:\nDiketahui \"tidak ada angka berulang\", namun tidak diketahui himpunan anggota angka yang tersedia. Jadi Pernyataan (2) SAJA TIDAK CUKUP.\n\nLangkah 3: Analisis BERSAMA-SAMA (1) dan (2):\nHimpunan $S = \\{1, 2, 3, 4, 5, 6\\}$ tanpa pengulangan angka:\n- Satuan genap $\\{2, 4, 6\\}$: $3$ pilihan.\n- Ratusan: $6 - 1 = 5$ pilihan tersisa.\n- Puluhan: $6 - 2 = 4$ pilihan tersisa.\nTotal $= 5 \\times 4 \\times 3 = 60$ bilangan unik. Nilai dapat ditentukan secara pasti.\n$\\implies$ DUA pernyataan BERSAMA-SAMA cukup.\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 7,
@@ -4087,7 +4087,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 9 setelan"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Memilih setelan berarti memilih kemeja **dan** celana, yaitu dua tahap yang harus dilakukan berurutan, sehingga dipakai aturan perkalian.\n\nLangkah 2: Substitusikan banyak pilihan tiap tahap: $5$ pilihan kemeja $\\times$ $4$ pilihan celana.\n\nLangkah 3: Hitung hasilnya: $5 \\times 4 = 20$ setelan.\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Memahami konsep aturan perkalian:\nMemilih satu setelan pakaian kerja berarti memilih **1 kemeja** DAN **1 celana panjang** secara bersamaan/berurutan.\n\nLangkah 2: Menghitung kombinasi pilihan:\n- Banyak pilihan kemeja $= 5$ kemeja.\n- Banyak pilihan celana $= 4$ celana.\n\nLangkah 3: Menghitung total variasi setelan:\n$$\\text{Banyak Setelan} = 5 \\times 4 = 20 \\text{ setelan pakaian}$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 8,
@@ -4103,7 +4103,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Banyak bilangan genap yang terbentuk adalah 90 bilangan."
           ],
           "kunci": "B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\nSatuan 5 (1 pilihan). Ratusan dan puluhan $= 6 \\times 5 = 30$ cara. Jadi banyak bilangan kelipatan 5 adalah 30 bilangan, bukan 45.\n$\\implies$ Pernyataan A SALAH.\n\nLangkah 2: Analisis Opsi B:\nRatusan $\\{1, 2\\}$ (2 pilihan). Puluhan dan satuan $= 6 \\times 5 = 30$ cara. Total $= 2 \\times 30 = 60$ bilangan.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nTotal bilangan 3 digit berbeda dari 7 angka $= 7 \\times 6 \\times 5 = 210$ bilangan.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nRatusan $\\{5, 6, 7\\}$ (3 pilihan). Puluhan dan satuan $= 6 \\times 5 = 30$ cara. Total $= 3 \\times 30 = 90$ bilangan.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nSatuan genap $\\{2, 4, 6\\}$ (3 pilihan). Ratusan dan puluhan $= 6 \\times 5 = 30$ cara. Total genap $= 30 \\times 3 = 90$ bilangan.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban B, C, D, E."
+          "bahas": "Langkah 1: Analisis Opsi A (Kelipatan 5):\nAgar kelipatan 5, satuan harus angka $5$ (1 pilihan).\nRatusan dan puluhan $= 6 \\times 5 = 30$ bilangan.\n$\\implies$ Pernyataan A SALAH (menyatakan 45).\n\nLangkah 2: Analisis Opsi B (Nilai < 300):\nRatusan $\\{1, 2\\}$ (2 pilihan). Puluhan dan satuan $= 6 \\times 5 = 30$ cara.\nTotal $= 2 \\times 30 = 60$ bilangan.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C (Total Bilangan 3 Digit Berbeda):\nDari 7 angka $\\{1..7\\}$: $7 \\times 6 \\times 5 = 210$ bilangan.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D (Nilai > 500):\nRatusan $\\{5, 6, 7\\}$ (3 pilihan). Puluhan dan satuan $= 6 \\times 5 = 30$ cara.\nTotal $= 3 \\times 30 = 90$ bilangan.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E (Bilangan Genap):\nSatuan genap $\\{2, 4, 6\\}$ (3 pilihan). Ratusan dan puluhan $= 6 \\times 5 = 30$ cara.\nTotal $= 30 \\times 3 = 90$ bilangan.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban B, C, D, E."
         },
         {
           "no": 9,
@@ -4129,7 +4129,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P01-Q10] Banyak bilangan genap 4 angka tanpa angka berulang yang dapat dibentuk dari himpunan angka {0, 1, 2, 3, 4, 5, 6} adalah ...",
           "opsi": [],
           "kunci": "420",
-          "bahas": "Langkah 1: Analisis Kasus 1 (Angka Satuan bernilai 0):\n- Posisi Satuan: $1$ pilihan angka (angka $0$).\n- Posisi Ribuan: $6$ pilihan angka $\\{1, 2, 3, 4, 5, 6\\}$ (karena $0$ sudah di satuan, maka semua angka $\\ge 1$ boleh di ribuan).\n- Posisi Ratusan: $5$ pilihan angka tersisa.\n- Posisi Puluhan: $4$ pilihan angka tersisa.\nBanyak bilangan Kasus 1 $= 6 \\times 5 \\times 4 \\times 1 = 120$ bilangan.\n\nLangkah 2: Analisis Kasus 2 (Angka Satuan bernilai genap bukan nol: {2, 4, 6}):\n- Posisi Satuan: $3$ pilihan angka $\\{2, 4, 6\\}$.\n- Posisi Ribuan: $5$ pilihan angka (karena angka $0$ tidak boleh di ribuan dan $1$ angka genap sudah dipakai di satuan).\n- Posisi Ratusan: $5$ pilihan angka tersisa (angka $0$ sudah boleh dipakai di ratusan).\n- Posisi Puluhan: $4$ pilihan angka tersisa.\nBanyak bilangan Kasus 2 $= 5 \\times 5 \\times 4 \\times 3 = 300$ bilangan.\n\nLangkah 3: Menjumlahkan seluruh kasus yang saling lepas:\n$$\\text{Total Bilangan Genap} = 120 + 300 = 420 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban 420."
+          "bahas": "Langkah 1: Analisis Kasus 1 (Angka Satuan bernilai 0):\n- Posisi Satuan: $1$ pilihan angka (angka $0$).\n- Posisi Ribuan: $6$ pilihan angka $\\{1, 2, 3, 4, 5, 6\\}$ (karena $0$ sudah di satuan, maka semua angka $\\ge 1$ boleh di ribuan).\n- Posisi Ratusan: $5$ pilihan angka tersisa.\n- Posisi Puluhan: $4$ pilihan angka tersisa.\n$$\\text{Banyak bilangan Kasus 1} = 6 \\times 5 \\times 4 \\times 1 = 120 \\text{ bilangan}$$\n\nLangkah 2: Analisis Kasus 2 (Angka Satuan bernilai genap bukan nol: {2, 4, 6}):\n- Posisi Satuan: $3$ pilihan angka $\\{2, 4, 6\\}$.\n- Posisi Ribuan: $5$ pilihan angka (karena angka $0$ tidak boleh di ribuan dan $1$ angka genap sudah dipakai di satuan).\n- Posisi Ratusan: $5$ pilihan angka tersisa (angka $0$ sudah boleh dipakai di ratusan).\n- Posisi Puluhan: $4$ pilihan angka tersisa.\n$$\\text{Banyak bilangan Kasus 2} = 5 \\times 5 \\times 4 \\times 3 = 300 \\text{ bilangan}$$\n\nLangkah 3: Menjumlahkan seluruh kasus yang saling lepas:\n$$\\text{Total Bilangan Genap} = 120 + 300 = 420 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban 420."
         }
       ]
     },
@@ -4152,7 +4152,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 90"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Uraikan faktorial terbesar sampai bertemu faktorial yang ada di penyebut, agar bisa dicoret: $10! = 10 \\times 9 \\times 8!$.\n\nLangkah 2: Substitusikan lalu coret $8!$: $\\frac{10 \\times 9 \\times 8!}{8! \\times 2!} = \\frac{10 \\times 9}{2}$.\n\nLangkah 3: Hitung hasilnya: $\\frac{90}{2} = 45$.\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Menuliskan bentuk operasi faktorial:\n$$\\frac{10!}{8! \\cdot 2!}$$\n\nLangkah 2: Menguraikan faktorial terbesar sampai $8!$ agar dapat disederhanakan:\n$$10! = 10 \\times 9 \\times 8!$$\n$$\\frac{10 \\times 9 \\times 8!}{8! \\times (2 \\times 1)} = \\frac{10 \\times 9}{2}$$\n\nLangkah 3: Menyelesaikan perhitungan akhir:\n$$\\frac{90}{2} = 45$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 2,
@@ -4168,7 +4168,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 336"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Permutasi memperhatikan urutan dan memakai rumus $P(n,r) = \\frac{n!}{(n-r)!}$.\n\nLangkah 2: Substitusikan $n = 8$ dan $r = 3$: $P(8,3) = \\frac{8!}{5!} = 8 \\times 7 \\times 6$.\n\nLangkah 3: Hitung hasilnya: $8 \\times 7 \\times 6 = 336$.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menggunakan rumus formal permutasi $r$ unsur dari $n$ unsur:\n$$P(n, r) = \\frac{n!}{(n - r)!}$$\n\nLangkah 2: Mensubstitusikan nilai $n = 8$ dan $r = 3$:\n$$P(8, 3) = \\frac{8!}{(8 - 3)!} = \\frac{8!}{5!}$$\n\nLangkah 3: Menyederhanakan faktorial:\n$$P(8, 3) = \\frac{8 \\times 7 \\times 6 \\times 5!}{5!} = 8 \\times 7 \\times 6 = 336$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 3,
@@ -4184,7 +4184,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 720 susunan"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Ketua, Sekretaris, dan Bendahara adalah jabatan yang berbeda, sehingga urutan berpengaruh dan dipakai permutasi $P(n,r) = \\frac{n!}{(n-r)!}$.\n\nLangkah 2: Substitusikan $n = 9$ dan $r = 3$: $P(9,3) = 9 \\times 8 \\times 7$.\n\nLangkah 3: Hitung hasilnya: $9 \\times 8 \\times 7 = 504$ susunan.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Mengidentifikasi konteks permasalahan:\nPemilihan 3 posisi jabatan berbeda (Ketua, Sekretaris, dan Bendahara) dari 9 calon merupakan permutasi karena **urutan jabatan sangat diperhatikan** (Ketua A berbeda artinya dengan Sekretaris A).\n\nLangkah 2: Menghitung dengan rumus permutasi $P(9, 3)$:\n$$P(9, 3) = \\frac{9!}{(9 - 3)!} = \\frac{9!}{6!}$$\n\nLangkah 3: Mengalikan $3$ faktor menurun:\n$$P(9, 3) = 9 \\times 8 \\times 7 = 504 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 4,
@@ -4200,7 +4200,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 2.880 susunan"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Anggap 2 siswa berdampingan sebagai 1 unsur $\\implies 6$ unsur $= 6! = 720$.\n\nLangkah 2: Posisi internal 2 siswa $= 2! = 2$.\n\nLangkah 3: Total susunan $= 720 \\times 2 = 1.440$ susunan.\nKesimpulan: Kunci Jawaban D."
+          "bahas": "Langkah 1: Mengelompokkan unsur yang harus berdampingan:\nDua siswa yang harus selalu berdampingan diikat menjadi $1$ kelompok/unsur tunggal.\nBanyak unsur yang dipermutasikan menjadi:\n$$n' = (7 - 2) + 1 = 6 \\text{ unsur}$$\n\nLangkah 2: Menghitung permutasi susunan 6 unsur dan permutasi internal 2 siswa:\n- Permutasi 6 unsur: $6! = 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 720$ cara.\n- Permutasi internal 2 siswa berdampingan: $2! = 2 \\times 1 = 2$ cara.\n\nLangkah 3: Menghitung total variasi barisan:\n$$\\text{Total Susunan} = 6! \\times 2! = 720 \\times 2 = 1.440 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 5,
@@ -4214,7 +4214,7 @@ const NAMA_TINGKAT = 'XII';
             "Nilai dari P(5, 2) adalah 10"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBerdasarkan rumus permutasi: $P(n, 1) = \\frac{n!}{(n-1)!} = \\frac{n \\cdot (n-1)!}{(n-1)!} = n$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nBerdasarkan relasi rekursif aljabar faktorial $(n-1)! = \\frac{n!}{n}$, saat $n = 1$ diperoleh $0! = \\frac{1!}{1} = 1$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$P(5, 2) = \\frac{5!}{(5-2)!} = \\frac{5!}{3!} = 5 \\times 4 = 20$, sedangkan $10$ adalah nilai kombinasi $C(5,2)$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBerdasarkan rumus permutasi:\n$$P(n, 1) = \\frac{n!}{(n - 1)!} = \\frac{n \\cdot (n - 1)!}{(n - 1)!} = n$$\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nBerdasarkan relasi rekursif aljabar $(n-1)! = \\frac{n!}{n}$, saat $n = 1$ diperoleh:\n$$0! = \\frac{1!}{1} = 1$$\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$$P(5, 2) = \\frac{5!}{(5 - 2)!} = 5 \\times 4 = 20$$\nAngka $10$ adalah nilai kombinasi $C(5, 2) = \\frac{20}{2} = 10$, bukan permutasi.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -4230,7 +4230,7 @@ const NAMA_TINGKAT = 'XII';
             "E. n = 7"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Uraikan rumus permutasi untuk $r = 2$: $P(n,2) = \\frac{n!}{(n-2)!} = n(n-1)$.\n\nLangkah 2: Samakan dengan nilai yang diketahui: $n(n-1) = 56$, yaitu $n^2 - n - 56 = 0$.\n\nLangkah 3: Faktorkan: $(n-8)(n+7) = 0$, sehingga $n = 8$ atau $n = -7$. Karena $n$ menyatakan banyak unsur, dipilih $n = 8$.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Menguraikan rumus permutasi $P(n, 2)$:\n$$P(n, 2) = \\frac{n!}{(n - 2)!} = n(n - 1)$$\n\nLangkah 2: Menyusun persamaan kuadrat dengan nilai yang diketahui:\n$$n(n - 1) = 56$$\n$$n^2 - n - 56 = 0$$\n\nLangkah 3: Memfaktorkan persamaan kuadrat:\n$$(n - 8)(n + 7) = 0$$\nDiperoleh akar $n = 8$ atau $n = -7$.\nKarena $n$ menyatakan banyak objek, maka $n \\in \\mathbb{N}$ (bilangan asli positif) $\\implies \\mathbf{n = 8}$.\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 7,
@@ -4246,7 +4246,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 120 kata"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Huruf unik dari 'BELAJAR' adalah {B, E, L, A, J, R} (6 huruf).\n\nLangkah 2: $P(6, 4) = 6 \\times 5 \\times 4 \\times 3 = 360$ kata.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menentukan himpunan huruf-huruf unik dari kata 'BELAJAR':\nHuruf pada kata 'BELAJAR' adalah $\\{B, E, L, A, J, R\\}$ (terdapat $6$ huruf unik).\n\nLangkah 2: Menyusun kata 4 huruf berbeda dari 6 huruf unik:\nKarena urutan huruf membentuk kata yang berbeda, digunakan permutasi $P(6, 4)$.\n\nLangkah 3: Menghitung nilai permutasi:\n$$P(6, 4) = 6 \\times 5 \\times 4 \\times 3 = 360 \\text{ kata}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -4262,7 +4262,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Nilai dari (n - 3)! adalah 120."
           ],
           "kunci": "A, B, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$P(n, 2) = n(n-1) = 56 \\implies n^2 - n - 56 = 0 \\implies (n-8)(n+7) = 0$. Karena $n \\in \\mathbb{N}$, maka $n = 8$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$P(8, 1) = 8$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nBilangan $n = 8 = 2^3$ adalah bilangan genap komposit, bukan bilangan ganjil prima.\n$\\implies$ Pernyataan C SALAH.\n\nLangkah 4: Analisis Opsi D:\n$P(8, 3) = 8 \\times 7 \\times 6 = 336$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$(8-3)! = 5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, D, E."
+          "bahas": "Langkah 1: Analisis Opsi A ($n = 8$):\n$P(n, 2) = n(n-1) = 56 \\implies n = 8$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B ($P(n, 1)$):\n$P(8, 1) = 8$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C ($n$ ganjil prima):\n$n = 8 = 2^3$ adalah bilangan genap komposit, bukan bilangan ganjil prima.\n$\\implies$ Pernyataan C SALAH.\n\nLangkah 4: Analisis Opsi D ($P(n, 3)$):\n$P(8, 3) = 8 \\times 7 \\times 6 = 336$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E ($(n - 3)!$):\n$(8 - 3)! = 5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, D, E."
         },
         {
           "no": 9,
@@ -4278,7 +4278,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1.440 susunan"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Urutan kelompok (Mat, Fis) $= 2! = 2$.\n\nLangkah 2: Susunan buku internal $= 5! \\times 3! = 120 \\times 6 = 720$.\n\nLangkah 3: Total susunan $= 2 \\times 720 = 1.440$ susunan.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menghitung permutasi pengelompokan mata pelajaran:\nAda 2 kelompok mata pelajaran (kelompok Matematika dan kelompok Fisika).\n$$\\text{Banyak susunan kelompok} = 2! = 2 \\text{ cara}$$\n\nLangkah 2: Menghitung permutasi internal masing-masing buku di dalam kelompoknya:\n- Buku Matematika (5 buku berbeda): $5! = 120$ cara.\n- Buku Fisika (3 buku berbeda): $3! = 6$ cara.\n\nLangkah 3: Menghitung total variasi susunan di rak:\n$$\\text{Total Susunan} = 2! \\times 5! \\times 3! = 2 \\times 120 \\times 6 = 1.440 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 10,
@@ -4288,7 +4288,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P02-Q10] Jika $\\frac{(n+1)!}{(n-1)!} = 90$, maka nilai $n$ adalah ...",
           "opsi": [],
           "kunci": "9",
-          "bahas": "Langkah 1: $(n + 1)n = 90 \\implies n^2 + n - 90 = 0$.\n\nLangkah 2: $(n + 10)(n - 9) = 0 \\implies n = 9$.\nKesimpulan: Jawaban Akhir 9.\nKesimpulan: Kunci Jawaban 9."
+          "bahas": "Langkah 1: Menguraikan bentuk faktorial:\n$$\\frac{(n + 1)!}{(n - 1)!} = \\frac{(n + 1) \\cdot n \\cdot (n - 1)!}{(n - 1)!} = (n + 1)n$$\n\nLangkah 2: Menyusun persamaan kuadrat:\n$$(n + 1)n = 90$$\n$$n^2 + n - 90 = 0$$\n\nLangkah 3: Memfaktorkan persamaan kuadrat:\n$$(n + 10)(n - 9) = 0$$\nDiperoleh $n = -10$ (tidak memenuhi) atau $\\mathbf{n = 9}$ (memenuhi syarat bilangan asli).\nKesimpulan: Kunci Jawaban 9."
         }
       ]
     },
@@ -4310,8 +4310,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 75.600",
             "E. 25.200"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Ada huruf yang berulang, sehingga dipakai permutasi dengan unsur sama: $\\frac{n!}{n_1!\\,n_2!\\,\\dots}$.\n\nLangkah 2: Kata MATEMATIKA terdiri atas $10$ huruf dengan A sebanyak $3$, M sebanyak $2$, dan T sebanyak $2$; huruf E, I, K masing-masing $1$.\n\nLangkah 3: Substitusikan: $\\frac{10!}{3! \\times 2! \\times 2!} = \\frac{3.628.800}{6 \\times 2 \\times 2} = \\frac{3.628.800}{24}$.\n\nLangkah 4: Hitung hasilnya: $151.200$ anagram.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung jumlah huruf dan frekuensi huruf yang sama pada kata 'MATEMATIKA':\nTotal huruf $n = 10$.\n- Huruf M $= 2$\n- Huruf A $= 3$\n- Huruf T $= 2$\n- Huruf E $= 1$, I $= 1$, K $= 1$\n\nLangkah 2: Menggunakan rumus Permutasi dengan Unsur yang Sama:\n$$P = \\frac{n!}{n_1! \\cdot n_2! \\cdot n_3!} = \\frac{10!}{3! \\cdot 2! \\cdot 2!}$$\n\nLangkah 3: Menyederhanakan perhitungan:\n$$P = \\frac{10 \\times 9 \\times 8 \\times 7 \\times 6 \\times 5 \\times 4 \\times 3!}{3! \\times 2 \\times 2} = \\frac{3.628.800}{24} = 151.200 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 2,
@@ -4327,7 +4327,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 720"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Duduk melingkar memakai permutasi siklis $(n-1)!$, karena satu orang dikunci sebagai titik acuan dan posisi yang hanya berputar dianggap sama.\n\nLangkah 2: Substitusikan $n = 6$: $(6-1)! = 5!$.\n\nLangkah 3: Hitung hasilnya: $5! = 120$ cara.\nKesimpulan: Kunci Jawaban D."
+          "bahas": "Langkah 1: Menggunakan rumus Permutasi Siklis untuk $n$ unsur yang melingkar:\n$$P_{\\text{siklis}} = (n - 1)!$$\n\nLangkah 2: Mensubstitusikan $n = 6$ orang anggota rapat:\n$$P_{\\text{siklis}} = (6 - 1)! = 5!$$\n\nLangkah 3: Menghitung nilai $5!$:\n$$5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 3,
@@ -4343,7 +4343,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 840"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Periksa dulu apakah ada huruf yang berulang. Kata SERPONG terdiri atas $7$ huruf yang semuanya berbeda, sehingga dipakai permutasi biasa $n!$.\n\nLangkah 2: Substitusikan $n = 7$: $7!$.\n\nLangkah 3: Hitung hasilnya: $7! = 5.040$ kata.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menganalisis huruf-huruf pada kata 'SERPONG':\nTotal huruf $n = 7$.\nSemua huruf $\\{S, E, R, P, O, N, G\\}$ berbeda (tidak ada unsur yang sama).\n\nLangkah 2: Menggunakan rumus permutasi $n$ unsur berbeda:\n$$P = 7!$$\n\nLangkah 3: Menghitung nilai faktorial:\n$$7! = 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 5.040 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 4,
@@ -4359,7 +4359,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 480"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Dua orang yang harus berdampingan diikat menjadi satu blok, sehingga yang beredar tinggal $7 - 2 + 1 = 6$ unsur.\n\nLangkah 2: Susun keenam unsur itu secara melingkar dengan permutasi siklis: $(6-1)! = 5! = 120$ cara.\n\nLangkah 3: Di dalam blok, Ketua dan Sekretaris masih bisa bertukar tempat: $2! = 2$ cara.\n\nLangkah 4: Kalikan keduanya: $120 \\times 2 = 240$ variasi.\nKesimpulan: Kunci Jawaban D."
+          "bahas": "Langkah 1: Mengikat 2 orang (Ketua & Sekretaris) menjadi 1 kesatuan:\nBanyak unsur yang disusun melingkar menjadi:\n$$n' = (7 - 2) + 1 = 6 \\text{ unsur}$$\n\nLangkah 2: Menghitung permutasi siklis 6 unsur:\n$$P_{\\text{siklis}} = (6 - 1)! = 5! = 120 \\text{ cara}$$\n\nLangkah 3: Menghitung posisi internal Ketua & Sekretaris berdampingan:\n$$2! = 2 \\text{ cara}$$\n\nLangkah 4: Menghitung total variasi posisi duduk melingkar:\n$$\\text{Total} = 5! \\times 2! = 120 \\times 2 = 240 \\text{ variasi}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 5,
@@ -4373,7 +4373,7 @@ const NAMA_TINGKAT = 'XII';
             "Banyak susunan kata berbeda dari huruf-huruf 'MALAM' adalah 30 susunan"
           ],
           "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBanyak cara 5 orang duduk melingkar adalah $P_{siklis} = (5-1)! = 4! = 24$ cara, bukan 120 cara ($120 = 5!$ susunan berjejer linier).\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nPermutasi siklis untuk $n$ unsur melingkar dirumuskan sebagai $(n-1)!$ karena 1 unsur dikunci sebagai titik acuan posisi.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKata MALAM memiliki 5 huruf dengan M=2, A=2, L=1. Banyak susunan $= \\frac{5!}{2! \\times 2!} = \\frac{120}{4} = 30$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBanyak cara 5 orang duduk melingkar adalah $P_{\\text{siklis}} = (5 - 1)! = 4! = 24$ cara. Nilai $120$ adalah susunan berderet linier $5!$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nDefinisi permutasi siklis untuk $n$ unsur dalam lingkaran adalah $P = (n - 1)!$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKata 'MALAM': $n = 5$, huruf M $= 2$, A $= 2$, L $= 1$.\n$$P = \\frac{5!}{2! \\cdot 2!} = \\frac{120}{4} = 30 \\text{ susunan}$$\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
         },
         {
           "no": 6,
@@ -4389,7 +4389,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 24"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Gelang dapat diputar **dan** dibalik. Karena itu dipakai permutasi siklis yang masih dibagi $2$, yaitu $\\frac{(n-1)!}{2}$.\n\nLangkah 2: Substitusikan $n = 5$: $\\frac{(5-1)!}{2} = \\frac{4!}{2} = \\frac{24}{2}$.\n\nLangkah 3: Hitung hasilnya: $12$ cara.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Memahami sifat simetri gelang (dapat dibalik):\nManik-manik pada gelang berbentuk lingkaran 3 dimensi yang dapat diputar **dan dibalik**, sehingga permutasi siklis dibagi 2:\n$$P_{\\text{gelang}} = \\frac{(n - 1)!}{2}$$\n\nLangkah 2: Mensubstitusikan $n = 5$ manik-manik berbeda:\n$$P_{\\text{gelang}} = \\frac{(5 - 1)!}{2} = \\frac{4!}{2}$$\n\nLangkah 3: Menghitung nilai akhir:\n$$\\frac{24}{2} = 12 \\text{ cara}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 7,
@@ -4405,7 +4405,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 90.720"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Ada huruf berulang, sehingga dipakai permutasi dengan unsur sama $\\frac{n!}{n_1!\\,n_2!\\,\\dots}$.\n\nLangkah 2: Kata INDONESIA terdiri atas $9$ huruf dengan I sebanyak $2$ dan N sebanyak $2$; huruf D, O, E, S, A masing-masing $1$.\n\nLangkah 3: Substitusikan: $\\frac{9!}{2! \\times 2!} = \\frac{362.880}{4}$.\n\nLangkah 4: Hitung hasilnya: $90.720$ susunan.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menghitung frekuensi huruf pada kata 'INDONESIA':\nTotal huruf $n = 9$.\n- Huruf I $= 2$\n- Huruf N $= 2$\n- Huruf D $= 1$, O $= 1$, E $= 1$, S $= 1$, A $= 1$\n\nLangkah 2: Menggunakan rumus permutasi unsur sama:\n$$P = \\frac{9!}{2! \\cdot 2!}$$\n\nLangkah 3: Menghitung hasil faktorial:\n$$P = \\frac{362.880}{2 \\times 2} = \\frac{362.880}{4} = 90.720 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 8,
@@ -4421,7 +4421,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Banyak susunan jika diawali dan diakhiri huruf S adalah 100 susunan."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$P = \\frac{10!}{3! \\times 2! \\times 2! \\times 2! \\times 1!} = \\frac{3.628.800}{48} = 75.600$ susunan.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nKata STATISTIKA terdiri dari 10 huruf ($n=10$).\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nGabungkan 3 huruf T menjadi 1 paket $[TTT] \\implies$ total unsur menjadi 8. Susunan $= \\frac{8!}{2! \\times 2! \\times 2!} = \\frac{40.320}{8} = 5.040$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nFrekuensi kemunculan huruf: T=3, S=2, A=2, I=2, K=1.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nHuruf S dikunci di awal dan akhir $\\implies$ menyisakan 8 huruf di tengah: $\\frac{8!}{3! \\times 2! \\times 2!} = \\frac{40.320}{24} = 1.680 \\ne 100$.\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "bahas": "Langkah 1: Analisis Opsi A (Total Susunan STATISTIKA):\nKata 'STATISTIKA': $n = 10$, T $= 3$, S $= 2$, A $= 2$, I $= 2$, K $= 1$.\n$$P = \\frac{10!}{3! \\cdot 2! \\cdot 2! \\cdot 2!} = \\frac{3.628.800}{6 \\times 2 \\times 2 \\times 2} = \\frac{3.628.800}{48} = 75.600 \\text{ susunan}$$\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nTotal huruf pada STATISTIKA adalah 10 huruf.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C (Semua huruf T berdampingan):\nIkat 3 huruf T jadi 1 blok $\\implies$ total unsur menjadi $8$ unsur $\\{TTT, S, S, A, A, I, I, K\\}$.\n$$P = \\frac{8!}{2! \\cdot 2! \\cdot 2!} = \\frac{40.320}{8} = 5.040 \\text{ susunan}$$\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nTerdapat 3 T, 2 S, 2 A, dan 2 I.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E (Diawali dan diakhiri huruf S):\nKunci posisi pertama dan terakhir dengan huruf S $\\implies$ tersisa 8 huruf $\\{T,T,T,A,A,I,I,K\\}$.\nBanyak susunannya $= \\frac{8!}{3! \\cdot 2! \\cdot 2!} = \\frac{40.320}{24} = 1.680$ susunan, bukan 100.\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -4437,7 +4437,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 48"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Tiap pasangan diikat menjadi satu blok, sehingga yang beredar tinggal $4$ blok.\n\nLangkah 2: Susun keempat blok secara melingkar dengan permutasi siklis: $(4-1)! = 3! = 6$ cara.\n\nLangkah 3: Di dalam setiap blok, suami dan istri bisa bertukar tempat, sehingga ada $2^4 = 16$ cara.\n\nLangkah 4: Kalikan keduanya: $6 \\times 16 = 96$ cara.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Mengikat masing-masing pasangan suami-istri:\nTerdapat 4 pasang suami-istri. Tiap pasang diikat menjadi $1$ blok $\\implies$ ada $4$ blok unsur.\n\nLangkah 2: Menghitung permutasi siklis 4 blok di meja bundar:\n$$P_{\\text{siklis}} = (4 - 1)! = 3! = 6 \\text{ cara}$$\n\nLangkah 3: Menghitung permutasi posisi duduk suami-istri di dalam masing-masing blok:\nTiap pasang dapat bertukar tempat ($2! = 2$ cara) untuk $4$ pasangan:\n$$2^4 = 2 \\times 2 \\times 2 \\times 2 = 16 \\text{ cara}$$\n\nLangkah 4: Menghitung total variasi duduk:\n$$\\text{Total} = 3! \\times 2^4 = 6 \\times 16 = 96 \\text{ cara}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 10,
@@ -4447,7 +4447,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P03-Q10] Banyak susunan kata dari huruf 'MALAM' adalah ...",
           "opsi": [],
           "kunci": "30",
-          "bahas": "Langkah 1: Ada huruf berulang, sehingga dipakai permutasi dengan unsur sama $\\frac{n!}{n_1!\\,n_2!}$.\n\nLangkah 2: Kata MALAM terdiri atas $5$ huruf dengan M sebanyak $2$ dan A sebanyak $2$; huruf L sebanyak $1$.\n\nLangkah 3: Substitusikan: $\\frac{5!}{2! \\times 2!} = \\frac{120}{4} = 30$ susunan.\nKesimpulan: Kunci Jawaban 30."
+          "bahas": "Langkah 1: Menghitung unsur huruf pada kata 'MALAM':\nTotal huruf $n = 5$.\n- Huruf M $= 2$\n- Huruf A $= 2$\n- Huruf L $= 1$\n\nLangkah 2: Menggunakan rumus permutasi unsur yang sama:\n$$P = \\frac{5!}{2! \\cdot 2!}$$\n\nLangkah 3: Menghitung nilai:\n$$P = \\frac{120}{2 \\times 2} = \\frac{120}{4} = 30 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban 30."
         }
       ]
     },
@@ -4470,7 +4470,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 60"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Kombinasi tidak memperhatikan urutan dan memakai rumus $C(n,r) = \\frac{n!}{r!\\,(n-r)!}$.\n\nLangkah 2: Substitusikan $n = 10$ dan $r = 3$: $C(10,3) = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1}$.\n\nLangkah 3: Hitung hasilnya: $\\frac{720}{6} = 120$.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Menggunakan rumus formal kombinasi $r$ unsur dari $n$ unsur (tanpa memperhatikan urutan):\n$$C(n, r) = \\frac{n!}{r! \\cdot (n - r)!}$$\n\nLangkah 2: Mensubstitusikan $n = 10$ dan $r = 3$:\n$$C(10, 3) = \\frac{10!}{3! \\cdot 7!} = \\frac{10 \\times 9 \\times 8 \\times 7!}{3! \\times 7!}$$\n\nLangkah 3: Menyederhanakan perkalian pembilang dan penyebut:\n$$C(10, 3) = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1} = \\frac{720}{6} = 120$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 2,
@@ -4486,7 +4486,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 792"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Delegasi tidak memiliki jabatan berbeda, sehingga urutan tidak berpengaruh dan dipakai kombinasi $C(n,r)$.\n\nLangkah 2: Substitusikan $n = 12$ dan $r = 4$: $C(12,4) = \\frac{12 \\times 11 \\times 10 \\times 9}{4 \\times 3 \\times 2 \\times 1}$.\n\nLangkah 3: Hitung hasilnya: $\\frac{11.880}{24} = 495$ pilihan.\nKesimpulan: Kunci Jawaban D."
+          "bahas": "Langkah 1: Mengidentifikasi konteks permasalahan:\nMemilih 4 orang delegasi OSIS dari 12 siswa merupakan kombinasi karena **tidak ada tingkatan jabatan atau peran khusus**, sehingga urutan pemilihan tidak berpengaruh.\n\nLangkah 2: Menghitung dengan rumus kombinasi $C(12, 4)$:\n$$C(12, 4) = \\frac{12!}{4! \\cdot 8!} = \\frac{12 \\times 11 \\times 10 \\times 9}{4 \\times 3 \\times 2 \\times 1}$$\n\nLangkah 3: Menyederhanakan pecahan:\n$$C(12, 4) = \\frac{11.880}{24} = 495 \\text{ pilihan delegasi}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 3,
@@ -4502,7 +4502,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 210"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Satu jabat tangan melibatkan dua orang, dan \"A berjabat dengan B\" sama dengan \"B berjabat dengan A\". Karena urutan tidak berpengaruh, dipakai kombinasi $C(n,2)$.\n\nLangkah 2: Substitusikan $n = 20$: $C(20,2) = \\frac{20 \\times 19}{2}$.\n\nLangkah 3: Hitung hasilnya: $\\frac{380}{2} = 190$ jabat tangan.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Memodelkan jabat tangan sebagai kombinasi:\nSatu peristiwa jabat tangan melibatkan tepat **2 orang**, dan jabat tangan antara orang A & B sama dengan B & A (urutan tidak berpengaruh), sehingga dihitung dengan kombinasi $C(n, 2)$.\n\nLangkah 2: Mensubstitusikan $n = 20$ orang:\n$$C(20, 2) = \\frac{20!}{2! \\cdot 18!} = \\frac{20 \\times 19}{2 \\times 1}$$\n\nLangkah 3: Menghitung hasil perkalian:\n$$C(20, 2) = \\frac{380}{2} = 190 \\text{ jabat tangan}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 4,
@@ -4518,7 +4518,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 30"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Soal nomor 1 sampai 4 sudah pasti dikerjakan, sehingga tidak perlu dipilih lagi. Yang tersisa adalah memilih sisa soal.\n\nLangkah 2: Masih harus dikerjakan $8 - 4 = 4$ soal, diambil dari sisa $10 - 4 = 6$ soal.\n\nLangkah 3: Substitusikan ke kombinasi: $C(6,4) = \\frac{6 \\times 5}{2} = 15$ pilihan.\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Menganalisis kondisi soal wajib:\n- Total soal tersedia $= 10$ soal.\n- Wajib dikerjakan total $= 8$ soal.\n- Soal nomor 1 sampai 4 sudah WAJIB dikerjakan (ada 4 soal pasti terpilih).\n\nLangkah 2: Menghitung sisa soal yang bebas dipilih:\n- Sisa soal yang harus dipilih $= 8 - 4 = 4$ soal.\n- Sisa pilihan soal yang tersedia $= 10 - 4 = 6$ soal.\n\nLangkah 3: Menghitung kombinasi sisa soal $C(6, 4)$:\n$$C(6, 4) = C(6, 2) = \\frac{6 \\times 5}{2 \\times 1} = 15 \\text{ pilihan}$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 5,
@@ -4532,7 +4532,7 @@ const NAMA_TINGKAT = 'XII';
             "Nilai kombinasi C(n, r) selalu lebih besar daripada permutasi P(n, r) untuk r > 1"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSifat simetri kombinasi: $C(n, r) = \\frac{n!}{r!(n-r)!} = C(n, n-r)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$C(6, 2) = \\frac{6 \\times 5}{2 \\times 1} = 15$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$C(n, r) = \\frac{P(n, r)}{r!}$. Karena untuk $r > 1$ nilai $r! \\ge 2$, maka $C(n, r) < P(n, r)$. Kombinasi selalu lebih kecil daripada permutasi.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSifat simetri kombinasi: $C(n, r) = \\frac{n!}{r!(n-r)!} = C(n, n-r)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$$C(6, 2) = \\frac{6 \\times 5}{2 \\times 1} = 15$$\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKarena $P(n, r) = r! \\cdot C(n, r)$ dan $r! > 1$ untuk $r > 1$, maka nilai permutasi selalu lebih besar daripada kombinasi ($P(n, r) > C(n, r)$).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -4548,7 +4548,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 9"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Uraikan rumus kombinasi untuk $r = 2$: $C(n,2) = \\frac{n(n-1)}{2}$.\n\nLangkah 2: Samakan dengan nilai yang diketahui: $\\frac{n(n-1)}{2} = 28$, sehingga $n(n-1) = 56$.\n\nLangkah 3: Faktorkan $n^2-n-56 = 0$ menjadi $(n-8)(n+7) = 0$. Karena $n$ menyatakan banyak unsur, dipilih $n = 8$.\nKesimpulan: Kunci Jawaban D."
+          "bahas": "Langkah 1: Menguraikan rumus kombinasi untuk $r = 2$:\n$$C(n, 2) = \\frac{n(n - 1)}{2}$$\n\nLangkah 2: Menyusun persamaan dengan nilai yang diketahui:\n$$\\frac{n(n - 1)}{2} = 28$$\n$$n(n - 1) = 56$$\n$$n^2 - n - 56 = 0$$\n\nLangkah 3: Memfaktorkan persamaan kuadrat:\n$$(n - 8)(n + 7) = 0$$\nKarena $n \\in \\mathbb{N}$, maka $\\mathbf{n = 8}$.\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 7,
@@ -4564,7 +4564,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 180"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Pemilihan putra dan putri adalah dua tahap yang harus dilakukan keduanya, sehingga hasil masing-masing dikalikan.\n\nLangkah 2: Hitung tiap tahap dengan kombinasi: putra $C(6,3) = \\frac{6 \\times 5 \\times 4}{6} = 20$, dan putri $C(4,2) = \\frac{4 \\times 3}{2} = 6$.\n\nLangkah 3: Kalikan keduanya: $20 \\times 6 = 120$ cara.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menghitung cara memilih 3 putra dari 6 putra:\n$$C(6, 3) = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20 \\text{ cara}$$\n\nLangkah 2: Menghitung cara memilih 2 putri dari 4 putri:\n$$C(4, 2) = \\frac{4 \\times 3}{2 \\times 1} = 6 \\text{ cara}$$\n\nLangkah 3: Menghitung total variasi pembentukan tim:\n$$\\text{Total} = C(6, 3) \\times C(4, 2) = 20 \\times 6 = 120 \\text{ cara}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -4580,7 +4580,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Banyak cara jika semua anggota harus putri adalah 1 cara."
           ],
           "kunci": "A, B, C, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n2 putra dari 6 dan 2 putri dari 4 $= C(6, 2) \\times C(4, 2) = 15 \\times 6 = 90$ cara.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nSemua putra (0 putri) $= C(6, 4) = 15$ cara.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nTotal memilih 4 dari 10 orang $= C(10, 4) = \\frac{10 \\times 9 \\times 8 \\times 7}{24} = 210$ cara.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n(3 Pa & 1 Pi) + (4 Pa & 0 Pi) $= C(6,3)C(4,1) + C(6,4) = 20(4) + 15 = 95 \\ne 150$.\n$\\implies$ Pernyataan D SALAH.\n\nLangkah 5: Analisis Opsi E:\nSemua putri $= C(4, 4) = 1$ cara.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E."
+          "bahas": "Langkah 1: Analisis Opsi A (2 putra & 2 putri):\n$C(6, 2) \\times C(4, 2) = 15 \\times 6 = 90$ cara.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B (Tanpa putri / semua putra):\n$C(6, 4) = 15$ cara.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C (Total delegasi tanpa syarat):\n$C(10, 4) = \\frac{10 \\times 9 \\times 8 \\times 7}{24} = 210$ cara.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D (Paling sedikit 3 putra):\n- 3 putra, 1 putri: $C(6,3) \\times C(4,1) = 20 \\times 4 = 80$\n- 4 putra, 0 putri: $C(6,4) \\times C(4,0) = 15 \\times 1 = 15$\nTotal $= 80 + 15 = 95$ cara, bukan 150.\n$\\implies$ Pernyataan D SALAH.\n\nLangkah 5: Analisis Opsi E (Semua anggota putri):\n$C(4, 4) = 1$ cara.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E."
         },
         {
           "no": 9,
@@ -4596,7 +4596,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 56"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Satu segitiga ditentukan oleh tiga titik, dan urutan pemilihan titiknya tidak berpengaruh, sehingga dipakai kombinasi $C(n,3)$.\n\nLangkah 2: Syarat \"tidak ada 3 titik segaris\" menjamin setiap pilihan tiga titik benar-benar membentuk segitiga.\n\nLangkah 3: Substitusikan $n = 8$: $C(8,3) = \\frac{8 \\times 7 \\times 6}{6} = 56$ segitiga.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Mengidentifikasi syarat pembentukan segitiga:\nSatu segitiga ditentukan oleh tepat **3 titik non-kolinier (tidak segaris)**. Karena tidak ada 3 titik yang segaris, setiap kombinasi 3 titik pasti membentuk satu segitiga unik.\n\nLangkah 2: Menghitung kombinasi $C(8, 3)$:\n$$C(8, 3) = \\frac{8!}{3! \\cdot 5!} = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1}$$\n\nLangkah 3: Menyederhanakan perkalian:\n$$C(8, 3) = 8 \\times 7 = 56 \\text{ segitiga}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 10,
@@ -4606,7 +4606,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P04-Q10] Jika $C(n, 2) = 45$, maka nilai $n$ adalah ...",
           "opsi": [],
           "kunci": "10",
-          "bahas": "Langkah 1: Uraikan rumus kombinasi untuk $r = 2$: $C(n,2) = \\frac{n(n-1)}{2}$.\n\nLangkah 2: Samakan dengan nilai yang diketahui: $\\frac{n(n-1)}{2} = 45$, sehingga $n(n-1) = 90$.\n\nLangkah 3: Faktorkan $n^2-n-90 = 0$ menjadi $(n-10)(n+9) = 0$, sehingga $n = 10$.\nKesimpulan: Kunci Jawaban 10."
+          "bahas": "Langkah 1: Menguraikan rumus kombinasi untuk $r = 2$:\n$$C(n, 2) = \\frac{n(n - 1)}{2} = 45$$\n\nLangkah 2: Menyusun persamaan kuadrat:\n$$n(n - 1) = 90$$\n$$n^2 - n - 90 = 0$$\n\nLangkah 3: Memfaktorkan persamaan kuadrat:\n$$(n - 10)(n + 9) = 0$$\nDiperoleh $\\mathbf{n = 10}$ (memenuhi syarat bilangan asli).\nKesimpulan: Kunci Jawaban 10."
         }
       ]
     },
@@ -4628,8 +4628,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5/36",
             "E. 1/9"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Peluang dihitung dengan $P(A) = \\frac{n(A)}{n(S)}$. Pelemparan dua dadu memberi $n(S) = 6 \\times 6 = 36$.\n\nLangkah 2: Daftar pasangan yang berjumlah $8$: $(2,6), (3,5), (4,4), (5,3), (6,2)$, sehingga $n(A) = 5$.\n\nLangkah 3: Substitusikan: $P(A) = \\frac{5}{36}$.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 1 dadu bersisi 6:\nRuang sampel $S = \\{1, 2, 3, 4, 5, 6\\} \\implies n(S) = 6$.\n\nLangkah 2: Menentukan himpunan kejadian munculnya mata dadu prima:\nMata dadu bilangan prima adalah $A = \\{2, 3, 5\\} \\implies n(A) = 3$.\n\nLangkah 3: Menghitung peluang kejadian $P(A)$:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{3}{6} = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "dadu",
             "sum": 8
@@ -4649,7 +4649,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/3"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Pengambilan sekaligus berarti urutan tidak berpengaruh, sehingga dipakai kombinasi.\n\nLangkah 2: Hitung ruang sampelnya: mengambil $2$ dari $9$ kelereng, yaitu $C(9,2) = \\frac{9 \\times 8}{2} = 36$.\n\nLangkah 3: Hitung kejadiannya: mengambil $2$ dari $5$ kelereng merah, yaitu $C(5,2) = \\frac{5 \\times 4}{2} = 10$.\n\nLangkah 4: Substitusikan ke $P(A) = \\frac{n(A)}{n(S)}$: $\\frac{10}{36} = \\frac{5}{18}$.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Menentukan peluang kejadian munculnya gambar pada 1 keping koin:\n$S = \\{A, G\\} \\implies n(S) = 2$, kejadian gambar $G = \\{G\\} \\implies n(G) = 1$.\n$$P(G) = \\frac{1}{2}$$\n\nLangkah 2: Menggunakan rumus Frekuensi Harapan $F_h(A) = n \\times P(A)$:\nDiketahui banyak percobaan lemparan $n = 120$ kali.\n\nLangkah 3: Menghitung nilai frekuensi harapan:\n$$F_h(G) = 120 \\times \\frac{1}{2} = 60 \\text{ kali}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 3,
@@ -4664,8 +4664,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 100 kali",
             "E. 120 kali"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Frekuensi harapan dihitung dengan $F_h = P(A) \\times N$, dengan $N$ banyak percobaan.\n\nLangkah 2: Cari peluangnya. Ruang sampel dua koin ada $4$, yaitu AA, AG, GA, GG. Kejadian \"keduanya angka\" hanya AA, sehingga $P(A) = \\frac{1}{4}$.\n\nLangkah 3: Substitusikan: $F_h = \\frac{1}{4} \\times 300 = 75$ kali.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan total bola di dalam kantong:\n$n(S) = 5 \\text{ merah} + 3 \\text{ biru} + 2 \\text{ hijau} = 10 \\text{ bola}$.\n\nLangkah 2: Menentukan banyak kejadian terambilnya bola biru:\n$n(B) = 3 \\text{ bola}$.\n\nLangkah 3: Menghitung peluang terambilnya bola biru $P(B)$:\n$$P(B) = \\frac{n(B)}{n(S)} = \\frac{3}{10} = 0{,}3$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 4,
@@ -4681,7 +4681,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/26"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Peluang dihitung dengan $P(A) = \\frac{n(A)}{n(S)}$, dengan $n(S) = 52$ kartu.\n\nLangkah 2: Kartu As ada $4$, tetapi yang berwarna merah hanya dari jenis hati dan wajik, sehingga $n(A) = 2$.\n\nLangkah 3: Substitusikan lalu sederhanakan: $\\frac{2}{52} = \\frac{1}{26}$.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan dua dadu bersamaan:\n$$n(S) = 6 \\times 6 = 36$$\n\nLangkah 2: Mendaftarkan pasangan mata dadu yang berjumlah 8:\n$$A = \\{(2,6), (3,5), (4,4), (5,3), (6,2)\\} \\implies n(A) = 5$$\n\nLangkah 3: Menghitung peluang munculnya jumlah 8:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{5}{36}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 5,
@@ -4694,8 +4694,8 @@ const NAMA_TINGKAT = 'XII';
             "Jika peluang kejadian A adalah 0,4 maka peluang komplemen A' adalah 0,8",
             "Nilai peluang suatu kejadian A selalu memenuhi batasan 0 <= P(A) <= 1"
           ],
-          "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nFrekuensi harapan dari $n$ kali percobaan adalah $F_h(A) = n \\cdot P(A)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPeluang komplemen $P(A') = 1 - P(A) = 1 - 0{,}4 = 0{,}6$, bukan 0,8.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nAksioma Kolmogorov: Peluang suatu peristiwa selalu berada pada interval tertutup $[0, 1]$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nKisaran nilai peluang teoritis untuk setiap kejadian $A$ selalu berada pada interval tertutup $0 \\le P(A) \\le 1$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nRumus frekuensi harapan dari $n$ kali percobaan adalah $F_h(A) = n \\cdot P(A)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKejadian dengan $P(A) = 0$ disebut kejadian kemustahilan (mustahil terjadi). Kejadian yang pasti terjadi memiliki peluang $P(A) = 1$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -4710,8 +4710,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 340 bibit",
             "E. 50 bibit"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Yang ditanyakan adalah bibit yang TIDAK tumbuh, sehingga dipakai peluang komplemen $P(A') = 1 - P(A)$.\n\nLangkah 2: Substitusikan: $P(\\text{tidak tumbuh}) = 1 - 0{,}85 = 0{,}15$.\n\nLangkah 3: Kalikan dengan banyak bibit: $0{,}15 \\times 400 = 60$ bibit.\nKesimpulan: Kunci Jawaban B."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 3 koin bersamaan:\n$$n(S) = 2^3 = 8$$\nRuang sampel: $\\{AAA, AAG, AGA, AGG, GAA, GAG, GGA, GGG\\}$.\n\nLangkah 2: Menentukan kejadian muncul paling sedikit 2 angka:\nKejadian muncul $\\ge 2$ angka (2 angka atau 3 angka):\n$$A = \\{AAG, AGA, GAA, AAA\\} \\implies n(A) = 4$$\n\nLangkah 3: Menghitung peluang kejadian:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{4}{8} = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 7,
@@ -4726,8 +4726,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5/8",
             "E. 3/8"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Ruang sampel tiga koin ada $n(S) = 2^3 = 8$.\n\nLangkah 2: \"Paling sedikit 2 gambar\" berarti tepat $2$ gambar atau $3$ gambar. Hitung dengan kombinasi: $C(3,2) + C(3,3) = 3 + 1 = 4$.\n\nLangkah 3: Substitusikan lalu sederhanakan: $\\frac{4}{8} = \\frac{1}{2}$.\nKesimpulan: Kunci Jawaban C."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan ruang sampel pengambilan 2 bola dari 8 bola:\nTotal bola $= 5 \\text{ merah} + 3 \\text{ putih} = 8$ bola.\n$$n(S) = C(8, 2) = \\frac{8 \\times 7}{2 \\times 1} = 28$$\n\nLangkah 2: Menentukan kejadian terambilnya 2 bola merah:\n$$n(M) = C(5, 2) = \\frac{5 \\times 4}{2 \\times 1} = 10$$\n\nLangkah 3: Menghitung peluang terambil keduanya bola merah:\n$$P(M) = \\frac{n(M)}{n(S)} = \\frac{10}{28} = \\frac{5}{14}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 8,
@@ -4742,8 +4742,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Frekuensi harapan muncul mata dadu prima adalah 60 kali.",
             "E. Peluang muncul mata dadu 7 adalah 1/6."
           ],
-          "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$F_h = 120 \\times (1/3) = 40$ kali.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nMata dadu prima $\\{2, 3, 5\\} \\implies P = 3/6 = 1/2$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nMata dadu $> 4$ adalah $\\{5, 6\\} \\implies P = 2/6 = 1/3$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$F_h = 120 \\times (1/2) = 60$ kali.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nMata dadu 7 adalah kejadian mustahil pada dadu 6 sisi, sehingga $P = 0$, bukan 1/6.\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Analisis Opsi A (Jumlah 7):\nPasangan: $\\{(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\\} \\implies 6/36 = 1/6$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B (Total ruang sampel):\n$n(S) = 6^2 = 36$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C (Mata dadu kembar):\nPasangan: $\\{(1,1),(2,2),(3,3),(4,4),(5,5),(6,6)\\} \\implies 6/36 = 1/6$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D (Jumlah bernilai 12):\nPasangan: $\\{(6,6)\\} \\implies 1/36$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E (Jumlah bernilai kelipatan 6):\nJumlah 6 ada 5 pasangan, jumlah 12 ada 1 pasangan $\\implies (5 + 1)/36 = 6/36 = 1/6$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E."
         },
         {
           "no": 9,
@@ -4759,7 +4759,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/12"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Peluang dihitung dengan $P(A) = \\frac{n(A)}{n(S)}$, dengan $n(S) = 36$.\n\nLangkah 2: Daftar pasangan yang berjumlah $7$: $(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)$, sehingga $n(A) = 6$.\n\nLangkah 3: Substitusikan lalu sederhanakan: $\\frac{6}{36} = \\frac{1}{6}$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menghitung peluang muncul mata dadu faktor dari 6 pada 1 dadu:\nFaktor dari 6 adalah $\\{1, 2, 3, 6\\} \\implies 4$ kemungkinan.\n$$P(A) = \\frac{4}{6} = \\frac{2}{3}$$\n\nLangkah 2: Menghitung frekuensi harapan untuk $n = 180$ lemparan:\n$$F_h(A) = n \\times P(A) = 180 \\times \\frac{2}{3} = 120 \\text{ kali}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "dadu",
             "sum": 7
@@ -4772,8 +4772,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P05-Q10] Sebuah dadu dilempar 180 kali. Frekuensi harapan muncul mata dadu prima ({2, 3, 5}) adalah ...",
           "opsi": [],
-          "kunci": "90",
-          "bahas": "Langkah 1: $P = \\frac{3}{6} = \\frac{1}{2}$.\n\nLangkah 2: $F_h = \\frac{1}{2} \\times 180 = 90$.\nKesimpulan: Jawaban Akhir 90.\nKesimpulan: Kunci Jawaban 90."
+          "kunci": "1/6",
+          "bahas": "Langkah 1: Ruang sampel pelemparan 2 dadu:\n$$n(S) = 36$$\n\nLangkah 2: Menentukan kejadian munculnya jumlah mata dadu sama dengan 7:\n$$A = \\{(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)\\} \\implies n(A) = 6$$\n\nLangkah 3: Menghitung peluang dan menyederhanakan pecahan:\n$$P(A) = \\frac{6}{36} = \\frac{1}{6}$$\nKesimpulan: Kunci Jawaban 1/6."
         }
       ]
     },
@@ -4796,7 +4796,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 20"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Hitung masing-masing lebih dahulu. Permutasi $P(6,3) = 6 \\times 5 \\times 4 = 120$.\n\nLangkah 2: Kombinasi $C(6,3) = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20$.\n\nLangkah 3: Bagi keduanya: $\\frac{120}{20} = 6$. Hasil ini memang selalu sama dengan $r! = 3! = 6$, karena permutasi hanyalah kombinasi yang tiap pilihannya masih diurutkan.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Menghitung permutasi siklis 5 orang:\n$$P_{\\text{siklis}} = (5 - 1)! = 4! = 24 \\text{ cara}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 2,
@@ -4811,8 +4811,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/2",
             "E. 1/3"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Bilangan genap ditentukan oleh angka satuannya. Karena itu, tinjau peluang satuannya genap.\n\nLangkah 2: Dari $\\{1,2,3,4,5,6\\}$ terdapat $3$ angka genap, yaitu $2$, $4$, dan $6$, dari total $6$ angka.\n\nLangkah 3: Karena tiap angka punya kesempatan sama menempati posisi satuan, peluangnya $\\frac{3}{6} = \\frac{1}{2}$.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung kombinasi 3 delegasi dari 8 siswa:\n$$C(8, 3) = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56 \\text{ cara}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 3,
@@ -4827,8 +4827,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 60",
             "E. 45"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Satu segitiga ditentukan oleh tiga titik dan urutannya tidak berpengaruh, sehingga dipakai kombinasi $C(n,3)$.\n\nLangkah 2: Substitusikan $n = 10$: $C(10,3) = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1}$.\n\nLangkah 3: Hitung hasilnya: $\\frac{720}{6} = 120$ segitiga.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung permutasi huruf pada kata 'KATAK':\nTotal huruf $n = 5$, huruf K $= 2$, A $= 2$, T $= 1$.\n$$P = \\frac{5!}{2! \\cdot 2!} = \\frac{120}{4} = 30 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 4,
@@ -4843,8 +4843,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 3/10",
             "E. 2/5"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Pengambilan sekaligus memakai kombinasi. Ruang sampelnya $C(10,3) = \\frac{10 \\times 9 \\times 8}{6} = 120$.\n\nLangkah 2: Kejadiannya adalah memilih $2$ dari $6$ merah **dan** $1$ dari $4$ biru, sehingga hasilnya dikalikan: $C(6,2) \\times C(4,1) = 15 \\times 4 = 60$.\n\nLangkah 3: Substitusikan lalu sederhanakan: $\\frac{60}{120} = \\frac{1}{2}$.\nKesimpulan: Kunci Jawaban B."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 2 koin:\n$S = \\{AA, AG, GA, GG\\} \\implies n(S) = 4$.\nKejadian muncul keduanya angka: $A = \\{AA\\} \\implies n(A) = 1$.\n$$P(A) = \\frac{1}{4}$$\n\nLangkah 2: Menghitung frekuensi harapan dari $n = 100$ lemparan:\n$$F_h(A) = 100 \\times \\frac{1}{4} = 25 \\text{ kali}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 5,
@@ -4857,8 +4857,8 @@ const NAMA_TINGKAT = 'XII';
             "Peluang muncul jumlah mata dadu 7 pada pelemparan 2 dadu adalah 1/6",
             "Nilai dari C(8, 3) bernilai 56"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBilangan genap: Satuan $\\{2, 4\\}$ (2 opsi). Ratusan dan puluhan $= 4 \\times 3 = 12$. Total genap $= 12 \\times 2 = 24$, bukan 100.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nTitik sampel jumlah 7: {(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)} ada 6 titik $\\implies P = 6/36 = 1/6$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$C(8, 3) = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$P(n, n) = n!$ adalah benar.\n$\\implies$ Pernyataan (1) BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$C(n, 0) = 1$ adalah benar.\n$\\implies$ Pernyataan (2) BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPeluang bernilai di selang $[0, 1]$, tidak mungkin negatif.\n$\\implies$ Pernyataan (3) SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "dadu",
             "sum": 7
@@ -4877,8 +4877,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/26",
             "E. 1/52"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Peluang dihitung dengan $P(A) = \\frac{n(A)}{n(S)}$, dengan $n(S) = 52$ kartu.\n\nLangkah 2: Kartu King ada $4$, dan yang berwarna merah hanya dari jenis hati dan wajik, sehingga $n(A) = 2$.\n\nLangkah 3: Substitusikan lalu sederhanakan: $\\frac{2}{52} = \\frac{1}{26}$.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menguraikan $P(n, 2) = n(n-1) = 30$.\nLangkah 2: $n^2 - n - 30 = 0 \\implies (n-6)(n+5) = 0 \\implies n = 6$.\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 7,
@@ -4894,7 +4894,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 70"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Hitung tiap kombinasi secara terpisah dengan $C(n,r) = \\frac{n!}{r!\\,(n-r)!}$.\n\nLangkah 2: $C(8,2) = \\frac{8 \\times 7}{2} = 28$ dan $C(8,3) = \\frac{8 \\times 7 \\times 6}{6} = 56$.\n\nLangkah 3: Jumlahkan: $28 + 56 = 84$. Hasil ini sesuai dengan sifat Pascal $C(n,r) + C(n,r+1) = C(n+1,r+1)$, yaitu $C(9,3) = 84$.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menghitung peluang kartu As dari 52 kartu bridge:\nJumlah kartu As $= 4$.\n$$P(\\text{As}) = \\frac{4}{52} = \\frac{1}{13}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -4909,8 +4909,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Peluang paling sedikit 1 bola merah terambil adalah 1/28.",
             "E. Peluang terambil 1 merah dan 1 putih adalah 15/28."
           ],
-          "kunci": "A, B, C, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$P(2M) = \\frac{C(5,2)}{28} = \\frac{10}{28} = \\frac{5}{14}$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$n(S) = C(8, 2) = \\frac{8 \\times 7}{2} = 28$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$P(2P) = \\frac{C(3,2)}{28} = \\frac{3}{28}$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$P(\\text{min 1 merah}) = 1 - P(2P) = 1 - \\frac{3}{28} = \\frac{25}{28} \\ne \\frac{1}{28}$.\n$\\implies$ Pernyataan D SALAH.\n\nLangkah 5: Analisis Opsi E:\n$P(1M, 1P) = \\frac{C(5,1) \\times C(3,1)}{28} = \\frac{15}{28}$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E."
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Evaluasi seluruh sifat dasar kombinatorika & peluang:\n- A: $C(5, 2) = 10$ (BENAR)\n- B: $P(4, 2) = 12$ (BENAR)\n- C: $0! = 1$ (BENAR)\n- D: $F_h = n \\times P$ (BENAR)\n- E: $P(S) = 1$ (BENAR)\nKesimpulan: Kunci Jawaban A, B, C, D, E."
         },
         {
           "no": 9,
@@ -4925,8 +4925,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 9/28",
             "E. 5/14"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Pemilihan komite memakai kombinasi. Ruang sampelnya $C(8,3) = \\frac{8 \\times 7 \\times 6}{6} = 56$.\n\nLangkah 2: Kejadiannya adalah memilih $2$ dari $5$ pria **dan** $1$ dari $3$ wanita: $C(5,2) \\times C(3,1) = 10 \\times 3 = 30$.\n\nLangkah 3: Substitusikan lalu sederhanakan: $\\frac{30}{56} = \\frac{15}{28}$.\nKesimpulan: Kunci Jawaban C."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menghitung bilangan 3 digit dari $\\{1, 2, 3, 4, 5\\}$ tanpa pengulangan:\n$$5 \\times 4 \\times 3 = 60 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 10,
@@ -4935,8 +4935,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P06-Q10] Nilai dari $C(7, 3)$ adalah ...",
           "opsi": [],
-          "kunci": "35",
-          "bahas": "Langkah 1: Gunakan rumus kombinasi $C(n,r) = \\frac{n!}{r!\\,(n-r)!}$.\n\nLangkah 2: Substitusikan $n = 7$ dan $r = 3$: $C(7,3) = \\frac{7 \\times 6 \\times 5}{3 \\times 2 \\times 1}$.\n\nLangkah 3: Hitung hasilnya: $\\frac{210}{6} = 35$.\nKesimpulan: Kunci Jawaban 35."
+          "kunci": "24",
+          "bahas": "Langkah 1: Menghitung permutasi siklis 5 orang melingkar:\n$$P_{\\text{siklis}} = (5 - 1)! = 4! = 24$$\nKesimpulan: Kunci Jawaban 24."
         }
       ]
     },
@@ -4959,7 +4959,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/6"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Jumlah 5 ada 4 titik, jumlah 10 ada 3 titik.\n\nLangkah 2: Saling lepas $\\implies P = \\frac{4 + 3}{36} = \\frac{7}{36}$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menentukan kejadian pelemparan satu dadu:\n$S = \\{1, 2, 3, 4, 5, 6\\} \\implies n(S) = 6$.\n- Kejadian mata dadu prima: $A = \\{2, 3, 5\\} \\implies n(A) = 3$.\n- Kejadian mata dadu genap: $B = \\{2, 4, 6\\} \\implies n(B) = 3$.\n\nLangkah 2: Menentukan irisan kedua kejadian $A \\cap B$:\nIrisan (prima dan genap): $A \\cap B = \\{2\\} \\implies n(A \\cap B) = 1$.\nKarena $A \\cap B \\neq \\emptyset$, maka kejadian ini **TIDAK SALING LEPAS**.\n\nLangkah 3: Menggunakan rumus Peluang Gabungan Kejadian Tidak Saling Lepas:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B) = \\frac{3}{6} + \\frac{3}{6} - \\frac{1}{6} = \\frac{5}{6}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "dadu",
             "sum": 5
@@ -4978,8 +4978,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 17/26",
             "E. 19/26"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Sebuah kartu bisa sekaligus bernomor prima dan berwarna merah, sehingga kedua kejadian TIDAK saling lepas dan dipakai $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n\nLangkah 2: Hitung kartu prima. Nomor $\\{2,3,5,7\\}$ ada $4$ macam, masing-masing dalam $4$ jenis, sehingga $n(A) = 16$.\n\nLangkah 3: Hitung kartu merah, yaitu hati dan wajik: $n(B) = 26$. Irisannya adalah kartu prima berwarna merah, yaitu $4 \\times 2 = 8$.\n\nLangkah 4: Substitusikan lalu sederhanakan: $\\frac{16}{52} + \\frac{26}{52} - \\frac{8}{52} = \\frac{34}{52} = \\frac{17}{26}$.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "C",
+          "bahas": "Langkah 1: Mengidentifikasi sifat dua kejadian saling lepas:\nDua kejadian saling lepas tidak dapat terjadi secara bersamaan ($A \\cap B = \\emptyset \\implies P(A \\cap B) = 0$).\n\nLangkah 2: Menggunakan rumus Penjumlahan Peluang Saling Lepas:\n$$P(A \\cup B) = P(A) + P(B)$$\n\nLangkah 3: Mensubstitusikan nilai:\n$$P(A \\cup B) = 0{,}35 + 0{,}40 = 0{,}75$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 3,
@@ -4994,8 +4994,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/2",
             "E. 8/10"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Bola merah dan bola hijau tidak mungkin terambil bersamaan dalam satu pengambilan, sehingga kedua kejadian saling lepas dan berlaku $P(A \\cup B) = P(A) + P(B)$.\n\nLangkah 2: Total bola $= 5 + 3 + 2 = 10$, sehingga $P(\\text{merah}) = \\frac{5}{10}$ dan $P(\\text{hijau}) = \\frac{2}{10}$.\n\nLangkah 3: Jumlahkan: $\\frac{5}{10} + \\frac{2}{10} = \\frac{7}{10}$.\nKesimpulan: Kunci Jawaban B."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan ruang sampel kartu bridge standar:\n$$n(S) = 52$$\n- Kartu King: $n(K) = 4 \\implies P(K) = \\frac{4}{52}$.\n- Kartu Hati (Heart): $n(H) = 13 \\implies P(H) = \\frac{13}{52}$.\n\nLangkah 2: Menentukan irisan kartu King Hati:\nAda 1 kartu yang sekaligus King dan Hati $\\implies n(K \\cap H) = 1 \\implies P(K \\cap H) = \\frac{1}{52}$.\n\nLangkah 3: Menghitung peluang gabungan:\n$$P(K \\cup H) = \\frac{4}{52} + \\frac{13}{52} - \\frac{1}{52} = \\frac{16}{52} = \\frac{4}{13}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 4,
@@ -5010,8 +5010,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $P(A) = P(B)$",
             "E. $P(A \\cup B) = 1$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Dua kejadian disebut saling lepas bila keduanya tidak mungkin terjadi bersamaan, yaitu irisannya berupa himpunan kosong: $A \\cap B = \\emptyset$.\n\nLangkah 2: Karena peluang himpunan kosong adalah nol, syaratnya menjadi $P(A \\cap B) = 0$.\n\nLangkah 3: Perhatikan bedanya dengan kejadian saling bebas, yang syaratnya $P(A \\cap B) = P(A) \\cdot P(B)$. Saling lepas berbicara tentang tidak mungkin bersamaan; saling bebas berbicara tentang tidak saling memengaruhi.\nKesimpulan: Kunci Jawaban C."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menggunakan rumus umum peluang gabungan dua kejadian:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\n\nLangkah 2: Mensubstitusikan nilai yang diketahui:\n$$0{,}70 = 0{,}50 + 0{,}40 - P(A \\cap B)$$\n$$0{,}70 = 0{,}90 - P(A \\cap B)$$\n\nLangkah 3: Menyelesaikan untuk $P(A \\cap B)$:\n$$P(A \\cap B) = 0{,}90 - 0{,}70 = 0{,}20$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 5,
@@ -5025,7 +5025,7 @@ const NAMA_TINGKAT = 'XII';
             "Jika P(A) = 0,4 dan P(B) = 0,5 saling lepas, maka P(A U B) = 0,2"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nKejadian saling lepas tidak memiliki irisan ($P(A \\cap B) = 0$), sehingga $P(A \\cup B) = P(A) + P(B)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPrinsip inklusi-eksklusi peluang: $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nUntuk kejadian saling lepas: $P(A \\cup B) = 0{,}4 + 0{,}5 = 0{,}9$, bukan 0,2.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nUntuk dua kejadian saling lepas, $P(A \\cap B) = 0$, sehingga berlaku $P(A \\cup B) = P(A) + P(B)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nUntuk kejadian tidak saling lepas, berlaku rumus inklusi-eksklusi $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPeluang komplemen dirumuskan sebagai $P(A') = 1 - P(A)$, bukan $P(A) - 1$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -5041,7 +5041,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 3/4"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Periksa dulu apakah kedua kejadian bisa terjadi bersamaan. Jumlah yang ganjil tidak mungkin habis dibagi $4$, sehingga keduanya saling lepas dan berlaku $P(A \\cup B) = P(A) + P(B)$.\n\nLangkah 2: Hitung jumlah ganjil. Dari $36$ hasil, tepat separuhnya berjumlah ganjil, yaitu $n(A) = 18$.\n\nLangkah 3: Hitung kelipatan $4$, yaitu jumlah $4$, $8$, dan $12$: berturut-turut ada $3$, $5$, dan $1$ cara, sehingga $n(B) = 9$.\n\nLangkah 4: Jumlahkan lalu sederhanakan: $\\frac{18+9}{36} = \\frac{27}{36} = \\frac{3}{4}$.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menentukan kejadian pelemparan 1 dadu:\n- Mata dadu $< 3$: $A = \\{1, 2\\} \\implies n(A) = 2$.\n- Mata dadu $> 4$: $B = \\{5, 6\\} \\implies n(B) = 2$.\n\nLangkah 2: Memeriksa apakah saling lepas:\n$A \\cap B = \\emptyset$ (saling lepas).\n\nLangkah 3: Menghitung peluang:\n$$P(A \\cup B) = \\frac{2}{6} + \\frac{2}{6} = \\frac{4}{6} = \\frac{2}{3}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "dadu",
             "rule": "ganjil-atau-k4"
@@ -5060,8 +5060,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 7/8",
             "E. 9/10"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Ada siswa yang menyukai keduanya, sehingga kedua kejadian TIDAK saling lepas dan dipakai $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n\nLangkah 2: Substitusikan pecahannya dengan penyebut $40$: $\\frac{25}{40} + \\frac{20}{40} - \\frac{10}{40}$.\n\nLangkah 3: Hitung lalu sederhanakan: $\\frac{35}{40} = \\frac{7}{8}$. Pengurangan $\\frac{10}{40}$ diperlukan agar siswa yang menyukai keduanya tidak terhitung dua kali.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menggunakan rumus peluang komplemen:\n$$P(A') = 1 - P(A)$$\n\nLangkah 2: Mensubstitusikan peluang gagal $P(A) = 0{,}15$:\n$$P(A') = 1 - 0{,}15 = 0{,}85$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "venn",
             "n": 40,
@@ -5086,7 +5086,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Kejadian terambil kartu As dan kartu Hati adalah kejadian saling lepas."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis Opsi A:\nAda 1 kartu As Hati $\\implies P(As \\cap Hati) = 1/52$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nAda 4 kartu As $\\implies P(As) = 4/52 = 1/13$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$P(As \\cup Hati) = P(As) + P(Hati) - P(As \\cap Hati) = \\frac{4}{52} + \\frac{13}{52} - \\frac{1}{52} = \\frac{16}{52} = \\frac{4}{13}$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nAda 13 kartu Hati $\\implies P(Hati) = 13/52 = 1/4$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nKarena terdapat kartu As Hati (irisan tidak kosong), kejadian ini tidak saling lepas.\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "bahas": "Langkah 1: Evaluasi pernyataan peluang kartu bridge:\n- A: Saling lepas King dan Queen $\\implies P(K \\cup Q) = 8/52 = 2/13$ (BENAR)\n- B: Tidak saling lepas As dan Spade $\\implies P(As \\cup S) = (4+13-1)/52 = 16/52 = 4/13$ (BENAR)\n- C: Peluang komplemen $P(A') = 1 - P(A)$ (BENAR)\n- D: Irisan saling lepas bernilai 0 (BENAR)\n- E: $P(A \\cup B) \\le 1$ selalu berlaku, tidak mungkin lebih dari 1 (SALAH)\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -5102,7 +5102,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 0,8"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: \"Lulus salah satu atau keduanya\" adalah kejadian gabungan, sehingga dipakai $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n\nLangkah 2: Substitusikan nilainya: $0{,}7 + 0{,}6 - 0{,}5$.\n\nLangkah 3: Hitung hasilnya: $1{,}3 - 0{,}5 = 0{,}8$.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menggunakan rumus peluang gabungan:\n$$P(M \\cup F) = P(M) + P(F) - P(M \\cap F)$$\n\nLangkah 2: Mensubstitusikan nilai:\n$$P(M \\cup F) = 0{,}7 + 0{,}6 - 0{,}5 = 1{,}3 - 0{,}5 = 0{,}8$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "venn2"
           }
@@ -5115,7 +5115,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P07-Q10] Sebuah kartu diambil dari 52 kartu. Peluang terambil kartu As atau King adalah ... (dalam bentuk pecahan per 13)",
           "opsi": [],
           "kunci": "2/13",
-          "bahas": "Langkah 1: Satu kartu tidak mungkin sekaligus As dan King, sehingga kedua kejadian saling lepas dan berlaku $P(A \\cup B) = P(A) + P(B)$.\n\nLangkah 2: Substitusikan: $\\frac{4}{52} + \\frac{4}{52} = \\frac{8}{52}$.\n\nLangkah 3: Sederhanakan: $\\frac{8}{52} = \\frac{2}{13}$.\nKesimpulan: Kunci Jawaban 2/13."
+          "bahas": "Langkah 1: Kejadian terambil kartu As atau King adalah saling lepas:\n$$P(\\text{As} \\cup \\text{King}) = \\frac{4}{52} + \\frac{4}{52} = \\frac{8}{52}$$\n\nLangkah 2: Menyederhanakan pecahan ke per 13:\n$$\\frac{8}{52} = \\frac{2}{13}$$\nKesimpulan: Kunci Jawaban 2/13."
         }
       ]
     },
@@ -5138,7 +5138,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 0,26"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Kelulusan siswa A tidak memengaruhi kelulusan siswa B, sehingga kedua kejadian saling bebas dan berlaku $P(A \\cap B) = P(A) \\cdot P(B)$.\n\nLangkah 2: Substitusikan nilainya: $0{,}8 \\times 0{,}7$.\n\nLangkah 3: Hitung hasilnya: $0{,}56$.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Mengidentifikasi sifat dua kejadian saling bebas (independen):\nKelulusan siswa A tidak memengaruhi kelulusan siswa B, sehingga peluang kedua siswa lulus bersamaan dirumuskan dengan Aturan Perkalian Saling Bebas:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\n\nLangkah 2: Mensubstitusikan nilai:\n$$P(A \\cap B) = 0{,}8 \\times 0{,}7 = 0{,}56$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 2,
@@ -5154,7 +5154,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 5/28"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Pengambilan tanpa pengembalian membuat kejadian kedua bergantung pada kejadian pertama, sehingga dipakai $P(A \\cap B) = P(A) \\times P(B|A)$.\n\nLangkah 2: Pengambilan pertama: $P(\\text{merah}) = \\frac{5}{8}$. Setelah satu merah terambil, sisa bola menjadi $4$ merah dari total $7$, sehingga $P(\\text{merah kedua}) = \\frac{4}{7}$.\n\nLangkah 3: Kalikan lalu sederhanakan: $\\frac{5}{8} \\times \\frac{4}{7} = \\frac{20}{56} = \\frac{5}{14}$.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Memahami pengambilan tanpa pengembalian:\nPengambilan pertama memengaruhi komposisi bola untuk pengambilan kedua.\nTotal bola mula-mula $= 5 \\text{ merah} + 3 \\text{ putih} = 8$ bola.\n\nLangkah 2: Menghitung peluang tahap 1 dan tahap 2:\n- Pengambilan ke-1 (merah): $P(M_1) = \\frac{5}{8}$.\n- Pengambilan ke-2 (merah tersisa 4 dari 7 bola): $P(M_2 | M_1) = \\frac{4}{7}$.\n\nLangkah 3: Mengalikan peluang kedua tahap:\n$$P(M_1 \\cap M_2) = \\frac{5}{8} \\times \\frac{4}{7} = \\frac{20}{56} = \\frac{5}{14}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 3,
@@ -5170,7 +5170,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $\\frac{P(A \\cap B)}{P(A)}$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Peluang bersyarat menanyakan peluang $A$ dengan syarat $B$ sudah dipastikan terjadi.\n\nLangkah 2: Karena $B$ sudah terjadi, ruang sampelnya menyempit dari seluruh $S$ menjadi hanya $B$ saja. Penyebutnya karena itu menjadi $P(B)$.\n\nLangkah 3: Pembilangnya adalah bagian dari $B$ yang juga merupakan $A$, yaitu $P(A \\cap B)$. Jadi rumusnya $P(A|B) = \\frac{P(A \\cap B)}{P(B)}$.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Definisi formal peluang bersyarat $P(A|B)$:\nPeluang terjadinya kejadian A dengan syarat kejadian B sudah dipastikan terjadi dirumuskan sebagai:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}, \\quad \\text{dengan } P(B) > 0$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 4,
@@ -5186,7 +5186,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 0,1"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Gunakan rumus peluang bersyarat $P(A|B) = \\frac{P(A \\cap B)}{P(B)}$. Perhatikan bahwa penyebutnya adalah $P(B)$, bukan $P(A)$.\n\nLangkah 2: Substitusikan nilainya: $\\frac{0{,}2}{0{,}5}$.\n\nLangkah 3: Hitung hasilnya: $0{,}4$.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menggunakan rumus peluang bersyarat:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}$$\n\nLangkah 2: Mensubstitusikan nilai $P(A \\cap B) = 0{,}2$ dan $P(B) = 0{,}5$:\n$$P(A|B) = \\frac{0{,}2}{0{,}5} = 0{,}4$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 5,
@@ -5200,7 +5200,7 @@ const NAMA_TINGKAT = 'XII';
             "Jika dua kejadian A dan B saling bebas, maka nilai P(A|B) selalu sama dengan 0"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nDefinisi formal peluang bersyarat $P(A|B) = \\frac{P(A \\cap B)}{P(B)}$ untuk $P(B) > 0$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nDefinisi kejadian saling bebas stokastik adalah $P(A \\cap B) = P(A) \\cdot P(B)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJika A dan B saling bebas, maka $P(A|B) = \\frac{P(A)P(B)}{P(B)} = P(A)$, bukan 0.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nDefinisi formal peluang bersyarat adalah $P(A|B) = \\frac{P(A \\cap B)}{P(B)}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nDefinisi kejadian saling bebas stokastik adalah $P(A \\cap B) = P(A) \\cdot P(B)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJika A dan B saling bebas, maka $P(A|B) = P(A)$, bukan bernilai 0.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -5216,7 +5216,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 0,44"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: \"Tepat satu mengenai\" mencakup dua kemungkinan yang saling lepas: A kena dan B meleset, atau A meleset dan B kena.\n\nLangkah 2: Hitung peluang melesetnya dengan komplemen: $P(A') = 1 - 0{,}6 = 0{,}4$ dan $P(B') = 1 - 0{,}8 = 0{,}2$.\n\nLangkah 3: Karena kedua penembak saling bebas, kalikan tiap kemungkinan: $(0{,}6 \\times 0{,}2) + (0{,}4 \\times 0{,}8) = 0{,}12 + 0{,}32$.\n\nLangkah 4: Jumlahkan: $0{,}44$.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menganalisis kondisi \"tepat satu penembak mengenai target\":\nKondisi ini terdiri atas dua kejadian saling lepas:\n1. Penembak A mengenai target DAN Penembak B meleset: $P(A \\cap B')$\n2. Penembak A meleset DAN Penembak B mengenai target: $P(A' \\cap B)$\n\nLangkah 2: Menghitung peluang masing-masing komplemen:\n- $P(A') = 1 - 0{,}6 = 0{,}4$\n- $P(B') = 1 - 0{,}8 = 0{,}2$\n\nLangkah 3: Menghitung dan menjumlahkan peluang:\n$$P(\\text{tepat satu}) = (0{,}6 \\times 0{,}2) + (0{,}4 \\times 0{,}8) = 0{,}12 + 0{,}32 = 0{,}44$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 7,
@@ -5232,7 +5232,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/6"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Hasil dadu pertama tidak memengaruhi dadu kedua, sehingga kedua kejadian saling bebas dan peluangnya dikalikan.\n\nLangkah 2: Angka ganjil pada dadu adalah $\\{1,3,5\\}$, sehingga $P = \\frac{3}{6}$. Angka prima pada dadu adalah $\\{2,3,5\\}$, sehingga $P = \\frac{3}{6}$.\n\nLangkah 3: Kalikan lalu sederhanakan: $\\frac{3}{6} \\times \\frac{3}{6} = \\frac{9}{36} = \\frac{1}{4}$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Kejadian pelemparan dua dadu adalah saling bebas:\n- Dadu 1 ganjil $\\{1, 3, 5\\} \\implies P(A) = \\frac{3}{6} = \\frac{1}{2}$.\n- Dadu 2 prima $\\{2, 3, 5\\} \\implies P(B) = \\frac{3}{6} = \\frac{1}{2}$.\n\nLangkah 2: Menghitung peluang kedua kejadian bersamaan:\n$$P(A \\cap B) = \\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "dadu",
             "rule": "ganjil-prima"
@@ -5252,7 +5252,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Peluang paling sedikit satu pemanah tepat sasaran adalah 0,94."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$P(A \\cap B') = 0{,}7 \\times (1 - 0,8) = 0{,}7 \\times 0{,}2 = 0{,}14$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$P(A' \\cap B') = 0{,}3 \\times 0{,}2 = 0{,}06$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$P(A' \\cap B) = (1 - 0,7) \\times 0{,}8 = 0{,}3 \\times 0{,}8 = 0{,}24$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$P(A \\cap B) = 0{,}7 \\times 0{,}8 = 0{,}56$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$P(\\text{paling sedikit 1}) = 1 - P(A' \\cap B') = 1 - 0{,}06 = 0{,}94$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E."
+          "bahas": "Langkah 1: Analisis seluruh pernyataan peluang pemanah ($P(A) = 0{,}7$ dan $P(B) = 0{,}8$):\n- A: Hanya A kena $= 0{,}7 \\times 0{,}2 = 0{,}14$ (BENAR)\n- B: Keduanya gagal $= 0{,}3 \\times 0{,}2 = 0{,}06$ (BENAR)\n- C: Hanya B kena $= 0{,}3 \\times 0{,}8 = 0{,}24$ (BENAR)\n- D: Keduanya kena $= 0{,}7 \\times 0{,}8 = 0{,}56$ (BENAR)\n- E: Paling sedikit satu kena $= 1 - 0{,}06 = 0{,}94$ (BENAR)\nKesimpulan: Kunci Jawaban A, B, C, D, E."
         },
         {
           "no": 9,
@@ -5268,7 +5268,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 0,72"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: \"Bekerja normal\" adalah komplemen dari \"rusak\", sehingga dipakai $P(A') = 1 - P(A)$ pada masing-masing mesin.\n\nLangkah 2: Substitusikan: $P(A \\text{ normal}) = 1 - 0{,}1 = 0{,}9$ dan $P(B \\text{ normal}) = 1 - 0{,}2 = 0{,}8$.\n\nLangkah 3: Karena kedua mesin saling bebas, kalikan keduanya: $0{,}9 \\times 0{,}8 = 0{,}72$.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menghitung peluang masing-masing mesin bekerja normal:\n- Mesin A normal: $P(A') = 1 - 0{,}1 = 0{,}9$\n- Mesin B normal: $P(B') = 1 - 0{,}2 = 0{,}8$\n\nLangkah 2: Menghitung peluang kedua mesin normal (saling bebas):\n$$P(A' \\cap B') = 0{,}9 \\times 0{,}8 = 0{,}72$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 10,
@@ -5278,7 +5278,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P08-Q10] Jika $P(A \\cap B) = 0{,}12$ dan $P(A) = 0{,}3$, maka nilai $P(B|A)$ adalah ...",
           "opsi": [],
           "kunci": "0,4",
-          "bahas": "Langkah 1: Gunakan rumus peluang bersyarat. Karena yang diminta $P(B|A)$, penyebutnya adalah $P(A)$: $P(B|A) = \\frac{P(A \\cap B)}{P(A)}$.\n\nLangkah 2: Substitusikan nilainya: $\\frac{0{,}12}{0{,}3}$.\n\nLangkah 3: Hitung hasilnya: $0{,}4$.\nKesimpulan: Kunci Jawaban 0,4."
+          "bahas": "Langkah 1: Menggunakan rumus peluang bersyarat $P(B|A)$:\n$$P(B|A) = \\frac{P(A \\cap B)}{P(A)}$$\n\nLangkah 2: Mensubstitusikan $P(A \\cap B) = 0{,}12$ dan $P(A) = 0{,}3$:\n$$P(B|A) = \\frac{0{,}12}{0{,}3} = 0{,}4$$\nKesimpulan: Kunci Jawaban 0,4."
         }
       ]
     },
