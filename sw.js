@@ -16,7 +16,7 @@
 //    permintaan navigasi, sehingga halaman gagal terbuka sama sekali. Karena
 //    itu yang disimpan hanya alamat kanonik ('/' dan '/11'), dan respons yang
 //    ternyata hasil pantulan tidak pernah dipakai untuk navigasi.
-const VERSI = 'mathcihuy-2-tingkat-2';
+const VERSI = 'mathcihuy-v1788158309';
 
 // Hanya alamat kanonik -- jangan pernah menambahkan yang berakhiran .html.
 const HALAMAN = ['./', './11'];
@@ -27,6 +27,7 @@ const ASET = [
 ];
 
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   e.waitUntil(
     caches.open(VERSI).then((c) =>
       // Satu berkas yang gagal tidak boleh menggagalkan seluruh pemasangan,
