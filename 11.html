@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788158638">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788161961">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -30,7 +30,7 @@
 
   <!-- 100% INLINE OFFLINE KATEX ASSETS -->
   <!-- gaya dipindah ke mathcihuy.css -->
-  <script src="vendor.js?v=v1788158638"></script>
+  <script src="vendor.js?v=v1788161961"></script>
 <!-- digabung ke vendor.js -->
 
   <!-- gaya dipindah ke mathcihuy.css -->
@@ -227,97 +227,51 @@
         </button>
       </div>
 
-      <!-- 4 FEATURED STREAM CARDS (GRID 2x2) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
+      <!-- FOCUSED QUICK ACCESS BANNER (NAVIGASI UTAMA DI SIDEBAR) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
         
-        <!-- CARD 1: WAJIB -->
-        <div class="p-4 bg-slate-950/90 rounded-2xl border border-blue-500/30 hover:border-blue-400/60 shadow-xl flex flex-col justify-between space-y-3 transition group hover:scale-[1.02]">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-400/40 flex items-center justify-center text-blue-400 text-lg shadow-sm">
-                <i class="fa-solid fa-shapes"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-[10px] font-bold">16 JP • <span id="jml-wajib-kartu">21</span> Pertemuan</span>
+        <!-- CARD 1: BUKA MENU KURIKULUM LENGKAP -->
+        <div onclick="toggleCurriculumDrawer()" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-amber-500/40 hover:border-amber-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg group-hover:bg-amber-500 group-hover:text-slate-950 transition shadow-sm">
+              <i class="fa-solid fa-bars-staggered"></i>
             </div>
             <div>
-              <h3 class="text-sm md:text-base font-extrabold text-white group-hover:text-blue-300 transition">Matematika Wajib</h3>
-              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                Materi inti yang keluar di Asesmen Sekolah dan TKA. Mulai dari sini kalau bingung mau mulai dari mana.
-              </p>
+              <h3 class="text-sm font-extrabold text-white group-hover:text-amber-300 transition">Struktur Kurikulum</h3>
+              <p class="text-[11px] text-slate-400 mt-0.5">Buka daftar bab & sub-menu pertemuan di sidebar</p>
             </div>
           </div>
-          <button onclick="switchSubject('wajib')" class="w-full py-2 bg-blue-600/80 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
-            <span id="tombol-wajib-kartu">Buka 21 Pertemuan</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-          </button>
+          <i class="fa-solid fa-chevron-right text-amber-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
         </div>
 
-        <!-- CARD 2: MINAT -->
-        <div data-gate="minat" class="p-4 bg-slate-950/90 rounded-2xl border border-amber-500/30 hover:border-amber-400/60 shadow-xl flex flex-col justify-between space-y-3 transition group hover:scale-[1.02]">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg shadow-sm">
-                <i class="fa-solid fa-infinity"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold">8 JP • <span id="jml-minat-kartu">30</span> Pertemuan</span>
+        <!-- CARD 2: DRILLING CBT TKA & UTBK -->
+        <div onclick="switchSubject('tka')" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-purple-500/40 hover:border-purple-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-400 text-lg group-hover:bg-purple-500 group-hover:text-slate-950 transition shadow-sm">
+              <i class="fa-solid fa-laptop-code"></i>
             </div>
             <div>
-              <h3 class="text-sm md:text-base font-extrabold text-white group-hover:text-amber-300 transition">Matematika Peminatan</h3>
-              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                Bagian yang menaikkan nilai UTBK. Lebih dalam, lebih menantang, dan lebih puas waktu ketemu jawabannya.
-              </p>
+              <h3 class="text-sm font-extrabold text-white group-hover:text-purple-300 transition">Arena CBT & Drilling</h3>
+              <p class="text-[11px] text-slate-400 mt-0.5">Latihan 570 butir soal TKA & UTBK-SNBT 2027</p>
             </div>
           </div>
-          <button onclick="switchSubject('minat')" class="w-full py-2 bg-amber-600/80 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
-            <span id="tombol-minat-kartu">Buka 30 Pertemuan</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-          </button>
+          <i class="fa-solid fa-chevron-right text-purple-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
         </div>
 
-        <!-- CARD 3: CLIL -->
-        <div data-gate="clil" class="p-4 bg-slate-950/90 rounded-2xl border border-emerald-500/30 hover:border-emerald-400/60 shadow-xl flex flex-col justify-between space-y-3 transition group hover:scale-[1.02]">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 text-lg shadow-sm">
-                <i class="fa-solid fa-language"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold">English • <span id="jml-clil-kartu">6</span> Labs</span>
+        <!-- CARD 3: RUMUS SAKU & PETA KONSEP -->
+        <div onclick="openRumusSaku()" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-cyan-500/40 hover:border-cyan-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 text-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition shadow-sm">
+              <i class="fa-solid fa-book-bookmark"></i>
             </div>
             <div>
-              <h3 class="text-sm md:text-base font-extrabold text-white group-hover:text-emerald-300 transition">CLIL English Stream</h3>
-              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                Matematika yang sama, bahasanya Inggris. Supaya waktu ketemu soal berbahasa Inggris kamu tidak kaget.
-              </p>
+              <h3 class="text-sm font-extrabold text-white group-hover:text-cyan-300 transition">Rumus Saku & Teori</h3>
+              <p class="text-[11px] text-slate-400 mt-0.5">Rangkuman rumus cepat & pembuktian teorema</p>
             </div>
           </div>
-          <button onclick="switchSubject('clil')" class="w-full py-2 bg-emerald-600/80 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
-            <span>Enter CLIL Stream</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-          </button>
+          <i class="fa-solid fa-chevron-right text-cyan-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
         </div>
 
-        <!-- CARD 4: CBT -->
-        <div class="p-4 bg-slate-950/90 rounded-2xl border border-purple-500/30 hover:border-purple-400/60 shadow-xl flex flex-col justify-between space-y-3 transition group hover:scale-[1.02]">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <div class="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-400 text-lg shadow-sm">
-                <i class="fa-solid fa-laptop-code"></i>
-              </div>
-              <span class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-mono text-[10px] font-bold"><span id="jml-soal-kartu">570</span> Soal CBT</span>
-            </div>
-            <div>
-              <h3 class="text-sm md:text-base font-extrabold text-white group-hover:text-purple-300 transition">Drilling CBT TKA & UTBK</h3>
-              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                Latihan dengan tampilan dan hitungan waktu seperti ujian aslinya. Salah di sini gratis &mdash; salah di sana mahal.
-              </p>
-            </div>
-          </div>
-          <button onclick="switchSubject('tka')" class="w-full py-2 bg-purple-600/80 hover:bg-purple-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
-            <span>Buka Arena CBT</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-          </button>
-        </div>
-
-      </div>
-
-      <!-- NAVIGASI PERTEMUAN / KURIKULUM HUB -->
-      <div id="home-curriculum-hub" class="space-y-3 pt-2">
       </div>
 
       <!-- SECTION 1: CLEAN VISUAL JADWAL KBM KELAS XI -->
@@ -1115,8 +1069,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xi.js?v=v1788158638"></script>
-  <script src="app.js?v=v1788158638"></script>
+  <script src="data-xi.js?v=v1788161961"></script>
+  <script src="app.js?v=v1788161961"></script>
 
 
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
@@ -1217,7 +1171,7 @@
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v1788158638"></script>
+    <script src="app-akhir.js?v=v1788161961"></script>
 
 </body>
 </html>
