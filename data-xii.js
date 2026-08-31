@@ -5301,7 +5301,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Sejajar"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Periksa apakah kedua garis punya titik persekutuan. Rusuk $AB$ berada pada alas, sedangkan $CG$ adalah rusuk tegak di titik $C$; keduanya tidak berpotongan dan tidak sejajar, sehingga bersilangan.\n\nLangkah 2: Untuk mengukur sudutnya, geser $AB$ sejajar hingga menjadi $DC$, yang bertemu $CG$ di titik $C$.\n\nLangkah 3: Karena $DC$ terletak pada alas dan $CG$ tegak lurus alas, sudut antara keduanya $90^\\circ$. Jadi $AB$ dan $CG$ bersilangan tegak lurus.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Mengidentifikasi posisi kedua garis pada kubus ABCD.EFGH:\n- Garis AB terletak pada bidang alas $ABCD$ dan membentang dari kiri depan ke kanan depan.\n- Garis CG adalah rusuk tegak di kanan belakang yang tegak lurus bidang alas.\n\nLangkah 2: Memeriksa sifat geometris hubungan kedua garis:\n- Garis AB dan CG tidak terletak pada satu bidang datar yang sama (non-koplanar).\n- Garis AB dan CG tidak berpotongan dan juga tidak saling sejajar.\n\nLangkah 3: Menarik kesimpulan kedudukan garis:\nDua garis yang tidak sebidang, tidak berpotongan, dan tidak sejajar dalam ruang dimensi tiga didefinisikan sebagai **garis saling bersilangan (skew lines)**.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5325,7 +5325,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Garis DE"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Dua garis sejajar bila arahnya sama dan terletak pada bidang yang sama.\n\nLangkah 2: Garis $AH$ adalah diagonal sisi pada bidang $ADHE$. Pasangannya di sisi seberang adalah bidang $BCGF$.\n\nLangkah 3: Diagonal pada $BCGF$ yang searah dengan $AH$ adalah $BG$, karena $ABGH$ membentuk persegi panjang. Jadi $AH \\parallel BG$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Mengidentifikasi posisi titik E dan bidang BDHF:\n- Bidang $BDHF$ adalah bidang diagonal vertikal yang memuat rusuk-rusuk $BD, DH, HF,$ dan $FB$.\n- Titik E adalah salah satu titik sudut pada bidang atas $EFGH$.\n\nLangkah 2: Memeriksa apakah titik E termuat dalam bidang BDHF:\nBidang $BDHF$ membagi kubus secara diagonal dari kiri belakang ke kanan depan. Titik E terletak di kiri atas depan, di luar bidang tersebut.\n\nLangkah 3: Menentukan kedudukan titik:\nTitik E berada **di luar bidang BDHF**.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5347,8 +5347,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2 bidang",
             "E. 6 bidang"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Bidang diagonal kubus adalah persegi panjang yang dibentuk oleh dua rusuk berhadapan dan dua diagonal sisi.\n\nLangkah 2: Daftarkan seluruhnya: $ACGE$, $BDHF$, $ABGH$, $CDEF$, $ADGF$, dan $BCHE$.\n\nLangkah 3: Jumlahnya $6$ bidang diagonal. Setiap pasang sisi berhadapan menyumbang satu bidang diagonal, dan kubus punya $3$ pasang sisi, masing-masing dengan $2$ arah diagonal.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Mengidentifikasi orientasi kedua bidang diagonal:\n- Bidang $ACGE$ memuat diagonal bidang alas $AC$ dan diagonal bidang atas $EG$.\n- Bidang $BDHF$ memuat diagonal bidang alas $BD$ dan diagonal bidang atas $FH$.\n\nLangkah 2: Memeriksa perpotongan garis dasar kedua bidang:\nPada bidang alas persegi $ABCD$, diagonal sisi $AC$ berpotongan tegak lurus dengan diagonal sisi $BD$ ($AC \\perp BD$).\n\nLangkah 3: Menentukan hubungan kedua bidang:\nKarena dua garis penentu bidang saling tegak lurus ($90^\\circ$), maka bidang diagonal **ACGE saling tegak lurus terhadap bidang BDHF**.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5367,8 +5367,8 @@ const NAMA_TINGKAT = 'XII';
             "D. AE, BF, CG, DH",
             "E. AC, BD"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Garis tegak lurus bidang alas berarti garis itu membentuk sudut $90^\\circ$ terhadap setiap garis pada alas.\n\nLangkah 2: Pada kubus, rusuk-rusuk tegaklah yang menghubungkan alas $ABCD$ dengan tutup $EFGH$.\n\nLangkah 3: Rusuk tegak tersebut adalah $AE$, $BF$, $CG$, dan $DH$.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Mengidentifikasi sifat kubus ABCD.EFGH:\nKubus memiliki 6 bidang sisi berbentuk persegi kongruen: $ABCD$ (alas), $EFGH$ (atas), $ABFE$ (depan), $DCGH$ (belakang), $ADHE$ (kiri), dan $BCGF$ (kanan).\n\nLangkah 2: Menghitung banyak rusuk kubus:\nTerdapat 4 rusuk alas, 4 rusuk atas, dan 4 rusuk tegak $\\implies$ total ada **12 rusuk**.\n\nLangkah 3: Menghitung pasangan rusuk sejajar:\nSetiap rusuk sejajar dengan 3 rusuk lainnya (total membentuk 3 kelompok arah rusuk saling sejajar yang masing-masing berisi 4 rusuk). Banyak rusuk pada kubus adalah **12 rusuk**.\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5385,8 +5385,8 @@ const NAMA_TINGKAT = 'XII';
             "Garis AB bersilangan tegak lurus dengan garis CG",
             "Garis AB sejajar dengan garis CD"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nTitik A dan titik C keduanya merupakan titik sudut bidang ABCD, sehingga garis AC terletak sepenuhnya di dalam bidang ABCD, bukan di luar.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nGaris AB dan CG tidak sebidang, tidak berpotongan, dan arah vektornya membentuk sudut $90^\\circ$ (bersilangan tegak lurus).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPada persegi ABCD, sisi yang berhadapan AB dan CD saling sejajar dan sebidang.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nGaris AB dan DC sama-sama terletak pada bidang alas $ABCD$ dan berhadapan searah $\\implies$ saling sejajar.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nBidang alas $ABCD$ dan bidang atas $EFGH$ memiliki jarak konstan sebesar rusuk kubus dan tidak berpotongan $\\implies$ saling sejajar.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nGaris AH terletak pada bidang kiri $ADHE$, sedangkan garis BG terletak pada bidang kanan $BCGF$. Keduanya saling sejajar dan sebidang dalam bidang diagonal $ABGH$, bukan saling bersilangan.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5410,7 +5410,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 12 pasang"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Kubus memiliki $12$ rusuk yang terbagi ke dalam tiga arah, masing-masing $4$ rusuk sejajar.\n\nLangkah 2: Ambil satu rusuk. Rusuk yang tegak lurus terhadapnya ada $8$ (yaitu seluruh rusuk pada dua arah lainnya), dan $4$ di antaranya berpotongan dengannya, sehingga yang bersilangan tegak lurus ada $8 - 4 = 4$.\n\nLangkah 3: Hitung seluruh pasangan: $12 \\times 4 = 48$, tetapi tiap pasangan terhitung dua kali.\n\nLangkah 4: Bagi dua: $\\frac{48}{2} = 24$ pasang.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menghitung banyak titik sudut pada kubus:\nKubus $ABCD.EFGH$ memiliki $n = 8$ titik sudut.\n\nLangkah 2: Menghitung total kombinasi 2 titik dari 8 titik sudut:\n$$C(8, 2) = \\frac{8 \\times 7}{2 \\times 1} = 28 \\text{ segmen garis}$$\n\nLangkah 3: Menguraikan klasifikasi segmen garis:\n- 12 segmen merupakan Rusuk Kubus ($s$).\n- 12 segmen merupakan Diagonal Sisi/Bidang ($s\\sqrt{2}$).\n- 4 segmen merupakan Diagonal Ruang ($s\\sqrt{3}$).\nTotal segmen $= 12 + 12 + 4 = 28$ garis.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5429,8 +5429,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Membentuk sudut 45 derajat",
             "E. Berimpit"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Kedua bidang sama-sama memuat rusuk tegak, sehingga keduanya berdiri tegak terhadap alas dan pasti saling berpotongan, bukan sejajar.\n\nLangkah 2: Perpotongannya adalah garis tegak yang melalui titik pusat alas. Sudut antara kedua bidang sama dengan sudut antara $AC$ dan $BD$ pada alas.\n\nLangkah 3: Diagonal alas persegi selalu berpotongan tegak lurus, sehingga kedua bidang diagonal itu saling tegak lurus.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan garis persekutuan kedua bidang:\n- Bidang $ABGH$ memuat titik $A, B, G, H$.\n- Bidang $ABCD$ memuat titik $A, B, C, D$.\n\nLangkah 2: Mengidentifikasi titik-titik yang sama pada kedua bidang:\nKedua bidang sama-sama memuat titik $A$ dan titik $B$.\n\nLangkah 3: Menentukan garis potong:\nGaris persekutuan (garis potong) dari bidang $ABGH$ dan bidang $ABCD$ adalah **garis AB**.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5453,8 +5453,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Bidang BDG sejajar dengan bidang alas ABCD.",
             "E. Garis AH sejajar dengan garis BG."
           ],
-          "kunci": "A, B, C, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\nRusuk tegak $EA \\perp AB$ dan $EA \\perp AD \\implies EA \\perp \\text{bidang } ABCD$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nBidang depan ABFE sejajar dengan bidang belakang DCGH.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nDiagonal ruang AG dan EC berpotongan tepat di titik perpotongan diagonal pusat kubus.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nBidang BDG memotong bidang alas ABCD pada garis BD, sehingga tidak sejajar.\n$\\implies$ Pernyataan D SALAH.\n\nLangkah 5: Analisis Opsi E:\nPada bidang diagonal ABGH, ruas garis AH sejajar dengan BG.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E.",
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Analisis seluruh pernyataan kedudukan garis dan bidang:\n- A: Garis AE tegak lurus bidang ABCD karena AE adalah rusuk tegak (BENAR).\n- B: Garis AD sejajar garis FG (keduanya sejajar sumbu y) (BENAR).\n- C: Bidang AFH dan bidang BDG saling sejajar (BENAR).\n- D: Garis EC adalah salah satu dari 4 diagonal ruang kubus (BENAR).\n- E: Titik tengah rusuk AB terletak pada bidang alas ABCD (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5473,8 +5473,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $1 : 2$",
             "E. $1 : 1$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Tetapkan koordinat dengan rusuk $a$: $A(0,0,0)$, $G(a,a,a)$, lalu $C(a,a,0)$, $F(a,0,a)$, dan $H(0,a,a)$. Titik pada diagonal $AG$ dapat ditulis $P = t(a,a,a)$ dengan $0 \\le t \\le 1$.\n\nLangkah 2: Cari persamaan bidang $CFH$. Ketiga titiknya memenuhi $x+y+z = 2a$, karena $a+a+0 = a+0+a = 0+a+a = 2a$.\n\nLangkah 3: Substitusikan $P$ ke bidang itu: $ta + ta + ta = 2a \\implies 3t = 2 \\implies t = \\frac{2}{3}$.\n\nLangkah 4: Titik potongnya berada di $\\frac{2}{3}$ panjang $AG$ diukur dari $A$, sehingga $AP : PG = \\frac{2}{3} : \\frac{1}{3} = 2 : 1$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Mengidentifikasi bidang diagonal pada kubus ABCD.EFGH:\nBidang diagonal kubus menghubungkan dua rusuk berhadapan yang tidak sebidang.\n\nLangkah 2: Mendaftarkan seluruh 6 bidang diagonal:\n1. $ACGE$\n2. $BDHF$\n3. $ABGH$\n4. $CDEF$\n5. $ADGF$\n6. $BCHE$\n\nLangkah 3: Menghitung total:\nTerdapat tepat **6 bidang diagonal** pada kubus.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5490,8 +5490,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P09-Q10] Banyaknya rusuk pada prisma segi-6 beraturan adalah ...",
           "opsi": [],
-          "kunci": "18",
-          "bahas": "Langkah 1: Prisma segi-$n$ memiliki tiga kelompok rusuk: rusuk alas, rusuk tutup, dan rusuk tegak.\n\nLangkah 2: Masing-masing kelompok berisi $n$ rusuk, sehingga totalnya $3n$.\n\nLangkah 3: Substitusikan $n = 6$: $3(6) = 18$ rusuk.\nKesimpulan: Kunci Jawaban 18.",
+          "kunci": "4",
+          "bahas": "Langkah 1: Definisi diagonal ruang:\nDiagonal ruang adalah ruas garis yang menghubungkan dua titik sudut yang saling berhadapan melintasi ruang dalam kubus.\n\nLangkah 2: Mendaftarkan 4 diagonal ruang kubus ABCD.EFGH:\n1. Ruas garis $AG$\n2. Ruas garis $BH$\n3. Ruas garis $CE$\n4. Ruas garis $DF$\n\nLangkah 3: Menghitung banyak diagonal ruang:\nTerdapat tepat **4 diagonal ruang**.\nKesimpulan: Kunci Jawaban 4.",
           "viz": {
             "t": "ruang",
             "shape": "prisma"
@@ -5518,7 +5518,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 8√6 cm"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Diagonal ruang kubus dihitung dengan $d = s\\sqrt{3}$, yang berasal dari Pythagoras dua kali: sekali pada alas, sekali pada bidang tegak.\n\nLangkah 2: Substitusikan $s = 8$: $d = 8\\sqrt{3}$.\n\nLangkah 3: Jadi panjang $AG$ adalah $8\\sqrt{3}$ cm.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus diagonal ruang kubus dengan rusuk $s$:\nPanjang diagonal ruang kubus memenuhi rumus:\n$$d_{\\text{ruang}} = s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan panjang rusuk $s = 8$ cm:\n$$AG = 8\\sqrt{3} \\text{ cm}$$\n\nLangkah 3: Pembuktian dengan Teorema Pythagoras 3D:\n$$AG = \\sqrt{AB^2 + BC^2 + CG^2} = \\sqrt{8^2 + 8^2 + 8^2} = \\sqrt{64 \\times 3} = 8\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5540,8 +5540,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 9 cm",
             "E. 8 cm"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Tetapkan koordinat dengan $A(0,0,0)$, sehingga $C(6,6,0)$ dan $G(6,6,6)$. Titik $P$ di tengah $CG$ berkoordinat $(6,6,3)$.\n\nLangkah 2: Gunakan rumus jarak ruang $d = \\sqrt{x^2+y^2+z^2}$: $AP = \\sqrt{6^2+6^2+3^2}$.\n\nLangkah 3: Hitung hasilnya: $\\sqrt{36+36+9} = \\sqrt{81} = 9$ cm.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan koordinat atau segitiga siku-siku yang memuat jarak titik A ke titik tengah CG (titik M):\n- Rusuk kubus $s = 6$ cm.\n- Titik M berada di tengah rusuk $CG \\implies CM = \\frac{1}{2}(6) = 3$ cm.\n- Titik A dan C dihubungkan oleh diagonal sisi alas $AC = s\\sqrt{2} = 6\\sqrt{2}$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle ACM$ yang siku-siku di titik C:\n$$AM = \\sqrt{AC^2 + CM^2}$$\n\nLangkah 3: Mensubstitusikan nilai panjang ruas garis:\n$$AM = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = \\sqrt{81} = 9 \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5563,8 +5563,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 30 cm",
             "E. 28 cm"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Diagonal ruang balok dihitung dengan $d = \\sqrt{p^2+l^2+t^2}$.\n\nLangkah 2: Substitusikan $p = 8$, $l = 6$, dan $t = 24$: $d = \\sqrt{64+36+576}$.\n\nLangkah 3: Hitung hasilnya: $\\sqrt{676} = 26$ cm.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Mengidentifikasi rumus diagonal ruang balok dengan panjang $p$, lebar $l$, dan tinggi $t$:\n$$d_{\\text{ruang}} = \\sqrt{p^2 + l^2 + t^2}$$\n\nLangkah 2: Mensubstitusikan ukuran balok $p = 12$ cm, $l = 4$ cm, dan $t = 3$ cm:\n$$d = \\sqrt{12^2 + 4^2 + 3^2} = \\sqrt{144 + 16 + 9}$$\n\nLangkah 3: Menyelesaikan akar kuadrat:\n$$d = \\sqrt{169} = 13 \\text{ cm}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "balok",
@@ -5586,8 +5586,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 10√3 cm",
             "E. 5√6 cm"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Tetapkan koordinat dengan $A(0,0,0)$, $B(10,0,0)$, $D(0,10,0)$, dan $E(0,0,10)$.\n\nLangkah 2: Tentukan kedua titik. $M$ di tengah $AD$ berkoordinat $(0,5,0)$, dan $N$ di tengah $GH$ berkoordinat $(5,10,10)$.\n\nLangkah 3: Gunakan rumus jarak ruang: $MN = \\sqrt{5^2+5^2+10^2} = \\sqrt{25+25+100}$.\n\nLangkah 4: Hitung hasilnya: $\\sqrt{150} = 5\\sqrt{6}$ cm.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan posisi titik P dan titik Q pada kubus berusuk 10 cm:\n- Titik P adalah titik tengah rusuk AB $\\implies P(5, 0, 0)$.\n- Titik Q adalah titik tengah rusuk GH $\\implies Q(5, 10, 10)$.\n\nLangkah 2: Menghitung selisih koordinat antar kedua titik:\n$$\\Delta x = 5 - 5 = 0, \\quad \\Delta y = 10 - 0 = 10, \\quad \\Delta z = 10 - 0 = 10$$\n\nLangkah 3: Menerapkan rumus jarak Euclid 3D:\n$$PQ = \\sqrt{0^2 + 10^2 + 10^2} = \\sqrt{100 + 100} = \\sqrt{200} = 10\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5608,7 +5608,7 @@ const NAMA_TINGKAT = 'XII';
             "Jarak titik tengah AB ke titik tengah GH adalah 8 akar(3) cm"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nPanjang diagonal bidang $AC = \\sqrt{8^2 + 8^2} = 8\\sqrt{2}$ cm.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPanjang diagonal ruang $AG = \\sqrt{8^2 + 8^2 + 8^2} = 8\\sqrt{3}$ cm.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nMisal P titik tengah AB dan Q titik tengah GH. Vektor perpindahan: $\\Delta x = 0$, $\\Delta y = 8$, $\\Delta z = 8$. Jarak $PQ = \\sqrt{0^2 + 8^2 + 8^2} = 8\\sqrt{2}$ cm, bukan $8\\sqrt{3}$ cm.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nPanjang diagonal sisi kubus berusuk $s$ adalah $s\\sqrt{2}$. Untuk $s = 6$ cm, diagonal sisi $= 6\\sqrt{2}$ cm.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPanjang diagonal ruang kubus berusuk $s$ adalah $s\\sqrt{3}$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJarak titik A ke titik C adalah diagonal sisi alas $s\\sqrt{2}$, bukan $s\\sqrt{3}$ (diagonal ruang).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5631,8 +5631,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 24 cm",
             "E. 6√6 cm"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: $A$ dan $C$ adalah dua titik sudut berseberangan pada bidang alas, sehingga $AC$ adalah diagonal sisi.\n\nLangkah 2: Diagonal sisi kubus dihitung dengan $d = s\\sqrt{2}$, dari Pythagoras pada persegi alas.\n\nLangkah 3: Substitusikan $s = 12$: $d = 12\\sqrt{2}$ cm.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan posisi titik puncak T dan pusat alas O pada limas T.ABCD:\n- Alas berbentuk persegi dengan rusuk alas $s = 6$ cm.\n- Diagonal alas $AC = s\\sqrt{2} = 6\\sqrt{2}$ cm $\\implies AO = \\frac{1}{2}AC = 3\\sqrt{2}$ cm.\n- Rusuk tegak $TA = 6$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle TOA$ yang siku-siku di titik O:\n$$TO = \\sqrt{TA^2 - AO^2}$$\n\nLangkah 3: Menghitung nilai tinggi limas:\n$$TO = \\sqrt{6^2 - (3\\sqrt{2})^2} = \\sqrt{36 - 18} = \\sqrt{18} = 3\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5652,7 +5652,7 @@ const NAMA_TINGKAT = 'XII';
             "E. √34 cm"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: $TA$ adalah sisi miring segitiga siku-siku $TOA$, dengan $TO$ tinggi limas dan $OA$ setengah diagonal alas.\n\nLangkah 2: Hitung $OA$. Diagonal alas persegi rusuk $6$ adalah $6\\sqrt{2}$, sehingga $OA = 3\\sqrt{2}$.\n\nLangkah 3: Terapkan Pythagoras: $TA = \\sqrt{TO^2 + OA^2} = \\sqrt{4^2 + \\left(3\\sqrt{2}\\right)^2} = \\sqrt{16+18}$.\n\nLangkah 4: Hitung hasilnya: $\\sqrt{34}$ cm.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menentukan koordinat titik potong diagonal:\n- Titik P pada bidang alas $ABCD \\implies P(2, 2, 0)$ pada kubus berusuk 4 cm.\n- Titik Q pada bidang atas $EFGH \\implies Q(2, 2, 4)$.\n\nLangkah 2: Menghitung jarak antara kedua titik:\nRuas garis PQ tegak lurus bidang alas dan sejajar rusuk tegak kubus.\n\nLangkah 3: Menentukan panjang PQ:\n$$PQ = \\Delta z = 4 - 0 = 4 \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -5672,7 +5672,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Panjang ruas garis CP adalah 3 cm."
           ],
           "kunci": "A, B, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$AP = \\sqrt{AC^2 + CP^2} = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = \\sqrt{81} = 9$ cm.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$BP = \\sqrt{BC^2 + CP^2} = \\sqrt{6^2 + 3^2} = \\sqrt{36 + 9} = \\sqrt{45} = 3\\sqrt{5}$ cm.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$EP = \\sqrt{EG^2 + GP^2} = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = 9$ cm, bukan $3\\sqrt{5}$ cm.\n$\\implies$ Pernyataan C SALAH.\n\nLangkah 4: Analisis Opsi D:\n$DP = \\sqrt{DC^2 + CP^2} = \\sqrt{6^2 + 3^2} = \\sqrt{45} = 3\\sqrt{5}$ cm.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$CP = \\frac{1}{2} CG = \\frac{1}{2}(6) = 3$ cm.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, D, E.",
+          "bahas": "Langkah 1: Analisis sifat metrik kubus ABCD.EFGH berusuk 6 cm:\n- A: Diagonal ruang $AG = 6\\sqrt{3}$ cm (BENAR).\n- B: Diagonal sisi $BD = 6\\sqrt{2}$ cm (BENAR).\n- C: Jarak A ke C adalah $6\\sqrt{2}$ cm, bukan 6 cm (SALAH).\n- D: Jarak A ke G adalah diagonal ruang $6\\sqrt{3}$ cm (BENAR).\n- E: Jarak E ke C adalah diagonal ruang $6\\sqrt{3}$ cm (BENAR).\nKesimpulan: Kunci Jawaban A, B, D, E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5694,8 +5694,8 @@ const NAMA_TINGKAT = 'XII';
             "D. a√2",
             "E. 1/2 a√6"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Tetapkan koordinat dengan rusuk $a$: $B(a,0,0)$, $C(a,a,0)$, $E(0,0,a)$, dan $F(a,0,a)$.\n\nLangkah 2: Tentukan kedua titik tengahnya. Tengah $EF$ berada di $\\left(\\frac{a}{2}, 0, a\\right)$ dan tengah $BC$ berada di $\\left(a, \\frac{a}{2}, 0\\right)$.\n\nLangkah 3: Hitung selisih tiap sumbunya: $\\Delta x = \\frac{a}{2}$, $\\Delta y = \\frac{a}{2}$, dan $\\Delta z = a$.\n\nLangkah 4: Terapkan rumus jarak ruang: $d = \\sqrt{\\frac{a^2}{4}+\\frac{a^2}{4}+a^2} = \\sqrt{\\frac{3a^2}{2}} = \\frac{a\\sqrt{6}}{2}$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Mengidentifikasi hubungan diagonal ruang dengan panjang rusuk:\n$$d = s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan nilai diagonal ruang yang diketahui $d = 12\\sqrt{3}$ cm:\n$$s\\sqrt{3} = 12\\sqrt{3}$$\n\nLangkah 3: Membagi kedua ruas dengan $\\sqrt{3}$:\n$$s = 12 \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5712,8 +5712,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P10-Q10] Kuadrat jarak diagonal ruang balok berukuran $3 \\times 4 \\times 12$ adalah ...",
           "opsi": [],
-          "kunci": "169",
-          "bahas": "Langkah 1: Kuadrat diagonal ruang balok memenuhi $d^2 = p^2 + l^2 + t^2$, sehingga tidak perlu diakarkan.\n\nLangkah 2: Substitusikan $3$, $4$, dan $12$: $d^2 = 9 + 16 + 144$.\n\nLangkah 3: Jumlahkan: $d^2 = 169$.\nKesimpulan: Kunci Jawaban 169.",
+          "kunci": "10",
+          "bahas": "Langkah 1: Menghitung diagonal ruang balok berukuran $p = 6, l = 6, t = 2\\sqrt{7}$:\n$$d = \\sqrt{p^2 + l^2 + t^2}$$\n\nLangkah 2: Mensubstitusikan nilai ukuran:\n$$d = \\sqrt{6^2 + 6^2 + (2\\sqrt{7})^2} = \\sqrt{36 + 36 + 28} = \\sqrt{100}$$\n\nLangkah 3: Menghitung nilai akar:\n$$d = 10 \\text{ cm}$$\nKesimpulan: Kunci Jawaban 10.",
           "viz": {
             "t": "ruang",
             "shape": "balok"
@@ -5740,7 +5740,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/3 √3"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Sudut dibentuk oleh garis AG dan proyeksinya AC pada bidang alas.\n\nLangkah 2: $\\tan \\theta = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menentukan sudut antara garis diagonal ruang AG dan bidang alas ABCD:\n- Garis diagonal ruang $AG$ memiliki proyeksi pada bidang alas $ABCD$ berupa garis diagonal sisi $AC$.\n- Sudut yang terbentuk adalah $\\angle CAG = \\alpha$.\n\nLangkah 2: Menentukan sisi segitiga siku-siku $\\triangle ACG$ (siku-siku di C):\n- Sisi depan: $CG = s$ (rusuk tegak).\n- Sisi samping: $AC = s\\sqrt{2}$ (diagonal sisi alas).\n\nLangkah 3: Menghitung nilai tangen sudut $\\alpha$:\n$$\\tan\\alpha = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5763,7 +5763,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/3 √3"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Segitiga ACH adalah segitiga sama sisi karena $AC = CH = AH = s\\sqrt{2}$.\n\nLangkah 2: Sudut $\\angle HAC = 60^\\circ \\implies \\cos 60^\\circ = \\frac{1}{2}$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menentukan nilai sinus sudut antara diagonal ruang AG dan bidang alas ABCD:\nPada segitiga siku-siku $\\triangle ACG$:\n- Sisi depan $= CG = s$.\n- Sisi miring $= AG = s\\sqrt{3}$ (diagonal ruang).\n\nLangkah 2: Menghitung nilai sinus:\n$$\\sin\\alpha = \\frac{CG}{AG} = \\frac{s}{s\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5786,8 +5786,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 45 derajat",
             "E. 0 derajat (Sejajar)"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Bidang $ABFE$ dan $CDHG$ adalah dua sisi kubus yang saling berhadapan.\n\nLangkah 2: Dua sisi berhadapan pada kubus tidak pernah berpotongan, berapa pun diperpanjang, sehingga keduanya sejajar.\n\nLangkah 3: Sudut antara dua bidang sejajar adalah $0^\\circ$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan sudut dihedral antara bidang AFH dan bidang atas EFGH:\n- Perpotongan kedua bidang adalah garis $FH$.\n- Tarik garis tegak lurus dari titik sudut A ke FH $\\implies AO'$ pada bidang AFH.\n- Tarik garis tegak lurus dari pusat atas $O'$ ke FH $\\implies EO'$ pada bidang EFGH.\n- Sudut antara kedua bidang adalah $\\angle AO'E = \\theta$ pada $\\triangle AEO'$ (siku-siku di E).\n\nLangkah 2: Menentukan panjang sisi $\\triangle AEO'$:\n- $AE = s$\n- $EO' = \\frac{1}{2}s\\sqrt{2}$\n\nLangkah 3: Menghitung nilai tangen $\\theta$:\n$$\\tan\\theta = \\frac{AE}{EO'} = \\frac{s}{\\frac{1}{2}s\\sqrt{2}} = \\frac{2}{\\sqrt{2}} = \\sqrt{2}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5806,8 +5806,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2/3 √2",
             "E. 1/3 √3"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Sudut diwakili oleh segitiga siku-siku dengan tinggi $AE = s$ dan alas $EO = \\frac{1}{2}s\\sqrt{2}$.\n\nLangkah 2: Sisi miring $AO = \\sqrt{s^2 + \\frac{1}{2}s^2} = s\\sqrt{3/2} = \\frac{1}{2}s\\sqrt{6}$.\n\nLangkah 3: $\\sin \\theta = \\frac{s}{\\frac{1}{2}s\\sqrt{6}} = \\frac{2}{\\sqrt{6}} = \\frac{1}{3}\\sqrt{6}$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menentukan nilai kosinus sudut antara bidang AFH dan bidang EFGH:\nDari $\\tan\\theta = \\sqrt{2} = \\frac{\\sqrt{2}}{1}$:\n- Sisi depan $= \\sqrt{2}$\n- Sisi samping $= 1$\n- Sisi miring $= \\sqrt{(\\sqrt{2})^2 + 1^2} = \\sqrt{2 + 1} = \\sqrt{3}$\n\nLangkah 2: Menghitung nilai $\\cos\\theta$:\n$$\\cos\\theta = \\frac{\\text{samping}}{\\text{miring}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5824,8 +5824,8 @@ const NAMA_TINGKAT = 'XII';
             "Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat",
             "Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat"
           ],
-          "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nDiagonal CF sejajar DE. Sudut antara AH dan CF sama dengan sudut antara AH dan DE pada segitiga sama sisi ADH berusuk diagonal sisi, yaitu $60^\\circ$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPada segitiga siku-siku AEG (siku-siku di E), garis AG adalah hipotenusa, sehingga sudut $\\angle EAG$ lancip dengan $\\cos\\angle EAG = \\frac{1}{\\sqrt{3}}$, bukan $90^\\circ$.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nRusuk AB dan BC berpotongan siku-siku pada persegi ABCD dengan sudut $90^\\circ$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B.",
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nNilai tangen sudut diagonal ruang dengan alas adalah $\\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nSudut antara garis rusuk tegak AE dengan bidang alas ABCD adalah $90^\\circ$ (tegak lurus).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nSudut antara diagonal sisi AC dengan bidang alas ABCD adalah $0^\\circ$ karena garis AC terletak seluruhnya pada bidang alas.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5849,7 +5849,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Pernyataan (1) dan (2) tidak cukup"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Sudut antara diagonal ruang dan bidang alas kubus TIDAK bergantung pada ukuran rusuknya. Perbandingannya selalu tetap, yaitu $\\tan\\theta = \\frac{a}{a\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$.\n\nLangkah 2: Tinjau pernyataan (1) saja. Volume $1.000$ cm$^3$ memberi rusuk $10$ cm, sehingga kubusnya tertentu dan sudutnya dapat dihitung. CUKUP.\n\nLangkah 3: Tinjau pernyataan (2) saja. Diagonal sisi $10\\sqrt{2}$ cm juga memberi rusuk $10$ cm, sehingga sudutnya dapat dihitung. CUKUP.\n\nLangkah 4: Karena masing-masing pernyataan sudah cukup sendiri-sendiri, jawabannya adalah pernyataan (1) SAJA cukup dan (2) SAJA cukup.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan sudut antara diagonal sisi BG dan bidang alas ABCD:\n- Garis $BG$ terletak pada bidang sisi kanan $BCGF$.\n- Proyeksi garis BG pada bidang alas $ABCD$ adalah rusuk $BC$.\n- Sudut yang terbentuk adalah $\\angle CBG$ pada persegi $BCGF$.\n\nLangkah 2: Menghitung besar sudut:\nKarena $BCGF$ adalah persegi, diagonal sisinya membagi sudut siku-siku $90^\\circ$ menjadi dua sama besar:\n$$\\angle CBG = 45^\\circ$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5868,8 +5868,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 4/5",
             "E. 7/25"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Tinggi bidang tegak $h = \\sqrt{5^2 - 3^2} = 4$ cm.\n\nLangkah 2: Aturan cosinus pada segitiga apotema: $\\cos \\theta = \\frac{4^2 + 4^2 - 6^2}{2(4)(4)} = \\frac{16 + 16 - 36}{32} = \\frac{-4}{32} = -\\frac{1}{8}$ (atau $\\frac{7}{25}$ pada sudut lancip).\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan sudut antara bidang ABCD dan bidang ABFE:\nBidang alas $ABCD$ dan bidang depan $ABFE$ adalah dua sisi kubus yang saling berpotongan pada rusuk AB.\n\nLangkah 2: Menentukan sudut perpotongannya:\nKarena setiap sisi kubus yang bersebelahan selalu saling tegak lurus, sudut dihedralnya bernilai **90 derajat**.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -5888,8 +5888,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Besar sudut antara diagonal sisi AF dan CH adalah 60 derajat.",
             "E. Nilai sin(alpha) adalah akar(3)/3."
           ],
-          "kunci": "B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\nGaris AG terletak di dalam bidang ACGE, bukan tegak lurus.\n$\\implies$ Pernyataan A SALAH.\n\nLangkah 2: Analisis Opsi B:\n$\\cos\\alpha = \\frac{AC}{AG} = \\frac{a\\sqrt{2}}{a\\sqrt{3}} = \\frac{\\sqrt{6}}{3}$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$\\tan\\alpha = \\frac{CG}{AC} = \\frac{a}{a\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nDiagonal CH sejajar BG. Sudut antara AF dan BG pada segitiga sama sisi AFG adalah $60^\\circ$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$\\sin\\alpha = \\frac{CG}{AG} = \\frac{a}{a\\sqrt{3}} = \\frac{\\sqrt{3}}{3}$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban B, C, D, E.",
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Analisis trigonometri sudut garis dan bidang pada kubus:\n- A: $\\tan(\\text{diagonal ruang, alas}) = \\frac{1}{2}\\sqrt{2}$ (BENAR).\n- B: $\\sin(\\text{diagonal ruang, alas}) = \\frac{1}{3}\\sqrt{3}$ (BENAR).\n- C: $\\cos(\\text{diagonal ruang, alas}) = \\frac{\\sqrt{2}}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$ (BENAR).\n- D: $\\tan(\\text{bidang AFH, bidang EFGH}) = \\sqrt{2}$ (BENAR).\n- E: $\\cos(\\text{bidang AFH, bidang EFGH}) = \\frac{1}{3}\\sqrt{3}$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5912,7 +5912,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/√3"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Sudut antara dua garis dihitung dengan hasil kali titik vektor: $\\cos\\theta = \\frac{\\left|\\vec{u} \\cdot \\vec{v}\\right|}{\\left|\\vec{u}\\right|\\left|\\vec{v}\\right|}$.\n\nLangkah 2: Tetapkan koordinat dengan rusuk $a$. Diagonal $EC$ berarah $\\vec{u} = C - E = (a, a, -a)$, dan diagonal $AG$ berarah $\\vec{v} = G - A = (a, a, a)$.\n\nLangkah 3: Hitung hasil kali titiknya: $\\vec{u} \\cdot \\vec{v} = a^2 + a^2 - a^2 = a^2$. Panjang keduanya sama, yaitu $a\\sqrt{3}$.\n\nLangkah 4: Substitusikan: $\\cos\\theta = \\frac{a^2}{a\\sqrt{3} \\cdot a\\sqrt{3}} = \\frac{a^2}{3a^2} = \\frac{1}{3}$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menggunakan vektor arah diagonal ruang kubus berusuk $a$:\n- Vektor arah $EC = (a, a, -a)$\n- Vektor arah $AG = (a, a, a)$\n\nLangkah 2: Menghitung hasil kali titik (*dot product*):\n$$\\vec{u} \\cdot \\vec{v} = a^2 + a^2 - a^2 = a^2$$\n\nLangkah 3: Menghitung panjang vektor dan kosinus sudut:\n$$|\\vec{u}| = |\\vec{v}| = a\\sqrt{3}$$\n$$\\cos\\theta = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}| \\cdot |\\vec{v}|} = \\frac{a^2}{(a\\sqrt{3})(a\\sqrt{3})} = \\frac{a^2}{3a^2} = \\frac{1}{3}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5930,7 +5930,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P13-Q10] Besar sudut (dalam derajat) yang dibentuk antara bidang alas ABCD dan bidang diagonal ACGE pada kubus adalah ...",
           "opsi": [],
           "kunci": "90",
-          "bahas": "Langkah 1: Bidang $ACGE$ dibentuk oleh diagonal alas $AC$ beserta rusuk-rusuk tegak $AE$ dan $CG$.\n\nLangkah 2: Rusuk tegak kubus selalu tegak lurus terhadap bidang alas $ABCD$.\n\nLangkah 3: Karena bidang $ACGE$ memuat garis yang tegak lurus alas, bidang itu sendiri tegak lurus terhadap alas.\n\nLangkah 4: Jadi sudut yang terbentuk adalah $90^\\circ$.\nKesimpulan: Kunci Jawaban 90.",
+          "bahas": "Langkah 1: Mengidentifikasi bidang diagonal ACGE:\nBidang diagonal $ACGE$ dibentuk oleh diagonal sisi alas $AC$ dan rusuk-rusuk tegak $AE$ dan $CG$.\n\nLangkah 2: Memeriksa hubungan bidang ACGE dengan bidang alas ABCD:\nKarena rusuk $AE \\perp \\text{bidang } ABCD$, maka bidang $ACGE$ memuat garis yang tegak lurus bidang alas.\n\nLangkah 3: Menentukan besar sudut dihedral:\nBesar sudut yang dibentuk adalah **90 derajat**.\nKesimpulan: Kunci Jawaban 90.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5960,7 +5960,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 6√2 cm"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Tetapkan koordinat dengan rusuk $6$: $A(0,0,0)$, $B(6,0,0)$, $D(0,6,0)$, dan bidang atas berada pada $z = 6$.\n\nLangkah 2: Titik $P$ adalah perpotongan diagonal bidang $EFGH$, yaitu pusat bidang atas, sehingga $P(3,3,6)$.\n\nLangkah 3: Cari kaki tegak lurus dari $P$ ke diagonal $BD$. Karena $P$ berada tepat di atas pusat alas, kakinya adalah pusat alas itu sendiri, yaitu $(3,3,0)$ — titik ini memang terletak di tengah $BD$.\n\nLangkah 4: Hitung jaraknya: $\\sqrt{0^2+0^2+6^2} = 6$ cm, yaitu tepat setinggi rusuk kubus.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan posisi titik P dan diagonal sisi BD pada kubus berusuk 6 cm:\n- Titik P adalah titik perpotongan diagonal bidang atas $EFGH \\implies P(3, 3, 6)$.\n- Diagonal sisi BD terletak pada bidang alas dengan pusat alas $O(3, 3, 0)$.\n\nLangkah 2: Menentukan kaki garis tegak lurus dari titik P ke diagonal BD:\nKarena P terletak tepat vertikal di atas pusat alas O, proyeksi tegak lurus titik P ke diagonal BD adalah titik O itu sendiri.\n\nLangkah 3: Menghitung panjang segmen garis PO:\nJarak PO adalah ruas garis vertikal sejajar rusuk kubus:\n$$PO = \\Delta z = 6 - 0 = 6 \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5986,7 +5986,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 4√5 cm"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: $OA = 4\\sqrt{2}$ cm.\n\nLangkah 2: $TO = \\sqrt{12^2 - (4\\sqrt{2})^2} = \\sqrt{144 - 32} = \\sqrt{112} = 4\\sqrt{7}$ cm.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan ukuran limas segiempat beraturan T.ABCD:\n- Rusuk alas persegi $s = 8$ cm $\\implies$ diagonal alas $AC = 8\\sqrt{2}$ cm $\\implies AO = 4\\sqrt{2}$ cm.\n- Rusuk tegak $TA = 12$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras untuk menghitung tinggi limas TO:\n$$TO = \\sqrt{TA^2 - AO^2} = \\sqrt{12^2 - (4\\sqrt{2})^2} = \\sqrt{144 - 32} = \\sqrt{112}$$\n\nLangkah 3: Menyederhanakan bentuk akar:\n$$\\sqrt{112} = \\sqrt{16 \\times 7} = 4\\sqrt{7} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -6006,7 +6006,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 144"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Kuadrat diagonal ruang balok memenuhi $d^2 = p^2+l^2+t^2$.\n\nLangkah 2: Substitusikan $10$, $8$, dan $6$: $d^2 = 100 + 64 + 36$.\n\nLangkah 3: Jumlahkan: $d^2 = 200$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menggunakan rumus kuadrat panjang diagonal ruang balok:\n$$d^2 = p^2 + l^2 + t^2$$\n\nLangkah 2: Mensubstitusikan ukuran balok $p = 10$ cm, $l = 8$ cm, dan $t = 6$ cm:\n$$d^2 = 10^2 + 8^2 + 6^2 = 100 + 64 + 36$$\n\nLangkah 3: Menghitung nilai penjumlahan:\n$$d^2 = 200$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "balok",
@@ -6029,7 +6029,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 6 cm"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Bidang $CDHG$ adalah sisi kubus yang memuat rusuk $CD$, yaitu sisi belakang yang sejajar dengan sisi depan $ABFE$.\n\nLangkah 2: Titik tengah $AB$ terletak pada sisi depan. Jarak antara dua sisi berhadapan pada kubus selalu sama dengan panjang rusuknya.\n\nLangkah 3: Karena rusuknya $12$ cm, jaraknya juga $12$ cm.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi posisi titik dan bidang:\n- Titik tengah rusuk AB terletak pada bidang depan $ABFE$.\n- Bidang $CDHG$ adalah bidang sisi belakang kubus yang sejajar dengan bidang depan $ABFE$.\n\nLangkah 2: Menghitung jarak antara dua bidang sisi yang berhadapan:\nJarak antara bidang depan dan bidang belakang pada kubus sama dengan panjang rusuk kubus tersebut.\n\nLangkah 3: Menentukan jarak:\nKarena rusuk kubus adalah 12 cm, maka jaraknya adalah **12 cm**.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6053,7 +6053,7 @@ const NAMA_TINGKAT = 'XII';
             "Bidang ABCD dan bidang EFGH saling sejajar (sudut 0 derajat)"
           ],
           "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$\\tan\\theta = \\frac{CG}{CO} = \\frac{a}{\\frac{1}{2}a\\sqrt{2}} = \\frac{2}{\\sqrt{2}} = \\sqrt{2}$, bukan $1/2$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nBidang ABCD dan ABFE berpotongan pada rusuk AB membentuk sudut siku-siku $90^\\circ$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nDua bidang saling sejajar memiliki sudut kemiringan $0^\\circ$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSudut antara bidang BDG dan bidang ABCD memiliki $\\tan\\theta = \\frac{CG}{CO} = \\frac{a}{\\frac{1}{2}a\\sqrt{2}} = \\sqrt{2}$, bukan $1/2$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nBidang alas ABCD dan sisi depan ABFE berpotongan tegak lurus membentuk sudut $90^\\circ$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nDua bidang saling sejajar (ABCD dan EFGH) memiliki sudut kemiringan $0^\\circ$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6077,7 +6077,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Pernyataan (1) SAJA cukup dan (2) SAJA cukup"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Volume prisma dihitung dengan $V = L_{alas} \\times t$, sehingga dibutuhkan luas alas DAN tinggi.\n\nLangkah 2: Tinjau pernyataan (1) saja. Diketahui $L_{alas} = 24$ cm$^2$, tetapi tingginya belum diketahui. TIDAK CUKUP.\n\nLangkah 3: Tinjau pernyataan (2) saja. Diketahui $t = 15$ cm, tetapi luas alasnya belum diketahui. TIDAK CUKUP.\n\nLangkah 4: Gabungkan keduanya: $V = 24 \\times 15 = 360$ cm$^3$. Jadi kedua pernyataan diperlukan bersama-sama.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menggunakan rumus volume prisma tegak segitiga:\n$$V = L_{\\text{alas}} \\times t$$\n\nLangkah 2: Evaluasi masing-masing pernyataan:\n- Pernyataan (1) saja: Memberikan $L_{\\text{alas}} = 24 \\text{ cm}^2$, tetapi tinggi belum diketahui $\\implies$ Tidak Cukup.\n- Pernyataan (2) saja: Memberikan tinggi $t = 15 \\text{ cm}$, tetapi luas alas belum diketahui $\\implies$ Tidak Cukup.\n- Bersama-sama: $V = 24 \\times 15 = 360 \\text{ cm}^3 \\implies$ Cukup.\n\nLangkah 3: Kesimpulan kecukupan data:\nDUA pernyataan BERSAMA-SAMA cukup.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "prisma",
@@ -6100,7 +6100,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 4 cm"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Volume limas dihitung dengan $V = \\frac{1}{3} \\times L_{alas} \\times t$, dengan alas berupa persegi sehingga $L_{alas} = s^2$.\n\nLangkah 2: Substitusikan yang diketahui: $128 = \\frac{1}{3} \\times s^2 \\times 6 = 2s^2$.\n\nLangkah 3: Selesaikan: $s^2 = 64 \\implies s = 8$ cm.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menggunakan rumus volume limas segiempat:\n$$V = \\frac{1}{3} \\times L_{\\text{alas}} \\times t = \\frac{1}{3} \\times s^2 \\times t$$\n\nLangkah 2: Mensubstitusikan $V = 128 \\text{ cm}^3$ dan tinggi $t = 6$ cm:\n$$128 = \\frac{1}{3} \\times s^2 \\times 6 = 2s^2$$\n\nLangkah 3: Menyelesaikan untuk panjang rusuk sisi alas $s$:\n$$s^2 = \\frac{128}{2} = 64 \\implies s = \\sqrt{64} = 8 \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -6120,7 +6120,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Bidang AFH dan bidang BDG saling sejajar."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$AC \\perp BD \\implies$ bidang diagonal ACGE tegak lurus bidang BDHF ($90^\\circ$).\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$\\tan\\theta = \\frac{a}{\\frac{1}{2}a\\sqrt{2}} = \\sqrt{2}$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$\\cos\\theta = \\frac{\\frac{1}{2}a\\sqrt{2}}{\\frac{1}{2}a\\sqrt{6}} = \\frac{\\sqrt{3}}{3}$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$\\sin\\theta = \\frac{a}{\\frac{1}{2}a\\sqrt{6}} = \\frac{\\sqrt{6}}{3}$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nVektor normal kedua bidang identik berlawanan $\\implies$ saling sejajar.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
+          "bahas": "Langkah 1: Analisis seluruh pernyataan sifat sudut dihedral pada kubus:\n- A: Bidang ACGE dan BDHF tegak lurus ($90^\\circ$) karena $AC \\perp BD$ (BENAR).\n- B: $\\tan(\\text{bidang AFH, alas}) = \\sqrt{2}$ (BENAR).\n- C: $\\cos(\\text{bidang AFH, alas}) = \\frac{1}{3}\\sqrt{3}$ (BENAR).\n- D: $\\sin(\\text{bidang AFH, alas}) = \\frac{1}{3}\\sqrt{6}$ (BENAR).\n- E: Bidang AFH sejajar dengan bidang BDG (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6140,7 +6140,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 4√2 cm"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Proyeksi titik A ke bidang BDHF jatuh di titik potong diagonal alas O.\n\nLangkah 2: $AO = \\frac{1}{2} AC = \\frac{1}{2}(8\\sqrt{2}) = 4\\sqrt{2}$ cm.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menentukan posisi titik sudut A ke bidang diagonal BDHF pada kubus berusuk 8 cm:\n- Proyeksi tegak lurus titik A ke bidang diagonal BDHF jatuh tepat di titik potong diagonal alas $O$.\n\nLangkah 2: Menghitung panjang ruas garis AO:\nRuas garis AO adalah setengah dari panjang diagonal sisi alas $AC$:\n$$AO = \\frac{1}{2} AC = \\frac{1}{2}(8\\sqrt{2}) = 4\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6157,7 +6157,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P14-Q10] Luas seluruh permukaan kubus yang memiliki panjang diagonal ruang $4\\sqrt{3}$ cm adalah ... (dalam cm^2)",
           "opsi": [],
           "kunci": "96",
-          "bahas": "Langkah 1: Rusuk $s = 4$ cm.\n\nLangkah 2: Luas permukaan $= 6s^2 = 6(4^2) = 6(16) = 96$ cm^2.\nKesimpulan: Jawaban Akhir 96.\nKesimpulan: Kunci Jawaban 96.",
+          "bahas": "Langkah 1: Menentukan panjang rusuk kubus dari diagonal ruang $d = 4\\sqrt{3}$ cm:\n$$s\\sqrt{3} = 4\\sqrt{3} \\implies s = 4 \\text{ cm}$$\n\nLangkah 2: Menghitung luas seluruh permukaan kubus:\n$$L = 6s^2 = 6 \\times (4^2) = 6 \\times 16 = 96 \\text{ cm}^2$$\nKesimpulan: Kunci Jawaban 96.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6184,7 +6184,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 4√3 cm"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Segitiga ACG siku-siku di C dengan $AC = 12\\sqrt{2}, CG = 12, AG = 12\\sqrt{3}$.\n\nLangkah 2: Kesamaan luas: $d = \\frac{AC \\times CG}{AG} = \\frac{12\\sqrt{2} \\times 12}{12\\sqrt{3}} = 4\\sqrt{6}$ cm.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Membentuk segitiga pembantu $\\triangle ACG$:\n- Jarak titik C ke diagonal ruang AG dihitung melalui luas segitiga siku-siku $\\triangle ACG$ yang siku-siku di titik C.\n- Rusuk kubus $s = 12$ cm $\\implies CG = 12$ cm.\n- Diagonal sisi alas $AC = s\\sqrt{2} = 12\\sqrt{2}$ cm.\n- Diagonal ruang $AG = s\\sqrt{3} = 12\\sqrt{3}$ cm.\n\nLangkah 2: Menerapkan prinsip kesamaan luas segitiga ($\\frac{1}{2} \\cdot \\text{alas}_1 \\cdot \\text{tinggi}_1 = \\frac{1}{2} \\cdot \\text{alas}_2 \\cdot \\text{tinggi}_2$):\n$$AC \\times CG = AG \\times d$$\n$$(12\\sqrt{2}) \\times 12 = (12\\sqrt{3}) \\times d$$\n\nLangkah 3: Menyelesaikan dan merasionalkan penyebut:\n$$d = \\frac{12\\sqrt{2}}{\\sqrt{3}} = \\frac{12\\sqrt{2} \\times \\sqrt{3}}{3} = 4\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6206,8 +6206,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 3√3 cm",
             "E. 6√2 cm"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Proyeksi titik H ke AC jatuh tepat di titik potong diagonal alas O.\n\nLangkah 2: $d = HO = \\sqrt{HD^2 + DO^2} = \\sqrt{6^2 + (3\\sqrt{2})^2} = \\sqrt{36 + 18} = \\sqrt{54} = 3\\sqrt{6}$ cm.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan posisi titik dan garis pada kubus berusuk 8 cm:\n- Titik B adalah titik sudut alas depan kanan.\n- Garis EG adalah diagonal sisi pada bidang atas $EFGH$.\n- Proyeksi tegak lurus titik B ke garis EG jatuh tepat pada titik tengah diagonal EG (misalkan titik O').\n\nLangkah 2: Membentuk segitiga siku-siku $\\triangle B F O'$:\n- Rusuk tegak $BF = 8$ cm.\n- Jarak titik F ke titik tengah EG adalah setengah diagonal sisi: $FO' = \\frac{1}{2}(8\\sqrt{2}) = 4\\sqrt{2}$ cm.\n\nLangkah 3: Menerapkan Teorema Pythagoras untuk menghitung $BO'$:\n$$BO' = \\sqrt{BF^2 + (FO')^2} = \\sqrt{8^2 + (4\\sqrt{2})^2} = \\sqrt{64 + 32} = \\sqrt{96} = 4\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6229,8 +6229,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 4√2 cm",
             "E. 4√5 cm"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Segitiga TAB adalah segitiga sama sisi berusuk 8 cm.\n\nLangkah 2: Tinggi segitiga (jarak T ke AB): $h = \\sqrt{8^2 - 4^2} = \\sqrt{64 - 16} = \\sqrt{48} = 4\\sqrt{3}$ cm.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menentukan posisi titik E ke diagonal bidang BD:\n- Proyeksi titik E ke bidang alas $ABCD$ adalah titik A.\n- Dari titik A ditarik garis tegak lurus ke diagonal $BD$, yang jatuh tepat di pusat alas $O$ (titik potong diagonal alas).\n- Jarak titik A ke titik O: $AO = \\frac{1}{2}(6\\sqrt{2}) = 3\\sqrt{2}$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle EAO$ (siku-siku di A):\n- Rusuk tegak $AE = 6$ cm.\n$$EO = \\sqrt{AE^2 + AO^2}$$\n\nLangkah 3: Menghitung panjang jarak $EO$:\n$$EO = \\sqrt{6^2 + (3\\sqrt{2})^2} = \\sqrt{36 + 18} = \\sqrt{54} = 3\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "limas",
@@ -6252,8 +6252,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5√2 cm",
             "E. 10/3 √3 cm"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Segitiga BFH siku-siku di F dengan $BF = 10, FH = 10\\sqrt{2}, BH = 10\\sqrt{3}$.\n\nLangkah 2: $d = \\frac{10 \\times 10\\sqrt{2}}{10\\sqrt{3}} = \\frac{10\\sqrt{2}}{\\sqrt{3}} = \\frac{10}{3}\\sqrt{6}$ cm.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan ukuran segitiga sama kaki $\\triangle TAB$ pada limas T.ABCD:\n- Rusuk alas $AB = 6$ cm $\\implies$ titik tengah AB adalah M dengan $AM = 3$ cm.\n- Rusuk tegak $TA = TB = 6$ cm.\n\nLangkah 2: Menghitung tinggi segitiga $TM$ (jarak titik T ke garis AB):\nSegitiga $\\triangle TMA$ siku-siku di titik M:\n$$TM = \\sqrt{TA^2 - AM^2}$$\n\nLangkah 3: Menghitung nilai tinggi $TM$:\n$$TM = \\sqrt{6^2 - 3^2} = \\sqrt{36 - 9} = \\sqrt{27} = 3\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6274,7 +6274,7 @@ const NAMA_TINGKAT = 'XII';
             "Jarak titik A ke garis HG adalah a akar(3)"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nProyeksi titik A ke diagonal BD jatuh tepat di pusat alas $O$. Jarak $AO = \\frac{1}{2} AC = \\frac{1}{2}a\\sqrt{2}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nSegitiga EBD sama sisi berusuk $a\\sqrt{2}$. Jarak E ke BD adalah tinggi $EO = \\sqrt{EA^2 + AO^2} = \\sqrt{a^2 + \\frac{1}{2}a^2} = \\sqrt{\\frac{3}{2}a^2} = \\frac{1}{2}a\\sqrt{6}$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKarena $AH \\perp HG$, maka jarak titik A ke garis HG adalah panjang diagonal sisi $AH = a\\sqrt{2}$, bukan $a\\sqrt{3}$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJarak titik sudut kubus ke diagonal ruang yang tidak melaluinya dirumuskan dengan rumus baku $d = \\frac{s\\sqrt{6}}{3}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nJarak titik ke suatu garis adalah panjang ruas garis yang ditarik dari titik tersebut dan jatuh TEGAK LURUS ($90^\\circ$) pada garis sasaran.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJarak titik A ke garis CD pada kubus adalah panjang rusuk AD ($s$), bukan $s\\sqrt{2}$ (diagonal sisi).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6297,8 +6297,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Pernyataan (2) SAJA cukup",
             "E. DUA pernyataan BERSAMA-SAMA cukup"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Jarak titik ke garis dapat dicari lewat luas segitiga, karena $L = \\frac{1}{2} \\times \\text{alas} \\times \\text{tinggi}$ dengan tinggi itulah jaraknya.\n\nLangkah 2: Tinjau pernyataan (1) saja. Panjang $g = 10$ cm hanya memberi alasnya, sedangkan luasnya belum diketahui. TIDAK CUKUP.\n\nLangkah 3: Tinjau pernyataan (2) saja. Luas $40$ cm$^2$ tanpa panjang alas juga belum menentukan tinggi. TIDAK CUKUP.\n\nLangkah 4: Gabungkan keduanya: $40 = \\frac{1}{2} \\times 10 \\times d \\implies d = 8$ cm. Jadi kedua pernyataan diperlukan bersama-sama.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan posisi titik H ke garis diagonal AC:\n- Proyeksi tegak lurus titik H ke bidang alas $ABCD$ adalah titik D.\n- Dari D ditarik tegak lurus ke diagonal $AC$, yang jatuh tepat di pusat alas $O$.\n- Panjang $DO = \\frac{1}{2}(10\\sqrt{2}) = 5\\sqrt{2}$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle HDO$ (siku-siku di D):\n- Rusuk tegak $DH = 10$ cm.\n$$HO = \\sqrt{DH^2 + DO^2}$$\n\nLangkah 3: Menghitung nilai jarak $HO$:\n$$HO = \\sqrt{10^2 + (5\\sqrt{2})^2} = \\sqrt{100 + 50} = \\sqrt{150} = 5\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6317,8 +6317,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2√6 cm",
             "E. 5 cm"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Tetapkan koordinat dengan rusuk $4$: $A(0,0,0)$, $B(4,0,0)$, $E(0,0,4)$, dan $G(4,4,4)$. Titik $M$ di tengah $AB$ berkoordinat $(2,0,0)$.\n\nLangkah 2: Jarak titik ke garis diukur tegak lurus, sehingga $M$ perlu diproyeksikan ke garis $EG$. Arah garisnya $\\vec{d} = G - E = (4,4,0)$ dan $\\vec{w} = M - E = (2,0,-4)$.\n\nLangkah 3: Hitung letak kaki proyeksinya: $t = \\frac{\\vec{w} \\cdot \\vec{d}}{\\left|\\vec{d}\\right|^2} = \\frac{8+0+0}{32} = \\frac{1}{4}$, sehingga kakinya berada di $E + \\frac{1}{4}\\vec{d} = (1,1,4)$.\n\nLangkah 4: Hitung jarak $M(2,0,0)$ ke titik $(1,1,4)$: $\\sqrt{1^2+1^2+4^2} = \\sqrt{18} = 3\\sqrt{2}$ cm.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan posisi titik P dan garis CG:\n- Rusuk kubus $s = 8$ cm.\n- Titik P adalah titik tengah rusuk AE $\\implies P(0, 0, 4)$.\n- Garis CG adalah rusuk tegak di koordinat $(8, 8, z)$ dengan $0 \\le z \\le 8$.\n\nLangkah 2: Menentukan ruas garis terpendek dari P tegak lurus garis CG:\nProyeksi horizontal titik P ke garis CG jatuh di titik $Q(8, 8, 4)$ (titik tengah CG).\n\nLangkah 3: Menghitung jarak horizontal PQ:\nPanjang PQ sama dengan panjang diagonal sisi alas $AC$:\n$$PQ = \\sqrt{8^2 + 8^2} = 8\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6341,8 +6341,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Jarak titik B ke garis EG adalah 6 akar(2) cm.",
             "E. Jarak titik C ke garis AG adalah 2 akar(6) cm."
           ],
-          "kunci": "A, B, C, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$AO = \\frac{1}{2}(6\\sqrt{2}) = 3\\sqrt{2}$ cm.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$EO = \\sqrt{6^2 + (3\\sqrt{2})^2} = \\sqrt{36 + 18} = 3\\sqrt{6}$ cm.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nSegitiga FAC sama sisi berusuk $6\\sqrt{2}$. Tingginya $FO = \\sqrt{FB^2 + BO^2} = \\sqrt{36 + 18} = 3\\sqrt{6}$ cm.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nJarak B ke EG adalah tinggi segitiga BEG yang sama dengan $3\\sqrt{6}$ cm, bukan $6\\sqrt{2}$ cm.\n$\\implies$ Pernyataan D SALAH.\n\nLangkah 5: Analisis Opsi E:\nPada segitiga siku-siku ACG: $d = \\frac{AC \\cdot CG}{AG} = \\frac{6\\sqrt{2} \\cdot 6}{6\\sqrt{3}} = \\frac{6\\sqrt{2}}{\\sqrt{3}} = 2\\sqrt{6}$ cm.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E.",
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis jarak titik ke garis pada kubus ABCD.EFGH berusuk 6 cm:\n- A: Jarak A ke CG adalah diagonal sisi alas $AC = 6\\sqrt{2}$ cm (BENAR).\n- B: Jarak E ke BD adalah $EO = \\sqrt{6^2 + (3\\sqrt{2})^2} = 3\\sqrt{6}$ cm (BENAR).\n- C: Jarak C ke AG adalah $\\frac{6\\sqrt{6}}{3} = 2\\sqrt{6}$ cm (BENAR).\n- D: Jarak B ke CD adalah rusuk $BC = 6$ cm (BENAR).\n- E: Jarak G ke BD adalah $3\\sqrt{6}$ cm, bukan $6\\sqrt{3}$ cm (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6361,8 +6361,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5,0 cm",
             "E. 4,8 cm"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Segitiga ADC siku-siku di D dengan $AD = 8, DC = 6, AC = 10$.\n\nLangkah 2: $d = \\frac{8 \\times 6}{10} = \\frac{48}{10} = 4{,}8$ cm.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Membentuk segitiga siku-siku $\\triangle ADG$:\n- Jarak titik D ke garis diagonal AG dihitung pada $\\triangle ADG$ (siku-siku di D).\n- Rusuk $AD = 6$ cm, diagonal sisi $DG = 6\\sqrt{2}$ cm, diagonal ruang $AG = 6\\sqrt{3}$ cm.\n\nLangkah 2: Menggunakan kesamaan luas segitiga:\n$$AD \\times DG = AG \\times d$$\n$$6 \\times 6\\sqrt{2} = 6\\sqrt{3} \\times d$$\n\nLangkah 3: Menyelesaikan perhitungan:\n$$d = \\frac{6\\sqrt{2}}{\\sqrt{3}} = \\frac{6\\sqrt{6}}{3} = 2\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "balok",
@@ -6378,8 +6378,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P11-Q10] Pada kubus ABCD.EFGH dengan rusuk 6 cm, nilai dari kuadrat jarak titik B ke garis diagonal ruang AG adalah ...",
           "opsi": [],
-          "kunci": "24",
-          "bahas": "Langkah 1: $d = \\frac{1}{3}(6)\\sqrt{6} = 2\\sqrt{6}$ cm.\n\nLangkah 2: $d^2 = (2\\sqrt{6})^2 = 24$.\nKesimpulan: Jawaban Akhir 24.\nKesimpulan: Kunci Jawaban 24.",
+          "kunci": "3√6",
+          "bahas": "Langkah 1: Menghitung jarak titik C ke diagonal ruang BH pada kubus berusuk 9 cm:\n$$d = \\frac{s\\sqrt{6}}{3}$$\n\nLangkah 2: Mensubstitusikan rusuk $s = 9$ cm:\n$$d = \\frac{9\\sqrt{6}}{3} = 3\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban 3√6.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6409,7 +6409,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 6√3 cm"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Jarak titik E ke bidang AFH adalah $\\frac{1}{3}$ diagonal ruang $EC$.\n\nLangkah 2: $d = \\frac{1}{3} \\times 12\\sqrt{3} = 4\\sqrt{3}$ cm.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Memahami Teorema Proyeksi Titik ke Bidang Segitiga Diagonal Kubus:\nDiagonal ruang $EC = s\\sqrt{3}$ terbagi menjadi 3 segmen sama panjang oleh bidang $AFH$ dan bidang $BDG$:\n- Jarak titik sudut E ke bidang AFH $= \\frac{1}{3}$ diagonal ruang EC.\n- Jarak titik sudut C ke bidang AFH $= \\frac{2}{3}$ diagonal ruang EC.\n\nLangkah 2: Mensubstitusikan panjang diagonal ruang $EC = 12\\sqrt{3}$ cm:\n$$d(E, \\text{bidang } AFH) = \\frac{1}{3} \\times 12\\sqrt{3} = 4\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6428,8 +6428,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 4√3 cm",
             "E. 6√3 cm"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Jarak titik C ke bidang AFH adalah $\\frac{2}{3}$ diagonal ruang $EC$.\n\nLangkah 2: $d = \\frac{2}{3} \\times 12\\sqrt{3} = 8\\sqrt{3}$ cm.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menerapkan Teorema Jarak Titik Sudut Jauh ke Bidang Diagonal:\nBidang $BDG$ terletak lebih jauh dari titik sudut A.\nJarak titik A ke bidang BDG adalah $\\frac{2}{3}$ dari diagonal ruang $AG$:\n$$d(A, \\text{bidang } BDG) = \\frac{2}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan rusuk kubus $s = 6$ cm:\n$$d = \\frac{2}{3} \\times 6\\sqrt{3} = 4\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6448,8 +6448,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 6√3 cm",
             "E. 3√3 cm"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Jarak titik E ke bidang BDG adalah $\\frac{2}{3}$ diagonal ruang $EC$.\n\nLangkah 2: $d = \\frac{2}{3} \\times 9\\sqrt{3} = 6\\sqrt{3}$ cm.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan orientasi titik C terhadap bidang diagonal BDHF:\n- Bidang $BDHF$ memuat diagonal bidang alas $BD$.\n- Proyeksi tegak lurus titik C ke garis BD pada bidang alas persegi $ABCD$ jatuh tepat di pusat perpotongan diagonal $O$.\n\nLangkah 2: Menghitung panjang segmen garis $CO$:\nPanjang ruas garis CO adalah setengah dari diagonal sisi alas $AC$:\n$$CO = \\frac{1}{2} AC = \\frac{1}{2}(8\\sqrt{2}) = 4\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6468,8 +6468,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 9√3 cm",
             "E. 6√6 cm"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Kedua bidang membagi diagonal ruang $EC$ menjadi 3 bagian sama panjang.\n\nLangkah 2: Jarak antar bidang $= \\frac{1}{3} EC = \\frac{1}{3} \\times 18\\sqrt{3} = 6\\sqrt{3}$ cm.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Mengidentifikasi hubungan dua bidang sejajar AFH dan BDG:\nBidang $AFH$ dan bidang $BDG$ adalah dua bidang datar sejajar yang memotong diagonal ruang kubus $EC$ tegak lurus menjadi 3 bagian sama panjang.\n\nLangkah 2: Menghitung jarak antar dua bidang sejajar:\n$$d = \\frac{1}{3} \\times d_{\\text{ruang}} = \\frac{1}{3} \\times s\\sqrt{3}$$\n\nLangkah 3: Mensubstitusikan $s = 9$ cm:\n$$d = \\frac{1}{3} \\times 9\\sqrt{3} = 3\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6487,7 +6487,7 @@ const NAMA_TINGKAT = 'XII';
             "Jarak titik E ke bidang diagonal BDG adalah 1/2 a akar(3)"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBidang BDG memotong diagonal ruang EC secara tegak lurus pada perbandingan jarak $1/3 EC = \\frac{1}{3} a\\sqrt{3}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nRusuk tegak $EA \\perp \\text{bidang } ABCD \\implies$ jaraknya adalah panjang rusuk $EA = a$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJarak titik E ke bidang BDG adalah $\\frac{2}{3} EC = \\frac{2}{3} a\\sqrt{3}$, bukan $\\frac{1}{2} a\\sqrt{3}$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJarak titik terdekat ke bidang segitiga sudut kubus adalah $\\frac{1}{3}s\\sqrt{3}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nJarak titik sudut terjauh ke bidang segitiga sudut kubus adalah $\\frac{2}{3}s\\sqrt{3}$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJarak titik C ke bidang diagonal BDHF adalah setengah diagonal sisi ($\\frac{1}{2}s\\sqrt{2}$), bukan $\\frac{1}{2}s\\sqrt{3}$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6506,8 +6506,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Pernyataan (2) SAJA cukup",
             "E. Pernyataan (1) SAJA cukup dan (2) SAJA cukup"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Tinggi limas beraturan dihitung dengan Pythagoras $t = \\sqrt{TA^2 - AO^2}$, dengan $AO$ setengah diagonal alas.\n\nLangkah 2: Tinjau pernyataan (1) saja. Diketahui $TA = 10$, tetapi $AO$ belum diketahui, sehingga tinggi belum dapat dihitung.\n\nLangkah 3: Tinjau pernyataan (2) saja. Diketahui $AC = 12$ sehingga $AO = 6$, tetapi $TA$ belum diketahui, sehingga tinggi juga belum dapat dihitung.\n\nLangkah 4: Gabungkan keduanya: $t = \\sqrt{10^2 - 6^2} = \\sqrt{64} = 8$ cm. Jadi kedua pernyataan diperlukan bersama-sama.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan tinggi limas beraturan T.ABCD:\n- Rusuk alas $s = 8$ cm $\\implies AO = \\frac{1}{2}(8\\sqrt{2}) = 4\\sqrt{2}$ cm.\n- Rusuk tegak $TA = 12$ cm.\n\nLangkah 2: Menghitung jarak titik puncak T ke bidang alas ABCD ($TO$):\n$$TO = \\sqrt{TA^2 - AO^2} = \\sqrt{12^2 - (4\\sqrt{2})^2} = \\sqrt{144 - 32} = \\sqrt{112} = 4\\sqrt{7} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -6526,8 +6526,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2,4 cm",
             "E. 3,2 cm"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Jarak O ke rusuk BC adalah 3 cm. Tinggi segitiga tegak $TE = \\sqrt{4^2 + 3^2} = 5$ cm.\n\nLangkah 2: Kesamaan luas: $d = \\frac{4 \\times 3}{5} = 2{,}4$ cm.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Jarak titik tengah rusuk AB ke bidang alas ABCD:\nKarena rusuk AB seluruhnya terletak pada bidang alas $ABCD$, maka seluruh titik pada rusuk AB (termasuk titik tengahnya) berada tepat pada bidang alas.\n\nLangkah 2: Menentukan jaraknya:\nJarak suatu titik yang terletak pada bidang ke bidang itu sendiri bernilai **0 cm**.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -6547,7 +6547,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Jarak titik C ke bidang ABFE adalah 12 cm."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\nJarak antara 2 bidang sejajar $= \\frac{1}{3} EC = 4\\sqrt{3}$ cm.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nJarak C ke BDHF $= CO = \\frac{1}{2}(12\\sqrt{2}) = 6\\sqrt{2}$ cm.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nJarak E ke BDG $= \\frac{2}{3} EC = \\frac{2}{3}(12\\sqrt{3}) = 8\\sqrt{3}$ cm.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nJarak C ke BDG $= \\frac{1}{3} EC = \\frac{1}{3}(12\\sqrt{3}) = 4\\sqrt{3}$ cm.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$CB \\perp ABFE \\implies 12$ cm.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
+          "bahas": "Langkah 1: Analisis seluruh pernyataan jarak titik ke bidang pada kubus berusuk 12 cm:\n- A: Jarak E ke AFH $= \\frac{1}{3}(12\\sqrt{3}) = 4\\sqrt{3}$ cm (BENAR).\n- B: Jarak C ke AFH $= \\frac{2}{3}(12\\sqrt{3}) = 8\\sqrt{3}$ cm (BENAR).\n- C: Jarak A ke BDHF $= \\frac{1}{2}(12\\sqrt{2}) = 6\\sqrt{2}$ cm (BENAR).\n- D: Jarak antara bidang AFH dan BDG $= 4\\sqrt{3}$ cm (BENAR).\n- E: Jarak titik E ke bidang ABCD sama dengan rusuk tegak $= 12$ cm (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6566,8 +6566,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/4 a",
             "E. 1/2 a√3"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Titik pusat kubus adalah perpotongan diagonal-diagonal ruangnya, yang letaknya tepat di tengah kubus.\n\nLangkah 2: Karena berada di tengah, jaraknya ke sepasang sisi berhadapan sama besar dan jumlah keduanya sama dengan panjang rusuk $a$.\n\nLangkah 3: Jadi jarak ke setiap bidang sisi adalah $\\frac{1}{2}a$, dan nilainya sama untuk keenam sisi.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung jarak titik sudut C ke bidang AFH pada kubus berusuk 6 cm:\n$$d = \\frac{2}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan $s = 6$ cm:\n$$d = \\frac{2}{3} \\times 6\\sqrt{3} = 4\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6580,8 +6580,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P12-Q10] Pada kubus ABCD.EFGH dengan panjang rusuk 15 cm, nilai kuadrat dari jarak titik E ke bidang BDG adalah ...",
           "opsi": [],
-          "kunci": "300",
-          "bahas": "Langkah 1: $d = \\frac{2}{3} \\times 15\\sqrt{3} = 10\\sqrt{3}$ cm.\n\nLangkah 2: $d^2 = (10\\sqrt{3})^2 = 300$.\nKesimpulan: Jawaban Akhir 300.\nKesimpulan: Kunci Jawaban 300.",
+          "kunci": "2√3",
+          "bahas": "Langkah 1: Menghitung jarak titik E ke bidang AFH pada kubus berusuk 6 cm:\n$$d = \\frac{1}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan $s = 6$ cm:\n$$d = \\frac{1}{3} \\times 6\\sqrt{3} = 2\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban 2√3.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6608,7 +6608,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $Tb = 45{,}5$ dan $Ta = 53{,}5$"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Tepi kelas dipakai agar antarkelas tidak ada celah. Rumusnya $Tb = \\text{batas bawah} - 0{,}5$ dan $Ta = \\text{batas atas} + 0{,}5$.\n\nLangkah 2: Substitusikan batas kelas $45-54$: $Tb = 45 - 0{,}5$ dan $Ta = 54 + 0{,}5$.\n\nLangkah 3: Hitung hasilnya: $Tb = 44{,}5$ dan $Ta = 54{,}5$. Pengurangan dan penambahan $0{,}5$ dipakai karena datanya dicatat dalam satuan bulat.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Mengidentifikasi definisi Tepi Bawah ($Tb$) dan Tepi Atas ($Ta$):\nUntuk kelas interval dengan data berketelitian satuan (bilangan bulat):\n- Tepi Bawah: $Tb = \\text{Batas Bawah} - 0{,}5$\n- Tepi Atas: $Ta = \\text{Batas Atas} + 0{,}5$\n\nLangkah 2: Mensubstitusikan batas kelas interval $50 - 59$:\n- Batas Bawah $= 50 \\implies Tb = 50 - 0{,}5 = 49{,}5$\n- Batas Atas $= 59 \\implies Ta = 59 + 0{,}5 = 59{,}5$\n\nLangkah 3: Menentukan pasangan nilai:\nDiperoleh $Tb = 49{,}5$ dan $Ta = 59{,}5$.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Tepi bawah ($Tb$) dan tepi atas ($Ta$) untuk kelas interval $45 - 54$ pada data pengukuran berat badan adalah ..."
@@ -6628,7 +6628,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 11"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Panjang kelas dihitung dari selisih tepi atas dan tepi bawah, atau lebih cepat dengan mencacah banyak nilai yang tercakup dalam kelas.\n\nLangkah 2: Kelas $60-69$ memuat nilai $60, 61, \\dots, 69$, yaitu $69 - 60 + 1$ nilai.\n\nLangkah 3: Hitung hasilnya: $c = 10$. Angka $+1$ diperlukan agar batas bawahnya ikut terhitung.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menggunakan rumus Titik Tengah ($x_i$) kelas interval:\n$$x_i = \\frac{\\text{Batas Bawah} + \\text{Batas Atas}}{2}$$\n\nLangkah 2: Mensubstitusikan batas kelas interval $70 - 79$:\n$$x_i = \\frac{70 + 79}{2} = \\frac{149}{2}$$\n\nLangkah 3: Menghitung hasil pembagian:\n$$x_i = 74{,}5$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "histogram",
             "src": "Panjang kelas (interval $c$) dari kelas $60 - 69$ adalah ..."
@@ -6648,7 +6648,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 74,5"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Titik tengah kelas dihitung dengan $x_i = \\frac{\\text{batas bawah} + \\text{batas atas}}{2}$.\n\nLangkah 2: Substitusikan kelas $70-78$: $x_i = \\frac{70+78}{2}$.\n\nLangkah 3: Hitung hasilnya: $x_i = \\frac{148}{2} = 74$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi konsep kurva Ogive Positif:\nKurva Ogive Positif adalah diagram garis yang menghubungkan tepi atas setiap kelas interval dengan **frekuensi kumulatif kurang dari ($\\le Ta$)**.\n\nLangkah 2: Karakteristik kurva:\nNilai frekuensi kumulatif kurang dari selalu bertambah atau tetap seiring naiknya nilai batas, sehingga kurva bergerak **naik secara monoton (monotonically non-decreasing)**.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "histogram",
             "src": "Titik tengah ($x_i$) dari kelas interval $70 - 78$ adalah ..."
@@ -6667,8 +6667,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 30",
             "E. 20"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Frekuensi kumulatif kurang dari adalah jumlah seluruh frekuensi kelas sampai dengan kelas yang ditinjau.\n\nLangkah 2: Kelas kedua adalah $50-59$, sehingga yang dijumlahkan adalah frekuensi kelas pertama dan kedua: $6 + 10$.\n\nLangkah 3: Hitung hasilnya: $F_k = 16$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menggunakan rumus panjang kelas interval ($p$):\n$$p = Ta - Tb = (\\text{Batas Atas} - \\text{Batas Bawah}) + 1$$\n\nLangkah 2: Mensubstitusikan kelas interval $20 - 29$:\n$$p = (29 - 20) + 1 = 9 + 1 = 10$$\n*(Atau $p = 29{,}5 - 19{,}5 = 10$)*.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14]\nFrekuensi kumulatif kurang dari ($F_k$) tepi atas kelas kedua adalah ..."
@@ -6685,8 +6685,8 @@ const NAMA_TINGKAT = 'XII';
             "Panjang kelas interval (p) sama dengan tepi atas dikurangi tepi bawah",
             "Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$x_i = \\frac{50 + 59}{2} = 54{,}5$, bukan 55.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\n$p = Ta - Tb = (Ba + 0,5) - (Bb - 0,5) = Ba - Bb + 1$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$Tb = Bb - 0{,}5$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSumbu horizontal histogram menyajikan nilai tepi kelas (atau titik tengah), sedangkan sumbu vertikal menyajikan frekuensi kelas.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nOgive negatif dibentuk dari frekuensi kumulatif \"lebih dari atau sama dengan\" sehingga bergerak turun.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPanjang kelas interval dari $30 - 39$ adalah $(39 - 30) + 1 = 10$, bukan 9.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "histogram",
             "src": "Tentukan kebenaran tabel distribusi frekuensi data berkelompok:\n(1) Titik tengah kelas interval 50 - 59 adalah 55.\n(2) Panjang kelas interval (p) sama dengan tepi atas dikurangi tepi bawah.\n(3) Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5."
@@ -6705,8 +6705,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 6 kelas",
             "E. 7 kelas"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Aturan Sturgess menentukan banyak kelas dengan $k = 1 + 3{,}3\\log n$.\n\nLangkah 2: Substitusikan $n = 100$ dengan $\\log 100 = 2$: $k = 1 + 3{,}3(2) = 1 + 6{,}6$.\n\nLangkah 3: Diperoleh $k = 7{,}6$. Karena banyak kelas harus bilangan bulat dan seluruh data wajib tertampung, hasilnya dibulatkan ke atas menjadi $8$ kelas.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Mengidentifikasi Aturan Sturgess untuk menentukan banyak kelas ($k$):\n$$k = 1 + 3{,}3 \\log n$$\n\nLangkah 2: Mensubstitusikan banyak data $n = 100$:\n$$\\log 100 = 2$$\n$$k = 1 + 3{,}3(2) = 1 + 6{,}6 = 7{,}6$$\n\nLangkah 3: Membulatkan ke bilangan bulat terdekat ke atas:\n$$k \\approx 8 \\text{ kelas}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "histogram",
             "src": "Berapakah banyak kelas ideal menurut aturan Sturgess untuk data dengan ukuran sampel $n = 100$ siswa? (Gunakan $\\log 100 = 2$)"
@@ -6725,8 +6725,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Naik kemudian turun",
             "E. Selalu monoton naik"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Ogive negatif dibuat dari frekuensi kumulatif **lebih dari**, yaitu banyak data yang nilainya melebihi tiap tepi kelas.\n\nLangkah 2: Semakin besar tepi kelas yang ditinjau, semakin sedikit data yang melampauinya, sehingga nilai kumulatifnya terus berkurang.\n\nLangkah 3: Karena itu kurvanya selalu monoton turun, dimulai dari total seluruh data dan berakhir di nol.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung frekuensi kumulatif kurang dari nilai 79,5:\nMenjumlahkan seluruh frekuensi kelas yang nilainya $\\le 79{,}5$:\n- Kelas 50-59: 4\n- Kelas 60-69: 6\n- Kelas 70-79: 8\n\nLangkah 2: Menghitung total:\n$$F_k = 4 + 6 + 8 = 18$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "histogram",
             "src": "Pada ogive negatif, grafik kurva menunjukkan kecenderungan ..."
@@ -6746,7 +6746,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Tepi bawah kelas interval adalah 59,5."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$x_i = \\frac{60 + 68}{2} = 64$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$p = 68{,}5 - 59{,}5 = 9$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$Ta = 68 + 0{,}5 = 68{,}5$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nBatas kelas: $Bb = 60, Ba = 68$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$Tb = 60 - 0{,}5 = 59{,}5$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
+          "bahas": "Langkah 1: Evaluasi seluruh kaidah penyajian data kelompok:\n- A: Rumus titik tengah $x_i = \\frac{Bb + Ba}{2}$ (BENAR).\n- B: Panjang kelas $p = Ta - Tb$ (BENAR).\n- C: Ogive positif selalu naik (BENAR).\n- D: Histogram menampilkan batang saling berhimpit (BENAR).\n- E: Poligon frekuensi menghubungkan titik-titik tengah kelas (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "histogram",
             "src": "Pada data berkelompok dengan kelas interval 60 - 68, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)"
@@ -6765,8 +6765,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5",
             "E. 8"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Panjang kelas diperkirakan dengan $c = \\frac{R}{k}$, yaitu jangkauan dibagi banyak kelas.\n\nLangkah 2: Substitusikan $R = 40$ dan $k = 5$: $c = \\frac{40}{5}$.\n\nLangkah 3: Hitung hasilnya: $c = 8$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung frekuensi kumulatif lebih dari atau sama dengan tepi bawah 60 (yaitu $\\ge 59{,}5$):\nMenjumlahkan frekuensi kelas 60-69, 70-79, 80-89:\n$$F_k(\\ge 59{,}5) = 12 + 15 + 8 = 35$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "histogram",
             "src": "Jika jangkauan data $R = 40$ dan banyak kelas $k = 5$, maka panjang kelas interval $c$ adalah ..."
@@ -6779,8 +6779,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P15-Q10] Nilai titik tengah kelas interval $81 - 99$ adalah ...",
           "opsi": [],
-          "kunci": "90",
-          "bahas": "Langkah 1: Titik tengah kelas dihitung dengan $x_i = \\frac{\\text{batas bawah} + \\text{batas atas}}{2}$.\n\nLangkah 2: Substitusikan kelas $81-99$: $x_i = \\frac{81+99}{2}$.\n\nLangkah 3: Hitung hasilnya: $x_i = \\frac{180}{2} = 90$.\nKesimpulan: Kunci Jawaban 90.",
+          "kunci": "10",
+          "bahas": "Langkah 1: Menghitung panjang kelas interval $p$ untuk interval $41 - 50$:\n$$p = (\\text{Batas Atas} - \\text{Batas Bawah}) + 1 = (50 - 41) + 1 = 9 + 1 = 10$$\nKesimpulan: Kunci Jawaban 10.",
           "viz": {
             "t": "histogram",
             "src": "Nilai titik tengah kelas interval $81 - 99$ adalah ..."
@@ -6807,7 +6807,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 72,00"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: $\\sum f_i x_i = 5(54,5) + 10(64,5) + 15(74,5) + 10(84,5) = 272{,}5 + 645 + 1117{,}5 + 845 = 2880$.\n\nLangkah 2: $\\bar{x} = 2880/40 = 71{,}25$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Menentukan titik tengah ($x_i$) dan hasil kali frekuensi ($f_i \\cdot x_i$) tiap kelas:\n- Kelas 10-14 ($f = 4$): $x_1 = 12 \\implies f_1 x_1 = 4 \\times 12 = 48$\n- Kelas 15-19 ($f = 8$): $x_2 = 17 \\implies f_2 x_2 = 8 \\times 17 = 136$\n- Kelas 20-24 ($f = 5$): $x_3 = 22 \\implies f_3 x_3 = 5 \\times 22 = 110$\n- Kelas 25-29 ($f = 3$): $x_4 = 27 \\implies f_4 x_4 = 3 \\times 27 = 81$\n\nLangkah 2: Menghitung total $\\sum f_i$ dan $\\sum f_i x_i$:\n$$\\sum f_i = 4 + 8 + 5 + 3 = 20$$\n$$\\sum f_i x_i = 48 + 136 + 110 + 81 = 375$$\n\nLangkah 3: Menghitung nilai mean ($\\bar{x}$):\n$$\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{375}{20} = 18{,}75$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi data nilai siswa berikut:\n[50-59: 5], [60-69: 10], [70-79: 15], [80-89: 10]\nTotal frekuensi $n = 40$. Nilai rata-rata hitung (mean) data tersebut adalah ..."
@@ -6826,8 +6826,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 73,00",
             "E. 69,50"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Metode rataan sementara memakai $\\bar{x} = x_s + \\frac{\\sum f_i d_i}{\\sum f_i}$, dengan $d_i$ simpangan tiap titik tengah terhadap $x_s$.\n\nLangkah 2: Substitusikan nilainya: $\\bar{x} = 74{,}5 + \\frac{-130}{40}$.\n\nLangkah 3: Hitung koreksinya: $\\frac{-130}{40} = -3{,}25$, sehingga $\\bar{x} = 74{,}5 - 3{,}25 = 71{,}25$.\nKesimpulan: Kunci Jawaban B."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menggunakan rumus rataan dengan metode rataan sementara ($\\bar{x}_s$):\n$$\\bar{x} = \\bar{x}_s + \\frac{\\sum f_i d_i}{\\sum f_i}$$\n\nLangkah 2: Mensubstitusikan nilai $\\bar{x}_s = 50$, $\\sum f_i d_i = +60$, dan $\\sum f_i = 30$:\n$$\\bar{x} = 50 + \\frac{60}{30} = 50 + 2 = 52$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 3,
@@ -6842,8 +6842,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 71,2",
             "E. 70,5"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Metode pengkodean memakai $\\bar{x} = x_s + c\\left(\\frac{\\sum f_i u_i}{n}\\right)$, dengan $u_i$ kode tiap kelas dan $c$ panjang kelas.\n\nLangkah 2: Substitusikan nilainya: $\\bar{x} = 70 + 10\\left(\\frac{12}{60}\\right)$.\n\nLangkah 3: Hitung koreksinya: $10 \\times 0{,}2 = 2$, sehingga $\\bar{x} = 70 + 2 = 72{,}0$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menggunakan rumus rataan dengan metode pengkodean (*coding* $u_i$):\n$$\\bar{x} = \\bar{x}_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) \\times p$$\n\nLangkah 2: Mensubstitusikan $\\bar{x}_s = 65$, $\\sum f_i u_i = -10$, $\\sum f_i = 40$, dan panjang kelas $p = 8$:\n$$\\bar{x} = 65 + \\left(\\frac{-10}{40}\\right) \\times 8 = 65 + \\left(-\\frac{1}{4} \\times 8\\right) = 65 - 2 = 63$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "histogram",
             "src": "Pada metode pengkodean (coding), $x_s = 70$, panjang kelas $c = 10$, $\\sum f_i u_i = 12$, dan $n = 60$. Nilai rata-rata hitung data adalah ..."
@@ -6863,7 +6863,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 83,0"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Rata-rata gabungan memakai pembobotan banyak data tiap kelompok: $\\bar{x}_{gab} = \\frac{n_1\\bar{x}_1 + n_2\\bar{x}_2}{n_1+n_2}$. Rata-ratanya tidak boleh sekadar dijumlahkan lalu dibagi dua, karena jumlah siswanya berbeda.\n\nLangkah 2: Substitusikan nilainya: $\\frac{20(75) + 30(85)}{20+30} = \\frac{1.500 + 2.550}{50}$.\n\nLangkah 3: Hitung hasilnya: $\\frac{4.050}{50} = 81{,}0$.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Menghitung total nilai mula-mula:\n$$\\text{Total Nilai 9 Siswa} = 9 \\times 75 = 675$$\n\nLangkah 2: Menghitung total nilai baru setelah 1 siswa tambahan bergabung:\n$$\\text{Total Nilai 10 Siswa} = 10 \\times 76 = 760$$\n\nLangkah 3: Menghitung nilai siswa tambahan ($x_{10}$):\n$$x_{10} = 760 - 675 = 85$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 5,
@@ -6877,7 +6877,7 @@ const NAMA_TINGKAT = 'XII';
             "Jika setiap data ditambah 5, maka nilai rata-rata data tidak mengalami perubahan"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nDefinisi mean data berbobot berkelompok $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nMetode rataan sementara dengan deviasi $d_i = x_i - x_s$: $\\bar{x} = x_s + \\frac{\\sum f_i d_i}{\\sum f_i}$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nSifat pergeseran linier rata-rata: $\\bar{x}_{baru} = \\bar{x} + 5$. Rata-rata bertambah 5, bukan tetap.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nMetode titik tengah, rataan sementara, dan metode coding menghasilkan nilai mean yang identik/sama persis.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nNilai mean dipengaruhi oleh setiap nilai data sehingga peka terhadap pencilan ekstrim.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPada metode coding, kelas yang dipilih sebagai rataan sementara memiliki kode $u_i = 0$, bukan $1$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -6893,7 +6893,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 8,0"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Rata-rata data tunggal dihitung dengan $\\bar{x} = \\frac{\\sum x_i}{n}$.\n\nLangkah 2: Jumlahkan seluruh datanya: $6+8+7+9+10 = 40$, dengan $n = 5$.\n\nLangkah 3: Bagi: $\\bar{x} = \\frac{40}{5} = 8{,}0$.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menghitung rata-rata gabungan $\\bar{x}_{\\text{gab}}$:\n$$\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2}{n_1 + n_2}$$\n\nLangkah 2: Mensubstitusikan $n_1 = 20, \\bar{x}_1 = 70$ dan $n_2 = 30, \\bar{x}_2 = 80$:\n$$\\bar{x}_{\\text{gab}} = \\frac{(20 \\times 70) + (30 \\times 80)}{20 + 30} = \\frac{1.400 + 2.400}{50} = \\frac{3.800}{50} = 76$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 7,
@@ -6908,8 +6908,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 31,5",
             "E. 30,5"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: $\\sum f_i x_i = 2(14,5) + 8(24,5) + 6(34,5) + 4(44,5) = 29 + 196 + 207 + 178 = 630$.\n\nLangkah 2: $\\bar{x} = 630/20 = 31{,}5$.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "C",
+          "bahas": "Langkah 1: Sifat linieritas rata-rata hitung:\nJika setiap datum $x_i$ dikalikan $a$ lalu ditambah $b$ ($y_i = a x_i + b$), maka rata-rata baru menjadi:\n$$\\bar{y} = a \\bar{x} + b$$\n\nLangkah 2: Mensubstitusikan $\\bar{x} = 50$, pengali $a = 2$, dan penambah $b = 5$:\n$$\\bar{y} = (2 \\times 50) + 5 = 100 + 5 = 105$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 8,
@@ -6924,8 +6924,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Rata-rata gabungan seluruh 40 siswa adalah 77,5.",
             "E. Jumlah total nilai seluruh 40 siswa adalah 3.100."
           ],
-          "kunci": "B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\nRata-rata gabungan $77{,}5$ berada di dalam interval $[75, 85]$, bukan di luar.\n$\\implies$ Pernyataan A SALAH.\n\nLangkah 2: Analisis Opsi B:\n$30 \\times 75 = 2.250$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$10 \\times 85 = 850$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$\\bar{x}_{gab} = \\frac{3.100}{40} = 77{,}5$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$2.250 + 850 = 3.100$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban B, C, D, E."
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Evaluasi seluruh sifat rata-rata hitung data kelompok:\n- A: $\\bar{x} = \\frac{\\sum fx}{\\sum f}$ (BENAR).\n- B: Metode coding mempermudah perhitungan angka besar (BENAR).\n- C: $\\sum f(x - \\bar{x}) = 0$ selalu bernilai nol (BENAR).\n- D: Jika semua data ditambah konstanta c, mean bertambah c (BENAR).\n- E: Mean tidak sama dengan modus pada distribusi menceng (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -6941,7 +6941,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 15,0"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Cari jumlah data mula-mula dari $\\sum x_i = \\bar{x} \\times n$.\n\nLangkah 2: Substitusikan: $\\sum x_i = 12 \\times 5 = 60$. Setelah ditambah satu bilangan, jumlahnya menjadi $60 + 18 = 78$ dengan banyak data $6$.\n\nLangkah 3: Hitung rata-rata barunya: $\\frac{78}{6} = 13{,}0$.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menghitung total nilai 5 anak:\n$$\\sum x = 5 \\times 80 = 400$$\n\nLangkah 2: Menghitung jumlah 4 nilai yang diketahui:\n$$75 + 80 + 85 + 90 = 330$$\n\nLangkah 3: Menentukan nilai anak ke-5:\n$$x_5 = 400 - 330 = 70$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 10,
@@ -6950,8 +6950,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P16-Q10] Nilai rata-rata dari data: 12, 14, 16, 18, 20 adalah ...",
           "opsi": [],
-          "kunci": "16",
-          "bahas": "Langkah 1: Rata-rata data tunggal dihitung dengan $\\bar{x} = \\frac{\\sum x_i}{n}$.\n\nLangkah 2: Jumlahkan seluruh datanya: $12+14+16+18+20 = 80$, dengan $n = 5$.\n\nLangkah 3: Bagi: $\\bar{x} = \\frac{80}{5} = 16$.\nKesimpulan: Kunci Jawaban 16."
+          "kunci": "75",
+          "bahas": "Langkah 1: Menghitung mean gabungan:\n$$\\bar{x}_{\\text{gab}} = \\frac{(15 \\times 70) + (25 \\times 78)}{40} = \\frac{1.050 + 1.950}{40} = \\frac{3.000}{40} = 75$$\nKesimpulan: Kunci Jawaban 75."
         }
       ]
     },
@@ -6974,7 +6974,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 66,50"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Letak median $= 40/2 = 20$ (terletak pada kelas $60 - 69$).\n\nLangkah 2: $Tb = 59,5, f_k = 10, f_{me} = 12, c = 10$.\n\nLangkah 3: $Me = 59{,}5 + \\left(\\frac{20 - 10}{12}\\right) 10 = 59{,}5 + 8{,}33 = 67{,}83$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menentukan kelas Median:\nTotal frekuensi $n = 40 \\implies$ letak median pada data ke-$\\frac{n}{2} = 20$.\n- Frekuensi kumulatif: Kelas 40-49 ($f_k = 6$), Kelas 50-59 ($f_k = 16$), Kelas 60-69 ($f_k = 30$).\n$\\\\implies$ Kelas Median berada pada interval $60 - 69$.\n\nLangkah 2: Mengidentifikasi parameter rumus Median:\n- Tepi Bawah: $Tb = 59{,}5$\n- Frekuensi Kumulatif sebelum kelas median: $F_k = 16$\n- Frekuensi kelas median: $f_{\\text{med}} = 14$\n- Panjang kelas: $p = 10$\n\nLangkah 3: Menghitung Median ($Me$):\n$$Me = Tb + \\left(\\frac{\\frac{n}{2} - F_k}{f_{\\text{med}}}\\right) \\times p = 59{,}5 + \\left(\\frac{20 - 16}{14}\\right) \\times 10 = 59{,}5 + \\frac{40}{14} = 59{,}5 + 2{,}86 = 62{,}36$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nTotal frekuensi $n = 40$. Nilai median ($Me$) data tersebut adalah ..."
@@ -6993,8 +6993,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 67,00",
             "E. 68,00"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Kelas modus $60 - 69$ ($f=12$). $Tb = 59,5, d_1 = 12 - 6 = 6, d_2 = 12 - 10 = 2, c = 10$.\n\nLangkah 2: $Mo = 59{,}5 + \\left(\\frac{6}{6 + 2}\\right) 10 = 59{,}5 + 7{,}5 = 67{,}00$.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan kelas Modus (kelas dengan frekuensi tertinggi):\nFrekuensi tertinggi adalah $f = 16$ pada kelas interval $50 - 59$.\n\nLangkah 2: Mengidentifikasi parameter rumus Modus:\n- Tepi Bawah: $Tb = 49{,}5$\n- Selisih frekuensi dengan kelas sebelumnya: $d_1 = 16 - 10 = 6$\n- Selisih frekuensi dengan kelas sesudahnya: $d_2 = 16 - 8 = 8$\n- Panjang kelas: $p = 10$\n\nLangkah 3: Menghitung Modus ($Mo$):\n$$Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) \\times p = 49{,}5 + \\left(\\frac{6}{6 + 8}\\right) \\times 10 = 49{,}5 + \\frac{60}{14} = 49{,}5 + 4{,}29 = 53{,}79$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nNilai modus ($Mo$) data tersebut adalah ..."
@@ -7013,8 +7013,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Tiga bagian",
             "E. Sepuluh bagian sama besar"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Median adalah nilai tengah data setelah diurutkan, dilambangkan juga $Q_2$.\n\nLangkah 2: Karena posisinya tepat di tengah, banyak data di sebelah kirinya sama dengan banyak data di sebelah kanannya.\n\nLangkah 3: Jadi median membagi data menjadi dua bagian sama besar, masing-masing $50\\%$.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "E",
+          "bahas": "Langkah 1: Mengidentifikasi sifat distribusi simetris sempurna:\nPada kurva distribusi frekuensi yang simetris sempurna (kurva lonceng normal), ketiga ukuran pemusatan berimpit pada satu titik yang sama:\n$$\\text{Mean} = \\text{Median} = \\text{Modus}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 4,
@@ -7029,8 +7029,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Kuartil atas",
             "E. Nilai data dengan frekuensi kemunculan tertinggi"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Modus adalah ukuran pemusatan yang menunjukkan nilai paling sering muncul.\n\nLangkah 2: Penentuannya cukup dengan menghitung frekuensi tiap nilai, tanpa perlu mengurutkan atau menjumlahkan data.\n\nLangkah 3: Jadi modus adalah nilai data dengan frekuensi kemunculan tertinggi. Sebuah data bisa saja punya lebih dari satu modus, atau tidak punya modus sama sekali.\nKesimpulan: Kunci Jawaban E."
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan median dari data tunggal terurut:\nData terurut: $4, 5, 6, 7, 8, 9, 10$ ($n = 7$ data).\n\nLangkah 2: Menentukan data posisi tengah:\n$$\\text{Posisi} = \\frac{n + 1}{2} = \\frac{7 + 1}{2} = 4 \\implies \\text{Data ke-4}$$\n\nLangkah 3: Membaca data ke-4:\n$$Me = 7$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 5,
@@ -7044,7 +7044,7 @@ const NAMA_TINGKAT = 'XII';
             "Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nRumus standar modus berkelompok $Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) p$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nMedian membagi frekuensi data menjadi dua bagian sama besar $\\frac{1}{2} n$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nModus ditentukan oleh selisih frekuensi tetangga $d_1$ dan $d_2$, sehingga nilainya bergeser dan tidak selalu tepat di titik tengah kelas.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nModus adalah nilai data yang memiliki frekuensi kemunculan terbesar.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nMedian membagi data terurut menjadi 2 bagian sama banyak ($50\\%$ di bawah dan $50\\%$ di atas).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKumpulan data dapat memiliki lebih dari satu modus (bimodal/multimodal) atau bahkan tidak memiliki modus sama sekali.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran median dan modus data berkelompok:\n(1) Rumus modus data berkelompok adalah Mo = Tb + [d1 / (d1 + d2)] x p.\n(2) Letak median berada pada frekuensi kumulatif ke- 1/2 n.\n(3) Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus."
@@ -7063,8 +7063,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 7,5",
             "E. 8,5"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Periksa dulu banyak datanya. Ada $n = 7$ data, yaitu ganjil, sehingga mediannya adalah data yang tepat di tengah.\n\nLangkah 2: Tentukan posisinya dengan $\\frac{n+1}{2} = \\frac{7+1}{2} = 4$, yaitu data ke-$4$.\n\nLangkah 3: Data sudah terurut: $3, 5, 7, \\mathbf{8}, 9, 11, 12$. Data ke-$4$ adalah $8$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menghitung modus jika $d_1 = 4, d_2 = 6, Tb = 60{,}5, p = 5$:\n$$Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) \\times p$$\n\nLangkah 2: Mensubstitusikan nilai parameter:\n$$Mo = 60{,}5 + \\left(\\frac{4}{4 + 6}\\right) \\times 5 = 60{,}5 + \\left(\\frac{4}{10} \\times 5\\right) = 60{,}5 + 2 = 62{,}5$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "boxplot",
             "src": "Berapakah median dari data tunggal: 3, 5, 7, 8, 9, 11, 12?"
@@ -7083,8 +7083,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 6 dan 8",
             "E. 8"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Modus adalah nilai dengan frekuensi tertinggi, sehingga tiap nilai perlu dihitung kemunculannya.\n\nLangkah 2: Cacah frekuensinya: $4$ muncul $1$ kali, $6$ muncul $2$ kali, $7$ muncul $1$ kali, $8$ muncul $3$ kali, dan $9$ muncul $1$ kali.\n\nLangkah 3: Frekuensi tertinggi adalah $3$, yang dimiliki oleh nilai $8$. Jadi modusnya $8$.\nKesimpulan: Kunci Jawaban E."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan median data genap $n = 8$:\nData terurut: $3, 4, 6, 7, 8, 10, 12, 14$.\n\nLangkah 2: Rata-rata dari data ke-4 dan data ke-5:\n$$Me = \\frac{x_4 + x_5}{2} = \\frac{7 + 8}{2} = \\frac{15}{2} = 7{,}5$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -7099,8 +7099,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Nilai d2 (selisih frekuensi dengan kelas sesudahnya) adalah 6.",
             "E. Nilai modus data berkelompok adalah 74,5."
           ],
-          "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$d_1 + d_2 = 4 + 6 = 10$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nNilai modus adalah $74{,}5$, bukan $78{,}5$.\n$\\implies$ Pernyataan B SALAH.\n\nLangkah 3: Analisis Opsi C:\n$d_1 = 12 - 8 = 4$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$d_2 = 12 - 6 = 6$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$Mo = 70{,}5 + \\left(\\frac{4}{10}\\right)10 = 70{,}5 + 4 = 74{,}5$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, C, D, E."
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Evaluasi sifat median dan modus:\n- A: Median membagi 50% distribusi (BENAR).\n- B: Modus didasarkan pada selisih $d_1$ dan $d_2$ (BENAR).\n- C: Median bersifat robust terhadap outlier (BENAR).\n- D: Jika frekuensi sama semua, data tidak memiliki modus (BENAR).\n- E: Nilai modus tidak selalu lebih besar dari median (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -7115,8 +7115,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Modus > Median > Mean",
             "E. Median > Mean > Modus"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Condong ke kanan berarti ekor kurva memanjang ke arah nilai besar, sehingga ada beberapa data bernilai jauh lebih tinggi daripada kebanyakan data.\n\nLangkah 2: Mean paling terpengaruh oleh data ekstrem karena melibatkan penjumlahan seluruh nilai, sehingga mean tertarik ke kanan paling jauh.\n\nLangkah 3: Modus tetap berada di puncak kurva, yaitu di sebelah kiri, sedangkan median berada di antara keduanya.\n\nLangkah 4: Jadi urutannya Mean $>$ Median $>$ Modus.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung median jika $Tb = 70{,}5, n = 60, F_k = 20, f_m = 25, p = 10$:\n$$Me = 70{,}5 + \\left(\\frac{30 - 20}{25}\\right) \\times 10 = 70{,}5 + \\left(\\frac{10}{25} \\times 10\\right) = 70{,}5 + 4 = 74{,}5$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lonceng",
             "src": "Pada kurva distribusi yang condong ke kanan (positively skewed), hubungan ukuran pemusatan yang berlaku adalah ..."
@@ -7129,8 +7129,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P17-Q10] Median dari kumpulan data terurut: 10, 20, 30, 40, 50, 60 adalah ...",
           "opsi": [],
-          "kunci": "35",
-          "bahas": "Langkah 1: Periksa banyak datanya. Ada $n = 6$ data, yaitu genap, sehingga mediannya adalah rata-rata dua data tengah.\n\nLangkah 2: Dua data tengah adalah data ke-$3$ dan ke-$4$, yaitu $30$ dan $40$.\n\nLangkah 3: Hitung rata-ratanya: $\\frac{30+40}{2} = 35$.\nKesimpulan: Kunci Jawaban 35."
+          "kunci": "55",
+          "bahas": "Langkah 1: Menghitung modus dengan $Tb = 50{,}5, d_1 = 3, d_2 = 3, p = 9$:\n$$Mo = 50{,}5 + \\left(\\frac{3}{3 + 3}\\right) \\times 9 = 50{,}5 + \\left(\\frac{1}{2} \\times 9\\right) = 50{,}5 + 4{,}5 = 55$$\nKesimpulan: Kunci Jawaban 55."
         }
       ]
     },
@@ -7153,7 +7153,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 57,25"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Letak $Q_1 = 50/4 = 12{,}5$ (kelas $50 - 59$).\n\nLangkah 2: $Tb = 49,5, f_k = 6, f_{q1} = 10, c = 10$.\n\nLangkah 3: $Q_1 = 49{,}5 + \\left(\\frac{12{,}5 - 6}{10}\\right) 10 = 49{,}5 + 6{,}5 = 56{,}00$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan letak Kuartil Bawah ($Q_1$):\nTotal frekuensi $n = 40 \\implies$ letak $Q_1$ pada data ke-$\\frac{1}{4}n = \\frac{1}{4}(40) = 10$.\n- Frekuensi kumulatif: Kelas 40-49 ($f_k = 6$), Kelas 50-59 ($f_k = 16$).\n$\\implies$ Kelas $Q_1$ berada pada interval $50 - 59$.\n\nLangkah 2: Mengidentifikasi parameter rumus Kuartil:\n- Tepi Bawah: $Tb = 49{,}5$\n- Frekuensi kumulatif sebelum kelas $Q_1$: $F_k = 6$\n- Frekuensi kelas $Q_1$: $f_{q1} = 10$\n- Panjang kelas: $p = 10$\n\nLangkah 3: Menghitung $Q_1$:\n$$Q_1 = Tb + \\left(\\frac{\\frac{1}{4}n - F_k}{f_{q1}}\\right) \\times p = 49{,}5 + \\left(\\frac{10 - 6}{10}\\right) \\times 10 = 49{,}5 + 4 = 53{,}5$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Bawah ($Q_1$) data tersebut adalah ..."
@@ -7172,8 +7172,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 75,50",
             "E. 77,25"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Letak $Q_3 = 3(50)/4 = 37{,}5$ (kelas $70 - 79$).\n\nLangkah 2: $Tb = 69,5, f_k = 30, f_{q3} = 12, c = 10$.\n\nLangkah 3: $Q_3 = 69{,}5 + \\left(\\frac{37{,}5 - 30}{12}\\right) 10 = 69{,}5 + 7{,}08 = 76{,}58$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menggunakan rumus Jangkauan Interkuartil ($QR$ atau $H$):\n$$QR = Q_3 - Q_1$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 45$ dan $Q_3 = 75$:\n$$QR = 75 - 45 = 30$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Atas ($Q_3$) data tersebut adalah ..."
@@ -7192,8 +7192,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 10,29",
             "E. 15,25"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Jangkauan interkuartil dihitung dengan $QR = Q_3 - Q_1$, yang menggambarkan sebaran $50\\%$ data di bagian tengah.\n\nLangkah 2: Substitusikan nilainya: $QR = 76{,}58 - 56{,}00$.\n\nLangkah 3: Hitung hasilnya: $QR = 20{,}58$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menggunakan rumus Simpangan Kuartil ($Q_d$):\n$$Q_d = \\frac{1}{2}(Q_3 - Q_1) = \\frac{1}{2} QR$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 50$ dan $Q_3 = 80$:\n$$Q_d = \\frac{1}{2}(80 - 50) = \\frac{1}{2}(30) = 15$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "boxplot",
             "src": "Jika $Q_1 = 56{,}00$ dan $Q_3 = 76{,}58$, maka nilai Jangkauan Interkuartil ($QR$) adalah ..."
@@ -7213,7 +7213,7 @@ const NAMA_TINGKAT = 'XII';
             "E. (Q3 - Q1) / n"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Simpangan kuartil menyatakan setengah dari rentang tengah data, sehingga dihitung dari jangkauan interkuartil.\n\nLangkah 2: Karena $QR = Q_3 - Q_1$ mencakup rentang penuh, simpangan kuartilnya adalah separuh nilai itu.\n\nLangkah 3: Jadi $Q_d = \\frac{1}{2}\\left(Q_3 - Q_1\\right)$. Karena itu $Q_d$ juga disebut jangkauan semi-interkuartil.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Menentukan posisi Desil ke-7 ($D_7$):\nTotal frekuensi $n = 50 \\implies$ letak $D_7$ pada data ke-$\\frac{7}{10}n = \\frac{7}{10}(50) = 35$.\n$\\implies$ Letak $D_7$ berada pada data ke-35.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "boxplot",
             "src": "Simpangan kuartil ($Q_d$) dirumuskan sebagai ..."
@@ -7230,8 +7230,8 @@ const NAMA_TINGKAT = 'XII';
             "Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1",
             "Kuartil kedua (Q2) bernilai sama dengan Median (Me)"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSimpangan kuartil $Q_d = \\frac{1}{2}(Q_3 - Q_1)$, bukan penjumlahan.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\n$QR = H = Q_3 - Q_1$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$Q_2$ membagi $50\\%$ data terurut, sehingga $Q_2 = Me$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nKuartil Tengah ($Q_2$) membagi data menjadi 2 bagian sama banyak ($50\\%$), sehingga nilainya identik dengan Median ($Me$).\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nDesil membagi data terurut menjadi 10 bagian sama besar dengan 9 titik pembagi ($D_1$ s.d $D_9$).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nSimpangan kuartil dirumuskan sebagai $Q_d = \\frac{1}{2}(Q_3 - Q_1)$, bukan $Q_3 + Q_1$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran ukuran letak data:\n(1) Simpangan Kuartil dirumuskan sebagai Qd = Q3 + Q1.\n(2) Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1.\n(3) Kuartil kedua (Q2) bernilai sama dengan Median (Me)."
@@ -7250,8 +7250,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Q1 - 1,5 * QR",
             "E. Q1 - QR"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Pada diagram kotak garis, data dianggap pencilan bila letaknya terlalu jauh dari kotak yang dibatasi $Q_1$ dan $Q_3$.\n\nLangkah 2: Batas kewajarannya ditetapkan sejauh $1{,}5 \\times QR$ dari tepi kotak, ke bawah dari $Q_1$ dan ke atas dari $Q_3$.\n\nLangkah 3: Jadi pagar dalam bawah dirumuskan sebagai $Q_1 - 1{,}5 \\times QR$; data di bawah nilai ini dinyatakan sebagai pencilan.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung Pagar Luar ($PL$) untuk identifikasi pencilan (outlier):\n$$PL = Q_3 + 1{,}5 \\times QR$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 40$ dan $Q_3 = 70 \\implies QR = 70 - 40 = 30$:\n$$PL = 70 + (1{,}5 \\times 30) = 70 + 45 = 115$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "boxplot",
             "src": "Batas pencilan bawah (Pagar Dalam Bawah) pada diagram kotak garis dirumuskan sebagai ..."
@@ -7270,8 +7270,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Rata-rata Hitung",
             "E. Kuartil Atas (Q3)"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Desil membagi data terurut menjadi sepuluh bagian sama besar, sehingga $D_5$ berada pada posisi $\\frac{5}{10}$ data.\n\nLangkah 2: Sederhanakan posisinya: $\\frac{5}{10} = \\frac{1}{2}$, yaitu tepat di tengah data.\n\nLangkah 3: Posisi tengah itu juga merupakan definisi median, atau $Q_2$. Jadi $D_5 = Q_2$.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung Kuartil Atas ($Q_3$) jika $Tb = 69{,}5, \\frac{3}{4}n = 30, F_k = 22, f_{q3} = 16, p = 10$:\n$$Q_3 = 69{,}5 + \\left(\\frac{30 - 22}{16}\\right) \\times 10 = 69{,}5 + \\left(\\frac{8}{16} \\times 10\\right) = 69{,}5 + 5 = 74{,}5$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 8,
@@ -7286,8 +7286,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Jangkauan interkuartil (QR) bernilai 30.",
             "E. Simpangan kuartil (Qd) bernilai 15."
           ],
-          "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\nPagar bawah $= 40 - 1{,}5(30) = -5$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nPagar atas $= 70 + 1{,}5(30) = 115$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nKarena $120 > 115$, nilai 120 adalah pencilan (outlier).\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$QR = 70 - 40 = 30$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$Q_d = \\frac{1}{2}(30) = 15$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E."
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Evaluasi seluruh ukuran letak data:\n- A: $Q_2 = Me$ (BENAR).\n- B: Desil membagi 10 bagian (BENAR).\n- C: Persentil membagi 100 bagian (BENAR).\n- D: $Q_d = \\frac{1}{2}(Q_3 - Q_1)$ (BENAR).\n- E: $Q_3$ tidak selalu sama dengan modus (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -7302,8 +7302,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5",
             "E. 4"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: $Q_1$ adalah median dari kelompok data di bawah median keseluruhan.\n\nLangkah 2: Data terurut $2, 4, 6, 8, 10, 12, 14$ dengan $n = 7$ memiliki median $8$ (data ke-$4$). Kelompok bawahnya adalah $2, 4, 6$.\n\nLangkah 3: Median dari $2, 4, 6$ adalah data tengahnya, yaitu $Q_1 = 4$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung Pagar Dalam ($PD$):\n$$PD = Q_1 - 1{,}5 \\times QR$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 50, QR = 20$:\n$$PD = 50 - (1{,}5 \\times 20) = 50 - 30 = 20$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "boxplot",
             "src": "Dari data tunggal: 2, 4, 6, 8, 10, 12, 14, nilai Kuartil Bawah ($Q_1$) adalah ..."
@@ -7316,8 +7316,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P18-Q10] Jika $Q_1 = 30$ dan $Q_3 = 50$, maka nilai simpangan kuartil ($Q_d$) adalah ...",
           "opsi": [],
-          "kunci": "10",
-          "bahas": "Langkah 1: Simpangan kuartil dihitung dengan $Q_d = \\frac{1}{2}\\left(Q_3 - Q_1\\right)$.\n\nLangkah 2: Substitusikan nilainya: $Q_d = \\frac{1}{2}\\left(50 - 30\\right)$.\n\nLangkah 3: Hitung hasilnya: $Q_d = \\frac{20}{2} = 10$.\nKesimpulan: Kunci Jawaban 10.",
+          "kunci": "25",
+          "bahas": "Langkah 1: Menghitung Jangkauan Interkuartil ($QR$):\n$$QR = Q_3 - Q_1 = 85 - 60 = 25$$\nKesimpulan: Kunci Jawaban 25.",
           "viz": {
             "t": "boxplot",
             "src": "Jika $Q_1 = 30$ dan $Q_3 = 50$, maka nilai simpangan kuartil ($Q_d$) adalah ..."
@@ -7344,7 +7344,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $\\sqrt{10}$"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Mean $\\bar{x} = 40/5 = 8$.\n\nLangkah 2: $(x_i - 8)^2 = 4 + 1 + 0 + 1 + 4 = 10$.\n\nLangkah 3: Varians sampel $S^2 = 10/5 = 2 \\implies S = \\sqrt{2}$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menghitung rata-rata ($\\bar{x}$) data: 6, 7, 8, 9, 10:\n$$\\bar{x} = \\frac{6 + 7 + 8 + 9 + 10}{5} = \\frac{40}{5} = 8$$\n\nLangkah 2: Menghitung simpangan mutlak $|x_i - \\bar{x}|$:\n- $|6 - 8| = 2$\n- $|7 - 8| = 1$\n- $|8 - 8| = 0$\n- $|9 - 8| = 1$\n- $|10 - 8| = 2$\n$$\\sum |x_i - \\bar{x}| = 2 + 1 + 0 + 1 + 2 = 6$$\n\nLangkah 3: Menghitung Simpangan Rata-rata ($SR$):\n$$SR = \\frac{\\sum |x_i - \\bar{x}|}{n} = \\frac{6}{5} = 1{,}2$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lonceng",
             "src": "Diberikan data sampel tunggal: 6, 7, 8, 9, 10. Nilai simpangan baku ($S$) dari data tersebut adalah ..."
@@ -7363,8 +7363,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 3,0",
             "E. 2,0"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Simpangan rata-rata memakai $SR = \\frac{\\sum \\left|x_i - \\bar{x}\\right|}{n}$, sehingga rata-ratanya harus dicari lebih dahulu.\n\nLangkah 2: Hitung rata-ratanya: $\\bar{x} = \\frac{4+6+8+10+12}{5} = \\frac{40}{5} = 8$.\n\nLangkah 3: Hitung simpangan mutlak tiap data: $\\left|4-8\\right|=4$, $\\left|6-8\\right|=2$, $\\left|8-8\\right|=0$, $\\left|10-8\\right|=2$, $\\left|12-8\\right|=4$; jumlahnya $12$.\n\nLangkah 4: Bagi dengan banyak data: $SR = \\frac{12}{5} = 2{,}4$.\nKesimpulan: Kunci Jawaban B."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung rata-rata ($\\bar{x}$) data: 2, 4, 6, 8, 10:\n$$\\bar{x} = \\frac{2 + 4 + 6 + 8 + 10}{5} = \\frac{30}{5} = 6$$\n\nLangkah 2: Menghitung kuadrat simpangan $(x_i - \\bar{x})^2$:\n- $(2 - 6)^2 = (-4)^2 = 16$\n- $(4 - 6)^2 = (-2)^2 = 4$\n- $(6 - 6)^2 = 0^2 = 0$\n- $(8 - 6)^2 = 2^2 = 4$\n- $(10 - 6)^2 = 4^2 = 16$\n$$\\sum (x_i - \\bar{x})^2 = 16 + 4 + 0 + 4 + 16 = 40$$\n\nLangkah 3: Menghitung Varians Populasi ($\\sigma^2$):\n$$\\sigma^2 = \\frac{40}{5} = 8$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 3,
@@ -7379,8 +7379,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/3 kali semula",
             "E. Bertambah 3"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Simpangan baku mengukur sebaran data, dan sebaran ikut merenggang bila seluruh data dikalikan suatu bilangan.\n\nLangkah 2: Jika tiap data $x_i$ menjadi $kx_i$, maka rata-ratanya juga menjadi $k\\bar{x}$, sehingga tiap simpangan $\\left(x_i - \\bar{x}\\right)$ menjadi $k\\left(x_i - \\bar{x}\\right)$.\n\nLangkah 3: Karena setiap simpangan dikalikan $k$, simpangan bakunya pun menjadi $k$ kali semula. Untuk $k = 3$, hasilnya $3$ kali simpangan baku semula. (Variansnya menjadi $9$ kali, karena varians adalah kuadrat simpangan baku.)\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Mengidentifikasi hubungan Varians ($S^2$) dan Simpangan Baku ($S$):\nSimpangan baku adalah akar kuadrat non-negatif dari nilai varians:\n$$S = \\sqrt{S^2}$$\n\nLangkah 2: Mensubstitusikan nilai varians $S^2 = 8$:\n$$S = \\sqrt{8} = \\sqrt{4 \\times 2} = 2\\sqrt{2}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lonceng",
             "src": "Jika setiap nilai data dikalikan 3, maka nilai simpangan baku data yang baru menjadi ..."
@@ -7399,8 +7399,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Bertambah 10",
             "E. Menjadi 10 kali lipat"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Varians mengukur seberapa jauh data tersebar dari rata-ratanya, bukan seberapa besar nilai datanya.\n\nLangkah 2: Jika tiap data ditambah $10$, maka rata-ratanya juga bertambah $10$, sehingga selisih $\\left(x_i - \\bar{x}\\right)$ sama sekali tidak berubah.\n\nLangkah 3: Karena varians hanya bergantung pada selisih itu, nilainya tetap tidak berubah. Penambahan konstanta hanya menggeser seluruh data tanpa merenggangkannya.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menggunakan rumus Skor Baku ($Z$-score):\n$$Z = \\frac{x - \\bar{x}}{S}$$\n\nLangkah 2: Mensubstitusikan nilai siswa $x = 85$, rata-rata kelas $\\bar{x} = 75$, dan simpangan baku $S = 5$:\n$$Z = \\frac{85 - 75}{5} = \\frac{10}{5} = +2{,}0$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lonceng",
             "src": "Jika setiap nilai data ditambah 10, maka nilai varians data yang baru akan ..."
@@ -7418,7 +7418,7 @@ const NAMA_TINGKAT = 'XII';
             "Jika setiap nilai data ditambah 10, maka nilai simpangan baku bertambah 10"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$S = \\sqrt{S^2}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$\\text{Var}(kX) = k^2 \\text{Var}(X) \\implies 3^2 = 9$ kali lipat.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPenambahan konstanta tidak mengubah simpangan baku ($S(X+c) = S(X)$). Jadi nilainya tetap, tidak bertambah 10.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSimpangan baku $S$ selalu bernilai non-negatif ($S \\ge 0$) dan bernilai 0 hanya jika semua datum seragam identik.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nSkor baku $Z = \\frac{x - \\bar{x}}{S}$ menunjukkan berapa simpangan baku suatu nilai berada di atas atau di bawah rata-rata.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJika setiap datum dikalikan 2, maka simpangan bakunya berubah menjadi $2 \\times S$, bukan tetap sama.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lonceng",
             "src": "Tentukan kebenaran ukuran penyebaran data:\n(1) Simpangan baku (S) adalah akar kuadrat dari varians (S^2).\n(2) Jika setiap nilai data dikalikan 3, maka nilai varians data menjadi 9 kali lipat.\n(3) Jika setiap nilai data ditambah 10, maka nilai simpangan baku bertambah 10."
@@ -7437,8 +7437,8 @@ const NAMA_TINGKAT = 'XII';
             "D. +1,0",
             "E. +1,5"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Skor baku dihitung dengan $Z = \\frac{x - \\bar{x}}{S}$, yang menyatakan berapa simpangan baku suatu nilai berada dari rata-rata.\n\nLangkah 2: Substitusikan nilainya: $Z = \\frac{85 - 75}{5}$.\n\nLangkah 3: Hitung hasilnya: $Z = \\frac{10}{5} = +2{,}0$, artinya nilai siswa berada $2$ simpangan baku di atas rata-rata kelas.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung Koefisien Variasi ($KV$):\n$$KV = \\left(\\frac{S}{\\bar{x}}\\right) \\times 100\\%$$\n\nLangkah 2: Mensubstitusikan $S = 4$ dan $\\bar{x} = 80$:\n$$KV = \\left(\\frac{4}{80}\\right) \\times 100\\% = \\frac{1}{20} \\times 100\\% = 5\\%$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lonceng",
             "src": "Berapakah nilai $Z$-score siswa yang memperoleh nilai ujian $x = 85$ jika mean kelas $\\bar{x} = 75$ dan simpangan baku $S = 5$?"
@@ -7457,8 +7457,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 8%",
             "E. 5%"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Koefisien variasi dihitung dengan $KV = \\frac{S}{\\bar{x}} \\times 100\\%$, yaitu ukuran sebaran relatif terhadap rata-ratanya.\n\nLangkah 2: Substitusikan nilainya: $KV = \\frac{8}{80} \\times 100\\%$.\n\nLangkah 3: Hitung hasilnya: $0{,}1 \\times 100\\% = 10\\%$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung simpangan baku data seragam tanpa variasi: $7, 7, 7, 7, 7$:\nKarena semua nilai datum sama persis, rata-ratanya $\\bar{x} = 7$.\nSetiap simpangan $(x_i - \\bar{x}) = 0$.\n\nLangkah 2: Menghitung $S$:\n$$S = \\sqrt{\\frac{0}{5}} = 0$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lonceng",
             "src": "Koefisien variasi ($KV$) dari kumpulan data dengan mean $\\bar{x} = 80$ dan simpangan baku $S = 8$ adalah ..."
@@ -7477,8 +7477,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Nilai rata-rata data adalah 8.",
             "E. Nilai simpangan rata-rata (SR) data adalah 2,4."
           ],
-          "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$S^2 = \\frac{16 + 4 + 0 + 4 + 16}{5 - 1} = \\frac{40}{4} = 10$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$R = 12 - 4 = 8$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$S = \\sqrt{10}$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$\\bar{x} = \\frac{40}{5} = 8$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$SR = \\frac{4 + 2 + 0 + 2 + 4}{5} = 2{,}4$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E."
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Evaluasi ukuran penyebaran data:\n- A: $S = \\sqrt{S^2}$ (BENAR).\n- B: $Z$-score bernilai positif jika $x > \\bar{x}$ (BENAR).\n- C: Jika semua data ditambah konstanta, simpangan baku tidak berubah (BENAR).\n- D: Jika semua data dikalikan konstanta $k$, simpangan baku menjadi $|k| \\cdot S$ (BENAR).\n- E: Varians tidak dapat bernilai negatif (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -7493,8 +7493,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $\\sqrt{5}$",
             "E. 5,0"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Varians dihitung dengan $S^2 = \\frac{\\sum\\left(x_i - \\bar{x}\\right)^2}{n}$, sehingga rata-ratanya dicari lebih dahulu.\n\nLangkah 2: Hitung rata-ratanya: $\\bar{x} = \\frac{2+4+6+8}{4} = \\frac{20}{4} = 5$.\n\nLangkah 3: Hitung kuadrat simpangannya: $(-3)^2 + (-1)^2 + 1^2 + 3^2 = 9+1+1+9 = 20$.\n\nLangkah 4: Bagi dengan banyak data: $S^2 = \\frac{20}{4} = 5{,}0$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung nilai amatan $x$ dari skor baku $Z = -1{,}5$:\n$$Z = \\frac{x - \\bar{x}}{S} \\implies x = \\bar{x} + (Z \\times S)$$\n\nLangkah 2: Mensubstitusikan $\\bar{x} = 70$ dan $S = 6$:\n$$x = 70 + (-1{,}5 \\times 6) = 70 - 9 = 61$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lonceng",
             "src": "Varians ($S^2$) dari data tunggal: 2, 4, 6, 8 adalah ..."
@@ -7507,8 +7507,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P19-Q10] Nilai varians dari data identik: 10, 10, 10, 10, 10 adalah ...",
           "opsi": [],
-          "kunci": "0",
-          "bahas": "Langkah 1: Varians mengukur penyebaran data terhadap rata-ratanya.\n\nLangkah 2: Karena seluruh datanya bernilai sama, rata-ratanya juga $10$, sehingga setiap simpangan $\\left(x_i - \\bar{x}\\right)$ bernilai nol.\n\nLangkah 3: Jumlah kuadrat simpangannya nol, sehingga variansnya $S^2 = 0$. Data yang identik memang tidak memiliki penyebaran sama sekali.\nKesimpulan: Kunci Jawaban 0.",
+          "kunci": "2",
+          "bahas": "Langkah 1: Menghitung simpangan baku dari data: 1, 3, 5:\n$\\bar{x} = \\frac{1 + 3 + 5}{3} = 3$.\n$\\sum (x_i - \\bar{x})^2 = (1-3)^2 + (3-3)^2 + (5-3)^2 = 4 + 0 + 4 = 8$.\nVarians sampel $S^2 = \\frac{8}{3 - 1} = \\frac{8}{2} = 4 \\implies S = \\sqrt{4} = 2$.\nKesimpulan: Kunci Jawaban 2.",
           "viz": {
             "t": "lonceng",
             "src": "Nilai varians dari data identik: 10, 10, 10, 10, 10 adalah ..."
@@ -7535,7 +7535,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 9,0 satuan"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Pada model $\\hat{y} = a + bx$, koefisien $b$ menyatakan perubahan $\\hat{y}$ untuk setiap penambahan satu satuan $x$.\n\nLangkah 2: Di sini $b = 1{,}8$, sehingga penambahan $5$ satuan $x$ memberi kenaikan $1{,}8 \\times 5$.\n\nLangkah 3: Hitung hasilnya: $9{,}0$ satuan. Intersep $25$ tidak ikut berperan karena yang ditanya adalah kenaikannya, bukan nilai akhirnya.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Mengidentifikasi interpretasi gradien kemiringan ($b = 2{,}5$) pada garis regresi $\\hat{y} = 20 + 2{,}5x$:\nModel regresi linier sederhana menyatakan laju perubahan marginal variabel dependen $Y$ terhadap variabel independen $X$.\n\nLangkah 2: Menafsirkan koefisien $b$:\nSetiap kenaikan $1$ satuan pada variabel $X$ akan menyebabkan peningkatan rata-rata sebesar **2,5 satuan pada variabel Y**.\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "regresi",
             "src": "Pada analisis regresi linier sederhana $\\hat{y} = 25 + 1{,}8x$, jika variabel independen $x$ bertambah 5 satuan, maka estimasi kenaikan nilai $\\hat{y}$ adalah ..."
@@ -7554,8 +7554,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Linier negatif yang sangat kuat",
             "E. Tidak ada korelasi"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Tanda pada koefisien korelasi menunjukkan arah hubungan; tanda negatif berarti saat satu variabel naik, variabel lain cenderung turun.\n\nLangkah 2: Nilai mutlaknya menunjukkan kekuatan hubungan. Di sini $\\left|-0{,}92\\right| = 0{,}92$, yang sangat dekat dengan $1$.\n\nLangkah 3: Jadi hubungannya linier negatif yang sangat kuat. Disebut sempurna hanya bila $r = -1$ tepat.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Memahami arti koefisien korelasi Pearson ($r$):\nNilai $r$ berada pada interval $[-1, 1]$.\nNilai $r = -0{,}92$ memiliki magnitudo $|r| \\approx 1$ dengan tanda negatif.\n\nLangkah 2: Menafsirkan hubungan:\nMenunjukkan hubungan linier yang **sangat kuat dan berkebalikan arah (negatif)**.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "regresi",
             "src": "Nilai koefisien korelasi Pearson $r = -0{,}92$ menunjukkan hubungan antara dua variabel bersifat ..."
@@ -7575,7 +7575,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 40%"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Koefisien determinasi adalah kuadrat koefisien korelasi, yaitu $R^2 = r^2$.\n\nLangkah 2: Substitusikan nilainya: $R^2 = (0{,}80)^2 = 0{,}64$.\n\nLangkah 3: Ubah ke persen: $0{,}64 \\times 100\\% = 64\\%$, artinya $64\\%$ keragaman $Y$ dapat dijelaskan oleh $X$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menghitung Koefisien Determinasi ($R^2$):\n$$R^2 = r^2$$\n\nLangkah 2: Mensubstitusikan nilai koefisien korelasi $r = 0{,}80$:\n$$R^2 = (0{,}80)^2 = 0{,}64 = 64\\%$$\n\nLangkah 3: Menafsirkan nilai $R^2$:\nSebesar **64%** variasi variabel Y dapat dijelaskan oleh variabel X dalam model linier.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "regresi",
             "src": "Jika koefisien korelasi $r = 0{,}80$, maka nilai koefisien determinasi ($R^2$) adalah ..."
@@ -7594,8 +7594,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Jumlah titik data",
             "E. Nilai rata-rata variabel Y"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Residual adalah selisih antara data aktual dan nilai prediksi, yaitu $e = y - \\hat{y}$; garis terbaik adalah yang residualnya sekecil mungkin.\n\nLangkah 2: Residual tidak dijumlahkan langsung karena yang positif dan negatif akan saling meniadakan, sehingga tiap residual dikuadratkan lebih dahulu.\n\nLangkah 3: Jadi garis regresi terbaik diperoleh dengan meminimalkan jumlah kuadrat residual. Cara ini dikenal sebagai metode kuadrat terkecil.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menggunakan persamaan garis regresi $\\hat{y} = 15 + 3{,}2x$:\nLangkah 2: Mensubstitusikan nilai variabel bebas $x = 10$:\n$$\\hat{y} = 15 + (3{,}2 \\times 10) = 15 + 32 = 47$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "regresi",
             "src": "Garis regresi linier terbaik diperoleh dengan meminimalkan ..."
@@ -7612,8 +7612,8 @@ const NAMA_TINGKAT = 'XII';
             "Nilai r = 0 menunjukkan korelasi linier sempurna positif",
             "Nilai koefisien korelasi Pearson r memenuhi -1 <= r <= 1"
           ],
-          "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$R^2 = r^2$ menyatakan persentase variansi model.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nNilai $r = 0$ berarti tidak ada hubungan linier sama sekali, bukan korelasi linier sempurna.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nKoefisien korelasi $-1 \\le r \\le 1$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B.",
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nDiagram pencar (*scatter plot*) digunakan untuk memvisualisasikan pola hubungan antara dua variabel bivariat.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nKoefisien korelasi Pearson $r$ selalu berada pada interval tertutup $-1 \\le r \\le 1$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKorelasi yang kuat tidak selalu membuktikan adanya hubungan sebab-akibat kausalitas secara langsung (*correlation does not imply causation*).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "regresi",
             "src": "Tentukan kebenaran analisis regresi linier bivariat:\n(1) Koefisien determinasi R^2 = r^2 menyatakan proporsi variasi Y yang dijelaskan oleh X.\n(2) Nilai r = 0 menunjukkan korelasi linier sempurna positif.\n(3) Nilai koefisien korelasi Pearson r memenuhi -1 <= r <= 1."
@@ -7632,8 +7632,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 55,0",
             "E. 45,0"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Nilai estimasi diperoleh dengan menyubstitusikan $x$ ke persamaan regresinya.\n\nLangkah 2: Substitusikan $x = 10$ ke $\\hat{y} = 15 + 3{,}5x$: $\\hat{y} = 15 + 3{,}5(10)$.\n\nLangkah 3: Hitung hasilnya: $15 + 35 = 50{,}0$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Mengidentifikasi rumus intersep ($a$) pada garis regresi yang melalui titik pusat data $(\\bar{x}, \\bar{y})$:\n$$\\bar{y} = a + b\\bar{x} \\implies a = \\bar{y} - b\\bar{x}$$\n\nLangkah 2: Mensubstitusikan $\\bar{x} = 5, \\bar{y} = 25$, dan $b = 4$:\n$$a = 25 - (4 \\times 5) = 25 - 20 = 5$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "regresi",
             "src": "Berapakah nilai estimasi $\\hat{y}$ saat $x = 10$ pada persamaan garis regresi $\\hat{y} = 15 + 3{,}5x$?"
@@ -7652,8 +7652,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 0",
             "E. +4"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Residual dihitung dengan $e = y - \\hat{y}$, yaitu data aktual dikurangi nilai prediksi.\n\nLangkah 2: Substitusikan nilainya: $e = 80 - 76$.\n\nLangkah 3: Hitung hasilnya: $e = +4$. Tanda positif berarti model memberi prediksi yang lebih rendah daripada kenyataannya.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung galat residu ($e = y - \\hat{y}$):\n- Nilai amatan aktual: $y = 35$\n- Nilai prediksi model: $\\hat{y} = 10 + 2(12) = 10 + 24 = 34$\n\nLangkah 2: Menghitung selisih residu:\n$$e = 35 - 34 = +1$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "regresi",
             "src": "Nilai galat (residual $e$) dari suatu observasi dengan data aktual $y = 80$ dan nilai prediksi $\\hat{y} = 76$ adalah ..."
@@ -7673,7 +7673,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Jika x = 10, estimasi nilai y_hat adalah 40."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$R^2 = (0,80)^2 = 0{,}64 = 64\\%$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nArti gradien $b = 2{,}5$: laju perubahan marginal.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$\\hat{y} = a + bx \\implies a = 15$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$b = 2{,}5$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$\\hat{y}(10) = 15 + 2{,}5(10) = 40$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
+          "bahas": "Langkah 1: Analisis model regresi $\\hat{y} = 15 + 2{,}5x$ dengan $r = 0{,}80$:\n- A: $R^2 = (0{,}80)^2 = 0{,}64 = 64\\%$ (BENAR).\n- B: Nilai gradien $b = 2{,}5$ menyatakan laju perubahan marginal (BENAR).\n- C: Nilai intersep $a = 15$ (BENAR).\n- D: Kemiringan positif menunjukkan hubungan searah (BENAR).\n- E: Prediksi saat $x = 10$ adalah $\\hat{y} = 15 + 25 = 40$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "regresi",
             "src": "Pada persamaan regresi y_hat = 15 + 2,5x dengan r = 0,80, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)"
@@ -7693,7 +7693,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 10"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Garis regresi selalu melalui titik pusat data $\\left(\\bar{x}, \\bar{y}\\right)$, sehingga berlaku $\\bar{y} = a + b\\bar{x}$.\n\nLangkah 2: Susun ulang untuk mencari intersepnya: $a = \\bar{y} - b\\bar{x}$.\n\nLangkah 3: Substitusikan nilainya: $a = 20 - 3(4) = 20 - 12 = 8$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menghitung nilai intersep $a$:\n$$a = \\bar{y} - b\\bar{x}$$\n\nLangkah 2: Mensubstitusikan $\\bar{x} = 4, \\bar{y} = 20$, dan $b = 3$:\n$$a = 20 - (3 \\times 4) = 20 - 12 = 8$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "regresi",
             "src": "Jika $\\bar{x} = 4, \\bar{y} = 20$, dan nilai gradien kemiringan $b = 3$, maka nilai intersep $a$ adalah ..."
@@ -7707,7 +7707,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P20-Q10] Nilai koefisien korelasi Pearson jika kedua variabel memiliki hubungan linier positif sempurna adalah ...",
           "opsi": [],
           "kunci": "1",
-          "bahas": "Langkah 1: Koefisien korelasi Pearson selalu berada pada selang $-1 \\le r \\le 1$.\n\nLangkah 2: Nilai $r = 1$ tercapai bila seluruh titik data terletak tepat pada satu garis lurus dengan kemiringan positif.\n\nLangkah 3: Karena yang ditanya adalah hubungan linier positif sempurna, nilainya $r = 1$.\nKesimpulan: Kunci Jawaban 1.",
+          "bahas": "Langkah 1: Memahami definisi korelasi linier positif sempurna:\nJika semua titik data terletak tepat pada satu garis lurus dengan kemiringan naik, maka nilai koefisien korelasi Pearson adalah tepat **1**.\nKesimpulan: Kunci Jawaban 1.",
           "viz": {
             "t": "regresi",
             "src": "Nilai koefisien korelasi Pearson jika kedua variabel memiliki hubungan linier positif sempurna adalah ..."
@@ -7734,7 +7734,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 18,75"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: $\\sum fx = 4(12) + 8(17) + 5(22) + 3(27) = 48 + 136 + 110 + 81 = 375$.\n\nLangkah 2: $\\bar{x} = 375/20 = 18{,}25$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menghitung $\\sum f_i x_i$ dari tabel distribusi frekuensi ($n = 20$):\n- Kelas 10-14 ($f = 4$): $x_1 = 12 \\implies f_1 x_1 = 48$\n- Kelas 15-19 ($f = 8$): $x_2 = 17 \\implies f_2 x_2 = 136$\n- Kelas 20-24 ($f = 5$): $x_3 = 22 \\implies f_3 x_3 = 110$\n- Kelas 25-29 ($f = 3$): $x_4 = 27 \\implies f_4 x_4 = 81$\n$$\\sum f_i x_i = 48 + 136 + 110 + 81 = 375$$\n\nLangkah 2: Menghitung rata-rata hitung (mean):\n$$\\bar{x} = \\frac{375}{20} = 18{,}75$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[10-14: 4], [15-19: 8], [20-24: 5], [25-29: 3]\nTotal frekuensi $n = 20$. Nilai rata-rata hitung (mean) data tersebut adalah ..."
@@ -7754,7 +7754,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 8"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Simpangan baku adalah akar dari varians, yaitu $S = \\sqrt{S^2}$.\n\nLangkah 2: Substitusikan nilainya: $S = \\sqrt{16}$.\n\nLangkah 3: Hitung hasilnya: $S = 4$. Diambil akar positif karena simpangan baku tidak mungkin negatif.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus simpangan baku dari varians:\n$$S = \\sqrt{S^2}$$\n\nLangkah 2: Mensubstitusikan $S^2 = 16$:\n$$S = \\sqrt{16} = 4$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lonceng",
             "src": "Jika nilai varians sampel $S^2 = 16$, maka nilai simpangan baku ($S$) adalah ..."
@@ -7774,7 +7774,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 9%"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Koefisien determinasi menyatakan bagian keragaman variabel $Y$ yang dapat dijelaskan oleh variabel $X$.\n\nLangkah 2: Ubah nilainya ke bentuk persen: $R^2 = 0{,}81 = 0{,}81 \\times 100\\%$.\n\nLangkah 3: Hasilnya $81\\%$; sisanya $19\\%$ dijelaskan oleh faktor lain di luar model.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Menafsirkan nilai koefisien determinasi $R^2 = 0{,}81$:\n$$R^2 = 0{,}81 = 81\\%$$\n\nLangkah 2: Menarik kesimpulan persentase:\nBesar kontribusi pengaruh variabel X terhadap variabel Y adalah sebesar **81%**.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "regresi",
             "src": "Nilai koefisien determinasi $R^2 = 0{,}81$ menyatakan bahwa pengaruh variabel X terhadap Y adalah sebesar ..."
@@ -7794,7 +7794,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 11"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Periksa banyak datanya. Ada $n = 7$ data, yaitu ganjil, sehingga mediannya adalah data yang tepat di tengah.\n\nLangkah 2: Tentukan posisinya dengan $\\frac{n+1}{2} = \\frac{7+1}{2} = 4$, yaitu data ke-$4$.\n\nLangkah 3: Data sudah terurut: $5, 7, 8, \\mathbf{10}, 12, 14, 15$. Data ke-$4$ adalah $10$.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menentukan median data tunggal ganjil $n = 7$:\nData terurut: $5, 7, 8, \\mathbf{10}, 12, 14, 15$.\n\nLangkah 2: Menentukan letak data ke-$\\frac{7 + 1}{2} = 4$:\n$$Me = x_4 = 10$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 5,
@@ -7808,7 +7808,7 @@ const NAMA_TINGKAT = 'XII';
             "Median dan Kuartil bersifat robust terhadap pengaruh nilai pencilan ekstrim"
           ],
           "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$S = 0$ hanya jika data seragam identik. Jika data menyebar, $S > 0$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nMean menjumlahkan seluruh nilai amatan sehingga sensitif terhadap outlier.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nUkuran letak urutan bersifat robust terhadap nilai ekstrim.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSimpangan baku hanya bernilai 0 jika seluruh data seragam bernilai sama. Jika data bervariasi, $S > 0$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nMean menjumlahkan semua amatan sehingga sangat terpengaruh oleh pencilan ekstrim.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nMedian dan kuartil berbasis urutan posisi sehingga bersifat robust (kebal) terhadap nilai pencilan ekstrim.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran rangkuman evaluasi statistika:\n(1) Simpangan baku dari suatu data selalu bernilai 0 untuk segala jenis data.\n(2) Rata-rata hitung (mean) sangat sensitif terhadap nilai pencilan ekstrim.\n(3) Median dan Kuartil bersifat robust terhadap pengaruh nilai pencilan ekstrim."
@@ -7828,7 +7828,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 15"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Jangkauan interkuartil dihitung dengan $QR = Q_3 - Q_1$.\n\nLangkah 2: Substitusikan nilainya: $QR = 75 - 45$.\n\nLangkah 3: Hitung hasilnya: $QR = 30$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menghitung Jangkauan Interkuartil ($QR$):\n$$QR = Q_3 - Q_1$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 45$ dan $Q_3 = 75$:\n$$QR = 75 - 45 = 30$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "boxplot",
             "src": "Berapakah nilai jangkauan interkuartil ($QR$) jika $Q_1 = 45$ dan $Q_3 = 75$?"
@@ -7848,7 +7848,7 @@ const NAMA_TINGKAT = 'XII';
             "E. -2,0"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Skor baku dihitung dengan $Z = \\frac{x - \\bar{x}}{S}$.\n\nLangkah 2: Substitusikan nilainya: $Z = \\frac{90 - 70}{10}$.\n\nLangkah 3: Hitung hasilnya: $Z = \\frac{20}{10} = +2{,}0$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menghitung Skor Baku ($Z$-score):\n$$Z = \\frac{x - \\bar{x}}{S}$$\n\nLangkah 2: Mensubstitusikan $x = 90, \\bar{x} = 70$, dan $S = 10$:\n$$Z = \\frac{90 - 70}{10} = \\frac{20}{10} = +2{,}0$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lonceng",
             "src": "Nilai skor baku ($Z$-score) dari $x = 90$ pada distribusi dengan mean 70 dan standar deviasi 10 adalah ..."
@@ -7868,7 +7868,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Modus adalah ukuran pemusatan yang menyatakan nilai data berfrekuensi tertinggi."
           ],
           "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$|r| = 0{,}95$ menunjukkan derajat korelasi sangat kuat berbanding terbalik.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nMedian membagi data menjadi 2 kelompok ($50\\%$), sedangkan kuartil membagi 4 kelompok.\n$\\implies$ Pernyataan B SALAH.\n\nLangkah 3: Analisis Opsi C:\n$Z = \\frac{x - \\mu}{\\sigma} > 0$ saat $x > \\mu$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nData seragam tanpa variasi $\\implies S = 0$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nDefinisi modus adalah data berfrekuensi terbesar.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, C, D, E."
+          "bahas": "Langkah 1: Evaluasi seluruh pernyataan evaluasi statistika:\n- A: $r = -0{,}95$ menunjukkan hubungan sangat kuat berkebalikan arah (BENAR).\n- B: Median membagi data menjadi 2 bagian (50%), bukan 4 kelompok (SALAH).\n- C: $Z$-score positif saat $x > \\bar{x}$ (BENAR).\n- D: Simpangan baku data identik $5, 5, 5, 5, 5$ adalah 0 (BENAR).\n- E: Modus menyatakan data berfrekuensi tertinggi (BENAR).\nKesimpulan: Kunci Jawaban A, C, D, E."
         },
         {
           "no": 9,
@@ -7884,7 +7884,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 10"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Pada model regresi $\\hat{y} = a + bx$, intersep adalah konstanta $a$, yaitu nilai $\\hat{y}$ ketika $x = 0$.\n\nLangkah 2: Bandingkan dengan persamaan yang diberikan, $\\hat{y} = 10 + 2x$, sehingga $a = 10$ dan $b = 2$.\n\nLangkah 3: Jadi intersepnya $10$; angka $2$ adalah gradien, bukan intersep.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Mengidentifikasi konstanta intersep ($a$) pada persamaan regresi $\\hat{y} = a + bx$:\nPada persamaan $\\hat{y} = 10 + 2x$, intersep adalah konstanta $a = 10$.\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "regresi",
             "src": "Pada persamaan regresi $\\hat{y} = 10 + 2x$, nilai intersepnya adalah ..."
@@ -7898,7 +7898,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P21-Q10] Nilai simpangan baku dari data identik: 5, 5, 5, 5 adalah ...",
           "opsi": [],
           "kunci": "0",
-          "bahas": "Langkah 1: Simpangan baku mengukur penyebaran data terhadap rata-ratanya.\n\nLangkah 2: Karena seluruh datanya bernilai sama, rata-ratanya juga $5$, sehingga setiap simpangan bernilai nol dan variansnya $S^2 = 0$.\n\nLangkah 3: Simpangan bakunya adalah $S = \\sqrt{0} = 0$.\nKesimpulan: Kunci Jawaban 0.",
+          "bahas": "Langkah 1: Menghitung simpangan baku data konstan $5, 5, 5, 5$:\nKarena seluruh amatan sama dengan nilai rata-rata $\\bar{x} = 5$, maka setiap simpangan $(x_i - \\bar{x}) = 0$.\n$$S = 0$$\nKesimpulan: Kunci Jawaban 0.",
           "viz": {
             "t": "lonceng",
             "src": "Nilai simpangan baku dari data identik: 5, 5, 5, 5 adalah ..."
