@@ -4842,7 +4842,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const title = isClil ? (ped.title_en || ped.title) : ped.title;
       const badge = isClil ? (ped.badge_en || ped.badge) : ped.badge;
       const steps = isClil ? (ped.steps_en || ped.steps) : ped.steps;
-      const tip = isClil ? (ped.tip_en || ped.tip) : ped.tip;
+      const rawTip = isClil ? (ped.tip_en || ped.tip) : ped.tip;
+      const cleanTip = rawTip.replace(/^💡\s*(?:(?:Tips?|Teacher's\s*Tip)\s*(?:Guru)?\s*:?\s*)*/i, '').trim();
 
       if (window._collabActiveLevel === undefined) window._collabActiveLevel = 0;
 
@@ -4870,7 +4871,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           count: 5,
           labels: isClil ? ['Case A (Theory)', 'Case B (Algebra)', 'Case C (Analysis)', 'Case D (Applied)', 'Case E (HOTS)'] : ['Meja A (Teori)', 'Meja B (Aljabar)', 'Meja C (Analisis)', 'Meja D (Terapan)', 'Meja E (HOTS)'],
           hint: isClil ? 'Discuss and master your assigned case before returning to your home group.' : 'Diskusikan dan kuasai sub-kasus kelompok ahli sebelum kembali ke kelompok asal.',
-          protocolTitle: isClil ? 'Jigsaw Expert Protocol:' : 'Alur Kerja Kelompok Ahli:'
+          protocolTitle: isClil ? 'Jigsaw Protocol:' : 'Alur Kerja Kelompok Ahli:'
         },
         'rally_coach': {
           title: isClil ? 'Rally Coach Problem Flow' : 'Alur Masalah Rally Coach',
@@ -4898,7 +4899,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           count: 3,
           labels: isClil ? ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS'] : ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS'],
           hint: isClil ? 'All members stand actively. 1 marker rotates among members.' : 'Semua anggota berdiri aktif. 1 spidol wajib bergantian antar anggota tim.',
-          protocolTitle: isClil ? 'VNPS Rules (Building Thinking Classrooms):' : '4 Aturan Main Papan Vertikal (VNPS):'
+          protocolTitle: isClil ? 'VNPS Rules (BTC):' : '4 Aturan Main Papan Vertikal:'
         }
       };
 
@@ -4936,8 +4937,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const txtColor = stepColorClasses[sIdx % 4];
         const badgeBg = badgeBgClasses[sIdx % 4];
         return `
-          <div class="p-2 rounded-xl bg-[#081324] border border-blue-900/60 flex items-start gap-2 shadow-sm">
-            <span class="w-5 h-5 rounded-md ${badgeBg} font-bold flex items-center justify-center shrink-0 font-mono text-[10px]">
+          <div class="p-1.5 rounded-xl bg-[#081324] border border-blue-900/60 flex items-start gap-2 shadow-sm">
+            <span class="w-4 h-4 rounded-md ${badgeBg} font-bold flex items-center justify-center shrink-0 font-mono text-[9px] mt-0.5">
               ${sIdx + 1}
             </span>
             <div class="text-[10px] text-slate-300 leading-tight">
@@ -4956,7 +4957,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold rounded-xl shadow-sm flex items-center gap-1.5 shrink-0">
                 <i class="${ped.icon} text-emerald-400"></i> ${badge}
               </span>
-              <h3 class="text-xs md:text-sm font-black text-white tracking-wide leading-snug whitespace-normal">${title}</h3>
+              <h3 class="text-xs md:text-sm font-black text-white tracking-wide truncate">${title}</h3>
             </div>
 
             <!-- METHOD SELECTOR PILLS -->
@@ -4966,14 +4967,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           </div>
 
           <!-- MAIN 2-COLUMN BALANCED WORKSPACE (SIDE-BY-SIDE 7:5) -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 flex-1 min-h-0 items-stretch">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 flex-1 min-h-0 items-stretch">
             
             <!-- LEFT COLUMN: PROBLEM ARENA (7/12) -->
-            <div class="lg:col-span-7 p-4 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3">
+            <div class="md:col-span-7 p-4 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3">
               <div class="space-y-2.5">
                 <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
                   <span class="text-xs font-bold text-amber-300 font-mono flex items-center gap-1.5">
-                    <i class="fa-solid fa-fire text-amber-400"></i> ${activeLabel}
+                    <i class="fa-solid fa-pen-to-square text-amber-400"></i> ${activeLabel}
                   </span>
                   <!-- LEVEL SWITCHER TABS -->
                   <div class="flex items-center bg-[#050B14] p-0.5 rounded-lg border border-blue-900/60">
@@ -4997,33 +4998,33 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
 
             <!-- RIGHT COLUMN: PROTOCOL RULES & INTEGRATED TIMER (5/12) -->
-            <div class="lg:col-span-5 p-3.5 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between space-y-2.5">
+            <div class="md:col-span-5 p-3 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between space-y-2">
               
               <!-- 4 PROTOCOL STEPS -->
-              <div class="space-y-1.5">
-                <span class="text-[11px] font-bold text-amber-400 font-mono uppercase tracking-wider block border-b border-blue-900/60 pb-1">
+              <div class="space-y-1">
+                <span class="text-[10px] font-bold text-amber-400 font-mono uppercase tracking-wider block border-b border-blue-900/60 pb-0.5">
                   <i class="fa-solid fa-list-check mr-1"></i> ${taskCfg.protocolTitle}
                 </span>
-                <div class="space-y-1.5">
+                <div class="space-y-1">
                   ${cardsHtml}
                 </div>
               </div>
 
               <!-- STOPWATCH TIMER WIDGET -->
-              <div class="p-2.5 bg-[#081324] rounded-xl border border-blue-900/70 flex items-center justify-between gap-2 shrink-0">
+              <div class="p-2 bg-[#081324] rounded-xl border border-blue-900/70 flex items-center justify-between gap-2 shrink-0">
                 <div class="flex items-center gap-2 font-mono">
-                  <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs border border-amber-500/30 shrink-0">
+                  <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs border border-amber-500/30 shrink-0">
                     <i class="fa-solid fa-stopwatch"></i>
                   </span>
                   <div>
-                    <span id="btc-timer-display" class="text-sm font-black text-white tracking-widest block leading-tight">15:00</span>
-                    <span class="text-[9px] text-slate-400 uppercase">Waktu Diskusi</span>
+                    <span id="btc-timer-display" class="text-xs md:text-sm font-black text-white tracking-widest block leading-tight">15:00</span>
+                    <span class="text-[8px] text-slate-400 uppercase">Waktu Diskusi</span>
                   </div>
                 </div>
-                <div class="flex items-center gap-1 font-mono text-[10px]">
-                  <button onclick="startBtcTimer(600)" class="px-2 py-1 rounded bg-[#0D1B2E] text-slate-300 hover:text-white border border-blue-900 cursor-pointer">10m</button>
-                  <button onclick="startBtcTimer(900)" class="px-2 py-1 rounded bg-blue-600 text-white font-bold cursor-pointer">15m</button>
-                  <button onclick="toggleBtcTimer()" id="btc-timer-btn" class="px-2.5 py-1 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow cursor-pointer">Mulai</button>
+                <div class="flex items-center gap-1 font-mono text-[9px]">
+                  <button onclick="startBtcTimer(600)" class="px-2 py-0.5 rounded bg-[#0D1B2E] text-slate-300 hover:text-white border border-blue-900 cursor-pointer">10m</button>
+                  <button onclick="startBtcTimer(900)" class="px-2 py-0.5 rounded bg-blue-600 text-white font-bold cursor-pointer">15m</button>
+                  <button onclick="toggleBtcTimer()" id="btc-timer-btn" class="px-2.5 py-0.5 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow cursor-pointer">Mulai</button>
                 </div>
               </div>
 
@@ -5031,10 +5032,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
           </div>
 
-          <!-- BOTTOM TEACHER FACILITATION FOOTER -->
-          <div class="px-3.5 py-1.5 bg-[#060D1A] rounded-xl border border-emerald-500/30 text-[11px] text-emerald-300 font-medium flex items-center gap-2 shrink-0">
-            <i class="fa-solid fa-chalkboard-user text-emerald-400 text-xs shrink-0"></i>
-            <span class="truncate">💡 <strong>Tips Guru:</strong> ${tip}</span>
+          <!-- BOTTOM TEACHER FACILITATION FOOTER (PROMINENT & HIGH VISIBILITY) -->
+          <div class="p-3 bg-[#060D1A] rounded-2xl border border-amber-500/40 shadow-md flex items-center gap-3 shrink-0">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30 text-sm">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div class="text-xs text-slate-200 leading-snug flex-1">
+              <strong class="text-amber-300 font-bold font-mono uppercase">TIPS FASILITASI GURU:</strong>
+              <span class="text-slate-100 ml-1 font-medium">${cleanTip}</span>
+            </div>
           </div>
 
         </div>
