@@ -6184,7 +6184,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 4√3 cm"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Membentuk segitiga pembantu $\\triangle ACG$:\n- Jarak titik C ke diagonal ruang AG dihitung melalui luas segitiga siku-siku $\\triangle ACG$ yang siku-siku di titik C.\n- Rusuk kubus $s = 12$ cm $\\implies CG = 12$ cm.\n- Diagonal sisi alas $AC = s\\sqrt{2} = 12\\sqrt{2}$ cm.\n- Diagonal ruang $AG = s\\sqrt{3} = 12\\sqrt{3}$ cm.\n\nLangkah 2: Menerapkan prinsip kesamaan luas segitiga ($\\frac{1}{2} \\cdot \\text{alas}_1 \\cdot \\text{tinggi}_1 = \\frac{1}{2} \\cdot \\text{alas}_2 \\cdot \\text{tinggi}_2$):\n$$AC \\times CG = AG \\times d$$\n$$(12\\sqrt{2}) \\times 12 = (12\\sqrt{3}) \\times d$$\n\nLangkah 3: Menyelesaikan dan merasionalkan penyebut:\n$$d = \\frac{12\\sqrt{2}}{\\sqrt{3}} = \\frac{12\\sqrt{2} \\times \\sqrt{3}}{3} = 4\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Membentuk segitiga siku-siku $\\triangle ACG$ (siku-siku di C):\n- Diagonal sisi alas: $AC = s\\sqrt{2} = 12\\sqrt{2}$ cm.\n- Rusuk tegak: $CG = 12$ cm.\n- Diagonal ruang: $AG = s\\sqrt{3} = 12\\sqrt{3}$ cm.\n\nLangkah 2: Menggunakan Kesamaan Luas Segitiga $\\triangle ACG$:\n$$AC \\times CG = AG \\times d$$\n$$(12\\sqrt{2}) \\times 12 = (12\\sqrt{3}) \\times d$$\n\nLangkah 3: Menyelesaikan dan merasionalkan penyebut:\n$$d = \\frac{12\\sqrt{2}}{\\sqrt{3}} = \\frac{12\\sqrt{6}}{3} = 4\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6206,8 +6206,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 3√3 cm",
             "E. 6√2 cm"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menentukan posisi titik dan garis pada kubus berusuk 8 cm:\n- Titik B adalah titik sudut alas depan kanan.\n- Garis EG adalah diagonal sisi pada bidang atas $EFGH$.\n- Proyeksi tegak lurus titik B ke garis EG jatuh tepat pada titik tengah diagonal EG (misalkan titik O').\n\nLangkah 2: Membentuk segitiga siku-siku $\\triangle B F O'$:\n- Rusuk tegak $BF = 8$ cm.\n- Jarak titik F ke titik tengah EG adalah setengah diagonal sisi: $FO' = \\frac{1}{2}(8\\sqrt{2}) = 4\\sqrt{2}$ cm.\n\nLangkah 3: Menerapkan Teorema Pythagoras untuk menghitung $BO'$:\n$$BO' = \\sqrt{BF^2 + (FO')^2} = \\sqrt{8^2 + (4\\sqrt{2})^2} = \\sqrt{64 + 32} = \\sqrt{96} = 4\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan proyeksi titik H ke diagonal bidang AC:\n- Proyeksi tegak lurus titik H ke bidang alas ABCD adalah titik D.\n- Dari D ditarik tegak lurus ke diagonal AC, yang jatuh tepat di pusat alas $O$ (titik tengah AC).\n- Panjang ruas garis $DO = \\frac{1}{2}BD = \\frac{1}{2}(6\\sqrt{2}) = 3\\sqrt{2}$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle HDO$ yang siku-siku di D:\n- Rusuk tegak $DH = 6$ cm.\n$$HO = \\sqrt{DH^2 + DO^2}$$\n\nLangkah 3: Menghitung nilai jarak $HO$:\n$$HO = \\sqrt{6^2 + (3\\sqrt{2})^2} = \\sqrt{36 + 18} = \\sqrt{54} = 3\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6229,8 +6229,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 4√2 cm",
             "E. 4√5 cm"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menentukan posisi titik E ke diagonal bidang BD:\n- Proyeksi titik E ke bidang alas $ABCD$ adalah titik A.\n- Dari titik A ditarik garis tegak lurus ke diagonal $BD$, yang jatuh tepat di pusat alas $O$ (titik potong diagonal alas).\n- Jarak titik A ke titik O: $AO = \\frac{1}{2}(6\\sqrt{2}) = 3\\sqrt{2}$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle EAO$ (siku-siku di A):\n- Rusuk tegak $AE = 6$ cm.\n$$EO = \\sqrt{AE^2 + AO^2}$$\n\nLangkah 3: Menghitung panjang jarak $EO$:\n$$EO = \\sqrt{6^2 + (3\\sqrt{2})^2} = \\sqrt{36 + 18} = \\sqrt{54} = 3\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Mengidentifikasi sifat segitiga $\\triangle TAB$:\nKarena $TA = TB = AB = 8$ cm, maka $\\triangle TAB$ merupakan segitiga sama sisi.\n\nLangkah 2: Menentukan jarak puncak T ke rusuk alas AB:\nJarak titik T ke garis AB adalah tinggi segitiga sama sisi $\\triangle TAB$ dengan alas $AB = 8$ cm.\nTitik tinggi jatuh di titik tengah AB (titik M) dengan $AM = 4$ cm.\n\nLangkah 3: Menerapkan Teorema Pythagoras pada $\\triangle TMA$:\n$$TM = \\sqrt{TA^2 - AM^2} = \\sqrt{8^2 - 4^2} = \\sqrt{64 - 16} = \\sqrt{48} = 4\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "limas",
@@ -6252,8 +6252,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5√2 cm",
             "E. 10/3 √3 cm"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menentukan ukuran segitiga sama kaki $\\triangle TAB$ pada limas T.ABCD:\n- Rusuk alas $AB = 6$ cm $\\implies$ titik tengah AB adalah M dengan $AM = 3$ cm.\n- Rusuk tegak $TA = TB = 6$ cm.\n\nLangkah 2: Menghitung tinggi segitiga $TM$ (jarak titik T ke garis AB):\nSegitiga $\\triangle TMA$ siku-siku di titik M:\n$$TM = \\sqrt{TA^2 - AM^2}$$\n\nLangkah 3: Menghitung nilai tinggi $TM$:\n$$TM = \\sqrt{6^2 - 3^2} = \\sqrt{36 - 9} = \\sqrt{27} = 3\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Membentuk segitiga siku-siku $\\triangle BFH$ (siku-siku di F):\n- Rusuk tegak $BF = 10$ cm.\n- Diagonal bidang atas $FH = s\\sqrt{2} = 10\\sqrt{2}$ cm.\n- Diagonal ruang $BH = s\\sqrt{3} = 10\\sqrt{3}$ cm.\n\nLangkah 2: Menggunakan rumus kesamaan luas segitiga $\\triangle BFH$:\n$$BF \\times FH = BH \\times d$$\n$$10 \\times 10\\sqrt{2} = 10\\sqrt{3} \\times d$$\n\nLangkah 3: Menyelesaikan nilai jarak $d$:\n$$d = \\frac{10\\sqrt{2}}{\\sqrt{3}} = \\frac{10}{3}\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6274,7 +6274,7 @@ const NAMA_TINGKAT = 'XII';
             "Jarak titik A ke garis HG adalah a akar(3)"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJarak titik sudut kubus ke diagonal ruang yang tidak melaluinya dirumuskan dengan rumus baku $d = \\frac{s\\sqrt{6}}{3}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nJarak titik ke suatu garis adalah panjang ruas garis yang ditarik dari titik tersebut dan jatuh TEGAK LURUS ($90^\\circ$) pada garis sasaran.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJarak titik A ke garis CD pada kubus adalah panjang rusuk AD ($s$), bukan $s\\sqrt{2}$ (diagonal sisi).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJarak titik A ke garis BD adalah setengah diagonal sisi: $AO = \\frac{1}{2}a\\sqrt{2}$.\n$\\implies$ Pernyataan (1) bernilai BENAR (B).\n\nLangkah 2: Analisis Pernyataan (2):\nJarak titik E ke garis BD adalah $EO = \\sqrt{AE^2 + AO^2} = \\sqrt{a^2 + \\frac{1}{2}a^2} = \\frac{1}{2}a\\sqrt{6}$.\n$\\implies$ Pernyataan (2) bernilai BENAR (B).\n\nLangkah 3: Analisis Pernyataan (3):\nJarak titik A ke garis HG adalah panjang diagonal sisi $AH = a\\sqrt{2}$ (karena $AH \\perp HG$), bukan $a\\sqrt{3}$.\n$\\implies$ Pernyataan (3) bernilai SALAH (S).\n\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6297,8 +6297,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Pernyataan (2) SAJA cukup",
             "E. DUA pernyataan BERSAMA-SAMA cukup"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan posisi titik H ke garis diagonal AC:\n- Proyeksi tegak lurus titik H ke bidang alas $ABCD$ adalah titik D.\n- Dari D ditarik tegak lurus ke diagonal $AC$, yang jatuh tepat di pusat alas $O$.\n- Panjang $DO = \\frac{1}{2}(10\\sqrt{2}) = 5\\sqrt{2}$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle HDO$ (siku-siku di D):\n- Rusuk tegak $DH = 10$ cm.\n$$HO = \\sqrt{DH^2 + DO^2}$$\n\nLangkah 3: Menghitung nilai jarak $HO$:\n$$HO = \\sqrt{10^2 + (5\\sqrt{2})^2} = \\sqrt{100 + 50} = \\sqrt{150} = 5\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Memahami hubungan geometri jarak titik ke garis dengan luas segitiga:\nJarak titik P ke garis g adalah tinggi segitiga ($t$) dengan alas ruas garis g.\n$$\\text{Luas} = \\frac{1}{2} \\times \\text{alas} \\times \\text{tinggi}$$\n\nLangkah 2: Evaluasi Pernyataan (1) SAJA:\nHanya diketahui panjang alas $g = 10$ cm, tanpa diketahui luas segitiga $\\implies$ TIDAK CUKUP.\n\nLangkah 3: Evaluasi Pernyataan (2) SAJA:\nHanya diketahui luas segitiga $= 40\\text{ cm}^2$, tanpa diketahui panjang alas $g \\implies$ TIDAK CUKUP.\n\nLangkah 4: Evaluasi (1) dan (2) BERSAMA-SAMA:\n$$40 = \\frac{1}{2} \\times 10 \\times t \\implies 5t = 40 \\implies t = 8 \\text{ cm (CUKUP)}$$\nKesimpulan: Kunci Jawaban E (DUA pernyataan BERSAMA-SAMA cukup).",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6317,8 +6317,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2√6 cm",
             "E. 5 cm"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menentukan posisi titik P dan garis CG:\n- Rusuk kubus $s = 8$ cm.\n- Titik P adalah titik tengah rusuk AE $\\implies P(0, 0, 4)$.\n- Garis CG adalah rusuk tegak di koordinat $(8, 8, z)$ dengan $0 \\le z \\le 8$.\n\nLangkah 2: Menentukan ruas garis terpendek dari P tegak lurus garis CG:\nProyeksi horizontal titik P ke garis CG jatuh di titik $Q(8, 8, 4)$ (titik tengah CG).\n\nLangkah 3: Menghitung jarak horizontal PQ:\nPanjang PQ sama dengan panjang diagonal sisi alas $AC$:\n$$PQ = \\sqrt{8^2 + 8^2} = 8\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan koordinat titik M dan proyeksi ke bidang atas:\n- Titik M di tengah AB $\\implies M(2, 0, 0)$.\n- Proyeksi M ke bidang atas EFGH adalah titik tengah EF yaitu $M'(2, 0, 4)$, dengan $MM' = 4$ cm.\n\nLangkah 2: Menghitung jarak horizontal dari M' ke garis diagonal EG:\nGaris EG memiliki persamaan $x - y = 0$ pada bidang $z = 4$.\nJarak $M'(2, 0)$ ke garis $x - y = 0$ adalah:\n$$d_{xy} = \\frac{|2 - 0|}{\\sqrt{1^2 + (-1)^2}} = \\frac{2}{\\sqrt{2}} = \\sqrt{2} \\text{ cm}$$\n\nLangkah 3: Menghitung jarak 3D titik M ke garis EG:\n$$d = \\sqrt{MM'^2 + d_{xy}^2} = \\sqrt{4^2 + (\\sqrt{2})^2} = \\sqrt{16 + 2} = \\sqrt{18} = 3\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -6341,8 +6341,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Jarak titik B ke garis EG adalah 6 akar(2) cm.",
             "E. Jarak titik C ke garis AG adalah 2 akar(6) cm."
           ],
-          "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis jarak titik ke garis pada kubus ABCD.EFGH berusuk 6 cm:\n- A: Jarak A ke CG adalah diagonal sisi alas $AC = 6\\sqrt{2}$ cm (BENAR).\n- B: Jarak E ke BD adalah $EO = \\sqrt{6^2 + (3\\sqrt{2})^2} = 3\\sqrt{6}$ cm (BENAR).\n- C: Jarak C ke AG adalah $\\frac{6\\sqrt{6}}{3} = 2\\sqrt{6}$ cm (BENAR).\n- D: Jarak B ke CD adalah rusuk $BC = 6$ cm (BENAR).\n- E: Jarak G ke BD adalah $3\\sqrt{6}$ cm, bukan $6\\sqrt{3}$ cm (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
+          "kunci": "A, B, C, E",
+          "bahas": "Langkah 1: Analisis seluruh pernyataan jarak titik ke garis pada kubus rusuk 6 cm:\n- Opsi A: Jarak A ke BD $= \\frac{1}{2}AC = 3\\sqrt{2}$ cm (BENAR).\n- Opsi B: Jarak E ke BD $= \\sqrt{6^2 + (3\\sqrt{2})^2} = 3\\sqrt{6}$ cm (BENAR).\n- Opsi C: Jarak F ke AC $= \\sqrt{6^2 + (3\\sqrt{2})^2} = 3\\sqrt{6}$ cm (BENAR).\n- Opsi D: Jarak B ke EG $= \\sqrt{6^2 + (3\\sqrt{2})^2} = 3\\sqrt{6}$ cm (SALAH, tertulis $6\\sqrt{2}$).\n- Opsi E: Jarak C ke AG $= \\frac{6\\sqrt{6}}{3} = 2\\sqrt{6}$ cm (BENAR).\n\nKesimpulan: Kunci Jawaban A, B, C, E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6361,8 +6361,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5,0 cm",
             "E. 4,8 cm"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Membentuk segitiga siku-siku $\\triangle ADG$:\n- Jarak titik D ke garis diagonal AG dihitung pada $\\triangle ADG$ (siku-siku di D).\n- Rusuk $AD = 6$ cm, diagonal sisi $DG = 6\\sqrt{2}$ cm, diagonal ruang $AG = 6\\sqrt{3}$ cm.\n\nLangkah 2: Menggunakan kesamaan luas segitiga:\n$$AD \\times DG = AG \\times d$$\n$$6 \\times 6\\sqrt{2} = 6\\sqrt{3} \\times d$$\n\nLangkah 3: Menyelesaikan perhitungan:\n$$d = \\frac{6\\sqrt{2}}{\\sqrt{3}} = \\frac{6\\sqrt{6}}{3} = 2\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Membentuk segitiga siku-siku $\\triangle ADC$ pada bidang alas balok:\n- Panjang rusuk $AD = 6$ cm, $CD = 8$ cm.\n- Panjang diagonal bidang alas: $AC = \\sqrt{6^2 + 8^2} = \\sqrt{36 + 64} = 10$ cm.\n\nLangkah 2: Menggunakan kesamaan luas $\\triangle ADC$ (siku-siku di D):\n$$AD \\times CD = AC \\times d$$\n$$6 \\times 8 = 10 \\times d$$\n\nLangkah 3: Menghitung jarak $d$:\n$$d = \\frac{48}{10} = 4{,}8 \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "balok",
@@ -6376,10 +6376,10 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Isian Singkat Numerik",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P11-Q10] Pada kubus ABCD.EFGH dengan rusuk 6 cm, nilai dari kuadrat jarak titik B ke garis diagonal ruang AG adalah ...",
+          "tanya": "[P11-Q10] Pada kubus ABCD.EFGH dengan rusuk 6 cm, nilai dari kuadrat jarak titik B ke garis diagonal ruang AG adalah ... (dalam satuan cm^2)",
           "opsi": [],
-          "kunci": "3√6",
-          "bahas": "Langkah 1: Menghitung jarak titik C ke diagonal ruang BH pada kubus berusuk 9 cm:\n$$d = \\frac{s\\sqrt{6}}{3}$$\n\nLangkah 2: Mensubstitusikan rusuk $s = 9$ cm:\n$$d = \\frac{9\\sqrt{6}}{3} = 3\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban 3√6.",
+          "kunci": "24",
+          "bahas": "Langkah 1: Menghitung jarak titik B ke garis diagonal ruang AG pada kubus berusuk 6 cm:\n$$d = \\frac{s\\sqrt{6}}{3} = \\frac{6\\sqrt{6}}{3} = 2\\sqrt{6} \\text{ cm}$$\n\nLangkah 2: Menghitung nilai kuadrat jarak ($d^2$):\n$$d^2 = (2\\sqrt{6})^2 = 4 \\times 6 = 24$$\nKesimpulan: Kunci Jawaban 24.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
