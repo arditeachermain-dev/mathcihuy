@@ -4959,7 +4959,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/6"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menentukan kejadian pelemparan satu dadu:\n$S = \\{1, 2, 3, 4, 5, 6\\} \\implies n(S) = 6$.\n- Kejadian mata dadu prima: $A = \\{2, 3, 5\\} \\implies n(A) = 3$.\n- Kejadian mata dadu genap: $B = \\{2, 4, 6\\} \\implies n(B) = 3$.\n\nLangkah 2: Menentukan irisan kedua kejadian $A \\cap B$:\nIrisan (prima dan genap): $A \\cap B = \\{2\\} \\implies n(A \\cap B) = 1$.\nKarena $A \\cap B \\neq \\emptyset$, maka kejadian ini **TIDAK SALING LEPAS**.\n\nLangkah 3: Menggunakan rumus Peluang Gabungan Kejadian Tidak Saling Lepas:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B) = \\frac{3}{6} + \\frac{3}{6} - \\frac{1}{6} = \\frac{5}{6}$$\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 2 dadu:\n$$n(S) = 6 \\times 6 = 36$$\n\nLangkah 2: Mendaftarkan pasangan mata dadu yang berjumlah 5 dan berjumlah 10:\n- Kejadian jumlah 5 ($A$): $\\{(1,4), (2,3), (3,2), (4,1)\\} \\implies n(A) = 4$.\n- Kejadian jumlah 10 ($B$): $\\{(4,6), (5,5), (6,4)\\} \\implies n(B) = 3$.\n\nLangkah 3: Menentukan hubungan kejadian dan menghitung peluang:\nKarena tidak ada pasangan yang sekaligus berjumlah 5 dan 10 ($A \\cap B = \\emptyset$), kedua kejadian **saling lepas**.\n$$P(A \\cup B) = P(A) + P(B) = \\frac{4}{36} + \\frac{3}{36} = \\frac{7}{36}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "dadu",
             "sum": 5
@@ -4978,8 +4978,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 17/26",
             "E. 19/26"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Mengidentifikasi sifat dua kejadian saling lepas:\nDua kejadian saling lepas tidak dapat terjadi secara bersamaan ($A \\cap B = \\emptyset \\implies P(A \\cap B) = 0$).\n\nLangkah 2: Menggunakan rumus Penjumlahan Peluang Saling Lepas:\n$$P(A \\cup B) = P(A) + P(B)$$\n\nLangkah 3: Mensubstitusikan nilai:\n$$P(A \\cup B) = 0{,}35 + 0{,}40 = 0{,}75$$\nKesimpulan: Kunci Jawaban C."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan banyak kartu bernomor prima dan kartu berwarna merah dari 52 kartu:\n- Kartu bernomor prima $\\{2, 3, 5, 7\\}$: $4 \\text{ nomor} \\times 4 \\text{ jenis} = 16 \\text{ kartu} \\implies P(\\text{Prima}) = \\frac{16}{52}$.\n- Kartu berwarna merah (Hati & Wajik): $26 \\text{ kartu} \\implies P(\\text{Merah}) = \\frac{26}{52}$.\n\nLangkah 2: Menentukan irisan kartu bernomor prima yang berwarna merah:\nKartu prima merah: $4 \\text{ nomor} \\times 2 \\text{ jenis} = 8 \\text{ kartu} \\implies P(\\text{Prima} \\cap \\text{Merah}) = \\frac{8}{52}$.\n\nLangkah 3: Menggunakan rumus kejadian tidak saling lepas:\n$$P(\\text{Prima} \\cup \\text{Merah}) = \\frac{16}{52} + \\frac{26}{52} - \\frac{8}{52} = \\frac{34}{52} = \\frac{17}{26}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 3,
@@ -4994,8 +4994,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/2",
             "E. 8/10"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menentukan ruang sampel kartu bridge standar:\n$$n(S) = 52$$\n- Kartu King: $n(K) = 4 \\implies P(K) = \\frac{4}{52}$.\n- Kartu Hati (Heart): $n(H) = 13 \\implies P(H) = \\frac{13}{52}$.\n\nLangkah 2: Menentukan irisan kartu King Hati:\nAda 1 kartu yang sekaligus King dan Hati $\\implies n(K \\cap H) = 1 \\implies P(K \\cap H) = \\frac{1}{52}$.\n\nLangkah 3: Menghitung peluang gabungan:\n$$P(K \\cup H) = \\frac{4}{52} + \\frac{13}{52} - \\frac{1}{52} = \\frac{16}{52} = \\frac{4}{13}$$\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung total ruang sampel bola di dalam kantong:\n$$n(S) = 5 \\text{ merah} + 3 \\text{ kuning} + 2 \\text{ hijau} = 10 \\text{ bola}$$\n\nLangkah 2: Mengidentifikasi sifat kejadian terambil bola merah ($M$) atau hijau ($H$):\nKarena 1 bola tidak mungkin sekaligus berwarna merah dan hijau, kedua kejadian **saling lepas** ($M \\cap H = \\emptyset$).\n\nLangkah 3: Menghitung peluang gabungan:\n$$P(M \\cup H) = P(M) + P(H) = \\frac{5}{10} + \\frac{2}{10} = \\frac{7}{10}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 4,
@@ -5010,8 +5010,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $P(A) = P(B)$",
             "E. $P(A \\cup B) = 1$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menggunakan rumus umum peluang gabungan dua kejadian:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\n\nLangkah 2: Mensubstitusikan nilai yang diketahui:\n$$0{,}70 = 0{,}50 + 0{,}40 - P(A \\cap B)$$\n$$0{,}70 = 0{,}90 - P(A \\cap B)$$\n\nLangkah 3: Menyelesaikan untuk $P(A \\cap B)$:\n$$P(A \\cap B) = 0{,}90 - 0{,}70 = 0{,}20$$\nKesimpulan: Kunci Jawaban D."
+          "kunci": "C",
+          "bahas": "Langkah 1: Memahami definisi dua kejadian saling lepas (mutually exclusive):\nDua kejadian $A$ dan $B$ dikatakan saling lepas jika kedua kejadian tersebut tidak dapat terjadi secara bersamaan dalam satu percobaan.\n\nLangkah 2: Menentukan kriteria matematis:\nIrisan dari kedua himpunan kejadian adalah himpunan kosong ($A \\cap B = \\emptyset$).\nDengan demikian, nilai peluang irisannya adalah nol:\n$$P(A \\cap B) = 0$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 5,
@@ -5025,7 +5025,7 @@ const NAMA_TINGKAT = 'XII';
             "Jika P(A) = 0,4 dan P(B) = 0,5 saling lepas, maka P(A U B) = 0,2"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nUntuk dua kejadian saling lepas, $P(A \\cap B) = 0$, sehingga berlaku $P(A \\cup B) = P(A) + P(B)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nUntuk kejadian tidak saling lepas, berlaku rumus inklusi-eksklusi $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPeluang komplemen dirumuskan sebagai $P(A') = 1 - P(A)$, bukan $P(A) - 1$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nUntuk dua kejadian saling lepas ($P(A \\cap B) = 0$), berlaku $P(A \\cup B) = P(A) + P(B)$.\n$\\implies$ Pernyataan (1) bernilai BENAR (B).\n\nLangkah 2: Analisis Pernyataan (2):\nUntuk dua kejadian tidak saling lepas, berlaku hukum penjumlahan inklusi-eksklusi $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n$\\implies$ Pernyataan (2) bernilai BENAR (B).\n\nLangkah 3: Analisis Pernyataan (3):\nJika $P(A) = 0{,}4$ dan $P(B) = 0{,}5$ saling lepas, maka $P(A \\cup B) = 0{,}4 + 0{,}5 = 0{,}9$ (bukan 0,2).\n$\\implies$ Pernyataan (3) bernilai SALAH (S).\n\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -5041,7 +5041,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 3/4"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Menentukan kejadian pelemparan 1 dadu:\n- Mata dadu $< 3$: $A = \\{1, 2\\} \\implies n(A) = 2$.\n- Mata dadu $> 4$: $B = \\{5, 6\\} \\implies n(B) = 2$.\n\nLangkah 2: Memeriksa apakah saling lepas:\n$A \\cap B = \\emptyset$ (saling lepas).\n\nLangkah 3: Menghitung peluang:\n$$P(A \\cup B) = \\frac{2}{6} + \\frac{2}{6} = \\frac{4}{6} = \\frac{2}{3}$$\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 2 dadu:\n$$n(S) = 36$$\n\nLangkah 2: Mendaftarkan kejadian jumlah ganjil dan jumlah kelipatan 4:\n- Jumlah ganjil $\\{3, 5, 7, 9, 11\\}$: Terdapat $2 + 4 + 6 + 4 + 2 = 18$ pasangan $\\implies P = \\frac{18}{36}$.\n- Jumlah kelipatan 4 $\\{4, 8, 12\\}$: Terdapat $3 + 5 + 1 = 9$ pasangan $\\implies P = \\frac{9}{36}$.\n\nLangkah 3: Memeriksa hubungan dan menghitung peluang:\nBilangan ganjil dan bilangan kelipatan 4 (genap) tidak memiliki irisan $\\implies$ **saling lepas**.\n$$P = \\frac{18}{36} + \\frac{9}{36} = \\frac{27}{36} = \\frac{3}{4}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "dadu",
             "rule": "ganjil-atau-k4"
@@ -5060,8 +5060,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 7/8",
             "E. 9/10"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menggunakan rumus peluang komplemen:\n$$P(A') = 1 - P(A)$$\n\nLangkah 2: Mensubstitusikan peluang gagal $P(A) = 0{,}15$:\n$$P(A') = 1 - 0{,}15 = 0{,}85$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan total siswa dan data himpunan:\n$$n(S) = 40, \\quad n(M) = 25, \\quad n(F) = 20, \\quad n(M \\cap F) = 10$$\n\nLangkah 2: Menghitung banyak siswa yang suka Matematika ATAU Fisika:\n$$n(M \\cup F) = n(M) + n(F) - n(M \\cap F) = 25 + 20 - 10 = 35 \\text{ siswa}$$\n\nLangkah 3: Menghitung peluang dan menyederhanakan pecahan:\n$$P(M \\cup F) = \\frac{n(M \\cup F)}{n(S)} = \\frac{35}{40} = \\frac{7}{8}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "venn",
             "n": 40,
@@ -5086,7 +5086,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Kejadian terambil kartu As dan kartu Hati adalah kejadian saling lepas."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Evaluasi pernyataan peluang kartu bridge:\n- A: Saling lepas King dan Queen $\\implies P(K \\cup Q) = 8/52 = 2/13$ (BENAR)\n- B: Tidak saling lepas As dan Spade $\\implies P(As \\cup S) = (4+13-1)/52 = 16/52 = 4/13$ (BENAR)\n- C: Peluang komplemen $P(A') = 1 - P(A)$ (BENAR)\n- D: Irisan saling lepas bernilai 0 (BENAR)\n- E: $P(A \\cup B) \\le 1$ selalu berlaku, tidak mungkin lebih dari 1 (SALAH)\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "bahas": "Langkah 1: Analisis seluruh pernyataan peluang kartu bridge standar (52 kartu):\n- Opsi A: Kartu As Hati hanya ada 1 lembar $\\implies P = \\frac{1}{52}$ (BENAR).\n- Opsi B: Total kartu As ada 4 lembar $\\implies P = \\frac{4}{52} = \\frac{1}{13}$ (BENAR).\n- Opsi C: Kartu As (4) atau Hati (13), dengan irisan 1 As Hati $\\implies P = \\frac{4 + 13 - 1}{52} = \\frac{16}{52} = \\frac{4}{13}$ (BENAR).\n- Opsi D: Total kartu Hati ada 13 lembar $\\implies P = \\frac{13}{52} = \\frac{1}{4}$ (BENAR).\n- Opsi E: Kartu As dan kartu Hati memiliki irisan yaitu kartu As Hati, sehingga TIDAK saling lepas (SALAH).\n\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -5102,7 +5102,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 0,8"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Menggunakan rumus peluang gabungan:\n$$P(M \\cup F) = P(M) + P(F) - P(M \\cap F)$$\n\nLangkah 2: Mensubstitusikan nilai:\n$$P(M \\cup F) = 0{,}7 + 0{,}6 - 0{,}5 = 1{,}3 - 0{,}5 = 0{,}8$$\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menggunakan rumus peluang gabungan dua kejadian tidak saling lepas:\n$$P(M \\cup F) = P(M) + P(F) - P(M \\cap F)$$\n\nLangkah 2: Mensubstitusikan nilai peluang yang diketahui:\n$$P(M \\cup F) = 0{,}7 + 0{,}6 - 0{,}5 = 1{,}3 - 0{,}5 = 0{,}8$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "venn2"
           }
@@ -5115,7 +5115,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P07-Q10] Sebuah kartu diambil dari 52 kartu. Peluang terambil kartu As atau King adalah ... (dalam bentuk pecahan per 13)",
           "opsi": [],
           "kunci": "2/13",
-          "bahas": "Langkah 1: Kejadian terambil kartu As atau King adalah saling lepas:\n$$P(\\text{As} \\cup \\text{King}) = \\frac{4}{52} + \\frac{4}{52} = \\frac{8}{52}$$\n\nLangkah 2: Menyederhanakan pecahan ke per 13:\n$$\\frac{8}{52} = \\frac{2}{13}$$\nKesimpulan: Kunci Jawaban 2/13."
+          "bahas": "Langkah 1: Menentukan kejadian terambil kartu As atau King dari 52 kartu:\n- Kartu As ada 4 lembar $\\implies n(\\text{As}) = 4$.\n- Kartu King ada 4 lembar $\\implies n(\\text{King}) = 4$.\nKarena tidak ada kartu yang sekaligus As dan King, kedua kejadian **saling lepas**.\n\nLangkah 2: Menghitung peluang gabungan:\n$$P(\\text{As} \\cup \\text{King}) = \\frac{4}{52} + \\frac{4}{52} = \\frac{8}{52}$$\n\nLangkah 3: Menyederhanakan pecahan ke dalam bentuk per 13:\n$$\\frac{8}{52} = \\frac{2}{13}$$\nKesimpulan: Kunci Jawaban 2/13."
         }
       ]
     },
