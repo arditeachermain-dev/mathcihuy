@@ -221,6 +221,25 @@
       if (dipilih) sel.value = dipilih;
     }
 
+    
+    function formatWaktuWib(isoOrTs) {
+      if (!isoOrTs) return null;
+      try {
+        const d = new Date(isoOrTs);
+        if (isNaN(d.getTime())) return null;
+        const p = n => (n < 10 ? '0' + n : n);
+        const tglStr = `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()}`;
+        const jamStr = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())} WIB`;
+        return {
+          tgl: tglStr,
+          jam: jamStr,
+          full: `${tglStr} ${jamStr}`
+        };
+      } catch (e) {
+        return null;
+      }
+    }
+
     function loadGuruDashboardData() {
       const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
       const liveAnswers = window._guruLiveAnswersCache || [];
@@ -411,7 +430,26 @@
           aksiButton = `<span class="text-xs text-slate-500 italic">Menunggu</span>`;
         }
 
-        const tgl = r.timestamp ? new Date(r.timestamp).toLocaleDateString('id-ID') : '-';
+        const wib = formatWaktuWib(r.timestamp);
+        let waktuCell = '';
+        if (r.status === 'sudah') {
+          waktuCell = wib ? `
+            <div class="flex flex-col items-center justify-center leading-tight py-0.5">
+              <span class="font-mono font-black text-amber-300 text-xs">${wib.jam}</span>
+              <span class="font-mono text-[10px] text-slate-400 mt-0.5">${wib.tgl}</span>
+            </div>
+          ` : '<span class="text-xs text-slate-500 font-mono">-</span>';
+        } else if (r.status === 'sedang') {
+          waktuCell = wib ? `
+            <div class="flex flex-col items-center justify-center leading-tight py-0.5">
+              <span class="font-mono font-bold text-cyan-300 text-xs">${wib.jam}</span>
+              <span class="font-mono text-[9px] text-cyan-500/90 mt-0.5"><i class="fa-solid fa-bolt mr-0.5"></i> Live Aktif</span>
+            </div>
+          ` : '<span class="text-xs text-cyan-400 font-mono italic">Sedang Mengerjakan</span>';
+        } else {
+          waktuCell = '<span class="text-xs text-slate-500 font-mono">-</span>';
+        }
+
         const namaMapel = (typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib');
 
         return `
@@ -424,7 +462,7 @@
             <td class="border border-slate-700 px-4 py-2.5 text-center">${skorDisplay}</td>
             <td class="border border-slate-700 px-4 py-2.5 text-center">${detailDisplay}</td>
             <td class="border border-slate-700 px-4 py-2.5 text-center">${durasiDisplay}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center text-xs font-mono text-slate-400">${tgl}</td>
+            <td class="border border-slate-700 px-4 py-2.5 text-center">${waktuCell}</td>
             <td class="border border-slate-700 px-4 py-2.5 text-center">${aksiButton}</td>
           </tr>
         `;
@@ -498,7 +536,7 @@
         // Convert ke CSV
         const headers = ['Timestamp', 'NIS', 'Nama', 'Kelas', 'Mapel', 'Bab', 'Skor', 'Benar', 'Salah', 'Durasi (menit)'];
         const rows = queue.map(r => [
-            new Date(r.timestamp).toLocaleString('id-ID'),
+            (formatWaktuWib(r.timestamp) ? formatWaktuWib(r.timestamp).full : '-'),
             r.nis,
             r.nama,
             r.kelas,
