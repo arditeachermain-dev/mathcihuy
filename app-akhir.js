@@ -332,15 +332,15 @@
         if (isNaN(elapsedMin) || elapsedMin < 15) {
           livenessState = 'live';
           livenessText = (isNaN(elapsedMin) || elapsedMin <= 0) ? 'Baru saja' : `${elapsedMin} mnt lalu`;
-          livenessBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-950/90 text-emerald-300 border border-emerald-500/50 inline-flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Aktif (${livenessText})</span>`;
+          livenessBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-900/80 text-emerald-300 border border-emerald-500/40 whitespace-nowrap inline-flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Aktif</span>`;
         } else if (elapsedMin <= 60) {
           livenessState = 'idle';
           livenessText = `${elapsedMin} mnt lalu`;
-          livenessBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950/90 text-amber-300 border border-amber-500/50 inline-flex items-center gap-1"><i class="fa-solid fa-hourglass-half text-amber-400"></i> Menggantung (${livenessText})</span>`;
+          livenessBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-900/80 text-amber-300 border border-amber-500/40 whitespace-nowrap inline-flex items-center gap-1 shadow-sm"><i class="fa-solid fa-hourglass-half text-amber-400 text-[9px]"></i> Idle</span>`;
         } else {
           livenessState = 'stuck';
           livenessText = elapsedHours < 24 ? `${elapsedHours} jam lalu` : `${Math.floor(elapsedHours / 24)} hari lalu`;
-          livenessBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-950/90 text-rose-300 border border-rose-500/50 inline-flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i> Tersangkut (${livenessText})</span>`;
+          livenessBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-900/80 text-rose-300 border border-rose-500/40 whitespace-nowrap inline-flex items-center gap-1 shadow-sm"><i class="fa-solid fa-triangle-exclamation text-rose-400 text-[9px]"></i> Tersangkut</span>`;
         }
 
         listSedang.push({
@@ -431,28 +431,30 @@
         let detailDisplay = '';
         let durasiDisplay = '';
         let aksiButton = '';
-        let trBg = 'hover:bg-slate-800/80';
+        let trBg = 'hover:bg-blue-500/10';
+
+        const wib = formatWaktuWib(r.timestamp);
 
         if (r.status === 'sudah') {
           const isTuntas = Number(r.skor) >= 75;
           const kktpText = isTuntas ? 'TUNTAS' : 'REMEDIAL';
           const kktpBg = isTuntas ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40' : 'bg-rose-950/80 text-rose-300 border-rose-500/40';
-          statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-black ${kktpBg} border ml-1.5">${kktpText}</span>`;
-          skorDisplay = `<span class="font-bold font-mono ${isTuntas ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span> ${statusBadge}`;
-          detailDisplay = `<span class="text-xs font-mono text-slate-200">${r.jumlah_benar}/${r.jumlah_soal}</span>`;
-          durasiDisplay = `<span class="text-xs text-slate-300 font-mono">${r.durasi_menit || 0}m</span>`;
-          aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-500 text-white rounded text-xs font-bold transition shadow">Reset</button>`;
+          statusBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-black ${kktpBg} border whitespace-nowrap">${kktpText}</span>`;
+          skorDisplay = `<div class="flex items-center justify-center gap-1.5 whitespace-nowrap"><span class="font-mono text-sm font-black ${isTuntas ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span> ${statusBadge}</div>`;
+          detailDisplay = `<span class="text-xs font-mono font-semibold text-slate-200 whitespace-nowrap">${r.jumlah_benar}/${r.jumlah_soal} Benar</span>`;
+          durasiDisplay = `<span class="text-xs text-slate-300 font-mono whitespace-nowrap">${r.durasi_menit || 0} Menit</span>`;
+          aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer">Reset Nilai</button>`;
         } else if (r.status === 'sedang') {
-          trBg = r.livenessState === 'stuck' ? 'bg-rose-950/20 hover:bg-rose-900/30' : r.livenessState === 'idle' ? 'bg-amber-950/20 hover:bg-amber-900/30' : 'bg-emerald-950/15 hover:bg-emerald-900/25';
-          skorDisplay = `<div class="flex flex-col items-center gap-1">${r.livenessBadge}<span class="font-mono text-xs font-bold text-slate-300">${r.skor}/100</span></div>`;
-          detailDisplay = `<span class="text-xs font-mono font-semibold ${r.livenessState === 'live' ? 'text-emerald-300' : 'text-amber-300'}">${r.progress_soal}/10 Soal</span>`;
-          durasiDisplay = `<span class="text-xs font-mono ${r.livenessState === 'live' ? 'text-emerald-400 font-bold' : 'text-slate-400'}">${r.livenessText}</span>`;
+          trBg = r.livenessState === 'stuck' ? 'bg-rose-950/20 hover:bg-rose-900/30' : r.livenessState === 'idle' ? 'bg-amber-950/20 hover:bg-amber-900/30' : 'bg-emerald-950/20 hover:bg-emerald-900/30';
+          skorDisplay = `<div class="flex flex-col items-center gap-0.5 whitespace-nowrap">${r.livenessBadge}<span class="font-mono text-xs font-black ${r.livenessState === 'stuck' ? 'text-rose-400' : 'text-emerald-400'}">${r.skor} / 100</span></div>`;
+          detailDisplay = `<span class="px-2 py-0.5 rounded-lg bg-[#0D1B2E] text-amber-300 font-mono font-bold border border-blue-900 whitespace-nowrap text-xs">${r.progress_soal}/10 Soal</span>`;
+          durasiDisplay = `<span class="text-xs font-mono whitespace-nowrap ${r.livenessState === 'live' ? 'text-emerald-400 font-bold' : 'text-slate-400'}">${r.livenessText}</span>`;
           aksiButton = `
-            <div class="flex items-center justify-center gap-1">
-              <button onclick="forceSubmitNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}', ${r.skor}, ${r.jumlah_soal}, ${r.jumlah_benar}, ${r.jumlah_salah})" title="Kumpulkan paksa ujian siswa ini dengan jawaban yang ada" class="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs font-bold transition shadow flex items-center gap-1">
+            <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
+              <button onclick="forceSubmitNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}', ${r.skor}, ${r.jumlah_soal}, ${r.jumlah_benar}, ${r.jumlah_salah})" title="Kumpulkan paksa ujian siswa ini dengan jawaban yang ada" class="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-black transition shadow flex items-center gap-1 whitespace-nowrap cursor-pointer active:scale-95">
                 <i class="fa-solid fa-file-arrow-up text-[10px]"></i> Kumpulkan
               </button>
-              <button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" title="Reset sesi pengerjaan siswa" class="px-2 py-1 bg-rose-700/80 hover:bg-rose-600 text-white rounded text-xs font-bold transition shadow">
+              <button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" title="Reset sesi pengerjaan siswa" class="px-2 py-1.5 bg-rose-700 hover:bg-rose-600 text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer active:scale-95">
                 <i class="fa-solid fa-rotate-left text-[10px]"></i>
               </button>
             </div>
@@ -460,57 +462,37 @@
         } else {
           // 'belum'
           trBg = 'bg-rose-950/15 hover:bg-rose-900/25';
-          skorDisplay = `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-900/40 text-rose-300 border border-rose-700/50">BELUM SUBMIT</span>`;
-          detailDisplay = `<span class="text-xs text-slate-500 font-mono">0/10 Soal</span>`;
-          durasiDisplay = `<span class="text-xs text-slate-500">-</span>`;
-          aksiButton = `<span class="text-xs text-slate-500 italic">Menunggu</span>`;
+          skorDisplay = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-900/40 text-rose-300 border border-rose-700/50 whitespace-nowrap">Belum Submit</span>`;
+          detailDisplay = `<span class="text-xs text-slate-500 font-mono whitespace-nowrap">0/10 Soal</span>`;
+          durasiDisplay = `<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>`;
+          aksiButton = `<span class="text-xs text-slate-500 italic whitespace-nowrap">Menunggu</span>`;
         }
 
-        const wib = formatWaktuWib(r.timestamp);
-        let waktuCell = '';
+        const tglCell = (wib && r.status !== 'belum') ? `<span class="text-xs font-mono text-slate-300 whitespace-nowrap">${wib.tgl}</span>` : '<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>';
+        let jamCell = '';
         if (r.status === 'sudah') {
-          waktuCell = wib ? `
-            <div class="flex flex-col items-center justify-center leading-tight py-0.5">
-              <span class="font-mono font-black text-amber-300 text-xs">${wib.jam}</span>
-              <span class="font-mono text-[10px] text-slate-400 mt-0.5">${wib.tgl}</span>
-            </div>
-          ` : '<span class="text-xs text-slate-500 font-mono">-</span>';
+          jamCell = wib ? `<span class="font-mono font-black text-amber-300 text-xs whitespace-nowrap">${wib.jam}</span>` : '<span class="text-xs text-slate-500 font-mono">-</span>';
         } else if (r.status === 'sedang') {
-          waktuCell = wib ? `
-            <div class="flex flex-col items-center justify-center leading-tight py-0.5">
-              <span class="font-mono font-bold text-cyan-300 text-xs">${wib.jam}</span>
-              <span class="font-mono text-[9px] text-cyan-500/90 mt-0.5"><i class="fa-solid fa-bolt mr-0.5"></i> Live Aktif</span>
-            </div>
-          ` : '<span class="text-xs text-cyan-400 font-mono italic">Sedang Mengerjakan</span>';
+          jamCell = wib ? `<span class="font-mono font-bold text-cyan-300 text-xs whitespace-nowrap">${wib.jam}</span>` : '<span class="text-xs text-cyan-400 font-mono italic whitespace-nowrap">Live</span>';
         } else {
-          waktuCell = '<span class="text-xs text-slate-500 font-mono">-</span>';
+          jamCell = '<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>';
         }
 
         const namaMapel = (typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib');
 
-        const tglCell = (wib && r.status !== 'belum') ? `<span class="text-xs font-mono text-slate-300">${wib.tgl}</span>` : '<span class="text-xs text-slate-500 font-mono">-</span>';
-        let jamCell = '';
-        if (r.status === 'sudah') {
-          jamCell = wib ? `<span class="font-mono font-black text-amber-300 text-xs">${wib.jam}</span>` : '<span class="text-xs text-slate-500 font-mono">-</span>';
-        } else if (r.status === 'sedang') {
-          jamCell = wib ? `<span class="font-mono font-bold text-cyan-300 text-xs">${wib.jam}</span>` : '<span class="text-xs text-cyan-400 font-mono italic">Live</span>';
-        } else {
-          jamCell = '<span class="text-xs text-slate-500 font-mono">-</span>';
-        }
-
         return `
-          <tr class="border-b border-slate-700 ${trBg} transition">
-            <td class="border border-slate-700 px-3 py-2.5 font-mono text-xs font-bold text-slate-300">${r.nis}</td>
-            <td class="border border-slate-700 px-3 py-2.5 font-semibold text-slate-100">${r.nama}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center text-xs uppercase text-slate-300">${namaMapel}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center text-xs font-mono font-bold text-cyan-300">${r.kode_pertemuan || '-'}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center">${skorDisplay}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center">${detailDisplay}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center">${durasiDisplay}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center">${tglCell}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center">${jamCell}</td>
-            <td class="border border-slate-700 px-3 py-2.5 text-center">${aksiButton}</td>
+          <tr class="border-b border-slate-700/80 ${trBg} transition">
+            <td class="border border-slate-700 px-3.5 py-3 font-mono text-xs font-bold text-slate-300 whitespace-nowrap">${r.nis}</td>
+            <td class="border border-slate-700 px-4 py-3 font-bold text-slate-100 min-w-[170px]">${r.nama}</td>
+            <td class="border border-slate-700 px-3 py-3 text-center text-xs text-amber-400 font-bold whitespace-nowrap">${r.kelas}</td>
+            <td class="border border-slate-700 px-3 py-3 text-center text-xs uppercase text-slate-300 whitespace-nowrap">${namaMapel}</td>
+            <td class="border border-slate-700 px-3 py-3 text-center text-xs font-mono font-bold text-cyan-300 whitespace-nowrap">${r.kode_pertemuan || '-'}</td>
+            <td class="border border-slate-700 px-3.5 py-3 text-center min-w-[130px]">${skorDisplay}</td>
+            <td class="border border-slate-700 px-3 py-3 text-center min-w-[105px]">${detailDisplay}</td>
+            <td class="border border-slate-700 px-3 py-3 text-center min-w-[105px]">${durasiDisplay}</td>
+            <td class="border border-slate-700 px-3 py-3 text-center min-w-[95px]">${tglCell}</td>
+            <td class="border border-slate-700 px-3.5 py-3 text-center min-w-[115px]">${jamCell}</td>
+            <td class="border border-slate-700 px-4 py-3 text-center min-w-[140px]">${aksiButton}</td>
           </tr>
         `;
       }).join('');
