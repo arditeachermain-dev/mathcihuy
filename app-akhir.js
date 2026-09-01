@@ -481,18 +481,18 @@
         const namaMapel = (typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib');
 
         return `
-          <tr class="border-b border-slate-700/80 ${trBg} transition">
-            <td class="border border-slate-700 px-3.5 py-3 font-mono text-xs font-bold text-slate-300 whitespace-nowrap">${r.nis}</td>
-            <td class="border border-slate-700 px-4 py-3 font-bold text-slate-100 min-w-[170px]">${r.nama}</td>
-            <td class="border border-slate-700 px-3 py-3 text-center text-xs text-amber-400 font-bold whitespace-nowrap">${r.kelas}</td>
-            <td class="border border-slate-700 px-3 py-3 text-center text-xs uppercase text-slate-300 whitespace-nowrap">${namaMapel}</td>
-            <td class="border border-slate-700 px-3 py-3 text-center text-xs font-mono font-bold text-cyan-300 whitespace-nowrap">${r.kode_pertemuan || '-'}</td>
-            <td class="border border-slate-700 px-3.5 py-3 text-center min-w-[130px]">${skorDisplay}</td>
-            <td class="border border-slate-700 px-3 py-3 text-center min-w-[105px]">${detailDisplay}</td>
-            <td class="border border-slate-700 px-3 py-3 text-center min-w-[105px]">${durasiDisplay}</td>
-            <td class="border border-slate-700 px-3 py-3 text-center min-w-[95px]">${tglCell}</td>
-            <td class="border border-slate-700 px-3.5 py-3 text-center min-w-[115px]">${jamCell}</td>
-            <td class="border border-slate-700 px-4 py-3 text-center min-w-[140px]">${aksiButton}</td>
+          <tr class="border-b border-blue-900/40 ${trBg} transition">
+            <td class="border border-blue-900/60 px-3.5 py-3 font-mono text-xs font-bold text-slate-300 whitespace-nowrap">${r.nis}</td>
+            <td class="border border-blue-900/60 px-4 py-3 font-bold text-white min-w-[170px]">${r.nama}</td>
+            <td class="border border-blue-900/60 px-3 py-3 text-center text-xs text-amber-400 font-bold whitespace-nowrap">${r.kelas}</td>
+            <td class="border border-blue-900/60 px-3 py-3 text-center text-xs uppercase text-slate-300 whitespace-nowrap">${namaMapel}</td>
+            <td class="border border-blue-900/60 px-3 py-3 text-center text-xs font-mono font-bold text-cyan-300 whitespace-nowrap">${r.kode_pertemuan || '-'}</td>
+            <td class="border border-blue-900/60 px-3.5 py-3 text-center min-w-[130px]">${skorDisplay}</td>
+            <td class="border border-blue-900/60 px-3 py-3 text-center min-w-[105px]">${detailDisplay}</td>
+            <td class="border border-blue-900/60 px-3 py-3 text-center min-w-[105px]">${durasiDisplay}</td>
+            <td class="border border-blue-900/60 px-3 py-3 text-center min-w-[95px]">${tglCell}</td>
+            <td class="border border-blue-900/60 px-3.5 py-3 text-center min-w-[115px]">${jamCell}</td>
+            <td class="border border-blue-900/60 px-4 py-3 text-center min-w-[140px]">${aksiButton}</td>
           </tr>
         `;
       }).join('');
