@@ -328,11 +328,12 @@
         let livenessText = '';
         let livenessBadge = '';
 
-        if (isNaN(elapsedMin) || elapsedMin < 5) {
+        // Threshold: Aktif (< 15 mnt), Menggantung (15-60 mnt), Tersangkut (> 60 mnt)
+        if (isNaN(elapsedMin) || elapsedMin < 15) {
           livenessState = 'live';
           livenessText = (isNaN(elapsedMin) || elapsedMin <= 0) ? 'Baru saja' : `${elapsedMin} mnt lalu`;
           livenessBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-950/90 text-emerald-300 border border-emerald-500/50 inline-flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Aktif (${livenessText})</span>`;
-        } else if (elapsedMin < 30) {
+        } else if (elapsedMin <= 60) {
           livenessState = 'idle';
           livenessText = `${elapsedMin} mnt lalu`;
           livenessBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950/90 text-amber-300 border border-amber-500/50 inline-flex items-center gap-1"><i class="fa-solid fa-hourglass-half text-amber-400"></i> Menggantung (${livenessText})</span>`;
