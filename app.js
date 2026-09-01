@@ -3239,7 +3239,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     function formatSolutionHtml(solText, isWorkedExample = false) {
       if (!solText) return '';
       const lines = solText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-      let html = '<div class="space-y-1.5 my-1.5">';
+      let html = '<div class="space-y-1.5 my-1">';
       let stepNum = 1;
 
       lines.forEach((line) => {
@@ -3250,7 +3250,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         if (isConclusion) {
           if (isWorkedExample) {
-            // Remove "Answer Key X." or "Kunci Jawaban X." from essay worked examples
             clean = clean.replace(/(?:Answer\s*Key|Key|Kunci\s*(?:Jawaban)?|Jawaban(?:\s*yang\s*(?:tepat|benar)\s*adalah)?)\s*:?\s*[A-E]\b\.?/gi, '').trim();
             clean = clean.replace(/\(\s*(?:Kunci|Key)\s*[A-E]\s*\)/gi, '').trim();
             clean = clean.replace(/^(?:Kesimpulan|Conclusion)\s*:?\s*$/i, '').trim();
@@ -3262,28 +3261,23 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               const isClil = currentMode === 'clil' || tkaSubj === 'clil';
               clean = (isClil ? 'Conclusion: ' : 'Kesimpulan: ') + clean;
             }
-          } else {
-            // CBT mode: Ensure printed key matches window.tkaActiveCorrectKey
-            if (window.tkaActiveCorrectKey) {
-              // Retain authentic formatted conclusion from solution text
-            }
           }
 
           html += `
-            <div class="p-3 bg-emerald-950/60 border border-blue-500/50 rounded-xl flex items-start gap-2.5 shadow-sm">
-              <span class="w-6 h-6 rounded-lg bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
+            <div class="p-2.5 bg-[#050B14] border border-blue-900/80 border-l-4 border-l-amber-500 rounded-xl flex items-start gap-2 shadow-sm">
+              <span class="w-5 h-5 rounded-lg bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
                 <i class="fa-solid fa-check"></i>
               </span>
-              <div class="text-xs md:text-sm text-emerald-200 font-semibold leading-relaxed">
+              <div class="text-xs md:text-sm text-amber-300 font-semibold leading-relaxed flex-1">
                 ${clean}
               </div>
             </div>
           `;
         } else if (isBullet) {
           html += `
-            <div class="p-2.5 bg-slate-800/70 border border-slate-700/80 rounded-xl flex items-start gap-2.5">
-              <span class="w-2 h-2 rounded-full bg-amber-400 shrink-0 mt-1.5"></span>
-              <div class="text-xs md:text-sm text-slate-200 font-medium leading-relaxed flex-1">
+            <div class="p-2 bg-[#060D1A] border border-blue-900/60 rounded-xl flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-1.5"></span>
+              <div class="text-xs text-slate-200 font-medium leading-relaxed flex-1">
                 ${clean}
               </div>
             </div>
@@ -3291,8 +3285,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         } else {
           const isClil = currentMode === 'clil' || tkaSubj === 'clil';
           html += `
-            <div class="p-2.5 bg-slate-800/90 border border-slate-700 rounded-xl flex items-start gap-2.5 shadow">
-              <span class="px-2 py-0.5 rounded-md bg-blue-600/30 border border-blue-400/40 text-blue-300 font-mono text-[10px] md:text-xs font-bold shrink-0 mt-0.5">
+            <div class="p-2.5 bg-[#060D1A] border border-blue-900/60 rounded-xl flex items-start gap-2 shadow-sm">
+              <span class="px-2 py-0.5 rounded-md bg-blue-600/30 border border-blue-400/40 text-blue-300 font-mono text-[10px] font-bold shrink-0 mt-0.5">
                 ${isClil ? 'Step' : 'Langkah'} ${stepNum}
               </span>
               <div class="text-xs md:text-sm text-slate-100 font-medium leading-relaxed flex-1">
@@ -3615,26 +3609,26 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </div>
                   ` : ''}
 
-                  <!-- ACTION BUTTON BAR -->
-                  <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer shrink-0">
-                    <i class="fa-solid fa-eye" id="toggle-sol-icon"></i>
+                  <!-- ACTION BUTTON BAR (COMPACT & SLIM) -->
+                  <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="w-full py-2 px-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer shrink-0 border border-blue-400/30">
+                    <i class="fa-solid fa-eye text-amber-300 text-xs" id="toggle-sol-icon"></i>
                     <span id="toggle-sol-text">${isClil ? 'Show Step-by-Step Solution' : 'Buka Cara Penyelesaian'}</span>
                   </button>
                 </div>
               </div>
 
-              <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION (HIDDEN INITIALLY, OPENS ON DEMAND) -->
+              <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION (ZERO-SCROLL, 100% VISIBLE) -->
               <div id="example-sol-col" class="hidden w-full flex-col min-h-0 transition-all duration-300">
-                <div id="example-sol-box" class="h-full p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col overflow-y-auto">
-                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-2.5 mb-3 shrink-0">
+                <div id="example-sol-box" class="h-full p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col justify-between overflow-hidden">
+                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-2 mb-2 shrink-0">
                     <span class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5 font-mono">
-                      <i class="fa-solid fa-square-check text-amber-400"></i> ${isClil ? 'Structured Mathematical Solution:' : 'Langkah Solusi Matematis Terstruktur:'}
+                      <i class="fa-solid fa-square-check text-amber-400"></i> ${isClil ? 'Structured Mathematical Solution:' : 'Langkah Solusi Terstruktur:'}
                     </span>
-                    <button onclick="toggleExampleSolution()" class="text-[10px] font-mono text-slate-300 hover:text-white px-2.5 py-1 bg-[#060D1A] rounded-lg border border-blue-900 flex items-center gap-1 cursor-pointer">
+                    <button onclick="toggleExampleSolution()" class="text-[10px] font-mono text-slate-300 hover:text-white px-2 py-0.5 bg-[#060D1A] rounded-lg border border-blue-900 flex items-center gap-1 cursor-pointer">
                       <i class="fa-solid fa-chevron-up text-amber-400"></i> <span>${isClil ? 'Hide' : 'Tutup Solusi'}</span>
                     </button>
                   </div>
-                  <div class="flex-1 overflow-y-auto pr-1 space-y-2">
+                  <div class="flex-1 space-y-1.5 overflow-hidden">
                     ${formattedSolHtml}
                   </div>
                 </div>
