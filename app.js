@@ -4846,14 +4846,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
       if (window._collabActiveLevel === undefined) window._collabActiveLevel = 0;
 
-      // Method Switcher Buttons (Sleek & Clean)
+      // Method Switcher Buttons (Sleek & Clean with Emerald/Blue/Gold Accents)
       const switcherHtml = keys.map(k => {
         const item = PEDAGOGY_METHODS[k];
         if (!item) return '';
         const isActive = k === ped.id;
         const displayName = isClil ? (item.name_en || item.name) : item.name;
         const activeClass = isActive 
-          ? 'bg-blue-600 text-white font-bold shadow-md border-blue-500' 
+          ? 'bg-emerald-600 text-white font-bold shadow-md border-emerald-500' 
           : 'bg-[#060D1A] text-slate-400 hover:text-white border-blue-900/60';
         return `
           <button onclick="switchSlidePedagogy('${k}')" class="px-2.5 py-1 rounded-xl text-[11px] transition border flex items-center gap-1.5 whitespace-nowrap cursor-pointer shrink-0 ${activeClass}">
@@ -4929,15 +4929,19 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }).join('');
 
       // 4 Protocol Steps (Clean & Compact)
+      const stepColorClasses = ['text-blue-300', 'text-amber-300', 'text-emerald-300', 'text-blue-300'];
+      const badgeBgClasses = ['bg-blue-600/30 text-blue-300', 'bg-amber-500/20 text-amber-300', 'bg-emerald-500/20 text-emerald-300', 'bg-blue-600/30 text-blue-300'];
+
       const cardsHtml = steps.slice(0, 4).map((step, sIdx) => {
-        const isGold = (sIdx % 2 === 1);
+        const txtColor = stepColorClasses[sIdx % 4];
+        const badgeBg = badgeBgClasses[sIdx % 4];
         return `
           <div class="p-2 rounded-xl bg-[#081324] border border-blue-900/60 flex items-start gap-2 shadow-sm">
-            <span class="w-5 h-5 rounded-md ${isGold ? 'bg-amber-500/20 text-amber-300' : 'bg-blue-600/30 text-blue-300'} font-bold flex items-center justify-center shrink-0 font-mono text-[10px]">
+            <span class="w-5 h-5 rounded-md ${badgeBg} font-bold flex items-center justify-center shrink-0 font-mono text-[10px]">
               ${sIdx + 1}
             </span>
             <div class="text-[10px] text-slate-300 leading-tight">
-              <strong class="${isGold ? 'text-amber-300' : 'text-white'}">${step.num.replace(/^\d+\.\s*/, '')}:</strong> ${step.text}
+              <strong class="${txtColor}">${step.num.replace(/^\d+\.\s*/, '')}:</strong> ${step.text}
             </div>
           </div>
         `;
@@ -4946,13 +4950,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       return `
         <div class="h-full min-h-0 flex flex-col justify-between gap-3 p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl overflow-hidden">
           
-          <!-- TOP HEADER BAR (CLEAN, NO OVERLAPPING) -->
+          <!-- TOP HEADER BAR (COMPACT EMERALD BADGE, ZERO TITLE TRUNCATION) -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-900/80 pb-2.5 shrink-0">
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="px-2.5 py-1 bg-blue-600 text-white text-xs font-bold rounded-xl shadow-sm flex items-center gap-1.5 shrink-0">
-                <i class="${ped.icon} text-amber-300"></i> ${badge}
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold rounded-xl shadow-sm flex items-center gap-1.5 shrink-0">
+                <i class="${ped.icon} text-emerald-400"></i> ${badge}
               </span>
-              <span class="text-xs md:text-sm font-bold text-white truncate">${title}</span>
+              <h3 class="text-xs md:text-sm font-black text-white tracking-wide truncate">${title}</h3>
             </div>
 
             <!-- METHOD SELECTOR PILLS -->
@@ -4969,7 +4973,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <div class="space-y-2.5">
                 <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
                   <span class="text-xs font-bold text-amber-300 font-mono flex items-center gap-1.5">
-                    <i class="fa-solid fa-pen-to-square text-amber-400"></i> ${activeLabel}
+                    <i class="fa-solid fa-fire text-amber-400"></i> ${activeLabel}
                   </span>
                   <!-- LEVEL SWITCHER TABS -->
                   <div class="flex items-center bg-[#050B14] p-0.5 rounded-lg border border-blue-900/60">
@@ -4983,12 +4987,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               </div>
 
               <!-- COLLABORATIVE HINT PILL -->
-              <div class="p-2.5 bg-[#050B14] rounded-xl border border-blue-900/50 flex items-center justify-between text-xs text-slate-300 shrink-0">
+              <div class="p-2.5 bg-[#050B14] rounded-xl border border-emerald-500/30 flex items-center justify-between text-xs text-slate-300 shrink-0">
                 <div class="flex items-center gap-2 min-w-0 truncate">
                   <i class="fa-solid fa-lightbulb text-amber-400 text-xs shrink-0"></i>
-                  <span class="text-[11px] text-slate-300 truncate">${taskCfg.hint}</span>
+                  <span class="text-[11px] text-slate-200 truncate">${taskCfg.hint}</span>
                 </div>
-                <span class="text-[10px] font-mono text-amber-300 font-bold bg-[#081324] px-2 py-0.5 rounded border border-blue-900 shrink-0 ml-2">Kolaborasi Aktif</span>
+                <span class="text-[10px] font-mono text-emerald-300 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 shrink-0 ml-2">1 Spidol Bergantian</span>
               </div>
             </div>
 
@@ -5019,7 +5023,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 <div class="flex items-center gap-1 font-mono text-[10px]">
                   <button onclick="startBtcTimer(600)" class="px-2 py-1 rounded bg-[#0D1B2E] text-slate-300 hover:text-white border border-blue-900 cursor-pointer">10m</button>
                   <button onclick="startBtcTimer(900)" class="px-2 py-1 rounded bg-blue-600 text-white font-bold cursor-pointer">15m</button>
-                  <button onclick="toggleBtcTimer()" id="btc-timer-btn" class="px-2.5 py-1 rounded bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow cursor-pointer">Mulai</button>
+                  <button onclick="toggleBtcTimer()" id="btc-timer-btn" class="px-2.5 py-1 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow cursor-pointer">Mulai</button>
                 </div>
               </div>
 
@@ -5028,8 +5032,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           </div>
 
           <!-- BOTTOM TEACHER FACILITATION FOOTER -->
-          <div class="px-3.5 py-1.5 bg-[#060D1A] rounded-xl border border-blue-900/60 text-[11px] text-amber-300/90 font-medium flex items-center gap-2 shrink-0">
-            <i class="fa-solid fa-chalkboard-user text-amber-400 text-xs shrink-0"></i>
+          <div class="px-3.5 py-1.5 bg-[#060D1A] rounded-xl border border-emerald-500/30 text-[11px] text-emerald-300 font-medium flex items-center gap-2 shrink-0">
+            <i class="fa-solid fa-chalkboard-user text-emerald-400 text-xs shrink-0"></i>
             <span class="truncate">💡 <strong>Tips Guru:</strong> ${tip}</span>
           </div>
 
