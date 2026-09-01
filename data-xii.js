@@ -6409,7 +6409,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 6√3 cm"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Memahami Teorema Proyeksi Titik ke Bidang Segitiga Diagonal Kubus:\nDiagonal ruang $EC = s\\sqrt{3}$ terbagi menjadi 3 segmen sama panjang oleh bidang $AFH$ dan bidang $BDG$:\n- Jarak titik sudut E ke bidang AFH $= \\frac{1}{3}$ diagonal ruang EC.\n- Jarak titik sudut C ke bidang AFH $= \\frac{2}{3}$ diagonal ruang EC.\n\nLangkah 2: Mensubstitusikan panjang diagonal ruang $EC = 12\\sqrt{3}$ cm:\n$$d(E, \\text{bidang } AFH) = \\frac{1}{3} \\times 12\\sqrt{3} = 4\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menggunakan Teorema Proyeksi Titik Sudut Dekat ke Bidang Segitiga Diagonal:\nTitik E merupakan titik sudut terdekat dari bidang diagonal AFH pada diagonal ruang EC.\n$$d(E, \\text{bidang } AFH) = \\frac{1}{3} \\times d_{\\text{ruang}} = \\frac{1}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan panjang rusuk $s = 12$ cm:\n$$d = \\frac{1}{3} \\times 12\\sqrt{3} = 4\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6428,8 +6428,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 4√3 cm",
             "E. 6√3 cm"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menerapkan Teorema Jarak Titik Sudut Jauh ke Bidang Diagonal:\nBidang $BDG$ terletak lebih jauh dari titik sudut A.\nJarak titik A ke bidang BDG adalah $\\frac{2}{3}$ dari diagonal ruang $AG$:\n$$d(A, \\text{bidang } BDG) = \\frac{2}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan rusuk kubus $s = 6$ cm:\n$$d = \\frac{2}{3} \\times 6\\sqrt{3} = 4\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menggunakan Teorema Proyeksi Titik Sudut Jauh ke Bidang Segitiga Diagonal:\nTitik C merupakan titik sudut terjauh dari bidang diagonal AFH pada diagonal ruang EC.\n$$d(C, \\text{bidang } AFH) = \\frac{2}{3} \\times d_{\\text{ruang}} = \\frac{2}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan panjang rusuk $s = 12$ cm:\n$$d = \\frac{2}{3} \\times 12\\sqrt{3} = 8\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6448,8 +6448,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 6√3 cm",
             "E. 3√3 cm"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menentukan orientasi titik C terhadap bidang diagonal BDHF:\n- Bidang $BDHF$ memuat diagonal bidang alas $BD$.\n- Proyeksi tegak lurus titik C ke garis BD pada bidang alas persegi $ABCD$ jatuh tepat di pusat perpotongan diagonal $O$.\n\nLangkah 2: Menghitung panjang segmen garis $CO$:\nPanjang ruas garis CO adalah setengah dari diagonal sisi alas $AC$:\n$$CO = \\frac{1}{2} AC = \\frac{1}{2}(8\\sqrt{2}) = 4\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menerapkan Teorema Jarak Titik Sudut Terjauh ke Bidang Segitiga Diagonal:\nTitik E merupakan titik sudut terjauh dari bidang diagonal BDG pada diagonal ruang EC.\n$$d(E, \\text{bidang } BDG) = \\frac{2}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan panjang rusuk $s = 9$ cm:\n$$d = \\frac{2}{3} \\times 9\\sqrt{3} = 6\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6468,8 +6468,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 9√3 cm",
             "E. 6√6 cm"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Mengidentifikasi hubungan dua bidang sejajar AFH dan BDG:\nBidang $AFH$ dan bidang $BDG$ adalah dua bidang datar sejajar yang memotong diagonal ruang kubus $EC$ tegak lurus menjadi 3 bagian sama panjang.\n\nLangkah 2: Menghitung jarak antar dua bidang sejajar:\n$$d = \\frac{1}{3} \\times d_{\\text{ruang}} = \\frac{1}{3} \\times s\\sqrt{3}$$\n\nLangkah 3: Mensubstitusikan $s = 9$ cm:\n$$d = \\frac{1}{3} \\times 9\\sqrt{3} = 3\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Mengidentifikasi sifat dua bidang sejajar AFH dan BDG:\nBidang AFH dan bidang BDG adalah dua bidang datar sejajar yang memotong diagonal ruang EC ($s\\sqrt{3}$) menjadi 3 bagian sama panjang.\n\nLangkah 2: Menghitung jarak antar-kedua bidang:\n$$d = \\frac{1}{3} \\times s\\sqrt{3}$$\n\nLangkah 3: Mensubstitusikan rusuk $s = 18$ cm:\n$$d = \\frac{1}{3} \\times 18\\sqrt{3} = 6\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6487,7 +6487,7 @@ const NAMA_TINGKAT = 'XII';
             "Jarak titik E ke bidang diagonal BDG adalah 1/2 a akar(3)"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJarak titik terdekat ke bidang segitiga sudut kubus adalah $\\frac{1}{3}s\\sqrt{3}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nJarak titik sudut terjauh ke bidang segitiga sudut kubus adalah $\\frac{2}{3}s\\sqrt{3}$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJarak titik C ke bidang diagonal BDHF adalah setengah diagonal sisi ($\\frac{1}{2}s\\sqrt{2}$), bukan $\\frac{1}{2}s\\sqrt{3}$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nTitik C adalah titik sudut dekat ke bidang BDG $\\implies d = \\frac{1}{3}a\\sqrt{3}$.\n$\\implies$ Pernyataan (1) bernilai BENAR (B).\n\nLangkah 2: Analisis Pernyataan (2):\nJarak titik E ke bidang alas ABCD sama dengan panjang rusuk tegak $AE = a$.\n$\\implies$ Pernyataan (2) bernilai BENAR (B).\n\nLangkah 3: Analisis Pernyataan (3):\nTitik E adalah titik sudut jauh ke bidang BDG $\\implies d = \\frac{2}{3}a\\sqrt{3}$ (bukan $\\frac{1}{2}a\\sqrt{3}$).\n$\\implies$ Pernyataan (3) bernilai SALAH (S).\n\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6506,8 +6506,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Pernyataan (2) SAJA cukup",
             "E. Pernyataan (1) SAJA cukup dan (2) SAJA cukup"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan tinggi limas beraturan T.ABCD:\n- Rusuk alas $s = 8$ cm $\\implies AO = \\frac{1}{2}(8\\sqrt{2}) = 4\\sqrt{2}$ cm.\n- Rusuk tegak $TA = 12$ cm.\n\nLangkah 2: Menghitung jarak titik puncak T ke bidang alas ABCD ($TO$):\n$$TO = \\sqrt{TA^2 - AO^2} = \\sqrt{12^2 - (4\\sqrt{2})^2} = \\sqrt{144 - 32} = \\sqrt{112} = 4\\sqrt{7} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Memahami hubungan tinggi limas beraturan T.ABCD ($TO$) dengan rusuk tegak dan alas:\nJarak titik puncak T ke bidang alas ABCD adalah tinggi limas $TO$.\n$$TO = \\sqrt{TA^2 - AO^2} = \\sqrt{TA^2 - \\left(\\frac{1}{2}AC\\right)^2}$$\n\nLangkah 2: Evaluasi Pernyataan (1) SAJA:\nHanya diketahui rusuk tegak $TA = 10$ cm, tanpa panjang diagonal alas $AC \\implies$ TIDAK CUKUP.\n\nLangkah 3: Evaluasi Pernyataan (2) SAJA:\nHanya diketahui diagonal alas $AC = 12$ cm ($AO = 6$ cm), tanpa rusuk tegak $TA \\implies$ TIDAK CUKUP.\n\nLangkah 4: Evaluasi (1) dan (2) BERSAMA-SAMA:\n$$TO = \\sqrt{10^2 - 6^2} = \\sqrt{100 - 36} = \\sqrt{64} = 8 \\text{ cm (CUKUP)}$$\nKesimpulan: Kunci Jawaban B (DUA pernyataan BERSAMA-SAMA cukup).",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -6526,8 +6526,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2,4 cm",
             "E. 3,2 cm"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Jarak titik tengah rusuk AB ke bidang alas ABCD:\nKarena rusuk AB seluruhnya terletak pada bidang alas $ABCD$, maka seluruh titik pada rusuk AB (termasuk titik tengahnya) berada tepat pada bidang alas.\n\nLangkah 2: Menentukan jaraknya:\nJarak suatu titik yang terletak pada bidang ke bidang itu sendiri bernilai **0 cm**.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Membentuk segitiga siku-siku $\\triangle TOM$ di dalam limas T.ABCD:\n- $O$ adalah pusat alas persegi ABCD.\n- Dari $O$ ditarik tegak lurus rusuk $BC$, jatuh di titik tengah $BC$ (titik $M$) dengan $OM = \\frac{1}{2}(6) = 3$ cm.\n- Tinggi limas: $TO = 4$ cm.\n- Tinggi bidang tegak $TM = \\sqrt{TO^2 + OM^2} = \\sqrt{4^2 + 3^2} = 5$ cm.\n\nLangkah 2: Menggunakan kesamaan luas $\\triangle TOM$ untuk menghitung jarak titik O ke bidang TBC:\n$$TO \\times OM = TM \\times d$$\n$$4 \\times 3 = 5 \\times d$$\n\nLangkah 3: Menyelesaikan nilai $d$:\n$$d = \\frac{12}{5} = 2{,}4 \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -6547,7 +6547,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Jarak titik C ke bidang ABFE adalah 12 cm."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis seluruh pernyataan jarak titik ke bidang pada kubus berusuk 12 cm:\n- A: Jarak E ke AFH $= \\frac{1}{3}(12\\sqrt{3}) = 4\\sqrt{3}$ cm (BENAR).\n- B: Jarak C ke AFH $= \\frac{2}{3}(12\\sqrt{3}) = 8\\sqrt{3}$ cm (BENAR).\n- C: Jarak A ke BDHF $= \\frac{1}{2}(12\\sqrt{2}) = 6\\sqrt{2}$ cm (BENAR).\n- D: Jarak antara bidang AFH dan BDG $= 4\\sqrt{3}$ cm (BENAR).\n- E: Jarak titik E ke bidang ABCD sama dengan rusuk tegak $= 12$ cm (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
+          "bahas": "Langkah 1: Analisis seluruh pernyataan jarak pada kubus berusuk 12 cm:\n- Opsi A: Jarak bidang AFH ke BDG $= \\frac{1}{3}(12\\sqrt{3}) = 4\\sqrt{3}$ cm (BENAR).\n- Opsi B: Jarak C ke bidang diagonal BDHF $= \\frac{1}{2}(12\\sqrt{2}) = 6\\sqrt{2}$ cm (BENAR).\n- Opsi C: Jarak E ke bidang BDG $= \\frac{2}{3}(12\\sqrt{3}) = 8\\sqrt{3}$ cm (BENAR).\n- Opsi D: Jarak C ke bidang BDG $= \\frac{1}{3}(12\\sqrt{3}) = 4\\sqrt{3}$ cm (BENAR).\n- Opsi E: Jarak C ke bidang depan ABFE $= BC = 12$ cm (BENAR).\n\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6566,8 +6566,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/4 a",
             "E. 1/2 a√3"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menghitung jarak titik sudut C ke bidang AFH pada kubus berusuk 6 cm:\n$$d = \\frac{2}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan $s = 6$ cm:\n$$d = \\frac{2}{3} \\times 6\\sqrt{3} = 4\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan koordinat titik pusat kubus berusuk $a$:\nTitik pusat kubus terletak tepat di tengah ruang kubus, yaitu pada koordinat $\\left(\\frac{a}{2}, \\frac{a}{2}, \\frac{a}{2}\\right)$.\n\nLangkah 2: Menghitung jarak tegak lurus ke setiap dari 6 bidang sisinya:\nJarak ke bidang alas ($z=0$), bidang atas ($z=a$), bidang kiri ($x=0$), bidang kanan ($x=a$), bidang depan ($y=0$), dan bidang belakang ($y=a$) adalah:\n$$d = \\frac{1}{2}a$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -6578,10 +6578,10 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Isian Singkat Numerik",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P12-Q10] Pada kubus ABCD.EFGH dengan panjang rusuk 15 cm, nilai kuadrat dari jarak titik E ke bidang BDG adalah ...",
+          "tanya": "[P12-Q10] Pada kubus ABCD.EFGH dengan panjang rusuk 15 cm, nilai kuadrat dari jarak titik E ke bidang BDG adalah ... (dalam satuan cm^2)",
           "opsi": [],
-          "kunci": "2√3",
-          "bahas": "Langkah 1: Menghitung jarak titik E ke bidang AFH pada kubus berusuk 6 cm:\n$$d = \\frac{1}{3} \\times s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan $s = 6$ cm:\n$$d = \\frac{1}{3} \\times 6\\sqrt{3} = 2\\sqrt{3} \\text{ cm}$$\nKesimpulan: Kunci Jawaban 2√3.",
+          "kunci": "300",
+          "bahas": "Langkah 1: Menghitung jarak titik E (titik terjauh) ke bidang diagonal BDG pada kubus berusuk $s = 15$ cm:\n$$d = \\frac{2}{3} \\times s\\sqrt{3} = \\frac{2}{3} \\times 15\\sqrt{3} = 10\\sqrt{3} \\text{ cm}$$\n\nLangkah 2: Menghitung nilai kuadrat dari jarak ($d^2$):\n$$d^2 = (10\\sqrt{3})^2 = 100 \\times 3 = 300$$\nKesimpulan: Kunci Jawaban 300.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
