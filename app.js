@@ -5005,14 +5005,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 </div>
               </div>
 
-              <!-- CLEAN STUDENT COLLABORATIVE HINT PILL -->
-              <div class="p-2.5 bg-[#050B14] rounded-xl border border-blue-900/70 flex items-center justify-between text-xs text-slate-300 shrink-0">
-                <div class="flex items-center gap-2 min-w-0 truncate">
-                  <i class="fa-solid fa-comments text-amber-400 text-xs shrink-0"></i>
-                  <span class="text-[11px] text-slate-200 truncate">${taskCfg.hint}</span>
-                </div>
-                <span class="text-[10px] font-mono text-amber-300 font-bold bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30 shrink-0 ml-2">1 Spidol Bergantian</span>
-              </div>
+
 
             </div>
 
