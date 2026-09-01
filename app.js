@@ -3584,27 +3584,27 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const formattedSolHtml = formatSolutionHtml(sol, true);
 
         body.innerHTML = `
-          <div class="w-full h-full flex flex-col justify-center my-auto">
-            <!-- DYNAMIC SPACE-EFFICIENT WORKSPACE (ZERO EMPTY PLACEHOLDER) -->
+          <div class="w-full h-full flex flex-col justify-center my-auto min-h-0 overflow-y-auto">
+            <!-- DYNAMIC SPACE-EFFICIENT WORKSPACE (ZERO CUTOFF) -->
             <div id="example-workspace-grid" class="flex flex-col items-center justify-center w-full min-h-0">
               
-              <!-- PROBLEM COLUMN (EXPANDS TO FULL-WIDTH WHEN CLOSED, SPLITS 5/12 WHEN REVEALED) -->
+              <!-- PROBLEM COLUMN (EXPANDS TO FULL-WIDTH WHEN CLOSED, SPLITS 5/12 ON MD+) -->
               <div id="example-prob-col" class="w-full max-w-3xl mx-auto flex flex-col gap-3 transition-all duration-300">
-                <div class="p-5 md:p-6 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col justify-between space-y-4">
-                  <div class="space-y-3">
-                    <div class="flex items-center justify-between border-b border-blue-900/80 pb-2.5">
+                <div class="p-4 md:p-5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-2xl flex flex-col justify-between space-y-3">
+                  <div class="space-y-2.5">
+                    <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
                       <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg font-mono flex items-center gap-1.5 border border-amber-500/30">
                         <i class="fa-solid fa-graduation-cap"></i> Contoh Soal ${exIdx + 1} (${customLevelTitle})
                       </span>
                       <span class="text-[10px] font-mono font-bold text-amber-400">C4-C5 HOTS</span>
                     </div>
-                    <div class="text-sm md:text-base font-semibold text-white leading-relaxed">
+                    <div class="text-xs md:text-sm font-semibold text-white leading-relaxed">
                       ${formatMathTables(prob)}
                     </div>
                   </div>
 
                   ${exampleSvg ? `
-                  <div class="mt-2 p-2 bg-[#050B14] rounded-2xl border border-blue-900/60 flex items-center justify-center shadow-inner shrink-0">
+                  <div class="mt-2 p-2 bg-[#050B14] rounded-xl border border-blue-900/60 flex items-center justify-center shadow-inner shrink-0">
                     ${exampleSvg}
                   </div>
                   ` : ''}
@@ -3621,8 +3621,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
               <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION (ZERO-SCROLL, 100% VISIBLE) -->
               <div id="example-sol-col" class="hidden w-full flex-col min-h-0 transition-all duration-300">
-                <div id="example-sol-box" class="h-full p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col justify-between overflow-hidden">
-                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-2 mb-2 shrink-0">
+                <div id="example-sol-box" class="h-full p-4 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-2xl flex flex-col justify-between space-y-2 overflow-hidden">
+                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-1.5 mb-1 shrink-0">
                     <span class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5 font-mono">
                       <i class="fa-solid fa-square-check text-amber-400"></i> ${isClil ? 'Structured Mathematical Solution:' : 'Langkah Solusi Terstruktur:'}
                     </span>
@@ -3630,7 +3630,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                       <i class="fa-solid fa-chevron-up text-amber-400"></i> <span>${isClil ? 'Hide' : 'Tutup Solusi'}</span>
                     </button>
                   </div>
-                  <div class="flex-1 space-y-1.5 overflow-hidden">
+                  <div class="flex-1 space-y-1.5 overflow-hidden text-xs">
                     ${formattedSolHtml}
                   </div>
                 </div>
@@ -4434,15 +4434,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const isClil = currentMode === 'clil';
 
       if (isHidden) {
-        // Expand into balanced 5:7 split
-        grid.className = "grid grid-cols-1 lg:grid-cols-12 gap-4 w-full h-full min-h-0 items-stretch";
-        probCol.className = "lg:col-span-5 flex flex-col gap-3 min-h-0";
-        solCol.className = "lg:col-span-7 flex flex-col min-h-0";
+        // Side-by-side 5:7 split starting at md (768px+)
+        grid.className = "grid grid-cols-1 md:grid-cols-12 gap-3.5 w-full h-full min-h-0 items-stretch overflow-y-auto";
+        probCol.className = "md:col-span-5 flex flex-col justify-between min-h-0";
+        solCol.className = "md:col-span-7 flex flex-col justify-between min-h-0";
         if (icon) icon.className = "fa-solid fa-eye-slash";
         if (text) text.innerText = isClil ? "Hide Solution" : "Tutup Pembahasan";
         if (solBox) renderMath(solBox);
       } else {
-        // Collapse back to centered full-width card (zero wasted space!)
+        // Collapse back to centered full-width card
         grid.className = "flex flex-col items-center justify-center w-full min-h-0";
         probCol.className = "w-full max-w-3xl mx-auto flex flex-col gap-3";
         solCol.className = "hidden w-full flex-col min-h-0";
