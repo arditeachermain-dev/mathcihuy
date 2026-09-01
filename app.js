@@ -3619,18 +3619,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 </div>
               </div>
 
-              <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION (ZERO-SCROLL, 100% VISIBLE) -->
+              <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION (SCROLLABLE & HIGH CLARITY) -->
               <div id="example-sol-col" class="hidden w-full flex-col min-h-0 transition-all duration-300">
-                <div id="example-sol-box" class="h-full p-4 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-2xl flex flex-col justify-between space-y-2 overflow-hidden">
-                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-1.5 mb-1 shrink-0">
+                <div id="example-sol-box" class="h-full p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col min-h-0 justify-between space-y-2 overflow-hidden">
+                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-2 mb-1 shrink-0">
                     <span class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5 font-mono">
                       <i class="fa-solid fa-square-check text-amber-400"></i> ${isClil ? 'Structured Mathematical Solution:' : 'Langkah Solusi Terstruktur:'}
                     </span>
-                    <button onclick="toggleExampleSolution()" class="text-[10px] font-mono text-slate-300 hover:text-white px-2 py-0.5 bg-[#060D1A] rounded-lg border border-blue-900 flex items-center gap-1 cursor-pointer">
+                    <button onclick="toggleExampleSolution()" class="text-[10px] font-mono text-slate-300 hover:text-white px-2.5 py-1 bg-[#060D1A] rounded-xl border border-blue-900 flex items-center gap-1 cursor-pointer hover:border-amber-400 transition">
                       <i class="fa-solid fa-chevron-up text-amber-400"></i> <span>${isClil ? 'Hide' : 'Tutup Solusi'}</span>
                     </button>
                   </div>
-                  <div class="flex-1 space-y-1.5 overflow-hidden text-xs">
+                  <div class="flex-1 space-y-2 overflow-y-auto custom-scroll pr-1 min-h-0 text-xs md:text-sm">
                     ${formattedSolHtml}
                   </div>
                 </div>
