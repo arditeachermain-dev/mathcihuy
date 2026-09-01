@@ -582,24 +582,34 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Pada kubus ABCD.EFGH, tentukan kedudukan antara garis diagonal sisi AH dan garis diagonal sisi BG!",
-          "solution": "Langkah 1: Garis $AH$ berada pada bidang sisi kiri $ADHE$.\nLangkah 2: Garis $BG$ berada pada bidang sisi kanan $BCGF$.\nLangkah 3: Garis $AH$ sejajar dengan garis $DE$ dan garis $BG$ sejajar dengan garis $CF$. Bidang $ADHE$ sejajar dengan bidang $BCGF$, tetapi $AH$ dan $BG$ tidak sejajar serta tidak berpotongan.\nKesimpulan: Kedudukan garis $AH$ dan $BG$ adalah saling BERSILANGAN."
+          "level": "Level 1: Fondasi",
+          "title": "Kedudukan Antargaris Diagonal Sisi Kubus",
+          "problem": "Pada kubus $ABCD.EFGH$, tentukan kedudukan antara garis diagonal sisi $AH$ terhadap garis diagonal sisi $BG$, serta garis $AH$ terhadap garis diagonal sisi $CF$!",
+          "solution": "Langkah 1: Titik $A(0,0,0), H(0,s,s) \\implies \\vec{AH} = (0,s,s)$. Titik $B(s,0,0), G(s,s,s) \\implies \\vec{BG} = (0,s,s)$. Karena vektor $\\vec{AH} = \\vec{BG}$ dan keduanya membentuk bidang persegi panjang diagonal $ABGH$, maka garis $AH$ dan garis $BG$ saling SEJAJAR ($AH \\parallel BG$).\nLangkah 2: Titik $C(s,s,0), F(s,0,s) \\implies \\vec{CF} = (0,-s,s)$. Garis $AH$ pada bidang $ADHE$ dan garis $CF$ pada bidang $BCGF$ berada pada dua bidang berbeda serta tidak berpotongan.\nLangkah 3: Uji perkalian titik (dot product): $\\vec{AH} \\cdot \\vec{CF} = (0)(0) + (s)(-s) + (s)(s) = -s^2 + s^2 = 0$.\nKesimpulan: Garis $AH$ dan $BG$ saling SEJAJAR, sedangkan garis $AH$ dan $CF$ saling BERSILANGAN TEGAK LURUS ($90^\\circ$)."
         },
         {
-          "problem": "Pada kubus ABCD.EFGH, tentukan garis rusuk yang tegak lurus terhadap bidang alas ABCD!",
-          "solution": "Langkah 1: Rusuk yang tegak lurus bidang alas $ABCD$ adalah rusuk-rusuk tegak vertikal.\nLangkah 2: Rusuk tegak tersebut adalah $AE, BF, CG,$ dan $DH$.\nKesimpulan: Rusuk yang tegak lurus bidang alas adalah $AE, BF, CG,$ dan $DH$."
+          "level": "Level 2: Karakteristik Rusuk & Bidang",
+          "title": "Relasi Garis Tegak Lurus dan Bersilangan",
+          "problem": "Pada kubus $ABCD.EFGH$, sebutkan seluruh rusuk yang tegak lurus terhadap bidang alas $ABCD$ dan seluruh rusuk yang bersilangan tegak lurus dengan rusuk $AB$!",
+          "solution": "Langkah 1: Rusuk yang tegak lurus bidang alas $ABCD$ (arah vertikal sumbu Z) adalah 4 rusuk tegak kubus: $AE, BF, CG,$ dan $DH$.\nLangkah 2: Rusuk $AB$ membentang horizontal searah sumbu X. Rusuk yang tegak lurus dengannya dan tidak berpotongan (tidak sebidang) adalah 2 rusuk tegak sisi belakang ($CG, DH$) serta 2 rusuk horizontal atas arah sumbu Y ($EH, FG$).\nKesimpulan: Rusuk yang tegak lurus alas adalah $AE, BF, CG, DH$. Rusuk yang bersilangan tegak lurus dengan $AB$ adalah $CG, DH, EH,$ dan $FG$."
         },
         {
-          "problem": "Pada kubus ABCD.EFGH, sebutkan garis-garis rusuk yang saling bersilangan tegak lurus dengan rusuk AB!",
-          "solution": "Langkah 1: Rusuk $AB$ berada di bidang alas depan.\nLangkah 2: Rusuk yang tegak lurus $AB$ dan tidak berpotongan dengannya adalah rusuk tegak di sisi belakang ($CG$ dan $DH$) serta rusuk horizontal di sisi atas tegak lurus ($EH$ dan $FG$).\nKesimpulan: Rusuk yang bersilangan tegak lurus dengan $AB$ adalah $CG, DH, EH,$ dan $FG$."
+          "level": "Level 3: Hubungan Antarbidang",
+          "title": "Kedudukan Dua Bidang Diagonal Kubus",
+          "problem": "Pada kubus $ABCD.EFGH$, buktikan bahwa bidang diagonal $ACGE$ saling tegak lurus dengan bidang diagonal $BDHF$!",
+          "solution": "Langkah 1: Bidang diagonal $ACGE$ memuat diagonal alas $AC$ dan rusuk tegak $AE$. Bidang diagonal $BDHF$ memuat diagonal alas $BD$ dan rusuk tegak $DH$.\nLangkah 2: Pada bidang alas persegi $ABCD$, diagonal sisi $AC$ berpotongan tegak lurus dengan diagonal sisi $BD$ ($AC \\perp BD$).\nLangkah 3: Karena garis $AC$ pada bidang $ACGE$ tegak lurus terhadap dua garis berpotongan di bidang $BDHF$ (yaitu $BD$ dan rusuk tegak $DH$), maka menurut teorema kedudukan bidang: bidang $ACGE$ tegak lurus terhadap bidang $BDHF$ ($ACGE \\perp BDHF$).\nKesimpulan: Terbukti bahwa bidang diagonal $ACGE$ dan $BDHF$ saling TEGAK LURUS ($90^\\circ$)."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Kedudukan Titik, Garis, dan Bidang dalam Ruang 3D. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Garis Bersilangan, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Garis Tegak Lurus Bidang, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "level": "Level 4: Analitis Standar UTBK",
+          "title": "Titik Tembus Diagonal Ruang pada Bidang Segitiga",
+          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $6\\text{ cm}$, garis diagonal ruang $AG$ memotong bidang segitiga $BDE$ di titik $P$ dan memotong bidang segitiga $CFH$ di titik $Q$. Tentukan rasio panjang $AP : PQ : QG$ serta panjang segmen garis $PQ$!",
+          "solution": "Langkah 1: Berdasarkan teorema proyeksi ortogonal, diagonal ruang $AG$ menembus tegak lurus bidang $BDE$ di $P$ dan bidang $CFH$ di $Q$.\nLangkah 2: Bidang $BDE$ dan $CFH$ membagi diagonal ruang $AG$ menjadi 3 segmen yang sama panjang, sehingga rasio $AP : PQ : QG = 1 : 1 : 1$.\nLangkah 3: Panjang diagonal ruang $AG = s\\sqrt{3} = 6\\sqrt{3}\\text{ cm}$.\nLangkah 4: Menghitung panjang segmen $PQ = \\frac{1}{3} \\times AG = \\frac{1}{3}(6\\sqrt{3}) = 2\\sqrt{3}\\text{ cm}$.\nKesimpulan: Rasio perbandingan $AP : PQ : QG = 1 : 1 : 1$ dan panjang segmen $PQ = 2\\sqrt{3}\\text{ cm}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Kedudukan Titik, Garis, dan Bidang dalam Ruang 3D, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Garis Bersilangan.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Garis Tegak Lurus Bidang.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "level": "Level 5: HOTS Kontekstual",
+          "title": "Analisis Berkas Cahaya & Garis Tembus Lantai",
+          "problem": "Sebuah lampu sorot dipasang di titik $E$ pada ruangan kubus $ABCD.EFGH$ berusuk $12\\text{ meter}$ membentuk bidang berkas cahaya segitiga $EBD$. Jika kabel instalasi dibentangkan lurus dari titik sudut $A$ ke $C$, tentukan kedudukan garis kabel $AC$ terhadap bidang berkas cahaya $EBD$ dan tentukan titik tembusnya!",
+          "solution": "Langkah 1: Garis kabel $AC$ terletak pada bidang lantai $ABCD$. Bidang berkas cahaya $EBD$ memotong bidang lantai $ABCD$ di sepanjang diagonal alas $BD$.\nLangkah 2: Pada persegi lantai $ABCD$, diagonal sisi $AC$ berpotongan tegak lurus dengan diagonal sisi $BD$ tepat di titik tengah lantai $M$.\nLangkah 3: Karena titik $M$ terletak pada garis $BD$ (yang merupakan batas bidang $EBD$), maka garis kabel $AC$ menembus bidang berkas cahaya $EBD$ tepat di titik $M$.\nKesimpulan: Garis kabel $AC$ MENEMBUS bidang $EBD$ tepat di titik potong diagonal lantai $M\\left(\\frac{1}{2}AC\\right)$ secara tegak lurus."
         }
       ],
       "btc": "Kelompok VNPS: Pada kubus ABCD.EFGH, buktikan bahwa garis diagonal ruang AG tegak lurus terhadap bidang diagonal BDE!",
