@@ -3439,54 +3439,144 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       body.innerHTML = '';
 
       if (sIdx === 0) {
-        // SLIDE 1: RICH FUNCTIONAL OVERVIEW
+        // SLIDE 1: EXECUTIVE HERO MASTERCLASS COVER (APPLE / HARVARD DECK STANDARD)
+        const babLabel = (m.bab || (isClil ? 'CALCULUS STREAM' : ('MATEMATIKA FASE F'))).toUpperCase();
+        const subtitleText = m.sub || m.deskripsi || (isClil ? 
+          'Developing rigorous analytical modeling, multi-step problem solving, and higher-order calculus competencies.' : 
+          'Membangun pemahaman konseptual mendalam, penalaran aljabar terstruktur, dan pemecahan masalah kontekstual berstandar UTBK-SNBT & TKA Nasional.');
+
         body.innerHTML = `
-          <div class="h-full flex flex-col justify-between space-y-3 p-1">
-            <div class="bg-gradient-to-r from-[#0B2545] to-slate-900 p-4 md:p-5 rounded-2xl border border-blue-500/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
-              <div>
-                <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 text-[10px] font-extrabold rounded-full border border-amber-400/40 uppercase">
-                  ${(m.bab || (isClil ? 'CALCULUS (CLIL)' : ('MATEMATIKA KELAS ' + NAMA_TINGKAT))).toUpperCase()} • ${m.id}
-                </span>
-                <h2 class="text-base md:text-2xl font-black text-white mt-1 leading-tight">${m.title}</h2>
-                <p class="text-[11px] text-slate-400 mt-0.5">Math Cihuy • Muhammad Ardiansyah, S.Pd.Gr.</p>
+          <div class="h-full min-h-0 flex flex-col justify-between p-4 md:p-8 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl relative overflow-hidden">
+            
+            <!-- GLOWING BACKGROUND ACCENTS -->
+            <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center flex-1 min-h-0 relative z-10">
+              
+              <!-- LEFT HERO CONTENT (7/12) -->
+              <div class="md:col-span-7 flex flex-col justify-between h-full space-y-4 min-h-0">
+                
+                <div class="space-y-3.5">
+                  <!-- METADATA BADGES -->
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-3 py-1 rounded-full bg-blue-600/20 text-blue-300 border border-blue-500/40 text-[11px] font-mono font-black flex items-center gap-1.5 shadow-sm">
+                      <i class="fa-solid fa-graduation-cap text-amber-400"></i> FASE F &middot; KELAS XII
+                    </span>
+                    <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 text-[11px] font-mono font-bold shadow-sm">
+                      ${babLabel} &middot; ${m.id}
+                    </span>
+                  </div>
+
+                  <!-- GRAND DISPLAY TITLE -->
+                  <div class="space-y-1.5">
+                    <h1 class="text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight tracking-tight">
+                      ${m.title}
+                    </h1>
+                    <p class="text-xs md:text-sm font-semibold text-amber-400/90 font-mono">
+                      Masterclass Pembelajaran &amp; Penalaran Terstruktur
+                    </p>
+                  </div>
+
+                  <!-- SUBTITLE / OVERVIEW -->
+                  <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-xl">
+                    ${subtitleText}
+                  </p>
+                </div>
+
+                <!-- BOTTOM SECTION: TEACHER BADGE & ACTION BUTTONS -->
+                <div class="space-y-3 pt-2">
+                  <!-- TEACHER & INSTITUTION SIGNATURE -->
+                  <div class="p-3 bg-[#081324] rounded-2xl border border-blue-900/80 flex items-center justify-between gap-3 text-xs max-w-xl shadow-inner">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-sm shrink-0">
+                        <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
+                      </div>
+                      <div>
+                        <strong class="text-white block font-bold">Muhammad Ardiansyah, S.Pd.Gr.</strong>
+                        <span class="text-[10px] text-slate-400">Guru Pengampu Matematika</span>
+                      </div>
+                    </div>
+                    <div class="text-right hidden sm:block border-l border-blue-900/60 pl-3">
+                      <span class="text-[11px] text-slate-200 font-semibold block">SMA GIS 2 Serpong</span>
+                      <span class="text-[9px] text-slate-400 font-mono">TP 2026/2027</span>
+                    </div>
+                  </div>
+
+                  <!-- ACTION BUTTONS -->
+                  <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="currentSlideIdx = 1; renderAppView();" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center gap-2 cursor-pointer border border-blue-400/40">
+                      <span>${isClil ? 'Start Structured Lesson' : 'Mulai Pembelajaran'}</span>
+                      <i class="fa-solid fa-arrow-right text-amber-300"></i>
+                    </button>
+                    <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-4 py-2.5 bg-[#081324] hover:bg-[#0D1F38] text-amber-300 font-bold rounded-xl text-xs md:text-sm border border-amber-500/40 transition flex items-center gap-2 cursor-pointer shadow">
+                      <i class="fa-solid fa-bolt text-amber-400"></i>
+                      <span>${isClil ? '10 CBT Drills' : '10 Soal CBT Drilling'}</span>
+                    </button>
+                  </div>
+                </div>
+
               </div>
-              <div class="flex items-center gap-2 shrink-0">
-                <button onclick="currentSlideIdx = 3; renderAppView();" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow flex items-center gap-1.5 transition active:scale-95">
-                  <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-slide4"></use></svg> <span>${isClil ? 'View Formulas' : 'Lihat Rumus'}</span>
-                </button>
-                <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-black shadow-lg flex items-center gap-1.5 transition active:scale-95">
-                  <i class="fa-solid fa-crosshairs"></i> <span>${isClil ? '10 CBT Drills' : '10 Soal CBT'}</span>
-                </button>
+
+              <!-- RIGHT PILLAR: STRUCTURE MAP & VISUAL MOTIF (5/12) -->
+              <div class="md:col-span-5 p-5 bg-[#081324] rounded-3xl border border-blue-900/80 shadow-2xl flex flex-col justify-between h-full space-y-3 min-h-0">
+                
+                <div class="space-y-2.5">
+                  <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
+                    <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <i class="fa-solid fa-compass-drafting"></i> Peta Struktur Sesi:
+                    </span>
+                    <span class="px-2 py-0.5 rounded-lg bg-blue-600/30 text-blue-300 text-[10px] font-mono font-bold border border-blue-500/30">
+                      12 Slide
+                    </span>
+                  </div>
+
+                  <!-- 4 LEARNING STAGES PILLARS -->
+                  <div class="space-y-2 text-xs">
+                    <div onclick="currentSlideIdx = 2; renderAppView();" class="p-2.5 rounded-xl bg-[#0D1B2E] hover:bg-[#132742] border border-blue-900/60 flex items-center justify-between cursor-pointer transition">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-lg bg-blue-600/30 text-blue-300 font-mono font-bold text-[10px] flex items-center justify-center border border-blue-500/30">01</span>
+                        <span class="text-slate-200 font-semibold text-[11px]">Hook &amp; The Toolkit</span>
+                      </div>
+                      <span class="text-[10px] font-mono text-slate-400">Slide 3–4</span>
+                    </div>
+
+                    <div onclick="currentSlideIdx = 4; renderAppView();" class="p-2.5 rounded-xl bg-[#0D1B2E] hover:bg-[#132742] border border-blue-900/60 flex items-center justify-between cursor-pointer transition">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-mono font-bold text-[10px] flex items-center justify-center border border-amber-500/30">02</span>
+                        <span class="text-slate-200 font-semibold text-[11px]">5 Level Worked Examples</span>
+                      </div>
+                      <span class="text-[10px] font-mono text-amber-400 font-bold">Slide 5–9</span>
+                    </div>
+
+                    <div onclick="currentSlideIdx = 9; renderAppView();" class="p-2.5 rounded-xl bg-[#0D1B2E] hover:bg-[#132742] border border-blue-900/60 flex items-center justify-between cursor-pointer transition">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-lg bg-blue-600/30 text-blue-300 font-mono font-bold text-[10px] flex items-center justify-center border border-blue-500/30">03</span>
+                        <span class="text-slate-200 font-semibold text-[11px]">Kolaborasi Aktif (BTC/TPS)</span>
+                      </div>
+                      <span class="text-[10px] font-mono text-slate-400">Slide 10</span>
+                    </div>
+
+                    <div onclick="currentSlideIdx = 10; renderAppView();" class="p-2.5 rounded-xl bg-[#0D1B2E] hover:bg-[#132742] border border-blue-900/60 flex items-center justify-between cursor-pointer transition">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-300 font-mono font-bold text-[10px] flex items-center justify-center border border-purple-500/30">04</span>
+                        <span class="text-slate-200 font-semibold text-[11px]">Refleksi &amp; Evaluasi CBT</span>
+                      </div>
+                      <span class="text-[10px] font-mono text-slate-400">Slide 11–12</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BOTTOM MINI FORMULA / KEY CONCEPT TEASER -->
+                <div class="p-2.5 bg-[#050B14] rounded-xl border border-amber-500/30 flex items-center justify-between text-xs font-mono shrink-0 shadow-inner">
+                  <span class="text-slate-400 text-[10px]"><i class="fa-solid fa-key text-amber-400 mr-1"></i> Standar Target:</span>
+                  <span class="text-amber-300 font-bold text-[10px]">C4–C5 HOTS &middot; CBT UTBK</span>
+                </div>
+
               </div>
+
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 flex-1 overflow-y-auto pr-1">
-              <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 shadow space-y-2 flex flex-col justify-between">
-                <div>
-                  <h3 class="text-xs md:text-sm font-extrabold text-blue-400 flex items-center gap-2 mb-2">
-                    <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-slide1"></use></svg> ${isClil ? 'LEARNING OBJECTIVES & COMPETENCIES' : 'TUJUAN & CAPAIAN PEMBELAJARAN'}
-                  </h3>
-                  <ul class="space-y-1.5 text-xs text-slate-200">
-                    ${(m.obj || []).map(o => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1 shrink-0 text-xs"></i> <span>${o}</span></li>`).join('')}
-                  </ul>
-                </div>
-                <button onclick="currentSlideIdx = 1; renderAppView();" class="w-full mt-2 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center justify-center gap-1">
-                  <span>${isClil ? 'Detailed Learning Indicators' : 'Detail Indikator Pembelajaran'}</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </button>
-              </div>
-
-              <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 shadow space-y-2 flex flex-col justify-between">
-                <div>
-                  <h3 class="text-xs md:text-sm font-extrabold text-amber-400 flex items-center gap-2 mb-2">
-                    <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-slide2"></use></svg> ${isClil ? 'REAL-WORLD CONTEXT & MOTIVATION' : 'KASUS & APERSEPSI KONTEKSTUAL'}
-                  </h3>
-                  <p class="text-xs text-slate-300 leading-relaxed">${m.hook || (isClil ? 'This lesson develops structured analytical capabilities and calculus modeling.' : 'Materi ini dirancang untuk melatih kemampuan analitis dan penyelesaian masalah bertingkat.')}</p>
-                </div>
-                <button onclick="nextSlide()" class="w-full mt-2 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-black rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5">
-                  <span>${isClil ? 'Start Structured Lesson' : 'Mulai Pembelajaran Terstruktur'}</span> <i class="fa-solid fa-circle-arrow-right"></i>
-                </button>
-              </div>
-            </div>
           </div>
         `;
       } else if (sIdx === 1) {
