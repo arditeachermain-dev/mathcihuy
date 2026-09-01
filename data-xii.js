@@ -7927,7 +7927,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $x^2 + y^2 = 10$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Lingkaran berpusat di $O(0,0)$ berbentuk $x^2+y^2 = r^2$, sehingga yang perlu dicari hanya $r^2$.\n\nLangkah 2: Titik yang dilalui pasti memenuhi persamaannya. Substitusikan $A(-6,8)$: $r^2 = (-6)^2 + 8^2$.\n\nLangkah 3: Hitung: $r^2 = 36 + 64 = 100$.\n\nLangkah 4: Jadi persamaannya $x^2 + y^2 = 100$. Perhatikan bahwa ruas kanannya $r^2$, bukan $r$.\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Mengidentifikasi rumus baku persamaan lingkaran berpusat di titik asal $O(0, 0)$:\n$$x^2 + y^2 = r^2$$\n\nLangkah 2: Mensubstitusikan nilai jari-jari $r = 5$ satuan:\n$$x^2 + y^2 = 5^2$$\n\nLangkah 3: Menghitung nilai kuadrat:\n$$x^2 + y^2 = 25$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 2,
@@ -7943,7 +7943,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 2 satuan"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Jari-jari lingkaran yang menyinggung sebuah garis sama dengan jarak pusat ke garis itu, yaitu $r = \\frac{\\left|ax_1+by_1+c\\right|}{\\sqrt{a^2+b^2}}$.\n\nLangkah 2: Substitusikan pusat $O(0,0)$ dan garis $3x-4y+20 = 0$: $r = \\frac{\\left|3(0)-4(0)+20\\right|}{\\sqrt{3^2+(-4)^2}}$.\n\nLangkah 3: Sederhanakan penyebutnya: $\\sqrt{9+16} = \\sqrt{25} = 5$.\n\nLangkah 4: Hitung hasilnya: $r = \\frac{20}{5} = 4$ satuan.\nKesimpulan: Kunci Jawaban D."
+          "bahas": "Langkah 1: Mengidentifikasi syarat lingkaran berpusat di $O(0, 0)$ yang melalui titik $A(3, -4)$:\nJari-jari kuadrat ($r^2$) sama dengan jarak kuadrat dari titik pusat ke titik yang dilalui:\n$$r^2 = x_A^2 + y_A^2$$\n\nLangkah 2: Mensubstitusikan koordinat $(3, -4)$:\n$$r^2 = 3^2 + (-4)^2 = 9 + 16 = 25$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$x^2 + y^2 = 25$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 3,
@@ -7958,8 +7958,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $k = \\pm 2$",
             "E. $k = \\pm 4$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Titik yang terletak pada lingkaran pasti memenuhi persamaannya, sehingga koordinatnya tinggal disubstitusikan.\n\nLangkah 2: Substitusikan $x = k$ dan $y = -4$ ke $x^2+y^2 = 25$: $k^2 + (-4)^2 = 25 \\implies k^2 + 16 = 25$.\n\nLangkah 3: Selesaikan: $k^2 = 9 \\implies k = \\pm 3$. Kedua tanda dipakai karena ada dua titik pada lingkaran dengan ordinat $-4$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Membandingkan persamaan lingkaran $x^2 + y^2 = 36$ dengan bentuk baku $x^2 + y^2 = r^2$:\n$$r^2 = 36$$\n\nLangkah 2: Menarik akar kuadrat positif untuk jari-jari:\n$$r = \\sqrt{36} = 6 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -7980,8 +7980,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $x^2 + y^2 = 64$",
             "E. $x^2 + y^2 = 8$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Luas lingkaran dihitung dengan $L = \\pi r^2$, sedangkan persamaan lingkaran berpusat di $O(0,0)$ berbentuk $x^2+y^2 = r^2$.\n\nLangkah 2: Samakan luasnya: $\\pi r^2 = 64\\pi \\implies r^2 = 64$.\n\nLangkah 3: Karena persamaan lingkaran memuat $r^2$ (bukan $r$), nilai $64$ langsung menjadi ruas kanannya: $x^2+y^2 = 64$.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "C",
+          "bahas": "Langkah 1: Mengidentifikasi kondisi lingkaran menyinggung garis horizontal $y = 7$:\nKarena berpusat di titik asal $O(0, 0)$, jarak terpendek dari pusat $(0, 0)$ ke garis $y = 7$ adalah panjang jari-jari:\n$$r = |7 - 0| = 7 \\text{ satuan}$$\n\nLangkah 2: Menghitung $r^2$:\n$$r^2 = 7^2 = 49$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$x^2 + y^2 = 49$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 5,
@@ -7995,7 +7995,7 @@ const NAMA_TINGKAT = 'XII';
             "Panjang jari-jari lingkaran adalah r = 25 satuan"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBentuk $x^2 + y^2 = r^2$ memiliki pusat di $O(0,0)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nSubstitusi $(3,4) \\implies 3^2 + 4^2 = 9 + 16 = 25$. Memenuhi persamaan lingkaran.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$r = \\sqrt{25} = 5$ satuan, bukan 25 satuan.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBentuk baku persamaan lingkaran berpusat di $O(0,0)$ berjari-jari $r$ adalah $x^2 + y^2 = r^2$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nJari-jari dari $x^2 + y^2 = 49$ adalah $r = \\sqrt{49} = 7$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nTitik $(2, 3)$ diuji ke $x^2 + y^2$: $2^2 + 3^2 = 4 + 9 = 13 \\neq 16$. Karena $13 < 16$, titik berada di dalam lingkaran, bukan tepat pada lingkaran.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8021,7 +8021,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Pernyataan (1) SAJA cukup dan (2) SAJA cukup"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Yang dicari adalah $r$, sehingga tiap pernyataan diuji apakah sudah menentukan $r$ secara tunggal.\n\nLangkah 2: Tinjau pernyataan (1) saja. Lingkaran melalui $(3,4)$ memberi $r^2 = 9+16 = 25$, sehingga $r = 5$. CUKUP.\n\nLangkah 3: Tinjau pernyataan (2) saja. Keliling $10\\pi$ memberi $2\\pi r = 10\\pi$, sehingga $r = 5$. CUKUP.\n\nLangkah 4: Karena masing-masing sudah cukup sendiri-sendiri, jawabannya adalah pernyataan (1) SAJA cukup dan (2) SAJA cukup.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menghitung jari-jari kuadrat dari titik yang dilalui $(-2, \\sqrt{5})$:\n$$r^2 = x^2 + y^2 = (-2)^2 + (\\sqrt{5})^2 = 4 + 5 = 9$$\n\nLangkah 2: Menyusun persamaan lingkaran berpusat di $O(0, 0)$:\n$$x^2 + y^2 = 9$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 7,
@@ -8036,8 +8036,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $x^2 + y^2 = 5$",
             "E. $x^2 + y^2 = 10$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Jari-jari lingkaran yang menyinggung sebuah garis sama dengan jarak dari pusat ke garis tersebut.\n\nLangkah 2: Jarak dari $O(0,0)$ ke garis tegak $x = 5$ adalah $5$ satuan, sehingga $r = 5$.\n\nLangkah 3: Substitusikan ke $x^2+y^2 = r^2$: $x^2+y^2 = 5^2 = 25$.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Mengubah bentuk persamaan $3x^2 + 3y^2 = 27$ ke bentuk baku:\nMembagi kedua ruas dengan koefisien $3$:\n$$\\frac{3x^2 + 3y^2}{3} = \\frac{27}{3} \\implies x^2 + y^2 = 9$$\n\nLangkah 2: Menghitung jari-jari $r$:\n$$r = \\sqrt{9} = 3 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 8,
@@ -8052,8 +8052,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Panjang jari-jari lingkaran adalah 10 satuan.",
             "E. Titik potong lingkaran dengan sumbu-X adalah (10, 0) dan (-10, 0)."
           ],
-          "kunci": "A, B, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$6^2 + 8^2 = 36 + 64 = 100$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nDiameter $d = 2r = 20$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nTitik $(0,0)$ adalah pusat lingkaran di dalam busur, bukan di luar.\n$\\implies$ Pernyataan C SALAH.\n\nLangkah 4: Analisis Opsi D:\n$r = \\sqrt{100} = 10$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nSaat $y = 0 \\implies x^2 = 100 \\implies x = \\pm 10$, titik $(10,0)$ dan $(-10,0)$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, D, E.",
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Analisis lingkaran $x^2 + y^2 = 25$:\n- A: Titik $(3, 4)$ memenuhi $3^2 + 4^2 = 25$ (BENAR).\n- B: Jari-jarinya adalah $r = \\sqrt{25} = 5$ (BENAR).\n- C: Titik pusat berada di $O(0, 0)$ (BENAR).\n- D: Diameter lingkaran $d = 2r = 10$ (BENAR).\n- E: Luas lingkaran $L = \\pi r^2 = 25\\pi$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "lingkaran",
             "r2": 100,
@@ -8074,8 +8074,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 12 satuan",
             "E. 9 satuan"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Pusat lingkaran $x^2+y^2 = 16$ adalah $O(0,0)$, sehingga yang dicari adalah jarak $P$ ke titik asal.\n\nLangkah 2: Gunakan rumus jarak $d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$: $d = \\sqrt{5^2 + 12^2}$.\n\nLangkah 3: Hitung hasilnya: $d = \\sqrt{25+144} = \\sqrt{169} = 13$ satuan.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menghitung jarak tegak lurus dari titik pusat $O(0, 0)$ ke garis singgung $3x + 4y - 20 = 0$:\n$$r = \\frac{|A x_0 + B y_0 + C|}{\\sqrt{A^2 + B^2}} = \\frac{|3(0) + 4(0) - 20|}{\\sqrt{3^2 + 4^2}} = \\frac{|-20|}{\\sqrt{25}} = \\frac{20}{5} = 4$$\n\nLangkah 2: Menghitung nilai $r^2$:\n$$r^2 = 4^2 = 16$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$x^2 + y^2 = 16$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 16,
@@ -8094,8 +8094,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P01-Q10] Jika lingkaran $x^2 + y^2 = r^2$ melalui titik koordinat $(-8, -15)$, maka nilai jari-jari $r$ adalah ...",
           "opsi": [],
-          "kunci": "17",
-          "bahas": "Langkah 1: Titik yang dilalui lingkaran pasti memenuhi persamaannya, sehingga koordinatnya disubstitusikan.\n\nLangkah 2: Substitusikan $x = -8$ dan $y = -15$: $(-8)^2 + (-15)^2 = r^2 \\implies 64 + 225 = r^2$.\n\nLangkah 3: Selesaikan: $r^2 = 289 \\implies r = \\sqrt{289} = 17$. Diambil akar positif karena jari-jari tidak mungkin negatif.\nKesimpulan: Kunci Jawaban 17."
+          "kunci": "64",
+          "bahas": "Langkah 1: Lingkaran menyinggung garis $x = -8$ dengan pusat $O(0,0)$:\n$$r = |-8 - 0| = 8 \\implies r^2 = 64$$\n\nLangkah 2: Menyusun persamaan lingkaran:\n$$x^2 + y^2 = 64$$\nKesimpulan: Kunci Jawaban 64."
         }
       ]
     },
@@ -8118,7 +8118,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $(x + 2)^2 + (y + 3)^2 = 25$"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Bentuk baku $(x - a)^2 + (y - b)^2 = r^2$.\n\nLangkah 2: Dengan $(a,b) = (2,-3)$ dan $r=5 \\implies (x - 2)^2 + (y - (-3))^2 = 5^2 \\implies (x - 2)^2 + (y + 3)^2 = 25$.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Mengidentifikasi rumus baku persamaan lingkaran berpusat di $P(a, b)$ dengan jari-jari $r$:\n$$(x - a)^2 + (y - b)^2 = r^2$$\n\nLangkah 2: Mensubstitusikan titik pusat $a = 2, b = -3$ dan jari-jari $r = 4$:\n$$(x - 2)^2 + (y - (-3))^2 = 4^2$$\n\nLangkah 3: Menyederhanakan tanda operasi:\n$$(x - 2)^2 + (y + 3)^2 = 16$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 2,
@@ -8133,8 +8133,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(x + 1)^2 + (y - 4)^2 = 25$",
             "E. $(x - 1)^2 + (y + 4)^2 = 25$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Lingkaran berpusat $(a,b)$ berbentuk $(x-a)^2+(y-b)^2 = r^2$, sehingga tinggal dicari $r^2$.\n\nLangkah 2: Jari-jari adalah jarak pusat ke titik yang dilalui: $r^2 = \\left(3-(-1)\\right)^2 + \\left(1-4\\right)^2$.\n\nLangkah 3: Hitung: $r^2 = 4^2 + (-3)^2 = 16 + 9 = 25$.\n\nLangkah 4: Substitusikan pusat $P(-1,4)$: $(x+1)^2 + (y-4)^2 = 25$. Tanda di dalam kurung berlawanan dengan koordinat pusatnya.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "C",
+          "bahas": "Langkah 1: Membaca titik pusat dan jari-jari dari bentuk baku:\n$$(x + 5)^2 + (y - 1)^2 = 49$$\nDapat dituliskan sebagai:\n$$(x - (-5))^2 + (y - 1)^2 = 7^2$$\n\nLangkah 2: Menentukan titik pusat $P(a, b)$ dan jari-jari $r$:\n- Pusat: $P(-5, 1)$\n- Jari-jari: $r = \\sqrt{49} = 7$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 3,
@@ -8149,8 +8149,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(x - 3)^2 + (y + 2)^2 = 13$",
             "E. $(x - 3)^2 + (y + 2)^2 = 9$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Lingkaran menyinggung sumbu-Y $\\implies r = |a| = |3| = 3 \\implies r^2 = 9$.\n\nLangkah 2: $(x - 3)^2 + (y + 2)^2 = 9$.\nKesimpulan: Kunci Jawaban E."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung jari-jari kuadrat $r^2$ dari pusat $P(1, 2)$ ke titik yang dilalui $A(4, 6)$:\n$$r^2 = (x_A - a)^2 + (y_A - b)^2 = (4 - 1)^2 + (6 - 2)^2 = 3^2 + 4^2 = 9 + 16 = 25$$\n\nLangkah 2: Menyusun persamaan lingkaran dengan pusat $P(1, 2)$ dan $r^2 = 25$:\n$$(x - 1)^2 + (y - 2)^2 = 25$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 4,
@@ -8165,8 +8165,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(x - 4)^2 + (y + 5)^2 = 16$",
             "E. $(x + 4)^2 + (y - 5)^2 = 16$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menyinggung sumbu-X $\\implies r = |b| = |5| = 5 \\implies r^2 = 25$.\n\nLangkah 2: $(x + 4)^2 + (y - 5)^2 = 25$.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "D",
+          "bahas": "Langkah 1: Lingkaran berpusat di $P(3, -2)$ dan menyinggung sumbu-X:\nJarak dari titik pusat $(3, -2)$ ke garis sumbu-X ($y = 0$) sama dengan nilai mutlak ordinat pusat:\n$$r = |b| = |-2| = 2 \\implies r^2 = 2^2 = 4$$\n\nLangkah 2: Menyusun persamaan lingkaran:\n$$(x - 3)^2 + (y - (-2))^2 = 4 \\implies (x - 3)^2 + (y + 2)^2 = 4$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 5,
@@ -8180,7 +8180,7 @@ const NAMA_TINGKAT = 'XII';
             "Titik pusat P(2, -3) terletak pada busur keliling lingkaran"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$r = \\sqrt{49} = 7$ satuan.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$(x - a)^2 + (y - b)^2 = r^2 \\implies (a,b) = (2, -3)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nTitik pusat berjarak 0 dari pusat sehingga berada di bagian dalam, bukan pada keliling lingkaran.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nLingkaran berpusat di $P(a, b)$ yang menyinggung sumbu-Y memiliki jari-jari $r = |a|$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPusat dari $(x - 3)^2 + (y + 4)^2 = 25$ adalah $P(3, -4)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPersamaan $(x - 1)^2 + (y - 2)^2 = -4$ tidak mendefinisikan lingkaran riil karena $r^2 = -4 < 0$ (jari-jari imajiner).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lingkaran",
             "cx": 2,
@@ -8205,8 +8205,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Pernyataan (2) SAJA cukup",
             "E. Pernyataan (1) SAJA cukup"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Dari (1) dan (2) bersamaan: Jarak pusat $(4, 7)$ ke $y=3$ adalah $r = |7 - 3| = 4$.\n\nLangkah 2: Luas $= \\pi r^2 = 16\\pi$ (CUKUP).\nKesimpulan: Kunci Jawaban C."
+          "kunci": "E",
+          "bahas": "Langkah 1: Menentukan titik pusat $P$ sebagai titik tengah diameter $AB$ dengan $A(-2, 1)$ dan $B(4, 9)$:\n$$P(a, b) = \\left(\\frac{x_A + x_B}{2}, \\frac{y_A + y_B}{2}\\right) = \\left(\\frac{-2 + 4}{2}, \\frac{1 + 9}{2}\\right) = (1, 5)$$\n\nLangkah 2: Menghitung jari-jari kuadrat $r^2$ dari pusat $P(1, 5)$ ke titik $B(4, 9)$:\n$$r^2 = (4 - 1)^2 + (9 - 5)^2 = 3^2 + 4^2 = 9 + 16 = 25$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$(x - 1)^2 + (y - 5)^2 = 25$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 7,
@@ -8221,8 +8221,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2 satuan",
             "E. 4 satuan"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Jari-jari lingkaran yang menyinggung sebuah garis sama dengan jarak dari pusat ke garis itu, yaitu $r = \\frac{\\left|ax_1+by_1+c\\right|}{\\sqrt{a^2+b^2}}$.\n\nLangkah 2: Substitusikan pusat $P(1,2)$ dan garis $3x+4y-1=0$: $r = \\frac{\\left|3(1)+4(2)-1\\right|}{\\sqrt{3^2+4^2}}$.\n\nLangkah 3: Hitung hasilnya: $r = \\frac{\\left|3+8-1\\right|}{\\sqrt{25}} = \\frac{10}{5} = 2$ satuan.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "A",
+          "bahas": "Langkah 1: Lingkaran berpusat di $P(-4, 5)$ menyinggung sumbu-Y:\nJari-jari sama dengan nilai mutlak absis pusat:\n$$r = |a| = |-4| = 4 \\implies r^2 = 16$$\n\nLangkah 2: Menyusun persamaan lingkaran:\n$$(x + 4)^2 + (y - 5)^2 = 16$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -8237,8 +8237,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Titik pusat lingkaran adalah P(-4, 1).",
             "E. Titik (-4, 6) terletak pada busur lingkaran."
           ],
-          "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\nJarak $x=1$ ke $(-4,1)$ adalah $|1 - (-4)| = 5 = r \\implies$ garis menyinggung.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nKuasa $(0,0): (0+4)^2 + (0-1)^2 = 16 + 1 = 17 < 25 \\implies$ di dalam lingkaran, bukan di luar.\n$\\implies$ Pernyataan B SALAH.\n\nLangkah 3: Analisis Opsi C:\n$r = \\sqrt{25} = 5$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nPusat $(a,b) = (-4, 1)$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$(-4+4)^2 + (6-1)^2 = 0 + 25 = 25$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, C, D, E.",
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis lingkaran $(x - 2)^2 + (y + 1)^2 = 25$:\n- A: Titik pusat berada di $P(2, -1)$ (BENAR).\n- B: Jari-jarinya $r = \\sqrt{25} = 5$ (BENAR).\n- C: Titik $(2, 4)$ memenuhi $(0)^2 + (5)^2 = 25$ (BENAR).\n- D: Diameter lingkaran $d = 2r = 10$ (BENAR).\n- E: Titik asal $(0,0)$ menghasilkan $(-2)^2 + (1)^2 = 5 < 25$ (di dalam, bukan di luar) (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
           "viz": {
             "t": "lingkaran",
             "cx": -4,
@@ -8260,7 +8260,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $(x - 4)^2 + (y - 6)^2 = 100$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Bila $AB$ adalah diameter, maka pusat lingkaran berada tepat di tengah $AB$ dan jari-jarinya setengah panjang $AB$.\n\nLangkah 2: Cari pusatnya dengan rumus titik tengah: $P\\left(\\frac{1+7}{2}, \\frac{2+10}{2}\\right) = P(4,6)$.\n\nLangkah 3: Cari $r^2$ sebagai kuadrat jarak pusat ke salah satu ujung: $r^2 = (4-1)^2 + (6-2)^2 = 9+16 = 25$.\n\nLangkah 4: Susun persamaannya: $(x-4)^2 + (y-6)^2 = 25$.\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Menghitung jari-jari dari jarak pusat $P(1, -2)$ ke garis $x - y + 1 = 0$:\n$$r = \\frac{|1 - (-2) + 1|}{\\sqrt{1^2 + (-1)^2}} = \\frac{|1 + 2 + 1|}{\\sqrt{2}} = \\frac{4}{\\sqrt{2}} = 2\\sqrt{2}$$\n\nLangkah 2: Menghitung $r^2$:\n$$r^2 = (2\\sqrt{2})^2 = 8$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$(x - 1)^2 + (y + 2)^2 = 8$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 10,
@@ -8269,8 +8269,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P02-Q10] Jika lingkaran $(x - a)^2 + (y - 2)^2 = 25$ melalui titik $(6, -1)$, dan nilai $a > 0$, maka nilai konstanta $a$ adalah ...",
           "opsi": [],
-          "kunci": "2",
-          "bahas": "Langkah 1: $(6 - a)^2 + (-1 - 2)^2 = 25 \\implies (6 - a)^2 + 9 = 25 \\implies (6 - a)^2 = 16$.\n\nLangkah 2: $6 - a = 4 \\implies a = 2$ (karena $a > 0$).\nKesimpulan: Jawaban Akhir 2.\nKesimpulan: Kunci Jawaban 2."
+          "kunci": "9",
+          "bahas": "Langkah 1: Menghitung jari-jari kuadrat lingkaran pusat $P(3, 4)$ menyinggung sumbu-X:\n$$r = |b| = |4| = 4 \\implies r^2 = 16$$\nPersamaan: $(x - 3)^2 + (y - 4)^2 = 16$.\nJika menyinggung sumbu-Y dengan pusat $(3, 4)$, maka $r = |a| = 3 \\implies r^2 = 9$.\nKesimpulan: Kunci Jawaban 9."
         }
       ]
     },
@@ -8293,7 +8293,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $P(6, -8)$ dan $r = 6$"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Untuk bentuk umum $x^2+y^2+Ax+By+C = 0$, pusatnya $\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right)$ dan $r = \\sqrt{\\left(\\frac{A}{2}\\right)^2+\\left(\\frac{B}{2}\\right)^2-C}$.\n\nLangkah 2: Baca koefisiennya: $A = -6$, $B = 8$, dan $C = -11$.\n\nLangkah 3: Hitung pusatnya: $P\\left(-\\frac{-6}{2}, -\\frac{8}{2}\\right) = P(3,-4)$.\n\nLangkah 4: Hitung jari-jarinya: $r = \\sqrt{3^2 + (-4)^2 - (-11)} = \\sqrt{9+16+11} = \\sqrt{36} = 6$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus pusat dan jari-jari dari bentuk umum $x^2 + y^2 + Ax + By + C = 0$:\n- Titik Pusat: $P\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right)$\n- Jari-jari: $r = \\sqrt{\\left(\\frac{A}{2}\\right)^2 + \\left(\\frac{B}{2}\\right)^2 - C}$\n\nLangkah 2: Mensubstitusikan nilai koefisien $A = -6, B = 8, C = -24$:\n- Pusat: $P\\left(-\\frac{-6}{2}, -\\frac{8}{2}\\right) = P(3, -4)$\n\nLangkah 3: Menghitung jari-jari $r$:\n$$r = \\sqrt{3^2 + (-4)^2 - (-24)} = \\sqrt{9 + 16 + 24} = \\sqrt{49} = 7$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "cx": 3.0,
@@ -8319,8 +8319,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $x^2 + y^2 + 4x - 10y + 29 = 0$",
             "E. $x^2 + y^2 - 4x + 10y + 20 = 0$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: $(x + 2)^2 + (y - 5)^2 = 3^2 \\implies x^2 + 4x + 4 + y^2 - 10y + 25 = 9$.\n\nLangkah 2: $x^2 + y^2 + 4x - 10y + 20 = 0$.\nKesimpulan: Kunci Jawaban C."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menjabarkan bentuk baku $(x - 2)^2 + (y + 3)^2 = 16$:\n$$(x^2 - 4x + 4) + (y^2 + 6y + 9) = 16$$\n\nLangkah 2: Mengumpulkan dan memindahkan konstanta ke ruas kiri:\n$$x^2 + y^2 - 4x + 6y + 13 - 16 = 0$$\n\nLangkah 3: Menyederhanakan:\n$$x^2 + y^2 - 4x + 6y - 3 = 0$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 3,
@@ -8335,8 +8335,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $25$",
             "E. $12$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Untuk bentuk umum $x^2+y^2+Ax+By+C = 0$, pusatnya $\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right)$ dan jari-jarinya $r = \\sqrt{\\left(\\frac{A}{2}\\right)^2 + \\left(\\frac{B}{2}\\right)^2 - C}$.\n\nLangkah 2: Di sini $A = 4$, $B = -6$, dan $C = c$, sehingga $r^2 = 2^2 + (-3)^2 - c = 13 - c$.\n\nLangkah 3: Samakan dengan $r = 5$, yaitu $r^2 = 25$: $13 - c = 25 \\implies c = -12$.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Mengidentifikasi rumus jari-jari lingkaran dari bentuk umum $x^2 + y^2 + 4x - 6y + c = 0$:\n$$r = \\sqrt{\\left(\\frac{A}{2}\\right)^2 + \\left(\\frac{B}{2}\\right)^2 - C} = \\sqrt{2^2 + (-3)^2 - c} = \\sqrt{4 + 9 - c} = \\sqrt{13 - c}$$\n\nLangkah 2: Menyamakan dengan nilai jari-jari yang diketahui $r = 5$:\n$$\\sqrt{13 - c} = 5$$\n\nLangkah 3: Mengkuadratkan kedua ruas:\n$$13 - c = 25 \\implies c = 13 - 25 = -12$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 4,
@@ -8351,8 +8351,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 4",
             "E. 7"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Kuasa titik terhadap lingkaran diperoleh dengan menyubstitusikan koordinat titik ke ruas kiri persamaan lingkaran bentuk umum $x^2+y^2+Ax+By+C$.\n\nLangkah 2: Substitusikan $A(1,2)$ ke $x^2+y^2-4x+6y-9$: $1^2 + 2^2 - 4(1) + 6(2) - 9$.\n\nLangkah 3: Hitung hasilnya: $1 + 4 - 4 + 12 - 9 = 4$. Nilainya positif, yang berarti titik $A$ terletak di luar lingkaran.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung jari-jari lingkaran $x^2 + y^2 - 2x + 4y - 20 = 0$:\n- $A = -2, B = 4, C = -20$\n$$r = \\sqrt{1^2 + (-2)^2 - (-20)} = \\sqrt{1 + 4 + 20} = \\sqrt{25} = 5$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "cx": 2.0,
@@ -8380,8 +8380,8 @@ const NAMA_TINGKAT = 'XII';
             "Koordinat pusat lingkaran adalah P(-1/2 A, -1/2 B)",
             "Panjang jari-jari lingkaran adalah r = akar(1/4 A^2 + 1/4 B^2 - C)"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJika diskriminan jari-jari $< 0$, maka $r$ imajiner sehingga lingkarannya adalah lingkaran imajiner.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nPusat $(a,b) = \\left(-\\frac{1}{2}A, -\\frac{1}{2}B\\right)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$r = \\sqrt{a^2 + b^2 - C} = \\sqrt{\\frac{1}{4}A^2 + \\frac{1}{4}B^2 - C}$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nTitik pusat lingkaran $x^2 + y^2 + Ax + By + C = 0$ adalah $P\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nAgar persamaan merepresentasikan lingkaran sejati, nilai di dalam tanda akar kuadrat harus positif ($\\frac{A^2}{4} + \\frac{B^2}{4} - C > 0$).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJika nilai di dalam akar bernilai 0, bentuk tersebut merepresentasikan satu titik tunggal (lingkaran titik / *point circle*), bukan lingkaran imajiner.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -8397,7 +8397,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Pernyataan (1) SAJA cukup"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Jari-jari dihitung dengan $r = \\sqrt{\\left(\\frac{A}{2}\\right)^2+\\left(\\frac{B}{2}\\right)^2-C}$, dengan $A = -8$, $B = 2k$, dan $C = 9$. Nilai $r$ tertentu begitu $k$ diketahui.\n\nLangkah 2: Tinjau pernyataan (1) saja. Dengan $k = 4$: $r = \\sqrt{(-4)^2+(-4)^2-9} = \\sqrt{23}$. CUKUP.\n\nLangkah 3: Tinjau pernyataan (2) saja. Pusatnya $\\left(4, -k\\right)$; syarat pusat berada pada $y = -4$ memberi $-k = -4$, sehingga $k = 4$ dan $r$ dapat dihitung. CUKUP.\n\nLangkah 4: Karena masing-masing sudah cukup sendiri-sendiri, jawabannya adalah pernyataan (1) SAJA cukup dan (2) SAJA cukup.\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Menentukan koordinat pusat lingkaran $x^2 + y^2 + 8x - 10y + 5 = 0$:\n$$P\\left(-\\frac{8}{2}, -\\frac{-10}{2}\\right) = P(-4, 5)$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 7,
@@ -8412,8 +8412,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $x^2 + y^2 - 4x + 6y + 13 = 0$",
             "E. $x^2 + y^2 - 8x + 12y - 1 = 0$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Pusat $P(2, -3), r_1 = \\sqrt{4 + 9 - (-1)} = \\sqrt{14}$.\n\nLangkah 2: $r_2 = 2\\sqrt{14} \\implies r_2^2 = 56$.\n\nLangkah 3: $(x-2)^2 + (y+3)^2 = 56 \\implies x^2 + y^2 - 4x + 6y + 13 - 56 = 0 \\implies x^2 + y^2 - 4x + 6y - 43 = 0$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Mengubah ke bentuk koefisien $x^2$ dan $y^2$ bernilai $1$:\nMembagi seluruh persamaan $2x^2 + 2y^2 - 8x + 12y - 6 = 0$ dengan $2$:\n$$x^2 + y^2 - 4x + 6y - 3 = 0$$\n\nLangkah 2: Menghitung titik pusat:\n$$P\\left(-\\frac{-4}{2}, -\\frac{6}{2}\\right) = P(2, -3)$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "cx": 2.0,
@@ -8439,8 +8439,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Titik potong lingkaran dengan sumbu-X adalah (0,0) dan (6,0).",
             "E. Titik pusat lingkaran adalah P(3, -4)."
           ],
-          "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$r = \\sqrt{3^2 + (-4)^2 - 0} = 5$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$3^2 + (-9)^2 - 6(3) + 8(-9) = 9 + 81 - 18 - 72 = 0 \\implies$ titik terletak tepat pada lingkaran, bukan di luar.\n$\\implies$ Pernyataan B SALAH.\n\nLangkah 3: Analisis Opsi C:\n$0^2 + 0^2 - 6(0) + 8(0) = 0$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$y = 0 \\implies x^2 - 6x = 0 \\implies x = 0$ atau $x = 6$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nPusat $\\left(-\\frac{-6}{2}, -\\frac{8}{2}\\right) = (3, -4)$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, C, D, E."
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$:\n- A: Titik pusat $P(2, -3)$ (BENAR).\n- B: Jari-jari $r = \\sqrt{4 + 9 - (-12)} = \\sqrt{25} = 5$ (BENAR).\n- C: Diameter $d = 2r = 10$ (BENAR).\n- D: Melalui titik $(2, 2) \\implies (0)^2 + (5)^2 = 25$ (BENAR).\n- E: Luas lingkaran adalah $25\\pi$, bukan $10\\pi$ (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -8455,8 +8455,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $\\pm 4$",
             "E. $\\pm 3$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menyinggung sumbu-X $\\implies r = |-5| = 5$.\n\nLangkah 2: $r^2 = A^2 + 25 - 9 \\implies 25 = A^2 + 16 \\implies A^2 = 9 \\implies A = \\pm 3$.\nKesimpulan: Kunci Jawaban E."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung jari-jari dari $x^2 + y^2 - 10x + 6y + 9 = 0$:\n$$r = \\sqrt{5^2 + (-3)^2 - 9} = \\sqrt{25 + 9 - 9} = \\sqrt{25} = 5$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 10,
@@ -8465,8 +8465,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P03-Q10] Panjang diameter lingkaran $2x^2 + 2y^2 - 8x + 12y - 24 = 0$ adalah ...",
           "opsi": [],
-          "kunci": "10",
-          "bahas": "Langkah 1: Bagi 2 $\\implies x^2 + y^2 - 4x + 6y - 12 = 0$.\n\nLangkah 2: $r = \\sqrt{2^2 + (-3)^2 - (-12)} = \\sqrt{4 + 9 + 12} = \\sqrt{25} = 5$.\n\nLangkah 3: Diameter $d = 2r = 10$.\nKesimpulan: Jawaban Akhir 10.\nKesimpulan: Kunci Jawaban 10."
+          "kunci": "4",
+          "bahas": "Langkah 1: Menghitung jari-jari lingkaran $x^2 + y^2 + 6x - 8y + 9 = 0$:\n$$r = \\sqrt{(-3)^2 + 4^2 - 9} = \\sqrt{9 + 16 - 9} = \\sqrt{16} = 4$$\nKesimpulan: Kunci Jawaban 4."
         }
       ]
     },
@@ -8489,7 +8489,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Memotong sumbu simetri"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Kedudukan titik ditentukan dari tanda kuasa titik $K = x_1^2+y_1^2+Ax_1+By_1+C$. Bila $K < 0$ titik di dalam, $K = 0$ pada lingkaran, dan $K > 0$ di luar.\n\nLangkah 2: Substitusikan $A(4,-2)$: $4^2 + (-2)^2 - 4(4) + 6(-2) - 12$.\n\nLangkah 3: Hitung hasilnya: $16 + 4 - 16 - 12 - 12 = -20$. Karena $K < 0$, titik terletak di dalam lingkaran.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi metode Uji Kuasa Titik $K(x_1, y_1)$ terhadap lingkaran $x^2 + y^2 = r^2$:\n- $K < 0 \\implies$ Titik berada di dalam lingkaran.\n- $K = 0 \\implies$ Titik berada tepat pada lingkaran.\n- $K > 0 \\implies$ Titik berada di luar lingkaran.\n\nLangkah 2: Mensubstitusikan koordinat titik $A(4, -2)$ ke fungsi kuasa $K = x^2 + y^2 - 20$:\n$$K = 4^2 + (-2)^2 - 20 = 16 + 4 - 20 = 0$$\n\nLangkah 3: Menarik kesimpulan kedudukan titik:\nKarena $K = 0$, maka titik A terletak **pada lingkaran**.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "cx": 2.0,
@@ -8519,8 +8519,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $k < -3$ atau $k > 3$",
             "E. $k < -5$ atau $k > 5$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Titik terletak di luar lingkaran bila kuasanya positif, yaitu $x_1^2+y_1^2-r^2 > 0$.\n\nLangkah 2: Substitusikan $P(k,3)$ ke $x^2+y^2-25$: $k^2 + 9 - 25 > 0 \\implies k^2 - 16 > 0$.\n\nLangkah 3: Selesaikan pertidaksamaannya: $k^2 > 16$, sehingga $k < -4$ atau $k > 4$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menguji titik $B(1, 2)$ ke persamaan lingkaran $x^2 + y^2 = 25$:\n$$K = 1^2 + 2^2 - 25 = 1 + 4 - 25 = -20$$\n\nLangkah 2: Menarik kesimpulan:\nKarena nilai kuasa $K < 0$, maka titik B berada **di dalam lingkaran**.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8541,8 +8541,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 4 satuan",
             "E. 2√5 satuan"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Panjang garis singgung dari titik luar $T(x_1,y_1)$ adalah akar dari kuasa titik itu, yaitu $\\ell = \\sqrt{x_1^2+y_1^2-r^2}$. Rumus ini berasal dari teorema Pythagoras pada segitiga siku-siku pusat--titik singgung--$T$.\n\nLangkah 2: Substitusikan $T(7,1)$ dan $r^2 = 25$: $\\ell = \\sqrt{7^2 + 1^2 - 25}$.\n\nLangkah 3: Hitung hasilnya: $\\ell = \\sqrt{49+1-25} = \\sqrt{25} = 5$ satuan.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menguji titik $C(6, 1)$ ke persamaan $(x - 2)^2 + (y + 1)^2 = 16$:\n$$K = (6 - 2)^2 + (1 + 1)^2 - 16 = 4^2 + 2^2 - 16 = 16 + 4 - 16 = 4$$\n\nLangkah 2: Menarik kesimpulan:\nKarena nilai kuasa $K = 4 > 0$, maka titik C berada **di luar lingkaran**.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8568,8 +8568,8 @@ const NAMA_TINGKAT = 'XII';
             "D. -7",
             "E. 9"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Untuk lingkaran berbentuk baku $(x-a)^2+(y-b)^2 = r^2$, kuasa titik dihitung sebagai $K = (x_1-a)^2+(y_1-b)^2-r^2$.\n\nLangkah 2: Substitusikan $P(5,5)$ dengan pusat $(1,2)$ dan $r^2 = 16$: $K = (5-1)^2 + (5-2)^2 - 16$.\n\nLangkah 3: Hitung hasilnya: $K = 16 + 9 - 16 = 9$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Syarat titik $P(k, 3)$ terletak tepat pada lingkaran $x^2 + y^2 = 25$:\n$$k^2 + 3^2 = 25$$\n\nLangkah 2: Menyelesaikan untuk nilai $k$:\n$$k^2 + 9 = 25 \\implies k^2 = 16 \\implies k = \\pm 4$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "cx": 1,
@@ -8592,8 +8592,8 @@ const NAMA_TINGKAT = 'XII';
             "Jika K > 0, maka titik terletak di dalam lingkaran",
             "Jika K = 0, maka titik terletak tepat pada busur keliling lingkaran"
           ],
-          "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nKuasa $K < 0$ menunjukkan jarak titik ke pusat $d < r$, sehingga titik di dalam lingkaran.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nKuasa $K > 0$ menunjukkan $d > r$, sehingga titik terletak di luar lingkaran, bukan di dalam.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nKuasa $K = 0$ menunjukkan $d = r$, sehingga titik tepat pada lingkaran.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nTitik $(x_1, y_1)$ berada di dalam lingkaran jika nilai kuasa $K < 0$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nTitik $(0, 0)$ pada $x^2 + y^2 = 9$ menghasilkan $0 + 0 - 9 = -9 < 0$ (di dalam lingkaran).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nTitik $(5, 0)$ pada $x^2 + y^2 = 25$ menghasilkan $25 - 25 = 0$, artinya berada tepat PADA lingkaran, bukan di luar.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -8608,8 +8608,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2 satuan",
             "E. 14 satuan"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Jarak terpendek dari titik luar ke busur lingkaran adalah jarak titik ke pusat dikurangi jari-jari, yaitu $d - r$.\n\nLangkah 2: Hitung jarak ke pusat $O(0,0)$: $d = \\sqrt{8^2+6^2} = \\sqrt{100} = 10$. Jari-jarinya $r = \\sqrt{16} = 4$.\n\nLangkah 3: Kurangkan: $10 - 4 = 6$ satuan.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung jarak terpendek dari titik luar $T(7, 1)$ ke lingkaran $x^2 + y^2 = 25$:\nJarak titik T ke pusat $O(0, 0)$:\n$$d = \\sqrt{7^2 + 1^2} = \\sqrt{49 + 1} = \\sqrt{50} = 5\\sqrt{2}$$\n\nLangkah 2: Mengurangkan jarak pusat dengan panjang jari-jari ($r = 5$):\n$$\\text{Jarak Terpendek} = d - r = 5\\sqrt{2} - 5$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "r2": 16,
@@ -8634,8 +8634,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(3, 3)$",
             "E. $(1, 5)$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Titik terletak tepat pada lingkaran bila kuasanya bernilai nol, yaitu $x_1^2+y_1^2-2x_1+4y_1-20 = 0$.\n\nLangkah 2: Uji pilihan $(4,2)$: $4^2 + 2^2 - 2(4) + 4(2) - 20$.\n\nLangkah 3: Hitung hasilnya: $16 + 4 - 8 + 8 - 20 = 0$. Karena kuasanya nol, titik $(4,2)$ memang terletak pada lingkaran.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menguji titik $(2, 3)$ ke bentuk umum $x^2 + y^2 - 4x + 6y - 12 = 0$:\n$$K = 2^2 + 3^2 - 4(2) + 6(3) - 12 = 4 + 9 - 8 + 18 - 12 = 11$$\n\nLangkah 2: Menarik kesimpulan:\nKarena $K = 11 > 0$, maka titik tersebut terletak **di luar lingkaran**.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "cx": 1.0,
@@ -8662,7 +8662,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Titik (4, 4) terletak di dalam lingkaran."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$5^2 + 2^2 = 29 > 25$ (di luar lingkaran).\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$1^2 + 2^2 = 5 < 25$ (di dalam lingkaran).\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$(-5)^2 + 0^2 = 25 = 25$ (pada lingkaran).\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$3^2 + 4^2 = 25 = 25$ (pada lingkaran).\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$4^2 + 4^2 = 32 > 25 \\implies$ di luar lingkaran, bukan di dalam.\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D.",
+          "bahas": "Langkah 1: Analisis kedudukan titik terhadap $x^2 + y^2 = 25$:\n- A: Titik $(0, 0)$ berada di dalam lingkaran (BENAR).\n- B: Titik $(3, 4)$ berada pada lingkaran (BENAR).\n- C: Titik $(5, 2)$ berada di luar lingkaran ($25 + 4 = 29 > 25$) (BENAR).\n- D: Titik $(-4, 3)$ berada pada lingkaran (BENAR).\n- E: Titik $(6, 0)$ berada di dalam lingkaran ($36 < 25$ adalah SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8683,8 +8683,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 16 satuan",
             "E. 14 satuan"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Jarak terjauh dari titik luar ke busur lingkaran adalah jarak titik ke pusat ditambah jari-jari, yaitu $d + r$, karena titik terjauh berada di seberang pusat.\n\nLangkah 2: Hitung jarak ke pusat $O(0,0)$: $d = \\sqrt{10^2+0^2} = 10$. Jari-jarinya $r = \\sqrt{36} = 6$.\n\nLangkah 3: Jumlahkan: $10 + 6 = 16$ satuan.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan batas nilai $k$ agar titik $(1, k)$ berada di dalam lingkaran $x^2 + y^2 < 10$:\n$$1^2 + k^2 < 10 \\implies k^2 < 9$$\n\nLangkah 2: Menyelesaikan pertidaksamaan kuadrat:\n$$-3 < k < 3$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 36,
@@ -8704,7 +8704,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P04-Q10] Nilai kuasa titik $(3, 4)$ terhadap lingkaran $x^2 + y^2 = 25$ adalah ...",
           "opsi": [],
           "kunci": "0",
-          "bahas": "Langkah 1: Kuasa titik terhadap lingkaran $x^2+y^2 = r^2$ dihitung sebagai $K = x_1^2+y_1^2-r^2$.\n\nLangkah 2: Substitusikan $(3,4)$ dan $r^2 = 25$: $K = 3^2 + 4^2 - 25$.\n\nLangkah 3: Hitung hasilnya: $K = 9 + 16 - 25 = 0$, yang berarti titik itu tepat berada pada lingkaran.\nKesimpulan: Kunci Jawaban 0.",
+          "bahas": "Langkah 1: Menghitung nilai kuasa titik $(3, -4)$ terhadap $x^2 + y^2 = 25$:\n$$K = 3^2 + (-4)^2 - 25 = 9 + 16 - 25 = 0$$\nKesimpulan: Kunci Jawaban 0.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8737,7 +8737,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Menyinggung"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Kedudukan garis terhadap lingkaran ditentukan oleh diskriminan $D = b^2-4ac$ dari persamaan gabungannya. Bila $D > 0$ memotong dua titik, $D = 0$ menyinggung, dan $D < 0$ saling lepas.\n\nLangkah 2: Substitusikan $y = 2x+1$ ke $x^2+y^2 = 25$: $x^2 + (2x+1)^2 = 25 \\implies 5x^2 + 4x - 24 = 0$.\n\nLangkah 3: Hitung diskriminannya: $D = 4^2 - 4(5)(-24) = 16 + 480 = 496$.\n\nLangkah 4: Karena $D > 0$, garis memotong lingkaran di dua titik berlainan.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan persamaan kuadrat persekutuan dengan menyubstitusikan $y = 2x + 1$ ke lingkaran $x^2 + y^2 = 25$:\n$$x^2 + (2x + 1)^2 = 25$$\n$$x^2 + 4x^2 + 4x + 1 - 25 = 0$$\n$$5x^2 + 4x - 24 = 0$$\n\nLangkah 2: Menghitung nilai Diskriminan ($D = b^2 - 4ac$):\n$$a = 5, \\quad b = 4, \\quad c = -24$$\n$$D = 4^2 - 4(5)(-24) = 16 + 480 = 496$$\n\nLangkah 3: Menarik kesimpulan kedudukan garis:\nKarena nilai $D = 496 > 0$, garis **memotong lingkaran di dua titik berlainan**.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8764,7 +8764,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $k = 9$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Garis menyinggung lingkaran bila jarak pusat ke garis sama dengan jari-jarinya.\n\nLangkah 2: Tulis garis sebagai $x - y + k = 0$. Jarak dari $O(0,0)$ adalah $\\frac{\\left|k\\right|}{\\sqrt{1^2+(-1)^2}} = \\frac{\\left|k\\right|}{\\sqrt{2}}$, sedangkan $r = \\sqrt{18} = 3\\sqrt{2}$.\n\nLangkah 3: Samakan keduanya: $\\frac{\\left|k\\right|}{\\sqrt{2}} = 3\\sqrt{2} \\implies \\left|k\\right| = 3\\sqrt{2} \\cdot \\sqrt{2} = 6$.\n\nLangkah 4: Diperoleh $k = \\pm 6$. Karena titik singgungnya diminta di kuadran I, dipilih $k = 6$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Garis $y = x + k \\implies x - y + k = 0$ menyinggung lingkaran $x^2 + y^2 = 18$ jika jarak pusat $O(0,0)$ ke garis sama dengan jari-jari ($r = \\sqrt{18} = 3\\sqrt{2}$):\n$$\\frac{|0 - 0 + k|}{\\sqrt{1^2 + (-1)^2}} = 3\\sqrt{2}$$\n\nLangkah 2: Menyelesaikan nilai mutlak:\n$$\\frac{|k|}{\\sqrt{2}} = 3\\sqrt{2} \\implies |k| = 3\\sqrt{2} \\times \\sqrt{2} = 6 \\implies k = \\pm 6$$\n\nLangkah 3: Memilih titik singgung di kuadran I:\nDi kuadran I ($x > 0, y > 0$), nilai konstanta yang memenuhi adalah $k = 6$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 18,
@@ -8787,7 +8787,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $\\pm 20$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Garis menyinggung lingkaran bila jarak pusat ke garis sama dengan jari-jarinya.\n\nLangkah 2: Hitung jarak dari $O(0,0)$ ke $3x-4y+c = 0$: $\\frac{\\left|c\\right|}{\\sqrt{3^2+(-4)^2}} = \\frac{\\left|c\\right|}{5}$. Jari-jarinya $r = \\sqrt{25} = 5$.\n\nLangkah 3: Samakan keduanya: $\\frac{\\left|c\\right|}{5} = 5 \\implies \\left|c\\right| = 25$, sehingga $c = \\pm 25$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Menghitung jarak dari pusat $O(0,0)$ ke garis $3x - 4y + c = 0$:\n$$d = \\frac{|3(0) - 4(0) + c|}{\\sqrt{3^2 + (-4)^2}} = \\frac{|c|}{\\sqrt{25}} = \\frac{|c|}{5}$$\n\nLangkah 2: Menyamakan dengan jari-jari lingkaran $x^2 + y^2 = 25 \\implies r = 5$:\n$$\\frac{|c|}{5} = 5 \\implies |c| = 25$$\n\nLangkah 3: Menentukan nilai $c$:\n$$c = \\pm 25$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8810,7 +8810,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Memotong di 2 titik"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Bandingkan jarak pusat ke garis dengan jari-jari. Bila jaraknya lebih besar daripada jari-jari, garis dan lingkaran saling lepas.\n\nLangkah 2: Tulis garis sebagai $x+y-10 = 0$, lalu hitung jaraknya dari $O(0,0)$: $\\frac{\\left|-10\\right|}{\\sqrt{1^2+1^2}} = \\frac{10}{\\sqrt{2}} = 5\\sqrt{2} \\approx 7{,}07$.\n\nLangkah 3: Bandingkan dengan $r = 5$. Karena $5\\sqrt{2} > 5$, garis berada seluruhnya di luar lingkaran alias saling lepas.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menghitung jarak dari pusat $O(0,0)$ ke garis $x + y - 10 = 0$:\n$$d = \\frac{|0 + 0 - 10|}{\\sqrt{1^2 + 1^2}} = \\frac{10}{\\sqrt{2}} = 5\\sqrt{2} \\approx 7{,}07$$\n\nLangkah 2: Membandingkan jarak $d$ dengan jari-jari lingkaran $r = \\sqrt{25} = 5$:\nKarena $d = 5\\sqrt{2} > 5$ ($d > r$), maka garis berada seluruhnya **di luar lingkaran (saling lepas)**.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8830,7 +8830,7 @@ const NAMA_TINGKAT = 'XII';
             "Jika D > 0, garis memotong lingkaran di dua titik berlainan"
           ],
           "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$D = 0$ menghasilkan 1 akar kembar riil $\\implies$ garis menyinggung lingkaran.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$D < 0$ menunjukkan tidak ada titik potong riil (garis berada di luar lingkaran).\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\n$D > 0$ menghasilkan 2 akar riil berlainan $\\implies$ 2 titik potong.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJika $D = 0$, terdapat 1 akar kembar riil $\\implies$ garis menyinggung lingkaran di satu titik.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nJika $D < 0$, tidak ada titik potong riil $\\implies$ garis berada di luar lingkaran (saling lepas), bukan memotong dua titik.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nJika $D > 0$, terdapat 2 akar riil berlainan $\\implies$ garis memotong lingkaran di dua titik.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
         },
         {
           "no": 6,
@@ -8846,7 +8846,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Nol ($D = 0$)"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Diskriminan persekutuan diperoleh dari persamaan hasil substitusi garis ke lingkaran.\n\nLangkah 2: Substitusikan $y = 3$ ke $x^2+y^2 = 25$: $x^2 + 9 = 25 \\implies x^2 - 16 = 0$.\n\nLangkah 3: Hitung diskriminannya dengan $a = 1$, $b = 0$, $c = -16$: $D = 0^2 - 4(1)(-16) = 64$.\n\nLangkah 4: Karena $D = 64 > 0$, diskriminannya positif dan garis memotong lingkaran di dua titik.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Substitusi $y = 3$ ke lingkaran $x^2 + y^2 = 25$:\n$$x^2 + 3^2 = 25 \\implies x^2 - 16 = 0$$\n\nLangkah 2: Menghitung diskriminan dengan $a = 1, b = 0, c = -16$:\n$$D = 0^2 - 4(1)(-16) = +64$$\n\nLangkah 3: Menentukan tanda diskriminan:\nKarena $D = 64 > 0$, maka diskriminannya bernilai **Positif ($D > 0$)**.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8868,7 +8868,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $(3\\sqrt{2}, 3\\sqrt{2})$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Titik potong dicari dengan menyubstitusikan persamaan garis ke persamaan lingkaran.\n\nLangkah 2: Substitusikan $y = x$ ke $x^2+y^2 = 18$: $x^2 + x^2 = 18 \\implies 2x^2 = 18 \\implies x^2 = 9$.\n\nLangkah 3: Diperoleh $x = \\pm 3$, sehingga titik potongnya $(3,3)$ dan $(-3,-3)$.\n\nLangkah 4: Kuadran I menuntut $x > 0$ dan $y > 0$, sehingga yang dipilih adalah $(3,3)$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Substitusi garis $y = x$ ke persamaan lingkaran $x^2 + y^2 = 18$:\n$$x^2 + x^2 = 18 \\implies 2x^2 = 18 \\implies x^2 = 9 \\implies x = \\pm 3$$\n\nLangkah 2: Menentukan koordinat titik potong di kuadran I ($x > 0, y > 0$):\nUntuk $x = 3 \\implies y = 3$. Titik potongnya adalah $(3, 3)$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 18,
@@ -8890,7 +8890,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Garis y = -5 menyinggung lingkaran di titik (0, -5)."
           ],
           "kunci": "A, B, C, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\nJarak $x=6$ ke $(0,0)$ adalah $6 > r=5 \\implies$ di luar lingkaran.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nJarak $x=5$ ke pusat $(0,0)$ adalah $5 = r \\implies$ menyinggung di $(5,0)$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nSubstitusi $y = x \\implies 2x^2 = 25 \\implies x = \\pm \\frac{5}{\\sqrt{2}}$ (2 titik potong).\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\nGaris $y=0$ adalah sumbu-X yang memotong lingkaran di $(-5,0)$ dan $(5,0)$.\n$\\implies$ Pernyataan D SALAH.\n\nLangkah 5: Analisis Opsi E:\nJarak $y=-5$ ke $(0,0)$ adalah $5 = r \\implies$ menyinggung di $(0,-5)$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E.",
+          "bahas": "Langkah 1: Analisis kedudukan garis terhadap lingkaran $x^2 + y^2 = 25$ ($r = 5$):\n- A: Garis $x = 6$ berjarak $6 > 5$ (di luar/tidak memotong) (BENAR).\n- B: Garis $x = 5$ menyinggung di $(5, 0)$ (BENAR).\n- C: Garis $y = x$ memotong di dua titik (BENAR).\n- D: Garis $y = 0$ adalah sumbu-X yang memotong lingkaran di $(-5,0)$ dan $(5,0)$ (SALAH).\n- E: Garis $y = -5$ menyinggung di $(0, -5)$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, E.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8912,7 +8912,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 5 satuan"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Panjang tali busur yang berjarak $d$ dari pusat dihitung dengan $\\ell = 2\\sqrt{r^2-d^2}$, mengikuti teorema Pythagoras.\n\nLangkah 2: Garis $x = 3$ berjarak $d = 3$ dari pusat $O(0,0)$, sedangkan $r = \\sqrt{25} = 5$.\n\nLangkah 3: Substitusikan: $\\ell = 2\\sqrt{25-9} = 2\\sqrt{16} = 2(4) = 8$ satuan.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Menghitung panjang tali busur perpotongan garis $x = 3$ dengan lingkaran $x^2 + y^2 = 25$:\n- Jarak garis ke pusat $O(0,0)$ adalah $d = 3$.\n- Jari-jari lingkaran $r = 5$.\n\nLangkah 2: Menggunakan Teorema Pythagoras untuk setengah tali busur:\n$$\\frac{\\ell}{2} = \\sqrt{r^2 - d^2} = \\sqrt{5^2 - 3^2} = \\sqrt{25 - 9} = \\sqrt{16} = 4$$\n\nLangkah 3: Menghitung panjang total tali busur:\n$$\\ell = 2 \\times 4 = 8 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8928,7 +8928,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P05-Q10] Gradien garis $y = mx$ yang menyinggung $(x - 5)^2 + y^2 = 9$ di kuadran I adalah ... (dalam pecahan a/b)",
           "opsi": [],
           "kunci": "3/4",
-          "bahas": "Langkah 1: Garis menyinggung lingkaran bila jarak pusat ke garis sama dengan jari-jarinya.\n\nLangkah 2: Tulis garis sebagai $mx - y = 0$. Jarak dari pusat $(5,0)$ adalah $\\frac{\\left|5m\\right|}{\\sqrt{m^2+1}}$, sedangkan $r = 3$.\n\nLangkah 3: Samakan lalu kuadratkan: $25m^2 = 9\\left(m^2+1\\right) \\implies 16m^2 = 9 \\implies m^2 = \\frac{9}{16}$.\n\nLangkah 4: Diperoleh $m = \\pm\\frac{3}{4}$. Karena titik singgungnya diminta di kuadran I, dipilih $m = \\frac{3}{4}$.\nKesimpulan: Kunci Jawaban 3/4."
+          "bahas": "Langkah 1: Jarak dari pusat $(5, 0)$ ke garis $mx - y = 0$ sama dengan jari-jari $r = 3$:\n$$\\frac{|5m|}{\\sqrt{m^2 + 1}} = 3$$\n\nLangkah 2: Mengkuadratkan kedua ruas:\n$$\\frac{25m^2}{m^2 + 1} = 9 \\implies 25m^2 = 9m^2 + 9 \\implies 16m^2 = 9 \\implies m^2 = \\frac{9}{16}$$\n\nLangkah 3: Mengambil nilai positif untuk kuadran I:\n$$m = \\frac{3}{4}$$\nKesimpulan: Kunci Jawaban 3/4."
         }
       ]
     },
@@ -8951,7 +8951,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $3x - 4y = 25$"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Garis singgung di titik $T(x_1,y_1)$ yang terletak pada lingkaran $x^2+y^2 = r^2$ memakai rumus bagi adil $x_1x + y_1y = r^2$.\n\nLangkah 2: Substitusikan $x_1 = 3$, $y_1 = -4$, dan $r^2 = 25$: $3x + (-4)y = 25$.\n\nLangkah 3: Sederhanakan: $3x - 4y = 25$.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus Persamaan Garis Singgung Lingkaran (PGSL) dengan Metode Bagi Adil pada $x^2 + y^2 = r^2$ di titik singgung $(x_1, y_1)$:\n$$x_1 x + y_1 y = r^2$$\n\nLangkah 2: Mensubstitusikan titik singgung $(x_1, y_1) = (3, 4)$ dan $r^2 = 25$:\n$$3x + 4y = 25$$\n\nLangkah 3: Menuliskan dalam bentuk implisit:\n$$3x + 4y - 25 = 0$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8977,8 +8977,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $3x + 4y - 25 = 0$",
             "E. $3x - 4y + 20 = 0$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Untuk lingkaran $(x-a)^2+(y-b)^2 = r^2$, garis singgung di titik $A(x_1,y_1)$ memakai rumus bagi adil $(x_1-a)(x-a) + (y_1-b)(y-b) = r^2$.\n\nLangkah 2: Substitusikan pusat $(1,-2)$, titik $A(4,2)$, dan $r^2 = 25$: $(4-1)(x-1) + (2+2)(y+2) = 25$.\n\nLangkah 3: Uraikan: $3(x-1) + 4(y+2) = 25 \\implies 3x - 3 + 4y + 8 = 25$.\n\nLangkah 4: Sederhanakan: $3x + 4y - 20 = 0$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Mengidentifikasi rumus Bagi Adil pada lingkaran $(x - a)^2 + (y - b)^2 = r^2$ di titik singgung $(x_1, y_1)$:\n$$(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$$\n\nLangkah 2: Mensubstitusikan pusat $a = 1, b = -2$, $r^2 = 25$, dan titik singgung $(x_1, y_1) = (4, 2)$:\n$$(4 - 1)(x - 1) + (2 - (-2))(y - (-2)) = 25$$\n$$3(x - 1) + 4(y + 2) = 25$$\n\nLangkah 3: Menjabarkan persamaan garis:\n$$3x - 3 + 4y + 8 = 25 \\implies 3x + 4y + 5 - 25 = 0 \\implies 3x + 4y - 20 = 0$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "cx": 1,
@@ -9004,8 +9004,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $3x - 4y - 11 = 0$",
             "E. $4x + 3y - 19 = 0$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Ubah dulu ke bentuk baku untuk menemukan pusatnya. Dari $x^2+y^2-4x+6y-12 = 0$ diperoleh pusat $\\left(-\\frac{-4}{2}, -\\frac{6}{2}\\right) = (2,-3)$ dan $r^2 = 4+9+12 = 25$.\n\nLangkah 2: Terapkan rumus bagi adil $(x_1-a)(x-a) + (y_1-b)(y-b) = r^2$ dengan $P(5,1)$: $(5-2)(x-2) + (1+3)(y+3) = 25$.\n\nLangkah 3: Uraikan: $3(x-2) + 4(y+3) = 25 \\implies 3x - 6 + 4y + 12 = 25$.\n\nLangkah 4: Sederhanakan: $3x + 4y - 19 = 0$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Mengidentifikasi rumus Bagi Adil untuk bentuk umum $x^2 + y^2 + Ax + By + C = 0$:\n$$x_1 x + y_1 y + \\frac{A}{2}(x + x_1) + \\frac{B}{2}(y + y_1) + C = 0$$\n\nLangkah 2: Mensubstitusikan titik $(x_1, y_1) = (2, 1)$ dan koefisien $A = -4, B = 6, C = -12$:\n$$2x + 1y - 2(x + 2) + 3(y + 1) - 12 = 0$$\n\nLangkah 3: Menyederhanakan persamaan:\n$$2x + y - 2x - 4 + 3y + 3 - 12 = 0 \\implies 4y - 13 = 0 \\implies y = \\frac{13}{4}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "cx": 2.0,
@@ -9036,8 +9036,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 4/5",
             "E. -3/4"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Garis singgung selalu tegak lurus jari-jari di titik singgungnya. Karena gradien jari-jari dari $O(0,0)$ ke $(x_1,y_1)$ adalah $\\frac{y_1}{x_1}$, gradien garis singgungnya $m = -\\frac{x_1}{y_1}$.\n\nLangkah 2: Substitusikan $x_1 = -8$ dan $y_1 = 6$: $m = -\\frac{-8}{6}$.\n\nLangkah 3: Sederhanakan: $m = \\frac{8}{6} = \\frac{4}{3}$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan gradien garis singgung lingkaran $x^2 + y^2 = 25$ di titik $(3, -4)$:\nPersamaan garis singgung:\n$$3x - 4y = 25 \\implies 4y = 3x - 25 \\implies y = \\frac{3}{4}x - \\frac{25}{4}$$\n\nLangkah 2: Membaca gradien kemiringan ($m$):\n$$m = \\frac{3}{4}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 100,
@@ -9061,8 +9061,8 @@ const NAMA_TINGKAT = 'XII';
             "Garis singgung lingkaran x^2 + y^2 = r^2 di titik (x1, y1) adalah x1.x + y1.y = r^2",
             "Garis singgung lingkaran x^2 + y^2 = 25 di titik (3, 4) adalah 3x + 4y = 25"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nUntuk titik di luar lingkaran, rumus bagi adil menghasilkan persamaan garis kutub (polar), bukan garis singgung.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nMetode bagi adil mengganti $x^2 \\to x_1 x$ dan $y^2 \\to y_1 y$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nTitik $(3,4)$ pada lingkaran $\\implies 3x + 4y = 25$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nGaris singgung lingkaran selalu tegak lurus terhadap jari-jari yang ditarik ke titik singgung tersebut ($m_{\\text{singgung}} \\cdot m_{\\text{jari-jari}} = -1$).\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nMetode bagi adil hanya berlaku jika titik $(x_1, y_1)$ terletak tepat pada keliling lingkaran.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPGSL di titik $(5, 0)$ pada $x^2 + y^2 = 25$ adalah $5x + 0y = 25 \\implies x = 5$, bukan $y = 5$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9089,7 +9089,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $3x - 4y = 0$"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Garis normal tegak lurus garis singgung, sehingga arahnya berimpit dengan jari-jari. Artinya garis normal pasti melalui pusat lingkaran dan titik singgungnya.\n\nLangkah 2: Pusatnya $O(0,0)$ dan titiknya $(3,4)$, sehingga gradiennya $m = \\frac{4-0}{3-0} = \\frac{4}{3}$.\n\nLangkah 3: Susun persamaannya melalui $O(0,0)$: $y = \\frac{4}{3}x$.\n\nLangkah 4: Kalikan $3$ lalu pindahkan ruas: $3y = 4x \\implies 4x - 3y = 0$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menyusun PGSL di titik $(0, -5)$ pada lingkaran $x^2 + y^2 = 25$:\n$$0 \\cdot x + (-5) \\cdot y = 25 \\implies -5y = 25 \\implies y = -5$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9114,8 +9114,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(-2, 0)$",
             "E. $(-13/2, 0)$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Susun garis singgungnya lebih dahulu dengan rumus bagi adil $x_1x + y_1y = r^2$.\n\nLangkah 2: Substitusikan $(-2,3)$ dan $r^2 = 13$: $-2x + 3y = 13$.\n\nLangkah 3: Titik potong dengan sumbu-$X$ dicari dengan menetapkan $y = 0$: $-2x = 13 \\implies x = -\\frac{13}{2}$.\n\nLangkah 4: Jadi garis singgung memotong sumbu-$X$ di $\\left(-\\frac{13}{2},\\, 0\\right)$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan PGSL di titik $(-3, 4)$ pada lingkaran $x^2 + y^2 = 25$:\n$$-3x + 4y = 25 \\implies 3x - 4y + 25 = 0$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 13,
@@ -9141,8 +9141,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Di titik (4, 2), persamaan garis singgungnya adalah 3x + 4y - 20 = 0.",
             "E. Di titik (1, 3), persamaan garis singgungnya adalah y = 3."
           ],
-          "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$(1-1)(x-1) + (-7+2)(y+2) = 25 \\implies -5(y+2) = 25 \\implies y+2 = -5 \\implies y = -7$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$(6-1)(x-1) + (-2+2)(y+2) = 25 \\implies 5(x-1) = 25 \\implies x-1=5 \\implies x=6$ (garis vertikal $x=6$, bukan $y=6$).\n$\\implies$ Pernyataan B SALAH.\n\nLangkah 3: Analisis Opsi C:\n$(-2-1)(x-1) + (2+2)(y+2) = 25 \\implies -3(x-1) + 4(y+2) = 25 \\implies -3x + 4y + 11 = 25 \\implies -3x + 4y - 14 = 0$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$(4-1)(x-1) + (2+2)(y+2) = 25 \\implies 3(x-1) + 4(y+2) = 25 \\implies 3x + 4y + 5 = 25 \\implies 3x + 4y - 20 = 0$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$(1-1)(x-1) + (3+2)(y+2) = 25 \\implies 5(y+2) = 25 \\implies y+2 = 5 \\implies y = 3$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, C, D, E.",
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Evaluasi seluruh sifat garis singgung lingkaran melalui titik pada lingkaran:\n- A: PGSL di $(5, 0)$ adalah $x = 5$ (BENAR).\n- B: PGSL di $(0, 5)$ adalah $y = 5$ (BENAR).\n- C: PGSL di $(3, 4)$ adalah $3x + 4y = 25$ (BENAR).\n- D: Garis singgung tegak lurus jari-jari titik singgung (BENAR).\n- E: Hanya ada tepat 1 garis singgung unik di setiap titik pada lingkaran (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "lingkaran",
             "cx": 1,
@@ -9164,8 +9164,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $y = 5$",
             "E. $x = 5$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Gunakan rumus bagi adil $x_1x + y_1y = r^2$ untuk titik yang terletak pada lingkaran.\n\nLangkah 2: Substitusikan $(0,5)$ dan $r^2 = 25$: $0 \\cdot x + 5y = 25$.\n\nLangkah 3: Sederhanakan: $y = 5$. Hasilnya berupa garis mendatar, yang masuk akal karena titik $(0,5)$ berada tepat di puncak lingkaran.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan PGSL lingkaran $(x + 2)^2 + (y - 3)^2 = 25$ di titik $(1, 7)$:\n$$(1 + 2)(x + 2) + (7 - 3)(y - 3) = 25$$\n$$3(x + 2) + 4(y - 3) = 25$$\n\nLangkah 2: Menjabarkan aljabar:\n$$3x + 6 + 4y - 12 = 25 \\implies 3x + 4y - 6 - 25 = 0 \\implies 3x + 4y - 31 = 0$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9185,8 +9185,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P06-Q10] Nilai intersep sumbu-Y garis singgung $x^2 + y^2 = 50$ di $(5, 5)$ adalah ...",
           "opsi": [],
-          "kunci": "10",
-          "bahas": "Langkah 1: Susun garis singgungnya dengan rumus bagi adil $x_1x + y_1y = r^2$.\n\nLangkah 2: Substitusikan $(5,5)$ dan $r^2 = 50$: $5x + 5y = 50 \\implies x + y = 10$.\n\nLangkah 3: Intersep sumbu-Y dicari dengan menetapkan $x = 0$: $y = 10$.\nKesimpulan: Kunci Jawaban 10.",
+          "kunci": "4",
+          "bahas": "Langkah 1: PGSL di titik $(4, 0)$ pada lingkaran $x^2 + y^2 = 16$:\n$$4x + 0y = 16 \\implies x = 4$$\nKesimpulan: Kunci Jawaban 4.",
           "viz": {
             "t": "lingkaran",
             "r2": 50,
@@ -9220,7 +9220,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = 2x + 5$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Garis singgung lingkaran $x^2+y^2 = r^2$ yang bergradien $m$ memakai rumus $y = mx \\pm r\\sqrt{m^2+1}$.\n\nLangkah 2: Substitusikan $m = 2$ dan $r = \\sqrt{20}$: $y = 2x \\pm \\sqrt{20}\\cdot\\sqrt{2^2+1} = 2x \\pm \\sqrt{20}\\cdot\\sqrt{5}$.\n\nLangkah 3: Sederhanakan akarnya: $\\sqrt{20 \\cdot 5} = \\sqrt{100} = 10$, sehingga $y = 2x \\pm 10$. Salah satunya adalah $y = 2x + 10$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus PGSL dengan gradien $m$ pada lingkaran $x^2 + y^2 = r^2$:\n$$y = mx \\pm r\\sqrt{1 + m^2}$$\n\nLangkah 2: Mensubstitusikan gradien $m = 2$ dan jari-jari $r = \\sqrt{5}$:\n$$y = 2x \\pm \\sqrt{5}\\sqrt{1 + 2^2} = 2x \\pm \\sqrt{5}\\sqrt{5} = 2x \\pm 5$$\n\nLangkah 3: Menentukan salah satu persamaan garis singgung:\n$$y = 2x + 5 \\quad \\text{atau} \\quad y = 2x - 5$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 20,
@@ -9242,8 +9242,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $4x + 3y + 15 = 0$",
             "E. $3x - 4y = 0$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Garis yang sejajar memiliki gradien sama, sehingga garis singgungnya berbentuk $3x-4y+c = 0$ dengan $c$ yang belum diketahui.\n\nLangkah 2: Syarat menyinggung adalah jarak pusat ke garis sama dengan jari-jari. Pusatnya $(2,-1)$ dan $r = 5$: $\\frac{\\left|3(2)-4(-1)+c\\right|}{\\sqrt{3^2+(-4)^2}} = 5$.\n\nLangkah 3: Sederhanakan: $\\frac{\\left|10+c\\right|}{5} = 5 \\implies \\left|10+c\\right| = 25$.\n\nLangkah 4: Selesaikan kedua kemungkinannya: $10+c = 25 \\implies c = 15$, atau $10+c = -25 \\implies c = -35$. Jadi garisnya $3x-4y+15 = 0$ atau $3x-4y-35 = 0$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Mengidentifikasi rumus PGSL dengan gradien $m$ pada lingkaran $(x - a)^2 + (y - b)^2 = r^2$:\n$$(y - b) = m(x - a) \\pm r\\sqrt{1 + m^2}$$\n\nLangkah 2: Mensubstitusikan pusat $(a, b) = (2, -1)$, $r = \\sqrt{10}$, dan gradien $m = 3$:\n$$y - (-1) = 3(x - 2) \\pm \\sqrt{10}\\sqrt{1 + 3^2}$$\n$$y + 1 = 3x - 6 \\pm \\sqrt{10}\\sqrt{10}$$\n$$y + 1 = 3x - 6 \\pm 10$$\n\nLangkah 3: Memisahkan kedua garis singgung:\n- Garis 1: $y = 3x - 7 + 10 \\implies y = 3x + 3$\n- Garis 2: $y = 3x - 7 - 10 \\implies y = 3x - 17$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "cx": 2,
@@ -9271,7 +9271,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = -1/2 x \\pm 8$"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Dua garis tegak lurus memenuhi $m_1 \\cdot m_2 = -1$. Garis $2x-y+5 = 0$ bergradien $2$, sehingga garis singgungnya bergradien $m = -\\frac{1}{2}$.\n\nLangkah 2: Gunakan rumus $y = mx \\pm r\\sqrt{m^2+1}$ dengan $r = \\sqrt{16} = 4$.\n\nLangkah 3: Hitung bagian akarnya: $4\\sqrt{\\left(-\\frac{1}{2}\\right)^2+1} = 4\\sqrt{\\frac{5}{4}} = 4 \\cdot \\frac{\\sqrt{5}}{2} = 2\\sqrt{5}$.\n\nLangkah 4: Susun hasilnya: $y = -\\frac{1}{2}x \\pm 2\\sqrt{5}$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan gradien garis yang sejajar dengan $2x - y + 4 = 0$:\n$$y = 2x + 4 \\implies m_1 = 2 \\implies m = m_1 = 2$$\n\nLangkah 2: Menyusun PGSL lingkaran $x^2 + y^2 = 20 \\implies r = \\sqrt{20} = 2\\sqrt{5}$:\n$$y = 2x \\pm 2\\sqrt{5}\\sqrt{1 + 2^2} = 2x \\pm 2\\sqrt{5}\\sqrt{5} = 2x \\pm 10$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 16,
@@ -9298,8 +9298,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $y = x + 2\\sqrt{3}$",
             "E. $y = x + 3$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Sudut $45^\\circ$ terhadap sumbu-$X$ positif berarti gradiennya $m = \\tan 45^\\circ = 1$.\n\nLangkah 2: Gunakan rumus $y = mx \\pm r\\sqrt{m^2+1}$ dengan $r = \\sqrt{9} = 3$.\n\nLangkah 3: Hitung bagian akarnya: $3\\sqrt{1^2+1} = 3\\sqrt{2}$.\n\nLangkah 4: Susun hasilnya: $y = x \\pm 3\\sqrt{2}$, salah satunya $y = x + 3\\sqrt{2}$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan gradien garis yang tegak lurus dengan $x + 2y - 5 = 0$:\n$$2y = -x + 5 \\implies y = -\\frac{1}{2}x + \\frac{5}{2} \\implies m_1 = -\\frac{1}{2}$$\nSyarat tegak lurus: $m \\cdot m_1 = -1 \\implies m = 2$.\n\nLangkah 2: Menyusun PGSL lingkaran $x^2 + y^2 = 25 \\implies r = 5$:\n$$y = 2x \\pm 5\\sqrt{1 + 2^2} = 2x \\pm 5\\sqrt{5}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
@@ -9319,8 +9319,8 @@ const NAMA_TINGKAT = 'XII';
             "Garis singgung bergradien m = 0 pada x^2 + y^2 = 25 adalah x = +- 5",
             "Terdapat tepat 2 garis singgung yang sejajar dengan gradien m yang sama"
           ],
-          "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nRumus standar PGSL bergradien $m$ adalah $y = mx \\pm r\\sqrt{1 + m^2}$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nUntuk $m = 0$, $y = 0 \\cdot x \\pm 5\\sqrt{1 + 0} \\implies y = \\pm 5$ (garis horizontal, bukan $x = \\pm 5$).\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nTanda $\\pm$ menghasilkan 2 garis singgung yang saling sejajar di sisi berlawanan lingkaran.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B.",
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nUntuk setiap nilai gradien $m$ tertentu, selalu terdapat tepat dua garis singgung yang saling sejajar.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nDua garis saling tegak lurus memenuhi hubungan hasil kali gradien $m_1 \\cdot m_2 = -1$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPada rumus PGSL gradien $m$, faktor pengali di belakang adalah $r\\sqrt{1 + m^2}$, bukan $r\\sqrt{1 - m^2}$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9342,8 +9342,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 20",
             "E. 30"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Untuk garis $y = mx+c$ yang menyinggung $x^2+y^2 = r^2$ berlaku $c = \\pm r\\sqrt{m^2+1}$.\n\nLangkah 2: Substitusikan $m = 3$ dan $r = \\sqrt{10}$: $c = \\pm\\sqrt{10}\\cdot\\sqrt{3^2+1} = \\pm\\sqrt{10}\\cdot\\sqrt{10}$.\n\nLangkah 3: Hitung hasilnya: $c = \\pm 10$. Karena disyaratkan $c > 0$, dipilih $c = 10$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "E",
+          "bahas": "Langkah 1: PGSL lingkaran $x^2 + y^2 = 9$ ($r = 3$) dengan gradien $m = 0$ (garis horizontal sejajar sumbu-X):\n$$y = 0 \\cdot x \\pm 3\\sqrt{1 + 0^2} \\implies y = \\pm 3$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "r2": 10,
@@ -9365,8 +9365,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $y = -x + 8$",
             "E. $y = -x$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Untuk lingkaran berpusat $(a,b)$, garis singgung bergradien $m$ memakai $y - b = m(x-a) \\pm r\\sqrt{m^2+1}$.\n\nLangkah 2: Substitusikan pusat $(-1,3)$, $m = -1$, dan $r = \\sqrt{8} = 2\\sqrt{2}$: $y - 3 = -1(x+1) \\pm 2\\sqrt{2}\\cdot\\sqrt{(-1)^2+1}$.\n\nLangkah 3: Hitung bagian akarnya: $2\\sqrt{2}\\cdot\\sqrt{2} = 4$, sehingga $y - 3 = -x - 1 \\pm 4$.\n\nLangkah 4: Selesaikan kedua kemungkinannya: $y = -x + 2 + 4 = -x + 6$, atau $y = -x + 2 - 4 = -x - 2$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Gradien garis yang membentuk sudut $45^\\circ$ terhadap sumbu-X positif adalah:\n$$m = \\tan 45^\\circ = 1$$\n\nLangkah 2: Menyusun PGSL lingkaran $x^2 + y^2 = 8 \\implies r = \\sqrt{8} = 2\\sqrt{2}$:\n$$y = 1x \\pm 2\\sqrt{2}\\sqrt{1 + 1^2} = x \\pm 2\\sqrt{2}\\sqrt{2} = x \\pm 4$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "cx": -1,
@@ -9389,7 +9389,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Kedua garis singgung tersebut saling tegak lurus."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$r\\sqrt{1 + m^2} = 4\\sqrt{1 + (3/4)^2} = 4\\sqrt{25/16} = 4(5/4) = 5$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nKalikan 4: $4y = 3x \\pm 20 \\implies 3x - 4y \\pm 20 = 0$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$y = \\frac{3}{4}x - 5$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$y = \\frac{3}{4}x + 5$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nKedua garis memiliki gradien sama ($m_1 = m_2 = 3/4$) sehingga saling sejajar, bukan tegak lurus.\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D.",
+          "bahas": "Langkah 1: Analisis PGSL lingkaran $x^2 + y^2 = 25$ ($r = 5$):\n- A: Gradien $m = 0 \\implies y = \\pm 5$ (BENAR).\n- B: Gradien $m = 1 \\implies y = x \\pm 5\\sqrt{2}$ (BENAR).\n- C: Gradien $m = -1 \\implies y = -x \\pm 5\\sqrt{2}$ (BENAR).\n- D: Jarak antara kedua garis singgung sejajar sama dengan diameter $2r = 10$ (BENAR).\n- E: Rumus bukan $y = mx \\pm r(1+m)$ (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
           "viz": {
             "t": "lingkaran",
             "r2": 16,
@@ -9410,8 +9410,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 12 satuan",
             "E. 24 satuan"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Dua garis singgung yang bergradien sama terletak sejajar dan berada di sisi berlawanan terhadap pusat lingkaran.\n\nLangkah 2: Masing-masing garis berjarak $r$ dari pusat, sehingga jarak antara keduanya adalah $2r$. Gradien $m = \\sqrt{3}$ tidak memengaruhi hasil ini.\n\nLangkah 3: Substitusikan $r = \\sqrt{36} = 6$: jaraknya $2(6) = 12$ satuan.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan PGSL lingkaran $(x - 1)^2 + (y + 2)^2 = 5$ ($r = \\sqrt{5}$) dengan gradien $m = -2$:\n$$(y + 2) = -2(x - 1) \\pm \\sqrt{5}\\sqrt{1 + (-2)^2}$$\n$$y + 2 = -2x + 2 \\pm \\sqrt{5}\\sqrt{5} = -2x + 2 \\pm 5$$\n\nLangkah 2: Memisahkan:\n$$y = -2x \\pm 5 \\implies 2x + y \\pm 5 = 0$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 36,
@@ -9428,7 +9428,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P07-Q10] Nilai positif $k$ agar $y = 2x + k$ menyinggung $x^2 + y^2 = 5$ adalah ...",
           "opsi": [],
           "kunci": "5",
-          "bahas": "Langkah 1: Untuk garis $y = mx+k$ yang menyinggung $x^2+y^2 = r^2$ berlaku $k = \\pm r\\sqrt{m^2+1}$.\n\nLangkah 2: Substitusikan $m = 2$ dan $r = \\sqrt{5}$: $k = \\pm\\sqrt{5}\\cdot\\sqrt{2^2+1} = \\pm\\sqrt{5}\\cdot\\sqrt{5}$.\n\nLangkah 3: Hitung hasilnya: $k = \\pm 5$. Karena diminta nilai positifnya, dipilih $k = 5$.\nKesimpulan: Kunci Jawaban 5.",
+          "bahas": "Langkah 1: Nilai konstanta $c$ pada $y = 2x + c$ yang menyinggung $x^2 + y^2 = 5$:\n$$c = r\\sqrt{1 + m^2} = \\sqrt{5}\\sqrt{1 + 2^2} = \\sqrt{5}\\sqrt{5} = 5$$\nKesimpulan: Kunci Jawaban 5.",
           "viz": {
             "t": "lingkaran",
             "r2": 5,
@@ -9458,7 +9458,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $5x = 9$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Garis kutub (polar) dari titik $T(x_1,y_1)$ terhadap $x^2+y^2 = r^2$ memakai bentuk yang sama dengan rumus bagi adil, yaitu $x_1x + y_1y = r^2$. Bedanya, $T$ di sini berada di luar lingkaran.\n\nLangkah 2: Substitusikan $T(0,5)$ dan $r^2 = 9$: $0 \\cdot x + 5y = 9$.\n\nLangkah 3: Sederhanakan: $5y = 9$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus persamaan garis kutub (garis polar) dari titik $T(x_1, y_1)$ terhadap lingkaran $x^2 + y^2 = r^2$:\n$$x_1 x + y_1 y = r^2$$\n\nLangkah 2: Mensubstitusikan titik $T(0, 5)$ dan $r^2 = 9$:\n$$0 \\cdot x + 5 \\cdot y = 9$$\n\nLangkah 3: Menyelesaikan persamaan garis polar:\n$$5y = 9 \\implies y = \\frac{9}{5}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
@@ -9484,8 +9484,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $3x - 4y + 15 = 0$",
             "E. $4x + 3y - 15 = 0$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Cari titik singgungnya lebih dahulu lewat garis polar $x_1x + y_1y = r^2$. Dari $T(0,5)$ diperoleh $5y = 9$, yaitu $y = \\frac{9}{5}$.\n\nLangkah 2: Substitusikan ke lingkaran $x^2+y^2 = 9$: $x^2 = 9 - \\frac{81}{25} = \\frac{144}{25}$, sehingga $x = \\pm\\frac{12}{5}$.\n\nLangkah 3: Ambil titik singgung $\\left(\\frac{12}{5}, \\frac{9}{5}\\right)$, lalu susun garis singgungnya dengan rumus bagi adil: $\\frac{12}{5}x + \\frac{9}{5}y = 9$.\n\nLangkah 4: Kalikan $\\frac{5}{3}$ pada kedua ruas: $4x + 3y = 15$, atau $4x + 3y - 15 = 0$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menggunakan rumus panjang ruas garis singgung ($L$) dari titik luar $T(x_1, y_1)$ ke lingkaran $x^2 + y^2 = r^2$:\n$$L = \\sqrt{d^2 - r^2} = \\sqrt{x_1^2 + y_1^2 - r^2}$$\n\nLangkah 2: Mensubstitusikan titik $T(5, 0)$ dan $r^2 = 9$:\n$$L = \\sqrt{5^2 + 0^2 - 9} = \\sqrt{25 - 9} = \\sqrt{16} = 4 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
@@ -9511,8 +9511,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 8 satuan",
             "E. 6 satuan"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Panjang garis singgung dari titik luar dihitung dengan $\\ell = \\sqrt{x_1^2+y_1^2-r^2}$.\n\nLangkah 2: Substitusikan $A(6,8)$ dan $r^2 = 36$: $\\ell = \\sqrt{6^2+8^2-36}$.\n\nLangkah 3: Hitung hasilnya: $\\ell = \\sqrt{36+64-36} = \\sqrt{64} = 8$ satuan.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan garis polar dari titik $T(0, 10)$ terhadap $x^2 + y^2 = 25$:\n$$0 \\cdot x + 10 \\cdot y = 25 \\implies 10y = 25 \\implies y = 2{,}5$$\n\nLangkah 2: Menentukan titik singgung dengan menyubstitusikan $y = 2{,}5$ ke lingkaran:\n$$x^2 + (2{,}5)^2 = 25 \\implies x^2 + 6{,}25 = 25 \\implies x^2 = 18{,}75 \\implies x = \\pm\\sqrt{18{,}75} = \\pm 2{,}5\\sqrt{3}$$\n\nLangkah 3: Menyusun persamaan garis singgung di titik singgung $(2{,}5\\sqrt{3}, 2{,}5)$:\n$$(2{,}5\\sqrt{3})x + 2{,}5y = 25 \\implies \\sqrt{3}x + y = 10 \\implies y = -\\sqrt{3}x + 10$$\nDan titik singgung kedua: $y = \\sqrt{3}x + 10$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 36,
@@ -9538,8 +9538,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $3x - y - 16 = 0$",
             "E. $2x - 3y + 16 = 0$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Garis polar terhadap lingkaran berpusat $(a,b)$ memakai $(x_1-a)(x-a) + (y_1-b)(y-b) = r^2$.\n\nLangkah 2: Substitusikan $T(1,2)$, pusat $(3,-1)$, dan $r^2 = 25$: $(1-3)(x-3) + (2+1)(y+1) = 25$.\n\nLangkah 3: Uraikan: $-2(x-3) + 3(y+1) = 25 \\implies -2x + 6 + 3y + 3 = 25$.\n\nLangkah 4: Sederhanakan: $-2x + 3y - 16 = 0$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Memahami konsep garis kutub (garis polar):\nJika titik $T(x_1, y_1)$ berada di luar lingkaran, maka garis kutub adalah garis lurus yang **menghubungkan dua titik singgung** dari garis-garis singgung yang ditarik dari titik T ke lingkaran.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "cx": 3,
@@ -9563,8 +9563,8 @@ const NAMA_TINGKAT = 'XII';
             "Titik singgung dapat ditentukan tanpa menggunakan bantuan garis kutub",
             "Persamaan garis kutub untuk x^2 + y^2 = r^2 dirumuskan x1.x + y1.y = r^2"
           ],
-          "kunci": "B - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nGaris polar menghubungkan dua titik kontak garis singgung yang ditarik dari titik luar $A$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nTitik singgung juga dapat dicari menggunakan sistem persamaan jarak titik ke garis singgung bergradien $m$, tidak semata-mata bergantung garis kutub.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPersamaan garis kutub titik $(x_1, y_1)$ memiliki bentuk identik dengan rumus bagi adil $x_1 x + y_1 y = r^2$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - B - B."
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nDari sebuah titik di luar lingkaran selalu dapat ditarik tepat 2 garis singgung yang menyentuh lingkaran.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPanjang kedua segmen garis singgung dari titik luar ke masing-masing titik singgung adalah sama panjang ($L_1 = L_2$).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nGaris kutub dari titik luar selalu memotong lingkaran di 2 titik singgung, bukan di luar lingkaran.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -9579,8 +9579,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 45 derajat",
             "E. 30 derajat"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Hubungkan pusat, titik luar $T$, dan salah satu titik singgung. Terbentuk segitiga siku-siku dengan sisi miring $d$ (jarak pusat ke $T$) dan sisi tegak $r$.\n\nLangkah 2: Setengah sudut apit di $T$ memenuhi $\\sin\\frac{\\theta}{2} = \\frac{r}{d}$. Di sini $r = 5$ dan $d = 10$, sehingga $\\sin\\frac{\\theta}{2} = \\frac{5}{10} = \\frac{1}{2}$.\n\nLangkah 3: Diperoleh $\\frac{\\theta}{2} = 30^\\circ$.\n\nLangkah 4: Kalikan dua: $\\theta = 60^\\circ$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung panjang garis singgung dari titik $T(6, 8)$ ke lingkaran $x^2 + y^2 = 36$:\n- Jarak pusat $d = \\sqrt{6^2 + 8^2} = \\sqrt{100} = 10$\n- Jari-jari $r = \\sqrt{36} = 6$\n\nLangkah 2: Menghitung panjang garis singgung $L$:\n$$L = \\sqrt{d^2 - r^2} = \\sqrt{10^2 - 6^2} = \\sqrt{100 - 36} = \\sqrt{64} = 8 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9606,8 +9606,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 8 satuan",
             "E. 6 satuan"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Tali busur kontak adalah ruas garis yang menghubungkan kedua titik singgung. Panjangnya dihitung dengan $\\ell = \\frac{2r\\sqrt{d^2-r^2}}{d}$, dengan $d$ jarak titik luar ke pusat.\n\nLangkah 2: Substitusikan $r = 3$ dan $d = 5$: $\\ell = \\frac{2(3)\\sqrt{25-9}}{5}$.\n\nLangkah 3: Hitung hasilnya: $\\ell = \\frac{6 \\cdot 4}{5} = \\frac{24}{5}$ satuan.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan garis polar dari titik $T(4, 2)$ terhadap $(x - 1)^2 + (y + 2)^2 = 16$:\n$$(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$$\n$$(4 - 1)(x - 1) + (2 - (-2))(y - (-2)) = 16$$\n\nLangkah 2: Menjabarkan:\n$$3(x - 1) + 4(y + 2) = 16 \\implies 3x - 3 + 4y + 8 - 16 = 0 \\implies 3x + 4y - 11 = 0$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
@@ -9632,8 +9632,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Titik A(0, 5) terletak di dalam lingkaran.",
             "E. Panjang ruas garis singgung dari titik A ke titik singgung adalah 4 satuan."
           ],
-          "kunci": "A, B, C, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$x_1 x + y_1 y = 9 \\implies 0(x) + 5(y) = 9 \\implies y = 9/5$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$x^2 + (9/5)^2 = 9 \\implies x^2 = 9 - 81/25 = 144/25 \\implies x = \\pm 12/5$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nTitik singgung $T_1(12/5, 9/5)$ dan $T_2(-12/5, 9/5)$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$0^2 + 5^2 = 25 > 9 \\implies$ titik A di luar lingkaran, bukan di dalam.\n$\\implies$ Pernyataan D SALAH.\n\nLangkah 5: Analisis Opsi E:\nPanjang garis singgung $d = \\sqrt{OA^2 - r^2} = \\sqrt{5^2 - 3^2} = \\sqrt{25 - 9} = 4$ satuan.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E.",
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Evaluasi konsep garis kutub dan garis singgung dari titik luar:\n- A: Garis polar menghubungkan dua titik singgung (BENAR).\n- B: Dari titik luar terbentuk 2 garis singgung (BENAR).\n- C: Panjang garis singgung $L = \\sqrt{d^2 - r^2}$ (BENAR).\n- D: Garis polar berbentuk linear derajat satu (BENAR).\n- E: Segitiga yang dibentuk oleh pusat, titik luar, dan titik singgung siku-siku di titik singgung (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
@@ -9660,7 +9660,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $(3, 0)$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Cari garis polarnya lebih dahulu dengan $x_1x + y_1y = r^2$. Dari $T(5,0)$ dan $r^2 = 9$ diperoleh $5x = 9$, yaitu $x = \\frac{9}{5}$.\n\nLangkah 2: Substitusikan ke lingkaran $x^2+y^2 = 9$: $\\left(\\frac{9}{5}\\right)^2 + y^2 = 9 \\implies y^2 = 9 - \\frac{81}{25} = \\frac{144}{25}$.\n\nLangkah 3: Diperoleh $y = \\pm\\frac{12}{5}$, sehingga titik singgungnya $\\left(\\frac{9}{5}, \\frac{12}{5}\\right)$ dan $\\left(\\frac{9}{5}, -\\frac{12}{5}\\right)$.\n\nLangkah 4: Salah satunya adalah $\\left(\\frac{9}{5}, \\frac{12}{5}\\right)$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menghitung jarak dari pusat $O(0,0)$ ke titik luar $T(13, 0)$:\n$$d = 13$$\nJari-jari lingkaran $x^2 + y^2 = 25 \\implies r = 5$.\n\nLangkah 2: Menghitung panjang garis singgung:\n$$L = \\sqrt{13^2 - 5^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
@@ -9681,7 +9681,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P08-Q10] Panjang garis singgung dari $(13, 0)$ ke $x^2 + y^2 = 25$ adalah ...",
           "opsi": [],
           "kunci": "12",
-          "bahas": "Langkah 1: Panjang garis singgung dari titik luar dihitung dengan $\\ell = \\sqrt{x_1^2+y_1^2-r^2}$.\n\nLangkah 2: Substitusikan $(13,0)$ dan $r^2 = 25$: $\\ell = \\sqrt{13^2+0^2-25}$.\n\nLangkah 3: Hitung hasilnya: $\\ell = \\sqrt{169-25} = \\sqrt{144} = 12$ satuan.\nKesimpulan: Kunci Jawaban 12.",
+          "bahas": "Langkah 1: Menghitung panjang ruas garis singgung dari $T(0, 13)$ ke $x^2 + y^2 = 25$:\n$$L = \\sqrt{13^2 - 5^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12$$\nKesimpulan: Kunci Jawaban 12.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9715,7 +9715,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 25"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Untuk bentuk umum $x^2+y^2+Ax+By+C = 0$ berlaku $r = \\sqrt{\\left(\\frac{A}{2}\\right)^2+\\left(\\frac{B}{2}\\right)^2-C}$.\n\nLangkah 2: Di sini $A = -4$, $B = 2$, dan $C = -20$: $r = \\sqrt{(-2)^2 + 1^2 - (-20)}$.\n\nLangkah 3: Hitung hasilnya: $r = \\sqrt{4+1+20} = \\sqrt{25} = 5$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menghitung jari-jari lingkaran dari bentuk umum $x^2 + y^2 - 4x + 2y - 20 = 0$:\n$$A = -4, \\quad B = 2, \\quad C = -20$$\n\nLangkah 2: Menggunakan rumus jari-jari:\n$$r = \\sqrt{\\left(\\frac{-4}{2}\\right)^2 + \\left(\\frac{2}{2}\\right)^2 - (-20)} = \\sqrt{(-2)^2 + 1^2 + 20} = \\sqrt{4 + 1 + 20} = \\sqrt{25} = 5$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "cx": 2.0,
@@ -9741,8 +9741,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $-2x - 3y = 13$",
             "E. $3x - 2y = 13$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Gunakan rumus bagi adil $x_1x + y_1y = r^2$ untuk titik yang terletak pada lingkaran.\n\nLangkah 2: Periksa dulu bahwa titiknya memang pada lingkaran: $(-2)^2+3^2 = 4+9 = 13$, sesuai dengan $r^2 = 13$.\n\nLangkah 3: Substitusikan: $-2x + 3y = 13$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menyusun PGSL di titik $(4, -3)$ pada lingkaran $x^2 + y^2 = 25$:\n$$x_1 x + y_1 y = 25$$\n\nLangkah 2: Mensubstitusikan $(4, -3)$:\n$$4x - 3y = 25 \\implies 4x - 3y - 25 = 0$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 13,
@@ -9768,8 +9768,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(7, 0)$ dan $(-1, 0)$",
             "E. $(13, 0)$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Titik potong dengan sumbu-$X$ diperoleh dengan menetapkan $y = 0$.\n\nLangkah 2: Substitusikan ke $(x-3)^2+(y+4)^2 = 100$: $(x-3)^2 + 16 = 100 \\implies (x-3)^2 = 84$.\n\nLangkah 3: Akarkan: $x - 3 = \\pm\\sqrt{84} = \\pm 2\\sqrt{21}$, karena $84 = 4 \\times 21$.\n\nLangkah 4: Jadi titik potongnya $\\left(3 \\pm 2\\sqrt{21},\\, 0\\right)$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan kedudukan garis $y = 3x$ terhadap lingkaran $x^2 + y^2 = 10$:\nSubstitusi $y = 3x \\implies x^2 + (3x)^2 = 10 \\implies 10x^2 = 10 \\implies x^2 = 1 \\implies x = \\pm 1$.\n\nLangkah 2: Menarik kesimpulan:\nKarena terdapat 2 nilai $x$ riil berlainan, garis **memotong lingkaran di dua titik berlainan**.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "cx": 3,
@@ -9791,7 +9791,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = 3x \\pm 20$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Garis singgung bergradien $m$ pada $x^2+y^2 = r^2$ memakai rumus $y = mx \\pm r\\sqrt{m^2+1}$.\n\nLangkah 2: Substitusikan $m = 3$ dan $r = \\sqrt{10}$: $y = 3x \\pm \\sqrt{10}\\cdot\\sqrt{3^2+1} = 3x \\pm \\sqrt{10}\\cdot\\sqrt{10}$.\n\nLangkah 3: Hitung hasilnya: $y = 3x \\pm 10$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Menyusun PGSL lingkaran $x^2 + y^2 = 9$ dengan gradien $m = 0$:\n$$y = 0 \\cdot x \\pm 3\\sqrt{1 + 0^2} \\implies y = \\pm 3$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 10,
@@ -9811,8 +9811,8 @@ const NAMA_TINGKAT = 'XII';
             "Jika d = R + r, kedua lingkaran bersinggungan di luar",
             "Jika d = R - r (R > r), kedua lingkaran bersinggungan di dalam"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJika $d > R + r$, kedua lingkaran saling lepas di luar (tidak berpotongan), bukan berpotongan.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\n$d = R + r$ adalah syarat geometri bersinggungan luar.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$d = |R - r|$ adalah syarat geometri bersinggungan dalam.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nPusat dari $(x - 1)^2 + (y + 2)^2 = 16$ adalah $P(1, -2)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nDiskriminan $D = 0$ menyatakan garis menyinggung lingkaran di satu titik.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nGaris kutub dari titik luar memotong lingkaran di dua titik singgung, bukan di luar lingkaran.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -9827,8 +9827,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 8 satuan",
             "E. 3 satuan"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Lingkaran menyinggung sumbu-Y bila jarak pusat ke sumbu-Y sama dengan jari-jarinya. Jarak itu adalah nilai mutlak absis pusatnya.\n\nLangkah 2: Dari $x^2+y^2+6x-8y+c = 0$ diperoleh pusat $\\left(-\\frac{6}{2}, -\\frac{-8}{2}\\right) = (-3, 4)$.\n\nLangkah 3: Jarak pusat ke sumbu-Y adalah $\\left|-3\\right| = 3$, sehingga $r = 3$ satuan.\nKesimpulan: Kunci Jawaban E."
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung jarak pusat $O(0,0)$ ke titik $(6, -8)$:\n$$d = \\sqrt{6^2 + (-8)^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$$\n\nLangkah 2: Menghitung jarak terdekat ke keliling lingkaran ($r = 4$):\n$$\\text{Jarak Terdekat} = d - r = 10 - 4 = 6 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 7,
@@ -9843,8 +9843,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 0 satuan",
             "E. 2 satuan"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Periksa lebih dahulu kedudukan titik $P(1,2)$ terhadap lingkaran dengan menghitung kuasanya: $1^2+2^2-5 = 0$.\n\nLangkah 2: Karena kuasanya nol, titik $P$ tepat berada pada lingkaran, sehingga $P$ sendiri adalah titik singgungnya.\n\nLangkah 3: Titik singgung selalu terletak pada garis singgungnya, sehingga jaraknya $0$ satuan.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan titik pusat lingkaran $x^2 + y^2 - 8x + 6y = 0$:\n$$P\\left(-\\frac{-8}{2}, -\\frac{6}{2}\\right) = P(4, -3)$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 5,
@@ -9871,7 +9871,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Nilai R + r adalah 7 satuan."
           ],
           "kunci": "A, B, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$d = 8 > 7 \\implies$ saling terpisah lepas di luar.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$d = \\sqrt{(8-0)^2 + 0^2} = 8$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nKedua lingkaran tidak bersinggungan ($d \\ne R+r$).\n$\\implies$ Pernyataan C SALAH.\n\nLangkah 4: Analisis Opsi D:\nDua lingkaran yang saling lepas di luar memiliki 2 garis singgung persekutuan luar dan 2 dalam (total 4).\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$R + r = 3 + 4 = 7$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, D, E.",
+          "bahas": "Langkah 1: Evaluasi hubungan dua lingkaran $L_1: x^2 + y^2 = 9$ ($r_1 = 3, P_1(0,0)$) dan $L_2: (x - 8)^2 + y^2 = 16$ ($r_2 = 4, P_2(8,0)$):\n- Jarak pusat: $d = |8 - 0| = 8$.\n- Jumlah jari-jari: $r_1 + r_2 = 3 + 4 = 7$.\n- Karena $d = 8 > r_1 + r_2 = 7$, kedua lingkaran **saling lepas di luar**.\n- A: $L_1$ berpusat di $(0,0)$ (BENAR).\n- B: $L_2$ berpusat di $(8,0)$ (BENAR).\n- C: Kedua lingkaran berpotongan (SALAH, saling lepas).\n- D: Memiliki 4 garis singgung persekutuan (BENAR).\n- E: $R + r = 7$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, D, E.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
@@ -9897,7 +9897,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 25"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Titik yang dilalui lingkaran pasti memenuhi persamaannya.\n\nLangkah 2: Substitusikan $(-3,4)$ ke $x^2+y^2 = k$: $(-3)^2 + 4^2 = k$.\n\nLangkah 3: Hitung hasilnya: $k = 9 + 16 = 25$.\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Lingkaran $x^2 + y^2 = k$ melalui titik $(-3, 4)$:\n$$k = (-3)^2 + 4^2 = 9 + 16 = 25$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 10,
@@ -9907,7 +9907,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P09-Q10] Panjang diameter lingkaran $x^2 + y^2 - 6x - 8y = 0$ adalah ...",
           "opsi": [],
           "kunci": "10",
-          "bahas": "Langkah 1: Cari jari-jarinya lebih dahulu dengan $r = \\sqrt{\\left(\\frac{A}{2}\\right)^2+\\left(\\frac{B}{2}\\right)^2-C}$.\n\nLangkah 2: Di sini $A = -6$, $B = -8$, dan $C = 0$: $r = \\sqrt{(-3)^2+(-4)^2-0} = \\sqrt{25} = 5$.\n\nLangkah 3: Diameter adalah dua kali jari-jari: $d = 2(5) = 10$.\nKesimpulan: Kunci Jawaban 10."
+          "bahas": "Langkah 1: Menghitung jari-jari lingkaran $x^2 + y^2 - 6x - 8y = 0$:\n$$r = \\sqrt{3^2 + 4^2 - 0} = \\sqrt{9 + 16} = \\sqrt{25} = 5$$\n\nLangkah 2: Menghitung diameter ($d = 2r$):\n$$d = 2 \\times 5 = 10$$\nKesimpulan: Kunci Jawaban 10."
         }
       ]
     },
@@ -9930,7 +9930,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 9"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Substitusi $x = 3$ memberi $\\frac{9-9}{3-3} = \\frac{0}{0}$, yaitu bentuk tak tentu, sehingga perlu difaktorkan lebih dahulu.\n\nLangkah 2: Gunakan pemfaktoran selisih dua kuadrat $a^2 - b^2 = (a-b)(a+b)$ pada pembilang: $x^2 - 9 = (x-3)(x+3)$.\n\nLangkah 3: Coret faktor $(x-3)$ yang sama, lalu substitusikan $x = 3$: $\\lim_{x \\to 3} (x+3) = 3 + 3 = 6$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Identifikasi bentuk limit dengan substitusi langsung:\nSaat $x \\to 3$, bentuk pecahan menghasilkan $\\frac{3^2 - 9}{3 - 3} = \\frac{0}{0}$ (Bentuk Tak Tentu).\n\nLangkah 2: Memfaktorkan pembilang menggunakan selisih dua kuadrat $a^2 - b^2 = (a - b)(a + b)$:\n$$\\lim_{x \\to 3} \\frac{(x - 3)(x + 3)}{x - 3}$$\n\nLangkah 3: Mengeliminasi faktor pembuat nol $(x - 3)$ dan melakukan substitusi limit:\n$$\\lim_{x \\to 3} (x + 3) = 3 + 3 = 6$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "plot",
             "f": "(Math.pow(x, 2) - 9)/(x - 3)",
@@ -9955,7 +9955,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/4"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Substitusi $x = 4$ memberi $\\frac{2-2}{4-4} = \\frac{0}{0}$. Karena memuat bentuk akar, kalikan dengan akar sekawan.\n\nLangkah 2: Kalikan pembilang dan penyebut dengan sekawan $(\\sqrt{x}+2)$: $\\frac{(\\sqrt{x}-2)(\\sqrt{x}+2)}{(x-4)(\\sqrt{x}+2)} = \\frac{x-4}{(x-4)(\\sqrt{x}+2)}$.\n\nLangkah 3: Coret faktor $(x-4)$, lalu substitusikan $x = 4$: $\\frac{1}{\\sqrt{4}+2} = \\frac{1}{4}$.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Identifikasi bentuk tak tentu $\\frac{0}{0}$ saat $x \\to 4$:\n$$\\frac{\\sqrt{4} - 2}{4 - 4} = \\frac{0}{0}$$\n\nLangkah 2: Mengalikan pembilang dan penyebut dengan bentuk sekawan $(\\sqrt{x} + 2)$:\n$$\\lim_{x \\to 4} \\frac{(\\sqrt{x} - 2)(\\sqrt{x} + 2)}{(x - 4)(\\sqrt{x} + 2)} = \\lim_{x \\to 4} \\frac{x - 4}{(x - 4)(\\sqrt{x} + 2)}$$\n\nLangkah 3: Mengeliminasi faktor $(x - 4)$ dan mengevaluasi nilai limit:\n$$\\lim_{x \\to 4} \\frac{1}{\\sqrt{x} + 2} = \\frac{1}{\\sqrt{4} + 2} = \\frac{1}{2 + 2} = \\frac{1}{4}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "plot",
             "f": "(Math.sqrt(x) - 2)*(x - 4)",
@@ -9980,7 +9980,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 12"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Substitusi $x = 2$ memberi $\\frac{0}{0}$, jadi pembilang dan penyebut harus difaktorkan.\n\nLangkah 2: Gunakan selisih dua kubik $a^3 - b^3 = (a-b)(a^2+ab+b^2)$ dan selisih dua kuadrat: $x^3 - 8 = (x-2)(x^2+2x+4)$ dan $x^2 - 4 = (x-2)(x+2)$.\n\nLangkah 3: Coret faktor $(x-2)$, lalu substitusikan $x = 2$: $\\frac{x^2+2x+4}{x+2} = \\frac{4+4+4}{4} = \\frac{12}{4} = 3$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Identifikasi bentuk $\\frac{0}{0}$ saat $x \\to 2$:\n$$\\frac{2^3 - 8}{2^2 - 4} = \\frac{0}{0}$$\n\nLangkah 2: Memfaktorkan pembilang ($a^3 - b^3 = (a-b)(a^2+ab+b^2)$) dan penyebut ($a^2 - b^2 = (a-b)(a+b)$):\n$$\\lim_{x \\to 2} \\frac{(x - 2)(x^2 + 2x + 4)}{(x - 2)(x + 2)}$$\n\nLangkah 3: Mengeliminasi faktor $(x - 2)$ dan mensubstitusikan $x = 2$:\n$$\\lim_{x \\to 2} \\frac{x^2 + 2x + 4}{x + 2} = \\frac{2^2 + 2(2) + 4}{2 + 2} = \\frac{4 + 4 + 4}{4} = \\frac{12}{4} = 3$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "plot",
             "f": "(Math.pow(x, 3) - 8)/(Math.pow(x, 2) - 4)",
@@ -10005,7 +10005,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 5"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Substitusi $x = 1$ memberi $\\frac{1+2-3}{1-1} = \\frac{0}{0}$, bentuk tak tentu.\n\nLangkah 2: Faktorkan pembilang. Dicari dua bilangan yang hasil kalinya $-3$ dan jumlahnya $2$, yaitu $3$ dan $-1$: $x^2+2x-3 = (x-1)(x+3)$.\n\nLangkah 3: Coret faktor $(x-1)$, lalu substitusikan $x = 1$: $\\lim_{x \\to 1}(x+3) = 1+3 = 4$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Substitusi langsung $x = 1$ menghasilkan bentuk tak tentu $\\frac{1 + 2 - 3}{1 - 1} = \\frac{0}{0}$.\n\nLangkah 2: Memfaktorkan pembilang persamaan kuadrat:\n$$x^2 + 2x - 3 = (x - 1)(x + 3)$$\n\nLangkah 3: Mengeliminasi faktor $(x - 1)$ dan mengevaluasi limit:\n$$\\lim_{x \\to 1} \\frac{(x - 1)(x + 3)}{x - 1} = \\lim_{x \\to 1} (x + 3) = 1 + 3 = 4$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "plot",
             "f": "(Math.pow(x, 2) + 2*x - 3)/(x - 1)",
@@ -10028,7 +10028,7 @@ const NAMA_TINGKAT = 'XII';
             "Metode pemfaktoran bertujuan mengeliminasi faktor pembuat nol (x - c)"
           ],
           "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSubstitusi langsung menghasilkan $0/0$ mengindikasikan adanya nilai limit riil setelah pemfaktoran / perkalian sekawan / L'Hopital.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$\\lim_{x\\to 2} \\frac{(x-2)(x+2)}{x-2} = \\lim_{x\\to 2} (x+2) = 4$, bukan 0.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nFaktor $(x-c)$ adalah penyebab pembilang dan penyebut bernilai 0.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBentuk $0/0$ pada substitusi langsung merupakan bentuk tak tentu yang memerlukan manipulasi aljabar (faktorisasi, rasionalisasi sekawan, atau aturan L'Hopital).\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2} = \\lim_{x \\to 2} (x + 2) = 4$, bukan 0.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nMetode pemfaktoran bertujuan mengeliminasi faktor persekutuan pembuat nol $(x - c)$ dari pembilang dan penyebut.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
         },
         {
           "no": 6,
@@ -10044,7 +10044,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 5"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Substitusi $x = 5$ memberi $\\frac{25-25}{5-5} = \\frac{0}{0}$, sehingga perlu difaktorkan.\n\nLangkah 2: Gunakan selisih dua kuadrat pada pembilang: $x^2 - 25 = (x-5)(x+5)$.\n\nLangkah 3: Coret faktor $(x-5)$, lalu substitusikan $x = 5$: $\\lim_{x \\to 5}(x+5) = 5+5 = 10$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Memfaktorkan selisih dua kuadrat pada pembilang:\n$$x^2 - 25 = (x - 5)(x + 5)$$\n\nLangkah 2: Menyederhanakan pecahan limit:\n$$\\lim_{x \\to 5} \\frac{(x - 5)(x + 5)}{x - 5} = \\lim_{x \\to 5} (x + 5)$$\n\nLangkah 3: Mensubstitusikan $x = 5$:\n$$5 + 5 = 10$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "plot",
             "f": "(Math.pow(x, 2) - 25)/(x - 5)",
@@ -10069,7 +10069,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 2"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Substitusi $x = 0$ memberi $\\frac{1-1}{0} = \\frac{0}{0}$. Bentuk memuat akar, jadi dipakai akar sekawan.\n\nLangkah 2: Kalikan dengan sekawan $\\left(\\sqrt{1+x}+\\sqrt{1-x}\\right)$. Pembilang menjadi $(1+x)-(1-x) = 2x$, sehingga bentuknya $\\frac{2x}{x\\left(\\sqrt{1+x}+\\sqrt{1-x}\\right)}$.\n\nLangkah 3: Coret faktor $x$, lalu substitusikan $x = 0$: $\\frac{2}{\\sqrt{1}+\\sqrt{1}} = \\frac{2}{2} = 1$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Mengalikan dengan bentuk sekawan $(\\sqrt{1 + x} + \\sqrt{1 - x})$:\n$$\\lim_{x \\to 0} \\frac{(\\sqrt{1+x} - \\sqrt{1-x})(\\sqrt{1+x} + \\sqrt{1-x})}{x(\\sqrt{1+x} + \\sqrt{1-x})} = \\lim_{x \\to 0} \\frac{(1 + x) - (1 - x)}{x(\\sqrt{1+x} + \\sqrt{1-x})}$$\n\nLangkah 2: Menyederhanakan pembilang:\n$$\\frac{2x}{x(\\sqrt{1+x} + \\sqrt{1-x})} = \\frac{2}{\\sqrt{1+x} + \\sqrt{1-x}}$$\n\nLangkah 3: Mensubstitusikan $x = 0$:\n$$\\frac{2}{\\sqrt{1+0} + \\sqrt{1-0}} = \\frac{2}{1 + 1} = \\frac{2}{2} = 1$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "plot",
             "f": "x*(-Math.sqrt(1 - x) + Math.sqrt(x + 1))",
@@ -10094,7 +10094,7 @@ const NAMA_TINGKAT = 'XII';
             "E. limit x->2 (x^2 - 4) / (x + 2) = 4."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$\\lim \\frac{(x-1)(x+3)}{x-1} = 1+3 = 4$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$\\lim (x+3) = 6$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$\\lim \\frac{1}{\\sqrt{x}+2} = \\frac{1}{2+2} = 1/4$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$\\lim (x^2+5) = 5$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nBukan bentuk tak tentu: $\\frac{2^2 - 4}{2 + 2} = \\frac{0}{4} = 0$, bukan 4.\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "bahas": "Langkah 1: Evaluasi seluruh pernyataan nilai limit:\n- A: $\\lim_{x\\to 1} \\frac{x^2+2x-3}{x-1} = 4$ (BENAR).\n- B: $\\lim_{x\\to 3} \\frac{x^2-9}{x-3} = 6$ (BENAR).\n- C: $\\lim_{x\\to 4} \\frac{\\sqrt{x}-2}{x-4} = \\frac{1}{4}$ (BENAR).\n- D: $\\lim_{x\\to 0} \\frac{x(x^2+5)}{x} = 5$ (BENAR).\n- E: $\\lim_{x\\to 2} \\frac{x^2-4}{x+2} = \\frac{0}{4} = 0$, bukan 4 (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -10110,7 +10110,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 20√5"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Substitusi $x = 5$ memberi $\\frac{0}{0}$. Penyebut memuat akar, jadi kalikan dengan sekawannya.\n\nLangkah 2: Kalikan pembilang dan penyebut dengan $\\left(\\sqrt{x}+\\sqrt{5}\\right)$. Penyebut menjadi $x - 5$, sehingga bentuknya $\\frac{(x-5)(x+5)\\left(\\sqrt{x}+\\sqrt{5}\\right)}{x-5}$ setelah pembilang difaktorkan.\n\nLangkah 3: Coret faktor $(x-5)$, lalu substitusikan $x = 5$: $(5+5)\\left(\\sqrt{5}+\\sqrt{5}\\right) = 10 \\cdot 2\\sqrt{5} = 20\\sqrt{5}$.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Mengalikan dengan sekawan penyebut $(\\sqrt{x} + \\sqrt{5})$:\n$$\\lim_{x \\to 5} \\frac{(x^2 - 25)(\\sqrt{x} + \\sqrt{5})}{(\\sqrt{x} - \\sqrt{5})(\\sqrt{x} + \\sqrt{5})} = \\lim_{x \\to 5} \\frac{(x - 5)(x + 5)(\\sqrt{x} + \\sqrt{5})}{x - 5}$$\n\nLangkah 2: Mengeliminasi $(x - 5)$:\n$$\\lim_{x \\to 5} (x + 5)(\\sqrt{x} + \\sqrt{5})$$\n\nLangkah 3: Mensubstitusikan $x = 5$:\n$$(5 + 5)(\\sqrt{5} + \\sqrt{5}) = 10 \\times 2\\sqrt{5} = 20\\sqrt{5}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "plot",
             "f": "(Math.sqrt(x) - Math.sqrt(5))*(Math.pow(x, 2) - 25)",
@@ -10129,7 +10129,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P10-Q10] Nilai dari $\\lim_{x \\to 2} \\frac{x^2 - 5x + 6}{x - 2}$ adalah ...",
           "opsi": [],
           "kunci": "-1",
-          "bahas": "Langkah 1: Substitusi $x = 2$ memberi $\\frac{4-10+6}{2-2} = \\frac{0}{0}$, bentuk tak tentu.\n\nLangkah 2: Faktorkan pembilang. Dicari dua bilangan yang hasil kalinya $6$ dan jumlahnya $-5$, yaitu $-2$ dan $-3$: $x^2-5x+6 = (x-2)(x-3)$.\n\nLangkah 3: Coret faktor $(x-2)$, lalu substitusikan $x = 2$: $\\lim_{x \\to 2}(x-3) = 2-3 = -1$.\nKesimpulan: Kunci Jawaban -1.",
+          "bahas": "Langkah 1: Memfaktorkan pembilang persamaan kuadrat $x^2 - 5x + 6$:\n$$x^2 - 5x + 6 = (x - 2)(x - 3)$$\n\nLangkah 2: Mengeliminasi faktor pembuat nol $(x - 2)$:\n$$\\lim_{x \\to 2} \\frac{(x - 2)(x - 3)}{x - 2} = \\lim_{x \\to 2} (x - 3)$$\n\nLangkah 3: Mensubstitusikan $x = 2$:\n$$2 - 3 = -1$$\nKesimpulan: Kunci Jawaban -1.",
           "viz": {
             "t": "plot",
             "f": "(Math.pow(x, 2) - 5*x + 6)/(x - 2)",
