@@ -4837,18 +4837,16 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     function renderSlide8PedagogyBody(m, isClil, selectedKey) {
       const ped = PEDAGOGY_METHODS[selectedKey] || PEDAGOGY_METHODS['vnps'] || PEDAGOGY_METHODS['tps'];
-      const keys = ['vnps', 'tps', 'gallery_walk', 'jigsaw', 'rally_coach', 'nht'];
+      const keys = ['vnps', 'tps', 'rally_coach', 'gallery_walk', 'jigsaw'];
 
       const title = isClil ? (ped.title_en || ped.title) : ped.title;
       const badge = isClil ? (ped.badge_en || ped.badge) : ped.badge;
-      const tag = isClil ? (ped.tag_en || ped.tag) : ped.tag;
       const steps = isClil ? (ped.steps_en || ped.steps) : ped.steps;
       const tip = isClil ? (ped.tip_en || ped.tip) : ped.tip;
 
-      // Active level tab inside the problem arena (default to 0)
       if (window._collabActiveLevel === undefined) window._collabActiveLevel = 0;
 
-      // Method Switcher Buttons
+      // Method Switcher Buttons (Sleek & Clean)
       const switcherHtml = keys.map(k => {
         const item = PEDAGOGY_METHODS[k];
         if (!item) return '';
@@ -4858,69 +4856,49 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           ? 'bg-blue-600 text-white font-bold shadow-md border-blue-500' 
           : 'bg-[#060D1A] text-slate-400 hover:text-white border-blue-900/60';
         return `
-          <button onclick="switchSlidePedagogy('${k}')" class="px-3 py-1 rounded-xl text-xs transition border flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${activeClass}">
-            <i class="${item.icon} text-amber-400 text-xs"></i>
+          <button onclick="switchSlidePedagogy('${k}')" class="px-2.5 py-1 rounded-xl text-[11px] transition border flex items-center gap-1.5 whitespace-nowrap cursor-pointer shrink-0 ${activeClass}">
+            <i class="${item.icon} text-amber-400 text-[10px]"></i>
             <span>${displayName}</span>
           </button>
         `;
       }).join('');
 
-      // 4 Syntax Rules in Strict Blue & Gold
-      const cardsHtml = steps.map((step, sIdx) => {
-        const isGold = (sIdx % 2 === 1);
-        return `
-          <div class="p-2.5 rounded-xl bg-[#060D1A] border border-blue-900/60 space-y-1 shadow-sm">
-            <div class="flex items-center gap-1.5 font-mono font-bold text-[11px] leading-tight ${isGold ? 'text-amber-300' : 'text-blue-300'}">
-              <i class="${step.icon} text-[10px]"></i> <span>${step.num}</span>
-            </div>
-            <p class="text-[11px] text-slate-300 leading-snug">${step.text}</p>
-          </div>
-        `;
-      }).join('');
-
-      // Method-Specific Adaptive Task Configuration & Badges
+      // Method-Specific Configuration
       const METHOD_CONFIG = {
         'jigsaw': {
-          title: isClil ? '5 Expert Sub-Problem Stations (Cases A to E):' : '5 Sub-Kasus Meja Ahli Jigsaw (Kasus A s.d. E):',
+          title: isClil ? 'Jigsaw Expert Stations' : 'Sub-Kasus Meja Ahli Jigsaw',
           count: 5,
-          labels: isClil 
-            ? ['Station A (Theory)', 'Station B (Algebaic)', 'Station C (Analysis)', 'Station D (Applied)', 'Station E (HOTS Proof)']
-            : ['Meja Ahli A (Teori)', 'Meja Ahli B (Aljabar)', 'Meja Ahli C (Analisis)', 'Meja Ahli D (Terapan)', 'Meja Ahli E (HOTS)']
+          labels: isClil ? ['Case A (Theory)', 'Case B (Algebra)', 'Case C (Analysis)', 'Case D (Applied)', 'Case E (HOTS)'] : ['Meja A (Teori)', 'Meja B (Aljabar)', 'Meja C (Analisis)', 'Meja D (Terapan)', 'Meja E (HOTS)'],
+          hint: isClil ? 'Discuss and master your assigned case before returning to your home group.' : 'Diskusikan dan kuasai sub-kasus kelompok ahli sebelum kembali ke kelompok asal.',
+          protocolTitle: isClil ? 'Jigsaw Expert Protocol:' : 'Alur Kerja Kelompok Ahli:'
         },
         'rally_coach': {
-          title: isClil ? '3 Rally Coach Problems (Partner A & Partner B):' : '3 Soal Alur Rally Coach (Partner A & Partner B):',
+          title: isClil ? 'Rally Coach Problem Flow' : 'Alur Masalah Rally Coach',
           count: 3,
-          labels: isClil 
-            ? ['Partner A Solves', 'Partner B Solves', 'Joint Validation']
-            : ['Partner A Kerjakan', 'Partner B Kerjakan', 'Verifikasi Bersama']
+          labels: isClil ? ['Problem 1: Partner A', 'Problem 2: Partner B', 'Problem 3: Joint Validation'] : ['Soal 1: Giliran Partner A', 'Soal 2: Giliran Partner B', 'Soal 3: Verifikasi Bersama'],
+          hint: isClil ? 'Partner A speaks aloud every step while Partner B coaches and encourages.' : 'Partner A bersuara lantang menjelaskan alur logika, Partner B menyimak dan melatih.',
+          protocolTitle: isClil ? 'Rally Coach Protocol:' : 'Panduan Alur Rally Coach:'
         },
         'tps': {
-          title: isClil ? '3 Think-Pair-Share Structured Phases:' : '3 Tahapan Eksplorasi Think-Pair-Share:',
+          title: isClil ? 'Think-Pair-Share Phases' : 'Tahapan Think-Pair-Share',
           count: 3,
-          labels: isClil 
-            ? ['Phase 1 • Think', 'Phase 2 • Pair', 'Phase 3 • Share']
-            : ['Tahap 1 • Think', 'Tahap 2 • Pair', 'Tahap 3 • Share']
+          labels: isClil ? ['Phase 1 • Think', 'Phase 2 • Pair', 'Phase 3 • Share'] : ['Tahap 1 • Think (Mandiri)', 'Tahap 2 • Pair (Pasangan)', 'Tahap 3 • Share (Kelas)'],
+          hint: isClil ? 'Think silently first, then compare strategies with your partner.' : 'Pikirkan mandiri secara hening, lalu bandingkan strategi dengan pasangan sebangku.',
+          protocolTitle: isClil ? 'Think-Pair-Share Protocol:' : 'Sintaks Think-Pair-Share:'
         },
         'gallery_walk': {
-          title: isClil ? '3 Gallery Walk Station Problems:' : '3 Pos Stasiun Gallery Walk:',
+          title: isClil ? 'Gallery Walk Poster Stations' : 'Pos Stasiun Gallery Walk',
           count: 3,
-          labels: isClil 
-            ? ['Station 1 (Poster A)', 'Station 2 (Poster B)', 'Station 3 (Poster C)']
-            : ['Pos 1 (Poster A)', 'Pos 2 (Poster B)', 'Pos 3 (Poster C)']
-        },
-        'nht': {
-          title: isClil ? '3 Numbered Heads Together Problems:' : '3 Kasus Penyelidikan Numbered Heads Together:',
-          count: 3,
-          labels: isClil 
-            ? ['Case 1 (No 1 & 2)', 'Case 2 (No 3 & 4)', 'Case 3 (All Numbers)']
-            : ['Kasus 1 (No 1 & 2)', 'Kasus 2 (No 3 & 4)', 'Kasus 3 (Semua Nomor)']
+          labels: isClil ? ['Station 1 (Poster A)', 'Station 2 (Poster B)', 'Station 3 (Poster C)'] : ['Pos 1 (Poster A)', 'Pos 2 (Poster B)', 'Pos 3 (Poster C)'],
+          hint: isClil ? 'Rotate posters clockwise every 4 minutes and leave sticky notes feedback.' : 'Rotasi poster searah jarum jam tiap 4 menit dan berikan catatan umpan balik.',
+          protocolTitle: isClil ? 'Gallery Walk Protocol:' : 'Panduan Stasiun Poster:'
         },
         'vnps': {
-          title: isClil ? '3 Vertical Surfaces Standing Team Challenges:' : '3 Level Tantangan Berdiri di Papan Vertikal (VNPS):',
+          title: isClil ? 'Vertical Surfaces Team Challenge' : 'Tantangan Papan Tulis Vertikal',
           count: 3,
-          labels: isClil 
-            ? ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS']
-            : ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS']
+          labels: isClil ? ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS'] : ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS'],
+          hint: isClil ? 'All members stand actively. 1 marker rotates among members.' : 'Semua anggota berdiri aktif. 1 spidol wajib bergantian antar anggota tim.',
+          protocolTitle: isClil ? 'VNPS Rules (Building Thinking Classrooms):' : '4 Aturan Main Papan Vertikal (VNPS):'
         }
       };
 
@@ -4934,7 +4912,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const activeQIdx = window._collabActiveLevel;
       const rawQ = questionsList[activeQIdx] || questionsList[0] || 'Diskusikan strategi penyelesaian bersama kelompok.';
       const cleanActiveQ = rawQ.replace(/^\[[A-Za-z0-9_.-]+\]\s*/, '').replace(/^(?:Kelompok\s+[A-Za-z0-9_]+|Tantangan\s+\d+|Soal\s+[A-Z0-9]+|Kasus\s+[A-Z0-9]+|Level\s+\d+|Babak\s+\d+|Meja\s+Ahli\s+[A-Z]|Pos\s+\d+|Stasiun\s+\d+)\s*:\s*/i, '');
-      const activeLabel = taskCfg.labels[activeQIdx] || `Level ${activeQIdx + 1}`;
+      const activeLabel = taskCfg.labels[activeQIdx] || `Tantangan ${activeQIdx + 1}`;
 
       // Level Tabs
       const levelTabsHtml = questionsList.map((q, qIdx) => {
@@ -4944,85 +4922,97 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           'bg-blue-600 text-white font-bold shadow' : 
           'text-slate-400 hover:text-white';
         return `
-          <button onclick="window._collabActiveLevel = ${qIdx}; renderAppView();" class="px-3 py-1 rounded-lg text-xs font-mono transition cursor-pointer ${tabClass}">
+          <button onclick="window._collabActiveLevel = ${qIdx}; renderAppView();" class="px-2.5 py-0.5 rounded-md text-[11px] font-mono transition cursor-pointer ${tabClass}">
             ${lbl}
           </button>
         `;
       }).join('');
 
+      // 4 Protocol Steps (Clean & Compact)
+      const cardsHtml = steps.slice(0, 4).map((step, sIdx) => {
+        const isGold = (sIdx % 2 === 1);
+        return `
+          <div class="p-2 rounded-xl bg-[#081324] border border-blue-900/60 flex items-start gap-2 shadow-sm">
+            <span class="w-5 h-5 rounded-md ${isGold ? 'bg-amber-500/20 text-amber-300' : 'bg-blue-600/30 text-blue-300'} font-bold flex items-center justify-center shrink-0 font-mono text-[10px]">
+              ${sIdx + 1}
+            </span>
+            <div class="text-[10px] text-slate-300 leading-tight">
+              <strong class="${isGold ? 'text-amber-300' : 'text-white'}">${step.num.replace(/^\d+\.\s*/, '')}:</strong> ${step.text}
+            </div>
+          </div>
+        `;
+      }).join('');
+
       return `
-        <div class="h-full min-h-0 flex flex-col gap-3 p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl overflow-hidden">
+        <div class="h-full min-h-0 flex flex-col justify-between gap-3 p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl overflow-hidden">
           
-          <!-- TOP HEADER & COMPACT METHOD SWITCHER -->
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5 border-b border-blue-900/80 pb-3 shrink-0">
-            <div class="flex items-center gap-2.5 min-w-0">
-              <span class="px-3 py-1 bg-blue-600/30 text-amber-400 text-xs font-mono font-bold rounded-xl border border-blue-500/40 shrink-0 flex items-center gap-1.5">
-                <i class="${ped.icon}"></i> ${badge}
+          <!-- TOP HEADER BAR (CLEAN, NO OVERLAPPING) -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-900/80 pb-2.5 shrink-0">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="px-2.5 py-1 bg-blue-600 text-white text-xs font-bold rounded-xl shadow-sm flex items-center gap-1.5 shrink-0">
+                <i class="${ped.icon} text-amber-300"></i> ${badge}
               </span>
-              <div class="truncate min-w-0">
-                <h3 class="text-xs md:text-sm font-black text-white tracking-wide truncate">${title}</h3>
-                <p class="text-[10px] text-slate-400 font-mono truncate">${tag}</p>
-              </div>
+              <span class="text-xs md:text-sm font-bold text-white truncate">${title}</span>
             </div>
 
-            <!-- METHOD SWITCHER BAR -->
+            <!-- METHOD SELECTOR PILLS -->
             <div class="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 shrink-0">
               ${switcherHtml}
             </div>
           </div>
 
-          <!-- MAIN WORKSPACE: HERO PROBLEM (7/12) + SYNTAX DOCK (5/12) -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-0 items-stretch">
+          <!-- MAIN 2-COLUMN BALANCED WORKSPACE (SIDE-BY-SIDE 7:5) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 flex-1 min-h-0 items-stretch">
             
-            <!-- LEFT: HERO PROBLEM ARENA (ZERO SCROLLBAR!) -->
-            <div class="lg:col-span-7 p-5 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-4">
-              <div class="space-y-3">
+            <!-- LEFT COLUMN: PROBLEM ARENA (7/12) -->
+            <div class="lg:col-span-7 p-4 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3">
+              <div class="space-y-2.5">
                 <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
                   <span class="text-xs font-bold text-amber-300 font-mono flex items-center gap-1.5">
-                    <i class="fa-solid fa-fire text-amber-400"></i> ${activeLabel}
+                    <i class="fa-solid fa-pen-to-square text-amber-400"></i> ${activeLabel}
                   </span>
                   <!-- LEVEL SWITCHER TABS -->
-                  <div class="flex items-center bg-[#050B14] p-0.5 rounded-xl border border-blue-900/60">
+                  <div class="flex items-center bg-[#050B14] p-0.5 rounded-lg border border-blue-900/60">
                     ${levelTabsHtml}
                   </div>
                 </div>
 
-                <div class="text-sm md:text-base font-semibold text-white leading-relaxed">
+                <div class="text-xs md:text-sm font-semibold text-white leading-relaxed">
                   ${cleanActiveQ}
                 </div>
               </div>
 
-              <!-- COLLABORATIVE HINT ACCORDION -->
-              <div class="p-3 bg-[#050B14] rounded-xl border border-blue-900/50 flex items-center justify-between text-xs text-slate-300 shrink-0">
-                <div class="flex items-center gap-2">
-                  <i class="fa-solid fa-lightbulb text-amber-400 text-sm shrink-0"></i>
-                  <span class="font-medium text-[11px] text-slate-200">Diskusikan strategi dan selesaikan bersama di papan tulis vertikal.</span>
+              <!-- COLLABORATIVE HINT PILL -->
+              <div class="p-2.5 bg-[#050B14] rounded-xl border border-blue-900/50 flex items-center justify-between text-xs text-slate-300 shrink-0">
+                <div class="flex items-center gap-2 min-w-0 truncate">
+                  <i class="fa-solid fa-lightbulb text-amber-400 text-xs shrink-0"></i>
+                  <span class="text-[11px] text-slate-300 truncate">${taskCfg.hint}</span>
                 </div>
-                <span class="text-[10px] font-mono text-amber-300 font-bold shrink-0">1 Spidol Bergantian</span>
+                <span class="text-[10px] font-mono text-amber-300 font-bold bg-[#081324] px-2 py-0.5 rounded border border-blue-900 shrink-0 ml-2">Kolaborasi Aktif</span>
               </div>
             </div>
 
-            <!-- RIGHT: VNPS RULES & TIMER DOCK -->
-            <div class="lg:col-span-5 p-4 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between space-y-3">
+            <!-- RIGHT COLUMN: PROTOCOL RULES & INTEGRATED TIMER (5/12) -->
+            <div class="lg:col-span-5 p-3.5 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between space-y-2.5">
               
-              <!-- 4 RULES (COMPACT 2x2 GRID) -->
-              <div class="space-y-2">
-                <span class="text-xs font-bold text-amber-400 font-mono uppercase tracking-wider block border-b border-blue-900/60 pb-1.5">
-                  <i class="fa-solid fa-list-check"></i> 4 Aturan Main Papan Vertikal:
+              <!-- 4 PROTOCOL STEPS -->
+              <div class="space-y-1.5">
+                <span class="text-[11px] font-bold text-amber-400 font-mono uppercase tracking-wider block border-b border-blue-900/60 pb-1">
+                  <i class="fa-solid fa-list-check mr-1"></i> ${taskCfg.protocolTitle}
                 </span>
-                <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <div class="space-y-1.5">
                   ${cardsHtml}
                 </div>
               </div>
 
-              <!-- TIMER WIDGET -->
-              <div class="p-3 bg-[#081324] rounded-xl border border-blue-900/70 flex items-center justify-between gap-2 shrink-0">
-                <div class="flex items-center gap-2.5 font-mono">
-                  <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30 shrink-0">
+              <!-- STOPWATCH TIMER WIDGET -->
+              <div class="p-2.5 bg-[#081324] rounded-xl border border-blue-900/70 flex items-center justify-between gap-2 shrink-0">
+                <div class="flex items-center gap-2 font-mono">
+                  <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs border border-amber-500/30 shrink-0">
                     <i class="fa-solid fa-stopwatch"></i>
                   </span>
                   <div>
-                    <span id="btc-timer-display" class="text-base font-black text-white tracking-widest block leading-tight">15:00</span>
+                    <span id="btc-timer-display" class="text-sm font-black text-white tracking-widest block leading-tight">15:00</span>
                     <span class="text-[9px] text-slate-400 uppercase">Waktu Diskusi</span>
                   </div>
                 </div>
@@ -5037,10 +5027,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
           </div>
 
-          <!-- TEACHER FACILITATION TIP -->
-          <div class="px-3.5 py-2 bg-[#060D1A] rounded-xl border border-blue-900/60 text-[11px] text-amber-300/90 font-medium flex items-center gap-2 shrink-0">
+          <!-- BOTTOM TEACHER FACILITATION FOOTER -->
+          <div class="px-3.5 py-1.5 bg-[#060D1A] rounded-xl border border-blue-900/60 text-[11px] text-amber-300/90 font-medium flex items-center gap-2 shrink-0">
             <i class="fa-solid fa-chalkboard-user text-amber-400 text-xs shrink-0"></i>
-            <span class="truncate">${tip}</span>
+            <span class="truncate">💡 <strong>Tips Guru:</strong> ${tip}</span>
           </div>
 
         </div>
