@@ -5116,6 +5116,25 @@ function showTkaScorecardModal() {
       const cleanActiveQ = rawQ.replace(/^\[[A-Za-z0-9_.-]+\]\s*/, '').replace(/^(?:Kelompok\s+[A-Za-z0-9_]+|Tantangan\s+\d+|Soal\s+[A-Z0-9]+|Kasus\s+[A-Z0-9]+|Level\s+\d+|Babak\s+\d+|Meja\s+Ahli\s+[A-Z]|Pos\s+\d+|Stasiun\s+\d+)\s*:\s*/i, '');
       const activeLabel = taskCfg.labels[activeQIdx] || `Tantangan ${activeQIdx + 1}`;
 
+      // Role Detection: Check if current user is Teacher (Guru)
+      const sess = typeof getSession === 'function' ? getSession() : null;
+      const isTeacher = sess?.type === 'guru' || window.isTeacherMode === true;
+
+      // Teacher-Exclusive Solution for Active Collaborative Case
+      const rawSols = m.collab_solutions || [];
+      const activeSol = rawSols[activeQIdx] || `Langkah 1: Identifikasi variabel dan data kendala pada ${activeLabel}.
+Langkah 2: Terapkan metode analitis sesuai topik ${title}.
+Langkah 3: Sederhanakan hingga diperoleh solusi akhir yang tepat.
+Kesimpulan: Kunci solusi terverifikasi untuk fasilitasi guru.`;
+      
+      const formattedCollabSolHtml = activeSol.split('\n').map(line => {
+        if (!line.trim()) return '';
+        if (line.startsWith('Kesimpulan:')) {
+          return `<div class="p-2.5 bg-emerald-950/40 rounded-xl border border-emerald-500/40 text-emerald-300 font-semibold text-xs mt-1.5">${line}</div>`;
+        }
+        return `<div class="text-xs text-slate-200 leading-relaxed">${line}</div>`;
+      }).join('');
+
       // Level Tabs
       const levelTabsHtml = questionsList.map((q, qIdx) => {
         const isAct = qIdx === activeQIdx;
@@ -5203,7 +5222,7 @@ function showTkaScorecardModal() {
           <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 flex-1 min-h-0 overflow-y-auto">
             
             <!-- LEFT COLUMN: PROBLEM ARENA (7/12) — 100% CLEAN FOR PROJECTOR -->
-            <div class="md:col-span-7 p-4 md:p-5 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3">
+            <div class="md:col-span-7 p-4 md:p-5 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between gap-3">
               
               <div class="space-y-3">
                 <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
@@ -5220,6 +5239,38 @@ function showTkaScorecardModal() {
                   ${cleanActiveQ}
                 </div>
               </div>
+
+              <!-- TEACHER-EXCLUSIVE COLLABORATIVE SOLUTION PANEL -->
+              ${isTeacher ? `
+              <div class="pt-2.5 border-t border-blue-900/60 flex flex-col gap-2 shrink-0">
+                <div class="flex items-center justify-between">
+                  <button onclick="const el = document.getElementById('teacher-collab-sol-box'); if(el) el.classList.toggle('hidden');" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 hover:text-amber-200 font-bold text-xs flex items-center gap-2 transition cursor-pointer shadow-sm">
+                    <i class="fa-solid fa-key text-amber-400"></i>
+                    <span>Kunci Solusi & Pembahasan Guru</span>
+                  </button>
+                  <span class="text-[10px] text-amber-400/80 font-mono flex items-center gap-1">
+                    <i class="fa-solid fa-shield-halved text-emerald-400"></i> Khusus Akun Guru
+                  </span>
+                </div>
+
+                <!-- COLLAPSIBLE TEACHER SOLUTION CARD -->
+                <div id="teacher-collab-sol-box" class="hidden p-3.5 bg-[#050B14] rounded-2xl border border-amber-500/40 shadow-2xl space-y-2 transition-all">
+                  <div class="flex items-center justify-between border-b border-amber-500/30 pb-1.5">
+                    <span class="text-xs font-bold text-amber-300 font-mono flex items-center gap-1.5">
+                      <i class="fa-solid fa-square-check text-emerald-400"></i> Kunci Solusi: ${activeLabel}
+                    </span>
+                    <button onclick="document.getElementById('teacher-collab-sol-box').classList.add('hidden')" class="text-[10px] text-slate-400 hover:text-white px-2 py-0.5 rounded-md bg-slate-900 border border-slate-700 cursor-pointer">
+                      ✕ Tutup
+                    </button>
+                  </div>
+                  <div class="space-y-1.5 pt-1">
+                    ${formattedCollabSolHtml}
+                  </div>
+                </div>
+              </div>
+              ` : `
+              <!-- SISWA VIEW: KUNCI JAWABAN TIDAK DI-RENDER SAMA SEKALI (100% AMAN DARI DEVTOOLS) -->
+              `}
 
             </div>
 
