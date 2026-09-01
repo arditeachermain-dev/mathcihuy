@@ -619,9 +619,9 @@
         const btn = document.getElementById('tab-' + m);
         if (btn) {
           if (m === currentMode) {
-            btn.className = "px-2.5 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap bg-blue-600 text-white shadow font-black";
+            btn.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition whitespace-nowrap bg-blue-600 text-white shadow flex items-center gap-1.5";
           } else {
-            btn.className = "px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap text-slate-300 hover:text-white";
+            btn.className = "px-2.5 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1";
           }
         }
       });
@@ -1578,18 +1578,24 @@
             return;
         }
 
-        // Inject user info di header
+        // Inject user info di header (clean modern pill & logout)
         const userInfoEl = document.getElementById('user-info-header');
         if (userInfoEl) {
             if (sess.type === 'siswa') {
                 userInfoEl.innerHTML = `
-                    <span class="text-xs text-slate-400">${sess.data.name} (${sess.data.nis})</span>
-                    <button onclick="logoutSession()" class="text-xs px-2 py-1 bg-red-500/20 hover:bg-red-500/40 text-red-400 rounded">Logout</button>
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300 font-mono">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                        <span class="font-bold text-slate-200">${sess.data.name}</span>
+                    </div>
+                    <button onclick="logoutSession()" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl border border-slate-800 transition cursor-pointer" title="Logout"><i class="fa-solid fa-power-off text-xs"></i></button>
                 `;
             } else {
                 userInfoEl.innerHTML = `
-                    <span class="text-xs text-emerald-400">GURU: ${sess.data.username}</span>
-                    <button onclick="logoutSession()" class="text-xs px-2 py-1 bg-red-500/20 hover:bg-red-500/40 text-red-400 rounded">Logout</button>
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300 font-mono">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="font-bold text-emerald-400">GURU: ${sess.data.username}</span>
+                    </div>
+                    <button onclick="logoutSession()" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl border border-slate-800 transition cursor-pointer" title="Logout"><i class="fa-solid fa-power-off text-xs"></i></button>
                 `;
             }
         }

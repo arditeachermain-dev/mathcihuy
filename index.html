@@ -56,104 +56,89 @@
 
 
   <!-- TOP HEADER WITH LOGO, SUBJECT TABS, & LUXURY CONTROLS -->
-  <header id="app-header" class="h-14 md:h-16 border-b border-[#1a2f4a] px-3 md:px-6 flex items-center justify-between z-40 shrink-0 sticky top-0" style="background: rgba(6,15,30,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+  <header id="app-header" class="h-14 md:h-15 border-b border-slate-800/90 px-3 md:px-5 flex items-center justify-between gap-2 z-40 shrink-0 sticky top-0 bg-[#070D18]/95 backdrop-blur-md shadow-md">
     
     <!-- LEFT: DRAWER MENU TOGGLE & SCHOOL IDENTITY -->
-    <div class="flex items-center gap-2 md:gap-3 min-w-0 shrink-0 md:shrink">
-      <!-- SIDEBAR DRAWER TOGGLE BUTTON -->
-      <button onclick="toggleCurriculumDrawer()" aria-label="Buka menu kurikulum" class="laci-hanya-sempit p-2 md:px-3 md:py-2 bg-[#0D1A2E] hover:bg-slate-800 border border-[#1a2f4a] text-amber-400 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95 shadow shrink-0" title="Buka Menu Navigasi Kurikulum (Alt + M)">
-        <i class="fa-solid fa-bars-staggered text-sm"></i>
-        <span class="hidden lg:inline text-xs font-black">Menu Kurikulum</span>
+    <div class="flex items-center gap-2.5 shrink-0">
+      <button onclick="toggleCurriculumDrawer()" aria-label="Buka menu kurikulum" class="p-2 md:px-2.5 md:py-1.5 bg-slate-900/90 hover:bg-slate-800 text-amber-400 border border-slate-800 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95 shadow-sm shrink-0 cursor-pointer" title="Buka Menu Navigasi Kurikulum (Alt + M)">
+        <i class="fa-solid fa-bars-staggered text-xs"></i>
+        <span class="hidden xl:inline text-[11px] font-bold">Silabus</span>
       </button>
 
-      <div class="hidden md:flex items-center gap-2 cursor-pointer min-w-0 overflow-hidden hdr-identitas" onclick="switchSubject('home')">
-        <span role="img" aria-label="Logo Math Cihuy" class="mc-logo h-8 w-8 md:h-9 md:w-9 object-contain shrink-0"></span>
+      <div class="flex items-center gap-2 cursor-pointer min-w-0 overflow-hidden" onclick="switchSubject('home')">
+        <span role="img" aria-label="Logo Math Cihuy" class="mc-logo h-7 w-7 md:h-8 md:w-8 object-contain shrink-0"></span>
         <div class="truncate min-w-0">
-          <h1 class="text-[11px] md:text-sm font-extrabold text-amber-400 tracking-wide truncate flex items-center gap-1.5 min-w-0">
-            <span class="truncate">MATH CIHUY</span>
-          </h1>
-          <p class="text-[11px] md:text-xs text-slate-400 font-semibold truncate">
-            <span id="header-subject-label" class="text-amber-400 font-bold">Beranda Portal</span>
-            <span class="text-slate-600 hidden 2xl:inline"> • </span>
-            <span class="text-slate-400 hidden 2xl:inline">M. Ardiansyah, S.Pd.Gr.</span>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-xs md:text-sm font-black text-white tracking-wide truncate">MATHCIHUY</h1>
+            <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">XII</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-medium truncate max-w-[120px] md:max-w-[200px]" id="header-subject-label">
+            Beranda Portal
           </p>
         </div>
       </div>
     </div>
 
     <!-- CENTER: NAVIGATION TABS (BERANDA + 4 MATH STREAMS) -->
-    <div class="flex items-center gap-1 md:gap-2 min-w-0 flex-1 justify-center">
-      <div class="flex items-center bg-[#071527] p-1 rounded-xl border border-slate-800 shadow-inner max-w-full overflow-x-auto no-scrollbar">
-        <button onclick="switchSubject('home')" id="tab-home" class="px-2.5 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap bg-blue-600 text-white shadow font-black">
-          <i class="fa-solid fa-house mr-1"></i> <span class="hidden sm:inline">Beranda</span>
+    <div class="flex items-center gap-1 min-w-0 flex-1 justify-center">
+      <div class="flex items-center bg-[#050B14] p-1 rounded-xl border border-slate-800/90 shadow-inner max-w-full overflow-x-auto no-scrollbar">
+        <button onclick="switchSubject('home')" id="tab-home" class="px-2.5 py-1 rounded-lg text-xs font-bold transition whitespace-nowrap bg-blue-600 text-white shadow flex items-center gap-1.5">
+          <i class="fa-solid fa-house text-[10px]"></i> <span class="hidden sm:inline">Beranda</span>
         </button>
-        <button onclick="switchSubject('wajib')" id="tab-wajib" class="px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap text-slate-300 hover:text-white">
-          <i class="fa-solid fa-shapes mr-1"></i> <span class="tab-awalan hidden 2xl:inline">Matematika </span>Wajib (21)
+        <button onclick="switchSubject('wajib')" id="tab-wajib" class="px-2.5 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1">
+          <i class="fa-solid fa-shapes text-[10px]"></i> <span>Wajib</span> <span class="text-[9px] font-mono px-1 py-0.2 rounded bg-slate-900 text-slate-400 border border-slate-800">21</span>
         </button>
-        <button onclick="switchSubject('minat')" id="tab-minat" class="px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap text-slate-300 hover:text-white">
-          <i class="fa-solid fa-infinity mr-1"></i> <span class="tab-awalan hidden 2xl:inline">Matematika </span>Minat (30)
+        <button onclick="switchSubject('minat')" id="tab-minat" class="px-2.5 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1">
+          <i class="fa-solid fa-chart-line text-[10px]"></i> <span>Minat</span> <span class="text-[9px] font-mono px-1 py-0.2 rounded bg-slate-900 text-slate-400 border border-slate-800">30</span>
         </button>
-        <button onclick="switchSubject('clil')" id="tab-clil" class="px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap text-slate-300 hover:text-white">
-          <i class="fa-solid fa-language mr-1"></i> CLIL (6)
+        <button onclick="switchSubject('clil')" id="tab-clil" class="px-2.5 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1">
+          <i class="fa-solid fa-globe text-[10px]"></i> <span>CLIL</span> <span class="text-[9px] font-mono px-1 py-0.2 rounded bg-slate-900 text-slate-400 border border-slate-800">6</span>
         </button>
-        <button onclick="switchSubject('tka')" id="tab-tka" class="px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-black transition whitespace-nowrap text-slate-300 hover:text-white">
-          <i class="fa-solid fa-crosshairs mr-1"></i> <span class="tab-awalan hidden 2xl:inline">Drilling </span>CBT (57)
+        <button onclick="switchSubject('tka')" id="tab-tka" class="px-2.5 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-emerald-400 flex items-center gap-1">
+          <i class="fa-solid fa-bolt text-[10px]"></i> <span>CBT</span> <span class="text-[9px] font-mono px-1 py-0.2 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">57</span>
         </button>
       </div>
     </div>
 
-    <!-- RIGHT: QUICK TOOLS & PREMIUM MODALS -->
-    <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
+    <!-- RIGHT: QUICK TOOLS & USER PROFILE -->
+    <div class="flex items-center gap-1.5 shrink-0">
       <!-- QUICK SEARCH BUTTON (CTRL + K) -->
-      <button onclick="openSearchModal()" class="px-2.5 py-1.5 md:px-3 md:py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition active:scale-95 shrink-0" title="Pencarian Cepat Materi & Rumus (Ctrl + K)">
-        <i class="fa-solid fa-magnifying-glass text-amber-400"></i>
-        <span class="hidden md:inline font-mono text-[11px] bg-slate-950 px-1.5 py-0.5 rounded border border-slate-700 text-slate-400">Ctrl K</span>
-      </button>
-
-      <!-- ACADEMIC SCHEDULE & UTBK 2027 TIMELINE -->
-      <button onclick="openScheduleModal()" class="p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-xs transition" title="Jadwal KBM & Agenda TKA / UTBK 2027">
-        <i class="fa-solid fa-calendar-check text-emerald-400"></i>
-      </button>
-
-      <!-- STUDENT LEARNING ANALYTICS -->
-      <button onclick="openAnalyticsModal()" class="p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-xs transition" title="Progres Belajar & Histori Nilai CBT">
-        <i class="fa-solid fa-chart-line text-blue-400"></i>
+      <button onclick="openSearchModal()" class="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition flex items-center gap-1.5 shadow-sm" title="Pencarian Materi & Rumus (Ctrl + K)">
+        <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
+        <span class="hidden lg:inline text-[10px] bg-slate-950 px-1.5 py-0.2 rounded border border-slate-800 text-slate-400">Ctrl K</span>
       </button>
 
       <!-- WHITEBOARD PEN TOOL -->
-      <button id="btn-pen" onclick="togglePenMode()" class="p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-xs font-bold transition" title="Mode Coretan / Spidol Digital">
-        <i class="fa-solid fa-pen"></i>
+      <button id="btn-pen" onclick="togglePenMode()" class="p-1.5 md:p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs transition" title="Spidol Digital (Whiteboard)">
+        <i class="fa-solid fa-pen text-xs"></i>
       </button>
 
-      <!-- UKURAN TAMPILAN (untuk berbagi layar) -->
-      <div class="hidden sm:flex items-center bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shrink-0" title="Perbesar tampilan untuk berbagi layar (Ctrl + tanda minus / plus)">
-        <button onclick="stepUiScale(-1)" aria-label="Perkecil tampilan" class="px-2 py-1.5 md:py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition font-bold">
-          <i class="fa-solid fa-magnifying-glass-minus text-xs"></i>
-        </button>
-        <span id="ui-scale-label" class="px-1.5 text-[11px] font-mono font-bold text-amber-400 tabular-nums select-none">100%</span>
-        <button onclick="stepUiScale(1)" aria-label="Perbesar tampilan" class="px-2 py-1.5 md:py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition font-bold">
-          <i class="fa-solid fa-magnifying-glass-plus text-xs"></i>
-        </button>
-      </div>
+      <!-- PWA INSTALL -->
+      <button onclick="pasangAplikasi()" id="pwa-btn" class="hidden items-center gap-1.5 px-2 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 rounded-xl text-xs font-medium transition" title="Pasang Aplikasi">
+        <i class="fa-solid fa-download text-xs text-emerald-400"></i>
+      </button>
+
+      <!-- USER INFO & LOGOUT -->
+      <div id="user-info-header" class="hidden sm:flex items-center gap-1.5 pl-1 border-l border-slate-800"></div>
+
+      <!-- TINGKAT BTN (GURU ONLY) -->
+      <a id="tingkat-btn" href="/11" class="hidden items-center gap-1 px-2 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 rounded-xl text-xs font-medium transition" title="Pindah ke Kelas XI">
+        <i class="fa-solid fa-arrow-right-arrow-left text-xs text-blue-400"></i><span class="hidden 2xl:inline text-[11px]">Kelas XI</span>
+      </a>
+
+      <!-- GURU DASHBOARD -->
+      <button onclick="openGuruDashboard()" id="guru-btn" class="hidden items-center gap-1 px-2 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-emerald-400 rounded-xl text-xs font-medium transition" title="Dashboard Guru">
+        <i class="fa-solid fa-chart-line text-xs"></i><span class="hidden 2xl:inline text-[11px]">Dashboard</span>
+      </button>
+
+      <!-- THEME TOGGLE -->
+      <button onclick="toggleTema()" id="tema-btn" class="p-1.5 md:p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-amber-400 rounded-xl text-xs transition" title="Ganti Tema">
+        <i id="tema-ikon" class="fa-solid fa-moon text-xs"></i>
+      </button>
 
       <!-- FULLSCREEN -->
-      <button onclick="pasangAplikasi()" id="pwa-btn" class="hidden items-center gap-1.5 px-2 py-1.5 md:px-2.5 md:py-2 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 rounded-xl text-xs font-bold transition" title="Pasang portal ini sebagai aplikasi di perangkat">
-        <i class="fa-solid fa-download"></i><span class="hidden xl:inline">Install Aplikasi</span>
-      </button>
-      <div id="user-info-header" class="hidden md:flex items-center gap-2 ml-auto"></div>
-      <!-- Tiap tingkat punya halamannya sendiri. Guru mengajar semua tingkat,
-           jadi ia butuh jalan pindah; siswa tidak pernah melihat tombol ini. -->
-      <a id="tingkat-btn" href="/11" class="hidden items-center gap-1.5 px-2 py-1.5 md:px-2.5 md:py-2 bg-blue-500/15 hover:bg-blue-500/25 border border-blue-400/40 text-blue-300 rounded-xl text-xs font-bold transition" title="Pindah ke portal kelas XI">
-        <i class="fa-solid fa-arrow-right-arrow-left"></i><span class="hidden xl:inline">Kelas XI</span>
-      </a>
-      <button onclick="openGuruDashboard()" id="guru-btn" class="hidden items-center gap-1.5 px-2 py-1.5 md:px-2.5 md:py-2 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 rounded-xl text-xs font-bold transition" title="Dashboard Monitoring (Guru Only)">
-        <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-analytics"></use></svg><span class="hidden xl:inline">Dashboard</span>
-      </button>
-      <button onclick="toggleTema()" id="tema-btn" class="flex p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 rounded-xl text-xs transition" title="Ganti tema terang / gelap">
-        <i id="tema-ikon" class="fa-solid fa-moon w-4 text-center"></i>
-      </button>
-      <button onclick="toggleFullscreen()" class="hidden sm:flex p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-xs transition" title="Layar Penuh (F11)">
-        <i class="fa-solid fa-expand"></i>
+      <button onclick="toggleFullscreen()" class="hidden md:flex p-1.5 md:p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs transition" title="Layar Penuh (F11)">
+        <i class="fa-solid fa-expand text-xs"></i>
       </button>
     </div>
 
