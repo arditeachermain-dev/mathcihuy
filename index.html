@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788285632">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788285786">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -30,7 +30,7 @@
 
   <!-- 100% INLINE OFFLINE KATEX ASSETS -->
   <!-- gaya dipindah ke mathcihuy.css -->
-  <script src="vendor.js?v=v1788285632"></script>
+  <script src="vendor.js?v=v1788285786"></script>
 <!-- digabung ke vendor.js -->
 
   <!-- gaya dipindah ke mathcihuy.css -->
@@ -1169,8 +1169,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v1788285632"></script>
-  <script src="app.js?v=v1788285632"></script>
+  <script src="data-xii.js?v=v1788285786"></script>
+  <script src="app.js?v=v1788285786"></script>
 
 
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
@@ -1232,23 +1232,47 @@
             </div>
 
             <!-- TAB STATUS PENGERJAAN & CLOUD SYNC BAR -->
-            <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-950/80 rounded-xl border border-slate-800 mb-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-950/80 rounded-2xl border border-slate-800 mb-3">
                 <div class="flex flex-wrap items-center gap-2">
-                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all">📋 Semua Data (<span id="count-semua">0</span>)</button>
-                    <button type="button" id="btn-status-sudah" onclick="setGuruStatusFilter('sudah')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-amber-400 hover:bg-slate-700 transition-all border border-emerald-500/30">🟢 Sudah Mengerjakan (<span id="count-sudah">0</span>)</button>
-                    <button type="button" id="btn-status-sedang" onclick="setGuruStatusFilter('sedang')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-amber-300 hover:bg-slate-700 transition-all border border-amber-500/30">⚡ Sedang Mengerjakan (<span id="count-sedang">0</span>)</button>
-                    <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-amber-400 hover:bg-slate-700 transition-all border border-rose-500/30">🔴 Belum Mengerjakan (<span id="count-belum">0</span>)</button>
+                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all">📋 Semua Data (<span id="count-semua">0</span>)</button>
+                    <button type="button" id="btn-status-sudah" onclick="setGuruStatusFilter('sudah')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-amber-400 hover:bg-slate-700 transition-all border border-emerald-500/30">🟢 Sudah Mengerjakan (<span id="count-sudah">0</span>)</button>
+                    <button type="button" id="btn-status-sedang" onclick="setGuruStatusFilter('sedang')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-amber-300 hover:bg-slate-700 transition-all border border-amber-500/30">⚡ Sedang Mengerjakan (<span id="count-sedang">0</span>)</button>
+                    <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-amber-400 hover:bg-slate-700 transition-all border border-rose-500/30">🔴 Belum Mengerjakan (<span id="count-belum">0</span>)</button>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex flex-wrap items-center gap-2">
                     <span id="cloud-sync-status" class="text-xs"></span>
-                    <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-lg transition-all">
-                        <i class="fa-solid fa-rotate"></i> Tarik Nilai Supabase Cloud
+                    <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition-all cursor-pointer">
+                        <i class="fa-solid fa-rotate"></i> Tarik Nilai Supabase
                     </button>
                 </div>
             </div>
 
-<div class="overflow-x-auto">
-                <table class="w-full text-sm border-collapse">
+            <!-- ZOOM & FIT-TO-SCREEN CONTROLLER BAR -->
+            <div class="flex items-center justify-between gap-3 px-3 py-2 bg-[#081324] rounded-xl border border-blue-900/80 mb-3 text-xs">
+                <div class="flex items-center gap-2 text-slate-400 font-mono text-[11px]">
+                    <i class="fa-solid fa-mouse text-amber-400"></i>
+                    <span>Zoom: <b class="text-slate-200">Ctrl + Scroll Mouse</b> atau tombol di samping:</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="zoomGuruTable(-0.08)" title="Perkecil Tampilan (Zoom Out)" class="px-2.5 py-1 bg-[#0D1B2E] hover:bg-[#152945] text-slate-200 border border-blue-900/80 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer">
+                        <i class="fa-solid fa-magnifying-glass-minus text-blue-400"></i> Zoom Out
+                    </button>
+                    <button type="button" onclick="setGuruTableZoom(1.0)" title="Reset Zoom ke 100%" class="px-2.5 py-1 bg-[#060D1A] text-amber-400 font-mono font-black border border-amber-500/30 rounded-lg text-xs transition cursor-pointer min-w-[54px] text-center" id="guru-zoom-label">
+                        100%
+                    </button>
+                    <button type="button" onclick="zoomGuruTable(0.08)" title="Perbesar Tampilan (Zoom In)" class="px-2.5 py-1 bg-[#0D1B2E] hover:bg-[#152945] text-slate-200 border border-blue-900/80 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer">
+                        <i class="fa-solid fa-magnifying-glass-plus text-blue-400"></i> Zoom In
+                    </button>
+                    <button type="button" onclick="fitGuruTableToScreen()" title="Sesuaikan otomatis agar seluruh 11 kolom pas di layar tanpa perlu geser horizontal" class="px-3 py-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 text-white rounded-lg text-xs font-black shadow transition flex items-center gap-1.5 cursor-pointer ml-1 border border-emerald-400/40">
+                        <i class="fa-solid fa-arrows-left-right-to-line text-amber-300"></i> Pas ke Layar
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABLE WRAPPER WITH DYNAMIC ZOOM SUPPORT -->
+            <div id="guru-table-container" class="overflow-x-auto rounded-2xl border border-blue-900/80 bg-[#081324] shadow-xl relative transition-all">
+                <div id="guru-table-content" class="transition-transform duration-150 origin-top-left">
+                <table id="guru-results-table" class="w-full text-xs text-left border-collapse">
                     <thead>
                         <tr class="bg-[#060D1A] text-slate-300 font-bold text-[11px] uppercase tracking-wider border-b border-slate-700">
                             <th onclick="setGuruSort('nis')" title="Klik untuk mengurutkan berdasarkan NIS" class="border border-slate-700 px-3.5 py-3 text-left font-mono whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">NIS <span id="sort-icon-nis"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
@@ -1270,11 +1294,12 @@
                         <tr><td colspan="11" class="text-center py-8 text-slate-500">Memuat data...</td></tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v1788285632"></script>
+    <script src="app-akhir.js?v=v1788285786"></script>
 
 </body>
 </html>

@@ -269,6 +269,66 @@
       });
     }
 
+    
+    // =========================================================================
+    // TEACHER MONITORING TABLE INTERACTIVE ZOOM & AUTO-FIT ENGINE
+    // =========================================================================
+    let guruTableZoom = 1.0;
+
+    function setGuruTableZoom(val) {
+      guruTableZoom = Math.min(Math.max(val, 0.50), 1.50);
+      const wrap = document.getElementById('guru-table-content');
+      const label = document.getElementById('guru-zoom-label');
+      if (wrap) {
+        wrap.style.transform = `scale(${guruTableZoom})`;
+        wrap.style.transformOrigin = 'top left';
+        wrap.style.width = `${(100 / guruTableZoom).toFixed(2)}%`;
+      }
+      if (label) {
+        label.innerText = `${Math.round(guruTableZoom * 100)}%`;
+      }
+    }
+
+    function zoomGuruTable(delta) {
+      setGuruTableZoom(guruTableZoom + delta);
+    }
+
+    function fitGuruTableToScreen() {
+      const container = document.getElementById('guru-table-container');
+      const table = document.getElementById('guru-results-table');
+      if (container && table) {
+        // Reset scale temporarily to calculate natural width
+        const wrap = document.getElementById('guru-table-content');
+        if (wrap) {
+          wrap.style.transform = 'none';
+          wrap.style.width = '100%';
+        }
+        setTimeout(() => {
+          const contW = container.clientWidth;
+          const naturalW = table.scrollWidth || 1100;
+          if (naturalW > 0 && contW > 0) {
+            const optimalZoom = Math.min(1.0, (contW - 8) / naturalW);
+            setGuruTableZoom(optimalZoom);
+          }
+        }, 50);
+      }
+    }
+
+    function initGuruTableZoomInteractions() {
+      const container = document.getElementById('guru-table-container');
+      if (!container || container._zoomBound) return;
+      container._zoomBound = true;
+
+      container.addEventListener('wheel', (e) => {
+        // Zoom on Ctrl + Wheel or Alt + Wheel or Pinch Trackpad
+        if (e.ctrlKey || e.metaKey || e.altKey) {
+          e.preventDefault();
+          const delta = e.deltaY < 0 ? 0.06 : -0.06;
+          zoomGuruTable(delta);
+        }
+      }, { passive: false });
+    }
+
     function loadGuruDashboardData() {
       const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
       const liveAnswers = window._guruLiveAnswersCache || [];
@@ -492,6 +552,7 @@
       });
 
       updateSortIcons();
+      initGuruTableZoomInteractions();
 
       if (displayList.length === 0) {
         const pesanKosong = {
