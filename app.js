@@ -3279,6 +3279,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (currentMeetingIdx >= meetings.length) currentMeetingIdx = 0;
       const m = meetings[currentMeetingIdx];
       const sIdx = currentSlideIdx;
+      if (sIdx < 4 || sIdx > 6) { window._activeExampleLevel = null; }
       
       const isClil = currentMode === 'clil';
       // Nama tiap tahap, bukan sekadar "Contoh 1/2/3": guru dan siswa
@@ -3455,18 +3456,32 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         `;
       } else if (sIdx === 4 || sIdx === 5 || sIdx === 6) {
         window._labContoh = labUntukBab(m.bab, currentMode);
-        const exIdx = sIdx - 4;
-        const exTitles = isClil ? ["Level 1: Conceptual Foundation", "Level 2: Analytical Application", "Level 3: HOTS & Synthesis"] : ["Level 1: Fondasi Konsep", "Level 2: Analitis & Aplikasi", "Level 3: HOTS & Sintesis"];
+        
+        // Determine active level (supports all 5 levels: Level 1 - Level 5)
+        const totalEx = (m.examples && m.examples.length) ? m.examples.length : 5;
+        let exIdx = (window._activeExampleLevel !== undefined && window._activeExampleLevel !== null) ? window._activeExampleLevel : (sIdx - 4);
+        if (exIdx < 0 || exIdx >= totalEx) {
+          exIdx = sIdx - 4;
+        }
+
+        const exTitles = isClil ? 
+          ["Level 1: Conceptual Foundation", "Level 2: Characteristic & Analysis", "Level 3: Synthesis & Construction", "Level 4: UTBK/SNBT Standard", "Level 5: Contextual HOTS"] : 
+          ["Level 1: Fondasi Konsep", "Level 2: Karakteristik & Analitis", "Level 3: Konstruksi & Sintesis", "Level 4: Standar UTBK-SNBT", "Level 5: HOTS Kontekstual"];
+        
         const matchSubj = isClil ? 'tka_clil' : (currentMode === 'minat' ? 'tka_minat' : 'tka_wajib');
         const matchPkg = db[matchSubj] ? db[matchSubj][m.id] : null;
         const exampleSvg = getTopicSvgDiagram(m.id, currentMode, `ex${exIdx + 1}`);
         
         let prob = "";
         let sol = "";
+        let customLevelTitle = exTitles[exIdx] || `Level ${exIdx + 1}`;
 
         if (m.examples && m.examples[exIdx]) {
           prob = m.examples[exIdx].problem;
           sol = m.examples[exIdx].solution;
+          if (m.examples[exIdx].level) {
+            customLevelTitle = m.examples[exIdx].level + (m.examples[exIdx].title ? ` • ${m.examples[exIdx].title}` : '');
+          }
         } else if (matchPkg && matchPkg.questions && matchPkg.questions[exIdx]) {
           prob = matchPkg.questions[exIdx].tanya;
           sol = matchPkg.questions[exIdx].bahas;
@@ -3481,15 +3496,42 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         const formattedSolHtml = formatSolutionHtml(sol, true);
 
+        // Build Level Selector Pills for all 5 levels
+        const levelPillsHtml = Array.from({ length: totalEx }).map((_, idx) => {
+          const isAct = idx === exIdx;
+          const shortLvl = isClil ? `Level ${idx + 1}` : `Level ${idx + 1}`;
+          let fullLvl = exTitles[idx] || shortLvl;
+          if (m.examples && m.examples[idx] && m.examples[idx].level) {
+            fullLvl = m.examples[idx].level;
+          }
+          return `
+            <button type="button" onclick="window._activeExampleLevel = ${idx}; renderAppView();" 
+              class="px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer ${isAct ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-lg scale-105 ring-2 ring-amber-400 font-extrabold' : 'bg-slate-900/80 text-slate-400 hover:bg-slate-800 hover:text-white border border-slate-700/70'}">
+              <i class="fa-solid ${isAct ? 'fa-circle-check text-slate-950' : 'fa-circle text-[8px] text-slate-500'}"></i>
+              <span>${fullLvl}</span>
+            </button>
+          `;
+        }).join('');
+
         body.innerHTML = `
           <div class="space-y-3 w-full my-auto shrink-0">
+            <!-- LEVEL SELECTOR TABS (LEVEL 1 TO LEVEL 5) -->
+            <div class="flex flex-wrap items-center gap-2 p-2 bg-[#050D1A]/90 rounded-2xl border border-slate-800 shadow-inner">
+              <div class="flex items-center gap-1.5 px-2 text-[11px] font-mono font-bold text-cyan-300 shrink-0 uppercase tracking-wider">
+                <i class="fa-solid fa-layer-group"></i> ${isClil ? 'Select Level:' : 'Pilih Level:'}
+              </div>
+              <div class="flex flex-wrap items-center gap-1.5 flex-1">
+                ${levelPillsHtml}
+              </div>
+            </div>
+
             <!-- PROBLEM CARD -->
             <div class="p-4 md:p-5 bg-[#0D1A2E] rounded-2xl border border-blue-500/40 shadow-xl space-y-3 shrink-0">
               <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg font-mono">
-                  ${isClil ? 'Worked Example' : 'Contoh Soal Terbimbing'} ${sIdx - 3} (${exTitles[exIdx]})
+                <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg font-mono flex items-center gap-1.5">
+                  <i class="fa-solid fa-graduation-cap"></i> ${customLevelTitle}
                 </span>
-                <span class="text-xs font-bold text-amber-400/80 font-mono">C4 Analisis • UTBK Model</span>
+                <span class="text-xs font-bold text-amber-400/80 font-mono">C4-C5 HOTS • UTBK / SNBT Standard</span>
               </div>
               <div class="flex flex-col md:flex-row gap-4 items-center">
                 <div class="text-xs md:text-sm font-semibold text-white leading-relaxed flex-1">${formatMathTables(prob)}</div>
