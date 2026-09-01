@@ -4310,8 +4310,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 75.600",
             "E. 25.200"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menghitung jumlah huruf dan frekuensi huruf yang sama pada kata 'MATEMATIKA':\nTotal huruf $n = 10$.\n- Huruf M $= 2$\n- Huruf A $= 3$\n- Huruf T $= 2$\n- Huruf E $= 1$, I $= 1$, K $= 1$\n\nLangkah 2: Menggunakan rumus Permutasi dengan Unsur yang Sama:\n$$P = \\frac{n!}{n_1! \\cdot n_2! \\cdot n_3!} = \\frac{10!}{3! \\cdot 2! \\cdot 2!}$$\n\nLangkah 3: Menyederhanakan perhitungan:\n$$P = \\frac{10 \\times 9 \\times 8 \\times 7 \\times 6 \\times 5 \\times 4 \\times 3!}{3! \\times 2 \\times 2} = \\frac{3.628.800}{24} = 151.200 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban B."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung jumlah huruf dan frekuensi huruf yang sama pada kata 'MATEMATIKA':\nTotal huruf $n = 10$.\n- Huruf M = 2\n- Huruf A = 3\n- Huruf T = 2\n- Huruf E = 1, I = 1, K = 1\n\nLangkah 2: Menggunakan rumus Permutasi dengan Unsur yang Sama:\n$$P = \\frac{n!}{n_1! \\cdot n_2! \\cdot n_3!} = \\frac{10!}{3! \\cdot 2! \\cdot 2!}$$\n\nLangkah 3: Menyederhanakan perhitungan:\n$$P = \\frac{10 \\times 9 \\times 8 \\times 7 \\times 6 \\times 5 \\times 4 \\times 3!}{3! \\times 2 \\times 2} = \\frac{3.628.800}{24} = 151.200 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 2,
