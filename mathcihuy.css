@@ -1860,3 +1860,153 @@
 #meeting-picker-modal #picker-body button {
   opacity: 1 !important;
 }
+
+/* ==========================================================================
+   COMPREHENSIVE HIGH-CONTRAST LIGHT MODE ARCHITECTURE (html.terang)
+   ========================================================================== */
+
+/* 1. All dark navy cards convert to clean, high-contrast white cards in light mode */
+html.terang .bg-\[\#0D1B2E\],
+html.terang .bg-\[\#0D1A2E\],
+html.terang .bg-\[\#08101E\],
+html.terang .bg-\[\#081324\],
+html.terang .bg-\[\#0A1424\],
+html.terang .bg-\[\#0A1324\],
+html.terang .bg-\[\#0A1527\],
+html.terang .bg-\[\#0C121E\],
+html.terang .bg-\[\#0E1524\],
+html.terang .bg-\[\#101726\],
+html.terang .bg-\[\#071527\],
+html.terang [class*="bg-\[\#0D"],
+html.terang [class*="bg-\[\#08"],
+html.terang [class*="bg-\[\#0A"],
+html.terang [class*="bg-\[\#10"],
+html.terang .bg-slate-900,
+html.terang .bg-slate-900\/90,
+html.terang .bg-slate-900\/80,
+html.terang .bg-slate-900\/70,
+html.terang .bg-slate-900\/60 {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+/* 2. Inset panels (search inputs, code boxes, math background) in light mode */
+html.terang .bg-\[\#050B14\],
+html.terang .bg-\[\#060D1A\],
+html.terang .bg-\[\#050D1A\],
+html.terang [class*="bg-\[\#05"],
+html.terang [class*="bg-\[\#06"],
+html.terang .bg-slate-950,
+html.terang .bg-slate-950\/90,
+html.terang .bg-slate-950\/80 {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+/* 3. Text contrast & legibility in light mode */
+html.terang .text-white,
+html.terang .text-slate-100,
+html.terang .text-slate-200 {
+  color: #0F172A !important;
+}
+html.terang .text-slate-300,
+html.terang .text-slate-400 {
+  color: #334155 !important;
+}
+html.terang .text-slate-500 {
+  color: #64748B !important;
+}
+html.terang .text-amber-300,
+html.terang .text-amber-400,
+html.terang .text-amber-500 {
+  color: #B45309 !important;
+}
+html.terang .text-blue-300,
+html.terang .text-blue-400,
+html.terang .text-blue-500 {
+  color: #1D4ED8 !important;
+}
+
+/* 4. KaTeX Math formulas in light mode (sharp black) */
+html.terang .katex,
+html.terang .katex-display,
+html.terang .katex-html,
+html.terang .fb-math,
+html.terang .fb-math .katex,
+html.terang .formula-box .fb-math .katex {
+  color: #0F172A !important;
+}
+
+/* 5. Active buttons & interactive pills in light mode */
+html.terang .bg-blue-600,
+html.terang .bg-blue-600.text-white,
+html.terang button.bg-blue-600,
+html.terang .bg-blue-600 span,
+html.terang .bg-blue-600 i {
+  background-color: #2563EB !important;
+  color: #FFFFFF !important;
+}
+
+html.terang .bg-amber-500,
+html.terang .bg-amber-500.text-slate-950,
+html.terang button.bg-amber-500,
+html.terang .bg-amber-500 span,
+html.terang .bg-amber-500 i {
+  background-color: #F59E0B !important;
+  color: #0F172A !important;
+}
+
+/* 6. Formula cards (.formula-box) in light mode */
+html.terang .formula-box {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  border-left: 4px solid #D97706 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+}
+html.terang .formula-box .fb-name {
+  color: #B45309 !important;
+}
+html.terang .formula-box .fb-math {
+  color: #0F172A !important;
+}
+
+/* 7. Dialog & Modal windows in light mode */
+html.terang #meeting-picker-modal,
+html.terang #quick-search-modal,
+html.terang #schedule-modal,
+html.terang #analytics-modal,
+html.terang #peta-modal,
+html.terang #tka-scorecard-modal {
+  background-color: rgba(15, 23, 42, 0.65) !important;
+}
+
+html.terang #meeting-picker-modal > div,
+html.terang #quick-search-modal > div,
+html.terang #schedule-modal > div,
+html.terang #analytics-modal > div,
+html.terang #peta-modal > div,
+html.terang #tka-scorecard-modal > div {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.25) !important;
+}
+
+html.terang #meeting-picker-modal section {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+html.terang #meeting-picker-modal section.border-blue-600 {
+  background-color: #EFF6FF !important;
+  border-color: #2563EB !important;
+}
+html.terang #meeting-picker-modal #picker-body button {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+html.terang #meeting-picker-modal #picker-body button.bg-blue-600 {
+  background-color: #2563EB !important;
+  color: #FFFFFF !important;
+}
