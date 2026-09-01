@@ -1969,10 +1969,19 @@
 
     const CBT_DRAFT_PREFIX = 'cbt_draft_v1_';
 
+    function getUserIdentifier() {
+      try {
+        const sess = typeof getSession === 'function' ? getSession() : null;
+        if (sess && sess.data) {
+          return sess.data.nis || sess.data.username || sess.data.nama || 'guru';
+        }
+      } catch (e) {}
+      return 'guest';
+    }
+
     function getCbtDraftKey(subj, pkgId) {
-      const sess = getSession();
-      const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : 'guest';
-      return `${CBT_DRAFT_PREFIX}${nis}_${subj}_${pkgId}`;
+      const uid = getUserIdentifier();
+      return `${CBT_DRAFT_PREFIX}${uid}_${subj}_${pkgId}`;
     }
 
     function simpanDraftJawaban(subj, pkgId, qIdx, chosen, isRight, details) {
@@ -2052,16 +2061,15 @@
 
     function bersihkanDraftJawaban(subj, pkgId) {
       try {
-        const directKey = getCbtDraftKey(subj, pkgId);
-        localStorage.removeItem(directKey);
-        
-        // Bersihkan seluruh variasi key draft di localStorage
-        for (let i = localStorage.length - 1; i >= 0; i--) {
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
           const k = localStorage.key(i);
-          if (k && (k.startsWith('cbt_draft_') && (k.includes(pkgId) || k.includes(`${subj}_${pkgId}`)))) {
-            localStorage.removeItem(k);
+          if (!k) continue;
+          if (k.startsWith('cbt_draft_') || k.startsWith('cbt_') || k.includes(`_${pkgId}`) || k.includes(`${pkgId}_`)) {
+            keysToRemove.push(k);
           }
         }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
       } catch (e) {
         console.warn('Error clearing draft:', e);
       }
