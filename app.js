@@ -2747,7 +2747,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const tampil = (cinemaAktif() || !!document.fullscreenElement) && presSlideMode();
       el.classList.toggle('hidden', !tampil);
       const c = document.getElementById('pres-count');
-      if (c) c.textContent = (currentSlideIdx + 1) + ' / 11';
+      if (c) c.textContent = (currentSlideIdx + 1) + ' / 12';
     }
 
     // Semua alat presentasi dimatikan saat keluar dari mode slide, supaya
