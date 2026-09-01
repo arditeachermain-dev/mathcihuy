@@ -3443,9 +3443,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const babLabel = (m.bab || (isClil ? 'CALCULUS STREAM' : ('MATEMATIKA FASE F'))).toUpperCase();
         
         // Meeting-Specific Unique Tagline (Pak Ardiansyah's Math Cihuy Authentic Tone)
-        let topicTagline = m.tagline ? `✨ ${m.tagline}` : (isClil ? 
-          '✨ Advanced Analytical Modeling, Rigorous Proofs, & Multi-Step Problem Solving' : 
-          '✨ Konseptualisasi Matematis Mendalam, Prosedur Analitis Terstruktur, & Standar UTBK-SNBT');
+        let topicTagline = m.tagline ? `✨ ${m.tagline}` : '';
         let badgePill1 = { icon: 'fa-solid fa-cube', text: isClil ? 'Geometric Insight' : 'Visualisasi Matematis' };
         let badgePill2 = { icon: 'fa-solid fa-diagram-project', text: isClil ? 'Analytical Rigor' : 'Penalaran Terstruktur' };
         let badgePill3 = { icon: 'fa-solid fa-bullseye', text: isClil ? 'SNBT Standard' : 'Standar UTBK-SNBT' };
@@ -3454,33 +3452,39 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const mBabUpper = (m.bab || '').toUpperCase();
 
         if (mBabUpper.includes('PENCACAHAN') || mTitleUpper.includes('PENCACAHAN') || mTitleUpper.includes('PELUANG') || mTitleUpper.includes('KOMBINASI')) {
-          topicTagline = '✨ Eksplorasi Pola Kombinatorik, Pengisian Tempat, & Penalaran Logis Probabilitas';
           badgePill1 = { icon: 'fa-solid fa-hashtag', text: 'Analisis Kombinatorik' };
           badgePill2 = { icon: 'fa-solid fa-dice', text: 'Peluang & Frekuensi' };
+          if (!topicTagline) topicTagline = '✨ Eksplorasi Pola Kombinatorik, Pengisian Tempat, & Penalaran Logis Probabilitas';
         } else if (mBabUpper.includes('DIMENSI TIGA') || mTitleUpper.includes('TITIK') || mTitleUpper.includes('KEDUDUKAN') || mTitleUpper.includes('JARAK') || mTitleUpper.includes('SUDUT')) {
-          topicTagline = '✨ Konseptualisasi Ruang 3D, Proyeksi Ortogonal, & Penalaran Pythagoras 3D';
           badgePill1 = { icon: 'fa-solid fa-cubes', text: 'Visualisasi Ruang 3D' };
           badgePill2 = { icon: 'fa-solid fa-draw-polygon', text: 'Proyeksi Ortogonal' };
+          if (!topicTagline) topicTagline = '✨ Konseptualisasi Ruang 3D, Proyeksi Ortogonal, & Penalaran Pythagoras 3D';
         } else if (mBabUpper.includes('STATISTIKA') || mTitleUpper.includes('DATA') || mTitleUpper.includes('MEAN') || mTitleUpper.includes('MEDIAN') || mTitleUpper.includes('REGRESI')) {
-          topicTagline = '✨ Eksplorasi Sebaran Data Berkelompok, Korelasi Pearson, & Pemodelan Garis Regresi';
           badgePill1 = { icon: 'fa-solid fa-chart-column', text: 'Distribusi Frekuensi' };
           badgePill2 = { icon: 'fa-solid fa-chart-line', text: 'Analisis Bivariat' };
+          if (!topicTagline) topicTagline = '✨ Eksplorasi Sebaran Data Berkelompok, Korelasi Pearson, & Pemodelan Garis Regresi';
         } else if (mBabUpper.includes('LINGKARAN') || mTitleUpper.includes('LINGKARAN') || mTitleUpper.includes('PGSL')) {
-          topicTagline = '✨ Formulasi Persamaan Kurva, Sifat Ortogonalitas Garis Singgung, & Lokus Geometri';
           badgePill1 = { icon: 'fa-regular fa-circle', text: 'Geometri Analitik' };
           badgePill2 = { icon: 'fa-solid fa-bezier-curve', text: 'Garis Singgung (PGSL)' };
+          if (!topicTagline) topicTagline = '✨ Formulasi Persamaan Kurva, Sifat Ortogonalitas Garis Singgung, & Lokus Geometri';
         } else if (mBabUpper.includes('LIMIT') || mTitleUpper.includes('LIMIT') || mTitleUpper.includes('ASIMTOT')) {
-          topicTagline = '✨ Pendekatan Asimtotik, Eliminasi Bentuk Tak Tentu, & Transformasi Identitas';
           badgePill1 = { icon: 'fa-solid fa-infinity', text: 'Analisis Asimtotik' };
           badgePill2 = { icon: 'fa-solid fa-wave-square', text: 'Identitas Trigonometri' };
+          if (!topicTagline) topicTagline = '✨ Pendekatan Asimtotik, Eliminasi Bentuk Tak Tentu, & Transformasi Identitas';
         } else if (mBabUpper.includes('TURUNAN') || mTitleUpper.includes('TURUNAN') || mTitleUpper.includes('STASIONER') || mTitleUpper.includes('OPTIMASI')) {
-          topicTagline = '✨ Laju Perubahan Sesaat, Aturan Rantai Diferensiasi, & Pemodelan Optimasi Ekstrim';
           badgePill1 = { icon: 'fa-solid fa-bolt', text: 'Aturan Rantai Turunan' };
           badgePill2 = { icon: 'fa-solid fa-arrow-trend-up', text: 'Optimasi & Ekstrim' };
+          if (!topicTagline) topicTagline = '✨ Laju Perubahan Sesaat, Aturan Rantai Diferensiasi, & Pemodelan Optimasi Ekstrim';
         } else if (mBabUpper.includes('INTEGRAL') || mTitleUpper.includes('INTEGRAL') || mTitleUpper.includes('LUAS') || mTitleUpper.includes('VOLUME')) {
-          topicTagline = '✨ Akumulasi Kontinu, Antiturunan Terstruktur, & Kalkulasi Luas/Volume Benda Putar';
           badgePill1 = { icon: 'fa-solid fa-shapes', text: 'Kalkulus Integral' };
           badgePill2 = { icon: 'fa-solid fa-rotate', text: 'Volume Benda Putar' };
+          if (!topicTagline) topicTagline = '✨ Akumulasi Kontinu, Antiturunan Terstruktur, & Kalkulasi Luas/Volume Benda Putar';
+        }
+
+        if (!topicTagline) {
+          topicTagline = isClil ? 
+            '✨ Advanced Analytical Modeling, Rigorous Proofs, & Multi-Step Problem Solving' : 
+            '✨ Konseptualisasi Matematis Mendalam, Prosedur Analitis Terstruktur, & Standar UTBK-SNBT';
         }
 
         body.innerHTML = `
