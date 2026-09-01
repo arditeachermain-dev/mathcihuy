@@ -3439,138 +3439,79 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       body.innerHTML = '';
 
       if (sIdx === 0) {
-        // SLIDE 1: REFINED HERO MASTERCLASS COVER (ULTRA-CLEAN 7:5 ASYMMETRIC LAYOUT)
+        // SLIDE 1: GRAND EXECUTIVE TITLE COVER (ZERO-COLLISION UNIFIED MASTERCLASS)
         const babLabel = (m.bab || (isClil ? 'CALCULUS STREAM' : ('MATEMATIKA FASE F'))).toUpperCase();
         const subtitleText = m.sub || m.deskripsi || (isClil ? 
           'Developing rigorous analytical modeling, multi-step problem solving, and higher-order calculus competencies.' : 
           'Membangun pemahaman konseptual mendalam, penalaran aljabar terstruktur, dan pemecahan masalah kontekstual berstandar UTBK-SNBT & TKA Nasional.');
 
         body.innerHTML = `
-          <div class="h-full min-h-0 flex flex-col justify-between p-3.5 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl overflow-y-auto">
+          <div class="h-full min-h-0 p-5 md:p-8 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col justify-between items-center text-center relative overflow-hidden">
             
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 flex-1 min-h-0 items-stretch">
-              
-              <!-- LEFT COLUMN: HERO IDENTITY & ACTIONS (7/12) -->
-              <div class="md:col-span-7 p-4 md:p-6 bg-[#081324] rounded-2xl border border-blue-900/80 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3 min-h-0">
-                
-                <div class="space-y-3">
-                  <!-- METADATA BADGES -->
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full bg-blue-600/20 text-blue-300 border border-blue-500/40 text-[10px] font-mono font-black flex items-center gap-1.5 shadow-sm">
-                      <i class="fa-solid fa-graduation-cap text-amber-400"></i> FASE F &middot; KELAS XII
-                    </span>
-                    <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold shadow-sm">
-                      ${babLabel} &middot; ${m.id}
-                    </span>
+            <!-- GLOWING BACKGROUND LIGHT -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+
+            <!-- 1. TOP METADATA PILLS -->
+            <div class="flex flex-wrap items-center justify-center gap-2 relative z-10 shrink-0">
+              <span class="px-3 py-1 rounded-full bg-blue-600/20 text-blue-300 border border-blue-500/40 text-[11px] font-mono font-black flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-graduation-cap text-amber-400"></i> FASE F &middot; KELAS XII
+              </span>
+              <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 text-[11px] font-mono font-bold shadow-sm">
+                ${babLabel} &middot; ${m.id}
+              </span>
+              <span class="px-3 py-1 rounded-full bg-[#081324] text-slate-300 border border-blue-900 text-[11px] font-mono font-semibold">
+                12 Slide Alur KBM
+              </span>
+            </div>
+
+            <!-- 2. CENTER HERO: GRAND TITLE & PHILOSOPHICAL OVERVIEW -->
+            <div class="space-y-3 max-w-3xl relative z-10 my-auto py-3">
+              <h1 class="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight drop-shadow-md">
+                ${m.title}
+              </h1>
+              <p class="text-xs md:text-sm font-mono font-bold text-amber-400 tracking-wider uppercase">
+                Masterclass Pembelajaran &amp; Penalaran Terstruktur
+              </p>
+              <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto font-medium">
+                ${subtitleText}
+              </p>
+            </div>
+
+            <!-- 3. BOTTOM SECTION: TEACHER BADGE & ACTION BUTTONS -->
+            <div class="w-full max-w-2xl space-y-3.5 relative z-10 shrink-0 border-t border-blue-900/60 pt-3">
+              <!-- TEACHER & SCHOOL SIGNATURE -->
+              <div class="flex items-center justify-between px-4 py-2.5 bg-[#081324] rounded-2xl border border-blue-900/80 text-xs shadow-inner">
+                <div class="flex items-center gap-2.5 text-left">
+                  <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-sm shrink-0">
+                    <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
                   </div>
-
-                  <!-- GRAND DISPLAY TITLE -->
-                  <div class="space-y-1">
-                    <h1 class="text-xl md:text-2xl lg:text-3xl font-black text-white leading-tight tracking-tight">
-                      ${m.title}
-                    </h1>
-                    <p class="text-xs font-mono font-semibold text-amber-400/90">
-                      Masterclass Pembelajaran &amp; Penalaran Terstruktur
-                    </p>
-                  </div>
-
-                  <!-- SUBTITLE PROSE -->
-                  <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-                    ${subtitleText}
-                  </p>
-                </div>
-
-                <!-- TEACHER SIGNATURE & CTA BUTTONS -->
-                <div class="space-y-3 pt-2 border-t border-blue-900/60">
-                  <!-- SIGNATURE CARD -->
-                  <div class="p-2.5 bg-[#050B14] rounded-xl border border-blue-900/80 flex items-center justify-between gap-3 text-xs shadow-inner">
-                    <div class="flex items-center gap-2.5 min-w-0">
-                      <div class="w-7 h-7 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-xs shrink-0">
-                        <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
-                      </div>
-                      <div class="truncate">
-                        <strong class="text-white block font-bold text-xs truncate">Muhammad Ardiansyah, S.Pd.Gr.</strong>
-                        <span class="text-[10px] text-slate-400 block truncate">Guru Pengampu Matematika</span>
-                      </div>
-                    </div>
-                    <div class="text-right hidden sm:block border-l border-blue-900/60 pl-3 shrink-0">
-                      <span class="text-[10px] text-slate-200 font-semibold block">SMA GIS 2 Serpong</span>
-                      <span class="text-[9px] text-slate-400 font-mono">TP 2026/2027</span>
-                    </div>
-                  </div>
-
-                  <!-- ACTIONS -->
-                  <div class="flex flex-wrap items-center gap-2.5">
-                    <button onclick="currentSlideIdx = 1; renderAppView();" class="flex-1 py-2.5 px-4 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-xl text-xs shadow-lg transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer border border-blue-400/40">
-                      <span>${isClil ? 'Start Lesson' : 'Mulai Pembelajaran'}</span>
-                      <i class="fa-solid fa-arrow-right text-amber-300"></i>
-                    </button>
-                    <button onclick="openTkaForCurrentMeeting('${m.id}')" class="flex-1 py-2.5 px-4 bg-[#050B14] hover:bg-[#081324] text-amber-300 hover:text-white font-bold rounded-xl text-xs border border-amber-500/40 transition flex items-center justify-center gap-2 cursor-pointer shadow">
-                      <i class="fa-solid fa-crosshairs text-amber-400"></i>
-                      <span>${isClil ? '10 CBT Drills' : '10 Soal CBT'}</span>
-                    </button>
+                  <div>
+                    <strong class="text-white block font-bold text-xs md:text-sm">Muhammad Ardiansyah, S.Pd.Gr.</strong>
+                    <span class="text-[10px] text-slate-400">Guru Pengampu Matematika</span>
                   </div>
                 </div>
-
+                <div class="text-right border-l border-blue-900/60 pl-4">
+                  <span class="text-xs text-slate-200 font-bold block">SMA Global Islamic School 2 Serpong</span>
+                  <span class="text-[10px] text-amber-400/90 font-mono">Tahun Pelajaran 2026/2027</span>
+                </div>
               </div>
 
-              <!-- RIGHT COLUMN: STRUCTURE MAP (5/12) -->
-              <div class="md:col-span-5 p-4 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-xl flex flex-col justify-between space-y-2.5 min-h-0">
-                
-                <div class="space-y-2">
-                  <div class="flex items-center justify-between border-b border-blue-900/60 pb-1.5">
-                    <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                      <i class="fa-solid fa-compass-drafting"></i> Peta Struktur Sesi:
-                    </span>
-                    <span class="px-2 py-0.5 rounded-lg bg-blue-600/30 text-blue-300 text-[10px] font-mono font-bold border border-blue-500/30">
-                      12 Slide
-                    </span>
-                  </div>
-
-                  <!-- 4 ROADMAP TILES -->
-                  <div class="space-y-1.5 text-xs">
-                    <div onclick="currentSlideIdx = 2; renderAppView();" class="p-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900/60 flex items-center justify-between cursor-pointer transition shadow-sm">
-                      <div class="flex items-center gap-2 min-w-0">
-                        <span class="w-5 h-5 rounded-md bg-blue-600/30 text-blue-300 font-mono font-bold text-[9px] flex items-center justify-center shrink-0 border border-blue-500/30">01</span>
-                        <span class="text-slate-200 font-semibold text-[11px] truncate">Hook &amp; The Toolkit</span>
-                      </div>
-                      <span class="text-[10px] font-mono text-slate-400 shrink-0 ml-1">Slide 3–4</span>
-                    </div>
-
-                    <div onclick="currentSlideIdx = 4; renderAppView();" class="p-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900/60 flex items-center justify-between cursor-pointer transition shadow-sm">
-                      <div class="flex items-center gap-2 min-w-0">
-                        <span class="w-5 h-5 rounded-md bg-amber-500/20 text-amber-300 font-mono font-bold text-[9px] flex items-center justify-center shrink-0 border border-amber-500/30">02</span>
-                        <span class="text-slate-200 font-semibold text-[11px] truncate">5 Worked Examples</span>
-                      </div>
-                      <span class="text-[10px] font-mono text-amber-400 font-bold shrink-0 ml-1">Slide 5–9</span>
-                    </div>
-
-                    <div onclick="currentSlideIdx = 9; renderAppView();" class="p-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900/60 flex items-center justify-between cursor-pointer transition shadow-sm">
-                      <div class="flex items-center gap-2 min-w-0">
-                        <span class="w-5 h-5 rounded-md bg-blue-600/30 text-blue-300 font-mono font-bold text-[9px] flex items-center justify-center shrink-0 border border-blue-500/30">03</span>
-                        <span class="text-slate-200 font-semibold text-[11px] truncate">Kolaborasi Aktif (BTC/TPS)</span>
-                      </div>
-                      <span class="text-[10px] font-mono text-slate-400 shrink-0 ml-1">Slide 10</span>
-                    </div>
-
-                    <div onclick="currentSlideIdx = 10; renderAppView();" class="p-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900/60 flex items-center justify-between cursor-pointer transition shadow-sm">
-                      <div class="flex items-center gap-2 min-w-0">
-                        <span class="w-5 h-5 rounded-md bg-purple-500/20 text-purple-300 font-mono font-bold text-[9px] flex items-center justify-center shrink-0 border border-purple-500/30">04</span>
-                        <span class="text-slate-200 font-semibold text-[11px] truncate">Refleksi &amp; CBT</span>
-                      </div>
-                      <span class="text-[10px] font-mono text-slate-400 shrink-0 ml-1">Slide 11–12</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- BOTTOM TARGET BADGE -->
-                <div class="p-2 bg-[#050B14] rounded-xl border border-amber-500/30 flex items-center justify-between text-xs font-mono shrink-0 shadow-inner">
-                  <span class="text-slate-400 text-[10px]"><i class="fa-solid fa-award text-amber-400 mr-1"></i> Standar Capaian:</span>
-                  <span class="text-amber-300 font-bold text-[10px]">C4–C5 HOTS &middot; UTBK</span>
-                </div>
-
+              <!-- ACTION BUTTONS -->
+              <div class="flex items-center justify-center gap-3">
+                <button onclick="currentSlideIdx = 1; renderAppView();" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center gap-2 cursor-pointer border border-blue-400/40">
+                  <span>${isClil ? 'Start Lesson' : 'Mulai Pembelajaran'}</span>
+                  <i class="fa-solid fa-arrow-right text-amber-300"></i>
+                </button>
+                <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-5 py-2.5 bg-[#081324] hover:bg-[#060D1A] text-amber-300 hover:text-white font-bold rounded-xl text-xs md:text-sm border border-amber-500/40 transition flex items-center gap-2 cursor-pointer shadow">
+                  <i class="fa-solid fa-crosshairs text-amber-400"></i>
+                  <span>${isClil ? '10 CBT Drills' : '10 Soal CBT Drilling'}</span>
+                </button>
+                <button onclick="currentSlideIdx = 3; renderAppView();" class="px-4 py-2.5 bg-[#081324] hover:bg-slate-800 text-slate-300 hover:text-white font-medium rounded-xl text-xs border border-blue-900 transition flex items-center gap-1.5 cursor-pointer">
+                  <i class="fa-solid fa-book-bookmark text-blue-400"></i>
+                  <span class="hidden sm:inline">${isClil ? 'The Toolkit' : 'The Toolkit'}</span>
+                </button>
               </div>
-
             </div>
 
           </div>
