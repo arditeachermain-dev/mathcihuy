@@ -544,7 +544,7 @@
         const meetings = db[currentMode] || [];
         const mIdx = meetings.findIndex(m => m.id === pkgId);
         currentMeetingIdx = (mIdx !== -1) ? mIdx : 0;
-        currentSlideIdx = Math.max(0, Math.min(10, slideNum - 1));
+        currentSlideIdx = Math.max(0, Math.min(12, slideNum - 1));
         
         renderAppView();
         return true;
@@ -3310,12 +3310,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       // Nama tiap tahap, bukan sekadar "Contoh 1/2/3": guru dan siswa
       // langsung tahu slide 5 membangun fondasi, 6 melatih analisis, 7 HOTS.
       const pillTitles = isClil
-        ? ["Cover", "Goals", "Hook", "Toolkit", "Foundation", "Analysis", "HOTS", "Collab", "Drilling", "Summary", "Closing"]
-        : ["Cover", "Tujuan", "Hook", "Toolkit", "Fondasi", "Analitis", "HOTS", "Kolaborasi", "Drilling", "Rangkuman", "Penutup"];
+        ? ["Cover", "Goals", "Hook", "Toolkit", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Collab", "Drilling", "Summary", "Closing"]
+        : ["Cover", "Tujuan", "Hook", "Toolkit", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Kolaborasi", "Drilling", "Rangkuman", "Penutup"];
       const pillIcons = [
         "fa-solid fa-bookmark", "fa-solid fa-bullseye", "fa-solid fa-lightbulb", "fa-solid fa-toolbox",
-        "fa-solid fa-cube", "fa-solid fa-chart-line", "fa-solid fa-brain", "fa-solid fa-users",
-        "fa-solid fa-pen-to-square", "fa-solid fa-flag-checkered", "fa-solid fa-bell"
+        "fa-solid fa-cube", "fa-solid fa-chart-line", "fa-solid fa-brain", "fa-solid fa-graduation-cap", "fa-solid fa-fire",
+        "fa-solid fa-users", "fa-solid fa-pen-to-square", "fa-solid fa-flag-checkered", "fa-solid fa-bell"
       ];
       const slideTitles = pillTitles;
       if (window._lastRenderedMeetingId !== m.id) {
@@ -3339,15 +3339,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       document.getElementById('slide-counter').innerHTML = `
         <div class="flex items-center gap-1.5 md:gap-2">
           <div class="w-12 md:w-20 h-1.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600 hidden sm:block">
-            <div class="h-full bg-gradient-to-r from-blue-500 to-amber-500 transition-all duration-300" style="width: ${(sIdx + 1) * 9.09}%"></div>
+            <div class="h-full bg-gradient-to-r from-blue-500 to-amber-500 transition-all duration-300" style="width: ${(sIdx + 1) * 7.69}%"></div>
           </div>
-          <span class="text-[10px] md:text-xs font-mono text-slate-300 font-extrabold">${sIdx + 1} / 11</span>
+          <span class="text-[10px] md:text-xs font-mono text-slate-300 font-extrabold">${sIdx + 1} / 13</span>
         </div>
       `;
 
       const pillsContainer = document.getElementById('slide-pills-container');
       pillsContainer.innerHTML = '';
-      for (let i = 0; i < 11; i++) {
+      for (let i = 0; i < 13; i++) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'slide-pill' + (i === sIdx ? ' is-on' : (i < sIdx ? ' is-done' : ''));
@@ -3479,15 +3479,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
           </div>
         `;
-      } else if (sIdx === 4 || sIdx === 5 || sIdx === 6) {
+      } else if (sIdx >= 4 && sIdx <= 8) {
         window._labContoh = labUntukBab(m.bab, currentMode);
         
-        // Determine active level (Level 1 to Level 5)
-        const totalEx = (m.examples && m.examples.length) ? m.examples.length : 5;
-        let exIdx = (window._activeExampleLevel !== undefined && window._activeExampleLevel !== null) ? window._activeExampleLevel : (sIdx - 4);
-        if (exIdx < 0 || exIdx >= totalEx) {
-          exIdx = sIdx - 4;
-        }
+        // Each Level is now a dedicated native Slide (Slide 5 = Level 1, Slide 6 = Level 2, Slide 7 = Level 3, Slide 8 = Level 4, Slide 9 = Level 5)
+        const exIdx = sIdx - 4;
 
         const exTitles = isClil ? 
           ["Level 1: Conceptual Foundation", "Level 2: Characteristic & Analysis", "Level 3: Synthesis & Construction", "Level 4: UTBK/SNBT Standard", "Level 5: Contextual HOTS"] : 
@@ -3521,47 +3517,19 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         const formattedSolHtml = formatSolutionHtml(sol, true);
 
-        // Compact Level Selector Tabs
-        const levelPillsHtml = Array.from({ length: totalEx }).map((_, idx) => {
-          const isAct = idx === exIdx;
-          const shortLvl = `L${idx + 1}`;
-          let fullLvl = exTitles[idx] || `Level ${idx + 1}`;
-          if (m.examples && m.examples[idx] && m.examples[idx].level) {
-            fullLvl = m.examples[idx].level;
-          }
-          return `
-            <button type="button" onclick="window._activeExampleLevel = ${idx}; renderAppView();" 
-              title="${fullLvl}"
-              class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer ${isAct ? 'bg-amber-500 text-slate-950 shadow-md font-extrabold ring-1 ring-amber-300' : 'bg-slate-900/90 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/80'}">
-              <i class="fa-solid ${isAct ? 'fa-circle-dot text-slate-950 text-[10px]' : 'fa-circle text-[7px] text-slate-500'}"></i>
-              <span>${fullLvl}</span>
-            </button>
-          `;
-        }).join('');
-
         body.innerHTML = `
-          <div class="w-full h-full flex flex-col gap-2.5">
-            <!-- TOP COMPACT LEVEL SWITCHER BAR -->
-            <div class="flex items-center justify-between gap-2 p-1.5 bg-[#050D1A]/90 rounded-xl border border-slate-800 shrink-0">
-              <div class="flex items-center gap-1.5 px-2 text-[11px] font-mono font-bold text-cyan-300 shrink-0 uppercase tracking-wider">
-                <i class="fa-solid fa-layer-group"></i> ${isClil ? 'Select Level:' : 'Pilih Level:'}
-              </div>
-              <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-                ${levelPillsHtml}
-              </div>
-            </div>
-
+          <div class="w-full h-full flex flex-col gap-3">
             <!-- MAIN 2-COLUMN SIDE-BY-SIDE WORKSPACE -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 flex-1 min-h-0 items-stretch">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-0 items-stretch">
               
               <!-- LEFT COLUMN: PROBLEM STATEMENT & DIAGRAM (5/12) -->
-              <div class="lg:col-span-5 flex flex-col gap-2.5 min-h-0">
+              <div class="lg:col-span-5 flex flex-col gap-3 min-h-0">
                 <!-- PROBLEM CARD -->
                 <div class="p-4 md:p-5 bg-[#0D1A2E] rounded-2xl border border-blue-500/40 shadow-xl flex-1 flex flex-col justify-between overflow-y-auto">
                   <div class="space-y-3">
                     <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
                       <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg font-mono flex items-center gap-1.5">
-                        <i class="fa-solid fa-graduation-cap"></i> ${customLevelTitle}
+                        <i class="fa-solid fa-graduation-cap"></i> Contoh Soal ${exIdx + 1} (${customLevelTitle})
                       </span>
                       <span class="text-[10px] font-mono font-bold text-amber-400/80">C4-C5 HOTS</span>
                     </div>
@@ -3619,12 +3587,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
           </div>
         `;
-      } else if (sIdx === 7) {
-        // SLIDE 8: DYNAMIC COLLABORATIVE PEDAGOGICAL ARENA
+      } else if (sIdx === 9) {
+        // SLIDE 10: DYNAMIC COLLABORATIVE PEDAGOGICAL ARENA
         const defaultMethod = getDefaultPedagogyForMeeting(m.id, currentMode);
         const selectedMethodKey = window.currentMeetingPedagogy || defaultMethod;
         body.innerHTML = renderSlide8PedagogyBody(m, isClil, selectedMethodKey);
-      } else if (sIdx === 8) {
+      } else if (sIdx === 10) {
+        // SLIDE 11: 10 DRILLING PROBLEMS PREVIEW
         const matchSubj = isClil ? 'tka_clil' : (currentMode === 'minat' ? 'tka_minat' : 'tka_wajib');
         const matchPkg = db[matchSubj] ? db[matchSubj][m.id] : null;
         const allQuestions = (matchPkg && matchPkg.questions) ? matchPkg.questions : [];
@@ -3670,7 +3639,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             `}
           </div>
         `;
-      } else if (sIdx === 9) {
+      } else if (sIdx === 11) {
+        // SLIDE 12: SUMMARY & ISLAMIC VALUES
         const summaryData = (m.summary_data) || {
           summary: [
             isClil ? ("Understand core mathematical principles and formulas for " + m.title + ".") : ("Memahami konsep fundamental dan penurunan rumus utama pada materi " + m.title + "."),
@@ -3712,7 +3682,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
           </div>
         `;
-      } else if (sIdx === 10) {
+      } else if (sIdx === 12) {
+        // SLIDE 13: CLOSING & EVALUATION
         body.innerHTML = `
           <div class="h-full flex flex-col items-center justify-center text-center space-y-4 p-4 md:p-8 bg-gradient-to-b from-slate-900 to-[#0B2545] rounded-2xl border border-slate-800">
             <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-2xl shadow-lg">
