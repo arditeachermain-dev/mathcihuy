@@ -1625,15 +1625,15 @@
                         <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
                         <span class="font-bold text-slate-200">${sess.data.name}</span>
                     </div>
-                    <button onclick="logoutSession()" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl border border-slate-800 transition cursor-pointer" title="Logout"><i class="fa-solid fa-power-off text-xs"></i></button>
+                    <button onclick="logoutSession()" class="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-rose-500/10 rounded-xl border border-slate-800 transition cursor-pointer" title="Logout"><i class="fa-solid fa-power-off text-xs"></i></button>
                 `;
             } else {
                 userInfoEl.innerHTML = `
                     <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300 font-mono">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span class="font-bold text-emerald-400">GURU: ${sess.data.username}</span>
+                        <span class="font-bold text-amber-400">GURU: ${sess.data.username}</span>
                     </div>
-                    <button onclick="logoutSession()" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl border border-slate-800 transition cursor-pointer" title="Logout"><i class="fa-solid fa-power-off text-xs"></i></button>
+                    <button onclick="logoutSession()" class="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-rose-500/10 rounded-xl border border-slate-800 transition cursor-pointer" title="Logout"><i class="fa-solid fa-power-off text-xs"></i></button>
                 `;
             }
         }
@@ -2001,8 +2001,8 @@
           badge.innerHTML = '<i class="fa-solid fa-check-double text-emerald-300"></i> Tersimpan';
           badge.className = 'text-[11px] font-mono text-emerald-300 bg-emerald-900/80 border border-emerald-400 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow scale-105 transition-all duration-200';
           setTimeout(() => {
-            badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-emerald-400"></i> Auto-Saved';
-            badge.className = 'text-[11px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm transition-all duration-300';
+            badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> Auto-Saved';
+            badge.className = 'text-[11px] font-mono text-amber-400 bg-emerald-950/60 border border-blue-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm transition-all duration-300';
           }, 1200);
         }
       } catch (e) {
@@ -3111,7 +3111,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <div class="flex items-center gap-1.5 shrink-0 font-mono text-[10px]">
                 ${asesmen ? '<span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">UH</span>' : ''}
                 ${it.aktif ? '<span class="px-1.5 py-0.2 rounded bg-blue-500/30 text-blue-200 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Buka</span>' : 
-                 (it.selesai ? '<i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>' : '<span class="text-slate-500">13S</span>')}
+                 (it.selesai ? '<i class="fa-solid fa-circle-check text-amber-400 text-xs"></i>' : '<span class="text-slate-500">13S</span>')}
               </div>
             `;
             c.onclick = () => { it.pilih(); closeMeetingPicker(); renderAppView(); };
@@ -3237,8 +3237,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           }
 
           html += `
-            <div class="p-3 bg-emerald-950/60 border border-emerald-500/50 rounded-xl flex items-start gap-2.5 shadow-sm">
-              <span class="w-6 h-6 rounded-lg bg-emerald-500 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
+            <div class="p-3 bg-emerald-950/60 border border-blue-500/50 rounded-xl flex items-start gap-2.5 shadow-sm">
+              <span class="w-6 h-6 rounded-lg bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
                 <i class="fa-solid fa-check"></i>
               </span>
               <div class="text-xs md:text-sm text-emerald-200 font-semibold leading-relaxed">
@@ -3487,7 +3487,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 </div>
                 <div class="p-3 bg-[#050D1A] rounded-2xl border border-[#1a2f4a] shadow-inner shrink-0 w-full lg:w-[26rem] space-y-2">
                   <div class="flex items-center justify-between">
-                    <span class="text-[11px] text-cyan-300 font-mono uppercase tracking-widest font-bold">
+                    <span class="text-[11px] text-amber-300 font-mono uppercase tracking-widest font-bold">
                       <i class="fa-solid fa-flask-vial"></i> Lab Interaktif
                     </span>
                     ${toolkitSvg ? `<button type="button" onclick="toggleToolkitSvg()" class="text-[10px] text-slate-400 hover:text-white font-mono">gambar diam</button>` : ''}
@@ -3566,7 +3566,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 </div>
 
                 <!-- ACTION BUTTON BAR -->
-                <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="w-full py-2.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-xl text-xs md:text-sm shadow-lg active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer shrink-0">
+                <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-black rounded-xl text-xs md:text-sm shadow-lg active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer shrink-0">
                   <i class="fa-solid fa-eye" id="toggle-sol-icon"></i>
                   <span id="toggle-sol-text">${isClil ? 'Show Step-by-Step Solution' : 'Buka Cara Penyelesaian'}</span>
                 </button>
@@ -3575,9 +3575,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION / WORKSPACE (7/12) -->
               <div class="lg:col-span-7 flex flex-col min-h-0">
                 <!-- ACTIVE SOLUTION BOX (HIDDEN BY DEFAULT ON INITIAL LOAD) -->
-                <div id="example-sol-box" class="hidden h-full p-4 md:p-5 bg-[#0D1A2E] rounded-2xl border border-emerald-500/40 shadow-xl flex flex-col overflow-y-auto">
-                  <div class="flex items-center justify-between border-b border-emerald-500/20 pb-2 mb-2 shrink-0">
-                    <span class="text-xs font-bold text-emerald-400 uppercase tracking-wide flex items-center gap-1.5">
+                <div id="example-sol-box" class="hidden h-full p-4 md:p-5 bg-[#0D1A2E] rounded-2xl border border-blue-500/40 shadow-xl flex flex-col overflow-y-auto">
+                  <div class="flex items-center justify-between border-b border-blue-500/20 pb-2 mb-2 shrink-0">
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
                       <i class="fa-solid fa-square-check"></i> ${isClil ? 'Structured Mathematical Solution:' : 'Langkah Solusi Matematis Terstruktur:'}
                     </span>
                     <button onclick="toggleExampleSolution()" class="text-[10px] font-mono text-slate-400 hover:text-white px-2 py-0.5 bg-slate-900 rounded border border-slate-700">
@@ -3598,7 +3598,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                     <p class="text-xs md:text-sm font-bold text-slate-200">${isClil ? 'Interactive Solution Workspace' : 'Ruang Solusi Terbimbing'}</p>
                     <p class="text-[11px] text-slate-400 leading-relaxed">${isClil ? 'Solve independently on your vertical whiteboard (VNPS) before revealing the structured steps.' : 'Diskusikan dan selesaikan soal di papan tulis vertikal (VNPS) bersama kelompok sebelum membuka solusi.'}</p>
                   </div>
-                  <button onclick="toggleExampleSolution()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs font-mono font-bold rounded-xl border border-slate-600 transition flex items-center gap-1.5 cursor-pointer shadow">
+                  <button onclick="toggleExampleSolution()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-mono font-bold rounded-xl border border-slate-600 transition flex items-center gap-1.5 cursor-pointer shadow">
                     <i class="fa-solid fa-eye"></i> ${isClil ? 'Open Solution' : 'Buka Solusi Sekarang'}
                   </button>
                 </div>
@@ -3682,7 +3682,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <ul class="space-y-1.5 text-xs md:text-sm text-slate-200">
                 ${(summaryData.summary || []).map(s => `
                   <li class="flex items-start gap-2.5 p-2 bg-slate-800/80 rounded-xl border border-slate-700/60">
-                    <i class="fa-solid fa-circle-check text-emerald-400 mt-1 shrink-0 text-xs"></i>
+                    <i class="fa-solid fa-circle-check text-amber-400 mt-1 shrink-0 text-xs"></i>
                     <span class="leading-relaxed font-medium">${s}</span>
                   </li>
                 `).join('')}
@@ -3820,7 +3820,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
         if (predEl) {
           predEl.innerText = "🏆 Mantap! Kompetensi Tercapai Maksimal!";
-          predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-emerald-500/40";
+          predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
         }
         confettiCelebration();
       } else if (score >= 70) {
@@ -3921,7 +3921,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           if (idx === tkaQIdx) {
             pillClass += 'bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
           } else if (isReviewMode) {
-            if (scoreVal === true) pillClass += 'bg-emerald-950 text-emerald-300 border border-emerald-500';
+            if (scoreVal === true) pillClass += 'bg-emerald-950 text-emerald-300 border border-blue-500';
             else if (scoreVal === false) pillClass += 'bg-rose-950 text-rose-300 border border-rose-500';
             else pillClass += 'bg-slate-800 text-slate-400';
           } else if (isAnswered) {
@@ -3978,10 +3978,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </div>
                   <div class="flex items-center gap-2 shrink-0 self-end md:self-center">
                     <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${isReviewMode && correctChoice === 'B' ? 'border-emerald-400 bg-emerald-600 text-white font-black' : 'border-slate-600 bg-slate-900 text-slate-200'} transition shadow">
-                      <i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> BENAR
+                      <i class="fa-solid fa-check text-amber-400 mr-1.5"></i> BENAR
                     </button>
                     <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${isReviewMode && correctChoice === 'S' ? 'border-rose-400 bg-rose-600 text-white font-black' : 'border-slate-600 bg-slate-900 text-slate-200'} transition shadow">
-                      <i class="fa-solid fa-xmark text-rose-400 mr-1.5"></i> SALAH
+                      <i class="fa-solid fa-xmark text-amber-400 mr-1.5"></i> SALAH
                     </button>
                   </div>
                 </div>
@@ -4014,7 +4014,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 if (isReviewMode) {
                   if (isCorrectLetter) {
                     btnStyle = "bg-emerald-950/90 border-2 border-emerald-400 text-white font-semibold";
-                    markBadge = '<span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-950 text-[10px] font-black"><i class="fa-solid fa-check mr-1"></i>BENAR</span>';
+                    markBadge = '<span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black"><i class="fa-solid fa-check mr-1"></i>BENAR</span>';
                   }
                 }
 
@@ -4073,9 +4073,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 if (letter === correctLetter) {
                   btnClass = "p-3.5 md:p-4 bg-emerald-950/90 border-2 border-emerald-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-emerald-950/50";
                   if (userChosen === correctLetter) {
-                    badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-emerald-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> JAWABAN ANDA TEPAT (+10)</span>';
+                    badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> JAWABAN ANDA TEPAT (+10)</span>';
                   } else {
-                    badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-emerald-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-check"></i> KUNCI JAWABAN BENAR</span>';
+                    badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-check"></i> KUNCI JAWABAN BENAR</span>';
                   }
                 } else if (userChosen === letter) {
                   btnClass = "p-3.5 md:p-4 bg-rose-950/90 border-2 border-rose-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-rose-950/50";
@@ -4085,12 +4085,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 }
               } else if (userChosen === letter) {
                 btnClass = "p-3.5 md:p-4 bg-cyan-950/90 border-2 border-cyan-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-cyan-950/50";
-                badgeHtml = '<i class="fa-solid fa-circle-check text-cyan-400 text-sm"></i>';
+                badgeHtml = '<i class="fa-solid fa-circle-check text-blue-400 text-sm"></i>';
               }
 
               return `
                 <button id="opt-btn-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `selectAnswer('${letter}', '${q.kunci}')`}" class="opt-btn${span} ${btnClass}">
-                  <span class="w-6 h-6 rounded-lg ${isReviewMode && letter === correctLetter ? 'bg-emerald-500 text-slate-950 font-black' : 'bg-slate-900 border border-slate-700 text-amber-400 font-black'} flex items-center justify-center shrink-0 text-xs">
+                  <span class="w-6 h-6 rounded-lg ${isReviewMode && letter === correctLetter ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 border border-slate-700 text-amber-400 font-black'} flex items-center justify-center shrink-0 text-xs">
                     ${letter}
                   </span>
                   <span class="flex-1 pt-0.5 text-slate-100 font-medium leading-relaxed">${cleanText}</span>
@@ -4104,9 +4104,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
       // Review Header Banner
       const reviewHeaderBanner = isReviewMode ? `
-        <div class="p-3 bg-gradient-to-r from-emerald-950/95 to-slate-900/95 border border-emerald-500/60 rounded-2xl flex flex-wrap items-center justify-between gap-2.5 shadow-xl mb-4">
+        <div class="p-3 bg-gradient-to-r from-emerald-950/95 to-slate-900/95 border border-blue-500/60 rounded-2xl flex flex-wrap items-center justify-between gap-2.5 shadow-xl mb-4">
           <div class="flex items-center gap-2.5">
-            <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 text-sm">
+            <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-blue-500/40 text-sm">
               <i class="fa-solid fa-graduation-cap"></i>
             </span>
             <div>
@@ -4114,7 +4114,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <p class="text-[10px] text-slate-300">Langkah penyelesaian terstruktur dan evaluasi per butir soal</p>
             </div>
           </div>
-          <button onclick="showTkaScorecardModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 cursor-pointer active:scale-95">
+          <button onclick="showTkaScorecardModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 cursor-pointer active:scale-95">
             <i class="fa-solid fa-chart-pie"></i> <span>Lihat Skor Akhir</span>
           </button>
         </div>
@@ -4145,13 +4145,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           ${optionsHtml}
 
           <!-- STEP-BY-STEP SOLUTION CARD -->
-          <div id="tka-solution-box" class="${isReviewMode ? 'block' : 'hidden'} p-4 md:p-6 bg-slate-900/95 rounded-2xl border-2 border-emerald-500/60 shadow-2xl space-y-3 mb-10 pb-6">
+          <div id="tka-solution-box" class="${isReviewMode ? 'block' : 'hidden'} p-4 md:p-6 bg-slate-900/95 rounded-2xl border-2 border-blue-500/60 shadow-2xl space-y-3 mb-10 pb-6">
             <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-              <span class="text-xs font-black text-emerald-400 flex items-center gap-2 uppercase tracking-wide">
+              <span class="text-xs font-black text-amber-400 flex items-center gap-2 uppercase tracking-wide">
                 <i class="fa-solid fa-lightbulb text-amber-400"></i> ${tkaSubj === 'clil' ? 'Step-by-Step Structured Solution:' : 'Langkah Pembahasan Terstruktur & Kunci Jawaban:'}
               </span>
               <span class="text-xs font-mono font-black text-amber-300 bg-slate-950 px-3 py-1 rounded-xl border border-amber-500/40 shadow-inner" id="tka-correct-key-label">
-                ${tkaSubj === 'clil' ? 'Key Answer' : 'Kunci Jawaban'}: <span class="text-emerald-400 text-sm font-black">${q.kunci}</span>
+                ${tkaSubj === 'clil' ? 'Key Answer' : 'Kunci Jawaban'}: <span class="text-amber-400 text-sm font-black">${q.kunci}</span>
               </span>
             </div>
             <div class="text-xs md:text-sm text-slate-100 leading-relaxed space-y-2 pt-1 font-sans" id="tka-solution-content">
@@ -4198,7 +4198,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const markEl = b.querySelector('.opt-mark');
         if (letter === chosen) {
           b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-cyan-950/90 border-2 border-cyan-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-cyan-950/50 transition';
-          if (markEl) markEl.innerHTML = '<i class="fa-solid fa-circle-check text-cyan-400 text-sm"></i>';
+          if (markEl) markEl.innerHTML = '<i class="fa-solid fa-circle-check text-blue-400 text-sm"></i>';
         } else {
           b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow';
           if (markEl) markEl.innerHTML = '';
@@ -4236,7 +4236,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     const OPT_BASE = 'p-3.5 md:p-4 rounded-2xl text-left text-xs md:text-sm flex items-start gap-3 shadow';
     const OPT_RIGHT = OPT_BASE + ' bg-emerald-950/90 border-2 border-emerald-400 text-white';
     const OPT_WRONG = OPT_BASE + ' bg-rose-950/90 border-2 border-rose-400 text-white';
-    const OPT_MISSED = OPT_BASE + ' bg-slate-900 border-2 border-dashed border-emerald-500/60 text-slate-200';
+    const OPT_MISSED = OPT_BASE + ' bg-slate-900 border-2 border-dashed border-blue-500/60 text-slate-200';
     const OPT_MUTED = OPT_BASE + ' bg-slate-900/70 border border-slate-800 text-slate-400';
 
     function submitMultiAnswer(correctKeysStr) {
@@ -4315,11 +4315,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           const b = document.getElementById(id); if (b) b.disabled = true;
         });
         if (row) row.className = 'p-3.5 md:p-4 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow border-2 ' +
-          (ok ? 'bg-emerald-950/60 border-emerald-500/70' : 'bg-rose-950/60 border-rose-500/70');
+          (ok ? 'bg-emerald-950/60 border-blue-500/70' : 'bg-rose-950/60 border-rose-500/70');
         if (badge) {
           badge.classList.remove('hidden');
           badge.className = 'text-[11px] font-black px-2 py-0.5 rounded-lg ' +
-            (ok ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300');
+            (ok ? 'bg-amber-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300');
           badge.textContent = ok ? 'Tepat' : `Seharusnya ${correctParts[i] === 'B' ? 'BENAR' : 'SALAH'}`;
         }
       }
@@ -4464,7 +4464,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const s = tkaTimerSec % 60;
         if (timerEl) {
           timerEl.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-          if (tkaTimerSec <= 30) timerEl.className = "font-black text-rose-400 animate-pulse";
+          if (tkaTimerSec <= 30) timerEl.className = "font-black text-amber-400 animate-pulse";
           else timerEl.className = "font-bold text-white";
         }
         if (tkaTimerSec <= 0) {
@@ -4472,7 +4472,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           tkaTimerSec = 0;
           if (timerEl) {
             timerEl.innerText = '00:00';
-            timerEl.className = 'font-black text-rose-400';
+            timerEl.className = 'font-black text-amber-400';
           }
           // the timer is a pacing aid, not a lock-out: say so instead of just stopping
           const wrap = timerEl && timerEl.parentElement;
@@ -4983,7 +4983,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               </div>
               <div class="flex items-center gap-1.5">
                 ${timerButtonsHtml}
-                <button onclick="startBtcTimer(${ped.defaultSec})" class="px-3 py-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-lg text-xs font-black shadow active:scale-95 transition flex items-center gap-1 cursor-pointer">
+                <button onclick="startBtcTimer(${ped.defaultSec})" class="px-3 py-1 bg-amber-500 hover:bg-emerald-400 text-slate-950 rounded-lg text-xs font-black shadow active:scale-95 transition flex items-center gap-1 cursor-pointer">
                   <i class="fa-solid fa-play text-[10px]"></i> <span>${isClil ? 'Start' : 'Mulai'}</span>
                 </button>
               </div>
@@ -5901,9 +5901,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       let completedMeetings = 0;
 
       const streamMeta = {
-        'wajib': { prefix: 'A', name: 'Matematika Wajib', icon: 'fa-solid fa-shapes text-cyan-400' },
+        'wajib': { prefix: 'A', name: 'Matematika Wajib', icon: 'fa-solid fa-shapes text-blue-400' },
         'minat': { prefix: 'B', name: 'Additional Mathematics', icon: 'fa-solid fa-infinity text-amber-400' },
-        'clil': { prefix: 'C', name: 'Program Khusus CLIL', icon: 'fa-solid fa-globe text-emerald-400' }
+        'clil': { prefix: 'C', name: 'Program Khusus CLIL', icon: 'fa-solid fa-globe text-amber-400' }
       };
 
       if (!window._openDrawerSubjects) window._openDrawerSubjects = {};
@@ -6055,7 +6055,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 ${m.id}
               </span>
               <span class="text-xs truncate flex-1 leading-snug">${m.title}</span>
-              ${hasQuizDone ? '<i class="fa-solid fa-circle-check text-emerald-400 text-xs shrink-0"></i>' : '<i class="fa-solid fa-angle-right text-slate-600 group-hover:text-slate-400 text-[10px] shrink-0"></i>'}
+              ${hasQuizDone ? '<i class="fa-solid fa-circle-check text-amber-400 text-xs shrink-0"></i>' : '<i class="fa-solid fa-angle-right text-slate-600 group-hover:text-slate-400 text-[10px] shrink-0"></i>'}
             `;
 
             item.onclick = () => {
@@ -6164,7 +6164,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         <!-- TUGAS TAMBAHAN & WALAS -->
         <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
-          <div class="font-bold text-cyan-300 text-[11px] flex items-center gap-1.5">
+          <div class="font-bold text-amber-300 text-[11px] flex items-center gap-1.5">
             <i class="fa-solid fa-user-tie text-[10px]"></i> Tugas Tambahan / Walas
           </div>
           <p class="text-[10px] text-slate-400">Jumat 06.30 (Morning Greetings) | 07.00 (In-charge Dhuha) | 14.50 (Sesi P1 Walas)</p>
@@ -6200,11 +6200,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       calHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60 cursor-pointer";
       calHeader.innerHTML = `
         <div class="flex items-center gap-2 min-w-0">
-          <span class="w-5 h-5 rounded-lg bg-emerald-500/20 text-emerald-300 font-black text-xs flex items-center justify-center shrink-0 border border-emerald-500/40">
+          <span class="w-5 h-5 rounded-lg bg-amber-500/20 text-emerald-300 font-black text-xs flex items-center justify-center shrink-0 border border-blue-500/40">
             <i class="fa-solid fa-calendar-days text-[10px]"></i>
           </span>
           <span class="text-xs font-black text-slate-100 uppercase tracking-wider truncate flex items-center gap-1.5">
-            <i class="fa-solid fa-bullhorn text-emerald-400 text-xs"></i> Kalender & Agenda Ujian
+            <i class="fa-solid fa-bullhorn text-amber-400 text-xs"></i> Kalender & Agenda Ujian
           </span>
         </div>
         <div class="flex items-center gap-2 shrink-0">
@@ -6224,7 +6224,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             <p class="text-[10px] text-slate-400 mt-0.5">Gelombang 2 SMA GIS 2 Serpong</p>
           </div>
           <div class="p-2 bg-rose-950/40 border border-rose-800/50 rounded-xl">
-            <div class="flex justify-between items-center"><span class="font-bold text-rose-300 text-[11px]">Pelaksanaan UTAMA TKA</span><span class="font-mono text-[10px] text-rose-400">2 - 5 Nov 2026</span></div>
+            <div class="flex justify-between items-center"><span class="font-bold text-rose-300 text-[11px]">Pelaksanaan UTAMA TKA</span><span class="font-mono text-[10px] text-amber-400">2 - 5 Nov 2026</span></div>
             <p class="text-[10px] text-slate-400 mt-0.5">Asesmen Standar Nasional</p>
           </div>
           <div class="p-2 bg-amber-950/40 border border-amber-800/50 rounded-xl">
@@ -6232,11 +6232,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             <p class="text-[10px] text-slate-400 mt-0.5">Hasil Resmi Kemdikbudristek</p>
           </div>
           <div class="p-2 bg-cyan-950/40 border border-cyan-800/50 rounded-xl">
-            <div class="flex justify-between items-center"><span class="font-bold text-cyan-300 text-[11px]">Pelaksanaan UTBK-SNBT</span><span class="font-mono text-[10px] text-cyan-400">21 - 30 Apr 2027</span></div>
+            <div class="flex justify-between items-center"><span class="font-bold text-amber-300 text-[11px]">Pelaksanaan UTBK-SNBT</span><span class="font-mono text-[10px] text-blue-400">21 - 30 Apr 2027</span></div>
             <p class="text-[10px] text-slate-400 mt-0.5">Seleksi Nasional Masuk PTN 2027</p>
           </div>
           <div class="p-2 bg-emerald-950/40 border border-emerald-800/50 rounded-xl">
-            <div class="flex justify-between items-center"><span class="font-bold text-emerald-300 text-[11px]">Pengumuman SNBT 2027</span><span class="font-mono text-[10px] text-emerald-400">25 Mei 2027</span></div>
+            <div class="flex justify-between items-center"><span class="font-bold text-emerald-300 text-[11px]">Pengumuman SNBT 2027</span><span class="font-mono text-[10px] text-amber-400">25 Mei 2027</span></div>
             <p class="text-[10px] text-slate-400 mt-0.5">Pengumuman Kelulusan PTN</p>
           </div>
         </div>
@@ -6502,7 +6502,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
             <div class="flex items-center gap-3">
               <span class="text-slate-400 font-mono">${item.right} / ${item.total}</span>
-              <span class="font-black font-mono ${pct >= 70 ? 'text-emerald-400' : 'text-rose-400'}">${pct}%</span>
+              <span class="font-black font-mono ${pct >= 70 ? 'text-amber-400' : 'text-amber-400'}">${pct}%</span>
             </div>
           `;
           listContainer.appendChild(div);
@@ -6681,7 +6681,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (sl) {
         sl.innerHTML = rows.map(function (r) {
           const w = Math.max(r.slidePct, 1.5);
-          const tone = r.slidePct >= 80 ? 'bg-emerald-500' : r.slidePct >= 40 ? 'bg-cyan-500' : 'bg-slate-600';
+          const tone = r.slidePct >= 80 ? 'bg-amber-500' : r.slidePct >= 40 ? 'bg-blue-500' : 'bg-slate-600';
           return '<div class="dash-bar-row">' +
             '<div class="dash-bar-t"><span>' + r.bab + '</span>' +
               '<b>' + r.slidePct + '% <em>' + r.slideBuka + '/' + r.slideAda + ' slide</em></b></div>' +
@@ -6747,7 +6747,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (rw) {
         const h = cbtHistory.slice().reverse();
         rw.innerHTML = h.length ? h.slice(0, 30).map(function (x) {
-          const tone = x.pct >= 70 ? 'text-emerald-400' : x.pct >= 50 ? 'text-amber-400' : 'text-rose-400';
+          const tone = x.pct >= 70 ? 'text-amber-400' : x.pct >= 50 ? 'text-amber-400' : 'text-amber-400';
           return '<div class="dash-riw"><span class="dash-riw-t">' + dashWaktu(x.ts) + '</span>' +
             '<span class="dash-riw-p">' + x.subj.toUpperCase() + ' ' + x.pkg + '</span>' +
             '<span class="dash-riw-n ' + tone + '">' + x.pct + '% <em>' + x.benar + '/' + x.n + '</em></span></div>';
@@ -6776,8 +6776,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }
       rows.slice(0, 5).forEach(r => {
         // kelas harus literal: stylesheet statis tak bisa menyusun `text-${tone}-400`
-        const txt = r.pct >= 70 ? 'text-emerald-400' : r.pct >= 50 ? 'text-amber-400' : 'text-rose-400';
-        const bar = r.pct >= 70 ? 'bg-emerald-500' : r.pct >= 50 ? 'bg-amber-500' : 'bg-rose-500';
+        const txt = r.pct >= 70 ? 'text-amber-400' : r.pct >= 50 ? 'text-amber-400' : 'text-amber-400';
+        const bar = r.pct >= 70 ? 'bg-amber-500' : r.pct >= 50 ? 'bg-amber-500' : 'bg-rose-500';
         const el = document.createElement('div');
         el.className = 'p-2.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5';
         el.innerHTML = `
@@ -6923,7 +6923,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (score >= 85) {
         badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
         predEl.innerText = "Mantap. Ini bukan hoki — kamu memang sudah paham.";
-        predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-emerald-500/40";
+        predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
         confettiCelebration();
       } else if (score >= 70) {
         badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
