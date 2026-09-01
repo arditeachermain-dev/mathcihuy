@@ -2040,6 +2040,16 @@
       return null;
     }
 
+    function ambilDraftSemua(subj, pkgId) {
+      try {
+        const k = getCbtDraftKey(subj, pkgId);
+        const draft = JSON.parse(localStorage.getItem(k) || '{}');
+        return (draft && draft.answers) ? draft.answers : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
     function bersihkanDraftJawaban(subj, pkgId) {
       try {
         const k = getCbtDraftKey(subj, pkgId);
@@ -3879,9 +3889,20 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       userTfAnswers = {};
 
       const isReviewMode = window._tkaReviewMode === true;
-      const draftObj = (typeof ambilDraftSemua === 'function') ? ambilDraftSemua(tkaSubj, tkaPkgId) : {};
+      const draftObj = ambilDraftSemua(tkaSubj, tkaPkgId);
       const qDraft = draftObj[tkaQIdx];
       const userChosen = qDraft ? qDraft.chosen : null;
+
+      // Restore multi and TF answers from draft if available
+      if (qDraft && qDraft.chosen) {
+        if (Array.isArray(qDraft.chosen)) {
+          userMultiAnswers = [...qDraft.chosen];
+        } else if (typeof qDraft.chosen === 'object') {
+          userTfAnswers = { ...qDraft.chosen };
+        } else if (typeof qDraft.chosen === 'string' && qDraft.chosen.includes(',')) {
+          userMultiAnswers = qDraft.chosen.split(',').map(s => s.trim());
+        }
+      }
 
       const judulPkg = String(pkg.title || '');
       const sudahBerkode = judulPkg.indexOf(tkaPkgId) === 0;
@@ -4067,8 +4088,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   btnClass = "p-3.5 md:p-4 bg-slate-900/60 border border-slate-800 rounded-2xl text-left text-sm text-slate-400 flex items-start gap-3 opacity-60";
                 }
               } else if (userChosen === letter) {
-                btnClass = "p-3.5 md:p-4 bg-cyan-950/90 border-2 border-cyan-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-cyan-950/50";
-                badgeHtml = '<i class="fa-solid fa-circle-check text-blue-400 text-sm"></i>';
+                btnClass = "p-3.5 md:p-4 bg-blue-900/60 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-blue-900/40";
+                badgeHtml = '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-circle-check text-amber-300"></i> Terpilih</span>';
               }
 
               return `
@@ -4174,19 +4195,26 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       userSessionScores[key] = isRight;
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', chosen: chosen, correct: correct });
 
-      // Highlight opsi yang dipilih siswa (simpan pilihan tanpa bocorkan kunci/pembahasan sebelum submit)
+      // Highlight opsi yang dipilih siswa (simpan pilihan pada perangkat)
       const span = b => b.classList.contains('md:col-span-2') ? ' md:col-span-2' : '';
       document.querySelectorAll('.opt-btn').forEach(b => {
         const letter = b.getAttribute('data-letter');
         const markEl = b.querySelector('.opt-mark');
         if (letter === chosen) {
-          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-cyan-950/90 border-2 border-cyan-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-cyan-950/50 transition';
-          if (markEl) markEl.innerHTML = '<i class="fa-solid fa-circle-check text-blue-400 text-sm"></i>';
+          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-blue-900/60 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-blue-900/40 transition scale-[1.01]';
+          if (markEl) markEl.innerHTML = '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-circle-check text-amber-300"></i> Terpilih</span>';
         } else {
           b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow';
           if (markEl) markEl.innerHTML = '';
         }
       });
+      
+      // Update Question Nav Pills to show answered status
+      const activePill = document.querySelector(`#tka-q-pills button:nth-child(${tkaQIdx + 1})`);
+      if (activePill) {
+        activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+      }
+
       saveAppState();
     }
 
