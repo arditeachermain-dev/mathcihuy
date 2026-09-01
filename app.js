@@ -6032,7 +6032,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           </div>
           <div class="space-y-1 font-mono text-[11px] text-slate-300">
             <div class="flex justify-between"><span>Senin (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.15</span></div>
-            <div class="flex justify-between"><span>Rabu (1 JP):</span><span class="text-slate-100 font-bold">07.30 - 08.00</span></div>
             <div class="flex justify-between"><span>Kamis (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.15</span></div>
           </div>
         </div>
@@ -6045,7 +6044,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           </div>
           <div class="space-y-1 font-mono text-[11px] text-slate-300">
             <div class="flex justify-between"><span>Rabu (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.20</span></div>
-            <div class="flex justify-between"><span>Jumat (2 JP):</span><span class="text-slate-100 font-bold">13.15 - 14.25</span></div>
+            <div class="flex justify-between"><span>Jumat (2 JP):</span><span class="text-slate-100 font-bold">13.15 - 14.20</span></div>
           </div>
         </div>
 
@@ -6053,14 +6052,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
             <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.3</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-900/40 text-amber-300 border border-amber-700/50">Wajib & Minat 8 JP</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-900/40 text-purple-300 border border-purple-700/50">Wajib 2 JP & Minat 4 JP</span>
           </div>
           <div class="space-y-1 font-mono text-[11px] text-slate-300">
-            <div class="flex justify-between"><span>Senin Wajib (2 JP):</span><span class="text-slate-100 font-bold">14.15 - 15.30</span></div>
             <div class="flex justify-between"><span>Selasa Minat (2 JP):</span><span class="text-slate-100 font-bold">14.20 - 15.30</span></div>
             <div class="flex justify-between"><span>Rabu Wajib (1 JP):</span><span class="text-slate-100 font-bold">07.30 - 08.00</span></div>
             <div class="flex justify-between"><span>Kamis Minat (2 JP):</span><span class="text-slate-100 font-bold">09.10 - 10.40</span></div>
-            <div class="flex justify-between"><span>Jumat Wajib (1 JP):</span><span class="text-slate-100 font-bold">14.25 - 14.50</span></div>
+            <div class="flex justify-between"><span>Jumat Wajib (1 JP):</span><span class="text-slate-100 font-bold">14.20 - 14.50</span></div>
           </div>
         </div>
 
@@ -6068,13 +6066,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
             <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.4</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-900/40 text-amber-300 border border-amber-700/50">Wajib & Minat 8 JP</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-900/40 text-purple-300 border border-purple-700/50">Wajib 4 JP & Minat 4 JP</span>
           </div>
           <div class="space-y-1 font-mono text-[11px] text-slate-300">
             <div class="flex justify-between"><span>Senin Wajib (2 JP):</span><span class="text-slate-100 font-bold">10.15 - 12.00</span></div>
             <div class="flex justify-between"><span>Selasa Minat (2 JP):</span><span class="text-slate-100 font-bold">10.40 - 12.00</span></div>
             <div class="flex justify-between"><span>Kamis Minat (2 JP):</span><span class="text-slate-100 font-bold">10.40 - 12.00</span></div>
-            <div class="flex justify-between"><span>Jumat Wajib (2 JP):</span><span class="text-slate-100 font-bold">08.00 - 09.20</span></div>
+            <div class="flex justify-between"><span>Jumat Wajib (2 JP):</span><span class="text-slate-100 font-bold">07.30 - 08.45</span></div>
           </div>
         </div>
 
