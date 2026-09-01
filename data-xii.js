@@ -4796,7 +4796,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 20"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menghitung permutasi siklis 5 orang:\n$$P_{\\text{siklis}} = (5 - 1)! = 4! = 24 \\text{ cara}$$\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Menguraikan nilai permutasi P(6, 3) dan kombinasi C(6, 3):\n$$P(6, 3) = 6 \\times 5 \\times 4 = 120$$\n$$C(6, 3) = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20$$\n\nLangkah 2: Menghitung hasil pembagian:\n$$\\frac{P(6, 3)}{C(6, 3)} = \\frac{120}{20} = 6$$\n*(Catatan: Secara teoritis, $\\frac{P(n, r)}{C(n, r)} = r! = 3! = 6$)*.\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 2,
@@ -4811,8 +4811,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/2",
             "E. 1/3"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menghitung kombinasi 3 delegasi dari 8 siswa:\n$$C(8, 3) = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56 \\text{ cara}$$\nKesimpulan: Kunci Jawaban E."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menghitung total ruang sampel pembentukan bilangan 4 digit dari {1, 2, 3, 4, 5, 6}:\n$$n(S) = P(6, 4) = 6 \\times 5 \\times 4 \\times 3 = 360$$\n\nLangkah 2: Menghitung banyak bilangan genap 4 digit:\n- Satuan genap $\\{2, 4, 6\\}$: $3$ pilihan angka.\n- Tiga digit di depannya: $5 \\times 4 \\times 3 = 60$ pilihan.\n$$n(\\text{Genap}) = 3 \\times 60 = 180$$\n\nLangkah 3: Menghitung peluang terambil bilangan genap:\n$$P(\\text{Genap}) = \\frac{180}{360} = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 3,
@@ -4827,8 +4827,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 60",
             "E. 45"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menghitung permutasi huruf pada kata 'KATAK':\nTotal huruf $n = 5$, huruf K $= 2$, A $= 2$, T $= 1$.\n$$P = \\frac{5!}{2! \\cdot 2!} = \\frac{120}{4} = 30 \\text{ susunan}$$\nKesimpulan: Kunci Jawaban C."
+          "kunci": "A",
+          "bahas": "Langkah 1: Memahami syarat pembentukan segitiga dari 10 titik:\nSetiap segitiga dibentuk oleh tepat 3 titik non-segaris. Karena tidak ada 3 titik yang segaris, gunakan rumus kombinasi $C(10, 3)$.\n\nLangkah 2: Menghitung nilai kombinasi $C(10, 3)$:\n$$C(10, 3) = \\frac{10!}{3! \\cdot 7!} = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1}$$\n\nLangkah 3: Menyederhanakan perkalian:\n$$C(10, 3) = \\frac{720}{6} = 120 \\text{ segitiga}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 4,
@@ -4843,8 +4843,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 3/10",
             "E. 2/5"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 2 koin:\n$S = \\{AA, AG, GA, GG\\} \\implies n(S) = 4$.\nKejadian muncul keduanya angka: $A = \\{AA\\} \\implies n(A) = 1$.\n$$P(A) = \\frac{1}{4}$$\n\nLangkah 2: Menghitung frekuensi harapan dari $n = 100$ lemparan:\n$$F_h(A) = 100 \\times \\frac{1}{4} = 25 \\text{ kali}$$\nKesimpulan: Kunci Jawaban D."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan total ruang sampel pengambilan 3 bola dari 10 bola (6 merah + 4 biru):\n$$n(S) = C(10, 3) = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1} = 120$$\n\nLangkah 2: Menghitung banyak cara terambilnya 2 bola merah dan 1 bola biru:\n$$n(A) = C(6, 2) \\times C(4, 1) = \\frac{6 \\times 5}{2} \\times 4 = 15 \\times 4 = 60$$\n\nLangkah 3: Menghitung peluang kejadian:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{60}{120} = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 5,
@@ -4857,8 +4857,8 @@ const NAMA_TINGKAT = 'XII';
             "Peluang muncul jumlah mata dadu 7 pada pelemparan 2 dadu adalah 1/6",
             "Nilai dari C(8, 3) bernilai 56"
           ],
-          "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$P(n, n) = n!$ adalah benar.\n$\\implies$ Pernyataan (1) BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$C(n, 0) = 1$ adalah benar.\n$\\implies$ Pernyataan (2) BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPeluang bernilai di selang $[0, 1]$, tidak mungkin negatif.\n$\\implies$ Pernyataan (3) SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "kunci": "S - B - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBilangan genap 3 angka dari $\\{1, 2, 3, 4, 5\\}$ tanpa perulangan:\nSatuan genap $\\{2, 4\\}$ (2 cara), ratusan (4 cara), puluhan (3 cara) $\\implies 4 \\times 3 \\times 2 = 24$ (bukan 100).\n$\\implies$ Pernyataan (1) bernilai SALAH (S).\n\nLangkah 2: Analisis Pernyataan (2):\nPada pelemparan 2 dadu, pasangan mata dadu berjumlah 7 adalah $\\{(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)\\} \\implies P = \\frac{6}{36} = \\frac{1}{6}$.\n$\\implies$ Pernyataan (2) bernilai BENAR (B).\n\nLangkah 3: Analisis Pernyataan (3):\n$$C(8, 3) = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$$\n$\\implies$ Pernyataan (3) bernilai BENAR (B).\n\nKesimpulan: Kunci Jawaban S - B - B.",
           "viz": {
             "t": "dadu",
             "sum": 7
@@ -4877,8 +4877,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/26",
             "E. 1/52"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menguraikan $P(n, 2) = n(n-1) = 30$.\nLangkah 2: $n^2 - n - 30 = 0 \\implies (n-6)(n+5) = 0 \\implies n = 6$.\nKesimpulan: Kunci Jawaban B."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan ruang sampel 1 set kartu bridge standar:\n$$n(S) = 52 \\text{ kartu}$$\n\nLangkah 2: Menghitung banyak kartu King berwarna merah:\nKartu King merah terdiri atas 2 kartu (King Hati dan King Wajik) $\\implies n(A) = 2$.\n\nLangkah 3: Menghitung peluang:\n$$P(A) = \\frac{2}{52} = \\frac{1}{26}$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 7,
@@ -4894,7 +4894,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 70"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menghitung peluang kartu As dari 52 kartu bridge:\nJumlah kartu As $= 4$.\n$$P(\\text{As}) = \\frac{4}{52} = \\frac{1}{13}$$\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menggunakan Identitas Pascal $C(n, r-1) + C(n, r) = C(n+1, r)$:\n$$C(8, 2) + C(8, 3) = C(9, 3)$$\n\nLangkah 2: Menghitung nilai numerik:\n$$C(8, 2) = \\frac{8 \\times 7}{2} = 28$$\n$$C(8, 3) = \\frac{8 \\times 7 \\times 6}{6} = 56$$\n\nLangkah 3: Menjumlahkan kedua nilai:\n$$28 + 56 = 84$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -4909,8 +4909,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Peluang paling sedikit 1 bola merah terambil adalah 1/28.",
             "E. Peluang terambil 1 merah dan 1 putih adalah 15/28."
           ],
-          "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Evaluasi seluruh sifat dasar kombinatorika & peluang:\n- A: $C(5, 2) = 10$ (BENAR)\n- B: $P(4, 2) = 12$ (BENAR)\n- C: $0! = 1$ (BENAR)\n- D: $F_h = n \\times P$ (BENAR)\n- E: $P(S) = 1$ (BENAR)\nKesimpulan: Kunci Jawaban A, B, C, D, E."
+          "kunci": "A, B, C, E",
+          "bahas": "Langkah 1: Menghitung total ruang sampel pengambilan 2 bola dari 8 bola (5 merah + 3 putih):\n$$n(S) = C(8, 2) = \\frac{8 \\times 7}{2} = 28 \\text{ cara (Opsi B BENAR)}$$\n\nLangkah 2: Analisis Peluang:\n- Keduanya merah: $P = \\frac{C(5, 2)}{28} = \\frac{10}{28} = \\frac{5}{14}$ (Opsi A BENAR).\n- Keduanya putih: $P = \\frac{C(3, 2)}{28} = \\frac{3}{28}$ (Opsi C BENAR).\n- 1 merah & 1 putih: $P = \\frac{C(5, 1) \\times C(3, 1)}{28} = \\frac{5 \\times 3}{28} = \\frac{15}{28}$ (Opsi E BENAR).\n- Minimal 1 merah: $1 - P(\\text{semua putih}) = 1 - \\frac{3}{28} = \\frac{25}{28} \\ne \\frac{1}{28}$ (Opsi D SALAH).\n\nKesimpulan: Kunci Jawaban A, B, C, E."
         },
         {
           "no": 9,
@@ -4925,8 +4925,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 9/28",
             "E. 5/14"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menghitung bilangan 3 digit dari $\\{1, 2, 3, 4, 5\\}$ tanpa pengulangan:\n$$5 \\times 4 \\times 3 = 60 \\text{ bilangan}$$\nKesimpulan: Kunci Jawaban D."
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung total ruang sampel pemilihan 3 orang dari 8 orang (5 pria + 3 wanita):\n$$n(S) = C(8, 3) = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$$\n\nLangkah 2: Menghitung kejadian terpilihnya 2 pria dan 1 wanita:\n$$n(A) = C(5, 2) \\times C(3, 1) = 10 \\times 3 = 30$$\n\nLangkah 3: Menghitung peluang dan menyederhanakan pecahan:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{30}{56} = \\frac{15}{28}$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 10,
@@ -4935,8 +4935,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P06-Q10] Nilai dari $C(7, 3)$ adalah ...",
           "opsi": [],
-          "kunci": "24",
-          "bahas": "Langkah 1: Menghitung permutasi siklis 5 orang melingkar:\n$$P_{\\text{siklis}} = (5 - 1)! = 4! = 24$$\nKesimpulan: Kunci Jawaban 24."
+          "kunci": "35",
+          "bahas": "Langkah 1: Menguraikan rumus kombinasi $C(7, 3)$:\n$$C(7, 3) = \\frac{7!}{3! \\cdot 4!} = \\frac{7 \\times 6 \\times 5}{3 \\times 2 \\times 1}$$\n\nLangkah 2: Menyederhanakan perkalian pembilang dan penyebut:\n$$C(7, 3) = \\frac{210}{6} = 35$$\nKesimpulan: Kunci Jawaban 35."
         }
       ]
     },
