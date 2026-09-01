@@ -3462,22 +3462,35 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           </div>
         `;
       } else if (sIdx === 3) {
-        // SLIDE 4: THE TOOLKIT (FORMULAS)
+        // SLIDE 4: THE MATHEMATICAL TOOLKIT (OPTIMIZED BALANCED 7:5 WORKSPACE)
         const formulas = m.toolkit || [];
         const toolkitSvg = getTopicSvgDiagram(m.id, currentMode, 'toolkit');
         window._labSlide4 = labUntukBab(m.bab, currentMode);
         body.innerHTML = `
           <div class="space-y-3 w-full my-auto shrink-0">
-            <div class="p-4 md:p-5 bg-[#0D1A2E] rounded-2xl border border-[#1a2f4a] shadow-xl space-y-3">
-              <div class="flex items-center justify-between border-b border-[#1a2f4a] pb-2">
-                <h3 class="text-xs md:text-sm font-extrabold text-blue-400 flex items-center gap-2">
-                  <i class="fa-solid fa-toolbox text-blue-400"></i> ${isClil ? 'THE MATHEMATICAL TOOLKIT (CORE FORMULAS)' : 'THE MATHEMATICAL TOOLKIT (RUMUS & KAIDAH UTAMA)'}
-                </h3>
-                <span class="text-[10px] text-slate-400 font-mono">${m.id} • Essential Rules</span>
+            <div class="p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl space-y-4">
+              <!-- TOOLKIT HEADER -->
+              <div class="flex items-center justify-between border-b border-blue-900/80 pb-3">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span class="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-500/40 text-amber-400 flex items-center justify-center text-sm shadow-sm shrink-0">
+                    <i class="fa-solid fa-toolbox"></i>
+                  </span>
+                  <div class="truncate min-w-0">
+                    <h3 class="text-xs md:text-sm font-black text-white tracking-wide truncate">
+                      ${isClil ? 'THE MATHEMATICAL TOOLKIT (CORE FORMULAS)' : 'THE MATHEMATICAL TOOLKIT (RUMUS & KAIDAH UTAMA)'}
+                    </h3>
+                    <p class="text-[10px] text-slate-400 font-mono truncate">${m.id} • ${isClil ? 'Essential Theorems & Rules' : 'Teorema & Kaidah Penting'}</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-lg bg-[#060D1A] border border-amber-500/30 text-amber-300 text-xs font-mono font-bold shrink-0">
+                  ${formulas.length} Kaidah
+                </span>
               </div>
               
-              <div class="flex flex-col lg:flex-row gap-4 items-center">
-                <div class="grid grid-cols-1 gap-2.5 flex-1 w-full max-h-[420px] overflow-y-auto pr-1.5 kolab-scroll">
+              <!-- 2-COLUMN BALANCED WORKSPACE: FORMULAS (LEFT 7/12) + LAB (RIGHT 5/12) -->
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+                <!-- FORMULAS LIST (LEFT 7/12) -->
+                <div class="lg:col-span-7 space-y-2.5 max-h-[380px] overflow-y-auto pr-1.5 custom-scroll">
                   ${formulas.map(f => `
                     <div class="formula-box">
                       <span class="fb-name">${f.name}</span>
@@ -3485,15 +3498,21 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                     </div>
                   `).join('')}
                 </div>
-                <div class="p-3 bg-[#050D1A] rounded-2xl border border-[#1a2f4a] shadow-inner shrink-0 w-full lg:w-[26rem] space-y-2">
-                  <div class="flex items-center justify-between">
-                    <span class="text-[11px] text-amber-300 font-mono uppercase tracking-widest font-bold">
-                      <i class="fa-solid fa-flask-vial"></i> Lab Interaktif
+
+                <!-- 3D INTERACTIVE LAB / DIAGRAM (RIGHT 5/12) -->
+                <div class="lg:col-span-5 p-4 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between space-y-3">
+                  <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
+                    <span class="text-xs font-bold text-amber-300 font-mono uppercase tracking-wider flex items-center gap-1.5">
+                      <i class="fa-solid fa-cube"></i> ${isClil ? 'Interactive Visualizer' : 'Visualisasi Geometri 3D'}
                     </span>
-                    ${toolkitSvg ? `<button type="button" onclick="toggleToolkitSvg()" class="text-[10px] text-slate-400 hover:text-white font-mono">gambar diam</button>` : ''}
+                    ${toolkitSvg ? `<button type="button" onclick="toggleToolkitSvg()" class="text-[10px] text-slate-400 hover:text-white font-mono underline cursor-pointer">gambar diam</button>` : ''}
                   </div>
-                  <div id="lab-inline-host"></div>
-                  ${toolkitSvg ? `<div id="toolkit-svg-box" class="hidden bg-slate-900/60 p-2 rounded-xl border border-slate-800">${toolkitSvg}</div>` : ''}
+                  <div id="lab-inline-host" class="flex-1 min-h-[180px] flex items-center justify-center"></div>
+                  ${toolkitSvg ? `<div id="toolkit-svg-box" class="hidden bg-[#081324] p-2 rounded-xl border border-blue-900/60 flex items-center justify-center">${toolkitSvg}</div>` : ''}
+                  <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-blue-900/40">
+                    <span>Rotasi: <b>360°</b></span>
+                    <span class="text-amber-300">Sentuh/geser bangun</span>
+                  </div>
                 </div>
               </div>
             </div>

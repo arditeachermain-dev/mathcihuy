@@ -187,7 +187,7 @@
     }
     .viz-toggle {
       display: inline-flex; align-items: center; gap: 0.45rem;
-      font-size: 0.8125rem; font-weight: 700; color: #93C5FD;
+      font-size: 0.8125rem; font-weight: 700; color: #FBBF24;
       background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.32);
       border-radius: 0.75rem; padding: 0.4rem 0.8rem; transition: background .15s;
     }
@@ -427,7 +427,7 @@
       padding: 0.95rem 1.15rem 1rem 1.3rem;
       background: linear-gradient(103deg, rgba(37,99,235,0.13) 0%, rgba(11,22,40,0.92) 46%);
       border: 1px solid var(--lux-line);
-      border-left: 4px solid var(--lux-gold);
+      border-left: 4px solid #F59E0B;
       border-radius: 0.35rem 1rem 1rem 0.35rem;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.045), 0 8px 22px -16px rgba(0,0,0,0.9);
       transition: border-color .16s ease, box-shadow .16s ease;
@@ -439,7 +439,7 @@
     .formula-box .fb-name {
       display: block; margin-bottom: 0.45rem;
       font-size: 0.72rem; font-weight: 800; letter-spacing: 0.085em; text-transform: uppercase;
-      color: #93C5FD;
+      color: #FBBF24;
     }
     /* Rumus panjang (mis. definisi garis bersilangan) tidak boleh terpotong
        diam-diam di tepi kanan kotak — biarkan kotaknya sendiri yang menggulir. */
@@ -503,7 +503,7 @@
       color: #FCD34D; background: rgba(245,158,11,.14); border: 1px solid rgba(245,158,11,.34);
       padding: .16rem .4rem; border-radius: .4rem; white-space: nowrap;
     }
-    .formula-box .fb-math .katex { color: var(--lux-gold-lt) !important; }
+    .formula-box .fb-math .katex { color: #FFFFFF !important; }
 
     /* Di kartu pemilih pertemuan rumus hanya keterangan kecil — biarkan
        mengikuti warna teks di sekitarnya supaya tidak berteriak. */
@@ -1331,7 +1331,7 @@
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .dash-rek:hover { color: #fff; background: rgba(37,99,235,.32); }
-    .dash-rek b { color: #93C5FD; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .dash-rek b { color: #FBBF24; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
     .dash-kosong { font-size: .7rem; color: #7C8FA8; line-height: 1.6; }
     .dash-riw { display: flex; align-items: baseline; gap: .6rem; font-size: .7rem;
       background: rgba(4,10,22,.7); border: 1px solid var(--lux-line); border-radius: .6rem; padding: .35rem .6rem; }
@@ -1606,7 +1606,7 @@
     .lab-btn {
       display: inline-flex; align-items: center; gap: .35rem; cursor: pointer;
       font-size: .68rem; font-weight: 800; padding: .38rem .7rem; border-radius: .6rem;
-      color: #93C5FD; background: rgba(37,99,235,.14); border: 1px solid rgba(37,99,235,.4);
+      color: #FBBF24; background: rgba(37,99,235,.14); border: 1px solid rgba(37,99,235,.4);
       transition: background .15s ease, color .15s ease;
     }
     .lab-btn:hover { color: #fff; background: rgba(37,99,235,.3); }
