@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788286993">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788287249">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -30,7 +30,7 @@
 
   <!-- 100% INLINE OFFLINE KATEX ASSETS -->
   <!-- gaya dipindah ke mathcihuy.css -->
-  <script src="vendor.js?v=v1788286993"></script>
+  <script src="vendor.js?v=v1788287249"></script>
 <!-- digabung ke vendor.js -->
 
   <!-- gaya dipindah ke mathcihuy.css -->
@@ -1169,30 +1169,40 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v1788286993"></script>
-  <script src="app.js?v=v1788286993"></script>
+  <script src="data-xii.js?v=v1788287249"></script>
+  <script src="app.js?v=v1788287249"></script>
 
 
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
-    <div id="guru-dashboard-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 hidden flex items-center justify-center p-2 md:p-4">
-        <div class="bg-[#0D1B2E] border border-blue-800/80 rounded-3xl p-5 md:p-7 max-w-7xl max-h-[92vh] overflow-y-auto w-full shadow-2xl text-white">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-emerald-300">📊 Dashboard Monitoring Guru</h2>
-                <button onclick="closeGuruDashboard()" class="text-2xl text-slate-400 hover:text-white">&times;</button>
+    <div id="guru-dashboard-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-[#0A1628] border border-blue-900/90 rounded-3xl p-5 sm:p-7 max-w-7xl max-h-[94vh] flex flex-col w-full shadow-2xl text-white relative">
+            
+            <!-- HEADER MODAL -->
+            <div class="flex justify-between items-center pb-4 border-b border-blue-900/80 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
+                        <i class="fa-solid fa-chart-column text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+                            Dashboard Monitoring CBT &amp; Nilai Siswa
+                        </h2>
+                        <p class="text-xs text-slate-400 font-medium">Monitoring pengerjaan live, analisis nilai, dan rekapitulasi real-time SMA GIS 2 Serpong</p>
+                    </div>
+                </div>
+                <button onclick="closeGuruDashboard()" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-rose-950/60 border border-slate-800 hover:border-rose-500/50 text-slate-400 hover:text-rose-300 text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
             </div>
 
-                                                <!-- Filter & Action Controls -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4 items-end">
+            <!-- FILTER CONTROLS BAR -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 py-3 shrink-0">
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-users-viewfinder text-blue-400 mr-1"></i> Pilih Rombel / Kelas</label>
-                    <select id="guru-filter-kelas" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-cyan-400 focus:outline-none transition">
-                        <!-- Diisi isiPilihanKelas() dari STUDENTS_DB, supaya nama kelas
-                             dan jumlah siswanya selalu ikut tingkat halaman ini. -->
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1"><i class="fa-solid fa-users-viewfinder text-blue-400 mr-1"></i> Rombel / Kelas</label>
+                    <select id="guru-filter-kelas" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-[#060D1A] border border-blue-900/80 rounded-xl text-white text-xs font-bold focus:border-cyan-400 focus:outline-none transition cursor-pointer">
                     </select>
                 </div>
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-book-open text-amber-400 mr-1"></i> Mata Pelajaran</label>
-                    <select id="guru-filter-mapel" onchange="updateGuruPertemuanOptions(); loadGuruDashboardData();" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-amber-400 focus:outline-none transition">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1"><i class="fa-solid fa-book-open text-amber-400 mr-1"></i> Mata Pelajaran</label>
+                    <select id="guru-filter-mapel" onchange="updateGuruPertemuanOptions(); loadGuruDashboardData();" class="w-full px-3 py-2 bg-[#060D1A] border border-blue-900/80 rounded-xl text-white text-xs font-bold focus:border-amber-400 focus:outline-none transition cursor-pointer">
                         <option value="">Semua Mapel</option>
                         <option value="wajib" id="opsi-wajib">Matematika Wajib (21 Pertemuan)</option>
                         <option value="peminatan" id="opsi-minat">Additional Mathematics (30 Pertemuan)</option>
@@ -1200,106 +1210,84 @@
                     </select>
                 </div>
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-bullseye text-amber-400 mr-1"></i> Pilih Pertemuan / Bab</label>
-                    <select id="guru-filter-pertemuan" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-emerald-400 focus:outline-none transition">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1"><i class="fa-solid fa-bullseye text-emerald-400 mr-1"></i> Pertemuan / Bab</label>
+                    <select id="guru-filter-pertemuan" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-[#060D1A] border border-blue-900/80 rounded-xl text-white text-xs font-bold focus:border-emerald-400 focus:outline-none transition cursor-pointer">
                         <option value="">Semua Pertemuan</option>
                         <option value="P01">P01 - Kaidah Pencacahan 1</option>
-                        <option value="P02">P02 - Notasi Faktorial & Permutasi</option>
-                        <option value="P03">P03 - Permutasi Unsur Sama & Siklis</option>
-                        <option value="P04">P04 - Kombinasi & Delegasi</option>
+                        <option value="P02">P02 - Notasi Faktorial &amp; Permutasi</option>
+                        <option value="P03">P03 - Permutasi Unsur Sama &amp; Siklis</option>
+                        <option value="P04">P04 - Kombinasi &amp; Delegasi</option>
                         <option value="P05">P05 - Peluang Kejadian Tunggal</option>
-                        <option value="P06">P06 - Asesmen Sumatif 1</option>
-                        <option value="P07">P07 - Peluang Saling Lepas</option>
-                        <option value="P08">P08 - Peluang Saling Bebas & Bersyarat</option>
-                        <option value="P09">P09 - Kedudukan Titik Garis Bidang</option>
-                        <option value="P10">P10 - Jarak Titik ke Titik</option>
-                        <option value="P11">P11 - Jarak Titik ke Garis</option>
-                        <option value="P12">P12 - Jarak Titik ke Bidang</option>
-                        <option value="P13">P13 - Sudut Ruang Tiga Dimensi</option>
-                        <option value="P14">P14 - Asesmen Sumatif Terpadu Dimensi 3</option>
-                        <option value="P15">P15 - Penyajian Data Berkelompok</option>
-                        <option value="P16">P16 - Rata-rata Hitung (Mean)</option>
-                        <option value="P17">P17 - Median dan Modus</option>
-                        <option value="P18">P18 - Ukuran Letak Data</option>
-                        <option value="P19">P19 - Ukuran Penyebaran Data</option>
-                        <option value="P20">P20 - Analisis Data Bivariat</option>
-                        <option value="P21">P21 - Asesmen Sumatif Statistika</option>
+                        <option value="P06">P06 - Asesmen Sumatif 1 (UH-1)</option>
+                        <option value="P07">P07 - Peluang Kejadian Majemuk</option>
+                        <option value="P08">P08 - Peluang Saling Bebas &amp; Bersyarat</option>
+                        <option value="P09">P09 - Dimensi Tiga: Kedudukan Titik/Garis/Bidang</option>
+                        <option value="P10">P10 - Dimensi Tiga: Jarak Titik ke Titik</option>
+                        <option value="P11">P11 - Dimensi Tiga: Jarak Titik ke Garis</option>
+                        <option value="P12">P12 - Dimensi Tiga: Jarak Titik ke Bidang</option>
+                        <option value="P13">P13 - Dimensi Tiga: Sudut Garis &amp; Bidang</option>
+                        <option value="P14">P14 - Bedah Prediksi ASTS CBT</option>
+                        <option value="P15">P15 - Statistika: Tabel Distribusi &amp; Histogram</option>
+                        <option value="P16">P16 - Statistika: Mean Data Berkelompok</option>
+                        <option value="P17">P17 - Statistika: Median &amp; Modus</option>
+                        <option value="P18">P18 - Statistika: Kuartil &amp; Desil</option>
+                        <option value="P19">P19 - Statistika: Simpangan Baku &amp; Varians</option>
+                        <option value="P20">P20 - Statistika: Analisis Data Bivariat</option>
+                        <option value="P21">P21 - Simulasi ASAS / ASAJ CBT</option>
                     </select>
                 </div>
                 <div>
-                    <button onclick="exportToExcel()" class="w-full px-4 py-2.5 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 rounded-xl font-bold text-xs shadow transition flex items-center justify-center gap-2"><i class="fa-solid fa-file-excel text-amber-400"></i> Ekspor CSV / Excel</button>
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1"><i class="fa-solid fa-file-export text-cyan-400 mr-1"></i> Tindakan Data</label>
+                    <button onclick="exportToExcel()" class="w-full px-3 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 rounded-xl font-bold text-xs shadow transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-file-excel text-amber-400"></i> Ekspor CSV / Excel</button>
                 </div>
             </div>
 
             <!-- TAB STATUS PENGERJAAN & CLOUD SYNC BAR -->
-            <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-950/80 rounded-2xl border border-slate-800 mb-3">
-                <div class="flex flex-wrap items-center gap-2">
-                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all">📋 Semua Data (<span id="count-semua">0</span>)</button>
-                    <button type="button" id="btn-status-sudah" onclick="setGuruStatusFilter('sudah')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-amber-400 hover:bg-slate-700 transition-all border border-emerald-500/30">🟢 Sudah Mengerjakan (<span id="count-sudah">0</span>)</button>
-                    <button type="button" id="btn-status-sedang" onclick="setGuruStatusFilter('sedang')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-amber-300 hover:bg-slate-700 transition-all border border-amber-500/30">⚡ Sedang Mengerjakan (<span id="count-sedang">0</span>)</button>
-                    <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-amber-400 hover:bg-slate-700 transition-all border border-rose-500/30">🔴 Belum Mengerjakan (<span id="count-belum">0</span>)</button>
+            <div class="flex flex-wrap items-center justify-between gap-2.5 p-2.5 bg-[#060D1A] rounded-2xl border border-blue-900/80 mb-3 shrink-0">
+                <div class="flex flex-wrap items-center gap-1.5">
+                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all cursor-pointer">📋 Semua (<span id="count-semua">0</span>)</button>
+                    <button type="button" id="btn-status-sudah" onclick="setGuruStatusFilter('sudah')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0D1B2E] text-emerald-300 hover:text-white transition-all border border-emerald-500/30 cursor-pointer">🟢 Selesai (<span id="count-sudah">0</span>)</button>
+                    <button type="button" id="btn-status-sedang" onclick="setGuruStatusFilter('sedang')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0D1B2E] text-amber-300 hover:text-white transition-all border border-amber-500/30 cursor-pointer">⚡ Sedang (<span id="count-sedang">0</span>)</button>
+                    <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0D1B2E] text-rose-300 hover:text-white transition-all border border-rose-500/30 cursor-pointer">🔴 Belum (<span id="count-belum">0</span>)</button>
                 </div>
-                <div class="flex flex-wrap items-center gap-2">
+                <div class="flex items-center gap-2">
                     <span id="cloud-sync-status" class="text-xs"></span>
-                    <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition-all cursor-pointer">
-                        <i class="fa-solid fa-rotate"></i> Tarik Nilai Supabase
+                    <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition-all cursor-pointer">
+                        <i class="fa-solid fa-rotate"></i> Tarik Supabase
                     </button>
                 </div>
             </div>
 
-            <!-- ZOOM & FIT-TO-SCREEN CONTROLLER BAR -->
-            <div class="flex items-center justify-between gap-3 px-3 py-2 bg-[#081324] rounded-xl border border-blue-900/80 mb-3 text-xs">
-                <div class="flex items-center gap-2 text-slate-400 font-mono text-[11px]">
-                    <i class="fa-solid fa-mouse text-amber-400"></i>
-                    <span>Zoom: <b class="text-slate-200">Ctrl + Scroll Mouse</b> atau tombol di samping:</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                    <button type="button" onclick="zoomGuruTable(-0.08)" title="Perkecil Tampilan (Zoom Out)" class="px-2.5 py-1 bg-[#0D1B2E] hover:bg-[#152945] text-slate-200 border border-blue-900/80 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer">
-                        <i class="fa-solid fa-magnifying-glass-minus text-blue-400"></i> Zoom Out
-                    </button>
-                    <button type="button" onclick="setGuruTableZoom(1.0)" title="Reset Zoom ke 100%" class="px-2.5 py-1 bg-[#060D1A] text-amber-400 font-mono font-black border border-amber-500/30 rounded-lg text-xs transition cursor-pointer min-w-[54px] text-center" id="guru-zoom-label">
-                        100%
-                    </button>
-                    <button type="button" onclick="zoomGuruTable(0.08)" title="Perbesar Tampilan (Zoom In)" class="px-2.5 py-1 bg-[#0D1B2E] hover:bg-[#152945] text-slate-200 border border-blue-900/80 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer">
-                        <i class="fa-solid fa-magnifying-glass-plus text-blue-400"></i> Zoom In
-                    </button>
-                    <button type="button" onclick="fitGuruTableToScreen()" title="Sesuaikan otomatis agar seluruh 11 kolom pas di layar tanpa perlu geser horizontal" class="px-3 py-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 text-white rounded-lg text-xs font-black shadow transition flex items-center gap-1.5 cursor-pointer ml-1 border border-emerald-400/40">
-                        <i class="fa-solid fa-arrows-left-right-to-line text-amber-300"></i> Pas ke Layar
-                    </button>
-                </div>
-            </div>
-
-            <!-- TABLE WRAPPER WITH DYNAMIC ZOOM SUPPORT -->
-            <div id="guru-table-container" class="overflow-x-auto rounded-2xl border border-blue-900/80 bg-[#081324] shadow-xl relative transition-all">
-                <div id="guru-table-content" class="transition-transform duration-150 origin-top-left">
-                <table id="guru-results-table" class="w-full text-xs text-left border-collapse">
-                    <thead>
-                        <tr class="bg-[#060D1A] text-slate-300 font-bold text-[11px] uppercase tracking-wider border-b border-slate-700">
-                            <th onclick="setGuruSort('nis')" title="Klik untuk mengurutkan berdasarkan NIS" class="border border-slate-700 px-3.5 py-3 text-left font-mono whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">NIS <span id="sort-icon-nis"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('nama')" title="Klik untuk mengurutkan berdasarkan Nama" class="border border-slate-700 px-4 py-3 text-left min-w-[170px] cursor-pointer hover:bg-slate-800 transition select-none">Nama Siswa <span id="sort-icon-nama"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('kelas')" title="Klik untuk mengurutkan berdasarkan Kelas" class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Kelas <span id="sort-icon-kelas"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('mapel')" title="Klik untuk mengurutkan berdasarkan Mapel" class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Mapel <span id="sort-icon-mapel"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('kode')" title="Klik untuk mengurutkan berdasarkan Kode Paket" class="border border-slate-700 px-3 py-3 text-center font-mono whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Paket <span id="sort-icon-kode"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('skor')" title="Klik untuk mengurutkan berdasarkan Skor" class="border border-slate-700 px-3.5 py-3 text-center min-w-[130px] whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Status &amp; Skor <span id="sort-icon-skor"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('progress')" title="Klik untuk mengurutkan berdasarkan Progress Soal" class="border border-slate-700 px-3 py-3 text-center min-w-[105px] whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Progress <span id="sort-icon-progress"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('durasi')" title="Klik untuk mengurutkan berdasarkan Durasi / Waktu Aktivitas" class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap min-w-[105px] cursor-pointer hover:bg-slate-800 transition select-none">Aktivitas <span id="sort-icon-durasi"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('tanggal')" title="Klik untuk mengurutkan berdasarkan Tanggal" class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap min-w-[95px] cursor-pointer hover:bg-slate-800 transition select-none">Tanggal <span id="sort-icon-tanggal"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
-                            <th onclick="setGuruSort('jam')" title="Klik untuk mengurutkan berdasarkan Jam Selesai WIB" class="border border-slate-700 px-3.5 py-3 text-center whitespace-nowrap min-w-[115px] text-amber-400 cursor-pointer hover:bg-slate-800 transition select-none">
+            <!-- TABLE CONTAINER (SOLID OPAQUE & STICKY HEADER) -->
+            <div class="overflow-x-auto overflow-y-auto max-h-[55vh] rounded-2xl border border-blue-900/90 bg-[#071120] shadow-inner relative">
+                <table id="guru-results-table" class="w-full text-xs text-left border-collapse bg-[#071120]">
+                    <thead class="sticky top-0 z-20 bg-[#0A1830] shadow-md border-b-2 border-blue-800">
+                        <tr class="text-slate-300 font-black text-[11px] uppercase tracking-wider">
+                            <th onclick="setGuruSort('nis')" title="Urutkan NIS" class="px-3 py-3 text-left font-mono whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">NIS <span id="sort-icon-nis"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('nama')" title="Urutkan Nama" class="px-4 py-3 text-left min-w-[170px] cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Nama Siswa <span id="sort-icon-nama"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('kelas')" title="Urutkan Kelas" class="px-3 py-3 text-center whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Kelas <span id="sort-icon-kelas"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('mapel')" title="Urutkan Mapel" class="px-3 py-3 text-center whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Mapel <span id="sort-icon-mapel"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('kode')" title="Urutkan Paket" class="px-3 py-3 text-center font-mono whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Paket <span id="sort-icon-kode"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('skor')" title="Urutkan Skor / Ranking" class="px-3.5 py-3 text-center min-w-[130px] whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Status &amp; Skor <span id="sort-icon-skor"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('progress')" title="Urutkan Butir Terjawab" class="px-3 py-3 text-center min-w-[95px] whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Progress <span id="sort-icon-progress"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('durasi')" title="Urutkan Durasi / Waktu" class="px-3 py-3 text-center whitespace-nowrap min-w-[95px] cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Durasi <span id="sort-icon-durasi"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('tanggal')" title="Urutkan Tanggal" class="px-3 py-3 text-center whitespace-nowrap min-w-[95px] cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Tanggal <span id="sort-icon-tanggal"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('jam')" title="Urutkan Jam Pengumpulan" class="px-3.5 py-3 text-center whitespace-nowrap min-w-[115px] text-amber-400 cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">
                                 <i class="fa-solid fa-clock mr-1"></i> Jam (WIB) <span id="sort-icon-jam"><i class="fa-solid fa-sort text-amber-500 opacity-40 ml-1"></i></span>
                             </th>
-                            <th class="border border-slate-700 px-4 py-3 text-center whitespace-nowrap min-w-[140px]">Aksi Guru</th>
+                            <th class="px-4 py-3 text-center whitespace-nowrap min-w-[120px]">Aksi Guru</th>
                         </tr>
                     </thead>
-                    <tbody id="guru-results-tbody">
-                        <tr><td colspan="11" class="text-center py-8 text-slate-500">Memuat data...</td></tr>
+                    <tbody id="guru-results-tbody" class="divide-y divide-blue-900/40 bg-[#071120]">
+                        <tr><td colspan="11" class="text-center py-10 text-slate-400 font-medium">Memuat data...</td></tr>
                     </tbody>
                 </table>
-                </div>
             </div>
+
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v1788286993"></script>
+        <script src="app-akhir.js?v=v1788287249"></script>
 
 </body>
 </html>
