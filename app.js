@@ -4792,7 +4792,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     function renderSlide8PedagogyBody(m, isClil, selectedKey) {
       const ped = PEDAGOGY_METHODS[selectedKey] || PEDAGOGY_METHODS['vnps'] || PEDAGOGY_METHODS['tps'];
-      const keys = ['vnps', 'tps', 'rally_coach', 'gallery_walk', 'jigsaw'];
+      const keys = ['vnps', 'tps', 'rally_coach', 'gallery_walk', 'jigsaw', 'nht', 'speed_dating'];
 
       const title = isClil ? (ped.title_en || ped.title) : ped.title;
       const badge = isClil ? (ped.badge_en || ped.badge) : ped.badge;
@@ -4802,21 +4802,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
       if (window._collabActiveLevel === undefined) window._collabActiveLevel = 0;
 
-      // Method Switcher Buttons (Strictly Blue & Amber Palette, Zero Green)
-      const switcherHtml = keys.map(k => {
+      // Method Dropdown Options (Sleek, Space-Efficient, and Fully Comprehensive)
+      const dropdownOptionsHtml = keys.map(k => {
         const item = PEDAGOGY_METHODS[k];
         if (!item) return '';
-        const isActive = k === ped.id;
+        const isSelected = k === ped.id ? 'selected' : '';
         const displayName = isClil ? (item.name_en || item.name) : item.name;
-        const activeClass = isActive 
-          ? 'bg-blue-600 text-white font-bold shadow-md border-blue-400' 
-          : 'bg-[#060D1A] text-slate-400 hover:text-white border-blue-900/60';
-        return `
-          <button onclick="switchSlidePedagogy('${k}')" class="px-2.5 py-1 rounded-xl text-[11px] transition border flex items-center gap-1.5 whitespace-nowrap cursor-pointer shrink-0 ${activeClass}">
-            <i class="${item.icon} text-amber-400 text-[10px]"></i>
-            <span>${displayName}</span>
-          </button>
-        `;
+        return `<option value="${k}" ${isSelected} class="bg-[#081324] text-white py-1">${displayName}</option>`;
       }).join('');
 
       // Method-Specific Configuration
@@ -4849,6 +4841,20 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           hint: isClil ? 'Rotate posters clockwise every 4 minutes and leave sticky notes feedback.' : 'Rotasi poster searah jarum jam tiap 4 menit dan berikan catatan umpan balik.',
           protocolTitle: isClil ? 'Gallery Walk Protocol:' : 'Panduan Stasiun Poster:'
         },
+        'nht': {
+          title: isClil ? 'Numbered Heads Together Protocol' : 'Sintaks Numbered Heads Together',
+          count: 3,
+          labels: isClil ? ['Soal 1: Pemanasan Nomor', 'Soal 2: Heads Together', 'Soal 3: Panggilan Acak'] : ['Soal 1: Pemanasan Nomor', 'Soal 2: Heads Together', 'Soal 3: Panggilan Acak'],
+          hint: isClil ? 'Ensure all numbered members master 100% of the solution.' : 'Pastikan seluruh siswa bernomor menguasai 100% alur solusi.',
+          protocolTitle: isClil ? 'NHT Protocol:' : 'Panduan Numbered Heads:'
+        },
+        'speed_dating': {
+          title: isClil ? 'Speed Dating Rapid Problem Flow' : 'Rotasi Pasangan Kilat',
+          count: 3,
+          labels: isClil ? ['Ronde 1 (3 Menit)', 'Ronde 2 (3 Menit)', 'Ronde 3 (3 Menit)'] : ['Ronde 1 (3 Menit)', 'Ronde 2 (3 Menit)', 'Ronde 3 (3 Menit)'],
+          hint: isClil ? 'Rotate 1 seat right upon chime.' : 'Bergeser 1 kursi ke kanan saat bel berbunyi.',
+          protocolTitle: isClil ? 'Speed Dating Protocol:' : 'Panduan Speed Dating:'
+        },
         'vnps': {
           title: isClil ? 'Vertical Surfaces Team Challenge' : 'Tantangan Papan Tulis Vertikal',
           count: 3,
@@ -4878,7 +4884,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           'bg-blue-600 text-white font-bold shadow' : 
           'text-slate-400 hover:text-white';
         return `
-          <button onclick="window._collabActiveLevel = ${qIdx}; renderAppView();" class="px-2 py-0.5 rounded text-[10px] font-mono transition cursor-pointer ${tabClass}">
+          <button onclick="window._collabActiveLevel = ${qIdx}; renderAppView();" class="px-2.5 py-0.5 rounded text-[10px] font-mono transition cursor-pointer ${tabClass}">
             ${lbl}
           </button>
         `;
@@ -4906,18 +4912,28 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       return `
         <div class="h-full min-h-0 flex flex-col justify-between gap-3 p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl overflow-hidden">
           
-          <!-- TOP HEADER BAR (STRICTLY BLUE & GOLD, ZERO GREEN) -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-900/80 pb-2.5 shrink-0">
-            <div class="flex items-center gap-2 min-w-0">
+          <!-- TOP HEADER BAR (COMPACT BADGE + SLEEK DROPDOWN SELECTOR) -->
+          <div class="flex items-center justify-between gap-3 border-b border-blue-900/80 pb-2.5 shrink-0">
+            <div class="flex items-center gap-2.5 min-w-0 flex-1">
               <span class="px-2.5 py-1 bg-blue-600/20 text-blue-300 border border-blue-500/40 text-xs font-bold rounded-xl shadow-sm flex items-center gap-1.5 shrink-0">
                 <i class="${ped.icon} text-amber-400"></i> ${badge}
               </span>
               <h3 class="text-xs md:text-sm font-black text-white tracking-wide truncate">${title}</h3>
             </div>
 
-            <!-- METHOD SELECTOR PILLS -->
-            <div class="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 shrink-0">
-              ${switcherHtml}
+            <!-- COMPACT SLEEK DROPDOWN SELECTOR -->
+            <div class="flex items-center gap-1.5 shrink-0">
+              <label for="pedagogy-select" class="text-[11px] font-mono font-bold text-amber-400 hidden sm:inline">
+                <i class="fa-solid fa-sliders mr-1 text-[10px]"></i>Metode:
+              </label>
+              <div class="relative">
+                <select id="pedagogy-select" onchange="switchSlidePedagogy(this.value)" class="appearance-none bg-[#060D1A] hover:bg-[#081324] text-white font-bold text-xs pl-3 pr-8 py-1.5 rounded-xl border border-blue-900/80 focus:border-amber-400 focus:outline-none shadow-sm cursor-pointer transition">
+                  ${dropdownOptionsHtml}
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-amber-400 text-[10px]">
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
+              </div>
             </div>
           </div>
 
