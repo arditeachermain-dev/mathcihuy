@@ -168,251 +168,251 @@
   <main class="flex-1 min-h-0 relative flex items-stretch justify-center p-2 md:p-4 overflow-hidden">
     
     <!-- VIEW 0: ULTRA-LUXURY HOMEPAGE DASHBOARD -->
-    <div id="home-stage" class="w-full max-w-6xl h-full max-h-[900px] rounded-2xl md:rounded-3xl border shadow-2xl flex flex-col overflow-y-auto p-4 md:p-6 space-y-6 relative z-20" style="background: rgba(13,26,46,0.98); border-color: #1a2f4a; box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(29,78,216,0.1);">
+    <div id="home-stage" class="w-full max-w-6xl h-full max-h-[900px] rounded-2xl md:rounded-3xl border shadow-2xl flex flex-col overflow-hidden relative z-20" style="background: rgba(11,21,40,0.98); border-color: #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(59,130,246,0.1);">
       
-      <!-- HERO BANNER -->
-      <div id="home-hero" class="p-5 md:p-7 rounded-2xl border border-slate-800 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-5 relative overflow-hidden shrink-0" style="background: linear-gradient(135deg, rgba(10,22,40,0.9), rgba(6,15,30,0.95));">
-        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="flex items-start gap-4 relative z-10">
-          <span role="img" aria-label="Logo Math Cihuy" class="mc-logo h-16 w-16 md:h-20 md:w-20 object-contain drop-shadow-xl shrink-0"></span>
-          <div class="space-y-1.5">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="px-3 py-1 bg-amber-500/20 text-amber-300 font-extrabold text-[10px] md:text-xs rounded-xl sm:rounded-full border border-amber-400/40 uppercase tracking-wide leading-snug">
-                Portal Matematika Kelas XII
-              </span>
-              <span class="px-2.5 py-0.5 bg-blue-500/20 text-blue-300 font-bold text-[10px] md:text-xs rounded-full border border-blue-400/30">
-                TP 2026/2027 • Kelas XII (Fase F)
-              </span>
-            </div>
-            <p id="sapaan-waktu" class="text-sm md:text-base font-bold text-amber-400 mb-1"></p>
-            <h2 class="text-xl md:text-3xl font-black text-white leading-tight tracking-tight [text-wrap:balance]">
-              Susah, tapi cihuy.
-            </h2>
-            <p class="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Materi Wajib, Peminatan, dan CLIL dalam satu tempat &mdash; plus <span id="jml-soal-hero">570</span> soal drilling buat TKA dan UTBK. Buka sekali, tetap bisa dipakai waktu sinyal hilang.
-            </p>
-            <div class="pt-1 flex flex-wrap items-center gap-2 text-xs text-slate-400 font-medium">
-              <span class="inline-flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-lg border border-slate-800 text-slate-200">
-                <i class="fa-solid fa-chalkboard-user text-amber-400"></i> Guru Pengampu: <strong class="text-white">Muhammad Ardiansyah, S.Pd.Gr.</strong>
-              </span>
-            </div>
+      <!-- DASHBOARD TOP BAR -->
+      <div class="h-14 bg-[#070E1B] border-b border-slate-800/80 px-4 md:px-6 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm shadow-sm">
+            <i class="fa-solid fa-square-root-variable"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-white tracking-wide">MATHCIHUY • KELAS XII (FASE F)</span>
+            <span class="text-[10px] text-slate-400 font-medium hidden sm:inline ml-2">SMA Global Islamic School 2 Serpong</span>
           </div>
         </div>
-
-        <!-- HERO QUICK ACTIONS -->
-        <div class="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0 relative z-10">
-          <button onclick="switchSubject('wajib')" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-extrabold rounded-xl text-xs shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
-            <i class="fa-solid fa-shapes"></i> <span>Mulai Belajar</span>
+        <div class="flex items-center gap-2">
+          <button onclick="openAnalyticsModal()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-pie text-cyan-400"></i> <span class="hidden sm:inline">Statistik</span>
           </button>
-          <button onclick="switchSubject('tka')" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-black rounded-xl text-xs shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
-            <i class="fa-solid fa-crosshairs"></i> <span>Langsung ke Arena CBT</span>
-          </button>
-          <button onclick="openScheduleModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-calendar-days text-emerald-400"></i> <span>Jadwal & Agenda Ujian</span>
+          <button onclick="switchSubject('tka')" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 active:scale-95">
+            <i class="fa-solid fa-bolt"></i> <span>Arena CBT</span>
           </button>
         </div>
       </div>
 
-      <!-- TODAY'S ACTIVE SESSION BANNER -->
-      <div id="today-session-banner" class="hidden p-3 rounded-xl border border-emerald-500/40 flex flex-col sm:flex-row sm:items-center gap-3" style="background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.06));">
-        <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center shrink-0">
-          <i class="fa-solid fa-signal text-emerald-400"></i>
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">📡 Pertemuan Aktif Hari Ini</div>
-          <div id="today-session-text" class="text-xs font-semibold text-white mt-0.5 leading-snug">Memuat jadwal...</div>
-        </div>
-        <button id="today-session-btn" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-xl text-xs shadow flex items-center gap-1.5 shrink-0 transition active:scale-95">
-          <i class="fa-solid fa-book-open-reader"></i> Mulai Belajar
-        </button>
-      </div>
-
-      <!-- FOCUSED QUICK ACCESS BANNER (NAVIGASI UTAMA DI SIDEBAR) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+      <!-- DASHBOARD SCROLLABLE BODY -->
+      <div class="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto space-y-5 custom-scroll">
         
-        <!-- CARD 1: BUKA MENU KURIKULUM LENGKAP -->
-        <div onclick="toggleCurriculumDrawer()" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-amber-500/40 hover:border-amber-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg group-hover:bg-amber-500 group-hover:text-slate-950 transition shadow-sm">
-              <i class="fa-solid fa-bars-staggered"></i>
+        <!-- HERO WELCOME BANNER -->
+        <div class="p-5 md:p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-[#0D1B30] to-slate-900 border border-slate-800/90 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-[11px] font-mono font-bold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              TP 2026/2027 • Semester Ganjil
             </div>
-            <div>
-              <h3 class="text-sm font-extrabold text-white group-hover:text-amber-300 transition">Struktur Kurikulum</h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">Buka daftar bab & sub-menu pertemuan di sidebar</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-amber-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
-        </div>
-
-        <!-- CARD 2: DRILLING CBT TKA & UTBK -->
-        <div onclick="switchSubject('tka')" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-purple-500/40 hover:border-purple-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-400 text-lg group-hover:bg-purple-500 group-hover:text-slate-950 transition shadow-sm">
-              <i class="fa-solid fa-laptop-code"></i>
-            </div>
-            <div>
-              <h3 class="text-sm font-extrabold text-white group-hover:text-purple-300 transition">Arena CBT & Drilling</h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">Latihan 570 butir soal TKA & UTBK-SNBT 2027</p>
+            <h2 class="text-lg md:text-xl font-extrabold text-white tracking-tight">
+              Portal Pembelajaran & Drilling CBT Matematika
+            </h2>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Materi interaktif 11-slide terstruktur (Building Thinking Classrooms) dan bank soal drilling TKA & UTBK-SNBT 2027.
+            </p>
+            <div class="pt-1 flex flex-wrap items-center gap-2 text-[11px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-slate-950/80 border border-slate-800">
+                <i class="fa-solid fa-user-tie text-blue-400 mr-1"></i> Guru: <b class="text-slate-200">Muhammad Ardiansyah, S.Pd.Gr.</b>
+              </span>
+              <span class="px-2 py-0.5 rounded bg-slate-950/80 border border-slate-800">
+                <i class="fa-solid fa-school text-emerald-400 mr-1"></i> Kepsek: <b class="text-slate-200">Dwi Kurniawati, S.Pd., Gr.</b>
+              </span>
             </div>
           </div>
-          <i class="fa-solid fa-chevron-right text-purple-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
-        </div>
 
-        <!-- CARD 3: RUMUS SAKU & PETA KONSEP -->
-        <div onclick="openRumusSaku()" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-cyan-500/40 hover:border-cyan-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 text-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition shadow-sm">
-              <i class="fa-solid fa-book-bookmark"></i>
-            </div>
-            <div>
-              <h3 class="text-sm font-extrabold text-white group-hover:text-cyan-300 transition">Rumus Saku & Teori</h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">Rangkuman rumus cepat & pembuktian teorema</p>
-            </div>
+          <div class="flex flex-row md:flex-col gap-2 shrink-0">
+            <button onclick="switchSubject('wajib')" class="flex-1 md:flex-none px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shadow transition active:scale-95 flex items-center justify-center gap-2">
+              <i class="fa-solid fa-play"></i> Mulai KBM
+            </button>
+            <button onclick="openScheduleModal()" class="flex-1 md:flex-none px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold rounded-xl transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-calendar-days text-amber-400"></i> Jadwal KBM
+            </button>
           </div>
-          <i class="fa-solid fa-chevron-right text-cyan-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
         </div>
 
-      </div>
-
-      <!-- SECTION 1: CLEAN VISUAL JADWAL KBM KELAS XII -->
-      <div class="space-y-3 pt-1">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 text-xs">
-              <i class="fa-solid fa-clock"></i>
-            </div>
-            <h3 class="text-xs md:text-sm font-extrabold text-white tracking-wide">
-              JADWAL KBM REGULER MATEMATIKA KELAS XII (TP 2026/2027)
-            </h3>
-          </div>
-          <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
-            Total 22 JP Tatap Muka + 1 JP Walas
-          </span>
-        </div>
-
-        <!-- 4 CLEAN ROMBEL CARDS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <!-- 3 MAIN STREAM CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           
-          <!-- 12 F.1 -->
-          <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-              <span class="font-mono font-black text-amber-300 text-xs">12 F.1</span>
-              <span class="px-2 py-0.5 rounded-md bg-blue-600/20 text-blue-300 text-[10px] font-bold">Wajib (4 JP)</span>
-            </div>
-            <div class="space-y-1.5 text-[11px]">
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Senin</span>
-                <span class="font-mono text-slate-300">13.00 - 14.15 (2 JP)</span>
+          <!-- CARD 1: MATEMATIKA WAJIB -->
+          <div onclick="switchSubject('wajib')" class="p-4 rounded-2xl bg-[#0F1D32] hover:bg-[#13243D] border border-slate-800 hover:border-blue-500/50 shadow-lg transition-all duration-200 cursor-pointer group flex flex-col justify-between space-y-3">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 text-base group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-shapes"></i>
+                </div>
+                <span class="text-[10px] font-mono font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">21 Pertemuan</span>
               </div>
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Kamis</span>
-                <span class="font-mono text-slate-300">13.00 - 14.15 (2 JP)</span>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-blue-300 transition">Matematika Wajib</h3>
+                <p class="text-[11px] text-slate-400 mt-0.5">Pencacahan & Peluang, Dimensi Tiga, Statistika Bivariat</p>
               </div>
             </div>
-          </div>
-
-          <!-- 12 F.2 -->
-          <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-              <span class="font-mono font-black text-teal-300 text-xs">12 F.2</span>
-              <span class="px-2 py-0.5 rounded-md bg-teal-600/20 text-teal-300 text-[10px] font-bold">Wajib (4 JP)</span>
-            </div>
-            <div class="space-y-1.5 text-[11px]">
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Rabu</span>
-                <span class="font-mono text-slate-300">13.00 - 14.20 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Jumat</span>
-                <span class="font-mono text-slate-300">13.15 - 14.20 (2 JP)</span>
-              </div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-2.5 border-t border-slate-800/80">
+              <span>210 Butir Soal CBT</span>
+              <i class="fa-solid fa-arrow-right text-blue-400 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
 
-          <!-- 12 F.3 -->
-          <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-              <span class="font-mono font-black text-amber-400 text-xs">12 F.3</span>
-              <span class="px-2 py-0.5 rounded-md bg-purple-600/20 text-purple-300 text-[10px] font-bold">Wajib (2 JP) & Minat (4 JP)</span>
+          <!-- CARD 2: ADDITIONAL MATH / MINAT -->
+          <div onclick="switchSubject('minat')" class="p-4 rounded-2xl bg-[#0F1D32] hover:bg-[#13243D] border border-slate-800 hover:border-amber-500/50 shadow-lg transition-all duration-200 cursor-pointer group flex flex-col justify-between space-y-3">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 text-base group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <span class="text-[10px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">30 Pertemuan</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-amber-300 transition">Matematika Peminatan</h3>
+                <p class="text-[11px] text-slate-400 mt-0.5">Geometri Lingkaran, Limit, Turunan & Integral Trigonometri</p>
+              </div>
             </div>
-            <div class="space-y-1 text-[10px]">
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-amber-500/20">
-                <span class="font-bold text-amber-400">Selasa (Minat)</span>
-                <span class="font-mono text-slate-300">14.20 - 15.30 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Rabu (Wajib)</span>
-                <span class="font-mono text-slate-300">07.30 - 08.00 (1 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-amber-500/20">
-                <span class="font-bold text-amber-400">Kamis (Minat)</span>
-                <span class="font-mono text-slate-300">09.10 - 10.40 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Jumat (Wajib)</span>
-                <span class="font-mono text-slate-300">14.20 - 14.50 (1 JP)</span>
-              </div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-2.5 border-t border-slate-800/80">
+              <span>300 Butir Soal CBT</span>
+              <i class="fa-solid fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
 
-          <!-- 12 F.4 -->
-          <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-              <span class="font-mono font-black text-indigo-300 text-xs">12 F.4</span>
-              <span class="px-2 py-0.5 rounded-md bg-indigo-600/20 text-indigo-300 text-[10px] font-bold">Wajib (4 JP) & Minat (4 JP)</span>
-            </div>
-            <div class="space-y-1 text-[10px]">
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Senin (Wajib)</span>
-                <span class="font-mono text-slate-300">10.15 - 12.00 (2 JP)</span>
+          <!-- CARD 3: ARENA CBT & DRILLING TKA -->
+          <div onclick="switchSubject('tka')" class="p-4 rounded-2xl bg-[#0F1D32] hover:bg-[#13243D] border border-slate-800 hover:border-emerald-500/50 shadow-lg transition-all duration-200 cursor-pointer group flex flex-col justify-between space-y-3">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-base group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <span class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">570 Soal</span>
               </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-amber-500/20">
-                <span class="font-bold text-amber-400">Selasa (Minat)</span>
-                <span class="font-mono text-slate-300">10.40 - 12.00 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-amber-500/20">
-                <span class="font-bold text-amber-400">Kamis (Minat)</span>
-                <span class="font-mono text-slate-300">10.40 - 12.00 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Jumat (Wajib)</span>
-                <span class="font-mono text-slate-300">07.30 - 08.45 (2 JP)</span>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-emerald-300 transition">Arena CBT & TKA</h3>
+                <p class="text-[11px] text-slate-400 mt-0.5">Simulasi Ujian CBT Mandiri & Drilling UTBK-SNBT 2027</p>
               </div>
             </div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-2.5 border-t border-slate-800/80">
+              <span>Multi-Ceklis & Isian</span>
+              <i class="fa-solid fa-arrow-right text-emerald-400 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- QUICK UTILITY PILLS BAR -->
+        <div class="flex flex-wrap items-center justify-between gap-2 p-2 rounded-xl bg-[#091322] border border-slate-800/80 text-xs">
+          <div class="flex items-center gap-1.5 px-2 text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider">
+            <i class="fa-solid fa-toolbox text-blue-400"></i> Alat Bantu:
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button onclick="openRumusSaku()" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-lg border border-slate-800 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-book-bookmark text-cyan-400"></i> Rumus Saku
+            </button>
+            <button onclick="openPeta()" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-lg border border-slate-800 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-diagram-project text-amber-400"></i> Peta Konsep
+            </button>
+            <button onclick="openLab()" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-lg border border-slate-800 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-flask-vial text-emerald-400"></i> Lab 3D
+            </button>
+            <button onclick="toggleCurriculumDrawer()" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-lg border border-slate-800 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-bars-staggered text-purple-400"></i> Silabus Lengkap
+            </button>
           </div>
         </div>
 
-      </div>
-
-      <!-- SECTION 2: KALENDER PENDIDIKAN & AGENDA AKADEMIK 2026/2027 (INTERACTIVE HUB) -->
-      <div class="space-y-3 pt-2">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-xs">
-              <i class="fa-solid fa-calendar-days"></i>
-            </div>
-            <div>
-              <h3 class="text-xs md:text-sm font-extrabold text-white tracking-wide">
-                KALENDER PENDIDIKAN & AGENDA AKADEMIK (TP 2026/2027)
+        <!-- SECTION: JADWAL KBM & AGENDA NASIONAL (2 COLUMNS) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 pt-1">
+          
+          <!-- LEFT: JADWAL KBM KELAS XII (8 COLUMNS) -->
+          <div class="lg:col-span-8 p-4 md:p-5 rounded-2xl bg-[#0D1A2E]/80 border border-slate-800/90 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <h3 class="text-xs font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-clock text-blue-400"></i>
+                JADWAL KBM REGULER KELAS XII (TP 2026/2027)
               </h3>
-              <p class="text-[10px] text-slate-400">Terpadu TKA Gelombang 2, Asesmen Sekolah & UTBK-SNBT 2027</p>
+              <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                22 JP Tatap Muka
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <!-- 12 F.1 -->
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono font-bold text-blue-400 text-xs">12 F.1</span>
+                  <span class="text-[10px] font-mono text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">Wajib 4 JP</span>
+                </div>
+                <div class="text-[11px] space-y-1 text-slate-300">
+                  <div class="flex justify-between"><span>Senin</span><span class="font-mono text-slate-400">13.00 - 14.15 (2 JP)</span></div>
+                  <div class="flex justify-between"><span>Kamis</span><span class="font-mono text-slate-400">13.00 - 14.15 (2 JP)</span></div>
+                </div>
+              </div>
+
+              <!-- 12 F.2 -->
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono font-bold text-teal-400 text-xs">12 F.2</span>
+                  <span class="text-[10px] font-mono text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">Wajib 4 JP</span>
+                </div>
+                <div class="text-[11px] space-y-1 text-slate-300">
+                  <div class="flex justify-between"><span>Rabu</span><span class="font-mono text-slate-400">13.00 - 14.20 (2 JP)</span></div>
+                  <div class="flex justify-between"><span>Jumat</span><span class="font-mono text-slate-400">13.15 - 14.20 (2 JP)</span></div>
+                </div>
+              </div>
+
+              <!-- 12 F.3 -->
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono font-bold text-amber-400 text-xs">12 F.3</span>
+                  <span class="text-[10px] font-mono text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">Wajib 2 JP • Minat 4 JP</span>
+                </div>
+                <div class="text-[11px] space-y-1 text-slate-300">
+                  <div class="flex justify-between"><span>Selasa & Kamis</span><span class="font-mono text-slate-400">Minat (4 JP)</span></div>
+                  <div class="flex justify-between"><span>Rabu & Jumat</span><span class="font-mono text-slate-400">Wajib (2 JP)</span></div>
+                </div>
+              </div>
+
+              <!-- 12 F.4 -->
+              <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono font-bold text-indigo-400 text-xs">12 F.4</span>
+                  <span class="text-[10px] font-mono text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">Wajib 4 JP • Minat 4 JP</span>
+                </div>
+                <div class="text-[11px] space-y-1 text-slate-300">
+                  <div class="flex justify-between"><span>Senin & Jumat</span><span class="font-mono text-slate-400">Wajib (4 JP)</span></div>
+                  <div class="flex justify-between"><span>Selasa & Kamis</span><span class="font-mono text-slate-400">Minat (4 JP)</span></div>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <!-- INTERACTIVE CALENDAR FILTER BUTTONS -->
-          <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 overflow-x-auto text-[10px] shrink-0" id="home-cal-filters">
-            <button onclick="filterAcademicCalendar('all')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold bg-blue-600 text-white shadow" data-filter="all">🌟 Semua</button>
-            <button onclick="filterAcademicCalendar('tka')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold text-purple-300 hover:bg-slate-800" data-filter="tka">🟣 TKA & UTBK</button>
-            <button onclick="filterAcademicCalendar('ujian')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold text-blue-300 hover:bg-slate-800" data-filter="ujian">🔵 Ujian CBT</button>
-            <button onclick="filterAcademicCalendar('kbm')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold text-emerald-300 hover:bg-slate-800" data-filter="kbm">🟢 KBM Masuk</button>
-            <button onclick="filterAcademicCalendar('libur')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold text-rose-300 hover:bg-slate-800" data-filter="libur">🔴 Libur Resmi</button>
+          <!-- RIGHT: AGENDA STRATEGIS (4 COLUMNS) -->
+          <div class="lg:col-span-4 p-4 md:p-5 rounded-2xl bg-[#0D1A2E]/80 border border-slate-800/90 space-y-3 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between border-b border-slate-800/80 pb-2 mb-3">
+                <h3 class="text-xs font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-bullseye text-emerald-400"></i>
+                  AGENDA NASIONAL
+                </h3>
+                <span class="text-[10px] font-mono text-slate-400">2026/2027</span>
+              </div>
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-0.5">
+                  <span class="text-[10px] font-mono text-emerald-400 font-bold">12 - 18 OKTOBER 2026</span>
+                  <p class="text-slate-200 font-semibold text-[11px]">Gladi Bersih TKA & ANBK Gel. 2</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-0.5">
+                  <span class="text-[10px] font-mono text-blue-400 font-bold">2 - 5 NOVEMBER 2026</span>
+                  <p class="text-slate-200 font-semibold text-[11px]">Pelaksanaan Utama TKA Gel. 2</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-0.5">
+                  <span class="text-[10px] font-mono text-amber-400 font-bold">21 - 30 APRIL 2027</span>
+                  <p class="text-slate-200 font-semibold text-[11px]">Pelaksanaan UTBK-SNBT 2027</p>
+                </div>
+              </div>
+            </div>
+            
+            <button onclick="openScheduleModal()" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-xl border border-slate-800 text-[11px] font-mono font-bold transition text-center">
+              Lihat Kalender Akademik Lengkap &rarr;
+            </button>
           </div>
+
         </div>
 
-        <!-- ACADEMIC CALENDAR MONTHLY CARDS CONTAINER -->
-        <div id="home-academic-calendar" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          <!-- Dynamically populated by JS -->
-        </div>
       </div>
 
     </div>
