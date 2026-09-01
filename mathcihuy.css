@@ -2059,3 +2059,93 @@ body {
 .formula-box .fb-math .katex {
   color: #FFFFFF !important;
 }
+
+/* ==========================================================================
+   OFFICIAL MASTER DESIGN SYSTEM: LINEAR DEEP SAPPHIRE & AMBER GOLD
+   ========================================================================== */
+:root {
+  --bg-canvas: #050B14;
+  --bg-surface-elevated: #0D1B2E;
+  --bg-surface-inset: #081324;
+  --bg-surface-deep: #060D1A;
+  
+  --brand-primary: #2563EB;
+  --brand-primary-hover: #1D4ED8;
+  
+  --accent-gold: #F59E0B;
+  --accent-gold-light: #FBBF24;
+  
+  --accent-hots-violet: #8B5CF6;
+  
+  --text-white: #FFFFFF;
+  --text-slate-light: #F8FAFC;
+  --text-slate-muted: #94A3B8;
+  
+  --border-blue-subtle: rgba(37, 99, 235, 0.25);
+  --border-blue-medium: rgba(59, 130, 246, 0.40);
+  --border-gold-accent: rgba(245, 158, 11, 0.40);
+}
+
+html, body {
+  background-color: #050B14 !important;
+  color: #FFFFFF !important;
+}
+
+#slide-stage, #tka-stage, #home-stage {
+  background: #08101E !important;
+  border-color: rgba(37, 99, 235, 0.35) !important;
+}
+
+/* Modals Solid Opaque Linear Deep Sapphire */
+#meeting-picker-modal > div,
+#schedule-modal > div,
+#analytics-modal > div,
+#tka-summary-modal > div {
+  background: #08101E !important;
+  border-color: rgba(37, 99, 235, 0.4) !important;
+  opacity: 1 !important;
+}
+
+/* KaTeX Pure White Typography */
+.katex, .katex-display, .katex-html {
+  color: #FFFFFF !important;
+}
+
+/* Formula Boxes with Amber Gold Border */
+.formula-box {
+  background: #081324 !important;
+  border: 1px solid rgba(37, 99, 235, 0.30) !important;
+  border-left: 4px solid #F59E0B !important;
+  color: #FFFFFF !important;
+}
+.formula-box .fb-name {
+  color: #FBBF24 !important;
+  font-weight: 700 !important;
+}
+.formula-box .fb-math,
+.formula-box .fb-math .katex {
+  color: #FFFFFF !important;
+}
+
+/* Slide Navigation Pills: Solid Royal Blue on Active */
+.slide-pill.is-on {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  border-color: #60A5FA !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4) !important;
+}
+.slide-pill.is-done {
+  background: #0D1B2E !important;
+  color: #93C5FD !important;
+  border-color: rgba(37, 99, 235, 0.4) !important;
+}
+
+/* Action Primary Buttons */
+.btn-primary, .btn-brand {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+}
+.btn-primary:hover, .btn-brand:hover {
+  background: #1D4ED8 !important;
+}
