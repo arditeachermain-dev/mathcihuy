@@ -2937,24 +2937,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan interval di mana fungsi $f(x) = \\sin x$ naik pada interval $0 \\le x \\le 2\\pi$!",
-          "solution": "Langkah 1: Tentukan turunan pertama fungsi: $f'(x) = \\cos x$.\nLangkah 2: Menggunakan rumus Syarat Fungsi Selalu Naik, tentukan syarat $f'(x) > 0 \\implies \\cos x > 0$.\nLangkah 3: Cari pembuat nol stasioner: $\\cos x = 0 \\implies x = \\frac{\\pi}{2}$ atau $x = \\frac{3\\pi}{2}$.\nLangkah 4: Uji tanda pada garis bilangan: $\\cos x > 0$ terjadi pada kuadran I dan IV, yaitu interval $0 \\le x < \\frac{\\pi}{2}$ dan $\\frac{3\\pi}{2} < x \\le 2\\pi$.\nKesimpulan: Fungsi $f(x) = \\sin x$ naik pada interval $\\left[0, \\frac{\\pi}{2}\\right) \\cup \\left(\\frac{3\\pi}{2}, 2\\pi\\right]$."
+          "problem": "Tentukan interval di mana fungsi $f(x) = \\sin(x)$ monoton naik pada interval $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: Syarat fungsi naik adalah turunan pertama bernilai positif: $f'(x) > 0$.\nLangkah 2: Turunan pertama: $f'(x) = \\cos(x) > 0$.\nLangkah 3: Pembuat nol $\\cos(x) = 0$ pada $[0, 2\\pi]$ adalah $x = \\frac{\\pi}{2}$ dan $x = \\frac{3\\pi}{2}$.\nLangkah 4: Uji tanda interval: Pada $\\left(0, \\frac{\\pi}{2}\\right)$ nilai $\\cos x > 0$ (+), pada $\\left(\\frac{\\pi}{2}, \\frac{3\\pi}{2}\\right)$ nilai $\\cos x < 0$ (-), pada $\\left(\\frac{3\\pi}{2}, 2\\pi\\right)$ nilai $\\cos x > 0$ (+).\nKesimpulan: Fungsi $f(x) = \\sin x$ monoton naik pada interval $0 \\le x < \\frac{\\pi}{2}$ dan $\\frac{3\\pi}{2} < x \\le 2\\pi$."
         },
         {
-          "problem": "Tentukan interval turun dari fungsi $f(x) = \\cos(2x)$ pada domain $0 \\le x \\le \\pi$!",
-          "solution": "Langkah 1: Tentukan turunan pertama: $f'(x) = -2\\sin(2x)$.\nLangkah 2: Menggunakan rumus Syarat Fungsi Selalu Turun, syarat $f'(x) < 0 \\implies -2\\sin(2x) < 0 \\implies \\sin(2x) > 0$.\nLangkah 3: Pembuat nol: $\\sin(2x) = 0 \\implies 2x = 0, \\pi, 2\\pi \\implies x = 0, \\frac{\\pi}{2}, \\pi$.\nLangkah 4: Interval di mana $\\sin(2x) > 0$ untuk $0 \\le x \\le \\pi$ adalah saat $0 < 2x < \\pi \\implies 0 < x < \\frac{\\pi}{2}$.\nKesimpulan: Fungsi $f(x)$ turun pada interval $0 < x < \\frac{\\pi}{2}$."
+          "problem": "Tentukan interval fungsi turun dari $f(x) = \\cos(2x)$ pada domain $0 \\le x \\le \\pi$!",
+          "solution": "Langkah 1: Syarat fungsi turun: $f'(x) < 0$.\nLangkah 2: $f'(x) = -2\\sin(2x) < 0 \\implies \\sin(2x) > 0$.\nLangkah 3: $\\sin(2x) > 0$ terjadi ketika $0 < 2x < \\pi \\implies 0 < x < \\frac{\\pi}{2}$.\nKesimpulan: Fungsi $f(x) = \\cos(2x)$ monoton turun pada interval $0 < x < \\frac{\\pi}{2}$."
         },
         {
-          "problem": "Tentukan titik stasioner dan jenisnya untuk fungsi $f(x) = \\sin x + \\cos x$ pada interval $0 \\le x \\le 2\\pi$!",
-          "solution": "Langkah 1: Menggunakan rumus Titik dan Nilai Stasioner, $f'(x) = \\cos x - \\sin x = 0 \\implies \\sin x = \\cos x \\implies \\tan x = 1$.\nLangkah 2: Nilai $x$ yang memenuhi adalah $x = \\frac{\\pi}{4}$ dan $x = \\frac{5\\pi}{4}$.\nLangkah 3: Hitung turunan kedua untuk uji jenis: $f''(x) = -\\sin x - \\cos x$.\n- Untuk $x = \\frac{\\pi}{4} \\implies f''\\left(\\frac{\\pi}{4}\\right) = -\\sqrt{2} < 0$ (Maksimum Relatif dengan nilai $\\sqrt{2}$).\n- Untuk $x = \\frac{5\\pi}{4} \\implies f''\\left(\\frac{5\\pi}{4}\\right) = \\sqrt{2} > 0$ (Minimum Relatif dengan nilai $-\\sqrt{2}$).\nKesimpulan: Titik balik maksimum adalah $\\left(\\frac{\\pi}{4}, \\sqrt{2}\\right)$ dan titik balik minimum adalah $\\left(\\frac{5\\pi}{4}, -\\sqrt{2}\\right)$."
+          "problem": "Tentukan titik stasioner dan jenisnya untuk fungsi $f(x) = \\sin(x) + \\cos(x)$ pada interval $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: $f'(x) = \\cos(x) - \\sin(x) = 0 \\implies \\sin(x) = \\cos(x) \\implies \\tan(x) = 1$.\nLangkah 2: Nilai $x$ pada domain $[0, 2\\pi]$ adalah $x = \\frac{\\pi}{4}$ dan $x = \\frac{5\\pi}{4}$.\nLangkah 3: Uji turunan kedua $f''(x) = -\\sin(x) - \\cos(x)$:\n- Pada $x = \\frac{\\pi}{4} \\implies f''\\left(\\frac{\\pi}{4}\\right) = -\\frac{1}{2}\\sqrt{2} - \\frac{1}{2}\\sqrt{2} = -\\sqrt{2} < 0$ (Titik Balik Maksimum).\n- Pada $x = \\frac{5\\pi}{4} \\implies f''\\left(\\frac{5\\pi}{4}\\right) = \\frac{1}{2}\\sqrt{2} + \\frac{1}{2}\\sqrt{2} = +\\sqrt{2} > 0$ (Titik Balik Minimum).\nLangkah 4: Nilai maksimum $f(\\pi/4) = \\sqrt{2}$, nilai minimum $f(5\\pi/4) = -\\sqrt{2}$.\nKesimpulan: Titik balik maksimum di $\\left(\\frac{\\pi}{4}, \\sqrt{2}\\right)$ dan titik balik minimum di $\\left(\\frac{5\\pi}{4}, -\\sqrt{2}\\right)$."
         },
         {
-          "problem": "Tentukan interval kecekungan kurva $f(x) = \\sin(2x)$ cekung ke atas pada $0 \\le x \\le \\pi$!",
-          "solution": "Langkah 1: Tentukan turunan kedua: $f'(x) = 2\\cos(2x) \\implies f''(x) = -4\\sin(2x)$.\nLangkah 2: Menggunakan rumus Uji Kecekungan Kurva Terbuka ke Atas, syarat $f''(x) > 0 \\implies -4\\sin(2x) > 0 \\implies \\sin(2x) < 0$.\nLangkah 3: Nilai $\\sin(2x) < 0$ pada $0 \\le x \\le \\pi$ terjadi saat $\\pi < 2x < 2\\pi \\implies \\frac{\\pi}{2} < x < \\pi$.\nKesimpulan: Kurva cekung ke atas pada interval $\\frac{\\pi}{2} < x < \\pi$."
+          "problem": "Tentukan interval di mana kurva fungsi $f(x) = \\sin(2x)$ cekung ke atas ($f''(x) > 0$) pada domain $0 \\le x \\le \\pi$!",
+          "solution": "Langkah 1: $f'(x) = 2\\cos(2x) \\implies f''(x) = -4\\sin(2x)$.\nLangkah 2: Syarat cekung ke atas: $f''(x) > 0 \\implies -4\\sin(2x) > 0 \\implies \\sin(2x) < 0$.\nLangkah 3: Pada domain $0 \\le 2x \\le 2\\pi$, nilai $\\sin(2x) < 0$ terjadi ketika $\\pi < 2x < 2\\pi \\implies \\frac{\\pi}{2} < x < \\pi$.\nKesimpulan: Kurva cekung ke atas pada interval $\\frac{\\pi}{2} < x < \\pi$."
         },
         {
-          "problem": "Tentukan koordinat titik belok dari fungsi $f(x) = 2\\cos x + x$ pada interval $0 \\le x \\le 2\\pi$ (Standar UTBK)!",
-          "solution": "Langkah 1: Menggunakan rumus Syarat Titik Belok Kurva, cari $f''(x) = 0$.\nLangkah 2: $f'(x) = -2\\sin x + 1 \\implies f''(x) = -2\\cos x$.\nLangkah 3: $-2\\cos x = 0 \\implies \\cos x = 0 \\implies x = \\frac{\\pi}{2}$ dan $x = \\frac{3\\pi}{2}$.\nLangkah 4: Periksa perubahan tanda $f''(x)$: pada $x = \\frac{\\pi}{2}$ terjadi perubahan tanda dari negatif ke positif, dan pada $x = \\frac{3\\pi}{2}$ dari positif ke negatif.\nLangkah 5: Tentukan koordinat titik: $f\\left(\\frac{\\pi}{2}\\right) = 0 + \\frac{\\pi}{2} = \\frac{\\pi}{2}$ dan $f\\left(\\frac{3\\pi}{2}\\right) = 0 + \\frac{3\\pi}{2} = \\frac{3\\pi}{2}$.\nKesimpulan: Titik belok kurva adalah $\\left(\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$ dan $\\left(\\frac{3\\pi}{2}, \\frac{3\\pi}{2}\\right)$."
+          "problem": "Tentukan koordinat titik belok (*inflection point*) dari kurva $f(x) = 2\\cos(x) + x$ pada interval $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: $f'(x) = -2\\sin(x) + 1 \\implies f''(x) = -2\\cos(x)$.\nLangkah 2: Syarat titik belok $f''(x) = 0 \\implies -2\\cos(x) = 0 \\implies \\cos(x) = 0$.\nLangkah 3: Pembuat nol pada domain $[0, 2\\pi]$ adalah $x = \\frac{\\pi}{2}$ dan $x = \\frac{3\\pi}{2}$.\nLangkah 4: Evaluasi nilai fungsi $y$:\n- $x_1 = \\frac{\\pi}{2} \\implies y_1 = 2\\cos\\left(\\frac{\\pi}{2}\\right) + \\frac{\\pi}{2} = \\frac{\\pi}{2}$. Titik $\\left(\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$.\n- $x_2 = \\frac{3\\pi}{2} \\implies y_2 = 2\\cos\\left(\\frac{3\\pi}{2}\\right) + \\frac{3\\pi}{2} = \\frac{3\\pi}{2}$. Titik $\\left(\\frac{3\\pi}{2}, \\frac{3\\pi}{2}\\right)$.\nKesimpulan: Koordinat titik belok kurva adalah $\\left(\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$ dan $\\left(\\frac{3\\pi}{2}, \\frac{3\\pi}{2}\\right)$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan interval naik dan turun untuk $f(x) = \\sin^2(x)$ pada domain $0 \\le x \\le \\pi$!",
@@ -3010,24 +3010,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan titik stasioner dan jenisnya untuk $f(x) = \\sin(2x)$ pada domain $0 \\le x \\le \\pi$!",
-          "solution": "Langkah 1: $f'(x) = 2\\cos(2x) = 0 \\implies 2x = \\pi/2, 3\\pi/2 \\implies x = \\pi/4, 3\\pi/4$.\nLangkah 2: Turunan kedua $f''(x) = -4\\sin(2x)$.\nLangkah 3: Uji $x = \\pi/4$: $f''(\\pi/4) = -4(1) = -4 < 0 \\implies$ Titik Maksimum $(\\pi/4, 1)$.\nLangkah 4: Uji $x = 3\\pi/4$: $f''(3\\pi/4) = -4(-1) = 4 > 0 \\implies$ Titik Minimum $(3\\pi/4, -1)$.\nKesimpulan: Titik balik maksimum di $(\\pi/4, 1)$ dan minimum di $(3\\pi/4, -1)$."
+          "problem": "Tentukan seluruh absis titik stasioner untuk fungsi $f(x) = \\sin(2x) - \\cos(2x)$ pada domain $0 \\le x \\le \\pi$!",
+          "solution": "Langkah 1: $f'(x) = 2\\cos(2x) - 2(-\\sin 2x) = 2\\cos(2x) + 2\\sin(2x) = 0$.\nLangkah 2: $2\\sin(2x) = -2\\cos(2x) \\implies \\tan(2x) = -1$.\nLangkah 3: $\\tan(2x) = -1 \\implies 2x = \\frac{3\\pi}{4}$ atau $2x = \\frac{7\\pi}{4}$.\nLangkah 4: $x = \\frac{3\\pi}{8}$ atau $x = \\frac{7\\pi}{8}$.\nKesimpulan: Absis titik-titik stasionernya adalah $x = \\frac{3\\pi}{8}$ dan $x = \\frac{7\\pi}{8}$."
         },
         {
-          "problem": "Tentukan nilai maksimum mutlak dari $f(x) = 3\\cos(x) + 4\\sin(x)$!",
-          "solution": "Langkah 1: Bentuk $a\\cos x + b\\sin x$ memiliki nilai maksimum $R = \\sqrt{a^2 + b^2}$.\nLangkah 2: $R = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$.\nKesimpulan: Nilai maksimum mutlak fungsi adalah $5$."
+          "problem": "Tentukan nilai maksimum mutlak dan minimum mutlak dari fungsi $f(x) = 3\\cos(x) + 4\\sin(x)$!",
+          "solution": "Langkah 1: Bentuk $a\\cos x + b\\sin x = k\\cos(x - \\alpha)$ dengan $k = \\sqrt{a^2 + b^2}$.\nLangkah 2: $k = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$.\nLangkah 3: Karena $-1 \\le \\cos(x - \\alpha) \\le 1$, maka rentang nilai fungsi adalah $-5 \\le f(x) \\le 5$.\nKesimpulan: Nilai maksimum mutlak adalah $5$ dan nilai minimum mutlak adalah $-5$."
         },
         {
-          "problem": "Tentukan koordinat titik belok kurva $f(x) = \\sin(x)$ pada domain $0 \\le x \\le 2\\pi$!",
-          "solution": "Langkah 1: $f'(x) = \\cos(x) \\implies f''(x) = -\\sin(x)$.\nLangkah 2: Syarat titik belok $f''(x) = 0 \\implies -\\sin(x) = 0 \\implies x = 0, \\pi, 2\\pi$.\nLangkah 3: Untuk $x = \\pi$, $y = \\sin(\\pi) = 0$.\nKesimpulan: Titik belok kurva pada interval terbuka adalah $(\\pi, 0)$."
+          "problem": "Tentukan interval kecekungan ke bawah (*concave down*) kurva $f(x) = \\cos(x)$ pada domain $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: $f'(x) = -\\sin x \\implies f''(x) = -\\cos x$.\nLangkah 2: Syarat cekung ke bawah: $f''(x) < 0 \\implies -\\cos x < 0 \\implies \\cos x > 0$.\nLangkah 3: $\\cos x > 0$ terjadi pada kuadran I dan IV: $0 \\le x < \\frac{\\pi}{2}$ dan $\\frac{3\\pi}{2} < x \\le 2\\pi$.\nKesimpulan: Kurva cekung ke bawah pada interval $0 \\le x < \\frac{\\pi}{2}$ dan $\\frac{3\\pi}{2} < x \\le 2\\pi$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Turunan Fungsi Trigonometri 7: Titik Stasioner & Kecekungan Kurva. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Titik Stasioner, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Uji Turunan Kedua, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan nilai maksimum dari fungsi $f(x) = 2\\sin^2(x) + 3\\cos(x)$ pada interval $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: Nyatakan dalam satu perbandingan trigonometri menggunakan $\\sin^2 x = 1 - \\cos^2 x$:\n$f(x) = 2(1 - \\cos^2 x) + 3\\cos x = -2\\cos^2 x + 3\\cos x + 2$.\nLangkah 2: Misalkan $u = \\cos x$ dengan $-1 \\le u \\le 1$. Fungsi kuadrat: $g(u) = -2u^2 + 3u + 2$.\nLangkah 3: Puncak kurva kuadrat: $u_p = -\\frac{b}{2a} = -\\frac{3}{2(-2)} = \\frac{3}{4}$.\nLangkah 4: Nilai maksimum: $g(3/4) = -2\\left(\\frac{3}{4}\\right)^2 + 3\\left(\\frac{3}{4}\\right) + 2 = -2\\left(\\frac{9}{16}\\right) + \\frac{9}{4} + 2 = -\\frac{9}{8} + \\frac{18}{8} + \\frac{16}{8} = \\frac{25}{8} = 3{,}125$.\nKesimpulan: Nilai maksimum fungsi adalah $\\frac{25}{8} = 3{,}125$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Turunan Fungsi Trigonometri 7: Titik Stasioner & Kecekungan Kurva, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Titik Stasioner.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Uji Turunan Kedua.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Arus listrik bolak-balik berosilasi menurut fungsi $I(t) = 4\\sin(100t) + 3\\cos(100t)$ Ampere. Tentukan waktu pertama $t > 0$ saat arus mencapai nilai puncak maksimumnya!",
+          "solution": "Langkah 1: $I(t) = 5\\sin(100t + \\alpha)$ dengan $\\tan \\alpha = \\frac{3}{4} \\implies \\alpha \\approx 0{,}6435$ rad.\nLangkah 2: Arus maksimum saat $\\sin(100t + \\alpha) = 1 \\implies 100t + \\alpha = \\frac{\\pi}{2}$.\nLangkah 3: $100t = \\frac{\\pi}{2} - 0{,}6435 = 1{,}5708 - 0{,}6435 = 0{,}9273$.\nLangkah 4: $t = \\frac{0{,}9273}{100} = 0{,}009273$ detik $\\approx 9{,}27\\text{ ms}$.\nKesimpulan: Arus listrik mencapai puncak pertamanya pada $t \\approx 9{,}27\\text{ milidetik}$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan interval kecekungan ke atas ($f'' > 0$) untuk kurva $f(x) = \\cos(2x)$ pada domain $0 \\le x \\le \\pi$!",
@@ -3077,24 +3077,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Sebuah talang air dibuat dari lembaran seng selebar 30 cm dengan melipat kedua sisinya selebar 10 cm membentuk sudut $\\theta$. Luas penampang talang adalah $L(\\theta) = 100\\sin(\\theta)(1 + \\cos(\\theta))$. Tentukan besar sudut $\\theta$ agar luas penampang maksimal!",
-          "solution": "Langkah 1: $L'(\\theta) = 100[\\cos\\theta(1 + \\cos\\theta) + \\sin\\theta(-\\sin\\theta)] = 100[\\cos\\theta + \\cos^2\\theta - \\sin^2\\theta]$.\nLangkah 2: Ubah $\\sin^2\\theta = 1 - \\cos^2\\theta \\implies L'(\\theta) = 100[2\\cos^2\\theta + \\cos\\theta - 1] = 0$.\nLangkah 3: $(2\\cos\\theta - 1)(\\cos\\theta + 1) = 0 \\implies \\cos\\theta = \\frac{1}{2} \\implies \\theta = 60^\\circ$.\nKesimpulan: Luas penampang maksimal terjadi saat sudut $\\theta = 60^\\circ$."
+          "problem": "Sebuah talang air dibuat dari lembaran seng selebar $30\\text{ cm}$ dengan melipat kedua sisinya selebar $10\\text{ cm}$ dengan sudut lipatan $\\theta$. Tentukan sudut lipatan $\\theta$ agar luas penampang talang air maksimum!",
+          "solution": "Langkah 1: Penampang talang berbentuk trapesium sama kaki dengan alas bawah $10\\text{ cm}$, sisi miring $10\\text{ cm}$, tinggi $h = 10\\sin \\theta$, dan lebar atas $= 10 + 20\\cos \\theta$.\nLangkah 2: Luas $L(\\theta) = \\frac{1}{2} (\\text{alas bawah} + \\text{alas atas}) \\times h = \\frac{1}{2}(10 + 10 + 20\\cos \\theta)(10\\sin \\theta) = 100\\sin \\theta (1 + \\cos \\theta)$.\nLangkah 3: Turunkan terhadap $\\theta$: $L'(\\theta) = 100[\\cos \\theta(1 + \\cos \\theta) - \\sin^2 \\theta] = 100[\\cos \\theta + \\cos^2 \\theta - (1 - \\cos^2 \\theta)] = 100[2\\cos^2 \\theta + \\cos \\theta - 1] = 0$.\nLangkah 4: Faktorkan: $(2\\cos \\theta - 1)(\\cos \\theta + 1) = 0 \\implies \\cos \\theta = \\frac{1}{2} \\implies \\theta = 60^\\circ$.\nKesimpulan: Sudut lipatan agar luas penampang talang air maksimum adalah $\\theta = 60^\\circ$."
         },
         {
-          "problem": "Tentukan turunan pertama dari $f(x) = \\sin^3(4x - 1)$!",
-          "solution": "Langkah 1: Aturan rantai bertingkat: $f'(x) = 3\\sin^2(4x - 1) \\cdot \\cos(4x - 1) \\cdot 4$.\nLangkah 2: $f'(x) = 12\\sin^2(4x - 1)\\cos(4x - 1)$.\nKesimpulan: Turunan pertamanya adalah $f'(x) = 12\\sin^2(4x - 1)\\cos(4x - 1)$."
+          "problem": "Tentukan turunan pertama dari fungsi trigonometri $f(x) = \\sin^3(4x - 1)$!",
+          "solution": "Langkah 1: Gunakan aturan rantai bertingkat: $f'(x) = 3\\sin^2(4x - 1) \\cdot \\frac{d}{dx}[\\sin(4x - 1)]$.\nLangkah 2: $\\frac{d}{dx}[\\sin(4x - 1)] = 4\\cos(4x - 1)$.\nLangkah 3: $f'(x) = 3\\sin^2(4x - 1) \\cdot 4\\cos(4x - 1) = 12\\sin^2(4x - 1)\\cos(4x - 1)$.\nKesimpulan: $f'(x) = 12\\sin^2(4x - 1)\\cos(4x - 1)$."
         },
         {
-          "problem": "Tentukan gradien garis singgung kurva $y = 3\\tan(2x)$ di titik $x = \\pi/8$!",
-          "solution": "Langkah 1: $y' = 3(2\\sec^2(2x)) = 6\\sec^2(2x)$.\nLangkah 2: Evaluasi di $x = \\pi/8$: $m = 6\\sec^2(2(\\pi/8)) = 6\\sec^2(\\pi/4)$.\nLangkah 3: Karena $\\sec(\\pi/4) = \\sqrt{2} \\implies \\sec^2(\\pi/4) = 2$.\nLangkah 4: $m = 6 \\times 2 = 12$.\nKesimpulan: Gradien garis singgung adalah $m = 12$."
+          "problem": "Tentukan gradien garis singgung kurva $y = 3\\tan(2x)$ di titik berabsis $x = \\frac{\\pi}{8}$!",
+          "solution": "Langkah 1: $y' = 3(2\\sec^2 2x) = 6\\sec^2(2x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{8} \\implies 2x = \\frac{\\pi}{4}$.\nLangkah 3: $\\sec\\left(\\frac{\\pi}{4}\\right) = \\sqrt{2} \\implies \\sec^2\\left(\\frac{\\pi}{4}\\right) = 2$.\nLangkah 4: $m = 6(2) = 12$.\nKesimpulan: Gradien garis singgung kurva adalah $m = 12$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Asesmen Sumatif Bab 3: Masalah Optimasi Kontekstual Turunan. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Matriks Uji Kompetensi Bab 3, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Prosedur Optimasi, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan luas segitiga siku-siku terbesar yang dapat dibentuk di dalam lingkaran berjari-jari $R = 10\\text{ cm}$ jika hipotenusanya adalah diameter lingkaran!",
+          "solution": "Langkah 1: Diameter lingkaran $d = 2R = 20\\text{ cm}$ sebagai hipotenusa.\nLangkah 2: Sisi tegak segitiga siku-siku dapat dinyatakan dengan $a = 20\\cos \\theta$ dan $b = 20\\sin \\theta$.\nLangkah 3: Luas $\\text{Luas} = \\frac{1}{2} ab = \\frac{1}{2}(20\\cos \\theta)(20\\sin \\theta) = 100(2\\sin \\theta \\cos \\theta) = 100\\sin(2\\theta)$.\nLangkah 4: Nilai maksimum tercapai saat $\\sin(2\\theta) = 1 \\implies 2\\theta = 90^\\circ \\implies \\theta = 45^\\circ$.\nLangkah 5: Luas maksimum $= 100(1) = 100\\text{ cm}^2$.\nKesimpulan: Luas segitiga terbesar yang dapat dibentuk adalah $100\\text{ cm}^2$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Asesmen Sumatif Bab 3: Masalah Optimasi Kontekstual Turunan, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Matriks Uji Kompetensi Bab 3.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Prosedur Optimasi.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Kekuatan balok kayu berbentuk persegi panjang yang dipotong dari batang pohon silinder berjari-jari $R$ berbanding lurus dengan $w \\cdot h^2$ (dengan $w$ adalah lebar dan $h$ adalah tinggi balok). Tentukan rasio perbandingan optimal $\\frac{h}{w}$ agar kekuatan balok maksimum!",
+          "solution": "Langkah 1: Karena penampang balok di dalam silinder berdiameter $2R$: $w^2 + h^2 = (2R)^2 = 4R^2 \\implies h^2 = 4R^2 - w^2$.\nLangkah 2: Fungsi kekuatan $S(w) = w \\cdot h^2 = w(4R^2 - w^2) = 4R^2 w - w^3$.\nLangkah 3: $S'(w) = 4R^2 - 3w^2 = 0 \\implies w^2 = \\frac{4}{3}R^2 \\implies w = \\frac{2R}{\\sqrt{3}}$.\nLangkah 4: $h^2 = 4R^2 - \\frac{4}{3}R^2 = \\frac{8}{3}R^2 \\implies h = \\frac{2\\sqrt{2}R}{\\sqrt{3}}$.\nLangkah 5: Rasio $\\frac{h}{w} = \\frac{2\\sqrt{2}R / \\sqrt{3}}{2R / \\sqrt{3}} = \\sqrt{2}$.\nKesimpulan: Rasio perbandingan optimal adalah $\\frac{h}{w} = \\sqrt{2} \\approx 1{,}414$."
         }
       ],
       "btc": "Kelompok VNPS: Bedah simulasi 10 soal CBT Bab 3 dan buktikan solusi analitisnya bersama tim!",
@@ -3148,24 +3148,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan hasil dari $\\int (6x^2 - 4x + 5) dx$!",
-          "solution": "Langkah 1: Terapkan aturan pangkat suku demi suku.\nLangkah 2: $\\int 6x^2 dx = 6 \\left(\\frac{x^3}{3}\\right) = 2x^3$.\nLangkah 3: $\\int -4x dx = -4 \\left(\\frac{x^2}{2}\\right) = -2x^2$.\nLangkah 4: $\\int 5 dx = 5x$.\nKesimpulan: Hasil integral adalah $2x^3 - 2x^2 + 5x + C$."
+          "problem": "Tentukan hasil integral tak tentu aljabar dari $\\int (6x^2 - 4x + 5) \\, dx$!",
+          "solution": "Langkah 1: Terapkan rumus dasar $\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$.\nLangkah 2: $\\int 6x^2 \\, dx = 6\\left(\\frac{x^3}{3}\\right) = 2x^3$.\nLangkah 3: $\\int -4x \\, dx = -4\\left(\\frac{x^2}{2}\\right) = -2x^2$.\nLangkah 4: $\\int 5 \\, dx = 5x$.\nKesimpulan: Hasil integral adalah $2x^3 - 2x^2 + 5x + C$."
         },
         {
-          "problem": "Gradien garis singgung kurva di setiap titik ditentukan oleh $\\frac{dy}{dx} = 3x^2 - 4x + 1$. Jika kurva melalui titik $(2, 5)$, tentukan persamaan kurva tersebut!",
-          "solution": "Langkah 1: $y = \\int (3x^2 - 4x + 1) dx = x^3 - 2x^2 + x + C$.\nLangkah 2: Substitusi titik $(2, 5)$: $5 = 2^3 - 2(2^2) + 2 + C \\implies 5 = 8 - 8 + 2 + C \\implies C = 3$.\nLangkah 3: Persamaan kurva adalah $y = x^3 - 2x^2 + x + 3$.\nKesimpulan: Persamaan kurvanya adalah $y = x^3 - 2x^2 + x + 3$."
+          "problem": "Gradien garis singgung suatu kurva ditentukan oleh $\\frac{dy}{dx} = 3x^2 - 4x + 1$. Jika kurva tersebut melalui titik $(2, 5)$, tentukan persamaan kurva $y = f(x)$!",
+          "solution": "Langkah 1: Integralkan turunan fungsi: $y = \\int (3x^2 - 4x + 1) \\, dx = x^3 - 2x^2 + x + C$.\nLangkah 2: Substitusikan titik $(2, 5)$: $5 = 2^3 - 2(2^2) + 2 + C \\implies 5 = 8 - 8 + 2 + C \\implies C = 3$.\nLangkah 3: Persamaan kurva: $y = x^3 - 2x^2 + x + 3$.\nKesimpulan: Persamaan kurva adalah $y = x^3 - 2x^2 + x + 3$."
         },
         {
-          "problem": "Tentukan hasil dari $\\int (4\\cos x - 3\\sin x) dx$!",
-          "solution": "Langkah 1: $\\int 4\\cos x dx = 4\\sin x$.\nLangkah 2: $\\int -3\\sin x dx = -3(-\\cos x) = +3\\cos x$.\nKesimpulan: Hasil integral adalah $4\\sin x + 3\\cos x + C$."
+          "problem": "Tentukan hasil integral trigonometri dasar dari $\\int (4\\cos x - 3\\sin x) \\, dx$!",
+          "solution": "Langkah 1: Integral dasar: $\\int \\cos x \\, dx = \\sin x$ dan $\\int \\sin x \\, dx = -\\cos x$.\nLangkah 2: $\\int (4\\cos x - 3\\sin x) \\, dx = 4(\\sin x) - 3(-\\cos x) + C = 4\\sin x + 3\\cos x + C$.\nKesimpulan: Hasil integral adalah $4\\sin x + 3\\cos x + C$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Integral dan Penerapannya 1: Konsep Integral Tak Tentu Dasar. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Aturan Pangkat Integral, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Sifat Kelinieran Integral, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan hasil integral dari $\\int (2\\sec^2 x + 5\\csc^2 x) \\, dx$!",
+          "solution": "Langkah 1: Rumus dasar: $\\int \\sec^2 x \\, dx = \\tan x$ dan $\\int \\csc^2 x \\, dx = -\\cot x$.\nLangkah 2: $\\int (2\\sec^2 x + 5\\csc^2 x) \\, dx = 2\\tan(x) - 5\\cot(x) + C$.\nKesimpulan: Hasil integral adalah $2\\tan(x) - 5\\cot(x) + C$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Integral dan Penerapannya 1: Konsep Integral Tak Tentu Dasar, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Aturan Pangkat Integral.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Sifat Kelinieran Integral.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah mobil bergerak lurus dengan percepatan $a(t) = 6t - 2\\text{ m/s}^2$. Jika kecepatan awal mobil pada $t = 0$ adalah $v(0) = 4\\text{ m/s}$ dan posisi awal $s(0) = 10\\text{ m}$, tentukan persamaan posisi $s(t)$!",
+          "solution": "Langkah 1: Kecepatan $v(t) = \\int a(t) \\, dt = \\int (6t - 2) \\, dt = 3t^2 - 2t + C_1$.\nLangkah 2: $v(0) = 4 \\implies C_1 = 4 \\implies v(t) = 3t^2 - 2t + 4$.\nLangkah 3: Posisi $s(t) = \\int v(t) \\, dt = \\int (3t^2 - 2t + 4) \\, dt = t^3 - t^2 + 4t + C_2$.\nLangkah 4: $s(0) = 10 \\implies C_2 = 10$.\nKesimpulan: Persamaan posisi mobil adalah $s(t) = t^3 - t^2 + 4t + 10$."
         }
       ],
       "btc": "Kelompok VNPS: Sebuah partikel bergerak dengan percepatan $a(t) = 6t - 12$. Pada saat $t=1$, kecepatan $v=3$ dan posisi $s=10$. Tentukan fungsi posisi $s(t)$ partikel!",
@@ -3219,24 +3219,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan hasil integral tak tentu berikut: $$\\int 2x (x^2 + 5)^4 \\, dx$$",
-          "solution": "Langkah 1: Misalkan $u = x^2 + 5$. Maka turunan diferensialnya adalah $du = 2x \\, dx$.\nLangkah 2: Menggunakan rumus Rumus Dasar Integral Substitusi Aljabar, substitusikan variabel $u$ ke dalam integral:\n$$\\int (x^2 + 5)^4 (2x \\, dx) = \\int u^4 \\, du$$\nLangkah 3: Integralkan variabel $u$:\n$$\\frac{1}{5} u^5 + C$$\nLangkah 4: Kembalikan ke variabel asal $x$:\n$$\\frac{1}{5}(x^2 + 5)^5 + C$$\nKesimpulan: Hasil pengintegralan adalah $\\frac{1}{5}(x^2 + 5)^5 + C$."
+          "problem": "Tentukan hasil integral tak tentu berikut: $\\int 2x (x^2 + 5)^4 \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = x^2 + 5 \\implies du = 2x \\, dx$.\nLangkah 2: Substitusikan ke dalam integral: $\\int u^4 \\, du = \\frac{1}{5} u^5 + C$.\nLangkah 3: Kembalikan variabel $u$: $\\frac{1}{5} (x^2 + 5)^5 + C$.\nKesimpulan: Hasil integral adalah $\\frac{1}{5}(x^2 + 5)^5 + C$."
         },
         {
-          "problem": "Hitunglah hasil dari integral fungsi rasional berikut: $$\\int \\frac{3x^2}{x^3 + 2} \\, dx$$",
-          "solution": "Langkah 1: Misalkan $u = x^3 + 2$, maka $du = 3x^2 \\, dx$.\nLangkah 2: Menggunakan rumus Bentuk Pecahan Turunan Logaritma, ubah integral menjadi:\n$$\\int \\frac{du}{u}$$\nLangkah 3: Selesaikan integral bentuk logaritma natural:\n$$\\ln |u| + C$$\nLangkah 4: Kembalikan substitusi variabel $x$:\n$$\\ln |x^3 + 2| + C$$\nKesimpulan: Hasil integral tersebut adalah $\\ln |x^3 + 2| + C$."
+          "problem": "Hitunglah hasil dari integral fungsi rasional $\\int \\frac{3x^2}{x^3 + 2} \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = x^3 + 2 \\implies du = 3x^2 \\, dx$.\nLangkah 2: Integral menjadi: $\\int \\frac{1}{u} \\, du = \\ln|u| + C$.\nLangkah 3: Kembalikan $u$: $\\ln|x^3 + 2| + C$.\nKesimpulan: Hasil integral adalah $\\ln|x^3 + 2| + C$."
         },
         {
-          "problem": "Tentukan hasil dari integral trigonometri berikut: $$\\int \\sin^4 x \\cos x \\, dx$$",
-          "solution": "Langkah 1: Misalkan $u = \\sin x$, maka $du = \\cos x \\, dx$.\nLangkah 2: Menggunakan rumus Integral Substitusi Trigonometri Dasar, substitusikan ke integral:\n$$\\int u^4 \\, du$$\nLangkah 3: Integralkan terhadap $u$:\n$$\\frac{1}{5} u^5 + C$$\nLangkah 4: Kembalikan $u = \\sin x$:\n$$\\frac{1}{5} \\sin^5 x + C$$\nKesimpulan: Hasil pengintegralan adalah $\\frac{1}{5} \\sin^5 x + C$."
+          "problem": "Tentukan hasil dari integral trigonometri substitusi: $\\int \\sin^4(x) \\cos(x) \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = \\sin(x) \\implies du = \\cos(x) \\, dx$.\nLangkah 2: Integral menjadi: $\\int u^4 \\, du = \\frac{1}{5} u^5 + C$.\nLangkah 3: Kembalikan $u$: $\\frac{1}{5} \\sin^5(x) + C$.\nKesimpulan: Hasil integral adalah $\\frac{1}{5}\\sin^5(x) + C$."
         },
         {
-          "problem": "Hitunglah nilai dari integral tentu berikut: $$\\int_0^2 x \\sqrt{x^2 + 9} \\, dx$$",
-          "solution": "Langkah 1: Misalkan $u = x^2 + 9 \\implies du = 2x \\, dx \\implies x \\, dx = \\frac{1}{2} du$.\nLangkah 2: Menggunakan rumus Integral Tentu dengan Transformasi Batas, ubah batas integrasi:\n- Untuk $x = 0 \\implies u = 0^2 + 9 = 9$\n- Untuk $x = 2 \\implies u = 2^2 + 9 = 13$\nLangkah 3: Susun dan selesaikan integral tentu dalam variabel $u$:\n$$\\int_9^{13} u^{1/2} \\cdot \\frac{1}{2} \\, du = \\frac{1}{2} \\left[ \\frac{2}{3} u^{3/2} \\right]_9^{13} = \\frac{1}{3} \\left( 13\\sqrt{13} - 9\\sqrt{9} \\right) = \\frac{1}{3} (13\\sqrt{13} - 27)$$\nKesimpulan: Nilai integral tentu tersebut adalah $\\frac{13\\sqrt{13} - 27}{3}$."
+          "problem": "Hitunglah nilai dari integral tentu $\\int_0^2 x \\sqrt{x^2 + 9} \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = x^2 + 9 \\implies du = 2x \\, dx \\implies x \\, dx = \\frac{du}{2}$.\nLangkah 2: Ubah batas integrasi: Saat $x = 0 \\implies u = 9$; saat $x = 2 \\implies u = 2^2 + 9 = 13$.\nLangkah 3: $\\int_9^{13} u^{1/2} \\left(\\frac{du}{2}\\right) = \\frac{1}{2} \\left[ \\frac{2}{3} u^{3/2} \\right]_9^{13} = \\frac{1}{3} \\left[ 13\\sqrt{13} - 9\\sqrt{9} \\right] = \\frac{1}{3} (13\\sqrt{13} - 27) = \\frac{13\\sqrt{13}}{3} - 9$.\nKesimpulan: Nilai integral adalah $\\frac{13\\sqrt{13}}{3} - 9$."
         },
         {
-          "problem": "Tentukan hasil dari integral substitusi tingkat lanjut: $$\\int x (x - 1)^5 \\, dx$$",
-          "solution": "Langkah 1: Misalkan $u = x - 1 \\implies x = u + 1$ dan $dx = du$.\nLangkah 2: Menggunakan rumus Rumus Dasar Integral Substitusi Aljabar, substitusikan seluruh komponen ke dalam variabel $u$:\n$$\\int (u + 1) u^5 \\, du = \\int (u^6 + u^5) \\, du$$\nLangkah 3: Integralkan setiap suku:\n$$\\frac{1}{7} u^7 + \\frac{1}{6} u^6 + C$$\nLangkah 4: Kembalikan variabel asal $u = x - 1$:\n$$\\frac{1}{7} (x - 1)^7 + \\frac{1}{6} (x - 1)^6 + C$$\nKesimpulan: Hasil integral tersebut adalah $\\frac{1}{7} (x - 1)^7 + \\frac{1}{6} (x - 1)^6 + C$."
+          "problem": "Tentukan hasil integral substitusi linear: $\\int x (x - 1)^5 \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = x - 1 \\implies x = u + 1$ dan $dx = du$.\nLangkah 2: Integral menjadi: $\\int (u + 1) u^5 \\, du = \\int (u^6 + u^5) \\, du$.\nLangkah 3: Integralkan: $\\frac{1}{7} u^7 + \\frac{1}{6} u^6 + C$.\nLangkah 4: Kembalikan $u = x - 1$: $\\frac{1}{7} (x - 1)^7 + \\frac{1}{6} (x - 1)^6 + C$.\nKesimpulan: Hasil integral adalah $\\frac{1}{7}(x - 1)^7 + \\frac{1}{6}(x - 1)^6 + C$."
         }
       ],
       "btc": "Kelompok VNPS: Selesaikan integral substitusi linear $\\int x \\sqrt{x - 1} dx$ dengan memisalkan $u = x - 1$!",
@@ -3288,24 +3288,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan hasil dari $\\int x \\cos(x) dx$!",
-          "solution": "Langkah 1: Menggunakan rumus Rumus Parsial Baku, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Tabel Tanzalin):\n- Baris 1: (+) | Turunkan: $x$ | Integralkan: $\\cos x$\n- Baris 2: (-) | Turunkan: $1$ | Integralkan: $\\sin x$\n- Baris 3: (+) | Turunkan: $0$ | Integralkan: $-\\cos x$\nLangkah 2: Kalikan silang diagonal:\n$$+ (x)(\\sin x) - (1)(-\\cos x) + C = x\\sin x + \\cos x + C$$\nKesimpulan: Hasil integral adalah $x\\sin x + \\cos x + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Tentukan hasil integral parsial dari $\\int x \\cos(x) \\, dx$!",
+          "solution": "Langkah 1: Gunakan metode parsial $\\int u \\, dv = uv - \\int v \\, du$. Misalkan $u = x \\implies du = dx$ dan $dv = \\cos x \\, dx \\implies v = \\sin x$.\nLangkah 2: $\\int x \\cos(x) \\, dx = x\\sin(x) - \\int \\sin(x) \\, dx$.\nLangkah 3: $x\\sin(x) - (-\\cos x) + C = x\\sin(x) + \\cos(x) + C$.\nKesimpulan: Hasil integral adalah $x\\sin(x) + \\cos(x) + C$."
         },
         {
-          "problem": "Tentukan hasil dari $\\int x^2 e^x dx$!",
-          "solution": "Langkah 1: Menggunakan rumus Rumus Parsial Baku, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Tabel Tanzalin):\n- (+) | $x^2$ | $e^x$\n- (-) | $2x$ | $e^x$\n- (+) | $2$ | $e^x$\n- (-) | $0$ | $e^x$\nLangkah 2: Kalikan diagonal: $x^2 e^x - 2x e^x + 2e^x + C = e^x(x^2 - 2x + 2) + C$.\nKesimpulan: Hasil integral adalah $e^x(x^2 - 2x + 2) + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Tentukan hasil dari $\\int x^2 e^x \\, dx$ menggunakan Metode Tanzalin (Tabel D-I)!",
+          "solution": "Langkah 1: Buat kolom Turunan (D) dan Integral (I) bertanda bergantian:\n- Kolom D: $x^2 \\to 2x \\to 2 \\to 0$\n- Kolom I: $e^x \\to e^x \\to e^x \\to e^x$\n- Tanda: $(+), (-), (+)$\nLangkah 2: Pasangkan secara diagonal:\n$(+) x^2 (e^x) + (-) 2x (e^x) + (+) 2 (e^x)$.\nLangkah 3: Sederhanakan: $(x^2 - 2x + 2)e^x + C$.\nKesimpulan: Hasil integral adalah $(x^2 - 2x + 2)e^x + C$."
         },
         {
-          "problem": "Tentukan hasil dari $\\int x \\sin(2x) dx$!",
-          "solution": "Langkah 1: Menggunakan rumus Rumus Parsial Baku, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Tabel Tanzalin):\n- (+) | $x$ | $\\sin(2x)$\n- (-) | $1$ | $-\\frac{1}{2}\\cos(2x)$\n- (+) | $0$ | $-\\frac{1}{4}\\sin(2x)$\nLangkah 2: $+ (x)(-\\frac{1}{2}\\cos 2x) - (1)(-\\frac{1}{4}\\sin 2x) + C = -\\frac{1}{2}x\\cos(2x) + \\frac{1}{4}\\sin(2x) + C$.\nKesimpulan: Hasil integral adalah $-\\frac{1}{2}x\\cos(2x) + \\frac{1}{4}\\sin(2x) + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Tentukan hasil integral parsial $\\int x \\sin(2x) \\, dx$!",
+          "solution": "Langkah 1: Metode Tanzalin:\n- D: $x \\to 1 \\to 0$\n- I: $\\sin(2x) \\to -\\frac{1}{2}\\cos(2x) \\to -\\frac{1}{4}\\sin(2x)$\n- Tanda: $(+), (-)$\nLangkah 2: Kalikan silang: $(+) x \\left(-\\frac{1}{2}\\cos 2x\\right) - (1) \\left(-\\frac{1}{4}\\sin 2x\\right)$.\nLangkah 3: $-\\frac{1}{2}x\\cos(2x) + \\frac{1}{4}\\sin(2x) + C$.\nKesimpulan: Hasil integral adalah $-\\frac{1}{2}x\\cos(2x) + \\frac{1}{4}\\sin(2x) + C$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Integral dan Penerapannya 3: Teknik Pengintegralan Parsial (Tanzalin). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Rumus Parsial Baku, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Metode Cepat Tanzalin, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan hasil dari integral parsial logaritma $\\int \\ln(x) \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = \\ln x \\implies du = \\frac{1}{x} \\, dx$ dan $dv = dx \\implies v = x$.\nLangkah 2: $\\int \\ln(x) \\, dx = uv - \\int v \\, du = x\\ln(x) - \\int x \\left(\\frac{1}{x}\\right) \\, dx$.\nLangkah 3: $x\\ln(x) - \\int 1 \\, dx = x\\ln(x) - x + C = x(\\ln x - 1) + C$.\nKesimpulan: Hasil integral adalah $x\\ln(x) - x + C$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Integral dan Penerapannya 3: Teknik Pengintegralan Parsial (Tanzalin), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Rumus Parsial Baku.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Metode Cepat Tanzalin.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Dalam analisis pemrosesan sinyal spektral, energi respon impuls dinyatakan oleh $E = \\int_0^\\pi x \\cos(3x) \\, dx$. Hitung nilai eksak energi $E$ tersebut!",
+          "solution": "Langkah 1: Integralkan $\\int x \\cos(3x) \\, dx$ dengan metode parsial Tanzalin:\n$\\int x\\cos(3x) \\, dx = \\frac{1}{3}x\\sin(3x) + \\frac{1}{9}\\cos(3x)$.\nLangkah 2: Masukkan batas integrasi dari $0$ hingga $\\pi$:\n$E = \\left[ \\frac{1}{3}\\pi\\sin(3\\pi) + \\frac{1}{9}\\cos(3\\pi) \\right] - \\left[ 0 + \\frac{1}{9}\\cos(0) \\right]$.\nLangkah 3: Karena $\\sin(3\\pi) = 0, \\cos(3\\pi) = -1, \\cos(0) = 1$:\n$E = \\left[ 0 + \\frac{1}{9}(-1) \\right] - \\left[ \\frac{1}{9}(1) \\right] = -\\frac{1}{9} - \\frac{1}{9} = -\\frac{2}{9}$.\nKesimpulan: Nilai eksak energi sinyal adalah $-\\frac{2}{9}$."
         }
       ],
       "btc": "Kelompok VNPS: Selesaikan integral parsial $\\int x^2 \\sin(x) dx$ menggunakan metode Tanzalin 4 baris!",
@@ -3359,24 +3359,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Hitung nilai dari $\\int_{1}^{3} (3x^2 - 2x + 1) dx$!",
-          "solution": "Langkah 1: Menggunakan rumus Teorema Dasar Kalkulus (FTC), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Antiturunan): $F(x) = [x^3 - x^2 + x]_1^3$.\nLangkah 2: Evaluasi batas atas $F(3) = 3^3 - 3^2 + 3 = 27 - 9 + 3 = 21$.\nLangkah 3: Evaluasi batas bawah $F(1) = 1^3 - 1^2 + 1 = 1$.\nLangkah 4: $F(3) - F(1) = 21 - 1 = 20$.\nKesimpulan: Nilai integral tentu adalah $20$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Hitung nilai dari integral tentu $\\int_{1}^{3} (3x^2 - 2x + 1) \\, dx$!",
+          "solution": "Langkah 1: Tentukan antiturunan: $F(x) = x^3 - x^2 + x$.\nLangkah 2: Terapkan Teorema Dasar Kalkulus: $[F(x)]_1^3 = F(3) - F(1)$.\nLangkah 3: $F(3) = 3^3 - 3^2 + 3 = 27 - 9 + 3 = 21$.\nLangkah 4: $F(1) = 1^3 - 1^2 + 1 = 1$.\nLangkah 5: $F(3) - F(1) = 21 - 1 = 20$.\nKesimpulan: Nilai integral tentu adalah $20$."
         },
         {
-          "problem": "Hitung nilai dari $\\int_0^{\\pi/2} \\cos(x) dx$!",
-          "solution": "Langkah 1: $F(x) = [\\sin x]_0^{\\pi/2}$.\nLangkah 2: $\\sin(\\pi/2) - \\sin(0) = 1 - 0 = 1$.\nKesimpulan: Nilai integral tentu adalah $1$."
+          "problem": "Hitung nilai dari integral trigonometri tentu $\\int_0^{\\pi/2} \\cos(x) \\, dx$!",
+          "solution": "Langkah 1: Antiturunan dari $\\cos x$ adalah $\\sin x$.\nLangkah 2: $[\\sin x]_0^{\\pi/2} = \\sin\\left(\\frac{\\pi}{2}\\right) - \\sin(0) = 1 - 0 = 1$.\nKesimpulan: Nilai integral tentu adalah $1$."
         },
         {
-          "problem": "Hitung nilai dari $\\int_{0}^{2} 2x(x^2 + 1)^2 dx$!",
-          "solution": "Langkah 1: Misalkan $u = x^2 + 1 \\implies du = 2x dx$.\nLangkah 2: Transformasi batas: Saat $x = 0 \\implies u = 1$; Saat $x = 2 \\implies u = 2^2 + 1 = 5$.\nLangkah 3: $\\int_{1}^{5} u^2 du = \\left[ \\frac{u^3}{3} \\right]_1^5 = \\frac{5^3 - 1^3}{3} = \\frac{125 - 1}{3} = \\frac{124}{3}$.\nKesimpulan: Nilai integral tentu adalah $\\frac{124}{3}$."
+          "problem": "Hitung nilai dari $\\int_{0}^{2} 2x(x^2 + 1)^2 \\, dx$!",
+          "solution": "Langkah 1: Substitusi $u = x^2 + 1 \\implies du = 2x \\, dx$.\nLangkah 2: Batas: $x = 0 \\implies u = 1$; $x = 2 \\implies u = 2^2 + 1 = 5$.\nLangkah 3: $\\int_1^5 u^2 \\, du = \\left[ \\frac{1}{3} u^3 \\right]_1^5 = \\frac{1}{3}(5^3 - 1^3) = \\frac{1}{3}(125 - 1) = \\frac{124}{3} = 41\\frac{1}{3}$.\nKesimpulan: Nilai integral tentu adalah $\\frac{124}{3}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Integral dan Penerapannya 4: Integral Tentu dan Teorema Dasar Kalkulus. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Teorema Dasar Kalkulus (FTC), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Sifat Pembalikan Batas, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan nilai konstanta $a > 0$ yang memenuhi persamaan integral tentu $\\int_0^a (4x + 3) \\, dx = 14$!",
+          "solution": "Langkah 1: $[2x^2 + 3x]_0^a = 14 \\implies 2a^2 + 3a = 14$.\nLangkah 2: Bentuk persamaan kuadrat: $2a^2 + 3a - 14 = 0$.\nLangkah 3: Faktorkan: $(2a + 7)(a - 2) = 0$.\nLangkah 4: Karena disyaratkan $a > 0$, maka $a = 2$.\nKesimpulan: Nilai konstanta $a$ adalah $2$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Integral dan Penerapannya 4: Integral Tentu dan Teorema Dasar Kalkulus, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Teorema Dasar Kalkulus (FTC).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Sifat Pembalikan Batas.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah reservoir air dipompa keluar dengan debit alir $Q(t) = 120 - 6t$ liter/menit selama $0 \\le t \\le 20$ menit. Tentukan volume total air yang telah dikeluarkan selama 10 menit pertama!",
+          "solution": "Langkah 1: Volume total $V = \\int_0^{10} (120 - 6t) \\, dt$.\nLangkah 2: Integralkan: $V = [120t - 3t^2]_0^{10} = 120(10) - 3(10^2) = 1200 - 300 = 900$ liter.\nKesimpulan: Volume total air yang dikeluarkan selama 10 menit pertama adalah $900$ liter."
         }
       ],
       "btc": "Kelompok VNPS: Jika $\\int_{1}^{4} f(x)dx = 7$ dan $\\int_{2}^{4} f(x)dx = 3$, tentukan nilai dari $\\int_{1}^{2} f(x)dx$!",
@@ -3434,24 +3434,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan luas daerah yang dibatasi oleh kurva $y = x^2$ dan garis $y = 4$!",
-          "solution": "Langkah 1: Cari titik potong kedua kurva: $x^2 = 4 \\implies x = -2$ dan $x = 2$.\nLangkah 2: Menggunakan rumus Luas Daerah Antara Dua Kurva dengan kurva atas $y = 4$ dan kurva bawah $y = x^2$:\n$$L = \\int_{-2}^2 (4 - x^2) \\, dx$$\nLangkah 3: Selesaikan integral tentu dengan memanfaatkan sifat simetri:\n$$L = 2 \\int_0^2 (4 - x^2) \\, dx = 2 \\left[ 4x - \\frac{1}{3}x^3 \\right]_0^2 = 2 \\left( 8 - \\frac{8}{3} \\right) = 2 \\left(\\frac{16}{3}\\right) = \\frac{32}{3}$$\nKesimpulan: Luas daerah yang dibatasi adalah $\\frac{32}{3}$ satuan luas."
+          "problem": "Tentukan luas daerah yang dibatasi oleh kurva parabola $y = x^2$ dan garis $y = 4$!",
+          "solution": "Langkah 1: Titik potong kurva: $x^2 = 4 \\implies x = -2$ dan $x = 2$.\nLangkah 2: Rumus luas: $L = \\int_{-2}^2 (4 - x^2) \\, dx = 2 \\int_0^2 (4 - x^2) \\, dx$.\nLangkah 3: $2 \\left[ 4x - \\frac{1}{3}x^3 \\right]_0^2 = 2 \\left( 8 - \\frac{8}{3} \\right) = 2 \\left( \\frac{16}{3} \\right) = \\frac{32}{3} = 10\\frac{2}{3}$ satuan luas.\nKesimpulan: Luas daerah adalah $\\frac{32}{3}$ satuan luas."
         },
         {
-          "problem": "Gunakan rumus cepat diskriminan untuk menghitung luas daerah antara kurva $y = x^2 - 2x$ dan garis $y = x$!",
-          "solution": "Langkah 1: Susun persamaan kuadrat sekutu: $x^2 - 2x = x \\implies x^2 - 3x = 0$.\nLangkah 2: Tentukan koefisien $a = 1, b = -3, c = 0$.\nLangkah 3: Hitung nilai diskriminan $D = b^2 - 4ac = (-3)^2 - 4(1)(0) = 9$.\nLangkah 4: Menggunakan rumus Rumus Cepat Luas Parabola dan Garis:\n$$L = \\frac{D\\sqrt{D}}{6a^2} = \\frac{9\\sqrt{9}}{6(1)^2} = \\frac{9 \\cdot 3}{6} = \\frac{27}{6} = \\frac{9}{2}$$\nKesimpulan: Luas daerah tersebut adalah $\\frac{9}{2} = 4{,}5$ satuan luas."
+          "problem": "Gunakan rumus cepat diskriminan untuk menghitung luas daerah antara kurva $y = 6x - x^2$ dan sumbu-$X$!",
+          "solution": "Langkah 1: Persamaan kuadrat: $-x^2 + 6x = 0 \\implies a = -1, b = 6, c = 0$.\nLangkah 2: Diskriminan $D = b^2 - 4ac = 6^2 - 4(-1)(0) = 36$.\nLangkah 3: Rumus cepat luas: $L = \\frac{D\\sqrt{D}}{6a^2} = \\frac{36\\sqrt{36}}{6(-1)^2} = \\frac{36 \\times 6}{6} = 36$ satuan luas.\nKesimpulan: Luas daerah adalah $36$ satuan luas."
         },
         {
-          "problem": "Tentukan volume benda putar yang terjadi jika daerah yang dibatasi kurva $y = \\sqrt{x}$, sumbu X, dan garis $x = 4$ diputar mengelilingi sumbu X sejauh $360^\\circ$!",
-          "solution": "Langkah 1: Batas integrasi adalah dari $x = 0$ sampai $x = 4$.\nLangkah 2: Menggunakan rumus Volume Benda Putar Metode Cakram Sumbu X:\n$$V = \\pi \\int_0^4 (\\sqrt{x})^2 \\, dx = \\pi \\int_0^4 x \\, dx$$\nLangkah 3: Selesaikan integral:\n$$V = \\pi \\left[ \\frac{1}{2}x^2 \\right]_0^4 = \\pi \\left( \\frac{1}{2}(16) - 0 \\right) = 8\\pi$$\nKesimpulan: Volume benda putar yang terbentuk adalah $8\\pi$ satuan volume."
+          "problem": "Tentukan volume benda putar yang terjadi jika daerah yang dibatasi oleh kurva $y = x^2$, garis $x = 2$, dan sumbu-$X$ diputar $360^\\circ$ mengelilingi sumbu-$X$!",
+          "solution": "Langkah 1: Rumus volume putar sumbu-$X$: $V = \\pi \\int_a^b y^2 \\, dx$.\nLangkah 2: $V = \\pi \\int_0^2 (x^2)^2 \\, dx = \\pi \\int_0^2 x^4 \\, dx$.\nLangkah 3: $V = \\pi \\left[ \\frac{1}{5} x^5 \\right]_0^2 = \\pi \\left( \\frac{32}{5} \\right) = \\frac{32}{5}\\pi$ satuan volume.\nKesimpulan: Volume benda putar adalah $\\frac{32}{5}\\pi$ satuan volume."
         },
         {
-          "problem": "Tentukan volume benda putar jika daerah antara garis $y = 2x$ dan kurva $y = x^2$ diputar $360^\\circ$ mengelilingi sumbu X!",
-          "solution": "Langkah 1: Cari titik potong kedua kurva: $x^2 = 2x \\implies x(x - 2) = 0 \\implies x = 0$ dan $x = 2$.\nLangkah 2: Pada interval $[0, 2]$, kurva luar adalah $y = 2x$ dan kurva dalam adalah $y = x^2$.\nLangkah 3: Menggunakan rumus Volume Benda Putar Metode Cincin Sumbu X:\n$$V = \\pi \\int_0^2 \\left( (2x)^2 - (x^2)^2 \\right) \\, dx = \\pi \\int_0^2 (4x^2 - x^4) \\, dx$$\nLangkah 4: Hitung integral tentu:\n$$V = \\pi \\left[ \\frac{4}{3}x^3 - \\frac{1}{5}x^5 \\right]_0^2 = \\pi \\left( \\frac{32}{3} - \\frac{32}{5} \\right) = 32\\pi \\left( \\frac{5 - 3}{15} \\right) = \\frac{64\\pi}{15}$$\nKesimpulan: Volume benda putar yang dihasilkan adalah $\\frac{64\\pi}{15}$ satuan volume."
+          "problem": "Tentukan volume benda putar jika daerah antara garis $y = 2x$ dan kurva parabola $y = x^2$ diputar mengelilingi sumbu-$X$ sejauh $360^\\circ$!",
+          "solution": "Langkah 1: Titik potong: $x^2 = 2x \\implies x(x - 2) = 0 \\implies x = 0$ dan $x = 2$.\nLangkah 2: $V = \\pi \\int_0^2 ((2x)^2 - (x^2)^2) \\, dx = \\pi \\int_0^2 (4x^2 - x^4) \\, dx$.\nLangkah 3: $V = \\pi \\left[ \\frac{4}{3}x^3 - \\frac{1}{5}x^5 \\right]_0^2 = \\pi \\left( \\frac{32}{3} - \\frac{32}{5} \\right) = 32\\pi \\left(\\frac{5 - 3}{15}\\right) = \\frac{64}{15}\\pi$ satuan volume.\nKesimpulan: Volume benda putar adalah $\\frac{64}{15}\\pi$ satuan volume."
         },
         {
-          "problem": "Gunakan metode kulit tabung untuk menghitung volume benda putar yang dibatasi $y = x^2$, sumbu X, dan $x = 2$ jika diputar mengelilingi sumbu Y (Standar UTBK)!",
-          "solution": "Langkah 1: Identifikasi radius silinder $r = x$ dan tinggi silinder $h = f(x) = x^2$ dengan batas $x = 0$ sampai $x = 2$.\nLangkah 2: Menggunakan rumus Volume Benda Putar Metode Kulit Tabung:\n$$V = 2\\pi \\int_0^2 x \\cdot x^2 \\, dx = 2\\pi \\int_0^2 x^3 \\, dx$$\nLangkah 3: Selesaikan pengintegralan:\n$$V = 2\\pi \\left[ \\frac{1}{4}x^4 \\right]_0^2 = 2\\pi \\left( \\frac{16}{4} \\right) = 2\\pi(4) = 8\\pi$$\nKesimpulan: Volume benda putar mengelilingi sumbu Y adalah $8\\pi$ satuan volume."
+          "problem": "Sebuah wadah mangkuk keramik dimodelkan oleh perputaran kurva $y = \\sqrt{x}$ dari $y = 0$ sampai $y = 3$ mengelilingi sumbu-$Y$. Tentukan kapasitas volume total mangkuk tersebut!",
+          "solution": "Langkah 1: Nyatakan dalam fungsi $x = g(y)$: $y = \\sqrt{x} \\implies x = y^2$.\nLangkah 2: Rumus volume putar sumbu-$Y$: $V = \\pi \\int_0^3 x^2 \\, dy = \\pi \\int_0^3 (y^2)^2 \\, dy = \\pi \\int_0^3 y^4 \\, dy$.\nLangkah 3: $V = \\pi \\left[ \\frac{1}{5} y^5 \\right]_0^3 = \\frac{243}{5}\\pi = 48{,}6\\pi$ satuan volume.\nKesimpulan: Kapasitas volume mangkuk adalah $\\frac{243}{5}\\pi = 48{,}6\\pi$ satuan volume."
         }
       ],
       "btc": "Kelompok VNPS: Hitung luas daerah antara kurva $y = 4 - x^2$ dan sumbu-$X$ menggunakan rumus integral dan verifikasi dengan rumus cepat $\\frac{D\\sqrt{D}}{6a^2}$!",
@@ -3503,24 +3503,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan hasil dari $\\int_{0}^{1} (4x^3 + 3x^2 - 2x + 1) dx$!",
-          "solution": "Langkah 1: $F(x) = [x^4 + x^3 - x^2 + x]_0^1$.\nLangkah 2: Evaluasi: $(1^4 + 1^3 - 1^2 + 1) - 0 = (1 + 1 - 1 + 1) = 2$.\nKesimpulan: Nilai integral adalah $2$."
+          "problem": "Tentukan hasil dari integral tentu polinomial: $\\int_{0}^{1} (4x^3 + 3x^2 - 2x + 1) \\, dx$!",
+          "solution": "Langkah 1: Antiturunan: $F(x) = x^4 + x^3 - x^2 + x$.\nLangkah 2: Masukkan batas integrasi: $F(1) - F(0) = (1^4 + 1^3 - 1^2 + 1) - 0 = 2$.\nKesimpulan: Nilai integral adalah $2$."
         },
         {
-          "problem": "Tentukan luas daerah yang dibatasi oleh kurva $y = 6x - x^2$ dan sumbu-$X$!",
-          "solution": "Langkah 1: Pembuat nol: $6x - x^2 = 0 \\implies x(6 - x) = 0 \\implies x = 0$ dan $x = 6$.\nLangkah 2: $L = \\int_{0}^{6} (6x - x^2) dx = \\left[ 3x^2 - \\frac{x^3}{3} \\right]_0^6 = 3(36) - \\frac{216}{3} = 108 - 72 = 36$.\nKesimpulan: Luas daerah adalah $36$ satuan luas."
+          "problem": "Tentukan luas daerah yang dibatasi oleh garis $y = 2x + 3$ dan kurva parabola $y = x^2$!",
+          "solution": "Langkah 1: Titik potong: $x^2 = 2x + 3 \\implies x^2 - 2x - 3 = 0 \\implies a = 1, b = -2, c = -3$.\nLangkah 2: Diskriminan $D = (-2)^2 - 4(1)(-3) = 4 + 12 = 16$.\nLangkah 3: Luas cepat: $L = \\frac{D\\sqrt{D}}{6a^2} = \\frac{16\\sqrt{16}}{6(1)^2} = \\frac{16 \\times 4}{6} = \\frac{64}{6} = \\frac{32}{3} = 10\\frac{2}{3}$ satuan luas.\nKesimpulan: Luas daerah adalah $\\frac{32}{3}$ satuan luas."
         },
         {
-          "problem": "Tentukan volume benda putar yang dihasilkan jika daerah yang dibatasi oleh garis $y = 2x$, sumbu-$X$, dan garis $x = 3$ diputar mengelilingi sumbu-$X$ sejauh $360^\\circ$!",
-          "solution": "Langkah 1: $V = \\pi \\int_{0}^{3} (2x)^2 dx = \\pi \\int_{0}^{3} 4x^2 dx$.\nLangkah 2: $V = \\pi \\left[ \\frac{4x^3}{3} \\right]_0^3 = \\pi \\left( \\frac{4(27)}{3} - 0 \\right) = 36\\pi$.\nKesimpulan: Volume benda putar adalah $36\\pi$ satuan volume."
+          "problem": "Tentukan volume benda putar yang dihasilkan jika daerah yang dibatasi oleh garis $y = 3 - x$, sumbu-$X$, dan sumbu-$Y$ diputar $360^\\circ$ mengelilingi sumbu-$X$!",
+          "solution": "Langkah 1: Titik potong sumbu-$X$: $3 - x = 0 \\implies x = 3$.\nLangkah 2: $V = \\pi \\int_0^3 (3 - x)^2 \\, dx = \\pi \\int_0^3 (9 - 6x + x^2) \\, dx$.\nLangkah 3: $V = \\pi \\left[ 9x - 3x^2 + \\frac{1}{3}x^3 \\right]_0^3 = \\pi \\left( 27 - 27 + 9 \\right) = 9\\pi$ satuan volume.\nKesimpulan: Volume benda putar adalah $9\\pi$ satuan volume (setara volume kerucut $r=3, t=3$)."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Asesmen Sumatif Bab 4: Grand Review All Chapters dan Simulasi ASAS. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Matriks Grand Simulasi ASAS, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Kaidah Tanzalin & Cakram, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan hasil integral parsial trigonometri $\\int x^2 \\sin(x) \\, dx$ menggunakan metode tabel Tanzalin!",
+          "solution": "Langkah 1: Tabel Tanzalin:\n- D: $x^2 \\to 2x \\to 2 \\to 0$\n- I: $\\sin x \\to -\\cos x \\to -\\sin x \\to \\cos x$\n- Tanda: $(+), (-), (+)$\nLangkah 2: Pasangkan: $(+) x^2(-\\cos x) - (2x)(-\\sin x) + (2)(\\cos x)$.\nLangkah 3: $-x^2\\cos x + 2x\\sin x + 2\\cos x + C = (2 - x^2)\\cos x + 2x\\sin x + C$.\nKesimpulan: Hasil integral adalah $(2 - x^2)\\cos x + 2x\\sin x + C$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Asesmen Sumatif Bab 4: Grand Review All Chapters dan Simulasi ASAS, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Matriks Grand Simulasi ASAS.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Kaidah Tanzalin & Cakram.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah drum minyak berbentuk tabung diputar mengelilingi sumbu-$X$ menurut profil $y = \\sqrt{4 - x^2}$ untuk $-2 \\le x \\le 2$ meter. Tentukan volume total drum minyak tersebut!",
+          "solution": "Langkah 1: $V = \\pi \\int_{-2}^2 y^2 \\, dx = \\pi \\int_{-2}^2 (4 - x^2) \\, dx = 2\\pi \\int_0^2 (4 - x^2) \\, dx$.\nLangkah 2: $2\\pi \\left[ 4x - \\frac{1}{3}x^3 \\right]_0^2 = 2\\pi \\left( 8 - \\frac{8}{3} \\right) = 2\\pi \\left(\\frac{16}{3}\\right) = \\frac{32}{3}\\pi\\text{ m}^3$.\nKesimpulan: Volume total drum minyak (bola pejal berjejari 2 m) adalah $\\frac{32}{3}\\pi\\text{ m}^3 \\approx 33{,}51\\text{ m}^3$."
         }
       ],
       "btc": "Kelompok VNPS: Grand Final BTC Challenge! Bedah dan selesaikan paket simulasi 10 soal komprehensif ASAS CBT!",
