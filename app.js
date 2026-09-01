@@ -3972,6 +3972,22 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           <div class="space-y-3">
             ${statements.map((stmt, idx) => {
               const correctChoice = correctParts[idx] || 'B';
+              const userChoice = userTfAnswers ? userTfAnswers[idx] : null;
+              
+              let bClass = "border-slate-600 bg-slate-900 text-slate-200";
+              let sClass = "border-slate-600 bg-slate-900 text-slate-200";
+
+              if (isReviewMode) {
+                bClass = correctChoice === 'B' ? 'border-emerald-400 bg-emerald-600 text-white font-black' : 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+                sClass = correctChoice === 'S' ? 'border-rose-400 bg-rose-600 text-white font-black' : 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+              } else if (userChoice === 'B') {
+                bClass = 'border-2 border-blue-400 bg-blue-600 text-white font-black shadow scale-105';
+                sClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+              } else if (userChoice === 'S') {
+                sClass = 'border-2 border-blue-400 bg-blue-600 text-white font-black shadow scale-105';
+                bClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+              }
+
               return `
                 <div id="tf-row-${idx}" class="p-3.5 md:p-4 rounded-2xl bg-slate-800/90 border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow">
                   <div class="flex items-start gap-2.5 flex-1">
@@ -3981,10 +3997,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                     <span class="text-xs md:text-sm text-slate-100 leading-relaxed">${stmt}</span>
                   </div>
                   <div class="flex items-center gap-2 shrink-0 self-end md:self-center">
-                    <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${isReviewMode && correctChoice === 'B' ? 'border-emerald-400 bg-emerald-600 text-white font-black' : 'border-slate-600 bg-slate-900 text-slate-200'} transition shadow">
+                    <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${bClass} transition shadow cursor-pointer">
                       <i class="fa-solid fa-check text-amber-400 mr-1.5"></i> BENAR
                     </button>
-                    <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${isReviewMode && correctChoice === 'S' ? 'border-rose-400 bg-rose-600 text-white font-black' : 'border-slate-600 bg-slate-900 text-slate-200'} transition shadow">
+                    <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${sClass} transition shadow cursor-pointer">
                       <i class="fa-solid fa-xmark text-amber-400 mr-1.5"></i> SALAH
                     </button>
                   </div>
@@ -4012,19 +4028,27 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 const cleanText = opt.replace(/^[A-E]\.\s*/, '');
                 const span = (q.opsi.length % 2 === 1 && i === q.opsi.length - 1) ? ' md:col-span-2' : '';
                 const isCorrectLetter = correctLetters.includes(letter);
+                const isPicked = userMultiAnswers.includes(letter);
                 
                 let btnStyle = "bg-slate-800/90 border-slate-700 text-slate-200";
+                let chkStyle = "bg-slate-900 border-slate-700 text-slate-400";
                 let markBadge = "";
+                
                 if (isReviewMode) {
                   if (isCorrectLetter) {
                     btnStyle = "bg-emerald-950/90 border-2 border-emerald-400 text-white font-semibold";
+                    chkStyle = "bg-emerald-600 border-emerald-400 text-white font-black";
                     markBadge = '<span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black"><i class="fa-solid fa-check mr-1"></i>BENAR</span>';
                   }
+                } else if (isPicked) {
+                  btnStyle = "bg-blue-900/60 border-2 border-blue-400 text-white shadow-lg shadow-blue-900/40";
+                  chkStyle = "bg-blue-600 border border-blue-400 text-white font-bold";
+                  markBadge = '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-square-check text-amber-300"></i> Terpilih</span>';
                 }
 
                 return `
-                  <button id="multi-opt-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `toggleMultiOption('${letter}')`}" class="multi-opt-btn${span} p-3.5 md:p-4 border rounded-2xl text-left text-sm flex items-start gap-3 transition shadow ${btnStyle}">
-                    <span id="chk-${letter}" class="w-6 h-6 rounded-lg ${isReviewMode && isCorrectLetter ? 'bg-emerald-600 border-emerald-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-400'} font-bold flex items-center justify-center shrink-0 text-xs">
+                  <button id="multi-opt-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `toggleMultiOption('${letter}')`}" class="multi-opt-btn${span} p-3.5 md:p-4 border rounded-2xl text-left text-sm flex items-start gap-3 transition shadow cursor-pointer ${btnStyle}">
+                    <span id="chk-${letter}" class="w-6 h-6 rounded-lg ${chkStyle} font-bold flex items-center justify-center shrink-0 text-xs">
                       ${letter}
                     </span>
                     <span class="flex-1 pt-0.5 text-slate-100 leading-relaxed">${cleanText}</span>
@@ -4045,7 +4069,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         optionsHtml = `
           <div class="p-6 bg-slate-800/90 border border-slate-700 rounded-2xl space-y-3 text-center max-w-md mx-auto shadow-xl">
             <span class="text-xs font-bold text-amber-300 uppercase block">${tkaSubj === 'clil' ? 'Numeric Entry:' : 'Isian Singkat Numerik:'}</span>
-            <input type="text" id="numeric-input" value="${isReviewMode ? String(q.kunci) : (userChosen || '')}" ${isReviewMode ? 'readonly' : ''} class="w-full ${isReviewMode ? 'bg-emerald-950 border-2 border-emerald-400 text-white' : 'bg-slate-950 border-slate-700 text-white'} border rounded-2xl py-3 px-4 text-center text-lg font-mono font-bold focus:outline-none focus:border-amber-400 shadow-inner">
+            <input type="text" id="numeric-input" oninput="saveNumericDraft(this.value)" value="${isReviewMode ? String(q.kunci) : (userChosen || '')}" ${isReviewMode ? 'readonly' : ''} class="w-full ${isReviewMode ? 'bg-emerald-950 border-2 border-emerald-400 text-white' : 'bg-slate-950 border-slate-700 text-white'} border rounded-2xl py-3 px-4 text-center text-lg font-mono font-bold focus:outline-none focus:border-amber-400 shadow-inner">
             ${isReviewMode ? `
               <p class="text-xs text-emerald-300 font-bold">Kunci Jawaban Tepat: <span class="font-mono text-white text-sm">${q.kunci}</span></p>
             ` : `
@@ -4224,15 +4248,29 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const idx = userMultiAnswers.indexOf(letter);
       const btn = document.getElementById('multi-opt-' + letter);
       const chk = document.getElementById('chk-' + letter);
+      const mark = btn ? btn.querySelector('.opt-mark') : null;
+      
       if (idx === -1) {
         userMultiAnswers.push(letter);
-        if (btn) btn.className = "multi-opt-btn" + mSpan(btn) + " p-3.5 md:p-4 bg-blue-950/90 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 active:scale-95 transition shadow";
+        if (btn) btn.className = "multi-opt-btn" + mSpan(btn) + " p-3.5 md:p-4 bg-blue-900/60 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 active:scale-95 transition shadow-lg shadow-blue-900/40 cursor-pointer";
         if (chk) chk.className = "w-6 h-6 rounded-lg bg-blue-600 border border-blue-400 text-white font-bold flex items-center justify-center shrink-0 text-xs";
+        if (mark) mark.innerHTML = '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-square-check text-amber-300"></i> Terpilih</span>';
       } else {
         userMultiAnswers.splice(idx, 1);
-        if (btn) btn.className = "multi-opt-btn" + mSpan(btn) + " p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow";
+        if (btn) btn.className = "multi-opt-btn" + mSpan(btn) + " p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow cursor-pointer";
         if (chk) chk.className = "w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 text-slate-400 font-bold flex items-center justify-center shrink-0 text-xs";
+        if (mark) mark.innerHTML = '';
       }
+
+      // Auto-save choices to draft immediately
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, null, { type: 'multi', chosen: userMultiAnswers });
+      
+      // Update nav pill status
+      const activePill = document.querySelector(`#tka-q-pills button:nth-child(${tkaQIdx + 1})`);
+      if (activePill && userMultiAnswers.length > 0) {
+        activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+      }
+      saveAppState();
     }
 
     function flashHint(id, msg) {
@@ -4261,6 +4299,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       userSessionScores[key] = isRight;
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, inp.value.trim(), isRight, { type: 'numeric', chosen: inp.value.trim(), correct: correctVal });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
       // per-option marking so the student sees WHICH pick was wrong
@@ -4292,12 +4331,28 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const bBtn = document.getElementById(`tf-b-${stmtIdx}`);
       const sBtn = document.getElementById(`tf-s-${stmtIdx}`);
       if (choice === 'B') {
-        if (bBtn) bBtn.className = "px-4 py-2 rounded-xl text-xs font-black border border-emerald-400 bg-emerald-600 text-white shadow scale-105 transition";
-        if (sBtn) sBtn.className = "px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-900 text-slate-400 opacity-60";
+        if (bBtn) bBtn.className = "px-4 py-2 rounded-xl text-xs font-black border-2 border-blue-400 bg-blue-600 text-white shadow scale-105 transition cursor-pointer";
+        if (sBtn) sBtn.className = "px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-900 text-slate-400 opacity-60 cursor-pointer";
       } else {
-        if (sBtn) sBtn.className = "px-4 py-2 rounded-xl text-xs font-black border border-rose-400 bg-rose-600 text-white shadow scale-105 transition";
-        if (bBtn) bBtn.className = "px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-900 text-slate-400 opacity-60";
+        if (sBtn) sBtn.className = "px-4 py-2 rounded-xl text-xs font-black border-2 border-blue-400 bg-blue-600 text-white shadow scale-105 transition cursor-pointer";
+        if (bBtn) bBtn.className = "px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-900 text-slate-400 opacity-60 cursor-pointer";
       }
+
+      // Auto-save True/False choices to draft immediately
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, null, { type: 'tf', chosen: userTfAnswers });
+      
+      // Update nav pill status
+      const activePill = document.querySelector(`#tka-q-pills button:nth-child(${tkaQIdx + 1})`);
+      if (activePill) {
+        activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+      }
+      saveAppState();
+    }
+
+    function saveNumericDraft(val) {
+      if (!val) return;
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, val.trim(), null, { type: 'numeric', chosen: val.trim() });
+      saveAppState();
     }
 
     function submitTfAnswer(correctPattern, stmtCount) {
