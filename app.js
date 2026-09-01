@@ -2743,11 +2743,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     // ---- bilah kendali melayang ----
     function presRemote() {
       const el = document.getElementById('pres-remote');
-      if (!el) return;
-      const tampil = (cinemaAktif() || !!document.fullscreenElement) && presSlideMode();
-      el.classList.toggle('hidden', !tampil);
-      const c = document.getElementById('pres-count');
-      if (c) c.textContent = (currentSlideIdx + 1) + ' / 12';
+      if (el) el.classList.add('hidden');
     }
 
     // Semua alat presentasi dimatikan saat keluar dari mode slide, supaya
