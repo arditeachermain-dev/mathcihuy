@@ -5540,8 +5540,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 9 cm",
             "E. 8 cm"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menentukan koordinat atau segitiga siku-siku yang memuat jarak titik A ke titik tengah CG (titik M):\n- Rusuk kubus $s = 6$ cm.\n- Titik M berada di tengah rusuk $CG \\implies CM = \\frac{1}{2}(6) = 3$ cm.\n- Titik A dan C dihubungkan oleh diagonal sisi alas $AC = s\\sqrt{2} = 6\\sqrt{2}$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle ACM$ yang siku-siku di titik C:\n$$AM = \\sqrt{AC^2 + CM^2}$$\n\nLangkah 3: Mensubstitusikan nilai panjang ruas garis:\n$$AM = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = \\sqrt{81} = 9 \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan panjang diagonal sisi alas dan ruas garis titik tengah:\n- Rusuk kubus $s = 6$ cm.\n- Diagonal bidang alas: $AC = s\\sqrt{2} = 6\\sqrt{2}$ cm.\n- Titik P di tengah rusuk $CG \\implies CP = \\frac{1}{2}(6) = 3$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle ACP$ yang siku-siku di titik C:\n$$AP = \\sqrt{AC^2 + CP^2}$$\n\nLangkah 3: Mensubstitusikan nilai panjang ruas garis:\n$$AP = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = \\sqrt{81} = 9 \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5563,8 +5563,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 30 cm",
             "E. 28 cm"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Mengidentifikasi rumus diagonal ruang balok dengan panjang $p$, lebar $l$, dan tinggi $t$:\n$$d_{\\text{ruang}} = \\sqrt{p^2 + l^2 + t^2}$$\n\nLangkah 2: Mensubstitusikan ukuran balok $p = 12$ cm, $l = 4$ cm, dan $t = 3$ cm:\n$$d = \\sqrt{12^2 + 4^2 + 3^2} = \\sqrt{144 + 16 + 9}$$\n\nLangkah 3: Menyelesaikan akar kuadrat:\n$$d = \\sqrt{169} = 13 \\text{ cm}$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Mengidentifikasi rumus diagonal ruang balok dengan ukuran $p = 8$ cm, $l = 6$ cm, dan $t = 24$ cm:\n$$d_{\\text{ruang}} = \\sqrt{p^2 + l^2 + t^2}$$\n\nLangkah 2: Mensubstitusikan ukuran balok:\n$$AG = \\sqrt{8^2 + 6^2 + 24^2} = \\sqrt{64 + 36 + 576} = \\sqrt{100 + 576} = \\sqrt{676}$$\n\nLangkah 3: Menghitung akar kuadrat:\n$$AG = 26 \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "ruang",
             "shape": "balok",
@@ -5586,8 +5586,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 10√3 cm",
             "E. 5√6 cm"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan posisi titik P dan titik Q pada kubus berusuk 10 cm:\n- Titik P adalah titik tengah rusuk AB $\\implies P(5, 0, 0)$.\n- Titik Q adalah titik tengah rusuk GH $\\implies Q(5, 10, 10)$.\n\nLangkah 2: Menghitung selisih koordinat antar kedua titik:\n$$\\Delta x = 5 - 5 = 0, \\quad \\Delta y = 10 - 0 = 10, \\quad \\Delta z = 10 - 0 = 10$$\n\nLangkah 3: Menerapkan rumus jarak Euclid 3D:\n$$PQ = \\sqrt{0^2 + 10^2 + 10^2} = \\sqrt{100 + 100} = \\sqrt{200} = 10\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menentukan koordinat titik M dan N pada kubus berusuk 10 cm (titik A sebagai titik asal $(0,0,0)$):\n- Titik D$(0, 10, 0) \\implies$ Titik tengah AD adalah $M(0, 5, 0)$.\n- Titik G$(10, 10, 10)$ dan H$(0, 10, 10) \\implies$ Titik tengah GH adalah $N(5, 10, 10)$.\n\nLangkah 2: Menghitung selisih koordinat:\n$$\\Delta x = 5 - 0 = 5, \\quad \\Delta y = 10 - 5 = 5, \\quad \\Delta z = 10 - 0 = 10$$\n\nLangkah 3: Menghitung jarak Euclid 3D $MN$:\n$$MN = \\sqrt{5^2 + 5^2 + 10^2} = \\sqrt{25 + 25 + 100} = \\sqrt{150} = 5\\sqrt{6} \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5608,7 +5608,7 @@ const NAMA_TINGKAT = 'XII';
             "Jarak titik tengah AB ke titik tengah GH adalah 8 akar(3) cm"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nPanjang diagonal sisi kubus berusuk $s$ adalah $s\\sqrt{2}$. Untuk $s = 6$ cm, diagonal sisi $= 6\\sqrt{2}$ cm.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPanjang diagonal ruang kubus berusuk $s$ adalah $s\\sqrt{3}$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJarak titik A ke titik C adalah diagonal sisi alas $s\\sqrt{2}$, bukan $s\\sqrt{3}$ (diagonal ruang).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nPanjang diagonal sisi AC pada kubus berusuk 8 cm adalah $AC = s\\sqrt{2} = 8\\sqrt{2}$ cm.\n$\\implies$ Pernyataan (1) bernilai BENAR (B).\n\nLangkah 2: Analisis Pernyataan (2):\nPanjang diagonal ruang AG pada kubus berusuk 8 cm adalah $AG = s\\sqrt{3} = 8\\sqrt{3}$ cm.\n$\\implies$ Pernyataan (2) bernilai BENAR (B).\n\nLangkah 3: Analisis Pernyataan (3):\nTitik tengah AB $(4, 0, 0)$ ke titik tengah GH $(4, 8, 8)$ memiliki jarak $\\sqrt{0^2 + 8^2 + 8^2} = 8\\sqrt{2}$ cm (bukan $8\\sqrt{3}$ cm).\n$\\implies$ Pernyataan (3) bernilai SALAH (S).\n\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5631,8 +5631,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 24 cm",
             "E. 6√6 cm"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menentukan posisi titik puncak T dan pusat alas O pada limas T.ABCD:\n- Alas berbentuk persegi dengan rusuk alas $s = 6$ cm.\n- Diagonal alas $AC = s\\sqrt{2} = 6\\sqrt{2}$ cm $\\implies AO = \\frac{1}{2}AC = 3\\sqrt{2}$ cm.\n- Rusuk tegak $TA = 6$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle TOA$ yang siku-siku di titik O:\n$$TO = \\sqrt{TA^2 - AO^2}$$\n\nLangkah 3: Menghitung nilai tinggi limas:\n$$TO = \\sqrt{6^2 - (3\\sqrt{2})^2} = \\sqrt{36 - 18} = \\sqrt{18} = 3\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Mengidentifikasi hubungan titik A dan C pada kubus ABCD.EFGH:\nRuas garis AC merupakan diagonal bidang alas kubus.\n\nLangkah 2: Menggunakan rumus panjang diagonal sisi kubus:\n$$AC = s\\sqrt{2}$$\n\nLangkah 3: Mensubstitusikan rusuk $s = 12$ cm:\n$$AC = 12\\sqrt{2} \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "ruang",
             "shape": "kubus"
@@ -5652,7 +5652,7 @@ const NAMA_TINGKAT = 'XII';
             "E. √34 cm"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Menentukan koordinat titik potong diagonal:\n- Titik P pada bidang alas $ABCD \\implies P(2, 2, 0)$ pada kubus berusuk 4 cm.\n- Titik Q pada bidang atas $EFGH \\implies Q(2, 2, 4)$.\n\nLangkah 2: Menghitung jarak antara kedua titik:\nRuas garis PQ tegak lurus bidang alas dan sejajar rusuk tegak kubus.\n\nLangkah 3: Menentukan panjang PQ:\n$$PQ = \\Delta z = 4 - 0 = 4 \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menentukan jarak dari titik pusat alas O ke titik sudut A:\n- Panjang diagonal alas: $AC = s\\sqrt{2} = 6\\sqrt{2}$ cm.\n- Jarak O ke A: $AO = \\frac{1}{2}AC = 3\\sqrt{2}$ cm.\n\nLangkah 2: Menerapkan Teorema Pythagoras pada $\\triangle TOA$ yang siku-siku di titik O:\n$$TA = \\sqrt{TO^2 + AO^2}$$\n\nLangkah 3: Mensubstitusikan tinggi $TO = 4$ cm dan $AO = 3\\sqrt{2}$ cm:\n$$TA = \\sqrt{4^2 + (3\\sqrt{2})^2} = \\sqrt{16 + 18} = \\sqrt{34} \\text{ cm}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "limas"
@@ -5672,7 +5672,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Panjang ruas garis CP adalah 3 cm."
           ],
           "kunci": "A, B, D, E",
-          "bahas": "Langkah 1: Analisis sifat metrik kubus ABCD.EFGH berusuk 6 cm:\n- A: Diagonal ruang $AG = 6\\sqrt{3}$ cm (BENAR).\n- B: Diagonal sisi $BD = 6\\sqrt{2}$ cm (BENAR).\n- C: Jarak A ke C adalah $6\\sqrt{2}$ cm, bukan 6 cm (SALAH).\n- D: Jarak A ke G adalah diagonal ruang $6\\sqrt{3}$ cm (BENAR).\n- E: Jarak E ke C adalah diagonal ruang $6\\sqrt{3}$ cm (BENAR).\nKesimpulan: Kunci Jawaban A, B, D, E.",
+          "bahas": "Langkah 1: Analisis seluruh pernyataan metrik kubus berusuk 6 cm ($CP = 3$ cm):\n- Opsi A: Jarak A ke P $= \\sqrt{AC^2 + CP^2} = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = 9$ cm (BENAR).\n- Opsi B: Jarak B ke P $= \\sqrt{BC^2 + CP^2} = \\sqrt{6^2 + 3^2} = \\sqrt{45} = 3\\sqrt{5}$ cm (BENAR).\n- Opsi C: Jarak E ke P $= \\sqrt{6^2 + 6^2 + 3^2} = \\sqrt{81} = 9$ cm (SALAH, tertulis $3\\sqrt{5}$).\n- Opsi D: Jarak D ke P $= \\sqrt{DC^2 + CP^2} = \\sqrt{6^2 + 3^2} = 3\\sqrt{5}$ cm (BENAR).\n- Opsi E: Panjang ruas garis $CP = \\frac{1}{2}(6) = 3$ cm (BENAR).\n\nKesimpulan: Kunci Jawaban A, B, D, E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5694,8 +5694,8 @@ const NAMA_TINGKAT = 'XII';
             "D. a√2",
             "E. 1/2 a√6"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Mengidentifikasi hubungan diagonal ruang dengan panjang rusuk:\n$$d = s\\sqrt{3}$$\n\nLangkah 2: Mensubstitusikan nilai diagonal ruang yang diketahui $d = 12\\sqrt{3}$ cm:\n$$s\\sqrt{3} = 12\\sqrt{3}$$\n\nLangkah 3: Membagi kedua ruas dengan $\\sqrt{3}$:\n$$s = 12 \\text{ cm}$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menentukan koordinat titik tengah EF ($P$) dan titik tengah BC ($Q$) pada kubus berusuk $a$:\n- Titik tengah EF: $P\\left(\\frac{a}{2}, 0, a\\right)$.\n- Titik tengah BC: $Q\\left(a, \\frac{a}{2}, 0\\right)$.\n\nLangkah 2: Menghitung selisih koordinat antar kedua titik:\n$$\\Delta x = a - \\frac{a}{2} = \\frac{a}{2}, \\quad \\Delta y = \\frac{a}{2} - 0 = \\frac{a}{2}, \\quad \\Delta z = 0 - a = -a$$\n\nLangkah 3: Menerapkan Teorema Pythagoras 3D:\n$$PQ = \\sqrt{\\left(\\frac{a}{2}\\right)^2 + \\left(\\frac{a}{2}\\right)^2 + (-a)^2} = \\sqrt{\\frac{a^2}{4} + \\frac{a^2}{4} + a^2} = \\sqrt{\\frac{6a^2}{4}} = \\frac{1}{2}a\\sqrt{6}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "ruang",
             "shape": "kubus",
@@ -5710,10 +5710,10 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P10-Q10] Kuadrat jarak diagonal ruang balok berukuran $3 \\times 4 \\times 12$ adalah ...",
+          "tanya": "[P10-Q10] Panjang diagonal ruang balok berukuran 3 cm x 4 cm x 12 cm adalah ... (dalam satuan cm)",
           "opsi": [],
-          "kunci": "10",
-          "bahas": "Langkah 1: Menghitung diagonal ruang balok berukuran $p = 6, l = 6, t = 2\\sqrt{7}$:\n$$d = \\sqrt{p^2 + l^2 + t^2}$$\n\nLangkah 2: Mensubstitusikan nilai ukuran:\n$$d = \\sqrt{6^2 + 6^2 + (2\\sqrt{7})^2} = \\sqrt{36 + 36 + 28} = \\sqrt{100}$$\n\nLangkah 3: Menghitung nilai akar:\n$$d = 10 \\text{ cm}$$\nKesimpulan: Kunci Jawaban 10.",
+          "kunci": "13",
+          "bahas": "Langkah 1: Menggunakan rumus diagonal ruang balok $p = 3$ cm, $l = 4$ cm, dan $t = 12$ cm:\n$$d_{\\text{ruang}} = \\sqrt{p^2 + l^2 + t^2}$$\n\nLangkah 2: Mensubstitusikan ukuran dimensi:\n$$d = \\sqrt{3^2 + 4^2 + 12^2} = \\sqrt{9 + 16 + 144} = \\sqrt{169}$$\n\nLangkah 3: Menghitung nilai akar:\n$$d = 13 \\text{ cm}$$\nKesimpulan: Kunci Jawaban 13.",
           "viz": {
             "t": "ruang",
             "shape": "balok"
