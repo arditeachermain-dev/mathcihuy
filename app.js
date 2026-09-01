@@ -3439,17 +3439,55 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       body.innerHTML = '';
 
       if (sIdx === 0) {
-        // SLIDE 1: GRAND EXECUTIVE TITLE COVER (ZERO-COLLISION UNIFIED MASTERCLASS)
+        // SLIDE 1: MODERN ACADEMIC COVER WITH DYNAMIC TOPIC HOOK & 3 COMPETENCY PILL BADGES
         const babLabel = (m.bab || (isClil ? 'CALCULUS STREAM' : ('MATEMATIKA FASE F'))).toUpperCase();
-        const subtitleText = m.sub || m.deskripsi || (isClil ? 
-          'Developing rigorous analytical modeling, multi-step problem solving, and higher-order calculus competencies.' : 
-          'Membangun pemahaman konseptual mendalam, penalaran aljabar terstruktur, dan pemecahan masalah kontekstual berstandar UTBK-SNBT & TKA Nasional.');
+        
+        // Topic-Tailored Dynamic Taglines & 3 Highlight Badges
+        let topicTagline = isClil ? 
+          '✨ Advanced Analytical Modeling, Rigorous Proofs, & Multi-Step Problem Solving' : 
+          '✨ Konseptualisasi Matematis Mendalam, Prosedur Analitis Terstruktur, & Standar UTBK-SNBT';
+        let badgePill1 = { icon: 'fa-solid fa-cube', text: isClil ? 'Geometric Insight' : 'Visualisasi Matematis' };
+        let badgePill2 = { icon: 'fa-solid fa-diagram-project', text: isClil ? 'Analytical Rigor' : 'Penalaran Terstruktur' };
+        let badgePill3 = { icon: 'fa-solid fa-bullseye', text: isClil ? 'SNBT Standard' : 'Standar UTBK-SNBT' };
+
+        const mTitleUpper = (m.title || '').toUpperCase();
+        const mBabUpper = (m.bab || '').toUpperCase();
+
+        if (mBabUpper.includes('PENCACAHAN') || mTitleUpper.includes('PENCACAHAN') || mTitleUpper.includes('PELUANG') || mTitleUpper.includes('KOMBINASI')) {
+          topicTagline = '✨ Eksplorasi Pola Kombinatorik, Pengisian Tempat, & Penalaran Logis Probabilitas';
+          badgePill1 = { icon: 'fa-solid fa-hashtag', text: 'Analisis Kombinatorik' };
+          badgePill2 = { icon: 'fa-solid fa-dice', text: 'Peluang & Frekuensi' };
+        } else if (mBabUpper.includes('DIMENSI TIGA') || mTitleUpper.includes('TITIK') || mTitleUpper.includes('KEDUDUKAN') || mTitleUpper.includes('JARAK') || mTitleUpper.includes('SUDUT')) {
+          topicTagline = '✨ Konseptualisasi Ruang 3D, Proyeksi Ortogonal, & Penalaran Pythagoras 3D';
+          badgePill1 = { icon: 'fa-solid fa-cubes', text: 'Visualisasi Ruang 3D' };
+          badgePill2 = { icon: 'fa-solid fa-draw-polygon', text: 'Proyeksi Ortogonal' };
+        } else if (mBabUpper.includes('STATISTIKA') || mTitleUpper.includes('DATA') || mTitleUpper.includes('MEAN') || mTitleUpper.includes('MEDIAN') || mTitleUpper.includes('REGRESI')) {
+          topicTagline = '✨ Eksplorasi Sebaran Data Berkelompok, Korelasi Pearson, & Pemodelan Garis Regresi';
+          badgePill1 = { icon: 'fa-solid fa-chart-column', text: 'Distribusi Frekuensi' };
+          badgePill2 = { icon: 'fa-solid fa-chart-line', text: 'Analisis Bivariat' };
+        } else if (mBabUpper.includes('LINGKARAN') || mTitleUpper.includes('LINGKARAN') || mTitleUpper.includes('PGSL')) {
+          topicTagline = '✨ Formulasi Persamaan Kurva, Sifat Ortogonalitas Garis Singgung, & Lokus Geometri';
+          badgePill1 = { icon: 'fa-regular fa-circle', text: 'Geometri Analitik' };
+          badgePill2 = { icon: 'fa-solid fa-bezier-curve', text: 'Garis Singgung (PGSL)' };
+        } else if (mBabUpper.includes('LIMIT') || mTitleUpper.includes('LIMIT') || mTitleUpper.includes('ASIMTOT')) {
+          topicTagline = '✨ Pendekatan Asimtotik, Eliminasi Bentuk Tak Tentu, & Transformasi Identitas';
+          badgePill1 = { icon: 'fa-solid fa-infinity', text: 'Analisis Asimtotik' };
+          badgePill2 = { icon: 'fa-solid fa-wave-square', text: 'Identitas Trigonometri' };
+        } else if (mBabUpper.includes('TURUNAN') || mTitleUpper.includes('TURUNAN') || mTitleUpper.includes('STASIONER') || mTitleUpper.includes('OPTIMASI')) {
+          topicTagline = '✨ Laju Perubahan Sesaat, Aturan Rantai Diferensiasi, & Pemodelan Optimasi Ekstrim';
+          badgePill1 = { icon: 'fa-solid fa-bolt', text: 'Aturan Rantai Turunan' };
+          badgePill2 = { icon: 'fa-solid fa-arrow-trend-up', text: 'Optimasi & Ekstrim' };
+        } else if (mBabUpper.includes('INTEGRAL') || mTitleUpper.includes('INTEGRAL') || mTitleUpper.includes('LUAS') || mTitleUpper.includes('VOLUME')) {
+          topicTagline = '✨ Akumulasi Kontinu, Antiturunan Terstruktur, & Kalkulasi Luas/Volume Benda Putar';
+          badgePill1 = { icon: 'fa-solid fa-shapes', text: 'Kalkulus Integral' };
+          badgePill2 = { icon: 'fa-solid fa-rotate', text: 'Volume Benda Putar' };
+        }
 
         body.innerHTML = `
           <div class="h-full min-h-0 p-5 md:p-8 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col justify-between items-center text-center relative overflow-hidden">
             
             <!-- GLOWING BACKGROUND LIGHT -->
-            <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div>
+            <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-600/15 blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
 
             <!-- 1. TOP METADATA PILLS -->
@@ -3465,17 +3503,29 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               </span>
             </div>
 
-            <!-- 2. CENTER HERO: GRAND TITLE & PHILOSOPHICAL OVERVIEW -->
-            <div class="space-y-3 max-w-3xl relative z-10 my-auto py-3">
+            <!-- 2. CENTER HERO: GRAND TITLE, DYNAMIC TOPIC TAGLINE, & 3 COMPETENCY PILL BADGES -->
+            <div class="space-y-3.5 max-w-3xl relative z-10 my-auto py-3">
               <h1 class="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight drop-shadow-md">
                 ${m.title}
               </h1>
-              <p class="text-xs md:text-sm font-mono font-bold text-amber-400 tracking-wider uppercase">
-                Masterclass Pembelajaran &amp; Penalaran Terstruktur
+              
+              <!-- DYNAMIC CATEGORY TAGLINE -->
+              <p class="text-xs md:text-sm font-semibold text-amber-300/90 tracking-wide">
+                ${topicTagline}
               </p>
-              <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto font-medium">
-                ${subtitleText}
-              </p>
+
+              <!-- 3 PILL HIGHLIGHTS -->
+              <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
+                <span class="px-3 py-1 rounded-xl bg-[#081324] border border-blue-800/80 text-blue-300 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
+                  <i class="${badgePill1.icon} text-amber-400 text-xs"></i> ${badgePill1.text}
+                </span>
+                <span class="px-3 py-1 rounded-xl bg-[#081324] border border-blue-800/80 text-blue-300 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
+                  <i class="${badgePill2.icon} text-emerald-400 text-xs"></i> ${badgePill2.text}
+                </span>
+                <span class="px-3 py-1 rounded-xl bg-[#081324] border border-blue-800/80 text-blue-300 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
+                  <i class="${badgePill3.icon} text-amber-400 text-xs"></i> ${badgePill3.text}
+                </span>
+              </div>
             </div>
 
             <!-- 3. BOTTOM SECTION: TEACHER & SCHOOL SIGNATURE ONLY -->
