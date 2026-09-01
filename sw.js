@@ -16,7 +16,7 @@
 //    permintaan navigasi, sehingga halaman gagal terbuka sama sekali. Karena
 //    itu yang disimpan hanya alamat kanonik ('/' dan '/11'), dan respons yang
 //    ternyata hasil pantulan tidak pernah dipakai untuk navigasi.
-const VERSI = 'mathcihuy-v1788305738';
+const VERSI = 'mathcihuy-v1788305909';
 
 // Hanya alamat kanonik -- jangan pernah menambahkan yang berakhiran .html.
 const HALAMAN = ['./', './11'];
@@ -100,22 +100,21 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Aset (css/js/gambar): sajikan dari simpanan supaya cepat dan tetap jalan
-  // tanpa jaringan, TAPI selalu ambil versi baru di latar. Tanpa ini, berkas
-  // kode yang sudah tersimpan akan dipakai selamanya dan perbaikan tidak
-  // pernah sampai ke perangkat siswa. Pembaruan terpakai pada pembukaan
-  // berikutnya.
+  // Aset (css/js/gambar): Network-First dengan Cache-Fallback
+  // Memastikan pembaruan kode langsung aktif seketika pada refresh pertama saat online,
+  // dan tetap 100% berfungsi normal secara offline dari cache.
   e.respondWith(
-    caches.match(req).then((tersimpan) => {
-      const dariJaringan = fetch(req).then((res) => {
-        if (res && res.ok && res.type === 'basic' && !res.redirected) {
-          const salinan = res.clone();
-          caches.open(VERSI).then((c) => c.put(req, salinan));
-        }
-        return res;
-      }).catch(() => tersimpan);
-      if (tersimpan) { e.waitUntil(dariJaringan.catch(() => {})); return tersimpan; }
-      return dariJaringan;
+    fetch(req).then((res) => {
+      if (res && res.ok && !res.redirected) {
+        const salinan = res.clone();
+        caches.open(VERSI).then((c) => c.put(req, salinan));
+      }
+      return res;
+    }).catch(async () => {
+      const tersimpan = await caches.match(req);
+      if (tersimpan) return tersimpan;
+      const cleanUrl = req.url.split('?')[0];
+      return await caches.match(cleanUrl);
     })
   );
 });
