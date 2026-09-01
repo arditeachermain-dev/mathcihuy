@@ -2011,141 +2011,162 @@ html.terang #meeting-picker-modal #picker-body button.bg-blue-600 {
   color: #FFFFFF !important;
 }
 
-/* ==========================================================================
-   LINEAR DEEP SAPPHIRE & AMBER GOLD MASTER DESIGN TOKENS
-   ========================================================================== */
-:root {
-  --bg-canvas: #050B14;
-  --bg-surface: #0D1B2E;
-  --bg-surface-inset: #081324;
-  --bg-surface-deep: #060D1A;
-  
-  --brand-primary: #2563EB;
-  --brand-primary-hover: #1D4ED8;
-  
-  --accent-gold: #F59E0B;
-  --accent-gold-light: #FBBF24;
-  
-  --accent-violet: #8B5CF6;
-  --accent-emerald: #10B981;
-  
-  --text-primary: #FFFFFF;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  
-  --border-subtle: rgba(37, 99, 235, 0.25);
-  --border-strong: rgba(59, 130, 246, 0.5);
-  --border-gold: rgba(245, 158, 11, 0.4);
-}
-
-body {
-  background-color: #050B14 !important;
-}
-
-#slide-stage, #tka-stage, #home-stage {
-  background: #08101E !important;
-  border-color: rgba(37, 99, 235, 0.35) !important;
-}
-
-.formula-box {
-  background: #081324 !important;
-  border: 1px solid rgba(37, 99, 235, 0.3) !important;
-  border-left: 4px solid #F59E0B !important;
-}
-.formula-box .fb-name {
-  color: #FBBF24 !important;
-}
-.formula-box .fb-math,
-.formula-box .fb-math .katex {
-  color: #FFFFFF !important;
-}
 
 /* ==========================================================================
-   OFFICIAL MASTER DESIGN SYSTEM: LINEAR DEEP SAPPHIRE & AMBER GOLD
+   OFFICIAL MASTER DESIGN SYSTEM: LINEAR DEEP SAPPHIRE (DARK) & CRISP WHITE (LIGHT)
    ========================================================================== */
-:root {
-  --bg-canvas: #050B14;
-  --bg-surface-elevated: #0D1B2E;
-  --bg-surface-inset: #081324;
-  --bg-surface-deep: #060D1A;
-  
-  --brand-primary: #2563EB;
-  --brand-primary-hover: #1D4ED8;
-  
-  --accent-gold: #F59E0B;
-  --accent-gold-light: #FBBF24;
-  
-  --accent-hots-violet: #8B5CF6;
-  
-  --text-white: #FFFFFF;
-  --text-slate-light: #F8FAFC;
-  --text-slate-muted: #94A3B8;
-  
-  --border-blue-subtle: rgba(37, 99, 235, 0.25);
-  --border-blue-medium: rgba(59, 130, 246, 0.40);
-  --border-gold-accent: rgba(245, 158, 11, 0.40);
-}
 
-html, body {
+/* --------------------------------------------------------------------------
+   1. DARK MODE (DEFAULT) — LINEAR DEEP SAPPHIRE & AMBER GOLD
+   -------------------------------------------------------------------------- */
+html:not(.terang), html:not(.terang) body {
   background-color: #050B14 !important;
   color: #FFFFFF !important;
 }
 
-#slide-stage, #tka-stage, #home-stage {
+html:not(.terang) #slide-stage,
+html:not(.terang) #tka-stage,
+html:not(.terang) #home-stage {
   background: #08101E !important;
   border-color: rgba(37, 99, 235, 0.35) !important;
 }
 
-/* Modals Solid Opaque Linear Deep Sapphire */
-#meeting-picker-modal > div,
-#schedule-modal > div,
-#analytics-modal > div,
-#tka-summary-modal > div {
-  background: #08101E !important;
-  border-color: rgba(37, 99, 235, 0.4) !important;
-  opacity: 1 !important;
-}
-
-/* KaTeX Pure White Typography */
-.katex, .katex-display, .katex-html {
-  color: #FFFFFF !important;
-}
-
-/* Formula Boxes with Amber Gold Border */
-.formula-box {
+html:not(.terang) .formula-box {
   background: #081324 !important;
   border: 1px solid rgba(37, 99, 235, 0.30) !important;
   border-left: 4px solid #F59E0B !important;
   color: #FFFFFF !important;
 }
-.formula-box .fb-name {
+html:not(.terang) .formula-box .fb-name {
   color: #FBBF24 !important;
-  font-weight: 700 !important;
 }
-.formula-box .fb-math,
-.formula-box .fb-math .katex {
+html:not(.terang) .formula-box .fb-math,
+html:not(.terang) .formula-box .fb-math .katex {
   color: #FFFFFF !important;
 }
 
-/* Slide Navigation Pills: Solid Royal Blue on Active */
-.slide-pill.is-on {
+html:not(.terang) .slide-pill.is-on {
   background: #2563EB !important;
   color: #FFFFFF !important;
   border-color: #60A5FA !important;
   font-weight: 800 !important;
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4) !important;
 }
-.slide-pill.is-done {
+html:not(.terang) .slide-pill.is-done {
   background: #0D1B2E !important;
   color: #93C5FD !important;
   border-color: rgba(37, 99, 235, 0.4) !important;
 }
 
-/* Action Primary Buttons */
-.btn-primary, .btn-brand {
-  background: #2563EB !important;
-  color: #FFFFFF !important;
+html:not(.terang) #meeting-picker-modal > div,
+html:not(.terang) #schedule-modal > div,
+html:not(.terang) #analytics-modal > div,
+html:not(.terang) #tka-scorecard-modal > div,
+html:not(.terang) #peta-modal > div {
+  background: #08101E !important;
+  border-color: rgba(37, 99, 235, 0.4) !important;
 }
-.btn-primary:hover, .btn-brand:hover {
-  background: #1D4ED8 !important;
+
+/* --------------------------------------------------------------------------
+   2. LIGHT MODE (html.terang) — HIGH CONTRAST WCAG AAA
+   -------------------------------------------------------------------------- */
+html.terang, html.terang body {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html.terang #slide-stage,
+html.terang #tka-stage,
+html.terang #home-stage {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Cards & Insets inside Slide & CBT Stages in Light Mode */
+html.terang .bg-\[\#0D1B2E\],
+html.terang .bg-\[\#081324\],
+html.terang .bg-\[\#060D1A\],
+html.terang .bg-\[\#0F1D32\],
+html.terang .bg-\[\#0D1A2E\] {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+/* CBT Option Buttons in Light Mode */
+html.terang #tka-stage button {
+  color: #0F172A !important;
+}
+html.terang #tka-stage button.bg-slate-900,
+html.terang #tka-stage button.bg-slate-950,
+html.terang #tka-stage button.bg-\[\#081324\],
+html.terang #tka-stage button.bg-\[\#0D1B2E\] {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+html.terang #tka-stage button.border-blue-500,
+html.terang #tka-stage button.border-blue-600,
+html.terang #tka-stage button.border-2 {
+  border-color: #2563EB !important;
+}
+
+/* CBT Correct / Review Box in Light Mode */
+html.terang #tka-stage .bg-emerald-950,
+html.terang #tka-stage .bg-emerald-950\/90,
+html.terang #tka-stage .bg-emerald-950\/95,
+html.terang #tka-stage .bg-gradient-to-r {
+  background: #EFF6FF !important;
+  border-color: #93C5FD !important;
+  color: #1E3A8A !important;
+}
+html.terang #tka-stage .text-emerald-300,
+html.terang #tka-stage .text-emerald-400 {
+  color: #1D4ED8 !important;
+}
+
+/* Typography Overrides in Light Mode */
+html.terang .text-white {
+  color: #0F172A !important;
+}
+html.terang .text-slate-200,
+html.terang .text-slate-300 {
+  color: #1E293B !important;
+}
+html.terang .text-slate-400 {
+  color: #475569 !important;
+}
+
+/* KaTeX Formulas in Light Mode */
+html.terang .katex,
+html.terang .katex-display,
+html.terang .katex-html {
+  color: #0F172A !important;
+}
+
+/* Formula Boxes in Light Mode */
+html.terang .formula-box {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  border-left: 4px solid #D97706 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+}
+html.terang .formula-box .fb-name {
+  color: #B45309 !important;
+}
+html.terang .formula-box .fb-math {
+  color: #0F172A !important;
+}
+
+/* Modal Dialogs in Light Mode */
+html.terang #meeting-picker-modal > div,
+html.terang #schedule-modal > div,
+html.terang #analytics-modal > div,
+html.terang #tka-scorecard-modal > div,
+html.terang #peta-modal > div {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.25) !important;
 }
