@@ -4628,8 +4628,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5/36",
             "E. 1/9"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 1 dadu bersisi 6:\nRuang sampel $S = \\{1, 2, 3, 4, 5, 6\\} \\implies n(S) = 6$.\n\nLangkah 2: Menentukan himpunan kejadian munculnya mata dadu prima:\nMata dadu bilangan prima adalah $A = \\{2, 3, 5\\} \\implies n(A) = 3$.\n\nLangkah 3: Menghitung peluang kejadian $P(A)$:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{3}{6} = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 2 dadu setimbang:\n$$n(S) = 6 \\times 6 = 36$$\n\nLangkah 2: Mendaftarkan seluruh pasangan mata dadu yang berjumlah 8:\n$$A = \\{(2,6), (3,5), (4,4), (5,3), (6,2)\\} \\implies n(A) = 5$$\n\nLangkah 3: Menghitung peluang kejadian $P(A)$:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{5}{36}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "dadu",
             "sum": 8
@@ -4649,7 +4649,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/3"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menentukan peluang kejadian munculnya gambar pada 1 keping koin:\n$S = \\{A, G\\} \\implies n(S) = 2$, kejadian gambar $G = \\{G\\} \\implies n(G) = 1$.\n$$P(G) = \\frac{1}{2}$$\n\nLangkah 2: Menggunakan rumus Frekuensi Harapan $F_h(A) = n \\times P(A)$:\nDiketahui banyak percobaan lemparan $n = 120$ kali.\n\nLangkah 3: Menghitung nilai frekuensi harapan:\n$$F_h(G) = 120 \\times \\frac{1}{2} = 60 \\text{ kali}$$\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Menentukan total ruang sampel pengambilan 2 kelereng dari 9 kelereng:\nTotal kelereng = 5 merah + 4 putih = 9 kelereng.\n$$n(S) = C(9, 2) = \\frac{9 \\times 8}{2 \\times 1} = 36$$\n\nLangkah 2: Menentukan banyak cara terambilnya 2 kelereng merah dari 5 kelereng merah:\n$$n(M) = C(5, 2) = \\frac{5 \\times 4}{2 \\times 1} = 10$$\n\nLangkah 3: Menghitung peluang terambilnya 2 kelereng merah:\n$$P(M) = \\frac{n(M)}{n(S)} = \\frac{10}{36} = \\frac{5}{18}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 3,
@@ -4664,8 +4664,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 100 kali",
             "E. 120 kali"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan total bola di dalam kantong:\n$n(S) = 5 \\text{ merah} + 3 \\text{ biru} + 2 \\text{ hijau} = 10 \\text{ bola}$.\n\nLangkah 2: Menentukan banyak kejadian terambilnya bola biru:\n$n(B) = 3 \\text{ bola}$.\n\nLangkah 3: Menghitung peluang terambilnya bola biru $P(B)$:\n$$P(B) = \\frac{n(B)}{n(S)} = \\frac{3}{10} = 0{,}3$$\nKesimpulan: Kunci Jawaban D."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 2 keping uang logam:\n$$S = \\{AA, AG, GA, GG\\} \\implies n(S) = 4$$\n\nLangkah 2: Menentukan kejadian muncul keduanya sisi angka:\n$$A = \\{AA\\} \\implies n(A) = 1$$\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{1}{4}$$\n\nLangkah 3: Menghitung Frekuensi Harapan untuk $n = 300$ kali lemparan:\n$$F_h(A) = n \\times P(A) = 300 \\times \\frac{1}{4} = 75 \\text{ kali}$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 4,
@@ -4681,7 +4681,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/26"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan dua dadu bersamaan:\n$$n(S) = 6 \\times 6 = 36$$\n\nLangkah 2: Mendaftarkan pasangan mata dadu yang berjumlah 8:\n$$A = \\{(2,6), (3,5), (4,4), (5,3), (6,2)\\} \\implies n(A) = 5$$\n\nLangkah 3: Menghitung peluang munculnya jumlah 8:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{5}{36}$$\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Menentukan total ruang sampel 1 set kartu bridge standar:\n$$n(S) = 52 \\text{ kartu}$$\n\nLangkah 2: Menentukan banyak kartu As yang berwarna merah:\nKartu As berwarna merah terdiri atas 2 kartu, yaitu As Hati (Heart) dan As Wajik (Diamond).\n$$n(A) = 2 \\text{ kartu}$$\n\nLangkah 3: Menghitung peluang dan menyederhanakan pecahan:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{2}{52} = \\frac{1}{26}$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 5,
@@ -4694,8 +4694,8 @@ const NAMA_TINGKAT = 'XII';
             "Jika peluang kejadian A adalah 0,4 maka peluang komplemen A' adalah 0,8",
             "Nilai peluang suatu kejadian A selalu memenuhi batasan 0 <= P(A) <= 1"
           ],
-          "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nKisaran nilai peluang teoritis untuk setiap kejadian $A$ selalu berada pada interval tertutup $0 \\le P(A) \\le 1$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nRumus frekuensi harapan dari $n$ kali percobaan adalah $F_h(A) = n \\cdot P(A)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKejadian dengan $P(A) = 0$ disebut kejadian kemustahilan (mustahil terjadi). Kejadian yang pasti terjadi memiliki peluang $P(A) = 1$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          "kunci": "B - S - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nRumus teoritis frekuensi harapan dari $n$ kali percobaan adalah $F_h(A) = n \\times P(A)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPeluang komplemen kejadian $A$ dirumuskan sebagai $P(A') = 1 - P(A) = 1 - 0{,}4 = 0{,}6$ (bukan 0,8).\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nKisaran nilai peluang untuk setiap kejadian $A$ selalu memenuhi batas interval $0 \\le P(A) \\le 1$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
         },
         {
           "no": 6,
@@ -4710,8 +4710,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 340 bibit",
             "E. 50 bibit"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 3 koin bersamaan:\n$$n(S) = 2^3 = 8$$\nRuang sampel: $\\{AAA, AAG, AGA, AGG, GAA, GAG, GGA, GGG\\}$.\n\nLangkah 2: Menentukan kejadian muncul paling sedikit 2 angka:\nKejadian muncul $\\ge 2$ angka (2 angka atau 3 angka):\n$$A = \\{AAG, AGA, GAA, AAA\\} \\implies n(A) = 4$$\n\nLangkah 3: Menghitung peluang kejadian:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{4}{8} = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban D."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan peluang bibit TIDAK tumbuh menggunakan komplemen peluang:\n$$P(\\text{tidak tumbuh}) = 1 - P(\\text{tumbuh}) = 1 - 0{,}85 = 0{,}15$$\n\nLangkah 2: Menghitung perkiraan (frekuensi harapan) bibit yang tidak tumbuh dari $n = 400$ bibit:\n$$F_h = n \\times P(\\text{tidak tumbuh}) = 400 \\times 0{,}15 = 60 \\text{ bibit}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 7,
@@ -4726,8 +4726,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5/8",
             "E. 3/8"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menentukan ruang sampel pengambilan 2 bola dari 8 bola:\nTotal bola $= 5 \\text{ merah} + 3 \\text{ putih} = 8$ bola.\n$$n(S) = C(8, 2) = \\frac{8 \\times 7}{2 \\times 1} = 28$$\n\nLangkah 2: Menentukan kejadian terambilnya 2 bola merah:\n$$n(M) = C(5, 2) = \\frac{5 \\times 4}{2 \\times 1} = 10$$\n\nLangkah 3: Menghitung peluang terambil keduanya bola merah:\n$$P(M) = \\frac{n(M)}{n(S)} = \\frac{10}{28} = \\frac{5}{14}$$\nKesimpulan: Kunci Jawaban B."
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 3 koin bersamaan:\n$$n(S) = 2^3 = 8$$\nRuang sampel: $\\{AAA, AAG, AGA, AGG, GAA, GAG, GGA, GGG\\}$.\n\nLangkah 2: Mendaftarkan kejadian muncul paling sedikit 2 gambar (2 Gambar atau 3 Gambar):\n$$A = \\{AGG, GAG, GGA, GGG\\} \\implies n(A) = 4$$\n\nLangkah 3: Menghitung peluang kejadian:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{4}{8} = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 8,
@@ -4742,8 +4742,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Frekuensi harapan muncul mata dadu prima adalah 60 kali.",
             "E. Peluang muncul mata dadu 7 adalah 1/6."
           ],
-          "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A (Jumlah 7):\nPasangan: $\\{(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\\} \\implies 6/36 = 1/6$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B (Total ruang sampel):\n$n(S) = 6^2 = 36$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C (Mata dadu kembar):\nPasangan: $\\{(1,1),(2,2),(3,3),(4,4),(5,5),(6,6)\\} \\implies 6/36 = 1/6$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D (Jumlah bernilai 12):\nPasangan: $\\{(6,6)\\} \\implies 1/36$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E (Jumlah bernilai kelipatan 6):\nJumlah 6 ada 5 pasangan, jumlah 12 ada 1 pasangan $\\implies (5 + 1)/36 = 6/36 = 1/6$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E."
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis Opsi A & C (Mata dadu > 4):\nMata dadu $> 4$ adalah $\\{5, 6\\} \\implies P = \\frac{2}{6} = \\frac{1}{3}$ (Opsi C BENAR).\nFrekuensi harapan $= 120 \\times \\frac{1}{3} = 40$ kali (Opsi A BENAR).\n\nLangkah 2: Analisis Opsi B & D (Mata dadu prima):\nMata dadu prima adalah $\\{2, 3, 5\\} \\implies P = \\frac{3}{6} = \\frac{1}{2}$ (Opsi B BENAR).\nFrekuensi harapan $= 120 \\times \\frac{1}{2} = 60$ kali (Opsi D BENAR).\n\nLangkah 3: Analisis Opsi E (Mata dadu 7):\nPada dadu 6 sisi standar, tidak ada mata dadu bernilai 7 $\\implies P = 0 \\ne \\frac{1}{6}$ (Opsi E SALAH).\n\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -4759,7 +4759,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1/12"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menghitung peluang muncul mata dadu faktor dari 6 pada 1 dadu:\nFaktor dari 6 adalah $\\{1, 2, 3, 6\\} \\implies 4$ kemungkinan.\n$$P(A) = \\frac{4}{6} = \\frac{2}{3}$$\n\nLangkah 2: Menghitung frekuensi harapan untuk $n = 180$ lemparan:\n$$F_h(A) = n \\times P(A) = 180 \\times \\frac{2}{3} = 120 \\text{ kali}$$\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menentukan ruang sampel pelemparan 2 dadu setimbang:\n$$n(S) = 6 \\times 6 = 36$$\n\nLangkah 2: Mendaftarkan pasangan mata dadu yang berjumlah 7:\n$$A = \\{(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)\\} \\implies n(A) = 6$$\n\nLangkah 3: Menghitung peluang munculnya jumlah 7:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{6}{36} = \\frac{1}{6}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "dadu",
             "sum": 7
@@ -4772,8 +4772,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P05-Q10] Sebuah dadu dilempar 180 kali. Frekuensi harapan muncul mata dadu prima ({2, 3, 5}) adalah ...",
           "opsi": [],
-          "kunci": "1/6",
-          "bahas": "Langkah 1: Ruang sampel pelemparan 2 dadu:\n$$n(S) = 36$$\n\nLangkah 2: Menentukan kejadian munculnya jumlah mata dadu sama dengan 7:\n$$A = \\{(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)\\} \\implies n(A) = 6$$\n\nLangkah 3: Menghitung peluang dan menyederhanakan pecahan:\n$$P(A) = \\frac{6}{36} = \\frac{1}{6}$$\nKesimpulan: Kunci Jawaban 1/6."
+          "kunci": "90",
+          "bahas": "Langkah 1: Menentukan peluang muncul mata dadu prima pada 1 dadu bersisi 6:\nMata dadu prima adalah $\\{2, 3, 5\\} \\implies n(A) = 3$.\n$$P(A) = \\frac{3}{6} = \\frac{1}{2}$$\n\nLangkah 2: Menghitung frekuensi harapan untuk $n = 180$ lemparan:\n$$F_h(A) = n \\times P(A) = 180 \\times \\frac{1}{2} = 90 \\text{ kali}$$\nKesimpulan: Kunci Jawaban 90."
         }
       ]
     },
