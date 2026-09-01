@@ -648,38 +648,44 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$d_r = s\\sqrt{3}$$"
         },
         {
-          "name": "Pythagoras 3 Dimensi",
+          "name": "Pythagoras 3 Dimensi Balok",
           "math": "$$d = \\sqrt{p^2 + l^2 + t^2}$$"
         },
         {
-          "name": "Teorema Pythagoras Ruang 3D",
-          "math": "$$d^2 = p^2 + l^2 + t^2$$"
-        },
-        {
-          "name": "Kesamaan Luas Segitiga Proyeksi",
-          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2$$"
+          "name": "Jarak Titik dalam Koordinat 3D",
+          "math": "$$d = \\sqrt{(\\Delta x)^2 + (\\Delta y)^2 + (\\Delta z)^2}$$"
         }
       ],
       "examples": [
         {
-          "problem": "Pada kubus ABCD.EFGH dengan panjang rusuk 8 cm, tentukan panjang diagonal ruang AG!",
-          "solution": "Langkah 1: Rumus diagonal ruang kubus berusuk $s$ adalah $d_r = s\\sqrt{3}$.\nLangkah 2: Dengan $s = 8$ cm, maka $AG = 8\\sqrt{3}$ cm.\nKesimpulan: Panjang diagonal ruang $AG$ adalah $8\\sqrt{3}$ cm."
+          "level": "Level 1: Fondasi",
+          "title": "Diagonal Sisi dan Diagonal Ruang Kubus",
+          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $8\\text{ cm}$, tentukan panjang diagonal sisi $AC$ dan panjang diagonal ruang $AG$!",
+          "solution": "Langkah 1: Diagonal sisi alas $AC$ dihitung dengan rumus $AC = s\\sqrt{2} = 8\\sqrt{2}\\text{ cm}$.\nLangkah 2: Segitiga $ACG$ siku-siku di $C$ dengan panjang $AC = 8\\sqrt{2}\\text{ cm}$ dan $CG = 8\\text{ cm}$.\nLangkah 3: Menerapkan teorema Pythagoras: $AG = \\sqrt{AC^2 + CG^2} = \\sqrt{(8\\sqrt{2})^2 + 8^2} = \\sqrt{128 + 64} = \\sqrt{192} = 8\\sqrt{3}\\text{ cm}$.\nKesimpulan: Panjang diagonal sisi $AC = 8\\sqrt{2}\\text{ cm}$ dan panjang diagonal ruang $AG = 8\\sqrt{3}\\text{ cm}$."
         },
         {
-          "problem": "Kubus ABCD.EFGH memiliki rusuk 6 cm. Titik P terletak di tengah-tengah rusuk CG. Tentukan jarak dari titik A ke titik P!",
-          "solution": "Langkah 1: $AC$ adalah diagonal sisi alas: $AC = 6\\sqrt{2}$ cm.\nLangkah 2: $CP = \\frac{1}{2} \\times 6 = 3$ cm. Segitiga $ACP$ siku-siku di $C$.\nLangkah 3: $AP = \\sqrt{AC^2 + CP^2} = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = \\sqrt{81} = 9$ cm.\nKesimpulan: Jarak titik $A$ ke titik $P$ adalah $9$ cm."
+          "level": "Level 2: Jarak ke Titik Tengah Rusuk",
+          "title": "Jarak Titik Sudut ke Titik Tengah Rusuk Tegak",
+          "problem": "Kubus $ABCD.EFGH$ memiliki panjang rusuk $6\\text{ cm}$. Titik $P$ terletak tepat di tengah-tengah rusuk tegak $CG$. Tentukan jarak dari titik sudut $A$ ke titik $P$!",
+          "solution": "Langkah 1: Menghitung diagonal sisi alas: $AC = s\\sqrt{2} = 6\\sqrt{2}\\text{ cm}$.\nLangkah 2: Titik $P$ di tengah $CG \\implies CP = \\frac{1}{2}(6) = 3\\text{ cm}$.\nLangkah 3: Menghitung jarak $AP$ melalui segitiga siku-siku $ACP$:\n$$AP = \\sqrt{AC^2 + CP^2} = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = \\sqrt{81} = 9\\text{ cm}$$\nKesimpulan: Jarak titik $A$ ke titik $P$ adalah $9\\text{ cm}$."
         },
         {
-          "problem": "Balok ABCD.EFGH memiliki ukuran panjang AB = 8 cm, lebar BC = 6 cm, dan tinggi CG = 5 cm. Tentukan jarak titik A ke titik G!",
-          "solution": "Langkah 1: Gunakan teorema Pythagoras 3D: $AG = \\sqrt{p^2 + l^2 + t^2}$.\nLangkah 2: $AG = \\sqrt{8^2 + 6^2 + 5^2} = \\sqrt{64 + 36 + 25} = \\sqrt{125} = 5\\sqrt{5}$ cm.\nKesimpulan: Jarak titik $A$ ke titik $G$ adalah $5\\sqrt{5}$ cm."
+          "level": "Level 3: Pythagoras 3D Balok & Pusat Bidang",
+          "title": "Jarak Diagonal Ruang & Pusat Bidang Atas Balok",
+          "problem": "Balok $ABCD.EFGH$ berukuran panjang $AB = 8\\text{ cm}$, lebar $BC = 6\\text{ cm}$, dan tinggi $CG = 5\\text{ cm}$. Tentukan jarak titik $A$ ke titik sudut ruang $G$, serta jarak titik $A$ ke titik pusat bidang atas $EFGH$ ($M$)!",
+          "solution": "Langkah 1: Jarak $A$ ke $G$ (diagonal ruang balok):\n$$AG = \\sqrt{p^2 + l^2 + t^2} = \\sqrt{8^2 + 6^2 + 5^2} = \\sqrt{64 + 36 + 25} = \\sqrt{125} = 5\\sqrt{5}\\text{ cm}$$\nLangkah 2: Titik pusat bidang atas $M$ berproyeksi di titik tengah alas $O$ dengan $AO = \\frac{1}{2}\\sqrt{8^2 + 6^2} = 5\\text{ cm}$.\nLangkah 3: Jarak $AM = \\sqrt{AO^2 + OM^2} = \\sqrt{5^2 + 5^2} = 5\\sqrt{2}\\text{ cm}$.\nKesimpulan: Jarak $AG = 5\\sqrt{5}\\text{ cm}$ dan jarak $AM = 5\\sqrt{2}\\text{ cm}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Jarak Titik ke Titik (Diagonal Sisi, Ruang, & Pythagoras 3D). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Diagonal Sisi Kubus, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Diagonal Ruang Kubus, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "level": "Level 4: Analitis Standar UTBK",
+          "title": "Jarak Antartitik Tengah Rusuk Berlawanan",
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $12\\text{ cm}$, titik $M$ terletak di tengah rusuk $AB$ dan titik $N$ terletak di tengah rusuk $GH$. Tentukan jarak dari titik $M$ ke titik $N$!",
+          "solution": "Langkah 1: Menentukan sistem koordinat 3D dengan $A(0,0,0)$:\n- $M$ di tengah $AB \\implies M(6, 0, 0)$\n- $N$ di tengah $GH \\implies N(6, 12, 12)$\nLangkah 2: Menghitung selisih koordinat: $\\Delta x = 0, \\Delta y = 12, \\Delta z = 12$.\nLangkah 3: Menghitung jarak:\n$$MN = \\sqrt{0^2 + 12^2 + 12^2} = \\sqrt{144 + 144} = \\sqrt{288} = 12\\sqrt{2}\\text{ cm}$$\nKesimpulan: Jarak titik $M$ ke titik $N$ adalah $12\\sqrt{2}\\text{ cm}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Jarak Titik ke Titik (Diagonal Sisi, Ruang, & Pythagoras 3D), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Diagonal Sisi Kubus.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Diagonal Ruang Kubus.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "level": "Level 5: HOTS Kontekstual Geodesik",
+          "title": "Lintasan Terpendek Perayapan Semut (Geodesik 3D)",
+          "problem": "Sebuah ruangan aula berbentuk balok $ABCD.EFGH$ berukuran panjang $AB = 8\\text{ meter}$, lebar $BC = 6\\text{ meter}$, dan tinggi $AE = 4\\text{ meter}$. Seekor semut merayap pada permukaan dinding dari titik sudut lantai $A(0,0,0)$ menuju sudut langit-langit $G(8,6,4)$. Tentukan panjang lintasan terpendek yang ditempuh semut tersebut!",
+          "solution": "Langkah 1: Membuka jaring-jaring balok pada 3 kemungkinan rute bidang datar:\n- Rute 1 (Alas + Dinding Samping): $d_1 = \\sqrt{(8 + 6)^2 + 4^2} = \\sqrt{196 + 16} = \\sqrt{212} = 2\\sqrt{53}\\text{ m} \\approx 14{,}56\\text{ m}$\n- Rute 2 (Dinding Depan + Atap): $d_2 = \\sqrt{(8 + 4)^2 + 6^2} = \\sqrt{144 + 36} = \\sqrt{180} = 6\\sqrt{5}\\text{ m} \\approx 13{,}42\\text{ m}$\n- Rute 3 (Dinding Samping Kiri + Atap): $d_3 = \\sqrt{8^2 + (6 + 4)^2} = \\sqrt{64 + 100} = \\sqrt{164} = 2\\sqrt{41}\\text{ m} \\approx 12{,}81\\text{ m}$\nLangkah 2: Memilih lintasan minimum terpendek: $d_3 = \\sqrt{164} = 2\\sqrt{41}\\text{ meter}$.\nKesimpulan: Panjang lintasan terpendek yang ditempuh semut adalah $2\\sqrt{41}\\text{ meter}$ ($\u0007pprox 12{,}81\\text{ meter}$)."
         }
       ],
       "btc": "Kelompok VNPS: Kubus ABCD.EFGH berusuk 12 cm. Titik M di tengah rusuk AB dan N di tengah rusuk GH. Hitung jarak titik M ke titik N!",
