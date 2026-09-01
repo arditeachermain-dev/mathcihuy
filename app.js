@@ -3362,12 +3362,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       // Nama tiap tahap, bukan sekadar "Contoh 1/2/3": guru dan siswa
       // langsung tahu slide 5 membangun fondasi, 6 melatih analisis, 7 HOTS.
       const pillTitles = isClil
-        ? ["Cover", "Goals", "Hook", "Toolkit", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Collab", "Drilling", "Summary", "Closing"]
-        : ["Cover", "Tujuan", "Hook", "Toolkit", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Kolaborasi", "Drilling", "Rangkuman", "Penutup"];
+        ? ["Cover", "Goals", "Hook", "Toolkit", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Collab", "Summary", "Closing"]
+        : ["Cover", "Tujuan", "Hook", "Toolkit", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Kolaborasi", "Rangkuman", "Penutup"];
       const pillIcons = [
         "fa-solid fa-bookmark", "fa-solid fa-bullseye", "fa-solid fa-lightbulb", "fa-solid fa-toolbox",
         "fa-solid fa-cube", "fa-solid fa-chart-line", "fa-solid fa-brain", "fa-solid fa-graduation-cap", "fa-solid fa-fire",
-        "fa-solid fa-users", "fa-solid fa-pen-to-square", "fa-solid fa-flag-checkered", "fa-solid fa-bell"
+        "fa-solid fa-users", "fa-solid fa-flag-checkered", "fa-solid fa-bell"
       ];
       const slideTitles = pillTitles;
       if (window._lastRenderedMeetingId !== m.id) {
@@ -3386,15 +3386,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       document.getElementById('slide-counter').innerHTML = `
         <div class="flex items-center gap-1.5 md:gap-2">
           <div class="w-12 md:w-20 h-1.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600 hidden sm:block">
-            <div class="h-full bg-gradient-to-r from-blue-500 to-amber-500 transition-all duration-300" style="width: ${(sIdx + 1) * 7.69}%"></div>
+            <div class="h-full bg-gradient-to-r from-blue-500 to-amber-500 transition-all duration-300" style="width: ${(sIdx + 1) * 8.33}%"></div>
           </div>
-          <span class="text-[10px] md:text-xs font-mono text-slate-300 font-extrabold">${sIdx + 1} / 13</span>
+          <span class="text-[10px] md:text-xs font-mono text-slate-300 font-extrabold">${sIdx + 1} / 12</span>
         </div>
       `;
 
       const pillsContainer = document.getElementById('slide-pills-container');
       pillsContainer.innerHTML = '';
-      for (let i = 0; i < 13; i++) {
+      for (let i = 0; i < 12; i++) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'slide-pill' + (i === sIdx ? ' is-on' : (i < sIdx ? ' is-done' : ''));
@@ -3645,54 +3645,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const selectedMethodKey = window.currentMeetingPedagogy || defaultMethod;
         body.innerHTML = renderSlide8PedagogyBody(m, isClil, selectedMethodKey);
       } else if (sIdx === 10) {
-        // SLIDE 11: 10 DRILLING PROBLEMS PREVIEW
-        const matchSubj = isClil ? 'tka_clil' : (currentMode === 'minat' ? 'tka_minat' : 'tka_wajib');
-        const matchPkg = db[matchSubj] ? db[matchSubj][m.id] : null;
-        const allQuestions = (matchPkg && matchPkg.questions) ? matchPkg.questions : [];
-        const drillStart = Math.min(3, allQuestions.length); 
-        const qList = allQuestions.slice(drillStart);
-        const totalDrillQ = qList.length;
-
-        body.innerHTML = `
-          <div class="space-y-3 h-full flex flex-col justify-between">
-            <div class="flex items-center justify-between border-b border-[#1a2f4a] pb-2">
-              <div>
-                <h3 class="text-xs md:text-sm font-extrabold text-amber-400 flex items-center gap-1.5">
-                  <i class="fa-solid fa-crosshairs text-amber-500"></i> ${isClil ? ('LATIHAN MANDIRI DRILLING (' + m.id + ')') : ('LATIHAN MANDIRI & UJI KOMPETENSI (' + m.id + ')')}
-                </h3>
-                <p class="text-[10px] text-slate-400">${isClil ? 'Practice Problems (NOT repeated from worked examples)' : 'Soal Latihan Mandiri (berbeda dari contoh soal di slide sebelumnya)'}</p>
-              </div>
-              <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs shadow-lg active:scale-95 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-laptop-code"></i> <span>${isClil ? 'Full CBT Arena' : 'Arena CBT Penuh'}</span>
-              </button>
-            </div>
-            
-            ${totalDrillQ === 0 ? `<div class="flex-1 flex items-center justify-center text-slate-400 text-xs">Soal latihan sedang disiapkan. Gunakan Arena CBT untuk berlatih.</div>` : `
-            <div class="flex-1 overflow-y-auto space-y-2 pr-1">
-              ${qList.map((qItem, qi) => {
-                const actualQIdx = drillStart + qi; 
-                return `
-                <div class="p-3 bg-[#0D1A2E] rounded-2xl border border-[#1a2f4a] hover:border-amber-500/40 shadow flex flex-col md:flex-row md:items-start justify-between gap-2.5 transition">
-                  <div class="space-y-1 flex-1">
-                    <div class="flex items-center gap-2">
-                      <span class="px-2 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-[10px] rounded-md font-mono">Latihan ${qi + 1}</span>
-                      <span class="text-[10px] text-slate-400 font-mono">${qItem.tipe || (isClil ? 'Multiple Choice' : 'Pilihan Ganda')}</span>
-                      ${qItem.level ? `<span class="text-[10px] text-blue-400 font-mono">${qItem.level}</span>` : ''}
-                    </div>
-                    <div class="text-xs text-slate-200 leading-relaxed font-semibold">${formatQuestionPromptHtml(qItem.tanya, qItem.tipe)}</div>
-                  </div>
-                  <button onclick="openTkaForCurrentMeeting('${m.id}', ${actualQIdx})" class="px-3 py-1.5 bg-blue-600/80 hover:bg-blue-500 text-white rounded-xl text-[11px] font-bold shrink-0 self-end md:self-center shadow transition flex items-center gap-1">
-                    <span>${isClil ? '⚡ Solve' : '⚡ Kerjakan'}</span>
-                  </button>
-                </div>
-              `;
-              }).join('')}
-            </div>
-            `}
-          </div>
-        `;
-      } else if (sIdx === 11) {
-        // SLIDE 12: SUMMARY & ISLAMIC VALUES
+        // SLIDE 11: SUMMARY & ISLAMIC VALUES
         const summaryData = (m.summary_data) || {
           summary: [
             isClil ? ("Understand core mathematical principles and formulas for " + m.title + ".") : ("Memahami konsep fundamental dan penurunan rumus utama pada materi " + m.title + "."),
@@ -3704,16 +3657,16 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         body.innerHTML = `
           <div class="space-y-3 w-full my-auto shrink-0">
-            <div class="p-4 md:p-5 bg-slate-900 rounded-2xl border border-blue-500/40 shadow-xl space-y-2.5">
-              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <div class="p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl space-y-2.5">
+              <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
                 <h3 class="text-xs md:text-sm font-extrabold text-blue-400 flex items-center gap-2">
-                  <i class="fa-solid fa-list-check text-blue-400"></i> ${isClil ? 'KEY TAKEAWAYS & LESSON SUMMARY' : 'KESIMPULAN PEMBELAJARAN HARI INI'}
+                  <i class="fa-solid fa-list-check text-amber-400"></i> ${isClil ? 'KEY TAKEAWAYS & LESSON SUMMARY' : 'KESIMPULAN PEMBELAJARAN HARI INI'}
                 </h3>
-                <span class="text-[10px] text-slate-400 font-mono">${m.id} • ${isClil ? 'Core Summary' : 'Ringkasan Materi'}</span>
+                <span class="text-[10px] text-amber-400 font-mono font-bold">${m.id} • ${isClil ? 'Core Summary' : 'Ringkasan Materi'}</span>
               </div>
               <ul class="space-y-1.5 text-xs md:text-sm text-slate-200">
                 ${(summaryData.summary || []).map(s => `
-                  <li class="flex items-start gap-2.5 p-2 bg-slate-800/80 rounded-xl border border-slate-700/60">
+                  <li class="flex items-start gap-2.5 p-2.5 bg-[#081324] rounded-2xl border border-blue-900/60">
                     <i class="fa-solid fa-circle-check text-amber-400 mt-1 shrink-0 text-xs"></i>
                     <span class="leading-relaxed font-medium">${s}</span>
                   </li>
@@ -3721,21 +3674,21 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               </ul>
             </div>
 
-            <div class="p-4 md:p-5 bg-slate-900 rounded-2xl border border-amber-500/40 shadow-xl space-y-2">
-              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <div class="p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-amber-500/40 shadow-2xl space-y-2">
+              <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
                 <h3 class="text-xs md:text-sm font-extrabold text-amber-400 flex items-center gap-2">
                   <i class="fa-solid fa-moon text-amber-400"></i> ${isClil ? 'SPIRITUAL REFLECTION & ISLAMIC VALUES' : 'REFLEKSI INTEGRASI KEISLAMAN'}
                 </h3>
-                <span class="text-[10px] text-amber-300/70 font-mono">${isClil ? 'Character & Divine Order' : 'Nilai Karakter & Spiritual'}</span>
+                <span class="text-[10px] text-amber-300/70 font-mono font-bold">${isClil ? 'Character & Divine Order' : 'Nilai Karakter & Spiritual'}</span>
               </div>
-              <p class="text-xs md:text-sm text-slate-200 leading-relaxed p-2.5 bg-slate-800/60 rounded-xl border border-slate-700/50">
+              <p class="text-xs md:text-sm text-slate-200 leading-relaxed p-3 bg-[#081324] rounded-2xl border border-blue-900/60">
                 ${summaryData.islamic}
               </p>
             </div>
           </div>
         `;
-      } else if (sIdx === 12) {
-        // SLIDE 13: CLOSING & EVALUATION
+      } else if (sIdx === 11) {
+        // SLIDE 12: CLOSING & EVALUATION
         body.innerHTML = `
           <div class="h-full flex flex-col items-center justify-center text-center space-y-4 p-5 md:p-8 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl">
             <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl shadow-lg">
@@ -4456,7 +4409,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     // NEXT & PREV CONTROLS
     function nextSlide() {
       const meetings = db[currentMode] || db['wajib'];
-      if (currentSlideIdx < 10) {
+      if (currentSlideIdx < 11) {
         currentSlideIdx++;
         renderAppView();
       } else if (currentMeetingIdx < meetings.length - 1) {
@@ -4472,7 +4425,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         renderAppView();
       } else if (currentMeetingIdx > 0) {
         currentMeetingIdx--;
-        currentSlideIdx = 10;
+        currentSlideIdx = 11;
         renderAppView();
       }
     }
