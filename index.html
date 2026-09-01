@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788285324">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788285632">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -30,7 +30,7 @@
 
   <!-- 100% INLINE OFFLINE KATEX ASSETS -->
   <!-- gaya dipindah ke mathcihuy.css -->
-  <script src="vendor.js?v=v1788285324"></script>
+  <script src="vendor.js?v=v1788285632"></script>
 <!-- digabung ke vendor.js -->
 
   <!-- gaya dipindah ke mathcihuy.css -->
@@ -1169,8 +1169,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v1788285324"></script>
-  <script src="app.js?v=v1788285324"></script>
+  <script src="data-xii.js?v=v1788285632"></script>
+  <script src="app.js?v=v1788285632"></script>
 
 
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
@@ -1251,17 +1251,17 @@
                 <table class="w-full text-sm border-collapse">
                     <thead>
                         <tr class="bg-[#060D1A] text-slate-300 font-bold text-[11px] uppercase tracking-wider border-b border-slate-700">
-                            <th class="border border-slate-700 px-3.5 py-3 text-left font-mono whitespace-nowrap">NIS</th>
-                            <th class="border border-slate-700 px-4 py-3 text-left min-w-[170px]">Nama Siswa</th>
-                            <th class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap">Kelas</th>
-                            <th class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap">Mapel</th>
-                            <th class="border border-slate-700 px-3 py-3 text-center font-mono whitespace-nowrap">Paket</th>
-                            <th class="border border-slate-700 px-3.5 py-3 text-center min-w-[130px] whitespace-nowrap">Status &amp; Skor</th>
-                            <th class="border border-slate-700 px-3 py-3 text-center min-w-[105px] whitespace-nowrap">Progress</th>
-                            <th class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap min-w-[105px]">Aktivitas</th>
-                            <th class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap min-w-[95px]">Tanggal</th>
-                            <th class="border border-slate-700 px-3.5 py-3 text-center whitespace-nowrap min-w-[115px] text-amber-400">
-                                <i class="fa-solid fa-clock mr-1"></i> Jam (WIB)
+                            <th onclick="setGuruSort('nis')" title="Klik untuk mengurutkan berdasarkan NIS" class="border border-slate-700 px-3.5 py-3 text-left font-mono whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">NIS <span id="sort-icon-nis"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('nama')" title="Klik untuk mengurutkan berdasarkan Nama" class="border border-slate-700 px-4 py-3 text-left min-w-[170px] cursor-pointer hover:bg-slate-800 transition select-none">Nama Siswa <span id="sort-icon-nama"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('kelas')" title="Klik untuk mengurutkan berdasarkan Kelas" class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Kelas <span id="sort-icon-kelas"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('mapel')" title="Klik untuk mengurutkan berdasarkan Mapel" class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Mapel <span id="sort-icon-mapel"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('kode')" title="Klik untuk mengurutkan berdasarkan Kode Paket" class="border border-slate-700 px-3 py-3 text-center font-mono whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Paket <span id="sort-icon-kode"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('skor')" title="Klik untuk mengurutkan berdasarkan Skor" class="border border-slate-700 px-3.5 py-3 text-center min-w-[130px] whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Status &amp; Skor <span id="sort-icon-skor"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('progress')" title="Klik untuk mengurutkan berdasarkan Progress Soal" class="border border-slate-700 px-3 py-3 text-center min-w-[105px] whitespace-nowrap cursor-pointer hover:bg-slate-800 transition select-none">Progress <span id="sort-icon-progress"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('durasi')" title="Klik untuk mengurutkan berdasarkan Durasi / Waktu Aktivitas" class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap min-w-[105px] cursor-pointer hover:bg-slate-800 transition select-none">Aktivitas <span id="sort-icon-durasi"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('tanggal')" title="Klik untuk mengurutkan berdasarkan Tanggal" class="border border-slate-700 px-3 py-3 text-center whitespace-nowrap min-w-[95px] cursor-pointer hover:bg-slate-800 transition select-none">Tanggal <span id="sort-icon-tanggal"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('jam')" title="Klik untuk mengurutkan berdasarkan Jam Selesai WIB" class="border border-slate-700 px-3.5 py-3 text-center whitespace-nowrap min-w-[115px] text-amber-400 cursor-pointer hover:bg-slate-800 transition select-none">
+                                <i class="fa-solid fa-clock mr-1"></i> Jam (WIB) <span id="sort-icon-jam"><i class="fa-solid fa-sort text-amber-500 opacity-40 ml-1"></i></span>
                             </th>
                             <th class="border border-slate-700 px-4 py-3 text-center whitespace-nowrap min-w-[140px]">Aksi Guru</th>
                         </tr>
@@ -1274,7 +1274,7 @@
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v1788285324"></script>
+    <script src="app-akhir.js?v=v1788285632"></script>
 
 </body>
 </html>

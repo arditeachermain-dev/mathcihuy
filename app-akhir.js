@@ -240,6 +240,35 @@
       }
     }
 
+    
+    window._guruSortField = 'timestamp';
+    window._guruSortDir = 'desc';
+
+    function setGuruSort(field) {
+      if (window._guruSortField === field) {
+        window._guruSortDir = (window._guruSortDir === 'asc') ? 'desc' : 'asc';
+      } else {
+        window._guruSortField = field;
+        window._guruSortDir = (field === 'skor' || field === 'timestamp' || field === 'jam' || field === 'tanggal' || field === 'durasi') ? 'desc' : 'asc';
+      }
+      loadGuruDashboardData();
+    }
+
+    function updateSortIcons() {
+      const fields = ['nis', 'nama', 'kelas', 'mapel', 'kode', 'skor', 'progress', 'durasi', 'tanggal', 'jam'];
+      fields.forEach(f => {
+        const el = document.getElementById(`sort-icon-${f}`);
+        if (!el) return;
+        if (window._guruSortField === f || (f === 'jam' && window._guruSortField === 'timestamp') || (f === 'tanggal' && window._guruSortField === 'timestamp')) {
+          el.innerHTML = window._guruSortDir === 'asc' 
+            ? `<i class="fa-solid fa-arrow-up-short-wide text-amber-400 text-[10px] ml-1"></i>`
+            : `<i class="fa-solid fa-arrow-down-wide-short text-amber-400 text-[10px] ml-1"></i>`;
+        } else {
+          el.innerHTML = `<i class="fa-solid fa-sort text-slate-500 opacity-40 text-[9px] ml-1"></i>`;
+        }
+      });
+    }
+
     function loadGuruDashboardData() {
       const rekam = sinkAmbil(CBT_LOKAL_KEY, []);
       const liveAnswers = window._guruLiveAnswersCache || [];
@@ -404,15 +433,65 @@
       // Filter Data Tampil Berdasarkan Tab Aktif
       let displayList = [];
       if (statusFilter === 'sudah') {
-        displayList = listSudah;
+        displayList = [...listSudah];
       } else if (statusFilter === 'sedang') {
-        displayList = listSedang;
+        displayList = [...listSedang];
       } else if (statusFilter === 'belum') {
-        displayList = listBelum;
+        displayList = [...listBelum];
       } else {
         // 'semua': gabungan sudah + sedang
-        displayList = [...listSudah, ...listSedang].sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp)));
+        displayList = [...listSudah, ...listSedang];
       }
+
+      // MULTI-COLUMN SORTING ENGINE
+      displayList.sort((a, b) => {
+        let valA, valB;
+        const dir = window._guruSortDir === 'asc' ? 1 : -1;
+
+        switch (window._guruSortField) {
+          case 'nis':
+            valA = Number(a.nis) || 0;
+            valB = Number(b.nis) || 0;
+            return (valA - valB) * dir;
+          case 'nama':
+            valA = (a.nama || '').toLowerCase();
+            valB = (b.nama || '').toLowerCase();
+            return valA.localeCompare(valB) * dir;
+          case 'kelas':
+            valA = (a.kelas || '').toLowerCase();
+            valB = (b.kelas || '').toLowerCase();
+            return valA.localeCompare(valB) * dir;
+          case 'mapel':
+            valA = (a.mapel || '').toLowerCase();
+            valB = (b.mapel || '').toLowerCase();
+            return valA.localeCompare(valB) * dir;
+          case 'kode':
+            valA = (a.kode_pertemuan || '').toLowerCase();
+            valB = (b.kode_pertemuan || '').toLowerCase();
+            return valA.localeCompare(valB) * dir;
+          case 'skor':
+            valA = Number(a.skor) || 0;
+            valB = Number(b.skor) || 0;
+            return (valA - valB) * dir;
+          case 'progress':
+            valA = Number(a.jumlah_benar || a.progress_soal || 0);
+            valB = Number(b.jumlah_benar || b.progress_soal || 0);
+            return (valA - valB) * dir;
+          case 'durasi':
+            valA = Number(a.durasi_detik || (a.durasi_menit ? a.durasi_menit * 60 : 0));
+            valB = Number(b.durasi_detik || (b.durasi_menit ? b.durasi_menit * 60 : 0));
+            return (valA - valB) * dir;
+          case 'tanggal':
+          case 'jam':
+          case 'timestamp':
+          default:
+            valA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+            valB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+            return (valA - valB) * dir;
+        }
+      });
+
+      updateSortIcons();
 
       if (displayList.length === 0) {
         const pesanKosong = {
