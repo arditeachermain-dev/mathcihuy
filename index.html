@@ -444,30 +444,69 @@
     <div id="slide-stage" class="hidden w-full max-w-6xl h-full max-h-[900px] rounded-2xl md:rounded-3xl border shadow-2xl flex flex-col overflow-hidden relative z-20" style="background: rgba(13,26,46,0.98); border-color: #1a2f4a; box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(29,78,216,0.1);">
       
       <!-- SLIDE TOP BADGE BAR -->
-      <div class="h-11 bg-[#071527] border-b border-slate-800 px-3 md:px-6 flex items-center justify-between shrink-0">
-        <div class="flex items-center gap-2 truncate">
+      <div class="h-12 bg-[#071222] border-b border-slate-800/90 px-3 md:px-5 flex items-center justify-between gap-3 shrink-0">
+        
+        <!-- LEFT: COMPACT MEETING PICKER & FULL EXPANDED LESSON TITLE -->
+        <div class="flex items-center gap-2.5 min-w-0 flex-1">
           <button type="button" onclick="openMeetingPicker()" title="Pilih pertemuan lain (tekan P)"
-            class="picker-trigger px-2.5 py-1 bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] md:text-xs font-black rounded-lg uppercase tracking-wider truncate flex items-center gap-1.5 hover:bg-amber-500/30 transition">
-            <span id="slide-badge" class="truncate">P01 • SLIDE 1/13</span>
-            <i class="fa-solid fa-chevron-down text-[9px] opacity-70 shrink-0"></i>
+            class="picker-trigger px-2.5 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-amber-400 text-xs font-mono font-bold rounded-xl flex items-center gap-1.5 transition shrink-0 cursor-pointer shadow-sm">
+            <span id="slide-badge" class="truncate font-bold">P01</span>
+            <i class="fa-solid fa-chevron-down text-[9px] opacity-70"></i>
           </button>
-          <span id="slide-title-header" class="text-xs md:text-sm font-bold text-white truncate hidden sm:inline">
+          
+          <span id="slide-title-header" class="text-xs md:text-sm font-bold text-white truncate tracking-wide flex-1 min-w-0">
             Judul Materi
           </span>
         </div>
+
+        <!-- RIGHT: STREAMLINED ESSENTIAL TOOLS & PROGRESS COUNTER -->
         <div class="flex items-center gap-1.5 shrink-0">
-          <button type="button" onclick="buatLKPD()" title="Cetak / Ekspor LKPD pertemuan ini ke PDF A4 (tekan E)"
-            class="quick-act qa-rose"><i class="fa-solid fa-file-arrow-down"></i><span class="qa-nm">LKPD</span></button>
-          <button type="button" onclick="openLab()" title="Lab Interaktif — geser variabel, putar bangun 3D (tekan V)"
-            class="quick-act qa-cyan"><i class="fa-solid fa-flask-vial"></i><span class="qa-nm">Lab</span></button>
-          <button type="button" onclick="openRumusSaku()" title="Buku Rumus Saku — semua rumus pertemuan ini (tekan B)"
-            class="quick-act qa-gold"><i class="fa-solid fa-book-open"></i><span class="qa-nm">Rumus Saku</span></button>
+          <!-- LKPD PDF EXPORT -->
+          <button type="button" onclick="buatLKPD()" title="Cetak / Ekspor LKPD PDF A4 (tekan E)"
+            class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-medium transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-file-arrow-down text-rose-400 text-xs"></i>
+            <span class="hidden sm:inline text-[11px]">LKPD</span>
+          </button>
+
+          <!-- ARENA CBT JUMP -->
           <button type="button" onclick="jumpToCbt()" title="Lompat ke Arena CBT paket ini (tekan L)"
-            class="quick-act qa-jade"><i class="fa-solid fa-bolt"></i><span class="qa-nm">Arena CBT</span></button>
-          <button type="button" onclick="toggleCinema()" title="Cinema Mode — layar penuh tanpa bilah atas (tekan C)"
-            class="quick-act qa-blue"><i class="fa-solid fa-display" id="cinema-icon"></i><span class="qa-nm" id="cinema-nm">Cinema</span></button>
-          <span class="text-xs font-mono text-slate-400 font-bold bg-slate-950 px-2 py-0.5 rounded-md border border-slate-800 shrink-0" id="slide-counter">1 / 13</span>
+            class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow">
+            <i class="fa-solid fa-bolt text-xs"></i>
+            <span class="hidden sm:inline text-[11px]">CBT</span>
+          </button>
+
+          <!-- CONSOLIDATED SLIDE TOOLS DROPDOWN POPOVER -->
+          <div class="relative" id="slide-tools-container">
+            <button type="button" id="slide-tools-btn" onclick="toggleSlideToolsDropdown(event)" class="p-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs transition cursor-pointer" title="Alat Bantu Lainnya (Lab, Rumus Saku, Cinema)">
+              <i class="fa-solid fa-ellipsis-vertical px-0.5"></i>
+            </button>
+
+            <!-- TOOLS DROPDOWN POPOVER -->
+            <div id="slide-tools-dropdown" class="hidden absolute right-0 mt-2 w-56 rounded-2xl bg-[#0D182A] border border-slate-800 shadow-2xl p-2 z-50 space-y-1 text-xs">
+              <div class="px-2 py-1 text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800 mb-1">
+                Alat Bantu Slide KBM
+              </div>
+              <button onclick="openLab(); toggleSlideToolsDropdown();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-cyan-300 transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-flask-vial text-cyan-400 w-4 text-center"></i>
+                <span>Lab Interaktif 3D (V)</span>
+              </button>
+              <button onclick="openRumusSaku(); toggleSlideToolsDropdown();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-amber-300 transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-book-bookmark text-amber-400 w-4 text-center"></i>
+                <span>Buku Rumus Saku (B)</span>
+              </button>
+              <button onclick="toggleCinema(); toggleSlideToolsDropdown();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-blue-300 transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-display text-blue-400 w-4 text-center" id="cinema-icon"></i>
+                <span id="cinema-nm">Mode Cinema Layar Penuh (C)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- SLIDE COUNTER -->
+          <div class="pl-1.5 border-l border-slate-800">
+            <span class="text-xs font-mono font-bold text-slate-200 bg-slate-950 px-2 py-0.5 rounded-md border border-slate-800 shrink-0" id="slide-counter">1 / 13</span>
+          </div>
         </div>
+
       </div>
 
       <!-- SLIDE CONTENT BODY -->

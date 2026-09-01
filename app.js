@@ -1,4 +1,23 @@
 
+    // TOGGLE SLIDE TOOLS DROPDOWN
+    function toggleSlideToolsDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('slide-tools-dropdown');
+      if (menu) {
+        menu.classList.toggle('hidden');
+      }
+    }
+
+    // Close slide tools dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const container = document.getElementById('slide-tools-container');
+      const menu = document.getElementById('slide-tools-dropdown');
+      if (container && menu && !container.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+
     // TOGGLE USER DROPDOWN MENU
     function toggleUserDropdownMenu(e) {
       if (e) e.stopPropagation();
@@ -3323,18 +3342,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         window.currentMeetingPedagogy = null;
       }
 
-      const streamLabel = currentMode === 'clil' ? 'CLIL Calculus' : (currentMode === 'minat' ? 'Mat. Peminatan' : 'Mat. Wajib');
-      document.getElementById('slide-badge').innerHTML = `
-        <span class="text-slate-400 font-medium text-[10px] md:text-xs hidden 2xl:inline">${streamLabel}</span>
-        <i class="fa-solid fa-chevron-right text-[10px] mx-1 text-slate-600 hidden 2xl:inline"></i>
-        <span class="text-slate-400 font-bold text-[10px] md:text-xs">${m.id}</span>
-        <i class="fa-solid fa-chevron-right text-[10px] mx-1 text-slate-600"></i>
-        <span class="text-amber-400 font-black text-[10px] md:text-xs">${slideTitles[sIdx]}</span>
-      `;
-      // Judul pertemuan boleh memuat rumus, misalnya "Pembagian oleh $(x-k)$".
-      // innerText saja akan menampilkan tanda dolarnya apa adanya.
+      const badgeEl = document.getElementById('slide-badge');
+      if (badgeEl) badgeEl.innerText = m.id;
+      
       const judulEl = document.getElementById('slide-title-header');
-      judulEl.innerText = m.title;
+      if (judulEl) {
+        judulEl.innerText = `${m.title} • ${slideTitles[sIdx]}`;
+      }
       if (m.title.indexOf('$') !== -1) renderMath(judulEl);
       document.getElementById('slide-counter').innerHTML = `
         <div class="flex items-center gap-1.5 md:gap-2">
