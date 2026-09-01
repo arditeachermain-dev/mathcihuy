@@ -1825,7 +1825,7 @@
   body.sidebar-tetap #curriculum-drawer-backdrop { display: none !important; }
 
   /* Isi halaman digeser selebar sidebar (w-96 = 24rem). */
-  body.sidebar-tetap main { padding-left: 24rem; }
+  body.sidebar-tetap main { padding-left: 18rem; }
 
   /* Tombol buka dan tombol tutup tidak berguna lagi ketika sidebar menetap. */
   /* Allow toggle buttons even when sidebar is pinned */

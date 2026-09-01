@@ -5952,11 +5952,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         // 1. KONTEN LEVEL 1: ACCORDION MATA PELAJARAN (A. MATEMATIKA WAJIB)
         const subjWrapper = document.createElement('div');
-        subjWrapper.className = "rounded-2xl border border-slate-700/80 bg-slate-900/90 overflow-hidden shadow-md mb-3";
+        subjWrapper.className = "rounded-xl border border-blue-900/60 bg-[#08101E] overflow-hidden shadow-sm mb-2";
 
         const subjHeader = document.createElement('button');
         subjHeader.type = "button";
-        subjHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60 cursor-pointer";
+        subjHeader.className = "w-full px-2.5 py-1.5 bg-[#060D1A] hover:bg-[#0D1B2E] flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer";
         subjHeader.innerHTML = `
           <div class="flex items-center gap-2 min-w-0">
             <span class="w-5 h-5 rounded-lg bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40">
