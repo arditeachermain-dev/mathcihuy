@@ -5170,20 +5170,83 @@ function showTkaScorecardModal() {
       const sess = typeof getSession === 'function' ? getSession() : null;
       const isTeacher = sess?.type === 'guru' || window.isTeacherMode === true;
 
-      // Teacher-Exclusive Solution for Active Collaborative Case
+      // High-End Pedagogical Solution Formatter for Active Collaborative Case
       const rawSols = m.collab_solutions || [];
-      const activeSol = rawSols[activeQIdx] || `Langkah 1: Identifikasi variabel dan data kendala pada ${activeLabel}.
-Langkah 2: Terapkan metode analitis sesuai topik ${title}.
-Langkah 3: Sederhanakan hingga diperoleh solusi akhir yang tepat.
-Kesimpulan: Kunci solusi terverifikasi untuk fasilitasi guru.`;
-      
-      const formattedCollabSolHtml = activeSol.split('\n').map(line => {
-        if (!line.trim()) return '';
+      const activeSol = rawSols[activeQIdx] || `Langkah 1: Identifikasi parameter dan variabel matematis dari ${activeLabel}.\nLangkah 2: Terapkan metode analitis sesuai topik ${title}.\nLangkah 3: Lakukan komputasi aljabar atau geometri langkah demi langkah.\nKesimpulan: Kunci solusi terverifikasi untuk fasilitasi guru.`;
+
+      const lines = activeSol.split('\n').map(l => l.trim()).filter(Boolean);
+      let formattedCollabSolHtml = '';
+
+      lines.forEach((line, lIdx) => {
         if (line.startsWith('Kesimpulan:')) {
-          return `<div class="p-2.5 bg-emerald-950/40 rounded-xl border border-emerald-500/40 text-emerald-300 font-semibold text-xs mt-1.5">${line}</div>`;
+          const resText = line.replace(/^Kesimpulan:\s*/i, '');
+          formattedCollabSolHtml += `
+            <div class="mt-2 p-3 rounded-xl bg-gradient-to-r from-emerald-950/70 via-emerald-900/40 to-[#081324] border border-emerald-500/50 shadow-md flex items-start gap-2.5">
+              <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xs shrink-0 font-bold mt-0.5">
+                <i class="fa-solid fa-award"></i>
+              </span>
+              <div class="text-xs text-emerald-200 leading-relaxed font-medium flex-1">
+                <strong class="text-emerald-300 font-bold uppercase tracking-wider block text-[10px] mb-0.5 font-mono">🎯 HASIL AKHIR &amp; KESIMPULAN:</strong>
+                ${resText}
+              </div>
+            </div>
+          `;
+        } else {
+          const stepMatch = line.match(/^(?:Langkah|Tahap)\s*(\d+)\s*:\s*(.*)$/i);
+          let stepNum = lIdx + 1;
+          let stepContent = line;
+          let stepTitle = 'Analisis Prosedural';
+          let icon = 'fa-solid fa-calculator';
+          let borderTheme = 'border-blue-900/70';
+          let badgeTheme = 'bg-blue-600/25 text-blue-300 border-blue-500/40';
+          let titleColor = 'text-blue-300';
+
+          if (stepMatch) {
+            stepNum = stepMatch[1];
+            stepContent = stepMatch[2];
+          }
+
+          if (stepNum == 1) {
+            stepTitle = 'Identifikasi Data &amp; Pemodelan';
+            icon = 'fa-solid fa-magnifying-glass';
+            borderTheme = 'border-blue-900/80';
+            badgeTheme = 'bg-blue-600/30 text-blue-300 border-blue-500/50';
+            titleColor = 'text-blue-300';
+          } else if (stepNum == 2) {
+            stepTitle = 'Strategi &amp; Konsep Kunci';
+            icon = 'fa-solid fa-lightbulb';
+            borderTheme = 'border-amber-900/80';
+            badgeTheme = 'bg-amber-500/25 text-amber-300 border-amber-500/50';
+            titleColor = 'text-amber-300';
+          } else if (stepNum == 3) {
+            stepTitle = 'Komputasi &amp; Penjabaran Aljabar';
+            icon = 'fa-solid fa-square-root-variable';
+            borderTheme = 'border-cyan-900/80';
+            badgeTheme = 'bg-cyan-600/25 text-cyan-300 border-cyan-500/50';
+            titleColor = 'text-cyan-300';
+          } else if (stepNum == 4) {
+            stepTitle = 'Verifikasi &amp; Uji Kondisi Batas';
+            icon = 'fa-solid fa-circle-check';
+            borderTheme = 'border-indigo-900/80';
+            badgeTheme = 'bg-indigo-600/25 text-indigo-300 border-indigo-500/50';
+            titleColor = 'text-indigo-300';
+          }
+
+          formattedCollabSolHtml += `
+            <div class="p-2.5 rounded-xl bg-[#081324] border ${borderTheme} flex items-start gap-2.5 shadow-sm">
+              <span class="w-5 h-5 rounded-md ${badgeTheme} border flex items-center justify-center text-[10px] font-mono font-bold shrink-0 mt-0.5">
+                ${stepNum}
+              </span>
+              <div class="text-xs text-slate-200 leading-relaxed flex-1">
+                <span class="${titleColor} font-bold text-[11px] block font-mono mb-0.5">
+                  <i class="${icon} text-[10px] mr-1"></i> ${stepTitle}
+                </span>
+                ${stepContent}
+              </div>
+            </div>
+          `;
         }
-        return `<div class="text-xs text-slate-200 leading-relaxed">${line}</div>`;
-      }).join('');
+      });
 
       // Level Tabs
       const levelTabsHtml = questionsList.map((q, qIdx) => {
@@ -5294,7 +5357,7 @@ Kesimpulan: Kunci solusi terverifikasi untuk fasilitasi guru.`;
               ${isTeacher ? `
               <div class="pt-2.5 border-t border-blue-900/60 flex flex-col gap-2 shrink-0">
                 <div class="flex items-center justify-between">
-                  <button onclick="const el = document.getElementById('teacher-collab-sol-box'); if(el) el.classList.toggle('hidden');" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 hover:text-amber-200 font-bold text-xs flex items-center gap-2 transition cursor-pointer shadow-sm">
+                  <button onclick="const el = document.getElementById('teacher-collab-sol-box'); if(el) { el.classList.toggle('hidden'); if(!el.classList.contains('hidden') && window.renderMathInElement) { renderMathInElement(el, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]}); } }" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 hover:text-amber-200 font-bold text-xs flex items-center gap-2 transition cursor-pointer shadow-sm">
                     <i class="fa-solid fa-key text-amber-400"></i>
                     <span>Kunci Solusi & Pembahasan Guru</span>
                   </button>
@@ -5303,17 +5366,27 @@ Kesimpulan: Kunci solusi terverifikasi untuk fasilitasi guru.`;
                   </span>
                 </div>
 
-                <!-- COLLAPSIBLE TEACHER SOLUTION CARD -->
-                <div id="teacher-collab-sol-box" class="hidden p-3.5 bg-[#050B14] rounded-2xl border border-amber-500/40 shadow-2xl space-y-2 transition-all">
-                  <div class="flex items-center justify-between border-b border-amber-500/30 pb-1.5">
-                    <span class="text-xs font-bold text-amber-300 font-mono flex items-center gap-1.5">
-                      <i class="fa-solid fa-square-check text-emerald-400"></i> Kunci Solusi: ${activeLabel}
-                    </span>
-                    <button onclick="document.getElementById('teacher-collab-sol-box').classList.add('hidden')" class="text-[10px] text-slate-400 hover:text-white px-2 py-0.5 rounded-md bg-slate-900 border border-slate-700 cursor-pointer">
+                <!-- COLLAPSIBLE TEACHER SOLUTION CARD (PEDAGOGIC, STRUCTURED, NEAT) -->
+                <div id="teacher-collab-sol-box" class="hidden p-4 bg-[#050B14] rounded-2xl border border-amber-500/50 shadow-2xl space-y-2.5 transition-all">
+                  <div class="flex items-center justify-between border-b border-amber-500/30 pb-2">
+                    <div class="flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                      </span>
+                      <div>
+                        <span class="text-xs font-bold text-amber-300 font-mono block">
+                          PANDUAN SOLUSI GURU &bull; ${activeLabel}
+                        </span>
+                        <span class="text-[9px] text-slate-400 font-sans">
+                          Sintaks penyelesaian terstruktur untuk fasilitasi &amp; scaffolding kelas
+                        </span>
+                      </div>
+                    </div>
+                    <button onclick="document.getElementById('teacher-collab-sol-box').classList.add('hidden')" class="text-[10px] text-slate-400 hover:text-white px-2 py-1 rounded-lg bg-[#081324] border border-slate-700 hover:border-slate-500 cursor-pointer transition">
                       ✕ Tutup
                     </button>
                   </div>
-                  <div class="space-y-1.5 pt-1">
+                  <div class="space-y-2 pt-1 max-h-[40vh] overflow-y-auto pr-1">
                     ${formattedCollabSolHtml}
                   </div>
                 </div>
