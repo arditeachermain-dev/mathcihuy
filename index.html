@@ -100,46 +100,89 @@
       </div>
     </div>
 
-    <!-- RIGHT: QUICK TOOLS & USER PROFILE -->
-    <div class="flex items-center gap-1.5 shrink-0">
+    <!-- RIGHT: SEARCH, WHITEBOARD & USER PROFILE DROPDOWN -->
+    <div class="flex items-center gap-2 shrink-0">
       <!-- QUICK SEARCH BUTTON (CTRL + K) -->
-      <button onclick="openSearchModal()" class="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition flex items-center gap-1.5 shadow-sm" title="Pencarian Materi & Rumus (Ctrl + K)">
+      <button onclick="openSearchModal()" class="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition flex items-center gap-1.5 shadow-sm cursor-pointer" title="Pencarian Materi & Rumus (Ctrl + K)">
         <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
         <span class="hidden lg:inline text-[10px] bg-slate-950 px-1.5 py-0.2 rounded border border-slate-800 text-slate-400">Ctrl K</span>
       </button>
 
       <!-- WHITEBOARD PEN TOOL -->
-      <button id="btn-pen" onclick="togglePenMode()" class="p-1.5 md:p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs transition" title="Spidol Digital (Whiteboard)">
+      <button id="btn-pen" onclick="togglePenMode()" class="p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs transition cursor-pointer" title="Spidol Digital (Whiteboard)">
         <i class="fa-solid fa-pen text-xs"></i>
       </button>
 
-      <!-- PWA INSTALL -->
-      <button onclick="pasangAplikasi()" id="pwa-btn" class="hidden items-center gap-1.5 px-2 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 rounded-xl text-xs font-medium transition" title="Pasang Aplikasi">
-        <i class="fa-solid fa-download text-xs text-emerald-400"></i>
-      </button>
+      <!-- USER PROFILE DROPDOWN MENU -->
+      <div class="relative" id="user-menu-container">
+        <button id="user-profile-btn" onclick="toggleUserDropdownMenu(event)" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs font-mono font-bold text-slate-200 transition flex items-center gap-2 cursor-pointer shadow-sm">
+          <span id="user-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="user-display-name" class="font-bold text-emerald-400 hidden sm:inline">GURU: mathcihuy</span>
+          <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+        </button>
 
-      <!-- USER INFO & LOGOUT -->
-      <div id="user-info-header" class="hidden sm:flex items-center gap-1.5 pl-1 border-l border-slate-800"></div>
+        <!-- DROPDOWN POPOVER MENU -->
+        <div id="user-profile-dropdown" class="hidden absolute right-0 mt-2 w-64 rounded-2xl bg-[#0D182A] border border-slate-800 shadow-2xl p-2 z-50 space-y-1.5 text-xs">
+          
+          <!-- USER INFO HEADER -->
+          <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800/80">
+            <p id="menu-user-name" class="text-xs font-bold text-white">M. Ardiansyah, S.Pd.Gr.</p>
+            <p id="menu-user-role" class="text-[10px] text-emerald-400 font-mono">Guru Pengampu Matematika</p>
+          </div>
 
-      <!-- TINGKAT BTN (GURU ONLY) -->
-      <a id="tingkat-btn" href="/11" class="hidden items-center gap-1 px-2 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 rounded-xl text-xs font-medium transition" title="Pindah ke Kelas XI">
-        <i class="fa-solid fa-arrow-right-arrow-left text-xs text-blue-400"></i><span class="hidden 2xl:inline text-[11px]">Kelas XI</span>
-      </a>
+          <!-- GURU SPECIAL TOOLS (HIDDEN FOR SISWA) -->
+          <div id="guru-menu-group" class="space-y-0.5 border-b border-slate-800/80 pb-1.5">
+            <button onclick="openGuruDashboard(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-emerald-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-chart-line text-emerald-400 w-4 text-center"></i>
+              <span>Dashboard Monitoring Guru</span>
+            </button>
+            <a id="tingkat-btn" href="/11" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-blue-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-arrow-right-arrow-left text-blue-400 w-4 text-center"></i>
+              <span>Pindah ke Portal Kelas XI</span>
+            </a>
+          </div>
 
-      <!-- GURU DASHBOARD -->
-      <button onclick="openGuruDashboard()" id="guru-btn" class="hidden items-center gap-1 px-2 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-emerald-400 rounded-xl text-xs font-medium transition" title="Dashboard Guru">
-        <i class="fa-solid fa-chart-line text-xs"></i><span class="hidden 2xl:inline text-[11px]">Dashboard</span>
-      </button>
+          <!-- ACADEMIC & ANALYTICS TOOLS -->
+          <div class="space-y-0.5 border-b border-slate-800/80 pb-1.5">
+            <button onclick="openScheduleModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-calendar-days text-amber-400 w-4 text-center"></i>
+              <span>Jadwal & Agenda Ujian</span>
+            </button>
+            <button onclick="openAnalyticsModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-chart-pie text-cyan-400 w-4 text-center"></i>
+              <span>Statistik & Progres Belajar</span>
+            </button>
+            <button onclick="pasangAplikasi(); toggleUserDropdownMenu();" id="pwa-btn" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-emerald-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-download text-emerald-400 w-4 text-center"></i>
+              <span>Install Aplikasi (PWA)</span>
+            </button>
+          </div>
 
-      <!-- THEME TOGGLE -->
-      <button onclick="toggleTema()" id="tema-btn" class="p-1.5 md:p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-amber-400 rounded-xl text-xs transition" title="Ganti Tema">
-        <i id="tema-ikon" class="fa-solid fa-moon text-xs"></i>
-      </button>
+          <!-- PREFERENCES & LOGOUT -->
+          <div class="space-y-0.5">
+            <button onclick="toggleTema();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-amber-300 transition flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-2">
+                <i id="tema-ikon" class="fa-solid fa-moon text-amber-400 w-4 text-center"></i>
+                <span>Mode Tampilan</span>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">Dark/Light</span>
+            </button>
+            <button onclick="toggleFullscreen(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-expand text-slate-400 w-4 text-center"></i>
+                <span>Layar Penuh</span>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">F11</span>
+            </button>
+            <button onclick="logoutSession()" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-rose-500/10 text-left text-rose-400 hover:text-rose-300 transition flex items-center gap-2 font-bold pt-1.5 border-t border-slate-800/80 cursor-pointer">
+              <i class="fa-solid fa-power-off text-rose-400 w-4 text-center"></i>
+              <span>Keluar Akun (Logout)</span>
+            </button>
+          </div>
 
-      <!-- FULLSCREEN -->
-      <button onclick="toggleFullscreen()" class="hidden md:flex p-1.5 md:p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs transition" title="Layar Penuh (F11)">
-        <i class="fa-solid fa-expand text-xs"></i>
-      </button>
+        </div>
+      </div>
+
     </div>
 
   </header>

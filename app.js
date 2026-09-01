@@ -1,4 +1,23 @@
 
+    // TOGGLE USER DROPDOWN MENU
+    function toggleUserDropdownMenu(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('user-profile-dropdown');
+      if (menu) {
+        menu.classList.toggle('hidden');
+      }
+    }
+
+    // Close user dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const container = document.getElementById('user-menu-container');
+      const menu = document.getElementById('user-profile-dropdown');
+      if (container && menu && !container.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+
     // 2. CORE APPLICATION STATE
     let currentMode = 'home'; // 'home', 'wajib', 'minat', 'clil', 'tka'
     let currentMeetingIdx = 0;
