@@ -80,7 +80,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan banyak jalur terpendek pada kisi $4 \\times 3$ dari titik $(0,0)$ ke $(4,3)$ yang wajib melewati titik $(2,2)$!",
         "Sebuah kafetaria menyediakan 4 jenis makanan pokok, 5 lauk, 3 sayur, dan 4 minuman. Berapa variasi paket makan siang (1 makanan, 1 lauk, 1 sayur, 1 minuman) yang dapat dipilih?",
         "Berapa banyak bilangan bulat positif antara 100 dan 999 yang memiliki minimal satu angka 7 dalam susunannya?"
-      ]
+      ],
+      "tagline": "Menghitung Peluang & Kemungkinan dari Pilihan Sederhana hingga Sandi Keamanan"
     },
     {
       "id": "P02",
@@ -147,7 +148,8 @@ const NAMA_TINGKAT = 'XII';
         "Tujuh pengurus OSIS duduk berdampingan pada satu baris kursi. Tentukan peluang Ketua, Sekretaris, dan Bendahara selalu duduk berdampingan!",
         "Dalam lomba cerdas cermat yang diikuti 10 tim, berapa banyak kemungkinan susunan peraih Juara 1, Juara 2, dan Juara 3?",
         "Buktikan secara aljabar bahwa $P(n, r) = n \\cdot P(n-1, r-1)$ untuk setiap bilangan bulat $1 \\le r \\le n$!"
-      ]
+      ],
+      "tagline": "Menyusun Formasi Berurutan: Dari Kursi Kepengurusan hingga Susunan Huruf Kata"
     },
     {
       "id": "P03",
@@ -214,7 +216,8 @@ const NAMA_TINGKAT = 'XII';
         "Terdapat 5 manik-manik merah berbeda dan 4 manik-manik biru berbeda yang akan dirangkai menjadi sebuah gelang melingkar berselang-seling. Berapa banyak variasinya?",
         "Tentukan banyak susunan 8 angka yang dapat dibentuk dari angka-angka $\\{2, 2, 3, 3, 3, 5, 5, 7\\}$ yang bernilai lebih dari $50.000.000$!",
         "Sebuah keluarga (Ayah, Ibu, 3 Anak) makan malam di meja bundar. Tentukan peluang kedua orang tua TIDAK duduk bersebelahan!"
-      ]
+      ],
+      "tagline": "Menyusun Elemen Berulang & Melingkari Meja Bundar Tanpa Titik Awal"
     },
     {
       "id": "P04",
@@ -281,7 +284,8 @@ const NAMA_TINGKAT = 'XII';
         "Buktikan Identitas Segitiga Pascal: $\\binom{n}{k} + \\binom{n}{k-1} = \\binom{n+1}{k}$ dan berikan interpretasi kombinasinya!",
         "Dari 12 titik pada bidang datar di mana tidak ada 3 titik yang segaris, tentukan banyak segitiga yang dapat dibentuk dengan menghubungkan titik-titik tersebut!",
         "Tentukan banyak solusi bilangan bulat non-negatif $(x_1, x_2, x_3, x_4)$ dari persamaan $x_1 + x_2 + x_3 + x_4 = 15$ menggunakan metode *stars and bars*!"
-      ]
+      ],
+      "tagline": "Memilih Delegasi & Kombinasi Terbaik Tanpa Membedakan Urutan Jabatan"
     },
     {
       "id": "P05",
@@ -348,7 +352,8 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah kantong berisi 4 kelereng merah dan 6 kelereng biru. Diambil 3 kelereng satu per satu tanpa pengembalian. Tentukan peluang kelereng ketiga merah jika kelereng pertama merah!",
         "Sebuah koin tak setimbang memiliki peluang muncul angka sebesar $\\frac{2}{3}$. Jika koin dilempar 5 kali, tentukan peluang muncul tepat 3 kali angka!",
         "Tentukan peluang bahwa dalam sebuah kelompok beranggotakan 30 orang secara acak, minimal terdapat dua orang yang berulang tahun pada hari yang sama!"
-      ]
+      ],
+      "tagline": "Mengukur Kepastian dari Ketidakpastian & Memprediksi Frekuensi Kejadian Masa Depan"
     },
     {
       "id": "P06",
@@ -414,7 +419,8 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah keluarga (Ayah, Ibu, 4 anak) berfoto melingkar. Tentukan peluang Ayah dan Ibu selalu berdampingan dengan si bungsu di antara mereka!",
         "Dalam turnamen catur sistem setengah kompetisi (*round-robin*) yang diikuti 12 peserta, berapa total pertandingan yang akan dimainkan?",
         "Tentukan koefisien dari suku $x^4 y^6$ pada ekspansi binomial Newton $(2x - 3y)^{10}$!"
-      ]
+      ],
+      "tagline": "Uji Fondasi Kombinatorika & Peluang Tunggal Menuju Standar Asesmen Nasional"
     },
     {
       "id": "P07",
@@ -480,7 +486,8 @@ const NAMA_TINGKAT = 'XII';
         "Dalam kelas XII terdapat 36 siswa: 20 suka Matematika, 15 suka Fisika, dan 8 suka keduanya. Tentukan peluang terpilih siswa yang tidak menyukai keduanya!",
         "Peluang seorang siswa lulus tes Matematika adalah $0{,}8$ dan peluang lulus tes Bahasa Inggris adalah $0{,}7$. Jika peluang lulus keduanya $0{,}6$, tentukan peluang ia lulus minimal satu tes!",
         "Buktikan hukum De Morgan untuk peluang: $P((A \\cup B)') = P(A' \\cap B')$ menggunakan diagram Venn probabilitas!"
-      ]
+      ],
+      "tagline": "Menyatukan Dua Peristiwa: Apakah Saling Lepas atau Beririsan Bersama?"
     },
     {
       "id": "P08",
@@ -550,7 +557,8 @@ const NAMA_TINGKAT = 'XII';
         "Tiga mesin $M_1, M_2, M_3$ memproduksi masing-masing $30\\%$, $45\\%$, $25\\%$ produk dengan tingkat cacat $2\\%$, $3\\%$, $4\\%$. Jika terpilih produk cacat, tentukan peluang dari mesin $M_2$!",
         "Sebuah tes medis memiliki sensitivitas $99\\%$ dan spesifisitas $95\\%$. Jika prevalensi penyakit dalam populasi adalah $1\\%$, tentukan peluang seseorang benar-benar sakit jika hasil tesnya positif!",
         "Dua kejadian $A$ dan $B$ saling bebas dengan $P(A) = 0{,}4$ dan $P(A \\cup B) = 0{,}7$. Tentukan nilai $P(B)$ dan $P(A \\mid B)$!"
-      ]
+      ],
+      "tagline": "Ketergantungan vs Kemandirian Peristiwa & Menyingkap Peluang Bersyarat"
     },
     {
       "id": "P09",
@@ -616,7 +624,8 @@ const NAMA_TINGKAT = 'XII';
         "Buktikan bahwa jika sebuah garis tegak lurus pada dua garis berpotongan di suatu bidang, maka garis tersebut tegak lurus pada seluruh bidang tersebut!",
         "Tentukan banyak pasangan garis yang saling bersilangan tegak lurus pada sebuah kubus $ABCD.EFGH$!",
         "Pada limas beraturan $T.ABCD$, tentukan garis persekutuan antara bidang $TAB$ dan bidang $TCD$ serta buktikan sifat kesejajarannya terhadap alas!"
-      ]
+      ],
+      "tagline": "Melihat Ruang Nyata 3D: Titik, Garis Sejajar, & Bidang yang Bersilangan"
     },
     {
       "id": "P10",
@@ -682,7 +691,8 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah ruangan balok berukuran $8\\text{ m} \\times 6\\text{ m} \\times 4\\text{ m}$. Seekor semut merayap pada dinding dari $A(0,0,0)$ ke $G(8,6,4)$. Tentukan panjang lintasan terpendeknya!",
         "Pada kubus $ABCD.EFGH$ berusuk $10\\text{ cm}$, titik $M$ adalah titik tengah $AB$ dan titik $N$ adalah titik tengah $GH$. Hitunglah panjang ruas garis $MN$!",
         "Diberikan bidang empat beraturan $T.ABC$ dengan panjang seluruh rusuknya $6\\text{ cm}$. Tentukan jarak dari titik tinggi $T$ ke bidang alas $ABC$!"
-      ]
+      ],
+      "tagline": "Menarik Lintasan Terpendek Antar Sudut Ruang dengan Teorema Pythagoras 3D"
     },
     {
       "id": "P11",
@@ -748,7 +758,8 @@ const NAMA_TINGKAT = 'XII';
         "Pada limas tegak segitiga $T.ABC$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tegak $6\\sqrt{2}\\text{ cm}$, tentukan jarak titik $T$ ke garis tinggi alas $AD$!",
         "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $a$, tentukan jarak titik tengah $BC$ ke garis diagonal ruang $DF$!",
         "Buktikan menggunakan vektor analitis bahwa jarak dari titik $(x_0, y_0, z_0)$ ke garis berarah $\\vec{v}$ di ruang 3D memenuhi formula $\\frac{|\\vec{AP} \\times \\vec{v}|}{|\\vec{v}|}$!"
-      ]
+      ],
+      "tagline": "Memproyeksikan Titik Tegak Lurus ke Garis Menggunakan Kesamaan Luas Segitiga"
     },
     {
       "id": "P12",
@@ -818,7 +829,8 @@ const NAMA_TINGKAT = 'XII';
         "Buktikan bahwa bidang $AFH$ membagi diagonal ruang $CE$ menjadi dua segmen dengan perbandingan $1 : 2$ pada kubus beraturan!",
         "Pada kubus $ABCD.EFGH$ berusuk $6\\text{ cm}$, tentukan jarak antara bidang sejajar $AFH$ dan bidang $BDG$!",
         "Pada limas beraturan $T.ABCD$ dengan rusuk alas $4\\text{ cm}$ dan tinggi limas $4\\text{ cm}$, tentukan jarak titik $A$ ke bidang sisi tegak $TCD$!"
-      ]
+      ],
+      "tagline": "Menembus Dinding Ruang: Menguasai Teorema 1/3 & 2/3 Diagonal Ruang Kubus"
     },
     {
       "id": "P13",
@@ -884,7 +896,8 @@ const NAMA_TINGKAT = 'XII';
         "Pada limas segi empat beraturan $T.ABCD$ dengan rusuk alas $4\\text{ cm}$ dan rusuk tegak $2\\sqrt{6}\\text{ cm}$, tentukan $\\tan \\theta$ antara bidang $TAB$ dan $TCD$!",
         "Tentukan besar sudut antara garis diagonal sisi $AH$ dengan bidang diagonal $BDHF$ pada kubus beraturan!",
         "Buktikan bahwa sudut antara dua diagonal ruang pada sebuah kubus adalah $\\arccos(\\frac{1}{3}) \\approx 70{,}53^\\circ$!"
-      ]
+      ],
+      "tagline": "Mengukur Kemiringan Sudut Antar Garis dan Bidang dalam Bangun Ruang Nyata"
     },
     {
       "id": "P14",
@@ -950,7 +963,8 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah piramida beraturan memiliki alas segi-6 dengan sisi $4\\text{ cm}$ dan tinggi $10\\text{ cm}$. Tentukan jarak dari pusat alas ke salah satu sisi tegaknya!",
         "Pada kubus $ABCD.EFGH$ berusuk $12\\text{ cm}$, bidang $\\alpha$ melalui titik $B$ dan tegak lurus pada $AG$. Tentukan bentuk dan luas penampang bidang $\\alpha$!",
         "Hitung sudut antara garis perpotongan bidang $PQR$ dengan alas kubus terhadap diagonal sisi alas!"
-      ]
+      ],
+      "tagline": "Bedah Prediksi CBT Dimensi Tiga: Cepat, Tepat, & Berlogika Ruang Kuat"
     },
     {
       "id": "P15",
@@ -1016,7 +1030,8 @@ const NAMA_TINGKAT = 'XII';
         "Distribusi data memiliki $Q_1 = 54{,}5$ dan $Q_3 = 78{,}2$. Analisislah pencakar langit (*outliers*) jika data terendah $18$ dan tertinggi $115$!",
         "Jelaskan kelebihan penyajian data menggunakan histogram dengan frekuensi relatif dibandingkan frekuensi mutlak untuk membandingkan dua populasi!",
         "Rancang histogram multimodal dari data simulasi lalu tafsirkan potensi heterogenitas sub-populasi di dalamnya!"
-      ]
+      ],
+      "tagline": "Membaca Cerita di Balik Batang Histogram, Poligon Frekuensi, & Lengkung Ogive"
     },
     {
       "id": "P16",
@@ -1087,7 +1102,8 @@ const NAMA_TINGKAT = 'XII';
         "Buktikan bahwa $\\sum f_i (x_i - \\bar{x}) = 0$ pada data berkelompok dan jelaskan maknanya sebagai titik pusat massa distribusi data!",
         "Tentukan rata-rata gabungan jika kelas XII-A (30 siswa) rata-ratanya $75$, XII-B (35 siswa) $80$, dan XII-C (35 siswa) $82$!",
         "Analisislah dampak penambahan data ekstrem sebesar $150$ terhadap nilai rata-rata dibandingkan median pada sampel berukuran $N=50$!"
-      ]
+      ],
+      "tagline": "Menemukan Titik Keseimbangan Data: Dari Rataan Sementara hingga Metode Coding"
     },
     {
       "id": "P17",
@@ -1153,7 +1169,8 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah distribusi gaji memiliki Modus $= 4{,}5\\text{ juta}$ dan Mean $= 7{,}2\\text{ juta}$. Analisislah kemiringan kurva (*skewness*) dan implikasinya!",
         "Buktikan secara geometris rumus interpolasi linier untuk menentukan nilai median pada kurva poligon frekuensi kumulatif!",
         "Tentukan kondisi di mana nilai Mean = Median = Modus pada kurva distribusi simetris Gauss!"
-      ]
+      ],
+      "tagline": "Membagi Data Menjadi Dua Bagian Seimbang & Menemukan Frekuensi Paling Populer"
     },
     {
       "id": "P18",
@@ -1224,7 +1241,8 @@ const NAMA_TINGKAT = 'XII';
         "Bandingkan akurasi Box-and-Whisker Plot dibandingkan Kurva Ogive dalam mendeteksi kesenjangan nilai kelas!",
         "Jika seluruh nilai ujian dinaikkan $10\\%$ kemudian ditambah $5$, tentukan kuartil atas ($Q_3$) yang baru jika $Q_3$ awal adalah $70$!",
         "Tentukan persentil ke-90 ($P_{90}$) dari data waktu respon server dan interpretasikan maknanya dalam Service Level Agreement (SLA) IT!"
-      ]
+      ],
+      "tagline": "Memetakan Posisi Data: Menentukan Kuartil, Desil, dan Mendeteksi Nilai Pencilan"
     },
     {
       "id": "P19",
@@ -1295,7 +1313,8 @@ const NAMA_TINGKAT = 'XII';
         "Jika seluruh data dikalikan $2$ kemudian ditambah $5$, buktikan perubahan yang terjadi pada rata-rata, varians, dan simpangan baku data baru!",
         "Tentukan koefisien variasi ($KV = \\frac{S}{\\bar{x}} \\times 100\\%$) untuk membandingkan tingkat konsistensi dua kelompok belajar!",
         "Buktikan bahwa varians dari sekumpulan data tidak pernah bernilai negatif ($S^2 \\ge 0$) dan bernilai nol jika dan hanya jika semua data bernilai sama!"
-      ]
+      ],
+      "tagline": "Mengukur Seberapa Menyebar Datamu: Dari Varians, Simpangan Baku, hingga Skor Z"
     },
     {
       "id": "P20",
@@ -1362,7 +1381,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitung koefisien determinasi $R^2$ dan prediksikan skor siswa yang belajar selama 7,5 jam!",
         "Jelaskan perbedaan antara korelasi positif, korelasi negatif, dan korelasi spasial semu (*spurious correlation*) disertai contoh nyata!",
         "Buktikan bahwa koefisien korelasi Pearson selalu berada pada rentang $-1 \\le r \\le 1$ menggunakan pertidaksamaan Cauchy-Schwarz!"
-      ]
+      ],
+      "tagline": "Menemukan Pola Hubungan Dua Variabel & Memprediksi Tren dengan Garis Regresi"
     },
     {
       "id": "P21",
@@ -1428,7 +1448,8 @@ const NAMA_TINGKAT = 'XII';
         "Evaluasilah keterbatasan regresi linier dalam konteks ekstrapolasi data di luar rentang sampel pengamatan!",
         "Tentukan residu regresi $e_i = y_i - \\hat{y}_i$ untuk setiap titik data dan uji apakah jumlah residunya bernilai nol ($\\sum e_i = 0$)!",
         "Rancang studi kasus optimasi bivariat terapan dalam dunia sains data dan presentasikan kesimpulan model prediksi terbaik!"
-      ]
+      ],
+      "tagline": "Simulasi Puncak Asesmen Akhir Semester: Menguji Ketajaman Statistika & Geometri 3D"
     }
   ],
   "minat": [
@@ -1497,7 +1518,8 @@ const NAMA_TINGKAT = 'XII';
         "Diberikan $A(-4, 0)$ dan $B(4, 0)$. Tentukan tempat kedudukan titik $P(x,y)$ sedemikian hingga $PA^2 + PB^2 = 50$ dan buktikan itu lingkaran!",
         "Tentukan persamaan lingkaran konsentris dengan $x^2 + y^2 = 9$ yang luas daerahnya 4 kali lebih besar!",
         "Buktikan bahwa luas juring lingkaran berpusat di asal dengan sudut pusat $\\theta$ radian adalah $\\frac{1}{2} r^2 \\theta$!"
-      ]
+      ],
+      "tagline": "Menjelajah Kurva Lingkaran dari Titik Pusat Asal & Memetakan Jangkauan Radar"
     },
     {
       "id": "P02",
@@ -1568,7 +1590,8 @@ const NAMA_TINGKAT = 'XII';
         "Lingkaran berpusat di $P(a, b)$ kuadran I menyinggung garis $x = 2$, sumbu-$Y$, dan $y = 6$. Tentukan nilai $a, b,$ dan persamaannya!",
         "Tentukan persamaan lingkaran yang berpusat di $P(-1, 4)$ dan menyinggung garis $3x - 4y + 4 = 0$!",
         "Buktikan bahwa jarak dari titik $(x_1, y_1)$ ke pusat lingkaran $(x-a)^2 + (y-b)^2 = r^2$ menentukan kedudukan titik secara definitif!"
-      ]
+      ],
+      "tagline": "Menggeser Titik Pusat ke Mana Saja pada Bidang Koordinat Kartesius GPS"
     },
     {
       "id": "P03",
@@ -1639,7 +1662,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan lingkaran yang melalui tiga titik koordinat $A(0,0), B(4,0),$ dan $C(0,6)$!",
         "Tentukan nilai $A$ dan $B$ jika lingkaran $x^2 + y^2 + Ax + By - 12 = 0$ berpusat di titik $(2, -3)$!",
         "Buktikan bahwa bentuk $Ax^2 + Ay^2 + Dx + Ey + F = 0$ merepresentasikan lingkaran sejati jika dan hanya jika $D^2 + E^2 - 4AF > 0$!"
-      ]
+      ],
+      "tagline": "Membongkar Kuadrat Sempurna Menjadi Bentuk Umum Aljabar Persamaan Lingkaran"
     },
     {
       "id": "P04",
@@ -1710,7 +1734,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah panjang ruas garis singgung yang ditarik dari titik $T(8, 6)$ ke lingkaran $x^2 + y^2 - 2x - 4y - 20 = 0$!",
         "Tentukan kuasa titik $P(4, -1)$ terhadap lingkaran $x^2 + y^2 - 6x + 2y + 6 = 0$ dan berikan tafsiran geometrisnya!",
         "Tentukan persamaan garis kuasa (*radical axis*) dari dua lingkaran $L_1 \\equiv x^2 + y^2 - 4 = 0$ dan $L_2 \\equiv x^2 + y^2 - 4x - 2y + 1 = 0$!"
-      ]
+      ],
+      "tagline": "Menguji Posisi Titik: Di Dalam, Tepat pada Busur, atau di Luar Lingkaran?"
     },
     {
       "id": "P05",
@@ -1777,7 +1802,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan titik potong garis $x + y = 4$ dengan lingkaran $x^2 + y^2 - 2x - 4y = 0$ dan hitung panjang tali busur persekutuannya!",
         "Tentukan nilai $c$ agar garis $3x + 4y + c = 0$ menyinggung lingkaran $x^2 + y^2 = 25$ ($D = 0$)!",
         "Buktikan secara aljabar bahwa tali busur terpanjang pada lingkaran adalah diameter lingkaran yang melalui titik pusatnya!"
-      ]
+      ],
+      "tagline": "Uji Diskriminan Penentu: Garis yang Memotong, Menyinggung, atau Melayang Bebas"
     },
     {
       "id": "P06",
@@ -1848,7 +1874,8 @@ const NAMA_TINGKAT = 'XII';
         "Garis singgung pada $x^2 + y^2 - 4x + 6y - 12 = 0$ di $(5, 1)$ memotong sumbu-$X$ di $P$ dan sumbu-$Y$ di $Q$. Tentukan luas $\\Delta OPQ$!",
         "Tentukan persamaan garis normal lingkaran $(x+1)^2 + (y-2)^2 = 13$ di titik $(2, 4)$!",
         "Buktikan bahwa garis singgung lingkaran di titik $P(x_1, y_1)$ selalu tegak lurus dengan jari-jari yang menghubungkan pusat ke titik $P$!"
-      ]
+      ],
+      "tagline": "Membagi Adil Variabel untuk Menemukan Garis Singgung di Titik Lengkung"
     },
     {
       "id": "P07",
@@ -1919,7 +1946,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 6x + 4y - 3 = 0$ yang tegak lurus garis $2x + y = 7$!",
         "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 36$ yang membentuk sudut $60^\\circ$ terhadap sumbu-$X$ positif!",
         "Tentukan jarak antara dua garis singgung sejajar yang bergradien $m = 2$ pada lingkaran $(x-1)^2 + (y+2)^2 = 20$!"
-      ]
+      ],
+      "tagline": "Menentukan Garis Singgung Lingkaran dengan Sudut Kemiringan & Gradien Tertentu"
     },
     {
       "id": "P08",
@@ -1986,7 +2014,8 @@ const NAMA_TINGKAT = 'XII';
         "Dua lingkaran $L_1 \\equiv x^2 + y^2 = 9$ dan $L_2 \\equiv (x-8)^2 + y^2 = 16$. Tentukan panjang garis singgung persekutuan luar dan dalamnya!",
         "Tentukan sudut antara dua garis singgung yang ditarik dari titik $(0, 6)$ ke lingkaran $x^2 + y^2 = 9$!",
         "Buktikan bahwa garis kutub dari titik $P$ terhadap lingkaran selalu tegak lurus pada garis yang menghubungkan pusat lingkaran ke titik $P$!"
-      ]
+      ],
+      "tagline": "Menarik Dua Garis Singgung dari Titik Luar Melalui Garis Kutub Polar"
     },
     {
       "id": "P09",
@@ -2053,7 +2082,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan berkas lingkaran melalui perpotongan $L_1 \\equiv x^2 + y^2 - 4x = 0$ dan $L_2 \\equiv x^2 + y^2 - 2y = 0$ serta melalui $O(0,0)$!",
         "Tentukan persamaan lingkaran luar segitiga yang dibentuk oleh garis $x=0, y=0,$ dan $3x + 4y = 12$!",
         "Rancang model analitis sistem transmisi roda gigi lingkaran ganda dengan rasio jari-jari $1:3$ dan tentukan persamaan garis sabuk transmisinya!"
-      ]
+      ],
+      "tagline": "Grand Review Geometri Analitik: Mematangkan Seluk-Beluk Persamaan Lingkaran"
     },
     {
       "id": "P10",
@@ -2130,7 +2160,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah $\\lim_{x \\to 1} \\frac{\\sqrt[3]{x} - 1}{\\sqrt{x} - 1}$ menggunakan substitusi variabel aljabar $x = u^6$!",
         "Hitung nilai limit fungsi faktorisasi: $\\lim_{x \\to -2} \\frac{x^3 + 8}{x^2 + 5x + 6}$!",
         "Buktikan secara formal definisi limit Cauchy $(\\varepsilon - \\delta)$ bahwa $\\lim_{x \\to 3} (2x + 1) = 7$!"
-      ]
+      ],
+      "tagline": "Membongkar Bentuk Tak Tentu 0/0 dengan Pemfaktoran Aljabar & Perkalian Sekawan"
     },
     {
       "id": "P11",
@@ -2197,7 +2228,8 @@ const NAMA_TINGKAT = 'XII';
         "Buktikan secara analitis bahwa $\\lim_{x \\to 0} \\frac{\\sin(ax)}{\\tan(bx)} = \\frac{a}{b}$ untuk setiap $a, b \\neq 0$!",
         "Hitung nilai limit trigonometri bertingkat: $\\lim_{x \\to 0} \\frac{\\tan(2x) \\cdot \\sin^2(3x)}{x^3 \\cdot \\cos(4x)}$!",
         "Gunakan Teorema Apit (*Squeeze Theorem*) untuk membuktikan bahwa $\\lim_{x \\to 0} x^2 \\sin(\\frac{1}{x}) = 0$!"
-      ]
+      ],
+      "tagline": "Fondasi Sinus & Tangen: Mengapa Rasio Sudut Infinitesimal Mendekati Nilai Pasti"
     },
     {
       "id": "P12",
@@ -2268,7 +2300,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah $\\lim_{x \\to 0} \\frac{\\cos(x) - \\cos(3x)}{\\cos(2x) - \\cos(4x)}$ dan tafsirkan perbandingan frekuensi gelombangnya!",
         "Tentukan nilai limit: $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{1 - \\cos(2x)}$ menggunakan bentuk identitas sudut ganda!",
         "Buktikan identitas limit trigonometri $\\lim_{x \\to 0} \\frac{\\cos(ax) - \\cos(bx)}{x^2} = \\frac{b^2 - a^2}{2}$!"
-      ]
+      ],
+      "tagline": "Menjinakkan Cosinus Sudut Ganda Menjadi Sinus Kuadrat Tanpa Hambatan Aljabar"
     },
     {
       "id": "P13",
@@ -2335,7 +2368,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah $\\lim_{x \\to \\frac{\\pi}{2}} \\frac{1 - \\sin(x)}{(\\pi - 2x)^2}$ dengan mereduksi relasi $\\sin(x) = \\cos(\\frac{\\pi}{2} - x)$!",
         "Hitunglah nilai limit sudut istimewa: $\\lim_{x \\to \\frac{\\pi}{3}} \\frac{\\tan(x) - \\sqrt{3}}{x - \\frac{\\pi}{3}}$!",
         "Tentukan nilai limit trigonometri: $\\lim_{x \\to 1} \\frac{(x - 1) \\cdot \\cos(\\pi x)}{\\sin(2\\pi x)}$!"
-      ]
+      ],
+      "tagline": "Menggeser Variabel Menuju Sudut Tertentu dengan Metode Substitusi Aljabar Cerdas"
     },
     {
       "id": "P14",
@@ -2402,7 +2436,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah $\\lim_{x \\to \\infty} \\left( \\sqrt{9x^2 + 12x + 1} - \\sqrt{9x^2 - 6x + 5} \\right)$ dan buktikan rumus $\\frac{b-q}{2\\sqrt{a}}$!",
         "Hitung nilai limit tak hingga bentuk polinomial bertingkat: $\\lim_{x \\to \\infty} \\frac{(2x+1)^3 (3x-2)^2}{(x^2+1)(2x-1)^3}$!",
         "Tentukan nilai konstanta $p$ dan $q$ agar $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + px + 5} - (2x + q) \\right) = 3$!"
-      ]
+      ],
+      "tagline": "Melompat ke Ujung Ketakhinggaan: Membaca Dominasi Pangkat Polinomial Tertinggi"
     },
     {
       "id": "P15",
@@ -2473,7 +2508,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan asimtot miring dari $f(x) = \\frac{2x^3 - 5x^2 + 4}{x^2 - 1}$ menggunakan pembagian bersusun!",
         "Hitung nilai limit trigonometri di tak hingga: $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos(\\frac{2}{x}) \\right)$!",
         "Analisislah perilaku asimtotik fungsi gelombang $f(x) = \\frac{\\sin(x)}{x}$ saat $x \\to \\pm\\infty$!"
-      ]
+      ],
+      "tagline": "Menebak Limit Selisih Akar Kuadrat dalam Sekejap & Menemukan Asimtot Pembatas"
     },
     {
       "id": "P16",
@@ -2540,7 +2576,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan nilai $a$ dan $b$ agar $f(x) = \\begin{cases} \\frac{\\sin(ax)}{x}, & x < 0 \\\\ b + 2, & x = 0 \\\\ x^2 + 3a - 1, & x > 0 \\end{cases}$ kontinu di seluruh $\\mathbb{R}$!",
         "Hitung nilai limit bentuk eksponensial Euler: $\\lim_{x \\to \\infty} \\left(1 + \\frac{3}{x}\\right)^{2x}$!",
         "Buktikan kontinuitas fungsi $g(x) = |x| \\cdot \\cos(x)$ di titik $x = 0$ menggunakan limit kiri dan kanan!"
-      ]
+      ],
+      "tagline": "Simulasi ASTS CBT Kalkulus Limit: Menembus Batas Pendekatan Fungsi Aljabar"
     },
     {
       "id": "P17",
@@ -2621,7 +2658,8 @@ const NAMA_TINGKAT = 'XII';
         "Jika $f(x) = \\sec(x)$, buktikan bahwa $f'(x) = \\sec(x)\\tan(x)$ dan tentukan nilai $f'(\\frac{\\pi}{3})$!",
         "Tentukan turunan pertama dari fungsi trigonometri dasar $g(x) = 2\\csc(x) - 5\\cot(x)$!",
         "Tentukan nilai $x$ pada interval $[0, 2\\pi]$ di mana turunan dari $f(x) = \\sin(x) + \\cos(x)$ bernilai nol ($f'(x) = 0$)!"
-      ]
+      ],
+      "tagline": "Awal Mula Turunan Trigonometri: Membaca Laju Perubahan Harmonik Alami"
     },
     {
       "id": "P18",
@@ -2688,7 +2726,8 @@ const NAMA_TINGKAT = 'XII';
         "Partikel bergerak dengan posisi $s(t) = 4\\cos(3t + \\frac{\\pi}{6})$. Tentukan kecepatan $v(t)$ dan percepatan $a(t)$!",
         "Tentukan turunan pertama dari $y = \\tan(\\sqrt{2x^2 + 1})$!",
         "Buktikan bahwa jika $y = \\sin(kx)$, maka turunan ke-4 memenuhi $y^{(4)} = k^4 y$!"
-      ]
+      ],
+      "tagline": "Mengupas Lapisan demi Lapisan Fungsi Komposisi dengan Aturan Rantai Diferensiasi"
     },
     {
       "id": "P19",
@@ -2755,7 +2794,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan garis singgung pada kurva $y = \\tan^2(x)$ di titik dengan absis $x = \\frac{\\pi}{4}$!",
         "Tentukan turunan pertama dari fungsi $f(x) = \\sqrt{\\sin(2x) + \\cos(2x)}$!",
         "Tentukan turunan pertama dari fungsi implisit $\\sin(x) + \\cos(y) = 2xy$ terhadap variabel $x$!"
-      ]
+      ],
+      "tagline": "Menurunkan Fungsi Trigonometri Berpangkat Tinggi Secara Rapi & Terstruktur"
     },
     {
       "id": "P20",
@@ -2826,7 +2866,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan turunan kedua $f''(x)$ dari $f(x) = e^{2x} \\cdot \\cos(3x)$ dan buktikan $f''(x) - 4f'(x) + 13f(x) = 0$!",
         "Tentukan turunan pertama dari $y = \\frac{x^2 + 1}{\\tan(x)}$!",
         "Buktikan aturan turunan pembagian fungsi trigonometri $(\\cot x)' = -\\csc^2 x$ menggunakan aturan perkalian dan rantai!"
-      ]
+      ],
+      "tagline": "Kaidah Perkalian & Pembagian: Menghitung Percepatan Getaran Melalui Turunan Kedua"
     },
     {
       "id": "P21",
@@ -2897,7 +2938,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan garis singgung kurva $y = \\sin^2(x) - \\cos(x)$ yang sejajar dengan sumbu-$X$ pada interval $0 \\le x \\le 2\\pi$!",
         "Tentukan persamaan garis singgung kurva $y = \\sec(x)$ yang tegak lurus dengan garis $2x + 4y = 5$ di kuadran I!",
         "Tentukan titik-titik pada kurva $y = \\cos(2x)$ yang garis singgungnya memiliki kemiringan maksimum!"
-      ]
+      ],
+      "tagline": "Menyentuh Lengkungan Kurva: Menentukan Persamaan Garis Singgung & Garis Normal"
     },
     {
       "id": "P22",
@@ -2974,7 +3016,8 @@ const NAMA_TINGKAT = 'XII';
         "Buktikan bahwa fungsi $f(x) = x - \\sin(x)$ tidak pernah monoton turun pada seluruh bilangan real $\\mathbb{R}$!",
         "Tentukan interval kemonotonan dari fungsi $g(x) = 2x + \\cos(2x)$ pada $[0, \\pi]$!",
         "Tentukan seluruh nilai kritis (*critical points*) dari fungsi $f(x) = \\sin^2(x) + \\cos(x)$ pada domain $[0, 2\\pi]$!"
-      ]
+      ],
+      "tagline": "Membaca Kapan Gelombang Sedang Naik dan Kapan Gelombang Sedang Menurun"
     },
     {
       "id": "P23",
@@ -3045,7 +3088,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan koordinat titik belok (*inflection point*) kurva $f(x) = x + 2\\cos(x)$ pada domain $0 \\le x \\le 2\\pi$!",
         "Gunakan uji turunan kedua untuk menentukan jenis ekstrem stasioner dari $f(x) = \\cos(2x) - 4\\sin(x)$!",
         "Sketsakan kurva grafik fungsi trigonometri $y = \\sin(x) + \\frac{1}{2}\\sin(2x)$ lengkap dengan titik stasioner dan titik beloknya!"
-      ]
+      ],
+      "tagline": "Menemukan Puncak Amplitudo Tertinggi, Titik Terendah, dan Titik Belok Kecekungan"
     },
     {
       "id": "P24",
@@ -3112,7 +3156,8 @@ const NAMA_TINGKAT = 'XII';
         "Dua lorong tegak lurus memiliki lebar $8\\text{ m}$ dan $27\\text{ m}$. Tentukan panjang pipa lurus terpanjang yang dapat digeser melewati persimpangan!",
         "Sebuah kerucut memiliki garis pelukis $s = 12\\text{ cm}$. Tentukan tinggi kerucut $t$ agar volume kerucut mencapai nilai maksimum!",
         "Rancang model optimasi jarak terpendek dari titik $(2, 1)$ ke kurva parabola $y = x^2$ menggunakan turunan!"
-      ]
+      ],
+      "tagline": "Memaksimalkan Luas Penampang & Kapasitas Melalui Model Optimasi Turunan"
     },
     {
       "id": "P25",
@@ -3183,7 +3228,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah integral trigonometri dasar: $\\int (4\\sin(2x) - 3\\cos(3x) + 2\\sec^2(4x)) \\, dx$!",
         "Tentukan hasil integral bentuk pecahan aljabar: $\\int \\frac{x^3 + 2x^2 - 1}{x^2} \\, dx$!",
         "Buktikan Teorema Nilai Rata-rata untuk Integral: terdapat $c \\in [a, b]$ sedemikian hingga $\\int_{a}^{b} f(x) \\, dx = f(c)(b - a)$!"
-      ]
+      ],
+      "tagline": "Membalikkan Arah Turunan: Menemukan Kembali Fungsi Asal dengan Integral Tak Tentu"
     },
     {
       "id": "P26",
@@ -3256,7 +3302,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah integral tak tentu: $\\int \\frac{x}{\\sqrt{2x + 1}} \\, dx$ menggunakan substitusi aljabar $u = \\sqrt{2x + 1}$!",
         "Hitung nilai integral substitusi eksponensial: $\\int x^2 \\cdot e^{x^3 - 1} \\, dx$!",
         "Hitunglah integral rasional trigonometri: $\\int \\frac{\\sec^2(x)}{1 + \\tan(x)} \\, dx$!"
-      ]
+      ],
+      "tagline": "Menyederhanakan Bentuk Rumit Melalui Pergantian Variabel Metode Substitusi"
     },
     {
       "id": "P27",
@@ -3323,7 +3370,8 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah integral berulang (*cyclic integration by parts*): $\\int e^x \\cdot \\sin(x) \\, dx$!",
         "Hitunglah nilai integral logaritma: $\\int \\ln(x) \\, dx$ menggunakan metode integrasi parsial!",
         "Hitunglah integral parsial bentuk aljabar-trigonometri: $\\int x^2 \\cdot \\sin(3x) \\, dx$!"
-      ]
+      ],
+      "tagline": "Trik Cepat Tanzalin: Mengintegralkan Perkalian Aljabar & Fungsi Trigonometri"
     },
     {
       "id": "P28",
@@ -3394,7 +3442,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan nilai turunan fungsi integral akumulasi $F'(x)$ dari $F(x) = \\int_0^{x^2} \\sqrt{1 + t^3} \\, dt$!",
         "Hitunglah nilai integral tentu dengan substitusi: $\\int_{0}^{2} x \\sqrt{x^2 + 9} \\, dx$!",
         "Buktikan bahwa untuk fungsi ganjil berlaku $\\int_{-a}^{a} f(x) \\, dx = 0$ dan untuk fungsi genap berlaku $\\int_{-a}^{a} f(x) \\, dx = 2\\int_{0}^{a} f(x) \\, dx$!"
-      ]
+      ],
+      "tagline": "Menghitung Akumulasi Pasti Antara Dua Batas dengan Teorema Dasar Kalkulus"
     },
     {
       "id": "P29",
@@ -3471,7 +3520,8 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan volume benda putar jika daerah antara $y = \\sqrt{x}$, $x = 4$, dan sumbu-$X$ diputar mengelilingi sumbu-$X$ sejauh $360^\\circ$!",
         "Hitung luas daerah yang dibatasi oleh kurva sinus $y = \\sin(x)$ dan kurva kosinus $y = \\cos(x)$ dari $x = 0$ hingga $x = \\frac{\\pi}{2}$!",
         "Tentukan volume benda putar yang terbentuk saat daerah di kuadran I yang dibatasi oleh $y = x^3$, $y = 8$, dan sumbu-$Y$ diputar mengelilingi sumbu-$Y$!"
-      ]
+      ],
+      "tagline": "Mengukur Luas di Bawah Lengkung & Menghitung Volume Benda Putar 360 Derajat"
     },
     {
       "id": "P30",
@@ -3538,7 +3588,8 @@ const NAMA_TINGKAT = 'XII';
         "Rancang model matematis kubah masjid sekolah dengan profil $y = 9 - x^2$ ($0 \\le x \\le 3$) yang diputar mengelilingi sumbu-$Y$, hitung volumenya!",
         "Hitung luas permukaan benda putar yang terbentuk dari perputaran kurva $y = 2\\sqrt{x}$ pada interval $[0, 3]$ mengelilingi sumbu-$X$!",
         "Evaluasilah perbandingan efisiensi metode cakram, cincin, dan kulit silinder dalam memodelkan bejana fluida kalkulus terapan!"
-      ]
+      ],
+      "tagline": "Puncak Pembelajaran Kalkulus Semester 1: Menguji Ketajaman Analisis Integral Lengkap"
     }
   ],
   "clil": [

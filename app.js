@@ -3442,10 +3442,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         // SLIDE 1: MODERN ACADEMIC COVER WITH DYNAMIC TOPIC HOOK & 3 COMPETENCY PILL BADGES
         const babLabel = (m.bab || (isClil ? 'CALCULUS STREAM' : ('MATEMATIKA FASE F'))).toUpperCase();
         
-        // Topic-Tailored Dynamic Taglines & 3 Highlight Badges
-        let topicTagline = isClil ? 
+        // Meeting-Specific Unique Tagline (Pak Ardiansyah's Math Cihuy Authentic Tone)
+        let topicTagline = m.tagline ? `✨ ${m.tagline}` : (isClil ? 
           '✨ Advanced Analytical Modeling, Rigorous Proofs, & Multi-Step Problem Solving' : 
-          '✨ Konseptualisasi Matematis Mendalam, Prosedur Analitis Terstruktur, & Standar UTBK-SNBT';
+          '✨ Konseptualisasi Matematis Mendalam, Prosedur Analitis Terstruktur, & Standar UTBK-SNBT');
         let badgePill1 = { icon: 'fa-solid fa-cube', text: isClil ? 'Geometric Insight' : 'Visualisasi Matematis' };
         let badgePill2 = { icon: 'fa-solid fa-diagram-project', text: isClil ? 'Analytical Rigor' : 'Penalaran Terstruktur' };
         let badgePill3 = { icon: 'fa-solid fa-bullseye', text: isClil ? 'SNBT Standard' : 'Standar UTBK-SNBT' };
