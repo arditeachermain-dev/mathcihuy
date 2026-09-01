@@ -3116,7 +3116,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             c.type = 'button';
             c.className = 'w-full px-2.5 py-1.5 rounded-lg text-left flex items-center justify-between gap-2 transition cursor-pointer ' + 
               (it.aktif ? 'bg-blue-600 text-white font-bold shadow' : 
-               (asesmen ? 'bg-[#060D1A] hover:bg-[#0D1B2E] border border-amber-500/30 text-amber-200' : 'bg-[#060D1A] hover:bg-[#0D1B2E] text-slate-300 hover:text-white'));
+               (asesmen ? 'bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 border border-amber-500/30 text-amber-200' : 'bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 text-slate-300 hover:text-white'));
             
             const cleanTitle = pickerTrimTitle(it.title, g.judul);
             c.innerHTML = `
@@ -5994,7 +5994,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         const subjHeader = document.createElement('button');
         subjHeader.type = "button";
-        subjHeader.className = "w-full px-2.5 py-1.5 bg-[#060D1A] hover:bg-[#0D1B2E] flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer";
+        subjHeader.className = "w-full px-2.5 py-1.5 bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer";
         subjHeader.innerHTML = `
           <div class="flex items-center gap-2 min-w-0">
             <span class="w-5 h-5 rounded-lg bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40">

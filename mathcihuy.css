@@ -1841,3 +1841,22 @@
   border-color: rgba(251, 191, 36, 0.85);
   color: #fcd34d;
 }
+
+/* ENFORCE 100% SOLID OPAQUE BACKGROUND FOR MEETING PICKER (NO TRANSPARENCY) */
+#meeting-picker-modal {
+  background-color: rgba(2, 6, 23, 0.97) !important;
+  backdrop-filter: blur(12px) !important;
+}
+#meeting-picker-modal > div {
+  background-color: #060D1A !important;
+  opacity: 1 !important;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.98), 0 0 0 1px rgba(37, 99, 235, 0.3) !important;
+}
+#meeting-picker-modal section,
+#meeting-picker-modal .mp-sec {
+  background-color: #08101E !important;
+  opacity: 1 !important;
+}
+#meeting-picker-modal #picker-body button {
+  opacity: 1 !important;
+}
