@@ -3609,11 +3609,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </div>
                   ` : ''}
 
-                  <!-- ACTION BUTTON BAR (COMPACT & SLIM) -->
-                  <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="w-full py-2 px-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer shrink-0 border border-blue-400/30">
-                    <i class="fa-solid fa-eye text-amber-300 text-xs" id="toggle-sol-icon"></i>
-                    <span id="toggle-sol-text">${isClil ? 'Show Step-by-Step Solution' : 'Buka Cara Penyelesaian'}</span>
-                  </button>
+                  <!-- ACTION BUTTON BAR (COMPACT & CENTERED) -->
+                  <div class="flex items-center justify-center pt-1 shrink-0">
+                    <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="px-5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-md active:scale-95 transition inline-flex items-center gap-2 cursor-pointer border border-blue-400/30">
+                      <i class="fa-solid fa-eye text-amber-300 text-xs" id="toggle-sol-icon"></i>
+                      <span id="toggle-sol-text">${isClil ? 'Show Solution' : 'Buka Pembahasan'}</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -4437,7 +4439,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         probCol.className = "lg:col-span-5 flex flex-col gap-3 min-h-0";
         solCol.className = "lg:col-span-7 flex flex-col min-h-0";
         if (icon) icon.className = "fa-solid fa-eye-slash";
-        if (text) text.innerText = isClil ? "Hide Step-by-Step Solution" : "Tutup Cara Penyelesaian";
+        if (text) text.innerText = isClil ? "Hide Solution" : "Tutup Pembahasan";
         if (solBox) renderMath(solBox);
       } else {
         // Collapse back to centered full-width card (zero wasted space!)
@@ -4445,7 +4447,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         probCol.className = "w-full max-w-3xl mx-auto flex flex-col gap-3";
         solCol.className = "hidden w-full flex-col min-h-0";
         if (icon) icon.className = "fa-solid fa-eye";
-        if (text) text.innerText = isClil ? "Show Step-by-Step Solution" : "Buka Cara Penyelesaian";
+        if (text) text.innerText = isClil ? "Show Solution" : "Buka Pembahasan";
       }
     }
 
