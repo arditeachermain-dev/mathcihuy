@@ -2891,9 +2891,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     // tiap kartu menyebutkan judul serta sub-topiknya.
     // ---------------------------------------------------------------
     const PICKER_ACCENTS = {
-      wajib: [['#34d399', '52,211,153'], ['#60a5fa', '96,165,250'], ['#fbbf24', '251,191,36']],
-      minat: [['#38bdf8', '56,189,248'], ['#a78bfa', '167,139,250'], ['#fb7185', '251,113,133'], ['#34d399', '52,211,153']],
-      clil:  [['#c084fc', '192,132,252']]
+      wajib: [['#2563eb', '37,99,235'], ['#f59e0b', '245,158,11'], ['#2563eb', '37,99,235']],
+      minat: [['#2563eb', '37,99,235'], ['#f59e0b', '245,158,11'], ['#2563eb', '37,99,235'], ['#f59e0b', '245,158,11']],
+      clil:  [['#2563eb', '37,99,235']]
     };
     let pickerBabFilter = 'all';
     let pickerCollapsed = null;   // Set berisi BAB yang sedang dilipat
@@ -3016,7 +3016,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         [['wajib', 'Wajib', db.tka_wajib], ['minat', 'Peminatan', db.tka_minat], ['clil', 'CLIL', db.tka_clil]]
           .concat(db.tka_custom ? [['custom', 'Racikan', db.tka_custom]] : [])
           .forEach(([k, lbl, src]) => {
-            streams.appendChild(pickerChip(lbl + ' (' + Object.keys(src).length + ')', tkaSubj === k, null, null,
+            streams.appendChild(pickerChip(lbl, tkaSubj === k, null, null,
               () => { toggleTkaSubj(k); openMeetingPicker(); }));
           });
       }
@@ -3111,7 +3111,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <div class="flex items-center gap-1.5 shrink-0 font-mono text-[10px]">
                 ${asesmen ? '<span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">UH</span>' : ''}
                 ${it.aktif ? '<span class="px-1.5 py-0.2 rounded bg-blue-500/30 text-blue-200 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Buka</span>' : 
-                 (it.selesai ? '<i class="fa-solid fa-circle-check text-amber-400 text-xs"></i>' : '<span class="text-slate-500">13S</span>')}
+                 (it.selesai ? '<i class="fa-solid fa-circle-check text-amber-400 text-xs"></i>' : '')}
               </div>
             `;
             c.onclick = () => { it.pilih(); closeMeetingPicker(); renderAppView(); };
