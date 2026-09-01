@@ -4798,7 +4798,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
       if (window._collabActiveLevel === undefined) window._collabActiveLevel = 0;
 
-      // Method Dropdown Options (Sleek, Space-Efficient, and Fully Comprehensive)
+      // Method Dropdown Options
       const dropdownOptionsHtml = keys.map(k => {
         const item = PEDAGOGY_METHODS[k];
         if (!item) return '';
@@ -4908,8 +4908,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       return `
         <div class="h-full min-h-0 flex flex-col justify-between gap-3 p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl overflow-hidden">
           
-          <!-- TOP HEADER BAR (COMPACT BADGE + SLEEK DROPDOWN SELECTOR) -->
-          <div class="flex items-center justify-between gap-3 border-b border-blue-900/80 pb-2.5 shrink-0">
+          <!-- TOP HEADER BAR: BADGE + TITLE + PANDUAN GURU BUTTON + METHOD DROPDOWN -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-blue-900/80 pb-2.5 shrink-0">
             <div class="flex items-center gap-2.5 min-w-0 flex-1">
               <span class="px-2.5 py-1 bg-blue-600/20 text-blue-300 border border-blue-500/40 text-xs font-bold rounded-xl shadow-sm flex items-center gap-1.5 shrink-0">
                 <i class="${ped.icon} text-amber-400"></i> ${badge}
@@ -4917,11 +4917,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <h3 class="text-xs md:text-sm font-black text-white tracking-wide truncate">${title}</h3>
             </div>
 
-            <!-- COMPACT SLEEK DROPDOWN SELECTOR -->
-            <div class="flex items-center gap-1.5 shrink-0">
-              <label for="pedagogy-select" class="text-[11px] font-mono font-bold text-amber-400 hidden sm:inline">
-                <i class="fa-solid fa-sliders mr-1 text-[10px]"></i>Metode:
-              </label>
+            <!-- ACTION GROUP: PANDUAN GURU POPOVER BUTTON + METHOD SELECTOR -->
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="const d = document.getElementById('slide-teacher-drawer'); if(d) d.classList.toggle('hidden');" class="px-3 py-1.5 bg-[#081324] hover:bg-amber-500/20 text-amber-300 hover:text-amber-200 border border-amber-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+                <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
+                <span>Panduan Guru</span>
+              </button>
+              
               <div class="relative">
                 <select id="pedagogy-select" onchange="switchSlidePedagogy(this.value)" class="appearance-none bg-[#060D1A] hover:bg-[#081324] text-white font-bold text-xs pl-3 pr-8 py-1.5 rounded-xl border border-blue-900/80 focus:border-amber-400 focus:outline-none shadow-sm cursor-pointer transition">
                   ${dropdownOptionsHtml}
@@ -4933,15 +4935,35 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
           </div>
 
-          <!-- MAIN 2-COLUMN BALANCED WORKSPACE (SIDE-BY-SIDE 7:5 WITH ZERO COLLISION) -->
+          <!-- COLLAPSIBLE TEACHER FACILITATION DRAWER (CLEAN, ELEGANT, & PRIVACY-FIRST) -->
+          <div id="slide-teacher-drawer" class="hidden p-3.5 bg-[#060D1A] rounded-2xl border border-amber-500/40 shadow-2xl space-y-2 shrink-0 transition-all">
+            <div class="flex items-center justify-between border-b border-blue-900/70 pb-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-md bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-lightbulb"></i>
+                </span>
+                <span class="text-xs font-bold text-amber-300 font-mono uppercase tracking-wide">
+                  Panduan Fasilitasi Guru (${ped.name})
+                </span>
+              </div>
+              <button onclick="document.getElementById('slide-teacher-drawer').classList.add('hidden')" class="text-[10px] text-slate-400 hover:text-white px-2 py-0.5 rounded-md bg-slate-900 border border-slate-700 cursor-pointer">
+                ✕ Tutup
+              </button>
+            </div>
+            <p class="text-xs text-slate-200 leading-relaxed font-medium">
+              💡 <strong>Petunjuk Guru:</strong> ${cleanTip}
+            </p>
+          </div>
+
+          <!-- MAIN 2-COLUMN BALANCED WORKSPACE (100% SPACIOUS & ZOOM-FRIENDLY) -->
           <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 flex-1 min-h-0 items-stretch overflow-y-auto">
             
-            <!-- LEFT COLUMN: PROBLEM ARENA + INTEGRATED TEACHER TIPS (7/12) -->
-            <div class="md:col-span-7 p-4 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3 min-h-0">
+            <!-- LEFT COLUMN: PROBLEM ARENA (7/12) — 100% CLEAN FOR PROJECTOR -->
+            <div class="md:col-span-7 p-4 md:p-5 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3 min-h-0">
               
-              <div class="space-y-2.5">
-                <div class="flex items-center justify-between border-b border-blue-900/60 pb-1.5">
-                  <span class="text-xs font-bold text-amber-300 font-mono flex items-center gap-1.5">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
+                  <span class="text-xs md:text-sm font-bold text-amber-300 font-mono flex items-center gap-1.5">
                     <i class="fa-solid fa-pen-to-square text-amber-400"></i> ${activeLabel}
                   </span>
                   <!-- LEVEL SWITCHER TABS -->
@@ -4950,24 +4972,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </div>
                 </div>
 
-                <div class="text-xs md:text-sm font-semibold text-white leading-relaxed">
+                <div class="text-xs md:text-sm lg:text-base font-semibold text-white leading-relaxed">
                   ${cleanActiveQ}
                 </div>
               </div>
 
-              <!-- INTEGRATED TEACHER FACILITATION CALLOUT (BLUE & GOLD HIGHLIGHT, ZERO GREEN) -->
-              <div class="p-3 bg-[#050B14] rounded-xl border border-amber-500/40 shadow-inner space-y-1 shrink-0">
-                <div class="flex items-center justify-between">
-                  <span class="text-[11px] font-bold text-amber-300 font-mono flex items-center gap-1.5 uppercase">
-                    <i class="fa-solid fa-chalkboard-user text-amber-400"></i> Tips Fasilitasi Guru:
-                  </span>
-                  <span class="text-[10px] font-mono text-amber-300 font-bold bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30">
-                    ${taskCfg.hint}
-                  </span>
+              <!-- CLEAN STUDENT COLLABORATIVE HINT PILL -->
+              <div class="p-2.5 bg-[#050B14] rounded-xl border border-blue-900/70 flex items-center justify-between text-xs text-slate-300 shrink-0">
+                <div class="flex items-center gap-2 min-w-0 truncate">
+                  <i class="fa-solid fa-comments text-amber-400 text-xs shrink-0"></i>
+                  <span class="text-[11px] text-slate-200 truncate">${taskCfg.hint}</span>
                 </div>
-                <p class="text-[11px] text-slate-200 leading-snug font-medium">
-                  ${cleanTip}
-                </p>
+                <span class="text-[10px] font-mono text-amber-300 font-bold bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30 shrink-0 ml-2">1 Spidol Bergantian</span>
               </div>
 
             </div>
