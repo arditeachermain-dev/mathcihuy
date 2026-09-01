@@ -3021,20 +3021,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           });
       }
 
-      // ---- saringan cepat per BAB ----
-      babBar.innerHTML = '';
-      if (groups.length > 1) {
-        babBar.appendChild(pickerChip('Semua BAB', pickerBabFilter === 'all', null, null,
-          () => { pickerBabFilter = 'all'; renderMeetingPicker(document.getElementById('picker-search').value); }));
-        groups.forEach(g => {
-          babBar.appendChild(pickerChip(g.label + ' \u00b7 ' + g.items.length, pickerBabFilter === g.key, g.warna, g.rgb,
-            () => {
-              pickerBabFilter = (pickerBabFilter === g.key) ? 'all' : g.key;
-              if (pickerCollapsed) pickerCollapsed.delete(g.key);
-              renderMeetingPicker(document.getElementById('picker-search').value);
-            }));
-        });
-      }
+      // ---- saringan cepat per BAB dihilangkan agar tampilan langsung ke daftar bab ----
+      if (babBar) babBar.innerHTML = '';
+      pickerBabFilter = 'all';
 
       // ---- saring menurut pencarian ----
       const q = (filter || '').toLowerCase().trim();
