@@ -45,24 +45,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Dari kota A ke B ada 4 jalur bus, dan dari B ke C ada 3 jalur bus. Seseorang bepergian dari A ke C melalui B, lalu kembali pulang ke A melalui B tanpa menggunakan bus yang sama pada setiap lintasan. Berapa banyak variasi rute perjalanan pergi-pulang?",
-          "solution": "Langkah 1: Menggunakan rumus Aturan Perkalian Aktivitas Berseri, tentukan rute berangkat dari A ke C: $4 \\times 3 = 12$ rute.\nLangkah 2: Tentukan rute pulang dari C ke A dengan syarat tidak menggunakan jalur yang sama: $(3 - 1) \\times (4 - 1) = 2 \\times 3 = 6$ rute.\nLangkah 3: Menggunakan rumus Aturan Perkalian Aktivitas Berseri untuk menggabungkan perjalanan: $12 \\times 6 = 72$ rute.\nKesimpulan: Banyak variasi rute perjalanan pergi-pulang adalah 72 rute."
+          "problem": "Seorang siswa memiliki 3 kemeja putih, 4 kemeja batik, dan 2 kemeja flanel. Jika ia ingin mengenakan satu kemeja ke sekolah, berapa banyak pilihan kemeja yang dapat ia gunakan?",
+          "solution": "Langkah 1: Karena pemilihan kemeja merupakan pilihan tunggal yang saling lepas (hanya memilih 1 kemeja), berlaku aturan penjumlahan.\nLangkah 2: Total pilihan $= n_1 + n_2 + n_3 = 3 + 4 + 2 = 9$ pilihan.\nKesimpulan: Terdapat $9$ pilihan kemeja."
         },
         {
-          "problem": "Dari angka {1, 2, 3, 4, 5, 6, 7} akan dibentuk bilangan genap 3 angka berbeda. Tentukan banyaknya bilangan genap yang dapat disusun!",
-          "solution": "Langkah 1: Menggunakan rumus Pencacahan Bilangan dengan Digit Terbatas, tentukan slot satuan (harus genap {2, 4, 6}) $\\implies 3$ pilihan.\nLangkah 2: Menggunakan rumus Metode Pengisian Tempat Berurutan, isi digit ratusan dari sisa 6 angka $\\implies 6$ pilihan.\nLangkah 3: Isi digit puluhan dari sisa 5 angka $\\implies 5$ pilihan.\nLangkah 4: Total susunan $= 6 \\times 5 \\times 3 = 90$ bilangan.\nKesimpulan: Banyaknya bilangan genap 3 angka berbeda yang dapat disusun adalah 90 bilangan."
+          "problem": "Kota A dan B dihubungkan oleh 4 rute bus, sedangkan kota B dan C dihubungkan oleh 3 rute kereta. Berapa banyak rute perjalanan berbeda dari kota A ke kota C melalui B?",
+          "solution": "Langkah 1: Perjalanan dari A ke C melalui B adalah kegiatan berseri (A ke B, dilanjutkan B ke C), maka berlaku aturan perkalian.\nLangkah 2: Total rute $= n_{AB} \\times n_{BC} = 4 \\times 3 = 12$ rute perjalanan.\nKesimpulan: Terdapat $12$ rute perjalanan berbeda dari kota A ke kota C."
         },
         {
-          "problem": "Dari himpunan angka {1, 2, 3, 4, 5, 6, 7} disusun bilangan ribuan bernilai antara 2.000 dan 6.000 tanpa angka berulang. Tentukan banyaknya bilangan yang dapat terbentuk!",
-          "solution": "Langkah 1: Menggunakan rumus Pencacahan Bilangan dengan Digit Terbatas, digit ribuan {2, 3, 4, 5} $\\implies 4$ pilihan.\nLangkah 2: Menggunakan rumus Metode Pengisian Tempat Berurutan, sisa 3 slot (ratusan, puluhan, satuan) dipilih dari sisa 6 angka: $6 \\times 5 \\times 4 = 120$ cara.\nLangkah 3: Total bilangan $= 4 \\times 120 = 480$ bilangan.\nKesimpulan: Banyak bilangan ribuan antara 2.000 dan 6.000 tanpa angka berulang adalah 480 bilangan."
+          "problem": "Dari angka-angka 1, 2, 3, 5, 7, 8 akan disusun bilangan ratusan ganjil tanpa ada angka yang berulang. Tentukan banyak bilangan yang dapat dibentuk!",
+          "solution": "Langkah 1: Sediakan 3 slot (Ratusan, Puluhan, Satuan).\nLangkah 2: Syarat bilangan ganjil ditentukan oleh angka satuan. Pilihan satuan ganjil dari himpunan $\\{1, 3, 5, 7\\}$ ada 4 angka (Slot Satuan = 4).\nLangkah 3: Total angka tersedia = 6. Karena tidak boleh berulang, setelah 1 angka dipakai di satuan, sisa 5 angka untuk slot Ratusan (Slot Ratusan = 5).\nLangkah 4: Sisa 4 angka untuk slot Puluhan (Slot Puluhan = 4).\nLangkah 5: Total bilangan $= 5 \\times 4 \\times 4 = 80$ bilangan.\nKesimpulan: Terdapat $80$ bilangan ratusan ganjil tanpa angka berulang."
         },
         {
-          "problem": "Dari angka {0, 1, 2, 3, 4, 5, 6} akan disusun bilangan ganjil 4 angka bernilai lebih dari 3.000 tanpa ada angka berulang. Tentukan banyaknya bilangan tersebut (Standar UTBK)!",
-          "solution": "Langkah 1: Perhatikan syarat ribuan {3, 4, 5, 6} dan satuan ganjil {1, 3, 5} beririsan pada 3 dan 5. Menggunakan rumus Aturan Penjumlahan Kejadian Saling Lepas, bagi menjadi 2 kasus.\nLangkah 2 (Kasus 1: Ribuan ganjil {3, 5}): Ribuan $= 2$, Satuan $= 2$, Ratusan $= 5$, Puluhan $= 4 \\implies 2 \\times 5 \\times 4 \\times 2 = 80$ bilangan.\nLangkah 3 (Kasus 2: Ribuan genap {4, 6}): Ribuan $= 2$, Satuan $= 3$, Ratusan $= 5$, Puluhan $= 4 \\implies 2 \\times 5 \\times 4 \\times 3 = 120$ bilangan.\nLangkah 4: Total bilangan $= 80 + 120 = 200$ bilangan.\nKesimpulan: Banyaknya bilangan ganjil 4 angka lebih dari 3.000 tanpa angka berulang adalah 200 bilangan."
+          "problem": "Tentukan banyak bilangan bernilai antara 300 dan 700 yang dapat disusun dari angka-angka 2, 3, 4, 5, 6, 7, 8 tanpa ada angka berulang!",
+          "solution": "Langkah 1: Bilangan bernilai antara 300 dan 700 adalah bilangan 3 digit (ratusan) dengan angka ratusan bernilai 3, 4, 5, atau 6.\nLangkah 2: Slot Ratusan memiliki 4 pilihan angka $\\{3, 4, 5, 6\\}$.\nLangkah 3: Dari total 7 angka yang tersedia, 1 angka telah digunakan di ratusan, sehingga tersisa 6 pilihan untuk slot Puluhan.\nLangkah 4: Tersisa 5 pilihan untuk slot Satuan.\nLangkah 5: Total susunan $= 4 \\times 6 \\times 5 = 120$ bilangan.\nKesimpulan: Terdapat $120$ bilangan yang memenuhi kriteria."
         },
         {
-          "problem": "Sebuah PIN keamanan terdiri atas 2 huruf vokal berbeda diikuti 2 angka berbeda dari {0, 1, 2, 3, 4, 5}. Tentukan banyaknya variasi PIN yang memuat sekurang-kurangnya satu angka prima!",
-          "solution": "Langkah 1: Menggunakan rumus Metode Pengisian Tempat Berurutan, susunan 2 huruf vokal dari {A, I, U, E, O} $= 5 \\times 4 = 20$ cara.\nLangkah 2: Menggunakan rumus Prinsip Komplemen Pencacahan, total susunan 2 angka berbeda $= 6 \\times 5 = 30$ cara.\nLangkah 3: Hitung susunan tanpa angka prima sama sekali (dari bukan prima {0, 1, 4}): $3 \\times 2 = 6$ cara.\nLangkah 4: Susunan angka memuat minimal satu prima $= 30 - 6 = 24$ cara.\nLangkah 5: Total variasi PIN $= 20 \\times 24 = 480$ variasi.\nKesimpulan: Banyaknya PIN yang memuat sekurang-kurangnya satu angka prima adalah 480 variasi."
+          "problem": "Sebuah sistem PIN keamanan gawai terdiri atas 4 digit angka. Agar PIN tidak mudah ditebak, sistem mensyaratkan: digit pertama tidak boleh 0, digit terakhir harus genap, dan tidak boleh ada angka yang sama. Berapa banyak kombinasi PIN yang dapat dibuat?",
+          "solution": "Langkah 1: Angka tersedia $\\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\\}$ (10 angka). Genap $\\{0, 2, 4, 6, 8\\}$.\nLangkah 2: Bagi ke dalam 2 kasus berdasarkan digit terakhir (Satuan):\n- Kasus A: Digit terakhir angka 0 (1 pilihan). Digit pertama bisa $\\{1-9\\}$ (9 pilihan). Digit ke-2 (8 pilihan), Digit ke-3 (7 pilihan). Total $= 9 \\times 8 \\times 7 \\times 1 = 504$.\n- Kasus B: Digit terakhir genap bukan 0 $\\{2, 4, 6, 8\\}$ (4 pilihan). Digit pertama tidak boleh 0 dan tidak boleh sama dengan satuan $\\implies 10 - 2 = 8$ pilihan. Digit ke-2 (8 pilihan), Digit ke-3 (7 pilihan). Total $= 8 \\times 8 \\times 7 \\times 4 = 1.792$.\nLangkah 3: Total kombinasi PIN $= 504 + 1.792 = 2.296$ variasi PIN.\nKesimpulan: Terdapat $2.296$ kombinasi PIN yang memenuhi kriteria keamanan."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan banyak bilangan ganjil 4 angka bernilai lebih dari 3.000 tanpa angka berulang yang dapat disusun dari {0, 1, 2, 3, 4, 5, 6}!",
@@ -112,24 +112,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Hitunglah nilai dari bentuk faktorial berikut: $$\\frac{8!}{5! \\times 3!}$$",
-          "solution": "Langkah 1: Menggunakan rumus Definisi Notasi Faktorial, jabarkan $8! = 8 \\times 7 \\times 6 \\times 5!$.\nLangkah 2: Sederhanakan $5!$ pada pembilang dan penyebut: $\\frac{8 \\times 7 \\times 6}{3!}$.\nLangkah 3: Hitung $3! = 3 \\times 2 \\times 1 = 6$:\n$$\\frac{8 \\times 7 \\times 6}{6} = 8 \\times 7 = 56$$\nKesimpulan: Nilai dari bentuk faktorial tersebut adalah 56."
+          "problem": "Hitung nilai dari bentuk faktorial $\\frac{8!}{5! \\cdot 3!}$!",
+          "solution": "Langkah 1: Jabarkan pembilang: $8! = 8 \\times 7 \\times 6 \\times 5!$.\nLangkah 2: Sederhanakan faktor $5!$: $\\frac{8 \\times 7 \\times 6 \\times 5!}{5! \\times (3 \\times 2 \\times 1)} = \\frac{8 \\times 7 \\times 6}{6}$.\nLangkah 3: Evaluasi: $8 \\times 7 = 56$.\nKesimpulan: Nilai dari bentuk faktorial tersebut adalah $56$."
         },
         {
-          "problem": "Dari 8 calon pengurus OSIS akan dipilih Ketua, Sekretaris, dan Bendahara. Tentukan banyaknya susunan pengurus yang dapat dibentuk!",
-          "solution": "Langkah 1: Karena posisi memiliki jabatan berurutan (urutan diperhatikan), gunakan rumus Permutasi n Unsur Berbeda Diambil r dengan $n = 8$ dan $r = 3$.\nLangkah 2: Susun perhitungan:\n$$P(8, 3) = \\frac{8!}{(8-3)!} = \\frac{8!}{5!} = 8 \\times 7 \\times 6 = 336$$\nKesimpulan: Banyaknya susunan pengurus OSIS yang dapat dibentuk adalah 336 susunan."
+          "problem": "Tentukan nilai dari permutasi $P(7, 3)$!",
+          "solution": "Langkah 1: Gunakan rumus permutasi unsur berbeda: $P(n, r) = \\frac{n!}{(n-r)!}$.\nLangkah 2: $P(7, 3) = \\frac{7!}{(7-3)!} = \\frac{7!}{4!} = 7 \\times 6 \\times 5$.\nLangkah 3: Evaluasi: $7 \\times 30 = 210$.\nKesimpulan: Nilai permutasi $P(7, 3)$ adalah $210$."
         },
         {
-          "problem": "Berapa banyak kata 4 huruf berbeda yang dapat disusun dari huruf-huruf pembentuk kata 'GLOBAL'?",
-          "solution": "Langkah 1: Kata 'GLOBAL' memiliki $n = 6$ huruf berbeda (G, L, O, B, A, L... huruf L berulang dicek, jika unsur berbeda 'GLOBAL' $\\implies$ 6 huruf).\nLangkah 2: Menggunakan rumus Permutasi n Unsur Berbeda Diambil r dengan $n = 6$ dan $r = 4$:\n$$P(6, 4) = \\frac{6!}{(6-4)!} = \\frac{6!}{2!} = 6 \\times 5 \\times 4 \\times 3 = 360$$\nKesimpulan: Banyaknya kata 4 huruf berbeda yang dapat disusun adalah 360 kata."
+          "problem": "Dari 8 pengurus OSIS, akan dipilih 3 orang untuk menduduki jabatan Ketua, Sekretaris, dan Bendahara. Tentukan banyak susunan kepengurusan yang mungkin!",
+          "solution": "Langkah 1: Karena terdapat urutan jabatan struktural (Ketua $\\neq$ Sekretaris $\\neq$ Bendahara), digunakan konsep permutasi $P(8, 3)$.\nLangkah 2: $P(8, 3) = 8 \\times 7 \\times 6 = 336$ susunan.\nKesimpulan: Terdapat $336$ susunan kepengurusan OSIS yang mungkin."
         },
         {
-          "problem": "Terdapat 4 buku Matematika dan 3 buku Fisika berbeda yang akan disusun berjajar di rak buku. Tentukan banyaknya susunan jika semua buku Matematika harus selalu berdampingan!",
-          "solution": "Langkah 1: Kelompokkan 4 buku Matematika menjadi 1 elemen tunggal ($k = 4$).\nLangkah 2: Total elemen yang dipermutasikan adalah 1 kelompok Matematika + 3 buku Fisika $= 4$ elemen.\nLangkah 3: Menggunakan rumus Permutasi Berdampingan Unsur Berdampingan:\n$$\\text{Banyak Susunan} = 4! \\times 4! = 24 \\times 24 = 576$$\nKesimpulan: Banyaknya susunan buku dengan buku Matematika berdampingan adalah 576 susunan."
+          "problem": "Tentukan nilai bilangan bulat $n$ yang memenuhi persamaan $P(n, 2) = 72$!",
+          "solution": "Langkah 1: Jabarkan rumus permutasi: $P(n, 2) = \\frac{n!}{(n-2)!} = n(n - 1) = 72$.\nLangkah 2: Bentuk persamaan kuadrat: $n^2 - n - 72 = 0$.\nLangkah 3: Faktorkan: $(n - 9)(n + 8) = 0$.\nLangkah 4: Karena $n \\ge 2$ dan harus positif, maka nilai yang memenuhi adalah $n = 9$.\nKesimpulan: Nilai $n$ yang memenuhi adalah $9$."
         },
         {
-          "problem": "7 orang siswa duduk berjajar pada 7 kursi. Jika 2 siswa tertentu (Ahmad dan Bilqis) menolak untuk duduk berdampingan, tentukan banyaknya cara susunan duduk mereka (Standar UTBK)!",
-          "solution": "Langkah 1: Menggunakan rumus Permutasi Seluruh Unsur Berbeda, total seluruh kemungkinan duduk tanpa syarat: $P(7, 7) = 7! = 5.040$ cara.\nLangkah 2: Menggunakan rumus Permutasi Berdampingan Unsur Berdampingan, hitung banyak cara mereka duduk berdampingan: $(7 - 2 + 1)! \\times 2! = 6! \\times 2 = 720 \\times 2 = 1.440$ cara.\nLangkah 3: Kurangkan total dengan komplemen:\n$$\\text{Banyak Cara Tidak Berdampingan} = 5.040 - 1.440 = 3.600$$\nKesimpulan: Banyaknya cara susunan duduk di mana Ahmad dan Bilqis tidak berdampingan adalah 3.600 cara."
+          "problem": "Sebuah rak buku akan diisi oleh 4 buku Matematika berbeda dan 3 buku Fisika berbeda. Tentukan banyak cara menyusun buku tersebut di rak jika semua buku sejenis harus selalu diletakkan berdampingan!",
+          "solution": "Langkah 1: Kelompokkan buku sejenis menjadi 2 blok elemen: Blok Matematika dan Blok Fisika.\nLangkah 2: Susun 2 blok elemen: $2! = 2$ cara.\nLangkah 3: Susun 4 buku di dalam Blok Matematika: $4! = 4 \\times 3 \\times 2 \\times 1 = 24$ cara.\nLangkah 4: Susun 3 buku di dalam Blok Fisika: $3! = 3 \\times 2 \\times 1 = 6$ cara.\nLangkah 5: Total susunan $= 2! \\times 4! \\times 3! = 2 \\times 24 \\times 6 = 288$ susunan.\nKesimpulan: Terdapat $288$ susunan penataan buku yang mungkin."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan nilai $n$ yang memenuhi persamaan permutasi $P(n, 2) = 72$ dan buktikan kebenarannya!",
@@ -179,24 +179,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan banyaknya susunan kata berbeda yang dapat dibentuk dari huruf-huruf pada kata 'MATEMATIKA'!",
-          "solution": "Langkah 1: Identifikasi total huruf $n = 10$. Frekuensi huruf sama: M = 2, A = 3, T = 2, E = 1, I = 1, K = 1.\nLangkah 2: Menggunakan rumus Permutasi dengan Unsur yang Sama:\n$$P = \\frac{10!}{2! \\times 3! \\times 2!} = \\frac{3.628.800}{2 \\times 6 \\times 2} = \\frac{3.628.800}{24} = 151.200$$\nKesimpulan: Banyak susunan kata berbeda yang dapat dibentuk adalah 151.200 kata."
+          "problem": "Tentukan banyak susunan kata berbeda yang dapat dibentuk dari seluruh huruf penyusun kata 'MATEMATIKA'!",
+          "solution": "Langkah 1: Total huruf $n = 10$.\nLangkah 2: Identifikasi huruf yang berulang: huruf M ada 2 ($k_1=2$), huruf A ada 3 ($k_2=3$), huruf T ada 2 ($k_3=2$), huruf E (1), I (1), K (1).\nLangkah 3: Rumus permutasi unsur sama: $P = \\frac{n!}{k_1! \\cdot k_2! \\cdot k_3!} = \\frac{10!}{2! \\cdot 3! \\cdot 2!}$.\nLangkah 4: $P = \\frac{3.628.800}{2 \\times 6 \\times 2} = \\frac{3.628.800}{24} = 151.200$ susunan kata.\nKesimpulan: Banyak susunan kata berbeda yang dapat dibentuk adalah $151.200$ kata."
         },
         {
-          "problem": "6 orang delegasi rapat duduk mengelilingi meja bundar. Tentukan banyaknya susunan posisi duduk mereka!",
-          "solution": "Langkah 1: Karena posisi duduk melingkar, gunakan rumus Permutasi Siklis Melingkar dengan $n = 6$.\nLangkah 2: Hitung nilai faktorial:\n$$P_{\\text{siklis}} = (6 - 1)! = 5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$$\nKesimpulan: Banyaknya susunan posisi duduk mengelilingi meja bundar adalah 120 susunan."
+          "problem": "Sebanyak 6 orang delegasi rapat duduk melingkari meja bundar. Tentukan banyak susunan posisi duduk yang mungkin!",
+          "solution": "Langkah 1: Susunan posisi duduk melingkar merupakan permutasi siklis: $P_{\\text{siklis}} = (n - 1)!$.\nLangkah 2: Dengan $n = 6$, diperoleh $P_{\\text{siklis}} = (6 - 1)! = 5!$.\nLangkah 3: $5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$ susunan.\nKesimpulan: Terdapat $120$ susunan posisi duduk melingkar."
         },
         {
-          "problem": "5 manik-manik berbeda warna akan dirangkai menjadi sebuah gelang melingkar. Berapa banyak variasi gelang yang dapat dibuat?",
-          "solution": "Langkah 1: Karena gelang dapat dibalik (tampak depan dan belakang simetris), gunakan rumus Permutasi Siklis Tiga Dimensi Gelang Kalung dengan $n = 5$.\nLangkah 2: Hitung susunan:\n$$P_{\\text{gelang}} = \\frac{(5 - 1)!}{2} = \\frac{4!}{2} = \\frac{24}{2} = 12$$\nKesimpulan: Banyaknya variasi gelang yang dapat dibuat adalah 12 variasi."
+          "problem": "Sebanyak 7 orang anggota keluarga duduk mengelilingi meja makan bundar. Jika Ayah dan Ibu harus selalu duduk berdampingan, tentukan banyak posisi duduk yang dapat dibentuk!",
+          "solution": "Langkah 1: Ikat Ayah dan Ibu menjadi 1 unsur gabungan. Jumlah unsur efektif melingkar $= (7 - 2) + 1 = 6$ unsur.\nLangkah 2: Susun 6 unsur mengelilingi meja bundar: $P_{\\text{siklis}} = (6 - 1)! = 5! = 120$ cara.\nLangkah 3: Ayah dan Ibu dapat bertukar posisi duduk: $2! = 2$ cara.\nLangkah 4: Total susunan $= 120 \\times 2 = 240$ posisi duduk.\nKesimpulan: Terdapat $240$ posisi duduk melingkar."
         },
         {
-          "problem": "7 orang delegasi duduk mengelilingi meja bundar. Jika Ketua dan Sekretaris harus selalu duduk berdampingan, tentukan banyaknya cara susunan duduk mereka!",
-          "solution": "Langkah 1: Satukan Ketua dan Sekretaris menjadi 1 elemen ($k = 2$).\nLangkah 2: Total objek siklis menjadi $7 - 2 + 1 = 6$ elemen.\nLangkah 3: Menggunakan rumus Permutasi Siklis dengan Unsur Berdampingan:\n$$P = (6 - 1)! \\times 2! = 5! \\times 2 = 120 \\times 2 = 240$$\nKesimpulan: Banyaknya susunan posisi duduk dengan Ketua dan Sekretaris berdampingan adalah 240 susunan."
+          "problem": "Dari 3 bendera merah yang identik, 2 bendera putih identik, dan 4 bendera biru identik, akan dipasang berjajar pada tiang tali horizontal. Berapa banyak formasi kibaran bendera berbeda yang dapat dibuat?",
+          "solution": "Langkah 1: Total bendera $n = 3 + 2 + 4 = 9$ bendera.\nLangkah 2: Permutasi unsur sama dengan $k_1 = 3, k_2 = 2, k_3 = 4$.\nLangkah 3: $P = \\frac{9!}{3! \\cdot 2! \\cdot 4!} = \\frac{9 \\times 8 \\times 7 \\times 6 \\times 5 \\times 4!}{(6) \\times (2) \\times 4!} = \\frac{15.120}{12} = 1.260$ formasi.\nKesimpulan: Terdapat $1.260$ formasi kibaran bendera berbeda."
         },
         {
-          "problem": "8 orang siswa terdiri dari 4 putra dan 4 putri duduk mengelilingi meja bundar. Tentukan banyaknya susunan duduk jika putra dan putri harus duduk berselang-seling (Standar UTBK)!",
-          "solution": "Langkah 1: Dudukkan 4 orang putra terlebih dahulu melingkar menggunakan rumus Permutasi Siklis Melingkar: $(4 - 1)! = 3! = 6$ cara.\nLangkah 2: Di antara 4 putra terbentuk 4 posisi selang-seling untuk putri. Dudukkan 4 putri pada 4 posisi linier tersebut: $P(4, 4) = 4! = 24$ cara.\nLangkah 3: Menggunakan aturan perkalian berseri:\n$$\\text{Total Susunan} = 6 \\times 24 = 144$$\nKesimpulan: Banyaknya susunan duduk berselang-seling adalah 144 cara."
+          "problem": "Sebuah gelang perhiasan akan dibuat dari 6 butir manik-manik berwarna berbeda. Berapa banyak pola susunan manik-manik pada gelang yang dapat dirangkai?",
+          "solution": "Langkah 1: Gelang merupakan permutasi siklis 3D yang dapat dibolak-balik (efek cermin simetri bolak-balik).\nLangkah 2: Rumus permutasi gelang manik-manik: $P = \\frac{(n - 1)!}{2}$.\nLangkah 3: Dengan $n = 6$: $P = \\frac{(6 - 1)!}{2} = \\frac{5!}{2} = \\frac{120}{2} = 60$ pola gelang.\nKesimpulan: Terdapat $60$ pola untaian gelang manik-manik yang unik."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan banyak susunan huruf dari kata 'STATISTIKA' jika semua huruf T harus berdampingan!",
@@ -246,24 +246,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Dari 10 orang anggota tim bulu tangkis akan dipilih 3 orang untuk mengikuti turnamen. Tentukan banyaknya cara pemilihan pemain tersebut!",
-          "solution": "Langkah 1: Karena pemilihan pemain tidak memperhatikan urutan jabatan, gunakan rumus Rumus Kombinasi Dasar dengan $n = 10$ dan $r = 3$.\nLangkah 2: Hitung kombinasi:\n$$C(10, 3) = \\frac{10!}{3!(10-3)!} = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1} = 120$$\nKesimpulan: Banyaknya cara pemilihan pemain adalah 120 cara."
+          "problem": "Hitung nilai kombinasi $C(9, 3)$!",
+          "solution": "Langkah 1: Gunakan rumus kombinasi: $C(n, r) = \\frac{n!}{r!(n-r)!}$.\nLangkah 2: $C(9, 3) = \\frac{9!}{3!(9-3)!} = \\frac{9 \\times 8 \\times 7 \\times 6!}{(3 \\times 2 \\times 1) \\times 6!} = \\frac{504}{6} = 84$.\nKesimpulan: Nilai kombinasi $C(9, 3)$ adalah $84$."
         },
         {
-          "problem": "Dari sebuah kotak berisi 6 bola merah dan 4 bola putih, diambil 3 bola sekaligus secara acak. Berapa banyak cara terambil 2 bola merah dan 1 bola putih?",
-          "solution": "Langkah 1: Menggunakan rumus Aturan Perkalian Pemilihan Subkelompok, ambil 2 merah dari 6 merah dan 1 putih dari 4 putih.\nLangkah 2: Hitung masing-masing kombinasi:\n$$C(6, 2) = \\frac{6 \\times 5}{2 \\times 1} = 15$$\n$$C(4, 1) = 4$$\nLangkah 3: Kalikan kedua hasil: $15 \\times 4 = 60$ cara.\nKesimpulan: Banyaknya cara terambil 2 bola merah dan 1 bola putih adalah 60 cara."
+          "problem": "Dari sebuah kelas yang terdiri atas 10 siswa laki-laki dan 8 siswa perempuan, akan dipilih tim cerdas cermat yang beranggotakan 3 laki-laki dan 2 perempuan. Tentukan banyak susunan tim yang dapat dibentuk!",
+          "solution": "Langkah 1: Pemilihan tim tidak memperhatikan urutan jabatan (kombinasi).\nLangkah 2: Memilih 3 laki-laki dari 10: $C(10, 3) = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1} = 120$ cara.\nLangkah 3: Memilih 2 perempuan dari 8: $C(8, 2) = \\frac{8 \\times 7}{2 \\times 1} = 28$ cara.\nLangkah 4: Total tim kombinasi $= C(10, 3) \\times C(8, 2) = 120 \\times 28 = 3.360$ tim.\nKesimpulan: Terdapat $3.360$ susunan tim cerdas cermat yang dapat dibentuk."
         },
         {
-          "problem": "Dari 8 titik pada bidang datar di mana tidak ada 3 titik yang segaris, tentukan banyaknya segitiga berbeda yang dapat dibentuk dari titik-titik tersebut!",
-          "solution": "Langkah 1: Sebuah segitiga membutuhkan 3 titik sudut dari total 8 titik yang tersedia.\nLangkah 2: Menggunakan rumus Rumus Kombinasi Dasar dengan $n = 8$ dan $r = 3$:\n$$C(8, 3) = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$$\nKesimpulan: Banyaknya segitiga yang dapat dibentuk adalah 56 segitiga."
+          "problem": "Dalam suatu pertemuan yang dihadiri oleh 15 orang, setiap peserta saling berjabat tangan satu sama lain tepat satu kali. Berapa banyak jabat tangan yang terjadi?",
+          "solution": "Langkah 1: Satu jabat tangan melibatkan 2 orang tanpa urutan: $C(15, 2)$.\nLangkah 2: $C(15, 2) = \\frac{15 \\times 14}{2 \\times 1} = 15 \\times 7 = 105$ jabat tangan.\nKesimpulan: Banyak jabat tangan yang terjadi adalah $105$ kali."
         },
         {
-          "problem": "Suatu delegasi beranggotakan 4 orang akan dipilih dari 5 siswa putra dan 4 siswa putri. Tentukan banyaknya cara pemilihan jika delegasi harus memuat sekurang-kurangnya 2 siswa putri (Standar UTBK)!",
-          "solution": "Langkah 1: Menggunakan rumus Kombinasi dengan Syarat Minimal Sekurang-kurangnya, bagi menjadi 3 kasus saling lepas:\n- Kasus 1 (2 Putri, 2 Putra): $C(4, 2) \\times C(5, 2) = 6 \\times 10 = 60$\n- Kasus 2 (3 Putri, 1 Putra): $C(4, 3) \\times C(5, 1) = 4 \\times 5 = 20$\n- Kasus 3 (4 Putri, 0 Putra): $C(4, 4) \\times C(5, 0) = 1 \\times 1 = 1$\nLangkah 2: Jumlahkan seluruh kasus: $60 + 20 + 1 = 81$ cara.\nKesimpulan: Banyaknya cara pembentukan delegasi adalah 81 cara."
+          "problem": "Dari 12 soal ujian yang diberikan, siswa wajib mengerjakan 8 soal, dengan syarat soal nomor 1 sampai nomor 4 wajib dikerjakan. Berapa banyak pilihan kombinasi soal yang dapat dipilih siswa?",
+          "solution": "Langkah 1: Karena soal nomor 1, 2, 3, 4 wajib, siswa tinggal memilih sisa soal: $8 - 4 = 4$ soal.\nLangkah 2: Sisa soal yang tersedia untuk dipilih: $12 - 4 = 8$ soal.\nLangkah 3: Banyak pilihan kombinasi $= C(8, 4) = \\frac{8 \\times 7 \\times 6 \\times 5}{4 \\times 3 \\times 2 \\times 1} = 70$ pilihan.\nKesimpulan: Terdapat $70$ pilihan kombinasi paket soal."
         },
         {
-          "problem": "Seorang siswa harus mengerjakan 8 dari 10 soal ujian dengan ketentuan soal nomor 1 sampai 4 wajib dikerjakan. Tentukan banyaknya pilihan soal yang dapat diambil!",
-          "solution": "Langkah 1: Karena soal nomor 1 sampai 4 wajib dikerjakan (4 soal sudah pasti), maka siswa tinggal memilih $8 - 4 = 4$ soal lagi.\nLangkah 2: Soal yang tersisa untuk dipilih adalah $10 - 4 = 6$ soal.\nLangkah 3: Menggunakan rumus Rumus Kombinasi Dasar dengan $n = 6$ dan $r = 4$:\n$$C(6, 4) = C(6, 2) = \\frac{6 \\times 5}{2 \\times 1} = 15$$\nKesimpulan: Banyaknya pilihan soal yang dapat diambil siswa adalah 15 pilihan."
+          "problem": "Sebuah kantong berisi 6 kelereng merah dan 4 kelereng biru. Diambil 4 kelereng sekaligus secara acak. Tentukan banyak cara pengambilan jika sekurang-kurangnya terambil 2 kelereng merah!",
+          "solution": "Langkah 1: 'Sekurang-kurangnya 2 merah' dari 4 pengambilan mencakup 3 kasus:\n- Kasus 1 (2 Merah & 2 Biru): $C(6, 2) \\times C(4, 2) = 15 \\times 6 = 90$ cara.\n- Kasus 2 (3 Merah & 1 Biru): $C(6, 3) \\times C(4, 1) = 20 \\times 4 = 80$ cara.\n- Kasus 3 (4 Merah & 0 Biru): $C(6, 4) \\times C(4, 0) = 15 \\times 1 = 15$ cara.\nLangkah 2: Total kombinasi $= 90 + 80 + 15 = 185$ cara.\nKesimpulan: Terdapat $185$ cara pengambilan kelereng yang memenuhi syarat."
         }
       ],
       "btc": "Kelompok VNPS: Dari 8 titik pada sebuah bidang datar di mana tidak ada 3 titik yang segaris, tentukan banyak segitiga berbeda yang dapat dibentuk!",
@@ -313,24 +313,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Dua buah dadu bermata 6 dilempar bersamaan satu kali. Tentukan peluang muncul mata dadu berjumlah 8!",
-          "solution": "Langkah 1: Ruang sampel pelemparan dua dadu $n(S) = 6 \\times 6 = 36$.\nLangkah 2: Kejadian $A$ muncul jumlah 8: {(2,6), (3,5), (4,4), (5,3), (6,2)} $\\implies n(A) = 5$.\nLangkah 3: Menggunakan rumus Peluang Teoretik Kejadian Klasik:\n$$P(A) = \\frac{n(A)}{n(S)} = \\frac{5}{36}$$\nKesimpulan: Peluang muncul mata dadu berjumlah 8 adalah $\\frac{5}{36}$."
+          "problem": "Sebuah dadu bersisi enam dilempar sekali. Tentukan peluang munculnya mata dadu bilangan prima ganjil!",
+          "solution": "Langkah 1: Ruang sampel dadu $S = \\{1, 2, 3, 4, 5, 6\\} \\implies n(S) = 6$.\nLangkah 2: Kejadian $A$ (prima ganjil) $= \\{3, 5\\} \\implies n(A) = 2$.\nLangkah 3: Peluang $P(A) = \\frac{n(A)}{n(S)} = \\frac{2}{6} = \\frac{1}{3}$.\nKesimpulan: Peluang munculnya mata dadu prima ganjil adalah $\\frac{1}{3}$."
         },
         {
-          "problem": "Tiga keping uang logam dilempar bersama-sama sebanyak 120 kali. Tentukan frekuensi harapan muncul sekurang-kurangnya 2 angka!",
-          "solution": "Langkah 1: Ruang sampel 3 koin $n(S) = 2^3 = 8$.\nLangkah 2: Kejadian $A$ sekurang-kurangnya 2 angka (2 angka atau 3 angka): {(A,A,G), (A,G,A), (G,A,A), (A,A,A)} $\\implies n(A) = 4$.\nLangkah 3: Peluang $P(A) = \\frac{4}{8} = \\frac{1}{2}$.\nLangkah 4: Menggunakan rumus Frekuensi Harapan Suatu Kejadian dengan $n = 120$:\n$$F_h(A) = 120 \\times \\frac{1}{2} = 60 \\text{ kali}$$\nKesimpulan: Frekuensi harapan muncul minimal 2 angka adalah 60 kali."
+          "problem": "Dua keping uang logam dilempar bersamaan sebanyak 120 kali. Tentukan frekuensi harapan munculnya paling sedikit satu sisi angka!",
+          "solution": "Langkah 1: Ruang sampel 2 koin: $S = \\{AA, AG, GA, GG\\} \\implies n(S) = 4$.\nLangkah 2: Kejadian paling sedikit satu angka: $A = \\{AA, AG, GA\\} \\implies n(A) = 3$.\nLangkah 3: Peluang $P(A) = \\frac{3}{4}$.\nLangkah 4: Frekuensi harapan $F_h = n \\times P(A) = 120 \\times \\frac{3}{4} = 90$ kali.\nKesimpulan: Frekuensi harapan muncul paling sedikit satu angka adalah $90$ kali."
         },
         {
-          "problem": "Sebuah kantong berisi 5 kelereng merah dan 3 kelereng biru. Diambil 2 kelereng secara acak sekaligus. Tentukan peluang terambil kedua kelereng berwarna merah!",
-          "solution": "Langkah 1: Total kelereng $N = 8$, diambil $R = 2$. Ruang sampel $n(S) = C(8, 2) = \\frac{8 \\times 7}{2} = 28$.\nLangkah 2: Kejadian $A$ terambil 2 kelereng merah dari 5 kelereng merah: $n(A) = C(5, 2) = \\frac{5 \\times 4}{2} = 10$.\nLangkah 3: Menggunakan rumus Peluang Pengambilan Objek Tanpa Pengembalian:\n$$P(A) = \\frac{10}{28} = \\frac{5}{14}$$\nKesimpulan: Peluang terambil kedua kelereng berwarna merah adalah $\\frac{5}{14}$."
+          "problem": "Dari 1 set kartu bridge lengkap (52 kartu), diambil 1 kartu secara acak. Tentukan peluang terambilnya kartu bergambar Raja (King) atau As!",
+          "solution": "Langkah 1: Total ruang sampel $n(S) = 52$.\nLangkah 2: Jumlah kartu King $= 4$, jumlah kartu As $= 4$. Total kartu yang diharapkan $= 4 + 4 = 8$ kartu.\nLangkah 3: Peluang $P(A) = \\frac{8}{52} = \\frac{2}{13}$.\nKesimpulan: Peluang terambilnya kartu King atau As adalah $\\frac{2}{13}$."
         },
         {
-          "problem": "Dari 1 set kartu bridge (52 kartu) diambil 1 kartu secara acak. Tentukan peluang terambil bukan kartu As!",
-          "solution": "Langkah 1: Jumlah kartu As pada 1 set bridge adalah $n(A) = 4$, dengan $n(S) = 52$.\nLangkah 2: Peluang terambil kartu As adalah $P(A) = \\frac{4}{52} = \\frac{1}{13}$.\nLangkah 3: Menggunakan rumus Peluang Komplemen Kejadian:\n$$P(A') = 1 - P(A) = 1 - \\frac{1}{13} = \\frac{12}{13}$$\nKesimpulan: Peluang terambil bukan kartu As adalah $\\frac{12}{13}$."
+          "problem": "Dalam sebuah kotak terdapat 5 bola merah dan 3 bola putih. Jika diambil 2 bola sekaligus secara acak, tentukan peluang terambilnya 2 bola merah!",
+          "solution": "Langkah 1: Total bola $= 8$. Ruang sampel memilih 2 bola: $n(S) = C(8, 2) = \\frac{8 \\times 7}{2 \\times 1} = 28$.\nLangkah 2: Kejadian $A$ (terambil 2 merah dari 5): $n(A) = C(5, 2) = \\frac{5 \\times 4}{2 \\times 1} = 10$.\nLangkah 3: Peluang $P(A) = \\frac{n(A)}{n(S)} = \\frac{10}{28} = \\frac{5}{14}$.\nKesimpulan: Peluang terambilnya 2 bola merah adalah $\\frac{5}{14}$."
         },
         {
-          "problem": "Dalam sebuah kotak terdapat 4 bola putih dan 6 bola hitam. Diambil 3 bola sekaligus secara acak. Tentukan peluang terambil sekurang-kurangnya 1 bola putih (Standar UTBK)!",
-          "solution": "Langkah 1: Total bola $= 10$. Ruang sampel $n(S) = C(10, 3) = \\frac{10 \\times 9 \\times 8}{6} = 120$.\nLangkah 2: Gunakan prinsip komplemen: kejadian $A'$ adalah terambilnya 0 bola putih (ketiganya bola hitam dari 6 bola hitam).\nLangkah 3: $n(A') = C(6, 3) = \\frac{6 \\times 5 \\times 4}{6} = 20$.\nLangkah 4: Peluang komplemen $P(A') = \\frac{20}{120} = \\frac{1}{6}$.\nLangkah 5: Menggunakan rumus Peluang Komplemen Kejadian:\n$$P(A) = 1 - P(A') = 1 - \\frac{1}{6} = \\frac{5}{6}$$\nKesimpulan: Peluang terambil sekurang-kurangnya 1 bola putih adalah $\\frac{5}{6}$."
+          "problem": "Sebuah pabrik lampu memproduksi bohlam LED dengan tingkat cacat $2\\%$. Jika dalam 1 hari pabrik memproduksi 5.000 bohlam, tentukan estimasi frekuensi harapan bohlam yang berfungsi prima (tidak cacat)!",
+          "solution": "Langkah 1: Peluang lampu prima $P(\\text{Prima}) = 100\\% - 2\\% = 98\\% = 0{,}98$.\nLangkah 2: Frekuensi harapan $F_h = n \\times P(\\text{Prima}) = 5.000 \\times 0{,}98 = 4.900$ unit.\nKesimpulan: Estimasi banyak bohlam yang berfungsi prima adalah $4.900$ unit."
         }
       ],
       "btc": "Kelompok VNPS: Tiga keping uang logam dilempar bersamaan sebanyak 120 kali. Hitung frekuensi harapan munculnya minimal 2 sisi Gambar!",
@@ -380,24 +380,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan nilai dari $\\frac{P(6, 3)}{C(6, 3)}$!",
-          "solution": "Langkah 1: $P(6, 3) = 6 \\times 5 \\times 4 = 120$.\nLangkah 2: $C(6, 3) = \\frac{120}{3!} = \\frac{120}{6} = 20$.\nLangkah 3: $\\frac{120}{20} = 6 = 3!$.\nKesimpulan: Nilai rasio tersebut adalah $6$."
+          "problem": "Tentukan nilai rasio perbandingan dari $\\frac{P(6, 3)}{C(6, 3)}$!",
+          "solution": "Langkah 1: $P(6, 3) = 6 \\times 5 \\times 4 = 120$.\nLangkah 2: $C(6, 3) = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20$.\nLangkah 3: Rasio $= \\frac{120}{20} = 6 = 3!$.\nKesimpulan: Nilai rasio perbandingan adalah $6$."
         },
         {
-          "problem": "Dari himpunan angka {1, 2, 3, 4, 5, 6} disusun bilangan 4 digit tanpa perulangan. Berapa peluang bilangan yang terbentuk bernilai genap?",
-          "solution": "Langkah 1: Total bilangan 4 digit $n(S) = P(6, 4) = 6 \\times 5 \\times 4 \\times 3 = 360$.\nLangkah 2: Bilangan genap (satuan 2, 4, 6 $\\implies 3$ pilihan): $n(A) = 5 \\times 4 \\times 3 \\times 3 = 180$.\nLangkah 3: $P(A) = \\frac{180}{360} = \\frac{1}{2}$.\nKesimpulan: Peluang bilangan bernilai genap adalah $\\frac{1}{2}$."
+          "problem": "Dari himpunan angka $\\{1, 2, 3, 4, 5, 6\\}$ disusun bilangan genap 4 digit tanpa angka berulang. Tentukan banyak bilangan yang dapat dibentuk!",
+          "solution": "Langkah 1: Sediakan 4 slot. Satuan genap $\\{2, 4, 6\\} \\implies 3$ pilihan.\nLangkah 2: Ribuan (sisa 5 angka), Ratusan (sisa 4 angka), Puluhan (sisa 3 angka).\nLangkah 3: Total susunan $= 5 \\times 4 \\times 3 \\times 3 = 180$ bilangan.\nKesimpulan: Terdapat $180$ bilangan genap 4 digit yang dapat dibentuk."
         },
         {
-          "problem": "Tentukan nilai $n$ jika diketahui $C(n, 2) = 28$!",
-          "solution": "Langkah 1: $\\frac{n(n - 1)}{2} = 28 \\implies n(n - 1) = 56$.\nLangkah 2: $n^2 - n - 56 = 0 \\implies (n - 8)(n + 7) = 0$.\nLangkah 3: Karena $n$ bilangan asli, maka $n = 8$.\nKesimpulan: Nilai $n$ adalah $8$."
+          "problem": "Tentukan nilai bilangan bulat positif $n$ yang memenuhi persamaan kombinasi $C(n, 2) = 28$!",
+          "solution": "Langkah 1: $C(n, 2) = \\frac{n(n - 1)}{2} = 28$.\nLangkah 2: $n(n - 1) = 56 \\implies n^2 - n - 56 = 0$.\nLangkah 3: $(n - 8)(n + 7) = 0 \\implies n = 8$ (karena $n > 0$).\nKesimpulan: Nilai $n$ yang memenuhi adalah $8$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Asesmen Sumatif 1 (UH-1 Pencacahan & Peluang Tunggal). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Matriks Uji UH-1, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Hubungan P dan C, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Sebuah kotak berisi 4 bola merah dan 6 bola hijau. Diambil 3 bola sekaligus secara acak. Tentukan peluang terambilnya 1 bola merah dan 2 bola hijau!",
+          "solution": "Langkah 1: Ruang sampel $n(S) = C(10, 3) = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1} = 120$.\nLangkah 2: Kejadian $A$: memilih 1 merah dari 4 ($C(4, 1) = 4$) dan 2 hijau dari 6 ($C(6, 2) = 15$).\nLangkah 3: $n(A) = 4 \\times 15 = 60$.\nLangkah 4: $P(A) = \\frac{n(A)}{n(S)} = \\frac{60}{120} = \\frac{1}{2}$.\nKesimpulan: Peluang terambilnya 1 merah dan 2 hijau adalah $\\frac{1}{2}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Asesmen Sumatif 1 (UH-1 Pencacahan & Peluang Tunggal), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Matriks Uji UH-1.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Hubungan P dan C.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Tujuh orang duduk pada 7 kursi berjajar. Jika 2 orang sahabat karib menolak untuk duduk berdampingan, berapa banyak susunan posisi duduk yang dapat dibentuk?",
+          "solution": "Langkah 1: Total susunan bebas 7 orang $= 7! = 5.040$ cara.\nLangkah 2: Susunan jika 2 sahabat duduk berdampingan: Ikat 2 sahabat jadi 1 unsur $\\implies 6! \\times 2! = 720 \\times 2 = 1.440$ cara.\nLangkah 3: Susunan tidak berdampingan $= 5.040 - 1.440 = 3.600$ cara.\nKesimpulan: Terdapat $3.600$ susunan posisi duduk di mana 2 sahabat tidak berdampingan."
         }
       ],
       "btc": "Kelompok VNPS: Bedah paket 10 soal CBT Sumatif 1 dan buktikan solusi analitisnya bersama tim!",
@@ -446,24 +446,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Pada pelemparan 2 buah dadu, tentukan peluang munculnya jumlah mata dadu sama dengan 5 ATAU jumlah 10!",
-          "solution": "Langkah 1: Jumlah 5: $A = \\{(1,4), (2,3), (3,2), (4,1)\\} \\implies n(A) = 4 \\implies P(A) = \\frac{4}{36}$.\nLangkah 2: Jumlah 10: $B = \\{(4,6), (5,5), (6,4)\\} \\implies n(B) = 3 \\implies P(B) = \\frac{3}{36}$.\nLangkah 3: Karena jumlah dadu tidak mungkin 5 dan 10 sekaligus ($A \\cap B = \\emptyset$), kedua kejadian saling lepas.\nLangkah 4: $P(A \\cup B) = \\frac{4}{36} + \\frac{3}{36} = \\frac{7}{36}$.\nKesimpulan: Peluang muncul jumlah 5 atau 10 adalah $\\frac{7}{36}$."
+          "problem": "Pada pelemparan 2 buah dadu bersamaan, tentukan peluang munculnya jumlah kedua mata dadu sama dengan 5 atau sama dengan 10!",
+          "solution": "Langkah 1: Ruang sampel 2 dadu $n(S) = 6 \\times 6 = 36$.\nLangkah 2: Kejadian $A$ (jumlah 5): $\\{(1,4), (2,3), (3,2), (4,1)\\} \\implies n(A) = 4$.\nLangkah 3: Kejadian $B$ (jumlah 10): $\\{(4,6), (5,5), (6,4)\\} \\implies n(B) = 3$.\nLangkah 4: Karena jumlah 5 dan 10 tidak mungkin terjadi bersamaan ($A \\cap B = \\emptyset$), kedua kejadian saling lepas:\n$P(A \\cup B) = P(A) + P(B) = \\frac{4}{36} + \\frac{3}{36} = \\frac{7}{36}$.\nKesimpulan: Peluang munculnya jumlah 5 atau 10 adalah $\\frac{7}{36}$."
         },
         {
-          "problem": "Dari seperangkat kartu bridge standar (52 kartu), diambil 1 kartu secara acak. Tentukan peluang terambil kartu bernomor prima ({2, 3, 5, 7}) ATAU kartu berwarna merah!",
-          "solution": "Langkah 1: Kartu prima ada 4 jenis $\\times 4 = 16$ kartu $\\implies P(A) = \\frac{16}{52}$.\nLangkah 2: Kartu merah ada 26 kartu $\\implies P(B) = \\frac{26}{52}$.\nLangkah 3: Irisan kartu prima merah ada 4 jenis $\\times 2 = 8$ kartu $\\implies P(A \\cap B) = \\frac{8}{52}$.\nLangkah 4: $P(A \\cup B) = \\frac{16}{52} + \\frac{26}{52} - \\frac{8}{52} = \\frac{34}{52} = \\frac{17}{26}$.\nKesimpulan: Peluang terambil kartu prima atau merah adalah $\\frac{17}{26}$."
+          "problem": "Dari 1 set kartu bridge (52 kartu), diambil 1 kartu acak. Tentukan peluang terambilnya kartu bergambar Hati (Heart) atau kartu bernomor As!",
+          "solution": "Langkah 1: Total kartu $n(S) = 52$.\nLangkah 2: Kartu Hati $n(H) = 13$, kartu As $n(A) = 4$.\nLangkah 3: Terdapat 1 kartu As Hati yang merupakan irisan ($n(H \\cap A) = 1$). Kejadian **tidak saling lepas**.\nLangkah 4: $P(H \\cup A) = P(H) + P(A) - P(H \\cap A) = \\frac{13}{52} + \\frac{4}{52} - \\frac{1}{52} = \\frac{16}{52} = \\frac{4}{13}$.\nKesimpulan: Peluang terambilnya kartu Hati atau As adalah $\\frac{4}{13}$."
         },
         {
-          "problem": "Dari 36 siswa kelas XII, 20 gemar basket, 18 gemar futsal, dan 8 gemar keduanya. Jika dipilih 1 siswa secara acak, berapa peluang siswa tersebut gemar basket ATAU futsal?",
-          "solution": "Langkah 1: $P(\\text{Basket}) = \\frac{20}{36}, P(\\text{Futsal}) = \\frac{18}{36}, P(\\text{Keduanya}) = \\frac{8}{36}$.\nLangkah 2: $P(B \\cup F) = \\frac{20}{36} + \\frac{18}{36} - \\frac{8}{36} = \\frac{30}{36} = \\frac{5}{6}$.\nKesimpulan: Peluang siswa gemar basket atau futsal adalah $\\frac{5}{6}$."
+          "problem": "Dari 36 siswa kelas XII, 20 gemar basket, 18 gemar futsal, dan 8 gemar kedua-duanya. Jika dipilih 1 siswa secara acak, tentukan peluang terpilihnya siswa yang gemar basket atau futsal!",
+          "solution": "Langkah 1: $n(S) = 36, n(B) = 20, n(F) = 18, n(B \\cap F) = 8$.\nLangkah 2: $n(B \\cup F) = n(B) + n(F) - n(B \\cap F) = 20 + 18 - 8 = 30$ siswa.\nLangkah 3: Peluang $P(B \\cup F) = \\frac{30}{36} = \\frac{5}{6}$.\nKesimpulan: Peluang terpilih siswa gemar basket atau futsal adalah $\\frac{5}{6}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Peluang Kejadian Saling Lepas & Tidak Saling Lepas. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Kejadian Saling Lepas, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Kejadian Tidak Saling Lepas, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Sebuah kartu diambil dari kotak berisi kartu bernomor 1 sampai 30. Tentukan peluang terambilnya kartu bernomor kelipatan 4 atau kelipatan 6!",
+          "solution": "Langkah 1: $n(S) = 30$.\nLangkah 2: Kelipatan 4: $\\{4, 8, 12, 16, 20, 24, 28\\} \\implies n(A) = 7$.\nLangkah 3: Kelipatan 6: $\\{6, 12, 18, 24, 30\\} \\implies n(B) = 5$.\nLangkah 4: Kelipatan KPK(4,6) = 12: $\\{12, 24\\} \\implies n(A \\cap B) = 2$.\nLangkah 5: $P(A \\cup B) = \\frac{7}{30} + \\frac{5}{30} - \\frac{2}{30} = \\frac{10}{30} = \\frac{1}{3}$.\nKesimpulan: Peluang terambil kartu kelipatan 4 atau 6 adalah $\\frac{1}{3}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Peluang Kejadian Saling Lepas & Tidak Saling Lepas, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Kejadian Saling Lepas.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Kejadian Tidak Saling Lepas.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Dalam suatu survei kepuasan pelanggan terhadap 100 orang, peluang pelanggan puas terhadap kualitas produk adalah 0,70, puas terhadap layanan purna jual adalah 0,55, dan puas terhadap keduanya adalah 0,40. Tentukan peluang seorang pelanggan puas terhadap salah satu aspek atau keduanya!",
+          "solution": "Langkah 1: $P(P) = 0{,}70, P(L) = 0{,}55, P(P \\cap L) = 0{,}40$.\nLangkah 2: $P(P \\cup L) = P(P) + P(L) - P(P \\cap L) = 0{,}70 + 0{,}55 - 0{,}40 = 0{,}85$.\nKesimpulan: Peluang pelanggan puas terhadap produk atau layanan adalah $0{,}85$ ($85\\%$)."
         }
       ],
       "btc": "Kelompok VNPS: Dari 100 pelamar kerja, 45 menguasai Python, 40 menguasai SQL, dan 20 menguasai keduanya. Tentukan peluang seorang pelamar acak TIDAK menguasai keduanya!",
@@ -516,24 +516,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Peluang siswa A lulus seleksi PTN adalah 0,8 dan peluang siswa B lulus adalah 0,7. Tentukan peluang siswa A dan B lulus bersama-sama!",
-          "solution": "Langkah 1: Karena hasil ujian siswa A tidak mempengaruhi siswa B, kedua kejadian saling bebas.\nLangkah 2: $P(A \\cap B) = P(A) \\times P(B) = 0{,}8 \\times 0{,}7 = 0{,}56$.\nKesimpulan: Peluang kedua siswa lulus bersamaan adalah $0{,}56$."
+          "problem": "Peluang siswa A lulus seleksi SNBT adalah 0,80 dan peluang siswa B lulus adalah 0,75. Jika hasil seleksi kedua siswa independen (saling bebas), tentukan peluang bahwa kedua siswa tersebut sama-sama lulus!",
+          "solution": "Langkah 1: Karena kedua kejadian saling bebas: $P(A \\cap B) = P(A) \\times P(B)$.\nLangkah 2: $P(A \\cap B) = 0{,}80 \\times 0{,}75 = 0{,}60$.\nKesimpulan: Peluang kedua siswa sama-sama lulus seleksi adalah $0{,}60$ ($60\\%$)."
         },
         {
-          "problem": "Sebuah kotak berisi 5 bola merah dan 3 bola putih. Dua bola diambil satu per satu TANPA pengembalian. Tentukan peluang terambilnya bola pertama merah dan bola kedua putih!",
-          "solution": "Langkah 1: Menggunakan rumus Kejadian Saling Bebas (Independen), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Bola 1 Merah): Total 8 bola $\\implies P(M_1) = \\frac{5}{8}$.\nLangkah 2 (Bola 2 Putih): Sisa 7 bola di kotak, putih tetap 3 $\\implies P(P_2 | M_1) = \\frac{3}{7}$.\nLangkah 3: $P(M_1 \\cap P_2) = \\frac{5}{8} \\times \\frac{3}{7} = \\frac{15}{56}$.\nKesimpulan: Peluang terambil bola pertama merah dan kedua putih adalah $\\frac{15}{56}$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Sebuah kotak berisi 5 bola merah dan 3 bola putih. Dua bola diambil satu per satu tanpa pengembalian. Tentukan peluang terambilnya bola pertama merah dan bola kedua putih!",
+          "solution": "Langkah 1: Total awal $= 8$ bola. Peluang bola pertama merah: $P(M_1) = \\frac{5}{8}$.\nLangkah 2: Setelah 1 merah terambil, sisa bola di kotak $= 7$ (4 merah, 3 putih).\nLangkah 3: Peluang bola kedua putih bersyarat: $P(P_2 | M_1) = \\frac{3}{7}$.\nLangkah 4: Peluang gabungan $= \\frac{5}{8} \\times \\frac{3}{7} = \\frac{15}{56}$.\nKesimpulan: Peluang terambil bola pertama merah dan kedua putih adalah $\\frac{15}{56}$."
         },
         {
-          "problem": "Dari pelemparan sebuah dadu, diketahui mata dadu yang muncul adalah bilangan prima. Berapa peluang munculnya mata dadu ganjil?",
-          "solution": "Langkah 1: Ruang sampel bersyarat prima: $B = \\{2, 3, 5\\} \\implies n(B) = 3$.\nLangkah 2: Mata dadu prima yang ganjil: $A \\cap B = \\{3, 5\\} \\implies n(A \\cap B) = 2$.\nLangkah 3: $P(A | B) = \\frac{n(A \\cap B)}{n(B)} = \\frac{2}{3}$.\nKesimpulan: Peluang muncul mata dadu ganjil bersyarat prima adalah $\\frac{2}{3}$."
+          "problem": "Dari pelemparan sebuah dadu bersisi enam, diketahui bahwa mata dadu yang muncul adalah bilangan prima. Tentukan peluang bersyarat bahwa mata dadu yang muncul tersebut adalah bilangan ganjil!",
+          "solution": "Langkah 1: Ruang sampel kondisi syarat (bilangan prima): $B = \\{2, 3, 5\\} \\implies n(B) = 3$.\nLangkah 2: Irisan ganjil dan prima: $A \\cap B = \\{3, 5\\} \\implies n(A \\cap B) = 2$.\nLangkah 3: Peluang bersyarat $P(A | B) = \\frac{n(A \\cap B)}{n(B)} = \\frac{2}{3}$.\nKesimpulan: Peluang bersyarat muncul bilangan ganjil jika diketahui prima adalah $\\frac{2}{3}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Peluang Kejadian Saling Bebas & Peluang Bersyarat. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Kejadian Saling Bebas (Independen), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Peluang Bersyarat, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Dua pemanah A dan B membidik target yang sama secara independen. Peluang A tepat mengenai target adalah $\\frac{2}{3}$ dan peluang B mengenai target adalah $\\frac{3}{4}$. Tentukan peluang bahwa target tertembak tepat oleh salah satu pemanah saja!",
+          "solution": "Langkah 1: Pemanah mengenai target: $P(A) = 2/3, P(A') = 1/3, P(B) = 3/4, P(B') = 1/4$.\nLangkah 2: 'Tepat satu pemanah' = (A kena dan B meleset) ATAU (A meleset dan B kena):\n- $P(A \\cap B') = \\frac{2}{3} \\times \\frac{1}{4} = \\frac{2}{12}$\n- $P(A' \\cap B) = \\frac{1}{3} \\times \\frac{3}{4} = \\frac{3}{12}$\nLangkah 3: Total peluang $= \\frac{2}{12} + \\frac{3}{12} = \\frac{5}{12}$.\nKesimpulan: Peluang target tertembak tepat oleh salah satu pemanah adalah $\\frac{5}{12}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Peluang Kejadian Saling Bebas & Peluang Bersyarat, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Kejadian Saling Bebas (Independen).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Peluang Bersyarat.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Suatu tes laboratorium mendeteksi penyakit dengan sensitivitas $95\\%$ pada pasien sakit, namun memberikan hasil positif palsu sebesar $2\\%$ pada orang sehat. Jika $1\\%$ populasi terjangkit penyakit, tentukan peluang seseorang benar-benar sakit jika hasil tesnya positif (Teorema Bayes)!",
+          "solution": "Langkah 1: $P(S) = 0{,}01, P(S') = 0{,}99, P(+|S) = 0{,}95, P(+|S') = 0{,}02$.\nLangkah 2: Peluang total hasil positif: $P(+) = (0{,}01 \\times 0{,}95) + (0{,}99 \\times 0{,}02) = 0{,}0095 + 0{,}0198 = 0{,}0293$.\nLangkah 3: Teorema Bayes: $P(S|+) = \\frac{P(S \\cap +)}{P(+)} = \\frac{0{,}0095}{0{,}0293} \\approx 0{,}3242 = 32{,}42\\%$.\nKesimpulan: Peluang seseorang benar-benar sakit jika tesnya positif adalah sekitar $32{,}42\\%$."
         }
       ],
       "btc": "Kelompok VNPS: Kotak A berisi 4 merah dan 2 putih. Kotak B berisi 3 merah dan 5 putih. Satu keping koin dilempar untuk memilih kotak. Tentukan peluang terambil bola putih!",
@@ -582,34 +582,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "level": "Level 1: Fondasi",
-          "title": "Kedudukan Antargaris Diagonal Sisi Kubus",
-          "problem": "Pada kubus $ABCD.EFGH$, tentukan kedudukan antara garis diagonal sisi $AH$ terhadap garis diagonal sisi $BG$, serta garis $AH$ terhadap garis diagonal sisi $CF$!",
-          "solution": "Langkah 1: Titik $A(0,0,0), H(0,s,s) \\implies \\vec{AH} = (0,s,s)$. Titik $B(s,0,0), G(s,s,s) \\implies \\vec{BG} = (0,s,s)$. Karena vektor $\\vec{AH} = \\vec{BG}$ dan keduanya membentuk bidang persegi panjang diagonal $ABGH$, maka garis $AH$ dan garis $BG$ saling SEJAJAR ($AH \\parallel BG$).\nLangkah 2: Titik $C(s,s,0), F(s,0,s) \\implies \\vec{CF} = (0,-s,s)$. Garis $AH$ pada bidang $ADHE$ dan garis $CF$ pada bidang $BCGF$ berada pada dua bidang berbeda serta tidak berpotongan.\nLangkah 3: Uji perkalian titik (dot product): $\\vec{AH} \\cdot \\vec{CF} = (0)(0) + (s)(-s) + (s)(s) = -s^2 + s^2 = 0$.\nKesimpulan: Garis $AH$ dan $BG$ saling SEJAJAR, sedangkan garis $AH$ dan $CF$ saling BERSILANGAN TEGAK LURUS ($90^\\circ$)."
+          "problem": "Pada kubus $ABCD.EFGH$, tentukan kedudukan antara garis diagonal sisi $AH$ dan garis diagonal sisi $BG$!",
+          "solution": "Langkah 1: Garis $AH$ berada pada bidang sisi kiri $ADHE$, sedangkan garis $BG$ berada pada bidang sisi kanan $BCGF$.\nLangkah 2: Kedua bidang tersebut saling sejajar ($ADHE \\parallel BCGF$).\nLangkah 3: Garis $AH$ dan garis $BG$ memiliki gradien arah yang sama dan tidak memiliki titik potong.\nKesimpulan: Kedudukan garis $AH$ dan $BG$ adalah saling **sejajar**."
         },
         {
-          "level": "Level 2: Karakteristik Rusuk & Bidang",
-          "title": "Relasi Garis Tegak Lurus dan Bersilangan",
-          "problem": "Pada kubus $ABCD.EFGH$, sebutkan seluruh rusuk yang tegak lurus terhadap bidang alas $ABCD$ dan seluruh rusuk yang bersilangan tegak lurus dengan rusuk $AB$!",
-          "solution": "Langkah 1: Rusuk yang tegak lurus bidang alas $ABCD$ (arah vertikal sumbu Z) adalah 4 rusuk tegak kubus: $AE, BF, CG,$ dan $DH$.\nLangkah 2: Rusuk $AB$ membentang horizontal searah sumbu X. Rusuk yang tegak lurus dengannya dan tidak berpotongan (tidak sebidang) adalah 2 rusuk tegak sisi belakang ($CG, DH$) serta 2 rusuk horizontal atas arah sumbu Y ($EH, FG$).\nKesimpulan: Rusuk yang tegak lurus alas adalah $AE, BF, CG, DH$. Rusuk yang bersilangan tegak lurus dengan $AB$ adalah $CG, DH, EH,$ dan $FG$."
+          "problem": "Pada kubus $ABCD.EFGH$, sebutkan seluruh rusuk kubus yang saling bersilangan tegak lurus dengan rusuk $AB$!",
+          "solution": "Langkah 1: Rusuk yang bersilangan dengan $AB$ adalah rusuk yang tidak sebidang dan tidak berpotongan dengan $AB$.\nLangkah 2: Rusuk-rusuk tersebut adalah $CG, DH, EH, FG$.\nLangkah 3: Di antara rusuk tersebut, yang arah vektornya tegak lurus terhadap $AB$ adalah rusuk tegak vertikal $CG$ dan $DH$.\nKesimpulan: Rusuk yang bersilangan tegak lurus dengan $AB$ adalah rusuk $CG$ dan $DH$."
         },
         {
-          "level": "Level 3: Hubungan Antarbidang",
-          "title": "Kedudukan Dua Bidang Diagonal Kubus",
           "problem": "Pada kubus $ABCD.EFGH$, buktikan bahwa bidang diagonal $ACGE$ saling tegak lurus dengan bidang diagonal $BDHF$!",
-          "solution": "Langkah 1: Bidang diagonal $ACGE$ memuat diagonal alas $AC$ dan rusuk tegak $AE$. Bidang diagonal $BDHF$ memuat diagonal alas $BD$ dan rusuk tegak $DH$.\nLangkah 2: Pada bidang alas persegi $ABCD$, diagonal sisi $AC$ berpotongan tegak lurus dengan diagonal sisi $BD$ ($AC \\perp BD$).\nLangkah 3: Karena garis $AC$ pada bidang $ACGE$ tegak lurus terhadap dua garis berpotongan di bidang $BDHF$ (yaitu $BD$ dan rusuk tegak $DH$), maka menurut teorema kedudukan bidang: bidang $ACGE$ tegak lurus terhadap bidang $BDHF$ ($ACGE \\perp BDHF$).\nKesimpulan: Terbukti bahwa bidang diagonal $ACGE$ dan $BDHF$ saling TEGAK LURUS ($90^\\circ$)."
+          "solution": "Langkah 1: Garis diagonal alas $AC$ tegak lurus terhadap diagonal alas $BD$ pada persegi $ABCD$ ($AC \\perp BD$).\nLangkah 2: Garis $BD$ terletak pada bidang $BDHF$, sehingga garis $AC \\perp$ bidang $BDHF$.\nLangkah 3: Karena bidang $ACGE$ memuat garis $AC$ yang tegak lurus bidang $BDHF$, maka bidang $ACGE \\perp$ bidang $BDHF$.\nKesimpulan: Terbukti bahwa bidang diagonal $ACGE$ saling tegak lurus dengan bidang $BDHF$."
         },
         {
-          "level": "Level 4: Analitis Standar UTBK",
-          "title": "Titik Tembus Diagonal Ruang pada Bidang Segitiga",
-          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $6\\text{ cm}$, garis diagonal ruang $AG$ memotong bidang segitiga $BDE$ di titik $P$ dan memotong bidang segitiga $CFH$ di titik $Q$. Tentukan rasio panjang $AP : PQ : QG$ serta panjang segmen garis $PQ$!",
-          "solution": "Langkah 1: Berdasarkan teorema proyeksi ortogonal, diagonal ruang $AG$ menembus tegak lurus bidang $BDE$ di $P$ dan bidang $CFH$ di $Q$.\nLangkah 2: Bidang $BDE$ dan $CFH$ membagi diagonal ruang $AG$ menjadi 3 segmen yang sama panjang, sehingga rasio $AP : PQ : QG = 1 : 1 : 1$.\nLangkah 3: Panjang diagonal ruang $AG = s\\sqrt{3} = 6\\sqrt{3}\\text{ cm}$.\nLangkah 4: Menghitung panjang segmen $PQ = \\frac{1}{3} \\times AG = \\frac{1}{3}(6\\sqrt{3}) = 2\\sqrt{3}\\text{ cm}$.\nKesimpulan: Rasio perbandingan $AP : PQ : QG = 1 : 1 : 1$ dan panjang segmen $PQ = 2\\sqrt{3}\\text{ cm}$."
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, garis diagonal ruang $DF$ menembus bidang diagonal $ACH$ di titik $P$. Tentukan perbandingan panjang segmen $DP : PF$!",
+          "solution": "Langkah 1: Bidang diagonal segitiga $ACH$ memotong diagonal ruang $DF$ tegak lurus pada jarak $\\frac{1}{3}$ dari titik sudut $D$.\nLangkah 2: Panjang $DP = \\frac{1}{3} DF$ dan panjang $PF = \\frac{2}{3} DF$.\nLangkah 3: Rasio $DP : PF = \\frac{1}{3} : \\frac{2}{3} = 1 : 2$.\nKesimpulan: Perbandingan panjang segmen $DP : PF$ adalah $1 : 2$."
         },
         {
-          "level": "Level 5: HOTS Kontekstual",
-          "title": "Analisis Berkas Cahaya & Garis Tembus Lantai",
-          "problem": "Sebuah lampu sorot dipasang di titik $E$ pada ruangan kubus $ABCD.EFGH$ berusuk $12\\text{ meter}$ membentuk bidang berkas cahaya segitiga $EBD$. Jika kabel instalasi dibentangkan lurus dari titik sudut $A$ ke $C$, tentukan kedudukan garis kabel $AC$ terhadap bidang berkas cahaya $EBD$ dan tentukan titik tembusnya!",
-          "solution": "Langkah 1: Garis kabel $AC$ terletak pada bidang lantai $ABCD$. Bidang berkas cahaya $EBD$ memotong bidang lantai $ABCD$ di sepanjang diagonal alas $BD$.\nLangkah 2: Pada persegi lantai $ABCD$, diagonal sisi $AC$ berpotongan tegak lurus dengan diagonal sisi $BD$ tepat di titik tengah lantai $M$.\nLangkah 3: Karena titik $M$ terletak pada garis $BD$ (yang merupakan batas bidang $EBD$), maka garis kabel $AC$ menembus bidang berkas cahaya $EBD$ tepat di titik $M$.\nKesimpulan: Garis kabel $AC$ MENEMBUS bidang $EBD$ tepat di titik potong diagonal lantai $M\\left(\\frac{1}{2}AC\\right)$ secara tegak lurus."
+          "problem": "Sebuah lampu sorot dipasang di titik puncak $E$ pada ruangan kubus $ABCD.EFGH$ berukuran $4\\text{ m} \\times 4\\text{ m} \\times 4\\text{ m}$. Jika sorotan cahaya menyinari seluruh bidang diagonal $BDG$, tentukan jarak terpendek titik lampu $E$ ke bidang berkas cahaya $BDG$!",
+          "solution": "Langkah 1: Bidang $BDG$ memotong diagonal ruang $EC$ pada jarak $\\frac{2}{3}$ dari titik sudut $E$.\nLangkah 2: Panjang diagonal ruang $EC = 4\\sqrt{3}\\text{ m}$.\nLangkah 3: Jarak terpendek $d = \\frac{2}{3} EC = \\frac{2}{3}(4\\sqrt{3}) = \\frac{8}{3}\\sqrt{3}\\text{ m}$.\nKesimpulan: Jarak terpendek lampu $E$ ke bidang $BDG$ adalah $\\frac{8}{3}\\sqrt{3}\\text{ m} \\approx 4{,}62\\text{ m}$."
         }
       ],
       "btc": "Kelompok VNPS: Pada kubus ABCD.EFGH, buktikan bahwa garis diagonal ruang AG tegak lurus terhadap bidang diagonal BDE!",
@@ -1472,24 +1462,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan persamaan lingkaran yang berpusat di titik asal $O(0,0)$ dan melalui titik $A(-6, 8)$!",
-          "solution": "Langkah 1: Menggunakan rumus Bentuk Baku Pusat O(0,0), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Jari-jari): $r^2 = (-6)^2 + 8^2 = 36 + 64 = 100$.\nLangkah 2 (Substitusi): $x^2 + y^2 = r^2 \\implies x^2 + y^2 = 100$.\nKesimpulan: Persamaan lingkaran adalah $x^2 + y^2 = 100$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Tentukan persamaan lingkaran yang berpusat di titik asal $O(0,0)$ dan melalui titik $A(3, -4)$!",
+          "solution": "Langkah 1: Jari-jari lingkaran adalah jarak titik $A(3, -4)$ ke pusat $O(0,0)$: $r^2 = x^2 + y^2 = 3^2 + (-4)^2 = 9 + 16 = 25$.\nLangkah 2: Bentuk baku persamaan lingkaran berpusat di $O(0,0)$ adalah $x^2 + y^2 = r^2$.\nLangkah 3: Substitusi $r^2 = 25 \\implies x^2 + y^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $x^2 + y^2 = 25$."
         },
         {
-          "problem": "Sebuah lingkaran berpusat di $O(0,0)$ menyinggung garis lurus $3x - 4y + 20 = 0$. Tentukan persamaan lingkarannya!",
-          "solution": "Langkah 1: Menggunakan rumus Bentuk Baku Pusat O(0,0), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Jarak Pusat ke Garis): $r = \\frac{|3(0) - 4(0) + 20|}{\\sqrt{3^2 + (-4)^2}} = \\frac{20}{\\sqrt{25}} = \\frac{20}{5} = 4$.\nLangkah 2 (Persamaan): $r^2 = 4^2 = 16 \\implies x^2 + y^2 = 16$.\nKesimpulan: Persamaan lingkaran adalah $x^2 + y^2 = 16$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Sebuah lingkaran berpusat di $O(0,0)$ menyinggung garis lurus $3x - 4y + 20 = 0$. Tentukan persamaan lingkaran tersebut!",
+          "solution": "Langkah 1: Jari-jari $r$ adalah jarak titik pusat $O(0,0)$ ke garis $Ax + By + C = 0$: $r = \\frac{|A(0) + B(0) + C|}{\\sqrt{A^2 + B^2}}$.\nLangkah 2: $r = \\frac{|3(0) - 4(0) + 20|}{\\sqrt{3^2 + (-4)^2}} = \\frac{20}{\\sqrt{25}} = \\frac{20}{5} = 4$.\nLangkah 3: Persamaan lingkaran: $x^2 + y^2 = r^2 = 4^2 = 16$.\nKesimpulan: Persamaan lingkaran adalah $x^2 + y^2 = 16$."
         },
         {
-          "problem": "Tentukan persamaan lingkaran konsentris (sepusat) dengan $x^2 + y^2 = 36$ yang memiliki luas daerah 4 kali luas lingkaran tersebut!",
-          "solution": "Langkah 1: Lingkaran awal memiliki $r_1^2 = 36 \\implies L_1 = 36\\pi$.\nLangkah 2: Luas baru $L_2 = 4 \\times 36\\pi = 144\\pi \\implies r_2^2 = 144$.\nLangkah 3: Karena konsentris di $O(0,0)$, persamaannya adalah $x^2 + y^2 = 144$.\nKesimpulan: Persamaan lingkaran baru adalah $x^2 + y^2 = 144$."
+          "problem": "Tentukan persamaan lingkaran konsentris (sepusat) dengan $x^2 + y^2 = 36$ yang memiliki luas daerah $4\\times$ lebih besar!",
+          "solution": "Langkah 1: Jari-jari awal $r_1 = \\sqrt{36} = 6$.\nLangkah 2: Luas $L_2 = 4 L_1 \\implies \\pi r_2^2 = 4 (\\pi r_1^2) \\implies r_2^2 = 4(36) = 144$.\nLangkah 3: Persamaan lingkaran konsentris baru: $x^2 + y^2 = 144$.\nKesimpulan: Persamaan lingkaran baru adalah $x^2 + y^2 = 144$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Persamaan Lingkaran Pusat O(0,0). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Bentuk Baku Pusat O(0,0), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Jari-Jari dari Garis Singgung, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan titik-titik potong lingkaran $x^2 + y^2 = 25$ dengan garis $y = x - 1$!",
+          "solution": "Langkah 1: Substitusikan $y = x - 1$ ke persamaan lingkaran: $x^2 + (x - 1)^2 = 25$.\nLangkah 2: $x^2 + x^2 - 2x + 1 - 25 = 0 \\implies 2x^2 - 2x - 24 = 0 \\implies x^2 - x - 12 = 0$.\nLangkah 3: Faktorkan: $(x - 4)(x + 3) = 0 \\implies x_1 = 4$ atau $x_2 = -3$.\nLangkah 4: Untuk $x = 4 \\implies y = 4 - 1 = 3 \\implies (4, 3)$. Untuk $x = -3 \\implies y = -3 - 1 = -4 \\implies (-3, -4)$.\nKesimpulan: Titik potongnya adalah $(4, 3)$ dan $(-3, -4)$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Persamaan Lingkaran Pusat O(0,0), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Bentuk Baku Pusat O(0,0).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Jari-Jari dari Garis Singgung.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah menara radar maritim di titik $O(0,0)$ memiliki jangkauan sinyal lingkaran berjari-jari $20\\text{ km}$. Sebuah kapal tanker berlayar lurus dari koordinat $P(-25, 15)$ ke $Q(15, -15)$. Apakah kapal tanker tersebut masuk ke dalam jangkauan radar?",
+          "solution": "Langkah 1: Persamaan garis lintasan kapal $PQ$: Gradien $m = \\frac{-15 - 15}{15 - (-25)} = \\frac{-30}{40} = -\\frac{3}{4}$.\nLangkah 2: Persamaan garis: $y - 15 = -\\frac{3}{4}(x + 25) \\implies 4y - 60 = -3x - 75 \\implies 3x + 4y + 15 = 0$.\nLangkah 3: Jarak terdekat radar $O(0,0)$ ke lintasan: $d = \\frac{|3(0) + 4(0) + 15|}{\\sqrt{3^2 + 4^2}} = \\frac{15}{5} = 3\\text{ km}$.\nLangkah 4: Karena jarak terdekat $d = 3\\text{ km} < 20\\text{ km}$ (jari-jari radar), maka kapal tanker memotong jangkauan radar.\nKesimpulan: Kapal tanker masuk dan terdeteksi di dalam jangkauan radar sejauh $3\\text{ km}$ dari pusat."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan titik $A(0,0)$ dan $B(6,8)$. Tentukan persamaan lingkaran yang berpusat di $O(0,0)$ dan membagi ruas garis $AB$ menjadi dua bagian sama panjang!",
@@ -1544,23 +1534,23 @@ const NAMA_TINGKAT = 'XII';
       "examples": [
         {
           "problem": "Tentukan persamaan lingkaran yang berpusat di titik $P(2, -3)$ dan memiliki jari-jari $r = 5$!",
-          "solution": "Langkah 1: Bentuk baku $(x - a)^2 + (y - b)^2 = r^2$.\nLangkah 2: $(a,b) = (2, -3)$ dan $r = 5 \\implies (x - 2)^2 + (y - (-3))^2 = 5^2$.\nLangkah 3: $(x - 2)^2 + (y + 3)^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $(x - 2)^2 + (y + 3)^2 = 25$."
+          "solution": "Langkah 1: Bentuk baku lingkaran pusat $(a, b)$: $(x - a)^2 + (y - b)^2 = r^2$.\nLangkah 2: Masukkan $a = 2, b = -3$, dan $r = 5$: $(x - 2)^2 + (y - (-3))^2 = 5^2$.\nLangkah 3: $(x - 2)^2 + (y + 3)^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $(x - 2)^2 + (y + 3)^2 = 25$."
         },
         {
-          "problem": "Tentukan persamaan lingkaran yang berpusat di $P(-1, 4)$ dan melalui titik $A(3, 1)$!",
-          "solution": "Langkah 1: Menggunakan rumus Bentuk Baku Pusat P(a,b), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Jari-jari): $r^2 = (3 - (-1))^2 + (1 - 4)^2 = 4^2 + (-3)^2 = 16 + 9 = 25$.\nLangkah 2 (Persamaan): $(x - (-1))^2 + (y - 4)^2 = 25 \\implies (x + 1)^2 + (y - 4)^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $(x + 1)^2 + (y - 4)^2 = 25$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Tentukan persamaan lingkaran yang berpusat di $P(-1, 4)$ dan melalui titik $T(3, 1)$!",
+          "solution": "Langkah 1: Hitung kuadrat jari-jari $r^2$ dari jarak $PT$: $r^2 = (3 - (-1))^2 + (1 - 4)^2 = 4^2 + (-3)^2 = 16 + 9 = 25$.\nLangkah 2: Persamaan lingkaran pusat $P(-1, 4)$: $(x + 1)^2 + (y - 4)^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $(x + 1)^2 + (y - 4)^2 = 25$."
         },
         {
           "problem": "Sebuah lingkaran berpusat di $P(3, -2)$ menyinggung garis horizontal $y = 4$. Tentukan persamaan lingkaran tersebut!",
-          "solution": "Langkah 1: Jarak pusat $(3, -2)$ ke garis $y = 4$ adalah $r = |4 - (-2)| = 6$.\nLangkah 2: $r^2 = 6^2 = 36$.\nLangkah 3: Persamaan lingkaran: $(x - 3)^2 + (y + 2)^2 = 36$.\nKesimpulan: Persamaan lingkaran adalah $(x - 3)^2 + (y + 2)^2 = 36$."
+          "solution": "Langkah 1: Jari-jari lingkaran adalah jarak vertikal dari ordinat pusat $b = -2$ ke garis $y = 4$: $r = |4 - (-2)| = 6$.\nLangkah 2: Persamaan lingkaran: $(x - 3)^2 + (y + 2)^2 = 6^2 = 36$.\nKesimpulan: Persamaan lingkaran adalah $(x - 3)^2 + (y + 2)^2 = 36$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Persamaan Lingkaran Pusat P(a,b). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Bentuk Baku Pusat P(a,b), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Menyinggung Sumbu-X, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan persamaan lingkaran yang memiliki diameter dengan titik ujung $A(-2, 1)$ dan $B(4, 9)$!",
+          "solution": "Langkah 1: Titik pusat adalah titik tengah diameter $AB$: $P\\left(\\frac{-2+4}{2}, \\frac{1+9}{2}\\right) = P(1, 5)$.\nLangkah 2: Panjang jari-jari $r = \\frac{1}{2} AB = \\frac{1}{2}\\sqrt{(4 - (-2))^2 + (9 - 1)^2} = \\frac{1}{2}\\sqrt{6^2 + 8^2} = \\frac{1}{2}(10) = 5$.\nLangkah 3: Persamaan lingkaran: $(x - 1)^2 + (y - 5)^2 = 5^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $(x - 1)^2 + (y - 5)^2 = 25$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Persamaan Lingkaran Pusat P(a,b), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Bentuk Baku Pusat P(a,b).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Menyinggung Sumbu-X.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah lingkaran berpusat di $P(4, 2)$ dan menyinggung garis $3x - 4y + 6 = 0$. Tentukan persamaan lingkaran tersebut dalam bentuk baku!",
+          "solution": "Langkah 1: Jarak titik $P(4, 2)$ ke garis $3x - 4y + 6 = 0$: $r = \\frac{|3(4) - 4(2) + 6|}{\\sqrt{3^2 + (-4)^2}} = \\frac{|12 - 8 + 6|}{5} = \\frac{10}{5} = 2$.\nLangkah 2: Persamaan lingkaran: $(x - 4)^2 + (y - 2)^2 = 2^2 = 4$.\nKesimpulan: Persamaan lingkaran adalah $(x - 4)^2 + (y - 2)^2 = 4$."
         }
       ],
       "btc": "Kelompok VNPS: Ruas garis $AB$ dengan $A(-2, 3)$ dan $B(4, -5)$ adalah diameter sebuah lingkaran. Tentukan titik pusat, panjang jari-jari, dan persamaan lingkaran tersebut!",
@@ -1614,24 +1604,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan titik pusat dan jari-jari lingkaran $x^2 + y^2 - 6x + 8y - 11 = 0$!",
-          "solution": "Langkah 1: $A = -6, B = 8, C = -11$.\nLangkah 2: Pusat $P(-\\frac{-6}{2}, -\\frac{8}{2}) = P(3, -4)$.\nLangkah 3: Jari-jari $r = \\sqrt{3^2 + (-4)^2 - (-11)} = \\sqrt{9 + 16 + 11} = \\sqrt{36} = 6$.\nKesimpulan: Titik pusat adalah $(3, -4)$ dan jari-jari $r = 6$."
+          "problem": "Tentukan titik pusat dan panjang jari-jari lingkaran $x^2 + y^2 - 6x + 8y - 11 = 0$!",
+          "solution": "Langkah 1: Dari bentuk umum $x^2 + y^2 + Ax + By + C = 0$, diperoleh $A = -6, B = 8, C = -11$.\nLangkah 2: Titik pusat $P\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right) = P\\left(-\\frac{-6}{2}, -\\frac{8}{2}\\right) = P(3, -4)$.\nLangkah 3: Jari-jari $r = \\sqrt{a^2 + b^2 - C} = \\sqrt{3^2 + (-4)^2 - (-11)} = \\sqrt{9 + 16 + 11} = \\sqrt{36} = 6$.\nKesimpulan: Titik pusat adalah $(3, -4)$ dan jari-jari $r = 6$."
         },
         {
-          "problem": "Ubah persamaan lingkaran $(x + 2)^2 + (y - 5)^2 = 9$ ke dalam bentuk umum!",
-          "solution": "Langkah 1: Jabarkan $(x^2 + 4x + 4) + (y^2 - 10y + 25) = 9$.\nLangkah 2: Gabungkan suku-suku konstan: $x^2 + y^2 + 4x - 10y + (4 + 25 - 9) = 0$.\nLangkah 3: $x^2 + y^2 + 4x - 10y + 20 = 0$.\nKesimpulan: Bentuk umumnya adalah $x^2 + y^2 + 4x - 10y + 20 = 0$."
+          "problem": "Ubah persamaan lingkaran $(x + 2)^2 + (y - 5)^2 = 9$ ke dalam bentuk umum $x^2 + y^2 + Ax + By + C = 0$!",
+          "solution": "Langkah 1: Jabarkan bentuk kuadrat: $(x^2 + 4x + 4) + (y^2 - 10y + 25) = 9$.\nLangkah 2: Satukan seluruh konstanta ke ruas kiri: $x^2 + y^2 + 4x - 10y + (4 + 25 - 9) = 0$.\nLangkah 3: $x^2 + y^2 + 4x - 10y + 20 = 0$.\nKesimpulan: Bentuk umumnya adalah $x^2 + y^2 + 4x - 10y + 20 = 0$."
         },
         {
           "problem": "Tentukan nilai konstanta $k$ agar persamaan $x^2 + y^2 + 4x - 6y + k = 0$ memiliki jari-jari $r = 5$!",
-          "solution": "Langkah 1: Pusat $P(-\\frac{4}{2}, -\\frac{-6}{2}) = P(-2, 3)$.\nLangkah 2: $r = \\sqrt{(-2)^2 + 3^2 - k} = 5 \\implies \\sqrt{4 + 9 - k} = 5$.\nLangkah 3: $13 - k = 25 \\implies k = 13 - 25 = -12$.\nKesimpulan: Nilai $k$ yang memenuhi adalah $k = -12$."
+          "solution": "Langkah 1: $A = 4, B = -6 \\implies a = -2, b = 3$.\nLangkah 2: Rumus jari-jari: $r^2 = a^2 + b^2 - k \\implies 5^2 = (-2)^2 + 3^2 - k$.\nLangkah 3: $25 = 4 + 9 - k \\implies 25 = 13 - k \\implies k = 13 - 25 = -12$.\nKesimpulan: Nilai konstanta $k$ adalah $-12$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Bentuk Umum Persamaan Lingkaran. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Bentuk Umum Lingkaran, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Titik Pusat, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan persamaan lingkaran yang melalui 3 titik koordinat $A(0,0)$, $B(4,0)$, dan $C(0,6)$!",
+          "solution": "Langkah 1: Bentuk umum: $x^2 + y^2 + Ax + By + C = 0$.\nLangkah 2: Melalui $(0,0) \\implies C = 0$.\nLangkah 3: Melalui $(4,0) \\implies 16 + 0 + 4A + 0 = 0 \\implies 4A = -16 \\implies A = -4$.\nLangkah 4: Melalui $(0,6) \\implies 0 + 36 + 0 + 6B = 0 \\implies 6B = -36 \\implies B = -6$.\nLangkah 5: Persamaan lingkaran: $x^2 + y^2 - 4x - 6y = 0$.\nKesimpulan: Persamaan lingkarannya adalah $x^2 + y^2 - 4x - 6y = 0$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Bentuk Umum Persamaan Lingkaran, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Bentuk Umum Lingkaran.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Titik Pusat.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Tentukan apakah persamaan $x^2 + y^2 - 2x + 4y + 10 = 0$ merepresentasikan lingkaran nyata, titik, atau lingkaran imajiner!",
+          "solution": "Langkah 1: $a = 1, b = -2, C = 10$.\nLangkah 2: Nilai diskriminan jari-jari: $r^2 = a^2 + b^2 - C = 1^2 + (-2)^2 - 10 = 1 + 4 - 10 = -5$.\nLangkah 3: Karena $r^2 < 0$, tidak ada titik koordinat riil yang memenuhi persamaan tersebut.\nKesimpulan: Persamaan tersebut merepresentasikan **lingkaran imajiner** (himpunan kosong pada bidang riil)."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan persamaan $2x^2 + 2y^2 - 8x + 12y - 6 = 0$. Ubah koefisien utama menjadi 1, lalu tentukan pusat dan jari-jari lingkaran tersebut!",
@@ -1686,23 +1676,23 @@ const NAMA_TINGKAT = 'XII';
       "examples": [
         {
           "problem": "Tentukan kedudukan titik $A(4, -2)$ terhadap lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$!",
-          "solution": "Langkah 1: Substitusi $(x, y) = (4, -2)$ ke ruas kiri persamaan.\nLangkah 2: $K = 4^2 + (-2)^2 - 4(4) + 6(-2) - 12 = 16 + 4 - 16 - 12 - 12 = -20$.\nLangkah 3: Karena $K = -20 < 0$, titik $A$ berada di DALAM lingkaran.\nKesimpulan: Titik $A(4, -2)$ terletak di dalam lingkaran."
+          "solution": "Langkah 1: Substitusikan koordinat titik $A(4, -2)$ ke ruas kiri (nilai kuasa $K$):\n$K = 4^2 + (-2)^2 - 4(4) + 6(-2) - 12$.\nLangkah 2: $K = 16 + 4 - 16 - 12 - 12 = -20$.\nLangkah 3: Karena $K < 0$, maka titik terletak di **dalam** lingkaran.\nKesimpulan: Titik $A(4, -2)$ berada di dalam lingkaran."
         },
         {
           "problem": "Tentukan batas nilai $k$ agar titik $P(k, 3)$ terletak di luar lingkaran $x^2 + y^2 = 25$!",
-          "solution": "Langkah 1: Syarat titik di luar lingkaran: $K > 0 \\implies k^2 + 3^2 - 25 > 0$.\nLangkah 2: $k^2 + 9 - 25 > 0 \\implies k^2 - 16 > 0$.\nLangkah 3: $(k - 4)(k + 4) > 0 \\implies k < -4 \\text{ atau } k > 4$.\nKesimpulan: Batas nilai $k$ adalah $k < -4$ atau $k > 4$."
+          "solution": "Langkah 1: Syarat titik di luar lingkaran: $x^2 + y^2 > r^2$.\nLangkah 2: $k^2 + 3^2 > 25 \\implies k^2 + 9 > 25 \\implies k^2 > 16$.\nLangkah 3: $k < -4$ atau $k > 4$.\nKesimpulan: Batas nilai $k$ adalah $k < -4$ atau $k > 4$."
         },
         {
-          "problem": "Tentukan jarak terdekat dari titik $T(7, 9)$ ke busur lingkaran $x^2 + y^2 - 2x - 4y - 20 = 0$!",
-          "solution": "Langkah 1: Pusat $P(1, 2)$, $r = \\sqrt{1^2 + 2^2 - (-20)} = \\sqrt{25} = 5$.\nLangkah 2: Jarak $T(7,9)$ ke pusat $P(1,2)$ adalah $d = \\sqrt{(7-1)^2 + (9-2)^2} = \\sqrt{6^2 + 7^2} = \\sqrt{36 + 49} = \\sqrt{85} \\approx 9{,}22$.\nLangkah 3: Jarak terdekat $d_{\\min} = d - r = \\sqrt{85} - 5$.\nKesimpulan: Jarak terdekat adalah $(\\sqrt{85} - 5)$ satuan."
+          "problem": "Tentukan jarak terdekat dari titik $T(7, 9)$ ke busur lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Pusat lingkaran $O(0,0)$ dan jari-jari $r = 5$.\nLangkah 2: Jarak titik $T(7, 9)$ ke pusat: $d = \\sqrt{7^2 + 9^2} = \\sqrt{49 + 81} = \\sqrt{130} \\approx 11{,}40$.\nLangkah 3: Jarak terdekat ke busur lingkaran adalah $d_{\\text{min}} = d - r = \\sqrt{130} - 5 \\approx 6{,}40$.\nKesimpulan: Jarak terdekat titik $T$ ke lingkaran adalah $\\sqrt{130} - 5$ satuan."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Kedudukan Titik Terhadap Lingkaran (Uji Kuasa). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Nilai Kuasa Titik K, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Kriteria Posisi Titik, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan panjang ruas garis singgung yang ditarik dari titik $P(8, 6)$ ke lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Nilai kuasa titik $P(8, 6)$ terhadap lingkaran: $K = 8^2 + 6^2 - 25 = 64 + 36 - 25 = 75$.\nLangkah 2: Panjang garis singgung $L = \\sqrt{K} = \\sqrt{75} = 5\\sqrt{3}$.\nKesimpulan: Panjang garis singgung dari titik $P$ ke lingkaran adalah $5\\sqrt{3}$ satuan."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Kedudukan Titik Terhadap Lingkaran (Uji Kuasa), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Nilai Kuasa Titik K.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Kriteria Posisi Titik.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Zona aman radiasi BTS pemancar sinyal dimodelkan oleh lingkaran $(x - 3)^2 + (y + 1)^2 \\le 100$. Apakah pemukiman warga di koordinat $W(11, 5)$ berada di dalam zona aman?",
+          "solution": "Langkah 1: Uji kuasa titik $W(11, 5)$: $K = (11 - 3)^2 + (5 + 1)^2 = 8^2 + 6^2 = 64 + 36 = 100$.\nLangkah 2: Karena $K = 100$, titik $W$ tepat berada pada batas terluar (*boundary*) lingkaran zona aman radiasi.\nKesimpulan: Pemukiman warga berada tepat di perbatasan busur terluar zona aman radiasi BTS."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan titik $P(1, 1)$ dan lingkaran $x^2 + y^2 - 6x - 8y + 21 = 0$. Ujilah posisi titik $P$, lalu hitung panjang garis singgung dari $P$ ke lingkaran tersebut!",
@@ -1752,24 +1742,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan kedudukan garis $y = 2x + 1$ terhadap lingkaran $x^2 + y^2 = 25$!",
-          "solution": "Langkah 1: Substitusi $y = 2x + 1$ ke $x^2 + y^2 = 25 \\implies x^2 + (2x+1)^2 = 25$.\nLangkah 2: $x^2 + 4x^2 + 4x + 1 - 25 = 0 \\implies 5x^2 + 4x - 24 = 0$.\nLangkah 3: $D = b^2 - 4ac = 4^2 - 4(5)(-24) = 16 + 480 = 496 > 0$.\nKesimpulan: Karena $D > 0$, garis memotong lingkaran di 2 titik berbeda."
+          "problem": "Tentukan kedudukan garis $y = 2x + 1$ terhadap lingkaran $x^2 + y^2 = 25$ menggunakan uji Diskriminan!",
+          "solution": "Langkah 1: Substitusikan $y = 2x + 1$ ke persamaan lingkaran: $x^2 + (2x + 1)^2 = 25$.\nLangkah 2: $x^2 + 4x^2 + 4x + 1 - 25 = 0 \\implies 5x^2 + 4x - 24 = 0$.\nLangkah 3: Hitung diskriminan $D = b^2 - 4ac = 4^2 - 4(5)(-24) = 16 + 480 = 496$.\nLangkah 4: Karena $D > 0$, maka garis **memotong lingkaran di dua titik berbeda**.\nKesimpulan: Garis memotong lingkaran di dua titik berbeda."
         },
         {
-          "problem": "Tentukan nilai konstanta $k$ positif agar garis $y = x + k$ menyinggung lingkaran $x^2 + y^2 = 18$!",
-          "solution": "Langkah 1: Substitusi: $x^2 + (x+k)^2 = 18 \\implies 2x^2 + 2kx + (k^2 - 18) = 0$.\nLangkah 2: Syarat menyinggung $D = 0 \\implies (2k)^2 - 4(2)(k^2 - 18) = 0$.\nLangkah 3: $4k^2 - 8k^2 + 144 = 0 \\implies -4k^2 = -144 \\implies k^2 = 36 \\implies k = 6$.\nKesimpulan: Nilai konstanta positif adalah $k = 6$."
+          "problem": "Tentukan nilai konstanta $k > 0$ agar garis $y = x + k$ menyinggung lingkaran $x^2 + y^2 = 18$!",
+          "solution": "Langkah 1: Substitusikan $y = x + k$: $x^2 + (x + k)^2 = 18 \\implies 2x^2 + 2kx + (k^2 - 18) = 0$.\nLangkah 2: Syarat menyinggung: $D = 0 \\implies (2k)^2 - 4(2)(k^2 - 18) = 0$.\nLangkah 3: $4k^2 - 8k^2 + 144 = 0 \\implies -4k^2 = -144 \\implies k^2 = 36 \\implies k = 6$ (karena $k > 0$).\nKesimpulan: Nilai konstanta $k$ adalah $6$."
         },
         {
           "problem": "Tentukan koordinat titik-titik potong antara garis $x + y = 7$ dan lingkaran $x^2 + y^2 = 25$!",
-          "solution": "Langkah 1: $y = 7 - x \\implies x^2 + (7 - x)^2 = 25 \\implies x^2 + x^2 - 14x + 49 - 25 = 0$.\nLangkah 2: $2x^2 - 14x + 24 = 0 \\implies x^2 - 7x + 12 = 0 \\implies (x - 3)(x - 4) = 0$.\nLangkah 3: Untuk $x = 3 \\implies y = 4 \\to (3, 4)$; Untuk $x = 4 \\implies y = 3 \\to (4, 3)$.\nKesimpulan: Koordinat titik potongnya adalah $(3, 4)$ dan $(4, 3)$."
+          "solution": "Langkah 1: $y = 7 - x$. Substitusikan ke lingkaran: $x^2 + (7 - x)^2 = 25$.\nLangkah 2: $x^2 + 49 - 14x + x^2 - 25 = 0 \\implies 2x^2 - 14x + 24 = 0 \\implies x^2 - 7x + 12 = 0$.\nLangkah 3: $(x - 3)(x - 4) = 0 \\implies x_1 = 3$ atau $x_2 = 4$.\nLangkah 4: Untuk $x = 3 \\implies y = 7 - 3 = 4 \\implies (3, 4)$. Untuk $x = 4 \\implies y = 7 - 4 = 3 \\implies (4, 3)$.\nKesimpulan: Titik-titik potongnya adalah $(3, 4)$ dan $(4, 3)$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Kedudukan Garis Terhadap Lingkaran (Uji Diskriminan). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Substitusi Garis ke Lingkaran, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Kriteria Diskriminan D, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Buktikan bahwa garis $3x + 4y - 25 = 0$ menyinggung lingkaran $x^2 + y^2 = 25$ dan tentukan titik singgungnya!",
+          "solution": "Langkah 1: Jarak pusat $O(0,0)$ ke garis: $d = \\frac{|3(0) + 4(0) - 25|}{\\sqrt{3^2 + 4^2}} = \\frac{25}{5} = 5$.\nLangkah 2: Karena jarak $d = r = 5$, garis terbukti menyinggung lingkaran.\nLangkah 3: Titik singgung berada pada vektor tegak lurus: $\\left(\\frac{3}{5} \\cdot 5, \\frac{4}{5} \\cdot 5\\right) = (3, 4)$.\nKesimpulan: Terbukti menyinggung pada titik $(3, 4)$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Kedudukan Garis Terhadap Lingkaran (Uji Diskriminan), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Substitusi Garis ke Lingkaran.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Kriteria Diskriminan D.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Tentukan batas nilai $m$ agar garis $y = mx + 5$ tidak memotong maupun menyinggung lingkaran $x^2 + y^2 = 9$ ($D < 0$)!",
+          "solution": "Langkah 1: Substitusi: $x^2 + (mx + 5)^2 = 9 \\implies (m^2 + 1)x^2 + 10mx + 16 = 0$.\nLangkah 2: Syarat $D < 0$: $(10m)^2 - 4(m^2 + 1)(16) < 0 \\implies 100m^2 - 64m^2 - 64 < 0$.\nLangkah 3: $36m^2 < 64 \\implies m^2 < \\frac{64}{36} = \\frac{16}{9} \\implies -\\frac{4}{3} < m < \\frac{4}{3}$.\nKesimpulan: Batas nilai gradien adalah $-\\frac{4}{3} < m < \\frac{4}{3}$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan batas-batas nilai $m$ agar garis $y = mx + 5$ tidak memotong maupun menyinggung lingkaran $x^2 + y^2 = 9$ ($D < 0$)!",
@@ -1824,23 +1814,23 @@ const NAMA_TINGKAT = 'XII';
       "examples": [
         {
           "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 25$ di titik $T(3, -4)$!",
-          "solution": "Langkah 1: Uji titik $3^2 + (-4)^2 = 25$ (titik pada lingkaran).\nLangkah 2: Gunakan rumus Bagi Adil $x_1 x + y_1 y = r^2$.\nLangkah 3: $(3)x + (-4)y = 25 \\implies 3x - 4y = 25$.\nKesimpulan: Persamaan garis singgung adalah $3x - 4y = 25$."
+          "solution": "Langkah 1: Cek titik pada lingkaran: $3^2 + (-4)^2 = 9 + 16 = 25$ (Valid pada lingkaran).\nLangkah 2: Metode bagi adil untuk pusat $O(0,0)$: $x_1 x + y_1 y = r^2$.\nLangkah 3: $3x + (-4)y = 25 \\implies 3x - 4y = 25$.\nKesimpulan: Persamaan garis singgung adalah $3x - 4y = 25$."
         },
         {
           "problem": "Tentukan persamaan garis singgung lingkaran $(x - 1)^2 + (y + 2)^2 = 25$ di titik $A(4, 2)$!",
-          "solution": "Langkah 1: Uji $(4-1)^2 + (2+2)^2 = 3^2 + 4^2 = 25$ (pada lingkaran).\nLangkah 2: Gunakan $(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$.\nLangkah 3: $(4 - 1)(x - 1) + (2 + 2)(y + 2) = 25 \\implies 3(x - 1) + 4(y + 2) = 25$.\nLangkah 4: $3x - 3 + 4y + 8 = 25 \\implies 3x + 4y + 5 = 25 \\implies 3x + 4y = 20$.\nKesimpulan: Persamaan garis singgung adalah $3x + 4y = 20$."
+          "solution": "Langkah 1: Rumus bagi adil: $(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$.\nLangkah 2: Masukkan $(x_1, y_1) = (4, 2)$ dan pusat $(1, -2)$:\n$(4 - 1)(x - 1) + (2 - (-2))(y + 2) = 25$.\nLangkah 3: $3(x - 1) + 4(y + 2) = 25 \\implies 3x - 3 + 4y + 8 = 25 \\implies 3x + 4y + 5 = 25 \\implies 3x + 4y = 20$.\nKesimpulan: Persamaan garis singgung adalah $3x + 4y = 20$."
         },
         {
-          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$ di titik $B(5, 1)$!",
-          "solution": "Langkah 1: Bagi adil: $x_1 x + y_1 y - 2(x + x_1) + 3(y + y_1) - 12 = 0$.\nLangkah 2: Substitusi $(x_1, y_1) = (5, 1)$:\n$$5x + 1y - 2(x + 5) + 3(y + 1) - 12 = 0$$\nLangkah 3: $5x + y - 2x - 10 + 3y + 3 - 12 = 0 \\implies 3x + 4y - 19 = 0$.\nKesimpulan: Persamaan garis singgung adalah $3x + 4y - 19 = 0$."
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$ di titik $P(5, 1)$!",
+          "solution": "Langkah 1: Rumus bagi adil bentuk umum: $x_1 x + y_1 y + \\frac{A}{2}(x + x_1) + \\frac{B}{2}(y + y_1) + C = 0$.\nLangkah 2: $A = -4, B = 6, C = -12, (x_1, y_1) = (5, 1)$:\n$5x + 1y - 2(x + 5) + 3(y + 1) - 12 = 0$.\nLangkah 3: $5x + y - 2x - 10 + 3y + 3 - 12 = 0 \\implies 3x + 4y - 19 = 0$.\nKesimpulan: Persamaan garis singgung adalah $3x + 4y - 19 = 0$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik PGSL Melalui Titik Pada Lingkaran (Metode Bagi Adil). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Bagi Adil Pusat O(0,0), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Bagi Adil Pusat P(a,b), lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan persamaan garis normal (garis yang tegak lurus garis singgung di titik singgung) pada lingkaran $x^2 + y^2 = 25$ di titik $(3, 4)$!",
+          "solution": "Langkah 1: Garis normal pada lingkaran selalu melalui titik pusat lingkaran $O(0,0)$ dan titik singgung $(3, 4)$.\nLangkah 2: Gradien garis normal $m_n = \\frac{4 - 0}{3 - 0} = \\frac{4}{3}$.\nLangkah 3: Persamaan garis normal: $y - 0 = \\frac{4}{3}(x - 0) \\implies 4x - 3y = 0$.\nKesimpulan: Persamaan garis normal adalah $4x - 3y = 0$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada PGSL Melalui Titik Pada Lingkaran (Metode Bagi Adil), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Bagi Adil Pusat O(0,0).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Bagi Adil Pusat P(a,b).\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah roda gigi melingkar $(x - 2)^2 + (y - 3)^2 = 20$ bersinggungan dengan batang penggerak di titik $(4, 7)$. Tentukan persamaan garis lintasan batang penggerak tersebut!",
+          "solution": "Langkah 1: Bagi adil di $(4, 7)$: $(4 - 2)(x - 2) + (7 - 3)(y - 3) = 20$.\nLangkah 2: $2(x - 2) + 4(y - 3) = 20 \\implies 2x - 4 + 4y - 12 = 20 \\implies 2x + 4y - 16 = 20 \\implies 2x + 4y = 36$.\nLangkah 3: Sederhanakan bagi 2: $x + 2y = 18$.\nKesimpulan: Persamaan garis lintasan batang penggerak adalah $x + 2y = 18$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan persamaan garis normal (garis yang tegak lurus garis singgung di titik singgung) untuk lingkaran $x^2 + y^2 = 25$ di titik $(3, 4)$!",
@@ -1895,23 +1885,23 @@ const NAMA_TINGKAT = 'XII';
       "examples": [
         {
           "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 20$ yang memiliki gradien $m = 2$!",
-          "solution": "Langkah 1: Pusat $(0,0)$, $r = \\sqrt{20}, m = 2$.\nLangkah 2: $y = mx \\pm r\\sqrt{1 + m^2} \\implies y = 2x \\pm \\sqrt{20}\\sqrt{1 + 2^2}$.\nLangkah 3: $y = 2x \\pm \\sqrt{20}\\sqrt{5} = 2x \\pm \\sqrt{100} = 2x \\pm 10$.\nKesimpulan: Garis singgungnya adalah $y = 2x + 10$ dan $y = 2x - 10$."
+          "solution": "Langkah 1: Rumus PGSL gradien $m$ pusat $O(0,0)$: $y = mx \\pm r\\sqrt{1 + m^2}$.\nLangkah 2: $r^2 = 20 \\implies r = \\sqrt{20}, m = 2$.\nLangkah 3: $y = 2x \\pm \\sqrt{20}\\sqrt{1 + 2^2} = 2x \\pm \\sqrt{20}\\sqrt{5} = 2x \\pm \\sqrt{100} = 2x \\pm 10$.\nKesimpulan: Persamaan garis singgungnya adalah $y = 2x + 10$ dan $y = 2x - 10$."
         },
         {
-          "problem": "Tentukan persamaan garis singgung lingkaran $(x - 2)^2 + (y + 1)^2 = 25$ yang sejajar dengan garis $3x - 4y + 12 = 0$!",
-          "solution": "Langkah 1: Gradien garis sejajar: $3x - 4y + 12 = 0 \\implies m = \\frac{3}{4}$. Pusat $P(2, -1), r = 5$.\nLangkah 2: $y - (-1) = \\frac{3}{4}(x - 2) \\pm 5\\sqrt{1 + (3/4)^2}$.\nLangkah 3: $y + 1 = \\frac{3}{4}(x - 2) \\pm 5\\left(\\frac{5}{4}\\right) \\implies 4(y + 1) = 3(x - 2) \\pm 25$.\nLangkah 4: $4y + 4 = 3x - 6 \\pm 25 \\implies 3x - 4y = 10 \\pm 25$.\nKesimpulan: Persamaannya adalah $3x - 4y - 35 = 0$ dan $3x - 4y + 15 = 0$."
+          "problem": "Tentukan persamaan garis singgung lingkaran $(x - 2)^2 + (y + 1)^2 = 25$ yang sejajar dengan garis $3x - 4y + 8 = 0$!",
+          "solution": "Langkah 1: Gradien garis sejajar: $3x - 4y + 8 = 0 \\implies m = \\frac{3}{4}$.\nLangkah 2: Pusat $(a, b) = (2, -1)$, $r = 5$.\nLangkah 3: Rumus: $y - b = m(x - a) \\pm r\\sqrt{1 + m^2}$.\nLangkah 4: $y - (-1) = \\frac{3}{4}(x - 2) \\pm 5\\sqrt{1 + \\left(\\frac{3}{4}\\right)^2} = \\frac{3}{4}(x - 2) \\pm 5\\left(\\frac{5}{4}\\right) = \\frac{3}{4}(x - 2) \\pm \\frac{25}{4}$.\nLangkah 5: Kalikan 4: $4(y + 1) = 3(x - 2) \\pm 25 \\implies 4y + 4 = 3x - 6 \\pm 25 \\implies 3x - 4y - 10 \\pm 25 = 0$.\nKesimpulan: $3x - 4y + 15 = 0$ dan $3x - 4y - 35 = 0$."
         },
         {
-          "problem": "Tentukan salah satu persamaan garis singgung lingkaran $x^2 + y^2 = 16$ yang tegak lurus terhadap garis $2x + y - 5 = 0$!",
-          "solution": "Langkah 1: Garis $2x + y - 5 = 0$ memiliki gradien $m_1 = -2$.\nLangkah 2: Syarat tegak lurus $m_1 \\cdot m = -1 \\implies m = \\frac{1}{2}$.\nLangkah 3: $y = \\frac{1}{2}x \\pm 4\\sqrt{1 + (1/2)^2} = \\frac{1}{2}x \\pm 4\\sqrt{5/4} = \\frac{1}{2}x \\pm 2\\sqrt{5}$.\nKesimpulan: Salah satu persamaannya adalah $y = \\frac{1}{2}x + 2\\sqrt{5}$ (atau $x - 2y + 4\\sqrt{5} = 0$)."
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 16$ yang tegak lurus terhadap garis $x + 2y - 4 = 0$!",
+          "solution": "Langkah 1: Gradien garis $x + 2y - 4 = 0$ adalah $m_1 = -\\frac{1}{2}$.\nLangkah 2: Syarat tegak lurus: $m_2 = -\\frac{1}{m_1} = 2$.\nLangkah 3: $y = 2x \\pm 4\\sqrt{1 + 2^2} = 2x \\pm 4\\sqrt{5}$.\nKesimpulan: Persamaan garis singgung adalah $y = 2x + 4\\sqrt{5}$ dan $y = 2x - 4\\sqrt{5}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik PGSL dengan Gradien m Tertentu. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus PGSL Gradien m Pusat O(0,0), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus PGSL Gradien m Pusat P(a,b), lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 4x + 2y - 20 = 0$ yang membentuk sudut $45^\\circ$ terhadap sumbu-$X$ positif!",
+          "solution": "Langkah 1: Gradien $m = \\tan(45^\\circ) = 1$.\nLangkah 2: Pusat $P(2, -1)$, jari-jari $r = \\sqrt{2^2 + (-1)^2 - (-20)} = \\sqrt{4 + 1 + 20} = \\sqrt{25} = 5$.\nLangkah 3: $y - (-1) = 1(x - 2) \\pm 5\\sqrt{1 + 1^2} \\implies y + 1 = x - 2 \\pm 5\\sqrt{2} \\implies y = x - 3 \\pm 5\\sqrt{2}$.\nKesimpulan: Persamaan garis singgung adalah $y = x - 3 + 5\\sqrt{2}$ dan $y = x - 3 - 5\\sqrt{2}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada PGSL dengan Gradien m Tertentu, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus PGSL Gradien m Pusat O(0,0).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus PGSL Gradien m Pusat P(a,b).\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Dua garis singgung sejajar ditarik pada lingkaran $(x - 1)^2 + (y - 3)^2 = 10$ dengan gradien $m = 3$. Tentukan jarak tegak lurus antara kedua garis singgung sejajar tersebut!",
+          "solution": "Langkah 1: Dua garis singgung lingkaran yang saling sejajar menyinggung lingkaran di titik-titik ujung diameter yang berlawanan.\nLangkah 2: Jarak antara kedua garis singgung sejajar sama dengan panjang diameter lingkaran ($d = 2r$).\nLangkah 3: Jari-jari $r = \\sqrt{10} \\implies d = 2\\sqrt{10}$.\nKesimpulan: Jarak antara kedua garis singgung sejajar adalah $2\\sqrt{10}$ satuan."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 4x + 2y - 5 = 0$ yang membentuk sudut $45^\\circ$ terhadap sumbu-X positif ($m = \\tan 45^\\circ = 1$)!",
@@ -1962,23 +1952,23 @@ const NAMA_TINGKAT = 'XII';
       "examples": [
         {
           "problem": "Tentukan persamaan garis kutub (garis polar) dari titik $T(0, 5)$ terhadap lingkaran $x^2 + y^2 = 9$!",
-          "solution": "Langkah 1: Titik $T(0, 5)$ berada di luar lingkaran karena $0^2 + 5^2 = 25 > 9$.\nLangkah 2: Rumus garis polar: $x_1 x + y_1 y = r^2$.\nLangkah 3: $(0)x + (5)y = 9 \\implies 5y = 9 \\implies y = \\frac{9}{5}$.\nKesimpulan: Persamaan garis polar adalah $y = \\frac{9}{5}$ (atau $5y - 9 = 0$)."
+          "solution": "Langkah 1: Rumus garis polar titik $(x_1, y_1)$ terhadap $x^2 + y^2 = r^2$ adalah $x_1 x + y_1 y = r^2$.\nLangkah 2: Masukkan $(x_1, y_1) = (0, 5)$ dan $r^2 = 9$: $0 \\cdot x + 5 \\cdot y = 9 \\implies 5y = 9 \\implies y = \\frac{9}{5}$.\nKesimpulan: Persamaan garis kutubnya adalah $y = \\frac{9}{5}$."
         },
         {
-          "problem": "Dari titik $P(7, 1)$ di luar lingkaran ditarik garis singgung ke $x^2 + y^2 = 25$. Tentukan persamaan kedua garis singgung tersebut!",
-          "solution": "Langkah 1: Garis polar dari $(7,1)$: $7x + y = 25 \\implies y = 25 - 7x$.\nLangkah 2: Substitusi ke $x^2 + y^2 = 25 \\implies x^2 + (25 - 7x)^2 = 25$.\nLangkah 3: $x^2 + 625 - 350x + 49x^2 = 25 \\implies 50x^2 - 350x + 600 = 0 \\implies x^2 - 7x + 12 = 0$.\nLangkah 4: $(x - 3)(x - 4) = 0 \\implies x_1 = 3 \\to y_1 = 4$ dan $x_2 = 4 \\to y_2 = -3$.\nLangkah 5: PGSL di $(3,4) \\to 3x + 4y = 25$; PGSL di $(4,-3) \\to 4x - 3y = 25$.\nKesimpulan: Garis singgungnya adalah $3x + 4y = 25$ dan $4x - 3y = 25$."
+          "problem": "Dari titik $P(7, 1)$ di luar lingkaran ditarik dua garis singgung ke lingkaran $x^2 + y^2 = 25$. Tentukan persamaan garis polar dan koordinat kedua titik singgungnya!",
+          "solution": "Langkah 1: Garis polar dari $P(7, 1)$: $7x + 1y = 25 \\implies y = 25 - 7x$.\nLangkah 2: Substitusikan ke lingkaran: $x^2 + (25 - 7x)^2 = 25 \\implies x^2 + 625 - 350x + 49x^2 - 25 = 0$.\nLangkah 3: $50x^2 - 350x + 600 = 0 \\implies x^2 - 7x + 12 = 0 \\implies (x - 3)(x - 4) = 0$.\nLangkah 4: Titik singgung 1 ($x=3$): $y = 25 - 21 = 4 \\implies (3, 4)$. Titik singgung 2 ($x=4$): $y = 25 - 28 = -3 \\implies (4, -3)$.\nKesimpulan: Titik-titik singgungnya adalah $(3, 4)$ dan $(4, -3)$."
         },
         {
-          "problem": "Tentukan panjang tali busur kontak antara dua titik singgung yang ditarik dari $T(0, 5)$ ke lingkaran $x^2 + y^2 = 9$!",
-          "solution": "Langkah 1: Garis polar $y = \\frac{9}{5}$.\nLangkah 2: Substitusi ke $x^2 + y^2 = 9 \\implies x^2 + \\frac{81}{25} = 9 \\implies x^2 = \\frac{144}{25} \\implies x = \\pm \\frac{12}{5}$.\nLangkah 3: Titik kontak $A\\left(-\\frac{12}{5}, \\frac{9}{5}\\right)$ dan $B\\left(\\frac{12}{5}, \\frac{9}{5}\\right)$.\nLangkah 4: Panjang tali busur $AB = \\frac{12}{5} - \\left(-\\frac{12}{5}\\right) = \\frac{24}{5} = 4{,}8$.\nKesimpulan: Panjang tali busur kontak adalah $4{,}8$ satuan."
+          "problem": "Tentukan persamaan kedua garis singgung lingkaran $x^2 + y^2 = 25$ yang ditarik melalui titik $P(7, 1)$!",
+          "solution": "Langkah 1: Gunakan titik singgung $(3, 4)$ dan $(4, -3)$ yang telah diperoleh.\nLangkah 2: PGSL di $(3, 4)$: $3x + 4y = 25$.\nLangkah 3: PGSL di $(4, -3)$: $4x - 3y = 25$.\nKesimpulan: Persamaan kedua garis singgung adalah $3x + 4y = 25$ dan $4x - 3y = 25$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik PGSL Titik di Luar Lingkaran & Garis Kutub. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Persamaan Garis Polar (Kutub), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Langkah Penentuan PGSL, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan panjang tali busur kontak antara dua titik singgung yang ditarik dari titik $P(7, 1)$ ke lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Titik-titik singgung adalah $A(3, 4)$ dan $B(4, -3)$.\nLangkah 2: Jarak $AB = \\sqrt{(4 - 3)^2 + (-3 - 4)^2} = \\sqrt{1^2 + (-7)^2} = \\sqrt{1 + 49} = \\sqrt{50} = 5\\sqrt{2}$.\nKesimpulan: Panjang tali busur kontak adalah $5\\sqrt{2}$ satuan."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada PGSL Titik di Luar Lingkaran & Garis Kutub, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Persamaan Garis Polar (Kutub).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Langkah Penentuan PGSL.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Tentukan besar sudut apit $\\theta$ antara dua garis singgung yang ditarik dari titik $P(0, 10)$ ke lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Pusat $O(0,0)$, jari-jari $r = 5$. Jarak titik $P$ ke pusat: $OP = 10$.\nLangkah 2: Pada segitiga siku-siku $OPT$ (dengan $T$ titik singgung): $\\sin\\left(\\frac{\\theta}{2}\\right) = \\frac{r}{OP} = \\frac{5}{10} = \\frac{1}{2}$.\nLangkah 3: $\\frac{\\theta}{2} = 30^\\circ \\implies \\theta = 60^\\circ$.\nKesimpulan: Besar sudut apit antara kedua garis singgung adalah $60^\\circ$."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan titik $P(0, 4)$ dan lingkaran $x^2 + y^2 = 4$. Tentukan besar sudut apit antara kedua garis singgung yang ditarik dari titik $P$!",
@@ -2028,24 +2018,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan panjang jari-jari lingkaran $x^2 + y^2 - 4x + 2y - 20 = 0$!",
-          "solution": "Langkah 1: $A = -4, B = 2, C = -20$.\nLangkah 2: $r = \\sqrt{(-2)^2 + (1)^2 - (-20)} = \\sqrt{4 + 1 + 20} = \\sqrt{25} = 5$.\nKesimpulan: Jari-jari lingkaran adalah $r = 5$ satuan."
+          "problem": "Tentukan panjang jari-jari dan titik pusat lingkaran $x^2 + y^2 - 4x + 2y - 20 = 0$!",
+          "solution": "Langkah 1: Titik pusat $P\\left(-\\frac{-4}{2}, -\\frac{2}{2}\\right) = P(2, -1)$.\nLangkah 2: Jari-jari $r = \\sqrt{2^2 + (-1)^2 - (-20)} = \\sqrt{4 + 1 + 20} = \\sqrt{25} = 5$.\nKesimpulan: Pusat lingkaran adalah $(2, -1)$ dan jari-jari $r = 5$."
         },
         {
           "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 13$ di titik $(-2, 3)$!",
-          "solution": "Langkah 1: Titik $(-2, 3)$ berada pada lingkaran karena $(-2)^2 + 3^2 = 4 + 9 = 13$.\nLangkah 2: Rumus Bagi Adil: $x_1 x + y_1 y = r^2 \\implies -2x + 3y = 13$.\nKesimpulan: Persamaan garis singgung adalah $-2x + 3y = 13$ (atau $2x - 3y + 13 = 0$)."
+          "solution": "Langkah 1: Cek titik: $(-2)^2 + 3^2 = 4 + 9 = 13$ (titik pada lingkaran).\nLangkah 2: Metode bagi adil: $x_1 x + y_1 y = 13 \\implies -2x + 3y = 13 \\implies 2x - 3y + 13 = 0$.\nKesimpulan: Persamaan garis singgung adalah $2x - 3y + 13 = 0$."
         },
         {
-          "problem": "Tentukan persamaan garis singgung lingkaran $(x - 1)^2 + (y - 2)^2 = 9$ yang bergradien $m = -1$!",
-          "solution": "Langkah 1: Pusat $P(1, 2), r = 3, m = -1$.\nLangkah 2: $y - 2 = -1(x - 1) \\pm 3\\sqrt{1 + (-1)^2} = -x + 1 \\pm 3\\sqrt{2}$.\nLangkah 3: $x + y = 3 \\pm 3\\sqrt{2}$.\nKesimpulan: Persamaan garis singgung adalah $x + y - 3 - 3\\sqrt{2} = 0$ dan $x + y - 3 + 3\\sqrt{2} = 0$."
+          "problem": "Tentukan persamaan garis singgung lingkaran $(x - 1)^2 + (y - 2)^2 = 9$ yang bergradien $m = \\frac{4}{3}$!",
+          "solution": "Langkah 1: Pusat $(1, 2)$, $r = 3, m = 4/3$.\nLangkah 2: $y - 2 = \\frac{4}{3}(x - 1) \\pm 3\\sqrt{1 + \\left(\\frac{4}{3}\\right)^2} = \\frac{4}{3}(x - 1) \\pm 3\\left(\\frac{5}{3}\\right) = \\frac{4}{3}(x - 1) \\pm 5$.\nLangkah 3: Kalikan 3: $3y - 6 = 4x - 4 \\pm 15 \\implies 4x - 3y + 2 \\pm 15 = 0$.\nKesimpulan: $4x - 3y + 17 = 0$ dan $4x - 3y - 13 = 0$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Asesmen Sumatif Bab 1: Geometri Analitik Lingkaran. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Matriks Uji Kompetensi Bab 1, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Formula Cepat PGSL, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan kedudukan antara lingkaran $L_1: x^2 + y^2 = 9$ dan lingkaran $L_2: (x - 6)^2 + (y - 8)^2 = 49$!",
+          "solution": "Langkah 1: Pusat $L_1$ adalah $P_1(0,0)$ dengan $r_1 = 3$. Pusat $L_2$ adalah $P_2(6,8)$ dengan $r_2 = 7$.\nLangkah 2: Jarak antar pusat $d = \\sqrt{(6 - 0)^2 + (8 - 0)^2} = \\sqrt{36 + 64} = 10$.\nLangkah 3: Jumlah jari-jari: $r_1 + r_2 = 3 + 7 = 10$.\nLangkah 4: Karena jarak antar pusat sama dengan jumlah jari-jari ($d = r_1 + r_2$), maka kedua lingkaran **bersinggungan di luar**.\nKesimpulan: Kedua lingkaran saling bersinggungan di luar."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Asesmen Sumatif Bab 1: Geometri Analitik Lingkaran, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Matriks Uji Kompetensi Bab 1.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Formula Cepat PGSL.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Dua roda katrol lingkaran masing-masing berpusat di $P_1(0,0)$ dengan jari-jari $R = 8\\text{ cm}$ dan $P_2(12, 5)$ dengan jari-jari $r = 3\\text{ cm}$. Tentukan panjang sabuk garis singgung persekutuan luar (GSPL) antara kedua katrol!",
+          "solution": "Langkah 1: Jarak antar pusat katrol: $d = \\sqrt{12^2 + 5^2} = \\sqrt{144 + 25} = 13\\text{ cm}$.\nLangkah 2: Rumus Garis Singgung Persekutuan Luar (GSPL): $l = \\sqrt{d^2 - (R - r)^2}$.\nLangkah 3: $l = \\sqrt{13^2 - (8 - 3)^2} = \\sqrt{169 - 5^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12\\text{ cm}$.\nKesimpulan: Panjang sabuk garis singgung persekutuan luar adalah $12\\text{ cm}$."
         }
       ],
       "btc": "Kelompok VNPS: Bedah paket simulasi 10 soal CBT Bab 1 dan buktikan seluruh langkah analitisnya di papan tulis vertikal!",
