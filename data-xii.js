@@ -860,24 +860,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Pada kubus ABCD.EFGH, tentukan nilai tangen sudut antara garis diagonal ruang AG dan bidang alas ABCD!",
-          "solution": "Langkah 1: Proyeksi garis $AG$ pada bidang alas $ABCD$ adalah garis diagonal sisi $AC$.\nLangkah 2: Sudut yang terbentuk adalah $\\angle GAC = \\alpha$ pada segitiga siku-siku $ACG$.\nLangkah 3: Sisi depan $= CG = s$, sisi samping $= AC = s\\sqrt{2}$.\nLangkah 4: $\\tan \\alpha = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$.\nKesimpulan: Nilai tangen sudut adalah $\\frac{1}{2}\\sqrt{2}$."
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, tentukan besar sinus sudut antara garis diagonal ruang $AG$ dan bidang alas $ABCD$!",
+          "solution": "Langkah 1: Proyeksikan garis $AG$ ke bidang $ABCD$. Proyeksi titik $G$ ke alas adalah $C$, sehingga proyeksi garis $AG$ pada alas adalah diagonal sisi $AC$.\nLangkah 2: Sudut antara $AG$ dan alas $ABCD$ adalah $\\angle CAG = \\alpha$ pada segitiga siku-siku $ACG$ di $C$.\nLangkah 3: Panjang $AC = 6\\sqrt{2}\\text{ cm}$, $CG = 6\\text{ cm}$, dan $AG = 6\\sqrt{3}\\text{ cm}$.\nLangkah 4: $\\sin \\alpha = \\frac{CG}{AG} = \\frac{6}{6\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$.\nKesimpulan: Nilai sinus sudut antara garis $AG$ dan bidang alas adalah $\\frac{1}{3}\\sqrt{3}$."
         },
         {
-          "problem": "Pada kubus ABCD.EFGH, tentukan nilai cosinus sudut antara garis diagonal sisi AH dan garis diagonal sisi AC!",
-          "solution": "Langkah 1: Hubungkan titik $C$ dan $H$ membentuk segitiga $ACH$.\nLangkah 2: Panjang sisi $AC = s\\sqrt{2}, AH = s\\sqrt{2}, CH = s\\sqrt{2}$. Segitiga $ACH$ adalah sama sisi!\nLangkah 3: Sudut antara $AH$ dan $AC$ adalah $60^\\circ$.\nLangkah 4: $\\cos 60^\\circ = \\frac{1}{2}$.\nKesimpulan: Nilai cosinus sudutnya adalah $\\frac{1}{2}$."
+          "problem": "Pada kubus $ABCD.EFGH$, tentukan nilai cosinus sudut antara bidang $AFH$ dan bidang $CHF$!",
+          "solution": "Langkah 1: Garis persekutuan kedua bidang adalah $FH$. Titik tengah $FH$ adalah $O$.\nLangkah 2: Tarik garis tegak lurus $FH$ pada masing-masing bidang: $AO \\perp FH$ pada $\\Delta AFH$ dan $CO \\perp FH$ pada $\\Delta CHF$.\nLangkah 3: Sudut antara bidang $AFH$ dan $CHF$ adalah $\\angle AOC = \\theta$ pada segitiga $AOC$.\nLangkah 4: Pada kubus berusuk $s$, $AO = CO = \\frac{1}{2}s\\sqrt{6}$ dan $AC = s\\sqrt{2}$.\nLangkah 5: Terapkan aturan cosinus pada $\\Delta AOC$: $\\cos \\theta = \\frac{AO^2 + CO^2 - AC^2}{2 \\cdot AO \\cdot CO} = \\frac{\\frac{6}{4}s^2 + \\frac{6}{4}s^2 - 2s^2}{2 \\cdot \\frac{6}{4}s^2} = \\frac{3s^2 - 2s^2}{3s^2} = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara bidang $AFH$ dan $CHF$ adalah $\\frac{1}{3}$."
         },
         {
-          "problem": "Tentukan nilai sinus sudut antara bidang AFH dan bidang ABCD pada kubus ABCD.EFGH!",
-          "solution": "Langkah 1: Garis tinggi bidang $AFH$ dari $H$ ke $AF$ adalah $HO$. Garis proyeksi pada alas adalah $DO$.\nLangkah 2: Sudut terbentuk pada segitiga siku-siku $DOH$ dengan sudut $\\theta = \\angle HOD$.\nLangkah 3: $DH = s, DO = \\frac{1}{2}s\\sqrt{2} \\implies HO = \\frac{1}{2}s\\sqrt{6}$.\nLangkah 4: $\\sin \\theta = \\frac{DH}{HO} = \\frac{s}{\\frac{1}{2}s\\sqrt{6}} = \\frac{2}{\\sqrt{6}} = \\frac{2}{6}\\sqrt{6} = \\frac{1}{3}\\sqrt{6}$.\nKesimpulan: Nilai sinus sudut adalah $\\frac{1}{3}\\sqrt{6}$."
+          "problem": "Pada limas beraturan $T.ABCD$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tegak $6\\text{ cm}$, tentukan nilai tangen sudut antara rusuk tegak $TA$ dan bidang alas $ABCD$!",
+          "solution": "Langkah 1: Proyeksi $T$ ke alas persegi adalah titik pusat alas $O$. Sudut yang dicari adalah $\\angle TAO = \\alpha$.\nLangkah 2: Panjang diagonal alas $AC = 6\\sqrt{2}\\text{ cm} \\implies AO = \\frac{1}{2} AC = 3\\sqrt{2}\\text{ cm}$.\nLangkah 3: Tinggi limas $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{6^2 - (3\\sqrt{2})^2} = \\sqrt{36 - 18} = \\sqrt{18} = 3\\sqrt{2}\\text{ cm}$.\nLangkah 4: $\\tan \\alpha = \\frac{TO}{AO} = \\frac{3\\sqrt{2}}{3\\sqrt{2}} = 1 \\implies \\alpha = 45^\\circ$.\nKesimpulan: Nilai tangen sudut antara $TA$ dan bidang alas adalah $1$ (sudut $45^\\circ$)."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Sudut Antara Garis-Bidang dan Antara Dua Bidang (Dihedral Angle). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Sudut Garis ke Bidang, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Sudut Antara Dua Bidang, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $a$, jika $\\alpha$ adalah sudut antara garis $CE$ dan garis $AG$, tentukan nilai $\\cos \\alpha$!",
+          "solution": "Langkah 1: Garis $CE$ dan $AG$ adalah dua diagonal ruang yang berpotongan di titik pusat kubus $O$.\nLangkah 2: Panjang diagonal ruang $CE = AG = a\\sqrt{3}$, sehingga $OE = OG = \\frac{a\\sqrt{3}}{2}$.\nLangkah 3: Perhatikan segitiga $EOG$ dengan panjang sisi $EG = a\\sqrt{2}$ (diagonal sisi atas).\nLangkah 4: Gunakan aturan cosinus pada $\\Delta EOG$: $\\cos \\alpha = \\frac{OE^2 + OG^2 - EG^2}{2 \\cdot OE \\cdot OG} = \\frac{\\frac{3}{4}a^2 + \\frac{3}{4}a^2 - 2a^2}{2 \\cdot \\frac{3}{4}a^2} = \\frac{\\frac{6}{4}a^2 - 2a^2}{\\frac{6}{4}a^2} = \\frac{-\\frac{1}{2}}{\\frac{3}{2}} = -\\frac{1}{3}$.\nLangkah 5: Sudut lancip antara kedua garis adalah $|\\cos \\alpha| = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara diagonal ruang $CE$ dan $AG$ adalah $\\frac{1}{3}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Sudut Antara Garis-Bidang dan Antara Dua Bidang (Dihedral Angle), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Sudut Garis ke Bidang.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Sudut Antara Dua Bidang.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah atap gazebo berbentuk limas segi empat beraturan $T.ABCD$ dengan rusuk alas $4\\text{ m}$ dan tinggi puncak $2\\sqrt{3}\\text{ m}$. Tentukan besar sudut kemiringan bidang atap sisi tegak terhadap bidang horizontal alas!",
+          "solution": "Langkah 1: Titik $P$ adalah titik tengah rusuk alas $AB$. Jarak $OP = \\frac{1}{2} \\times 4 = 2\\text{ m}$.\nLangkah 2: Tinggi limas $TO = 2\\sqrt{3}\\text{ m}$. Sudut kemiringan atap adalah $\\angle TPO = \\beta$.\nLangkah 3: Pada segitiga siku-siku $TOP$: $\\tan \\beta = \\frac{TO}{OP} = \\frac{2\\sqrt{3}}{2} = \\sqrt{3}$.\nLangkah 4: $\\beta = \\arctan(\\sqrt{3}) = 60^\\circ$.\nKesimpulan: Besar sudut kemiringan bidang atap terhadap bidang horizontal adalah $60^\\circ$."
         }
       ],
       "btc": "Kelompok VNPS: Pada kubus ABCD.EFGH, tentukan nilai cosinus sudut antara bidang ABCD dan bidang BDG!",
@@ -926,24 +926,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Kubus ABCD.EFGH dengan rusuk 6 cm. Titik P adalah perpotongan diagonal bidang EFGH. Tentukan jarak titik P ke garis diagonal sisi BD!",
-          "solution": "Langkah 1: Titik $P$ berada di pusat bidang atas $EFGH$. Proyeksi $P$ ke bidang alas adalah pusat alas $O$.\nLangkah 2: Garis $PO$ tegak lurus terhadap bidang alas $ABCD$, sehingga $PO \\perp BD$.\nLangkah 3: Jarak titik $P$ ke garis $BD$ adalah panjang ruas garis $PO = s = 6$ cm.\nKesimpulan: Jarak titik $P$ ke garis $BD$ adalah $6$ cm."
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, titik $K$ adalah titik tengah rusuk $EH$. Tentukan jarak titik $K$ ke garis diagonal ruang $AG$!",
+          "solution": "Langkah 1: Koordinat dengan $A(0,0,0)$: $A(0,0,0), G(6,6,6), K(0,3,6)$.\nLangkah 2: Vektor $\\vec{AG} = (6,6,6)$ dan $\\vec{AK} = (0,3,6)$.\nLangkah 3: Panjang proyeksi skalar $\\vec{AK}$ pada $\\vec{AG}$ adalah $p = \\frac{\\vec{AK} \\cdot \\vec{AG}}{|\\vec{AG}|} = \\frac{0(6) + 3(6) + 6(6)}{\\sqrt{6^2+6^2+6^2}} = \\frac{18 + 36}{6\\sqrt{3}} = \\frac{54}{6\\sqrt{3}} = 3\\sqrt{3}\\text{ cm}$.\nLangkah 4: Panjang $|\\vec{AK}| = \\sqrt{0^2 + 3^2 + 6^2} = \\sqrt{45} = 3\\sqrt{5}\\text{ cm}$.\nLangkah 5: Jarak tegak lurus $d = \\sqrt{|\\vec{AK}|^2 - p^2} = \\sqrt{45 - (3\\sqrt{3})^2} = \\sqrt{45 - 27} = \\sqrt{18} = 3\\sqrt{2}\\text{ cm}$.\nKesimpulan: Jarak titik $K$ ke diagonal ruang $AG$ adalah $3\\sqrt{2}\\text{ cm}$."
         },
         {
-          "problem": "Pada limas segiempat beraturan T.ABCD, rusuk alas 8 cm dan rusuk tegak 12 cm. Tentukan jarak titik puncak T ke bidang alas ABCD!",
-          "solution": "Langkah 1: Pusat bidang alas adalah $O$, perpotongan diagonal $AC$ dan $BD$.\nLangkah 2: Diagonal alas $AC = 8\\sqrt{2} \\implies AO = 4\\sqrt{2}$ cm.\nLangkah 3: Jarak $T$ ke bidang alas adalah tinggi limas $TO$.\nLangkah 4: $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{12^2 - (4\\sqrt{2})^2} = \\sqrt{144 - 32} = \\sqrt{112} = 4\\sqrt{7}$ cm.\nKesimpulan: Jarak titik $T$ ke bidang alas adalah $4\\sqrt{7}$ cm."
+          "problem": "Pada kubus $ABCD.EFGH$ berusuk $10\\text{ cm}$, tentukan jarak titik $F$ ke bidang diagonal $ACH$!",
+          "solution": "Langkah 1: Diagonal ruang $FD$ menembus bidang $ACH$ secara tegak lurus pada jarak $\\frac{2}{3}$ dari titik sudut $F$.\nLangkah 2: Panjang diagonal ruang $FD = 10\\sqrt{3}\\text{ cm}$.\nLangkah 3: Jarak $d = \\frac{2}{3} \\times 10\\sqrt{3} = \\frac{20}{3}\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak titik $F$ ke bidang $ACH$ adalah $\\frac{20}{3}\\sqrt{3}\\text{ cm}$."
         },
         {
-          "problem": "Pada kubus ABCD.EFGH berusuk 10 cm, tentukan jarak titik H ke bidang diagonal ACGE!",
-          "solution": "Langkah 1: Bidang $ACGE$ adalah bidang diagonal vertikal.\nLangkah 2: Proyeksi titik $H$ ke bidang $ACGE$ jatuh di titik tengah diagonal $EG$, sebut titik $P$.\nLangkah 3: Jarak $H$ ke $ACGE$ adalah panjang $HP = \\frac{1}{2} EG = \\frac{1}{2}(10\\sqrt{2}) = 5\\sqrt{2}$ cm.\nKesimpulan: Jarak titik $H$ ke bidang $ACGE$ adalah $5\\sqrt{2}$ cm."
+          "problem": "Balok $ABCD.EFGH$ memiliki panjang $AB = 4\\text{ cm}$, $BC = 3\\text{ cm}$, dan $CG = 12\\text{ cm}$. Tentukan jarak titik $B$ ke diagonal ruang $AG$!",
+          "solution": "Langkah 1: Pada $\\Delta ABG$, $AB = 4\\text{ cm}$, $BG = \\sqrt{BC^2 + CG^2} = \\sqrt{3^2 + 12^2} = \\sqrt{9 + 144} = \\sqrt{153}\\text{ cm}$.\nLangkah 2: Karena rusuk $AB \\perp$ bidang sisi samping $BCGF$, maka $AB \\perp BG$. Segitiga $ABG$ siku-siku di $B$.\nLangkah 3: Diagonal ruang $AG = \\sqrt{AB^2 + BG^2} = \\sqrt{4^2 + 153} = \\sqrt{16 + 153} = \\sqrt{169} = 13\\text{ cm}$.\nLangkah 4: Kesamaan luas $\\Delta ABG$: $AB \\times BG = AG \\times BB' \\implies 4 \\times \\sqrt{153} = 13 \\times BB' \\implies BB' = \\frac{4\\sqrt{153}}{13} = \\frac{12\\sqrt{17}}{13}\\text{ cm}$.\nKesimpulan: Jarak titik $B$ ke diagonal ruang $AG$ adalah $\\frac{12}{13}\\sqrt{17}\\text{ cm}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Asesmen Sumatif Terpadu Dimensi Tiga & Bedah Prediksi ASTS. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Matriks Uji Bab 2, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Kaidah Jarak Cepat, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Pada limas beraturan $T.ABCD$ dengan panjang rusuk alas $8\\text{ cm}$ dan rusuk tegak $8\\text{ cm}$, tentukan nilai sinus sudut antara bidang $TAB$ dan bidang $TCD$!",
+          "solution": "Langkah 1: Titik $P$ di tengah $AB$ dan titik $Q$ di tengah $CD$. Panjang $PQ = BC = 8\\text{ cm}$.\nLangkah 2: Tinggi segitiga sisi tegak $TP = TQ = \\sqrt{8^2 - 4^2} = \\sqrt{64 - 16} = \\sqrt{48} = 4\\sqrt{3}\\text{ cm}$.\nLangkah 3: Sudut antara bidang $TAB$ dan $TCD$ adalah $\\angle PTQ = \\theta$ pada $\\Delta TPQ$.\nLangkah 4: Aturan cosinus: $\\cos \\theta = \\frac{TP^2 + TQ^2 - PQ^2}{2 \\cdot TP \\cdot TQ} = \\frac{48 + 48 - 64}{2 \\cdot 48} = \\frac{32}{96} = \\frac{1}{3}$.\nLangkah 5: $\\sin \\theta = \\sqrt{1 - \\cos^2 \\theta} = \\sqrt{1 - \\left(\\frac{1}{3}\\right)^2} = \\sqrt{\\frac{8}{9}} = \\frac{2}{3}\\sqrt{2}$.\nKesimpulan: Nilai sinus sudut antara bidang $TAB$ dan $TCD$ adalah $\\frac{2}{3}\\sqrt{2}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Asesmen Sumatif Terpadu Dimensi Tiga & Bedah Prediksi ASTS, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Matriks Uji Bab 2.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Kaidah Jarak Cepat.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah instalasi seni 3D berbentuk kubus $ABCD.EFGH$ berukuran $6\\text{ m}$. Sebuah kawat dipasang dari titik $P$ (tengah $AB$) ke titik $Q$ (tengah $GH$). Tentukan jarak terpendek kawat tersebut terhadap garis diagonal ruang $DF$!",
+          "solution": "Langkah 1: Gunakan koordinat 3D: $P(3,0,0), Q(0,3,6), D(0,6,0), F(6,0,6)$.\nLangkah 2: Vektor arah garis $PQ$: $\\vec{u} = (-3, 3, 6) = 3(-1, 1, 2)$. Vektor arah garis $DF$: $\\vec{v} = (6, -6, 6) = 6(1, -1, 1)$.\nLangkah 3: Vektor normal bersama $\\vec{n} = \\vec{u} \\times \\vec{v} = (3, 3, 0) = 3(1, 1, 0)$.\nLangkah 4: Vektor penghubung $\\vec{DP} = (3, -6, 0)$. Jarak terpendek antara dua garis bersilangan: $d = \\frac{|\\vec{DP} \\cdot \\vec{n}|}{|\\vec{n}|} = \\frac{|3(1) + (-6)(1) + 0|}{\\sqrt{1^2 + 1^2 + 0}} = \\frac{|-3|}{\\sqrt{2}} = \\frac{3}{\\sqrt{2}} = \\frac{3}{2}\\sqrt{2}\\text{ m}$.\nKesimpulan: Jarak terpendek kawat $PQ$ ke diagonal ruang $DF$ adalah $\\frac{3}{2}\\sqrt{2}\\text{ m} \\approx 2{,}12\\text{ m}$."
         }
       ],
       "btc": "Kelompok VNPS: Bedah paket 10 soal prediksi ASTS CBT Dimensi Tiga dan buktikan solusi analitisnya!",
@@ -992,24 +992,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan tepi bawah ($Tb$), tepi atas ($Ta$), dan titik tengah ($x_i$) untuk kelas interval $45 - 54$!",
-          "solution": "Langkah 1: Tepi bawah $Tb = 45 - 0{,}5 = 44{,}5$.\nLangkah 2: Tepi atas $Ta = 54 + 0{,}5 = 54{,}5$.\nLangkah 3: Titik tengah $x_i = \\frac{45 + 54}{2} = \\frac{99}{2} = 49{,}5$.\nKesimpulan: $Tb = 44{,}5$, $Ta = 54{,}5$, dan $x_i = 49{,}5$."
+          "problem": "Diberikan tabel distribusi frekuensi: Interval $50-59$ ($f=6$), $60-69$ ($f=10$), $70-79$ ($f=14$), $80-89$ ($f=8$), $90-99$ ($f=2$). Tentukan tepi bawah, tepi atas, dan titik tengah ($x_i$) dari kelas ke-3!",
+          "solution": "Langkah 1: Kelas ke-3 adalah interval $70 - 79$.\nLangkah 2: Tepi bawah $T_b = 70 - 0{,}5 = 69{,}5$.\nLangkah 3: Tepi atas $T_a = 79 + 0{,}5 = 79{,}5$.\nLangkah 4: Titik tengah $x_3 = \\frac{70 + 79}{2} = \\frac{149}{2} = 74{,}5$.\nKesimpulan: Tepi bawah $= 69{,}5$, tepi atas $= 79{,}5$, dan titik tengah $= 74{,}5$."
         },
         {
-          "problem": "Diberikan data nilai ujian: interval 60-69 frekuensi 8, dan interval 70-79 frekuensi 14. Tentukan panjang kelas interval dan titik tengah masing-masing kelas!",
-          "solution": "Langkah 1: Panjang kelas $c = Ta - Tb = 69{,}5 - 59{,}5 = 10$.\nLangkah 2: Titik tengah kelas 1 $x_1 = \\frac{60 + 69}{2} = 64{,}5$.\nLangkah 3: Titik tengah kelas 2 $x_2 = \\frac{70 + 79}{2} = 74{,}5$.\nKesimpulan: Panjang kelas adalah $10$, dengan $x_1 = 64{,}5$ dan $x_2 = 74{,}5$."
+          "problem": "Dari suatu tabel distribusi diketahui tepi bawah kelas modal adalah $60{,}5$ dan panjang kelas $c = 8$. Tentukan batas bawah dan batas atas kelas tersebut!",
+          "solution": "Langkah 1: Batas bawah $BB = T_b + 0{,}5 = 60{,}5 + 0{,}5 = 61$.\nLangkah 2: Batas atas $BA = BB + c - 1 = 61 + 8 - 1 = 68$.\nKesimpulan: Interval kelas tersebut adalah $61 - 68$."
         },
         {
-          "problem": "Jika sebuah data berukuran $N = 100$ siswa memiliki nilai minimum 32 dan maksimum 92, tentukan banyak kelas $k$ dan estimasi panjang kelas $c$ menggunakan aturan Sturges! (Diketahui $\\log 100 = 2$)",
-          "solution": "Langkah 1: Banyak kelas $k = 1 + 3{,}3 \\log(100) = 1 + 3{,}3(2) = 1 + 6{,}6 = 7{,}6 \\approx 8$ kelas.\nLangkah 2: Jangkauan $R = 92 - 32 = 60$.\nLangkah 3: Panjang kelas $c = \\frac{R}{k} = \\frac{60}{8} = 7{,}5 \\approx 8$.\nKesimpulan: Banyak kelas $k = 8$ dan panjang kelas $c = 8$."
+          "problem": "Diberikan data frekuensi kumulatif 'kurang dari' ($F_k$): $T_a \\le 49{,}5$ ($F_k=4$), $T_a \\le 59{,}5$ ($F_k=11$), $T_a \\le 69{,}5$ ($F_k=25$), $T_a \\le 79{,}5$ ($F_k=40$). Tentukan frekuensi asli dari kelas interval $60 - 69$!",
+          "solution": "Langkah 1: Frekuensi asli kelas $60 - 69$ adalah selisih antara frekuensi kumulatif kelas tersebut ($T_a = 69{,}5$) dan kelas sebelumnya ($T_a = 59{,}5$).\nLangkah 2: $f = F_{k(69{,}5)} - F_{k(59{,}5)} = 25 - 11 = 14$.\nKesimpulan: Frekuensi asli interval $60 - 69$ adalah $14$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Penyajian Data Berkelompok (Histogram, Poligon, & Ogive). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Aturan Sturges (Banyak Kelas), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Tepi Kelas & Titik Tengah, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Berdasarkan grafik Ogive Positif dari data nilai 100 siswa, diperoleh bahwa persentase siswa yang nilainya kurang dari atau sama dengan 75 adalah 64%. Jika KKM kelulusan adalah 75,5, berapa banyak siswa yang dinyatakan lulus?",
+          "solution": "Langkah 1: Jumlah total siswa $N = 100$.\nLangkah 2: Siswa dengan nilai $\\le 75{,}5$ adalah $64\\% \\times 100 = 64$ siswa.\nLangkah 3: Jumlah siswa yang lulus (nilai di atas KKM) adalah $N - 64 = 100 - 64 = 36$ siswa.\nKesimpulan: Banyak siswa yang dinyatakan lulus adalah $36$ siswa."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Penyajian Data Berkelompok (Histogram, Poligon, & Ogive), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Aturan Sturges (Banyak Kelas).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Tepi Kelas & Titik Tengah.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah perusahaan manufaktur memonitor distribusi waktu perakitan gawai (dalam menit): [20-29: 8], [30-39: 15], [40-49: 20], [50-59: 7]. Gambarkan interpretasi jika standar efisiensi mensyaratkan perakitan di bawah 50 menit!",
+          "solution": "Langkah 1: Total sampel gawai $N = 8 + 15 + 20 + 7 = 50$ unit.\nLangkah 2: Gawai dengan waktu perakitan $< 49{,}5$ menit (di bawah 50 menit) mencakup 3 kelas pertama: $8 + 15 + 20 = 43$ unit.\nLangkah 3: Persentase pemenuhan standar efisiensi $= \\frac{43}{50} \\times 100\\% = 86\\%$.\nKesimpulan: Sebanyak $86\\%$ unit gawai memenuhi standar efisiensi operasional."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan tabel data nilai: [50-59: 6], [60-69: 10], [70-79: 14], [80-89: 10]. Buatlah tabel frekuensi kumulatif kurang dari dan sketsakan kurva Ogive Positifnya!",
@@ -1062,24 +1062,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Diberikan data nilai siswa: [50-59: 5], [60-69: 10], [70-79: 15], [80-89: 10]. Total frekuensi $N = 40$. Hitung nilai rata-rata hitung (mean) data tersebut menggunakan metode titik tengah!",
-          "solution": "Langkah 1: Titik tengah ($x_i$): $54{,}5; 64{,}5; 74{,}5; 84{,}5$.\nLangkah 2: Perkalian $f_i x_i$:\n- $5 \\times 54{,}5 = 272{,}5$\n- $10 \\times 64{,}5 = 645{,}0$\n- $15 \\times 74{,}5 = 1.117{,}5$\n- $10 \\times 84{,}5 = 845{,}0$\nLangkah 3: $\\sum f_i x_i = 272{,}5 + 645{,}0 + 1.117{,}5 + 845{,}0 = 2.880$.\nLangkah 4: $\\bar{x} = \\frac{2.880}{40} = 72$.\nKesimpulan: Nilai rata-rata hitung data adalah $72$."
+          "problem": "Hitung rata-rata hitung (mean) data berkelompok berikut menggunakan metode titik tengah ($x_i$): [30-39: 3], [40-49: 5], [50-59: 8], [60-69: 4]!",
+          "solution": "Langkah 1: Tentukan titik tengah tiap kelas: $x_1 = 34{,}5$, $x_2 = 44{,}5$, $x_3 = 54{,}5$, $x_4 = 64{,}5$.\nLangkah 2: Hitung $f_i x_i$:\n- $3 \\times 34{,}5 = 103{,}5$\n- $5 \\times 44{,}5 = 222{,}5$\n- $8 \\times 54{,}5 = 436{,}0$\n- $4 \\times 64{,}5 = 258{,}0$\nLangkah 3: $\\sum f_i = 3 + 5 + 8 + 4 = 20$. $\\sum f_i x_i = 103{,}5 + 222{,}5 + 436 + 258 = 1020$.\nLangkah 4: $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{1020}{20} = 51$.\nKesimpulan: Nilai rata-rata hitung data adalah $51$."
         },
         {
-          "problem": "Dari data nilai di atas, hitung kembali nilai mean menggunakan metode rataan sementara dengan memilih $x_s = 74{,}5$!",
-          "solution": "Langkah 1: Deviasi $d_i = x_i - 74{,}5$:\n- $54{,}5 - 74{,}5 = -20 \\implies f_1 d_1 = 5(-20) = -100$\n- $64{,}5 - 74{,}5 = -10 \\implies f_2 d_2 = 10(-10) = -100$\n- $74{,}5 - 74{,}5 = 0 \\implies f_3 d_3 = 15(0) = 0$\n- $84{,}5 - 74{,}5 = +10 \\implies f_4 d_4 = 10(10) = +100$\nLangkah 2: $\\sum f_i d_i = -100 - 100 + 0 + 100 = -100$.\nLangkah 3: $\\bar{x} = 74{,}5 + \\frac{-100}{40} = 74{,}5 - 2{,}5 = 72$.\nKesimpulan: Nilai mean adalah $72$ (identik dan terbukti konsisten)."
+          "problem": "Hitung mean data pada tabel [10-19: 4], [20-29: 7], [30-39: 10], [40-49: 6], [50-59: 3] dengan metode rataan sementara ($\bar{x}_s = 34{,}5$)!",
+          "solution": "Langkah 1: Titik tengah: $14{,}5; 24{,}5; 34{,}5; 44{,}5; 54{,}5$. Deviasi $d_i = x_i - 34{,}5$: $-20, -10, 0, +10, +20$.\nLangkah 2: Hitung $f_i d_i$:\n- $4(-20) = -80$\n- $7(-10) = -70$\n- $10(0) = 0$\n- $6(10) = 60$\n- $3(20) = 60$\nLangkah 3: $\\sum f_i d_i = -80 - 70 + 0 + 60 + 60 = -30$. $\\sum f_i = 4 + 7 + 10 + 6 + 3 = 30$.\nLangkah 4: $\\bar{x} = \\bar{x}_s + \\frac{\\sum f_i d_i}{\\sum f_i} = 34{,}5 + \\frac{-30}{30} = 34{,}5 - 1 = 33{,}5$.\nKesimpulan: Nilai mean data adalah $33{,}5$."
         },
         {
-          "problem": "Hitung mean data tersebut menggunakan metode Coding dengan $u_i = \\dots, -2, -1, 0, 1$ dan panjang kelas $c = 10$!",
-          "solution": "Langkah 1: $\\sum f_i u_i = 5(-2) + 10(-1) + 15(0) + 10(1) = -10 - 10 + 0 + 10 = -10$.\nLangkah 2: $\\bar{x} = 74{,}5 + \\left(\\frac{-10}{40}\\right) 10 = 74{,}5 - 2{,}5 = 72$.\nKesimpulan: Nilai mean adalah $72$."
+          "problem": "Hitung rata-rata data berikut dengan metode pengkodean (coding $u_i$): [40-49: 6], [50-59: 12], [60-69: 18], [70-79: 10], [80-89: 4] dengan kelas acuan $60-69$ ($c=10$)!",
+          "solution": "Langkah 1: Rataan sementara $\\bar{x}_s = 64{,}5$. Kode $u_i$: $-2, -1, 0, +1, +2$.\nLangkah 2: Hitung $f_i u_i$: $6(-2) = -12$, $12(-1) = -12$, $18(0) = 0$, $10(1) = 10$, $4(2) = 8$.\nLangkah 3: $\\sum f_i u_i = -12 - 12 + 0 + 10 + 8 = -6$. $\\sum f_i = 50$.\nLangkah 4: $\\bar{x} = \\bar{x}_s + \\left( \\frac{\\sum f_i u_i}{\\sum f_i} \\right) c = 64{,}5 + \\left(\\frac{-6}{50}\\right) 10 = 64{,}5 - 1{,}2 = 63{,}3$.\nKesimpulan: Nilai rata-rata data adalah $63{,}3$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Rata-rata Hitung (Mean) Data Berkelompok. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Metode Titik Tengah, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Metode Rataan Sementara, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Rata-rata nilai ujian matematika dari 40 siswa yang disajikan dalam tabel distribusi adalah 72. Jika frekuensi pada kelas $70-79$ tertutup noda dan dimisalkan $k$, sedangkan total frekuensi kelas lain adalah 32 dengan jumlah $f_i x_i$ selain kelas tersebut adalah 2.260, tentukan nilai $k$!",
+          "solution": "Langkah 1: Total siswa $N = 32 + k = 40 \\implies k = 8$.\nLangkah 2: Titik tengah kelas $70-79$ adalah $x_k = 74{,}5$.\nLangkah 3: Total $f_i x_i = 2260 + 8(74{,}5) = 2260 + 596 = 2856$.\nLangkah 4: Uji mean: $\\bar{x} = \\frac{2856}{40} = 71{,}4$.\nKesimpulan: Banyak frekuensi yang tertutup noda adalah $k = 8$ siswa."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Rata-rata Hitung (Mean) Data Berkelompok, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Metode Titik Tengah.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Metode Rataan Sementara.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Rata-rata konsumsi listrik 100 rumah tangga di kompleks perumahan adalah $320\\text{ kWh}$. Jika 40 rumah tangga klaster A memiliki rata-rata $350\\text{ kWh}$, tentukan rata-rata konsumsi listrik 60 rumah tangga klaster B!",
+          "solution": "Langkah 1: Gunakan rumus rataan gabungan: $\\bar{x}_{\\text{gab}} = \\frac{n_A \\bar{x}_A + n_B \\bar{x}_B}{n_A + n_B}$.\nLangkah 2: $320 = \\frac{40(350) + 60(\\bar{x}_B)}{100} \\implies 32000 = 14000 + 60\\bar{x}_B$.\nLangkah 3: $60\\bar{x}_B = 32000 - 14000 = 18000 \\implies \\bar{x}_B = \\frac{18000}{60} = 300\\text{ kWh}$.\nKesimpulan: Rata-rata konsumsi listrik rumah tangga klaster B adalah $300\\text{ kWh}$."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan tabel distribusi frekuensi dengan satu frekuensi tak diketahui bernilai $k$. Jika mean data adalah 68, tentukan nilai $k$!",
@@ -1129,24 +1129,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Diberikan tabel distribusi frekuensi berikut: [40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]. Total frekuensi $N = 40$. Tentukan nilai Median ($Me$) data tersebut!",
-          "solution": "Langkah 1: Letak kelas median $= \\frac{1}{2}(40) = 20$. Frekuensi kumulatif: $4, 10, 22 \\implies$ Kelas Median pada interval $60 - 69$.\nLangkah 2: $Tb = 59{,}5$, $c = 10$, $F_k = 4 + 6 = 10$, $f_{me} = 12$.\nLangkah 3: $Me = 59{,}5 + \\left(\\frac{20 - 10}{12}\\right) 10 = 59{,}5 + \\left(\\frac{10}{12}\\right) 10 = 59{,}5 + 8{,}33 = 67{,}83$.\nKesimpulan: Nilai median data adalah $67{,}83$."
+          "problem": "Tentukan median dari tabel data berkelompok: [30-39: 5], [40-49: 8], [50-59: 15], [60-69: 12], [70-79: 10]!",
+          "solution": "Langkah 1: Total frekuensi $N = 5 + 8 + 15 + 12 + 10 = 50$. Letak median $= \\frac{1}{2} N = 25$.\nLangkah 2: Frekuensi kumulatif: $F_{k1} = 5, F_{k2} = 13, F_{k3} = 28$. Kelas median adalah $50 - 59$.\nLangkah 3: $T_b = 49{,}5$, $F_k = 13$, $f_m = 15$, panjang kelas $c = 10$.\nLangkah 4: $\\text{Me} = T_b + \\left( \\frac{\\frac{1}{2}N - F_k}{f_m} \\right) c = 49{,}5 + \\left( \\frac{25 - 13}{15} \\right) 10 = 49{,}5 + \\left( \\frac{12}{15} \\right) 10 = 49{,}5 + 8 = 57{,}5$.\nKesimpulan: Nilai median data adalah $57{,}5$."
         },
         {
-          "problem": "Dari tabel distribusi frekuensi yang sama, tentukan nilai Modus ($Mo$) data tersebut!",
-          "solution": "Langkah 1: Frekuensi tertinggi adalah $12$ pada kelas interval $60 - 69$.\nLangkah 2: $Tb = 59{,}5$, $c = 10$.\nLangkah 3: Selisih frekuensi sebelum $d_1 = 12 - 6 = 6$, selisih setelah $d_2 = 12 - 10 = 2$.\nLangkah 4: $Mo = 59{,}5 + \\left(\\frac{6}{6 + 2}\\right) 10 = 59{,}5 + \\left(\\frac{6}{8}\\right) 10 = 59{,}5 + 7{,}5 = 67{,}0$.\nKesimpulan: Nilai modus data adalah $67{,}0$."
+          "problem": "Tentukan modus dari tabel distribusi: [20-29: 4], [30-39: 7], [40-49: 16], [50-59: 10], [60-69: 3]!",
+          "solution": "Langkah 1: Frekuensi tertinggi adalah $16$, maka kelas modus adalah $40 - 49$.\nLangkah 2: Tepi bawah $T_b = 39{,}5$, panjang kelas $c = 10$.\nLangkah 3: Selisih frekuensi dengan kelas sebelumnya: $d_1 = 16 - 7 = 9$.\nLangkah 4: Selisih frekuensi dengan kelas setelahnya: $d_2 = 16 - 10 = 6$.\nLangkah 5: $\\text{Mo} = T_b + \\left( \\frac{d_1}{d_1 + d_2} \\right) c = 39{,}5 + \\left( \\frac{9}{9 + 6} \\right) 10 = 39{,}5 + \\left( \\frac{9}{15} \\right) 10 = 39{,}5 + 6 = 45{,}5$.\nKesimpulan: Nilai modus data adalah $45{,}5$."
         },
         {
-          "problem": "Jika sebuah data berkelompok memiliki Modus = 65, Median = 67, dan Mean = 70, tentukan arah kemiringan kurva distribusinya!",
-          "solution": "Langkah 1: Perbandingan nilai: $\\text{Modus} < \\text{Median} < \\text{Mean}$ ($65 < 67 < 70$).\nLangkah 2: Karena nilai mean berada paling kanan tertarik oleh data bernilai tinggi, kurva memiliki ekor ke kanan.\nKesimpulan: Kurva berdistribusi miring ke kanan (Positively Skewed)."
+          "problem": "Jika suatu data berkelompok memiliki kelas modus pada interval $51 - 60$ dengan frekuensi 12, frekuensi kelas sebelumnya 8, frekuensi kelas sesudahnya 6, tentukan nilai modusnya!",
+          "solution": "Langkah 1: $T_b = 50{,}5$, panjang kelas $c = 10$.\nLangkah 2: $d_1 = 12 - 8 = 4$ dan $d_2 = 12 - 6 = 6$.\nLangkah 3: $\\text{Mo} = 50{,}5 + \\left( \\frac{4}{4 + 6} \\right) 10 = 50{,}5 + \\left( \\frac{4}{10} \\right) 10 = 50{,}5 + 4 = 54{,}5$.\nKesimpulan: Nilai modus adalah $54{,}5$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Median dan Modus Data Berkelompok. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Median Data Berkelompok, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Modus Data Berkelompok, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Dari hasil tes psikotes 80 calon karyawan diperoleh median 68,5. Jika kelas median terletak pada interval $65-74$ ($c=10$) dengan frekuensi kumulatif sebelum kelas median $F_k = 30$, tentukan frekuensi kelas median tersebut!",
+          "solution": "Langkah 1: Letak median $= \\frac{1}{2} N = \\frac{1}{2}(80) = 40$. $T_b = 64{,}5$.\nLangkah 2: Rumus median: $\\text{Me} = T_b + \\left(\\frac{40 - F_k}{f_m}\\right) c \\implies 68{,}5 = 64{,}5 + \\left(\\frac{40 - 30}{f_m}\\right) 10$.\nLangkah 3: $4 = \\frac{100}{f_m} \\implies f_m = \\frac{100}{4} = 25$.\nKesimpulan: Frekuensi kelas median adalah $25$ orang."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Median dan Modus Data Berkelompok, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Median Data Berkelompok.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Modus Data Berkelompok.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Pada distribusi pendapatan pedagang mikro (dalam ratus ribu rupiah per hari): [10-19: 6], [20-29: 14], [30-39: 20], [40-49: 10], analisislah perbandingan antara Median dan Modus untuk menentukan kemiringan kurva distribusi!",
+          "solution": "Langkah 1: Total $N = 50$. Kelas Median pada $30-39$: $\\text{Me} = 29{,}5 + \\left(\\frac{25 - 20}{20}\\right) 10 = 29{,}5 + 2{,}5 = 32{,}0$.\nLangkah 2: Kelas Modus pada $30-39$: $d_1 = 20 - 14 = 6, d_2 = 20 - 10 = 10$. $\\text{Mo} = 29{,}5 + \\left(\\frac{6}{16}\\right)10 = 29{,}5 + 3{,}75 = 33{,}25$.\nLangkah 3: Karena $\\text{Me} < \\text{Mo}$ ($32{,}0 < 33{,}25$), kurva distribusi condong ke kiri (skewness negatif).\nKesimpulan: Median $= 32{,}0$ dan Modus $= 33{,}25$ dengan kemiringan distribusi condong ke kiri."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan histogram nilai matematika. Tentukan nilai median dan modus langsung dari visualisasi grafik batang histogram!",
@@ -1199,24 +1199,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Diberikan tabel distribusi frekuensi: [40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]. Total $N = 40$. Tentukan nilai Kuartil Atas ($Q_3$)!",
-          "solution": "Langkah 1: Letak kelas $Q_3 = \\frac{3}{4}(40) = 30$. Frekuensi kumulatif: $4, 10, 22, 32 \\implies$ Kelas $Q_3$ di interval $70 - 79$.\nLangkah 2: $Tb = 69{,}5$, $c = 10$, $F_k = 22$, $f_{Q_3} = 10$.\nLangkah 3: $Q_3 = 69{,}5 + \\left(\\frac{30 - 22}{10}\\right) 10 = 69{,}5 + 8 = 77{,}5$.\nKesimpulan: Nilai kuartil atas ($Q_3$) adalah $77{,}5$."
+          "problem": "Tentukan Kuartil Bawah ($Q_1$) dari tabel distribusi: [40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]!",
+          "solution": "Langkah 1: Total frekuensi $N = 40$. Letak $Q_1 = \\frac{1}{4} N = 10$.\nLangkah 2: Frekuensi kumulatif: $F_{k1}=4, F_{k2}=10$. Data ke-10 tepat di akhir interval $50-59$.\nLangkah 3: Tepi atas kelas ke-2 $= 59{,}5$. Atau gunakan rumus: $T_b = 49{,}5, F_k = 4, f_{Q1} = 6, c = 10$.\nLangkah 4: $Q_1 = 49{,}5 + \\left( \\frac{10 - 4}{6} \\right) 10 = 49{,}5 + 10 = 59{,}5$.\nKesimpulan: Nilai Kuartil Bawah ($Q_1$) adalah $59{,}5$."
         },
         {
-          "problem": "Jika dari suatu data diketahui $Q_1 = 58$ dan $Q_3 = 82$, hitunglah jangkauan interkuartil ($QR$), simpangan kuartil ($Q_d$), dan batas pagar pencilan atas!",
-          "solution": "Langkah 1: $QR = Q_3 - Q_1 = 82 - 58 = 24$.\nLangkah 2: $Q_d = \\frac{1}{2}(24) = 12$.\nLangkah 3: $\\text{Pagar Atas} = Q_3 + 1{,}5(QR) = 82 + 1{,}5(24) = 82 + 36 = 118$.\nKesimpulan: $QR = 24$, $Q_d = 12$, dan batas pagar atas adalah $118$."
+          "problem": "Tentukan Kuartil Atas ($Q_3$) dari tabel data: [40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]!",
+          "solution": "Langkah 1: Letak $Q_3 = \\frac{3}{4} N = \\frac{3}{4}(40) = 30$.\nLangkah 2: Frekuensi kumulatif: $F_{k1}=4, F_{k2}=10, F_{k3}=22, F_{k4}=32$. Kelas $Q_3$ adalah $70 - 79$.\nLangkah 3: $T_b = 69{,}5, F_k = 22, f_{Q3} = 10, c = 10$.\nLangkah 4: $Q_3 = 69{,}5 + \\left( \\frac{30 - 22}{10} \\right) 10 = 69{,}5 + 8 = 77{,}5$.\nKesimpulan: Nilai Kuartil Atas ($Q_3$) adalah $77{,}5$."
         },
         {
-          "problem": "Tentukan letak interval kelas untuk Desil ke-7 ($D_7$) pada data dengan ukuran $N = 60$!",
-          "solution": "Langkah 1: Letak $D_7 = \\frac{7}{10} \\times 60 = 42$.\nLangkah 2: Data ke-42 terletak pada kelas interval yang memuat frekuensi kumulatif mencapai minimal 42.\nKesimpulan: Kelas $D_7$ berada pada interval yang memuat data urutan ke-$42$."
+          "problem": "Jika dari suatu data berkelompok diperoleh $Q_1 = 59{,}5$ dan $Q_3 = 77{,}5$, hitunglah Jangkauan Interkuartil ($QR$), Simpangan Kuartil ($Q_d$), dan batas pencilan bawah/atas!",
+          "solution": "Langkah 1: Jangkauan Interkuartil $QR = Q_3 - Q_1 = 77{,}5 - 59{,}5 = 18$.\nLangkah 2: Simpangan Kuartil $Q_d = \\frac{1}{2} QR = \\frac{1}{2}(18) = 9$.\nLangkah 3: Pagar Bawah $PB = Q_1 - 1{,}5(QR) = 59{,}5 - 1{,}5(18) = 59{,}5 - 27 = 32{,}5$.\nLangkah 4: Pagar Atas $PA = Q_3 + 1{,}5(QR) = 77{,}5 + 27 = 104{,}5$.\nKesimpulan: $QR = 18$, $Q_d = 9$, batas pencilan di luar rentang $[32{,}5; 104{,}5]$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Ukuran Letak Data (Kuartil Q1-Q3, Desil, Jangkauan Interkuartil). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Kuartil ke-i Data Berkelompok, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Jangkauan Interkuartil, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan nilai Desil ke-7 ($D_7$) dari tabel distribusi: [20-29: 8], [30-39: 12], [40-49: 20], [50-59: 10] ($N = 50$, $c = 10$)!",
+          "solution": "Langkah 1: Letak $D_7 = \\frac{7}{10} N = \\frac{7}{10}(50) = 35$.\nLangkah 2: Frekuensi kumulatif: $F_{k1}=8, F_{k2}=20, F_{k3}=40$. Kelas $D_7$ pada $40 - 49$.\nLangkah 3: $T_b = 39{,}5, F_k = 20, f_D = 20, c = 10$.\nLangkah 4: $D_7 = 39{,}5 + \\left( \\frac{35 - 20}{20} \\right) 10 = 39{,}5 + \\left( \\frac{15}{20} \\right) 10 = 39{,}5 + 7{,}5 = 47{,}0$.\nKesimpulan: Nilai Desil ke-7 ($D_7$) adalah $47{,}0$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Ukuran Letak Data (Kuartil Q1-Q3, Desil, Jangkauan Interkuartil), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Kuartil ke-i Data Berkelompok.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Jangkauan Interkuartil.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Pada seleksi beasiswa, hanya $25\\%$ siswa dengan nilai tertinggi yang berhak lolos wawancara. Jika nilai berdistribusi dengan $Q_1 = 62$ dan $Q_3 = 84$, tentukan batas nilai minimum untuk dapat lolos beasiswa!",
+          "solution": "Langkah 1: Siswa pada $25\\%$ teratas berada di atas Kuartil ke-3 ($Q_3$).\nLangkah 2: Nilai batas pemisah kuartil atas adalah $Q_3 = 84$.\nKesimpulan: Batas nilai minimum agar siswa lolos beasiswa adalah $84$."
         }
       ],
       "btc": "Kelompok VNPS: Hitung nilai $Q_1$ dan $Q_3$ dari tabel distribusi frekuensi nilai matematika 60 siswa dan tentukan apakah ada nilai siswa yang termasuk pencilan!",
@@ -1270,24 +1270,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Diberikan data tunggal: 4, 6, 8, 10, 12. Hitung mean, varians ($S^2$), dan simpangan baku ($S$) data tersebut!",
-          "solution": "Langkah 1: Mean $\\bar{x} = \\frac{4 + 6 + 8 + 10 + 12}{5} = \\frac{40}{5} = 8$.\nLangkah 2: Selisih kuadrat $(x_i - \\bar{x})^2$:\n$(4-8)^2 = 16$, $(6-8)^2 = 4$, $(8-8)^2 = 0$, $(10-8)^2 = 4$, $(12-8)^2 = 16$.\nLangkah 3: Jumlah $= 16 + 4 + 0 + 4 + 16 = 40$.\nLangkah 4: Varians $S^2 = \\frac{40}{5} = 8$. Simpangan baku $S = \\sqrt{8} = 2\\sqrt{2} \\approx 2{,}83$.\nKesimpulan: Varians $S^2 = 8$ dan simpangan baku $S = 2\\sqrt{2}$."
+          "problem": "Diberikan data tunggal: $4, 6, 8, 10, 12$. Hitung mean ($\\bar{x}$), simpangan rata-rata ($SR$), dan varians ($S^2$)!",
+          "solution": "Langkah 1: Mean $\\bar{x} = \\frac{4+6+8+10+12}{5} = \\frac{40}{5} = 8$.\nLangkah 2: Deviasi mutlak $|x_i - \\bar{x}|$: $|4-8|=4, |6-8|=2, |8-8|=0, |10-8|=2, |12-8|=4$.\nLangkah 3: $SR = \\frac{4+2+0+2+4}{5} = \\frac{12}{5} = 2{,}4$.\nLangkah 4: Kuadrat deviasi $(x_i - \\bar{x})^2$: $16, 4, 0, 4, 16$. Varians $S^2 = \\frac{16+4+0+4+16}{5} = \\frac{40}{5} = 8$.\nKesimpulan: Mean $= 8$, $SR = 2{,}4$, dan Varians $S^2 = 8$."
         },
         {
-          "problem": "Hitung simpangan rata-rata ($SR$) dari data: 4, 6, 8, 10, 12!",
-          "solution": "Langkah 1: Mean $\\bar{x} = 8$.\nLangkah 2: Selisih mutlak $|x_i - 8|: |4-8|=4, |6-8|=2, 0, 2, 4$.\nLangkah 3: Jumlah $= 4 + 2 + 0 + 2 + 4 = 12$.\nLangkah 4: $SR = \\frac{12}{5} = 2{,}4$.\nKesimpulan: Simpangan rata-rata data adalah $2{,}4$."
+          "problem": "Hitung simpangan baku ($S$) dari data: $3, 5, 6, 7, 9$!",
+          "solution": "Langkah 1: $\\bar{x} = \\frac{3+5+6+7+9}{5} = \\frac{30}{5} = 6$.\nLangkah 2: Kuadrat selisih $(x_i - \\bar{x})^2$: $(3-6)^2 = 9, (5-6)^2 = 1, (6-6)^2 = 0, (7-6)^2 = 1, (9-6)^2 = 9$.\nLangkah 3: Varians $S^2 = \\frac{9+1+0+1+9}{5} = \\frac{20}{5} = 4$.\nLangkah 4: Simpangan baku $S = \\sqrt{S^2} = \\sqrt{4} = 2$.\nKesimpulan: Simpangan baku data adalah $2$."
         },
         {
-          "problem": "Siswa A memperoleh nilai ujian Matematika 85 pada kelas dengan $\\bar{x} = 75$ dan $S = 5$. Siswa B memperoleh nilai 90 pada kelas dengan $\\bar{x} = 82$ dan $S = 8$. Siswa manakah yang memiliki posisi prestasi relatif lebih unggul di kelasnya?",
-          "solution": "Langkah 1: $Z_A = \\frac{85 - 75}{5} = \\frac{10}{5} = +2{,}0$.\nLangkah 2: $Z_B = \\frac{90 - 82}{8} = \\frac{8}{8} = +1{,}0$.\nLangkah 3: Karena $Z_A > Z_B$ ($2{,}0 > 1{,}0$), siswa A berada $2$ simpangan baku di atas rata-rata kelasnya.\nKesimpulan: Prestasi relatif Siswa A lebih unggul dibandingkan Siswa B."
+          "problem": "Siswa A memperoleh nilai 85 pada ujian Matematika dengan $\\bar{x} = 75$ dan $S = 5$. Siswa A juga memperoleh nilai 80 pada ujian Fisika dengan $\\bar{x} = 70$ dan $S = 4$. Pada mata pelajaran manakah performa Siswa A relatif lebih unggul?",
+          "solution": "Langkah 1: Hitung Z-Score Matematika: $Z_{\\text{Mat}} = \\frac{85 - 75}{5} = \\frac{10}{5} = +2{,}0$.\nLangkah 2: Hitung Z-Score Fisika: $Z_{\\text{Fis}} = \\frac{80 - 70}{4} = \\frac{10}{4} = +2{,}5$.\nLangkah 3: Bandingkan Z-Score: Karena $Z_{\\text{Fis}} = 2{,}5 > Z_{\\text{Mat}} = 2{,}0$, maka posisi relatif nilai Fisika lebih tinggi terhadap rata-rata kelasnya.\nKesimpulan: Performa Siswa A relatif lebih unggul pada mata pelajaran Fisika."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Ukuran Penyebaran Data (Simpangan Rata-rata, Varians, Simpangan Baku). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Simpangan Rata-rata, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Varians & Simpangan Baku, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Jika setiap nilai data pada suatu sampel dikalikan 2 lalu dikurangi 5, tentukan perubahan pada Rata-rata dan Simpangan Baku jika semula $\\bar{x} = 20$ dan $S = 4$!",
+          "solution": "Langkah 1: Operasi perkalian dan pengurangan mempengaruhi rata-rata: $\\bar{x}_{\\text{baru}} = 2(20) - 5 = 40 - 5 = 35$.\nLangkah 2: Ukuran penyebaran (simpangan baku) HANYA dipengaruhi oleh operasi perkalian/pembagian: $S_{\\text{baru}} = |2| \\times S = 2 \\times 4 = 8$.\nKesimpulan: Rata-rata baru adalah $35$ dan Simpangan Baku baru adalah $8$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Ukuran Penyebaran Data (Simpangan Rata-rata, Varians, Simpangan Baku), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Simpangan Rata-rata.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Varians & Simpangan Baku.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Dua mesin pengisi botol otomatis diuji. Mesin 1 mengisi rata-rata $500\\text{ mL}$ dengan $S = 2\\text{ mL}$. Mesin 2 mengisi rata-rata $500\\text{ mL}$ dengan $S = 6\\text{ mL}$. Analisislah mesin mana yang lebih konsisten dan memiliki risiko cacat produksi lebih rendah!",
+          "solution": "Langkah 1: Hitung Koefisien Variasi ($KV = \\frac{S}{\\bar{x}} \\times 100\\%$).\n- Mesin 1: $KV_1 = \\frac{2}{500} \\times 100\\% = 0{,}4\\%$.\n- Mesin 2: $KV_2 = \\frac{6}{500} \\times 100\\% = 1{,}2\\%$.\nLangkah 2: Semakin kecil nilai simpangan baku dan koefisien variasi, semakin tinggi presisi dan konsistensi mesin.\nKesimpulan: Mesin 1 jauh lebih konsisten dengan variabilitas $3\\times$ lebih rendah dibandingkan Mesin 2."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan sekumpulan data dengan rata-rata 60 dan simpangan baku 8. Jika setiap data dikalikan 2 lalu dikurangi 10, tentukan rata-rata dan simpangan baku data baru!",
@@ -1337,24 +1337,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Jika persamaan garis regresi antara waktu belajar ($x$ jam) dan nilai ujian ($y$) adalah $\\hat{y} = 45 + 5{,}5x$, prediksikan nilai seorang siswa yang belajar selama 6 jam per hari!",
-          "solution": "Langkah 1: Substitusi $x = 6$ ke dalam persamaan regresi linier.\nLangkah 2: $\\hat{y} = 45 + 5{,}5(6) = 45 + 33 = 78$.\nKesimpulan: Prediksi nilai siswa yang belajar 6 jam adalah $78$."
+          "problem": "Jika persamaan garis regresi linier antara lama belajar ($x$ jam) dan skor ujian ($y$) adalah $\\hat{y} = 40 + 6x$, estimasikan nilai ujian siswa yang belajar selama $4{,}5$ jam!",
+          "solution": "Langkah 1: Substitusikan $x = 4{,}5$ ke persamaan regresi: $\\hat{y} = 40 + 6(4{,}5)$.\nLangkah 2: Hitung nilai: $\\hat{y} = 40 + 27 = 67$.\nKesimpulan: Estimasi skor ujian siswa adalah $67$."
         },
         {
-          "problem": "Dari analisis bivariat dua variabel diperoleh koefisien korelasi Pearson $r = +0{,}88$. Jelaskan arti dan interpretasi nilai tersebut!",
-          "solution": "Langkah 1: Tanda positif ($+$) menunjukkan korelasi searah: semakin tinggi variabel $x$, semakin tinggi pula variabel $y$.\nLangkah 2: Nilai $|r| = 0{,}88$ berada pada rentang $0{,}70 \\le r \\le 1{,}00$, yang menunjukkan hubungan korelasi linier yang SANGAT KUAT.\nKesimpulan: Terdapat hubungan linier positif yang sangat kuat antara variabel $x$ dan $y$."
+          "problem": "Dari analisis data bivariat diperoleh koefisien korelasi Pearson $r = 0{,}85$. Hitung koefisien determinasi ($R^2$) dan jelaskan maknanya!",
+          "solution": "Langkah 1: $R^2 = r^2 = (0{,}85)^2 = 0{,}7225 = 72{,}25\\%$.\nLangkah 2: Makna: Sebanyak $72{,}25\\%$ variasi pada variabel dependen $y$ dapat dijelaskan oleh variabel independen $x$ melalui model regresi linier, sedangkan sisanya $27{,}75\\%$ dipengaruhi faktor lain.\nKesimpulan: Koefisien determinasi adalah $72{,}25\\%$."
         },
         {
-          "problem": "Diberikan ringkasan data $N = 5$: $\\sum x = 15, \\sum y = 40, \\sum x^2 = 55, \\sum xy = 130$. Tentukan gradien garis regresi $b$ dan konstanta $a$!",
-          "solution": "Langkah 1: $b = \\frac{5(130) - (15)(40)}{5(55) - (15)^2} = \\frac{650 - 600}{275 - 225} = \\frac{50}{50} = 1{,}0$.\nLangkah 2: $\\bar{x} = \\frac{15}{5} = 3$, $\\bar{y} = \\frac{40}{5} = 8$.\nLangkah 3: $a = \\bar{y} - b\\bar{x} = 8 - 1{,}0(3) = 5$.\nLangkah 4: Persamaan regresi $\\hat{y} = 5 + x$.\nKesimpulan: Gradien $b = 1{,}0$ dan persamaan garis regresinya adalah $\\hat{y} = 5 + x$."
+          "problem": "Diberikan data $N = 5$: $\\sum x = 15, \\sum y = 40, \\sum x^2 = 55, \\sum xy = 145$. Tentukan gradien kemiringan garis regresi ($b$)!",
+          "solution": "Langkah 1: Rumus kemiringan: $b = \\frac{N \\sum xy - (\\sum x)(\\sum y)}{N \\sum x^2 - (\\sum x)^2}$.\nLangkah 2: Substitusikan nilai: $b = \\frac{5(145) - (15)(40)}{5(55) - (15)^2} = \\frac{725 - 600}{275 - 225} = \\frac{125}{50} = 2{,}5$.\nKesimpulan: Gradien garis regresi adalah $b = 2{,}5$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Analisis Data Bivariat (Scatter Plot, Korelasi Pearson, & Garis Regresi). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Persamaan Garis Regresi Linier, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Koefisien Korelasi Pearson, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Diberikan rata-rata $\\bar{x} = 3$, $\\bar{y} = 8$, dan gradien regresi $b = 2{,}5$. Tentukan konstanta intersep $a$ dan susun persamaan garis regresinya!",
+          "solution": "Langkah 1: Rumus intersep: $a = \\bar{y} - b\\bar{x}$.\nLangkah 2: $a = 8 - 2{,}5(3) = 8 - 7{,}5 = 0{,}5$.\nLangkah 3: Persamaan garis regresi: $\\hat{y} = a + bx \\implies \\hat{y} = 0{,}5 + 2{,}5x$.\nKesimpulan: Persamaan garis regresi adalah $\\hat{y} = 0{,}5 + 2{,}5x$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Analisis Data Bivariat (Scatter Plot, Korelasi Pearson, & Garis Regresi), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Persamaan Garis Regresi Linier.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Koefisien Korelasi Pearson.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Suatu penelitian mengukur hubungan antara suhu lingkungan ($x$ dalam $^\\circ\\text{C}$) dan penjualan es krim ($y$ dalam puluhan cup). Jika diperoleh $r = 0{,}92$, interpretasikan kekuatan dan arah hubungan kedua variabel!",
+          "solution": "Langkah 1: Nilai $r = +0{,}92$ bertanda positif $\\implies$ arah hubungan berbanding lurus (semakin tinggi suhu, semakin tinggi penjualan).\nLangkah 2: Nilai $|r| = 0{,}92 \\ge 0{,}80 \\implies$ kekuatan hubungan tergolong **sangat kuat**.\nKesimpulan: Terdapat hubungan linier positif yang sangat kuat antara kenaikan suhu dan peningkatan penjualan es krim."
         }
       ],
       "btc": "Kelompok VNPS: Diberikan pasangan data waktu latihan (x) vs jumlah kesalahan (y). Tentukan diagram pencar, arah korelasi, dan garis regresinya!",
@@ -1404,24 +1404,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Jika jangkauan data adalah 30 dan data dikelompokkan menjadi 6 kelas, berapakah panjang kelas intervalnya?",
-          "solution": "Langkah 1: $c = \\frac{\\text{Jangkauan}}{k} = \\frac{30}{6} = 5$.\nKesimpulan: Panjang kelas interval adalah $5$."
+          "problem": "Diberikan tabel distribusi frekuensi: [10-19: 4], [20-29: 8], [30-39: 16], [40-49: 10], [50-59: 2]. Tentukan simpangan kuartil ($Q_d$) dari data tersebut!",
+          "solution": "Langkah 1: Total $N = 40$. $Q_1$ pada letak $\\frac{1}{4}(40) = 10$ (interval $20-29$): $Q_1 = 19{,}5 + \\left(\\frac{10-4}{8}\\right)10 = 19{,}5 + 7{,}5 = 27{,}0$.\nLangkah 2: $Q_3$ pada letak $\\frac{3}{4}(40) = 30$ (interval $40-49$): $Q_3 = 39{,}5 + \\left(\\frac{30-28}{10}\\right)10 = 39{,}5 + 2 = 41{,}5$.\nLangkah 3: $Q_d = \\frac{1}{2}(Q_3 - Q_1) = \\frac{1}{2}(41{,}5 - 27{,}0) = \\frac{1}{2}(14{,}5) = 7{,}25$.\nKesimpulan: Nilai simpangan kuartil adalah $7{,}25$."
         },
         {
-          "problem": "Tentukan median dari tabel berikut jika kelas median terletak pada interval 70-79 dengan $Tb = 69,5, c = 10, N = 50, F_k = 18,$ dan $f_{me} = 14$!",
-          "solution": "Langkah 1: $Me = 69{,}5 + \\left(\\frac{\\frac{1}{2}(50) - 18}{14}\\right) 10 = 69{,}5 + \\left(\\frac{25 - 18}{14}\\right) 10 = 69{,}5 + \\left(\\frac{7}{14}\\right) 10$.\nLangkah 2: $69{,}5 + 0{,}5(10) = 69{,}5 + 5 = 74{,}5$.\nKesimpulan: Nilai median adalah $74{,}5$."
+          "problem": "Tentukan modus dari data berat badan: [45-49: 3], [50-54: 6], [55-59: 12], [60-64: 9], [65-69: 5]!",
+          "solution": "Langkah 1: Kelas modus pada interval $55 - 59$ ($f=12$). $T_b = 54{,}5, c = 5$.\nLangkah 2: $d_1 = 12 - 6 = 6$ dan $d_2 = 12 - 9 = 3$.\nLangkah 3: $\\text{Mo} = 54{,}5 + \\left(\\frac{6}{6+3}\\right) 5 = 54{,}5 + \\left(\\frac{6}{9}\\right) 5 = 54{,}5 + 3{,}33 = 57{,}83\\text{ kg}$.\nKesimpulan: Modus data adalah $57{,}83\\text{ kg}$."
         },
         {
-          "problem": "Diberikan data nilai ujian dengan rata-rata 75 dan simpangan baku 6. Jika seorang siswa memperoleh nilai 87, tentukan skor standar Z-score siswa tersebut!",
-          "solution": "Langkah 1: $Z = \\frac{x - \\bar{x}}{S} = \\frac{87 - 75}{6} = \\frac{12}{6} = +2{,}0$.\nKesimpulan: Nilai Z-score siswa tersebut adalah $+2{,}0$."
+          "problem": "Data nilai 50 siswa memiliki mean $\\bar{x} = 76$ dan simpangan baku $S = 8$. Jika nilai setiap siswa ditambah 5 lalu dikalikan 1,2, tentukan nilai mean dan simpangan baku yang baru!",
+          "solution": "Langkah 1: Mean baru: $\\bar{x}_{\\text{baru}} = (76 + 5) \\times 1{,}2 = 81 \\times 1{,}2 = 97{,}2$.\nLangkah 2: Simpangan baku baru: Penambahan (+5) tidak merubah sebaran data, hanya pengali yang berpengaruh: $S_{\\text{baru}} = 8 \\times 1{,}2 = 9{,}6$.\nKesimpulan: Mean baru $= 97{,}2$ dan Simpangan Baku baru $= 9{,}6$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Asesmen Sumatif Terpadu Statistika & Simulasi ASAS CBT. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Matriks Distribusi Soal ASAS CBT, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Rumus Inti ASAS, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Pada kubus $ABCD.EFGH$ berusuk $12\\text{ cm}$, tentukan jarak titik tengah rusuk $AB$ (titik $M$) ke bidang diagonal $BCHE$!",
+          "solution": "Langkah 1: Proyeksikan $M$ ke rusuk $BE$ yang terletak pada bidang $BCHE$. Rusuk $AB \\perp$ bidang $BCHE$ tidak langsung berlaku, tapi $M$ berada di sisi $ABFE$.\nLangkah 2: Pada persegi $ABFE$, garis $BE$ adalah diagonal sisi. Jarak titik $M$ (tengah $AB$) ke diagonal $BE$ adalah $d = \\frac{1}{4} AF = \\frac{1}{4}(12\\sqrt{2}) = 3\\sqrt{2}\\text{ cm}$.\nKesimpulan: Jarak titik $M$ ke bidang $BCHE$ adalah $3\\sqrt{2}\\text{ cm}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Asesmen Sumatif Terpadu Statistika & Simulasi ASAS CBT, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Matriks Distribusi Soal ASAS CBT.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Rumus Inti ASAS.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah data hasil try out UTBK menunjukkan korelasi $r = 0{,}80$ antara skor penalaran matematika dan skor total. Jika persamaan regresinya $\\hat{y} = 150 + 1{,}2x$, prediksikan skor total siswa dengan skor penalaran $x = 500$!",
+          "solution": "Langkah 1: Masukkan $x = 500$ ke persamaan regresi: $\\hat{y} = 150 + 1{,}2(500)$.\nLangkah 2: $\\hat{y} = 150 + 600 = 750$.\nKesimpulan: Prediksi skor total siswa pada UTBK adalah $750$."
         }
       ],
       "btc": "Kelompok VNPS: Grand Final Simulasi ASAS CBT! Bedah dan selesaikan paket komprehensif 10 soal prediksi ujian akhir semester!",
@@ -2310,24 +2310,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to 1} \\frac{\\sin(x - 1)}{x^2 - 1}$!",
-          "solution": "Langkah 1: Faktorkan penyebut: $x^2 - 1 = (x - 1)(x + 1)$.\nLangkah 2: $\\lim_{x \\to 1} \\frac{\\sin(x - 1)}{(x - 1)(x + 1)} = \\left( \\lim_{x \\to 1} \\frac{\\sin(x - 1)}{x - 1} \\right) \\cdot \\left( \\lim_{x \\to 1} \\frac{1}{x + 1} \\right)$.\nLangkah 3: Karena $x \\to 1 \\implies (x-1) \\to 0$, suku pertama bernilai $1$.\nLangkah 4: $1 \\times \\frac{1}{1 + 1} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
+          "problem": "Tentukan nilai limit $\\lim_{x \\to 1} \\frac{\\sin(x - 1)}{x^2 - 1}$!",
+          "solution": "Langkah 1: Substitusi $x = 1 \\implies \\frac{0}{0}$. Faktorkan penyebut: $x^2 - 1 = (x - 1)(x + 1)$.\nLangkah 2: Bentuk limit: $\\lim_{x \\to 1} \\left( \\frac{\\sin(x - 1)}{x - 1} \\cdot \\frac{1}{x + 1} \\right)$.\nLangkah 3: Misalkan $u = x - 1$, saat $x \\to 1 \\implies u \\to 0$. Maka $\\lim_{u \\to 0} \\frac{\\sin u}{u} = 1$.\nLangkah 4: $\\lim_{x \\to 1} \\frac{1}{x + 1} = \\frac{1}{1 + 1} = \\frac{1}{2}$. Hasil $= 1 \\times \\frac{1}{2} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\pi/4} \\frac{\\sin x - \\cos x}{x - \\pi/4}$!",
-          "solution": "Langkah 1: Misalkan $h = x - \\pi/4 \\implies x = \\pi/4 + h$.\nLangkah 2: $\\sin(\\pi/4 + h) - \\cos(\\pi/4 + h) = \\sqrt{2}\\sin(h)$.\nLangkah 3: $\\lim_{h \\to 0} \\frac{\\sqrt{2}\\sin h}{h} = \\sqrt{2} \\times 1 = \\sqrt{2}$.\nKesimpulan: Nilai limit adalah $\\sqrt{2}$."
+          "problem": "Hitung nilai dari limit $\\lim_{x \\to \\frac{\\pi}{4}} \\frac{\\cos x - \\sin x}{x - \\frac{\\pi}{4}}$!",
+          "solution": "Langkah 1: Substitusi $x = \\frac{\\pi}{4} \\implies \\frac{\\frac{1}{2}\\sqrt{2} - \\frac{1}{2}\\sqrt{2}}{0} = \\frac{0}{0}$.\nLangkah 2: Gunakan rumus $\\cos x - \\sin x = -\\sqrt{2} \\sin\\left(x - \\frac{\\pi}{4}\\right)$.\nLangkah 3: $\\lim_{x \\to \\frac{\\pi}{4}} \\frac{-\\sqrt{2} \\sin(x - \\frac{\\pi}{4})}{x - \\frac{\\pi}{4}} = -\\sqrt{2} \\times 1 = -\\sqrt{2}$.\nKesimpulan: Nilai limit adalah $-\\sqrt{2}$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\pi/2} \\frac{1 - \\sin x}{\\cos^2 x}$!",
-          "solution": "Langkah 1: Ubah $\\cos^2 x = 1 - \\sin^2 x = (1 - \\sin x)(1 + \\sin x)$.\nLangkah 2: $\\lim_{x \\to \\pi/2} \\frac{1 - \\sin x}{(1 - \\sin x)(1 + \\sin x)} = \\lim_{x \\to \\pi/2} \\frac{1}{1 + \\sin x}$.\nLangkah 3: Evaluasi $x = \\pi/2$: $\\frac{1}{1 + \\sin(\\pi/2)} = \\frac{1}{1 + 1} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
+          "problem": "Hitung nilai dari limit $\\lim_{x \\to \\frac{\\pi}{2}} \\frac{1 - \\sin x}{\\cos^2 x}$!",
+          "solution": "Langkah 1: Substitusi $x = \\frac{\\pi}{2} \\implies \\frac{1 - 1}{0} = \\frac{0}{0}$.\nLangkah 2: Gunakan identitas Pythagoras $\\cos^2 x = 1 - \\sin^2 x = (1 - \\sin x)(1 + \\sin x)$.\nLangkah 3: Eliminasi $(1 - \\sin x)$: $\\lim_{x \\to \\frac{\\pi}{2}} \\frac{1 - \\sin x}{(1 - \\sin x)(1 + \\sin x)} = \\lim_{x \\to \\frac{\\pi}{2}} \\frac{1}{1 + \\sin x}$.\nLangkah 4: Substitusi $x = \\frac{\\pi}{2} \\implies \\frac{1}{1 + 1} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Limit Aljabar & Trigonometri 4: Limit Trigonometri Menuju Sudut $x \\to c$. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Transformasi Variabel h, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Sudut Relasi Kuadran, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan nilai dari $\\lim_{x \\to 2} \\frac{\\tan(2x - 4)}{x^2 + x - 6}$!",
+          "solution": "Langkah 1: Substitusi $x = 2 \\implies \\frac{\\tan(0)}{4 + 2 - 6} = \\frac{0}{0}$.\nLangkah 2: Faktorkan argumen dan penyebut: $\\tan(2(x - 2))$ dan $x^2 + x - 6 = (x - 2)(x + 3)$.\nLangkah 3: $\\lim_{x \\to 2} \\left( \\frac{\\tan(2(x - 2))}{x - 2} \\cdot \\frac{1}{x + 3} \\right) = 2 \\times \\frac{1}{2 + 3} = \\frac{2}{5}$.\nKesimpulan: Nilai limit adalah $\\frac{2}{5}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Limit Aljabar & Trigonometri 4: Limit Trigonometri Menuju Sudut $x \\to c$, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Transformasi Variabel h.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Sudut Relasi Kuadran.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Pada osilasi pendulum teredam, posisi sudut di sekitar titik kesetimbangan kritis didekati oleh $L = \\lim_{x \\to \\pi} \\frac{\\sin(x) + \\sin(3x)}{x - \\pi}$. Tentukan nilai limit posisi sudut $L$ tersebut!",
+          "solution": "Langkah 1: Misalkan $u = x - \\pi \\implies x = \\pi + u$. Saat $x \\to \\pi \\implies u \\to 0$.\nLangkah 2: $\\sin(x) = \\sin(\\pi + u) = -\\sin u$ dan $\\sin(3x) = \\sin(3\\pi + 3u) = -\\sin(3u)$.\nLangkah 3: $\\lim_{u \\to 0} \\frac{-\\sin u - \\sin 3u}{u} = \\lim_{u \\to 0} \\left( -\\frac{\\sin u}{u} - \\frac{\\sin 3u}{u} \\right) = -1 - 3 = -4$.\nKesimpulan: Nilai limit posisi sudut $L$ adalah $-4$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan nilai $\\lim_{x \\to 2} \\frac{(x - 2) \\cos(x - 2)}{\\sin(2x - 4)}$!",
@@ -2377,24 +2377,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\frac{3x^3 - 4x + 1}{2x^3 + 5x^2 - 7}$!",
-          "solution": "Langkah 1: Pangkat tertinggi pembilang adalah $m=3$ dan penyebut $n=3$ ($m=n$).\nLangkah 2: Ambil rasio koefisien pangkat tertinggi: $\\frac{3}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{3}{2}$."
+          "problem": "Tentukan nilai limit $\\lim_{x \\to \\infty} \\frac{3x^3 - 4x + 1}{2x^3 + 5x^2 - 7}$!",
+          "solution": "Langkah 1: Derajat tertinggi pembilang $= 3$ dan penyebut $= 3$ (derajat sama).\nLangkah 2: Bagi seluruh suku dengan $x^3$: $\\lim_{x \\to \\infty} \\frac{3 - \\frac{4}{x^2} + \\frac{1}{x^3}}{2 + \\frac{5}{x} - \\frac{7}{x^3}}$.\nLangkah 3: Karena $\\lim_{x \\to \\infty} \\frac{c}{x^n} = 0$, diperoleh $\\frac{3 - 0 + 0}{2 + 0 - 0} = \\frac{3}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{3}{2}$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + 6x - 1} - \\sqrt{4x^2 - 2x + 3} \\right)$!",
-          "solution": "Langkah 1: Identifikasi parameter: $a = 4, b = 6, c = -1, p = -2, q = 3$.\nLangkah 2: Karena koefisien $x^2$ sama ($a = p = 4$), gunakan rumus $\\frac{b - p}{2\\sqrt{a}}$.\nLangkah 3: $\\frac{6 - (-2)}{2\\sqrt{4}} = \\frac{8}{2(2)} = \\frac{8}{4} = 2$.\nKesimpulan: Nilai limit adalah $2$."
+          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} \\frac{(2x + 1)^2(3x - 2)}{4x^3 + 5x - 1}$!",
+          "solution": "Langkah 1: Suku derajat tertinggi pembilang: $(2x)^2 \\cdot (3x) = 4x^2 \\cdot 3x = 12x^3$.\nLangkah 2: Suku derajat tertinggi penyebut: $4x^3$.\nLangkah 3: Rasio koefisien pangkat tertinggi: $\\frac{12}{4} = 3$.\nKesimpulan: Nilai limit adalah $3$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( 2x - 1 - \\sqrt{4x^2 - 6x + 2} \\right)$!",
-          "solution": "Langkah 1: Ubah $2x - 1$ ke bentuk akar: $\\sqrt{(2x - 1)^2} = \\sqrt{4x^2 - 4x + 1}$.\nLangkah 2: $\\lim_{x \\to \\infty} (\\sqrt{4x^2 - 4x + 1} - \\sqrt{4x^2 - 6x + 2})$.\nLangkah 3: $a = 4, b = -4, p = -6 \\implies \\frac{-4 - (-6)}{2\\sqrt{4}} = \\frac{2}{4} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\frac{5x^2 - 2x + 3}{x^3 + 4x - 1}$!",
+          "solution": "Langkah 1: Pangkat tertinggi pembilang ($2$) lebih kecil dari pangkat tertinggi penyebut ($3$).\nLangkah 2: Bagi seluruh suku dengan $x^3$: $\\lim_{x \\to \\infty} \\frac{\\frac{5}{x} - \\frac{2}{x^2} + \\frac{3}{x^3}}{1 + \\frac{4}{x^2} - \\frac{1}{x^3}} = \\frac{0}{1} = 0$.\nKesimpulan: Nilai limit adalah $0$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Limit Aljabar & Trigonometri 5: Limit di Ketakhinggaan Aljabar. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Pecahan Polinomial x \\to inf, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Rumus Cepat Selisih Akar, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan nilai limit rasional: $\\lim_{x \\to \\infty} \\frac{\\sqrt{9x^2 + 4x} - 2x}{2x + 5}$!",
+          "solution": "Langkah 1: Untuk $x > 0$, $\\sqrt{9x^2 + 4x} = x\\sqrt{9 + \\frac{4}{x}}$.\nLangkah 2: Pembilang berorde $x$: $x(\\sqrt{9} - 2) = x(3 - 2) = 1x$.\nLangkah 3: Penyebut berorde $x$: $2x$.\nLangkah 4: Rasio koefisien tertinggi: $\\frac{3 - 2}{2} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Limit Aljabar & Trigonometri 5: Limit di Ketakhinggaan Aljabar, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Pecahan Polinomial x \\to inf.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Rumus Cepat Selisih Akar.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Populasi suatu spesies satwa langka setelah $t$ tahun dipodelkan oleh $P(t) = \\frac{15000t^2 + 4000}{3t^2 + 20t + 50}$. Tentukan batas kapasitas tampung populasi maksimum satwa tersebut dalam jangka panjang ($t \\to \\infty$)!",
+          "solution": "Langkah 1: Hitung limit ketakhinggaan $\\lim_{t \\to \\infty} P(t) = \\lim_{t \\to \\infty} \\frac{15000t^2 + 4000}{3t^2 + 20t + 50}$.\nLangkah 2: Karena derajat pembilang dan penyebut sama ($t^2$), bagi koefisien pangkat tertinggi: $\\frac{15000}{3} = 5000$.\nKesimpulan: Kapasitas tampung populasi maksimum satwa dalam jangka panjang adalah $5.000$ ekor."
         }
       ],
       "btc": "Kelompok VNPS: Selesaikan $\\lim_{x \\to \\infty} (\\sqrt{9x^2 + 12x} - 3x + 1)$!",
@@ -2448,24 +2448,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} x \\sin\\left(\\frac{2}{x}\\right)$!",
-          "solution": "Langkah 1: Misalkan $y = \\frac{1}{x} \\implies x = \\frac{1}{y}$. Saat $x \\to \\infty$, $y \\to 0$.\nLangkah 2: $\\lim_{y \\to 0} \\frac{1}{y} \\sin(2y) = \\lim_{y \\to 0} \\frac{\\sin 2y}{y}$.\nLangkah 3: Nilai limit adalah $2$.\nKesimpulan: Nilai limit adalah $2$."
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + 6x - 1} - \\sqrt{4x^2 - 2x + 3} \\right)$!",
+          "solution": "Langkah 1: Bentuk $\\sqrt{ax^2+bx+c} - \\sqrt{px^2+qx+r}$ dengan $a = p = 4$, $b = 6$, $q = -2$.\nLangkah 2: Karena $a = p$, gunakan rumus praktis $L = \\frac{b - q}{2\\sqrt{a}}$.\nLangkah 3: $L = \\frac{6 - (-2)}{2\\sqrt{4}} = \\frac{6 + 2}{2(2)} = \\frac{8}{4} = 2$.\nKesimpulan: Nilai limit adalah $2$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{2}{x}\\right) \\right)$!",
-          "solution": "Langkah 1: Misalkan $y = \\frac{1}{x} \\to 0 \\implies \\lim_{y \\to 0} \\frac{1 - \\cos(2y)}{y^2}$.\nLangkah 2: Ubah $1 - \\cos(2y) = 2\\sin^2(y)$.\nLangkah 3: $\\lim_{y \\to 0} \\frac{2\\sin^2 y}{y^2} = 2(1)^2 = 2$.\nKesimpulan: Nilai limit adalah $2$."
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( 2x - 1 - \\sqrt{4x^2 - 6x + 2} \\right)$!",
+          "solution": "Langkah 1: Ubah bentuk linear ke dalam bentuk akar: $(2x - 1) = \\sqrt{(2x - 1)^2} = \\sqrt{4x^2 - 4x + 1}$.\nLangkah 2: Limit menjadi: $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 - 4x + 1} - \\sqrt{4x^2 - 6x + 2} \\right)$.\nLangkah 3: Parameter: $a = 4, b = -4, q = -6$.\nLangkah 4: $L = \\frac{b - q}{2\\sqrt{a}} = \\frac{-4 - (-6)}{2\\sqrt{4}} = \\frac{2}{4} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
         },
         {
-          "problem": "Tentukan asimtot datar dan asimtot tegak dari fungsi kurva $f(x) = \\frac{3x - 5}{x + 2}$!",
-          "solution": "Langkah 1: Menggunakan rumus Transformasi y = 1/x, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Asimtot Datar): $y = \\lim_{x \\to \\infty} \\frac{3x - 5}{x + 2} = 3$.\nLangkah 2 (Asimtot Tegak): Pembuat nol penyebut $x + 2 = 0 \\implies x = -2$.\nKesimpulan: Asimtot datar adalah $y = 3$ dan asimtot tegak adalah $x = -2$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{9x^2 + 12x} - 3x + 2 \\right)$!",
+          "solution": "Langkah 1: Kelompokkan: $\\sqrt{9x^2 + 12x} - (3x - 2) = \\sqrt{9x^2 + 12x} - \\sqrt{(3x - 2)^2} = \\sqrt{9x^2 + 12x} - \\sqrt{9x^2 - 12x + 4}$.\nLangkah 2: Parameter: $a = 9, b = 12, q = -12$.\nLangkah 3: $L = \\frac{b - q}{2\\sqrt{a}} = \\frac{12 - (-12)}{2\\sqrt{9}} = \\frac{24}{2(3)} = \\frac{24}{6} = 4$.\nKesimpulan: Nilai limit adalah $4$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Transformasi y = 1/x, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Asimtot Datar, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} x \\sin\\left(\\frac{3}{x}\\right)$!",
+          "solution": "Langkah 1: Misalkan $u = \\frac{1}{x}$. Saat $x \\to \\infty \\implies u \\to 0$.\nLangkah 2: Bentuk limit menjadi: $\\lim_{u \\to 0} \\frac{1}{u} \\sin(3u) = \\lim_{u \\to 0} \\frac{\\sin(3u)}{u}$.\nLangkah 3: Berdasarkan teorema limit trigonometri: $\\frac{3}{1} = 3$.\nKesimpulan: Nilai limit adalah $3$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Transformasi y = 1/x.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Asimtot Datar.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{2}{x}\\right) \\right)$!",
+          "solution": "Langkah 1: Misalkan $u = \\frac{1}{x} \\implies u \\to 0$ saat $x \\to \\infty$.\nLangkah 2: Bentuk limit: $\\lim_{u \\to 0} \\frac{1 - \\cos(2u)}{u^2}$.\nLangkah 3: Gunakan $1 - \\cos(2u) = 2\\sin^2(u)$: $\\lim_{u \\to 0} \\frac{2\\sin^2 u}{u^2} = 2(1)^2 = 2$.\nKesimpulan: Nilai limit adalah $2$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan seluruh asimtot datar dan asimtot tegak kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 9}$!",
@@ -2515,24 +2515,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{x \\tan(3x)}$!",
-          "solution": "Langkah 1: $1 - \\cos(6x) = 2\\sin^2(3x)$.\nLangkah 2: $\\lim_{x \\to 0} \\frac{2\\sin(3x)\\sin(3x)}{x \\tan(3x)} = 2 \\left(\\frac{3}{1}\\right) \\left(\\frac{3}{3}\\right) = 2 \\times 3 \\times 1 = 6$.\nKesimpulan: Nilai limit adalah $6$."
+          "problem": "Tentukan asimtot datar dan asimtot tegak dari kurva $f(x) = \\frac{3x - 6}{x + 2}$!",
+          "solution": "Langkah 1: Asimtot Datar dihitung dari limit $x \\to \\infty$: $y = \\lim_{x \\to \\infty} \\frac{3x - 6}{x + 2} = 3$.\nLangkah 2: Asimtot Tegak diperoleh saat penyebut $= 0$: $x + 2 = 0 \\implies x = -2$.\nKesimpulan: Asimtot datar adalah $y = 3$ dan asimtot tegak adalah $x = -2$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to 3} \\frac{x^2 - x - 6}{x - 3}$!",
-          "solution": "Langkah 1: Faktorkan pembilang $x^2 - x - 6 = (x - 3)(x + 2)$.\nLangkah 2: $\\lim_{x \\to 3} \\frac{(x - 3)(x + 2)}{x - 3} = \\lim_{x \\to 3} (x + 2) = 3 + 2 = 5$.\nKesimpulan: Nilai limit adalah $5$."
+          "problem": "Tentukan asimtot tegak dari kurva fungsi rasional $f(x) = \\frac{x^2 - 4}{x^2 - 5x + 6}$!",
+          "solution": "Langkah 1: Faktorkan pembilang dan penyebut: $f(x) = \\frac{(x - 2)(x + 2)}{(x - 2)(x - 3)}$.\nLangkah 2: Faktor $(x - 2)$ tereliminasi sehingga $x = 2$ adalah titik lubang (*hole*), bukan asimtot tegak.\nLangkah 3: Pembuat nol penyebut yang tersisa adalah $x - 3 = 0 \\implies x = 3$.\nKesimpulan: Asimtot tegak kurva adalah $x = 3$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{9x^2 + 12x} - 3x + 1 \\right)$!",
-          "solution": "Langkah 1: Tulis sebagai $\\sqrt{9x^2 + 12x} - \\sqrt{(3x - 1)^2} = \\sqrt{9x^2 + 12x} - \\sqrt{9x^2 - 6x + 1}$.\nLangkah 2: Gunakan $\\frac{b - p}{2\\sqrt{a}} = \\frac{12 - (-6)}{2\\sqrt{9}} = \\frac{18}{2(3)} = \\frac{18}{6} = 3$.\nKesimpulan: Nilai limit adalah $3$."
+          "problem": "Tentukan asimtot miring dari kurva $f(x) = \\frac{2x^2 + 3x - 1}{x - 1}$!",
+          "solution": "Langkah 1: Lakukan pembagian polinomial: $(2x^2 + 3x - 1) : (x - 1) = (2x + 5) + \\frac{4}{x - 1}$.\nLangkah 2: Karena $\\lim_{x \\to \\infty} \\frac{4}{x - 1} = 0$, garis asimtot miring adalah hasil bagi liniernya.\nKesimpulan: Persamaan asimtot miring adalah $y = 2x + 5$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Asesmen Sumatif Bab 2: Limit & Grand Review ASTS. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Matriks Uji Kompetensi Bab 2, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Kaidah L'Hopital, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan nilai limit $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{x \\tan(3x)}$!",
+          "solution": "Langkah 1: $1 - \\cos(6x) = 2\\sin^2(3x)$.\nLangkah 2: $\\lim_{x \\to 0} \\frac{2\\sin(3x)\\sin(3x)}{x \\tan(3x)} = 2 \\times \\left(\\lim_{x \\to 0}\\frac{\\sin 3x}{x}\\right) \\times \\left(\\lim_{x \\to 0}\\frac{\\sin 3x}{\\tan 3x}\\right)$.\nLangkah 3: $2 \\times 3 \\times 1 = 6$.\nKesimpulan: Nilai limit adalah $6$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Asesmen Sumatif Bab 2: Limit & Grand Review ASTS, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Matriks Uji Kompetensi Bab 2.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Kaidah L'Hopital.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Pada rancang bangun jembatan gantung, kelengkungan kabel utama memenuhi kurva $y = \\frac{4x^2 + 8}{2x - 1}$. Tentukan batas asimtot miring yang menjadi garis pandu tegangan struktur jembatan!",
+          "solution": "Langkah 1: Bagi pembilang dengan penyebut: $(4x^2 + 8) : (2x - 1) = (2x + 1) + \\frac{9}{2x - 1}$.\nLangkah 2: Saat $x \\to \\infty$, suku $\\frac{9}{2x - 1} \\to 0$.\nKesimpulan: Garis pandu asimtot miring struktur adalah $y = 2x + 1$."
         }
       ],
       "btc": "Kelompok VNPS: Bedah simulasi paket 10 soal CBT Bab 2 dan selesaikan seluruh variasi tipe soalnya!",
@@ -2594,24 +2594,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan turunan pertama dari fungsi trigonometri: $$f(x) = 3\\sin x - 2\\cos x$$",
-          "solution": "Langkah 1: Menggunakan rumus Turunan Fungsi Sinus Dasar, $\\frac{d}{dx}[\\sin x] = \\cos x$.\nLangkah 2: Menggunakan rumus Turunan Fungsi Cosinus Dasar, $\\frac{d}{dx}[\\cos x] = -\\sin x$.\nLangkah 3: Terapkan sifat linearitas turunan aljabar:\n$$f'(x) = 3(\\cos x) - 2(-\\sin x) = 3\\cos x + 2\\sin x$$\nKesimpulan: Turunan pertama dari $f(x)$ adalah $f'(x) = 3\\cos x + 2\\sin x$."
+          "problem": "Tentukan turunan pertama dari fungsi $f(x) = 3\\sin(x) - 2\\cos(x)$!",
+          "solution": "Langkah 1: Gunakan rumus turunan dasar: $(\\sin x)' = \\cos x$ dan $(\\cos x)' = -\\sin x$.\nLangkah 2: $f'(x) = 3(\\cos x) - 2(-\\sin x) = 3\\cos(x) + 2\\sin(x)$.\nKesimpulan: $f'(x) = 3\\cos(x) + 2\\sin(x)$."
         },
         {
-          "problem": "Tentukan turunan pertama dari fungsi: $$f(x) = 4\\tan(3x - \\pi)$$",
-          "solution": "Langkah 1: Menggunakan rumus Turunan Fungsi Tangen, turunan dari $\\tan u$ adalah $\\sec^2 u \\cdot u'$.\nLangkah 2: Tentukan turunan sudut dalam $u = 3x - \\pi \\implies u' = 3$.\nLangkah 3: Terapkan kaidah rantai:\n$$f'(x) = 4 \\cdot \\sec^2(3x - \\pi) \\cdot 3 = 12\\sec^2(3x - \\pi)$$\nKesimpulan: Turunan pertama dari $f(x)$ adalah $f'(x) = 12\\sec^2(3x - \\pi)$."
+          "problem": "Jika $f(x) = 4\\tan(x)$, tentukan nilai turunan pertama pada $x = \\frac{\\pi}{4}$!",
+          "solution": "Langkah 1: Turunan dasar tangen: $(\\tan x)' = \\sec^2(x)$. Maka $f'(x) = 4\\sec^2(x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{4}$: $\\cos\\left(\\frac{\\pi}{4}\\right) = \\frac{1}{2}\\sqrt{2} \\implies \\sec\\left(\\frac{\\pi}{4}\\right) = \\sqrt{2}$.\nLangkah 3: $f'\\left(\\frac{\\pi}{4}\\right) = 4(\\sqrt{2})^2 = 4(2) = 8$.\nKesimpulan: Nilai $f'(\\pi/4) = 8$."
         },
         {
-          "problem": "Tentukan turunan pertama dari fungsi kombinasi secan dan cotangen: $$f(x) = 2\\sec x + \\cot(2x)$$",
-          "solution": "Langkah 1: Menggunakan rumus Turunan Fungsi Secan, $\\frac{d}{dx}[2\\sec x] = 2\\sec x \\tan x$.\nLangkah 2: Menggunakan rumus Turunan Fungsi Cotangen dan kaidah rantai, $\\frac{d}{dx}[\\cot(2x)] = -\\csc^2(2x) \\cdot 2 = -2\\csc^2(2x)$.\nLangkah 3: Gabungkan kedua suku:\n$$f'(x) = 2\\sec x \\tan x - 2\\csc^2(2x)$$\nKesimpulan: Turunan dari fungsi tersebut adalah $f'(x) = 2\\sec x \\tan x - 2\\csc^2(2x)$."
+          "problem": "Tentukan turunan pertama dari $f(x) = x^2 \\sin(x)$ menggunakan aturan perkalian $u \\cdot v$!",
+          "solution": "Langkah 1: Misalkan $u = x^2 \\implies u' = 2x$ dan $v = \\sin x \\implies v' = \\cos x$.\nLangkah 2: Rumus perkalian: $f'(x) = u'v + uv'$.\nLangkah 3: $f'(x) = 2x\\sin(x) + x^2\\cos(x) = x(2\\sin x + x\\cos x)$.\nKesimpulan: $f'(x) = 2x\\sin(x) + x^2\\cos(x)$."
         },
         {
-          "problem": "Tentukan nilai turunan $f'(x)$ pada $x = \\frac{\\pi}{4}$ jika diketahui: $$f(x) = \\frac{\\sin x}{1 + \\cos x}$$",
-          "solution": "Langkah 1: Gunakan aturan hasil bagi aljabar $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$ dengan $u = \\sin x \\implies u' = \\cos x$ dan $v = 1 + \\cos x \\implies v' = -\\sin x$.\nLangkah 2: Susun turunan:\n$$f'(x) = \\frac{\\cos x(1 + \\cos x) - \\sin x(-\\sin x)}{(1 + \\cos x)^2} = \\frac{\\cos x + \\cos^2 x + \\sin^2 x}{(1 + \\cos x)^2}$$\nLangkah 3: Gunakan identitas trigonometri $\\cos^2 x + \\sin^2 x = 1$:\n$$f'(x) = \\frac{\\cos x + 1}{(1 + \\cos x)^2} = \\frac{1}{1 + \\cos x}$$\nLangkah 4: Evaluasi pada $x = \\frac{\\pi}{4}$:\n$$f'\\left(\\frac{\\pi}{4}\\right) = \\frac{1}{1 + \\frac{1}{2}\\sqrt{2}} = \\frac{2}{2 + \\sqrt{2}} = 2 - \\sqrt{2}$$\nKesimpulan: Nilai $f'\\left(\\frac{\\pi}{4}\\right) = 2 - \\sqrt{2}$."
+          "problem": "Tentukan turunan pertama dari $f(x) = \\frac{\\sin x}{\\cos x + 1}$!",
+          "solution": "Langkah 1: Misalkan $u = \\sin x \\implies u' = \\cos x$ dan $v = \\cos x + 1 \\implies v' = -\\sin x$.\nLangkah 2: Rumus pembagian: $f'(x) = \\frac{u'v - uv'}{v^2} = \\frac{\\cos x(\\cos x + 1) - \\sin x(-\\sin x)}{(\\cos x + 1)^2}$.\nLangkah 3: Pembilang: $\\cos^2 x + \\cos x + \\sin^2 x = (\\sin^2 x + \\cos^2 x) + \\cos x = 1 + \\cos x$.\nLangkah 4: $f'(x) = \\frac{1 + \\cos x}{(1 + \\cos x)^2} = \\frac{1}{1 + \\cos x}$.\nKesimpulan: $f'(x) = \\frac{1}{1 + \\cos x}$."
         },
         {
-          "problem": "Tentukan turunan pertama dari fungsi perpangkatan trigonometri (HOTS): $$f(x) = \\cos^3(2x^2 + 1)$$",
-          "solution": "Langkah 1: Identifikasi fungsi komposisi berantai 3 lapis: $f(x) = [u(x)]^3$ di mana $u(x) = \\cos(v(x))$ dan $v(x) = 2x^2 + 1$.\nLangkah 2: Turunkan pangkat terluar: $3\\cos^2(2x^2 + 1)$.\nLangkah 3: Menggunakan rumus Turunan Fungsi Cosinus Dasar, kalikan dengan turunan cosinus: $-\\sin(2x^2 + 1)$.\nLangkah 4: Kalikan dengan turunan sudut terdalam $v'(x) = 4x$:\n$$f'(x) = 3\\cos^2(2x^2 + 1) \\cdot [-\\sin(2x^2 + 1)] \\cdot (4x)$$\nLangkah 5: Sederhanakan bentuk aljabar:\n$$f'(x) = -12x \\sin(2x^2 + 1) \\cos^2(2x^2 + 1)$$\nKesimpulan: Turunan pertama dari $f(x)$ adalah $f'(x) = -12x \\sin(2x^2 + 1) \\cos^2(2x^2 + 1)$."
+          "problem": "Posisi partikel yang bergerak harmonik dinyatakan oleh persamaan $s(t) = 5\\sin(2t) + 3\\cos(2t)$ (dalam meter). Tentukan kecepatan sesaat partikel $v(t) = s'(t)$ pada saat $t = \\frac{\\pi}{4}$ detik!",
+          "solution": "Langkah 1: Turunkan $s(t)$: $v(t) = s'(t) = 5(2\\cos 2t) + 3(-2\\sin 2t) = 10\\cos(2t) - 6\\sin(2t)$.\nLangkah 2: Substitusikan $t = \\frac{\\pi}{4}$: $2t = \\frac{\\pi}{2}$.\nLangkah 3: $v\\left(\\frac{\\pi}{4}\\right) = 10\\cos\\left(\\frac{\\pi}{2}\\right) - 6\\sin\\left(\\frac{\\pi}{2}\\right) = 10(0) - 6(1) = -6\\text{ m/s}$.\nKesimpulan: Kecepatan sesaat partikel pada $t = \\pi/4$ detik adalah $-6\\text{ m/s}$."
         }
       ],
       "btc": "Kelompok VNPS: Buktikan bahwa turunan dari $\\tan(x)$ adalah $\\sec^2(x)$ menggunakan aturan pembagian $\\frac{\\sin x}{\\cos x}$!",
@@ -2664,23 +2664,23 @@ const NAMA_TINGKAT = 'XII';
       "examples": [
         {
           "problem": "Tentukan turunan pertama dari $f(x) = \\sin(3x^2 - 5)$!",
-          "solution": "Langkah 1: Misalkan $u = 3x^2 - 5 \\implies u' = 6x$.\nLangkah 2: Turunan luar: $\\cos(u) = \\cos(3x^2 - 5)$.\nLangkah 3: $f'(x) = \\cos(3x^2 - 5) \\cdot 6x = 6x\\cos(3x^2 - 5)$.\nKesimpulan: Turunan pertamanya adalah $f'(x) = 6x\\cos(3x^2 - 5)$."
+          "solution": "Langkah 1: Misalkan $u = 3x^2 - 5 \\implies u' = 6x$.\nLangkah 2: Fungsi luar $f(u) = \\sin u \\implies f'(u) = \\cos u$.\nLangkah 3: Aturan rantai: $f'(x) = f'(u) \\cdot u' = \\cos(3x^2 - 5) \\cdot (6x) = 6x \\cos(3x^2 - 5)$.\nKesimpulan: $f'(x) = 6x \\cos(3x^2 - 5)$."
         },
         {
-          "problem": "Jika $f(x) = \\cos(4x + \\pi/3)$, tentukan nilai dari $f'(\\pi/6)$!",
-          "solution": "Langkah 1: $f'(x) = -4\\sin(4x + \\pi/3)$.\nLangkah 2: Evaluasi di $x = \\pi/6$: $4(\\pi/6) + \\pi/3 = 2\\pi/3 + \\pi/3 = \\pi$.\nLangkah 3: $f'(\\pi/6) = -4\\sin(\\pi) = -4(0) = 0$.\nKesimpulan: Nilai $f'(\\pi/6) = 0$."
+          "problem": "Jika $f(x) = \\cos\\left(4x + \\frac{\\pi}{3}\\right)$, tentukan nilai dari $f'\\left(\\frac{\\pi}{6}\\right)$!",
+          "solution": "Langkah 1: $u = 4x + \\frac{\\pi}{3} \\implies u' = 4$. Turunan cosinus: $f'(x) = -4\\sin\\left(4x + \\frac{\\pi}{3}\\right)$.\nLangkah 2: Substitusi $x = \\frac{\\pi}{6}$: $4\\left(\\frac{\\pi}{6}\\right) + \\frac{\\pi}{3} = \\frac{2\\pi}{3} + \\frac{\\pi}{3} = \\pi$.\nLangkah 3: $f'\\left(\\frac{\\pi}{6}\\right) = -4\\sin(\\pi) = -4(0) = 0$.\nKesimpulan: Nilai $f'(\\pi/6) = 0$."
         },
         {
           "problem": "Tentukan turunan pertama dari $f(x) = \\tan(5x - 2)$!",
-          "solution": "Langkah 1: Misalkan $u = 5x - 2 \\implies u' = 5$.\nLangkah 2: $f'(x) = \\sec^2(5x - 2) \\cdot 5 = 5\\sec^2(5x - 2)$.\nKesimpulan: Turunan pertamanya adalah $f'(x) = 5\\sec^2(5x - 2)$."
+          "solution": "Langkah 1: Misalkan $u = 5x - 2 \\implies u' = 5$.\nLangkah 2: Turunan tangen adalah $\\sec^2 u$. Aturan rantai: $f'(x) = 5\\sec^2(5x - 2)$.\nKesimpulan: $f'(x) = 5\\sec^2(5x - 2)$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Turunan Fungsi Trigonometri 2: Aturan Rantai Komposisi f(g(x)). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Aturan Rantai Komposisi, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Linear Trigonometri, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan turunan pertama dari fungsi komposisi $f(x) = \\cos(\\sin 2x)$!",
+          "solution": "Langkah 1: Misalkan $u = \\sin(2x) \\implies u' = 2\\cos(2x)$.\nLangkah 2: $f(u) = \\cos(u) \\implies f'(u) = -\\sin(u)$.\nLangkah 3: $f'(x) = -\\sin(u) \\cdot u' = -\\sin(\\sin 2x) \\cdot (2\\cos 2x) = -2\\cos(2x)\\sin(\\sin 2x)$.\nKesimpulan: $f'(x) = -2\\cos(2x)\\sin(\\sin 2x)$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Turunan Fungsi Trigonometri 2: Aturan Rantai Komposisi f(g(x)), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Aturan Rantai Komposisi.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Linear Trigonometri.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Tegangan listrik bolak-balik (AC) dinyatakan oleh fungsi $V(t) = 220\\sin\\left(100\\pi t - \\frac{\\pi}{4}\\right)$ Volt. Tentukan laju perubahan tegangan $\\frac{dV}{dt}$ pada saat $t = 0{,}01$ detik!",
+          "solution": "Langkah 1: Turunkan $V(t)$ terhadap $t$: $\\frac{dV}{dt} = 220 \\cdot (100\\pi) \\cdot \\cos\\left(100\\pi t - \\frac{\\pi}{4}\\right) = 22.000\\pi \\cos\\left(100\\pi t - \\frac{\\pi}{4}\\right)$.\nLangkah 2: Masukkan $t = 0{,}01$: $100\\pi(0{,}01) - \\frac{\\pi}{4} = \\pi - \\frac{\\pi}{4} = \\frac{3\\pi}{4}$.\nLangkah 3: $\\cos\\left(\\frac{3\\pi}{4}\\right) = -\\frac{1}{2}\\sqrt{2}$. Maka $\\frac{dV}{dt} = 22.000\\pi \\left(-\\frac{1}{2}\\sqrt{2}\\right) = -11.000\\pi\\sqrt{2}\\text{ V/s}$.\nKesimpulan: Laju perubahan tegangan pada $t = 0{,}01$ detik adalah $-11.000\\pi\\sqrt{2}\\text{ Volt/detik}$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan turunan dari $f(x) = \\cos(\\sqrt{x^2 + 1})$ menggunakan aturan rantai bertingkat!",
@@ -2731,23 +2731,23 @@ const NAMA_TINGKAT = 'XII';
       "examples": [
         {
           "problem": "Tentukan turunan pertama dari $f(x) = \\sin^3(2x)$!",
-          "solution": "Langkah 1: Menggunakan rumus Pangkat Trigonometri, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Pangkat): $3\\sin^2(2x)$.\nLangkah 2 (Trigonometri): $\\cos(2x)$.\nLangkah 3 (Sudut): Turunan dari $2x$ adalah $2$.\nLangkah 4: $f'(x) = 3\\sin^2(2x) \\cdot \\cos(2x) \\cdot 2 = 6\\sin^2(2x)\\cos(2x)$.\nKesimpulan: Turunan pertamanya adalah $f'(x) = 6\\sin^2(2x)\\cos(2x)$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Langkah 1: Bentuk pangkat $f(x) = [\\sin(2x)]^3$.\nLangkah 2: Aturan rantai pangkat $y = u^n \\implies y' = n u^{n-1} \\cdot u'$: $u = \\sin(2x) \\implies u' = 2\\cos(2x)$.\nLangkah 3: $f'(x) = 3[\\sin(2x)]^2 \\cdot (2\\cos 2x) = 6\\sin^2(2x)\\cos(2x)$.\nLangkah 4: Dapat disederhanakan: $3\\sin(2x) \\cdot (2\\sin 2x \\cos 2x) = 3\\sin(2x)\\sin(4x)$.\nKesimpulan: $f'(x) = 6\\sin^2(2x)\\cos(2x)$ atau $3\\sin(2x)\\sin(4x)$."
         },
         {
           "problem": "Tentukan turunan pertama dari $f(x) = \\cos^4(3x)$!",
-          "solution": "Langkah 1: $f'(x) = 4\\cos^3(3x) \\cdot (-\\sin(3x)) \\cdot 3$.\nLangkah 2: $f'(x) = -12\\cos^3(3x)\\sin(3x)$.\nKesimpulan: Turunan pertamanya adalah $f'(x) = -12\\cos^3(3x)\\sin(3x)$."
+          "solution": "Langkah 1: $f(x) = [\\cos(3x)]^4$.\nLangkah 2: $u = \\cos(3x) \\implies u' = -3\\sin(3x)$.\nLangkah 3: $f'(x) = 4[\\cos(3x)]^3 \\cdot (-3\\sin 3x) = -12\\cos^3(3x)\\sin(3x)$.\nKesimpulan: $f'(x) = -12\\cos^3(3x)\\sin(3x)$."
         },
         {
           "problem": "Jika $f(x) = \\sin^2(x)$, buktikan bahwa $f'(x) = \\sin(2x)$!",
-          "solution": "Langkah 1: $f'(x) = 2\\sin(x) \\cdot \\cos(x) \\cdot 1$.\nLangkah 2: Berdasarkan identitas sudut ganda, $2\\sin(x)\\cos(x) = \\sin(2x)$.\nKesimpulan: Terbukti bahwa $f'(x) = \\sin(2x)$."
+          "solution": "Langkah 1: $f(x) = [\\sin x]^2$.\nLangkah 2: $f'(x) = 2[\\sin x]^{2-1} \\cdot (\\cos x) = 2\\sin(x)\\cos(x)$.\nLangkah 3: Gunakan identitas sudut ganda: $2\\sin x \\cos x = \\sin(2x)$.\nKesimpulan: Terbukti bahwa $f'(x) = \\sin(2x)$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Turunan Fungsi Trigonometri 3: Aturan Rantai Pangkat u(x)^n. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Pangkat Trigonometri, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Identitas Penyederhanaan, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan nilai turunan pertama dari $f(x) = \\tan^3(2x)$ pada saat $x = \\frac{\\pi}{8}$!",
+          "solution": "Langkah 1: $f'(x) = 3\\tan^2(2x) \\cdot (2\\sec^2 2x) = 6\\tan^2(2x)\\sec^2(2x)$.\nLangkah 2: Substitusi $x = \\frac{\\pi}{8} \\implies 2x = \\frac{\\pi}{4}$.\nLangkah 3: $\\tan\\left(\\frac{\\pi}{4}\\right) = 1$ dan $\\sec\\left(\\frac{\\pi}{4}\\right) = \\sqrt{2}$.\nLangkah 4: $f'\\left(\\frac{\\pi}{8}\\right) = 6(1)^2(\\sqrt{2})^2 = 6(1)(2) = 12$.\nKesimpulan: Nilai $f'(\\pi/8) = 12$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Turunan Fungsi Trigonometri 3: Aturan Rantai Pangkat u(x)^n, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Pangkat Trigonometri.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Identitas Penyederhanaan.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Energi potensial gelombang elektromagnetik berbanding lurus dengan kuadrat amplitudo: $E(x) = 8\\cos^2(4x - \\pi)$. Tentukan titik-titik stasioner pertama di mana laju perubahan energi $E'(x) = 0$ pada interval $0 \\le x \\le \\frac{\\pi}{2}$!",
+          "solution": "Langkah 1: Turunkan $E(x)$: $E'(x) = 8 \\cdot 2\\cos(4x - \\pi) \\cdot (-4\\sin(4x - \\pi)) = -64\\sin(4x - \\pi)\\cos(4x - \\pi) = -32\\sin(8x - 2\\pi) = -32\\sin(8x)$.\nLangkah 2: Syarat $E'(x) = 0 \\implies \\sin(8x) = 0 \\implies 8x = k\\pi \\implies x = \\frac{k\\pi}{8}$.\nLangkah 3: Untuk domain $[0, \\pi/2]$: $x = 0, \\frac{\\pi}{8}, \\frac{\\pi}{4}, \\frac{3\\pi}{8}, \\frac{\\pi}{2}$.\nKesimpulan: Laju energi bernilai nol pada $x \\in \\{0, \\frac{\\pi}{8}, \\frac{\\pi}{4}, \\frac{3\\pi}{8}, \\frac{\\pi}{2}\\}$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan nilai $f'(\\pi/6)$ untuk $f(x) = \\cos^3(2x)$!",
@@ -2801,24 +2801,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan turunan pertama dari $f(x) = \\frac{\\sin x}{1 + \\cos x}$!",
-          "solution": "Langkah 1: $u = \\sin x \\implies u' = \\cos x$; $v = 1 + \\cos x \\implies v' = -\\sin x$.\nLangkah 2: $f'(x) = \\frac{\\cos x(1 + \\cos x) - \\sin x(-\\sin x)}{(1 + \\cos x)^2} = \\frac{\\cos x + \\cos^2 x + \\sin^2 x}{(1 + \\cos x)^2}$.\nLangkah 3: Karena $\\cos^2 x + \\sin^2 x = 1$, pembilang menjadi $\\cos x + 1 = 1 + \\cos x$.\nLangkah 4: $f'(x) = \\frac{1 + \\cos x}{(1 + \\cos x)^2} = \\frac{1}{1 + \\cos x}$.\nKesimpulan: Turunan pertamanya adalah $f'(x) = \\frac{1}{1 + \\cos x}$."
+          "problem": "Tentukan turunan kedua $f''(x)$ dari fungsi $f(x) = \\sin(3x)$!",
+          "solution": "Langkah 1: Turunan pertama: $f'(x) = 3\\cos(3x)$.\nLangkah 2: Turunan kedua: $f''(x) = 3(-3\\sin 3x) = -9\\sin(3x)$.\nKesimpulan: $f''(x) = -9\\sin(3x)$."
         },
         {
-          "problem": "Tentukan turunan kedua $f''(x)$ dari $f(x) = \\sin(3x)$!",
-          "solution": "Langkah 1: Menggunakan rumus Aturan Perkalian, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nLangkah 1 (Turunan Pertama): $f'(x) = 3\\cos(3x)$.\nLangkah 2 (Turunan Kedua): $f''(x) = 3(-3\\sin(3x)) = -9\\sin(3x)$.\nKesimpulan: Turunan keduanya adalah $f''(x) = -9\\sin(3x)$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "problem": "Jika $f(x) = 2\\cos(x) + \\sin(2x)$, tentukan nilai dari $f''\\left(\\frac{\\pi}{2}\\right)$!",
+          "solution": "Langkah 1: $f'(x) = -2\\sin(x) + 2\\cos(2x)$.\nLangkah 2: $f''(x) = -2\\cos(x) - 4\\sin(2x)$.\nLangkah 3: Evaluasi pada $x = \\frac{\\pi}{2}$: $f''\\left(\\frac{\\pi}{2}\\right) = -2\\cos\\left(\\frac{\\pi}{2}\\right) - 4\\sin(\\pi) = -2(0) - 4(0) = 0$.\nKesimpulan: Nilai $f''(\\pi/2) = 0$."
         },
         {
-          "problem": "Jika $f(x) = 2\\cos(x) + \\sin(2x)$, tentukan nilai dari $f''(\\pi/2)$!",
-          "solution": "Langkah 1: $f'(x) = -2\\sin(x) + 2\\cos(2x)$.\nLangkah 2: $f''(x) = -2\\cos(x) - 4\\sin(2x)$.\nLangkah 3: Evaluasi di $x = \\pi/2$: $f''(\\pi/2) = -2\\cos(\\pi/2) - 4\\sin(\\pi) = -2(0) - 4(0) = 0$.\nKesimpulan: Nilai $f''(\\pi/2) = 0$."
+          "problem": "Tentukan turunan pertama dari fungsi pembagian $f(x) = \\frac{\\sin x}{1 + \\cos x}$!",
+          "solution": "Langkah 1: $u = \\sin x \\implies u' = \\cos x$ dan $v = 1 + \\cos x \\implies v' = -\\sin x$.\nLangkah 2: $f'(x) = \\frac{\\cos x(1 + \\cos x) - \\sin x(-\\sin x)}{(1 + \\cos x)^2} = \\frac{\\cos x + \\cos^2 x + \\sin^2 x}{(1 + \\cos x)^2}$.\nLangkah 3: Karena $\\sin^2 x + \\cos^2 x = 1$, pembilang menjadi $1 + \\cos x$.\nLangkah 4: $f'(x) = \\frac{1 + \\cos x}{(1 + \\cos x)^2} = \\frac{1}{1 + \\cos x}$.\nKesimpulan: $f'(x) = \\frac{1}{1 + \\cos x}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Turunan Fungsi Trigonometri 4: Perkalian, Pembagian, & Turunan Tinggi. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Aturan Perkalian, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Aturan Pembagian, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tunjukkan bahwa fungsi $y = A\\sin(kx) + B\\cos(kx)$ memenuhi persamaan diferensial osilasi harmonik $y'' + k^2 y = 0$!",
+          "solution": "Langkah 1: $y' = Ak\\cos(kx) - Bk\\sin(kx)$.\nLangkah 2: $y'' = -Ak^2\\sin(kx) - Bk^2\\cos(kx) = -k^2(A\\sin kx + B\\cos kx) = -k^2 y$.\nLangkah 3: Pindahkan ruas: $y'' + k^2 y = 0$.\nKesimpulan: Terbukti bahwa fungsi $y$ memenuhi persamaan diferensial $y'' + k^2 y = 0$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Turunan Fungsi Trigonometri 4: Perkalian, Pembagian, & Turunan Tinggi, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Aturan Perkalian.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Aturan Pembagian.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah balok terapung bergerak vertikal dengan posisi $y(t) = 4\\cos(2t) \\text{ cm}$. Tentukan percepatan balok $a(t) = y''(t)$ saat berada di simpangan maksimum!",
+          "solution": "Langkah 1: Kecepatan $v(t) = y'(t) = -8\\sin(2t)$.\nLangkah 2: Percepatan $a(t) = y''(t) = -16\\cos(2t)$.\nLangkah 3: Pada simpangan maksimum $\\cos(2t) = 1$, sehingga $a = -16(1) = -16\\text{ cm/s}^2$.\nKesimpulan: Percepatan balok pada simpangan maksimum adalah $-16\\text{ cm/s}^2$ (menuju titik setimbang)."
         }
       ],
       "btc": "Kelompok VNPS: Jika $y = A\\sin(2x) + B\\cos(2x)$, buktikan bahwa $y'' + 4y = 0$ untuk setiap konstanta $A$ dan $B$!",
@@ -2872,24 +2872,24 @@ const NAMA_TINGKAT = 'XII';
       ],
       "examples": [
         {
-          "problem": "Tentukan persamaan garis singgung kurva $f(x) = \\sin(x)$ di titik berabsis $x = \\pi/3$!",
-          "solution": "Langkah 1: Ordinat $y_1 = \\sin(\\pi/3) = \\frac{1}{2}\\sqrt{3}$.\nLangkah 2: Turunan $f'(x) = \\cos(x) \\implies m = \\cos(\\pi/3) = \\frac{1}{2}$.\nLangkah 3: PGSL: $y - \\frac{1}{2}\\sqrt{3} = \\frac{1}{2}(x - \\pi/3) \\implies y = \\frac{1}{2}x - \\frac{\\pi}{6} + \\frac{1}{2}\\sqrt{3}$.\nKesimpulan: Persamaan garis singgung adalah $y = \\frac{1}{2}x - \\frac{\\pi}{6} + \\frac{\\sqrt{3}}{2}$."
+          "problem": "Tentukan persamaan garis singgung kurva $f(x) = \\sin(x)$ di titik berabsis $x = \\frac{\\pi}{3}$!",
+          "solution": "Langkah 1: Titik singgung: $y_1 = \\sin\\left(\\frac{\\pi}{3}\\right) = \\frac{1}{2}\\sqrt{3}$. Titik $(x_1, y_1) = \\left(\\frac{\\pi}{3}, \\frac{1}{2}\\sqrt{3}\\right)$.\nLangkah 2: Gradien $m = f'\\left(\\frac{\\pi}{3}\\right) = \\cos\\left(\\frac{\\pi}{3}\\right) = \\frac{1}{2}$.\nLangkah 3: Persamaan garis singgung: $y - y_1 = m(x - x_1) \\implies y - \\frac{1}{2}\\sqrt{3} = \\frac{1}{2}\\left(x - \\frac{\\pi}{3}\\right)$.\nLangkah 4: $y = \\frac{1}{2}x - \\frac{\\pi}{6} + \\frac{1}{2}\\sqrt{3}$.\nKesimpulan: Persamaan garis singgung adalah $y = \\frac{1}{2}x - \\frac{\\pi}{6} + \\frac{\\sqrt{3}}{2}$."
         },
         {
-          "problem": "Tentukan gradien garis singgung kurva $f(x) = 2\\cos(2x)$ di titik $x = \\pi/4$!",
-          "solution": "Langkah 1: $f'(x) = 2(-2\\sin(2x)) = -4\\sin(2x)$.\nLangkah 2: Evaluasi di $x = \\pi/4$: $m = -4\\sin(2(\\pi/4)) = -4\\sin(\\pi/2) = -4(1) = -4$.\nKesimpulan: Gradien garis singgung adalah $m = -4$."
+          "problem": "Tentukan gradien garis singgung kurva $f(x) = 2\\cos(2x)$ di titik berabsis $x = \\frac{\\pi}{6}$!",
+          "solution": "Langkah 1: Turunan kurva: $f'(x) = 2(-2\\sin 2x) = -4\\sin(2x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{6}$: $m = f'\\left(\\frac{\\pi}{6}\\right) = -4\\sin\\left(2 \\cdot \\frac{\\pi}{6}\\right) = -4\\sin\\left(\\frac{\\pi}{3}\\right) = -4\\left(\\frac{1}{2}\\sqrt{3}\\right) = -2\\sqrt{3}$.\nKesimpulan: Gradien garis singgung kurva adalah $m = -2\\sqrt{3}$."
         },
         {
-          "problem": "Tentukan persamaan garis normal kurva $f(x) = \\tan(x)$ di titik $(\\pi/4, 1)$!",
-          "solution": "Langkah 1: $f'(x) = \\sec^2(x) \\implies m_{\\text{singgung}} = \\sec^2(\\pi/4) = 2$.\nLangkah 2: Gradien normal $m_n = -\\frac{1}{2}$.\nLangkah 3: Garis normal: $y - 1 = -\\frac{1}{2}(x - \\pi/4) \\implies y = -\\frac{1}{2}x + \\frac{\\pi}{8} + 1$.\nKesimpulan: Persamaan garis normal adalah $y = -\\frac{1}{2}x + \\frac{\\pi}{8} + 1$."
+          "problem": "Tentukan persamaan garis normal kurva $f(x) = \\tan(x)$ di titik $\\left(\\frac{\\pi}{4}, 1\\right)$!",
+          "solution": "Langkah 1: Gradien garis singgung: $m_s = f'\\left(\\frac{\\pi}{4}\\right) = \\sec^2\\left(\\frac{\\pi}{4}\\right) = (\\sqrt{2})^2 = 2$.\nLangkah 2: Gradien garis normal tegak lurus garis singgung: $m_n = -\\frac{1}{m_s} = -\\frac{1}{2}$.\nLangkah 3: Persamaan garis normal: $y - 1 = -\\frac{1}{2}\\left(x - \\frac{\\pi}{4}\\right) \\implies y = -\\frac{1}{2}x + \\frac{\\pi}{8} + 1$.\nKesimpulan: Persamaan garis normal kurva adalah $y = -\\frac{1}{2}x + \\frac{\\pi}{8} + 1$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Turunan Fungsi Trigonometri 5: Garis Singgung & Garis Normal. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Gradien Garis Singgung, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Persamaan Garis Singgung, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Tentukan titik pada kurva $f(x) = \\sin(2x)$ untuk $0 \\le x \\le \\pi$ yang memiliki garis singgung sejajar dengan sumbu-$X$ ($m = 0$)!",
+          "solution": "Langkah 1: Gradien sejajar sumbu-$X \\implies f'(x) = 0$.\nLangkah 2: $f'(x) = 2\\cos(2x) = 0 \\implies \\cos(2x) = 0$.\nLangkah 3: $2x = \\frac{\\pi}{2}$ atau $2x = \\frac{3\\pi}{2} \\implies x = \\frac{\\pi}{4}$ atau $x = \\frac{3\\pi}{4}$.\nLangkah 4: Untuk $x = \\frac{\\pi}{4} \\implies y = \\sin\\left(\\frac{\\pi}{2}\\right) = 1$. Titik $\\left(\\frac{\\pi}{4}, 1\\right)$.\nLangkah 5: Untuk $x = \\frac{3\\pi}{4} \\implies y = \\sin\\left(\\frac{3\\pi}{2}\\right) = -1$. Titik $\\left(\\frac{3\\pi}{4}, -1\\right)$.\nKesimpulan: Titik-titik tersebut adalah $\\left(\\frac{\\pi}{4}, 1\\right)$ dan $\\left(\\frac{3\\pi}{4}, -1\\right)$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Turunan Fungsi Trigonometri 5: Garis Singgung & Garis Normal, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Gradien Garis Singgung.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Persamaan Garis Singgung.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "Sebuah lintasan robot pemotong laser mengikuti kontur kurva $y = 3\\cos(x) + 2$. Tentukan persamaan garis lintasan pengaman normal (tegak lurus garis singgung) di titik $x = \\frac{\\pi}{2}$!",
+          "solution": "Langkah 1: Titik singgung: $x_1 = \\frac{\\pi}{2}, y_1 = 3\\cos\\left(\\frac{\\pi}{2}\\right) + 2 = 3(0) + 2 = 2$. Titik $(\\pi/2, 2)$.\nLangkah 2: Gradien singgung: $m_s = f'\\left(\\frac{\\pi}{2}\\right) = -3\\sin\\left(\\frac{\\pi}{2}\\right) = -3(1) = -3$.\nLangkah 3: Gradien normal: $m_n = -\\frac{1}{m_s} = -\\frac{1}{-3} = \\frac{1}{3}$.\nLangkah 4: Persamaan garis normal: $y - 2 = \\frac{1}{3}\\left(x - \\frac{\\pi}{2}\\right) \\implies y = \\frac{1}{3}x - \\frac{\\pi}{6} + 2$.\nKesimpulan: Persamaan garis lintasan pengaman normal adalah $y = \\frac{1}{3}x - \\frac{\\pi}{6} + 2$."
         }
       ],
       "btc": "Kelompok VNPS: Tentukan titik-titik pada kurva $f(x) = 2\\sin(x)$ untuk $0 \\le x \\le 2\\pi$ yang memiliki garis singgung horizontal ($m = 0$)!",
