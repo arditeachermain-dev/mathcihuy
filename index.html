@@ -56,7 +56,7 @@
 
 
   <!-- TOP HEADER WITH LOGO, SUBJECT TABS, & LUXURY CONTROLS -->
-  <header id="app-header" class="h-14 md:h-15 border-b border-slate-800/90 px-3 md:px-5 flex items-center justify-between gap-2 z-40 shrink-0 sticky top-0 bg-[#070D18]/95 backdrop-blur-md shadow-md">
+  <header id="app-header" class="h-14 md:h-15 border-b border-slate-800/90 px-3 md:px-6 flex items-center justify-between gap-3 z-40 shrink-0 sticky top-0 bg-[#070D18]/95 backdrop-blur-md shadow-md">
     
     <!-- LEFT: DRAWER MENU TOGGLE & SCHOOL IDENTITY -->
     <div class="flex items-center gap-2.5 shrink-0">
@@ -100,22 +100,17 @@
       </div>
     </div>
 
-    <!-- RIGHT: SEARCH, WHITEBOARD & USER PROFILE DROPDOWN -->
+    <!-- RIGHT: ONLY SEARCH & UNIFIED USER PROFILE MENU -->
     <div class="flex items-center gap-2 shrink-0">
       <!-- QUICK SEARCH BUTTON (CTRL + K) -->
-      <button onclick="openSearchModal()" class="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition flex items-center gap-1.5 shadow-sm cursor-pointer" title="Pencarian Materi & Rumus (Ctrl + K)">
+      <button onclick="openSearchModal()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition flex items-center gap-2 shadow-sm cursor-pointer" title="Pencarian Materi & Rumus (Ctrl + K)">
         <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
-        <span class="hidden lg:inline text-[10px] bg-slate-950 px-1.5 py-0.2 rounded border border-slate-800 text-slate-400">Ctrl K</span>
-      </button>
-
-      <!-- WHITEBOARD PEN TOOL -->
-      <button id="btn-pen" onclick="togglePenMode()" class="p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs transition cursor-pointer" title="Spidol Digital (Whiteboard)">
-        <i class="fa-solid fa-pen text-xs"></i>
+        <span class="hidden md:inline text-[10px] bg-slate-950 px-1.5 py-0.2 rounded border border-slate-800 text-slate-400 font-mono">Ctrl K</span>
       </button>
 
       <!-- USER PROFILE DROPDOWN MENU -->
       <div class="relative" id="user-menu-container">
-        <button id="user-profile-btn" onclick="toggleUserDropdownMenu(event)" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs font-mono font-bold text-slate-200 transition flex items-center gap-2 cursor-pointer shadow-sm">
+        <button id="user-profile-btn" onclick="toggleUserDropdownMenu(event)" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs font-mono font-bold text-slate-200 transition flex items-center gap-2 cursor-pointer shadow-sm">
           <span id="user-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span id="user-display-name" class="font-bold text-emerald-400 hidden sm:inline">GURU: mathcihuy</span>
           <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
@@ -142,10 +137,14 @@
             </a>
           </div>
 
-          <!-- ACADEMIC & ANALYTICS TOOLS -->
+          <!-- ACADEMIC & TEACHING TOOLS -->
           <div class="space-y-0.5 border-b border-slate-800/80 pb-1.5">
+            <button id="btn-pen" onclick="togglePenMode(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-pen text-amber-400 w-4 text-center"></i>
+              <span>Spidol Coretan (Whiteboard)</span>
+            </button>
             <button onclick="openScheduleModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center gap-2 cursor-pointer">
-              <i class="fa-solid fa-calendar-days text-amber-400 w-4 text-center"></i>
+              <i class="fa-solid fa-calendar-days text-emerald-400 w-4 text-center"></i>
               <span>Jadwal & Agenda Ujian</span>
             </button>
             <button onclick="openAnalyticsModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center gap-2 cursor-pointer">
