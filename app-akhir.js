@@ -394,7 +394,7 @@
           sedang: 'Tidak ada siswa yang sedang aktif mengerjakan saat ini.',
           belum: '🎉 Luar biasa! Semua siswa di kelas ini sudah mengerjakan CBT!'
         };
-        tbody.innerHTML = `<tr><td colspan="10" class="text-center py-10 text-slate-400 font-medium">${pesanKosong[statusFilter] || 'Tidak ada data'}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" class="text-center py-10 text-slate-400 font-medium">${pesanKosong[statusFilter] || 'Tidak ada data'}</td></tr>`;
         return;
       }
 
@@ -452,18 +452,29 @@
 
         const namaMapel = (typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib');
 
+        const tglCell = (wib && r.status !== 'belum') ? `<span class="text-xs font-mono text-slate-300">${wib.tgl}</span>` : '<span class="text-xs text-slate-500 font-mono">-</span>';
+        let jamCell = '';
+        if (r.status === 'sudah') {
+          jamCell = wib ? `<span class="font-mono font-black text-amber-300 text-xs">${wib.jam}</span>` : '<span class="text-xs text-slate-500 font-mono">-</span>';
+        } else if (r.status === 'sedang') {
+          jamCell = wib ? `<span class="font-mono font-bold text-cyan-300 text-xs">${wib.jam}</span>` : '<span class="text-xs text-cyan-400 font-mono italic">Live</span>';
+        } else {
+          jamCell = '<span class="text-xs text-slate-500 font-mono">-</span>';
+        }
+
         return `
           <tr class="border-b border-slate-700 ${trBg} transition">
-            <td class="border border-slate-700 px-4 py-2.5 font-mono text-xs font-bold text-slate-300">${r.nis}</td>
-            <td class="border border-slate-700 px-4 py-2.5 font-semibold text-slate-100">${r.nama}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center text-xs uppercase text-slate-300">${namaMapel}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center text-xs font-mono font-bold text-cyan-300">${r.kode_pertemuan || '-'}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${skorDisplay}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${detailDisplay}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${durasiDisplay}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${waktuCell}</td>
-            <td class="border border-slate-700 px-4 py-2.5 text-center">${aksiButton}</td>
+            <td class="border border-slate-700 px-3 py-2.5 font-mono text-xs font-bold text-slate-300">${r.nis}</td>
+            <td class="border border-slate-700 px-3 py-2.5 font-semibold text-slate-100">${r.nama}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center text-xs text-amber-300 font-bold">${r.kelas}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center text-xs uppercase text-slate-300">${namaMapel}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center text-xs font-mono font-bold text-cyan-300">${r.kode_pertemuan || '-'}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center">${skorDisplay}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center">${detailDisplay}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center">${durasiDisplay}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center">${tglCell}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center">${jamCell}</td>
+            <td class="border border-slate-700 px-3 py-2.5 text-center">${aksiButton}</td>
           </tr>
         `;
       }).join('');
@@ -534,19 +545,23 @@
         }
 
         // Convert ke CSV
-        const headers = ['Timestamp', 'NIS', 'Nama', 'Kelas', 'Mapel', 'Bab', 'Skor', 'Benar', 'Salah', 'Durasi (menit)'];
-        const rows = queue.map(r => [
-            (formatWaktuWib(r.timestamp) ? formatWaktuWib(r.timestamp).full : '-'),
-            r.nis,
-            r.nama,
-            r.kelas,
-            NAMA_MAPEL[r.mapel] || 'Wajib',
-            r.kode_pertemuan || '-',
-            r.skor,
-            r.jumlah_benar,
-            r.jumlah_salah,
-            (r.durasi_detik / 60).toFixed(1)
-        ]);
+        const headers = ['Tanggal', 'Jam (WIB)', 'NIS', 'Nama', 'Kelas', 'Mapel', 'Bab', 'Skor', 'Benar', 'Salah', 'Durasi (menit)'];
+        const rows = queue.map(r => {
+            const w = formatWaktuWib(r.timestamp);
+            return [
+                w ? w.tgl : '-',
+                w ? w.jam : '-',
+                r.nis,
+                r.nama,
+                r.kelas,
+                NAMA_MAPEL[r.mapel] || 'Wajib',
+                r.kode_pertemuan || '-',
+                r.skor,
+                r.jumlah_benar,
+                r.jumlah_salah,
+                (r.durasi_detik / 60).toFixed(1)
+            ];
+        });
 
         const csv = [headers, ...rows].map(r => r.map(c => `"${c}"`).join(',')).join('\n');
         const blob = new Blob([csv], {type: 'text/csv'});
