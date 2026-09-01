@@ -3089,29 +3089,35 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         sec.appendChild(head);
 
         if (terbuka) {
-          const grid = document.createElement('div');
-          grid.className = 'mp-grid mt-2 grid gap-2 sm:grid-cols-2 xl:grid-cols-3';
+          const list = document.createElement('div');
+          list.className = 'mp-list mt-1 space-y-1';
           g.hasil.forEach(it => {
             const asesmen = /asesmen|sumatif|simulasi|review/i.test(it.title);
             const c = document.createElement('button');
             c.type = 'button';
-            c.className = 'mp-card p-2.5 md:p-3 rounded-xl text-left flex flex-col gap-1' + (it.aktif ? ' is-active' : '');
-            c.innerHTML =
-              '<span class="flex items-center gap-2 w-full">' +
-                '<span class="mp-num font-mono font-black text-base leading-none">' + it.label + '</span>' +
-                (it.label !== it.id ? '<span class="mp-alt">' + it.id + '</span>' : '') +
-                (asesmen ? '<span class="mp-tag">Asesmen</span>' : '') +
-                '<span class="ml-auto shrink-0">' +
-                  (it.aktif ? '<i class="fa-solid fa-location-dot mp-num text-sm"></i>'
-                            : (it.selesai ? '<i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>' : '')) +
-                '</span>' +
-              '</span>' +
-              '<span class="block text-[13px] font-bold text-white leading-snug mp-clamp2">' + pickerTrimTitle(it.title, g.judul) + '</span>' +
-              (it.desc ? '<span class="block text-[11px] text-slate-400 leading-snug mp-clamp2">' + it.desc + '</span>' : '');
+            c.className = 'w-full px-2.5 py-2 rounded-xl text-left flex items-center justify-between gap-2.5 transition cursor-pointer ' + 
+              (it.aktif ? 'bg-blue-600/30 border border-blue-500 text-white font-bold ring-1 ring-blue-400/40 shadow-sm' : 
+               (asesmen ? 'bg-amber-950/20 hover:bg-amber-900/30 border border-amber-500/30 text-amber-200' : 'bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white'));
+            
+            c.innerHTML = `
+              <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                <span class="px-2 py-0.5 rounded-lg text-[11px] font-mono font-bold shrink-0 ${it.aktif ? 'bg-blue-600 text-white' : (asesmen ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-950 text-slate-300 border border-slate-800')}">
+                  ${it.label}
+                </span>
+                <span class="text-xs truncate font-semibold leading-tight flex-1">
+                  ${pickerTrimTitle(it.title, g.judul)}
+                </span>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0 font-mono text-[10px]">
+                ${asesmen ? '<span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">UH</span>' : ''}
+                ${it.aktif ? '<span class="px-1.5 py-0.2 rounded bg-blue-500/30 text-blue-200 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Buka</span>' : 
+                 (it.selesai ? '<i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>' : '<span class="text-slate-500">13S</span>')}
+              </div>
+            `;
             c.onclick = () => { it.pilih(); closeMeetingPicker(); renderAppView(); };
-            grid.appendChild(c);
+            list.appendChild(c);
           });
-          sec.appendChild(grid);
+          sec.appendChild(list);
         }
         body.appendChild(sec);
       });

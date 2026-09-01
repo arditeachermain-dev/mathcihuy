@@ -822,46 +822,48 @@
     </div>
   </div>
 
-  <!-- PEMILIH PERTEMUAN: dikelompokkan per BAB, bukan satu kisi datar -->
-  <div id="meeting-picker-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-start md:items-center justify-center p-3 md:p-6"
+  <!-- PEMILIH PERTEMUAN: ULTRA-SLIM COMMAND PALETTE (MAX-W-MD) -->
+  <div id="meeting-picker-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-start md:items-center justify-center p-3 md:p-4"
        onclick="if (event.target === this) closeMeetingPicker()">
-    <div class="w-full max-w-6xl max-h-[93vh] bg-slate-900 border border-slate-700/70 rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+    <div class="w-full max-w-md max-h-[85vh] bg-[#0A1324] border border-slate-750 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
 
-      <!-- kepala -->
-      <div class="px-4 md:px-5 pt-3 pb-2.5 flex items-center gap-3 shrink-0 border-b border-slate-800">
-        <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-400 text-base shrink-0">
-          <i class="fa-solid fa-layer-group"></i>
-        </div>
-        <div class="flex-1 min-w-0">
-          <h3 class="text-base md:text-lg font-black text-white leading-tight">Pilih Pertemuan</h3>
-          <p id="picker-sub" class="text-[11px] md:text-xs text-slate-400 mt-0.5">Matematika Wajib &middot; 21 pertemuan</p>
+      <!-- kepala ringkas -->
+      <div class="px-3.5 py-2.5 bg-[#060B14] flex items-center justify-between gap-2 shrink-0 border-b border-slate-800">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400 text-xs shrink-0 font-bold">
+            <i class="fa-solid fa-shapes"></i>
+          </div>
+          <div class="truncate min-w-0">
+            <h3 class="text-xs md:text-sm font-bold text-white leading-tight truncate">Pilih Pertemuan KBM</h3>
+            <p id="picker-sub" class="text-[10px] text-slate-400 font-mono truncate">Matematika Wajib • 21 Materi</p>
+          </div>
         </div>
         <button onclick="closeMeetingPicker()" aria-label="Tutup"
-          class="w-9 h-9 rounded-xl border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center shrink-0 transition">
+          class="w-7 h-7 rounded-lg border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center shrink-0 transition text-xs cursor-pointer">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <!-- pencarian + saringan -->
-      <div class="mp-cari px-4 md:px-5 pb-2.5 space-y-2 shrink-0 border-b border-slate-800/70">
+      <!-- pencarian + saringan bab -->
+      <div class="p-2.5 bg-[#08101E] space-y-2 shrink-0 border-b border-slate-800/80">
         <div class="relative">
-          <i class="fa-solid fa-magnifying-glass mp-cari-ikon absolute top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
           <input id="picker-search" type="text" autocomplete="off"
-            placeholder="Cari bab, rumus, atau soal&hellip;"
+            placeholder="Cari materi, nomor (P05), atau topik..."
             oninput="renderMeetingPicker(this.value)"
-            class="w-full bg-slate-950 border border-slate-800 focus:border-amber-400/70 mp-input rounded-xl py-2 pr-3 text-sm text-white placeholder-slate-500 focus:outline-none transition">
+            class="w-full bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-xl py-1.5 pl-8 pr-3 text-xs text-white placeholder-slate-500 focus:outline-none transition">
         </div>
-        <div id="picker-streams" class="flex flex-wrap items-center gap-2"></div>
-        <div id="picker-bab" class="flex flex-wrap items-center gap-2"></div>
+        <div id="picker-streams" class="flex flex-wrap items-center gap-1.5"></div>
+        <div id="picker-bab" class="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5"></div>
       </div>
 
-      <!-- daftar per BAB -->
-      <div id="picker-body" class="px-4 md:px-5 py-3 space-y-2.5 flex-1 min-h-0 overflow-y-auto kolab-scroll"></div>
+      <!-- daftar 1 kolom ringkas -->
+      <div id="picker-body" class="p-2 space-y-1 flex-1 min-h-0 overflow-y-auto kolab-scroll text-xs"></div>
 
       <!-- kaki -->
-      <div class="px-4 md:px-5 py-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 shrink-0">
-        <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400"></i> sudah dikerjakan</span>
-        <span class="font-mono">P membuka &middot; Esc menutup &middot; klik judul BAB untuk melipat</span>
+      <div class="px-3.5 py-2 bg-[#060B14] border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400 shrink-0 font-mono">
+        <span class="flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-400"></i> Selesai</span>
+        <span>Esc untuk tutup</span>
       </div>
     </div>
   </div>
