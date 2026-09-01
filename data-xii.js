@@ -6607,8 +6607,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $Tb = 40$ dan $Ta = 50$",
             "E. $Tb = 45{,}5$ dan $Ta = 53{,}5$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Mengidentifikasi definisi Tepi Bawah ($Tb$) dan Tepi Atas ($Ta$):\nUntuk kelas interval dengan data berketelitian satuan (bilangan bulat):\n- Tepi Bawah: $Tb = \\text{Batas Bawah} - 0{,}5$\n- Tepi Atas: $Ta = \\text{Batas Atas} + 0{,}5$\n\nLangkah 2: Mensubstitusikan batas kelas interval $50 - 59$:\n- Batas Bawah $= 50 \\implies Tb = 50 - 0{,}5 = 49{,}5$\n- Batas Atas $= 59 \\implies Ta = 59 + 0{,}5 = 59{,}5$\n\nLangkah 3: Menentukan pasangan nilai:\nDiperoleh $Tb = 49{,}5$ dan $Ta = 59{,}5$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Mengidentifikasi rumus titik tengah kelas interval ($x_i$):\n$$x_i = \\frac{\\text{Batas Bawah} + \\text{Batas Atas}}{2}$$\nLangkah 2: Mensubstitusikan batas bawah $60$ dan batas atas $69$:\n$$x_i = \\frac{60 + 69}{2} = \\frac{129}{2} = 64{,}5$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "histogram",
             "src": "Tepi bawah ($Tb$) dan tepi atas ($Ta$) untuk kelas interval $45 - 54$ pada data pengukuran berat badan adalah ..."
@@ -6627,8 +6627,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5",
             "E. 11"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menggunakan rumus Titik Tengah ($x_i$) kelas interval:\n$$x_i = \\frac{\\text{Batas Bawah} + \\text{Batas Atas}}{2}$$\n\nLangkah 2: Mensubstitusikan batas kelas interval $70 - 79$:\n$$x_i = \\frac{70 + 79}{2} = \\frac{149}{2}$$\n\nLangkah 3: Menghitung hasil pembagian:\n$$x_i = 74{,}5$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung Tepi Bawah ($Tb$) dan Tepi Atas ($Ta$) interval 50 - 59:\n$$Tb = 50 - 0{,}5 = 49{,}5$$\n$$Ta = 59 + 0{,}5 = 59{,}5$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Panjang kelas (interval $c$) dari kelas $60 - 69$ adalah ..."
@@ -6647,8 +6647,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 75",
             "E. 74,5"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Mengidentifikasi konsep kurva Ogive Positif:\nKurva Ogive Positif adalah diagram garis yang menghubungkan tepi atas setiap kelas interval dengan **frekuensi kumulatif kurang dari ($\\le Ta$)**.\n\nLangkah 2: Karakteristik kurva:\nNilai frekuensi kumulatif kurang dari selalu bertambah atau tetap seiring naiknya nilai batas, sehingga kurva bergerak **naik secara monoton (monotonically non-decreasing)**.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung panjang kelas interval ($p$):\n$$p = Ta - Tb = 49{,}5 - 39{,}5 = 10$$\n*(atau $p = 49 - 40 + 1 = 10$)*.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Titik tengah ($x_i$) dari kelas interval $70 - 78$ adalah ..."
@@ -6667,8 +6667,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 30",
             "E. 20"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menggunakan rumus panjang kelas interval ($p$):\n$$p = Ta - Tb = (\\text{Batas Atas} - \\text{Batas Bawah}) + 1$$\n\nLangkah 2: Mensubstitusikan kelas interval $20 - 29$:\n$$p = (29 - 20) + 1 = 9 + 1 = 10$$\n*(Atau $p = 29{,}5 - 19{,}5 = 10$)*.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Memahami definisi kurva ogive:\n- Ogive positif: Kurva frekuensi kumulatif \"kurang dari\" ($f_k \\le$).\n- Ogive negatif: Kurva frekuensi kumulatif \"lebih dari\" ($f_k \\ge$).\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14]\nFrekuensi kumulatif kurang dari ($F_k$) tepi atas kelas kedua adalah ..."
@@ -6686,7 +6686,7 @@ const NAMA_TINGKAT = 'XII';
             "Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSumbu horizontal histogram menyajikan nilai tepi kelas (atau titik tengah), sedangkan sumbu vertikal menyajikan frekuensi kelas.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nOgive negatif dibentuk dari frekuensi kumulatif \"lebih dari atau sama dengan\" sehingga bergerak turun.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPanjang kelas interval dari $30 - 39$ adalah $(39 - 30) + 1 = 10$, bukan 9.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nPanjang interval $p = Ta - Tb$ adalah benar.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nTitik tengah $x_i = \\frac{Bb + Ba}{2}$ adalah benar.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nOgive negatif menggunakan frekuensi kumulatif \"lebih dari\", bukan kurang dari.\n$\\implies$ Pernyataan (3) bernilai SALAH.\n\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "histogram",
             "src": "Tentukan kebenaran tabel distribusi frekuensi data berkelompok:\n(1) Titik tengah kelas interval 50 - 59 adalah 55.\n(2) Panjang kelas interval (p) sama dengan tepi atas dikurangi tepi bawah.\n(3) Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5."
@@ -6705,8 +6705,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 6 kelas",
             "E. 7 kelas"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Mengidentifikasi Aturan Sturgess untuk menentukan banyak kelas ($k$):\n$$k = 1 + 3{,}3 \\log n$$\n\nLangkah 2: Mensubstitusikan banyak data $n = 100$:\n$$\\log 100 = 2$$\n$$k = 1 + 3{,}3(2) = 1 + 6{,}6 = 7{,}6$$\n\nLangkah 3: Membulatkan ke bilangan bulat terdekat ke atas:\n$$k \\approx 8 \\text{ kelas}$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menggunakan Aturan Sturgess untuk $n = 100$:\n$$k = 1 + 3{,}3 \\log(100) = 1 + 3{,}3(2) = 1 + 6{,}6 = 7{,}6 \\approx 8 \\text{ kelas}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Berapakah banyak kelas ideal menurut aturan Sturgess untuk data dengan ukuran sampel $n = 100$ siswa? (Gunakan $\\log 100 = 2$)"
@@ -6725,8 +6725,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Naik kemudian turun",
             "E. Selalu monoton naik"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menghitung frekuensi kumulatif kurang dari nilai 79,5:\nMenjumlahkan seluruh frekuensi kelas yang nilainya $\\le 79{,}5$:\n- Kelas 50-59: 4\n- Kelas 60-69: 6\n- Kelas 70-79: 8\n\nLangkah 2: Menghitung total:\n$$F_k = 4 + 6 + 8 = 18$$\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung frekuensi kumulatif sampai kelas ke-3 (60 - 69):\n$$f_k \\le 69 = 4 + 8 + 14 = 26$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Pada ogive negatif, grafik kurva menunjukkan kecenderungan ..."
@@ -6745,8 +6745,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Batas bawah kelas adalah 60 dan batas atas kelas adalah 68.",
             "E. Tepi bawah kelas interval adalah 59,5."
           ],
-          "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Evaluasi seluruh kaidah penyajian data kelompok:\n- A: Rumus titik tengah $x_i = \\frac{Bb + Ba}{2}$ (BENAR).\n- B: Panjang kelas $p = Ta - Tb$ (BENAR).\n- C: Ogive positif selalu naik (BENAR).\n- D: Histogram menampilkan batang saling berhimpit (BENAR).\n- E: Poligon frekuensi menghubungkan titik-titik tengah kelas (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis seluruh pernyataan:\n- Opsi A: Total $n = 4 + 8 + 14 + 10 + 4 = 40$ (BENAR).\n- Opsi B: Titik tengah kelas modus (60-69) adalah $\\frac{60+69}{2} = 64{,}5$ (BENAR).\n- Opsi C: Frekuensi kumulatif kelas terakhir $= n = 40$ (BENAR).\n- Opsi D: Panjang kelas $p = 10$ (BENAR).\n- Opsi E: Tepi bawah kelas pertama adalah $39{,}5$, bukan $40{,}0$ (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
           "viz": {
             "t": "histogram",
             "src": "Pada data berkelompok dengan kelas interval 60 - 68, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)"
@@ -6765,8 +6765,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5",
             "E. 8"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menghitung frekuensi kumulatif lebih dari atau sama dengan tepi bawah 60 (yaitu $\\ge 59{,}5$):\nMenjumlahkan frekuensi kelas 60-69, 70-79, 80-89:\n$$F_k(\\ge 59{,}5) = 12 + 15 + 8 = 35$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung panjang kelas dari jangkauan $R = 50$ dan $k = 7$:\n$$p = \\frac{R}{k} = \\frac{50}{7} \\approx 7{,}14 \\implies \\text{dibulatkan ke atas menjadi } 8$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Jika jangkauan data $R = 40$ dan banyak kelas $k = 5$, maka panjang kelas interval $c$ adalah ..."
@@ -6779,8 +6779,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P15-Q10] Nilai titik tengah kelas interval $81 - 99$ adalah ...",
           "opsi": [],
-          "kunci": "10",
-          "bahas": "Langkah 1: Menghitung panjang kelas interval $p$ untuk interval $41 - 50$:\n$$p = (\\text{Batas Atas} - \\text{Batas Bawah}) + 1 = (50 - 41) + 1 = 9 + 1 = 10$$\nKesimpulan: Kunci Jawaban 10.",
+          "kunci": "85",
+          "bahas": "Langkah 1: Menghitung titik tengah interval 80 - 90:\n$$x_i = \\frac{80 + 90}{2} = 85$$\nKesimpulan: Kunci Jawaban 85.",
           "viz": {
             "t": "histogram",
             "src": "Nilai titik tengah kelas interval $81 - 99$ adalah ..."
@@ -6806,8 +6806,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 73,50",
             "E. 72,00"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menentukan titik tengah ($x_i$) dan hasil kali frekuensi ($f_i \\cdot x_i$) tiap kelas:\n- Kelas 10-14 ($f = 4$): $x_1 = 12 \\implies f_1 x_1 = 4 \\times 12 = 48$\n- Kelas 15-19 ($f = 8$): $x_2 = 17 \\implies f_2 x_2 = 8 \\times 17 = 136$\n- Kelas 20-24 ($f = 5$): $x_3 = 22 \\implies f_3 x_3 = 5 \\times 22 = 110$\n- Kelas 25-29 ($f = 3$): $x_4 = 27 \\implies f_4 x_4 = 3 \\times 27 = 81$\n\nLangkah 2: Menghitung total $\\sum f_i$ dan $\\sum f_i x_i$:\n$$\\sum f_i = 4 + 8 + 5 + 3 = 20$$\n$$\\sum f_i x_i = 48 + 136 + 110 + 81 = 375$$\n\nLangkah 3: Menghitung nilai mean ($\\bar{x}$):\n$$\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{375}{20} = 18{,}75$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung $\\sum f_i x_i$:\n- 20-24 ($f=4, x=22 \\implies fx = 88$)\n- 25-29 ($f=8, x=27 \\implies fx = 216$)\n- 30-34 ($f=10, x=32 \\implies fx = 320$)\n- 35-39 ($f=6, x=37 \\implies fx = 222$)\n- 40-44 ($f=2, x=42 \\implies fx = 84$)\n$$\\sum f_i x_i = 88 + 216 + 320 + 222 + 84 = 930$$\n\nLangkah 2: Menghitung mean:\n$$\\bar{x} = \\frac{930}{30} = 31{,}00$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi data nilai siswa berikut:\n[50-59: 5], [60-69: 10], [70-79: 15], [80-89: 10]\nTotal frekuensi $n = 40$. Nilai rata-rata hitung (mean) data tersebut adalah ..."
@@ -6827,7 +6827,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 69,50"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menggunakan rumus rataan dengan metode rataan sementara ($\\bar{x}_s$):\n$$\\bar{x} = \\bar{x}_s + \\frac{\\sum f_i d_i}{\\sum f_i}$$\n\nLangkah 2: Mensubstitusikan nilai $\\bar{x}_s = 50$, $\\sum f_i d_i = +60$, dan $\\sum f_i = 30$:\n$$\\bar{x} = 50 + \\frac{60}{30} = 50 + 2 = 52$$\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menghitung mean dengan metode coding:\n$$\\bar{x} = x_s + \\left(\\frac{\\sum f u}{n}\\right) \\times p = 32 + (-0{,}2 \\times 5) = 32 - 1 = 31{,}00$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 3,
@@ -6842,8 +6842,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 71,2",
             "E. 70,5"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menggunakan rumus rataan dengan metode pengkodean (*coding* $u_i$):\n$$\\bar{x} = \\bar{x}_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) \\times p$$\n\nLangkah 2: Mensubstitusikan $\\bar{x}_s = 65$, $\\sum f_i u_i = -10$, $\\sum f_i = 40$, dan panjang kelas $p = 8$:\n$$\\bar{x} = 65 + \\left(\\frac{-10}{40}\\right) \\times 8 = 65 + \\left(-\\frac{1}{4} \\times 8\\right) = 65 - 2 = 63$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung rata-rata gabungan:\n$$\\bar{x}_{\\text{gab}} = \\frac{(20 \\times 75) + (30 \\times 85)}{20 + 30} = \\frac{1.500 + 2.550}{50} = \\frac{4.050}{50} = 81{,}00$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "histogram",
             "src": "Pada metode pengkodean (coding), $x_s = 70$, panjang kelas $c = 10$, $\\sum f_i u_i = 12$, dan $n = 60$. Nilai rata-rata hitung data adalah ..."
@@ -6862,8 +6862,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 80,0",
             "E. 83,0"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menghitung total nilai mula-mula:\n$$\\text{Total Nilai 9 Siswa} = 9 \\times 75 = 675$$\n\nLangkah 2: Menghitung total nilai baru setelah 1 siswa tambahan bergabung:\n$$\\text{Total Nilai 10 Siswa} = 10 \\times 76 = 760$$\n\nLangkah 3: Menghitung nilai siswa tambahan ($x_{10}$):\n$$x_{10} = 760 - 675 = 85$$\nKesimpulan: Kunci Jawaban B."
+          "kunci": "A",
+          "bahas": "Langkah 1: Formula coding rata-rata data berkelompok:\n$$\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) \\times p$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 5,
@@ -6876,8 +6876,8 @@ const NAMA_TINGKAT = 'XII';
             "Pada metode rataan sementara, bar(x) = x_s + [sum(fi . di) / sum(fi)]",
             "Jika setiap data ditambah 5, maka nilai rata-rata data tidak mengalami perubahan"
           ],
-          "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nMetode titik tengah, rataan sementara, dan metode coding menghasilkan nilai mean yang identik/sama persis.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nNilai mean dipengaruhi oleh setiap nilai data sehingga peka terhadap pencilan ekstrim.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPada metode coding, kelas yang dipilih sebagai rataan sementara memiliki kode $u_i = 0$, bukan $1$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
+          "kunci": "B - B - B",
+          "bahas": "Langkah 1: Evaluasi pernyataan:\n(1) Metode titik tengah dan coding menghasilkan nilai identik $\\implies$ BENAR.\n(2) Rumus mean gabungan $\\implies$ BENAR.\n(3) Penambahan konstanta $c$ pada seluruh data menaikkan mean sebesar $c$ $\\implies$ BENAR.\nKesimpulan: Kunci Jawaban B - B - B."
         },
         {
           "no": 6,
@@ -6892,8 +6892,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 8,5",
             "E. 8,0"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menghitung rata-rata gabungan $\\bar{x}_{\\text{gab}}$:\n$$\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2}{n_1 + n_2}$$\n\nLangkah 2: Mensubstitusikan $n_1 = 20, \\bar{x}_1 = 70$ dan $n_2 = 30, \\bar{x}_2 = 80$:\n$$\\bar{x}_{\\text{gab}} = \\frac{(20 \\times 70) + (30 \\times 80)}{20 + 30} = \\frac{1.400 + 2.400}{50} = \\frac{3.800}{50} = 76$$\nKesimpulan: Kunci Jawaban E."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung nilai siswa susulan:\n$$\\text{Nilai Susulan} = (10 \\times 80) - (9 \\times 78) = 800 - 702 = 98$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 7,
@@ -6908,8 +6908,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 31,5",
             "E. 30,5"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Sifat linieritas rata-rata hitung:\nJika setiap datum $x_i$ dikalikan $a$ lalu ditambah $b$ ($y_i = a x_i + b$), maka rata-rata baru menjadi:\n$$\\bar{y} = a \\bar{x} + b$$\n\nLangkah 2: Mensubstitusikan $\\bar{x} = 50$, pengali $a = 2$, dan penambah $b = 5$:\n$$\\bar{y} = (2 \\times 50) + 5 = 100 + 5 = 105$$\nKesimpulan: Kunci Jawaban C."
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung mean dari rataan sementara $x_s = 65$:\n$$\\bar{x} = x_s + \\frac{\\sum f_i d_i}{n} = 65 + \\frac{60}{40} = 65 + 1{,}5 = 66{,}5$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -6925,7 +6925,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Jumlah total nilai seluruh 40 siswa adalah 3.100."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Evaluasi seluruh sifat rata-rata hitung data kelompok:\n- A: $\\bar{x} = \\frac{\\sum fx}{\\sum f}$ (BENAR).\n- B: Metode coding mempermudah perhitungan angka besar (BENAR).\n- C: $\\sum f(x - \\bar{x}) = 0$ selalu bernilai nol (BENAR).\n- D: Jika semua data ditambah konstanta c, mean bertambah c (BENAR).\n- E: Mean tidak sama dengan modus pada distribusi menceng (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "bahas": "Langkah 1: Evaluasi opsi:\n- Total siswa $= 24 + 16 = 40$ (BENAR).\n- Jumlah nilai putri $= 24 \\times 80 = 1.920$ (BENAR).\n- Jumlah nilai putra $= 16 \\times 70 = 1.120$ (BENAR).\n- Mean gabungan $= \\frac{1.920 + 1.120}{40} = \\frac{3.040}{40} = 76{,}0$ (BENAR).\n- Opsi E SALAH karena mean lebih dekat ke rata-rata putri (jumlah putri lebih banyak).\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -6941,7 +6941,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 15,0"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menghitung total nilai 5 anak:\n$$\\sum x = 5 \\times 80 = 400$$\n\nLangkah 2: Menghitung jumlah 4 nilai yang diketahui:\n$$75 + 80 + 85 + 90 = 330$$\n\nLangkah 3: Menentukan nilai anak ke-5:\n$$x_5 = 400 - 330 = 70$$\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menghitung nilai anak ke-5:\n$$x_5 = (5 \\times 80) - (75 + 80 + 85 + 90) = 400 - 330 = 70$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 10,
@@ -6950,8 +6950,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P16-Q10] Nilai rata-rata dari data: 12, 14, 16, 18, 20 adalah ...",
           "opsi": [],
-          "kunci": "75",
-          "bahas": "Langkah 1: Menghitung mean gabungan:\n$$\\bar{x}_{\\text{gab}} = \\frac{(15 \\times 70) + (25 \\times 78)}{40} = \\frac{1.050 + 1.950}{40} = \\frac{3.000}{40} = 75$$\nKesimpulan: Kunci Jawaban 75."
+          "kunci": "16",
+          "bahas": "Langkah 1: Menghitung mean data 12, 14, 16, 18, 20:\n$$\\bar{x} = \\frac{12 + 14 + 16 + 18 + 20}{5} = \\frac{80}{5} = 16$$\nKesimpulan: Kunci Jawaban 16."
         }
       ]
     },
@@ -6974,7 +6974,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 66,50"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menentukan kelas Median:\nTotal frekuensi $n = 40 \\implies$ letak median pada data ke-$\\frac{n}{2} = 20$.\n- Frekuensi kumulatif: Kelas 40-49 ($f_k = 6$), Kelas 50-59 ($f_k = 16$), Kelas 60-69 ($f_k = 30$).\n$\\\\implies$ Kelas Median berada pada interval $60 - 69$.\n\nLangkah 2: Mengidentifikasi parameter rumus Median:\n- Tepi Bawah: $Tb = 59{,}5$\n- Frekuensi Kumulatif sebelum kelas median: $F_k = 16$\n- Frekuensi kelas median: $f_{\\text{med}} = 14$\n- Panjang kelas: $p = 10$\n\nLangkah 3: Menghitung Median ($Me$):\n$$Me = Tb + \\left(\\frac{\\frac{n}{2} - F_k}{f_{\\text{med}}}\\right) \\times p = 59{,}5 + \\left(\\frac{20 - 16}{14}\\right) \\times 10 = 59{,}5 + \\frac{40}{14} = 59{,}5 + 2{,}86 = 62{,}36$$\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menentukan kelas Median ($n = 40 \\implies \\frac{n}{2} = 20$):\nKelas median berada pada interval 60 - 69 ($F_k = 10, f_m = 12, Tb = 59{,}5, p = 10$).\n\nLangkah 2: Menghitung Median ($Me$):\n$$Me = 59{,}5 + \\left(\\frac{20 - 10}{12}\\right) \\times 10 = 59{,}5 + \\frac{100}{12} = 59{,}5 + 8{,}33 = 67{,}83$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nTotal frekuensi $n = 40$. Nilai median ($Me$) data tersebut adalah ..."
@@ -6993,8 +6993,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 67,00",
             "E. 68,00"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menentukan kelas Modus (kelas dengan frekuensi tertinggi):\nFrekuensi tertinggi adalah $f = 16$ pada kelas interval $50 - 59$.\n\nLangkah 2: Mengidentifikasi parameter rumus Modus:\n- Tepi Bawah: $Tb = 49{,}5$\n- Selisih frekuensi dengan kelas sebelumnya: $d_1 = 16 - 10 = 6$\n- Selisih frekuensi dengan kelas sesudahnya: $d_2 = 16 - 8 = 8$\n- Panjang kelas: $p = 10$\n\nLangkah 3: Menghitung Modus ($Mo$):\n$$Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) \\times p = 49{,}5 + \\left(\\frac{6}{6 + 8}\\right) \\times 10 = 49{,}5 + \\frac{60}{14} = 49{,}5 + 4{,}29 = 53{,}79$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menentukan kelas Modus (frekuensi tertinggi $f = 12$ pada kelas 60 - 69):\n- $Tb = 59{,}5$\n- $d_1 = 12 - 6 = 6$\n- $d_2 = 12 - 10 = 2$\n- $p = 10$\n\nLangkah 2: Menghitung Modus ($Mo$):\n$$Mo = 59{,}5 + \\left(\\frac{6}{6 + 2}\\right) \\times 10 = 59{,}5 + 7{,}5 = 67{,}00$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nNilai modus ($Mo$) data tersebut adalah ..."
@@ -7013,8 +7013,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Tiga bagian",
             "E. Sepuluh bagian sama besar"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Mengidentifikasi sifat distribusi simetris sempurna:\nPada kurva distribusi frekuensi yang simetris sempurna (kurva lonceng normal), ketiga ukuran pemusatan berimpit pada satu titik yang sama:\n$$\\text{Mean} = \\text{Median} = \\text{Modus}$$\nKesimpulan: Kunci Jawaban E."
+          "kunci": "A",
+          "bahas": "Langkah 1: Definisi median membagi data terurut menjadi 2 bagian sama besar (50% dan 50%).\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 4,
@@ -7029,8 +7029,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Kuartil atas",
             "E. Nilai data dengan frekuensi kemunculan tertinggi"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menentukan median dari data tunggal terurut:\nData terurut: $4, 5, 6, 7, 8, 9, 10$ ($n = 7$ data).\n\nLangkah 2: Menentukan data posisi tengah:\n$$\\text{Posisi} = \\frac{n + 1}{2} = \\frac{7 + 1}{2} = 4 \\implies \\text{Data ke-4}$$\n\nLangkah 3: Membaca data ke-4:\n$$Me = 7$$\nKesimpulan: Kunci Jawaban C."
+          "kunci": "E",
+          "bahas": "Langkah 1: Modus adalah nilai data yang memiliki frekuensi kemunculan tertinggi.\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 5,
@@ -7044,7 +7044,7 @@ const NAMA_TINGKAT = 'XII';
             "Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nModus adalah nilai data yang memiliki frekuensi kemunculan terbesar.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nMedian membagi data terurut menjadi 2 bagian sama banyak ($50\\%$ di bawah dan $50\\%$ di atas).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKumpulan data dapat memiliki lebih dari satu modus (bimodal/multimodal) atau bahkan tidak memiliki modus sama sekali.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis:\n(1) Rumus modus berkelompok $\\implies$ BENAR.\n(2) Letak median pada $\\frac{1}{2}n$ $\\implies$ BENAR.\n(3) Modus tidak selalu tepat sama dengan titik tengah kelas modus $\\implies$ SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran median dan modus data berkelompok:\n(1) Rumus modus data berkelompok adalah Mo = Tb + [d1 / (d1 + d2)] x p.\n(2) Letak median berada pada frekuensi kumulatif ke- 1/2 n.\n(3) Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus."
@@ -7063,8 +7063,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 7,5",
             "E. 8,5"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menghitung modus jika $d_1 = 4, d_2 = 6, Tb = 60{,}5, p = 5$:\n$$Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) \\times p$$\n\nLangkah 2: Mensubstitusikan nilai parameter:\n$$Mo = 60{,}5 + \\left(\\frac{4}{4 + 6}\\right) \\times 5 = 60{,}5 + \\left(\\frac{4}{10} \\times 5\\right) = 60{,}5 + 2 = 62{,}5$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menentukan median dari data tunggal: 3, 5, 7, 8, 9, 11, 12 ($n = 7$):\n$$Me = x_4 = 8$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "boxplot",
             "src": "Berapakah median dari data tunggal: 3, 5, 7, 8, 9, 11, 12?"
@@ -7083,8 +7083,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 6 dan 8",
             "E. 8"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menentukan median data genap $n = 8$:\nData terurut: $3, 4, 6, 7, 8, 10, 12, 14$.\n\nLangkah 2: Rata-rata dari data ke-4 dan data ke-5:\n$$Me = \\frac{x_4 + x_5}{2} = \\frac{7 + 8}{2} = \\frac{15}{2} = 7{,}5$$\nKesimpulan: Kunci Jawaban A."
+          "kunci": "E",
+          "bahas": "Langkah 1: Menentukan modus dari data: 4, 6, 6, 7, 8, 8, 8, 9:\nNilai 8 muncul 3 kali (frekuensi terbanyak) $\\implies Mo = 8$.\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 8,
@@ -7099,8 +7099,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Nilai d2 (selisih frekuensi dengan kelas sesudahnya) adalah 6.",
             "E. Nilai modus data berkelompok adalah 74,5."
           ],
-          "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Evaluasi sifat median dan modus:\n- A: Median membagi 50% distribusi (BENAR).\n- B: Modus didasarkan pada selisih $d_1$ dan $d_2$ (BENAR).\n- C: Median bersifat robust terhadap outlier (BENAR).\n- D: Jika frekuensi sama semua, data tidak memiliki modus (BENAR).\n- E: Nilai modus tidak selalu lebih besar dari median (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "kunci": "A, C, D, E",
+          "bahas": "Langkah 1: Evaluasi parameter modus:\n- $d_1 = 12 - 8 = 4$ (Opsi C BENAR).\n- $d_2 = 12 - 6 = 6$ (Opsi D BENAR).\n- $d_1 + d_2 = 4 + 6 = 10$ (Opsi A BENAR).\n- $Mo = 70{,}5 + \\left(\\frac{4}{10}\\right) \\times 10 = 74{,}5$ (Opsi E BENAR).\n- Opsi B SALAH (tertulis 78,5).\nKesimpulan: Kunci Jawaban A, C, D, E."
         },
         {
           "no": 9,
@@ -7115,8 +7115,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Modus > Median > Mean",
             "E. Median > Mean > Modus"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menghitung median jika $Tb = 70{,}5, n = 60, F_k = 20, f_m = 25, p = 10$:\n$$Me = 70{,}5 + \\left(\\frac{30 - 20}{25}\\right) \\times 10 = 70{,}5 + \\left(\\frac{10}{25} \\times 10\\right) = 70{,}5 + 4 = 74{,}5$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Pada kurva condong ke kanan (positively skewed), berlaku:\n$$\\text{Mean} > \\text{Median} > \\text{Modus}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lonceng",
             "src": "Pada kurva distribusi yang condong ke kanan (positively skewed), hubungan ukuran pemusatan yang berlaku adalah ..."
@@ -7129,8 +7129,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P17-Q10] Median dari kumpulan data terurut: 10, 20, 30, 40, 50, 60 adalah ...",
           "opsi": [],
-          "kunci": "55",
-          "bahas": "Langkah 1: Menghitung modus dengan $Tb = 50{,}5, d_1 = 3, d_2 = 3, p = 9$:\n$$Mo = 50{,}5 + \\left(\\frac{3}{3 + 3}\\right) \\times 9 = 50{,}5 + \\left(\\frac{1}{2} \\times 9\\right) = 50{,}5 + 4{,}5 = 55$$\nKesimpulan: Kunci Jawaban 55."
+          "kunci": "35",
+          "bahas": "Langkah 1: Menghitung median data genap 10, 20, 30, 40, 50, 60:\n$$Me = \\frac{30 + 40}{2} = 35$$\nKesimpulan: Kunci Jawaban 35."
         }
       ]
     },
@@ -7153,7 +7153,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 57,25"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Menentukan letak Kuartil Bawah ($Q_1$):\nTotal frekuensi $n = 40 \\implies$ letak $Q_1$ pada data ke-$\\frac{1}{4}n = \\frac{1}{4}(40) = 10$.\n- Frekuensi kumulatif: Kelas 40-49 ($f_k = 6$), Kelas 50-59 ($f_k = 16$).\n$\\implies$ Kelas $Q_1$ berada pada interval $50 - 59$.\n\nLangkah 2: Mengidentifikasi parameter rumus Kuartil:\n- Tepi Bawah: $Tb = 49{,}5$\n- Frekuensi kumulatif sebelum kelas $Q_1$: $F_k = 6$\n- Frekuensi kelas $Q_1$: $f_{q1} = 10$\n- Panjang kelas: $p = 10$\n\nLangkah 3: Menghitung $Q_1$:\n$$Q_1 = Tb + \\left(\\frac{\\frac{1}{4}n - F_k}{f_{q1}}\\right) \\times p = 49{,}5 + \\left(\\frac{10 - 6}{10}\\right) \\times 10 = 49{,}5 + 4 = 53{,}5$$\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan letak $Q_1$ ($n = 50 \\implies \\frac{1}{4}(50) = 12{,}5$):\nKelas $Q_1$ berada pada 50 - 59 ($Tb = 49{,}5, F_k = 6, f_{q1} = 10, p = 10$).\n\nLangkah 2: Menghitung $Q_1$:\n$$Q_1 = 49{,}5 + \\left(\\frac{12{,}5 - 6}{10}\\right) \\times 10 = 49{,}5 + 6{,}5 = 56{,}00$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Bawah ($Q_1$) data tersebut adalah ..."
@@ -7167,13 +7167,13 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P18-Q2] Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Atas ($Q_3$) data tersebut adalah ...",
           "opsi": [
             "A. 76,58",
-            "B. 78,00",
+            "B. 75,75",
             "C. 74,80",
             "D. 75,50",
             "E. 77,25"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menggunakan rumus Jangkauan Interkuartil ($QR$ atau $H$):\n$$QR = Q_3 - Q_1$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 45$ dan $Q_3 = 75$:\n$$QR = 75 - 45 = 30$$\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menentukan letak $Q_3$ ($n = 50 \\implies \\frac{3}{4}(50) = 37{,}5$):\nKelas $Q_3$ berada pada 70 - 79 ($Tb = 69{,}5, F_k = 30, f_{q3} = 12, p = 10$).\n\nLangkah 2: Menghitung $Q_3$:\n$$Q_3 = 69{,}5 + \\left(\\frac{37{,}5 - 30}{12}\\right) \\times 10 = 69{,}5 + 6{,}25 = 75{,}75$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Atas ($Q_3$) data tersebut adalah ..."
@@ -7192,8 +7192,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 10,29",
             "E. 15,25"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menggunakan rumus Simpangan Kuartil ($Q_d$):\n$$Q_d = \\frac{1}{2}(Q_3 - Q_1) = \\frac{1}{2} QR$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 50$ dan $Q_3 = 80$:\n$$Q_d = \\frac{1}{2}(80 - 50) = \\frac{1}{2}(30) = 15$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung Jangkauan Interkuartil ($QR$):\n$$QR = Q_3 - Q_1 = 76{,}58 - 56{,}00 = 20{,}58$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "boxplot",
             "src": "Jika $Q_1 = 56{,}00$ dan $Q_3 = 76{,}58$, maka nilai Jangkauan Interkuartil ($QR$) adalah ..."
@@ -7213,7 +7213,7 @@ const NAMA_TINGKAT = 'XII';
             "E. (Q3 - Q1) / n"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Menentukan posisi Desil ke-7 ($D_7$):\nTotal frekuensi $n = 50 \\implies$ letak $D_7$ pada data ke-$\\frac{7}{10}n = \\frac{7}{10}(50) = 35$.\n$\\implies$ Letak $D_7$ berada pada data ke-35.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Rumus simpangan kuartil:\n$$Q_d = \\frac{1}{2}(Q_3 - Q_1)$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "boxplot",
             "src": "Simpangan kuartil ($Q_d$) dirumuskan sebagai ..."
@@ -7230,8 +7230,8 @@ const NAMA_TINGKAT = 'XII';
             "Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1",
             "Kuartil kedua (Q2) bernilai sama dengan Median (Me)"
           ],
-          "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nKuartil Tengah ($Q_2$) membagi data menjadi 2 bagian sama banyak ($50\\%$), sehingga nilainya identik dengan Median ($Me$).\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nDesil membagi data terurut menjadi 10 bagian sama besar dengan 9 titik pembagi ($D_1$ s.d $D_9$).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nSimpangan kuartil dirumuskan sebagai $Q_d = \\frac{1}{2}(Q_3 - Q_1)$, bukan $Q_3 + Q_1$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "kunci": "B - B - B",
+          "bahas": "Langkah 1: Evaluasi ukuran letak:\n(1) $Q_d = \\frac{1}{2}(Q_3 - Q_1) \\implies$ BENAR.\n(2) $QR = Q_3 - Q_1 \\implies$ BENAR.\n(3) $Q_2 = Me \\implies$ BENAR.\nKesimpulan: Kunci Jawaban B - B - B.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran ukuran letak data:\n(1) Simpangan Kuartil dirumuskan sebagai Qd = Q3 + Q1.\n(2) Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1.\n(3) Kuartil kedua (Q2) bernilai sama dengan Median (Me)."
@@ -7250,8 +7250,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Q1 - 1,5 * QR",
             "E. Q1 - QR"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menghitung Pagar Luar ($PL$) untuk identifikasi pencilan (outlier):\n$$PL = Q_3 + 1{,}5 \\times QR$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 40$ dan $Q_3 = 70 \\implies QR = 70 - 40 = 30$:\n$$PL = 70 + (1{,}5 \\times 30) = 70 + 45 = 115$$\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Pagar Dalam Bawah ($PD$) dirumuskan sebagai:\n$$PD = Q_1 - 1{,}5 \\times QR$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "boxplot",
             "src": "Batas pencilan bawah (Pagar Dalam Bawah) pada diagram kotak garis dirumuskan sebagai ..."
@@ -7270,8 +7270,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Rata-rata Hitung",
             "E. Kuartil Atas (Q3)"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menghitung Kuartil Atas ($Q_3$) jika $Tb = 69{,}5, \\frac{3}{4}n = 30, F_k = 22, f_{q3} = 16, p = 10$:\n$$Q_3 = 69{,}5 + \\left(\\frac{30 - 22}{16}\\right) \\times 10 = 69{,}5 + \\left(\\frac{8}{16} \\times 10\\right) = 69{,}5 + 5 = 74{,}5$$\nKesimpulan: Kunci Jawaban B."
+          "kunci": "A",
+          "bahas": "Langkah 1: Desil ke-5 membagi data menjadi 50% $\\implies$ bernilai sama dengan Median ($Q_2$).\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -7286,8 +7286,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Jangkauan interkuartil (QR) bernilai 30.",
             "E. Simpangan kuartil (Qd) bernilai 15."
           ],
-          "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Evaluasi seluruh ukuran letak data:\n- A: $Q_2 = Me$ (BENAR).\n- B: Desil membagi 10 bagian (BENAR).\n- C: Persentil membagi 100 bagian (BENAR).\n- D: $Q_d = \\frac{1}{2}(Q_3 - Q_1)$ (BENAR).\n- E: $Q_3$ tidak selalu sama dengan modus (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Evaluasi jika $Q_1 = 40$ dan $Q_3 = 70$:\n- $QR = 70 - 40 = 30$ (Opsi D BENAR).\n- $Q_d = 15$ (Opsi E BENAR).\n- Pagar Dalam Bawah $= 40 - 1{,}5(30) = -5$ (Opsi A BENAR).\n- Pagar Dalam Atas $= 70 + 1{,}5(30) = 115$ (Opsi B BENAR).\n- Data $120 > 115 \\implies$ outlier (Opsi C BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E."
         },
         {
           "no": 9,
@@ -7302,8 +7302,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5",
             "E. 4"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menghitung Pagar Dalam ($PD$):\n$$PD = Q_1 - 1{,}5 \\times QR$$\n\nLangkah 2: Mensubstitusikan $Q_1 = 50, QR = 20$:\n$$PD = 50 - (1{,}5 \\times 20) = 50 - 30 = 20$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menentukan $Q_1$ dari data 2, 4, 6, 8, 10, 12, 14:\n$$Q_1 = x_2 = 4$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "boxplot",
             "src": "Dari data tunggal: 2, 4, 6, 8, 10, 12, 14, nilai Kuartil Bawah ($Q_1$) adalah ..."
@@ -7316,8 +7316,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P18-Q10] Jika $Q_1 = 30$ dan $Q_3 = 50$, maka nilai simpangan kuartil ($Q_d$) adalah ...",
           "opsi": [],
-          "kunci": "25",
-          "bahas": "Langkah 1: Menghitung Jangkauan Interkuartil ($QR$):\n$$QR = Q_3 - Q_1 = 85 - 60 = 25$$\nKesimpulan: Kunci Jawaban 25.",
+          "kunci": "10",
+          "bahas": "Langkah 1: Menghitung simpangan kuartil jika $Q_1 = 30$ dan $Q_3 = 50$:\n$$Q_d = \\frac{1}{2}(50 - 30) = \\frac{1}{2}(20) = 10$$\nKesimpulan: Kunci Jawaban 10.",
           "viz": {
             "t": "boxplot",
             "src": "Jika $Q_1 = 30$ dan $Q_3 = 50$, maka nilai simpangan kuartil ($Q_d$) adalah ..."
@@ -7344,7 +7344,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $\\sqrt{10}$"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Menghitung rata-rata ($\\bar{x}$) data: 6, 7, 8, 9, 10:\n$$\\bar{x} = \\frac{6 + 7 + 8 + 9 + 10}{5} = \\frac{40}{5} = 8$$\n\nLangkah 2: Menghitung simpangan mutlak $|x_i - \\bar{x}|$:\n- $|6 - 8| = 2$\n- $|7 - 8| = 1$\n- $|8 - 8| = 0$\n- $|9 - 8| = 1$\n- $|10 - 8| = 2$\n$$\\sum |x_i - \\bar{x}| = 2 + 1 + 0 + 1 + 2 = 6$$\n\nLangkah 3: Menghitung Simpangan Rata-rata ($SR$):\n$$SR = \\frac{\\sum |x_i - \\bar{x}|}{n} = \\frac{6}{5} = 1{,}2$$\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menghitung rata-rata data 6, 7, 8, 9, 10 $\\implies \\bar{x} = 8$.\nLangkah 2: $\\sum (x_i - \\bar{x})^2 = 4 + 1 + 0 + 1 + 4 = 10$.\nLangkah 3: Simpangan baku populasi $\\sigma = \\sqrt{\\frac{10}{5}} = \\sqrt{2}$.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lonceng",
             "src": "Diberikan data sampel tunggal: 6, 7, 8, 9, 10. Nilai simpangan baku ($S$) dari data tersebut adalah ..."
@@ -7363,8 +7363,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 3,0",
             "E. 2,0"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung rata-rata ($\\bar{x}$) data: 2, 4, 6, 8, 10:\n$$\\bar{x} = \\frac{2 + 4 + 6 + 8 + 10}{5} = \\frac{30}{5} = 6$$\n\nLangkah 2: Menghitung kuadrat simpangan $(x_i - \\bar{x})^2$:\n- $(2 - 6)^2 = (-4)^2 = 16$\n- $(4 - 6)^2 = (-2)^2 = 4$\n- $(6 - 6)^2 = 0^2 = 0$\n- $(8 - 6)^2 = 2^2 = 4$\n- $(10 - 6)^2 = 4^2 = 16$\n$$\\sum (x_i - \\bar{x})^2 = 16 + 4 + 0 + 4 + 16 = 40$$\n\nLangkah 3: Menghitung Varians Populasi ($\\sigma^2$):\n$$\\sigma^2 = \\frac{40}{5} = 8$$\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung mean data 4, 6, 8, 10, 12 $\\implies \\bar{x} = 8$.\nLangkah 2: $\\sum |x_i - \\bar{x}| = 4 + 2 + 0 + 2 + 4 = 12$.\nLangkah 3: $SR = \\frac{12}{5} = 2{,}4$.\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 3,
@@ -7379,8 +7379,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/3 kali semula",
             "E. Bertambah 3"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Mengidentifikasi hubungan Varians ($S^2$) dan Simpangan Baku ($S$):\nSimpangan baku adalah akar kuadrat non-negatif dari nilai varians:\n$$S = \\sqrt{S^2}$$\n\nLangkah 2: Mensubstitusikan nilai varians $S^2 = 8$:\n$$S = \\sqrt{8} = \\sqrt{4 \\times 2} = 2\\sqrt{2}$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Jika setiap data dikalikan $k=3$, simpangan baku berubah menjadi $|k| \\cdot S = 3$ kali simpangan baku semula.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lonceng",
             "src": "Jika setiap nilai data dikalikan 3, maka nilai simpangan baku data yang baru menjadi ..."
@@ -7399,8 +7399,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Bertambah 10",
             "E. Menjadi 10 kali lipat"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menggunakan rumus Skor Baku ($Z$-score):\n$$Z = \\frac{x - \\bar{x}}{S}$$\n\nLangkah 2: Mensubstitusikan nilai siswa $x = 85$, rata-rata kelas $\\bar{x} = 75$, dan simpangan baku $S = 5$:\n$$Z = \\frac{85 - 75}{5} = \\frac{10}{5} = +2{,}0$$\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Penambahan konstanta pada seluruh data tidak mengubah ukuran penyebaran (varians tetap tidak berubah).\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lonceng",
             "src": "Jika setiap nilai data ditambah 10, maka nilai varians data yang baru akan ..."
@@ -7418,7 +7418,7 @@ const NAMA_TINGKAT = 'XII';
             "Jika setiap nilai data ditambah 10, maka nilai simpangan baku bertambah 10"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSimpangan baku $S$ selalu bernilai non-negatif ($S \\ge 0$) dan bernilai 0 hanya jika semua datum seragam identik.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nSkor baku $Z = \\frac{x - \\bar{x}}{S}$ menunjukkan berapa simpangan baku suatu nilai berada di atas atau di bawah rata-rata.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJika setiap datum dikalikan 2, maka simpangan bakunya berubah menjadi $2 \\times S$, bukan tetap sama.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Evaluasi pernyataan:\n(1) $S = \\sqrt{S^2} \\implies$ BENAR.\n(2) Perkalian dengan 3 membuat varians menjadi $3^2 = 9$ kali lipat $\\implies$ BENAR.\n(3) Penambahan 10 membuat simpangan baku tetap sama (bukan bertambah 10) $\\implies$ SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lonceng",
             "src": "Tentukan kebenaran ukuran penyebaran data:\n(1) Simpangan baku (S) adalah akar kuadrat dari varians (S^2).\n(2) Jika setiap nilai data dikalikan 3, maka nilai varians data menjadi 9 kali lipat.\n(3) Jika setiap nilai data ditambah 10, maka nilai simpangan baku bertambah 10."
@@ -7437,8 +7437,8 @@ const NAMA_TINGKAT = 'XII';
             "D. +1,0",
             "E. +1,5"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menghitung Koefisien Variasi ($KV$):\n$$KV = \\left(\\frac{S}{\\bar{x}}\\right) \\times 100\\%$$\n\nLangkah 2: Mensubstitusikan $S = 4$ dan $\\bar{x} = 80$:\n$$KV = \\left(\\frac{4}{80}\\right) \\times 100\\% = \\frac{1}{20} \\times 100\\% = 5\\%$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung Skor Baku ($Z$-score):\n$$Z = \\frac{x - \\bar{x}}{S} = \\frac{85 - 75}{5} = \\frac{10}{5} = +2{,}0$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lonceng",
             "src": "Berapakah nilai $Z$-score siswa yang memperoleh nilai ujian $x = 85$ jika mean kelas $\\bar{x} = 75$ dan simpangan baku $S = 5$?"
@@ -7457,8 +7457,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 8%",
             "E. 5%"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung simpangan baku data seragam tanpa variasi: $7, 7, 7, 7, 7$:\nKarena semua nilai datum sama persis, rata-ratanya $\\bar{x} = 7$.\nSetiap simpangan $(x_i - \\bar{x}) = 0$.\n\nLangkah 2: Menghitung $S$:\n$$S = \\sqrt{\\frac{0}{5}} = 0$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung Koefisien Variasi ($KV$):\n$$KV = \\left(\\frac{S}{\\bar{x}}\\right) \\times 100\\% = \\left(\\frac{8}{80}\\right) \\times 100\\% = 10\\%$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lonceng",
             "src": "Koefisien variasi ($KV$) dari kumpulan data dengan mean $\\bar{x} = 80$ dan simpangan baku $S = 8$ adalah ..."
@@ -7477,8 +7477,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Nilai rata-rata data adalah 8.",
             "E. Nilai simpangan rata-rata (SR) data adalah 2,4."
           ],
-          "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Evaluasi ukuran penyebaran data:\n- A: $S = \\sqrt{S^2}$ (BENAR).\n- B: $Z$-score bernilai positif jika $x > \\bar{x}$ (BENAR).\n- C: Jika semua data ditambah konstanta, simpangan baku tidak berubah (BENAR).\n- D: Jika semua data dikalikan konstanta $k$, simpangan baku menjadi $|k| \\cdot S$ (BENAR).\n- E: Varians tidak dapat bernilai negatif (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Evaluasi sampel data 4, 6, 8, 10, 12:\n- Mean $= 8$ (BENAR).\n- Range $= 12 - 4 = 8$ (BENAR).\n- $SR = 2{,}4$ (BENAR).\n- Varians sampel $S^2 = \\frac{40}{4} = 10$ (BENAR).\n- Simpangan baku sampel $S = \\sqrt{10}$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E."
         },
         {
           "no": 9,
@@ -7493,8 +7493,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $\\sqrt{5}$",
             "E. 5,0"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menghitung nilai amatan $x$ dari skor baku $Z = -1{,}5$:\n$$Z = \\frac{x - \\bar{x}}{S} \\implies x = \\bar{x} + (Z \\times S)$$\n\nLangkah 2: Mensubstitusikan $\\bar{x} = 70$ dan $S = 6$:\n$$x = 70 + (-1{,}5 \\times 6) = 70 - 9 = 61$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung varians populasi data 2, 4, 6, 8 (mean $\\bar{x} = 5$):\n$$\\sigma^2 = \\frac{(2-5)^2 + (4-5)^2 + (6-5)^2 + (8-5)^2}{4} = \\frac{9 + 1 + 1 + 9}{4} = \\frac{20}{4} = 5{,}0$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lonceng",
             "src": "Varians ($S^2$) dari data tunggal: 2, 4, 6, 8 adalah ..."
@@ -7507,8 +7507,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P19-Q10] Nilai varians dari data identik: 10, 10, 10, 10, 10 adalah ...",
           "opsi": [],
-          "kunci": "2",
-          "bahas": "Langkah 1: Menghitung simpangan baku dari data: 1, 3, 5:\n$\\bar{x} = \\frac{1 + 3 + 5}{3} = 3$.\n$\\sum (x_i - \\bar{x})^2 = (1-3)^2 + (3-3)^2 + (5-3)^2 = 4 + 0 + 4 = 8$.\nVarians sampel $S^2 = \\frac{8}{3 - 1} = \\frac{8}{2} = 4 \\implies S = \\sqrt{4} = 2$.\nKesimpulan: Kunci Jawaban 2.",
+          "kunci": "0",
+          "bahas": "Langkah 1: Data identik tidak memiliki variasi sebaran nilai, sehingga nilai varians adalah **0**.\nKesimpulan: Kunci Jawaban 0.",
           "viz": {
             "t": "lonceng",
             "src": "Nilai varians dari data identik: 10, 10, 10, 10, 10 adalah ..."
@@ -7535,7 +7535,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 9,0 satuan"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Mengidentifikasi hubungan perubahan nilai pada garis regresi $\\hat{y} = a + bx$:\nPada model regresi linier sederhana $\\hat{y} = 25 + 1{,}8x$, gradien kemiringan adalah $b = 1{,}8$.\nGradien $b$ menyatakan perubahan nilai estimasi $\\hat{y}$ untuk setiap kenaikan $1$ satuan pada variabel $x$.\n\nLangkah 2: Menghitung estimasi kenaikan nilai $\\hat{y}$ saat $x$ bertambah $\\Delta x = 5$ satuan:\n$$\\Delta\\hat{y} = b \\times \\Delta x$$\n\nLangkah 3: Mensubstitusikan nilai:\n$$\\Delta\\hat{y} = 1{,}8 \\times 5 = 9{,}0 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menghitung estimasi perubahan $\\hat{y}$ saat $x$ naik 5 satuan:\n$$\\Delta\\hat{y} = b \\times \\Delta x = 1{,}8 \\times 5 = 9{,}0 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "regresi",
             "src": "Pada analisis regresi linier sederhana $\\hat{y} = 25 + 1{,}8x$, jika variabel independen $x$ bertambah 5 satuan, maka estimasi kenaikan nilai $\\hat{y}$ adalah ..."
@@ -7554,8 +7554,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Linier negatif yang sangat kuat",
             "E. Tidak ada korelasi"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Memahami arti koefisien korelasi Pearson ($r$):\nNilai $r$ berada pada interval $[-1, 1]$.\nNilai $r = -0{,}92$ memiliki magnitudo $|r| \\approx 1$ dengan tanda negatif.\n\nLangkah 2: Menafsirkan hubungan:\nMenunjukkan hubungan linier yang **sangat kuat dan berkebalikan arah (negatif)**.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Koefisien korelasi $r = -0{,}92$ bernilai negatif mendekati -1, menunjukkan hubungan **linier negatif yang sangat kuat**.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "regresi",
             "src": "Nilai koefisien korelasi Pearson $r = -0{,}92$ menunjukkan hubungan antara dua variabel bersifat ..."
@@ -7575,7 +7575,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 40%"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menghitung Koefisien Determinasi ($R^2$):\n$$R^2 = r^2$$\n\nLangkah 2: Mensubstitusikan nilai koefisien korelasi $r = 0{,}80$:\n$$R^2 = (0{,}80)^2 = 0{,}64 = 64\\%$$\n\nLangkah 3: Menafsirkan nilai $R^2$:\nSebesar **64%** variasi variabel Y dapat dijelaskan oleh variabel X dalam model linier.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menghitung Koefisien Determinasi ($R^2$):\n$$R^2 = (0{,}80)^2 = 0{,}64 = 64\\%$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "regresi",
             "src": "Jika koefisien korelasi $r = 0{,}80$, maka nilai koefisien determinasi ($R^2$) adalah ..."
@@ -7594,8 +7594,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Jumlah titik data",
             "E. Nilai rata-rata variabel Y"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menggunakan persamaan garis regresi $\\hat{y} = 15 + 3{,}2x$:\nLangkah 2: Mensubstitusikan nilai variabel bebas $x = 10$:\n$$\\hat{y} = 15 + (3{,}2 \\times 10) = 15 + 32 = 47$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Garis regresi metode kuadrat terkecil (OLS) diperoleh dengan meminimalkan **Jumlah Kuadrat Residual (Sum of Squared Errors)**.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "regresi",
             "src": "Garis regresi linier terbaik diperoleh dengan meminimalkan ..."
@@ -7612,8 +7612,8 @@ const NAMA_TINGKAT = 'XII';
             "Nilai r = 0 menunjukkan korelasi linier sempurna positif",
             "Nilai koefisien korelasi Pearson r memenuhi -1 <= r <= 1"
           ],
-          "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nDiagram pencar (*scatter plot*) digunakan untuk memvisualisasikan pola hubungan antara dua variabel bivariat.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nKoefisien korelasi Pearson $r$ selalu berada pada interval tertutup $-1 \\le r \\le 1$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKorelasi yang kuat tidak selalu membuktikan adanya hubungan sebab-akibat kausalitas secara langsung (*correlation does not imply causation*).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "kunci": "B - S - B",
+          "bahas": "Langkah 1: Analisis:\n(1) $R^2 = r^2$ menyatakan proporsi variasi Y $\\implies$ BENAR.\n(2) $r = 0$ menunjukkan tidak ada korelasi linier (bukan korelasi sempurna) $\\implies$ SALAH.\n(3) $-1 \\le r \\le 1 \\implies$ BENAR.\nKesimpulan: Kunci Jawaban B - S - B.",
           "viz": {
             "t": "regresi",
             "src": "Tentukan kebenaran analisis regresi linier bivariat:\n(1) Koefisien determinasi R^2 = r^2 menyatakan proporsi variasi Y yang dijelaskan oleh X.\n(2) Nilai r = 0 menunjukkan korelasi linier sempurna positif.\n(3) Nilai koefisien korelasi Pearson r memenuhi -1 <= r <= 1."
@@ -7632,8 +7632,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 55,0",
             "E. 45,0"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Mengidentifikasi rumus intersep ($a$) pada garis regresi yang melalui titik pusat data $(\\bar{x}, \\bar{y})$:\n$$\\bar{y} = a + b\\bar{x} \\implies a = \\bar{y} - b\\bar{x}$$\n\nLangkah 2: Mensubstitusikan $\\bar{x} = 5, \\bar{y} = 25$, dan $b = 4$:\n$$a = 25 - (4 \\times 5) = 25 - 20 = 5$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung estimasi $\\hat{y}$ saat $x = 10$:\n$$\\hat{y} = 15 + 3{,}5(10) = 15 + 35 = 50{,}0$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "regresi",
             "src": "Berapakah nilai estimasi $\\hat{y}$ saat $x = 10$ pada persamaan garis regresi $\\hat{y} = 15 + 3{,}5x$?"
@@ -7652,8 +7652,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 0",
             "E. +4"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menghitung galat residu ($e = y - \\hat{y}$):\n- Nilai amatan aktual: $y = 35$\n- Nilai prediksi model: $\\hat{y} = 10 + 2(12) = 10 + 24 = 34$\n\nLangkah 2: Menghitung selisih residu:\n$$e = 35 - 34 = +1$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung nilai galat residual ($e$):\n$$e = y - \\hat{y} = 80 - 76 = +4$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "regresi",
             "src": "Nilai galat (residual $e$) dari suatu observasi dengan data aktual $y = 80$ dan nilai prediksi $\\hat{y} = 76$ adalah ..."
@@ -7673,7 +7673,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Jika x = 10, estimasi nilai y_hat adalah 40."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis model regresi $\\hat{y} = 15 + 2{,}5x$ dengan $r = 0{,}80$:\n- A: $R^2 = (0{,}80)^2 = 0{,}64 = 64\\%$ (BENAR).\n- B: Nilai gradien $b = 2{,}5$ menyatakan laju perubahan marginal (BENAR).\n- C: Nilai intersep $a = 15$ (BENAR).\n- D: Kemiringan positif menunjukkan hubungan searah (BENAR).\n- E: Prediksi saat $x = 10$ adalah $\\hat{y} = 15 + 25 = 40$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
+          "bahas": "Langkah 1: Analisis model $\\hat{y} = 15 + 2{,}5x$ ($r = 0{,}80$):\n- $R^2 = 64\\%$ (BENAR).\n- Kenaikan 1 satuan $X$ menaikkan $Y$ sebesar 2,5 (BENAR).\n- Intersep $= 15$ (BENAR).\n- Gradien $= 2{,}5$ (BENAR).\n- Saat $x = 10 \\implies \\hat{y} = 40$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "regresi",
             "src": "Pada persamaan regresi y_hat = 15 + 2,5x dengan r = 0,80, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)"
@@ -7693,7 +7693,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 10"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Menghitung nilai intersep $a$:\n$$a = \\bar{y} - b\\bar{x}$$\n\nLangkah 2: Mensubstitusikan $\\bar{x} = 4, \\bar{y} = 20$, dan $b = 3$:\n$$a = 20 - (3 \\times 4) = 20 - 12 = 8$$\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menghitung intersep $a$:\n$$a = \\bar{y} - b\\bar{x} = 20 - (3 \\times 4) = 20 - 12 = 8$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "regresi",
             "src": "Jika $\\bar{x} = 4, \\bar{y} = 20$, dan nilai gradien kemiringan $b = 3$, maka nilai intersep $a$ adalah ..."
@@ -7707,7 +7707,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P20-Q10] Nilai koefisien korelasi Pearson jika kedua variabel memiliki hubungan linier positif sempurna adalah ...",
           "opsi": [],
           "kunci": "1",
-          "bahas": "Langkah 1: Memahami definisi korelasi linier positif sempurna:\nJika semua titik data terletak tepat pada satu garis lurus dengan kemiringan naik, maka nilai koefisien korelasi Pearson adalah tepat **1**.\nKesimpulan: Kunci Jawaban 1.",
+          "bahas": "Langkah 1: Hubungan linier positif sempurna memiliki koefisien korelasi Pearson tepat **1**.\nKesimpulan: Kunci Jawaban 1.",
           "viz": {
             "t": "regresi",
             "src": "Nilai koefisien korelasi Pearson jika kedua variabel memiliki hubungan linier positif sempurna adalah ..."
