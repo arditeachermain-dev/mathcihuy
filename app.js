@@ -2966,16 +2966,16 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     // Limit Trigonometri & Identitas". Di dalam kelompoknya, awalan itu hanya
     // pengulangan — dibuang supaya mata langsung menangkap sub-topiknya.
     function pickerTrimTitle(judul, namaBab) {
-      if (!namaBab || !judul) return judul;
-      if (judul.toLowerCase().indexOf(namaBab.toLowerCase()) !== 0) return judul;
-      const ekor = judul.slice(namaBab.length);
-      let i = 0;
-      while (i < ekor.length && ' 0123456789'.indexOf(ekor[i]) !== -1) i++;
-      if (i >= ekor.length || ':-–'.indexOf(ekor[i]) === -1) return judul;   // bukan awalan berulang
-      i++;
-      while (i < ekor.length && ekor[i] === ' ') i++;
-      const sisa = ekor.slice(i);
-      return sisa.length >= 8 ? sisa : judul;
+      if (!judul) return '';
+      // Smart regex to strip "Integral & Penerapannya 1: ", "Limit Aljabar 3: ", "Bab 1 - 1: " etc.
+      const regex = /^([A-Za-z\s&/]+\d+\s*[:.–-]\s*)/i;
+      if (regex.test(judul)) {
+        return judul.replace(regex, '').trim();
+      }
+      if (namaBab && judul.toLowerCase().startsWith(namaBab.toLowerCase())) {
+        return judul.slice(namaBab.length).replace(/^[\s\d:.-]+/, '').trim() || judul;
+      }
+      return judul;
     }
 
     function pickerChip(teks, aktif, warna, rgb, onclick) {
@@ -2993,8 +2993,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     function renderMeetingPicker(filter) {
       const body = document.getElementById('picker-body');
       if (!body) return;
-      // Kata kunci berubah -> daftar baru; posisi gulir lama membuat judul BAB
-      // pertama hasil pencarian tersembunyi di atas layar.
       const resetGulir = pickerLastQuery !== null && pickerLastQuery !== (filter || '');
       pickerLastQuery = filter || '';
       const sub = document.getElementById('picker-sub');
@@ -3005,27 +3003,59 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const aliran = pickerAliran();
       const items = pickerItems();
       const groups = pickerGroups(items);
-      sub.textContent = (nama[aliran] || aliran) + ' \u00b7 ' + items.length +
-        (currentMode === 'tka' ? ' paket soal' : ' pertemuan') + ' \u00b7 ' + groups.length +
-        (aliran === 'clil' ? ' lab' : ' bab');
-
-      // ---- pindah aliran (hanya mode CBT) ----
-      streams.innerHTML = '';
-      streams.classList.toggle('hidden', currentMode !== 'tka');
-      if (currentMode === 'tka') {
-        [['wajib', 'Wajib', db.tka_wajib], ['minat', 'Peminatan', db.tka_minat], ['clil', 'CLIL', db.tka_clil]]
-          .concat(db.tka_custom ? [['custom', 'Racikan', db.tka_custom]] : [])
-          .forEach(([k, lbl, src]) => {
-            streams.appendChild(pickerChip(lbl, tkaSubj === k, null, null,
-              () => { toggleTkaSubj(k); openMeetingPicker(); }));
-          });
+      if (sub) {
+        sub.textContent = nama[aliran] || 'Matematika';
       }
 
-      // ---- saringan cepat per BAB dihilangkan agar tampilan langsung ke daftar bab ----
-      if (babBar) babBar.innerHTML = '';
-      pickerBabFilter = 'all';
+      // ---- 1. STREAM SWITCHER CHIPS ----
+      if (streams) {
+        streams.innerHTML = '';
+        const streamList = [
+          { key: 'wajib', label: 'Wajib' },
+          { key: 'minat', label: 'Peminatan' },
+          { key: 'clil', label: 'CLIL' }
+        ];
+        streamList.forEach(st => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          const isCurrent = (currentMode === 'tka' ? tkaSubj === st.key : currentMode === st.key);
+          btn.className = isCurrent ? 
+            "px-4 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white shadow-sm transition" : 
+            "px-4 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition";
+          btn.textContent = st.label;
+          btn.onclick = () => {
+            if (currentMode === 'tka') {
+              toggleTkaSubj(st.key);
+            } else {
+              switchSubject(st.key);
+            }
+            openMeetingPicker();
+          };
+          streams.appendChild(btn);
+        });
+      }
 
-      // ---- saring menurut pencarian ----
+      // ---- 2. BAB CHIPS (BAB 1, BAB 2, BAB 3, BAB 4 - TANPA SEMUA BAB) ----
+      if (babBar) {
+        babBar.innerHTML = '';
+        groups.forEach(g => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          const isSelected = pickerBabFilter === g.key;
+          btn.className = isSelected ? 
+            "px-3 py-0.5 rounded-lg text-[11px] font-mono font-bold bg-amber-500 text-slate-950 shadow transition" : 
+            "px-3 py-0.5 rounded-lg text-[11px] font-mono font-bold bg-[#0D1B2E] text-slate-300 hover:text-white border border-blue-900/60 hover:border-amber-500/40 transition";
+          btn.textContent = g.label;
+          btn.onclick = () => {
+            pickerBabFilter = (pickerBabFilter === g.key) ? 'all' : g.key;
+            if (pickerCollapsed) pickerCollapsed.delete(g.key);
+            renderMeetingPicker(document.getElementById('picker-search') ? document.getElementById('picker-search').value : '');
+          };
+          babBar.appendChild(btn);
+        });
+      }
+
+      // ---- 3. SARING MENURUT PENCARIAN ----
       const q = (filter || '').toLowerCase().trim();
       const cocok = it => !q || it.id.toLowerCase().includes(q) || it.label.toLowerCase().includes(q) ||
         it.title.toLowerCase().includes(q) || it.bab.toLowerCase().includes(q) || (it.desc || '').toLowerCase().includes(q);
@@ -3035,8 +3065,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         .map(g => Object.assign({}, g, { hasil: g.items.filter(cocok) }))
         .filter(g => g.hasil.length);
 
-      // Saat pertama dibuka, hanya BAB yang sedang berjalan yang terbuka —
-      // sisanya dilipat supaya daftarnya tidak berdesakan.
       if (pickerCollapsed === null) {
         pickerCollapsed = new Set();
         const aktifKey = (items.find(it => it.aktif) || {}).bab;
@@ -3046,61 +3074,64 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       body.innerHTML = '';
       if (!tampil.length) {
         body.innerHTML = '<div class="py-14 text-center"><i class="fa-regular fa-face-frown text-3xl text-slate-700"></i>' +
-          '<p class="mt-3 text-sm text-slate-400">Tidak ketemu. Coba kata yang lebih pendek — misalnya “integral” saja.</p></div>';
+          '<p class="mt-3 text-sm text-slate-400">Tidak ketemu. Coba kata yang lebih pendek.</p></div>';
         return;
       }
 
+      // ---- 4. RENDER ACCORDION BAB & PERTEMUAN ----
       tampil.forEach(g => {
         const terbuka = q ? true : !pickerCollapsed.has(g.key);
         const sec = document.createElement('section');
-        sec.className = 'mp-sec' + (terbuka ? ' mp-open' : '');
-        sec.style.setProperty('--ch', g.warna);
-        sec.style.setProperty('--chs', g.rgb);
+        sec.className = 'rounded-xl overflow-hidden mb-2 border transition ' + 
+          (terbuka ? 'border-blue-600 bg-[#08101E] shadow-md' : 'border-blue-900/60 bg-[#08101E] hover:border-blue-800');
 
         const head = document.createElement('button');
         head.type = 'button';
-        head.className = 'mp-bab w-full text-left px-3 py-2.5 md:px-4 rounded-xl flex items-center gap-3';
-        head.innerHTML =
-          '<span class="mp-bab-no shrink-0">' + g.label + '</span>' +
-          '<span class="flex-1 min-w-0">' +
-            '<span class="block text-[13px] md:text-sm font-black text-white leading-snug">' + g.judul + '</span>' +
-            '<span class="block text-[11px] text-slate-400 mt-0.5 font-mono">' +
-              g.rentang + ' \u00b7 ' + g.items.length + ' ' +
-              (g.satuan || (currentMode === 'tka' ? 'paket' : 'pertemuan')) +
-              (g.selesai ? ' \u00b7 ' + g.selesai + ' selesai' : '') +
-            '</span>' +
-          '</span>' +
-          '<i class="fa-solid fa-chevron-down mp-chev shrink-0"></i>';
+        head.className = 'w-full text-left px-3 py-2 flex items-center justify-between cursor-pointer ' + 
+          (terbuka ? 'bg-[#0D1B2E] border-b border-blue-900/60' : 'bg-[#08101E]');
+        
+        head.innerHTML = `
+          <div class="flex items-center gap-2 min-w-0 flex-1">
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono font-bold border border-amber-500/30 shrink-0">
+              ${g.label}
+            </span>
+            <span class="text-xs font-bold text-white truncate">
+              ${g.judul}
+            </span>
+          </div>
+          <i class="fa-solid fa-chevron-${terbuka ? 'up text-amber-400' : 'down text-slate-500'} text-[10px] ml-2 shrink-0"></i>
+        `;
         head.onclick = () => {
           if (pickerCollapsed.has(g.key)) pickerCollapsed.delete(g.key); else pickerCollapsed.add(g.key);
-          renderMeetingPicker(document.getElementById('picker-search').value);
+          renderMeetingPicker(document.getElementById('picker-search') ? document.getElementById('picker-search').value : '');
         };
         sec.appendChild(head);
 
         if (terbuka) {
           const list = document.createElement('div');
-          list.className = 'mp-list mt-1 space-y-1';
+          list.className = 'p-1.5 space-y-1';
           g.hasil.forEach(it => {
             const asesmen = /asesmen|sumatif|simulasi|review/i.test(it.title);
             const c = document.createElement('button');
             c.type = 'button';
-            c.className = 'w-full px-2.5 py-2 rounded-xl text-left flex items-center justify-between gap-2.5 transition cursor-pointer ' + 
-              (it.aktif ? 'bg-blue-600/30 border border-blue-500 text-white font-bold ring-1 ring-blue-400/40 shadow-sm' : 
-               (asesmen ? 'bg-amber-950/20 hover:bg-amber-900/30 border border-amber-500/30 text-amber-200' : 'bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white'));
+            c.className = 'w-full px-2.5 py-1.5 rounded-lg text-left flex items-center justify-between gap-2 transition cursor-pointer ' + 
+              (it.aktif ? 'bg-blue-600 text-white font-bold shadow' : 
+               (asesmen ? 'bg-[#060D1A] hover:bg-[#0D1B2E] border border-amber-500/30 text-amber-200' : 'bg-[#060D1A] hover:bg-[#0D1B2E] text-slate-300 hover:text-white'));
             
+            const cleanTitle = pickerTrimTitle(it.title, g.judul);
             c.innerHTML = `
-              <div class="flex items-center gap-2.5 min-w-0 flex-1">
-                <span class="px-2 py-0.5 rounded-lg text-[11px] font-mono font-bold shrink-0 ${it.aktif ? 'bg-blue-600 text-white' : (asesmen ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-950 text-slate-300 border border-slate-800')}">
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <span class="text-xs font-mono font-bold shrink-0 ${it.aktif ? 'text-blue-100' : 'text-amber-400'}">
                   ${it.label}
                 </span>
-                <span class="text-xs truncate font-semibold leading-tight flex-1">
-                  ${pickerTrimTitle(it.title, g.judul)}
+                <span class="text-xs truncate font-semibold flex-1">
+                  ${cleanTitle}
                 </span>
               </div>
               <div class="flex items-center gap-1.5 shrink-0 font-mono text-[10px]">
-                ${asesmen ? '<span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">UH</span>' : ''}
-                ${it.aktif ? '<span class="px-1.5 py-0.2 rounded bg-blue-500/30 text-blue-200 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Buka</span>' : 
-                 (it.selesai ? '<i class="fa-solid fa-circle-check text-amber-400 text-xs"></i>' : '')}
+                ${asesmen ? '<span class="px-1.5 py-0.2 rounded bg-amber-500 text-slate-950 text-[9px] font-black">UH</span>' : ''}
+                ${it.aktif ? '<span class="px-2 py-0.2 rounded bg-white text-blue-900 font-bold text-[10px]">Buka</span>' : 
+                 (it.selesai ? '<i class="fa-solid fa-circle-check text-amber-400 text-xs"></i>' : '<span class="text-slate-500 text-[10px]">Belum</span>')}
               </div>
             `;
             c.onclick = () => { it.pilih(); closeMeetingPicker(); renderAppView(); };
@@ -3110,10 +3141,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         }
         body.appendChild(sec);
       });
+
       if (resetGulir) body.scrollTop = 0;
 
-      // Sub-topik diambil dari tujuan pembelajaran, yang memuat rumus TeX.
-      // Tanpa langkah ini guru melihat "$s\sqrt{2}$" mentah di kartu.
       if (window.renderMathInElement) {
         try {
           renderMathInElement(body, {

@@ -839,17 +839,19 @@
         </button>
       </div>
 
-      <!-- pencarian + saringan bab -->
-      <div class="p-2.5 bg-[#08101E] space-y-2 shrink-0 border-b border-slate-800/80">
+      <!-- pencarian + saringan stream & bab -->
+      <div class="p-3 bg-[#08101E] space-y-2 shrink-0 border-b border-blue-900/60">
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
           <input id="picker-search" type="text" autocomplete="off"
-            placeholder="Cari materi, nomor (P05), atau topik..."
+            placeholder="Cari materi atau topik..."
             oninput="renderMeetingPicker(this.value)"
-            class="w-full bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-xl py-1.5 pl-8 pr-3 text-xs text-white placeholder-slate-500 focus:outline-none transition">
+            class="w-full bg-[#050B14] border border-blue-900/80 focus:border-blue-500 rounded-xl py-1.5 pl-8 pr-3 text-xs text-white placeholder-slate-500 focus:outline-none transition">
         </div>
-        <div id="picker-streams" class="flex flex-wrap items-center gap-1.5"></div>
-        
+        <!-- STREAM SELECTOR (WAJIB, PEMINATAN, CLIL) -->
+        <div id="picker-streams" class="flex items-center justify-center bg-[#050B14] p-1 rounded-xl border border-blue-900/60 gap-1 text-xs"></div>
+        <!-- BAB CHIPS (BAB 1, BAB 2, BAB 3, BAB 4 - TANPA SEMUA BAB) -->
+        <div id="picker-bab" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 justify-center"></div>
       </div>
 
       <!-- daftar 1 kolom ringkas -->
