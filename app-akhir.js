@@ -318,6 +318,29 @@
         const totalJawab = answers.length;
         const totalBenar = answers.filter(x => x.is_right === true).length;
         const latestTime = answers.reduce((acc, cur) => cur.updated_at > acc ? cur.updated_at : acc, sample.updated_at);
+        
+        // Deteksi Keaktifan Sesi (Liveness Threshold)
+        const elapsedMs = Date.now() - new Date(latestTime).getTime();
+        const elapsedMin = Math.floor(elapsedMs / (60 * 1000));
+        const elapsedHours = Math.floor(elapsedMin / 60);
+
+        let livenessState = 'live'; // 'live', 'idle', 'stuck'
+        let livenessText = '';
+        let livenessBadge = '';
+
+        if (isNaN(elapsedMin) || elapsedMin < 5) {
+          livenessState = 'live';
+          livenessText = (isNaN(elapsedMin) || elapsedMin <= 0) ? 'Baru saja' : `${elapsedMin} mnt lalu`;
+          livenessBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-950/90 text-emerald-300 border border-emerald-500/50 inline-flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Aktif (${livenessText})</span>`;
+        } else if (elapsedMin < 30) {
+          livenessState = 'idle';
+          livenessText = `${elapsedMin} mnt lalu`;
+          livenessBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950/90 text-amber-300 border border-amber-500/50 inline-flex items-center gap-1"><i class="fa-solid fa-hourglass-half text-amber-400"></i> Menggantung (${livenessText})</span>`;
+        } else {
+          livenessState = 'stuck';
+          livenessText = elapsedHours < 24 ? `${elapsedHours} jam lalu` : `${Math.floor(elapsedHours / 24)} hari lalu`;
+          livenessBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-950/90 text-rose-300 border border-rose-500/50 inline-flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation text-rose-400"></i> Tersangkut (${livenessText})</span>`;
+        }
 
         listSedang.push({
           timestamp: latestTime,
@@ -333,7 +356,10 @@
           progress_soal: totalJawab,
           durasi_detik: 0,
           durasi_menit: 0,
-          status: 'sedang'
+          status: 'sedang',
+          livenessState: livenessState,
+          livenessBadge: livenessBadge,
+          livenessText: livenessText
         });
       });
 
@@ -416,11 +442,20 @@
           durasiDisplay = `<span class="text-xs text-slate-300 font-mono">${r.durasi_menit || 0}m</span>`;
           aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-500 text-white rounded text-xs font-bold transition shadow">Reset</button>`;
         } else if (r.status === 'sedang') {
-          trBg = 'bg-amber-950/20 hover:bg-amber-900/30';
-          skorDisplay = `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 inline-flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-400 animate-pulse"></i> Sedang Aktif</span>`;
-          detailDisplay = `<span class="text-xs text-amber-200 font-mono font-semibold">${r.progress_soal}/10 Soal Terisi</span>`;
-          durasiDisplay = `<span class="text-xs text-cyan-300 font-mono italic">Live</span>`;
-          aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-500 text-white rounded text-xs font-bold transition shadow">Reset</button>`;
+          trBg = r.livenessState === 'stuck' ? 'bg-rose-950/20 hover:bg-rose-900/30' : r.livenessState === 'idle' ? 'bg-amber-950/20 hover:bg-amber-900/30' : 'bg-emerald-950/15 hover:bg-emerald-900/25';
+          skorDisplay = `<div class="flex flex-col items-center gap-1">${r.livenessBadge}<span class="font-mono text-xs font-bold text-slate-300">${r.skor}/100</span></div>`;
+          detailDisplay = `<span class="text-xs font-mono font-semibold ${r.livenessState === 'live' ? 'text-emerald-300' : 'text-amber-300'}">${r.progress_soal}/10 Soal</span>`;
+          durasiDisplay = `<span class="text-xs font-mono ${r.livenessState === 'live' ? 'text-emerald-400 font-bold' : 'text-slate-400'}">${r.livenessText}</span>`;
+          aksiButton = `
+            <div class="flex items-center justify-center gap-1">
+              <button onclick="forceSubmitNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}', ${r.skor}, ${r.jumlah_soal}, ${r.jumlah_benar}, ${r.jumlah_salah})" title="Kumpulkan paksa ujian siswa ini dengan jawaban yang ada" class="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs font-bold transition shadow flex items-center gap-1">
+                <i class="fa-solid fa-file-arrow-up text-[10px]"></i> Kumpulkan
+              </button>
+              <button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" title="Reset sesi pengerjaan siswa" class="px-2 py-1 bg-rose-700/80 hover:bg-rose-600 text-white rounded text-xs font-bold transition shadow">
+                <i class="fa-solid fa-rotate-left text-[10px]"></i>
+              </button>
+            </div>
+          `;
         } else {
           // 'belum'
           trBg = 'bg-rose-950/15 hover:bg-rose-900/25';
@@ -573,3 +608,50 @@
         URL.revokeObjectURL(url);
     }
     
+
+    async function forceSubmitNilaiSiswa(nis, kodePertemuan, mapel, skor, jumlahSoal, jumlahBenar, jumlahSalah) {
+      const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
+      const namaSiswa = std ? std.nama : ('Siswa ' + nis);
+      const kelas = std ? std.kelas : 'XII';
+
+      if (!confirm(`Apakah Bapak yakin ingin mengumpulkan paksa ujian untuk ${namaSiswa} (${nis}) paket ${kodePertemuan}?
+
+- Skor Terhitung: ${skor}/100
+- Butir Terjawab: ${jumlahBenar + jumlahSalah}/${jumlahSoal}
+
+Nilai ini akan langsung dikunci sebagai nilai resmi di Supabase.`)) {
+        return;
+      }
+
+      if (supabaseClient) {
+        try {
+          // 1. Simpan ke nilai_cbt
+          const resUpsert = await supabaseClient.from('nilai_cbt').upsert({
+            nis: String(nis),
+            nama: String(namaSiswa),
+            kelas: String(kelas),
+            mapel: String(mapel || 'wajib'),
+            kode_pertemuan: String(kodePertemuan),
+            skor: Number(skor) || 0,
+            jumlah_soal: Number(jumlahSoal) || 10,
+            jumlah_benar: Number(jumlahBenar) || 0,
+            jumlah_salah: Number(jumlahSalah) || 0,
+            durasi_detik: 0,
+            waktu_submit: new Date().toISOString()
+          }, { onConflict: 'nis,mapel,kode_pertemuan' });
+
+          // 2. Bersihkan dari cbt_live_answers
+          await supabaseClient.from('cbt_live_answers').delete().match({
+            nis: String(nis),
+            mapel: String(mapel || 'wajib'),
+            kode_pertemuan: String(kodePertemuan)
+          });
+
+          alert(`✅ Ujian ${namaSiswa} berhasil dikumpulkan paksa! Nilai resmi ${skor}/100 telah tercatat.`);
+          tarikNilaiDariCloud(false);
+        } catch (e) {
+          console.error("Force submit error:", e);
+          alert("Gagal melakukan pengumpulan paksa. Silakan periksa koneksi internet.");
+        }
+      }
+    }
