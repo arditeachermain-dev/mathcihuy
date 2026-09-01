@@ -778,3 +778,19 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Supabase.`)) {
         }
       }
     }
+
+
+    // EXPOSE TO GLOBAL WINDOW
+    window.setGuruSort = setGuruSort;
+    window.updateSortIcons = updateSortIcons;
+    window.setGuruTableZoom = setGuruTableZoom;
+    window.zoomGuruTable = zoomGuruTable;
+    window.fitGuruTableToScreen = fitGuruTableToScreen;
+    window.openGuruDashboard = openGuruDashboard;
+    window.closeGuruDashboard = closeGuruDashboard;
+    window.loadGuruDashboardData = loadGuruDashboardData;
+    window.setGuruStatusFilter = setGuruStatusFilter;
+    window.tarikNilaiDariCloud = tarikNilaiDariCloud;
+    window.resetNilaiSiswa = resetNilaiSiswa;
+    window.forceSubmitNilaiSiswa = forceSubmitNilaiSiswa;
+    window.exportToExcel = exportToExcel;

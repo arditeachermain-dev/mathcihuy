@@ -7309,3 +7309,12 @@ function showTkaScorecardModal() {
     // BOOTSTRAP INITIALIZATION
     initPortal();
   
+
+    // Guru Dashboard Bridge
+    window.setGuruSort = window.setGuruSort || function(f) {
+      if (typeof window.loadGuruDashboardData === 'function') {
+        window._guruSortField = f;
+        window._guruSortDir = (window._guruSortDir === 'asc') ? 'desc' : 'asc';
+        window.loadGuruDashboardData();
+      }
+    };
