@@ -6083,7 +6083,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           <div class="font-bold text-cyan-300 text-[11px] flex items-center gap-1.5">
             <i class="fa-solid fa-user-tie text-[10px]"></i> Tugas Tambahan / Walas
           </div>
-          <p class="text-[10px] text-slate-400">Jumat 06.30 (Morning Greetings) | 07.00 (Dhuha) | 14.50 (Sesi P1 Walas)</p>
+          <p class="text-[10px] text-slate-400">Jumat 06.30 (Morning Greetings) | 07.00 (In-charge Dhuha) | 14.50 (Sesi P1 Walas)</p>
         </div>
       `;
 
