@@ -5199,11 +5199,11 @@ function showTkaScorecardModal() {
             </p>
           </div>
 
-          <!-- MAIN 2-COLUMN BALANCED WORKSPACE (100% SPACIOUS & ZOOM-FRIENDLY) -->
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 flex-1 min-h-0 items-stretch overflow-y-auto">
+          <!-- MAIN 2-COLUMN BALANCED WORKSPACE (100% SPACIOUS, ZERO OVERFLOW COLLISION) -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 flex-1 min-h-0 overflow-y-auto">
             
             <!-- LEFT COLUMN: PROBLEM ARENA (7/12) — 100% CLEAN FOR PROJECTOR -->
-            <div class="md:col-span-7 p-4 md:p-5 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3 min-h-0">
+            <div class="md:col-span-7 p-4 md:p-5 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between space-y-3">
               
               <div class="space-y-3">
                 <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
@@ -5221,19 +5221,17 @@ function showTkaScorecardModal() {
                 </div>
               </div>
 
-
-
             </div>
 
             <!-- RIGHT COLUMN: PROTOCOL RULES & INTEGRATED TIMER (5/12) -->
-            <div class="md:col-span-5 p-3.5 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between space-y-2.5 min-h-0">
+            <div class="md:col-span-5 p-3.5 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between gap-3">
               
               <!-- 4 PROTOCOL STEPS -->
-              <div class="space-y-1.5">
-                <span class="text-[11px] font-bold text-amber-400 font-mono uppercase tracking-wider block border-b border-blue-900/60 pb-1">
+              <div class="space-y-2">
+                <span class="text-[11px] font-bold text-amber-400 font-mono uppercase tracking-wider block border-b border-blue-900/60 pb-1.5">
                   <i class="fa-solid fa-list-check mr-1"></i> ${taskCfg.protocolTitle}
                 </span>
-                <div class="space-y-1.5">
+                <div class="space-y-2">
                   ${cardsHtml}
                 </div>
               </div>
