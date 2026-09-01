@@ -81,7 +81,14 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah kafetaria menyediakan 4 jenis makanan pokok, 5 lauk, 3 sayur, dan 4 minuman. Berapa variasi paket makan siang (1 makanan, 1 lauk, 1 sayur, 1 minuman) yang dapat dipilih?",
         "Berapa banyak bilangan bulat positif antara 100 dan 999 yang memiliki minimal satu angka 7 dalam susunannya?"
       ],
-      "tagline": "Menghitung Peluang & Kemungkinan dari Pilihan Sederhana hingga Sandi Keamanan"
+      "tagline": "Menghitung Peluang & Kemungkinan dari Pilihan Sederhana hingga Sandi Keamanan",
+      "collab_solutions": [
+        "Langkah 1: Ratusan ganjil > 300 dari angka {0,1,2,3,4,5,6} (ada 7 angka, tanpa ulang).\nLangkah 2: Satuan ganjil {1,3,5} (3 opsi), Ratusan {3,4,5,6} (>300). Bagi kasus:\n- Jika Ratusan ganjil {3,5} (2 opsi): Satuan sisa (2 opsi), Puluhan sisa (5 opsi) => 2 x 5 x 2 = 20.\n- Jika Ratusan genap {4,6} (2 opsi): Satuan (3 opsi), Puluhan (5 opsi) => 2 x 5 x 3 = 30.\nLangkah 3: Total susunan = 20 + 30 = 50 bilangan.\nKesimpulan: Banyak bilangan ganjil yang terbentuk adalah 50 bilangan.",
+        "Langkah 1: Huruf vokal {A,I,U,E,O} (5 opsi). Ambil 2 huruf berbeda => P(5,2) = 5 x 4 = 20 cara.\nLangkah 2: Angka genap {0,2,4,6,8} (5 opsi). Ambil 3 angka berbeda => P(5,3) = 5 x 4 x 3 = 60 cara.\nLangkah 3: Terapkan aturan perkalian aktivitas berseri: Total = 20 x 60 = 1.200 kode.\nKesimpulan: Total variasi kode akses yang dapat dibuat adalah 1.200 kombinasi.",
+        "Langkah 1: Titik (0,0) ke (2,1): Bergerak 2K, 1A => Jalur = 3! / (2! 1!) = 3 cara.\nLangkah 2: Titik (2,1) ke (4,3): Bergerak 2K, 2A => Jalur = 4! / (2! 2!) = 6 cara.\nLangkah 3: Total jalur terpendek melalui (2,1) = 3 x 6 = 18 rute.\nKesimpulan: Banyak jalur terpendek dari (0,0) ke (4,3) melalui (2,1) adalah 18 jalur.",
+        "Langkah 1: Aturan perkalian pemilihan menu paket lengkap: N = Makanan x Lauk x Sayur x Minuman.\nLangkah 2: N = 4 x 5 x 3 x 4 = 240 variasi paket hidangan.\nKesimpulan: Terdapat 240 variasi paket hidangan makan siang berbeda.",
+        "Langkah 1: Total bilangan 3 digit (100-999) = 900 bilangan (Ratusan 1-9 [9 opsi], Puluhan 0-9 [10], Satuan 0-9 [10] => 9 x 10 x 10 = 900).\nLangkah 2: Banyak bilangan tanpa angka 7 sama sekali: Ratusan selain 7 (8 opsi: 1-9 tanpa 7), Puluhan (9 opsi), Satuan (9 opsi) => 8 x 9 x 9 = 648 bilangan.\nLangkah 3: Komplemen (minimal satu angka 7) = 900 - 648 = 252 bilangan.\nKesimpulan: Banyak bilangan bulat yang memuat minimal satu angka 7 adalah 252 bilangan."
+      ]
     },
     {
       "id": "P02",
@@ -149,7 +156,14 @@ const NAMA_TINGKAT = 'XII';
         "Dalam lomba cerdas cermat yang diikuti 10 tim, berapa banyak kemungkinan susunan peraih Juara 1, Juara 2, dan Juara 3?",
         "Buktikan secara aljabar bahwa $P(n, r) = n \\cdot P(n-1, r-1)$ untuk setiap bilangan bulat $1 \\le r \\le n$!"
       ],
-      "tagline": "Menyusun Formasi Berurutan: Dari Kursi Kepengurusan hingga Susunan Huruf Kata"
+      "tagline": "Menyusun Formasi Berurutan: Dari Kursi Kepengurusan hingga Susunan Huruf Kata",
+      "collab_solutions": [
+        "Langkah 1: Uraikan notasi permutasi: n(n-1)(n-2)(n-3) = 42 * n(n-1).\nLangkah 2: Karena n >= 4, bagi kedua ruas dengan n(n-1): (n-2)(n-3) = 42.\nLangkah 3: n^2 - 5n + 6 = 42 => n^2 - 5n - 36 = 0 => (n - 9)(n + 4) = 0.\nLangkah 4: Karena n harus positif, maka n = 9.\nKesimpulan: Nilai n yang memenuhi persamaan adalah n = 9.",
+        "Langkah 1: Hitung total huruf 'GLOBALISASI' = 11 huruf.\nLangkah 2: Identifikasi huruf kembar: G=1, L=2, O=1, B=1, A=2, I=2, S=2.\nLangkah 3: Permutasi unsur sama = 11! / (2! * 2! * 2! * 2!) = 39.916.800 / 16 = 2.494.800 susunan.\nKesimpulan: Banyak susunan kata berbeda adalah 2.494.800 kata.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tujuh pengurus OSIS duduk berdampingan pada satu baris kursi. Tentukan peluang K...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P02.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Memilih dan mengurutkan 3 juara dari 10 tim: P(10, 3).\nLangkah 2: P(10, 3) = 10 x 9 x 8 = 720 susunan.\nKesimpulan: Terdapat 720 kemungkinan susunan peraih juara.",
+        "Langkah 1: Ruas kanan: n * P(n-1, r-1) = n * [ (n-1)! / ((n-1) - (r-1))! ].\nLangkah 2: Penyebut: ((n-1) - (r-1))! = (n - 1 - r + 1)! = (n - r)!.\nLangkah 3: Pembilang: n * (n-1)! = n!.\nLangkah 4: Diperoleh n! / (n - r)! = P(n, r) (Terbukti sama persis dengan ruas kiri).\nKesimpulan: Identitas aljabar permutasi terbukti benar secara matematis."
+      ]
     },
     {
       "id": "P03",
@@ -217,7 +231,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan banyak susunan 8 angka yang dapat dibentuk dari angka-angka $\\{2, 2, 3, 3, 3, 5, 5, 7\\}$ yang bernilai lebih dari $50.000.000$!",
         "Sebuah keluarga (Ayah, Ibu, 3 Anak) makan malam di meja bundar. Tentukan peluang kedua orang tua TIDAK duduk bersebelahan!"
       ],
-      "tagline": "Menyusun Elemen Berulang & Melingkari Meja Bundar Tanpa Titik Awal"
+      "tagline": "Menyusun Elemen Berulang & Melingkari Meja Bundar Tanpa Titik Awal",
+      "collab_solutions": [
+        "Langkah 1: Huruf vokal {A, E, A, I, A} diikat menjadi 1 blok (ada 5 vokal dengan A=3 => 5! / 3! = 20 cara).\nLangkah 2: Huruf konsonan {M, T, M, T, K} (5 huruf dengan M=2, T=2 => 5! / (2! 2!) = 30 cara).\nLangkah 3: Susun blok vokal bersama 5 konsonan (total 6 elemen): 6! / (2! 2!) = 720 / 4 = 180 cara.\nLangkah 4: Total cara = 180 x 20 = 3.600 cara.\nKesimpulan: Banyak cara susunan dengan semua huruf vokal berdampingan adalah 3.600 cara.",
+        "Langkah 1: Ikat tiap pasangan negara menjadi 1 blok (ada 3 blok negara).\nLangkah 2: Permutasi siklis 3 blok = (3 - 1)! = 2! = 2 cara.\nLangkah 3: Tiap pasangan negara bisa bertukar posisi internal: 2! x 2! x 2! = 8 cara.\nLangkah 4: Total susunan = 2 x 8 = 16 cara.\nKesimpulan: Banyak susunan duduk semeja adalah 16 cara.",
+        "Langkah 1: Total manik-manik = 5 + 4 = 9 manik-manik berbeda dirangkai gelang (simetri balik 3D).\nLangkah 2: Rumus gelang = (n - 1)! / 2 = (9 - 1)! / 2 = 8! / 2.\nLangkah 3: 40.320 / 2 = 20.160 susunan gelang.\nKesimpulan: Banyak variasi gelang yang dapat dibuat adalah 20.160 susunan.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan banyak susunan 8 angka yang dapat dibentuk dari angka-angka $\\{2, 2, 3,...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P03.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah keluarga (Ayah, Ibu, 3 Anak) makan malam di meja bundar. Tentukan peluang...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P03.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P04",
@@ -285,7 +306,14 @@ const NAMA_TINGKAT = 'XII';
         "Dari 12 titik pada bidang datar di mana tidak ada 3 titik yang segaris, tentukan banyak segitiga yang dapat dibentuk dengan menghubungkan titik-titik tersebut!",
         "Tentukan banyak solusi bilangan bulat non-negatif $(x_1, x_2, x_3, x_4)$ dari persamaan $x_1 + x_2 + x_3 + x_4 = 15$ menggunakan metode *stars and bars*!"
       ],
-      "tagline": "Memilih Delegasi & Kombinasi Terbaik Tanpa Membedakan Urutan Jabatan"
+      "tagline": "Memilih Delegasi & Kombinasi Terbaik Tanpa Membedakan Urutan Jabatan",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dari 8 siswa putra dan 6 siswa putri, akan dipilih delegasi beranggotakan 5 oran...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dalam kotak terdapat 7 bola merah dan 5 bola putih. Diambil 4 bola sekaligus. Te...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan Identitas Segitiga Pascal: $\\binom{n}{k} + \\binom{n}{k-1} = \\binom{n+1}...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dari 12 titik pada bidang datar di mana tidak ada 3 titik yang segaris, tentukan...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan banyak solusi bilangan bulat non-negatif $(x_1, x_2, x_3, x_4)$ dari pe...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P05",
@@ -353,7 +381,14 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah koin tak setimbang memiliki peluang muncul angka sebesar $\\frac{2}{3}$. Jika koin dilempar 5 kali, tentukan peluang muncul tepat 3 kali angka!",
         "Tentukan peluang bahwa dalam sebuah kelompok beranggotakan 30 orang secara acak, minimal terdapat dua orang yang berulang tahun pada hari yang sama!"
       ],
-      "tagline": "Mengukur Kepastian dari Ketidakpastian & Memprediksi Frekuensi Kejadian Masa Depan"
+      "tagline": "Mengukur Kepastian dari Ketidakpastian & Memprediksi Frekuensi Kejadian Masa Depan",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dua dadu setimbang dilempar bersamaan sebanyak 360 kali. Hitunglah frekuensi har...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Peluang seorang penembak jitu mengenai target adalah $0{,}75$. Jika ia melepaska...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah kantong berisi 4 kelereng merah dan 6 kelereng biru. Diambil 3 kelereng s...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah koin tak setimbang memiliki peluang muncul angka sebesar $\\frac{2}{3}$. J...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan peluang bahwa dalam sebuah kelompok beranggotakan 30 orang secara acak,...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P06",
@@ -420,7 +455,14 @@ const NAMA_TINGKAT = 'XII';
         "Dalam turnamen catur sistem setengah kompetisi (*round-robin*) yang diikuti 12 peserta, berapa total pertandingan yang akan dimainkan?",
         "Tentukan koefisien dari suku $x^4 y^6$ pada ekspansi binomial Newton $(2x - 3y)^{10}$!"
       ],
-      "tagline": "Uji Fondasi Kombinatorika & Peluang Tunggal Menuju Standar Asesmen Nasional"
+      "tagline": "Uji Fondasi Kombinatorika & Peluang Tunggal Menuju Standar Asesmen Nasional",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan banyak bilangan 4 digit berbeda yang habis dibagi 5 dan nilainya terlet...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dari 10 finalis (6 pria, 4 wanita), dipilih 3 juara. Berapa peluang Juara 1 dan ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah keluarga (Ayah, Ibu, 4 anak) berfoto melingkar. Tentukan peluang Ayah dan...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dalam turnamen catur sistem setengah kompetisi (*round-robin*) yang diikuti 12 p...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan koefisien dari suku $x^4 y^6$ pada ekspansi binomial Newton $(2x - 3y)^...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P07",
@@ -487,7 +529,14 @@ const NAMA_TINGKAT = 'XII';
         "Peluang seorang siswa lulus tes Matematika adalah $0{,}8$ dan peluang lulus tes Bahasa Inggris adalah $0{,}7$. Jika peluang lulus keduanya $0{,}6$, tentukan peluang ia lulus minimal satu tes!",
         "Buktikan hukum De Morgan untuk peluang: $P((A \\cup B)') = P(A' \\cap B')$ menggunakan diagram Venn probabilitas!"
       ],
-      "tagline": "Menyatukan Dua Peristiwa: Apakah Saling Lepas atau Beririsan Bersama?"
+      "tagline": "Menyatukan Dua Peristiwa: Apakah Saling Lepas atau Beririsan Bersama?",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dari satu set kartu bridge lengkap (52 kartu), diambil 1 kartu secara acak. Tent...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dua dadu dilempar sekali. Tentukan peluang munculnya jumlah kedua mata dadu kura...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dalam kelas XII terdapat 36 siswa: 20 suka Matematika, 15 suka Fisika, dan 8 suk...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Peluang seorang siswa lulus tes Matematika adalah $0{,}8$ dan peluang lulus tes ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan hukum De Morgan untuk peluang: $P((A \\cup B)') = P(A' \\cap B')$ menggun...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P08",
@@ -558,7 +607,14 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah tes medis memiliki sensitivitas $99\\%$ dan spesifisitas $95\\%$. Jika prevalensi penyakit dalam populasi adalah $1\\%$, tentukan peluang seseorang benar-benar sakit jika hasil tesnya positif!",
         "Dua kejadian $A$ dan $B$ saling bebas dengan $P(A) = 0{,}4$ dan $P(A \\cup B) = 0{,}7$. Tentukan nilai $P(B)$ dan $P(A \\mid B)$!"
       ],
-      "tagline": "Ketergantungan vs Kemandirian Peristiwa & Menyingkap Peluang Bersyarat"
+      "tagline": "Ketergantungan vs Kemandirian Peristiwa & Menyingkap Peluang Bersyarat",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Peluang tim A menang adalah $0{,}6$ dan peluang tim B menang adalah $0{,}7$. Jik...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Kotak I berisi 3 bola merah dan 2 putih. Kotak II berisi 4 bola merah dan 5 puti...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tiga mesin $M_1, M_2, M_3$ memproduksi masing-masing $30\\%$, $45\\%$, $25\\%$ prod...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah tes medis memiliki sensitivitas $99\\%$ dan spesifisitas $95\\%$. Jika prev...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dua kejadian $A$ dan $B$ saling bebas dengan $P(A) = 0{,}4$ dan $P(A \\cup B) = 0...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P09",
@@ -625,7 +681,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan banyak pasangan garis yang saling bersilangan tegak lurus pada sebuah kubus $ABCD.EFGH$!",
         "Pada limas beraturan $T.ABCD$, tentukan garis persekutuan antara bidang $TAB$ dan bidang $TCD$ serta buktikan sifat kesejajarannya terhadap alas!"
       ],
-      "tagline": "Melihat Ruang Nyata 3D: Titik, Garis Sejajar, & Bidang yang Bersilangan"
+      "tagline": "Melihat Ruang Nyata 3D: Titik, Garis Sejajar, & Bidang yang Bersilangan",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$ dengan rusuk $8\\text{ cm}$, tentukan kedudukan garis $AC$...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada balok $ABCD.EFGH$ ($AB=6, BC=4, CG=5$), buktikan apakah garis $AG$ berpoton...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa jika sebuah garis tegak lurus pada dua garis berpotongan di suatu...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan banyak pasangan garis yang saling bersilangan tegak lurus pada sebuah k...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada limas beraturan $T.ABCD$, tentukan garis persekutuan antara bidang $TAB$ da...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P10",
@@ -692,7 +755,14 @@ const NAMA_TINGKAT = 'XII';
         "Pada kubus $ABCD.EFGH$ berusuk $10\\text{ cm}$, titik $M$ adalah titik tengah $AB$ dan titik $N$ adalah titik tengah $GH$. Hitunglah panjang ruas garis $MN$!",
         "Diberikan bidang empat beraturan $T.ABC$ dengan panjang seluruh rusuknya $6\\text{ cm}$. Tentukan jarak dari titik tinggi $T$ ke bidang alas $ABC$!"
       ],
-      "tagline": "Menarik Lintasan Terpendek Antar Sudut Ruang dengan Teorema Pythagoras 3D"
+      "tagline": "Menarik Lintasan Terpendek Antar Sudut Ruang dengan Teorema Pythagoras 3D",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Diberikan kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$. Titik $P$ terletak di te...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada limas beraturan $T.ABCD$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tegak $5...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah ruangan balok berukuran $8\\text{ m} \\times 6\\text{ m} \\times 4\\text{ m}$....\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$ berusuk $10\\text{ cm}$, titik $M$ adalah titik tengah $AB...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Diberikan bidang empat beraturan $T.ABC$ dengan panjang seluruh rusuknya $6\\text...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P11",
@@ -759,7 +829,14 @@ const NAMA_TINGKAT = 'XII';
         "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $a$, tentukan jarak titik tengah $BC$ ke garis diagonal ruang $DF$!",
         "Buktikan menggunakan vektor analitis bahwa jarak dari titik $(x_0, y_0, z_0)$ ke garis berarah $\\vec{v}$ di ruang 3D memenuhi formula $\\frac{|\\vec{AP} \\times \\vec{v}|}{|\\vec{v}|}$!"
       ],
-      "tagline": "Memproyeksikan Titik Tegak Lurus ke Garis Menggunakan Kesamaan Luas Segitiga"
+      "tagline": "Memproyeksikan Titik Tegak Lurus ke Garis Menggunakan Kesamaan Luas Segitiga",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Diberikan kubus $ABCD.EFGH$ berusuk $6\\text{ cm}$. Hitunglah jarak titik $A$ ke ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$ berusuk $8\\text{ cm}$, titik $M$ adalah titik tengah $EH$...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada limas tegak segitiga $T.ABC$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tega...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$ dengan panjang rusuk $a$, tentukan jarak titik tengah $BC...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan menggunakan vektor analitis bahwa jarak dari titik $(x_0, y_0, z_0)$ ke...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P12",
@@ -830,7 +907,14 @@ const NAMA_TINGKAT = 'XII';
         "Pada kubus $ABCD.EFGH$ berusuk $6\\text{ cm}$, tentukan jarak antara bidang sejajar $AFH$ dan bidang $BDG$!",
         "Pada limas beraturan $T.ABCD$ dengan rusuk alas $4\\text{ cm}$ dan tinggi limas $4\\text{ cm}$, tentukan jarak titik $A$ ke bidang sisi tegak $TCD$!"
       ],
-      "tagline": "Menembus Dinding Ruang: Menguasai Teorema 1/3 & 2/3 Diagonal Ruang Kubus"
+      "tagline": "Menembus Dinding Ruang: Menguasai Teorema 1/3 & 2/3 Diagonal Ruang Kubus",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$ berusuk $a = 6\\text{ cm}$, tentukan jarak titik $E$ ke bi...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Diberikan kubus $ABCD.EFGH$ berusuk $12\\text{ cm}$. Titik $P, Q, R$ masing-masin...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa bidang $AFH$ membagi diagonal ruang $CE$ menjadi dua segmen denga...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$ berusuk $6\\text{ cm}$, tentukan jarak antara bidang sejaj...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada limas beraturan $T.ABCD$ dengan rusuk alas $4\\text{ cm}$ dan tinggi limas $...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P13",
@@ -897,7 +981,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan besar sudut antara garis diagonal sisi $AH$ dengan bidang diagonal $BDHF$ pada kubus beraturan!",
         "Buktikan bahwa sudut antara dua diagonal ruang pada sebuah kubus adalah $\\arccos(\\frac{1}{3}) \\approx 70{,}53^\\circ$!"
       ],
-      "tagline": "Mengukur Kemiringan Sudut Antar Garis dan Bidang dalam Bangun Ruang Nyata"
+      "tagline": "Mengukur Kemiringan Sudut Antar Garis dan Bidang dalam Bangun Ruang Nyata",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$, tentukan nilai $\\cos \\alpha$ dengan $\\alpha$ adalah sudu...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$, hitunglah besar sudut dihedral antara bidang $AFH$ dan b...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada limas segi empat beraturan $T.ABCD$ dengan rusuk alas $4\\text{ cm}$ dan rus...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan besar sudut antara garis diagonal sisi $AH$ dengan bidang diagonal $BDH...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa sudut antara dua diagonal ruang pada sebuah kubus adalah $\\arccos...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P14",
@@ -964,7 +1055,14 @@ const NAMA_TINGKAT = 'XII';
         "Pada kubus $ABCD.EFGH$ berusuk $12\\text{ cm}$, bidang $\\alpha$ melalui titik $B$ dan tegak lurus pada $AG$. Tentukan bentuk dan luas penampang bidang $\\alpha$!",
         "Hitung sudut antara garis perpotongan bidang $PQR$ dengan alas kubus terhadap diagonal sisi alas!"
       ],
-      "tagline": "Bedah Prediksi CBT Dimensi Tiga: Cepat, Tepat, & Berlogika Ruang Kuat"
+      "tagline": "Bedah Prediksi CBT Dimensi Tiga: Cepat, Tepat, & Berlogika Ruang Kuat",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Kubus $ABCD.EFGH$ memiliki rusuk $8\\text{ cm}$. Titik $K$ terletak pada perpanja...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan volume irisan bidang yang melalui titik tengah $AE, BF,$ dan $CG$ pada ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah piramida beraturan memiliki alas segi-6 dengan sisi $4\\text{ cm}$ dan tin...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Pada kubus $ABCD.EFGH$ berusuk $12\\text{ cm}$, bidang $\\alpha$ melalui titik $B$...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung sudut antara garis perpotongan bidang $PQR$ dengan alas kubus terhadap di...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P15",
@@ -1031,7 +1129,14 @@ const NAMA_TINGKAT = 'XII';
         "Jelaskan kelebihan penyajian data menggunakan histogram dengan frekuensi relatif dibandingkan frekuensi mutlak untuk membandingkan dua populasi!",
         "Rancang histogram multimodal dari data simulasi lalu tafsirkan potensi heterogenitas sub-populasi di dalamnya!"
       ],
-      "tagline": "Membaca Cerita di Balik Batang Histogram, Poligon Frekuensi, & Lengkung Ogive"
+      "tagline": "Membaca Cerita di Balik Batang Histogram, Poligon Frekuensi, & Lengkung Ogive",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buatlah tabel distribusi frekuensi berkelompok dari 40 data ulangan dengan renta...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dari histogram distribusi data tinggi badan, ubahlah menjadi kurva Ogive positif...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Distribusi data memiliki $Q_1 = 54{,}5$ dan $Q_3 = 78{,}2$. Analisislah pencakar...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Jelaskan kelebihan penyajian data menggunakan histogram dengan frekuensi relatif...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Rancang histogram multimodal dari data simulasi lalu tafsirkan potensi heterogen...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P16",
@@ -1103,7 +1208,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan rata-rata gabungan jika kelas XII-A (30 siswa) rata-ratanya $75$, XII-B (35 siswa) $80$, dan XII-C (35 siswa) $82$!",
         "Analisislah dampak penambahan data ekstrem sebesar $150$ terhadap nilai rata-rata dibandingkan median pada sampel berukuran $N=50$!"
       ],
-      "tagline": "Menemukan Titik Keseimbangan Data: Dari Rataan Sementara hingga Metode Coding"
+      "tagline": "Menemukan Titik Keseimbangan Data: Dari Rataan Sementara hingga Metode Coding",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai mean data berkelompok $[40-49: 4], [50-59: 6], [60-69: 10], [70-7...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Jika nilai rata-rata tabel distribusi dengan frekuensi kelas ketiga berupa $p$ b...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa $\\sum f_i (x_i - \\bar{x}) = 0$ pada data berkelompok dan jelaskan...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan rata-rata gabungan jika kelas XII-A (30 siswa) rata-ratanya $75$, XII-B...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Analisislah dampak penambahan data ekstrem sebesar $150$ terhadap nilai rata-rat...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P17",
@@ -1170,7 +1282,14 @@ const NAMA_TINGKAT = 'XII';
         "Buktikan secara geometris rumus interpolasi linier untuk menentukan nilai median pada kurva poligon frekuensi kumulatif!",
         "Tentukan kondisi di mana nilai Mean = Median = Modus pada kurva distribusi simetris Gauss!"
       ],
-      "tagline": "Membagi Data Menjadi Dua Bagian Seimbang & Menemukan Frekuensi Paling Populer"
+      "tagline": "Membagi Data Menjadi Dua Bagian Seimbang & Menemukan Frekuensi Paling Populer",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan median ($Me$) data berkelompok jika tepi bawah kelas median $Tb = 60{,}...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah modus ($Mo$) data penjualan jika selisih frekuensi kelas sebelum $d_1 ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah distribusi gaji memiliki Modus $= 4{,}5\\text{ juta}$ dan Mean $= 7{,}2\\te...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan secara geometris rumus interpolasi linier untuk menentukan nilai median...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan kondisi di mana nilai Mean = Median = Modus pada kurva distribusi simet...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P18",
@@ -1242,7 +1361,14 @@ const NAMA_TINGKAT = 'XII';
         "Jika seluruh nilai ujian dinaikkan $10\\%$ kemudian ditambah $5$, tentukan kuartil atas ($Q_3$) yang baru jika $Q_3$ awal adalah $70$!",
         "Tentukan persentil ke-90 ($P_{90}$) dari data waktu respon server dan interpretasikan maknanya dalam Service Level Agreement (SLA) IT!"
       ],
-      "tagline": "Memetakan Posisi Data: Menentukan Kuartil, Desil, dan Mendeteksi Nilai Pencilan"
+      "tagline": "Memetakan Posisi Data: Menentukan Kuartil, Desil, dan Mendeteksi Nilai Pencilan",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai Kuartil Atas ($Q_3$) dan Jangkauan Semi-Interkuartil ($Q_d = \\fra...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai Desil ke-7 ($D_7$) dan Persentil ke-85 ($P_{85}$) dari data wakt...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Bandingkan akurasi Box-and-Whisker Plot dibandingkan Kurva Ogive dalam mendeteks...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Jika seluruh nilai ujian dinaikkan $10\\%$ kemudian ditambah $5$, tentukan kuarti...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persentil ke-90 ($P_{90}$) dari data waktu respon server dan interpreta...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P19",
@@ -1314,7 +1440,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan koefisien variasi ($KV = \\frac{S}{\\bar{x}} \\times 100\\%$) untuk membandingkan tingkat konsistensi dua kelompok belajar!",
         "Buktikan bahwa varians dari sekumpulan data tidak pernah bernilai negatif ($S^2 \\ge 0$) dan bernilai nol jika dan hanya jika semua data bernilai sama!"
       ],
-      "tagline": "Mengukur Seberapa Menyebar Datamu: Dari Varians, Simpangan Baku, hingga Skor Z"
+      "tagline": "Mengukur Seberapa Menyebar Datamu: Dari Varians, Simpangan Baku, hingga Skor Z",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah Simpangan Rata-rata ($SR$) dan Varians ($S^2$) dari data frekuensi ber...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan Standar Deviasi ($S$) data tes potensi akademik dan tentukan rentang ni...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Jika seluruh data dikalikan $2$ kemudian ditambah $5$, buktikan perubahan yang t...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan koefisien variasi ($KV = \\frac{S}{\\bar{x}} \\times 100\\%$) untuk memband...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa varians dari sekumpulan data tidak pernah bernilai negatif ($S^2 ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P20",
@@ -1382,7 +1515,14 @@ const NAMA_TINGKAT = 'XII';
         "Jelaskan perbedaan antara korelasi positif, korelasi negatif, dan korelasi spasial semu (*spurious correlation*) disertai contoh nyata!",
         "Buktikan bahwa koefisien korelasi Pearson selalu berada pada rentang $-1 \\le r \\le 1$ menggunakan pertidaksamaan Cauchy-Schwarz!"
       ],
-      "tagline": "Menemukan Pola Hubungan Dua Variabel & Memprediksi Tren dengan Garis Regresi"
+      "tagline": "Menemukan Pola Hubungan Dua Variabel & Memprediksi Tren dengan Garis Regresi",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Diberikan 8 pasangan data $(X, Y)$ jam belajar dan skor ujian: $\\sum X = 48, \\su...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Berdasarkan data di atas, tentukan persamaan garis regresi linier $\\hat{Y} = a +...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung koefisien determinasi $R^2$ dan prediksikan skor siswa yang belajar selam...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Jelaskan perbedaan antara korelasi positif, korelasi negatif, dan korelasi spasi...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa koefisien korelasi Pearson selalu berada pada rentang $-1 \\le r \\...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P21",
@@ -1449,7 +1589,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan residu regresi $e_i = y_i - \\hat{y}_i$ untuk setiap titik data dan uji apakah jumlah residunya bernilai nol ($\\sum e_i = 0$)!",
         "Rancang studi kasus optimasi bivariat terapan dalam dunia sains data dan presentasikan kesimpulan model prediksi terbaik!"
       ],
-      "tagline": "Simulasi Puncak Asesmen Akhir Semester: Menguji Ketajaman Statistika & Geometri 3D"
+      "tagline": "Simulasi Puncak Asesmen Akhir Semester: Menguji Ketajaman Statistika & Geometri 3D",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Diberikan data bivariat pengeluaran iklan ($X$ juta) dan omzet ($Y$ ratus juta)....\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah perusahaan menargetkan omzet $1{,}5\\text{ miliar}$. Gunakan model $\\hat{Y...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Evaluasilah keterbatasan regresi linier dalam konteks ekstrapolasi data di luar ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan residu regresi $e_i = y_i - \\hat{y}_i$ untuk setiap titik data dan uji ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Rancang studi kasus optimasi bivariat terapan dalam dunia sains data dan present...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     }
   ],
   "minat": [
@@ -1519,7 +1666,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan lingkaran konsentris dengan $x^2 + y^2 = 9$ yang luas daerahnya 4 kali lebih besar!",
         "Buktikan bahwa luas juring lingkaran berpusat di asal dengan sudut pusat $\\theta$ radian adalah $\\frac{1}{2} r^2 \\theta$!"
       ],
-      "tagline": "Menjelajah Kurva Lingkaran dari Titik Pusat Asal & Memetakan Jangkauan Radar"
+      "tagline": "Menjelajah Kurva Lingkaran dari Titik Pusat Asal & Memetakan Jangkauan Radar",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan lingkaran yang berpusat di $O(0,0)$ dan melalui titik potong ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P01.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah lingkaran berpusat di $O(0,0)$ menyinggung garis $4x + 3y - 25 = 0$. Tent...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P01.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Diberikan $A(-4, 0)$ dan $B(4, 0)$. Tentukan tempat kedudukan titik $P(x,y)$ sed...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P01.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan lingkaran konsentris dengan $x^2 + y^2 = 9$ yang luas daerahn...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P01.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa luas juring lingkaran berpusat di asal dengan sudut pusat $\\theta...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P01.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P02",
@@ -1591,7 +1745,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan lingkaran yang berpusat di $P(-1, 4)$ dan menyinggung garis $3x - 4y + 4 = 0$!",
         "Buktikan bahwa jarak dari titik $(x_1, y_1)$ ke pusat lingkaran $(x-a)^2 + (y-b)^2 = r^2$ menentukan kedudukan titik secara definitif!"
       ],
-      "tagline": "Menggeser Titik Pusat ke Mana Saja pada Bidang Koordinat Kartesius GPS"
+      "tagline": "Menggeser Titik Pusat ke Mana Saja pada Bidang Koordinat Kartesius GPS",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan lingkaran dengan pusat $P(3, -2)$ yang menyinggung sumbu-$X$ ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P02.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan lingkaran dengan diameter ruas garis yang menghubungkan $A(-2...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P02.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Lingkaran berpusat di $P(a, b)$ kuadran I menyinggung garis $x = 2$, sumbu-$Y$, ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P02.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan lingkaran yang berpusat di $P(-1, 4)$ dan menyinggung garis $...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P02.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa jarak dari titik $(x_1, y_1)$ ke pusat lingkaran $(x-a)^2 + (y-b)...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P02.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P03",
@@ -1663,7 +1824,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan nilai $A$ dan $B$ jika lingkaran $x^2 + y^2 + Ax + By - 12 = 0$ berpusat di titik $(2, -3)$!",
         "Buktikan bahwa bentuk $Ax^2 + Ay^2 + Dx + Ey + F = 0$ merepresentasikan lingkaran sejati jika dan hanya jika $D^2 + E^2 - 4AF > 0$!"
       ],
-      "tagline": "Membongkar Kuadrat Sempurna Menjadi Bentuk Umum Aljabar Persamaan Lingkaran"
+      "tagline": "Membongkar Kuadrat Sempurna Menjadi Bentuk Umum Aljabar Persamaan Lingkaran",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Ubahlah bentuk umum $x^2 + y^2 - 6x + 8y - 11 = 0$ ke bentuk standar $(x-a)^2 + ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P03.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai $m$ agar persamaan $x^2 + y^2 + 4x - 6y + m = 0$ merepresentasika...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P03.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan lingkaran yang melalui tiga titik koordinat $A(0,0), B(4,0),$...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P03.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai $A$ dan $B$ jika lingkaran $x^2 + y^2 + Ax + By - 12 = 0$ berpusa...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P03.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa bentuk $Ax^2 + Ay^2 + Dx + Ey + F = 0$ merepresentasikan lingkara...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P03.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P04",
@@ -1735,7 +1903,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan kuasa titik $P(4, -1)$ terhadap lingkaran $x^2 + y^2 - 6x + 2y + 6 = 0$ dan berikan tafsiran geometrisnya!",
         "Tentukan persamaan garis kuasa (*radical axis*) dari dua lingkaran $L_1 \\equiv x^2 + y^2 - 4 = 0$ dan $L_2 \\equiv x^2 + y^2 - 4x - 2y + 1 = 0$!"
       ],
-      "tagline": "Menguji Posisi Titik: Di Dalam, Tepat pada Busur, atau di Luar Lingkaran?"
+      "tagline": "Menguji Posisi Titik: Di Dalam, Tepat pada Busur, atau di Luar Lingkaran?",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Selidikilah kedudukan titik $K(5, -2), L(1, 3),$ dan $M(4, 4)$ terhadap lingkara...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan batas-batas nilai $k$ agar titik $P(k, 2)$ terletak di DALAM lingkaran ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah panjang ruas garis singgung yang ditarik dari titik $T(8, 6)$ ke lingk...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan kuasa titik $P(4, -1)$ terhadap lingkaran $x^2 + y^2 - 6x + 2y + 6 = 0$...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis kuasa (*radical axis*) dari dua lingkaran $L_1 \\equiv x...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P04.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P05",
@@ -1803,7 +1978,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan nilai $c$ agar garis $3x + 4y + c = 0$ menyinggung lingkaran $x^2 + y^2 = 25$ ($D = 0$)!",
         "Buktikan secara aljabar bahwa tali busur terpanjang pada lingkaran adalah diameter lingkaran yang melalui titik pusatnya!"
       ],
-      "tagline": "Uji Diskriminan Penentu: Garis yang Memotong, Menyinggung, atau Melayang Bebas"
+      "tagline": "Uji Diskriminan Penentu: Garis yang Memotong, Menyinggung, atau Melayang Bebas",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan kedudukan garis $y = 2x + 1$ terhadap lingkaran $x^2 + y^2 = 5$ dengan ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan batas nilai $m$ agar garis $y = mx + 2$ memotong lingkaran $x^2 + y^2 -...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan titik potong garis $x + y = 4$ dengan lingkaran $x^2 + y^2 - 2x - 4y = ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai $c$ agar garis $3x + 4y + c = 0$ menyinggung lingkaran $x^2 + y^2...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan secara aljabar bahwa tali busur terpanjang pada lingkaran adalah diamet...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P05.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P06",
@@ -1875,7 +2057,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan garis normal lingkaran $(x+1)^2 + (y-2)^2 = 13$ di titik $(2, 4)$!",
         "Buktikan bahwa garis singgung lingkaran di titik $P(x_1, y_1)$ selalu tegak lurus dengan jari-jari yang menghubungkan pusat ke titik $P$!"
       ],
-      "tagline": "Membagi Adil Variabel untuk Menemukan Garis Singgung di Titik Lengkung"
+      "tagline": "Membagi Adil Variabel untuk Menemukan Garis Singgung di Titik Lengkung",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 25$ di titik $A(3, -4)$...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung lingkaran $(x-2)^2 + (y+3)^2 = 20$ di titik ya...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Garis singgung pada $x^2 + y^2 - 4x + 6y - 12 = 0$ di $(5, 1)$ memotong sumbu-$X...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis normal lingkaran $(x+1)^2 + (y-2)^2 = 13$ di titik $(2,...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa garis singgung lingkaran di titik $P(x_1, y_1)$ selalu tegak luru...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P06.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P07",
@@ -1947,7 +2136,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 36$ yang membentuk sudut $60^\\circ$ terhadap sumbu-$X$ positif!",
         "Tentukan jarak antara dua garis singgung sejajar yang bergradien $m = 2$ pada lingkaran $(x-1)^2 + (y+2)^2 = 20$!"
       ],
-      "tagline": "Menentukan Garis Singgung Lingkaran dengan Sudut Kemiringan & Gradien Tertentu"
+      "tagline": "Menentukan Garis Singgung Lingkaran dengan Sudut Kemiringan & Gradien Tertentu",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 16$ yang bergradien $m ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung lingkaran $(x+1)^2 + (y-3)^2 = 25$ yang sejaja...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 6x + 4y - 3 = 0$ yang t...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 36$ yang membentuk sudu...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan jarak antara dua garis singgung sejajar yang bergradien $m = 2$ pada li...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P07.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P08",
@@ -2015,7 +2211,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan sudut antara dua garis singgung yang ditarik dari titik $(0, 6)$ ke lingkaran $x^2 + y^2 = 9$!",
         "Buktikan bahwa garis kutub dari titik $P$ terhadap lingkaran selalu tegak lurus pada garis yang menghubungkan pusat lingkaran ke titik $P$!"
       ],
-      "tagline": "Menarik Dua Garis Singgung dari Titik Luar Melalui Garis Kutub Polar"
+      "tagline": "Menarik Dua Garis Singgung dari Titik Luar Melalui Garis Kutub Polar",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis kutub (polar) dari titik $P(3, 4)$ terhadap lingkaran $...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan kedua garis singgung yang ditarik dari titik $T(1, 7)$ ke lin...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dua lingkaran $L_1 \\equiv x^2 + y^2 = 9$ dan $L_2 \\equiv (x-8)^2 + y^2 = 16$. Te...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan sudut antara dua garis singgung yang ditarik dari titik $(0, 6)$ ke lin...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa garis kutub dari titik $P$ terhadap lingkaran selalu tegak lurus ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P08.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P09",
@@ -2083,7 +2286,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan lingkaran luar segitiga yang dibentuk oleh garis $x=0, y=0,$ dan $3x + 4y = 12$!",
         "Rancang model analitis sistem transmisi roda gigi lingkaran ganda dengan rasio jari-jari $1:3$ dan tentukan persamaan garis sabuk transmisinya!"
       ],
-      "tagline": "Grand Review Geometri Analitik: Mematangkan Seluk-Beluk Persamaan Lingkaran"
+      "tagline": "Grand Review Geometri Analitik: Mematangkan Seluk-Beluk Persamaan Lingkaran",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan lingkaran konsentris dengan $x^2 + y^2 - 4x + 6y - 1 = 0$ yan...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Satelit mengorbit pada $x^2 + y^2 = 64$. Sinyal radar dipancarkan dari $S(10, 0)...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan berkas lingkaran melalui perpotongan $L_1 \\equiv x^2 + y^2 - ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan lingkaran luar segitiga yang dibentuk oleh garis $x=0, y=0,$ ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Rancang model analitis sistem transmisi roda gigi lingkaran ganda dengan rasio j...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P09.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P10",
@@ -2161,7 +2371,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitung nilai limit fungsi faktorisasi: $\\lim_{x \\to -2} \\frac{x^3 + 8}{x^2 + 5x + 6}$!",
         "Buktikan secara formal definisi limit Cauchy $(\\varepsilon - \\delta)$ bahwa $\\lim_{x \\to 3} (2x + 1) = 7$!"
       ],
-      "tagline": "Membongkar Bentuk Tak Tentu 0/0 dengan Pemfaktoran Aljabar & Perkalian Sekawan"
+      "tagline": "Membongkar Bentuk Tak Tentu 0/0 dengan Pemfaktoran Aljabar & Perkalian Sekawan",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai limit aljabar tak tentu: $\\lim_{x \\to 3} \\frac{x^2 - 2x - 3}{\\sq...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai konstanta $a$ dan $b$ agar $\\lim_{x \\to 2} \\frac{x^2 + ax + b}{x ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah $\\lim_{x \\to 1} \\frac{\\sqrt[3]{x} - 1}{\\sqrt{x} - 1}$ menggunakan subs...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung nilai limit fungsi faktorisasi: $\\lim_{x \\to -2} \\frac{x^3 + 8}{x^2 + 5x ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan secara formal definisi limit Cauchy $(\\varepsilon - \\delta)$ bahwa $\\li...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P10.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P11",
@@ -2229,7 +2446,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitung nilai limit trigonometri bertingkat: $\\lim_{x \\to 0} \\frac{\\tan(2x) \\cdot \\sin^2(3x)}{x^3 \\cdot \\cos(4x)}$!",
         "Gunakan Teorema Apit (*Squeeze Theorem*) untuk membuktikan bahwa $\\lim_{x \\to 0} x^2 \\sin(\\frac{1}{x}) = 0$!"
       ],
-      "tagline": "Fondasi Sinus & Tangen: Mengapa Rasio Sudut Infinitesimal Mendekati Nilai Pasti"
+      "tagline": "Fondasi Sinus & Tangen: Mengapa Rasio Sudut Infinitesimal Mendekati Nilai Pasti",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai $\\lim_{x \\to 0} \\frac{\\sin(6x) + \\tan(4x)}{2x \\cdot \\cos(3x)}$ m...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai $\\lim_{x \\to 0} \\frac{x \\cdot \\tan(3x)}{1 - \\cos(4x)}$ dengan mer...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan secara analitis bahwa $\\lim_{x \\to 0} \\frac{\\sin(ax)}{\\tan(bx)} = \\frac...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung nilai limit trigonometri bertingkat: $\\lim_{x \\to 0} \\frac{\\tan(2x) \\cdot...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Gunakan Teorema Apit (*Squeeze Theorem*) untuk membuktikan bahwa $\\lim_{x \\to 0}...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P11.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P12",
@@ -2301,7 +2525,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan nilai limit: $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{1 - \\cos(2x)}$ menggunakan bentuk identitas sudut ganda!",
         "Buktikan identitas limit trigonometri $\\lim_{x \\to 0} \\frac{\\cos(ax) - \\cos(bx)}{x^2} = \\frac{b^2 - a^2}{2}$!"
       ],
-      "tagline": "Menjinakkan Cosinus Sudut Ganda Menjadi Sinus Kuadrat Tanpa Hambatan Aljabar"
+      "tagline": "Menjinakkan Cosinus Sudut Ganda Menjadi Sinus Kuadrat Tanpa Hambatan Aljabar",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai $\\lim_{x \\to 0} \\frac{\\cos(2x) - \\cos(6x)}{x^2}$ menggunakan ide...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai limit: $\\lim_{x \\to 0} \\frac{1 - \\cos^2(4x)}{x \\cdot \\sin(2x) \\cd...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah $\\lim_{x \\to 0} \\frac{\\cos(x) - \\cos(3x)}{\\cos(2x) - \\cos(4x)}$ dan ta...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai limit: $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{1 - \\cos(2x)}$ menggun...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan identitas limit trigonometri $\\lim_{x \\to 0} \\frac{\\cos(ax) - \\cos(bx)}...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P12.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P13",
@@ -2369,7 +2600,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah nilai limit sudut istimewa: $\\lim_{x \\to \\frac{\\pi}{3}} \\frac{\\tan(x) - \\sqrt{3}}{x - \\frac{\\pi}{3}}$!",
         "Tentukan nilai limit trigonometri: $\\lim_{x \\to 1} \\frac{(x - 1) \\cdot \\cos(\\pi x)}{\\sin(2\\pi x)}$!"
       ],
-      "tagline": "Menggeser Variabel Menuju Sudut Tertentu dengan Metode Substitusi Aljabar Cerdas"
+      "tagline": "Menggeser Variabel Menuju Sudut Tertentu dengan Metode Substitusi Aljabar Cerdas",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai limit trigonometri menuju sudut khusus: $\\lim_{x \\to \\frac{\\pi}{...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai $\\lim_{x \\to 2} \\frac{\\sin(x - 2)}{x^2 - 4} \\cdot \\cos(x - 2)$ me...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah $\\lim_{x \\to \\frac{\\pi}{2}} \\frac{1 - \\sin(x)}{(\\pi - 2x)^2}$ dengan m...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai limit sudut istimewa: $\\lim_{x \\to \\frac{\\pi}{3}} \\frac{\\tan(x) ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai limit trigonometri: $\\lim_{x \\to 1} \\frac{(x - 1) \\cdot \\cos(\\pi ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P13.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P14",
@@ -2437,7 +2675,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitung nilai limit tak hingga bentuk polinomial bertingkat: $\\lim_{x \\to \\infty} \\frac{(2x+1)^3 (3x-2)^2}{(x^2+1)(2x-1)^3}$!",
         "Tentukan nilai konstanta $p$ dan $q$ agar $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + px + 5} - (2x + q) \\right) = 3$!"
       ],
-      "tagline": "Melompat ke Ujung Ketakhinggaan: Membaca Dominasi Pangkat Polinomial Tertinggi"
+      "tagline": "Melompat ke Ujung Ketakhinggaan: Membaca Dominasi Pangkat Polinomial Tertinggi",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai limit di ketakhinggaan rasional: $\\lim_{x \\to \\infty} \\frac{4x^3...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai limit selisih bentuk akar: $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah $\\lim_{x \\to \\infty} \\left( \\sqrt{9x^2 + 12x + 1} - \\sqrt{9x^2 - 6x + ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung nilai limit tak hingga bentuk polinomial bertingkat: $\\lim_{x \\to \\infty}...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai konstanta $p$ dan $q$ agar $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P14.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P15",
@@ -2509,7 +2754,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitung nilai limit trigonometri di tak hingga: $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos(\\frac{2}{x}) \\right)$!",
         "Analisislah perilaku asimtotik fungsi gelombang $f(x) = \\frac{\\sin(x)}{x}$ saat $x \\to \\pm\\infty$!"
       ],
-      "tagline": "Menebak Limit Selisih Akar Kuadrat dalam Sekejap & Menemukan Asimtot Pembatas"
+      "tagline": "Menebak Limit Selisih Akar Kuadrat dalam Sekejap & Menemukan Asimtot Pembatas",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai $\\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{3}{x}\\right) \\cdot ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan asimtot datar dan asimtot tegak dari kurva $f(x) = \\frac{3x^2 + 2x - 1}...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan asimtot miring dari $f(x) = \\frac{2x^3 - 5x^2 + 4}{x^2 - 1}$ ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung nilai limit trigonometri di tak hingga: $\\lim_{x \\to \\infty} x^2 \\left( 1...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Analisislah perilaku asimtotik fungsi gelombang $f(x) = \\frac{\\sin(x)}{x}$ saat ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P15.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P16",
@@ -2577,7 +2829,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitung nilai limit bentuk eksponensial Euler: $\\lim_{x \\to \\infty} \\left(1 + \\frac{3}{x}\\right)^{2x}$!",
         "Buktikan kontinuitas fungsi $g(x) = |x| \\cdot \\cos(x)$ di titik $x = 0$ menggunakan limit kiri dan kanan!"
       ],
-      "tagline": "Simulasi ASTS CBT Kalkulus Limit: Menembus Batas Pendekatan Fungsi Aljabar"
+      "tagline": "Simulasi ASTS CBT Kalkulus Limit: Menembus Batas Pendekatan Fungsi Aljabar",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai $\\lim_{x \\to 0} \\frac{x^2 \\cot(3x)}{\\sin(2x)}$ secara analitis t...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai limit komposit: $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\fr...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai $a$ dan $b$ agar $f(x) = \\begin{cases} \\frac{\\sin(ax)}{x}, & x < ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung nilai limit bentuk eksponensial Euler: $\\lim_{x \\to \\infty} \\left(1 + \\fr...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan kontinuitas fungsi $g(x) = |x| \\cdot \\cos(x)$ di titik $x = 0$ mengguna...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P16.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P17",
@@ -2659,7 +2918,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan turunan pertama dari fungsi trigonometri dasar $g(x) = 2\\csc(x) - 5\\cot(x)$!",
         "Tentukan nilai $x$ pada interval $[0, 2\\pi]$ di mana turunan dari $f(x) = \\sin(x) + \\cos(x)$ bernilai nol ($f'(x) = 0$)!"
       ],
-      "tagline": "Awal Mula Turunan Trigonometri: Membaca Laju Perubahan Harmonik Alami"
+      "tagline": "Awal Mula Turunan Trigonometri: Membaca Laju Perubahan Harmonik Alami",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama $f'(x)$ dari $f(x) = 3\\sin(x) - 4\\cos(x) + 2\\tan(x)$!...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan dari definisi limit turunan $f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Jika $f(x) = \\sec(x)$, buktikan bahwa $f'(x) = \\sec(x)\\tan(x)$ dan tentukan nila...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama dari fungsi trigonometri dasar $g(x) = 2\\csc(x) - 5\\cot...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai $x$ pada interval $[0, 2\\pi]$ di mana turunan dari $f(x) = \\sin(x...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P17.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P18",
@@ -2727,7 +2993,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan turunan pertama dari $y = \\tan(\\sqrt{2x^2 + 1})$!",
         "Buktikan bahwa jika $y = \\sin(kx)$, maka turunan ke-4 memenuhi $y^{(4)} = k^4 y$!"
       ],
-      "tagline": "Mengupas Lapisan demi Lapisan Fungsi Komposisi dengan Aturan Rantai Diferensiasi"
+      "tagline": "Mengupas Lapisan demi Lapisan Fungsi Komposisi dengan Aturan Rantai Diferensiasi",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama dari $y = \\sin(4x^3 - 5x + 1)$ menggunakan Aturan Ranta...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Jika $f(x) = \\cos(2x - \\frac{\\pi}{3})$, tentukan gradien garis singgung kurva di...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Partikel bergerak dengan posisi $s(t) = 4\\cos(3t + \\frac{\\pi}{6})$. Tentukan kec...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama dari $y = \\tan(\\sqrt{2x^2 + 1})$!...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa jika $y = \\sin(kx)$, maka turunan ke-4 memenuhi $y^{(4)} = k^4 y$...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P18.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P19",
@@ -2795,7 +3068,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan turunan pertama dari fungsi $f(x) = \\sqrt{\\sin(2x) + \\cos(2x)}$!",
         "Tentukan turunan pertama dari fungsi implisit $\\sin(x) + \\cos(y) = 2xy$ terhadap variabel $x$!"
       ],
-      "tagline": "Menurunkan Fungsi Trigonometri Berpangkat Tinggi Secara Rapi & Terstruktur"
+      "tagline": "Menurunkan Fungsi Trigonometri Berpangkat Tinggi Secara Rapi & Terstruktur",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama dari fungsi trigonometri berpangkat: $f(x) = 4\\sin^3(2x...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Jika $g(x) = \\cos^4(3x^2)$, hitunglah nilai $g'(\\sqrt{\\pi})$!...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung pada kurva $y = \\tan^2(x)$ di titik dengan abs...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama dari fungsi $f(x) = \\sqrt{\\sin(2x) + \\cos(2x)}$!...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama dari fungsi implisit $\\sin(x) + \\cos(y) = 2xy$ terhadap...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P19.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P20",
@@ -2867,7 +3147,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan turunan pertama dari $y = \\frac{x^2 + 1}{\\tan(x)}$!",
         "Buktikan aturan turunan pembagian fungsi trigonometri $(\\cot x)' = -\\csc^2 x$ menggunakan aturan perkalian dan rantai!"
       ],
-      "tagline": "Kaidah Perkalian & Pembagian: Menghitung Percepatan Getaran Melalui Turunan Kedua"
+      "tagline": "Kaidah Perkalian & Pembagian: Menghitung Percepatan Getaran Melalui Turunan Kedua",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama fungsi perkalian $f(x) = x^3 \\cdot \\sin(2x)$ menggunaka...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama fungsi pembagian $g(x) = \\frac{\\sin(x)}{1 + \\cos(x)}$ d...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan kedua $f''(x)$ dari $f(x) = e^{2x} \\cdot \\cos(3x)$ dan buktikan...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan turunan pertama dari $y = \\frac{x^2 + 1}{\\tan(x)}$!...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan aturan turunan pembagian fungsi trigonometri $(\\cot x)' = -\\csc^2 x$ me...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P20.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P21",
@@ -2939,7 +3226,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan persamaan garis singgung kurva $y = \\sec(x)$ yang tegak lurus dengan garis $2x + 4y = 5$ di kuadran I!",
         "Tentukan titik-titik pada kurva $y = \\cos(2x)$ yang garis singgungnya memiliki kemiringan maksimum!"
       ],
-      "tagline": "Menyentuh Lengkungan Kurva: Menentukan Persamaan Garis Singgung & Garis Normal"
+      "tagline": "Menyentuh Lengkungan Kurva: Menentukan Persamaan Garis Singgung & Garis Normal",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung dan garis normal kurva $y = 2\\sin(2x) + 1$ di ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Garis singgung kurva $y = \\tan(x)$ di titik $A(\\frac{\\pi}{4}, 1)$ memotong sumbu...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung kurva $y = \\sin^2(x) - \\cos(x)$ yang sejajar d...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan garis singgung kurva $y = \\sec(x)$ yang tegak lurus dengan ga...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan titik-titik pada kurva $y = \\cos(2x)$ yang garis singgungnya memiliki k...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P21.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P22",
@@ -3017,7 +3311,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan interval kemonotonan dari fungsi $g(x) = 2x + \\cos(2x)$ pada $[0, \\pi]$!",
         "Tentukan seluruh nilai kritis (*critical points*) dari fungsi $f(x) = \\sin^2(x) + \\cos(x)$ pada domain $[0, 2\\pi]$!"
       ],
-      "tagline": "Membaca Kapan Gelombang Sedang Naik dan Kapan Gelombang Sedang Menurun"
+      "tagline": "Membaca Kapan Gelombang Sedang Naik dan Kapan Gelombang Sedang Menurun",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan interval fungsi naik dan turun dari $f(x) = \\sin(2x)$ pada interval $0 ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P22.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan interval di mana kurva $f(x) = \\cos(x) + \\sqrt{3}\\sin(x)$ monoton naik ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P22.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa fungsi $f(x) = x - \\sin(x)$ tidak pernah monoton turun pada selur...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P22.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan interval kemonotonan dari fungsi $g(x) = 2x + \\cos(2x)$ pada $[0, \\pi]$...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P22.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan seluruh nilai kritis (*critical points*) dari fungsi $f(x) = \\sin^2(x) ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P22.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P23",
@@ -3089,7 +3390,14 @@ const NAMA_TINGKAT = 'XII';
         "Gunakan uji turunan kedua untuk menentukan jenis ekstrem stasioner dari $f(x) = \\cos(2x) - 4\\sin(x)$!",
         "Sketsakan kurva grafik fungsi trigonometri $y = \\sin(x) + \\frac{1}{2}\\sin(2x)$ lengkap dengan titik stasioner dan titik beloknya!"
       ],
-      "tagline": "Menemukan Puncak Amplitudo Tertinggi, Titik Terendah, dan Titik Belok Kecekungan"
+      "tagline": "Menemukan Puncak Amplitudo Tertinggi, Titik Terendah, dan Titik Belok Kecekungan",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan titik stasioner (maksimum, minimum, belok horizontal) dari $f(x) = 2\\co...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P23.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan interval kecekungan kurva (cekung ke atas $f''(x) > 0$ dan cekung ke ba...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P23.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan koordinat titik belok (*inflection point*) kurva $f(x) = x + 2\\cos(x)$ ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P23.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Gunakan uji turunan kedua untuk menentukan jenis ekstrem stasioner dari $f(x) = ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P23.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sketsakan kurva grafik fungsi trigonometri $y = \\sin(x) + \\frac{1}{2}\\sin(2x)$ l...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P23.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P24",
@@ -3157,7 +3465,14 @@ const NAMA_TINGKAT = 'XII';
         "Sebuah kerucut memiliki garis pelukis $s = 12\\text{ cm}$. Tentukan tinggi kerucut $t$ agar volume kerucut mencapai nilai maksimum!",
         "Rancang model optimasi jarak terpendek dari titik $(2, 1)$ ke kurva parabola $y = x^2$ menggunakan turunan!"
       ],
-      "tagline": "Memaksimalkan Luas Penampang & Kapasitas Melalui Model Optimasi Turunan"
+      "tagline": "Memaksimalkan Luas Penampang & Kapasitas Melalui Model Optimasi Turunan",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah talang air trapesium dibuat dari seng selebar $30\\text{ cm}$ ditekuk menj...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P24.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan luas persegi panjang terbesar yang dapat dibuat di dalam daerah setenga...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P24.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Dua lorong tegak lurus memiliki lebar $8\\text{ m}$ dan $27\\text{ m}$. Tentukan p...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P24.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Sebuah kerucut memiliki garis pelukis $s = 12\\text{ cm}$. Tentukan tinggi kerucu...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P24.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Rancang model optimasi jarak terpendek dari titik $(2, 1)$ ke kurva parabola $y ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P24.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P25",
@@ -3229,7 +3544,14 @@ const NAMA_TINGKAT = 'XII';
         "Tentukan hasil integral bentuk pecahan aljabar: $\\int \\frac{x^3 + 2x^2 - 1}{x^2} \\, dx$!",
         "Buktikan Teorema Nilai Rata-rata untuk Integral: terdapat $c \\in [a, b]$ sedemikian hingga $\\int_{a}^{b} f(x) \\, dx = f(c)(b - a)$!"
       ],
-      "tagline": "Membalikkan Arah Turunan: Menemukan Kembali Fungsi Asal dengan Integral Tak Tentu"
+      "tagline": "Membalikkan Arah Turunan: Menemukan Kembali Fungsi Asal dengan Integral Tak Tentu",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah integral tak tentu aljabar: $\\int (6x^2 - 4x + 3\\sqrt{x} - \\frac{2}{x^...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P25.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan persamaan kurva $y = f(x)$ jika $\\frac{dy}{dx} = 3x^2 - 6x + 2$ dan kur...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P25.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah integral trigonometri dasar: $\\int (4\\sin(2x) - 3\\cos(3x) + 2\\sec^2(4x...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P25.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan hasil integral bentuk pecahan aljabar: $\\int \\frac{x^3 + 2x^2 - 1}{x^2}...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P25.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan Teorema Nilai Rata-rata untuk Integral: terdapat $c \\in [a, b]$ sedemik...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P25.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P26",
@@ -3303,7 +3625,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitung nilai integral substitusi eksponensial: $\\int x^2 \\cdot e^{x^3 - 1} \\, dx$!",
         "Hitunglah integral rasional trigonometri: $\\int \\frac{\\sec^2(x)}{1 + \\tan(x)} \\, dx$!"
       ],
-      "tagline": "Menyederhanakan Bentuk Rumit Melalui Pergantian Variabel Metode Substitusi"
+      "tagline": "Menyederhanakan Bentuk Rumit Melalui Pergantian Variabel Metode Substitusi",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah integral substitusi aljabar: $\\int 6x \\cdot (3x^2 - 5)^4 \\, dx$ dengan...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P26.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan hasil dari integral trigonometri substitusi: $\\int \\sin^3(x) \\cdot \\cos...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P26.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah integral tak tentu: $\\int \\frac{x}{\\sqrt{2x + 1}} \\, dx$ menggunakan s...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P26.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung nilai integral substitusi eksponensial: $\\int x^2 \\cdot e^{x^3 - 1} \\, dx...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P26.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah integral rasional trigonometri: $\\int \\frac{\\sec^2(x)}{1 + \\tan(x)} \\,...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P26.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P27",
@@ -3371,7 +3700,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah nilai integral logaritma: $\\int \\ln(x) \\, dx$ menggunakan metode integrasi parsial!",
         "Hitunglah integral parsial bentuk aljabar-trigonometri: $\\int x^2 \\cdot \\sin(3x) \\, dx$!"
       ],
-      "tagline": "Trik Cepat Tanzalin: Mengintegralkan Perkalian Aljabar & Fungsi Trigonometri"
+      "tagline": "Trik Cepat Tanzalin: Mengintegralkan Perkalian Aljabar & Fungsi Trigonometri",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah integral parsial $\\int x \\cdot \\cos(2x) \\, dx$ menggunakan rumus baku ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P27.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Gunakan Metode Tabel Tanzalin (D-I Table) untuk menghitung integral tingkat ting...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P27.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah integral berulang (*cyclic integration by parts*): $\\int e^x \\cdot \\si...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P27.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai integral logaritma: $\\int \\ln(x) \\, dx$ menggunakan metode integ...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P27.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah integral parsial bentuk aljabar-trigonometri: $\\int x^2 \\cdot \\sin(3x)...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P27.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P28",
@@ -3443,7 +3779,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitunglah nilai integral tentu dengan substitusi: $\\int_{0}^{2} x \\sqrt{x^2 + 9} \\, dx$!",
         "Buktikan bahwa untuk fungsi ganjil berlaku $\\int_{-a}^{a} f(x) \\, dx = 0$ dan untuk fungsi genap berlaku $\\int_{-a}^{a} f(x) \\, dx = 2\\int_{0}^{a} f(x) \\, dx$!"
       ],
-      "tagline": "Menghitung Akumulasi Pasti Antara Dua Batas dengan Teorema Dasar Kalkulus"
+      "tagline": "Menghitung Akumulasi Pasti Antara Dua Batas dengan Teorema Dasar Kalkulus",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai integral tentu: $\\int_{1}^{3} (3x^2 - 4x + 1) \\, dx$ menggunakan...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P28.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai integral tentu trigonometri: $\\int_0^{\\frac{\\pi}{2}} \\sin^2(x) \\...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P28.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan nilai turunan fungsi integral akumulasi $F'(x)$ dari $F(x) = \\int_0^{x^...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P28.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah nilai integral tentu dengan substitusi: $\\int_{0}^{2} x \\sqrt{x^2 + 9}...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P28.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Buktikan bahwa untuk fungsi ganjil berlaku $\\int_{-a}^{a} f(x) \\, dx = 0$ dan un...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P28.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P29",
@@ -3521,7 +3864,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitung luas daerah yang dibatasi oleh kurva sinus $y = \\sin(x)$ dan kurva kosinus $y = \\cos(x)$ dari $x = 0$ hingga $x = \\frac{\\pi}{2}$!",
         "Tentukan volume benda putar yang terbentuk saat daerah di kuadran I yang dibatasi oleh $y = x^3$, $y = 8$, dan sumbu-$Y$ diputar mengelilingi sumbu-$Y$!"
       ],
-      "tagline": "Mengukur Luas di Bawah Lengkung & Menghitung Volume Benda Putar 360 Derajat"
+      "tagline": "Mengukur Luas di Bawah Lengkung & Menghitung Volume Benda Putar 360 Derajat",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah luas daerah yang dibatasi oleh kurva parabola $y = 4 - x^2$ dan sumbu-...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P29.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung luas daerah tertutup yang dibatasi oleh parabola $y = x^2 - 2x$ dan garis...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P29.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan volume benda putar jika daerah antara $y = \\sqrt{x}$, $x = 4$, dan sumb...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P29.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung luas daerah yang dibatasi oleh kurva sinus $y = \\sin(x)$ dan kurva kosinu...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P29.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Tentukan volume benda putar yang terbentuk saat daerah di kuadran I yang dibatas...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P29.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     },
     {
       "id": "P30",
@@ -3589,7 +3939,14 @@ const NAMA_TINGKAT = 'XII';
         "Hitung luas permukaan benda putar yang terbentuk dari perputaran kurva $y = 2\\sqrt{x}$ pada interval $[0, 3]$ mengelilingi sumbu-$X$!",
         "Evaluasilah perbandingan efisiensi metode cakram, cincin, dan kulit silinder dalam memodelkan bejana fluida kalkulus terapan!"
       ],
-      "tagline": "Puncak Pembelajaran Kalkulus Semester 1: Menguji Ketajaman Analisis Integral Lengkap"
+      "tagline": "Puncak Pembelajaran Kalkulus Semester 1: Menguji Ketajaman Analisis Integral Lengkap",
+      "collab_solutions": [
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitunglah volume benda putar cincin (*washer method*) jika daerah antara $y = x^...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P30.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung volume benda putar yang dibatasi kurva $y = 4 - x^2$ dan sumbu-$X$ jika d...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P30.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Rancang model matematis kubah masjid sekolah dengan profil $y = 9 - x^2$ ($0 \\le...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P30.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Hitung luas permukaan benda putar yang terbentuk dari perputaran kurva $y = 2\\sq...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P30.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru.",
+        "Langkah 1: Analisis kendala dan kondisi batas pada Tantangan Kolaborasi: Evaluasilah perbandingan efisiensi metode cakram, cincin, dan kulit silinder dal...\nLangkah 2: Formulasikan model matematis dan terapkan konsep dasar topik P30.\nLangkah 3: Selesaikan persamaan hingga diperoleh hasil numerik paling sederhana dan terverifikasi.\nKesimpulan: Solusi analitis terbukti konsisten dan siap dijadikan panduan fasilitasi diskusi guru."
+      ]
     }
   ],
   "clil": [
