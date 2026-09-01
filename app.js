@@ -3737,23 +3737,25 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       } else if (sIdx === 12) {
         // SLIDE 13: CLOSING & EVALUATION
         body.innerHTML = `
-          <div class="h-full flex flex-col items-center justify-center text-center space-y-4 p-4 md:p-8 bg-gradient-to-b from-slate-900 to-[#0B2545] rounded-2xl border border-slate-800">
-            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-2xl shadow-lg">
+          <div class="h-full flex flex-col items-center justify-center text-center space-y-4 p-5 md:p-8 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl shadow-lg">
               <i class="fa-solid fa-flag-checkered"></i>
             </div>
-            <div>
+            <div class="space-y-2">
               <h3 class="text-lg md:text-2xl font-black text-white">${isClil ? 'LESSON COMPLETE! ALHAMDULILLAH' : 'PENUTUP, EVALUASI & TUGAS MANDIRI'}</h3>
-              <p class="text-xs md:text-sm text-slate-300 max-w-lg mx-auto mt-1 leading-relaxed">
-                ${isClil ? ('Alhamdulillah, the session on <strong>' + m.title + '</strong> has concluded. Test your mastery through the 10-question CBT assessment!') : ('Alhamdulillah KBM <strong>' + m.title + '</strong> telah selesai. Uji pemahaman mandiri Anda melalui 10 soal asesmen standar TKA Nasional & UTBK CBT!')}
+              <p class="text-xs md:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
+                ${isClil ? ('Alhamdulillah, the session on <strong>' + m.title + '</strong> has concluded. Test your mastery through the 10-question CBT assessment!') : ('Alhamdulillah KBM <strong>' + m.title + '</strong> telah selesai. Uji pemahaman mandiri Anda melalui 10 butir soal asesmen standar TKA Nasional & UTBK CBT!')}
               </p>
             </div>
             
-            <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
-              <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-black rounded-2xl text-xs md:text-sm shadow-2xl active:scale-95 transition flex items-center gap-2">
-                <i class="fa-solid fa-crosshairs text-base"></i> ${isClil ? ('LAUNCH CBT DRILLING (' + m.id + ')') : ('BUKA DRILLING TKA (' + m.id + ')')}
+            <div class="flex flex-wrap items-center justify-center gap-3 mt-3">
+              <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl text-xs md:text-sm shadow-xl shadow-blue-600/30 active:scale-95 transition flex items-center gap-2 cursor-pointer border border-blue-400/40">
+                <i class="fa-solid fa-crosshairs text-amber-300 text-base"></i>
+                <span>${isClil ? ('LAUNCH CBT DRILLING (' + m.id + ')') : ('BUKA DRILLING TKA (' + m.id + ')')}</span>
               </button>
-              <button onclick="confettiCelebration()" class="px-5 py-3.5 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 font-bold rounded-2xl text-xs shadow active:scale-95 transition flex items-center gap-1.5">
-                ${isClil ? '🎉 CELEBRATE COMPLETION' : '🎉 RAYAKAN SELESAI'}
+              <button onclick="switchSubject('home')" class="px-5 py-3.5 bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-amber-300 hover:text-white font-bold rounded-2xl text-xs shadow transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-house text-xs"></i>
+                <span>${isClil ? 'Back to Dashboard' : 'Kembali ke Beranda'}</span>
               </button>
             </div>
           </div>
