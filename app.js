@@ -1869,6 +1869,20 @@
       if (ik) ik.className = (t === 'terang' ? 'fa-solid fa-sun' : 'fa-solid fa-moon') + ' w-4 text-center';
       const bt = document.getElementById('tema-btn');
       if (bt) bt.title = t === 'terang' ? 'Beralih ke Dark Luxury Navy' : 'Beralih ke Clean Light Classroom';
+
+      // Update Top Navbar Theme Toggle Button
+      const topIcon = document.getElementById('top-theme-icon');
+      const topLabel = document.getElementById('top-theme-label');
+      const topBtn = document.getElementById('top-theme-toggle-btn');
+      if (topIcon) {
+        topIcon.className = t === 'terang' ? 'fa-solid fa-moon text-sm text-blue-400' : 'fa-solid fa-sun text-sm text-amber-400';
+      }
+      if (topLabel) {
+        topLabel.textContent = t === 'terang' ? 'Gelap' : 'Terang';
+      }
+      if (topBtn) {
+        topBtn.title = t === 'terang' ? 'Beralih ke Mode Gelap (Dark Mode)' : 'Beralih ke Mode Terang (Light Mode)';
+      }
       try { localStorage.setItem(STORAGE_TEMA_KEY, t); } catch (e) { }
       // Kanvas memakai warna tetap, bukan CSS, jadi harus digambar ulang.
       // `labInstances` dideklarasikan dengan let sehingga tidak menempel di

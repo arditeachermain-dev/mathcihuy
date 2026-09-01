@@ -102,10 +102,10 @@
 
     <!-- RIGHT: ONLY SEARCH & UNIFIED USER PROFILE MENU -->
     <div class="flex items-center gap-2 shrink-0">
-      <!-- QUICK SEARCH BUTTON (CTRL + K) -->
-      <button onclick="openSearchModal()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition flex items-center gap-2 shadow-sm cursor-pointer" title="Pencarian Materi & Rumus (Ctrl + K)">
-        <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
-        <span class="hidden md:inline text-[10px] bg-slate-950 px-1.5 py-0.2 rounded border border-slate-800 text-slate-400 font-mono">Ctrl K</span>
+      <!-- THEME TOGGLE (MODE TERANG & GELAP) -->
+      <button onclick="toggleTema()" id="top-theme-toggle-btn" class="p-2 md:px-3 md:py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-amber-400 hover:text-amber-300 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm cursor-pointer" title="Alihkan Mode Terang / Gelap">
+        <i id="top-theme-icon" class="fa-solid fa-sun text-sm text-amber-400"></i>
+        <span id="top-theme-label" class="hidden md:inline text-xs font-mono text-slate-300">Terang</span>
       </button>
 
       <!-- USER PROFILE DROPDOWN MENU -->
