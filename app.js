@@ -3478,39 +3478,22 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               </p>
             </div>
 
-            <!-- 3. BOTTOM SECTION: TEACHER BADGE & ACTION BUTTONS -->
-            <div class="w-full max-w-2xl space-y-3.5 relative z-10 shrink-0 border-t border-blue-900/60 pt-3">
-              <!-- TEACHER & SCHOOL SIGNATURE -->
-              <div class="flex items-center justify-between px-4 py-2.5 bg-[#081324] rounded-2xl border border-blue-900/80 text-xs shadow-inner">
-                <div class="flex items-center gap-2.5 text-left">
-                  <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-sm shrink-0">
+            <!-- 3. BOTTOM SECTION: TEACHER & SCHOOL SIGNATURE ONLY -->
+            <div class="w-full max-w-2xl relative z-10 shrink-0 border-t border-blue-900/60 pt-3.5">
+              <div class="flex items-center justify-between px-5 py-3 bg-[#081324] rounded-2xl border border-blue-900/80 text-xs shadow-inner">
+                <div class="flex items-center gap-3 text-left">
+                  <div class="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-sm shrink-0">
                     <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
                   </div>
                   <div>
                     <strong class="text-white block font-bold text-xs md:text-sm">Muhammad Ardiansyah, S.Pd.Gr.</strong>
-                    <span class="text-[10px] text-slate-400">Guru Pengampu Matematika</span>
+                    <span class="text-[11px] text-slate-400">Guru Pengampu Matematika</span>
                   </div>
                 </div>
                 <div class="text-right border-l border-blue-900/60 pl-4">
                   <span class="text-xs text-slate-200 font-bold block">SMA Global Islamic School 2 Serpong</span>
                   <span class="text-[10px] text-amber-400/90 font-mono">Tahun Pelajaran 2026/2027</span>
                 </div>
-              </div>
-
-              <!-- ACTION BUTTONS -->
-              <div class="flex items-center justify-center gap-3">
-                <button onclick="currentSlideIdx = 1; renderAppView();" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center gap-2 cursor-pointer border border-blue-400/40">
-                  <span>${isClil ? 'Start Lesson' : 'Mulai Pembelajaran'}</span>
-                  <i class="fa-solid fa-arrow-right text-amber-300"></i>
-                </button>
-                <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-5 py-2.5 bg-[#081324] hover:bg-[#060D1A] text-amber-300 hover:text-white font-bold rounded-xl text-xs md:text-sm border border-amber-500/40 transition flex items-center gap-2 cursor-pointer shadow">
-                  <i class="fa-solid fa-crosshairs text-amber-400"></i>
-                  <span>${isClil ? '10 CBT Drills' : '10 Soal CBT Drilling'}</span>
-                </button>
-                <button onclick="currentSlideIdx = 3; renderAppView();" class="px-4 py-2.5 bg-[#081324] hover:bg-slate-800 text-slate-300 hover:text-white font-medium rounded-xl text-xs border border-blue-900 transition flex items-center gap-1.5 cursor-pointer">
-                  <i class="fa-solid fa-book-bookmark text-blue-400"></i>
-                  <span class="hidden sm:inline">${isClil ? 'The Toolkit' : 'The Toolkit'}</span>
-                </button>
               </div>
             </div>
 
