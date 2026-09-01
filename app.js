@@ -3755,18 +3755,52 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     function retakeCurrentTkaPkg() {
       window._tkaReviewMode = false;
-      const sourceDb = tkaSrc();
-      const pkg = sourceDb[tkaPkgId];
-      if (pkg && pkg.questions) {
-        pkg.questions.forEach((_, idx) => {
-          delete userSessionScores[`${tkaSubj}_${tkaPkgId}_${idx}`];
-        });
-      }
+      
+      // 1. Bersihkan seluruh skor sesi dari memori
+      Object.keys(userSessionScores).forEach(k => {
+        if (k.startsWith(`${tkaSubj}_${tkaPkgId}_`)) {
+          delete userSessionScores[k];
+        }
+      });
+
+      // 2. Bersihkan draf jawaban di LocalStorage perangkat
+      bersihkanDraftJawaban(tkaSubj, tkaPkgId);
       try {
         localStorage.removeItem(getCbtDraftKey(tkaSubj, tkaPkgId));
       } catch (e) {}
-      closeTkaScorecardModal();
+
+      // 3. Reset state aktif jawaban
+      userMultiAnswers = [];
+      userTfAnswers = {};
       tkaQIdx = 0;
+
+      // 4. Bersihkan data live dari database Supabase jika siswa login
+      if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+        try {
+          const sess = typeof getSession === 'function' ? getSession() : null;
+          const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
+          if (nis && nis !== 'guest') {
+            supabaseClient.from('cbt_live_answers').delete().match({
+              nis: String(nis),
+              mapel: String(tkaSubj),
+              kode_pertemuan: String(tkaPkgId)
+            }).then(() => {});
+          }
+        } catch (e) {}
+      }
+
+      // 5. Simpan state bersih & tutup modal
+      saveAppState();
+      closeTkaScorecardModal();
+
+      // 6. Tampilkan notifikasi visual toast
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl bg-[#0D1B2E] border border-blue-500/80 text-white text-xs font-bold shadow-2xl flex items-center gap-2 animate-bounce';
+      toast.innerHTML = '<i class="fa-solid fa-rotate-left text-amber-400"></i> <span>Paket berhasil direset! Semua jawaban kembali ke awal.</span>';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+
+      // 7. Render ulang panggung CBT dari Soal 1
       renderAppView();
     }
 
