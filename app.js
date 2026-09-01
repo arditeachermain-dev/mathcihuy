@@ -3590,69 +3590,53 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const formattedSolHtml = formatSolutionHtml(sol, true);
 
         body.innerHTML = `
-          <div class="w-full h-full flex flex-col gap-3">
-            <!-- MAIN 2-COLUMN SIDE-BY-SIDE WORKSPACE -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-0 items-stretch">
+          <div class="w-full h-full flex flex-col justify-center my-auto">
+            <!-- DYNAMIC SPACE-EFFICIENT WORKSPACE (ZERO EMPTY PLACEHOLDER) -->
+            <div id="example-workspace-grid" class="flex flex-col items-center justify-center w-full min-h-0">
               
-              <!-- LEFT COLUMN: PROBLEM STATEMENT & DIAGRAM (5/12) -->
-              <div class="lg:col-span-5 flex flex-col gap-3 min-h-0">
-                <!-- PROBLEM CARD -->
-                <div class="p-4 md:p-5 bg-[#0D1A2E] rounded-2xl border border-blue-500/40 shadow-xl flex-1 flex flex-col justify-between overflow-y-auto">
+              <!-- PROBLEM COLUMN (EXPANDS TO FULL-WIDTH WHEN CLOSED, SPLITS 5/12 WHEN REVEALED) -->
+              <div id="example-prob-col" class="w-full max-w-3xl mx-auto flex flex-col gap-3 transition-all duration-300">
+                <div class="p-5 md:p-6 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col justify-between space-y-4">
                   <div class="space-y-3">
-                    <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
-                      <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg font-mono flex items-center gap-1.5">
+                    <div class="flex items-center justify-between border-b border-blue-900/80 pb-2.5">
+                      <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg font-mono flex items-center gap-1.5 border border-amber-500/30">
                         <i class="fa-solid fa-graduation-cap"></i> Contoh Soal ${exIdx + 1} (${customLevelTitle})
                       </span>
-                      <span class="text-[10px] font-mono font-bold text-amber-400/80">C4-C5 HOTS</span>
+                      <span class="text-[10px] font-mono font-bold text-amber-400">C4-C5 HOTS</span>
                     </div>
-                    <div class="text-xs md:text-sm font-semibold text-white leading-relaxed">
+                    <div class="text-sm md:text-base font-semibold text-white leading-relaxed">
                       ${formatMathTables(prob)}
                     </div>
                   </div>
 
                   ${exampleSvg ? `
-                  <div class="mt-3 p-2 bg-[#050D1A] rounded-xl border border-[#1a2f4a] flex items-center justify-center shadow-inner shrink-0">
+                  <div class="mt-2 p-2 bg-[#050B14] rounded-2xl border border-blue-900/60 flex items-center justify-center shadow-inner shrink-0">
                     ${exampleSvg}
                   </div>
                   ` : ''}
-                </div>
 
-                <!-- ACTION BUTTON BAR -->
-                <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-black rounded-xl text-xs md:text-sm shadow-lg active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer shrink-0">
-                  <i class="fa-solid fa-eye" id="toggle-sol-icon"></i>
-                  <span id="toggle-sol-text">${isClil ? 'Show Step-by-Step Solution' : 'Buka Cara Penyelesaian'}</span>
-                </button>
+                  <!-- ACTION BUTTON BAR -->
+                  <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer shrink-0">
+                    <i class="fa-solid fa-eye" id="toggle-sol-icon"></i>
+                    <span id="toggle-sol-text">${isClil ? 'Show Step-by-Step Solution' : 'Buka Cara Penyelesaian'}</span>
+                  </button>
+                </div>
               </div>
 
-              <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION / WORKSPACE (7/12) -->
-              <div class="lg:col-span-7 flex flex-col min-h-0">
-                <!-- ACTIVE SOLUTION BOX (HIDDEN BY DEFAULT ON INITIAL LOAD) -->
-                <div id="example-sol-box" class="hidden h-full p-4 md:p-5 bg-[#0D1A2E] rounded-2xl border border-blue-500/40 shadow-xl flex flex-col overflow-y-auto">
-                  <div class="flex items-center justify-between border-b border-blue-500/20 pb-2 mb-2 shrink-0">
-                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
-                      <i class="fa-solid fa-square-check"></i> ${isClil ? 'Structured Mathematical Solution:' : 'Langkah Solusi Matematis Terstruktur:'}
+              <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION (HIDDEN INITIALLY, OPENS ON DEMAND) -->
+              <div id="example-sol-col" class="hidden w-full flex-col min-h-0 transition-all duration-300">
+                <div id="example-sol-box" class="h-full p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col overflow-y-auto">
+                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-2.5 mb-3 shrink-0">
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5 font-mono">
+                      <i class="fa-solid fa-square-check text-amber-400"></i> ${isClil ? 'Structured Mathematical Solution:' : 'Langkah Solusi Matematis Terstruktur:'}
                     </span>
-                    <button onclick="toggleExampleSolution()" class="text-[10px] font-mono text-slate-400 hover:text-white px-2 py-0.5 bg-slate-900 rounded border border-slate-700">
-                      <i class="fa-solid fa-chevron-up mr-1"></i> ${isClil ? 'Hide' : 'Tutup'}
+                    <button onclick="toggleExampleSolution()" class="text-[10px] font-mono text-slate-300 hover:text-white px-2.5 py-1 bg-[#060D1A] rounded-lg border border-blue-900 flex items-center gap-1 cursor-pointer">
+                      <i class="fa-solid fa-chevron-up text-amber-400"></i> <span>${isClil ? 'Hide' : 'Tutup Solusi'}</span>
                     </button>
                   </div>
-                  <div class="flex-1 overflow-y-auto pr-1">
+                  <div class="flex-1 overflow-y-auto pr-1 space-y-2">
                     ${formattedSolHtml}
                   </div>
-                </div>
-
-                <!-- INTERACTIVE PLACEHOLDER WHEN SOLUTION IS HIDDEN -->
-                <div id="example-sol-placeholder" class="flex h-full p-6 bg-[#0D1A2E]/50 rounded-2xl border border-dashed border-slate-700/60 flex-col items-center justify-center text-center space-y-3 text-slate-400">
-                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-900/50 to-slate-800 border border-blue-500/30 flex items-center justify-center text-amber-400 text-xl shadow-inner">
-                    <i class="fa-solid fa-lightbulb"></i>
-                  </div>
-                  <div class="space-y-1 max-w-sm">
-                    <p class="text-xs md:text-sm font-bold text-slate-200">${isClil ? 'Interactive Solution Workspace' : 'Ruang Solusi Terbimbing'}</p>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">${isClil ? 'Solve independently on your vertical whiteboard (VNPS) before revealing the structured steps.' : 'Diskusikan dan selesaikan soal di papan tulis vertikal (VNPS) bersama kelompok sebelum membuka solusi.'}</p>
-                  </div>
-                  <button onclick="toggleExampleSolution()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-mono font-bold rounded-xl border border-slate-600 transition flex items-center gap-1.5 cursor-pointer shadow">
-                    <i class="fa-solid fa-eye"></i> ${isClil ? 'Open Solution' : 'Buka Solusi Sekarang'}
-                  </button>
                 </div>
               </div>
 
@@ -4442,24 +4426,30 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     // TOGGLE WORKED EXAMPLE SOLUTION VISIBILITY (SLIDE 5, 6, 7)
     function toggleExampleSolution() {
+      const grid = document.getElementById('example-workspace-grid');
+      const probCol = document.getElementById('example-prob-col');
+      const solCol = document.getElementById('example-sol-col');
       const solBox = document.getElementById('example-sol-box');
-      const placeholder = document.getElementById('example-sol-placeholder');
       const icon = document.getElementById('toggle-sol-icon');
       const text = document.getElementById('toggle-sol-text');
-      if (!solBox) return;
+      if (!solCol || !probCol || !grid) return;
 
-      const isHidden = solBox.classList.contains('hidden');
+      const isHidden = solCol.classList.contains('hidden');
       const isClil = currentMode === 'clil';
 
       if (isHidden) {
-        solBox.classList.remove('hidden');
-        if (placeholder) placeholder.classList.add('hidden');
+        // Expand into balanced 5:7 split
+        grid.className = "grid grid-cols-1 lg:grid-cols-12 gap-4 w-full h-full min-h-0 items-stretch";
+        probCol.className = "lg:col-span-5 flex flex-col gap-3 min-h-0";
+        solCol.className = "lg:col-span-7 flex flex-col min-h-0";
         if (icon) icon.className = "fa-solid fa-eye-slash";
         if (text) text.innerText = isClil ? "Hide Step-by-Step Solution" : "Tutup Cara Penyelesaian";
-        renderMath(solBox);
+        if (solBox) renderMath(solBox);
       } else {
-        solBox.classList.add('hidden');
-        if (placeholder) placeholder.classList.remove('hidden');
+        // Collapse back to centered full-width card (zero wasted space!)
+        grid.className = "flex flex-col items-center justify-center w-full min-h-0";
+        probCol.className = "w-full max-w-3xl mx-auto flex flex-col gap-3";
+        solCol.className = "hidden w-full flex-col min-h-0";
         if (icon) icon.className = "fa-solid fa-eye";
         if (text) text.innerText = isClil ? "Show Step-by-Step Solution" : "Buka Cara Penyelesaian";
       }
