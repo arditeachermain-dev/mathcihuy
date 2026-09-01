@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788282152">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788282283">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -30,7 +30,7 @@
 
   <!-- 100% INLINE OFFLINE KATEX ASSETS -->
   <!-- gaya dipindah ke mathcihuy.css -->
-  <script src="vendor.js?v=v1788282152"></script>
+  <script src="vendor.js?v=v1788282283"></script>
 <!-- digabung ke vendor.js -->
 
   <!-- gaya dipindah ke mathcihuy.css -->
@@ -620,8 +620,8 @@
         </div>
 
         <div class="flex items-center gap-1.5 shrink-0">
-          <button onclick="showTkaScorecardModal()" class="px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-400 text-white font-black rounded-xl text-xs shadow-lg flex items-center gap-1.5 active:scale-95 transition">
-            <i class="fa-solid fa-chart-pie"></i> <span class="hidden sm:inline">Skor </span>Akhir
+          <button id="cbt-main-action-btn" onclick="handleCbtMainAction()" class="px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 text-white font-black rounded-xl text-xs shadow-lg flex items-center gap-1.5 active:scale-95 transition cursor-pointer border border-blue-400/40">
+            <i class="fa-solid fa-paper-plane text-amber-300" id="cbt-action-icon"></i> <span id="cbt-action-text">Kumpulkan Ujian</span>
           </button>
           <button onclick="nextTkaQ()" class="px-2.5 py-1.5 md:px-3.5 md:py-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 rounded-xl text-xs font-black shrink-0">
             <span class="hidden sm:inline">Berikutnya</span> <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-chevron-right"></use></svg>
@@ -1069,6 +1069,48 @@
     </div>
   </div>
 
+  <!-- CBT SUBMISSION CONFIRMATION MODAL -->
+  <div id="cbt-submit-confirm-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="max-w-md w-full bg-[#08101E] border border-blue-800/80 rounded-3xl shadow-2xl p-6 space-y-5 relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <div class="text-center space-y-2 border-b border-blue-900/60 pb-3">
+        <div class="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/40 flex items-center justify-center mx-auto text-xl">
+          <i class="fa-solid fa-file-circle-check text-amber-400"></i>
+        </div>
+        <h3 class="text-lg font-black text-white">Konfirmasi Pengumpulan Ujian</h3>
+        <p class="text-xs text-slate-400" id="cbt-confirm-pkg-name">Paket CBT Drilling</p>
+      </div>
+
+      <!-- STATUS STATS -->
+      <div class="grid grid-cols-2 gap-3 text-center">
+        <div class="p-3 bg-[#0D1B2E] rounded-2xl border border-blue-900/60 space-y-0.5">
+          <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Sudah Dijawab</span>
+          <span id="cbt-confirm-answered" class="text-base md:text-lg font-black text-emerald-400 font-mono">0 / 10</span>
+        </div>
+        <div class="p-3 bg-[#0D1B2E] rounded-2xl border border-blue-900/60 space-y-0.5">
+          <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Belum Terisi</span>
+          <span id="cbt-confirm-unanswered" class="text-base md:text-lg font-black text-amber-400 font-mono">0</span>
+        </div>
+      </div>
+
+      <!-- MESSAGE -->
+      <div class="p-3.5 bg-[#050B14] rounded-2xl border border-blue-900/60 text-xs text-slate-300 leading-relaxed text-center" id="cbt-confirm-msg">
+        Pastikan seluruh jawaban telah Anda periksa dengan teliti sebelum mengirimkan lembar ujian.
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="flex items-center gap-3 pt-1">
+        <button onclick="closeCbtSubmitModal()" class="flex-1 py-2.5 bg-[#0D1B2E] hover:bg-slate-800 text-slate-300 hover:text-white font-bold rounded-xl text-xs border border-blue-900/80 transition flex items-center justify-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-arrow-left"></i> Periksa Lagi
+        </button>
+        <button onclick="confirmAndFinalizeCbt()" class="flex-1 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 text-white font-black rounded-xl text-xs shadow-xl transition flex items-center justify-center gap-1.5 cursor-pointer border border-blue-400/40">
+          <i class="fa-solid fa-paper-plane text-amber-300"></i> Ya, Kumpulkan!
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- TKA SCORECARD REPORT MODAL -->
   <div id="tka-scorecard-modal" class="hidden fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex items-center justify-center p-3 md:p-6 overflow-y-auto">
     <div class="max-w-xl w-full bg-slate-900 border border-emerald-500/50 rounded-3xl shadow-2xl p-5 md:p-8 space-y-5 relative">
@@ -1130,8 +1172,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v1788282152"></script>
-  <script src="app.js?v=v1788282152"></script>
+  <script src="data-xii.js?v=v1788282283"></script>
+  <script src="app.js?v=v1788282283"></script>
 
 
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
@@ -1232,7 +1274,7 @@
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v1788282152"></script>
+    <script src="app-akhir.js?v=v1788282283"></script>
 
 </body>
 </html>

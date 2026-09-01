@@ -3804,7 +3804,71 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       renderAppView();
     }
 
-    function showTkaScorecardModal() {
+    
+    // =========================================================================
+    // CBT SUBMIT CONFIRMATION & SCORECARD WORKFLOW
+    // =========================================================================
+    function handleCbtMainAction() {
+      if (window._tkaReviewMode === true) {
+        showTkaScorecardModal();
+      } else {
+        openCbtSubmitModal();
+      }
+    }
+
+    function openCbtSubmitModal() {
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      if (!pkg || !pkg.questions) {
+        showTkaScorecardModal();
+        return;
+      }
+
+      const totalQ = pkg.questions.length;
+      const allDrafts = ambilDraftSemua(tkaSubj, tkaPkgId);
+      let answeredCount = 0;
+
+      for (let i = 0; i < totalQ; i++) {
+        if (allDrafts[i] !== undefined || userSessionScores[`${tkaSubj}_${tkaPkgId}_${i}`] !== undefined) {
+          answeredCount++;
+        }
+      }
+
+      const unansweredCount = totalQ - answeredCount;
+
+      const titleEl = document.getElementById('cbt-confirm-pkg-name');
+      if (titleEl) titleEl.innerText = `${tkaPkgId} • ${pkg.title || 'Asesmen CBT'}`;
+
+      const ansEl = document.getElementById('cbt-confirm-answered');
+      if (ansEl) ansEl.innerText = `${answeredCount} / ${totalQ}`;
+
+      const unansEl = document.getElementById('cbt-confirm-unanswered');
+      if (unansEl) unansEl.innerText = `${unansweredCount}`;
+
+      const msgEl = document.getElementById('cbt-confirm-msg');
+      if (msgEl) {
+        if (unansweredCount === 0) {
+          msgEl.innerHTML = '<span class="text-emerald-300 font-bold">✨ Hebat!</span> Seluruh ' + totalQ + ' butir soal telah kamu jawab lengkap. Siap mengumpulkan dan melihat skor akhir?';
+        } else {
+          msgEl.innerHTML = '<span class="text-amber-400 font-bold">⚠️ Perhatian:</span> Masih ada <b>' + unansweredCount + ' soal</b> yang belum kamu isi. Apakah kamu yakin ingin mengumpulkan sekarang?';
+        }
+      }
+
+      const modal = document.getElementById('cbt-submit-confirm-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeCbtSubmitModal() {
+      const modal = document.getElementById('cbt-submit-confirm-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function confirmAndFinalizeCbt() {
+      closeCbtSubmitModal();
+      showTkaScorecardModal();
+    }
+
+function showTkaScorecardModal() {
       if (typeof pulihkanDraftJawaban === 'function') {
         pulihkanDraftJawaban(tkaSubj, tkaPkgId);
       }
@@ -3944,6 +4008,22 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (labelEl) {
         labelEl.innerText = sudahBerkode ? judulPkg : (tkaPkgId + ' • ' + judulPkg);
         if (judulPkg.indexOf('$') !== -1) renderMath(labelEl);
+      }
+
+      // Synchronize CBT Main Action Button (Submit vs Review Scorecard)
+      const actionBtn = document.getElementById('cbt-main-action-btn');
+      const actionIcon = document.getElementById('cbt-action-icon');
+      const actionText = document.getElementById('cbt-action-text');
+      if (actionBtn && actionText) {
+        if (isReviewMode) {
+          actionBtn.className = "px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-400 text-white font-black rounded-xl text-xs shadow-lg flex items-center gap-1.5 active:scale-95 transition cursor-pointer border border-emerald-400/40";
+          if (actionIcon) actionIcon.className = "fa-solid fa-chart-pie text-amber-300";
+          actionText.innerText = "Lihat Skor Akhir";
+        } else {
+          actionBtn.className = "px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 text-white font-black rounded-xl text-xs shadow-lg flex items-center gap-1.5 active:scale-95 transition cursor-pointer border border-blue-400/40";
+          if (actionIcon) actionIcon.className = "fa-solid fa-paper-plane text-amber-300";
+          actionText.innerText = "Kumpulkan Ujian";
+        }
       }
 
       // Render Question Nav Pills
