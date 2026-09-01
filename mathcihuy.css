@@ -2010,3 +2010,52 @@ html.terang #meeting-picker-modal #picker-body button.bg-blue-600 {
   background-color: #2563EB !important;
   color: #FFFFFF !important;
 }
+
+/* ==========================================================================
+   LINEAR DEEP SAPPHIRE & AMBER GOLD MASTER DESIGN TOKENS
+   ========================================================================== */
+:root {
+  --bg-canvas: #050B14;
+  --bg-surface: #0D1B2E;
+  --bg-surface-inset: #081324;
+  --bg-surface-deep: #060D1A;
+  
+  --brand-primary: #2563EB;
+  --brand-primary-hover: #1D4ED8;
+  
+  --accent-gold: #F59E0B;
+  --accent-gold-light: #FBBF24;
+  
+  --accent-violet: #8B5CF6;
+  --accent-emerald: #10B981;
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  
+  --border-subtle: rgba(37, 99, 235, 0.25);
+  --border-strong: rgba(59, 130, 246, 0.5);
+  --border-gold: rgba(245, 158, 11, 0.4);
+}
+
+body {
+  background-color: #050B14 !important;
+}
+
+#slide-stage, #tka-stage, #home-stage {
+  background: #08101E !important;
+  border-color: rgba(37, 99, 235, 0.35) !important;
+}
+
+.formula-box {
+  background: #081324 !important;
+  border: 1px solid rgba(37, 99, 235, 0.3) !important;
+  border-left: 4px solid #F59E0B !important;
+}
+.formula-box .fb-name {
+  color: #FBBF24 !important;
+}
+.formula-box .fb-math,
+.formula-box .fb-math .katex {
+  color: #FFFFFF !important;
+}
