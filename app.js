@@ -7318,3 +7318,25 @@ function showTkaScorecardModal() {
         window.loadGuruDashboardData();
       }
     };
+
+
+function paksaPerbaruiAplikasi() {
+  if ('caches' in window) {
+    caches.keys().then(names => {
+      for (let name of names) {
+        caches.delete(name);
+      }
+    });
+  }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      for (let reg of registrations) {
+        reg.unregister();
+      }
+    });
+  }
+  setTimeout(() => {
+    window.location.reload(true);
+  }, 250);
+}
+window.paksaPerbaruiAplikasi = paksaPerbaruiAplikasi;
