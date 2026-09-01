@@ -571,23 +571,26 @@
         let detailDisplay = '';
         let durasiDisplay = '';
         let aksiButton = '';
-        let trBg = 'hover:bg-blue-950/50';
+        let trBgStyle = 'background-color: #0A1628;';
 
         const wib = formatWaktuWib(r.timestamp);
 
         if (r.status === 'sudah') {
+          trBgStyle = 'background-color: #0B172B;';
           const isTuntas = Number(r.skor) >= 75;
           const kktpText = isTuntas ? 'TUNTAS' : 'REMEDIAL';
-          const kktpBg = isTuntas ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/50' : 'bg-rose-950/90 text-rose-300 border-rose-500/50';
-          statusBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-black ${kktpBg} border whitespace-nowrap">${kktpText}</span>`;
+          const kktpStyle = isTuntas 
+            ? 'background-color: #032b1c; color: #6ee7b7; border: 1px solid #10b981;' 
+            : 'background-color: #3b0d18; color: #fda4af; border: 1px solid #f43f5e;';
+          statusBadge = `<span style="${kktpStyle}" class="px-2 py-0.5 rounded-full text-[9px] font-black whitespace-nowrap">${kktpText}</span>`;
           skorDisplay = `<div class="flex items-center justify-center gap-1.5 whitespace-nowrap"><span class="font-mono text-sm font-black ${isTuntas ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span> ${statusBadge}</div>`;
-          detailDisplay = `<span class="text-xs font-mono font-semibold text-slate-200 whitespace-nowrap">${r.jumlah_benar}/${r.jumlah_soal} Benar</span>`;
+          detailDisplay = `<span class="text-xs font-mono font-bold text-slate-200 whitespace-nowrap">${r.jumlah_benar}/${r.jumlah_soal} Benar</span>`;
           durasiDisplay = `<span class="text-xs text-slate-300 font-mono whitespace-nowrap">${r.durasi_menit || 0} Menit</span>`;
           aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" title="Reset nilai agar siswa dapat mengulang" class="px-2.5 py-1 bg-slate-800 hover:bg-amber-600 border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer">Reset</button>`;
         } else if (r.status === 'sedang') {
-          trBg = r.livenessState === 'stuck' ? 'bg-rose-950/30 hover:bg-rose-900/40' : r.livenessState === 'idle' ? 'bg-amber-950/30 hover:bg-amber-900/40' : 'bg-emerald-950/30 hover:bg-emerald-900/40';
+          trBgStyle = r.livenessState === 'stuck' ? 'background-color: #24111E;' : r.livenessState === 'idle' ? 'background-color: #261D10;' : 'background-color: #0B2129;';
           skorDisplay = `<div class="flex flex-col items-center gap-0.5 whitespace-nowrap">${r.livenessBadge}<span class="font-mono text-xs font-black ${r.livenessState === 'stuck' ? 'text-rose-400' : 'text-emerald-400'}">${r.skor} / 100</span></div>`;
-          detailDisplay = `<span class="px-2 py-0.5 rounded-lg bg-[#0D1B2E] text-amber-300 font-mono font-bold border border-blue-900 whitespace-nowrap text-xs">${r.progress_soal}/10 Soal</span>`;
+          detailDisplay = `<span class="px-2 py-0.5 rounded-lg bg-[#060E1A] text-amber-300 font-mono font-bold border border-blue-900 whitespace-nowrap text-xs">${r.progress_soal}/10 Soal</span>`;
           durasiDisplay = `<span class="text-xs font-mono whitespace-nowrap ${r.livenessState === 'live' ? 'text-emerald-400 font-bold' : 'text-slate-400'}">${r.livenessText}</span>`;
           aksiButton = `
             <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
@@ -601,8 +604,8 @@
           `;
         } else {
           // 'belum'
-          trBg = 'bg-rose-950/15 hover:bg-rose-900/25';
-          skorDisplay = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-900/40 text-rose-300 border border-rose-700/50 whitespace-nowrap">Belum Submit</span>`;
+          trBgStyle = 'background-color: #1F1218;';
+          skorDisplay = `<span style="background-color: #3b0d18; color: #fda4af; border: 1px solid #f43f5e;" class="px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap">Belum Submit</span>`;
           detailDisplay = `<span class="text-xs text-slate-500 font-mono whitespace-nowrap">0/10 Soal</span>`;
           durasiDisplay = `<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>`;
           aksiButton = `<span class="text-xs text-slate-500 italic whitespace-nowrap">Menunggu</span>`;
@@ -611,7 +614,7 @@
         const tglCell = (wib && r.status !== 'belum') ? `<span class="text-xs font-mono text-slate-300 whitespace-nowrap">${wib.tgl}</span>` : '<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>';
         let jamCell = '';
         if (r.status === 'sudah') {
-          jamCell = wib ? `<span class="font-mono font-black text-amber-300 text-xs whitespace-nowrap">${wib.jam}</span>` : '<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>';
+          jamCell = wib ? `<span class="font-mono font-black text-amber-300 text-xs whitespace-nowrap">${wib.jam}</span>` : '<span class="text-xs text-slate-500 font-mono">-</span>';
         } else if (r.status === 'sedang') {
           jamCell = wib ? `<span class="font-mono font-bold text-cyan-300 text-xs whitespace-nowrap">${wib.jam}</span>` : '<span class="text-xs text-cyan-400 font-mono italic whitespace-nowrap">Live</span>';
         } else {
@@ -621,7 +624,7 @@
         const namaMapel = (typeof NAMA_MAPEL !== 'undefined' && NAMA_MAPEL[r.mapel]) ? NAMA_MAPEL[r.mapel] : (r.mapel || 'Wajib');
 
         return `
-          <tr class="border-b border-blue-900/40 ${trBg} transition">
+          <tr style="${trBgStyle}" class="border-b border-blue-900/60 transition hover:brightness-125">
             <td class="border-r border-blue-900/60 px-3 py-2.5 font-mono text-xs font-bold text-slate-300 whitespace-nowrap">${r.nis}</td>
             <td class="border-r border-blue-900/60 px-4 py-2.5 font-bold text-white min-w-[170px]">${r.nama}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs text-amber-400 font-bold whitespace-nowrap">${r.kelas}</td>
