@@ -2052,9 +2052,19 @@
 
     function bersihkanDraftJawaban(subj, pkgId) {
       try {
-        const k = getCbtDraftKey(subj, pkgId);
-        localStorage.removeItem(k);
-      } catch (e) {}
+        const directKey = getCbtDraftKey(subj, pkgId);
+        localStorage.removeItem(directKey);
+        
+        // Bersihkan seluruh variasi key draft di localStorage
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const k = localStorage.key(i);
+          if (k && (k.startsWith('cbt_draft_') && (k.includes(pkgId) || k.includes(`${subj}_${pkgId}`)))) {
+            localStorage.removeItem(k);
+          }
+        }
+      } catch (e) {
+        console.warn('Error clearing draft:', e);
+      }
     }
 
 
@@ -3758,18 +3768,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       
       // 1. Bersihkan seluruh skor sesi dari memori
       Object.keys(userSessionScores).forEach(k => {
-        if (k.startsWith(`${tkaSubj}_${tkaPkgId}_`)) {
+        if (k.startsWith(`${tkaSubj}_${tkaPkgId}_`) || k.includes(`_${tkaPkgId}_`)) {
           delete userSessionScores[k];
         }
       });
-
-      // 2. Bersihkan draf jawaban di LocalStorage perangkat
-      bersihkanDraftJawaban(tkaSubj, tkaPkgId);
       try {
-        localStorage.removeItem(getCbtDraftKey(tkaSubj, tkaPkgId));
+        localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
       } catch (e) {}
 
-      // 3. Reset state aktif jawaban
+      // 2. Bersihkan draf jawaban di LocalStorage perangkat secara menyeluruh
+      bersihkanDraftJawaban(tkaSubj, tkaPkgId);
+
+      // 3. Reset state aktif jawaban ke kosong mutlak
       userMultiAnswers = [];
       userTfAnswers = {};
       tkaQIdx = 0;
