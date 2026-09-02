@@ -1972,8 +1972,13 @@
     function getUserIdentifier() {
       try {
         const sess = typeof getSession === 'function' ? getSession() : null;
-        if (sess && sess.data) {
-          return sess.data.nis || sess.data.username || sess.data.nama || 'guru';
+        if (sess) {
+          if (sess.type === 'guru') {
+            return (sess.data && (sess.data.username || sess.data.nama || sess.data.nis)) || 'guru';
+          }
+          if (sess.data) {
+            return sess.data.nis || sess.data.username || sess.data.nama || 'siswa';
+          }
         }
       } catch (e) {}
       return 'guest';
@@ -2002,7 +2007,7 @@
         // Sync otomatis ke Database Supabase secara real-time (< 40 ms)
         if (supabaseClient) {
           const sess = getSession();
-          const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
+          const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : (sess && sess.type === 'guru' ? 'guru' : null);
           if (nis && nis !== 'guest') {
             supabaseClient.from('cbt_live_answers').upsert({
               nis: String(nis),
@@ -2071,11 +2076,10 @@
           if (!k) continue;
           if (
             k === specificKey ||
-            k.startsWith(`cbt_draft_${uid}_${subj}_${pkgId}`) ||
-            k.startsWith(`cbt_draft_v1_${uid}_${subj}_${pkgId}`) ||
+            (k.startsWith('cbt_draft_') && (k.includes(`_${subj}_${pkgId}`) || k.includes(`_${pkgId}`))) ||
             k.includes(`_${subj}_${pkgId}`) ||
             k.includes(`${subj}_${pkgId}_`) ||
-            k.includes(`_${pkgId}`)
+            k.endsWith(`_${pkgId}`)
           ) {
             keysToRemove.push(k);
           }
@@ -7368,10 +7372,25 @@ function showTkaScorecardModal() {
     }
 
     function resetAllScores() {
-      slideProgress = {}; cbtHistory = []; simpanKemajuan();
       if (confirm('Yakin ingin mereset seluruh histori nilai kuis CBT?')) {
+        slideProgress = {}; 
+        cbtHistory = []; 
+        simpanKemajuan();
         userSessionScores = {};
-        try { localStorage.removeItem(STORAGE_SCORES_KEY); } catch (e) {}
+        try { 
+          localStorage.removeItem(STORAGE_SCORES_KEY);
+          const keysToRemove = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (k && (k.startsWith('cbt_draft_') || k.startsWith('cbt_') || k.startsWith('tka_'))) {
+              keysToRemove.push(k);
+            }
+          }
+          keysToRemove.forEach(k => localStorage.removeItem(k));
+        } catch (e) {}
+        userMultiAnswers = [];
+        userTfAnswers = {};
+        tkaQIdx = 0;
         openAnalyticsModal();
         renderAppView();
       }
