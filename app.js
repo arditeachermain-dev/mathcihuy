@@ -6364,6 +6364,56 @@ function showTkaScorecardModal() {
         window._openDrawerBabs[`${activeSubj}__${currentM.bab}`] = true;
       }
 
+      // =======================================================================
+      // 0. MASTER FOLDER CONTAINER: 📁 MATERI PEMBELAJARAN (WAJIB, MINAT, CLIL)
+      // =======================================================================
+      const isMateriFolderOpen = q ? true : (window._openDrawerMateriFolder !== false);
+      const materiWrapper = document.createElement('div');
+      materiWrapper.className = "rounded-2xl border border-blue-900/80 bg-[#08101E] overflow-hidden shadow-md mb-3";
+
+      const materiHeader = document.createElement('button');
+      materiHeader.type = "button";
+      materiHeader.className = "w-full px-3.5 py-3 bg-[#0A1424] hover:bg-[#102038] border-b border-blue-900/60 flex items-center justify-between transition cursor-pointer text-left";
+      materiHeader.innerHTML = `
+        <div class="flex items-center gap-2.5 min-w-0 flex-1">
+          <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40 shadow-sm">
+            <i class="fa-solid fa-folder-open text-xs text-amber-400"></i>
+          </span>
+          <div class="min-w-0 flex-1">
+            <span class="text-xs font-black text-slate-100 uppercase tracking-wider block leading-tight">
+              Materi Pembelajaran
+            </span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0 ml-2">
+          <span class="px-2 py-0.5 rounded-full bg-blue-950 text-[10px] font-mono font-bold text-blue-300 border border-blue-800/60 shadow-sm">
+            57 Pertemuan
+          </span>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isMateriFolderOpen ? 'rotate-180' : ''}"></i>
+        </div>
+      `;
+
+      const materiBody = document.createElement('div');
+      materiBody.className = isMateriFolderOpen ? "p-2.5 space-y-2.5 block" : "p-2.5 space-y-2.5 hidden";
+
+      materiHeader.onclick = () => {
+        const currentlyOpen = !materiBody.classList.contains('hidden');
+        if (currentlyOpen) {
+          materiBody.classList.add('hidden');
+          materiHeader.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+          window._openDrawerMateriFolder = false;
+        } else {
+          materiBody.classList.remove('hidden');
+          materiHeader.querySelector('.fa-chevron-down').classList.add('rotate-180');
+          window._openDrawerMateriFolder = true;
+        }
+      };
+
+      materiWrapper.appendChild(materiHeader);
+      materiWrapper.appendChild(materiBody);
+
+      let totalSubjectMatches = 0;
+
       ['wajib', 'minat', 'clil'].forEach(subj => {
         const meetings = db[subj] || [];
         if (meetings.length === 0) return;
@@ -6392,30 +6442,31 @@ function showTkaScorecardModal() {
         });
 
         if (subjMatchCount === 0) return;
+        totalSubjectMatches += subjMatchCount;
 
         const meta = streamMeta[subj] || { prefix: '', name: subj, icon: 'fa-solid fa-book' };
         const isSubjOpen = q ? true : (window._openDrawerSubjects[subj] !== false);
 
-        // 1. KONTEN LEVEL 1: ACCORDION MATA PELAJARAN (A. MATEMATIKA WAJIB)
+        // 1. KONTEN LEVEL 1: ACCORDION MATA PELAJARAN (A. MATEMATIKA WAJIB, B. ADDITIONAL MATH, C. CLIL)
         const subjWrapper = document.createElement('div');
-        subjWrapper.className = "rounded-2xl border border-blue-900/60 bg-[#08101E] overflow-hidden shadow-sm mb-3";
+        subjWrapper.className = "rounded-xl border border-blue-900/60 bg-[#081324] overflow-hidden shadow-sm";
 
         const subjHeader = document.createElement('button');
         subjHeader.type = "button";
-        subjHeader.className = "w-full px-3.5 py-3 bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer text-left";
+        subjHeader.className = "w-full px-3 py-2.5 bg-[#0A182D] hover:bg-[#10223D] border-b border-blue-900/40 flex items-center justify-between transition cursor-pointer text-left";
         subjHeader.innerHTML = `
-          <div class="flex items-center gap-2.5 min-w-0 flex-1">
-            <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40 shadow-sm">
+          <div class="flex items-center gap-2 min-w-0 flex-1">
+            <span class="w-5 h-5 rounded-md bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40 shadow-sm">
               ${meta.prefix}
             </span>
-            <div class="min-w-0 flex-1">
-              <span class="text-xs font-black text-slate-100 uppercase tracking-wider block leading-tight">
+            <div class="min-w-0 flex-1 truncate">
+              <span class="text-xs font-bold text-slate-100 uppercase tracking-wide truncate">
                 ${meta.name}
               </span>
             </div>
           </div>
-          <div class="flex items-center gap-2 shrink-0 ml-2">
-            <span class="px-2 py-0.5 rounded-full bg-slate-800/90 text-[10px] font-mono font-bold text-slate-300 border border-slate-700 shadow-sm">
+          <div class="flex items-center gap-1.5 shrink-0 ml-2">
+            <span class="px-2 py-0.5 rounded-full bg-slate-900 text-[10px] font-mono font-bold text-slate-300 border border-slate-700/80 shadow-sm">
               ${subjMatchCount} P
             </span>
             <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isSubjOpen ? 'rotate-180' : ''}"></i>
@@ -6525,8 +6576,12 @@ function showTkaScorecardModal() {
 
         subjWrapper.appendChild(subjHeader);
         subjWrapper.appendChild(subjBody);
-        container.appendChild(subjWrapper);
+        materiBody.appendChild(subjWrapper);
       });
+
+      if (totalSubjectMatches > 0) {
+        container.appendChild(materiWrapper);
+      }
 
       // =======================================================================
       // KONTEN LEVEL 1 (TAMBAHAN): JADWAL KBM REGULER KELAS XII (SIDEBAR)
