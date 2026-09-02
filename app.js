@@ -6355,7 +6355,6 @@ function showTkaScorecardModal() {
       if (!window._openDrawerSubjects) window._openDrawerSubjects = {};
       if (!window._openDrawerBabs) window._openDrawerBabs = {};
 
-      // Tentukan subject aktif (default ke 'wajib' jika di beranda)
       const activeSubj = (currentMode && currentMode !== 'home') ? currentMode : 'wajib';
       window._openDrawerSubjects[activeSubj] = true;
       
@@ -6365,36 +6364,32 @@ function showTkaScorecardModal() {
       }
 
       // =======================================================================
-      // 0. MASTER FOLDER CONTAINER: 📁 MATERI PEMBELAJARAN (WAJIB, MINAT, CLIL)
+      // 1. MASTER FOLDER: MATERI PEMBELAJARAN (WAJIB, MINAT, CLIL) - MATTE CLEAN
       // =======================================================================
       const isMateriFolderOpen = q ? true : (window._openDrawerMateriFolder !== false);
       const materiWrapper = document.createElement('div');
-      materiWrapper.className = "rounded-2xl border border-blue-900/80 bg-[#08101E] overflow-hidden shadow-md mb-3";
+      materiWrapper.className = "rounded-xl border border-slate-800 bg-[#070D18] overflow-hidden mb-2.5";
 
       const materiHeader = document.createElement('button');
       materiHeader.type = "button";
-      materiHeader.className = "w-full px-3.5 py-3 bg-[#0A1424] hover:bg-[#102038] border-b border-blue-900/60 flex items-center justify-between transition cursor-pointer text-left";
+      materiHeader.className = "w-full px-3 py-2 bg-[#091120] hover:bg-[#0E192E] flex items-center justify-between transition cursor-pointer text-left border-b border-slate-800/60";
       materiHeader.innerHTML = `
-        <div class="flex items-center gap-2.5 min-w-0 flex-1">
-          <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40 shadow-sm">
-            <i class="fa-solid fa-folder-open text-xs text-amber-400"></i>
+        <div class="flex items-center gap-2 min-w-0 flex-1">
+          <i class="fa-solid fa-folder-open text-amber-400 text-xs shrink-0"></i>
+          <span class="text-xs font-bold text-slate-100 uppercase tracking-wide truncate">
+            Materi Pembelajaran
           </span>
-          <div class="min-w-0 flex-1">
-            <span class="text-xs font-black text-slate-100 uppercase tracking-wider block leading-tight">
-              Materi Pembelajaran
-            </span>
-          </div>
         </div>
-        <div class="flex items-center gap-2 shrink-0 ml-2">
-          <span class="px-2 py-0.5 rounded-full bg-blue-950 text-[10px] font-mono font-bold text-blue-300 border border-blue-800/60 shadow-sm">
-            57 Pertemuan
+        <div class="flex items-center gap-1.5 shrink-0 ml-1.5">
+          <span class="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-mono text-slate-400 font-semibold">
+            57 P
           </span>
-          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isMateriFolderOpen ? 'rotate-180' : ''}"></i>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-[10px] transition-transform duration-200 ${isMateriFolderOpen ? 'rotate-180' : ''}"></i>
         </div>
       `;
 
       const materiBody = document.createElement('div');
-      materiBody.className = isMateriFolderOpen ? "p-2.5 space-y-2.5 block" : "p-2.5 space-y-2.5 hidden";
+      materiBody.className = isMateriFolderOpen ? "p-2 space-y-2 block" : "p-2 space-y-2 hidden";
 
       materiHeader.onclick = () => {
         const currentlyOpen = !materiBody.classList.contains('hidden');
@@ -6447,34 +6442,32 @@ function showTkaScorecardModal() {
         const meta = streamMeta[subj] || { prefix: '', name: subj, icon: 'fa-solid fa-book' };
         const isSubjOpen = q ? true : (window._openDrawerSubjects[subj] !== false);
 
-        // 1. KONTEN LEVEL 1: ACCORDION MATA PELAJARAN (A. MATEMATIKA WAJIB, B. ADDITIONAL MATH, C. CLIL)
+        // KONTEN LEVEL 1: ACCORDION MATA PELAJARAN (MATTE DARK)
         const subjWrapper = document.createElement('div');
-        subjWrapper.className = "rounded-xl border border-blue-900/60 bg-[#081324] overflow-hidden shadow-sm";
+        subjWrapper.className = "rounded-lg border border-slate-800/80 bg-[#050A14] overflow-hidden";
 
         const subjHeader = document.createElement('button');
         subjHeader.type = "button";
-        subjHeader.className = "w-full px-3 py-2.5 bg-[#0A182D] hover:bg-[#10223D] border-b border-blue-900/40 flex items-center justify-between transition cursor-pointer text-left";
+        subjHeader.className = "w-full px-2.5 py-1.5 bg-[#08101E] hover:bg-[#0C172B] flex items-center justify-between transition cursor-pointer text-left border-b border-slate-800/40";
         subjHeader.innerHTML = `
-          <div class="flex items-center gap-2 min-w-0 flex-1">
-            <span class="w-5 h-5 rounded-md bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40 shadow-sm">
+          <div class="flex items-center gap-1.5 min-w-0 flex-1">
+            <span class="w-4 h-4 rounded bg-amber-500/20 text-amber-300 font-mono font-bold text-[10px] flex items-center justify-center shrink-0">
               ${meta.prefix}
             </span>
-            <div class="min-w-0 flex-1 truncate">
-              <span class="text-xs font-bold text-slate-100 uppercase tracking-wide truncate">
-                ${meta.name}
-              </span>
-            </div>
+            <span class="text-xs font-semibold text-slate-200 truncate">
+              ${meta.name}
+            </span>
           </div>
-          <div class="flex items-center gap-1.5 shrink-0 ml-2">
-            <span class="px-2 py-0.5 rounded-full bg-slate-900 text-[10px] font-mono font-bold text-slate-300 border border-slate-700/80 shadow-sm">
+          <div class="flex items-center gap-1.5 shrink-0 ml-1.5">
+            <span class="text-[10px] font-mono text-slate-400">
               ${subjMatchCount} P
             </span>
-            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isSubjOpen ? 'rotate-180' : ''}"></i>
+            <i class="fa-solid fa-chevron-down text-slate-500 text-[10px] transition-transform duration-200 ${isSubjOpen ? 'rotate-180' : ''}"></i>
           </div>
         `;
 
         const subjBody = document.createElement('div');
-        subjBody.className = isSubjOpen ? "p-2 space-y-2 block" : "p-2 space-y-2 hidden";
+        subjBody.className = isSubjOpen ? "p-1.5 space-y-1.5 block" : "p-1.5 space-y-1.5 hidden";
 
         subjHeader.onclick = () => {
           const currentlyOpen = !subjBody.classList.contains('hidden');
@@ -6489,33 +6482,31 @@ function showTkaScorecardModal() {
           }
         };
 
-        // 2. KONTEN LEVEL 2: ACCORDION BAB / SUB-MENU (Bab 1: Kaidah Pencacahan)
+        // KONTEN LEVEL 2: ACCORDION BAB
         Object.keys(filteredBabs).forEach((bName, bIdx) => {
           const mList = filteredBabs[bName];
           const babKey = `${subj}__${bName}`;
-          
-          // Buka bab jika aktif, jika ada pencarian, atau default Bab 1 pada mata pelajaran aktif
           const isBabOpen = q ? true : (window._openDrawerBabs[babKey] !== undefined ? window._openDrawerBabs[babKey] : (subj === activeSubj && bIdx === 0));
 
           const babWrapper = document.createElement('div');
-          babWrapper.className = "rounded-xl border border-slate-800 bg-slate-950/60 overflow-hidden";
+          babWrapper.className = "rounded-lg border border-slate-850 bg-slate-950/40 overflow-hidden";
 
           const babHeader = document.createElement('button');
           babHeader.type = "button";
-          babHeader.className = "w-full px-3 py-2 bg-slate-900/80 hover:bg-slate-850 flex items-center justify-between text-left transition border-b border-slate-800/40 cursor-pointer";
+          babHeader.className = "w-full px-2.5 py-1.5 bg-slate-900/60 hover:bg-slate-850 flex items-center justify-between text-left transition cursor-pointer";
           babHeader.innerHTML = `
-            <div class="flex items-center gap-2 min-w-0">
-              <i class="fa-regular fa-folder-open text-amber-400 text-xs shrink-0"></i>
-              <span class="text-xs font-bold text-slate-200 truncate">${bName}</span>
+            <div class="flex items-center gap-1.5 min-w-0 flex-1">
+              <i class="fa-regular fa-folder text-slate-400 text-[11px] shrink-0"></i>
+              <span class="text-[11px] font-medium text-slate-300 truncate">${bName}</span>
             </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-              <span class="text-[10px] font-mono text-slate-400 font-semibold">${mList.length}</span>
-              <i class="fa-solid fa-chevron-down text-slate-500 text-[10px] transition-transform duration-200 ${isBabOpen ? 'rotate-180' : ''}"></i>
+            <div class="flex items-center gap-1 shrink-0 ml-1">
+              <span class="text-[9px] font-mono text-slate-500">${mList.length}</span>
+              <i class="fa-solid fa-chevron-down text-slate-500 text-[9px] transition-transform duration-200 ${isBabOpen ? 'rotate-180' : ''}"></i>
             </div>
           `;
 
           const babBody = document.createElement('div');
-          babBody.className = isBabOpen ? "p-1.5 space-y-1 block" : "p-1.5 space-y-1 hidden";
+          babBody.className = isBabOpen ? "p-1 space-y-0.5 block border-t border-slate-850" : "p-1 space-y-0.5 hidden border-t border-slate-850";
 
           babHeader.onclick = () => {
             const isNowOpen = !babBody.classList.contains('hidden');
@@ -6530,7 +6521,7 @@ function showTkaScorecardModal() {
             }
           };
 
-          // 3. KONTEN LEVEL 3: SUB-MENU PERTEMUAN (P01, P02, dst.)
+          // KONTEN LEVEL 3: PERTEMUAN (P01, P02, dst.)
           mList.forEach(m => {
             totalMeetings++;
             const hasQuizDone = userSessionScores[`${subj}_${m.id}_0`] !== undefined;
@@ -6542,19 +6533,19 @@ function showTkaScorecardModal() {
 
             const item = document.createElement('button');
             item.type = "button";
-            item.className = "w-full text-left px-2.5 py-2 rounded-lg flex items-center gap-2.5 transition group cursor-pointer " +
+            item.className = "w-full text-left px-2 py-1.5 rounded flex items-center gap-2 transition cursor-pointer " +
               (sedangDibuka 
-                ? "bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow-sm font-bold" 
-                : "bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white border border-transparent");
+                ? "bg-amber-500/15 text-amber-300 font-semibold border-l-2 border-amber-400 pl-1.5" 
+                : "hover:bg-slate-850 text-slate-300 hover:text-white");
             
             if (sedangDibuka) item.setAttribute('aria-current', 'true');
 
             item.innerHTML = `
-              <span class="w-7 h-6 rounded-md bg-slate-950 border border-slate-700 text-amber-300 font-mono font-black text-[11px] flex items-center justify-center shrink-0 group-hover:border-amber-400 transition">
+              <span class="font-mono font-bold text-[10px] text-amber-400/90 shrink-0">
                 ${m.id}
               </span>
-              <span class="text-xs truncate flex-1 leading-snug">${m.title}</span>
-              ${hasQuizDone ? '<i class="fa-solid fa-circle-check text-amber-400 text-xs shrink-0"></i>' : '<i class="fa-solid fa-angle-right text-slate-600 group-hover:text-slate-400 text-[10px] shrink-0"></i>'}
+              <span class="text-[11px] truncate flex-1 leading-tight">${m.title}</span>
+              ${hasQuizDone ? '<i class="fa-solid fa-check text-amber-400 text-[10px] shrink-0"></i>' : ''}
             `;
 
             item.onclick = () => {
@@ -6584,95 +6575,89 @@ function showTkaScorecardModal() {
       }
 
       // =======================================================================
-      // KONTEN LEVEL 1 (TAMBAHAN): JADWAL KBM REGULER KELAS XII (SIDEBAR)
+      // 2. JADWAL KBM REGULER KELAS XII (MATTE DARK)
       // =======================================================================
       const isJadwalOpen = window._openDrawerJadwal === true;
       const jadwalWrapper = document.createElement('div');
-      jadwalWrapper.className = "rounded-2xl border border-slate-700/80 bg-slate-900/90 overflow-hidden shadow-md mb-3";
+      jadwalWrapper.className = "rounded-xl border border-slate-800 bg-[#070D18] overflow-hidden mb-2.5";
 
       const jadwalHeader = document.createElement('button');
       jadwalHeader.type = "button";
-      jadwalHeader.className = "w-full px-3.5 py-3 bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer text-left";
+      jadwalHeader.className = "w-full px-3 py-2 bg-[#091120] hover:bg-[#0E192E] flex items-center justify-between transition cursor-pointer text-left border-b border-slate-800/60";
       jadwalHeader.innerHTML = `
-        <div class="flex items-center gap-2.5 min-w-0 flex-1">
-          <span class="w-6 h-6 rounded-lg bg-blue-500/20 text-blue-300 font-black text-xs flex items-center justify-center shrink-0 border border-blue-500/40 shadow-sm">
-            <i class="fa-solid fa-clock text-xs"></i>
+        <div class="flex items-center gap-2 min-w-0 flex-1">
+          <i class="fa-solid fa-calendar-week text-blue-400 text-xs shrink-0"></i>
+          <span class="text-xs font-bold text-slate-100 uppercase tracking-wide truncate">
+            Jadwal KBM Reguler
           </span>
-          <div class="min-w-0 flex-1">
-            <span class="text-xs font-black text-slate-100 uppercase tracking-wider block leading-tight">
-              Jadwal KBM Reguler XII
-            </span>
-          </div>
         </div>
-        <div class="flex items-center gap-2 shrink-0 ml-2">
-          <span class="px-2 py-0.5 rounded-full bg-blue-950 text-[10px] font-mono font-bold text-blue-300 border border-blue-800/60 shadow-sm">
+        <div class="flex items-center gap-1.5 shrink-0 ml-1.5">
+          <span class="px-1.5 py-0.5 rounded bg-blue-950/80 text-[10px] font-mono text-blue-300 font-semibold border border-blue-900/60">
             24 JP
           </span>
-          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isJadwalOpen ? 'rotate-180' : ''}"></i>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-[10px] transition-transform duration-200 ${isJadwalOpen ? 'rotate-180' : ''}"></i>
         </div>
       `;
 
       const jadwalBody = document.createElement('div');
-      jadwalBody.className = isJadwalOpen ? "p-2.5 space-y-2.5 block text-xs" : "p-2.5 space-y-2.5 hidden text-xs";
+      jadwalBody.className = isJadwalOpen ? "p-2 space-y-2 block text-xs" : "p-2 space-y-2 hidden text-xs";
       jadwalBody.innerHTML = `
         <!-- 12 F.1 -->
-        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
-          <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
-            <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.1</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-900/40 text-blue-300 border border-blue-700/50">Wajib 4 JP</span>
+        <div class="p-2 bg-slate-950/80 rounded-lg border border-slate-800/80 space-y-1">
+          <div class="flex items-center justify-between border-b border-slate-850 pb-0.5">
+            <span class="font-bold text-amber-400 font-mono text-[11px]">12 F.1</span>
+            <span class="text-[9px] font-medium text-slate-400">Wajib 4 JP</span>
           </div>
-          <div class="space-y-1 font-mono text-[11px] text-slate-300">
-            <div class="flex justify-between"><span>Senin (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.15</span></div>
-            <div class="flex justify-between"><span>Kamis (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.15</span></div>
+          <div class="space-y-0.5 font-mono text-[10px] text-slate-300">
+            <div class="flex justify-between"><span>Senin (2 JP):</span><span class="text-slate-100">13.00 - 14.15</span></div>
+            <div class="flex justify-between"><span>Kamis (2 JP):</span><span class="text-slate-100">13.00 - 14.15</span></div>
           </div>
         </div>
 
         <!-- 12 F.2 -->
-        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
-          <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
-            <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.2</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-900/40 text-blue-300 border border-blue-700/50">Wajib 4 JP</span>
+        <div class="p-2 bg-slate-950/80 rounded-lg border border-slate-800/80 space-y-1">
+          <div class="flex items-center justify-between border-b border-slate-850 pb-0.5">
+            <span class="font-bold text-amber-400 font-mono text-[11px]">12 F.2</span>
+            <span class="text-[9px] font-medium text-slate-400">Wajib 4 JP</span>
           </div>
-          <div class="space-y-1 font-mono text-[11px] text-slate-300">
-            <div class="flex justify-between"><span>Rabu (2 JP):</span><span class="text-slate-100 font-bold">13.00 - 14.20</span></div>
-            <div class="flex justify-between"><span>Jumat (2 JP):</span><span class="text-slate-100 font-bold">13.15 - 14.20</span></div>
+          <div class="space-y-0.5 font-mono text-[10px] text-slate-300">
+            <div class="flex justify-between"><span>Rabu (2 JP):</span><span class="text-slate-100">13.00 - 14.20</span></div>
+            <div class="flex justify-between"><span>Jumat (2 JP):</span><span class="text-slate-100">13.15 - 14.20</span></div>
           </div>
         </div>
 
         <!-- 12 F.3 -->
-        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
-          <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
-            <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.3</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-900/40 text-purple-300 border border-purple-700/50">Wajib 2 JP & Minat 4 JP</span>
+        <div class="p-2 bg-slate-950/80 rounded-lg border border-slate-800/80 space-y-1">
+          <div class="flex items-center justify-between border-b border-slate-850 pb-0.5">
+            <span class="font-bold text-amber-400 font-mono text-[11px]">12 F.3</span>
+            <span class="text-[9px] font-medium text-slate-400">Wajib 2 JP & Minat 4 JP</span>
           </div>
-          <div class="space-y-1 font-mono text-[11px] text-slate-300">
-            <div class="flex justify-between"><span>Selasa Minat (2 JP):</span><span class="text-slate-100 font-bold">14.20 - 15.30</span></div>
-            <div class="flex justify-between"><span>Rabu Wajib (1 JP):</span><span class="text-slate-100 font-bold">07.30 - 08.00</span></div>
-            <div class="flex justify-between"><span>Kamis Minat (2 JP):</span><span class="text-slate-100 font-bold">09.10 - 10.40</span></div>
-            <div class="flex justify-between"><span>Jumat Wajib (1 JP):</span><span class="text-slate-100 font-bold">14.20 - 14.50</span></div>
+          <div class="space-y-0.5 font-mono text-[10px] text-slate-300">
+            <div class="flex justify-between"><span>Selasa Minat:</span><span class="text-slate-100">14.20 - 15.30</span></div>
+            <div class="flex justify-between"><span>Rabu Wajib:</span><span class="text-slate-100">07.30 - 08.00</span></div>
+            <div class="flex justify-between"><span>Kamis Minat:</span><span class="text-slate-100">09.10 - 10.40</span></div>
+            <div class="flex justify-between"><span>Jumat Wajib:</span><span class="text-slate-100">14.20 - 14.50</span></div>
           </div>
         </div>
 
         <!-- 12 F.4 -->
-        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1.5">
-          <div class="flex items-center justify-between border-b border-slate-800/80 pb-1">
-            <span class="font-extrabold text-amber-400 font-mono text-xs">12 F.4</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-900/40 text-purple-300 border border-purple-700/50">Wajib 4 JP & Minat 4 JP</span>
+        <div class="p-2 bg-slate-950/80 rounded-lg border border-slate-800/80 space-y-1">
+          <div class="flex items-center justify-between border-b border-slate-850 pb-0.5">
+            <span class="font-bold text-amber-400 font-mono text-[11px]">12 F.4</span>
+            <span class="text-[9px] font-medium text-slate-400">Wajib 4 JP & Minat 4 JP</span>
           </div>
-          <div class="space-y-1 font-mono text-[11px] text-slate-300">
-            <div class="flex justify-between"><span>Senin Wajib (2 JP):</span><span class="text-slate-100 font-bold">10.15 - 12.00</span></div>
-            <div class="flex justify-between"><span>Selasa Minat (2 JP):</span><span class="text-slate-100 font-bold">10.40 - 12.00</span></div>
-            <div class="flex justify-between"><span>Kamis Minat (2 JP):</span><span class="text-slate-100 font-bold">10.40 - 12.00</span></div>
-            <div class="flex justify-between"><span>Jumat Wajib (2 JP):</span><span class="text-slate-100 font-bold">07.30 - 08.45</span></div>
+          <div class="space-y-0.5 font-mono text-[10px] text-slate-300">
+            <div class="flex justify-between"><span>Senin Wajib:</span><span class="text-slate-100">10.15 - 12.00</span></div>
+            <div class="flex justify-between"><span>Selasa Minat:</span><span class="text-slate-100">10.40 - 12.00</span></div>
+            <div class="flex justify-between"><span>Kamis Minat:</span><span class="text-slate-100">10.40 - 12.00</span></div>
+            <div class="flex justify-between"><span>Jumat Wajib:</span><span class="text-slate-100">07.30 - 08.45</span></div>
           </div>
         </div>
 
-        <!-- TUGAS TAMBAHAN & WALAS -->
-        <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
-          <div class="font-bold text-amber-300 text-[11px] flex items-center gap-1.5">
-            <i class="fa-solid fa-user-tie text-[10px]"></i> Tugas Tambahan / Walas
-          </div>
-          <p class="text-[10px] text-slate-400">Jumat 06.30 (Morning Greetings) | 07.00 (In-charge Dhuha) | 14.50 (Sesi P1 Walas)</p>
+        <!-- WALAS -->
+        <div class="p-2 bg-slate-950/80 rounded-lg border border-slate-800/80 space-y-0.5">
+          <span class="font-bold text-amber-300 text-[10px] block">Tugas Tambahan / Walas</span>
+          <p class="text-[9px] text-slate-400 leading-snug">Jumat 06.30 (Greetings) | 07.00 (Dhuha) | 14.50 (Sesi P1)</p>
         </div>
       `;
 
@@ -6694,58 +6679,48 @@ function showTkaScorecardModal() {
       container.appendChild(jadwalWrapper);
 
       // =======================================================================
-      // KONTEN LEVEL 1 (TAMBAHAN): KALENDER PENDIDIKAN & AGENDA AKADEMIK 2026/2027
+      // 3. KALENDER & AGENDA UJIAN 2026/2027 (MATTE DARK)
       // =======================================================================
       const isCalOpen = window._openDrawerCalendar === true;
       const calWrapper = document.createElement('div');
-      calWrapper.className = "rounded-2xl border border-slate-700/80 bg-slate-900/90 overflow-hidden shadow-md mb-3";
+      calWrapper.className = "rounded-xl border border-slate-800 bg-[#070D18] overflow-hidden mb-2.5";
 
       const calHeader = document.createElement('button');
       calHeader.type = "button";
-      calHeader.className = "w-full px-3.5 py-3 bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer text-left";
+      calHeader.className = "w-full px-3 py-2 bg-[#091120] hover:bg-[#0E192E] flex items-center justify-between transition cursor-pointer text-left border-b border-slate-800/60";
       calHeader.innerHTML = `
-        <div class="flex items-center gap-2.5 min-w-0 flex-1">
-          <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-300 font-black text-xs flex items-center justify-center shrink-0 border border-emerald-500/40 shadow-sm">
-            <i class="fa-solid fa-calendar-days text-xs"></i>
+        <div class="flex items-center gap-2 min-w-0 flex-1">
+          <i class="fa-solid fa-calendar-days text-emerald-400 text-xs shrink-0"></i>
+          <span class="text-xs font-bold text-slate-100 uppercase tracking-wide truncate">
+            Kalender &amp; Agenda Ujian
           </span>
-          <div class="min-w-0 flex-1">
-            <span class="text-xs font-black text-slate-100 uppercase tracking-wider block leading-tight">
-              Kalender &amp; Agenda Ujian
-            </span>
-          </div>
         </div>
-        <div class="flex items-center gap-2 shrink-0 ml-2">
-          <span class="px-2 py-0.5 rounded-full bg-emerald-950 text-[10px] font-mono font-bold text-emerald-300 border border-emerald-800/60 shadow-sm">
+        <div class="flex items-center gap-1.5 shrink-0 ml-1.5">
+          <span class="px-1.5 py-0.5 rounded bg-emerald-950/80 text-[10px] font-mono text-emerald-300 font-semibold border border-emerald-900/60">
             2026/2027
           </span>
-          <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isCalOpen ? 'rotate-180' : ''}"></i>
+          <i class="fa-solid fa-chevron-down text-slate-400 text-[10px] transition-transform duration-200 ${isCalOpen ? 'rotate-180' : ''}"></i>
         </div>
       `;
 
       const calBody = document.createElement('div');
-      calBody.className = isCalOpen ? "p-2.5 space-y-2 block text-xs" : "p-2.5 space-y-2 hidden text-xs";
+      calBody.className = isCalOpen ? "p-2 space-y-1.5 block text-xs" : "p-2 space-y-1.5 hidden text-xs";
       calBody.innerHTML = `
-        <div class="space-y-1.5">
-          <div class="p-2 bg-purple-950/40 border border-purple-800/50 rounded-xl">
-            <div class="flex justify-between items-center"><span class="font-bold text-purple-300 text-[11px]">Gladi Bersih TKA & ANBK</span><span class="font-mono text-[10px] text-purple-400">12 - 18 Okt 2026</span></div>
-            <p class="text-[10px] text-slate-400 mt-0.5">Gelombang 2 SMA GIS 2 Serpong</p>
-          </div>
-          <div class="p-2 bg-rose-950/40 border border-rose-800/50 rounded-xl">
-            <div class="flex justify-between items-center"><span class="font-bold text-rose-300 text-[11px]">Pelaksanaan UTAMA TKA</span><span class="font-mono text-[10px] text-amber-400">2 - 5 Nov 2026</span></div>
-            <p class="text-[10px] text-slate-400 mt-0.5">Asesmen Standar Nasional</p>
-          </div>
-          <div class="p-2 bg-amber-950/40 border border-amber-800/50 rounded-xl">
-            <div class="flex justify-between items-center"><span class="font-bold text-amber-300 text-[11px]">Pengumuman Nilai TKA</span><span class="font-mono text-[10px] text-amber-400">23 Des 2026</span></div>
-            <p class="text-[10px] text-slate-400 mt-0.5">Hasil Resmi Kemdikbudristek</p>
-          </div>
-          <div class="p-2 bg-cyan-950/40 border border-cyan-800/50 rounded-xl">
-            <div class="flex justify-between items-center"><span class="font-bold text-amber-300 text-[11px]">Pelaksanaan UTBK-SNBT</span><span class="font-mono text-[10px] text-blue-400">21 - 30 Apr 2027</span></div>
-            <p class="text-[10px] text-slate-400 mt-0.5">Seleksi Nasional Masuk PTN 2027</p>
-          </div>
-          <div class="p-2 bg-emerald-950/40 border border-emerald-800/50 rounded-xl">
-            <div class="flex justify-between items-center"><span class="font-bold text-emerald-300 text-[11px]">Pengumuman SNBT 2027</span><span class="font-mono text-[10px] text-amber-400">25 Mei 2027</span></div>
-            <p class="text-[10px] text-slate-400 mt-0.5">Pengumuman Kelulusan PTN</p>
-          </div>
+        <div class="p-1.5 bg-slate-950/80 border border-slate-800/80 rounded-lg">
+          <div class="flex justify-between items-center"><span class="font-bold text-purple-300 text-[10px]">Gladi Bersih TKA</span><span class="font-mono text-[9px] text-slate-400">12 - 18 Okt 2026</span></div>
+          <p class="text-[9px] text-slate-500">Gelombang 2 SMA GIS 2 Serpong</p>
+        </div>
+        <div class="p-1.5 bg-slate-950/80 border border-slate-800/80 rounded-lg">
+          <div class="flex justify-between items-center"><span class="font-bold text-rose-300 text-[10px]">Pelaksanaan Utama TKA</span><span class="font-mono text-[9px] text-slate-400">2 - 5 Nov 2026</span></div>
+          <p class="text-[9px] text-slate-500">Asesmen Standar Nasional</p>
+        </div>
+        <div class="p-1.5 bg-slate-950/80 border border-slate-800/80 rounded-lg">
+          <div class="flex justify-between items-center"><span class="font-bold text-cyan-300 text-[10px]">UTBK-SNBT 2027</span><span class="font-mono text-[9px] text-slate-400">21 - 30 Apr 2027</span></div>
+          <p class="text-[9px] text-slate-500">Seleksi Nasional PTN</p>
+        </div>
+        <div class="p-1.5 bg-slate-950/80 border border-slate-800/80 rounded-lg">
+          <div class="flex justify-between items-center"><span class="font-bold text-emerald-300 text-[10px]">Pengumuman SNBT</span><span class="font-mono text-[9px] text-slate-400">25 Mei 2027</span></div>
+          <p class="text-[9px] text-slate-500">Hasil Kelulusan PTN</p>
         </div>
       `;
 
