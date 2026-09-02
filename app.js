@@ -2061,11 +2061,22 @@
 
     function bersihkanDraftJawaban(subj, pkgId) {
       try {
+        const uid = getUserIdentifier();
+        const specificKey = getCbtDraftKey(subj, pkgId);
+        localStorage.removeItem(specificKey);
+        
         const keysToRemove = [];
         for (let i = 0; i < localStorage.length; i++) {
           const k = localStorage.key(i);
           if (!k) continue;
-          if (k.startsWith('cbt_draft_') || k.startsWith('cbt_') || k.includes(`_${pkgId}`) || k.includes(`${pkgId}_`)) {
+          if (
+            k === specificKey ||
+            k.startsWith(`cbt_draft_${uid}_${subj}_${pkgId}`) ||
+            k.startsWith(`cbt_draft_v1_${uid}_${subj}_${pkgId}`) ||
+            k.includes(`_${subj}_${pkgId}`) ||
+            k.includes(`${subj}_${pkgId}_`) ||
+            k.includes(`_${pkgId}`)
+          ) {
             keysToRemove.push(k);
           }
         }
@@ -7453,19 +7464,6 @@ function showTkaScorecardModal() {
 
     function closeTkaScorecardModal() {
       document.getElementById('tka-scorecard-modal').classList.add('hidden');
-    }
-
-    function retakeCurrentTkaPkg() {
-      closeTkaScorecardModal();
-      const sourceDb = tkaSrc();
-      const pkg = sourceDb[tkaPkgId];
-      if (pkg && pkg.questions) {
-        for (let i = 0; i < pkg.questions.length; i++) {
-          delete userSessionScores[`${tkaSubj}_${tkaPkgId}_${i}`];
-        }
-      }
-      tkaQIdx = 0;
-      renderAppView();
     }
 
     // CANVAS PEN TOOL
