@@ -6398,23 +6398,25 @@ function showTkaScorecardModal() {
 
         // 1. KONTEN LEVEL 1: ACCORDION MATA PELAJARAN (A. MATEMATIKA WAJIB)
         const subjWrapper = document.createElement('div');
-        subjWrapper.className = "rounded-xl border border-blue-900/60 bg-[#08101E] overflow-hidden shadow-sm mb-2";
+        subjWrapper.className = "rounded-2xl border border-blue-900/60 bg-[#08101E] overflow-hidden shadow-sm mb-3";
 
         const subjHeader = document.createElement('button');
         subjHeader.type = "button";
-        subjHeader.className = "w-full px-2.5 py-1.5 bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer";
+        subjHeader.className = "w-full px-3.5 py-3 bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer text-left";
         subjHeader.innerHTML = `
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="w-5 h-5 rounded-lg bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40">
+          <div class="flex items-center gap-2.5 min-w-0 flex-1">
+            <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center shrink-0 border border-amber-500/40 shadow-sm">
               ${meta.prefix}
             </span>
-            <span class="text-xs font-black text-slate-100 uppercase tracking-wider truncate flex items-center gap-1.5">
-              <i class="${meta.icon} text-xs"></i> ${meta.name}
-            </span>
+            <div class="min-w-0 flex-1">
+              <span class="text-xs font-black text-slate-100 uppercase tracking-wider block leading-tight">
+                ${meta.name}
+              </span>
+            </div>
           </div>
-          <div class="flex items-center gap-2 shrink-0">
-            <span class="px-2 py-0.5 rounded-md bg-slate-800 text-[10px] font-mono font-bold text-slate-400 border border-slate-700">
-              ${subjMatchCount} Pertemuan
+          <div class="flex items-center gap-2 shrink-0 ml-2">
+            <span class="px-2 py-0.5 rounded-full bg-slate-800/90 text-[10px] font-mono font-bold text-slate-300 border border-slate-700 shadow-sm">
+              ${subjMatchCount} P
             </span>
             <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isSubjOpen ? 'rotate-180' : ''}"></i>
           </div>
@@ -6535,18 +6537,20 @@ function showTkaScorecardModal() {
 
       const jadwalHeader = document.createElement('button');
       jadwalHeader.type = "button";
-      jadwalHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60 cursor-pointer";
+      jadwalHeader.className = "w-full px-3.5 py-3 bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer text-left";
       jadwalHeader.innerHTML = `
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="w-5 h-5 rounded-lg bg-blue-500/20 text-blue-300 font-black text-xs flex items-center justify-center shrink-0 border border-blue-500/40">
-            <i class="fa-solid fa-clock text-[10px]"></i>
+        <div class="flex items-center gap-2.5 min-w-0 flex-1">
+          <span class="w-6 h-6 rounded-lg bg-blue-500/20 text-blue-300 font-black text-xs flex items-center justify-center shrink-0 border border-blue-500/40 shadow-sm">
+            <i class="fa-solid fa-clock text-xs"></i>
           </span>
-          <span class="text-xs font-black text-slate-100 uppercase tracking-wider truncate flex items-center gap-1.5">
-            <i class="fa-solid fa-calendar-week text-blue-400 text-xs"></i> Jadwal KBM Reguler XII
-          </span>
+          <div class="min-w-0 flex-1">
+            <span class="text-xs font-black text-slate-100 uppercase tracking-wider block leading-tight">
+              Jadwal KBM Reguler XII
+            </span>
+          </div>
         </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <span class="px-2 py-0.5 rounded-md bg-blue-950 text-[10px] font-mono font-bold text-blue-300 border border-blue-800/60">
+        <div class="flex items-center gap-2 shrink-0 ml-2">
+          <span class="px-2 py-0.5 rounded-full bg-blue-950 text-[10px] font-mono font-bold text-blue-300 border border-blue-800/60 shadow-sm">
             24 JP
           </span>
           <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isJadwalOpen ? 'rotate-180' : ''}"></i>
@@ -6643,18 +6647,20 @@ function showTkaScorecardModal() {
 
       const calHeader = document.createElement('button');
       calHeader.type = "button";
-      calHeader.className = "w-full px-3.5 py-2.5 bg-slate-950/90 hover:bg-slate-800/90 flex items-center justify-between transition border-b border-slate-800/60 cursor-pointer";
+      calHeader.className = "w-full px-3.5 py-3 bg-[#0A1424] hover:bg-[#102038] border border-blue-900/50 flex items-center justify-between transition border-b border-blue-900/40 cursor-pointer text-left";
       calHeader.innerHTML = `
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="w-5 h-5 rounded-lg bg-amber-500/20 text-emerald-300 font-black text-xs flex items-center justify-center shrink-0 border border-blue-500/40">
-            <i class="fa-solid fa-calendar-days text-[10px]"></i>
+        <div class="flex items-center gap-2.5 min-w-0 flex-1">
+          <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-300 font-black text-xs flex items-center justify-center shrink-0 border border-emerald-500/40 shadow-sm">
+            <i class="fa-solid fa-calendar-days text-xs"></i>
           </span>
-          <span class="text-xs font-black text-slate-100 uppercase tracking-wider truncate flex items-center gap-1.5">
-            <i class="fa-solid fa-bullhorn text-amber-400 text-xs"></i> Kalender & Agenda Ujian
-          </span>
+          <div class="min-w-0 flex-1">
+            <span class="text-xs font-black text-slate-100 uppercase tracking-wider block leading-tight">
+              Kalender &amp; Agenda Ujian
+            </span>
+          </div>
         </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <span class="px-2 py-0.5 rounded-md bg-emerald-950 text-[10px] font-mono font-bold text-emerald-300 border border-emerald-800/60">
+        <div class="flex items-center gap-2 shrink-0 ml-2">
+          <span class="px-2 py-0.5 rounded-full bg-emerald-950 text-[10px] font-mono font-bold text-emerald-300 border border-emerald-800/60 shadow-sm">
             2026/2027
           </span>
           <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 ${isCalOpen ? 'rotate-180' : ''}"></i>
