@@ -1581,9 +1581,20 @@
         if (!sess) return null;
         try {
             const parsed = JSON.parse(sess);
-            if (Date.now() - parsed.timestamp > SESSION_TIMEOUT) {
+            if (Date.now() - (parsed.timestamp || 0) > SESSION_TIMEOUT) {
                 localStorage.removeItem(SESSION_KEY);
                 return null;
+            }
+            // Anti-Tamper: Validasi & Sinkronisasi ulang data siswa langsung dari master STUDENTS_DATA
+            if (parsed.type === 'siswa' && parsed.data && parsed.data.nis) {
+                const master = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[parsed.data.nis]) ? STUDENTS_DATA[parsed.data.nis] : null;
+                if (master) {
+                    parsed.data.name = master.nama;
+                    parsed.data.nama = master.nama;
+                    parsed.data.kelas = master.kelas;
+                    parsed.data.kelas_name = master.kelas;
+                    parsed.data.access_level = master.access_level;
+                }
             }
             return parsed;
         } catch (e) {
