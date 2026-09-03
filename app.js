@@ -2038,19 +2038,108 @@
       }
     }
 
+
+    // =========================================================================
+    // UNIVERSAL CBT AUTO-GRADING & EVALUATION ENGINE (ALL QUESTION TYPES)
+    // =========================================================================
+    function evaluateQuestionScore(q, chosen) {
+      if (!q || chosen === undefined || chosen === null) return false;
+      const qType = q.tipe || q.type || '';
+      const kunci = q.kunci;
+      if (kunci === undefined || kunci === null) return false;
+
+      const isNumeric = (!q.opsi || q.opsi.length === 0) || qType === 'Isian Singkat Numerik' || qType === 'Numeric Entry';
+      const isTF = !isNumeric && (qType === 'Pilihan Benar / Salah' || qType === 'True / False' || (kunci && /^[BS]\s*-\s*[BS]/i.test(String(kunci))));
+      const isMulti = !isNumeric && !isTF && (qType === 'Pilihan Ganda Kompleks' || qType === 'Multiple Response' || (kunci && String(kunci).includes(',')));
+
+      if (isTF) {
+        // True / False evaluation
+        const correctParts = String(kunci).split('-').map(s => s.trim().toUpperCase()[0]).filter(Boolean);
+        if (correctParts.length === 0) return false;
+        
+        let userParts = {};
+        if (typeof chosen === 'object' && chosen !== null) {
+          userParts = chosen;
+        } else if (Array.isArray(chosen)) {
+          chosen.forEach((val, idx) => { userParts[idx] = val; });
+        } else if (typeof chosen === 'string' && chosen.includes('-')) {
+          chosen.split('-').forEach((val, idx) => { userParts[idx] = val.trim(); });
+        } else {
+          return false;
+        }
+
+        for (let i = 0; i < correctParts.length; i++) {
+          const uVal = userParts[i] || userParts[String(i)];
+          if (!uVal) return false;
+          const uNorm = String(uVal).trim().toUpperCase()[0];
+          const expected = correctParts[i];
+          if (uNorm !== expected) return false;
+        }
+        return true;
+
+      } else if (isMulti) {
+        // Multiple Response evaluation
+        const correctSet = String(kunci).split(',').map(s => s.trim().toUpperCase()).filter(Boolean).sort();
+        let userArr = [];
+        if (Array.isArray(chosen)) {
+          userArr = chosen;
+        } else if (typeof chosen === 'string') {
+          userArr = chosen.split(',');
+        } else if (typeof chosen === 'object' && chosen !== null) {
+          userArr = Object.values(chosen);
+        }
+        const userSet = userArr.map(s => String(s).trim().toUpperCase()).filter(Boolean).sort();
+        if (userSet.length === 0 || correctSet.length === 0) return false;
+        if (userSet.length !== correctSet.length) return false;
+        return correctSet.every((val, idx) => val === userSet[idx]);
+
+      } else if (isNumeric) {
+        // Numeric Entry evaluation
+        const strChosen = String(chosen).trim();
+        if (!strChosen) return false;
+        const a = numericValue(strChosen);
+        const b = numericValue(kunci);
+        if (a !== null && b !== null) {
+          return Math.abs(a - b) <= Math.max(1e-5, Math.abs(b) * 1e-3);
+        }
+        const cleanUser = strChosen.replace(/\s+/g, '').replace(/,/g, '.').toLowerCase();
+        const cleanCorrect = String(kunci).trim().replace(/\s+/g, '').replace(/,/g, '.').toLowerCase();
+        return cleanUser === cleanCorrect;
+
+      } else {
+        // Single Choice A/B/C/D/E or Kecukupan Data
+        const cleanUser = String(chosen).trim().toUpperCase();
+        const cleanCorrect = String(kunci).trim().toUpperCase();
+        return cleanUser === cleanCorrect;
+      }
+    }
+
     function pulihkanDraftJawaban(subj, pkgId) {
       try {
         const k = getCbtDraftKey(subj, pkgId);
         const draft = JSON.parse(localStorage.getItem(k) || '{}');
+        const sourceDb = tkaSrc(subj);
+        const pkg = sourceDb[pkgId];
+
         if (draft && draft.answers) {
           Object.keys(draft.answers).forEach(qIdx => {
             const ans = draft.answers[qIdx];
             const scoreKey = `${subj}_${pkgId}_${qIdx}`;
-            userSessionScores[scoreKey] = ans.isRight;
+            const q = (pkg && pkg.questions) ? pkg.questions[Number(qIdx)] : null;
+            
+            if (q && ans.chosen !== undefined && ans.chosen !== null && ans.chosen !== '') {
+              const evalResult = evaluateQuestionScore(q, ans.chosen);
+              userSessionScores[scoreKey] = evalResult;
+              ans.isRight = evalResult;
+            } else if (ans.isRight !== undefined && ans.isRight !== null) {
+              userSessionScores[scoreKey] = ans.isRight;
+            }
           });
           return draft;
         }
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Error recovering draft:', e);
+      }
       return null;
     }
 
@@ -3945,10 +4034,22 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       let answeredCount = 0;
 
       for (let i = 0; i < totalQ; i++) {
-        if (allDrafts[i] !== undefined || userSessionScores[`${tkaSubj}_${tkaPkgId}_${i}`] !== undefined) {
+        const key = `${tkaSubj}_${tkaPkgId}_${i}`;
+        const qItem = pkg.questions[i];
+        const draftItem = allDrafts[i];
+
+        if (draftItem && draftItem.chosen !== undefined && draftItem.chosen !== null && draftItem.chosen !== '') {
+          const evalResult = evaluateQuestionScore(qItem, draftItem.chosen);
+          userSessionScores[key] = evalResult;
+          draftItem.isRight = evalResult;
+          answeredCount++;
+        } else if (userSessionScores[key] !== undefined) {
           answeredCount++;
         }
       }
+      try {
+        localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
+      } catch (e) {}
 
       const unansweredCount = totalQ - answeredCount;
 
@@ -3985,18 +4086,34 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     }
 
 function showTkaScorecardModal() {
-      if (typeof pulihkanDraftJawaban === 'function') {
-        pulihkanDraftJawaban(tkaSubj, tkaPkgId);
-      }
-      // Catat & Submit Nilai Resmi ke Supabase
-      if (typeof catatSesiCbt === 'function') {
-        catatSesiCbt(tkaSubj, tkaPkgId, true);
-      }
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       if (!pkg || !pkg.questions) return;
 
       const totalQ = pkg.questions.length;
+      const allDrafts = ambilDraftSemua(tkaSubj, tkaPkgId);
+
+      // Pastikan seluruh butir soal (Pilihan Ganda, Benar/Salah, Isian Singkat, Kompleks) dinilai dengan presisi penuh
+      for (let i = 0; i < totalQ; i++) {
+        const key = `${tkaSubj}_${tkaPkgId}_${i}`;
+        const qItem = pkg.questions[i];
+        const draftItem = allDrafts[i];
+
+        if (draftItem && draftItem.chosen !== undefined && draftItem.chosen !== null && draftItem.chosen !== '') {
+          const evalResult = evaluateQuestionScore(qItem, draftItem.chosen);
+          userSessionScores[key] = evalResult;
+          draftItem.isRight = evalResult;
+        }
+      }
+      try {
+        localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
+      } catch (e) {}
+
+      // Catat & Submit Nilai Resmi ke Supabase
+      if (typeof catatSesiCbt === 'function') {
+        catatSesiCbt(tkaSubj, tkaPkgId, true);
+      }
+
       let correctCount = 0;
       let answeredCount = 0;
 
@@ -4202,7 +4319,7 @@ function showTkaScorecardModal() {
           <div class="space-y-3">
             ${statements.map((stmt, idx) => {
               const correctChoice = correctParts[idx] || 'B';
-              const userChoice = userTfAnswers ? userTfAnswers[idx] : null;
+              const userChoice = userTfAnswers ? (userTfAnswers[idx] || userTfAnswers[String(idx)]) : null;
               
               let bClass = "border-slate-600 bg-slate-900 text-slate-200";
               let sClass = "border-slate-600 bg-slate-900 text-slate-200";
@@ -4442,10 +4559,14 @@ function showTkaScorecardModal() {
       if (txt) txt.textContent = vizOpen ? 'Sembunyikan ilustrasi' : 'Lihat ilustrasi';
     }
 
-    // CBT SELECTION HANDLERS & PERSISTENCE
+    // CBT SELECTION HANDLERS & AUTO-PERSISTENCE ENGINE
     function selectAnswer(chosen, correct) {
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correct };
+      const isRight = evaluateQuestionScore(q, chosen);
+
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
-      const isRight = (chosen.toUpperCase() === correct.toUpperCase());
       userSessionScores[key] = isRight;
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', chosen: chosen, correct: correct });
 
@@ -4492,13 +4613,28 @@ function showTkaScorecardModal() {
         if (mark) mark.innerHTML = '';
       }
 
-      // Auto-save choices to draft immediately
-      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, null, { type: 'multi', chosen: userMultiAnswers });
-      
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
+      const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
+
+      if (userMultiAnswers.length === 0) {
+        delete userSessionScores[key];
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, [], null, { type: 'multi', chosen: [] });
+      } else if (q) {
+        const isRight = evaluateQuestionScore(q, userMultiAnswers);
+        userSessionScores[key] = isRight;
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, isRight, { type: 'multi', chosen: userMultiAnswers, correct: q.kunci });
+      }
+
       // Update nav pill status
       const activePill = document.querySelector(`#tka-q-pills button:nth-child(${tkaQIdx + 1})`);
-      if (activePill && userMultiAnswers.length > 0) {
-        activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+      if (activePill) {
+        if (userMultiAnswers.length > 0) {
+          activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+        } else {
+          activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-slate-800 text-slate-300 hover:bg-slate-700';
+        }
       }
       saveAppState();
     }
@@ -4519,18 +4655,23 @@ function showTkaScorecardModal() {
     const OPT_MUTED = OPT_BASE + ' bg-slate-900/70 border border-slate-800 text-slate-400';
 
     function submitMultiAnswer(correctKeysStr) {
-      const correctSet = correctKeysStr.split(',').map(s => s.trim().toUpperCase());
-      const userSet = userMultiAnswers.map(s => s.toUpperCase());
-      if (userSet.length === 0) {
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctKeysStr };
+
+      if (!userMultiAnswers || userMultiAnswers.length === 0) {
         flashHint('multi-hint', 'Pilih minimal satu pernyataan sebelum memeriksa jawaban.');
         return;
       }
-      const isRight = (correctSet.length === userSet.length && correctSet.every(k => userSet.includes(k)));
+      const isRight = evaluateQuestionScore(q, userMultiAnswers);
 
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       userSessionScores[key] = isRight;
-      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, inp.value.trim(), isRight, { type: 'numeric', chosen: inp.value.trim(), correct: correctVal });
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, isRight, { type: 'multi', chosen: userMultiAnswers, correct: correctKeysStr });
       catatSesiCbt(tkaSubj, tkaPkgId);
+
+      const correctSet = String(correctKeysStr || '').split(',').map(s => s.trim().toUpperCase());
+      const userSet = userMultiAnswers.map(s => s.toUpperCase());
 
       // per-option marking so the student sees WHICH pick was wrong
       document.querySelectorAll('.multi-opt-btn').forEach(btn => {
@@ -4568,8 +4709,18 @@ function showTkaScorecardModal() {
         if (bBtn) bBtn.className = "px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-900 text-slate-400 opacity-60 cursor-pointer";
       }
 
-      // Auto-save True/False choices to draft immediately
-      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, null, { type: 'tf', chosen: userTfAnswers });
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
+      const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
+
+      if (q) {
+        const isRight = evaluateQuestionScore(q, userTfAnswers);
+        userSessionScores[key] = isRight;
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, isRight, { type: 'tf', chosen: userTfAnswers, correct: q.kunci });
+      } else {
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, null, { type: 'tf', chosen: userTfAnswers });
+      }
       
       // Update nav pill status
       const activePill = document.querySelector(`#tka-q-pills button:nth-child(${tkaQIdx + 1})`);
@@ -4580,31 +4731,60 @@ function showTkaScorecardModal() {
     }
 
     function saveNumericDraft(val) {
-      if (!val) return;
-      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, val.trim(), null, { type: 'numeric', chosen: val.trim() });
+      if (val === undefined || val === null) return;
+      const cleanVal = String(val).trim();
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
+      const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
+
+      if (cleanVal === '') {
+        delete userSessionScores[key];
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, '', null, { type: 'numeric', chosen: '' });
+      } else if (q) {
+        const isRight = evaluateQuestionScore(q, cleanVal);
+        userSessionScores[key] = isRight;
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, cleanVal, isRight, { type: 'numeric', chosen: cleanVal, correct: q.kunci });
+      } else {
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, cleanVal, null, { type: 'numeric', chosen: cleanVal });
+      }
+
+      // Update question nav pill
+      const activePill = document.querySelector(`#tka-q-pills button:nth-child(${tkaQIdx + 1})`);
+      if (activePill) {
+        if (cleanVal !== '') {
+          activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+        } else {
+          activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-slate-800 text-slate-300 hover:bg-slate-700';
+        }
+      }
       saveAppState();
     }
 
     function submitTfAnswer(correctPattern, stmtCount) {
-      const correctParts = correctPattern.split('-').map(s => s.trim().toUpperCase());
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctPattern };
+
       for (let i = 0; i < stmtCount; i++) {
-        if (!userTfAnswers[i]) {
+        if (!userTfAnswers[i] && !userTfAnswers[String(i)]) {
           flashHint('tf-hint', `Pernyataan ${i + 1} belum dijawab. Isi semua dulu, ya.`);
           return;
         }
       }
-      let allCorrect = true;
-      for (let i = 0; i < stmtCount; i++) {
-        if (userTfAnswers[i] !== correctParts[i]) { allCorrect = false; break; }
-      }
+      const isRight = evaluateQuestionScore(q, userTfAnswers);
 
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
-      userSessionScores[key] = allCorrect;
+      userSessionScores[key] = isRight;
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, isRight, { type: 'tf', chosen: userTfAnswers, correct: correctPattern });
       catatSesiCbt(tkaSubj, tkaPkgId);
+
+      const correctParts = String(correctPattern).split('-').map(s => s.trim().toUpperCase());
 
       // mark each statement individually
       for (let i = 0; i < stmtCount; i++) {
-        const ok = userTfAnswers[i] === correctParts[i];
+        const uChoice = userTfAnswers[i] || userTfAnswers[String(i)] || '';
+        const ok = uChoice.toUpperCase()[0] === correctParts[i][0];
         const row = document.getElementById(`tf-row-${i}`);
         const badge = document.getElementById(`tf-verdict-${i}`);
         ['tf-b-' + i, 'tf-s-' + i].forEach(id => {
@@ -4622,7 +4802,7 @@ function showTkaScorecardModal() {
       const tb = document.getElementById('tf-submit');
       if (tb) { tb.disabled = true; tb.classList.add('opacity-50', 'pointer-events-none'); }
 
-      if (allCorrect) confettiCelebration();
+      if (isRight) confettiCelebration();
 
       document.getElementById('tka-solution-box').classList.remove('hidden');
       kalimatSetelahDikoreksi();
@@ -4653,22 +4833,24 @@ function showTkaScorecardModal() {
     function submitNumericAnswer(correctVal) {
       const inp = document.getElementById('numeric-input');
       if (!inp) return;
-      if (!inp.value.trim()) {
+      const cleanVal = inp.value.trim();
+      if (!cleanVal) {
         flashHint('numeric-hint', 'Isi dulu jawabanmu sebelum mengirim.');
         inp.focus();
         return;
       }
-      const a = numericValue(inp.value), b = numericValue(correctVal);
-      const isRight = (a !== null && b !== null)
-        ? Math.abs(a - b) <= Math.max(1e-9, Math.abs(b) * 1e-4)
-        : inp.value.trim().replace(/\s+/g, '').toLowerCase() ===
-          String(correctVal).trim().replace(/\s+/g, '').toLowerCase();
+      const sourceDb = tkaSrc();
+      const pkg = sourceDb[tkaPkgId];
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctVal };
+      const isRight = evaluateQuestionScore(q, cleanVal);
+
       inp.disabled = true;
       const sBtn = document.getElementById('numeric-submit');
       if (sBtn) { sBtn.disabled = true; sBtn.classList.add('opacity-50', 'pointer-events-none'); }
 
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       userSessionScores[key] = isRight;
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, cleanVal, isRight, { type: 'numeric', chosen: cleanVal, correct: correctVal });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
       if (isRight) {
