@@ -1176,7 +1176,7 @@ const NAMA_TINGKAT = 'XII';
           "solution": "Langkah 1: Tentukan titik tengah tiap kelas: $x_1 = 34{,}5$, $x_2 = 44{,}5$, $x_3 = 54{,}5$, $x_4 = 64{,}5$.\nLangkah 2: Hitung $f_i x_i$:\n- $3 \\times 34{,}5 = 103{,}5$\n- $5 \\times 44{,}5 = 222{,}5$\n- $8 \\times 54{,}5 = 436{,}0$\n- $4 \\times 64{,}5 = 258{,}0$\nLangkah 3: $\\sum f_i = 3 + 5 + 8 + 4 = 20$. $\\sum f_i x_i = 103{,}5 + 222{,}5 + 436 + 258 = 1020$.\nLangkah 4: $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{1020}{20} = 51$.\nKesimpulan: Nilai rata-rata hitung data adalah $51$."
         },
         {
-          "problem": "Hitung mean data pada tabel [10-19: 4], [20-29: 7], [30-39: 10], [40-49: 6], [50-59: 3] dengan metode rataan sementara ($\bar{x}_s = 34{,}5$)!",
+          "problem": "Hitung mean data pada tabel [10-19: 4], [20-29: 7], [30-39: 10], [40-49: 6], [50-59: 3] dengan metode rataan sementara ($\\bar{x}_s = 34{,}5$)!",
           "solution": "Langkah 1: Titik tengah: $14{,}5; 24{,}5; 34{,}5; 44{,}5; 54{,}5$. Deviasi $d_i = x_i - 34{,}5$: $-20, -10, 0, +10, +20$.\nLangkah 2: Hitung $f_i d_i$:\n- $4(-20) = -80$\n- $7(-10) = -70$\n- $10(0) = 0$\n- $6(10) = 60$\n- $3(20) = 60$\nLangkah 3: $\\sum f_i d_i = -80 - 70 + 0 + 60 + 60 = -30$. $\\sum f_i = 4 + 7 + 10 + 6 + 3 = 30$.\nLangkah 4: $\\bar{x} = \\bar{x}_s + \\frac{\\sum f_i d_i}{\\sum f_i} = 34{,}5 + \\frac{-30}{30} = 34{,}5 - 1 = 33{,}5$.\nKesimpulan: Nilai mean data adalah $33{,}5$."
         },
         {

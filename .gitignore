@@ -32,3 +32,15 @@ contoh-satu-pertemuan.json
 # Isinya hanya salinan 9 berkas situs -- bukan sumber, jadi tidak perlu
 # ikut ke GitHub.
 _deploy/
+
+# Bank soal & kunci jawaban PTS: hanya untuk komputer guru.
+# Repositori ini PUBLIK -- kalau ikut ter-commit, soal dan kuncinya
+# bisa dibaca siapa saja di GitHub sebelum ujian berlangsung.
+BANK_SOAL_PTS_CROP_PNG/
+PTS_*.md
+PTS_*.html
+PTS_*.pdf
+TKA_PTS_*.md
+TKA_PTS_*.html
+TKA_PTS_*.pdf
+tka_questions_dump.txt
