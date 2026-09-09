@@ -4093,7 +4093,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     function confirmAndFinalizeCbt() {
       closeCbtSubmitModal();
+      window._tkaReviewMode = true;
       showTkaScorecardModal();
+      renderAppView();
     }
 
 function showTkaScorecardModal() {
@@ -4551,81 +4553,149 @@ function showTkaScorecardModal() {
       terapkanJawabanTersimpan();
     }
 
-    // Soal yang sudah pernah dijawab dibuka kembali dalam keadaan TERKOREKSI.
-    // pulihkanDraftJawaban() memulihkan angka nilainya, tetapi tanda benar/salah
-    // dan kotak pembahasannya tidak ikut kembali -- sehingga begitu siswa
-    // berpindah nomor lalu kembali, atau memuat ulang halaman, soalnya tampak
-    // seolah belum pernah dikerjakan. Bagian ini memutar ulang tampilannya.
+    // Memulihkan tampilan jawaban tersimpan pada perangkat.
+    // Selama siswa SEDANG UJIAN (bukan review mode), opsi yang dipilih ditandai
+    // biru netral ('Terpilih'), tombol tetap interaktif, dan kunci/pembahasan
+    // TETAP TERKUNCI (HIDDEN). Kunci dan pembahasan BARU DIBUKA setelah siswa
+    // mengumpulkan ujian dan masuk ke Mode Review.
     function terapkanJawabanTersimpan() {
+      const isReviewMode = window._tkaReviewMode === true;
       let rec = null;
       try {
         const draft = JSON.parse(localStorage.getItem(getCbtDraftKey(tkaSubj, tkaPkgId)) || '{}');
         if (draft && draft.answers) rec = draft.answers[tkaQIdx] || draft.answers[String(tkaQIdx)] || null;
       } catch (e) { return; }
-      if (!rec || rec.isRight === null || rec.isRight === undefined) return;
+      if (!rec || rec.chosen === undefined || rec.chosen === null || rec.chosen === '') return;
 
       const jenis = (rec.details && rec.details.type) || 'single';
       const kunci = String(window.tkaActiveCorrectKey || '');
+
       try {
-        if (jenis === 'multi') {
-          const dipilih = (Array.isArray(rec.chosen) ? rec.chosen : String(rec.chosen || '').split(','))
-            .map(v => String(v).trim().toUpperCase()).filter(Boolean);
-          const benar = kunci.split(',').map(v => v.trim().toUpperCase());
-          userMultiAnswers = dipilih.slice();
-          document.querySelectorAll('.multi-opt-btn').forEach(btn => {
-            const L = btn.dataset.letter;
-            const picked = dipilih.includes(L), right = benar.includes(L);
-            btn.disabled = true;
-            btn.className = 'multi-opt-btn' + mSpan(btn) + ' ' +
-              (picked && right ? OPT_RIGHT : picked && !right ? OPT_WRONG
-               : !picked && right ? OPT_MISSED : OPT_MUTED);
-            const tag = btn.querySelector('.opt-mark');
-            if (tag) tag.innerHTML = picked && right ? '<i class="fa-solid fa-check text-emerald-300"></i>'
-              : picked && !right ? '<i class="fa-solid fa-xmark text-rose-300"></i>'
-              : !picked && right ? '<i class="fa-solid fa-arrow-left text-emerald-300" title="Seharusnya dipilih"></i>' : '';
-          });
-          const mb = document.getElementById('multi-submit');
-          if (mb) { mb.disabled = true; mb.classList.add('opacity-50', 'pointer-events-none'); }
-        } else if (jenis === 'tf') {
-          const jwb = rec.chosen || {};
-          const benar = kunci.split('-').map(v => v.trim().toUpperCase());
-          for (let i = 0; i < benar.length; i++) {
-            const pilih = jwb[i] !== undefined ? jwb[i] : jwb[String(i)];
-            if (pilih === undefined) continue;
-            userTfAnswers[i] = pilih;
-            const ok = String(pilih).toUpperCase() === benar[i];
-            ['tf-b-' + i, 'tf-s-' + i].forEach(id => {
-              const b = document.getElementById(id); if (b) b.disabled = true;
+        if (isReviewMode) {
+          // ===== MODE REVIEW PASCA-KUMPULKAN UJIAN (EVALUASI LENGKAP & PEMBAHASAN TERBUKA) =====
+          if (jenis === 'multi') {
+            const dipilih = (Array.isArray(rec.chosen) ? rec.chosen : String(rec.chosen || '').split(','))
+              .map(v => String(v).trim().toUpperCase()).filter(Boolean);
+            const benar = kunci.split(',').map(v => v.trim().toUpperCase());
+            userMultiAnswers = dipilih.slice();
+            document.querySelectorAll('.multi-opt-btn').forEach(btn => {
+              const L = btn.dataset.letter;
+              const picked = dipilih.includes(L), right = benar.includes(L);
+              btn.disabled = true;
+              btn.className = 'multi-opt-btn' + mSpan(btn) + ' ' +
+                (picked && right ? OPT_RIGHT : picked && !right ? OPT_WRONG
+                 : !picked && right ? OPT_MISSED : OPT_MUTED);
+              const tag = btn.querySelector('.opt-mark');
+              if (tag) tag.innerHTML = picked && right ? '<i class="fa-solid fa-check text-emerald-300"></i>'
+                : picked && !right ? '<i class="fa-solid fa-xmark text-rose-300"></i>'
+                : !picked && right ? '<i class="fa-solid fa-arrow-left text-emerald-300" title="Seharusnya dipilih"></i>' : '';
             });
-            const row = document.getElementById('tf-row-' + i);
-            if (row) row.className = 'p-3.5 md:p-4 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow border-2 ' +
-              (ok ? 'bg-emerald-950/60 border-emerald-500/70' : 'bg-rose-950/60 border-rose-500/70');
-            const badge = document.getElementById('tf-verdict-' + i);
-            if (badge) {
-              badge.classList.remove('hidden');
-              badge.className = 'text-[11px] font-black px-2 py-0.5 rounded-lg ' +
-                (ok ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300');
-              badge.textContent = ok ? 'Tepat' : `Seharusnya ${benar[i] === 'B' ? 'BENAR' : 'SALAH'}`;
+            const mb = document.getElementById('multi-submit');
+            if (mb) { mb.disabled = true; mb.classList.add('opacity-50', 'pointer-events-none'); }
+          } else if (jenis === 'tf') {
+            const jwb = rec.chosen || {};
+            const benar = kunci.split('-').map(v => v.trim().toUpperCase());
+            for (let i = 0; i < benar.length; i++) {
+              const pilih = jwb[i] !== undefined ? jwb[i] : jwb[String(i)];
+              if (pilih === undefined) continue;
+              userTfAnswers[i] = pilih;
+              const ok = String(pilih).toUpperCase() === benar[i];
+              ['tf-b-' + i, 'tf-s-' + i].forEach(id => {
+                const b = document.getElementById(id); if (b) b.disabled = true;
+              });
+              const row = document.getElementById('tf-row-' + i);
+              if (row) row.className = 'p-3.5 md:p-4 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow border-2 ' +
+                (ok ? 'bg-emerald-950/60 border-emerald-500/70' : 'bg-rose-950/60 border-rose-500/70');
+              const badge = document.getElementById('tf-verdict-' + i);
+              if (badge) {
+                badge.classList.remove('hidden');
+                badge.className = 'text-[11px] font-black px-2 py-0.5 rounded-lg ' +
+                  (ok ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300');
+                badge.textContent = ok ? 'Tepat' : `Seharusnya ${benar[i] === 'B' ? 'BENAR' : 'SALAH'}`;
+              }
+            }
+            const tb = document.getElementById('tf-submit');
+            if (tb) { tb.disabled = true; tb.classList.add('opacity-50', 'pointer-events-none'); }
+          } else if (jenis === 'numeric') {
+            const inp = document.getElementById('numeric-input');
+            if (inp) {
+              inp.value = rec.chosen;
+              inp.disabled = true;
+              inp.className = rec.isRight
+                ? "w-full bg-emerald-950 border-2 border-emerald-400 rounded-2xl py-3 px-4 text-center text-lg font-mono font-black text-white shadow-lg"
+                : "w-full bg-rose-950 border-2 border-rose-400 rounded-2xl py-3 px-4 text-center text-lg font-mono font-black text-white shadow-lg";
+            }
+            const sb = document.getElementById('numeric-submit');
+            if (sb) { sb.disabled = true; sb.classList.add('opacity-50', 'pointer-events-none'); }
+          } else {
+            tandaiOpsiTunggal(rec.chosen, (rec.details && rec.details.correct) || kunci);
+          }
+          bukaKotakPembahasan();
+        } else {
+          // ===== MODE UJIAN (SEDANG MENGERJAKAN - PEMBAHASAN TERSEMBUNYI, OPSI BISA DIGANTI) =====
+          const solBox = document.getElementById('tka-solution-box');
+          if (solBox) solBox.classList.add('hidden');
+
+          if (jenis === 'single') {
+            const span = b => b.classList.contains('md:col-span-2') ? ' md:col-span-2' : '';
+            document.querySelectorAll('.opt-btn').forEach(b => {
+              const letter = b.getAttribute('data-letter');
+              const markEl = b.querySelector('.opt-mark');
+              b.disabled = false;
+              if (letter === rec.chosen) {
+                b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-blue-900/70 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-blue-900/50 transition scale-[1.01] cursor-pointer';
+                if (markEl) markEl.innerHTML = '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-circle-check text-amber-300"></i> Terpilih</span>';
+              } else {
+                b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow cursor-pointer';
+                if (markEl) markEl.innerHTML = '';
+              }
+            });
+          } else if (jenis === 'multi') {
+            const dipilih = (Array.isArray(rec.chosen) ? rec.chosen : String(rec.chosen || '').split(','))
+              .map(v => String(v).trim().toUpperCase()).filter(Boolean);
+            userMultiAnswers = dipilih.slice();
+            document.querySelectorAll('.multi-opt-btn').forEach(btn => {
+              const L = btn.dataset.letter;
+              const picked = dipilih.includes(L);
+              btn.disabled = false;
+              btn.className = "multi-opt-btn" + mSpan(btn) + " p-3.5 md:p-4 border rounded-2xl text-left text-sm flex items-start gap-3 transition shadow cursor-pointer " +
+                (picked ? "bg-blue-900/60 border-2 border-blue-400 text-white shadow-lg shadow-blue-900/40" : "bg-slate-800/90 border-slate-700 text-slate-200 hover:bg-slate-700");
+              const chk = document.getElementById('chk-' + L);
+              if (chk) chk.className = "w-6 h-6 rounded-lg font-bold flex items-center justify-center shrink-0 text-xs " +
+                (picked ? "bg-blue-600 border border-blue-400 text-white" : "bg-slate-900 border-slate-700 text-slate-400");
+              const mark = btn.querySelector('.opt-mark');
+              if (mark) mark.innerHTML = picked ? '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-square-check text-amber-300"></i> Terpilih</span>' : '';
+            });
+          } else if (jenis === 'tf') {
+            const jwb = rec.chosen || {};
+            for (let i = 0; i < 10; i++) {
+              const pilih = jwb[i] !== undefined ? jwb[i] : jwb[String(i)];
+              if (pilih === undefined) continue;
+              userTfAnswers[i] = pilih;
+              const bBtn = document.getElementById('tf-b-' + i);
+              const sBtn = document.getElementById('tf-s-' + i);
+              if (bBtn && sBtn) {
+                bBtn.disabled = false;
+                sBtn.disabled = false;
+                if (pilih === 'B') {
+                  bBtn.className = "px-4 py-2 rounded-xl text-xs font-black border-2 border-blue-400 bg-blue-600 text-white shadow scale-105 transition cursor-pointer";
+                  sBtn.className = "px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-900 text-slate-400 opacity-60 cursor-pointer";
+                } else if (pilih === 'S') {
+                  sBtn.className = "px-4 py-2 rounded-xl text-xs font-black border-2 border-blue-400 bg-blue-600 text-white shadow scale-105 transition cursor-pointer";
+                  bBtn.className = "px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-900 text-slate-400 opacity-60 cursor-pointer";
+                }
+              }
+            }
+          } else if (jenis === 'numeric') {
+            const inp = document.getElementById('numeric-input');
+            if (inp) {
+              inp.value = rec.chosen;
+              inp.disabled = false;
+              inp.className = "w-full bg-slate-950 border-slate-700 text-white border rounded-2xl py-3 px-4 text-center text-lg font-mono font-bold focus:outline-none focus:border-amber-400 shadow-inner";
             }
           }
-          const tb = document.getElementById('tf-submit');
-          if (tb) { tb.disabled = true; tb.classList.add('opacity-50', 'pointer-events-none'); }
-        } else if (jenis === 'numeric') {
-          const inp = document.getElementById('numeric-input');
-          if (inp) {
-            inp.value = rec.chosen;
-            inp.disabled = true;
-            inp.className = rec.isRight
-              ? "w-full bg-emerald-950 border-2 border-emerald-400 rounded-2xl py-3 px-4 text-center text-lg font-mono font-black text-white shadow-lg"
-              : "w-full bg-rose-950 border-2 border-rose-400 rounded-2xl py-3 px-4 text-center text-lg font-mono font-black text-white shadow-lg";
-          }
-          const sb = document.getElementById('numeric-submit');
-          if (sb) { sb.disabled = true; sb.classList.add('opacity-50', 'pointer-events-none'); }
-        } else {
-          tandaiOpsiTunggal(rec.chosen, (rec.details && rec.details.correct) || kunci);
         }
       } catch (e) { return; }
-      bukaKotakPembahasan();
     }
 
     let vizOpen = false;
@@ -4649,7 +4719,11 @@ function showTkaScorecardModal() {
     }
 
     // CBT SELECTION HANDLERS & AUTO-PERSISTENCE ENGINE
+    // Selama ujian berlangsung: pilihan siswa tersimpan (ditandai 'Terpilih'),
+    // bebas diubah kapan saja, dan KUNCI/PEMBAHASAN TETAP 100% TERKUNCI (HIDDEN).
     function selectAnswer(chosen, correct) {
+      if (window._tkaReviewMode === true) return; // Mode review readonly
+
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correct };
@@ -4659,16 +4733,17 @@ function showTkaScorecardModal() {
       userSessionScores[key] = isRight;
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', chosen: chosen, correct: correct });
 
-      // Highlight opsi yang dipilih siswa (simpan pilihan pada perangkat)
+      // Highlight opsi yang dipilih siswa dengan warna Biru Terpilih (bersih, interaktif, bisa diganti)
       const span = b => b.classList.contains('md:col-span-2') ? ' md:col-span-2' : '';
       document.querySelectorAll('.opt-btn').forEach(b => {
         const letter = b.getAttribute('data-letter');
         const markEl = b.querySelector('.opt-mark');
+        b.disabled = false;
         if (letter === chosen) {
-          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-blue-900/60 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-blue-900/40 transition scale-[1.01]';
+          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-blue-900/70 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-blue-900/50 transition scale-[1.01] cursor-pointer';
           if (markEl) markEl.innerHTML = '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-circle-check text-amber-300"></i> Terpilih</span>';
         } else {
-          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow';
+          b.className = 'opt-btn' + span(b) + ' p-3.5 md:p-4 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-2xl text-left text-sm text-slate-200 flex items-start gap-3 active:scale-95 transition shadow cursor-pointer';
           if (markEl) markEl.innerHTML = '';
         }
       });
@@ -4679,23 +4754,16 @@ function showTkaScorecardModal() {
         activePill.className = 'w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center cursor-pointer bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
       }
 
-      // Sampai di sini soal sudah dinilai, tetapi dahulu tidak ada satu pun
-      // langkah yang membuka kotak pembahasan untuk pilihan ganda tunggal --
-      // hanya tipe kompleks, benar/salah, dan isian yang membukanya. Akibatnya
-      // tujuh dari sepuluh soal terasa "tidak ada pembahasannya". Tiga baris
-      // berikut menyamakan alurnya dengan tipe soal yang lain.
-      catatSesiCbt(tkaSubj, tkaPkgId);
-      tandaiOpsiTunggal(chosen, correct);
-      if (isRight) confettiCelebration();
-      bukaKotakPembahasan();
+      // Pastikan kotak pembahasan TETAP TERSEMBUNYI saat menjawab
+      const solBox = document.getElementById('tka-solution-box');
+      if (solBox) solBox.classList.add('hidden');
 
+      catatSesiCbt(tkaSubj, tkaPkgId);
       saveAppState();
     }
 
-    // Menandai kelima opsi setelah soal dikoreksi: pilihan siswa diberi warna
-    // benar/salah, dan kunci yang terlewat tetap ditunjukkan supaya siswa tahu
-    // seharusnya yang mana. Dipakai baik saat menjawab maupun saat soal yang
-    // sudah dijawab dibuka kembali.
+    // Menandai kelima opsi setelah ujian dikumpulkan (Mode Review):
+    // Pilihan siswa diberi label & warna benar/salah, dan kunci yang benar ditunjukkan.
     function tandaiOpsiTunggal(chosen, correct) {
       const C = String(chosen || '').toUpperCase();
       const K = String(correct || '').toUpperCase();
@@ -4708,19 +4776,19 @@ function showTkaScorecardModal() {
         b.className = 'opt-btn' + span + ' pointer-events-none ' + gaya;
         const mark = b.querySelector('.opt-mark');
         if (mark) {
-          mark.innerHTML = (L === K && L === C) ? '<i class="fa-solid fa-check text-emerald-300"></i>'
-            : (L === C) ? '<i class="fa-solid fa-xmark text-rose-300"></i>'
-            : (L === K) ? '<i class="fa-solid fa-arrow-left text-emerald-300" title="Kunci jawaban"></i>' : '';
+          mark.innerHTML = (L === K && L === C) ? '<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> JAWABAN ANDA TEPAT (+10)</span>'
+            : (L === C) ? '<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-xmark"></i> JAWABAN ANDA</span>'
+            : (L === K) ? '<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-check"></i> KUNCI JAWABAN</span>' : '';
         }
       });
     }
 
-    // Satu pintu untuk membuka kotak pembahasan, supaya keempat tipe soal
-    // berperilaku persis sama dan rumus di dalamnya selalu ikut dirender.
+    // Satu pintu untuk membuka kotak pembahasan, HANYA dipanggil di Mode Review
     function bukaKotakPembahasan() {
       const kotak = document.getElementById('tka-solution-box');
       if (!kotak) return;
       kotak.classList.remove('hidden');
+      kotak.classList.add('block');
       kalimatSetelahDikoreksi();
       renderMath(kotak);
       if (typeof tandaiRumusLebar === 'function') tandaiRumusLebar(kotak);
@@ -4729,6 +4797,7 @@ function showTkaScorecardModal() {
     const mSpan = b => (b && b.classList.contains('md:col-span-2')) ? ' md:col-span-2' : '';
 
     function toggleMultiOption(letter) {
+      if (window._tkaReviewMode === true) return;
       const idx = userMultiAnswers.indexOf(letter);
       const btn = document.getElementById('multi-opt-' + letter);
       const chk = document.getElementById('chk-' + letter);
@@ -4788,12 +4857,13 @@ function showTkaScorecardModal() {
     const OPT_MUTED = OPT_BASE + ' bg-slate-900/70 border border-slate-800 text-slate-400';
 
     function submitMultiAnswer(correctKeysStr) {
+      if (window._tkaReviewMode === true) return;
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctKeysStr };
 
       if (!userMultiAnswers || userMultiAnswers.length === 0) {
-        flashHint('multi-hint', 'Pilih minimal satu pernyataan sebelum memeriksa jawaban.');
+        flashHint('multi-hint', 'Pilih minimal satu pernyataan sebelum menyimpan.');
         return;
       }
       const isRight = evaluateQuestionScore(q, userMultiAnswers);
@@ -4803,32 +4873,16 @@ function showTkaScorecardModal() {
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, isRight, { type: 'multi', chosen: userMultiAnswers, correct: correctKeysStr });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
-      const correctSet = String(correctKeysStr || '').split(',').map(s => s.trim().toUpperCase());
-      const userSet = userMultiAnswers.map(s => s.toUpperCase());
+      flashHint('multi-hint', '✅ Pilihan ganda kompleks berhasil disimpan.');
+      
+      const solBox = document.getElementById('tka-solution-box');
+      if (solBox) solBox.classList.add('hidden');
 
-      // per-option marking so the student sees WHICH pick was wrong
-      document.querySelectorAll('.multi-opt-btn').forEach(btn => {
-        const L = btn.dataset.letter;
-        const picked = userSet.includes(L), right = correctSet.includes(L);
-        btn.disabled = true;
-        btn.className = 'multi-opt-btn' + mSpan(btn) + ' ' +
-          (picked && right ? OPT_RIGHT : picked && !right ? OPT_WRONG
-           : !picked && right ? OPT_MISSED : OPT_MUTED);
-        const tag = btn.querySelector('.opt-mark');
-        if (tag) tag.innerHTML = picked && right ? '<i class="fa-solid fa-check text-emerald-300"></i>'
-          : picked && !right ? '<i class="fa-solid fa-xmark text-rose-300"></i>'
-          : !picked && right ? '<i class="fa-solid fa-arrow-left text-emerald-300" title="Seharusnya dipilih"></i>' : '';
-      });
-      const mb = document.getElementById('multi-submit');
-      if (mb) { mb.disabled = true; mb.classList.add('opacity-50', 'pointer-events-none'); }
-
-      if (isRight) confettiCelebration();
-
-      bukaKotakPembahasan();
       saveAppState();
     }
 
     function selectTfAnswer(stmtIdx, choice) {
+      if (window._tkaReviewMode === true) return;
       userTfAnswers[stmtIdx] = choice;
       const bBtn = document.getElementById(`tf-b-${stmtIdx}`);
       const sBtn = document.getElementById(`tf-s-${stmtIdx}`);
@@ -4862,6 +4916,7 @@ function showTkaScorecardModal() {
     }
 
     function saveNumericDraft(val) {
+      if (window._tkaReviewMode === true) return;
       if (val === undefined || val === null) return;
       const cleanVal = String(val).trim();
       const sourceDb = tkaSrc();
@@ -4893,13 +4948,14 @@ function showTkaScorecardModal() {
     }
 
     function submitTfAnswer(correctPattern, stmtCount) {
+      if (window._tkaReviewMode === true) return;
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctPattern };
 
       for (let i = 0; i < stmtCount; i++) {
         if (!userTfAnswers[i] && !userTfAnswers[String(i)]) {
-          flashHint('tf-hint', `Pernyataan ${i + 1} belum dijawab. Isi semua dulu, ya.`);
+          flashHint('tf-hint', `Pernyataan ${i + 1} belum dijawab. Tentukan Benar/Salah untuk semua pernyataan.`);
           return;
         }
       }
@@ -4910,32 +4966,11 @@ function showTkaScorecardModal() {
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, isRight, { type: 'tf', chosen: userTfAnswers, correct: correctPattern });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
-      const correctParts = String(correctPattern).split('-').map(s => s.trim().toUpperCase());
+      flashHint('tf-hint', '✅ Jawaban Benar / Salah berhasil disimpan.');
 
-      // mark each statement individually
-      for (let i = 0; i < stmtCount; i++) {
-        const uChoice = userTfAnswers[i] || userTfAnswers[String(i)] || '';
-        const ok = uChoice.toUpperCase()[0] === correctParts[i][0];
-        const row = document.getElementById(`tf-row-${i}`);
-        const badge = document.getElementById(`tf-verdict-${i}`);
-        ['tf-b-' + i, 'tf-s-' + i].forEach(id => {
-          const b = document.getElementById(id); if (b) b.disabled = true;
-        });
-        if (row) row.className = 'p-3.5 md:p-4 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow border-2 ' +
-          (ok ? 'bg-emerald-950/60 border-blue-500/70' : 'bg-rose-950/60 border-rose-500/70');
-        if (badge) {
-          badge.classList.remove('hidden');
-          badge.className = 'text-[11px] font-black px-2 py-0.5 rounded-lg ' +
-            (ok ? 'bg-amber-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300');
-          badge.textContent = ok ? 'Tepat' : `Seharusnya ${correctParts[i] === 'B' ? 'BENAR' : 'SALAH'}`;
-        }
-      }
-      const tb = document.getElementById('tf-submit');
-      if (tb) { tb.disabled = true; tb.classList.add('opacity-50', 'pointer-events-none'); }
+      const solBox = document.getElementById('tka-solution-box');
+      if (solBox) solBox.classList.add('hidden');
 
-      if (isRight) confettiCelebration();
-
-      bukaKotakPembahasan();
       saveAppState();
     }
 
@@ -4960,11 +4995,12 @@ function showTkaScorecardModal() {
     }
 
     function submitNumericAnswer(correctVal) {
+      if (window._tkaReviewMode === true) return;
       const inp = document.getElementById('numeric-input');
       if (!inp) return;
       const cleanVal = inp.value.trim();
       if (!cleanVal) {
-        flashHint('numeric-hint', 'Isi dulu jawabanmu sebelum mengirim.');
+        flashHint('numeric-hint', 'Isi dulu jawabanmu sebelum menyimpan.');
         inp.focus();
         return;
       }
@@ -4973,23 +5009,16 @@ function showTkaScorecardModal() {
       const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctVal };
       const isRight = evaluateQuestionScore(q, cleanVal);
 
-      inp.disabled = true;
-      const sBtn = document.getElementById('numeric-submit');
-      if (sBtn) { sBtn.disabled = true; sBtn.classList.add('opacity-50', 'pointer-events-none'); }
-
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       userSessionScores[key] = isRight;
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, cleanVal, isRight, { type: 'numeric', chosen: cleanVal, correct: correctVal });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
-      if (isRight) {
-        inp.className = "w-full bg-emerald-950 border-2 border-emerald-400 rounded-2xl py-3 px-4 text-center text-lg font-mono font-black text-white shadow-lg";
-        confettiCelebration();
-      } else {
-        inp.className = "w-full bg-rose-950 border-2 border-rose-400 rounded-2xl py-3 px-4 text-center text-lg font-mono font-black text-white shadow-lg";
-      }
+      flashHint('numeric-hint', '✅ Jawaban numerik berhasil disimpan.');
 
-      bukaKotakPembahasan();
+      const solBox = document.getElementById('tka-solution-box');
+      if (solBox) solBox.classList.add('hidden');
+
       saveAppState();
     }
 
