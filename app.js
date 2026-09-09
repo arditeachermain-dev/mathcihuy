@@ -583,6 +583,7 @@
       currentSlideIdx = 0;
       if (mode === 'tka') {
         tkaQIdx = 0;
+        closeCurriculumDrawer();
       }
       renderAppView();
     }
@@ -620,6 +621,7 @@
       tkaPkgId = targetPkgId;
       tkaQIdx = (qIndex !== undefined) ? qIndex : 0;
       currentMode = 'tka';
+      closeCurriculumDrawer();
       renderAppView();
     }
 
@@ -6604,32 +6606,37 @@ function showTkaScorecardModal() {
       if (isDesktop) {
         const isCurrentlyPinned = document.body.classList.contains('sidebar-tetap');
         if (isCurrentlyPinned) {
-          // Collapse sidebar on desktop
+          // Collapse sidebar di desktop
           document.body.classList.remove('sidebar-tetap');
           drawer.classList.add('-translate-x-full', 'pointer-events-none');
           drawer.classList.remove('pointer-events-auto');
           if (backdrop) backdrop.classList.add('hidden');
           if (floatBtn) floatBtn.classList.remove('hidden');
+          document.body.classList.remove('drawer-terbuka');
           try { localStorage.setItem('sidebar_desktop_collapsed', 'true'); } catch (e) {}
         } else {
-          // Expand sidebar on desktop
+          // Expand sidebar di desktop
           document.body.classList.add('sidebar-tetap');
           drawer.classList.remove('-translate-x-full', 'pointer-events-none');
           drawer.classList.add('pointer-events-auto');
           if (backdrop) backdrop.classList.add('hidden');
           if (floatBtn) floatBtn.classList.add('hidden');
+          document.body.classList.remove('drawer-terbuka');
           try { localStorage.setItem('sidebar_desktop_collapsed', 'false'); } catch (e) {}
         }
       } else {
-        // Mobile / Tablet Slide Drawer
+        // Mobile / Tablet: buka / tutup overlay drawer dengan backdrop
         if (drawer.classList.contains('-translate-x-full')) {
           drawer.classList.remove('-translate-x-full', 'pointer-events-none');
           drawer.classList.add('pointer-events-auto');
           if (backdrop) backdrop.classList.remove('hidden');
+          if (floatBtn) floatBtn.classList.add('hidden');
+          document.body.classList.add('drawer-terbuka');
         } else {
           drawer.classList.add('-translate-x-full', 'pointer-events-none');
           drawer.classList.remove('pointer-events-auto');
           if (backdrop) backdrop.classList.add('hidden');
+          document.body.classList.remove('drawer-terbuka');
         }
       }
     }
@@ -6644,6 +6651,7 @@ function showTkaScorecardModal() {
         }
         const backdrop = document.getElementById('curriculum-drawer-backdrop');
         if (backdrop) backdrop.classList.add('hidden');
+        document.body.classList.remove('drawer-terbuka');
       }
     }
 
@@ -6663,9 +6671,15 @@ function showTkaScorecardModal() {
       const mq = window.matchMedia('(min-width: 1280px)');
       const terapkan = function (cocok) {
         let isCollapsed = false;
-        try { isCollapsed = (localStorage.getItem('sidebar_desktop_collapsed') === 'true'); } catch (e) {}
+        try {
+          const stored = localStorage.getItem('sidebar_desktop_collapsed');
+          if (stored !== null) isCollapsed = (stored === 'true');
+        } catch (e) {}
         const shouldPin = cocok && !isCollapsed;
         document.body.classList.toggle('sidebar-tetap', shouldPin);
+        if (cocok) {
+          document.body.classList.remove('drawer-terbuka');
+        }
         const drawer = document.getElementById('curriculum-drawer');
         const floatBtn = document.getElementById('btn-floating-open-sidebar');
         if (!drawer) return;
@@ -6678,6 +6692,9 @@ function showTkaScorecardModal() {
         } else {
           drawer.classList.add('-translate-x-full', 'pointer-events-none');
           drawer.classList.remove('pointer-events-auto');
+          const bd = document.getElementById('curriculum-drawer-backdrop');
+          if (bd) bd.classList.add('hidden');
+          document.body.classList.remove('drawer-terbuka');
           if (floatBtn && cocok) floatBtn.classList.remove('hidden');
         }
         if (typeof renderCurriculumDrawer === 'function') {
