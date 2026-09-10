@@ -11450,7 +11450,7 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q1] Nilai dari $\\lim_{x \\to \\infty} x \\sin\\left(\\frac{2}{x}\\right)$ adalah ...",
+          "tanya": "[P15-Q1] Nilai dari $\\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{2}{x}\\right)$ adalah ...",
           "opsi": [
             "A. 1/2",
             "B. 0",
@@ -11459,7 +11459,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x = \\frac{1}{u}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{\\sin(2u)}{u}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{\\sin(au)}{u} = a$: hasilnya $2$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi langsung $x \\to \\infty$ menghasilkan bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x}$. Saat $x \\to \\infty$, maka $u \\to 0$ dan $x = \\frac{1}{u}$. Bentuk limit menjadi $\\lim_{u \\to 0} \\frac{\\sin(2u)}{u}$.\nLangkah 3: <b>Rumus Dasar Limit:</b> Terapkan $\\lim_{u \\to 0} \\frac{\\sin(au)}{u} = a$, sehingga diperoleh $2$.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "plot",
             "f": "x*Math.sin(2/x)",
@@ -11486,7 +11486,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 4"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x^2 = \\frac{1}{u^2}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{1-\\cos(2u)}{u^2}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{1-\\cos(au)}{u^2} = \\frac{a^2}{2}$ dengan $a = 2$: $\\frac{4}{2} = 2$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi langsung $x \\to \\infty$ menghasilkan bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\implies u \\to 0$ dan $x^2 = \\frac{1}{u^2}$, sehingga bentuk limit menjadi $\\lim_{u \\to 0} \\frac{1 - \\cos(2u)}{u^2}$.\nLangkah 3: <b>Identitas Cosinus:</b> Gunakan $1 - \\cos(2u) = 2\\sin^2(u)$, sehingga $\\lim_{u \\to 0} \\frac{2\\sin^2(u)}{u^2} = 2 \\cdot (1)^2 = 2$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "plot",
             "f": "Math.pow(x, 2)*(1 - Math.cos(2/x))",
@@ -11504,7 +11504,7 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q3] Persamaan asimtot datar kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 4}$ adalah ...",
+          "tanya": "[P15-Q3] Persamaan garis asimtot datar dari kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 4}$ adalah ...",
           "opsi": [
             "A. $y = 2$",
             "B. $y = 0$",
@@ -11513,7 +11513,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = -1/4$"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Asimtot datar adalah garis $y = L$ dengan $L = \\lim_{x \\to \\infty} f(x)$, yaitu nilai yang didekati kurva saat $x$ membesar tanpa batas.\n\nLangkah 2: Gunakan aturan limit fungsi rasional di tak hingga. Derajat pembilang dan penyebut sama-sama $2$, sehingga limitnya adalah perbandingan koefisien $x^2$.\n\nLangkah 3: Substitusikan koefisiennya: $L = \\frac{2}{1} = 2$, sehingga asimtot datarnya $y = 2$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: <b>Definisi Asimtot Datar:</b> Asimtot datar adalah garis mendatar $y = L$ dengan $L = \\lim_{x \\to \\pm\\infty} f(x)$.\nLangkah 2: <b>Bagi Koefisien Pangkat Tertinggi:</b> Karena derajat pembilang dan penyebut sama-sama $2$, nilai limit ditentukan oleh perbandingan koefisien $x^2$.\nLangkah 3: <b>Hitung Limit:</b> $L = \\lim_{x \\to \\infty} \\frac{2x^2 + 1}{x^2 - 4} = \\frac{2}{1} = 2$, sehingga diperoleh persamaan asimtot datar $y = 2$.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "plot",
             "f": "(2*Math.pow(x, 2) + 1)/(Math.pow(x, 2) - 4)",
@@ -11535,7 +11535,7 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q4] Persamaan asimtot tegak kurva $g(x) = \\frac{3x - 5}{x^2 - 9}$ adalah ...",
+          "tanya": "[P15-Q4] Persamaan garis asimtot tegak dari kurva $g(x) = \\frac{3x - 5}{x^2 - 9}$ adalah ...",
           "opsi": [
             "A. $x = 9$",
             "B. $x = 3$ dan $x = -3$",
@@ -11544,7 +11544,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = 3$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Asimtot tegak terjadi pada nilai $x$ yang membuat penyebut bernilai nol sementara pembilang tidak nol.\n\nLangkah 2: Nolkan penyebut: $x^2 - 9 = 0 \\implies (x-3)(x+3) = 0 \\implies x = 3$ atau $x = -3$.\n\nLangkah 3: Periksa pembilang $3x-5$ pada kedua nilai itu: $3(3)-5 = 4 \\ne 0$ dan $3(-3)-5 = -14 \\ne 0$. Keduanya sah, sehingga asimtot tegaknya $x = 3$ dan $x = -3$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: <b>Syarat Asimtot Tegak:</b> Asimtot tegak $x = c$ dicari dari pembuat nol penyebut yang tidak membuat pembilang bernilai nol.\nLangkah 2: <b>Faktorkan Penyebut:</b> $x^2 - 9 = 0 \\implies (x - 3)(x + 3) = 0 \\implies x = 3$ atau $x = -3$.\nLangkah 3: <b>Uji Nilai Pembilang:</b> Untuk $x = 3 \\implies 3(3) - 5 = 4 \\neq 0$; untuk $x = -3 \\implies 3(-3) - 5 = -14 \\neq 0$. Keduanya sah sebagai garis asimtot tegak.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "plot",
             "f": "(3*x - 5)/(Math.pow(x, 2) - 9)",
@@ -11566,21 +11566,22 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Benar / Salah",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q5] Tentukan kebenaran konsep asimtot kurva dan kekontinuan fungsi:\n(1) Suatu fungsi kontinu di titik x = c tidak memerlukan nilai limit f(x) ada.\n(2) Asimtot tegak x = c diperoleh saat penyebut bernilai nol dan limit menuju +- tak hingga.\n(3) Asimtot datar y = L diperoleh dari nilai limit x->inf f(x) = L.",
+          "tanya": "[P15-Q5] Tentukan kebenaran pernyataan terkait konsep asimtot kurva dan kekontinuan fungsi:\n(1) Suatu fungsi kontinu di titik x = c tidak memerlukan nilai limit f(x) ada.\n(2) Asimtot tegak x = c diperoleh saat penyebut bernilai nol dan limit fungsinya bernilai +- tak hingga.\n(3) Asimtot datar y = L diperoleh dari nilai limit fungsi saat x menuju +- tak hingga.",
           "opsi": [
             "Suatu fungsi kontinu di titik x = c tidak memerlukan nilai limit f(x) ada",
             "Asimtot tegak x = c diperoleh saat penyebut bernilai nol dan limit menuju +- tak hingga",
             "Asimtot datar y = L diperoleh dari nilai limit x->inf f(x) = L"
           ],
           "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSyarat kekontinuan mutlak mensyaratkan $\\lim_{x\\to c} f(x)$ ada dan sama dengan nilai fungsi $f(c)$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nDefinisi asimtot tegak terjadi saat $\\lim_{x\\to c} f(x) = \\pm \\infty$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nDefinisi asimtot datar $y = \\lim_{x\\to \\pm \\infty} f(x)$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
+          "bahas": "Langkah 1: <b>Pernyataan (1) - SALAH:</b> Syarat mutlak kekontinuan fungsi di $x = c$ mengharuskan nilai $\\lim_{x \\to c} f(x)$ ada dan sama dengan $f(c)$.\nLangkah 2: <b>Pernyataan (2) - BENAR:</b> Asimtot tegak $x = c$ didefinisikan saat $\\lim_{x \\to c} f(x) = \\pm\\infty$.\nLangkah 3: <b>Pernyataan (3) - BENAR:</b> Asimtot datar $y = L$ didefinisikan saat $\\lim_{x \\to \\pm\\infty} f(x) = L$.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "viz": null
         },
         {
           "no": 6,
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q6] Berapakah nilai dari $\\lim_{x \\to \\infty} x \\tan(5/x)$?",
+          "tanya": "[P15-Q6] Nilai dari $\\lim_{x \\to \\infty} x \\cdot \\tan\\left(\\frac{5}{x}\\right)$ adalah ...",
           "opsi": [
             "A. 25",
             "B. 0",
@@ -11589,7 +11590,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$, karena $\\tan(5/x) \\to 0$.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x = \\frac{1}{u}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{\\tan(5u)}{u}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{\\tan(au)}{u} = a$: hasilnya $5$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi langsung memberi bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$ dan $x = \\frac{1}{u}$, sehingga limit menjadi $\\lim_{u \\to 0} \\frac{\\tan(5u)}{u}$.\nLangkah 3: <b>Hitung Limit:</b> Menggunakan rumus dasar $\\lim_{u \\to 0} \\frac{\\tan(au)}{u} = a$, diperoleh nilai $5$.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "plot",
             "f": "x*Math.tan(5/x)",
@@ -11616,7 +11617,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\frac{0}{0}$, karena kedua sudutnya menuju nol.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{\\sin(3u)}{\\tan(6u)}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{\\sin(au)}{\\tan(bu)} = \\frac{a}{b}$: $\\frac{3}{6} = \\frac{1}{2}$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi $x \\to \\infty$ menghasilkan bentuk tak tentu $\\frac{0}{0}$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$, sehingga limit menjadi $\\lim_{u \\to 0} \\frac{\\sin(3u)}{\\tan(6u)}$.\nLangkah 3: <b>Rasio Koefisien Sudut:</b> Berdasarkan sifat limit trigonometri $\\lim_{u \\to 0} \\frac{\\sin(au)}{\\tan(bu)} = \\frac{a}{b} = \\frac{3}{6} = \\frac{1}{2}$.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "plot",
             "f": "Math.sin(3/x)/Math.tan(6/x)",
@@ -11634,23 +11635,24 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Kompleks",
           "level": "C5 Evaluasi",
           "bobot": 10,
-          "tanya": "[P15-Q8] Pada fungsi rasional f(x) = (2x + 6) / (x - 3), manakah pernyataan analisis asimtot berikut yang BENAR? (Pilih semua yang benar)",
+          "tanya": "[P15-Q8] Diberikan fungsi rasional $f(x) = \\frac{2x + 6}{x - 3}$. Manakah dari pernyataan analisis asimtot dan grafiknya berikut yang BENAR? (Pilih semua yang benar)",
           "opsi": [
-            "A. Persamaan asimtot datar adalah y = 2.",
-            "B. Persamaan asimtot tegak adalah x = 3.",
-            "C. Titik potong dengan sumbu-Y adalah (0, -2).",
-            "D. Titik potong dengan sumbu-X adalah (-3, 0).",
-            "E. Fungsi kontinu di seluruh bilangan real termasuk x = 3."
+            "A. Persamaan garis asimtot datar kurva adalah $y = 2$.",
+            "B. Persamaan garis asimtot tegak kurva adalah $x = 3$.",
+            "C. Titik potong grafik dengan sumbu-Y adalah $(0, -2)$.",
+            "D. Titik potong grafik dengan sumbu-X adalah $(-3, 0)$.",
+            "E. Fungsi kontinu di seluruh bilangan real termasuk pada $x = 3$."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$\\lim_{x\\to \\infty} \\frac{2x+6}{x-3} = 2 \\implies y = 2$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nPenyebut $x - 3 = 0 \\implies x = 3$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$f(0) = \\frac{6}{-3} = -2$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$2x + 6 = 0 \\implies x = -3$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nFungsi diskontinu di $x = 3$ karena asimtot tegak (nilai fungsi tak terdefinisi).\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "bahas": "Langkah 1: <b>Opsi A (Asimtot Datar) - BENAR:</b> $\\lim_{x \\to \\infty} \\frac{2x+6}{x-3} = \\frac{2}{1} = 2 \\implies y = 2$.\nLangkah 2: <b>Opsi B (Asimtot Tegak) - BENAR:</b> Penyebut $x - 3 = 0 \\implies x = 3$ (pembilang $2(3)+6 = 12 \\neq 0$).\nLangkah 3: <b>Opsi C (Titik Potong Sumbu-Y) - BENAR:</b> Saat $x = 0 \\implies y = \\frac{6}{-3} = -2$, diperoleh titik $(0, -2)$.\nLangkah 4: <b>Opsi D (Titik Potong Sumbu-X) - BENAR:</b> Saat $y = 0 \\implies 2x + 6 = 0 \\implies x = -3$, diperoleh titik $(-3, 0)$.\nLangkah 5: <b>Opsi E (Kekontinuan) - SALAH:</b> Fungsi terputus (diskontinu tak hingga) di $x = 3$ karena adanya asimtot tegak.\nKesimpulan: Kunci Jawaban A, B, C, D.",
+          "viz": null
         },
         {
           "no": 9,
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q9] Nilai dari $\\lim_{x \\to \\infty} \\frac{x \\sin(4/x)}{\\cos(2/x)}$ adalah ...",
+          "tanya": "[P15-Q9] Nilai dari $\\lim_{x \\to \\infty} \\frac{x \\cdot \\sin(4/x)}{\\cos(2/x)}$ adalah ...",
           "opsi": [
             "A. 1/2",
             "B. 2",
@@ -11659,7 +11661,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 1"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$ pada pembilang.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x = \\frac{1}{u}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{\\sin(4u)}{u\\cos(2u)}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{\\sin(au)}{u} = a$ dan $\\cos 0 = 1$: $\\frac{4}{1} = 4$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: <b>Uji Bentuk Limit:</b> Pembilang bernilai $\\infty \\cdot 0$ dan penyebut bernilai $\\cos(0) = 1$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$ dan $x = \\frac{1}{u}$, sehingga limit menjadi $\\lim_{u \\to 0} \\frac{\\sin(4u)}{u \\cdot \\cos(2u)}$.\nLangkah 3: <b>Pecah Limit:</b> $\\left(\\lim_{u \\to 0} \\frac{\\sin(4u)}{u}\\right) \\cdot \\left(\\frac{1}{\\lim_{u \\to 0} \\cos(2u)}\\right) = 4 \\cdot \\frac{1}{1} = 4$.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "plot",
             "f": "x*Math.sin(4/x)/Math.cos(2/x)",
@@ -11677,10 +11679,10 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Isian Singkat Numerik",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q10] Nilai dari $\\lim_{x \\to \\infty} 2x^2 (1 - \\cos(3/x))$ adalah ...",
+          "tanya": "[P15-Q10] Nilai dari $\\lim_{x \\to \\infty} 2x^2 \\left( 1 - \\cos\\left(\\frac{3}{x}\\right) \\right)$ adalah ...",
           "opsi": [],
           "kunci": "9",
-          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x^2 = \\frac{1}{u^2}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{2\\bigl(1-\\cos(3u)\\bigr)}{u^2}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{1-\\cos(au)}{u^2} = \\frac{a^2}{2}$ dengan $a = 3$: $2 \\cdot \\frac{9}{2} = 9$.\nKesimpulan: Kunci Jawaban 9.",
+          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi langsung menghasilkan bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$ dan $x^2 = \\frac{1}{u^2}$, sehingga bentuk limit menjadi $\\lim_{u \\to 0} \\frac{2(1 - \\cos(3u))}{u^2}$.\nLangkah 3: <b>Identitas Cosinus:</b> Gunakan $1 - \\cos(3u) = 2\\sin^2\\left(\\frac{3u}{2}\\right)$, sehingga diperoleh $\\lim_{u \\to 0} \\frac{4\\sin^2(3u/2)}{u^2} = 4 \\cdot \\left(\\frac{3}{2}\\right)^2 = 4 \\cdot \\frac{9}{4} = 9$.\nKesimpulan: Kunci Jawaban 9.",
           "viz": {
             "t": "plot",
             "f": "2*Math.pow(x, 2)*(1 - Math.cos(3/x))",
