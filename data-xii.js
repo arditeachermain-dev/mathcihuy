@@ -2689,56 +2689,57 @@ const NAMA_TINGKAT = 'XII';
       "bab": "Bab 2: Limit Aljabar & Trigonometri",
       "title": "Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot",
       "obj": [
-        "Menyelesaikan limit trigonometri menuju tak hingga menggunakan substitusi $y = \\frac{1}{x} \\to 0$.",
-        "Menentukan persamaan asimtot datar ($y = \\lim_{x \\to \\pm\\infty} f(x)$) dan asimtot tegak ($x = c$).",
-        "Menggambar sketsa perilaku grafik kurva rasional berdasarkan garis asimtot."
+        "Menyelesaikan limit trigonometri menuju tak hingga menggunakan substitusi variabel invers $u = \\frac{1}{x} \\to 0$.",
+        "Menghitung limit di ketakhinggaan yang memuat identitas cosinus infinitesimal $1 - \\cos(a/x) = 2\\sin^2(\\frac{a}{2x})$.",
+        "Menentukan persamaan asimtot datar ($y = \\lim_{x \\to \\pm\\infty} f(x)$), asimtot tegak ($x = c$ saat penyebut bernilai nol), dan asimtot miring ($y = mx + n$).",
+        "Menganalisis perilaku asimtotik kurva fungsi rasional dan penerapannya dalam model sains & teknologi."
       ],
-      "hook": "Garis asimtot berlaku seperti dinding tak kasatmata yang memandu arah kurva tanpa pernah tersentuh sejauh apa pun kurva melaju.",
+      "hook": "Pernahkah kamu memperhatikan bagaimana kecepatan mobil balap atau parasut mencapai batas maksimal yang stabil dan tidak bertambah lagi? Di matematika, batas kestabilan ini disebut Asimtot Datar. Garis asimtot adalah 'pagar pengaman' khayalan yang terus didekati kurva tanpa pernah menabraknya, menjadi kunci penting dalam perancangan roket, optik satelit, hingga analisis sinyal gelombang frekuensi tinggi.",
       "toolkit": [
         {
-          "name": "Transformasi y = 1/x",
-          "math": "$$\\text{Misalkan } y = \\frac{1}{x} \\implies \\text{saat } x \\to \\infty, \\quad y \\to 0$$"
+          "name": "1. Substitusi Invers Variabel (u = 1/x)",
+          "math": "$$\\text{Jika } x \\to \\infty \\implies u = \\frac{1}{x} \\to 0 \\implies \\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{a}{x}\\right) = \\lim_{u \\to 0} \\frac{\\sin(au)}{u} = a$$"
         },
         {
-          "name": "Asimtot Datar",
-          "math": "$$y = \\lim_{x \\to \\infty} f(x)$$"
+          "name": "2. Limit Cosinus Infinitesimal di Tak Hingga",
+          "math": "$$\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{a}{x}\\right) \\right) = \\lim_{u \\to 0} \\frac{2\\sin^2\\left(\\frac{au}{2}\\right)}{u^2} = \\frac{a^2}{2}$$"
         },
         {
-          "name": "Asimtot Tegak",
-          "math": "$$x = c \\quad \\text{di mana penyebut } = 0$$"
+          "name": "3. Garis Asimtot Datar (Horizontal Asymptote)",
+          "math": "$$y = L \\iff y = \\lim_{x \\to \\pm\\infty} f(x) \\quad \\left(\\text{Trik: Pangkat atas = bawah} \\implies y = \\frac{\\text{Koef. Atas}}{\\text{Koef. Bawah}}\\right)$$"
         },
         {
-          "name": "Identitas Trigonometri Sudut Ganda",
-          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+          "name": "4. Garis Asimtot Tegak (Vertical Asymptote)",
+          "math": "$$x = c \\iff \\lim_{x \\to c} f(x) = \\pm\\infty \\quad \\left(\\text{Trik: Buat Penyebut } = 0 \\text{ dan Pembilang } \\neq 0\\right)$$"
         },
         {
-          "name": "Teorema Apit Limit Fungsi",
-          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+          "name": "5. Garis Asimtot Miring (Slant / Oblique Asymptote)",
+          "math": "$$y = mx + n \\iff \\frac{P(x)}{Q(x)} = (mx + n) + \\frac{\\text{Sisa}}{Q(x)} \\quad (\\text{Derajat Atas} = \\text{Bawah} + 1)$$"
         }
       ],
       "examples": [
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + 6x - 1} - \\sqrt{4x^2 - 2x + 3} \\right)$!",
-          "solution": "Langkah 1: Bentuk $\\sqrt{ax^2+bx+c} - \\sqrt{px^2+qx+r}$ dengan $a = p = 4$, $b = 6$, $q = -2$.\nLangkah 2: Karena $a = p$, gunakan rumus praktis $L = \\frac{b - q}{2\\sqrt{a}}$.\nLangkah 3: $L = \\frac{6 - (-2)}{2\\sqrt{4}} = \\frac{6 + 2}{2(2)} = \\frac{8}{4} = 2$.\nKesimpulan: Nilai limit adalah $2$."
+          "problem": "Hitung nilai dari limit fungsi trigonometri di ketakhinggaan: $\\lim_{x \\to \\infty} x \\cdot \\tan\\left(\\frac{4}{x}\\right) \\cdot \\cos\\left(\\frac{2}{x}\\right)$!",
+          "solution": "Langkah 1: <b>Uji Substitusi Awal:</b> Substitusi langsung $x = \\infty$ menghasilkan bentuk tak tentu $\\infty \\cdot \\tan(0) = \\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan variabel baru $u = \\frac{1}{x}$. Saat $x \\to \\infty$, maka $u \\to 0$ dan $x = \\frac{1}{u}$.\nLangkah 3: <b>Transformasi Limit:</b> Masukkan pemisalan ke limit: $\\lim_{u \\to 0} \\left(\\frac{1}{u}\\right) \\cdot \\tan(4u) \\cdot \\cos(2u) = \\lim_{u \\to 0} \\frac{\\tan(4u)}{u} \\cdot \\cos(2u)$.\nLangkah 4: <b>Penerapan Rumus Dasar:</b> Gunakan sifat limit: $\\left(\\lim_{u \\to 0} \\frac{\\tan(4u)}{u}\\right) \\cdot \\left(\\lim_{u \\to 0} \\cos(2u)\\right) = 4 \\cdot \\cos(0) = 4 \\cdot 1 = 4$.\nKesimpulan: Nilai limit fungsi trigonometri di ketakhinggaan tersebut adalah $4$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( 2x - 1 - \\sqrt{4x^2 - 6x + 2} \\right)$!",
-          "solution": "Langkah 1: Ubah bentuk linear ke dalam bentuk akar: $(2x - 1) = \\sqrt{(2x - 1)^2} = \\sqrt{4x^2 - 4x + 1}$.\nLangkah 2: Limit menjadi: $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 - 4x + 1} - \\sqrt{4x^2 - 6x + 2} \\right)$.\nLangkah 3: Parameter: $a = 4, b = -4, q = -6$.\nLangkah 4: $L = \\frac{b - q}{2\\sqrt{a}} = \\frac{-4 - (-6)}{2\\sqrt{4}} = \\frac{2}{4} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
+          "problem": "Tentukan nilai dari limit fungsi cosinus: $\\lim_{x \\to \\infty} 3x^2 \\left( 1 - \\cos\\left(\\frac{4}{x}\\right) \\right)$!",
+          "solution": "Langkah 1: <b>Uji Bentuk Limit:</b> Substitusi $x \\to \\infty$ menghasilkan bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\implies u \\to 0$ dan $x^2 = \\frac{1}{u^2}$, sehingga bentuk limit menjadi $\\lim_{u \\to 0} \\frac{3 \\cdot (1 - \\cos(4u))}{u^2}$.\nLangkah 3: <b>Ubah Cosinus dengan Sudut Ganda:</b> Gunakan identitas $1 - \\cos(\\theta) = 2\\sin^2\\left(\\frac{\\theta}{2}\\right)$, maka $1 - \\cos(4u) = 2\\sin^2(2u)$.\nLangkah 4: <b>Hitung Nilai Limit:</b> $\\lim_{u \\to 0} \\frac{3 \\cdot 2\\sin^2(2u)}{u^2} = 6 \\cdot \\left(\\lim_{u \\to 0} \\frac{\\sin(2u)}{u}\\right)^2 = 6 \\cdot (2)^2 = 6 \\cdot 4 = 24$.\nKesimpulan: Nilai limit fungsi tersebut adalah $24$."
         },
         {
-          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{9x^2 + 12x} - 3x + 2 \\right)$!",
-          "solution": "Langkah 1: Kelompokkan: $\\sqrt{9x^2 + 12x} - (3x - 2) = \\sqrt{9x^2 + 12x} - \\sqrt{(3x - 2)^2} = \\sqrt{9x^2 + 12x} - \\sqrt{9x^2 - 12x + 4}$.\nLangkah 2: Parameter: $a = 9, b = 12, q = -12$.\nLangkah 3: $L = \\frac{b - q}{2\\sqrt{a}} = \\frac{12 - (-12)}{2\\sqrt{9}} = \\frac{24}{2(3)} = \\frac{24}{6} = 4$.\nKesimpulan: Nilai limit adalah $4$."
+          "problem": "Tentukan seluruh persamaan garis asimtot datar dan asimtot tegak dari kurva fungsi rasional $f(x) = \\frac{6x^2 - 5x + 1}{2x^2 - 8}$!",
+          "solution": "Langkah 1: <b>Asimtot Datar ($y = L$):</b> Evaluasi limit saat $x \\to \\infty$. Karena derajat pembilang dan penyebut sama ($x^2$), bagi koefisiennya: $y = \\lim_{x \\to \\infty} \\frac{6x^2 - 5x + 1}{2x^2 - 8} = \\frac{6}{2} = 3$. Diperoleh garis mendatar $y = 3$.\nLangkah 2: <b>Asimtot Tegak ($x = c$):</b> Cari pembuat nol penyebut (bawah $= 0$): $2x^2 - 8 = 0 \\implies 2(x^2 - 4) = 0 \\implies 2(x - 2)(x + 2) = 0$. Diperoleh dua kandidat: $x = 2$ dan $x = -2$.\nLangkah 3: <b>Uji Pembilang Bukan Nol:</b> Substitusi ke atas: untuk $x = 2 \\implies 6(4) - 10 + 1 = 15 \\neq 0$; untuk $x = -2 \\implies 6(4) + 10 + 1 = 35 \\neq 0$. Karena bukan $0$, keduanya sah sebagai asimtot tegak (bukan lubang).\nKesimpulan: Persamaan asimtot datar kurva adalah garis $y = 3$, serta persamaan asimtot tegaknya adalah garis $x = 2$ dan garis $x = -2$."
         },
         {
-          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} x \\sin\\left(\\frac{3}{x}\\right)$!",
-          "solution": "Langkah 1: Misalkan $u = \\frac{1}{x}$. Saat $x \\to \\infty \\implies u \\to 0$.\nLangkah 2: Bentuk limit menjadi: $\\lim_{u \\to 0} \\frac{1}{u} \\sin(3u) = \\lim_{u \\to 0} \\frac{\\sin(3u)}{u}$.\nLangkah 3: Berdasarkan teorema limit trigonometri: $\\frac{3}{1} = 3$.\nKesimpulan: Nilai limit adalah $3$."
+          "problem": "Tentukan persamaan garis asimtot miring (*oblique asymptote*) dari kurva fungsi rasional $f(x) = \\frac{3x^2 + 5x - 2}{x - 2}$!",
+          "solution": "Langkah 1: <b>Cek Syarat Asimtot Miring:</b> Pangkat tertinggi pembilang ($2$) tepat satu tingkat lebih tinggi daripada penyebut ($1$), sehingga kurva memiliki asimtot miring $y = mx + n$.\nLangkah 2: <b>Bagi Pembilang dengan Penyebut:</b> Lakukan pembagian bersusun $(3x^2 + 5x - 2) \\div (x - 2)$, diperoleh hasil bagi $(3x + 11)$ dan sisa $20$, sehingga $f(x) = (3x + 11) + \\frac{20}{x - 2}$.\nLangkah 3: <b>Evaluasi Limit di Tak Hingga:</b> Saat $x \\to \\pm\\infty$, nilai suku pecahan $\\frac{20}{x - 2} \\to 0$, sehingga kurva $f(x)$ akan terus mendekati garis lurus $y = 3x + 11$.\nKesimpulan: Persamaan garis asimtot miring dari kurva tersebut adalah $y = 3x + 11$."
         },
         {
-          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{2}{x}\\right) \\right)$!",
-          "solution": "Langkah 1: Misalkan $u = \\frac{1}{x} \\implies u \\to 0$ saat $x \\to \\infty$.\nLangkah 2: Bentuk limit: $\\lim_{u \\to 0} \\frac{1 - \\cos(2u)}{u^2}$.\nLangkah 3: Gunakan $1 - \\cos(2u) = 2\\sin^2(u)$: $\\lim_{u \\to 0} \\frac{2\\sin^2 u}{u^2} = 2(1)^2 = 2$.\nKesimpulan: Nilai limit adalah $2$."
+          "problem": "Kecepatan partikel dalam terowongan aerodinamis dimodelkan oleh $v(t) = 80 - t \\cdot \\sin\\left(\\frac{20}{t}\\right)$ (dalam $\\text{m/s}$), di mana $t > 0$ adalah waktu dalam detik. Tentukan kecepatan terminal stabil saat $t \\to \\infty$ dan jelaskan arti fisis asimtot datarnya!",
+          "solution": "Langkah 1: <b>Model Limit Kecepatan:</b> Kecepatan saat waktu berjalan sangat lama ($t \\to \\infty$) dicari dengan limit: $v_{\\infty} = \\lim_{t \\to \\infty} \\left(80 - t \\sin\\left(\\frac{20}{t}\\right)\\right) = 80 - \\lim_{t \\to \\infty} t \\sin\\left(\\frac{20}{t}\\right)$.\nLangkah 2: <b>Substitusi Invers Variabel:</b> Misalkan $u = \\frac{1}{t} \\to 0$, maka $\\lim_{t \\to \\infty} t \\sin\\left(\\frac{20}{t}\\right) = \\lim_{u \\to 0} \\frac{\\sin(20u)}{u} = 20$.\nLangkah 3: <b>Hitung Kecepatan Akhir:</b> Diperoleh kecepatan batas konvergen: $v_{\\infty} = 80 - 20 = 60\\text{ m/s}$.\nKesimpulan: Kecepatan terminal partikel adalah $60\\text{ m/s}$. Garis $v = 60$ bertindak sebagai asimtot datar, artinya laju partikel akan stabil mendekati $60\\text{ m/s}$ tanpa pernah melampauinya."
         }
       ],
-      "btc": "Kelompok VNPS: Tentukan seluruh asimtot datar dan asimtot tegak kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 9}$!",
+      "btc": "Kelompok VNPS: Tentukan seluruh asimtot datar, asimtot tegak, dan sketsa perilaku limit ujung kurva $f(x) = \\frac{4x^2 - 1}{x^2 - 4}$!",
       "summary_data": {
         "summary": [
           "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot.",
@@ -2748,19 +2749,19 @@ const NAMA_TINGKAT = 'XII';
         "islamic": "Pembelajaran Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
       },
       "collab_cases": [
-        "Hitunglah nilai $\\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{3}{x}\\right) \\cdot \\cos\\left(\\frac{2}{x}\\right)$ dengan substitusi $y = \\frac{1}{x}$!",
-        "Tentukan asimtot datar dan asimtot tegak dari kurva $f(x) = \\frac{3x^2 + 2x - 1}{x^2 - 4}$!",
-        "Tentukan persamaan asimtot miring dari $f(x) = \\frac{2x^3 - 5x^2 + 4}{x^2 - 1}$ menggunakan pembagian bersusun!",
-        "Hitung nilai limit trigonometri di tak hingga: $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos(\\frac{2}{x}) \\right)$!",
-        "Analisislah perilaku asimtotik fungsi gelombang $f(x) = \\frac{\\sin(x)}{x}$ saat $x \\to \\pm\\infty$!"
+        "Hitunglah nilai $\\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{3}{x}\\right) \\cdot \\cos\\left(\\frac{2}{x}\\right)$ menggunakan substitusi variabel invers $u = \\frac{1}{x}$!",
+        "Tentukan persamaan asimtot datar dan asimtot tegak dari kurva $f(x) = \\frac{4x^2 + 2x - 1}{x^2 - 9}$!",
+        "Tentukan persamaan garis asimtot miring dari $f(x) = \\frac{2x^3 - 5x^2 + 4}{x^2 - 1}$ menggunakan pembagian bersusun!",
+        "Hitung nilai limit trigonometri di tak hingga: $\\lim_{x \\to \\infty} 2x^2 \\left( 1 - \\cos\\left(\\frac{3}{x}\\right) \\right)$!",
+        "Tentukan semua asimtot (datar, tegak, atau miring) dari fungsi rasional $f(x) = \\frac{x^2 - 4}{x - 1}$ dan periksa apakah ada titik potong kurva dengan asimtotnya!"
       ],
-      "tagline": "Menebak Limit Selisih Akar Kuadrat dalam Sekejap & Menemukan Asimtot Pembatas",
+      "tagline": "Menembus Ketakhinggaan Trigonometri & Memetakan Garis Asimtot Kurva",
       "collab_solutions": [
-        "Langkah 1: Bentuk limit tak tentu: lim_{x -> inf} (sqrt(ax^2 + bx + c) - sqrt(px^2 + qx + r)) dengan a = p = 4.\nLangkah 2: Terapkan rumus cepat: L = (b - q) / (2 sqrt(a)).\nLangkah 3: Asimtot miring / horizontal kurva hiperbolik ditentukan oleh nilai batas limit di tak hingga.\nKesimpulan: Nilai limit di ketakhinggaan trigonometri dan asimtot kurva terverifikasi presisi.",
-        "Langkah 1: Garis asimtot tegak terjadi saat penyebut fungsi rasional bernilai nol (f(x) -> ±inf).\nLangkah 2: Garis asimtot datar y = L diperoleh dari nilai limit x -> inf dari f(x).\nKesimpulan: Persamaan asimtot tegak dan asimtot datar kurva terbukti konsisten.",
-        "Langkah 1: Uraikan limit x -> inf untuk fungsi trigonometri dengan pemisalan u = 1/x -> 0.\nLangkah 2: lim_{x -> inf} x * sin(2/x) = lim_{u -> 0} (sin(2u) / u) = 2.\nKesimpulan: Nilai limit trigonometri di ketakhinggaan adalah 2.",
-        "Langkah 1: Tentukan asimtot miring kurva y = (ax^2 + bx + c) / (dx + e) menggunakan pembagian polinomial bersusun.\nLangkah 2: Hasil bagi polinomial merepresentasikan persamaan garis asimtot miring y = mx + c.\nKesimpulan: Persamaan garis asimtot miring berhasil ditentukan.",
-        "Langkah 1: Evaluasi batas fungsi osilasi teredam saat x -> inf.\nLangkah 2: Nilai fungsi teredam mendekati nol di ujung ketakhinggaan.\nKesimpulan: Karakteristik asimtotik fungsi gelombang terbukti stabil."
+        "Langkah 1: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$ saat $x \\to \\infty$.\nLangkah 2: <b>Hitung Limit:</b> $\\lim_{u \\to 0} \\frac{\\sin(3u)}{u} \\cdot \\cos(2u) = 3 \\cdot \\cos(0) = 3 \\cdot 1 = 3$.\nKesimpulan: Nilai limit adalah $3$.",
+        "Langkah 1: <b>Asimtot Datar:</b> Karena derajat sama, $y = \\lim_{x \\to \\infty} \\frac{4x^2 + 2x - 1}{x^2 - 9} = \\frac{4}{1} = 4$.\nLangkah 2: <b>Asimtot Tegak:</b> Buat penyebut $= 0$: $x^2 - 9 = 0 \\implies (x - 3)(x + 3) = 0 \\implies x = 3$ dan $x = -3$.\nKesimpulan: Asimtot datar adalah $y = 4$, serta asimtot tegak adalah $x = 3$ dan $x = -3$.",
+        "Langkah 1: <b>Pembagian Polinomial:</b> Bagi $(2x^3 - 5x^2 + 4)$ dengan $(x^2 - 1)$, diperoleh hasil bagi $(2x - 5)$ dan sisa $(2x - 1)$.\nLangkah 2: <b>Bentuk Aljabar:</b> $f(x) = (2x - 5) + \\frac{2x - 1}{x^2 - 1}$. Saat $x \\to \\infty$, suku sisa $\\to 0$.\nKesimpulan: Persamaan asimtot miring kurva adalah $y = 2x - 5$.",
+        "Langkah 1: <b>Pemisalan Invers & Identitas:</b> Misalkan $u = \\frac{1}{x} \\to 0$. Identitas $1 - \\cos(3u) = 2\\sin^2\\left(\\frac{3u}{2}\\right)$.\nLangkah 2: <b>Evaluasi Limit:</b> $\\lim_{u \\to 0} \\frac{2 \\cdot 2\\sin^2(3u/2)}{u^2} = 4 \\cdot \\left(\\frac{3}{2}\\right)^2 = 4 \\cdot \\frac{9}{4} = 9$.\nKesimpulan: Nilai limit adalah $9$.",
+        "Langkah 1: <b>Asimtot Tegak:</b> Penyebut $= 0 \\implies x - 1 = 0 \\implies x = 1$ (karena pembilang $1^2 - 4 = -3 \\neq 0$).\nLangkah 2: <b>Asimtot Miring:</b> Pangkat atas ($2$) > bawah ($1$). Bagi $\\frac{x^2 - 4}{x - 1} = (x + 1) - \\frac{3}{x - 1} \\implies y = x + 1$.\nLangkah 3: <b>Asimtot Datar:</b> Tidak ada, karena derajat pembilang lebih tinggi dari penyebut.\nKesimpulan: Asimtot tegak adalah $x = 1$ dan asimtot miring adalah $y = x + 1$ (tidak ada asimtot datar)."
       ]
     },
     {
