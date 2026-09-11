@@ -923,56 +923,62 @@ const NAMA_TINGKAT = 'XII';
       "obj": [
         "Menentukan besar sudut antara garis dan bidang melalui proyeksi garis ke bidang.",
         "Menentukan besar sudut antara dua bidang (Dihedral Angle) melalui perpotongan garis tumpu tegak lurus.",
-        "Menghitung nilai sinus, cosinus, dan tangen sudut dimensi tiga."
+        "Menghitung nilai sinus, cosinus, dan tangen sudut dimensi tiga pada kubus dan limas.",
+        "Menerapkan konsep sudut ruang dalam model nyata kemiringan panel surya dan arsitektur atap gazebo."
       ],
-      "hook": "Sudut kemiringan panel surya terhadap atap gedung bertingkat harus diatur secara trigonometris presisi untuk memaksimalkan tangkapan sinar matahari harian.",
+      "hook": "Sudut kemiringan panel surya terhadap bidang atap atau lereng bukit harus diatur dengan presisi trigonometris tinggi agar panel tegak lurus terhadap datangnya berkas sinar matahari harian, memaksimalkan efisiensi energi listrik yang dibangkitkan.",
       "toolkit": [
         {
-          "name": "Sudut Garis ke Bidang",
-          "math": "$$\\theta = \\angle(g, g') \\quad (g' = \\text{proyeksi garis } g \\text{ pada bidang})$$"
+          "name": "1. Sudut Garis terhadap Bidang",
+          "math": "$$\\theta = \\angle(g, g') \\quad \\left(g' = \\text{proyeksi ortogonal garis } g \\text{ pada bidang}\\right)$$"
         },
         {
-          "name": "Sudut Antara Dua Bidang",
-          "math": "$$\\theta = \\angle(t_1, t_2) \\quad (t_1, t_2 \\perp \\text{garis potong persekutuan})$$"
+          "name": "2. Sudut Antara Dua Bidang (Dihedral Angle)",
+          "math": "$$\\theta = \\angle(t_1, t_2) \\quad \\left(t_1, t_2 \\perp \\text{garis potong persekutuan } k\\right)$$"
         },
         {
-          "name": "Teorema Pythagoras Ruang 3D",
-          "math": "$$d^2 = p^2 + l^2 + t^2$$"
+          "name": "3. Aturan Cosinus pada Segitiga Penampang Ruang",
+          "math": "$$\\cos\\theta = \\frac{a^2 + b^2 - c^2}{2ab}$$"
         },
         {
-          "name": "Kesamaan Luas Segitiga Proyeksi",
-          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2$$"
+          "name": "4. Trik Kilat Sudut Diagonal Ruang Kubus ke Alas",
+          "math": "$$\\tan\\alpha = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}, \\quad \\sin\\alpha = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}, \\quad \\cos\\alpha = \\frac{\\sqrt{2}}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$$"
+        },
+        {
+          "name": "5. Sudut Antara Dua Diagonal Ruang Kubus",
+          "math": "$$\\cos\\theta = \\frac{|\\vec{d}_1 \\cdot \\vec{d}_2|}{|\\vec{d}_1||\\vec{d}_2|} = \\frac{1}{3} \\implies \\theta = \\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$$"
         }
       ],
       "examples": [
         {
           "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, tentukan besar sinus sudut antara garis diagonal ruang $AG$ dan bidang alas $ABCD$!",
-          "solution": "Langkah 1: Proyeksikan garis $AG$ ke bidang $ABCD$. Proyeksi titik $G$ ke alas adalah $C$, sehingga proyeksi garis $AG$ pada alas adalah diagonal sisi $AC$.\nLangkah 2: Sudut antara $AG$ dan alas $ABCD$ adalah $\\angle CAG = \\alpha$ pada segitiga siku-siku $ACG$ di $C$.\nLangkah 3: Panjang $AC = 6\\sqrt{2}\\text{ cm}$, $CG = 6\\text{ cm}$, dan $AG = 6\\sqrt{3}\\text{ cm}$.\nLangkah 4: $\\sin \\alpha = \\frac{CG}{AG} = \\frac{6}{6\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$.\nKesimpulan: Nilai sinus sudut antara garis $AG$ dan bidang alas adalah $\\frac{1}{3}\\sqrt{3}$."
+          "solution": "Langkah 1: <b>Proyeksikan Garis ke Bidang:</b> Proyeksi titik $G$ ke bidang alas $ABCD$ adalah titik $C$, sehingga proyeksi garis $AG$ pada bidang alas adalah diagonal sisi $AC$.\nLangkah 2: <b>Identifikasi Segitiga Siku-siku:</b> Sudut antara $AG$ dan alas $ABCD$ adalah $\\angle CAG = \\alpha$ pada segitiga siku-siku $ACG$ di titik $C$.\nLangkah 3: <b>Tentukan Panjang Sisi:</b> Rusuk tegak $CG = 6\\text{ cm}$, diagonal sisi alas $AC = 6\\sqrt{2}\\text{ cm}$, dan diagonal ruang $AG = 6\\sqrt{3}\\text{ cm}$.\nLangkah 4: <b>Hitung Nilai Sinus:</b> $\\sin\\alpha = \\frac{\\text{depan}}{\\text{miring}} = \\frac{CG}{AG} = \\frac{6}{6\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$.\nKesimpulan: Nilai sinus sudut antara garis diagonal ruang $AG$ dan bidang alas $ABCD$ adalah $\\frac{1}{3}\\sqrt{3}$."
         },
         {
           "problem": "Pada kubus $ABCD.EFGH$, tentukan nilai cosinus sudut antara bidang $AFH$ dan bidang $CHF$!",
-          "solution": "Langkah 1: Garis persekutuan kedua bidang adalah $FH$. Titik tengah $FH$ adalah $O$.\nLangkah 2: Tarik garis tegak lurus $FH$ pada masing-masing bidang: $AO \\perp FH$ pada $\\Delta AFH$ dan $CO \\perp FH$ pada $\\Delta CHF$.\nLangkah 3: Sudut antara bidang $AFH$ dan $CHF$ adalah $\\angle AOC = \\theta$ pada segitiga $AOC$.\nLangkah 4: Pada kubus berusuk $s$, $AO = CO = \\frac{1}{2}s\\sqrt{6}$ dan $AC = s\\sqrt{2}$.\nLangkah 5: Terapkan aturan cosinus pada $\\Delta AOC$: $\\cos \\theta = \\frac{AO^2 + CO^2 - AC^2}{2 \\cdot AO \\cdot CO} = \\frac{\\frac{6}{4}s^2 + \\frac{6}{4}s^2 - 2s^2}{2 \\cdot \\frac{6}{4}s^2} = \\frac{3s^2 - 2s^2}{3s^2} = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara bidang $AFH$ dan $CHF$ adalah $\\frac{1}{3}$."
+          "solution": "Langkah 1: <b>Tentukan Garis Persekutuan:</b> Garis potong persekutuan antara bidang $AFH$ dan bidang $CHF$ adalah garis diagonal sisi $FH$. Titik tengah $FH$ adalah titik $O$.\nLangkah 2: <b>Tarik Garis Tegak Lurus:</b> Pada $\\Delta AFH$, tarik $AO \\perp FH$. Pada $\\Delta CHF$, tarik $CO \\perp FH$. Sudut antara kedua bidang adalah $\\angle AOC = \\theta$.\nLangkah 3: <b>Hitung Panjang Ruang:</b> Pada kubus berusuk $s$, panjang garis tinggi $AO = CO = \\frac{1}{2}s\\sqrt{6}$ dan panjang diagonal alas $AC = s\\sqrt{2}$.\nLangkah 4: <b>Terapkan Aturan Cosinus:</b> Pada $\\Delta AOC$: $\\cos\\theta = \\frac{AO^2 + CO^2 - AC^2}{2 \\cdot AO \\cdot CO} = \\frac{\\frac{6}{4}s^2 + \\frac{6}{4}s^2 - 2s^2}{2 \\cdot \\frac{6}{4}s^2} = \\frac{3s^2 - 2s^2}{3s^2} = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara bidang $AFH$ dan bidang $CHF$ adalah $\\frac{1}{3}$."
         },
         {
           "problem": "Pada limas beraturan $T.ABCD$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tegak $6\\text{ cm}$, tentukan nilai tangen sudut antara rusuk tegak $TA$ dan bidang alas $ABCD$!",
-          "solution": "Langkah 1: Proyeksi $T$ ke alas persegi adalah titik pusat alas $O$. Sudut yang dicari adalah $\\angle TAO = \\alpha$.\nLangkah 2: Panjang diagonal alas $AC = 6\\sqrt{2}\\text{ cm} \\implies AO = \\frac{1}{2} AC = 3\\sqrt{2}\\text{ cm}$.\nLangkah 3: Tinggi limas $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{6^2 - (3\\sqrt{2})^2} = \\sqrt{36 - 18} = \\sqrt{18} = 3\\sqrt{2}\\text{ cm}$.\nLangkah 4: $\\tan \\alpha = \\frac{TO}{AO} = \\frac{3\\sqrt{2}}{3\\sqrt{2}} = 1 \\implies \\alpha = 45^\\circ$.\nKesimpulan: Nilai tangen sudut antara $TA$ dan bidang alas adalah $1$ (sudut $45^\\circ$)."
+          "solution": "Langkah 1: <b>Tentukan Proyeksi Puncak:</b> Proyeksi titik puncak $T$ pada bidang alas persegi adalah titik pusat alas $O$ (titik potong diagonal $AC$ dan $BD$).\nLangkah 2: <b>Identifikasi Sudut Ruang:</b> Proyeksi rusuk tegak $TA$ pada bidang alas adalah ruas garis $AO$. Sudut yang dibentuk adalah $\\angle TAO = \\alpha$.\nLangkah 3: <b>Hitung Panjang $AO$ dan Tinggi $TO$:</b> Diagonal alas $AC = 6\\sqrt{2}\\text{ cm} \\implies AO = 3\\sqrt{2}\\text{ cm}$. Tinggi limas $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{6^2 - (3\\sqrt{2})^2} = \\sqrt{36 - 18} = 3\\sqrt{2}\\text{ cm}$.\nLangkah 4: <b>Hitung Nilai Tangen:</b> $\\tan\\alpha = \\frac{\\text{depan}}{\\text{samping}} = \\frac{TO}{AO} = \\frac{3\\sqrt{2}}{3\\sqrt{2}} = 1 \\implies \\alpha = 45^\\circ$.\nKesimpulan: Nilai tangen sudut antara rusuk tegak $TA$ dan bidang alas adalah $1$ (besar sudut $\\alpha = 45^\\circ$)."
         },
         {
           "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $a$, jika $\\alpha$ adalah sudut antara garis $CE$ dan garis $AG$, tentukan nilai $\\cos \\alpha$!",
-          "solution": "Langkah 1: Garis $CE$ dan $AG$ adalah dua diagonal ruang yang berpotongan di titik pusat kubus $O$.\nLangkah 2: Panjang diagonal ruang $CE = AG = a\\sqrt{3}$, sehingga $OE = OG = \\frac{a\\sqrt{3}}{2}$.\nLangkah 3: Perhatikan segitiga $EOG$ dengan panjang sisi $EG = a\\sqrt{2}$ (diagonal sisi atas).\nLangkah 4: Gunakan aturan cosinus pada $\\Delta EOG$: $\\cos \\alpha = \\frac{OE^2 + OG^2 - EG^2}{2 \\cdot OE \\cdot OG} = \\frac{\\frac{3}{4}a^2 + \\frac{3}{4}a^2 - 2a^2}{2 \\cdot \\frac{3}{4}a^2} = \\frac{\\frac{6}{4}a^2 - 2a^2}{\\frac{6}{4}a^2} = \\frac{-\\frac{1}{2}}{\\frac{3}{2}} = -\\frac{1}{3}$.\nLangkah 5: Sudut lancip antara kedua garis adalah $|\\cos \\alpha| = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara diagonal ruang $CE$ dan $AG$ adalah $\\frac{1}{3}$."
+          "solution": "Langkah 1: <b>Konstruksi Titik Potong:</b> Dua diagonal ruang $CE$ dan $AG$ berpotongan di titik pusat kubus $O$, dengan panjang $CE = AG = a\\sqrt{3}$.\nLangkah 2: <b>Tentukan Panjang Sisi Segitiga:</b> Perhatikan $\\Delta EOG$ dengan $OE = OG = \\frac{1}{2}a\\sqrt{3}$ dan $EG = a\\sqrt{2}$ (diagonal sisi atas).\nLangkah 3: <b>Terapkan Aturan Cosinus:</b> Pada $\\Delta EOG$: $\\cos\\angle EOG = \\frac{OE^2 + OG^2 - EG^2}{2 \\cdot OE \\cdot OG} = \\frac{\\frac{3}{4}a^2 + \\frac{3}{4}a^2 - 2a^2}{2 \\cdot \\frac{3}{4}a^2} = \\frac{\\frac{3}{2}a^2 - 2a^2}{\\frac{3}{2}a^2} = -\\frac{1}{3}$.\nLangkah 4: <b>Ambil Sudut Lancip Antar-Garis:</b> Karena sudut antara dua garis perpotongan selalu diambil sudut lancip ($0^\\circ \\le \\alpha \\le 90^\\circ$), maka $\\cos\\alpha = |-\\frac{1}{3}| = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut lancip antara diagonal ruang $CE$ dan $AG$ adalah $\\frac{1}{3}$."
         },
         {
           "problem": "Sebuah atap gazebo berbentuk limas segi empat beraturan $T.ABCD$ dengan rusuk alas $4\\text{ m}$ dan tinggi puncak $2\\sqrt{3}\\text{ m}$. Tentukan besar sudut kemiringan bidang atap sisi tegak terhadap bidang horizontal alas!",
-          "solution": "Langkah 1: Titik $P$ adalah titik tengah rusuk alas $AB$. Jarak $OP = \\frac{1}{2} \\times 4 = 2\\text{ m}$.\nLangkah 2: Tinggi limas $TO = 2\\sqrt{3}\\text{ m}$. Sudut kemiringan atap adalah $\\angle TPO = \\beta$.\nLangkah 3: Pada segitiga siku-siku $TOP$: $\\tan \\beta = \\frac{TO}{OP} = \\frac{2\\sqrt{3}}{2} = \\sqrt{3}$.\nLangkah 4: $\\beta = \\arctan(\\sqrt{3}) = 60^\\circ$.\nKesimpulan: Besar sudut kemiringan bidang atap terhadap bidang horizontal adalah $60^\\circ$."
+          "solution": "Langkah 1: <b>Tentukan Garis Tinggi Sisi Tegak:</b> Misalkan $P$ adalah titik tengah rusuk alas $AB$, dan $O$ adalah titik pusat alas limas. Jarak $OP = \\frac{1}{2} \\times 4 = 2\\text{ m}$.\nLangkah 2: <b>Identifikasi Sudut Dihedral Kemiringan:</b> Garis tinggi bidang atap adalah $TP \\perp AB$ dan garis tumpu alas adalah $OP \\perp AB$. Sudut kemiringan atap adalah $\\angle TPO = \\beta$.\nLangkah 3: <b>Hitung Nilai Tangen pada $\\Delta TOP$:</b> Segitiga $TOP$ siku-siku di $O$ dengan $TO = 2\\sqrt{3}\\text{ m}$ dan $OP = 2\\text{ m}$. Diperoleh $\\tan\\beta = \\frac{TO}{OP} = \\frac{2\\sqrt{3}}{2} = \\sqrt{3}$.\nLangkah 4: <b>Tentukan Besar Sudut:</b> $\\beta = \\arctan(\\sqrt{3}) = 60^\\circ$.\nKesimpulan: Besar sudut kemiringan bidang atap gazebo terhadap bidang horizontal alas adalah $60^\\circ$."
         }
       ],
       "btc": "Kelompok VNPS: Pada kubus ABCD.EFGH, tentukan nilai cosinus sudut antara bidang ABCD dan bidang BDG!",
       "summary_data": {
         "summary": [
-          "Review komprehensif jarak titik-titik, titik-garis, titik-bidang, dan sudut dihedral.",
-          "Visualisasi 3D yang tepat merupakan kunci utama kecepatan dan ketepatan penyelesaian geometri ruang."
+          "Sudut Garis-Bidang ditentukan melalui garis proyeksi ortogonal pada bidang.",
+          "Sudut Antara Dua Bidang (Dihedral Angle) diukur melalui dua garis yang masing-masing tegak lurus garis persekutuan kedua bidang.",
+          "Aturan cosinus pada segitiga penampang ruang merupakan instrumen analitis utama untuk menghitung sudut dimensi tiga yang tidak siku-siku."
         ],
-        "islamic": "Mengasah ketajaman berpikir spasial memperluas cakrawala keimanan akan luas dan teraturnya alam semesta ciptaan Allah."
+        "islamic": "Mengasah ketajaman berpikir spasial memperluas cakrawala keimanan akan keteraturan dan kesempurnaan ciptaan Allah SWT dalam ruang semesta (QS. Al-Mulk: 3)."
       },
       "collab_cases": [
         "Pada kubus $ABCD.EFGH$, tentukan nilai $\\cos \\alpha$ dengan $\\alpha$ adalah sudut antara diagonal ruang $AG$ dengan bidang alas $ABCD$!",
@@ -983,11 +989,11 @@ const NAMA_TINGKAT = 'XII';
       ],
       "tagline": "Mengukur Kemiringan Sudut Antar Garis dan Bidang dalam Bangun Ruang Nyata",
       "collab_solutions": [
-        "Langkah 1: Proyeksi garis diagonal ruang $AG$ pada bidang alas $ABCD$ adalah diagonal sisi $AC$.\nLangkah 2: Sudut yang dibentuk adalah $\\alpha = \\angle CAG$. Segitiga $ACG$ siku-siku di $C$.\nLangkah 3: $AC = s\\sqrt{2}$ dan $AG = s\\sqrt{3}$.\nLangkah 4: $\\cos \\alpha = \\frac{AC}{AG} = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{\\sqrt{2}}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$.\nKesimpulan: Nilai $\\cos \\alpha$ adalah $\\frac{1}{3}\\sqrt{6}$.",
-        "Langkah 1: Bidang $AFH$ memiliki persamaan normal $\\vec{n}_1 = (1, 1, -1)$ dan bidang $BDG$ memiliki normal $\\vec{n}_2 = (-1, -1, 1)$.\nLangkah 2: Karena $\\vec{n}_1 = -\\vec{n}_2$, kedua bidang saling sejajar sempurna ($\\parallel$).\nLangkah 3: Sudut antara dua bidang yang saling sejajar adalah $0^\\circ$.\nKesimpulan: Besar sudut dihedral antara bidang $AFH$ dan bidang $BDG$ adalah $0^\\circ$.",
-        "Langkah 1: Titik $M$ tengah $AB$ dan $N$ tengah $CD \\implies MN = 4\\text{ cm}$.\nLangkah 2: Tinggi sisi tegak $TM = TN = \\sqrt{(2\\sqrt{6})^2 - 2^2} = \\sqrt{24 - 4} = \\sqrt{20}\\text{ cm}$.\nLangkah 3: Tinggi limas $TO = \\sqrt{20 - 2^2} = \\sqrt{16} = 4\\text{ cm}$.\nLangkah 4: Sudut apit $\\theta = \\angle MTN$. $\\tan(\\theta/2) = \\frac{ON}{TO} = \\frac{2}{4} = \\frac{1}{2} \\implies \\tan \\theta = \\frac{2(1/2)}{1 - (1/2)^2} = \\frac{1}{3/4} = \\frac{4}{3}$.\nKesimpulan: Nilai $\\tan \\theta$ antara bidang $TAB$ dan $TCD$ adalah $\\frac{4}{3}$.",
-        "Langkah 1: Titik $H$ berada pada bidang $BDHF$. Proyeksi titik $A$ ke bidang $BDHF$ adalah titik pusat alas $P$ (tengah $BD$).\nLangkah 2: Segitiga $APH$ siku-siku di $P$ dengan $AP = \\frac{1}{2}s\\sqrt{2}$ dan $AH = s\\sqrt{2}$.\nLangkah 3: $\\sin \\theta = \\frac{AP}{AH} = \\frac{\\frac{1}{2}s\\sqrt{2}}{s\\sqrt{2}} = \\frac{1}{2} \\implies \\theta = 30^\\circ$.\nKesimpulan: Besar sudut antara garis $AH$ dengan bidang $BDHF$ adalah $30^\\circ$.",
-        "Langkah 1: Ambil vektor dua diagonal ruang: $\\vec{d}_1 = (1, 1, 1)$ dan $\\vec{d}_2 = (1, -1, 1)$.\nLangkah 2: Perkalian skalar: $\\vec{d}_1 \\cdot \\vec{d}_2 = 1(1) + 1(-1) + 1(1) = 1$.\nLangkah 3: Panjang vektor: $|\\vec{d}_1| = \\sqrt{3}$ dan $|\\vec{d}_2| = \\sqrt{3}$.\nLangkah 4: $\\cos \\theta = \\frac{\\vec{d}_1 \\cdot \\vec{d}_2}{|\\vec{d}_1| |\\vec{d}_2|} = \\frac{1}{\\sqrt{3} \\times \\sqrt{3}} = \\frac{1}{3} \\implies \\theta = \\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$.\nKesimpulan: Terbukti bahwa sudut lancip antara dua diagonal ruang pada kubus adalah $\\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$."
+        "Langkah 1: <b>Proyeksi Diagonal Ruang:</b> Proyeksi garis diagonal ruang $AG$ pada bidang alas $ABCD$ adalah diagonal sisi $AC$.\nLangkah 2: <b>Identifikasi Segitiga:</b> Sudut yang dibentuk adalah $\\alpha = \\angle CAG$. Segitiga $ACG$ siku-siku di $C$.\nLangkah 3: <b>Hitung Cosinus:</b> $AC = s\\sqrt{2}$ dan $AG = s\\sqrt{3} \\implies \\cos\\alpha = \\frac{AC}{AG} = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$.\nKesimpulan: Nilai $\\cos \\alpha$ adalah $\\frac{1}{3}\\sqrt{6}$.",
+        "Langkah 1: <b>Vektor Normal Bidang:</b> Bidang $AFH$ memiliki normal $\\vec{n}_1 = (1, 1, -1)$ dan bidang $BDG$ memiliki normal $\\vec{n}_2 = (-1, -1, 1)$.\nLangkah 2: <b>Kedudukan Bidang:</b> Karena $\\vec{n}_1 = -\\vec{n}_2$, kedua bidang saling sejajar sempurna ($\\parallel$).\nLangkah 3: <b>Besar Sudut:</b> Sudut antara dua bidang sejajar adalah $0^\\circ$.\nKesimpulan: Besar sudut dihedral antara bidang $AFH$ dan bidang $BDG$ adalah $0^\\circ$.",
+        "Langkah 1: <b>Tentukan Titik Tengah:</b> Titik $M$ tengah $AB$ dan $N$ tengah $CD \\implies MN = 4\\text{ cm}$.\nLangkah 2: <b>Hitung Tinggi Bidang:</b> $TM = TN = \\sqrt{(2\\sqrt{6})^2 - 2^2} = \\sqrt{20}\\text{ cm}$, dan tinggi limas $TO = \\sqrt{20 - 2^2} = 4\\text{ cm}$.\nLangkah 3: <b>Hitung Tangen:</b> $\\tan(\\theta/2) = \\frac{ON}{TO} = \\frac{2}{4} = \\frac{1}{2} \\implies \\tan\\theta = \\frac{2(1/2)}{1 - (1/2)^2} = \\frac{4}{3}$.\nKesimpulan: Nilai $\\tan \\theta$ antara bidang $TAB$ dan $TCD$ adalah $\\frac{4}{3}$.",
+        "Langkah 1: <b>Proyeksi Titik ke Bidang:</b> Proyeksi titik $A$ ke bidang $BDHF$ adalah titik pusat alas $P$ (tengah $BD$).\nLangkah 2: <b>Identifikasi Segitiga:</b> Segitiga $APH$ siku-siku di $P$ dengan $AP = \\frac{1}{2}s\\sqrt{2}$ dan $AH = s\\sqrt{2}$.\nLangkah 3: <b>Hitung Sinus:</b> $\\sin\\theta = \\frac{AP}{AH} = \\frac{\\frac{1}{2}s\\sqrt{2}}{s\\sqrt{2}} = \\frac{1}{2} \\implies \\theta = 30^\\circ$.\nKesimpulan: Besar sudut antara garis $AH$ dengan bidang $BDHF$ adalah $30^\\circ$.",
+        "Langkah 1: <b>Vektor Diagonal Ruang:</b> $\\vec{d}_1 = (1, 1, 1)$ dan $\\vec{d}_2 = (1, -1, 1)$.\nLangkah 2: <b>Dot Product & Panjang:</b> $\\vec{d}_1 \\cdot \\vec{d}_2 = 1(1) + 1(-1) + 1(1) = 1$, $|\\vec{d}_1| = \\sqrt{3}$, $|\\vec{d}_2| = \\sqrt{3}$.\nLangkah 3: <b>Hitung Cosinus:</b> $\\cos\\theta = \\frac{1}{\\sqrt{3} \\times \\sqrt{3}} = \\frac{1}{3} \\implies \\theta = \\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$.\nKesimpulan: Terbukti bahwa sudut lancip antara dua diagonal ruang pada kubus adalah $\\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$."
       ]
     },
     {
@@ -6127,225 +6133,225 @@ const NAMA_TINGKAT = 'XII';
       ]
     },
     "P13": {
-      "id": "P13",
-      "subject": "Matematika Wajib",
-      "title": "Dimensi Tiga 5: Sudut Garis-Bidang dan Sudut Antara Dua Bidang",
-      "questions": [
-        {
-          "no": 1,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P13-Q1] Pada kubus ABCD.EFGH, nilai tangen sudut antara garis diagonal ruang AG dan bidang alas ABCD adalah ...",
-          "opsi": [
-            "A. √2",
-            "B. 1/2 √2",
-            "C. √3",
-            "D. 1/2 √6",
-            "E. 1/3 √3"
-          ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menentukan proyeksi garis diagonal ruang AG pada bidang alas ABCD:\nProyeksi garis AG pada bidang alas adalah diagonal sisi AC. Sudut yang terbentuk adalah $\\angle CAG = \\alpha$.\n\nLangkah 2: Menentukan panjang sisi $\\triangle ACG$ (siku-siku di C):\n- Rusuk tegak: $CG = s$\n- Diagonal sisi alas: $AC = s\\sqrt{2}$\n\nLangkah 3: Menghitung nilai tangen $\\alpha$:\n$$\\tan\\alpha = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$$\nKesimpulan: Kunci Jawaban B.",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus",
-            "seg": [
-              "AG"
+            "id": "P13",
+            "subject": "Matematika Wajib",
+            "title": "Dimensi Tiga 5: Sudut Garis-Bidang dan Sudut Antara Dua Bidang",
+            "questions": [
+                  {
+                        "no": 1,
+                        "tipe": "Pilihan Ganda Tunggal",
+                        "level": "C4 Analisis",
+                        "bobot": 10,
+                        "tanya": "[P13-Q1] Pada kubus ABCD.EFGH, nilai tangen sudut antara garis diagonal ruang AG dan bidang alas ABCD adalah ...",
+                        "opsi": [
+                              "A. $\\sqrt{2}$",
+                              "B. $\\frac{1}{2}\\sqrt{2}$",
+                              "C. $\\sqrt{3}$",
+                              "D. $\\frac{1}{2}\\sqrt{6}$",
+                              "E. $\\frac{1}{3}\\sqrt{3}$"
+                        ],
+                        "kunci": "B",
+                        "bahas": "<b>Langkah 1: Tentukan Proyeksi Garis ke Alas</b>\nProyeksi garis diagonal ruang $AG$ pada bidang alas $ABCD$ adalah diagonal sisi $AC$. Sudut yang terbentuk adalah $\\angle CAG = \\alpha$.\n\n<b>Langkah 2: Tinjau Segitiga Siku-siku</b>\nPada $\\triangle ACG$ yang siku-siku di $C$:\n- Rusuk tegak: $CG = s$\n- Diagonal sisi alas: $AC = s\\sqrt{2}$\n\n<b>Langkah 3: Hitung Nilai Tangen</b>\n$$\\tan\\alpha = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>B</b> ($\\frac{1}{2}\\sqrt{2}$).",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus",
+                              "seg": [
+                                    "AG"
+                              ]
+                        }
+                  },
+                  {
+                        "no": 2,
+                        "tipe": "Pilihan Ganda Tunggal",
+                        "level": "C4 Analisis",
+                        "bobot": 10,
+                        "tanya": "[P13-Q2] Pada kubus ABCD.EFGH, nilai cosinus sudut antara garis diagonal sisi AH dan garis diagonal sisi AC adalah ...",
+                        "opsi": [
+                              "A. $\\frac{1}{2}$",
+                              "B. $0$",
+                              "C. $\\frac{1}{2}\\sqrt{3}$",
+                              "D. $\\frac{1}{2}\\sqrt{2}$",
+                              "E. $\\frac{1}{3}\\sqrt{3}$"
+                        ],
+                        "kunci": "A",
+                        "bahas": "<b>Langkah 1: Bentuk Segitiga dari Tiga Titik Terkait</b>\nHubungkan titik $A$, $H$, dan $C$ sehingga membentuk $\\triangle AHC$.\n\n<b>Langkah 2: Hitung Panjang Ketiga Sisi Segitiga</b>\n- $AH = s\\sqrt{2}$ (diagonal sisi kiri $ADHE$)\n- $AC = s\\sqrt{2}$ (diagonal sisi alas $ABCD$)\n- $CH = s\\sqrt{2}$ (diagonal sisi belakang $CDHG$)\nKarena ketiga sisinya sama panjang ($AH = AC = CH = s\\sqrt{2}$), maka $\\triangle AHC$ adalah **segitiga sama sisi**.\n\n<b>Langkah 3: Tentukan Besar Sudut dan Nilai Kosinus</b>\nSudut pada setiap titik sudut segitiga sama sisi adalah $60^\\circ$, sehingga sudut antara garis $AH$ dan $AC$ adalah $60^\\circ$.\n$$\\cos 60^\\circ = \\frac{1}{2}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>A</b> ($\\frac{1}{2}$).",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus",
+                              "seg": [
+                                    "AH",
+                                    "AC"
+                              ]
+                        }
+                  },
+                  {
+                        "no": 3,
+                        "tipe": "Pilihan Ganda Tunggal",
+                        "level": "C4 Analisis",
+                        "bobot": 10,
+                        "tanya": "[P13-Q3] Besar sudut antara bidang frontal ABFE dan bidang dorsal CDHG pada kubus ABCD.EFGH adalah ...",
+                        "opsi": [
+                              "A. $90^\\circ$ (Tegak lurus)",
+                              "B. $60^\\circ$",
+                              "C. $180^\\circ$",
+                              "D. $45^\\circ$",
+                              "E. $0^\\circ$ (Sejajar)"
+                        ],
+                        "kunci": "E",
+                        "bahas": "<b>Langkah 1: Identifikasi Posisi Relatif Kedua Bidang</b>\n- Bidang $ABFE$ adalah dinding depan (frontal).\n- Bidang $CDHG$ adalah dinding belakang (dorsal).\n\n<b>Langkah 2: Tentukan Kedudukan Geometris dan Sudut Dihedral</b>\nKedua bidang saling berhadapan sejajar ($ABFE \\parallel CDHG$), sehingga tidak memiliki garis persekutuan (perpotongan).\nSesuai definisi sudut antar-bidang, dua bidang yang saling sejajar membentuk sudut dihedral sebesar **$0^\\circ$**.\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>E</b> ($0^\\circ$).",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus"
+                        }
+                  },
+                  {
+                        "no": 4,
+                        "tipe": "Pilihan Ganda Tunggal",
+                        "level": "C4 Analisis",
+                        "bobot": 10,
+                        "tanya": "[P13-Q4] Nilai sinus sudut antara bidang AFH dan bidang alas ABCD pada kubus ABCD.EFGH adalah ...",
+                        "opsi": [
+                              "A. $\\frac{1}{3}\\sqrt{6}$",
+                              "B. $\\frac{1}{2}\\sqrt{3}$",
+                              "C. $\\frac{1}{2}\\sqrt{2}$",
+                              "D. $\\frac{2}{3}\\sqrt{2}$",
+                              "E. $\\frac{1}{3}\\sqrt{3}$"
+                        ],
+                        "kunci": "A",
+                        "bahas": "<b>Langkah 1: Tentukan Garis Persekutuan dan Garis Tinggi Bidang</b>\n- Karena bidang alas $ABCD$ sejajar dengan bidang atas $EFGH$, sudut antara bidang $AFH$ dan $ABCD$ sama dengan sudut antara $AFH$ dan $EFGH$.\n- Garis potong bidang $AFH$ dengan bidang atas $EFGH$ adalah diagonal sisi $FH$.\n- Titik tengah $FH$ adalah $O'$. Ruas garis $AO'$ tegak lurus $FH$ pada $\\triangle AFH$, dan ruas garis $EO'$ tegak lurus $FH$ pada bidang atas $EFGH$.\n- Sudut dihedral yang terbentuk adalah $\\angle AO'E = \\theta$ pada $\\triangle AEO'$ (siku-siku di $E$).\n\n<b>Langkah 2: Tentukan Dimensi Segitiga Proyeksi $\\triangle AEO'$</b>\n- Rusuk tegak (sisi depan $\\theta$): $AE = s$\n- Setengah diagonal sisi (sisi samping $\\theta$): $EO' = \\frac{1}{2}s\\sqrt{2}$\n- Sisi miring $AO'$:\n$$AO' = \\sqrt{AE^2 + EO'^2} = \\sqrt{s^2 + \\left(\\frac{1}{2}s\\sqrt{2}\\right)^2} = \\sqrt{s^2 + \\frac{1}{2}s^2} = s\\sqrt{\\frac{3}{2}} = \\frac{s\\sqrt{6}}{2}$$\n\n<b>Langkah 3: Hitung Nilai Sinus Sudut $\\theta$</b>\n$$\\sin\\theta = \\frac{\\text{depan}}{\\text{miring}} = \\frac{AE}{AO'} = \\frac{s}{\\frac{s\\sqrt{6}}{2}} = \\frac{2}{\\sqrt{6}} = \\frac{2\\sqrt{6}}{6} = \\frac{1}{3}\\sqrt{6}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>A</b> ($\\frac{1}{3}\\sqrt{6}$).",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus"
+                        }
+                  },
+                  {
+                        "no": 5,
+                        "tipe": "Pilihan Benar / Salah",
+                        "level": "C4 Analisis",
+                        "bobot": 10,
+                        "tanya": "[P13-Q5] Pada kubus ABCD.EFGH, tentukan kebenaran setiap pernyataan sudut berikut:\n(1) Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah $60^\\circ$.\n(2) Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah $90^\\circ$.\n(3) Besar sudut antara rusuk AB dan rusuk BC adalah $90^\\circ$.",
+                        "opsi": [
+                              "Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah 60 derajat",
+                              "Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat",
+                              "Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat"
+                        ],
+                        "kunci": "S - S - B",
+                        "bahas": "<b>Langkah 1: Analisis Pernyataan (1) - Sudut Antara Garis Bersilangan AH dan CF</b>\nGeser garis $CF$ ke garis $DE$ (karena $CF \\parallel DE$). Pada bidang sisi $ADHE$ (persegi), diagonal sisi $AH$ dan diagonal sisi $DE$ saling berpotongan tegak lurus ($90^\\circ$). Jadi sudutnya adalah $90^\\circ$, bukan $60^\\circ$.\n$\\implies$ Pernyataan (1) bernilai **SALAH (S)**.\n\n<b>Langkah 2: Analisis Pernyataan (2) - Sudut Antara Diagonal Ruang AG dan Rusuk AE</b>\nPerhatikan $\\triangle AEG$ yang siku-siku di $E$. Sudut $\\angle EAG$ memiliki $\\tan(\\angle EAG) = \\frac{EG}{AE} = \\frac{s\\sqrt{2}}{s} = \\sqrt{2} \\implies \\angle EAG \\approx 54{,}74^\\circ \\ne 90^\\circ$.\n$\\implies$ Pernyataan (2) bernilai **SALAH (S)**.\n\n<b>Langkah 3: Analisis Pernyataan (3) - Sudut Antara Rusuk Alas AB dan BC</b>\nPada bidang alas persegi $ABCD$, rusuk $AB$ dan $BC$ bertemu di titik $B$ dan saling tegak lurus ($90^\\circ$).\n$\\implies$ Pernyataan (3) bernilai **BENAR (B)**.\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>S - S - B</b>.",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus",
+                              "seg": [
+                                    "AH",
+                                    "CF"
+                              ]
+                        }
+                  },
+                  {
+                        "no": 6,
+                        "tipe": "Kecukupan Data",
+                        "level": "C5 Evaluasi",
+                        "bobot": 10,
+                        "tanya": "[P13-Q6] Berapakah besar sudut antara garis diagonal ruang dan bidang alas pada sebuah kubus?\nPernyataan (1): Kubus memiliki volume $1.000\\text{ cm}^3$.\nPernyataan (2): Panjang diagonal sisi alas kubus adalah $10\\sqrt{2}\\text{ cm}$.",
+                        "opsi": [
+                              "A. DUA pernyataan BERSAMA-SAMA cukup",
+                              "B. Pernyataan (1) SAJA cukup",
+                              "C. Pernyataan (2) SAJA cukup",
+                              "D. Pernyataan (1) SAJA cukup dan (2) SAJA cukup",
+                              "E. Pernyataan (1) dan (2) tidak cukup"
+                        ],
+                        "kunci": "D",
+                        "bahas": "<b>Langkah 1: Tinjau Sifat Geometris Sudut Diagonal Ruang Kubus</b>\nPada kubus apa pun dengan panjang rusuk $s$, sudut $\\alpha$ antara diagonal ruang dan bidang alas selalu memenuhi rasio tetap:\n$$\\tan\\alpha = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{2}\\sqrt{2} \\implies \\alpha = \\arctan\\left(\\frac{1}{2}\\sqrt{2}\\right) \\approx 35{,}26^\\circ$$\nBesar sudut ini adalah invarian konstan (tidak bergantung pada skala ukuran kubus).\n\n<b>Langkah 2: Evaluasi Pernyataan (1) SAJA</b>\nVolume $= 1.000\\text{ cm}^3 \\implies s = 10\\text{ cm}$. Karena informasi ini mengonfirmasi objek adalah kubus dan memberikan ukuran pastinya, maka besar sudut dapat ditentukan secara tunggal. $\\implies$ **(1) SAJA CUKUP**.\n\n<b>Langkah 3: Evaluasi Pernyataan (2) SAJA</b>\nDiagonal sisi alas $= 10\\sqrt{2}\\text{ cm} \\implies s = 10\\text{ cm}$. Informasi ini juga mengonfirmasi kubus dan ukuran rusuknya secara tunggal. $\\implies$ **(2) SAJA CUKUP**.\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>D</b> (Pernyataan (1) SAJA cukup dan (2) SAJA cukup).",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus"
+                        }
+                  },
+                  {
+                        "no": 7,
+                        "tipe": "Pilihan Ganda Tunggal",
+                        "level": "C4 Analisis",
+                        "bobot": 10,
+                        "tanya": "[P13-Q7] Pada limas segiempat beraturan T.ABCD dengan alas persegi berusuk 6 cm dan tinggi segitiga bidang tegak TP = 5 cm (P titik tengah AB), nilai kosinus sudut antara bidang TAB dan bidang TCD adalah ...",
+                        "opsi": [
+                              "A. $\\frac{1}{2}$",
+                              "B. $\\frac{3}{5}$",
+                              "C. $\\frac{24}{25}$",
+                              "D. $\\frac{4}{5}$",
+                              "E. $\\frac{7}{25}$"
+                        ],
+                        "kunci": "E",
+                        "bahas": "<b>Langkah 1: Tentukan Penampang Bidang yang Memuat Sudut Dihedral</b>\n- Misalkan $P$ adalah titik tengah rusuk alas $AB \\implies TP \\perp AB$ dan $TP = 5\\text{ cm}$.\n- Misalkan $Q$ adalah titik tengah rusuk alas $CD \\implies TQ \\perp CD$ dan $TQ = 5\\text{ cm}$.\n- Ruas garis $PQ$ menghubungkan titik tengah dua sisi sejajar alas persegi, sehingga $PQ = AD = 6\\text{ cm}$.\n- Sudut antara bidang $TAB$ dan $TCD$ diwakili oleh sudut $\\angle PTQ = \\theta$ pada $\\triangle TPQ$.\n\n<b>Langkah 2: Terapkan Aturan Kosinus pada $\\triangle TPQ$</b>\nPada $\\triangle TPQ$ dengan panjang sisi $TP = 5$, $TQ = 5$, dan $PQ = 6$:\n$$PQ^2 = TP^2 + TQ^2 - 2(TP)(TQ)\\cos\\theta$$\n$$6^2 = 5^2 + 5^2 - 2(5)(5)\\cos\\theta$$\n$$36 = 25 + 25 - 50\\cos\\theta$$\n$$36 = 50 - 50\\cos\\theta$$\n$$50\\cos\\theta = 50 - 36 = 14$$\n$$\\cos\\theta = \\frac{14}{50} = \\frac{7}{25}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>E</b> ($\\frac{7}{25}$).",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "limas"
+                        }
+                  },
+                  {
+                        "no": 8,
+                        "tipe": "Pilihan Ganda Kompleks",
+                        "level": "C5 Evaluasi",
+                        "bobot": 10,
+                        "tanya": "[P13-Q8] Pada kubus ABCD.EFGH, misalkan $\\alpha$ adalah sudut antara garis diagonal ruang AG dan bidang alas ABCD. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+                        "opsi": [
+                              "A. Garis AG tegak lurus terhadap bidang ACGE.",
+                              "B. Nilai $\\cos\\alpha = \\frac{1}{3}\\sqrt{6}$.",
+                              "C. Nilai $\\tan\\alpha = \\frac{1}{2}\\sqrt{2}$.",
+                              "D. Besar sudut antara diagonal sisi AF dan CH adalah $60^\\circ$.",
+                              "E. Nilai $\\sin\\alpha = \\frac{1}{3}\\sqrt{3}$."
+                        ],
+                        "kunci": "B, C, D, E",
+                        "bahas": "<b>Langkah 1: Analisis Nilai Perbandingan Trigonometri Sudut $\\alpha$</b>\nPada $\\triangle ACG$ (siku-siku di $C$):\n- Sisi depan: $CG = s$\n- Sisi samping: $AC = s\\sqrt{2}$\n- Sisi miring: $AG = s\\sqrt{3}$\n\nPerhitungan masing-masing rasio:\n- $\\tan\\alpha = \\frac{s}{s\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$ $\\implies$ **(Opsi C BENAR)**\n- $\\cos\\alpha = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{\\sqrt{2}}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$ $\\implies$ **(Opsi B BENAR)**\n- $\\sin\\alpha = \\frac{s}{s\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$ $\\implies$ **(Opsi E BENAR)**\n\n<b>Langkah 2: Analisis Sudut dan Kedudukan Bidang Lain</b>\n- Garis $AF$ dan $CH$: Geser $CH$ ke $BG$. Pasangan diagonal ini membentuk $\\triangle AFC$ (segitiga sama sisi dengan panjang sisi $s\\sqrt{2}$), sehingga sudutnya $60^\\circ$ $\\implies$ **(Opsi D BENAR)**.\n- Garis $AG$ terletak di dalam bidang diagonal $ACGE$, bukan tegak lurus $\\implies$ **(Opsi A SALAH)**.\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>B, C, D, E</b>.",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus",
+                              "seg": [
+                                    "AG"
+                              ]
+                        }
+                  },
+                  {
+                        "no": 9,
+                        "tipe": "Pilihan Ganda Tunggal",
+                        "level": "C4 Analisis",
+                        "bobot": 10,
+                        "tanya": "[P13-Q9] Nilai kosinus sudut antara garis diagonal ruang EC dan garis diagonal ruang AG pada kubus adalah ...",
+                        "opsi": [
+                              "A. $0$",
+                              "B. $\\frac{1}{3}$",
+                              "C. $\\frac{1}{2}$",
+                              "D. $\\frac{2}{3}$",
+                              "E. $\\frac{1}{\\sqrt{3}}$"
+                        ],
+                        "kunci": "B",
+                        "bahas": "<b>Langkah 1: Representasi Vektor Diagonal Ruang Kubus</b>\nMisalkan titik sudut kubus dengan panjang rusuk $a$ diletakkan pada sistem koordinat 3D kartesius dengan $A(0,0,0)$ dan $G(a,a,a)$:\n- Titik $E(0,0,a)$ dan titik $C(a,a,0)$\n- Vektor arah $\\vec{u} = \\vec{EC} = C - E = (a - 0, a - 0, 0 - a) = (a, a, -a)$\n- Vektor arah $\\vec{v} = \\vec{AG} = G - A = (a - 0, a - 0, a - 0) = (a, a, a)$\n\n<b>Langkah 2: Hitung Perkalian Titik (Dot Product) dan Panjang Vektor</b>\n- Perkalian titik:\n$$\\vec{u} \\cdot \\vec{v} = (a)(a) + (a)(a) + (-a)(a) = a^2 + a^2 - a^2 = a^2$$\n- Panjang masing-masing vektor diagonal ruang:\n$$|\\vec{u}| = \\sqrt{a^2 + a^2 + (-a)^2} = a\\sqrt{3}$$\n$$|\\vec{v}| = \\sqrt{a^2 + a^2 + a^2} = a\\sqrt{3}$$\n\n<b>Langkah 3: Hitung Nilai Kosinus Sudut Antara Kedua Vektor</b>\n$$\\cos\\theta = \\frac{|\\vec{u} \\cdot \\vec{v}|}{|\\vec{u}| \\cdot |\\vec{v}|} = \\frac{a^2}{(a\\sqrt{3})(a\\sqrt{3})} = \\frac{a^2}{3a^2} = \\frac{1}{3}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>B</b> ($\\frac{1}{3}$).",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus",
+                              "seg": [
+                                    "EC",
+                                    "AG"
+                              ]
+                        }
+                  },
+                  {
+                        "no": 10,
+                        "tipe": "Isian Singkat Numerik",
+                        "level": "C4 Analisis",
+                        "bobot": 10,
+                        "tanya": "[P13-Q10] Besar sudut (dalam derajat) yang dibentuk antara bidang alas ABCD dan bidang diagonal ACGE pada sebuah kubus adalah ...",
+                        "opsi": [],
+                        "kunci": "90",
+                        "bahas": "<b>Langkah 1: Identifikasi Pembentuk Bidang Diagonal ACGE</b>\nBidang diagonal $ACGE$ memuat diagonal bidang alas $AC$ serta rusuk-rusuk tegak kubus $AE$ dan $CG$.\n\n<b>Langkah 2: Analisis Kedudukan Garis Terhadap Bidang</b>\nKarena setiap rusuk tegak kubus tegak lurus terhadap bidang alas ($AE \\perp ABCD$ dan $CG \\perp ABCD$), maka setiap bidang yang memuat rusuk tegak tersebut secara otomatis berkedudukan **tegak lurus** terhadap bidang alas.\n\n<b>Langkah 3: Tentukan Besar Sudut Dihedral</b>\nKarena kedua bidang saling tegak lurus, maka besar sudut yang dibentuk adalah **90 derajat** ($90^\\circ$).\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>90</b>.",
+                        "viz": {
+                              "t": "ruang",
+                              "shape": "kubus",
+                              "bid": [
+                                    "ACGE"
+                              ]
+                        }
+                  }
             ]
-          }
-        },
-        {
-          "no": 2,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P13-Q2] Pada kubus ABCD.EFGH, nilai cosinus sudut antara garis diagonal sisi AH dan garis diagonal sisi AC adalah ...",
-          "opsi": [
-            "A. 1/2",
-            "B. 0",
-            "C. 1/2 √3",
-            "D. 1/2 √2",
-            "E. 1/3 √3"
-          ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Mengidentifikasi segitiga yang dibentuk oleh titik A, H, dan C:\nHubungkan titik A, H, dan C sehingga membentuk $\\triangle AHC$.\n\nLangkah 2: Menentukan panjang ketiga sisi $\\triangle AHC$:\n- $AH = s\\sqrt{2}$ (diagonal sisi kiri)\n- $AC = s\\sqrt{2}$ (diagonal sisi alas)\n- $CH = s\\sqrt{2}$ (diagonal sisi belakang)\nKarena ketiga sisinya sama panjang, $\\triangle AHC$ adalah **segitiga sama sisi**.\n\nLangkah 3: Menghitung besar sudut dan nilai kosinusnya:\nSudut antara garis AH dan garis AC adalah $60^\\circ$.\n$$\\cos 60^\\circ = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban A.",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus",
-            "seg": [
-              "AH",
-              "AC"
-            ]
-          }
-        },
-        {
-          "no": 3,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P13-Q3] Besar sudut antara bidang frontal ABFE dan bidang dorsal CDHG pada kubus ABCD.EFGH adalah ...",
-          "opsi": [
-            "A. 90 derajat (Tegak lurus)",
-            "B. 60 derajat",
-            "C. 180 derajat",
-            "D. 45 derajat",
-            "E. 0 derajat (Sejajar)"
-          ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Mengidentifikasi posisi kedua bidang pada kubus ABCD.EFGH:\n- Bidang ABFE adalah bidang sisi depan (frontal).\n- Bidang CDHG adalah bidang sisi belakang (dorsal).\n\nLangkah 2: Menentukan kedudukan dan sudut antara dua bidang sejajar:\nKedua bidang saling berhadapan sejajar ($ABFE \\parallel CDHG$), sehingga tidak membentuk garis perpotongan.\nBesar sudut antara dua bidang yang saling sejajar adalah **0 derajat**.\nKesimpulan: Kunci Jawaban E.",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus"
-          }
-        },
-        {
-          "no": 4,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P13-Q4] Nilai sinus sudut antara bidang AFH dan bidang alas ABCD pada kubus ABCD.EFGH adalah ...",
-          "opsi": [
-            "A. 1/3 √6",
-            "B. 1/2 √3",
-            "C. 1/2 √2",
-            "D. 2/3 √2",
-            "E. 1/3 √3"
-          ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menentukan sudut antara bidang AFH dan bidang horizontal (EFGH / ABCD):\n- Garis potong bidang AFH dengan bidang atas EFGH adalah diagonal $FH$.\n- Garis tinggi $\\triangle AFH$ adalah ruas garis $AO'$ (dengan $O'$ titik tengah $FH$).\n- Garis tinggi pada bidang atas adalah $EO' = \\frac{1}{2}s\\sqrt{2}$.\n- Sudut yang terbentuk adalah $\\angle AO'E = \\theta$ pada $\\triangle AEO'$ (siku-siku di E).\n\nLangkah 2: Menentukan panjang sisi $\\triangle AEO'$:\n- Sisi depan: $AE = s$\n- Sisi samping: $EO' = \\frac{1}{2}s\\sqrt{2}$\n- Sisi miring: $AO' = \\sqrt{s^2 + \\left(\\frac{1}{2}s\\sqrt{2}\\right)^2} = \\sqrt{s^2 + \\frac{1}{2}s^2} = \\frac{s\\sqrt{6}}{2}$\n\nLangkah 3: Menghitung nilai sinus $\\theta$:\n$$\\sin\\theta = \\frac{AE}{AO'} = \\frac{s}{\\frac{s\\sqrt{6}}{2}} = \\frac{2}{\\sqrt{6}} = \\frac{2\\sqrt{6}}{6} = \\frac{1}{3}\\sqrt{6}$$\nKesimpulan: Kunci Jawaban A.",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus"
-          }
-        },
-        {
-          "no": 5,
-          "tipe": "Pilihan Benar / Salah",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P13-Q5] Pada kubus ABCD.EFGH, tentukan kebenaran sudut garis berikut:\n(1) Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah 60 derajat.\n(2) Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat.\n(3) Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat.",
-          "opsi": [
-            "Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah 60 derajat",
-            "Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat",
-            "Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat"
-          ],
-          "kunci": "S - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nGaris diagonal AH dan CF adalah garis bersilangan. Jika CF digeser ke garis DE (karena $CF \\parallel DE$), maka sudut antara AH dan DE pada persegi ADHE adalah $90^\\circ$ (tegak lurus), bukan $60^\\circ$.\n$\\implies$ Pernyataan (1) bernilai SALAH (S).\n\nLangkah 2: Analisis Pernyataan (2):\nPada $\\triangle AEG$ (siku-siku di E), sudut $\\angle EAG = \\arctan(\\sqrt{2}) \\approx 54{,}7^\\circ \\ne 90^\\circ$.\n$\\implies$ Pernyataan (2) bernilai SALAH (S).\n\nLangkah 3: Analisis Pernyataan (3):\nRusuk AB dan rusuk BC pada bidang alas persegi ABCD berpotongan tegak lurus ($90^\\circ$).\n$\\implies$ Pernyataan (3) bernilai BENAR (B).\n\nKesimpulan: Kunci Jawaban S - S - B.",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus",
-            "seg": [
-              "AH",
-              "CF"
-            ]
-          }
-        },
-        {
-          "no": 6,
-          "tipe": "Kecukupan Data",
-          "level": "C5 Evaluasi",
-          "bobot": 10,
-          "tanya": "[P13-Q6] Berapakah besar sudut antara garis diagonal ruang dan bidang alas kubus?\nPernyataan (1): Kubus memiliki volume 1.000 cm^3.\nPernyataan (2): Panjang diagonal sisi alas adalah 10√2 cm.",
-          "opsi": [
-            "A. DUA pernyataan BERSAMA-SAMA cukup",
-            "B. Pernyataan (1) SAJA cukup",
-            "C. Pernyataan (2) SAJA cukup",
-            "D. Pernyataan (1) SAJA cukup dan (2) SAJA cukup",
-            "E. Pernyataan (1) dan (2) tidak cukup"
-          ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Memahami sifat metrik sudut diagonal ruang terhadap bidang alas kubus:\nSudut $\\alpha$ antara diagonal ruang AG dan alas selalu bernilai konstan pada setiap kubus:\n$$\\tan\\alpha = \\frac{s}{s\\sqrt{2}} = \\frac{1}{2}\\sqrt{2} \\implies \\alpha = \\arctan\\left(\\frac{1}{2}\\sqrt{2}\\right) \\approx 35{,}26^\\circ$$\n\nLangkah 2: Evaluasi Pernyataan (1) SAJA:\nVolume $= 1.000\\text{ cm}^3 \\implies s = 10\\text{ cm}$ (CUKUP untuk mengonfirmasi bentuk kubus).\n\nLangkah 3: Evaluasi Pernyataan (2) SAJA:\nDiagonal sisi $= 10\\sqrt{2}\\text{ cm} \\implies s = 10\\text{ cm}$ (CUKUP untuk mengonfirmasi bentuk kubus).\n\nKesimpulan: Kunci Jawaban D (Pernyataan (1) SAJA cukup dan (2) SAJA cukup).",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus"
-          }
-        },
-        {
-          "no": 7,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P13-Q7] Pada limas T.ABCD dengan alas persegi berusuk 6 cm dan tinggi bidang tegak TP = 5 cm (P di tengah AB), nilai kosinus sudut antara bidang TAB dan bidang TCD adalah ...",
-          "opsi": [
-            "A. 1/2",
-            "B. 3/5",
-            "C. 24/25",
-            "D. 4/5",
-            "E. 7/25"
-          ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menentukan penampang segitiga yang memuat sudut antara bidang TAB dan TCD:\n- Misalkan titik P adalah titik tengah rusuk AB $\\implies TP = 5$ cm (tinggi $\\triangle TAB$).\n- Misalkan titik Q adalah titik tengah rusuk CD $\\implies TQ = 5$ cm (tinggi $\\triangle TCD$).\n- Panjang ruas garis $PQ = AD = 6$ cm.\n\nLangkah 2: Membentuk $\\triangle TPQ$ dengan $TP = 5$ cm, $TQ = 5$ cm, dan $PQ = 6$ cm.\nSudut antara bidang TAB dan TCD adalah sudut $\\angle PTQ = \\theta$.\n\nLangkah 3: Menerapkan Aturan Kosinus pada $\\triangle TPQ$:\n$$PQ^2 = TP^2 + TQ^2 - 2(TP)(TQ)\\cos\\theta$$\n$$6^2 = 5^2 + 5^2 - 2(5)(5)\\cos\\theta$$\n$$36 = 25 + 25 - 50\\cos\\theta$$\n$$36 = 50 - 50\\cos\\theta$$\n$$50\\cos\\theta = 50 - 36 = 14$$\n$$\\cos\\theta = \\frac{14}{50} = \\frac{7}{25}$$\nKesimpulan: Kunci Jawaban E.",
-          "viz": {
-            "t": "ruang",
-            "shape": "limas"
-          }
-        },
-        {
-          "no": 8,
-          "tipe": "Pilihan Ganda Kompleks",
-          "level": "C5 Evaluasi",
-          "bobot": 10,
-          "tanya": "[P13-Q8] Pada kubus ABCD.EFGH, misalkan alpha adalah sudut antara garis AG dan bidang alas ABCD. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
-          "opsi": [
-            "A. Garis AG tegak lurus terhadap bidang ACGE.",
-            "B. Nilai cos(alpha) adalah akar(6)/3.",
-            "C. Nilai tan(alpha) adalah 1/2 akar(2).",
-            "D. Besar sudut antara diagonal sisi AF dan CH adalah 60 derajat.",
-            "E. Nilai sin(alpha) adalah akar(3)/3."
-          ],
-          "kunci": "B, C, D, E",
-          "bahas": "Langkah 1: Analisis nilai trigonometri sudut $\\alpha$ antara diagonal ruang AG dan alas ABCD:\n- Sisi depan $= s$, sisi samping $= s\\sqrt{2}$, sisi miring $= s\\sqrt{3}$.\n- $\\tan\\alpha = \\frac{s}{s\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$ (Opsi C BENAR).\n- $\\cos\\alpha = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{\\sqrt{6}}{3}$ (Opsi B BENAR).\n- $\\sin\\alpha = \\frac{s}{s\\sqrt{3}} = \\frac{\\sqrt{3}}{3}$ (Opsi E BENAR).\n\nLangkah 2: Analisis sudut antar-garis:\n- Sudut antara AF dan CH (geser ke AF dan DE) adalah $60^\\circ$ (Opsi D BENAR).\n- Opsi A SALAH karena garis AG terletak di dalam bidang ACGE (bukan tegak lurus).\n\nKesimpulan: Kunci Jawaban B, C, D, E.",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus",
-            "seg": [
-              "AG"
-            ]
-          }
-        },
-        {
-          "no": 9,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P13-Q9] Nilai kosinus sudut antara garis diagonal ruang EC dan diagonal ruang AG pada kubus adalah ...",
-          "opsi": [
-            "A. 0",
-            "B. 1/3",
-            "C. 1/2",
-            "D. 2/3",
-            "E. 1/√3"
-          ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menentukan vektor arah diagonal ruang EC dan AG pada kubus berusuk $a$:\n- Vektor arah $EC = (a, a, -a)$\n- Vektor arah $AG = (a, a, a)$\n\nLangkah 2: Menghitung hasil perkalian titik (dot product):\n$$\\vec{u} \\cdot \\vec{v} = (a)(a) + (a)(a) + (-a)(a) = a^2 + a^2 - a^2 = a^2$$\n\nLangkah 3: Menghitung panjang vektor dan nilai kosinus:\n$$|\\vec{u}| = |\\vec{v}| = a\\sqrt{3}$$\n$$\\cos\\theta = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}| \\cdot |\\vec{v}|} = \\frac{a^2}{(a\\sqrt{3})(a\\sqrt{3})} = \\frac{a^2}{3a^2} = \\frac{1}{3}$$\nKesimpulan: Kunci Jawaban B.",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus",
-            "seg": [
-              "EC",
-              "AG"
-            ]
-          }
-        },
-        {
-          "no": 10,
-          "tipe": "Isian Singkat Numerik",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P13-Q10] Besar sudut (dalam derajat) yang dibentuk antara bidang alas ABCD dan bidang diagonal ACGE pada kubus adalah ...",
-          "opsi": [],
-          "kunci": "90",
-          "bahas": "Langkah 1: Mengidentifikasi bidang diagonal ACGE:\nBidang diagonal $ACGE$ dibentuk oleh diagonal bidang alas $AC$ dan rusuk-rusuk tegak kubus $AE$ dan $CG$.\n\nLangkah 2: Memeriksa kedudukan rusuk tegak terhadap bidang alas:\nKarena seluruh rusuk tegak $AE \\perp \\text{bidang } ABCD$, maka bidang diagonal $ACGE$ yang memuat garis AE berkedudukan tegak lurus terhadap bidang alas ABCD.\n\nLangkah 3: Menentukan besar sudut dihedral:\nBesar sudut yang dibentuk adalah **90 derajat**.\nKesimpulan: Kunci Jawaban 90.",
-          "viz": {
-            "t": "ruang",
-            "shape": "kubus",
-            "bid": [
-              "ACGE"
-            ]
-          }
-        }
-      ]
-    },
+      },
     "P14": {
       "id": "P14",
       "subject": "Matematika Wajib",
