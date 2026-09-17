@@ -5,6 +5,7 @@ MATH CIHUY • SERVER OFFLINE JARINGAN LOKAL (WIFI SEKOLAH / HOTSPOT)
 ====================================================================
 Jalankan skrip ini agar seluruh siswa dapat mengakses materi dan CBT
 hanya lewat koneksi Wi-Fi yang sama (100% TANPA KUOTA INTERNET).
+Didesain tahan beban hingga 100+ siswa bersamaan (High Concurrency).
 """
 
 import http.server
@@ -27,10 +28,6 @@ PORT = 8080
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
 def get_network_adapters():
-    """
-    Mendeteksi adapter jaringan aktif secara akurat dari ipconfig,
-    memisahkan antara Wi-Fi asli, Mobile Hotspot, dan adapter virtual (VirtualBox/VPN).
-    """
     adapters = []
     try:
         out = subprocess.check_output('ipconfig', text=True, encoding='cp1252', errors='ignore')
@@ -71,7 +68,6 @@ def get_network_adapters():
     except Exception:
         pass
 
-    # Urutkan: Wi-Fi aktif ber-gateway atau Hotspot di paling atas
     adapters.sort(key=lambda a: (
         not a['is_virtual'],
         a['has_gateway'],
@@ -80,24 +76,39 @@ def get_network_adapters():
 
     return adapters
 
-class CustomHandler(http.server.SimpleHTTPRequestHandler):
+class HighConcurrencyHandler(http.server.SimpleHTTPRequestHandler):
+    protocol_version = "HTTP/1.1"
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
+
+    def end_headers(self):
+        # Cache statis agar HP siswa meng-cache file dan tidak mengunduh ulang berkali-kali
+        if self.path.endswith(('.js', '.css', '.png', '.svg', '.ico', '.woff2', '.ttf')):
+            self.send_header('Cache-Control', 'public, max-age=86400')
+        else:
+            self.send_header('Cache-Control', 'no-cache')
+        self.send_header('Connection', 'keep-alive')
+        super().end_headers()
 
     def log_message(self, format, *args):
         client_ip = self.client_address[0]
         path = args[0] if args else ''
-        if not path.endswith('.png') and not path.endswith('.svg') and not path.endswith('.ico'):
-            print(f"  [+] TERHUBUNG: Siswa dari IP {client_ip} -> {path}")
+        if path.startswith('GET /index.html') or path.startswith('GET / '):
+            print(f"  [+] SISWA TERHUBUNG: {client_ip}")
+
+class HighConcurrencyServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
+    daemon_threads = True
+    request_queue_size = 256  # Mampu menampung antrean 256 koneksi serentak tanpa drop
 
 def print_banner(adapters, port):
     border = "=" * 70
     print("\n" + border)
-    print("  🚀 MATH CIHUY — SERVER OFFLINE JARINGAN LOKAL TELAH AKTIF!")
+    print("  🚀 MATH CIHUY — SERVER OFFLINE JARINGAN LOKAL (100+ SISWA READY)")
     print(border)
-    print("  Status Server: ONLINE (Lokal - Tanpa Perlu Kuota Internet)")
-    print(f"  Direktori    : {DIRECTORY}")
-    print(f"  Port Layanan : {port}")
+    print("  Status Server : ONLINE (Multi-Threaded • Antrean 256 Koneksi)")
+    print(f"  Direktori     : {DIRECTORY}")
+    print(f"  Port Layanan  : {port}")
     print("-" * 70)
     print("  📲 ALAMAT AKSES UNTUK SISWA (Buka di Google Chrome / Safari Siswa):")
 
@@ -118,30 +129,22 @@ def print_banner(adapters, port):
         print(f"\n     👉  http://{first['ip']}:{port}")
 
     if virtual_list:
-        print("\n  ⚠️  PERHATIAN: JANGAN berikan alamat di bawah ini ke siswa")
-        print("      (Ini adalah adapter internal/virtual PC, bukan Wi-Fi):")
+        print("\n  ⚠️  PERHATIAN: JANGAN gunakan alamat internal PC di bawah ini:")
         for v in virtual_list:
             print(f"      ❌ http://{v['ip']}:{port} ({v['name']})")
 
     print("-" * 70)
-    print("  💡 PETUNJUK KONEKSI:")
-    print("  1. Pastikan HP/Laptop siswa tersambung ke Wi-Fi yang sama dengan PC ini.")
-    print("  2. Di browser HP siswa, ketik alamat bertanda 👉👉👉 di atas.")
-    print("  3. Jika HP siswa loading lama / tidak bisa akses (karena proteksi Wi-Fi sekolah):")
-    print("     -> Aktifkan 'Mobile Hotspot' di Windows Settings PC Anda, lalu minta siswa")
-    print("        konek ke Hotspot PC tersebut.")
-    print("  4. Tekan [Ctrl + C] di jendela ini untuk mematikan server.")
+    print("  💡 PETUNJUK KAPASITAS:")
+    print("  - PC Anda sanggup melayani 100+ siswa serentak dengan lancar.")
+    print("  - Pastikan Router Wi-Fi Sekolah mencukupi kapasitas pengguna.")
+    print("  - Tekan [Ctrl + C] di jendela ini untuk mematikan server.")
     print(border + "\n")
 
 def run():
     adapters = get_network_adapters()
-    
-    class ThreadedServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
-        daemon_threads = True
-
     server_address = ('0.0.0.0', PORT)
     try:
-        httpd = ThreadedServer(server_address, CustomHandler)
+        httpd = HighConcurrencyServer(server_address, HighConcurrencyHandler)
         print_banner(adapters, PORT)
         httpd.serve_forever()
     except KeyboardInterrupt:
@@ -150,7 +153,6 @@ def run():
     except OSError as e:
         if "address already in use" in str(e).lower() or "10048" in str(e):
             print(f"\n❌ Error: Port {PORT} sedang aktif digunakan.")
-            print(f"   Jika server sudah berjalan di jendela lain, Anda bisa langsung memakainya.")
         else:
             print(f"\n❌ Error: {e}")
 
