@@ -44,3 +44,13 @@ TKA_PTS_*.md
 TKA_PTS_*.html
 TKA_PTS_*.pdf
 tka_questions_dump.txt
+
+# Sampah Python dari server_offline.py (dibuat ulang sendiri setiap kali
+# dijalankan; tidak ada gunanya di repositori).
+__pycache__/
+*.pyc
+
+# Folder "Claude outputs" hanya berisi salinan data-xi.js yang sudah ada di
+# akar folder. Kalau ikut ter-commit, repositori menyimpan berkas 1,9 MB dua
+# kali dan suatu saat keduanya akan berbeda tanpa ketahuan.
+Claude outputs/

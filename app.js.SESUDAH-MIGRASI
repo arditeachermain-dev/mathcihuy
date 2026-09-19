@@ -2030,7 +2030,7 @@
               chosen: String(chosen || ''),
               is_right: Boolean(isRight),
               updated_at: new Date().toISOString()
-            }, { onConflict: 'nis,mapel,kode_pertemuan,q_idx' }).then(res => {
+            }, { onConflict: 'nis,tingkat,mapel,kode_pertemuan,q_idx' }).then(res => {
               if (res.error) console.warn("Supabase live answer sync warning:", res.error);
             });
           }
@@ -2156,48 +2156,6 @@
       return null;
     }
 
-    function pulihkanDraftDariCloud(subj, pkgId) {
-      if (!supabaseClient) return;
-      try {
-        const sess = typeof getSession === 'function' ? getSession() : null;
-        const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
-        if (!nis || nis === 'guest') return;
-
-        supabaseClient.from('cbt_live_answers')
-          .select('*')
-          .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
-          .then(res => {
-            if (res.data && res.data.length > 0) {
-              const k = getCbtDraftKey(subj, pkgId);
-              const draft = JSON.parse(localStorage.getItem(k) || '{}');
-              if (!draft.answers) draft.answers = {};
-              let hasNew = false;
-              res.data.forEach(row => {
-                if (draft.answers[row.q_idx] === undefined && row.chosen !== undefined && row.chosen !== null && row.chosen !== '') {
-                  draft.answers[row.q_idx] = {
-                    chosen: row.chosen,
-                    isRight: row.is_right,
-                    ts: Date.now()
-                  };
-                  hasNew = true;
-                }
-              });
-              if (hasNew) {
-                draft.lastUpdated = Date.now();
-                localStorage.setItem(k, JSON.stringify(draft));
-                pulihkanDraftJawaban(subj, pkgId);
-                // Render ulang jika pengguna sedang melihat paket ini
-                if (tkaSubj === subj && tkaPkgId === pkgId) {
-                  renderAppView();
-                }
-              }
-            }
-          });
-      } catch (e) {
-        console.warn('Cloud restore draft error:', e);
-      }
-    }
-
     function ambilDraftSemua(subj, pkgId) {
       try {
         const k = getCbtDraftKey(subj, pkgId);
@@ -2281,7 +2239,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             jumlah_salah: Number(n - benar),
             durasi_detik: Number(durasi),
             waktu_submit: new Date().toISOString()
-          }, { onConflict: 'nis,mapel,kode_pertemuan' }).then(res => {
+          }, { onConflict: 'nis,tingkat,mapel,kode_pertemuan' }).then(res => {
+            // PostgREST menaruh galat di res.error, BUKAN sebagai promise yang
+            // ditolak. Tanpa pemeriksaan ini, nilai yang gagal tersimpan tetap
+            // tercetak "berhasil" dan hilang tanpa seorang pun tahu.
+            if (res && res.error) {
+              console.error('❌ Nilai CBT GAGAL disimpan:', res.error.message || res.error);
+              try { alert('Nilai belum tersimpan ke server. Laporkan ke guru, jangan tutup halaman ini.'); } catch (e) {}
+              return;
+            }
             console.log('✅ Nilai CBT berhasil disubmit ke Supabase:', res);
           }).catch(err => {
             console.warn('Supabase submission error:', err);
@@ -3995,18 +3961,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     }
 
     function confirmResetCbtPackage() {
-      const curSubj = String(tkaSubj || 'wajib');
-      const curPkg = String(tkaPkgId || 'P01');
-      const subjNames = { wajib: 'Matematika Wajib', minat: 'Matematika Peminatan', clil: 'CLIL' };
-      const namaMapel = subjNames[curSubj] || curSubj;
-
-      const pesan = `Apakah Anda yakin ingin mengulang pengerjaan paket ${curPkg} (${namaMapel})?\n\n` +
-                    `⚠️ PERHATIAN:\n` +
-                    `• Hanya jawaban pada paket ${curPkg} ini yang akan dikosongkan kembali dari Soal 1.\n` +
-                    `• Jawaban paket bab/pertemuan lain TETAP AMAN dan TIDAK akan terhapus.\n\n` +
-                    `Klik OK untuk mengulang paket ${curPkg}, atau Batal untuk kembali.`;
-
-      if (confirm(pesan)) {
+      if (confirm("Apakah Anda yakin ingin mereset paket soal ini? Seluruh jawaban dan draf yang tersimpan akan dikosongkan kembali dari Soal 1.")) {
         retakeCurrentTkaPkg();
       }
     }
@@ -4016,21 +3971,27 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const curSubj = String(tkaSubj || 'wajib');
       const curPkg = String(tkaPkgId || 'P01');
       
-      // 1. Bersihkan HANYA skor sesi untuk paket ini dari memori objek userSessionScores
-      if (typeof userSessionScores === 'object' && userSessionScores !== null) {
+      // 1. Bersihkan seluruh skor sesi dari memori objek userSessionScores
+      if (typeof userSessionScores === 'object') {
         Object.keys(userSessionScores).forEach(k => {
-          if (k.startsWith(`${curSubj}_${curPkg}_`) || k.includes(`_${curPkg}_`)) {
+          if (k.includes(curPkg) || k.startsWith(`${curSubj}_`)) {
             delete userSessionScores[k];
           }
         });
       }
 
-      // 2. Bersihkan draf jawaban HANYA untuk paket ini secara terisolasi
+      // 2. Bersihkan draf jawaban di LocalStorage perangkat secara menyeluruh
       bersihkanDraftJawaban(curSubj, curPkg);
       try {
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const k = localStorage.key(i);
+          if (k && (k.includes(curPkg) || k.startsWith('cbt_draft_'))) {
+            localStorage.removeItem(k);
+          }
+        }
         localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
       } catch (e) {
-        console.warn('Storage save error:', e);
+        console.warn('Storage wipe error:', e);
       }
 
       // 3. Reset state aktif jawaban ke kosong mutlak
@@ -4038,7 +3999,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       userTfAnswers = {};
       tkaQIdx = 0;
 
-      // 4. Bersihkan data live dari database Supabase HANYA untuk paket ini jika siswa login
+      // 4. Bersihkan data live dari database Supabase jika siswa login
       if (typeof supabaseClient !== 'undefined' && supabaseClient) {
         try {
           const sess = typeof getSession === 'function' ? getSession() : null;
@@ -4058,12 +4019,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (typeof closeTkaScorecardModal === 'function') closeTkaScorecardModal();
       if (typeof closeCbtSubmitModal === 'function') closeCbtSubmitModal();
 
-      // 6. Tampilkan notifikasi visual toast informatif
+      // 6. Tampilkan notifikasi visual toast
       const toast = document.createElement('div');
       toast.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl bg-[#0D1B2E] border border-blue-500/80 text-white text-xs font-bold shadow-2xl flex items-center gap-2 animate-bounce';
-      toast.innerHTML = `<i class="fa-solid fa-rotate-left text-amber-400"></i> <span>Paket ${curPkg} berhasil diulang dari Soal 1. Paket lain tetap aman!</span>`;
+      toast.innerHTML = '<i class="fa-solid fa-rotate-left text-amber-400"></i> <span>Paket berhasil direset! Semua jawaban kembali ke awal.</span>';
       document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3500);
+      setTimeout(() => toast.remove(), 3000);
 
       // 7. Render ulang panggung CBT dari Soal 1
       renderAppView();
@@ -4266,12 +4227,7 @@ function showTkaScorecardModal() {
     }
 
     function renderTkaQuestion() {
-      const recoveredDraft = pulihkanDraftJawaban(tkaSubj, tkaPkgId);
-      if (!recoveredDraft && (!window._cloudRestoreAttempted || !window._cloudRestoreAttempted[`${tkaSubj}_${tkaPkgId}`])) {
-        if (!window._cloudRestoreAttempted) window._cloudRestoreAttempted = {};
-        window._cloudRestoreAttempted[`${tkaSubj}_${tkaPkgId}`] = true;
-        pulihkanDraftDariCloud(tkaSubj, tkaPkgId);
-      }
+      pulihkanDraftJawaban(tkaSubj, tkaPkgId);
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       if (!pkg || !pkg.questions || pkg.questions.length === 0) {
