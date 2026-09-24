@@ -393,13 +393,32 @@
     // Matematika Minat dan CLIL sama sekali: tab, kartu beranda, sub-menu
     // CBT, hasil pencarian, dan rute #/minat & #/clil semuanya ditutup.
     function lockedSubjects() {
+      const terkunci = [];
+      // 1. Mapel yang memang tidak ada di tingkat ini. Halaman kelas X
+      //    hanya berisi Matematika Wajib -- Peminatan baru mulai kelas XI.
+      //    Tab dan kartu yang banknya kosong disembunyikan, bukan
+      //    ditampilkan sebagai "(0)" yang mengundang siswa menekannya
+      //    lalu menemukan halaman hampa.
+      ['minat', 'clil'].forEach(function (m) {
+        try {
+          const materi = (typeof db !== 'undefined' && db) ? db[m] : null;
+          const soal = (typeof db !== 'undefined' && db) ? db['tka_' + m] : null;
+          const adaMateri = Array.isArray(materi) ? materi.length > 0
+            : Object.keys(materi || {}).length > 0;
+          const adaSoal = Object.keys(soal || {}).length > 0;
+          if (!adaMateri && !adaSoal) terkunci.push(m);
+        } catch (e) {}
+      });
+      // 2. Mapel yang ada isinya tetapi tidak diambil kelas siswa itu.
       try {
         const sess = getSession();
         if (sess && sess.type === 'siswa' && sess.data && sess.data.access_level === 'wajib_only') {
-          return ['minat', 'clil'];
+          ['minat', 'clil'].forEach(function (m) {
+            if (terkunci.indexOf(m) === -1) terkunci.push(m);
+          });
         }
       } catch (e) {}
-      return [];
+      return terkunci;
     }
 
     function isLocked(mode) {

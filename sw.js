@@ -19,10 +19,10 @@
 const VERSI = 'mathcihuy-v1788449654';
 
 // Hanya alamat kanonik -- jangan pernah menambahkan yang berakhiran .html.
-const HALAMAN = ['./', './11'];
+const HALAMAN = ['./', './11', './10'];
 const ASET = [
   './mathcihuy.css', './vendor.js', './app.js', './app-akhir.js',
-  './data-xii.js', './data-xi.js',
+  './data-xii.js', './data-xi.js', './data-x.js',
   './manifest.json', './icon-192.png', './icon-512.png'
 ];
 
@@ -57,6 +57,7 @@ self.addEventListener('message', (e) => {
 function kunciHalaman(pathname) {
   if (pathname === '/' || pathname === '/index.html' || pathname === '/index') return './';
   if (pathname === '/11' || pathname === '/11.html') return './11';
+  if (pathname === '/10' || pathname === '/10.html') return './10';
   return null;
 }
 

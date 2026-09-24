@@ -16,6 +16,14 @@
 /11
   Cache-Control: no-cache
 
+/10.html
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/10
+  Cache-Control: no-cache
+
 # Berkas kode & data dipakai bersama semua tingkat dan berukuran besar, tetapi
 # tetap harus diperiksa ulang. Kalau di-cache lama, perbaikan tidak akan pernah
 # sampai ke perangkat siswa; dengan no-cache, yang berubah saja yang diunduh
@@ -41,6 +49,10 @@
   X-Content-Type-Options: nosniff
 
 /data-xi.js
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
+
+/data-x.js
   Cache-Control: no-cache
   X-Content-Type-Options: nosniff
 
