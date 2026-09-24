@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Hasilkan index11.html dari index.html.
+"""Hasilkan 11.html dari index.html.
 
 11.html adalah HALAMAN kelas 11 (dibuka di /11): alamatnya sendiri, materinya sendiri.
 Yang dipakai bersama dengan kelas 12 adalah mathcihuy.css, vendor.js, app.js,
