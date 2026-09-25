@@ -38,15 +38,15 @@
         ],
         "examples": [
           {
-            "problem": "Manakah di antara persamaan berikut yang merupakan persamaan linear tiga variabel?\n(a) $2x - y + 3z = 7$\n(b) $xy + z = 4$\n(c) $x^2 + y + z = 1$\n(d) $\\frac{x}{2} + y - z = 0$\n(e) $\\frac{1}{x} + y + z = 3$",
+            "problem": "Manakah di antara persamaan berikut yang merupakan persamaan linear tiga variabel? (a) $2x - y + 3z = 7$; (b) $xy + z = 4$; (c) $x^2 + y + z = 1$; (d) $\\frac{x}{2} + y - z = 0$; (e) $\\frac{1}{x} + y + z = 3$.",
             "solution": "Langkah 1: Ingat syaratnya: setiap variabel hanya boleh berpangkat satu, tidak boleh ada perkalian antarvariabel, dan tidak boleh ada variabel di penyebut.\n\nLangkah 2: Persamaan (a) memuat $x$, $y$, dan $z$ yang masing-masing berpangkat satu. Persamaan (a) LINEAR.\n\nLangkah 3: Persamaan (b) memuat suku $xy$, yaitu perkalian dua variabel. Suku seperti itu berderajat dua, jadi (b) BUKAN linear.\n\nLangkah 4: Persamaan (c) memuat $x^2$, jadi (c) BUKAN linear.\n\nLangkah 5: Persamaan (d) memuat $\\frac{x}{2}$. Bentuk ini sama dengan $\\frac{1}{2}x$ — variabelnya ada di PEMBILANG dan berpangkat satu. Persamaan (d) LINEAR.\n\nLangkah 6: Persamaan (e) memuat $\\frac{1}{x}$, yaitu $x^{-1}$. Variabel di penyebut membuat pangkatnya negatif, jadi (e) BUKAN linear.\n\nLangkah 7: Perhatikan bedanya (d) dan (e): pecahan boleh ada, asalkan variabelnya tidak berada di penyebut.\n\nKesimpulan: Persamaan linear tiga variabel adalah (a) dan (d)."
           },
           {
-            "problem": "Periksalah apakah $(1, 2, 3)$ merupakan penyelesaian sistem\n$x + y + z = 6$\n$2x - y + z = 3$\n$x + 2y - z = 2$",
+            "problem": "Periksalah apakah $(1, 2, 3)$ merupakan penyelesaian sistem $x + y + z = 6$, $2x - y + z = 3$, dan $x + 2y - z = 2$.",
             "solution": "Langkah 1: Tripel $(1, 2, 3)$ berarti $x = 1$, $y = 2$, dan $z = 3$. Urutannya selalu $x$, lalu $y$, lalu $z$.\n\nLangkah 2: Uji persamaan pertama.\n$1 + 2 + 3 = 6$ — cocok\n\nLangkah 3: Uji persamaan kedua.\n$2(1) - 2 + 3 = 2 - 2 + 3 = 3$ — cocok\n\nLangkah 4: Uji persamaan ketiga.\n$1 + 2(2) - 3 = 1 + 4 - 3 = 2$ — cocok\n\nLangkah 5: Ketiga persamaan terpenuhi. Pengujian WAJIB dilakukan pada ketiganya; berhenti setelah satu persamaan cocok adalah kekeliruan yang sering terjadi.\n\nKesimpulan: Tripel $(1, 2, 3)$ merupakan penyelesaian sistem itu."
           },
           {
-            "problem": "Periksalah apakah $(2, -1, 1)$ merupakan penyelesaian sistem\n$x + y + z = 2$\n$2x + y - z = 2$\n$x - y + z = 5$",
+            "problem": "Periksalah apakah $(2, -1, 1)$ merupakan penyelesaian sistem $x + y + z = 2$, $2x + y - z = 2$, dan $x - y + z = 5$.",
             "solution": "Langkah 1: Tulis nilainya: $x = 2$, $y = -1$, $z = 1$. Gunakan kurung saat menyubstitusikan bilangan negatif.\n\nLangkah 2: Uji persamaan pertama.\n$2 + (-1) + 1 = 2$ — cocok\n\nLangkah 3: Uji persamaan kedua.\n$2(2) + (-1) - 1 = 4 - 1 - 1 = 2$ — cocok\n\nLangkah 4: Uji persamaan ketiga.\n$2 - (-1) + 1 = 2 + 1 + 1 = 4$\n\nLangkah 5: Hasilnya $4$, padahal ruas kanannya $5$. Persamaan ketiga TIDAK terpenuhi.\n\nLangkah 6: Cukup satu persamaan yang gagal untuk menggugurkan sebuah tripel. Dua persamaan yang cocok tidak ada artinya bila persamaan ketiga tidak cocok.\n\nLangkah 7: Perhatikan tanda pada langkah 4: $-(-1) = +1$. Tanpa kurung, orang sering menulis $2 - 1 + 1 = 2$ lalu keliru menyimpulkan.\n\nKesimpulan: Tripel $(2, -1, 1)$ BUKAN penyelesaian sistem itu, sebab tidak memenuhi persamaan ketiga."
           },
           {
