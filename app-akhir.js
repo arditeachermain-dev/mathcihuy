@@ -75,57 +75,29 @@
     window._guruFilterStatus = 'semua';
     window._guruLiveAnswersCache = [];
 
+    // Daftar pertemuan di filter dasbor dibangun dari data tingkat halaman
+    // ini. Versi lama menulis judul pertemuan kelas XII di sini, sehingga
+    // dasbor kelas X dan XI menawarkan pertemuan yang tidak ada di tingkatnya.
     function updateGuruPertemuanOptions() {
-      const mapel = document.getElementById('guru-filter-mapel').value;
+      const pilihMapel = document.getElementById('guru-filter-mapel');
       const selectPertemuan = document.getElementById('guru-filter-pertemuan');
-      if (!selectPertemuan) return;
+      if (!pilihMapel || !selectPertemuan) return;
+      const mapel = pilihMapel.value;
+      const bank = mapel === 'peminatan' ? 'minat' : (mapel === 'clil' ? 'clil' : 'wajib');
+      const paket = (typeof db !== 'undefined' && db && db['tka_' + bank]) || {};
+      const aman = function (t) {
+        return String(t).replace(/\$/g, '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      };
 
       let options = '<option value="">Semua Pertemuan / Bab</option>';
-      if (mapel === 'peminatan') {
-        const minatTitles = [
-          "Persamaan Lingkaran Pusat O(0,0)", "Persamaan Lingkaran Pusat P(a,b)", "Bentuk Umum Lingkaran",
-          "Kedudukan Titik terhadap Lingkaran", "Kedudukan Garis terhadap Lingkaran", "PGSL Melalui Titik pada Lingkaran",
-          "PGSL Gradien Tertentu (m)", "PGSL Titik di Luar Lingkaran", "Asesmen Sumatif Lingkaran",
-          "Konsep & Sifat Limit Trigonometri", "Bentuk Tak Tentu 0/0", "Metode Substitusi & Faktorisasi",
-          "Limit Menuju Tak Hingga Aljabar", "Limit Menuju Tak Hingga Trigonometri", "Asimtot Datar & Tegak",
-          "Asesmen Sumatif Limit", "Turunan Dasar Sinus & Cosinus", "Aturan Rantai Trigonometri",
-          "Turunan Tingkat Tinggi Trigonometri", "Persamaan Garis Singgung & Normal", "Kemonotonan & Nilai Stasioner",
-          "Titik Belok & Kecekungan Kurva", "Aplikasi Optimasi Kontekstual", "Asesmen Sumatif Turunan",
-          "Integral Tak Tentu Trigonometri", "Integral Substitusi Aljabar-Trigonometri", "Integral Parsial (Metode Tanzalin)",
-          "Integral Tentu Trigonometri", "Aplikasi Luas Daerah Kurva", "Simulasi Komprehensif ASAS"
-        ];
-        for (let i = 1; i <= 30; i++) {
-          const code = `P${String(i).padStart(2, '0')}`;
-          options += `<option value="${code}">${code} - ${minatTitles[i-1] || 'Additional Math'}</option>`;
-        }
-      } else if (mapel === 'clil') {
-        const clilTitles = [
-          "Unit 1: Combinatorics & Permutations", "Unit 2: Probability & Conditional Events",
-          "Unit 3: 3D Geometry & Spatial Distances", "Unit 4: Grouped Statistics & Measures",
-          "Unit 5: Bivariate Data & Linear Regression", "Unit 6: Comprehensive Mastery Check"
-        ];
-        for (let i = 1; i <= 6; i++) {
-          const code = `U0${i}`;
-          options += `<option value="${code}">${clilTitles[i-1]}</option>`;
-        }
-      } else {
-        // Wajib (default)
-        const wajibTitles = [
-          "Kaidah Pencacahan 1: Filling Slots", "Notasi Faktorial & Permutasi", "Permutasi Unsur Sama & Siklis",
-          "Kombinasi & Pemilihan Delegasi", "Peluang Kejadian Tunggal", "Asesmen Sumatif 1",
-          "Peluang Saling Lepas & Tidak Lepas", "Peluang Saling Bebas & Bersyarat", "Kedudukan Titik, Garis, Bidang",
-          "Jarak Titik ke Titik (3D)", "Jarak Titik ke Garis", "Jarak Titik ke Bidang",
-          "Sudut Garis & Dua Bidang", "Asesmen Sumatif Terpadu Dimensi 3", "Penyajian Data Berkelompok",
-          "Rata-rata Hitung (Mean)", "Median dan Modus Berkelompok", "Ukuran Letak Data (Kuartil & Desil)",
-          "Ukuran Penyebaran Data (Varians & SB)", "Analisis Data Bivariat & Regresi", "Asesmen Sumatif Statistika"
-        ];
-        for (let i = 1; i <= 21; i++) {
-          const code = `P${String(i).padStart(2, '0')}`;
-          options += `<option value="${code}">${code} - ${wajibTitles[i-1] || 'Matematika Wajib'}</option>`;
-        }
-      }
+      Object.keys(paket).forEach(function (id) {
+        // Judul paket berbentuk "P01 • Judul"; awalan kodenya dibuang.
+        const judul = String((paket[id] || {}).title || '').replace(/^\s*[A-Z]?\d+\s*•\s*/, '');
+        options += '<option value="' + aman(id) + '">' + aman(id) + ' - ' + aman(judul || id) + '</option>';
+      });
       selectPertemuan.innerHTML = options;
     }
+    document.addEventListener('DOMContentLoaded', updateGuruPertemuanOptions);
 
     function setGuruStatusFilter(status) {
       window._guruFilterStatus = status;
@@ -687,7 +659,7 @@
         // 3. Bersihkan Kunci Draft Pengerjaan Siswa
         try {
             if (kodePertemuan && mapel) {
-                localStorage.removeItem(`cbt_draft_v1_${nis}_${mapel}_${kodePertemuan}`);
+                localStorage.removeItem(`${CBT_DRAFT_PREFIX}${nis}_${mapel}_${kodePertemuan}`);
             }
         } catch (e) {}
 

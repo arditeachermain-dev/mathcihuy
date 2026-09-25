@@ -56,9 +56,26 @@
     let userMultiAnswers = [];
     let userTfAnswers = {};
 
+    // KUNCI PENYIMPANAN PER TINGKAT
+    // Halaman kelas X ('/10'), XI ('/11'), dan XII ('/') berbagi satu origin,
+    // jadi juga berbagi satu localStorage. Tanpa pemisahan, jawaban "Wajib
+    // P01" kelas X muncul sebagai jawaban "Wajib P01" kelas XII, dan tombol
+    // "Ulangi Paket" di satu kelas ikut menghapus paket bernomor sama di kelas
+    // lain. Kelas XII tetap memakai kunci lama apa adanya supaya progres siswa
+    // yang sudah ada tidak hilang; kelas X dan XI memakai awalan 't10_'/'t11_'.
+    // Yang sengaja TIDAK dipisah: sesi login, tema, skala tampilan, sidebar.
+    const TINGKAT_HALAMAN = (typeof TINGKAT !== 'undefined') ? Number(TINGKAT) : 12;
+    const AWALAN_TINGKAT = TINGKAT_HALAMAN === 12 ? '' : 't' + TINGKAT_HALAMAN + '_';
+    function kunciTingkat(k) { return AWALAN_TINGKAT + k; }
+    // Apakah kunci localStorage k milik tingkat halaman ini? Dipakai oleh
+    // semua pembersihan yang menyapu localStorage menurut pola nama.
+    function kunciMilikTingkatIni(k) {
+      return AWALAN_TINGKAT ? k.startsWith(AWALAN_TINGKAT) : !/^t1[01]_/.test(k);
+    }
+
     // PERSISTENCE STORAGE KEYS
-    const STORAGE_STATE_KEY = 'gis_math_portal_state_v3';
-    const STORAGE_SCORES_KEY = 'gis_math_portal_scores_v3';
+    const STORAGE_STATE_KEY = kunciTingkat('gis_math_portal_state_v3');
+    const STORAGE_SCORES_KEY = kunciTingkat('gis_math_portal_scores_v3');
 
     // 3. INITIALIZATION & ROUTING ENGINE
     function initPortal() {
@@ -476,6 +493,14 @@
       isi('tombol-minat-kartu', jml('minat') ? 'Buka ' + jml('minat') + ' Pertemuan' : 'Belum Ada Materi');
       isi('opsi-wajib', 'Matematika Wajib (' + jml('wajib') + ' Pertemuan)');
       isi('opsi-minat', 'Additional Mathematics (' + jml('minat') + ' Pertemuan)');
+      isi('opsi-clil', 'CLIL English (' + jml('clil') + ' Unit)');
+      isi('butir-wajib-kartu', String(butir('wajib')));
+      isi('butir-minat-kartu', String(butir('minat')));
+      // Mapel yang tidak ada di tingkat ini tidak ditawarkan di filter dasbor.
+      [['opsi-minat', 'minat'], ['opsi-clil', 'clil']].forEach(function (p) {
+        const el = document.getElementById(p[0]);
+        if (el) el.hidden = el.disabled = jml(p[1]) === 0;
+      });
     }
 
     // Sembunyikan elemen dengan inline style supaya tidak terhapus saat
@@ -1640,12 +1665,34 @@
         window.location.href = 'login.html';
     }
 
+    // Alamat halaman setiap tingkat. Sama dengan halamanTingkat() di login.html.
+    const HALAMAN_TINGKAT = { 10: '/10', 11: '/11', 12: '/' };
+
+    // "XII F1", "Kelas XI F2", "X-3" -> 12 / 11 / 10. Urutan pencocokan penting:
+    // 'XII' juga diawali 'XI' dan 'X'. Kelas yang tidak dikenali -> null.
+    function tingkatDariKelas(kelas) {
+        const m = String(kelas || '').toUpperCase().match(/\b(XII|XI|X)\b/);
+        return m ? ({ XII: 12, XI: 11, X: 10 })[m[1]] : null;
+    }
+
     // Check session saat halaman load
     function checkSessionOnLoad() {
         const sess = getSession();
         if (!sess) {
             window.location.href = 'login.html';
             return;
+        }
+
+        // Siswa hanya memakai halaman tingkatnya sendiri. Login sudah
+        // mengarahkannya ke sana, tetapi alamat lain tetap bisa diketik -- dan
+        // nilai yang dikerjakan di halaman tingkat lain akan dikirim atas NIS
+        // yang sama sehingga menimpa nilai "P01" miliknya sendiri. Guru bebas.
+        if (sess.type === 'siswa' && sess.data) {
+            const t = tingkatDariKelas(sess.data.kelas_name || sess.data.kelas);
+            if (t && t !== TINGKAT_HALAMAN && HALAMAN_TINGKAT[t]) {
+                window.location.replace(HALAMAN_TINGKAT[t]);
+                return;
+            }
         }
 
         // Inject user info di header (clean modern pill & logout)
@@ -1684,27 +1731,34 @@
         showGuruButtonIfNeeded();
     });
     
+    // Hanya kelas yang ada di mathcihuy.css hasil kompilasi yang boleh dipakai.
+    const PILIH_TINGKAT_KELAS = 'px-1.5 py-0.5 rounded text-[9px] font-mono font-bold transition ';
+    const PILIH_TINGKAT_AKTIF = 'bg-blue-600 text-white';
+    const PILIH_TINGKAT_PASIF = 'text-slate-400 hover:text-white hover:bg-slate-800';
+
     // Tampilkan guru button hanya untuk login guru
     function showGuruButtonIfNeeded() {
         const sess = getSession();
         const guruBtn = document.getElementById('guru-btn');
-        // Tombol pindah tingkat: guru mengajar semua tingkat, siswa tidak.
-        const tingkatBtn = document.getElementById('tingkat-btn');
+        // Pilihan tingkat X / XI / XII di header: guru mengajar semua tingkat,
+        // siswa tidak -- siswa hanya melihat lencana tingkatnya. Tingkat yang
+        // sedang dibuka ditandai dari TINGKAT halaman ini, bukan dari markup,
+        // supaya ketiga halaman bisa dibangkitkan dari index.html yang sama.
         const guru = sess?.type === 'guru';
-        if (tingkatBtn) {
-            // Tujuan dan labelnya dihitung dari TINGKAT halaman ini, bukan
-            // ditulis di markup -- supaya generator halaman tingkat lain tidak
-            // perlu tahu apa-apa tentang tombol ini.
-            const t = (typeof TINGKAT !== 'undefined') ? TINGKAT : 12;
-            const lain = (t === 11) ? { href: '/', label: 'Kelas XII' }
-                                    : { href: '/11', label: 'Kelas XI' };
-            tingkatBtn.href = lain.href;
-            tingkatBtn.title = 'Pindah ke portal ' + lain.label;
-            const sp = tingkatBtn.querySelector('span');
-            if (sp) sp.textContent = lain.label;
-            tingkatBtn.classList.toggle('hidden', !guru);
-            tingkatBtn.classList.toggle('flex', guru);
+        const pilih = document.getElementById('pilih-tingkat');
+        const lencana = document.getElementById('lencana-tingkat');
+        if (lencana && typeof NAMA_TINGKAT !== 'undefined') lencana.textContent = NAMA_TINGKAT;
+        if (pilih) {
+            pilih.querySelectorAll('[data-tingkat]').forEach(function (a) {
+                const aktif = Number(a.getAttribute('data-tingkat')) === TINGKAT_HALAMAN;
+                a.className = PILIH_TINGKAT_KELAS + (aktif ? PILIH_TINGKAT_AKTIF : PILIH_TINGKAT_PASIF);
+                if (aktif) a.setAttribute('aria-current', 'page');
+                else a.removeAttribute('aria-current');
+            });
+            pilih.classList.toggle('hidden', !guru);
+            pilih.classList.toggle('flex', guru);
         }
+        if (lencana) lencana.classList.toggle('hidden', guru);
         if (!guruBtn) return;
 
         if (guru) {
@@ -1746,11 +1800,11 @@
 
     const STUDENTS_DATA = window.STUDENTS_DATA;
 
-    const CBT_LOKAL_KEY  = 'cbt_hasil_lokal';
-    const CBT_ANTRE_KEY  = 'cbt_kirim_antre';
-    const CBT_OK_KEY     = 'cbt_kirim_ok';
-    const CBT_MULAI_KEY  = 'cbt_paket_mulai';
-    const CBT_QUEUE_KEY  = 'cbt_results_queue';   // kunci lama, untuk pemindahan data
+    const CBT_LOKAL_KEY  = kunciTingkat('cbt_hasil_lokal');
+    const CBT_ANTRE_KEY  = kunciTingkat('cbt_kirim_antre');
+    const CBT_OK_KEY     = kunciTingkat('cbt_kirim_ok');
+    const CBT_MULAI_KEY  = kunciTingkat('cbt_paket_mulai');
+    const CBT_QUEUE_KEY  = kunciTingkat('cbt_results_queue');   // kunci lama, untuk pemindahan data
     let WEBHOOK_URL = localStorage.getItem('webhook_url') || '';
 
     function sinkAmbil(kunci, bawaan) {
@@ -1841,7 +1895,7 @@
       sinkSimpan(CBT_LOKAL_KEY, log);
     }
     function sinkCatatWaktuKirim() {
-      try { localStorage.setItem('cbt_kirim_terakhir', new Date().toISOString()); } catch (e) {}
+      try { localStorage.setItem(kunciTingkat('cbt_kirim_terakhir'), new Date().toISOString()); } catch (e) {}
     }
 
     // Antrean dikirim berurutan, bukan serentak, supaya Apps Script tidak
@@ -1877,7 +1931,7 @@
         tersimpan: sinkAmbil(CBT_LOKAL_KEY, []).length,
         antre: sinkAmbil(CBT_ANTRE_KEY, []).length,
         terkirim: sinkAmbil(CBT_OK_KEY, []).length,
-        terakhir: localStorage.getItem('cbt_kirim_terakhir') || null,
+        terakhir: localStorage.getItem(kunciTingkat('cbt_kirim_terakhir')) || null,
         url: sinkUrl() ? 'sudah diatur' : 'belum diatur'
       };
     }
@@ -1944,8 +1998,8 @@
     // dibuka dan riwayat tiap sesi ikut direkam supaya diagnosisnya berpijak
     // pada perjalanan belajar, bukan satu angka akhir.
     // ---------------------------------------------------------------
-    const STORAGE_SLIDE_KEY = 'gis_math_portal_slide_progress';
-    const STORAGE_HIST_KEY = 'gis_math_portal_cbt_history';
+    const STORAGE_SLIDE_KEY = kunciTingkat('gis_math_portal_slide_progress');
+    const STORAGE_HIST_KEY = kunciTingkat('gis_math_portal_cbt_history');
     let slideProgress = {};
     let cbtHistory = [];
 
@@ -1999,7 +2053,7 @@
     }
 
 
-    const CBT_DRAFT_PREFIX = 'cbt_draft_v1_';
+    const CBT_DRAFT_PREFIX = kunciTingkat('cbt_draft_v1_');
 
     function getUserIdentifier() {
       try {
@@ -2236,10 +2290,12 @@
         const keysToRemove = [];
         for (let i = 0; i < localStorage.length; i++) {
           const k = localStorage.key(i);
-          if (!k) continue;
+          // Pola di bawah (misalnya "berakhiran _P01") cocok juga dengan kunci
+          // tingkat lain; saring dulu supaya hanya tingkat ini yang tersentuh.
+          if (!k || !kunciMilikTingkatIni(k)) continue;
           if (
             k === specificKey ||
-            (k.startsWith('cbt_draft_') && (k.includes(`_${subj}_${pkgId}`) || k.includes(`_${pkgId}`))) ||
+            (k.startsWith(CBT_DRAFT_PREFIX) && (k.includes(`_${subj}_${pkgId}`) || k.includes(`_${pkgId}`))) ||
             k.includes(`_${subj}_${pkgId}`) ||
             k.includes(`${subj}_${pkgId}_`) ||
             k.endsWith(`_${pkgId}`)
@@ -6823,7 +6879,7 @@ function showTkaScorecardModal() {
         </div>
         <div class="flex items-center gap-1.5 shrink-0 ml-1.5">
           <span class="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-mono text-slate-400 font-semibold">
-            57 P
+            ${(db.wajib || []).length + (db.minat || []).length + (db.clil || []).length} P
           </span>
           <i class="fa-solid fa-chevron-down text-slate-400 text-[10px] transition-transform duration-200 ${isMateriFolderOpen ? 'rotate-180' : ''}"></i>
         </div>
@@ -7706,7 +7762,9 @@ function showTkaScorecardModal() {
           const keysToRemove = [];
           for (let i = 0; i < localStorage.length; i++) {
             const k = localStorage.key(i);
-            if (k && (k.startsWith('cbt_draft_') || k.startsWith('cbt_') || k.startsWith('tka_'))) {
+            if (!k || !kunciMilikTingkatIni(k)) continue;
+            const inti = k.slice(AWALAN_TINGKAT.length);
+            if (inti.startsWith('cbt_') || inti.startsWith('tka_')) {
               keysToRemove.push(k);
             }
           }
