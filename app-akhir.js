@@ -131,8 +131,13 @@
           const resNilai = await supabaseClient.from('nilai_cbt').select('*').order('waktu_submit', { ascending: false });
           const dataNilai = (!resNilai.error && Array.isArray(resNilai.data)) ? resNilai.data : [];
 
-          // 2. Tarik Jawaban Real-Time yang Sedang Aktif (cbt_live_answers)
-          const resLive = await supabaseClient.from('cbt_live_answers').select('*').order('updated_at', { ascending: false });
+          // 2. Tarik Jawaban Real-Time yang Sedang Aktif (Hanya 24 jam terakhir / maks 500 butir untuk hemat kuota Egress)
+          const batasWaktu24Jam = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+          const resLive = await supabaseClient.from('cbt_live_answers')
+            .select('*')
+            .gte('updated_at', batasWaktu24Jam)
+            .order('updated_at', { ascending: false })
+            .limit(500);
           window._guruLiveAnswersCache = (!resLive.error && Array.isArray(resLive.data)) ? resLive.data : [];
 
           const log = [];
