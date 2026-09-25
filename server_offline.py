@@ -82,6 +82,17 @@ class HighConcurrencyHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
 
+    # Halaman tingkat dibuka tanpa akhiran .html ('/10', '/11'), sama seperti
+    # di Cloudflare Pages; login.html juga mengarahkan siswa ke alamat itu.
+    # Tanpa pemetaan ini server lokal menjawab 404 untuk siswa kelas X dan XI.
+    HALAMAN_TINGKAT = {'/10': '/10.html', '/11': '/11.html'}
+
+    def translate_path(self, path):
+        bersih = path.split('?', 1)[0].split('#', 1)[0].rstrip('/')
+        if bersih in self.HALAMAN_TINGKAT:
+            path = self.HALAMAN_TINGKAT[bersih]
+        return super().translate_path(path)
+
     def end_headers(self):
         # Cache statis agar HP siswa meng-cache file dan tidak mengunduh ulang berkali-kali
         if self.path.endswith(('.js', '.css', '.png', '.svg', '.ico', '.woff2', '.ttf')):

@@ -1,0 +1,1451 @@
+{
+  "_catatan": "Bab 6 Fungsi Kuadrat, Matematika Wajib Kelas X Fase E. 'materi' masuk ke db.wajib (larik), 'soal' masuk ke db.tka_wajib dengan kunci id-nya. Gabungkan dengan: python gabung_materi_x.py",
+  "paket": [
+    {
+      "id": "P33",
+      "judul": "Bentuk Umum Fungsi Kuadrat dan Nilai Fungsinya",
+      "materi": {
+        "id": "P33",
+        "bab": "Bab 6: Fungsi Kuadrat",
+        "title": "Bentuk Umum Fungsi Kuadrat dan Nilai Fungsinya",
+        "obj": [
+          "Mengenali fungsi kuadrat $f(x) = ax^2 + bx + c$ dengan $a \\neq 0$, termasuk yang ditulis dalam bentuk perkalian atau urutan acak, dan menentukan nilai $a$, $b$, $c$.",
+          "Menghitung nilai fungsi $f(k)$ dengan menyubstitusikan $x = k$ secara cermat, terutama untuk $k$ negatif.",
+          "Membaca arah buka grafik dari tanda $a$ dan titik potong sumbu $Y$ dari nilai $c$."
+        ],
+        "hook": "Sebuah bola basket dilempar ke ring. Tingginya naik, melambat, berhenti sesaat di puncak, lalu turun lagi — lintasannya melengkung, bukan lurus. Air mancur, lengkung jembatan, dan pantulan antena parabola mengikuti bentuk yang sama. Semuanya digambarkan oleh fungsi yang memuat $x^2$: fungsi kuadrat. Suku $x^2$ itulah yang membuat grafiknya berbelok, sesuatu yang tidak pernah dapat dilakukan oleh fungsi linear.",
+        "toolkit": [
+          {
+            "name": "Bentuk Umum",
+            "math": "$$f(x) = ax^2 + bx + c,\\quad a \\neq 0$$"
+          },
+          {
+            "name": "Nilai Fungsi",
+            "math": "$$f(k) = ak^2 + bk + c$$"
+          },
+          {
+            "name": "Arah Buka",
+            "math": "$$a > 0 \\Rightarrow \\text{terbuka ke atas};\\qquad a < 0 \\Rightarrow \\text{terbuka ke bawah}$$"
+          },
+          {
+            "name": "Potong Sumbu Y",
+            "math": "$$x = 0 \\Rightarrow f(0) = c \\Rightarrow (0, c)$$"
+          },
+          {
+            "name": "Bentuk Lain",
+            "math": "$$a(x - p)(x - q) \\quad \\text{dan} \\quad a(x - h)^2 + k$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan nilai $a$, $b$, dan $c$ dari (i) $f(x) = 5 - x^2 + 2x$ dan (ii) $g(x) = 2x(x - 3)$.",
+            "solution": "Langkah 1: Nilai $a$, $b$, $c$ baru dapat dibaca setelah fungsi ditulis urut: suku $x^2$, lalu suku $x$, lalu konstanta.\n\nLangkah 2: Susun ulang (i).\n$f(x) = -x^2 + 2x + 5$\n\nLangkah 3: Baca koefisiennya, termasuk tandanya.\n$a = -1$, $b = 2$, $c = 5$\n\nLangkah 4: Pada (i), $-x^2$ berarti koefisiennya $-1$. Menulis $a = 1$ adalah kekeliruan yang sering terjadi.\n\nLangkah 5: Jabarkan (ii) lebih dahulu.\n$g(x) = 2x \\cdot x - 2x \\cdot 3 = 2x^2 - 6x$\n\nLangkah 6: Tidak ada suku konstanta, jadi $c = 0$.\n$a = 2$, $b = -6$, $c = 0$\n\nLangkah 7: Fungsi (ii) tetap fungsi kuadrat walaupun $c = 0$. Syaratnya hanya $a \\neq 0$.\n\nKesimpulan: (i) $a = -1$, $b = 2$, $c = 5$; (ii) $a = 2$, $b = -6$, $c = 0$."
+          },
+          {
+            "problem": "Diketahui $f(x) = x^2 - 4x + 3$. Hitunglah $f(-1)$, $f(0)$, $f(2)$, dan $f(5)$.",
+            "solution": "Langkah 1: Ganti setiap $x$ dengan bilangan yang diminta, dan beri kurung pada bilangan negatif.\n\nLangkah 2: Hitung $f(-1)$.\n$(-1)^2 - 4(-1) + 3 = 1 + 4 + 3 = 8$\n\nLangkah 3: Hitung $f(0)$.\n$0 - 0 + 3 = 3$\n\nLangkah 4: Hitung $f(2)$.\n$4 - 8 + 3 = -1$\n\nLangkah 5: Hitung $f(5)$.\n$25 - 20 + 3 = 8$\n\nLangkah 6: Perhatikan bahwa $f(-1) = f(5) = 8$. Kedua $x$ itu sama jauhnya dari $x = 2$, dan $f(2) = -1$ adalah nilai terkecil yang didapat. Inilah petunjuk awal tentang SUMBU SIMETRI yang dipelajari pada pertemuan berikutnya.\n\nLangkah 7: Kekeliruan yang sering terjadi pada $f(-1)$ adalah menulis $-1^2 = -1$. Dengan kurung, $(-1)^2 = 1$.\n\nKesimpulan: $f(-1) = 8$, $f(0) = 3$, $f(2) = -1$, dan $f(5) = 8$."
+          },
+          {
+            "problem": "Manakah yang merupakan fungsi kuadrat: $f(x) = (x + 2)^2 - x^2$ atau $g(x) = (2x - 1)(x + 3)$?",
+            "solution": "Langkah 1: Jangan menilai dari bentuk luarnya. Jabarkan lebih dahulu.\n\nLangkah 2: Jabarkan $f(x)$.\n$(x + 2)^2 = x^2 + 4x + 4$, sehingga $f(x) = x^2 + 4x + 4 - x^2 = 4x + 4$\n\nLangkah 3: Suku $x^2$ saling menghapus. Yang tersisa berderajat satu, jadi $f$ adalah fungsi LINEAR.\n\nLangkah 4: Jabarkan $g(x)$.\n$2x \\cdot x + 2x \\cdot 3 - 1 \\cdot x - 1 \\cdot 3 = 2x^2 + 6x - x - 3 = 2x^2 + 5x - 3$\n\nLangkah 5: Koefisien $x^2$ adalah $2 \\neq 0$, jadi $g$ adalah fungsi kuadrat.\n\nLangkah 6: Periksa dengan satu nilai, misalnya $x = 1$: $f(1) = 9 - 1 = 8 = 4 + 4$ dan $g(1) = 1 \\times 4 = 4 = 2 + 5 - 3$ — cocok.\n\nKesimpulan: Hanya $g(x) = (2x - 1)(x + 3) = 2x^2 + 5x - 3$ yang merupakan fungsi kuadrat; $f(x)$ ternyata fungsi linear $4x + 4$."
+          },
+          {
+            "problem": "Diketahui $f(x) = x^2 + kx - 6$ dan $f(2) = 4$. Tentukan nilai $k$.",
+            "solution": "Langkah 1: Keterangan $f(2) = 4$ berarti: bila $x = 2$, hasilnya $4$.\n\nLangkah 2: Substitusikan $x = 2$.\n$2^2 + k(2) - 6 = 4$\n\nLangkah 3: Sederhanakan.\n$4 + 2k - 6 = 4 \\Rightarrow 2k - 2 = 4$\n\nLangkah 4: Selesaikan.\n$2k = 6 \\Rightarrow k = 3$\n\nLangkah 5: Periksa: $f(x) = x^2 + 3x - 6$, dan $f(2) = 4 + 6 - 6 = 4$ — cocok.\n\nLangkah 6: Soal seperti ini mengubah fungsi kuadrat menjadi persamaan linear dalam $k$, karena $x$ sudah diganti bilangan.\n\nKesimpulan: Nilai $k = 3$."
+          },
+          {
+            "problem": "Keliling sebuah persegi panjang $20$ cm dan panjang salah satu sisinya $x$ cm. Nyatakan luasnya sebagai fungsi $L(x)$, lalu hitung $L(3)$, $L(5)$, dan $L(7)$.",
+            "solution": "Langkah 1: Keliling $20$ berarti panjang ditambah lebar sama dengan $10$. Jadi sisi lainnya $10 - x$.\n\nLangkah 2: Tulis luasnya.\n$L(x) = x(10 - x) = -x^2 + 10x$\n\nLangkah 3: Ini fungsi kuadrat dengan $a = -1 < 0$, jadi grafiknya terbuka ke BAWAH — ada nilai terbesar.\n\nLangkah 4: Hitung nilai-nilainya.\n$L(3) = 3 \\times 7 = 21$, $L(5) = 5 \\times 5 = 25$, $L(7) = 7 \\times 3 = 21$\n\nLangkah 5: Perhatikan bahwa $L(3) = L(7)$: persegi panjang $3 \\times 7$ dan $7 \\times 3$ memang sama.\n\nLangkah 6: Dari ketiga nilai itu, $L(5) = 25$ terbesar, yaitu ketika bangunnya persegi. Pertemuan-pertemuan berikutnya akan membuktikan bahwa itu memang yang terbesar.\n\nKesimpulan: $L(x) = -x^2 + 10x$, dengan $L(3) = 21$, $L(5) = 25$, dan $L(7) = 21$ cm$^2$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok menerima satu fungsi — $f(x) = x^2 - 2x - 3$, $f(x) = -x^2 + 4x$, atau $f(x) = 2x^2 - 8$. Buatlah tabel nilai untuk $x = -3$ sampai $x = 5$, lalu plot titik-titiknya pada kertas berpetak di papan dan hubungkan dengan lengkung yang halus. Tandai titik potong sumbu $Y$ dan pasangan titik yang nilainya sama. Terakhir, bandingkan ketiga grafik: apa hubungan tanda $a$ dengan arah bukanya?",
+        "summary_data": {
+          "summary": [
+            "Fungsi kuadrat berbentuk $f(x) = ax^2 + bx + c$ dengan syarat $a \\neq 0$.",
+            "Susun fungsi dengan urutan $x^2$, $x$, konstanta sebelum membaca $a$, $b$, $c$.",
+            "Tanda koefisien ikut dibaca: pada $-x^2$, nilai $a = -1$.",
+            "Nilai $b$ atau $c$ boleh nol; yang tidak boleh nol hanya $a$.",
+            "Bentuk perkalian atau kuadrat harus dijabarkan dulu — suku $x^2$ bisa saja saling menghapus.",
+            "Nilai $f(k)$ diperoleh dengan mengganti setiap $x$ dengan $k$; bilangan negatif selalu diberi kurung.",
+            "$(-1)^2 = 1$, sedangkan $-1^2 = -1$.",
+            "Grafik memotong sumbu $Y$ di $(0, c)$.",
+            "Grafik terbuka ke atas bila $a > 0$ dan ke bawah bila $a < 0$.",
+            "Dua nilai $x$ yang menghasilkan $f$ sama merupakan petunjuk letak sumbu simetri."
+          ],
+          "islamic": "Mengerjakan sesuatu dengan cermat dan sebaik-baiknya adalah bagian dari ibadah. \"Sesungguhnya Allah mewajibkan berbuat ihsan (kebaikan) atas segala sesuatu.\" (HR. Muslim)"
+        },
+        "collab_cases": [
+          "Tentukan nilai $a$, $b$, $c$ dari $f(x) = 7 - 3x^2$ dan $g(x) = (x - 4)(x + 1)$.",
+          "Diketahui $f(x) = 2x^2 - 3x - 5$. Hitunglah $f(-2)$, $f(0)$, dan $f(3)$.",
+          "Periksalah apakah $h(x) = (x - 1)^2 - (x + 1)^2$ merupakan fungsi kuadrat.",
+          "Diketahui $f(x) = ax^2 - 2x + 1$ dan $f(-1) = 6$. Tentukan nilai $a$.",
+          "Sebuah kawat sepanjang $24$ cm dibentuk menjadi persegi panjang dengan panjang $x$ cm. Nyatakan luasnya sebagai fungsi $x$ dan tentukan arah buka grafiknya."
+        ]
+      },
+      "soal": {
+        "id": "P33",
+        "subject": "wajib",
+        "title": "P33 • Bentuk Umum Fungsi Kuadrat dan Nilai Fungsinya",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P33-Q1] Fungsi berikut yang merupakan fungsi kuadrat adalah $\\dots$",
+            "opsi": [
+              "A. $f(x) = 2x + 5$",
+              "B. $f(x) = x^3 - x$",
+              "C. $f(x) = (x + 1)^2 - x^2$",
+              "D. $f(x) = 3 - x^2$",
+              "E. $f(x) = \\frac{1}{x^2}$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Fungsi kuadrat berderajat tepat dua: pangkat tertinggi $x$ adalah $2$ dan koefisiennya tidak nol.\n\nLangkah 2: Opsi A berderajat satu (linear). Opsi B berderajat tiga.\n\nLangkah 3: Opsi C tampak kuadrat, tetapi setelah dijabarkan: $x^2 + 2x + 1 - x^2 = 2x + 1$ — linear.\n\nLangkah 4: Opsi D: $f(x) = -x^2 + 3$, dengan $a = -1 \\neq 0$. Ini fungsi kuadrat.\n\nLangkah 5: Opsi E memuat $x$ di penyebut, yaitu $x^{-2}$. Bukan fungsi kuadrat.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P33-Q2] Pada fungsi $f(x) = 4 - 3x - 2x^2$, nilai $a$, $b$, dan $c$ berturut-turut adalah $\\dots$",
+            "opsi": [
+              "A. $4$, $-3$, $-2$",
+              "B. $-2$, $-3$, $4$",
+              "C. $2$, $3$, $4$",
+              "D. $-2$, $3$, $4$",
+              "E. $-3$, $-2$, $4$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Susun ulang menurut pangkat $x$ dari yang tertinggi.\n$f(x) = -2x^2 - 3x + 4$\n\nLangkah 2: Koefisien $x^2$: $a = -2$.\n\nLangkah 3: Koefisien $x$: $b = -3$.\n\nLangkah 4: Konstanta: $c = 4$.\n\nLangkah 5: Opsi A membaca urutan tertulis apa adanya tanpa menyusun ulang. Opsi C dan D kehilangan tanda negatif.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P33-Q3] Diketahui $f(x) = 2x^2 - 3x + 1$. Nilai $f(-2)$ adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $-1$",
+              "C. $15$",
+              "D. $11$",
+              "E. $7$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Ganti $x$ dengan $-2$ dan gunakan kurung.\n$f(-2) = 2(-2)^2 - 3(-2) + 1$\n\nLangkah 2: Hitung kuadratnya dahulu.\n$(-2)^2 = 4$, jadi $2 \\times 4 = 8$\n\nLangkah 3: Hitung suku kedua.\n$-3 \\times (-2) = +6$\n\nLangkah 4: Jumlahkan.\n$8 + 6 + 1 = 15$\n\nLangkah 5: Opsi A ($3$) muncul bila $-3(-2)$ ditulis $-6$: $8 - 6 + 1 = 3$. Tanda negatif kali negatif menjadi positif.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P33-Q4] Diketahui $f(x) = x^2 + kx - 6$ dan $f(2) = 4$. Nilai $k$ adalah $\\dots$",
+            "opsi": [
+              "A. $1$",
+              "B. $2$",
+              "C. $-3$",
+              "D. $3$",
+              "E. $5$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Substitusikan $x = 2$ dan samakan dengan $4$.\n$4 + 2k - 6 = 4$\n\nLangkah 2: Sederhanakan.\n$2k - 2 = 4$\n\nLangkah 3: Selesaikan.\n$2k = 6 \\Rightarrow k = 3$\n\nLangkah 4: Periksa: $4 + 6 - 6 = 4$ — cocok.\n\nLangkah 5: Opsi C ($-3$) muncul bila $-6$ dipindahkan tanpa mengubah tanda, sehingga $2k = -6$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P33-Q5] Fungsi $f(x) = (2x - 1)(x + 3)$ ditulis dalam bentuk $ax^2 + bx + c$. Nilai $b$ adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $-1$",
+              "C. $-3$",
+              "D. $7$",
+              "E. $5$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Jabarkan dengan mengalikan setiap suku.\n$2x \\cdot x + 2x \\cdot 3 - 1 \\cdot x - 1 \\cdot 3$\n\nLangkah 2: Hitung.\n$2x^2 + 6x - x - 3$\n\nLangkah 3: Gabungkan suku $x$.\n$2x^2 + 5x - 3$\n\nLangkah 4: Jadi $a = 2$, $b = 5$, dan $c = -3$.\n\nLangkah 5: Opsi A ($6$) hanya mengambil $2x \\cdot 3$ dan melupakan $-1 \\cdot x$. Opsi C ($-3$) adalah nilai $c$.\n\nLangkah 6: Periksa dengan $x = 1$: $(1)(4) = 4$ dan $2 + 5 - 3 = 4$ — cocok.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P33-Q6] Grafik fungsi $f(x) = -x^2 + 4x - 5$ $\\dots$",
+            "opsi": [
+              "A. terbuka ke atas dan memotong sumbu $Y$ di $(0, 5)$",
+              "B. terbuka ke atas dan memotong sumbu $Y$ di $(0, -5)$",
+              "C. terbuka ke bawah dan memotong sumbu $Y$ di $(0, 5)$",
+              "D. terbuka ke bawah dan memotong sumbu $Y$ di $(0, -5)$",
+              "E. terbuka ke bawah dan memotong sumbu $Y$ di $(-5, 0)$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Koefisien $x^2$ adalah $a = -1 < 0$, jadi grafiknya terbuka ke BAWAH. Opsi A dan B gugur.\n\nLangkah 2: Titik potong sumbu $Y$ diperoleh saat $x = 0$.\n$f(0) = -0 + 0 - 5 = -5$\n\nLangkah 3: Jadi titiknya $(0, -5)$.\n\nLangkah 4: Opsi C kehilangan tanda negatif pada $c$.\n\nLangkah 5: Opsi E menulis titik dengan urutan terbalik. Titik pada sumbu $Y$ selalu berbentuk $(0, \\dots)$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P33-Q7] Keliling sebuah persegi panjang $24$ cm dan lebarnya $x$ cm. Luasnya sebagai fungsi $x$ adalah $\\dots$",
+            "opsi": [
+              "A. $L(x) = -x^2 + 12x$",
+              "B. $L(x) = x^2 - 12x$",
+              "C. $L(x) = -x^2 + 24x$",
+              "D. $L(x) = x(24 - x)$",
+              "E. $L(x) = 12x - 2x^2$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Keliling $24$ berarti panjang ditambah lebar $= 12$. Jadi panjangnya $12 - x$.\n\nLangkah 2: Luas sama dengan panjang kali lebar.\n$L(x) = x(12 - x) = 12x - x^2 = -x^2 + 12x$\n\nLangkah 3: Opsi D memakai $24 - x$ sebagai panjang, yaitu lupa membagi keliling dengan $2$.\n\nLangkah 4: Opsi B membalik tanda sehingga luasnya negatif untuk $0 < x < 12$ — mustahil.\n\nLangkah 5: Periksa dengan $x = 2$: panjangnya $10$, luasnya $20$, dan $-4 + 24 = 20$ — cocok.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P33-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Fungsi $f(x) = (x + 3)^2 - x^2$ adalah fungsi kuadrat.",
+              "(2) Jika $f(x) = x^2 - 4x + 3$, maka $f(1) = f(3)$.",
+              "(3) Grafik $f(x) = 3 - 2x^2$ terbuka ke atas."
+            ],
+            "kunci": "S - B - S",
+            "bahas": "Langkah 1: Pernyataan (1): jabarkan. $x^2 + 6x + 9 - x^2 = 6x + 9$. Suku $x^2$ hilang, jadi fungsinya linear. Pernyataan (1) SALAH.\n\nLangkah 2: Pernyataan (2): $f(1) = 1 - 4 + 3 = 0$ dan $f(3) = 9 - 12 + 3 = 0$.\n\nLangkah 3: Keduanya sama, jadi pernyataan (2) BENAR.\n\nLangkah 4: Pernyataan (3): tulis ulang sebagai $-2x^2 + 3$. Nilai $a = -2 < 0$, jadi grafiknya terbuka ke bawah.\n\nLangkah 5: Pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban S - B - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P33-Q9] Diketahui $f(x) = x^2 - 2x - 8$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. $f(0) = -8$",
+              "B. $f(4) = 0$",
+              "C. $f(-2) = 0$",
+              "D. Grafik $f$ terbuka ke bawah.",
+              "E. $f(1) = -7$"
+            ],
+            "kunci": "A, B, C",
+            "bahas": "Langkah 1: A: $f(0) = 0 - 0 - 8 = -8$ — benar.\n\nLangkah 2: B: $f(4) = 16 - 8 - 8 = 0$ — benar.\n\nLangkah 3: C: $f(-2) = 4 + 4 - 8 = 0$ — benar.\n\nLangkah 4: D: $a = 1 > 0$, jadi grafiknya terbuka ke ATAS — salah.\n\nLangkah 5: E: $f(1) = 1 - 2 - 8 = -9$, bukan $-7$ — salah.\n\nLangkah 6: Karena $f(4) = f(-2) = 0$, grafiknya memotong sumbu $X$ di $x = -2$ dan $x = 4$.\n\nKesimpulan: Kunci Jawaban A, B, C."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P33-Q10] Diketahui $f(x) = ax^2 + 3x - 4$ dan $f(2) = 10$. Nilai $a$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "2",
+            "bahas": "Langkah 1: Substitusikan $x = 2$.\n$a(2)^2 + 3(2) - 4 = 10$\n\nLangkah 2: Sederhanakan.\n$4a + 6 - 4 = 10 \\Rightarrow 4a + 2 = 10$\n\nLangkah 3: Selesaikan.\n$4a = 8 \\Rightarrow a = 2$\n\nLangkah 4: Periksa: $f(x) = 2x^2 + 3x - 4$, dan $f(2) = 8 + 6 - 4 = 10$ — cocok.\n\nLangkah 5: Karena $a = 2 \\neq 0$, fungsinya memang fungsi kuadrat.\n\nKesimpulan: Kunci Jawaban 2."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P34",
+      "judul": "Sumbu Simetri dan Titik Puncak",
+      "materi": {
+        "id": "P34",
+        "bab": "Bab 6: Fungsi Kuadrat",
+        "title": "Sumbu Simetri dan Titik Puncak",
+        "obj": [
+          "Menentukan persamaan sumbu simetri $x = -\\frac{b}{2a}$ dan menjelaskan mengapa grafik fungsi kuadrat simetris terhadapnya.",
+          "Menentukan titik puncak beserta nilai maksimum atau minimum, baik dengan substitusi $x_p$ maupun dengan rumus $-\\frac{D}{4a}$.",
+          "Membaca titik puncak langsung dari bentuk $a(x - h)^2 + k$ dan memakai kesimetrian untuk menemukan sumbu simetri dari dua titik bernilai sama."
+        ],
+        "hook": "Pada pertemuan lalu, fungsi $f(x) = x^2 - 4x + 3$ memberikan $f(-1) = f(5) = 8$ dan $f(0) = f(4) = 3$. Pasangan-pasangan itu selalu mengapit $x = 2$ dengan jarak yang sama. Grafik fungsi kuadrat ternyata seperti kupu-kupu: bila dilipat pada satu garis tegak, kedua sayapnya berimpit tepat. Garis lipat itu adalah SUMBU SIMETRI, dan tepat di atasnya terletak titik tertinggi atau terendah grafik — TITIK PUNCAK.",
+        "toolkit": [
+          {
+            "name": "Sumbu Simetri",
+            "math": "$$x_p = -\\frac{b}{2a}$$"
+          },
+          {
+            "name": "Nilai Puncak",
+            "math": "$$y_p = f(x_p) = -\\frac{D}{4a},\\quad D = b^2 - 4ac$$"
+          },
+          {
+            "name": "Titik Puncak",
+            "math": "$$\\left(-\\frac{b}{2a},\\ -\\frac{D}{4a}\\right)$$"
+          },
+          {
+            "name": "Bentuk Puncak",
+            "math": "$$f(x) = a(x - h)^2 + k \\Rightarrow \\text{puncak } (h, k)$$"
+          },
+          {
+            "name": "Maksimum atau Minimum",
+            "math": "$$a > 0 \\Rightarrow y_p \\text{ minimum};\\qquad a < 0 \\Rightarrow y_p \\text{ maksimum}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan sumbu simetri, titik puncak, dan jenis nilai ekstrem fungsi $f(x) = x^2 - 4x + 3$.",
+            "solution": "Langkah 1: Baca koefisiennya.\n$a = 1$, $b = -4$, $c = 3$\n\nLangkah 2: Hitung sumbu simetri. Perhatikan tanda minus di depan pecahan.\n$x_p = -\\frac{-4}{2(1)} = \\frac{4}{2} = 2$\n\nLangkah 3: Hitung nilai puncak dengan menyubstitusikan $x = 2$.\n$f(2) = 4 - 8 + 3 = -1$\n\nLangkah 4: Titik puncaknya $(2, -1)$.\n\nLangkah 5: Karena $a = 1 > 0$, grafik terbuka ke atas dan puncaknya titik TERENDAH. Jadi $-1$ adalah nilai minimum.\n\nLangkah 6: Periksa kesimetrian: $f(0) = 3$ dan $f(4) = 3$ — kedua $x$ berjarak $2$ dari sumbu $x = 2$, dan nilainya sama.\n\nKesimpulan: Sumbu simetri $x = 2$, titik puncak $(2, -1)$, dan nilai minimumnya $-1$."
+          },
+          {
+            "problem": "Tentukan titik puncak dan nilai ekstrem $f(x) = -2x^2 + 8x - 5$.",
+            "solution": "Langkah 1: Baca koefisiennya.\n$a = -2$, $b = 8$, $c = -5$\n\nLangkah 2: Hitung sumbu simetri.\n$x_p = -\\frac{8}{2(-2)} = -\\frac{8}{-4} = 2$\n\nLangkah 3: Hitung nilai puncak.\n$f(2) = -2(4) + 16 - 5 = -8 + 16 - 5 = 3$\n\nLangkah 4: Titik puncaknya $(2, 3)$.\n\nLangkah 5: Karena $a = -2 < 0$, grafik terbuka ke bawah dan puncaknya titik TERTINGGI. Jadi $3$ adalah nilai maksimum.\n\nLangkah 6: Periksa dengan titik sekitar: $f(1) = -2 + 8 - 5 = 1$ dan $f(3) = -18 + 24 - 5 = 1$ — keduanya lebih kecil daripada $3$ dan sama besar, sesuai kesimetrian.\n\nLangkah 7: Kekeliruan yang sering terjadi adalah $x_p = -\\frac{8}{4} = -2$, yaitu lupa bahwa $2a = -4$ bernilai negatif.\n\nKesimpulan: Titik puncak $(2, 3)$ dengan nilai maksimum $3$."
+          },
+          {
+            "problem": "Tentukan titik puncak $f(x) = x^2 + 6x + 5$ memakai rumus diskriminan, lalu periksa dengan substitusi.",
+            "solution": "Langkah 1: Baca koefisiennya.\n$a = 1$, $b = 6$, $c = 5$\n\nLangkah 2: Hitung sumbu simetri.\n$x_p = -\\frac{6}{2} = -3$\n\nLangkah 3: Hitung diskriminan.\n$D = b^2 - 4ac = 36 - 20 = 16$\n\nLangkah 4: Hitung nilai puncak dengan rumus.\n$y_p = -\\frac{D}{4a} = -\\frac{16}{4} = -4$\n\nLangkah 5: Periksa dengan substitusi.\n$f(-3) = 9 - 18 + 5 = -4$ — cocok\n\nLangkah 6: Kedua cara selalu memberikan hasil yang sama. Rumus $-\\frac{D}{4a}$ berguna bila $x_p$ berupa pecahan yang merepotkan untuk disubstitusikan.\n\nKesimpulan: Titik puncaknya $(-3, -4)$, dan $-4$ adalah nilai minimum."
+          },
+          {
+            "problem": "Tentukan titik puncak $f(x) = 2(x - 1)^2 + 3$, lalu tunjukkan bahwa hasilnya sama dengan memakai rumus $-\\frac{b}{2a}$.",
+            "solution": "Langkah 1: Bentuk $a(x - h)^2 + k$ disebut bentuk puncak. Di sini $a = 2$, $h = 1$, $k = 3$.\n\nLangkah 2: Suku $2(x - 1)^2$ tidak pernah negatif, dan bernilai nol tepat saat $x = 1$. Jadi nilai terkecil $f$ adalah $0 + 3 = 3$, tercapai di $x = 1$.\n\nLangkah 3: Titik puncaknya $(1, 3)$, dengan nilai minimum $3$.\n\nLangkah 4: Sekarang jabarkan.\n$2(x^2 - 2x + 1) + 3 = 2x^2 - 4x + 5$\n\nLangkah 5: Pakai rumus.\n$x_p = -\\frac{-4}{4} = 1$ dan $f(1) = 2 - 4 + 5 = 3$ — cocok\n\nLangkah 6: Perhatikan tanda pada bentuk puncak: $(x - 1)$ berarti $h = +1$. Bila tertulis $(x + 1)$, maka $h = -1$.\n\nKesimpulan: Titik puncaknya $(1, 3)$, dan kedua cara menghasilkan titik yang sama."
+          },
+          {
+            "problem": "Grafik $f(x) = x^2 + bx + c$ melalui titik $(1, 5)$ dan $(7, 5)$. Tentukan sumbu simetri, nilai $b$ dan $c$, lalu titik puncaknya.",
+            "solution": "Langkah 1: Kedua titik mempunyai ordinat sama, yaitu $5$. Karena grafiknya simetris, sumbu simetri tepat di tengah-tengah absisnya.\n$x_p = \\frac{1 + 7}{2} = 4$\n\nLangkah 2: Pakai rumus sumbu simetri dengan $a = 1$.\n$-\\frac{b}{2} = 4 \\Rightarrow b = -8$\n\nLangkah 3: Hitung $c$ dari titik $(1, 5)$.\n$1 - 8 + c = 5 \\Rightarrow c = 12$\n\nLangkah 4: Periksa dengan titik $(7, 5)$: $49 - 56 + 12 = 5$ — cocok.\n\nLangkah 5: Hitung nilai puncak.\n$f(4) = 16 - 32 + 12 = -4$\n\nLangkah 6: Jadi $f(x) = x^2 - 8x + 12$ dengan puncak $(4, -4)$.\n\nKesimpulan: Sumbu simetri $x = 4$, $b = -8$, $c = 12$, dan titik puncaknya $(4, -4)$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok menerima satu fungsi dalam bentuk umum, misalnya $f(x) = x^2 - 6x + 5$, $f(x) = -x^2 + 2x + 3$, atau $f(x) = 2x^2 + 8x + 1$. Tentukan titik puncaknya dengan DUA cara — substitusi $x_p$ dan rumus $-\\frac{D}{4a}$ — lalu tuliskan ulang fungsinya dalam bentuk puncak $a(x - h)^2 + k$ dan jabarkan kembali untuk memeriksa. Terakhir, pilih dua titik yang simetris terhadap sumbu dan tunjukkan bahwa nilai fungsinya sama.",
+        "summary_data": {
+          "summary": [
+            "Grafik fungsi kuadrat simetris terhadap garis tegak $x = -\\frac{b}{2a}$.",
+            "Titik puncak terletak pada sumbu simetri.",
+            "Nilai puncak dapat dihitung dengan $f(x_p)$ atau dengan $-\\frac{D}{4a}$, dengan $D = b^2 - 4ac$.",
+            "Bila $a > 0$, nilai puncak adalah nilai MINIMUM; bila $a < 0$, nilai MAKSIMUM.",
+            "Hati-hati dengan tanda: $2a$ ikut bertanda negatif bila $a$ negatif.",
+            "Pada bentuk $a(x - h)^2 + k$, titik puncaknya $(h, k)$ tanpa perlu dihitung.",
+            "$(x - 1)$ berarti $h = 1$, sedangkan $(x + 1)$ berarti $h = -1$.",
+            "Dua titik pada grafik yang ordinatnya sama selalu mengapit sumbu simetri di tengah-tengahnya.",
+            "Titik $(x_p + d, y)$ dan $(x_p - d, y)$ adalah pasangan cermin terhadap sumbu simetri.",
+            "Selalu periksa nilai puncak dengan membandingkannya dengan nilai fungsi di dekatnya."
+          ],
+          "islamic": "Keseimbangan adalah ciri ciptaan Allah. \"Kamu sekali-kali tidak melihat pada ciptaan Tuhan Yang Maha Pemurah sesuatu yang tidak seimbang.\" (QS. Al-Mulk: 3)"
+        },
+        "collab_cases": [
+          "Tentukan sumbu simetri dan titik puncak $f(x) = x^2 - 6x + 5$.",
+          "Tentukan nilai maksimum $f(x) = -x^2 + 2x + 8$ dan untuk $x$ berapa nilai itu tercapai.",
+          "Tentukan titik puncak $f(x) = 2x^2 + 8x + 1$ dengan rumus $-\\frac{D}{4a}$.",
+          "Tuliskan titik puncak $f(x) = -3(x + 2)^2 + 5$, lalu tentukan apakah itu maksimum atau minimum.",
+          "Grafik $f(x) = x^2 + bx + c$ melalui $(-2, 7)$ dan $(4, 7)$. Tentukan sumbu simetri dan nilai $b$."
+        ]
+      },
+      "soal": {
+        "id": "P34",
+        "subject": "wajib",
+        "title": "P34 • Sumbu Simetri dan Titik Puncak",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P34-Q1] Persamaan sumbu simetri grafik $f(x) = x^2 - 6x + 5$ adalah $\\dots$",
+            "opsi": [
+              "A. $x = -3$",
+              "B. $x = 3$",
+              "C. $x = 6$",
+              "D. $x = -6$",
+              "E. $x = 5$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Baca koefisiennya: $a = 1$, $b = -6$.\n\nLangkah 2: Pakai rumusnya.\n$x_p = -\\frac{b}{2a} = -\\frac{-6}{2} = 3$\n\nLangkah 3: Jadi sumbu simetrinya $x = 3$.\n\nLangkah 4: Opsi A ($x = -3$) muncul bila tanda minus di depan rumus dilupakan.\n\nLangkah 5: Periksa: $f(0) = 5$ dan $f(6) = 36 - 36 + 5 = 5$ — sama, dan $3$ tepat di tengah $0$ dan $6$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P34-Q2] Titik puncak grafik $f(x) = x^2 + 4x - 1$ adalah $\\dots$",
+            "opsi": [
+              "A. $(-2, -5)$",
+              "B. $(2, 11)$",
+              "C. $(-2, 11)$",
+              "D. $(2, -5)$",
+              "E. $(-4, -1)$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Hitung sumbu simetri.\n$x_p = -\\frac{4}{2} = -2$\n\nLangkah 2: Substitusikan $x = -2$.\n$f(-2) = 4 - 8 - 1 = -5$\n\nLangkah 3: Titik puncaknya $(-2, -5)$.\n\nLangkah 4: Opsi B muncul bila $x_p$ ditulis $2$, sehingga $f(2) = 4 + 8 - 1 = 11$.\n\nLangkah 5: Opsi D mencampurkan $x_p$ yang salah dengan $y_p$ yang benar. Selalu hitung $y_p$ dari $x_p$ yang sudah diperiksa.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P34-Q3] Nilai maksimum fungsi $f(x) = -x^2 + 6x - 4$ adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $14$",
+              "C. $-4$",
+              "D. $5$",
+              "E. $9$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Karena $a = -1 < 0$, grafik terbuka ke bawah dan mempunyai nilai maksimum.\n\nLangkah 2: Hitung sumbu simetri.\n$x_p = -\\frac{6}{2(-1)} = 3$\n\nLangkah 3: Hitung nilai puncak.\n$f(3) = -9 + 18 - 4 = 5$\n\nLangkah 4: Periksa dengan rumus: $D = 36 - 16 = 20$ dan $-\\frac{20}{4(-1)} = 5$ — cocok.\n\nLangkah 5: Opsi A ($3$) adalah absis puncak, bukan nilai maksimumnya.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P34-Q4] Titik puncak dan jenis nilai ekstrem fungsi $f(x) = 2(x + 1)^2 - 7$ adalah $\\dots$",
+            "opsi": [
+              "A. $(1, -7)$, minimum",
+              "B. $(-1, 7)$, maksimum",
+              "C. $(-1, -7)$, maksimum",
+              "D. $(1, 7)$, minimum",
+              "E. $(-1, -7)$, minimum"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Bentuk puncak $a(x - h)^2 + k$. Tulis $(x + 1)$ sebagai $(x - (-1))$, jadi $h = -1$.\n\nLangkah 2: Nilai $k = -7$. Titik puncaknya $(-1, -7)$.\n\nLangkah 3: Nilai $a = 2 > 0$, jadi grafik terbuka ke atas dan puncaknya MINIMUM.\n\nLangkah 4: Opsi A membaca $h = +1$ dari $(x + 1)$ — kekeliruan tanda yang paling sering.\n\nLangkah 5: Opsi C mempunyai titik yang benar tetapi jenis ekstrem yang salah.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P34-Q5] Sumbu simetri grafik $f(x) = x^2 + bx + 3$ adalah $x = 2$. Nilai minimum fungsi itu adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $-4$",
+              "C. $-1$",
+              "D. $7$",
+              "E. $1$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Dari sumbu simetri: $-\\frac{b}{2(1)} = 2 \\Rightarrow b = -4$.\n\nLangkah 2: Fungsinya $f(x) = x^2 - 4x + 3$.\n\nLangkah 3: Nilai minimum tercapai di sumbu simetri.\n$f(2) = 4 - 8 + 3 = -1$\n\nLangkah 4: Periksa dengan rumus: $D = 16 - 12 = 4$, dan $-\\frac{4}{4} = -1$ — cocok.\n\nLangkah 5: Opsi B ($-4$) adalah nilai $b$, bukan nilai minimum.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P34-Q6] Grafik sebuah fungsi kuadrat melalui titik $(-1, 4)$ dan $(5, 4)$. Persamaan sumbu simetrinya adalah $\\dots$",
+            "opsi": [
+              "A. $x = 3$",
+              "B. $x = 4$",
+              "C. $x = 6$",
+              "D. $x = 2$",
+              "E. $x = -2$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Kedua titik mempunyai ordinat yang sama, yaitu $4$.\n\nLangkah 2: Karena grafik simetris, kedua titik itu adalah pasangan cermin, dan sumbu simetri terletak tepat di tengah absisnya.\n\nLangkah 3: Hitung titik tengahnya.\n$x = \\frac{-1 + 5}{2} = \\frac{4}{2} = 2$\n\nLangkah 4: Opsi C ($6$) adalah jarak antara kedua absis, bukan titik tengahnya.\n\nLangkah 5: Opsi A ($3$) muncul bila $-1$ ditulis $+1$: $\\frac{1 + 5}{2} = 3$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P34-Q7] Nilai minimum fungsi $f(x) = x^2 - 2x - 3$ adalah $\\dots$",
+            "opsi": [
+              "A. $-3$",
+              "B. $-4$",
+              "C. $4$",
+              "D. $-16$",
+              "E. $1$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Hitung diskriminan.\n$D = (-2)^2 - 4(1)(-3) = 4 + 12 = 16$\n\nLangkah 2: Pakai rumus nilai puncak.\n$y_p = -\\frac{16}{4(1)} = -4$\n\nLangkah 3: Periksa dengan substitusi: $x_p = 1$ dan $f(1) = 1 - 2 - 3 = -4$ — cocok.\n\nLangkah 4: Opsi A ($-3$) adalah nilai $c$, yaitu $f(0)$, bukan nilai terkecil.\n\nLangkah 5: Opsi D ($-16$) lupa membagi dengan $4a$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P34-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Fungsi $f(x) = -3x^2 + 5$ mempunyai nilai maksimum $5$.",
+              "(2) Titik puncak grafik $f(x) = (x - 2)^2 + 1$ adalah $(-2, 1)$.",
+              "(3) Jika $a > 0$, titik puncak adalah titik terendah grafik."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): $b = 0$, jadi $x_p = 0$ dan $f(0) = 5$. Karena $a = -3 < 0$, nilai itu maksimum. Pernyataan (1) BENAR.\n\nLangkah 2: Pernyataan (2): pada $(x - 2)^2$, nilai $h = +2$, bukan $-2$. Titik puncaknya $(2, 1)$.\n\nLangkah 3: Pernyataan (2) SALAH.\n\nLangkah 4: Pernyataan (3): bila $a > 0$, grafik terbuka ke atas, sehingga puncaknya titik terendah.\n\nLangkah 5: Pernyataan (3) BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P34-Q9] Diketahui $f(x) = -x^2 + 4x + 5$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Sumbu simetrinya $x = 2$.",
+              "B. Titik puncaknya $(2, 9)$.",
+              "C. Nilai minimumnya $9$.",
+              "D. $f(0) = f(4)$.",
+              "E. Titik puncaknya $(-2, -7)$."
+            ],
+            "kunci": "A, B, D",
+            "bahas": "Langkah 1: Hitung sumbu simetri.\n$x_p = -\\frac{4}{2(-1)} = 2$ — A benar\n\nLangkah 2: Hitung nilai puncak.\n$f(2) = -4 + 8 + 5 = 9$ — B benar, dan E salah\n\nLangkah 3: Karena $a = -1 < 0$, nilai $9$ adalah nilai MAKSIMUM, bukan minimum. C salah.\n\nLangkah 4: Periksa D: $f(0) = 5$ dan $f(4) = -16 + 16 + 5 = 5$. Keduanya sama karena $0$ dan $4$ simetris terhadap $x = 2$. D benar.\n\nLangkah 5: Opsi E muncul bila $x_p$ ditulis $-2$: $f(-2) = -4 - 8 + 5 = -7$.\n\nKesimpulan: Kunci Jawaban A, B, D."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P34-Q10] Nilai minimum fungsi $f(x) = 2x^2 - 12x + 7$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "-11",
+            "bahas": "Langkah 1: Karena $a = 2 > 0$, fungsi mempunyai nilai minimum.\n\nLangkah 2: Hitung sumbu simetri.\n$x_p = -\\frac{-12}{2(2)} = \\frac{12}{4} = 3$\n\nLangkah 3: Hitung nilai puncak.\n$f(3) = 2(9) - 36 + 7 = 18 - 36 + 7 = -11$\n\nLangkah 4: Periksa dengan rumus: $D = 144 - 56 = 88$ dan $-\\frac{88}{8} = -11$ — cocok.\n\nLangkah 5: Nilai minimumnya $-11$, tercapai saat $x = 3$.\n\nKesimpulan: Kunci Jawaban -11."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P35",
+      "judul": "Titik Potong Sumbu Koordinat dan Diskriminan",
+      "materi": {
+        "id": "P35",
+        "bab": "Bab 6: Fungsi Kuadrat",
+        "title": "Titik Potong Sumbu Koordinat dan Diskriminan",
+        "obj": [
+          "Menentukan titik potong grafik fungsi kuadrat dengan sumbu $Y$ dan sumbu $X$, memakai pemfaktoran maupun rumus kuadratik.",
+          "Menghitung diskriminan $D = b^2 - 4ac$ dan memakainya untuk menentukan banyaknya titik potong grafik dengan sumbu $X$ tanpa menggambar.",
+          "Menentukan nilai parameter agar grafik memotong, menyinggung, atau tidak memotong sumbu $X$."
+        ],
+        "hook": "Sebuah bola ditendang dari tanah. Kapan ia menyentuh tanah lagi? Pertanyaan itu sama dengan mencari saat tingginya NOL, yaitu titik potong grafik dengan sumbu $X$. Namun tidak setiap parabola memotong sumbu $X$: ada yang memotongnya di dua titik, ada yang hanya menyentuhnya di satu titik, dan ada yang berbelok sebelum mencapainya sehingga melayang seluruhnya di atas (atau di bawah) sumbu. Ternyata ada satu bilangan yang dapat memberitahu hal itu sebelum kita menggambar apa pun: DISKRIMINAN.",
+        "toolkit": [
+          {
+            "name": "Potong Sumbu Y",
+            "math": "$$x = 0 \\Rightarrow (0, c)$$"
+          },
+          {
+            "name": "Potong Sumbu X",
+            "math": "$$f(x) = 0 \\Rightarrow ax^2 + bx + c = 0$$"
+          },
+          {
+            "name": "Rumus Kuadratik",
+            "math": "$$x_{1,2} = \\frac{-b \\pm \\sqrt{D}}{2a},\\quad D = b^2 - 4ac$$"
+          },
+          {
+            "name": "Arti Diskriminan",
+            "math": "$$D > 0:\\ \\text{dua titik};\\quad D = 0:\\ \\text{menyinggung};\\quad D < 0:\\ \\text{tidak memotong}$$"
+          },
+          {
+            "name": "Pemfaktoran",
+            "math": "$$x^2 + bx + c = (x + p)(x + q),\\ \\ p + q = b,\\ \\ pq = c$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan titik potong grafik $f(x) = x^2 - 5x + 6$ dengan kedua sumbu koordinat.",
+            "solution": "Langkah 1: Titik potong sumbu $Y$: ambil $x = 0$.\n$f(0) = 6$, jadi titiknya $(0, 6)$\n\nLangkah 2: Titik potong sumbu $X$: ambil $f(x) = 0$.\n$x^2 - 5x + 6 = 0$\n\nLangkah 3: Faktorkan. Cari dua bilangan yang hasil kalinya $6$ dan jumlahnya $-5$, yaitu $-2$ dan $-3$.\n$(x - 2)(x - 3) = 0$\n\nLangkah 4: Hasil kali nol berarti salah satu faktornya nol.\n$x = 2$ atau $x = 3$\n\nLangkah 5: Jadi titik potong sumbu $X$ adalah $(2, 0)$ dan $(3, 0)$.\n\nLangkah 6: Periksa: $f(2) = 4 - 10 + 6 = 0$ dan $f(3) = 9 - 15 + 6 = 0$ — cocok.\n\nLangkah 7: Perhatikan urutan koordinat: titik pada sumbu $X$ ditulis $(x, 0)$, sedangkan pada sumbu $Y$ ditulis $(0, y)$.\n\nKesimpulan: Grafik memotong sumbu $Y$ di $(0, 6)$ dan sumbu $X$ di $(2, 0)$ dan $(3, 0)$."
+          },
+          {
+            "problem": "Tentukan titik potong grafik $f(x) = 2x^2 + x - 3$ dengan sumbu $X$.",
+            "solution": "Langkah 1: Selesaikan $2x^2 + x - 3 = 0$. Karena $a \\neq 1$, faktorkan dengan cara $a \\cdot c$: cari dua bilangan yang hasil kalinya $2 \\times (-3) = -6$ dan jumlahnya $1$, yaitu $3$ dan $-2$.\n\nLangkah 2: Pecah suku tengahnya.\n$2x^2 + 3x - 2x - 3 = 0$\n\nLangkah 3: Kelompokkan.\n$x(2x + 3) - 1(2x + 3) = 0 \\Rightarrow (2x + 3)(x - 1) = 0$\n\nLangkah 4: Selesaikan.\n$x = -\\frac{3}{2}$ atau $x = 1$\n\nLangkah 5: Periksa $x = 1$: $2 + 1 - 3 = 0$. Periksa $x = -\\frac{3}{2}$: $2 \\cdot \\frac{9}{4} - \\frac{3}{2} - 3 = \\frac{9}{2} - \\frac{3}{2} - 3 = 0$ — cocok.\n\nLangkah 6: Jadi titik potongnya $\\left(-\\frac{3}{2}, 0\\right)$ dan $(1, 0)$.\n\nKesimpulan: Grafik memotong sumbu $X$ di $\\left(-\\frac{3}{2}, 0\\right)$ dan $(1, 0)$."
+          },
+          {
+            "problem": "Tentukan titik potong grafik $f(x) = x^2 - 4x + 1$ dengan sumbu $X$.",
+            "solution": "Langkah 1: Coba faktorkan: dua bilangan dengan hasil kali $1$ dan jumlah $-4$ tidak ada di antara bilangan bulat. Pakai rumus kuadratik.\n\nLangkah 2: Hitung diskriminan.\n$D = (-4)^2 - 4(1)(1) = 16 - 4 = 12$\n\nLangkah 3: Masukkan ke rumus.\n$x = \\frac{4 \\pm \\sqrt{12}}{2}$\n\nLangkah 4: Sederhanakan akarnya.\n$\\sqrt{12} = 2\\sqrt{3}$, jadi $x = \\frac{4 \\pm 2\\sqrt{3}}{2} = 2 \\pm \\sqrt{3}$\n\nLangkah 5: Titik potongnya $(2 - \\sqrt{3}, 0)$ dan $(2 + \\sqrt{3}, 0)$, kira-kira $(0{,}27; 0)$ dan $(3{,}73; 0)$.\n\nLangkah 6: Periksa kesimetrian: kedua akar mengapit $x = 2$ dengan jarak sama, dan $x_p = -\\frac{-4}{2} = 2$ — cocok.\n\nLangkah 7: Kekeliruan yang sering terjadi adalah membagi hanya $4$ dengan $2$ tetapi tidak membagi $2\\sqrt{3}$, sehingga ditulis $2 \\pm 2\\sqrt{3}$.\n\nKesimpulan: Grafik memotong sumbu $X$ di $(2 - \\sqrt{3}, 0)$ dan $(2 + \\sqrt{3}, 0)$."
+          },
+          {
+            "problem": "Tanpa menggambar, tentukan kedudukan grafik $f(x) = x^2 - 6x + 9$, $g(x) = x^2 + 2x + 5$, dan $h(x) = x^2 - x - 2$ terhadap sumbu $X$.",
+            "solution": "Langkah 1: Hitung diskriminan setiap fungsi.\n\nLangkah 2: $f$: $D = 36 - 36 = 0$. Grafiknya MENYINGGUNG sumbu $X$ di satu titik, yaitu di $x = -\\frac{-6}{2} = 3$. Memang $f(x) = (x - 3)^2$.\n\nLangkah 3: $g$: $D = 4 - 20 = -16 < 0$. Grafiknya TIDAK memotong sumbu $X$.\n\nLangkah 4: Karena $a = 1 > 0$ dan tidak memotong, grafik $g$ seluruhnya di ATAS sumbu $X$; nilainya selalu positif. Puncaknya $(-1, 4)$ memang di atas sumbu.\n\nLangkah 5: $h$: $D = 1 + 8 = 9 > 0$. Grafiknya memotong sumbu $X$ di DUA titik. Memang $h(x) = (x - 2)(x + 1)$.\n\nLangkah 6: Diskriminan menjawab pertanyaan \"berapa banyak titik potong\" tanpa harus mencari titiknya.\n\nKesimpulan: $f$ menyinggung sumbu $X$ ($D = 0$), $g$ tidak memotong sumbu $X$ ($D < 0$), dan $h$ memotong di dua titik ($D > 0$)."
+          },
+          {
+            "problem": "Tentukan nilai $m$ agar grafik $f(x) = x^2 - 4x + m$ menyinggung sumbu $X$, lalu tentukan pula nilai $m$ agar grafik tidak memotong sumbu $X$.",
+            "solution": "Langkah 1: Hitung diskriminan dalam $m$.\n$D = 16 - 4m$\n\nLangkah 2: Menyinggung berarti $D = 0$.\n$16 - 4m = 0 \\Rightarrow m = 4$\n\nLangkah 3: Periksa: $f(x) = x^2 - 4x + 4 = (x - 2)^2$, yang menyentuh sumbu $X$ tepat di $(2, 0)$ — cocok.\n\nLangkah 4: Tidak memotong berarti $D < 0$.\n$16 - 4m < 0 \\Rightarrow -4m < -16 \\Rightarrow m > 4$\n\nLangkah 5: Perhatikan: saat membagi dengan bilangan negatif $-4$, tanda ketidaksamaan BERBALIK.\n\nLangkah 6: Periksa dengan $m = 5$: $D = 16 - 20 = -4 < 0$ — memang tidak memotong.\n\nLangkah 7: Maknanya, menambah $m$ menggeser grafik ke atas. Pada $m = 4$ ia tepat menyentuh sumbu, dan di atas itu ia terangkat seluruhnya.\n\nKesimpulan: Grafik menyinggung sumbu $X$ bila $m = 4$, dan tidak memotong sumbu $X$ bila $m > 4$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok menulis TIGA fungsi kuadrat karangan sendiri di papan — satu yang memotong sumbu $X$ di dua titik, satu yang menyinggung, dan satu yang tidak memotong — tanpa memberi tahu mana yang mana. Kelompok lain menentukan kedudukannya hanya dengan diskriminan, lalu kelompok pengarang membuktikannya dengan memfaktorkan atau menghitung titik puncak. Terakhir, ubahlah satu angka pada fungsi yang \"memotong\" sehingga menjadi \"menyinggung\".",
+        "summary_data": {
+          "summary": [
+            "Grafik memotong sumbu $Y$ di $(0, c)$.",
+            "Titik potong sumbu $X$ diperoleh dari $ax^2 + bx + c = 0$.",
+            "Pemfaktoran $x^2 + bx + c$: cari dua bilangan yang hasil kalinya $c$ dan jumlahnya $b$.",
+            "Bila $a \\neq 1$, cari dua bilangan yang hasil kalinya $a \\cdot c$ dan jumlahnya $b$, lalu pecah suku tengahnya.",
+            "Rumus kuadratik $x = \\frac{-b \\pm \\sqrt{D}}{2a}$ berlaku untuk semua persamaan kuadrat.",
+            "Diskriminan $D = b^2 - 4ac$ menentukan banyaknya titik potong dengan sumbu $X$.",
+            "$D > 0$: dua titik potong; $D = 0$: menyinggung; $D < 0$: tidak memotong.",
+            "Bila $D < 0$ dan $a > 0$, grafik seluruhnya di atas sumbu $X$; bila $D < 0$ dan $a < 0$, seluruhnya di bawah.",
+            "Kedua titik potong sumbu $X$ selalu simetris terhadap sumbu simetri.",
+            "Membagi ketidaksamaan dengan bilangan negatif membalik arah tandanya."
+          ],
+          "islamic": "Setiap ciptaan mempunyai ukuran dan ketentuannya. \"Sesungguhnya Kami menciptakan segala sesuatu menurut ukuran.\" (QS. Al-Qamar: 49)"
+        },
+        "collab_cases": [
+          "Tentukan titik potong grafik $f(x) = x^2 + x - 12$ dengan kedua sumbu.",
+          "Tentukan titik potong grafik $f(x) = 3x^2 - 5x - 2$ dengan sumbu $X$ dengan cara pemfaktoran.",
+          "Tentukan titik potong grafik $f(x) = x^2 - 2x - 1$ dengan sumbu $X$ memakai rumus kuadratik.",
+          "Tanpa menggambar, tentukan kedudukan grafik $f(x) = 2x^2 - 3x + 4$ terhadap sumbu $X$.",
+          "Tentukan nilai $k$ agar grafik $f(x) = x^2 + kx + 9$ menyinggung sumbu $X$."
+        ]
+      },
+      "soal": {
+        "id": "P35",
+        "subject": "wajib",
+        "title": "P35 • Titik Potong Sumbu Koordinat dan Diskriminan",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P35-Q1] Titik potong grafik $f(x) = x^2 - 7x + 10$ dengan sumbu $X$ adalah $\\dots$",
+            "opsi": [
+              "A. $(2, 0)$ dan $(5, 0)$",
+              "B. $(-2, 0)$ dan $(-5, 0)$",
+              "C. $(0, 2)$ dan $(0, 5)$",
+              "D. $(1, 0)$ dan $(10, 0)$",
+              "E. $(-1, 0)$ dan $(10, 0)$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Selesaikan $x^2 - 7x + 10 = 0$. Cari dua bilangan yang hasil kalinya $10$ dan jumlahnya $-7$: yaitu $-2$ dan $-5$.\n\nLangkah 2: Faktorkan.\n$(x - 2)(x - 5) = 0 \\Rightarrow x = 2$ atau $x = 5$\n\nLangkah 3: Titik potongnya $(2, 0)$ dan $(5, 0)$.\n\nLangkah 4: Opsi B memakai tanda faktor langsung sebagai akar: dari $(x - 2)$ akarnya $+2$, bukan $-2$.\n\nLangkah 5: Opsi C menulis koordinat terbalik; titik pada sumbu $X$ selalu berordinat $0$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P35-Q2] Nilai diskriminan fungsi $f(x) = 2x^2 - 3x - 2$ adalah $\\dots$",
+            "opsi": [
+              "A. $-7$",
+              "B. $1$",
+              "C. $25$",
+              "D. $17$",
+              "E. $7$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Baca koefisiennya: $a = 2$, $b = -3$, $c = -2$.\n\nLangkah 2: Pakai rumusnya.\n$D = b^2 - 4ac = (-3)^2 - 4(2)(-2)$\n\nLangkah 3: Hitung.\n$9 - (-16) = 9 + 16 = 25$\n\nLangkah 4: Opsi A ($-7$) muncul bila $-4(2)(-2)$ ditulis $-16$: tanda negatif kali negatif menjadi positif.\n\nLangkah 5: Karena $D = 25 > 0$ dan merupakan bilangan kuadrat, grafiknya memotong sumbu $X$ di dua titik rasional: $(2, 0)$ dan $\\left(-\\frac{1}{2}, 0\\right)$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P35-Q3] Kedudukan grafik $f(x) = x^2 + 2x + 5$ terhadap sumbu $X$ adalah $\\dots$",
+            "opsi": [
+              "A. memotong sumbu $X$ di dua titik",
+              "B. menyinggung sumbu $X$ di satu titik",
+              "C. memotong sumbu $X$ di $(-1, 0)$",
+              "D. tidak memotong maupun menyinggung sumbu $X$",
+              "E. memotong sumbu $X$ di $(5, 0)$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Hitung diskriminan.\n$D = 2^2 - 4(1)(5) = 4 - 20 = -16$\n\nLangkah 2: Karena $D < 0$, persamaan $x^2 + 2x + 5 = 0$ tidak mempunyai penyelesaian real.\n\nLangkah 3: Artinya grafik tidak memotong maupun menyinggung sumbu $X$.\n\nLangkah 4: Karena $a > 0$, grafik seluruhnya di atas sumbu $X$. Puncaknya $(-1, 4)$ memang di atas sumbu.\n\nLangkah 5: Opsi C mengira sumbu simetri $x = -1$ sebagai titik potong. Opsi E mengira $c = 5$ sebagai titik potong sumbu $X$, padahal $(0, 5)$ adalah titik potong sumbu $Y$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P35-Q4] Absis titik potong grafik $f(x) = x^2 - 4x + 1$ dengan sumbu $X$ adalah $\\dots$",
+            "opsi": [
+              "A. $4 \\pm \\sqrt{3}$",
+              "B. $2 \\pm 2\\sqrt{3}$",
+              "C. $-2 \\pm \\sqrt{3}$",
+              "D. $1 \\pm \\sqrt{3}$",
+              "E. $2 \\pm \\sqrt{3}$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Hitung diskriminan.\n$D = 16 - 4 = 12$\n\nLangkah 2: Pakai rumus kuadratik.\n$x = \\frac{4 \\pm \\sqrt{12}}{2} = \\frac{4 \\pm 2\\sqrt{3}}{2}$\n\nLangkah 3: Bagi SETIAP suku pembilang dengan $2$.\n$x = 2 \\pm \\sqrt{3}$\n\nLangkah 4: Opsi B hanya membagi $4$ dan lupa membagi $2\\sqrt{3}$.\n\nLangkah 5: Opsi C lupa tanda minus di depan $b$: $-b = -(-4) = +4$.\n\nLangkah 6: Periksa: rata-rata kedua akar adalah $2$, sama dengan sumbu simetri $x = 2$ — cocok.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P35-Q5] Grafik $f(x) = x^2 - 4x + m$ menyinggung sumbu $X$. Nilai $m$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $-4$",
+              "C. $4$",
+              "D. $16$",
+              "E. $8$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Menyinggung sumbu $X$ berarti $D = 0$.\n\nLangkah 2: Hitung diskriminan.\n$D = (-4)^2 - 4(1)(m) = 16 - 4m$\n\nLangkah 3: Samakan dengan nol.\n$16 - 4m = 0 \\Rightarrow m = 4$\n\nLangkah 4: Periksa: $x^2 - 4x + 4 = (x - 2)^2$, yang menyentuh sumbu $X$ tepat di $(2, 0)$.\n\nLangkah 5: Opsi D ($16$) adalah nilai $b^2$ yang lupa dibagi $4a$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P35-Q6] Grafik $f(x) = x^2 + 2x + k$ tidak memotong sumbu $X$. Syarat nilai $k$ adalah $\\dots$",
+            "opsi": [
+              "A. $k < 1$",
+              "B. $k > 1$",
+              "C. $k = 1$",
+              "D. $k > -1$",
+              "E. $k < -1$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Tidak memotong sumbu $X$ berarti $D < 0$.\n\nLangkah 2: Hitung diskriminan.\n$D = 4 - 4k$\n\nLangkah 3: Susun ketidaksamaannya.\n$4 - 4k < 0 \\Rightarrow -4k < -4$\n\nLangkah 4: Bagi dengan $-4$ dan BALIK tandanya.\n$k > 1$\n\nLangkah 5: Opsi A lupa membalik tanda. Opsi C adalah syarat MENYINGGUNG.\n\nLangkah 6: Periksa dengan $k = 2$: $D = 4 - 8 = -4 < 0$ — memang tidak memotong.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P35-Q7] Grafik $f(x) = 2x^2 + x - 3$ memotong sumbu $X$ di dua titik. Jarak antara kedua titik itu adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{5}{2}$",
+              "B. $\\frac{1}{2}$",
+              "C. $\\frac{3}{2}$",
+              "D. $1$",
+              "E. $2$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Selesaikan $2x^2 + x - 3 = 0$. Faktorkan: $(2x + 3)(x - 1) = 0$.\n\nLangkah 2: Akar-akarnya.\n$x = -\\frac{3}{2}$ dan $x = 1$\n\nLangkah 3: Jarak kedua titik pada sumbu $X$ adalah selisih absisnya.\n$1 - \\left(-\\frac{3}{2}\\right) = 1 + \\frac{3}{2} = \\frac{5}{2}$\n\nLangkah 4: Opsi B ($\\frac{1}{2}$) muncul bila selisihnya dihitung $\\frac{3}{2} - 1$, yaitu mengabaikan tanda negatif akar pertama.\n\nLangkah 5: Cara lain: jarak kedua akar sama dengan $\\frac{\\sqrt{D}}{|a|} = \\frac{\\sqrt{1 + 24}}{2} = \\frac{5}{2}$ — cocok.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P35-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Grafik $f(x) = x^2 - 6x + 9$ menyinggung sumbu $X$ di $(3, 0)$.",
+              "(2) Jika $D < 0$ dan $a > 0$, grafik fungsi kuadrat seluruhnya berada di atas sumbu $X$.",
+              "(3) Grafik $f(x) = x^2 - 9$ memotong sumbu $X$ di $(9, 0)$ dan $(-9, 0)$."
+            ],
+            "kunci": "B - B - S",
+            "bahas": "Langkah 1: Pernyataan (1): $f(x) = (x - 3)^2$ dan $D = 36 - 36 = 0$. Grafik menyinggung sumbu $X$ di $(3, 0)$. BENAR.\n\nLangkah 2: Pernyataan (2): $D < 0$ berarti grafik tidak menyentuh sumbu $X$, dan $a > 0$ berarti terbuka ke atas. Jadi seluruhnya di atas sumbu. BENAR.\n\nLangkah 3: Pernyataan (3): selesaikan $x^2 - 9 = 0$.\n$x^2 = 9 \\Rightarrow x = 3$ atau $x = -3$\n\nLangkah 4: Titik potongnya $(3, 0)$ dan $(-3, 0)$, bukan $(\\pm 9, 0)$.\n\nLangkah 5: Pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban B - B - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P35-Q9] Pilihlah SEMUA fungsi yang grafiknya memotong sumbu $X$ di dua titik berbeda.",
+            "opsi": [
+              "A. $f(x) = x^2 - 5x + 6$",
+              "B. $f(x) = x^2 + 4x + 4$",
+              "C. $f(x) = x^2 - 3$",
+              "D. $f(x) = x^2 + x + 1$",
+              "E. $f(x) = -x^2 + 2x + 8$"
+            ],
+            "kunci": "A, C, E",
+            "bahas": "Langkah 1: Syaratnya $D > 0$. Hitung diskriminan setiap fungsi.\n\nLangkah 2: A: $D = 25 - 24 = 1 > 0$ — memenuhi.\n\nLangkah 3: B: $D = 16 - 16 = 0$ — hanya menyinggung.\n\nLangkah 4: C: $D = 0 - 4(1)(-3) = 12 > 0$ — memenuhi. Akarnya $\\pm\\sqrt{3}$.\n\nLangkah 5: D: $D = 1 - 4 = -3 < 0$ — tidak memotong.\n\nLangkah 6: E: $D = 4 - 4(-1)(8) = 4 + 32 = 36 > 0$ — memenuhi. Akarnya $-2$ dan $4$.\n\nKesimpulan: Kunci Jawaban A, C, E."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P35-Q10] Grafik $f(x) = x^2 - 7x + 12$ memotong sumbu $X$ di titik $(x_1, 0)$ dan $(x_2, 0)$. Nilai $x_1 + x_2$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "7",
+            "bahas": "Langkah 1: Selesaikan $x^2 - 7x + 12 = 0$. Cari dua bilangan yang hasil kalinya $12$ dan jumlahnya $-7$: yaitu $-3$ dan $-4$.\n\nLangkah 2: Faktorkan.\n$(x - 3)(x - 4) = 0$\n\nLangkah 3: Akar-akarnya $x_1 = 3$ dan $x_2 = 4$.\n\nLangkah 4: Jumlahkan.\n$3 + 4 = 7$\n\nLangkah 5: Periksa: jumlah akar juga sama dengan $-\\frac{b}{a} = -\\frac{-7}{1} = 7$ — cocok.\n\nKesimpulan: Kunci Jawaban 7."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P36",
+      "judul": "Menggambar Grafik Fungsi Kuadrat",
+      "materi": {
+        "id": "P36",
+        "bab": "Bab 6: Fungsi Kuadrat",
+        "title": "Menggambar Grafik Fungsi Kuadrat",
+        "obj": [
+          "Menggambar sketsa grafik fungsi kuadrat secara runtut: arah buka, titik potong sumbu, sumbu simetri, titik puncak, dan titik bantu cermin.",
+          "Menjelaskan pergeseran grafik $y = x^2$ menjadi $y = a(x - h)^2 + k$.",
+          "Menyimpulkan tanda $a$, $b$, $c$, dan $D$ dari gambar grafik, serta sebaliknya."
+        ],
+        "hook": "Seorang arsitek tidak menggambar lengkung jembatan dengan menghitung seribu titik. Ia cukup menandai beberapa titik PENTING — kedua kaki lengkung, puncaknya, dan sepasang titik bantu — lalu menarik lengkung halus melaluinya. Dengan bekal pertemuan-pertemuan sebelumnya, kita sudah memiliki semua titik penting itu. Pertemuan ini merangkainya menjadi satu prosedur, sehingga sketsa grafik yang benar dapat dibuat dalam beberapa menit.",
+        "toolkit": [
+          {
+            "name": "1. Arah Buka",
+            "math": "$$a > 0 \\Rightarrow \\text{terbuka ke atas } (\\cup);\\qquad a < 0 \\Rightarrow \\text{terbuka ke bawah } (\\cap)$$"
+          },
+          {
+            "name": "2. Titik Potong",
+            "math": "$$(0, c) \\text{ dan } (x_1, 0), (x_2, 0) \\text{ bila } D \\ge 0$$"
+          },
+          {
+            "name": "3. Puncak",
+            "math": "$$\\left(-\\frac{b}{2a},\\ f\\!\\left(-\\frac{b}{2a}\\right)\\right)$$"
+          },
+          {
+            "name": "4. Titik Cermin",
+            "math": "$$(0, c) \\longleftrightarrow (2x_p, c)$$"
+          },
+          {
+            "name": "Pergeseran",
+            "math": "$$y = (x - h)^2 + k:\\ \\text{geser } h \\text{ ke kanan},\\ k \\text{ ke atas}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Buatlah sketsa grafik $f(x) = x^2 - 2x - 3$.",
+            "solution": "Langkah 1: Arah buka: $a = 1 > 0$, jadi grafik terbuka ke ATAS.\n\nLangkah 2: Titik potong sumbu $Y$: $f(0) = -3$, titik $(0, -3)$.\n\nLangkah 3: Titik potong sumbu $X$: $x^2 - 2x - 3 = (x - 3)(x + 1) = 0$, jadi $(-1, 0)$ dan $(3, 0)$.\n\nLangkah 4: Sumbu simetri dan puncak: $x_p = -\\frac{-2}{2} = 1$ dan $f(1) = 1 - 2 - 3 = -4$. Titik puncak $(1, -4)$.\n\nLangkah 5: Titik cermin: $(0, -3)$ berjarak $1$ di kiri sumbu, jadi pasangannya $(2, -3)$. Periksa: $f(2) = 4 - 4 - 3 = -3$ — cocok.\n\nLangkah 6: Plot kelima titik itu — $(-1, 0)$, $(0, -3)$, $(1, -4)$, $(2, -3)$, $(3, 0)$ — lalu hubungkan dengan lengkung halus berbentuk U. Jangan menghubungkannya dengan ruas-ruas garis lurus.\n\nLangkah 7: Periksa: kedua titik potong sumbu $X$ berjarak sama dari $x = 1$, yaitu $2$ satuan — sesuai kesimetrian.\n\nKesimpulan: Grafiknya parabola terbuka ke atas dengan puncak $(1, -4)$, memotong sumbu $X$ di $(-1, 0)$ dan $(3, 0)$, serta memotong sumbu $Y$ di $(0, -3)$."
+          },
+          {
+            "problem": "Buatlah sketsa grafik $f(x) = -x^2 + 4x$.",
+            "solution": "Langkah 1: Arah buka: $a = -1 < 0$, jadi grafik terbuka ke BAWAH.\n\nLangkah 2: Titik potong sumbu $Y$: $f(0) = 0$, yaitu titik asal $O(0, 0)$.\n\nLangkah 3: Titik potong sumbu $X$: $-x^2 + 4x = x(4 - x) = 0$, jadi $(0, 0)$ dan $(4, 0)$.\n\nLangkah 4: Puncak: $x_p = -\\frac{4}{2(-1)} = 2$ dan $f(2) = -4 + 8 = 4$. Titik puncak $(2, 4)$.\n\nLangkah 5: Titik bantu: $f(1) = 3$ dan cerminnya $f(3) = 3$. Titik $(1, 3)$ dan $(3, 3)$.\n\nLangkah 6: Plot $(0, 0)$, $(1, 3)$, $(2, 4)$, $(3, 3)$, $(4, 0)$, lalu hubungkan dengan lengkung berbentuk $\\cap$.\n\nLangkah 7: Karena $c = 0$, grafik melalui titik asal. Titik potong sumbu $Y$ sekaligus menjadi salah satu titik potong sumbu $X$.\n\nKesimpulan: Grafiknya parabola terbuka ke bawah dengan puncak $(2, 4)$, melalui $(0, 0)$ dan $(4, 0)$."
+          },
+          {
+            "problem": "Buatlah sketsa grafik $f(x) = x^2 + 2x + 3$.",
+            "solution": "Langkah 1: Arah buka: $a = 1 > 0$, terbuka ke atas.\n\nLangkah 2: Titik potong sumbu $Y$: $(0, 3)$.\n\nLangkah 3: Periksa titik potong sumbu $X$ dengan diskriminan: $D = 4 - 12 = -8 < 0$. Grafik TIDAK memotong sumbu $X$.\n\nLangkah 4: Puncak: $x_p = -\\frac{2}{2} = -1$ dan $f(-1) = 1 - 2 + 3 = 2$. Titik puncak $(-1, 2)$, di atas sumbu $X$ — sesuai dengan $D < 0$.\n\nLangkah 5: Karena tidak ada titik potong sumbu $X$, titik bantu menjadi penting. Cermin $(0, 3)$ adalah $(-2, 3)$. Tambahkan $f(1) = 6$ dan cerminnya $(-3, 6)$.\n\nLangkah 6: Plot $(-3, 6)$, $(-2, 3)$, $(-1, 2)$, $(0, 3)$, $(1, 6)$, lalu hubungkan. Seluruh grafik berada di atas sumbu $X$.\n\nKesimpulan: Grafiknya parabola terbuka ke atas dengan puncak $(-1, 2)$, memotong sumbu $Y$ di $(0, 3)$, dan tidak memotong sumbu $X$."
+          },
+          {
+            "problem": "Jelaskan bagaimana grafik $y = (x - 3)^2 + 1$ diperoleh dari grafik $y = x^2$.",
+            "solution": "Langkah 1: Grafik $y = x^2$ berpuncak di $(0, 0)$.\n\nLangkah 2: Pada $y = (x - 3)^2$, nilai nol dari kuadratnya tercapai saat $x = 3$, bukan $x = 0$. Jadi puncaknya pindah ke $x = 3$: grafik DIGESER $3$ satuan ke KANAN.\n\nLangkah 3: Perhatikan arahnya: tanda minus pada $(x - 3)$ menggeser ke kanan, bukan ke kiri. Ini sering terbalik.\n\nLangkah 4: Penambahan $+1$ di luar kuadrat menaikkan setiap nilai $y$ sebesar $1$: grafik DIGESER $1$ satuan ke ATAS.\n\nLangkah 5: Puncak barunya $(3, 1)$. Bentuk dan lebar lengkungnya tidak berubah karena $a$ tetap $1$.\n\nLangkah 6: Periksa dengan satu titik: pada $y = x^2$, titik $(1, 1)$ digeser menjadi $(4, 2)$, dan $(4 - 3)^2 + 1 = 2$ — cocok.\n\nKesimpulan: Grafik $y = (x - 3)^2 + 1$ adalah grafik $y = x^2$ yang digeser $3$ satuan ke kanan dan $1$ satuan ke atas, dengan puncak $(3, 1)$."
+          },
+          {
+            "problem": "Sebuah grafik $y = ax^2 + bx + c$ terbuka ke bawah, memotong sumbu $Y$ di atas titik asal, dan puncaknya berada di sebelah kanan sumbu $Y$. Tentukan tanda $a$, $b$, dan $c$.",
+            "solution": "Langkah 1: Terbuka ke bawah berarti $a < 0$.\n\nLangkah 2: Memotong sumbu $Y$ di atas titik asal berarti $(0, c)$ di atas $O$, jadi $c > 0$.\n\nLangkah 3: Puncak di sebelah kanan sumbu $Y$ berarti $x_p = -\\frac{b}{2a} > 0$.\n\nLangkah 4: Karena $a < 0$, penyebut $2a$ negatif. Agar $-\\frac{b}{2a}$ positif, $\\frac{b}{2a}$ harus negatif, sehingga $b$ dan $a$ berlawanan tanda.\n\nLangkah 5: Jadi $b > 0$.\n\nLangkah 6: Periksa dengan contoh $y = -x^2 + 4x + 1$: $a = -1 < 0$, $c = 1 > 0$, $x_p = 2 > 0$, dan $b = 4 > 0$ — cocok.\n\nKesimpulan: $a < 0$, $b > 0$, dan $c > 0$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Di papan berpetak, setiap kelompok menggambar grafik $y = x^2$, lalu di atasnya menggambar $y = (x - 2)^2$, $y = x^2 - 3$, $y = (x + 1)^2 + 2$, dan $y = -x^2 + 4$ dengan warna berbeda. Tuliskan titik puncak setiap grafik dan gambarkan panah pergeserannya dari $(0, 0)$. Selanjutnya, kelompok lain menggambar SATU parabola sembarang dan kelompok penggambar harus menebak tanda $a$, $b$, $c$, dan $D$ dari gambar itu saja.",
+        "summary_data": {
+          "summary": [
+            "Langkah menggambar: arah buka, titik potong sumbu $Y$, titik potong sumbu $X$, puncak, titik cermin, lalu hubungkan.",
+            "Hubungkan titik-titik dengan lengkung halus, bukan ruas garis lurus.",
+            "Bila $D < 0$, grafik tidak memotong sumbu $X$, sehingga titik bantu cermin menjadi sangat penting.",
+            "Titik $(0, c)$ selalu mempunyai cermin $(2x_p, c)$.",
+            "Grafik $y = (x - h)^2 + k$ adalah $y = x^2$ yang digeser $h$ ke kanan dan $k$ ke atas.",
+            "$(x - 3)$ menggeser ke KANAN, sedangkan $(x + 3)$ menggeser ke KIRI.",
+            "Nilai $a$ menentukan arah buka dan kelebaran; pergeseran tidak mengubah bentuk grafik.",
+            "Tanda $c$ terbaca dari titik potong sumbu $Y$: di atas $O$ berarti $c > 0$.",
+            "Letak puncak terhadap sumbu $Y$ menentukan tanda $b$: puncak di kanan berarti $a$ dan $b$ berlawanan tanda.",
+            "Periksa sketsa dengan kesimetrian: titik-titik dengan nilai $y$ sama harus berjarak sama dari sumbu simetri."
+          ],
+          "islamic": "Keteraturan alam adalah tanda bagi orang yang mau berpikir. \"Sesungguhnya dalam penciptaan langit dan bumi, dan pergantian malam dan siang terdapat tanda-tanda (kebesaran Allah) bagi orang yang berakal.\" (QS. Ali 'Imran: 190)"
+        },
+        "collab_cases": [
+          "Buatlah sketsa grafik $f(x) = x^2 - 4x + 3$ lengkap dengan titik potong, puncak, dan satu pasang titik cermin.",
+          "Buatlah sketsa grafik $f(x) = -x^2 + 2x + 3$.",
+          "Buatlah sketsa grafik $f(x) = x^2 - 2x + 4$. Mengapa grafik ini tidak memotong sumbu $X$?",
+          "Jelaskan pergeseran yang mengubah $y = x^2$ menjadi $y = (x + 2)^2 - 5$, lalu tentukan puncaknya.",
+          "Sebuah grafik terbuka ke atas, memotong sumbu $Y$ di bawah titik asal, dan puncaknya di sebelah kiri sumbu $Y$. Tentukan tanda $a$, $b$, dan $c$."
+        ]
+      },
+      "soal": {
+        "id": "P36",
+        "subject": "wajib",
+        "title": "P36 • Menggambar Grafik Fungsi Kuadrat",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P36-Q1] Titik puncak grafik $y = (x + 2)^2 - 3$ adalah $\\dots$",
+            "opsi": [
+              "A. $(2, -3)$",
+              "B. $(-2, 3)$",
+              "C. $(-2, -3)$",
+              "D. $(2, 3)$",
+              "E. $(-3, -2)$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Bentuknya $a(x - h)^2 + k$. Tulis $(x + 2)$ sebagai $(x - (-2))$, jadi $h = -2$.\n\nLangkah 2: Konstanta di luar kuadrat adalah $k = -3$.\n\nLangkah 3: Titik puncaknya $(-2, -3)$.\n\nLangkah 4: Opsi A membaca $h = +2$ dari $(x + 2)$ — tanda terbalik.\n\nLangkah 5: Periksa: $y(-2) = 0 - 3 = -3$, dan untuk $x$ lain $(x + 2)^2 > 0$ sehingga $y > -3$. Jadi $(-2, -3)$ memang titik terendah.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P36-Q2] Grafik $y = x^2 - 2x - 3$ memotong sumbu $X$ di titik $\\dots$",
+            "opsi": [
+              "A. $(1, 0)$ dan $(-3, 0)$",
+              "B. $(-1, 0)$ dan $(3, 0)$",
+              "C. $(0, -3)$ dan $(0, 1)$",
+              "D. $(1, 0)$ dan $(3, 0)$",
+              "E. $(-1, 0)$ dan $(-3, 0)$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Selesaikan $x^2 - 2x - 3 = 0$. Cari dua bilangan dengan hasil kali $-3$ dan jumlah $-2$: yaitu $-3$ dan $1$.\n\nLangkah 2: Faktorkan.\n$(x - 3)(x + 1) = 0$\n\nLangkah 3: Akar-akarnya $x = 3$ dan $x = -1$.\n\nLangkah 4: Titik potongnya $(-1, 0)$ dan $(3, 0)$.\n\nLangkah 5: Periksa: $f(-1) = 1 + 2 - 3 = 0$ dan $f(3) = 9 - 6 - 3 = 0$ — cocok. Opsi A memakai tanda yang terbalik.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P36-Q3] Grafik $y = (x - 3)^2 + 1$ diperoleh dari grafik $y = x^2$ dengan menggesernya $\\dots$",
+            "opsi": [
+              "A. $3$ satuan ke kanan dan $1$ satuan ke atas",
+              "B. $3$ satuan ke kiri dan $1$ satuan ke atas",
+              "C. $3$ satuan ke kanan dan $1$ satuan ke bawah",
+              "D. $3$ satuan ke kiri dan $1$ satuan ke bawah",
+              "E. $1$ satuan ke kanan dan $3$ satuan ke atas"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Puncak $y = x^2$ adalah $(0, 0)$, sedangkan puncak $y = (x - 3)^2 + 1$ adalah $(3, 1)$.\n\nLangkah 2: Perpindahan dari $(0, 0)$ ke $(3, 1)$: $3$ satuan ke kanan dan $1$ satuan ke atas.\n\nLangkah 3: Opsi B keliru membaca $(x - 3)$ sebagai geser ke kiri. Tanda minus justru menggeser ke kanan, sebab nilai nol kuadratnya tercapai di $x = +3$.\n\nLangkah 4: Opsi E menukar besar pergeseran mendatar dan tegak.\n\nLangkah 5: Periksa: titik $(1, 1)$ pada $y = x^2$ berpindah ke $(4, 2)$, dan $(4 - 3)^2 + 1 = 2$ — cocok.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P36-Q4] Grafik $y = ax^2 + bx + c$ terbuka ke bawah, memotong sumbu $Y$ di atas titik asal, dan puncaknya di sebelah kanan sumbu $Y$. Tanda $a$, $b$, dan $c$ adalah $\\dots$",
+            "opsi": [
+              "A. $a > 0$, $b > 0$, $c > 0$",
+              "B. $a < 0$, $b < 0$, $c > 0$",
+              "C. $a < 0$, $b > 0$, $c < 0$",
+              "D. $a < 0$, $b > 0$, $c > 0$",
+              "E. $a > 0$, $b < 0$, $c > 0$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Terbuka ke bawah: $a < 0$. Opsi A dan E gugur.\n\nLangkah 2: Memotong sumbu $Y$ di atas titik asal: $c > 0$. Opsi C gugur.\n\nLangkah 3: Puncak di kanan sumbu $Y$: $-\\frac{b}{2a} > 0$.\n\nLangkah 4: Karena $a < 0$, syarat itu mengharuskan $b > 0$. Opsi B gugur.\n\nLangkah 5: Periksa dengan $y = -x^2 + 2x + 3$: puncak di $x = 1 > 0$ dan $c = 3 > 0$ — cocok.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P36-Q5] Grafik sebuah fungsi kuadrat terbuka ke atas, tidak memotong sumbu $X$, dan memotong sumbu $Y$ di $(0, 3)$. Fungsi itu adalah $\\dots$",
+            "opsi": [
+              "A. $y = x^2 - 4x + 3$",
+              "B. $y = -x^2 + 2x + 3$",
+              "C. $y = x^2 + 3x$",
+              "D. $y = x^2 - 2x - 3$",
+              "E. $y = x^2 + 2x + 3$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Syarat memotong sumbu $Y$ di $(0, 3)$ berarti $c = 3$. Opsi C ($c = 0$) dan D ($c = -3$) gugur.\n\nLangkah 2: Syarat terbuka ke atas berarti $a > 0$. Opsi B ($a = -1$) gugur.\n\nLangkah 3: Tidak memotong sumbu $X$ berarti $D < 0$. Opsi A: $D = 16 - 12 = 4 > 0$ — gugur.\n\nLangkah 4: Opsi E: $D = 4 - 12 = -8 < 0$ — memenuhi.\n\nLangkah 5: Ketiga syarat harus dipenuhi bersama. Opsi A memenuhi dua syarat pertama tetapi gagal pada yang ketiga.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P36-Q6] Grafik $y = x^2 - 4x + 1$ melalui titik $(0, 1)$. Titik lain pada grafik yang ordinatnya juga $1$ adalah $\\dots$",
+            "opsi": [
+              "A. $(-4, 1)$",
+              "B. $(2, 1)$",
+              "C. $(4, 1)$",
+              "D. $(1, 4)$",
+              "E. $(8, 1)$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Sumbu simetrinya $x_p = -\\frac{-4}{2} = 2$.\n\nLangkah 2: Titik $(0, 1)$ berjarak $2$ satuan di KIRI sumbu simetri.\n\nLangkah 3: Cerminnya berjarak $2$ satuan di KANAN sumbu, yaitu $x = 4$.\n\nLangkah 4: Periksa: $16 - 16 + 1 = 1$ — cocok. Titiknya $(4, 1)$.\n\nLangkah 5: Opsi B ($(2, 1)$) adalah titik pada sumbu simetri, padahal $f(2) = -3$. Opsi A mencerminkan terhadap sumbu $Y$, bukan terhadap sumbu simetri.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P36-Q7] Grafik $y = -x^2 + 4x$ memotong sumbu $X$ di titik $O$ dan $P$, dan puncaknya $Q$. Luas segitiga $OPQ$ adalah $\\dots$",
+            "opsi": [
+              "A. $4$",
+              "B. $8$",
+              "C. $16$",
+              "D. $2$",
+              "E. $12$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Titik potong sumbu $X$: $x(4 - x) = 0$, jadi $O(0, 0)$ dan $P(4, 0)$.\n\nLangkah 2: Puncak: $x_p = 2$ dan $y = -4 + 8 = 4$, jadi $Q(2, 4)$.\n\nLangkah 3: Alas segitiga adalah $OP = 4$ pada sumbu $X$, dan tingginya jarak $Q$ ke sumbu $X$, yaitu $4$.\n\nLangkah 4: Hitung luasnya.\n$\\frac{1}{2} \\times 4 \\times 4 = 8$\n\nLangkah 5: Opsi C ($16$) lupa mengalikan dengan $\\frac{1}{2}$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P36-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Grafik $y = x^2 + 2x + 3$ seluruhnya berada di atas sumbu $X$.",
+              "(2) Grafik $y = -2x^2 + 1$ terbuka ke atas.",
+              "(3) Grafik $y = (x + 1)^2$ diperoleh dari $y = x^2$ yang digeser $1$ satuan ke kanan."
+            ],
+            "kunci": "B - S - S",
+            "bahas": "Langkah 1: Pernyataan (1): $D = 4 - 12 = -8 < 0$ dan $a = 1 > 0$. Grafik tidak menyentuh sumbu $X$ dan terbuka ke atas, jadi seluruhnya di atas sumbu. BENAR.\n\nLangkah 2: Pernyataan (2): $a = -2 < 0$, jadi grafiknya terbuka ke BAWAH. SALAH.\n\nLangkah 3: Pernyataan (3): puncak $y = (x + 1)^2$ adalah $(-1, 0)$.\n\nLangkah 4: Dari $(0, 0)$ ke $(-1, 0)$ berarti digeser $1$ satuan ke KIRI, bukan ke kanan.\n\nLangkah 5: Pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban B - S - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P36-Q9] Diketahui grafik $y = x^2 - 6x + 8$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Sumbu simetrinya $x = 3$.",
+              "B. Titik puncaknya $(3, -1)$.",
+              "C. Grafiknya memotong sumbu $X$ di $(2, 0)$ dan $(4, 0)$.",
+              "D. Grafiknya memotong sumbu $Y$ di $(0, -8)$.",
+              "E. Grafiknya terbuka ke bawah."
+            ],
+            "kunci": "A, B, C",
+            "bahas": "Langkah 1: A: $x_p = -\\frac{-6}{2} = 3$ — benar.\n\nLangkah 2: B: $f(3) = 9 - 18 + 8 = -1$, jadi puncaknya $(3, -1)$ — benar.\n\nLangkah 3: C: $x^2 - 6x + 8 = (x - 2)(x - 4)$, jadi titik potongnya $(2, 0)$ dan $(4, 0)$ — benar.\n\nLangkah 4: D: $f(0) = 8$, jadi titik potong sumbu $Y$ adalah $(0, 8)$, bukan $(0, -8)$ — salah.\n\nLangkah 5: E: $a = 1 > 0$, jadi terbuka ke ATAS — salah.\n\nKesimpulan: Kunci Jawaban A, B, C."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P36-Q10] Grafik $y = x^2 - 2x - 8$ memotong sumbu $X$ di titik $A$ dan $B$, dan puncaknya $C$. Luas segitiga $ABC$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "27",
+            "bahas": "Langkah 1: Titik potong sumbu $X$: $(x - 4)(x + 2) = 0$, jadi $A(-2, 0)$ dan $B(4, 0)$.\n\nLangkah 2: Panjang alas $AB = 4 - (-2) = 6$.\n\nLangkah 3: Puncak: $x_p = 1$ dan $f(1) = 1 - 2 - 8 = -9$, jadi $C(1, -9)$.\n\nLangkah 4: Tinggi segitiga adalah jarak $C$ ke sumbu $X$, yaitu $9$ (jarak selalu positif).\n\nLangkah 5: Hitung luasnya.\n$\\frac{1}{2} \\times 6 \\times 9 = 27$\n\nKesimpulan: Kunci Jawaban 27."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P37",
+      "judul": "Menyusun Fungsi Kuadrat dari Grafik atau Titik yang Diketahui",
+      "materi": {
+        "id": "P37",
+        "bab": "Bab 6: Fungsi Kuadrat",
+        "title": "Menyusun Fungsi Kuadrat dari Grafik atau Titik yang Diketahui",
+        "obj": [
+          "Memilih bentuk fungsi yang paling sesuai dengan keterangan yang tersedia: bentuk titik potong, bentuk puncak, atau bentuk umum.",
+          "Menyusun fungsi kuadrat dari dua titik potong sumbu $X$ dan satu titik lain, dari titik puncak dan satu titik lain, atau dari tiga titik sembarang.",
+          "Memeriksa fungsi yang diperoleh pada SEMUA titik yang diketahui dan menjabarkannya ke bentuk umum."
+        ],
+        "hook": "Sampai di sini kita selalu diberi fungsinya, lalu diminta menggambar grafiknya. Dalam kehidupan nyata, arahnya sering terbalik: seorang insinyur mengukur lengkung sebuah jembatan — lebarnya, tinggi puncaknya — lalu harus menuliskan fungsinya agar dapat menghitung tinggi lengkung di sembarang titik. Kuncinya adalah memilih BENTUK fungsi yang tepat. Bentuk yang tepat membuat soalnya selesai dalam dua baris; bentuk yang salah memaksa kita menyelesaikan sistem tiga persamaan.",
+        "toolkit": [
+          {
+            "name": "Dua Titik Potong Sumbu X",
+            "math": "$$(x_1, 0), (x_2, 0) \\Rightarrow y = a(x - x_1)(x - x_2)$$"
+          },
+          {
+            "name": "Titik Puncak",
+            "math": "$$(h, k) \\Rightarrow y = a(x - h)^2 + k$$"
+          },
+          {
+            "name": "Menyinggung Sumbu X",
+            "math": "$$(p, 0) \\Rightarrow y = a(x - p)^2$$"
+          },
+          {
+            "name": "Tiga Titik Sembarang",
+            "math": "$$y = ax^2 + bx + c \\Rightarrow \\text{SPLTV dalam } a, b, c$$"
+          },
+          {
+            "name": "Mencari a",
+            "math": "$$\\text{substitusikan satu titik lain yang diketahui}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan fungsi kuadrat yang grafiknya memotong sumbu $X$ di $(1, 0)$ dan $(5, 0)$ serta melalui $(0, 5)$.",
+            "solution": "Langkah 1: Diketahui dua titik potong sumbu $X$, jadi pakai bentuk titik potong.\n$y = a(x - 1)(x - 5)$\n\nLangkah 2: Nilai $a$ belum diketahui. Substitusikan titik ketiga, $(0, 5)$.\n$5 = a(0 - 1)(0 - 5) = a(-1)(-5) = 5a$\n\nLangkah 3: Selesaikan.\n$a = 1$\n\nLangkah 4: Tulis fungsinya lalu jabarkan.\n$y = (x - 1)(x - 5) = x^2 - 6x + 5$\n\nLangkah 5: Periksa ketiga titik: $1 - 6 + 5 = 0$, $25 - 30 + 5 = 0$, dan $0 - 0 + 5 = 5$ — semuanya cocok.\n\nLangkah 6: Perhatikan tandanya: titik potong $(1, 0)$ menghasilkan faktor $(x - 1)$, bukan $(x + 1)$.\n\nKesimpulan: Fungsinya $y = x^2 - 6x + 5$."
+          },
+          {
+            "problem": "Tentukan fungsi kuadrat yang berpuncak di $(2, -3)$ dan melalui titik $(0, 1)$.",
+            "solution": "Langkah 1: Diketahui titik puncak, jadi pakai bentuk puncak.\n$y = a(x - 2)^2 - 3$\n\nLangkah 2: Substitusikan titik $(0, 1)$.\n$1 = a(0 - 2)^2 - 3 = 4a - 3$\n\nLangkah 3: Selesaikan.\n$4a = 4 \\Rightarrow a = 1$\n\nLangkah 4: Tulis fungsinya lalu jabarkan.\n$y = (x - 2)^2 - 3 = x^2 - 4x + 4 - 3 = x^2 - 4x + 1$\n\nLangkah 5: Periksa puncak: $x_p = -\\frac{-4}{2} = 2$ dan $f(2) = 4 - 8 + 1 = -3$ — cocok. Periksa $(0, 1)$: $f(0) = 1$ — cocok.\n\nLangkah 6: Bentuk puncak sangat efisien: hanya satu bilangan yang dicari, yaitu $a$.\n\nKesimpulan: Fungsinya $y = x^2 - 4x + 1$."
+          },
+          {
+            "problem": "Tentukan fungsi kuadrat yang berpuncak di $(-1, 4)$ dan memotong sumbu $X$ di $(1, 0)$.",
+            "solution": "Langkah 1: Diketahui titik puncak, jadi pakai bentuk puncak. Perhatikan $h = -1$.\n$y = a(x + 1)^2 + 4$\n\nLangkah 2: Substitusikan $(1, 0)$.\n$0 = a(1 + 1)^2 + 4 = 4a + 4$\n\nLangkah 3: Selesaikan.\n$a = -1$\n\nLangkah 4: Nilai $a$ negatif, jadi grafik terbuka ke bawah — masuk akal, sebab puncaknya di atas sumbu $X$ tetapi grafiknya turun memotong sumbu.\n\nLangkah 5: Jabarkan.\n$y = -(x^2 + 2x + 1) + 4 = -x^2 - 2x + 3$\n\nLangkah 6: Periksa: $f(1) = -1 - 2 + 3 = 0$ dan $f(-1) = -1 + 2 + 3 = 4$ — cocok. Titik potong lainnya, cermin dari $x = 1$ terhadap $x = -1$, adalah $x = -3$: $f(-3) = -9 + 6 + 3 = 0$ — cocok.\n\nKesimpulan: Fungsinya $y = -x^2 - 2x + 3$."
+          },
+          {
+            "problem": "Tentukan fungsi kuadrat yang grafiknya melalui $(0, -3)$, $(1, 0)$, dan $(2, 5)$.",
+            "solution": "Langkah 1: Ketiga titik tidak berupa titik puncak maupun sepasang titik potong sumbu $X$ yang diketahui semua, jadi pakai bentuk umum $y = ax^2 + bx + c$.\n\nLangkah 2: Titik $(0, -3)$ langsung memberikan $c = -3$.\n\nLangkah 3: Titik $(1, 0)$: $a + b - 3 = 0 \\Rightarrow a + b = 3$.\n\nLangkah 4: Titik $(2, 5)$: $4a + 2b - 3 = 5 \\Rightarrow 4a + 2b = 8 \\Rightarrow 2a + b = 4$.\n\nLangkah 5: Kurangkan kedua persamaan.\n$(2a + b) - (a + b) = 4 - 3 \\Rightarrow a = 1$, lalu $b = 2$\n\nLangkah 6: Fungsinya $y = x^2 + 2x - 3$. Periksa: $-3$, $1 + 2 - 3 = 0$, $4 + 4 - 3 = 5$ — semuanya cocok.\n\nLangkah 7: Titik dengan $x = 0$ selalu memudahkan, karena langsung memberikan $c$ dan mengubah SPLTV menjadi sistem dua variabel.\n\nKesimpulan: Fungsinya $y = x^2 + 2x - 3$."
+          },
+          {
+            "problem": "Tentukan fungsi kuadrat yang grafiknya menyinggung sumbu $X$ di $(3, 0)$ dan melalui $(1, 8)$.",
+            "solution": "Langkah 1: Menyinggung sumbu $X$ di $(3, 0)$ berarti titik itu sekaligus PUNCAK dengan $k = 0$.\n$y = a(x - 3)^2$\n\nLangkah 2: Substitusikan $(1, 8)$.\n$8 = a(1 - 3)^2 = 4a$\n\nLangkah 3: Selesaikan.\n$a = 2$\n\nLangkah 4: Jabarkan.\n$y = 2(x^2 - 6x + 9) = 2x^2 - 12x + 18$\n\nLangkah 5: Periksa diskriminan: $D = 144 - 4(2)(18) = 144 - 144 = 0$ — memang menyinggung. Periksa $(1, 8)$: $2 - 12 + 18 = 8$ — cocok.\n\nLangkah 6: Bentuk ini dapat dipandang dari dua sisi: bentuk puncak dengan $k = 0$, atau bentuk titik potong dengan $x_1 = x_2 = 3$.\n\nKesimpulan: Fungsinya $y = 2x^2 - 12x + 18$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Guru menempelkan tiga gambar parabola di papan — satu dengan dua titik potong sumbu $X$ dan satu titik lain yang terbaca, satu dengan puncak dan satu titik lain, dan satu yang hanya menampilkan tiga titik sembarang. Setiap kelompok menyusun fungsi ketiganya, tetapi SEBELUM menghitung harus menuliskan bentuk mana yang dipilih dan mengapa. Kelompok yang memakai bentuk berbeda untuk gambar yang sama membandingkan panjang hitungannya.",
+        "summary_data": {
+          "summary": [
+            "Pilih bentuk fungsi berdasarkan keterangan yang tersedia.",
+            "Dua titik potong sumbu $X$ $(x_1, 0)$ dan $(x_2, 0)$: pakai $y = a(x - x_1)(x - x_2)$.",
+            "Titik puncak $(h, k)$: pakai $y = a(x - h)^2 + k$.",
+            "Menyinggung sumbu $X$ di $(p, 0)$: pakai $y = a(x - p)^2$.",
+            "Tiga titik sembarang: pakai $y = ax^2 + bx + c$ dan selesaikan SPLTV-nya.",
+            "Nilai $a$ dicari dengan menyubstitusikan satu titik lain yang diketahui.",
+            "Titik $(1, 0)$ menghasilkan faktor $(x - 1)$; titik $(-1, 0)$ menghasilkan $(x + 1)$.",
+            "Tanda $a$ harus sesuai dengan arah buka yang terlihat pada grafik.",
+            "Titik dengan $x = 0$ langsung memberikan nilai $c$.",
+            "Periksa fungsi akhir pada SEMUA titik yang diketahui."
+          ],
+          "islamic": "Mencari ilmu adalah jalan yang dimudahkan Allah. \"Barang siapa menempuh suatu jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju surga.\" (HR. Muslim)"
+        },
+        "collab_cases": [
+          "Tentukan fungsi kuadrat yang memotong sumbu $X$ di $(-2, 0)$ dan $(3, 0)$ serta melalui $(0, -12)$.",
+          "Tentukan fungsi kuadrat yang berpuncak di $(1, 5)$ dan melalui $(3, -3)$.",
+          "Tentukan fungsi kuadrat yang melalui $(0, 4)$, $(1, 3)$, dan $(-1, 9)$.",
+          "Tentukan fungsi kuadrat yang menyinggung sumbu $X$ di $(-2, 0)$ dan melalui $(0, 8)$.",
+          "Sebuah lengkung jembatan berbentuk parabola dengan lebar $20$ m di permukaan jalan dan tinggi puncak $5$ m. Letakkan titik asal di salah satu kaki lengkung, lalu tentukan fungsinya."
+        ]
+      },
+      "soal": {
+        "id": "P37",
+        "subject": "wajib",
+        "title": "P37 • Menyusun Fungsi Kuadrat dari Grafik atau Titik yang Diketahui",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P37-Q1] Fungsi kuadrat yang grafiknya memotong sumbu $X$ di $(-2, 0)$ dan $(3, 0)$ dapat ditulis dalam bentuk $\\dots$",
+            "opsi": [
+              "A. $y = a(x - 2)(x + 3)$",
+              "B. $y = a(x + 2)(x - 3)$",
+              "C. $y = a(x + 2)(x + 3)$",
+              "D. $y = a(x - 2)(x - 3)$",
+              "E. $y = a(x^2 + 6)$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Bentuk titik potong: $y = a(x - x_1)(x - x_2)$.\n\nLangkah 2: Dengan $x_1 = -2$: $(x - (-2)) = (x + 2)$.\n\nLangkah 3: Dengan $x_2 = 3$: $(x - 3)$.\n\nLangkah 4: Jadi $y = a(x + 2)(x - 3)$.\n\nLangkah 5: Periksa: $x = -2$ membuat faktor pertama nol, dan $x = 3$ membuat faktor kedua nol — cocok. Opsi A membalik kedua tanda.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P37-Q2] Fungsi kuadrat yang berpuncak di $(1, -4)$ dan melalui $(0, -3)$ adalah $\\dots$",
+            "opsi": [
+              "A. $y = x^2 - 2x - 3$",
+              "B. $y = x^2 + 2x - 3$",
+              "C. $y = -x^2 + 2x - 3$",
+              "D. $y = x^2 - 2x + 5$",
+              "E. $y = 2x^2 - 4x - 3$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Pakai bentuk puncak.\n$y = a(x - 1)^2 - 4$\n\nLangkah 2: Substitusikan $(0, -3)$.\n$-3 = a(1) - 4 \\Rightarrow a = 1$\n\nLangkah 3: Jabarkan.\n$y = x^2 - 2x + 1 - 4 = x^2 - 2x - 3$\n\nLangkah 4: Periksa puncak: $x_p = 1$ dan $f(1) = 1 - 2 - 3 = -4$ — cocok.\n\nLangkah 5: Opsi B berpuncak di $x = -1$. Opsi E melalui $(0, -3)$ tetapi puncaknya $f(1) = 2 - 4 - 3 = -5$, bukan $-4$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P37-Q3] Fungsi kuadrat yang memotong sumbu $X$ di $(1, 0)$ dan $(4, 0)$ serta melalui $(0, 8)$ adalah $\\dots$",
+            "opsi": [
+              "A. $y = x^2 - 5x + 4$",
+              "B. $y = 2x^2 + 10x + 8$",
+              "C. $y = 8x^2 - 40x + 32$",
+              "D. $y = 2x^2 - 10x + 8$",
+              "E. $y = -2x^2 + 10x - 8$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Pakai bentuk titik potong.\n$y = a(x - 1)(x - 4)$\n\nLangkah 2: Substitusikan $(0, 8)$.\n$8 = a(-1)(-4) = 4a \\Rightarrow a = 2$\n\nLangkah 3: Jabarkan.\n$y = 2(x^2 - 5x + 4) = 2x^2 - 10x + 8$\n\nLangkah 4: Opsi A lupa mencari $a$ (menganggap $a = 1$), sehingga melalui $(0, 4)$, bukan $(0, 8)$.\n\nLangkah 5: Opsi C memakai $a = 8$, yaitu langsung mengambil ordinat titik ketiga tanpa membaginya dengan $4$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P37-Q4] Grafik sebuah fungsi kuadrat berpuncak di $(2, 5)$ dan melalui $(0, 1)$. Nilai fungsi itu saat $x = 3$ adalah $\\dots$",
+            "opsi": [
+              "A. $5$",
+              "B. $2$",
+              "C. $4$",
+              "D. $1$",
+              "E. $8$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Pakai bentuk puncak.\n$y = a(x - 2)^2 + 5$\n\nLangkah 2: Substitusikan $(0, 1)$.\n$1 = 4a + 5 \\Rightarrow a = -1$\n\nLangkah 3: Fungsinya $y = -(x - 2)^2 + 5$.\n\nLangkah 4: Hitung saat $x = 3$.\n$y = -(1)^2 + 5 = 4$\n\nLangkah 5: Periksa dengan kesimetrian: $x = 3$ adalah cermin $x = 1$, dan $f(1) = -1 + 5 = 4$ — sama. Opsi A ($5$) adalah nilai puncak, yang hanya tercapai di $x = 2$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P37-Q5] Fungsi kuadrat yang grafiknya menyinggung sumbu $X$ di $(-1, 0)$ dan melalui $(1, 12)$ adalah $\\dots$",
+            "opsi": [
+              "A. $y = 3x^2 - 6x + 3$",
+              "B. $y = x^2 + 2x + 1$",
+              "C. $y = 12x^2 + 24x + 12$",
+              "D. $y = 3x^2 + 3$",
+              "E. $y = 3x^2 + 6x + 3$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Menyinggung sumbu $X$ di $(-1, 0)$: $y = a(x + 1)^2$.\n\nLangkah 2: Substitusikan $(1, 12)$.\n$12 = a(2)^2 = 4a \\Rightarrow a = 3$\n\nLangkah 3: Jabarkan.\n$y = 3(x^2 + 2x + 1) = 3x^2 + 6x + 3$\n\nLangkah 4: Opsi A menyinggung di $(1, 0)$, bukan $(-1, 0)$. Opsi B melalui $(1, 4)$, bukan $(1, 12)$.\n\nLangkah 5: Opsi D tidak menyinggung sumbu $X$ sama sekali: $3x^2 + 3 > 0$ untuk semua $x$.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P37-Q6] Fungsi kuadrat yang grafiknya melalui $(0, 2)$, $(1, 3)$, dan $(-1, 5)$ adalah $\\dots$",
+            "opsi": [
+              "A. $y = 2x^2 - x + 2$",
+              "B. $y = 2x^2 + x + 2$",
+              "C. $y = x^2 - 2x + 2$",
+              "D. $y = -2x^2 + x + 2$",
+              "E. $y = 2x^2 - x - 2$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Pakai bentuk umum. Titik $(0, 2)$ memberikan $c = 2$.\n\nLangkah 2: Titik $(1, 3)$: $a + b + 2 = 3 \\Rightarrow a + b = 1$.\n\nLangkah 3: Titik $(-1, 5)$: $a - b + 2 = 5 \\Rightarrow a - b = 3$.\n\nLangkah 4: Jumlahkan.\n$2a = 4 \\Rightarrow a = 2$, lalu $b = -1$\n\nLangkah 5: Fungsinya $y = 2x^2 - x + 2$. Periksa: $2 - 1 + 2 = 3$ dan $2 + 1 + 2 = 5$ — cocok. Opsi B menukar nilai pada $x = 1$ dan $x = -1$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P37-Q7] Grafik sebuah fungsi kuadrat memotong sumbu $X$ di $(-1, 0)$ dan $(5, 0)$, dan ordinat puncaknya $-9$. Nilai fungsi itu saat $x = 0$ adalah $\\dots$",
+            "opsi": [
+              "A. $5$",
+              "B. $-5$",
+              "C. $-9$",
+              "D. $9$",
+              "E. $-4$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Pakai bentuk titik potong.\n$y = a(x + 1)(x - 5)$\n\nLangkah 2: Sumbu simetri di tengah kedua titik potong.\n$x_p = \\frac{-1 + 5}{2} = 2$\n\nLangkah 3: Ordinat puncak $-9$ berarti $f(2) = -9$.\n$a(3)(-3) = -9a = -9 \\Rightarrow a = 1$\n\nLangkah 4: Hitung $f(0)$.\n$(0 + 1)(0 - 5) = -5$\n\nLangkah 5: Fungsinya $y = x^2 - 4x - 5$. Opsi C ($-9$) adalah ordinat puncak, bukan $f(0)$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P37-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Fungsi kuadrat yang berpuncak di $(0, 0)$ dan melalui $(1, 3)$ adalah $y = x^2 + 3$.",
+              "(2) Jika grafik fungsi kuadrat memotong sumbu $X$ di $(2, 0)$ dan $(6, 0)$, sumbu simetrinya $x = 4$.",
+              "(3) Grafik $y = (x - 3)^2 - 1$ memotong sumbu $X$ di $(2, 0)$ dan $(4, 0)$."
+            ],
+            "kunci": "S - B - B",
+            "bahas": "Langkah 1: Pernyataan (1): bentuk puncak $y = a(x - 0)^2 + 0 = ax^2$. Dari $(1, 3)$: $a = 3$, jadi $y = 3x^2$.\n\nLangkah 2: Fungsi $y = x^2 + 3$ justru berpuncak di $(0, 3)$. Pernyataan (1) SALAH.\n\nLangkah 3: Pernyataan (2): sumbu simetri di tengah kedua titik potong, $\\frac{2 + 6}{2} = 4$. BENAR.\n\nLangkah 4: Pernyataan (3): $(x - 3)^2 - 1 = 0 \\Rightarrow (x - 3)^2 = 1 \\Rightarrow x - 3 = \\pm 1$, jadi $x = 2$ atau $x = 4$.\n\nLangkah 5: Pernyataan (3) BENAR.\n\nKesimpulan: Kunci Jawaban S - B - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P37-Q9] Pilihlah SEMUA fungsi yang grafiknya melalui titik $(1, 0)$ dan $(3, 0)$.",
+            "opsi": [
+              "A. $y = x^2 - 4x + 3$",
+              "B. $y = 2x^2 - 8x + 6$",
+              "C. $y = -x^2 + 4x - 3$",
+              "D. $y = x^2 + 4x + 3$",
+              "E. $y = x^2 - 4x - 3$"
+            ],
+            "kunci": "A, B, C",
+            "bahas": "Langkah 1: Setiap fungsi yang melalui kedua titik itu berbentuk $y = a(x - 1)(x - 3) = a(x^2 - 4x + 3)$ untuk suatu $a \\neq 0$.\n\nLangkah 2: A: $a = 1$ — memenuhi.\n\nLangkah 3: B: $2(x^2 - 4x + 3)$, yaitu $a = 2$ — memenuhi.\n\nLangkah 4: C: $-(x^2 - 4x + 3)$, yaitu $a = -1$ — memenuhi.\n\nLangkah 5: D: $f(1) = 1 + 4 + 3 = 8 \\neq 0$ — tidak memenuhi. E: $f(1) = 1 - 4 - 3 = -6 \\neq 0$ — tidak memenuhi.\n\nLangkah 6: Soal ini menunjukkan bahwa dua titik potong saja belum menentukan satu fungsi; diperlukan satu keterangan lagi untuk menetapkan $a$.\n\nKesimpulan: Kunci Jawaban A, B, C."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P37-Q10] Fungsi kuadrat $y = ax^2 + bx + c$ berpuncak di $(3, -2)$ dan melalui $(1, 6)$. Nilai $b + c$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "4",
+            "bahas": "Langkah 1: Pakai bentuk puncak.\n$y = a(x - 3)^2 - 2$\n\nLangkah 2: Substitusikan $(1, 6)$.\n$6 = a(4) - 2 \\Rightarrow a = 2$\n\nLangkah 3: Jabarkan.\n$y = 2(x^2 - 6x + 9) - 2 = 2x^2 - 12x + 16$\n\nLangkah 4: Jadi $b = -12$ dan $c = 16$, sehingga $b + c = 4$.\n\nLangkah 5: Periksa: $f(1) = 2 - 12 + 16 = 6$ dan $x_p = \\frac{12}{4} = 3$ — cocok.\n\nKesimpulan: Kunci Jawaban 4."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P38",
+      "judul": "Penerapan Fungsi Kuadrat: Nilai Maksimum dan Minimum",
+      "materi": {
+        "id": "P38",
+        "bab": "Bab 6: Fungsi Kuadrat",
+        "title": "Penerapan Fungsi Kuadrat: Nilai Maksimum dan Minimum",
+        "obj": [
+          "Memodelkan masalah nyata — lintasan benda, luas, hasil kali, dan pendapatan — menjadi fungsi kuadrat satu variabel.",
+          "Menentukan nilai maksimum atau minimum model itu beserta nilai variabel yang menghasilkannya, memakai titik puncak.",
+          "Menafsirkan hasil dalam konteks: satuan, batas nilai yang masuk akal, dan jawaban atas pertanyaan yang sebenarnya diajukan."
+        ],
+        "hook": "Petani ingin kandang seluas-luasnya dengan pagar yang terbatas. Pengelola bioskop ingin pendapatan setinggi-tingginya, padahal menaikkan harga tiket membuat penonton berkurang. Pelatih ingin tahu setinggi apa bola yang ditendang pemainnya. Ketiganya mencari yang TERBESAR, dan ketiganya berakhir pada fungsi kuadrat yang terbuka ke bawah. Jawabannya selalu ada di tempat yang sama: di titik puncak.",
+        "toolkit": [
+          {
+            "name": "1. Tetapkan Variabel",
+            "math": "$$x = \\text{besaran yang dapat diatur}$$"
+          },
+          {
+            "name": "2. Susun Model",
+            "math": "$$\\text{besaran yang dioptimalkan} = f(x) = ax^2 + bx + c$$"
+          },
+          {
+            "name": "3. Nilai Optimum",
+            "math": "$$x_p = -\\frac{b}{2a},\\quad f(x_p) = \\text{maks } (a < 0) \\text{ atau min } (a > 0)$$"
+          },
+          {
+            "name": "Dua Bilangan",
+            "math": "$$x + y = s \\Rightarrow xy \\text{ maksimum saat } x = y = \\frac{s}{2}$$"
+          },
+          {
+            "name": "Lintasan Benda",
+            "math": "$$h(t) = -5t^2 + v_0 t + h_0$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tinggi sebuah bola yang ditendang ke atas setelah $t$ detik adalah $h(t) = -5t^2 + 20t$ meter. Tentukan tinggi maksimumnya, kapan tercapai, dan kapan bola kembali ke tanah.",
+            "solution": "Langkah 1: Fungsinya kuadrat dengan $a = -5 < 0$, jadi mempunyai nilai MAKSIMUM di puncak.\n\nLangkah 2: Waktu mencapai puncak.\n$t_p = -\\frac{20}{2(-5)} = 2$ detik\n\nLangkah 3: Tinggi maksimum.\n$h(2) = -5(4) + 40 = -20 + 40 = 20$ meter\n\nLangkah 4: Bola kembali ke tanah saat $h(t) = 0$.\n$-5t^2 + 20t = -5t(t - 4) = 0 \\Rightarrow t = 0$ atau $t = 4$\n\nLangkah 5: Nilai $t = 0$ adalah saat bola ditendang, jadi bola kembali ke tanah pada $t = 4$ detik.\n\nLangkah 6: Periksa kesimetrian: naik $2$ detik dan turun $2$ detik — waktu puncak tepat di tengah $0$ dan $4$.\n\nKesimpulan: Tinggi maksimum $20$ meter pada detik ke-$2$, dan bola kembali ke tanah pada detik ke-$4$."
+          },
+          {
+            "problem": "Keliling sebuah persegi panjang $40$ cm. Tentukan ukuran yang membuat luasnya terbesar dan berapa luas itu.",
+            "solution": "Langkah 1: Misalkan panjangnya $x$ cm. Karena panjang ditambah lebar $= 20$, lebarnya $20 - x$.\n\nLangkah 2: Susun model luas.\n$L(x) = x(20 - x) = -x^2 + 20x$\n\nLangkah 3: Nilai $a = -1 < 0$, jadi ada luas maksimum.\n\nLangkah 4: Cari $x$ di puncak.\n$x_p = -\\frac{20}{2(-1)} = 10$\n\nLangkah 5: Hitung luas maksimum.\n$L(10) = 10 \\times 10 = 100$ cm$^2$\n\nLangkah 6: Ukurannya $10 \\times 10$ — sebuah persegi. Dari semua persegi panjang berkeliling sama, persegilah yang luasnya terbesar.\n\nLangkah 7: Periksa dengan ukuran lain: $9 \\times 11 = 99$ dan $8 \\times 12 = 96$ — keduanya lebih kecil.\n\nKesimpulan: Luas terbesar $100$ cm$^2$, dicapai bila bangunnya persegi berukuran $10 \\times 10$ cm."
+          },
+          {
+            "problem": "Seorang peternak mempunyai $60$ m pagar untuk membuat kandang persegi panjang yang salah satu sisinya menempel pada tembok (tidak perlu dipagari). Tentukan luas maksimum kandang itu.",
+            "solution": "Langkah 1: Misalkan dua sisi yang tegak lurus tembok masing-masing $x$ m. Sisi yang sejajar tembok memakai sisa pagar: $60 - 2x$ m.\n\nLangkah 2: Susun model luas.\n$L(x) = x(60 - 2x) = -2x^2 + 60x$\n\nLangkah 3: Cari $x$ di puncak.\n$x_p = -\\frac{60}{2(-2)} = 15$\n\nLangkah 4: Hitung ukuran dan luasnya. Sisi sejajar tembok $60 - 30 = 30$ m.\n$L(15) = 15 \\times 30 = 450$ m$^2$\n\nLangkah 5: Perhatikan bahwa jawabannya BUKAN persegi: sisi sejajar tembok dua kali sisi lainnya, karena tembok menggantikan satu sisi pagar.\n\nLangkah 6: Periksa: $x = 14$ memberikan $14 \\times 32 = 448$, dan $x = 16$ memberikan $16 \\times 28 = 448$ — keduanya lebih kecil dan sama besar, sesuai kesimetrian.\n\nLangkah 7: Batas masuk akal: $x$ harus di antara $0$ dan $30$ agar semua sisi positif, dan $x = 15$ memang di dalamnya.\n\nKesimpulan: Luas maksimum $450$ m$^2$, dengan ukuran $15$ m (tegak lurus tembok) kali $30$ m (sejajar tembok)."
+          },
+          {
+            "problem": "Jumlah dua bilangan adalah $12$. Tentukan kedua bilangan itu agar hasil kalinya sebesar-besarnya.",
+            "solution": "Langkah 1: Misalkan bilangan pertama $x$. Bilangan kedua $12 - x$.\n\nLangkah 2: Susun model hasil kali.\n$P(x) = x(12 - x) = -x^2 + 12x$\n\nLangkah 3: Cari puncaknya.\n$x_p = -\\frac{12}{-2} = 6$\n\nLangkah 4: Bilangan kedua $12 - 6 = 6$, dan hasil kalinya $36$.\n\nLangkah 5: Periksa: $5 \\times 7 = 35$ dan $4 \\times 8 = 32$ — keduanya lebih kecil.\n\nLangkah 6: Polanya sama dengan persegi panjang pada Contoh 2: bila jumlahnya tetap, hasil kali terbesar dicapai saat kedua bilangan SAMA.\n\nKesimpulan: Kedua bilangan itu $6$ dan $6$, dengan hasil kali maksimum $36$."
+          },
+          {
+            "problem": "Sebuah bioskop menjual tiket Rp$20.000$ dan rata-rata ditonton $300$ orang. Setiap kenaikan harga Rp$1.000$ membuat penonton berkurang $10$ orang. Tentukan harga tiket yang memberikan pendapatan terbesar.",
+            "solution": "Langkah 1: Misalkan harga dinaikkan $n$ kali Rp$1.000$. Harga menjadi $(20 + n)$ ribu, dan penonton menjadi $300 - 10n$ orang.\n\nLangkah 2: Susun model pendapatan dalam ribu rupiah.\n$R(n) = (20 + n)(300 - 10n)$\n\nLangkah 3: Jabarkan.\n$R(n) = 6000 - 200n + 300n - 10n^2 = -10n^2 + 100n + 6000$\n\nLangkah 4: Cari puncaknya.\n$n_p = -\\frac{100}{2(-10)} = 5$\n\nLangkah 5: Harga tiket $20 + 5 = 25$ ribu, penonton $300 - 50 = 250$ orang.\n$R(5) = 25 \\times 250 = 6250$ ribu\n\nLangkah 6: Periksa: tanpa kenaikan, $R(0) = 20 \\times 300 = 6000$ ribu. Kenaikan harga ternyata menambah pendapatan Rp$250.000$, walaupun penontonnya berkurang.\n\nLangkah 7: Jawablah pertanyaan yang sebenarnya: yang ditanyakan HARGA tiketnya, bukan nilai $n$.\n\nKesimpulan: Harga tiket Rp$25.000$ memberikan pendapatan terbesar, yaitu Rp$6.250.000$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok diberi tali sepanjang $2$ meter. Bentuklah beberapa persegi panjang yang berbeda di atas kertas berpetak, catat ukuran dan luasnya dalam tabel di papan, lalu gambarkan titik-titik (panjang, luas) pada bidang koordinat. Apa bentuk sebaran titik-titik itu? Susun fungsinya, tentukan puncaknya, dan bandingkan dengan pengamatan. Terakhir, ulangi soalnya bila salah satu sisi menempel pada dinding kelas — apakah jawabannya masih persegi?",
+        "summary_data": {
+          "summary": [
+            "Soal optimasi dimulai dengan menetapkan satu variabel yang dapat diatur.",
+            "Nyatakan semua besaran lain dalam variabel itu memakai keterangan pada soal.",
+            "Model yang terbuka ke bawah ($a < 0$) mempunyai nilai maksimum; yang terbuka ke atas ($a > 0$) mempunyai nilai minimum.",
+            "Nilai optimum tercapai di $x_p = -\\frac{b}{2a}$, dan besarnya $f(x_p)$.",
+            "Pada lintasan $h(t) = -5t^2 + v_0 t$, waktu puncak tepat di tengah waktu naik dan turun.",
+            "Persegi panjang berkeliling tetap mempunyai luas terbesar ketika berbentuk persegi.",
+            "Bila satu sisi menempel tembok, sisi yang sejajar tembok menjadi dua kali sisi lainnya.",
+            "Dua bilangan berjumlah tetap mempunyai hasil kali terbesar bila keduanya sama.",
+            "Periksalah batas nilai yang masuk akal: panjang, waktu, dan banyak barang tidak boleh negatif.",
+            "Jawablah TEPAT yang ditanyakan — harga, ukuran, atau luas — bukan sekadar nilai variabelnya."
+          ],
+          "islamic": "Hidup adalah ujian untuk menjadi yang terbaik amalnya, bukan yang terbanyak. \"Yang menjadikan mati dan hidup, supaya Dia menguji kamu, siapa di antara kamu yang lebih baik amalnya.\" (QS. Al-Mulk: 2)"
+        },
+        "collab_cases": [
+          "Tinggi sebuah roket air setelah $t$ detik adalah $h(t) = -5t^2 + 30t$ meter. Tentukan tinggi maksimumnya dan kapan roket jatuh kembali.",
+          "Keliling sebuah persegi panjang $36$ cm. Tentukan luas maksimumnya.",
+          "Seorang petani mempunyai $80$ m pagar untuk kandang persegi panjang yang satu sisinya menempel pada sungai. Tentukan ukuran dan luas maksimumnya.",
+          "Selisih dua bilangan adalah $10$. Tentukan kedua bilangan itu agar hasil kalinya sekecil-kecilnya.",
+          "Harga sewa sepeda Rp$30.000$ per hari dengan $200$ penyewa. Setiap kenaikan Rp$1.000$ mengurangi $5$ penyewa. Tentukan harga sewa yang memberikan pendapatan terbesar."
+        ]
+      },
+      "soal": {
+        "id": "P38",
+        "subject": "wajib",
+        "title": "P38 • Penerapan Fungsi Kuadrat: Nilai Maksimum dan Minimum",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P38-Q1] Tinggi sebuah bola setelah $t$ detik adalah $h(t) = -5t^2 + 30t$ meter. Tinggi maksimum bola itu adalah $\\dots$",
+            "opsi": [
+              "A. $30$ m",
+              "B. $45$ m",
+              "C. $90$ m",
+              "D. $15$ m",
+              "E. $60$ m"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Karena $a = -5 < 0$, fungsi mempunyai nilai maksimum.\n\nLangkah 2: Waktu puncak.\n$t_p = -\\frac{30}{2(-5)} = 3$ detik\n\nLangkah 3: Tinggi maksimum.\n$h(3) = -5(9) + 90 = -45 + 90 = 45$ m\n\nLangkah 4: Periksa dengan rumus: $D = 900$ dan $-\\frac{900}{4(-5)} = 45$ — cocok.\n\nLangkah 5: Opsi C ($90$) lupa suku $-45$. Opsi A ($30$) adalah kecepatan awal, bukan tinggi.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P38-Q2] Jumlah dua bilangan adalah $20$. Hasil kali terbesar kedua bilangan itu adalah $\\dots$",
+            "opsi": [
+              "A. $100$",
+              "B. $20$",
+              "C. $400$",
+              "D. $96$",
+              "E. $50$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Misalkan bilangannya $x$ dan $20 - x$.\n$P(x) = x(20 - x) = -x^2 + 20x$\n\nLangkah 2: Cari puncaknya.\n$x_p = -\\frac{20}{-2} = 10$\n\nLangkah 3: Kedua bilangan $10$ dan $10$.\n$P(10) = 100$\n\nLangkah 4: Opsi D ($96$) adalah $8 \\times 12$, bukan yang terbesar.\n\nLangkah 5: Opsi C ($400$) adalah $20^2$, yaitu mengalikan jumlahnya dengan dirinya sendiri.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P38-Q3] Pagar sepanjang $40$ m dipakai untuk membuat kandang persegi panjang yang satu sisinya menempel pada tembok. Luas maksimum kandang itu adalah $\\dots$",
+            "opsi": [
+              "A. $100$ m$^2$",
+              "B. $400$ m$^2$",
+              "C. $200$ m$^2$",
+              "D. $160$ m$^2$",
+              "E. $150$ m$^2$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Misalkan sisi yang tegak lurus tembok $x$ m. Sisi sejajar tembok $40 - 2x$ m.\n\nLangkah 2: Susun model.\n$L(x) = x(40 - 2x) = -2x^2 + 40x$\n\nLangkah 3: Cari puncaknya.\n$x_p = -\\frac{40}{2(-2)} = 10$\n\nLangkah 4: Hitung luasnya.\n$L(10) = 10 \\times 20 = 200$ m$^2$\n\nLangkah 5: Opsi A ($100$) adalah luas persegi $10 \\times 10$ bila keempat sisi dipagari — tembok tidak dimanfaatkan.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P38-Q4] Tinggi sebuah bola yang dilempar dari atas gedung setelah $t$ detik adalah $h(t) = -5t^2 + 20t + 25$ meter. Bola itu menyentuh tanah pada detik ke- $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $4$",
+              "C. $1$",
+              "D. $5$",
+              "E. $25$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Bola menyentuh tanah saat $h(t) = 0$.\n$-5t^2 + 20t + 25 = 0$\n\nLangkah 2: Bagi dengan $-5$.\n$t^2 - 4t - 5 = 0$\n\nLangkah 3: Faktorkan.\n$(t - 5)(t + 1) = 0 \\Rightarrow t = 5$ atau $t = -1$\n\nLangkah 4: Waktu tidak mungkin negatif, jadi $t = 5$ detik.\n\nLangkah 5: Opsi A ($2$) adalah waktu mencapai puncak, bukan waktu menyentuh tanah. Opsi B ($4$) menganggap bola dilempar dari tanah.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P38-Q5] Harga sewa sepeda Rp$30.000$ per hari dengan $200$ penyewa. Setiap kenaikan harga Rp$1.000$ mengurangi $5$ penyewa. Harga sewa yang memberikan pendapatan terbesar adalah $\\dots$",
+            "opsi": [
+              "A. Rp$30.000$",
+              "B. Rp$32.500$",
+              "C. Rp$40.000$",
+              "D. Rp$25.000$",
+              "E. Rp$35.000$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Misalkan harga naik $n$ kali Rp$1.000$. Harga $(30 + n)$ ribu, penyewa $200 - 5n$.\n\nLangkah 2: Susun model pendapatan dalam ribu rupiah.\n$R(n) = (30 + n)(200 - 5n) = -5n^2 + 50n + 6000$\n\nLangkah 3: Cari puncaknya.\n$n_p = -\\frac{50}{2(-5)} = 5$\n\nLangkah 4: Harga sewa $30 + 5 = 35$ ribu, dengan pendapatan $35 \\times 175 = 6125$ ribu.\n\nLangkah 5: Periksa: tanpa kenaikan, $R(0) = 30 \\times 200 = 6000$ ribu — lebih kecil. Opsi A adalah harga semula.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P38-Q6] Keliling sebuah persegi panjang $36$ cm. Luas terbesar persegi panjang itu adalah $\\dots$",
+            "opsi": [
+              "A. $324$ cm$^2$",
+              "B. $72$ cm$^2$",
+              "C. $81$ cm$^2$",
+              "D. $36$ cm$^2$",
+              "E. $90$ cm$^2$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Panjang ditambah lebar $= 18$. Misalkan panjang $x$, lebar $18 - x$.\n\nLangkah 2: Susun model.\n$L(x) = x(18 - x) = -x^2 + 18x$\n\nLangkah 3: Cari puncaknya.\n$x_p = 9$, jadi bangunnya persegi $9 \\times 9$\n\nLangkah 4: Hitung luasnya.\n$L(9) = 81$ cm$^2$\n\nLangkah 5: Opsi A ($324$) adalah $18^2$ — lupa bahwa sisi persegi adalah $9$, bukan $18$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P38-Q7] Selisih dua bilangan adalah $10$. Hasil kali terkecil kedua bilangan itu adalah $\\dots$",
+            "opsi": [
+              "A. $0$",
+              "B. $-25$",
+              "C. $25$",
+              "D. $-10$",
+              "E. $-50$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Misalkan bilangan yang lebih besar $x$, dan yang lebih kecil $x - 10$.\n\nLangkah 2: Susun model.\n$P(x) = x(x - 10) = x^2 - 10x$\n\nLangkah 3: Nilai $a = 1 > 0$, jadi mempunyai nilai MINIMUM.\n$x_p = -\\frac{-10}{2} = 5$\n\nLangkah 4: Kedua bilangan $5$ dan $-5$.\n$P(5) = 5 \\times (-5) = -25$\n\nLangkah 5: Opsi A ($0$) adalah hasil kali $10$ dan $0$ — bukan yang terkecil, sebab hasil kali negatif lebih kecil daripada nol.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P38-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Fungsi $h(t) = -5t^2 + 20t$ mencapai nilai maksimum $20$ pada $t = 2$.",
+              "(2) Fungsi $f(x) = x^2 - 6x + 10$ mempunyai nilai maksimum $1$.",
+              "(3) Dari semua persegi panjang berkeliling sama, luas terbesar dimiliki oleh persegi."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): $t_p = -\\frac{20}{-10} = 2$ dan $h(2) = -20 + 40 = 20$. BENAR.\n\nLangkah 2: Pernyataan (2): $a = 1 > 0$, jadi grafik terbuka ke atas dan puncaknya nilai MINIMUM, bukan maksimum.\n\nLangkah 3: Memang $f(3) = 9 - 18 + 10 = 1$, tetapi itu nilai terkecil; fungsinya tidak mempunyai nilai maksimum. Pernyataan (2) SALAH.\n\nLangkah 4: Pernyataan (3): dengan keliling $2s$, luas $x(s - x)$ maksimum saat $x = \\frac{s}{2}$, sehingga panjang dan lebar sama. BENAR.\n\nLangkah 5: Contohnya: keliling $40$ memberikan $10 \\times 10 = 100$, lebih besar daripada $9 \\times 11 = 99$.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P38-Q9] Tinggi sebuah bola setelah $t$ detik adalah $h(t) = -5t^2 + 40t$ meter. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Tinggi maksimum bola $80$ m.",
+              "B. Tinggi maksimum tercapai pada $t = 4$ detik.",
+              "C. Bola kembali ke tanah pada $t = 8$ detik.",
+              "D. Tinggi bola pada $t = 2$ sama dengan pada $t = 6$.",
+              "E. Tinggi bola pada $t = 1$ adalah $45$ m."
+            ],
+            "kunci": "A, B, C, D",
+            "bahas": "Langkah 1: Waktu puncak: $t_p = -\\frac{40}{-10} = 4$ detik — B benar.\n\nLangkah 2: Tinggi maksimum: $h(4) = -80 + 160 = 80$ m — A benar.\n\nLangkah 3: Kembali ke tanah: $-5t(t - 8) = 0$, jadi $t = 8$ — C benar.\n\nLangkah 4: $h(2) = -20 + 80 = 60$ dan $h(6) = -180 + 240 = 60$. Keduanya sama karena $2$ dan $6$ simetris terhadap $t = 4$ — D benar.\n\nLangkah 5: $h(1) = -5 + 40 = 35$ m, bukan $45$ m — E salah.\n\nKesimpulan: Kunci Jawaban A, B, C, D."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P38-Q10] Sebuah kebun persegi panjang akan dipagari kawat sepanjang $100$ m pada tiga sisinya, sedangkan sisi keempat berupa tembok. Luas maksimum kebun itu, dalam m$^2$, adalah $\\dots$",
+            "opsi": [],
+            "kunci": "1250",
+            "bahas": "Langkah 1: Misalkan sisi yang tegak lurus tembok $x$ m. Sisi sejajar tembok $100 - 2x$ m.\n\nLangkah 2: Susun model.\n$L(x) = x(100 - 2x) = -2x^2 + 100x$\n\nLangkah 3: Cari puncaknya.\n$x_p = -\\frac{100}{2(-2)} = 25$\n\nLangkah 4: Hitung luasnya.\n$L(25) = 25 \\times 50 = 1250$\n\nLangkah 5: Periksa: $x = 24$ memberikan $24 \\times 52 = 1248$ — lebih kecil. Luas maksimumnya $1250$ m$^2$.\n\nKesimpulan: Kunci Jawaban 1250."
+          }
+        ]
+      }
+    }
+  ]
+}

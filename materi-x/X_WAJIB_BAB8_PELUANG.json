@@ -1,0 +1,969 @@
+{
+  "_catatan": "Bab 8 Peluang, Matematika Wajib Kelas X Fase E (ruang sampel didaftar atau ditabelkan; kaidah pencacahan dibahas di kelas XII). 'materi' masuk ke db.wajib (larik), 'soal' masuk ke db.tka_wajib dengan kunci id-nya. Gabungkan dengan: python gabung_materi_x.py",
+  "paket": [
+    {
+      "id": "P45",
+      "judul": "Percobaan Acak, Ruang Sampel, dan Kejadian",
+      "materi": {
+        "id": "P45",
+        "bab": "Bab 8: Peluang",
+        "title": "Percobaan Acak, Ruang Sampel, dan Kejadian",
+        "obj": [
+          "Menjelaskan arti percobaan acak, ruang sampel, titik sampel, dan kejadian dengan contoh sehari-hari.",
+          "Menyusun ruang sampel dengan cara mendaftar, tabel, dan diagram pohon, lalu menghitung banyaknya titik sampel.",
+          "Menentukan anggota suatu kejadian, termasuk kejadian mustahil dan kejadian pasti, serta membedakan titik sampel yang urutannya berbeda."
+        ],
+        "hook": "Sebelum pertandingan, wasit melempar koin untuk menentukan siapa yang memilih lapangan. Tidak ada yang tahu hasilnya — itulah sebabnya cara itu dianggap adil. Namun walaupun hasil SATU lemparan tidak dapat diramalkan, SEMUA hasil yang mungkin dapat didaftar dengan pasti: angka atau gambar. Matematika peluang bermula dari keyakinan sederhana ini: kita tidak dapat mengetahui apa yang akan terjadi, tetapi kita dapat mengetahui dengan tepat apa saja yang MUNGKIN terjadi.",
+        "toolkit": [
+          {
+            "name": "Ruang Sampel",
+            "math": "$$S = \\text{himpunan semua hasil yang mungkin}$$"
+          },
+          {
+            "name": "Titik Sampel",
+            "math": "$$\\text{setiap anggota } S;\\quad n(S) = \\text{banyaknya}$$"
+          },
+          {
+            "name": "Kejadian",
+            "math": "$$A \\subseteq S;\\quad n(A) = \\text{banyak anggota } A$$"
+          },
+          {
+            "name": "Koin dan Dadu",
+            "math": "$$n \\text{ koin}: 2^n;\\qquad n \\text{ dadu}: 6^n;\\qquad 1 \\text{ koin} + 1 \\text{ dadu}: 12$$"
+          },
+          {
+            "name": "Kejadian Khusus",
+            "math": "$$\\text{mustahil}: A = \\varnothing;\\qquad \\text{pasti}: A = S$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Dua koin dilempar bersamaan. Tentukan ruang sampelnya dan kejadian munculnya tepat satu angka.",
+            "solution": "Langkah 1: Tandai sisi koin dengan A (angka) dan G (gambar). Tuliskan hasil koin pertama lalu koin kedua.\n\nLangkah 2: Daftar semua kemungkinan.\n$S = \\{AA, AG, GA, GG\\}$, jadi $n(S) = 4$\n\nLangkah 3: Kejadian tepat satu angka: pilih titik sampel yang memuat tepat satu A.\n$\\{AG, GA\\}$, jadi $n = 2$\n\nLangkah 4: Perhatikan bahwa $AG$ dan $GA$ adalah dua titik sampel yang BERBEDA: pada $AG$ koin pertama yang angka, pada $GA$ koin kedua.\n\nLangkah 5: Kekeliruan yang sering terjadi adalah menulis ruang sampelnya $\\{AA, AG, GG\\}$ dengan tiga anggota. Bila kedua koin diberi warna berbeda, jelas terlihat bahwa \"merah angka, biru gambar\" tidak sama dengan \"merah gambar, biru angka\".\n\nKesimpulan: $S = \\{AA, AG, GA, GG\\}$ dengan $n(S) = 4$, dan kejadian tepat satu angka $= \\{AG, GA\\}$."
+          },
+          {
+            "problem": "Tiga koin dilempar bersamaan. Susunlah ruang sampelnya dengan diagram pohon, lalu tentukan kejadian munculnya paling sedikit dua gambar.",
+            "solution": "Langkah 1: Diagram pohon: koin pertama bercabang dua (A atau G); setiap cabang bercabang dua lagi untuk koin kedua; dan setiap cabang itu bercabang dua lagi untuk koin ketiga.\n\nLangkah 2: Banyak ujung cabang.\n$2 \\times 2 \\times 2 = 8$\n\nLangkah 3: Baca setiap jalur dari kiri ke kanan.\n$S = \\{AAA, AAG, AGA, AGG, GAA, GAG, GGA, GGG\\}$\n\nLangkah 4: \"Paling sedikit dua gambar\" berarti dua gambar ATAU tiga gambar.\n\nLangkah 5: Pilih anggotanya.\n$\\{AGG, GAG, GGA, GGG\\}$, jadi $n = 4$\n\nLangkah 6: Jangan lupa $GGG$. Kata \"paling sedikit\" memuat juga kemungkinan yang lebih banyak.\n\nKesimpulan: $n(S) = 8$, dan kejadian paling sedikit dua gambar $= \\{AGG, GAG, GGA, GGG\\}$ dengan $4$ anggota."
+          },
+          {
+            "problem": "Dua dadu dilempar bersamaan. Tentukan banyak titik sampelnya dan kejadian jumlah mata dadu $7$.",
+            "solution": "Langkah 1: Susun tabel: baris untuk mata dadu pertama ($1$ sampai $6$), kolom untuk mata dadu kedua ($1$ sampai $6$).\n\nLangkah 2: Setiap sel adalah satu titik sampel $(a, b)$.\n$n(S) = 6 \\times 6 = 36$\n\nLangkah 3: Cari pasangan yang jumlahnya $7$. Untuk setiap nilai $a$, pasangannya $b = 7 - a$.\n$(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1)$\n\nLangkah 4: Jadi $n = 6$.\n\nLangkah 5: Pada tabel, sel-sel berjumlah $7$ membentuk satu garis diagonal. Jumlah $7$ adalah jumlah yang paling banyak titik sampelnya.\n\nLangkah 6: Sekali lagi, $(3, 4)$ dan $(4, 3)$ dihitung terpisah karena dadunya berbeda.\n\nKesimpulan: $n(S) = 36$, dan kejadian jumlah mata $7$ mempunyai $6$ titik sampel."
+          },
+          {
+            "problem": "Sebuah koin dan sebuah dadu dilempar bersamaan. Tentukan $n(S)$ dan kejadian munculnya angka pada koin dan mata genap pada dadu.",
+            "solution": "Langkah 1: Setiap hasil koin (A atau G) dapat berpasangan dengan setiap hasil dadu ($1$ sampai $6$).\n$n(S) = 2 \\times 6 = 12$\n\nLangkah 2: Tuliskan ruang sampelnya.\n$S = \\{(A,1), \\dots, (A,6), (G,1), \\dots, (G,6)\\}$\n\nLangkah 3: Kejadian yang diminta memerlukan DUA syarat sekaligus: koinnya A DAN dadunya genap.\n\nLangkah 4: Pilih anggotanya.\n$\\{(A, 2), (A, 4), (A, 6)\\}$, jadi $n = 3$\n\nLangkah 5: Periksa: dari $6$ titik sampel berawalan A, setengahnya bermata genap — memang $3$.\n\nKesimpulan: $n(S) = 12$, dan kejadiannya $\\{(A, 2), (A, 4), (A, 6)\\}$."
+          },
+          {
+            "problem": "Sebuah dadu dilempar sekali. Tentukan kejadian (a) muncul mata $7$; (b) muncul mata kurang dari $7$; (c) muncul mata faktor dari $6$.",
+            "solution": "Langkah 1: Ruang sampelnya $S = \\{1, 2, 3, 4, 5, 6\\}$.\n\nLangkah 2: (a) Tidak ada mata $7$ pada dadu. Kejadiannya $\\varnothing$ — kejadian MUSTAHIL.\n\nLangkah 3: (b) Semua mata dadu kurang dari $7$. Kejadiannya $\\{1, 2, 3, 4, 5, 6\\} = S$ — kejadian PASTI.\n\nLangkah 4: (c) Faktor dari $6$ adalah $1, 2, 3, 6$. Kejadiannya $\\{1, 2, 3, 6\\}$ dengan $4$ anggota.\n\nLangkah 5: Setiap kejadian selalu merupakan himpunan bagian dari $S$, termasuk $\\varnothing$ dan $S$ sendiri.\n\nKesimpulan: (a) $\\varnothing$ (mustahil); (b) $S$ (pasti); (c) $\\{1, 2, 3, 6\\}$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok memilih satu percobaan — dua koin, tiga koin, koin dan dadu, atau dua dadu. Di papan, susun ruang sampelnya dengan DUA cara (misalnya tabel dan diagram pohon) dan pastikan banyaknya sama. Lalu tulislah tiga kejadian karangan sendiri: satu yang mustahil, satu yang pasti, dan satu yang anggotanya tepat $3$. Kelompok lain memeriksa apakah setiap kejadian itu benar.",
+        "summary_data": {
+          "summary": [
+            "Percobaan acak adalah percobaan yang hasilnya tidak dapat dipastikan sebelumnya, tetapi semua kemungkinannya diketahui.",
+            "Ruang sampel $S$ adalah himpunan semua hasil yang mungkin; setiap anggotanya disebut titik sampel.",
+            "Kejadian adalah himpunan bagian dari ruang sampel.",
+            "$n$ koin mempunyai $2^n$ titik sampel, dan $n$ dadu mempunyai $6^n$ titik sampel.",
+            "Ruang sampel dapat disusun dengan mendaftar, tabel, atau diagram pohon.",
+            "Titik sampel yang urutannya berbeda, seperti $AG$ dan $GA$ atau $(2, 5)$ dan $(5, 2)$, dihitung terpisah.",
+            "\"Paling sedikit $k$\" berarti $k$ atau lebih.",
+            "Kejadian mustahil adalah $\\varnothing$; kejadian pasti adalah $S$.",
+            "Pada dua dadu, jumlah mata $7$ mempunyai titik sampel terbanyak, yaitu $6$.",
+            "Selalu periksa: banyak titik sampel hasil daftar harus sama dengan hasil perkalian."
+          ],
+          "islamic": "Hanya Allah yang mengetahui dengan pasti apa yang akan terjadi. \"Dan pada sisi Allah-lah kunci-kunci semua yang gaib; tidak ada yang mengetahuinya kecuali Dia sendiri.\" (QS. Al-An'am: 59)"
+        },
+        "collab_cases": [
+          "Susunlah ruang sampel pelemparan dua koin dan satu dadu. Berapa $n(S)$-nya?",
+          "Pada pelemparan tiga koin, tentukan kejadian munculnya tepat satu gambar.",
+          "Pada pelemparan dua dadu, tentukan kejadian jumlah mata dadu $10$ dan kejadian jumlah mata dadu $13$.",
+          "Pada pelemparan dua dadu, tentukan kejadian munculnya mata dadu pertama lebih besar daripada mata dadu kedua. Berapa anggotanya?",
+          "Dalam sebuah kantong terdapat kartu bernomor $1$ sampai $10$. Satu kartu diambil. Tentukan kejadian terambil kartu bernomor prima dan kejadian terambil kartu bernomor kelipatan $3$."
+        ]
+      },
+      "soal": {
+        "id": "P45",
+        "subject": "wajib",
+        "title": "P45 • Percobaan Acak, Ruang Sampel, dan Kejadian",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P45-Q1] Banyak titik sampel pada pelemparan tiga koin bersamaan adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $8$",
+              "C. $9$",
+              "D. $3$",
+              "E. $16$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Setiap koin mempunyai $2$ kemungkinan hasil.\n\nLangkah 2: Untuk tiga koin: $2 \\times 2 \\times 2 = 2^3 = 8$.\n\nLangkah 3: Periksa dengan mendaftar: $AAA, AAG, AGA, AGG, GAA, GAG, GGA, GGG$ — ada $8$.\n\nLangkah 4: Opsi A ($6$) menjumlahkan $2 + 2 + 2$, padahal kemungkinan-kemungkinan itu DIKALIKAN.\n\nLangkah 5: Opsi E ($16$) adalah banyak titik sampel empat koin.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P45-Q2] Banyak titik sampel pada pelemparan dua dadu bersamaan adalah $\\dots$",
+            "opsi": [
+              "A. $12$",
+              "B. $18$",
+              "C. $36$",
+              "D. $6$",
+              "E. $72$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Setiap dadu mempunyai $6$ kemungkinan.\n\nLangkah 2: Setiap mata dadu pertama dapat berpasangan dengan setiap mata dadu kedua.\n$6 \\times 6 = 36$\n\nLangkah 3: Pada tabel $6$ baris kali $6$ kolom terdapat $36$ sel.\n\nLangkah 4: Opsi A ($12$) menjumlahkan $6 + 6$.\n\nLangkah 5: Opsi B ($18$) keliru menganggap $(a, b)$ dan $(b, a)$ sama sehingga membagi dua.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P45-Q3] Dua dadu dilempar bersamaan. Banyak titik sampel kejadian jumlah mata dadu $8$ adalah $\\dots$",
+            "opsi": [
+              "A. $4$",
+              "B. $6$",
+              "C. $3$",
+              "D. $5$",
+              "E. $7$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Cari pasangan $(a, b)$ dengan $a + b = 8$, di mana $a$ dan $b$ masing-masing $1$ sampai $6$.\n\nLangkah 2: $a = 1$ memerlukan $b = 7$ — tidak mungkin.\n\nLangkah 3: Pasangan yang mungkin.\n$(2, 6), (3, 5), (4, 4), (5, 3), (6, 2)$\n\nLangkah 4: Jadi ada $5$ titik sampel.\n\nLangkah 5: Opsi E ($7$) muncul bila pasangan $(1, 7)$ dan $(7, 1)$ ikut dihitung, padahal mata $7$ tidak ada pada dadu.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P45-Q4] Sebuah koin dan sebuah dadu dilempar bersamaan. Banyak titik sampel kejadian munculnya gambar dan mata dadu prima adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $6$",
+              "C. $2$",
+              "D. $4$",
+              "E. $12$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Mata dadu prima: $2, 3, 5$ (bilangan $1$ bukan prima).\n\nLangkah 2: Kejadian memerlukan gambar DAN mata prima.\n$\\{(G, 2), (G, 3), (G, 5)\\}$\n\nLangkah 3: Jadi ada $3$ titik sampel.\n\nLangkah 4: Opsi D ($4$) keliru menganggap $1$ bilangan prima.\n\nLangkah 5: Opsi E ($12$) adalah $n(S)$, bukan banyak anggota kejadiannya.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P45-Q5] Tiga koin dilempar bersamaan. Banyak titik sampel kejadian munculnya paling sedikit dua angka adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $1$",
+              "C. $7$",
+              "D. $8$",
+              "E. $4$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: \"Paling sedikit dua angka\" berarti tepat dua angka ATAU tiga angka.\n\nLangkah 2: Tepat dua angka.\n$AAG, AGA, GAA$ — ada $3$\n\nLangkah 3: Tiga angka.\n$AAA$ — ada $1$\n\nLangkah 4: Jumlahkan.\n$3 + 1 = 4$\n\nLangkah 5: Opsi A ($3$) melupakan $AAA$. Opsi C ($7$) adalah banyak titik sampel \"paling sedikit SATU angka\".\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P45-Q6] Dua dadu dilempar bersamaan. Banyak titik sampel kejadian munculnya mata dadu kembar adalah $\\dots$",
+            "opsi": [
+              "A. $12$",
+              "B. $6$",
+              "C. $36$",
+              "D. $2$",
+              "E. $3$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Mata kembar berarti kedua dadu bermata sama: $(a, a)$.\n\nLangkah 2: Daftar.\n$(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)$\n\nLangkah 3: Jadi ada $6$ titik sampel.\n\nLangkah 4: Pada tabel dua dadu, keenam titik itu terletak pada diagonal utama.\n\nLangkah 5: Opsi A ($12$) menghitung setiap pasangan dua kali, padahal $(a, a)$ dibalik tetap $(a, a)$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P45-Q7] Dua dadu dilempar bersamaan. Banyak titik sampel kejadian selisih kedua mata dadu sama dengan $2$ adalah $\\dots$",
+            "opsi": [
+              "A. $4$",
+              "B. $6$",
+              "C. $8$",
+              "D. $10$",
+              "E. $5$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Cari pasangan yang selisihnya $2$, dengan urutan diperhatikan.\n\nLangkah 2: Dadu pertama lebih besar.\n$(3, 1), (4, 2), (5, 3), (6, 4)$ — ada $4$\n\nLangkah 3: Dadu kedua lebih besar.\n$(1, 3), (2, 4), (3, 5), (4, 6)$ — ada $4$\n\nLangkah 4: Jumlahkan.\n$4 + 4 = 8$\n\nLangkah 5: Opsi A ($4$) hanya menghitung satu arah. Selisih $2$ dapat terjadi dengan dadu mana pun yang lebih besar.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P45-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Ruang sampel pelemparan satu dadu adalah $\\{1, 2, 3, 4, 5, 6\\}$.",
+              "(2) Pada pelemparan dua dadu, $(2, 5)$ dan $(5, 2)$ adalah titik sampel yang sama.",
+              "(3) Kejadian munculnya mata $7$ pada pelemparan satu dadu adalah kejadian mustahil."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): dadu bermata $1$ sampai $6$. BENAR.\n\nLangkah 2: Pernyataan (2): $(2, 5)$ berarti dadu pertama $2$ dan kedua $5$, sedangkan $(5, 2)$ kebalikannya. Keduanya hasil yang berbeda.\n\nLangkah 3: Pernyataan (2) SALAH.\n\nLangkah 4: Pernyataan (3): tidak ada mata $7$ pada dadu, jadi kejadiannya $\\varnothing$ — kejadian mustahil.\n\nLangkah 5: Pernyataan (3) BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P45-Q9] Dua dadu dilempar bersamaan. Pilihlah SEMUA titik sampel yang termasuk kejadian jumlah mata dadu $10$.",
+            "opsi": [
+              "A. $(4, 6)$",
+              "B. $(5, 5)$",
+              "C. $(6, 4)$",
+              "D. $(3, 7)$",
+              "E. $(5, 6)$"
+            ],
+            "kunci": "A, B, C",
+            "bahas": "Langkah 1: A: $4 + 6 = 10$ — termasuk.\n\nLangkah 2: B: $5 + 5 = 10$ — termasuk.\n\nLangkah 3: C: $6 + 4 = 10$ — termasuk. Ini titik sampel yang berbeda dari $(4, 6)$.\n\nLangkah 4: D: jumlahnya $10$, tetapi mata $7$ tidak ada pada dadu. $(3, 7)$ bukan anggota ruang sampel.\n\nLangkah 5: E: $5 + 6 = 11$ — tidak termasuk.\n\nKesimpulan: Kunci Jawaban A, B, C."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P45-Q10] Empat koin dilempar bersamaan. Banyak titik sampel kejadian munculnya tepat dua angka adalah $\\dots$",
+            "opsi": [],
+            "kunci": "6",
+            "bahas": "Langkah 1: Setiap titik sampel adalah susunan $4$ huruf A atau G. Tepat dua di antaranya A.\n\nLangkah 2: Daftar dengan teratur menurut letak kedua A.\n$AAGG, AGAG, AGGA, GAAG, GAGA, GGAA$\n\nLangkah 3: Jadi ada $6$ titik sampel.\n\nLangkah 4: Periksa kelengkapan: letak A pertama di posisi $1$ memberikan $3$ susunan, di posisi $2$ memberikan $2$, dan di posisi $3$ memberikan $1$. Jumlahnya $3 + 2 + 1 = 6$.\n\nKesimpulan: Kunci Jawaban 6."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P46",
+      "judul": "Peluang Suatu Kejadian dan Frekuensi Relatif",
+      "materi": {
+        "id": "P46",
+        "bab": "Bab 8: Peluang",
+        "title": "Peluang Suatu Kejadian dan Frekuensi Relatif",
+        "obj": [
+          "Menghitung peluang suatu kejadian dengan rumus $P(A) = \\frac{n(A)}{n(S)}$ pada koin, dadu, kartu, dan pengambilan benda dari kantong.",
+          "Menjelaskan kisaran nilai peluang $0 \\le P(A) \\le 1$ beserta arti peluang $0$ dan $1$.",
+          "Menghitung frekuensi relatif dari hasil percobaan dan membandingkannya dengan peluang teoretis."
+        ],
+        "hook": "Kalau sebuah dadu dilempar, seberapa besar kemungkinan muncul mata $6$? Setiap orang merasa tahu jawabannya: \"satu dari enam\". Tetapi apa sebenarnya arti \"satu dari enam\"? Bukan berarti dari enam lemparan pasti muncul satu kali mata $6$ — bisa saja tidak muncul sama sekali, atau muncul tiga kali. Artinya, bila dadu dilempar SANGAT banyak kali, kira-kira seperenam hasilnya bermata $6$. Pertemuan ini memberi angka pada rasa \"kemungkinan\" itu, lalu mengujinya dengan percobaan sungguhan.",
+        "toolkit": [
+          {
+            "name": "Peluang Teoretis",
+            "math": "$$P(A) = \\frac{n(A)}{n(S)}$$"
+          },
+          {
+            "name": "Kisaran Peluang",
+            "math": "$$0 \\le P(A) \\le 1$$"
+          },
+          {
+            "name": "Nilai Khusus",
+            "math": "$$P(\\varnothing) = 0\\ (\\text{mustahil});\\qquad P(S) = 1\\ (\\text{pasti})$$"
+          },
+          {
+            "name": "Frekuensi Relatif",
+            "math": "$$f_r(A) = \\frac{\\text{banyak kejadian } A \\text{ muncul}}{\\text{banyak percobaan}}$$"
+          },
+          {
+            "name": "Kartu Remi",
+            "math": "$$52 \\text{ kartu}: 4 \\text{ jenis} \\times 13;\\ \\ 26 \\text{ merah},\\ 26 \\text{ hitam};\\ \\ 12 \\text{ bergambar (J, Q, K)}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Sebuah dadu dilempar sekali. Tentukan peluang munculnya mata dadu prima.",
+            "solution": "Langkah 1: Ruang sampel.\n$S = \\{1, 2, 3, 4, 5, 6\\}$, $n(S) = 6$\n\nLangkah 2: Mata prima: $2, 3, 5$. Ingat bahwa $1$ bukan bilangan prima.\n$n(A) = 3$\n\nLangkah 3: Hitung peluangnya.\n$P(A) = \\frac{3}{6} = \\frac{1}{2}$\n\nLangkah 4: Periksa kisarannya: $0 \\le \\frac{1}{2} \\le 1$ — wajar.\n\nLangkah 5: Rumus $\\frac{n(A)}{n(S)}$ hanya berlaku bila setiap titik sampel MEMPUNYAI KESEMPATAN SAMA untuk muncul. Dadu yang seimbang memenuhi syarat itu.\n\nKesimpulan: Peluang munculnya mata prima adalah $\\frac{1}{2}$."
+          },
+          {
+            "problem": "Dua dadu dilempar bersamaan. Tentukan peluang jumlah mata dadu $7$.",
+            "solution": "Langkah 1: Ruang sampel dua dadu: $n(S) = 36$.\n\nLangkah 2: Titik sampel berjumlah $7$.\n$(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1)$, jadi $n(A) = 6$\n\nLangkah 3: Hitung peluangnya.\n$P(A) = \\frac{6}{36} = \\frac{1}{6}$\n\nLangkah 4: Bandingkan dengan jumlah $2$, yang hanya dapat terjadi dengan $(1, 1)$: peluangnya $\\frac{1}{36}$. Jumlah $7$ enam kali lebih mungkin.\n\nLangkah 5: Kekeliruan yang sering terjadi adalah menganggap semua jumlah ($2$ sampai $12$) sama mungkinnya, sehingga peluangnya $\\frac{1}{11}$. Jumlah-jumlah itu tidak sama mungkin karena banyak titik sampelnya berbeda.\n\nKesimpulan: Peluang jumlah mata dadu $7$ adalah $\\frac{1}{6}$."
+          },
+          {
+            "problem": "Sebuah kantong berisi $5$ kelereng merah, $3$ biru, dan $2$ hijau. Satu kelereng diambil secara acak. Tentukan peluang terambil kelereng biru dan peluang terambil kelereng kuning.",
+            "solution": "Langkah 1: Banyak seluruh kelereng.\n$n(S) = 5 + 3 + 2 = 10$\n\nLangkah 2: Peluang biru.\n$P(\\text{biru}) = \\frac{3}{10}$\n\nLangkah 3: Tidak ada kelereng kuning, jadi kejadian itu mustahil.\n$P(\\text{kuning}) = \\frac{0}{10} = 0$\n\nLangkah 4: Periksa: $P(\\text{merah}) + P(\\text{biru}) + P(\\text{hijau}) = \\frac{5}{10} + \\frac{3}{10} + \\frac{2}{10} = 1$. Jumlah peluang semua kemungkinan yang tidak saling tumpang tindih selalu $1$.\n\nLangkah 5: Setiap kelereng dianggap mempunyai kesempatan sama untuk terambil — itulah arti \"secara acak\".\n\nKesimpulan: $P(\\text{biru}) = \\frac{3}{10}$ dan $P(\\text{kuning}) = 0$."
+          },
+          {
+            "problem": "Satu kartu diambil secara acak dari satu set kartu remi ($52$ kartu). Tentukan peluang terambil kartu As, kartu hati, dan kartu bergambar berwarna merah.",
+            "solution": "Langkah 1: Satu set kartu remi berisi $4$ jenis (sekop, hati, wajik, keriting) yang masing-masing $13$ kartu: As, $2$ sampai $10$, J, Q, K. Hati dan wajik berwarna merah.\n\nLangkah 2: Kartu As ada $4$, satu dari setiap jenis.\n$P(\\text{As}) = \\frac{4}{52} = \\frac{1}{13}$\n\nLangkah 3: Kartu hati ada $13$.\n$P(\\text{hati}) = \\frac{13}{52} = \\frac{1}{4}$\n\nLangkah 4: Kartu bergambar (J, Q, K) berwarna merah: $3$ dari hati dan $3$ dari wajik.\n$P = \\frac{6}{52} = \\frac{3}{26}$\n\nLangkah 5: Perhatikan bahwa As tidak termasuk kartu bergambar; kartu bergambar hanya J, Q, dan K.\n\nKesimpulan: $P(\\text{As}) = \\frac{1}{13}$, $P(\\text{hati}) = \\frac{1}{4}$, dan $P(\\text{bergambar merah}) = \\frac{3}{26}$."
+          },
+          {
+            "problem": "Sebuah koin dilempar $100$ kali dan muncul angka sebanyak $46$ kali. Tentukan frekuensi relatif munculnya angka dan bandingkan dengan peluang teoretisnya.",
+            "solution": "Langkah 1: Frekuensi relatif adalah perbandingan banyak kemunculan dengan banyak percobaan.\n$f_r = \\frac{46}{100} = 0{,}46$\n\nLangkah 2: Peluang teoretis munculnya angka pada koin seimbang.\n$P = \\frac{1}{2} = 0{,}5$\n\nLangkah 3: Keduanya tidak sama persis, tetapi berdekatan. Selisih seperti itu wajar dalam percobaan sungguhan.\n\nLangkah 4: Bila koin dilempar $1.000$ atau $10.000$ kali, frekuensi relatifnya cenderung makin mendekati $0{,}5$.\n\nLangkah 5: Bila frekuensi relatifnya tetap jauh dari $0{,}5$ walaupun percobaannya sangat banyak (misalnya $0{,}3$ dari $10.000$ lemparan), ada alasan untuk menduga koinnya tidak seimbang.\n\nKesimpulan: Frekuensi relatifnya $0{,}46$, dekat dengan peluang teoretis $0{,}5$; makin banyak percobaan, keduanya cenderung makin dekat."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok melempar dua koin sebanyak $40$ kali dan mencatat banyaknya muncul $0$, $1$, dan $2$ angka. Di papan, hitung frekuensi relatif ketiganya, lalu bandingkan dengan peluang teoretis $\\frac{1}{4}$, $\\frac{1}{2}$, dan $\\frac{1}{4}$. Gabungkan hasil seluruh kelompok menjadi satu tabel. Apakah frekuensi relatif gabungan lebih dekat ke peluang teoretis daripada hasil satu kelompok? Jelaskan mengapa.",
+        "summary_data": {
+          "summary": [
+            "Peluang kejadian $A$: $P(A) = \\frac{n(A)}{n(S)}$, bila setiap titik sampel berkesempatan sama.",
+            "Nilai peluang selalu $0 \\le P(A) \\le 1$.",
+            "Peluang kejadian mustahil $0$, dan peluang kejadian pasti $1$.",
+            "Jumlah peluang semua kemungkinan yang tidak tumpang tindih sama dengan $1$.",
+            "Pada dua dadu, jumlah-jumlah mata tidak sama mungkin; jumlah $7$ paling mungkin.",
+            "Kartu remi: $52$ kartu, $4$ jenis masing-masing $13$, $26$ merah, $12$ kartu bergambar (J, Q, K).",
+            "Bilangan $1$ bukan bilangan prima.",
+            "Frekuensi relatif $=$ banyak kemunculan dibagi banyak percobaan.",
+            "Frekuensi relatif cenderung mendekati peluang teoretis bila percobaan diulang sangat banyak kali.",
+            "Peluang $\\frac{1}{6}$ tidak berarti pasti muncul sekali dalam enam percobaan."
+          ],
+          "islamic": "Masa depan adalah rahasia Allah; manusia hanya dapat memperkirakan dan berusaha. \"Dan tidak ada seorang pun yang dapat mengetahui (dengan pasti) apa yang akan diusahakannya besok.\" (QS. Luqman: 34)"
+        },
+        "collab_cases": [
+          "Sebuah dadu dilempar sekali. Tentukan peluang munculnya mata kelipatan $3$.",
+          "Dua dadu dilempar bersamaan. Tentukan peluang jumlah mata dadu $10$.",
+          "Sebuah kantong berisi $6$ bola merah dan $4$ bola putih. Tentukan peluang terambil bola putih.",
+          "Satu kartu diambil dari satu set kartu remi. Tentukan peluang terambil kartu King berwarna hitam.",
+          "Sebuah dadu dilempar $60$ kali dan mata $4$ muncul $13$ kali. Tentukan frekuensi relatifnya dan bandingkan dengan peluang teoretisnya."
+        ]
+      },
+      "soal": {
+        "id": "P46",
+        "subject": "wajib",
+        "title": "P46 • Peluang Suatu Kejadian dan Frekuensi Relatif",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P46-Q1] Sebuah dadu dilempar sekali. Peluang munculnya mata dadu genap adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{6}$",
+              "B. $\\frac{1}{3}$",
+              "C. $\\frac{1}{2}$",
+              "D. $\\frac{2}{3}$",
+              "E. $1$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: $n(S) = 6$.\n\nLangkah 2: Mata genap: $2, 4, 6$, jadi $n(A) = 3$.\n\nLangkah 3: Hitung.\n$P = \\frac{3}{6} = \\frac{1}{2}$\n\nLangkah 4: Opsi A ($\\frac{1}{6}$) adalah peluang satu mata tertentu saja.\n\nLangkah 5: Opsi E ($1$) adalah peluang kejadian pasti.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P46-Q2] Dua dadu dilempar bersamaan. Peluang jumlah mata dadu $5$ adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{9}$",
+              "B. $\\frac{5}{36}$",
+              "C. $\\frac{1}{6}$",
+              "D. $\\frac{1}{12}$",
+              "E. $\\frac{4}{9}$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: $n(S) = 36$.\n\nLangkah 2: Titik sampel berjumlah $5$.\n$(1, 4), (2, 3), (3, 2), (4, 1)$, jadi $n(A) = 4$\n\nLangkah 3: Hitung.\n$P = \\frac{4}{36} = \\frac{1}{9}$\n\nLangkah 4: Opsi B ($\\frac{5}{36}$) keliru menganggap banyak titik sampelnya sama dengan jumlah matanya.\n\nLangkah 5: Opsi C ($\\frac{1}{6}$) adalah peluang jumlah $7$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P46-Q3] Sebuah kantong berisi $4$ bola merah dan $6$ bola putih. Satu bola diambil secara acak. Peluang terambil bola putih adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{2}{5}$",
+              "B. $\\frac{6}{4}$",
+              "C. $\\frac{1}{6}$",
+              "D. $\\frac{3}{5}$",
+              "E. $\\frac{1}{10}$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: $n(S) = 4 + 6 = 10$.\n\nLangkah 2: Bola putih $6$.\n$P = \\frac{6}{10} = \\frac{3}{5}$\n\nLangkah 3: Opsi A ($\\frac{2}{5}$) adalah peluang bola merah.\n\nLangkah 4: Opsi B ($\\frac{6}{4}$) membandingkan putih dengan merah, bukan dengan seluruh bola — nilainya bahkan lebih dari $1$, mustahil untuk peluang.\n\nLangkah 5: Periksa: $\\frac{2}{5} + \\frac{3}{5} = 1$ — cocok.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P46-Q4] Satu kartu diambil secara acak dari satu set kartu remi. Peluang terambil kartu King adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{52}$",
+              "B. $\\frac{1}{4}$",
+              "C. $\\frac{4}{13}$",
+              "D. $\\frac{1}{26}$",
+              "E. $\\frac{1}{13}$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Kartu King ada $4$, satu dari setiap jenis.\n\nLangkah 2: Hitung.\n$P = \\frac{4}{52} = \\frac{1}{13}$\n\nLangkah 3: Opsi A ($\\frac{1}{52}$) adalah peluang satu kartu tertentu, misalnya King hati saja.\n\nLangkah 4: Opsi B ($\\frac{1}{4}$) adalah peluang satu jenis kartu, misalnya hati.\n\nLangkah 5: Opsi D ($\\frac{1}{26}$) adalah peluang King berwarna merah (atau hitam).\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P46-Q5] Dua koin dilempar bersamaan. Peluang munculnya paling sedikit satu gambar adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{2}$",
+              "B. $\\frac{3}{4}$",
+              "C. $\\frac{1}{4}$",
+              "D. $1$",
+              "E. $\\frac{2}{3}$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: $S = \\{AA, AG, GA, GG\\}$, $n(S) = 4$.\n\nLangkah 2: Paling sedikit satu gambar: $AG, GA, GG$.\n$n(A) = 3$\n\nLangkah 3: Hitung.\n$P = \\frac{3}{4}$\n\nLangkah 4: Opsi A ($\\frac{1}{2}$) hanya menghitung tepat satu gambar.\n\nLangkah 5: Opsi E ($\\frac{2}{3}$) muncul dari ruang sampel keliru $\\{AA, AG, GG\\}$ dengan tiga anggota.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P46-Q6] Sebuah dadu dilempar $60$ kali, dan mata $6$ muncul $12$ kali. Frekuensi relatif munculnya mata $6$ adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{6}$",
+              "B. $12$",
+              "C. $\\frac{1}{12}$",
+              "D. $\\frac{1}{5}$",
+              "E. $5$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Frekuensi relatif.\n$f_r = \\frac{12}{60} = \\frac{1}{5}$\n\nLangkah 2: Opsi A ($\\frac{1}{6}$) adalah peluang TEORETIS, bukan hasil percobaan ini.\n\nLangkah 3: Opsi B ($12$) adalah frekuensinya, belum dibagi banyak percobaan.\n\nLangkah 4: Frekuensi relatif $\\frac{1}{5} = 0{,}2$ sedikit lebih besar daripada $\\frac{1}{6} \\approx 0{,}17$. Selisih kecil seperti ini wajar dalam $60$ percobaan.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P46-Q7] Dua dadu dilempar bersamaan. Peluang jumlah mata dadu lebih dari $9$ adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{6}$",
+              "B. $\\frac{5}{18}$",
+              "C. $\\frac{5}{36}$",
+              "D. $\\frac{1}{12}$",
+              "E. $\\frac{1}{3}$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: \"Lebih dari $9$\" berarti jumlah $10$, $11$, atau $12$ — jumlah $9$ tidak termasuk.\n\nLangkah 2: Jumlah $10$: $(4, 6), (5, 5), (6, 4)$ — $3$. Jumlah $11$: $(5, 6), (6, 5)$ — $2$. Jumlah $12$: $(6, 6)$ — $1$.\n\nLangkah 3: $n(A) = 3 + 2 + 1 = 6$.\n\nLangkah 4: Hitung.\n$P = \\frac{6}{36} = \\frac{1}{6}$\n\nLangkah 5: Opsi B ($\\frac{5}{18}$) ikut menghitung jumlah $9$ yang mempunyai $4$ titik sampel: $\\frac{10}{36}$. Opsi C ($\\frac{5}{36}$) melupakan jumlah $12$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P46-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Peluang suatu kejadian dapat bernilai $1{,}2$.",
+              "(2) Peluang kejadian mustahil adalah $0$.",
+              "(3) Frekuensi relatif hasil percobaan selalu sama persis dengan peluang teoretisnya."
+            ],
+            "kunci": "S - B - S",
+            "bahas": "Langkah 1: Pernyataan (1): $n(A) \\le n(S)$, sehingga $P(A) \\le 1$. Nilai $1{,}2$ tidak mungkin. SALAH.\n\nLangkah 2: Pernyataan (2): kejadian mustahil tidak mempunyai titik sampel, jadi $P = \\frac{0}{n(S)} = 0$. BENAR.\n\nLangkah 3: Pernyataan (3): frekuensi relatif bergantung pada hasil percobaan dan biasanya hanya MENDEKATI peluang teoretis.\n\nLangkah 4: Contohnya $46$ angka dari $100$ lemparan memberikan $0{,}46$, bukan $0{,}5$. Pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban S - B - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P46-Q9] Sebuah kantong berisi $3$ bola merah, $5$ bola biru, dan $2$ bola kuning. Satu bola diambil secara acak. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. $P(\\text{merah}) = \\frac{3}{10}$",
+              "B. $P(\\text{biru}) = \\frac{1}{2}$",
+              "C. $P(\\text{kuning}) = \\frac{1}{5}$",
+              "D. $P(\\text{hijau}) = \\frac{1}{10}$",
+              "E. $P(\\text{bukan biru}) = \\frac{1}{2}$"
+            ],
+            "kunci": "A, B, C, E",
+            "bahas": "Langkah 1: $n(S) = 3 + 5 + 2 = 10$.\n\nLangkah 2: A: $\\frac{3}{10}$ — benar. B: $\\frac{5}{10} = \\frac{1}{2}$ — benar. C: $\\frac{2}{10} = \\frac{1}{5}$ — benar.\n\nLangkah 3: D: tidak ada bola hijau, jadi $P(\\text{hijau}) = 0$ — salah.\n\nLangkah 4: E: bukan biru berarti merah atau kuning, $3 + 2 = 5$ bola. $P = \\frac{5}{10} = \\frac{1}{2}$ — benar.\n\nKesimpulan: Kunci Jawaban A, B, C, E."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P46-Q10] Sebuah kantong berisi $20$ kelereng. Peluang terambil kelereng merah adalah $0{,}35$. Banyak kelereng merah di dalam kantong adalah $\\dots$",
+            "opsi": [],
+            "kunci": "7",
+            "bahas": "Langkah 1: Rumus peluang: $P(\\text{merah}) = \\frac{n(\\text{merah})}{20}$.\n\nLangkah 2: Tulis persamaannya.\n$\\frac{n(\\text{merah})}{20} = 0{,}35$\n\nLangkah 3: Selesaikan.\n$n(\\text{merah}) = 0{,}35 \\times 20 = 7$\n\nLangkah 4: Periksa: $\\frac{7}{20} = 0{,}35$ — cocok.\n\nKesimpulan: Kunci Jawaban 7."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P47",
+      "judul": "Peluang Komplemen dan Frekuensi Harapan",
+      "materi": {
+        "id": "P47",
+        "bab": "Bab 8: Peluang",
+        "title": "Peluang Komplemen dan Frekuensi Harapan",
+        "obj": [
+          "Menghitung peluang komplemen suatu kejadian dengan $P(A') = 1 - P(A)$, terutama untuk kejadian berkata kunci \"paling sedikit satu\" atau \"bukan\".",
+          "Menghitung frekuensi harapan $F_h(A) = n \\times P(A)$ dan menafsirkannya sebagai perkiraan, bukan kepastian.",
+          "Memakai peluang dan frekuensi harapan dalam masalah nyata seperti pertanian, produksi, dan cuaca."
+        ],
+        "hook": "Tiga koin dilempar. Berapa peluang munculnya paling sedikit satu angka? Kita dapat mendaftar semua kemungkinan yang memuat angka — ada tujuh. Tetapi lihatlah dari sisi sebaliknya: hanya ADA SATU cara untuk TIDAK mendapat angka sama sekali, yaitu $GGG$. Menghitung yang sedikit lalu mengurangkannya dari seluruhnya sering jauh lebih cepat. Itulah gagasan peluang komplemen. Pertemuan ini juga menjawab pertanyaan praktis: bila suatu percobaan diulang ratusan kali, KIRA-KIRA berapa kali suatu kejadian akan muncul?",
+        "toolkit": [
+          {
+            "name": "Komplemen",
+            "math": "$$A' = \\text{kejadian BUKAN } A$$"
+          },
+          {
+            "name": "Peluang Komplemen",
+            "math": "$$P(A') = 1 - P(A)$$"
+          },
+          {
+            "name": "Paling Sedikit Satu",
+            "math": "$$P(\\text{paling sedikit satu}) = 1 - P(\\text{tidak ada sama sekali})$$"
+          },
+          {
+            "name": "Frekuensi Harapan",
+            "math": "$$F_h(A) = n \\times P(A)$$"
+          },
+          {
+            "name": "Arti Frekuensi Harapan",
+            "math": "$$\\text{perkiraan banyak kemunculan, bukan kepastian}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Dua dadu dilempar bersamaan. Tentukan peluang jumlah mata dadu BUKAN $7$.",
+            "solution": "Langkah 1: Hitung dulu peluang kejadian yang lebih mudah, yaitu jumlah mata $7$.\n$P(A) = \\frac{6}{36} = \\frac{1}{6}$\n\nLangkah 2: \"Bukan $7$\" adalah komplemennya.\n$P(A') = 1 - \\frac{1}{6} = \\frac{5}{6}$\n\nLangkah 3: Cara langsung memerlukan penghitungan $30$ titik sampel yang jumlahnya bukan $7$. Cara komplemen hanya memerlukan $6$.\n\nLangkah 4: Periksa: $\\frac{1}{6} + \\frac{5}{6} = 1$ — setiap hasil pasti termasuk salah satu dari keduanya.\n\nKesimpulan: Peluang jumlah mata dadu bukan $7$ adalah $\\frac{5}{6}$."
+          },
+          {
+            "problem": "Tiga koin dilempar bersamaan. Tentukan peluang munculnya paling sedikit satu angka.",
+            "solution": "Langkah 1: Komplemen dari \"paling sedikit satu angka\" adalah \"tidak ada angka sama sekali\", yaitu $GGG$.\n\nLangkah 2: Peluang tidak ada angka.\n$P(GGG) = \\frac{1}{8}$\n\nLangkah 3: Pakai komplemen.\n$P(\\text{paling sedikit satu angka}) = 1 - \\frac{1}{8} = \\frac{7}{8}$\n\nLangkah 4: Periksa dengan mendaftar: dari $8$ titik sampel, hanya $GGG$ yang tidak memuat angka, jadi $7$ yang memuat — cocok.\n\nLangkah 5: Kata kunci \"paling sedikit satu\" hampir selalu menjadi tanda untuk memakai komplemen.\n\nKesimpulan: Peluang munculnya paling sedikit satu angka adalah $\\frac{7}{8}$."
+          },
+          {
+            "problem": "Sebuah dadu dilempar $120$ kali. Tentukan frekuensi harapan munculnya mata $3$.",
+            "solution": "Langkah 1: Peluang munculnya mata $3$ pada satu lemparan.\n$P = \\frac{1}{6}$\n\nLangkah 2: Kalikan dengan banyak percobaan.\n$F_h = 120 \\times \\frac{1}{6} = 20$\n\nLangkah 3: Artinya, dari $120$ lemparan DIHARAPKAN sekitar $20$ kali muncul mata $3$.\n\nLangkah 4: Dalam percobaan sungguhan, hasilnya mungkin $17$ atau $23$ kali. Frekuensi harapan adalah perkiraan terbaik, bukan hasil yang pasti.\n\nKesimpulan: Frekuensi harapan munculnya mata $3$ adalah $20$ kali."
+          },
+          {
+            "problem": "Dua koin dilempar bersamaan sebanyak $200$ kali. Tentukan frekuensi harapan munculnya dua gambar.",
+            "solution": "Langkah 1: Ruang sampel satu kali lemparan: $\\{AA, AG, GA, GG\\}$.\n\nLangkah 2: Peluang dua gambar.\n$P(GG) = \\frac{1}{4}$\n\nLangkah 3: Frekuensi harapan.\n$F_h = 200 \\times \\frac{1}{4} = 50$\n\nLangkah 4: Perhatikan bahwa \"banyak percobaan\" adalah $200$ kali melempar dua koin, bukan $400$ koin.\n\nLangkah 5: Bandingkan dengan \"tepat satu gambar\", yang peluangnya $\\frac{2}{4}$: frekuensi harapannya $100$, dua kali lebih sering.\n\nKesimpulan: Frekuensi harapan munculnya dua gambar adalah $50$ kali."
+          },
+          {
+            "problem": "Peluang sebuah bibit cabai tumbuh adalah $0{,}85$. Seorang petani menanam $400$ bibit. Berapa bibit yang diharapkan tumbuh, dan berapa yang diharapkan tidak tumbuh?",
+            "solution": "Langkah 1: Frekuensi harapan bibit tumbuh.\n$F_h = 400 \\times 0{,}85 = 340$\n\nLangkah 2: Peluang tidak tumbuh adalah komplemennya.\n$1 - 0{,}85 = 0{,}15$\n\nLangkah 3: Frekuensi harapan bibit tidak tumbuh.\n$400 \\times 0{,}15 = 60$\n\nLangkah 4: Periksa: $340 + 60 = 400$ — cocok.\n\nLangkah 5: Perkiraan ini berguna bagi petani untuk menyiapkan cadangan bibit, misalnya menanam sedikit lebih banyak agar tetap mendapat jumlah tanaman yang diinginkan.\n\nKesimpulan: Diharapkan $340$ bibit tumbuh dan $60$ bibit tidak tumbuh."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok melempar tiga koin sebanyak $40$ kali dan mencatat berapa kali muncul \"paling sedikit satu angka\". Sebelum melempar, tuliskan di papan frekuensi harapannya ($40 \\times \\frac{7}{8} = 35$). Setelah selesai, bandingkan hasil nyata dengan harapan. Gabungkan hasil semua kelompok: apakah hasil gabungannya lebih dekat ke frekuensi harapan gabungan? Diskusikan juga: mengapa lebih mudah menghitung \"paling sedikit satu angka\" melalui komplemennya?",
+        "summary_data": {
+          "summary": [
+            "Komplemen kejadian $A$, ditulis $A'$, adalah kejadian \"bukan $A$\".",
+            "$P(A) + P(A') = 1$, sehingga $P(A') = 1 - P(A)$.",
+            "Pakai komplemen bila kejadian sebaliknya lebih mudah dihitung.",
+            "Komplemen \"paling sedikit satu\" adalah \"tidak ada sama sekali\".",
+            "Frekuensi harapan $F_h(A) = n \\times P(A)$, dengan $n$ banyak percobaan.",
+            "Frekuensi harapan adalah perkiraan; hasil nyata dapat sedikit berbeda.",
+            "Frekuensi harapan tidak harus bilangan bulat, misalnya $10 \\times \\frac{1}{6} \\approx 1{,}67$.",
+            "Banyak percobaan dihitung per pengulangan, bukan per benda: $200$ kali melempar dua koin berarti $n = 200$.",
+            "Frekuensi harapan kejadian dan komplemennya berjumlah $n$.",
+            "Peluang dan frekuensi harapan membantu merencanakan kegiatan nyata seperti bertani dan berproduksi."
+          ],
+          "islamic": "Berusaha sebaik-baiknya, lalu bertawakal atas hasilnya. Rasulullah ﷺ bersabda kepada seorang sahabat: \"Ikatlah (untamu), kemudian bertawakallah.\" (HR. At-Tirmidzi)"
+        },
+        "collab_cases": [
+          "Sebuah dadu dilempar sekali. Tentukan peluang munculnya mata bukan $6$.",
+          "Empat koin dilempar bersamaan. Tentukan peluang munculnya paling sedikit satu gambar.",
+          "Dua dadu dilempar $144$ kali. Tentukan frekuensi harapan munculnya mata kembar.",
+          "Peluang seorang siswa terlambat pada suatu hari adalah $0{,}05$. Dalam $200$ hari sekolah, berapa hari siswa itu diharapkan TIDAK terlambat?",
+          "Dua dadu dilempar bersamaan. Tentukan peluang munculnya paling sedikit satu mata $6$ dengan memakai komplemen."
+        ]
+      },
+      "soal": {
+        "id": "P47",
+        "subject": "wajib",
+        "title": "P47 • Peluang Komplemen dan Frekuensi Harapan",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P47-Q1] Peluang suatu kejadian $A$ adalah $0{,}3$. Peluang komplemennya adalah $\\dots$",
+            "opsi": [
+              "A. $0{,}3$",
+              "B. $0{,}7$",
+              "C. $1{,}3$",
+              "D. $0$",
+              "E. $1$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Pakai rumus komplemen.\n$P(A') = 1 - P(A) = 1 - 0{,}3 = 0{,}7$\n\nLangkah 2: Periksa: $0{,}3 + 0{,}7 = 1$ — cocok.\n\nLangkah 3: Opsi C ($1{,}3$) menjumlahkan alih-alih mengurangkan; nilainya pun lebih dari $1$, mustahil untuk peluang.\n\nLangkah 4: Opsi A menganggap komplemen sama dengan kejadiannya sendiri.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P47-Q2] Dua dadu dilempar bersamaan. Peluang munculnya mata dadu yang TIDAK kembar adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{6}$",
+              "B. $\\frac{1}{2}$",
+              "C. $\\frac{5}{6}$",
+              "D. $\\frac{11}{12}$",
+              "E. $\\frac{2}{3}$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Mata kembar ada $6$: $(1, 1)$ sampai $(6, 6)$.\n$P(\\text{kembar}) = \\frac{6}{36} = \\frac{1}{6}$\n\nLangkah 2: Tidak kembar adalah komplemennya.\n$P = 1 - \\frac{1}{6} = \\frac{5}{6}$\n\nLangkah 3: Periksa dengan cara langsung: $36 - 6 = 30$ titik sampel tidak kembar, dan $\\frac{30}{36} = \\frac{5}{6}$ — cocok.\n\nLangkah 4: Opsi A adalah peluang kembar, bukan tidak kembar.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P47-Q3] Sebuah dadu dilempar $150$ kali. Frekuensi harapan munculnya mata dadu prima adalah $\\dots$",
+            "opsi": [
+              "A. $25$",
+              "B. $50$",
+              "C. $150$",
+              "D. $75$",
+              "E. $100$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Mata prima: $2, 3, 5$.\n$P = \\frac{3}{6} = \\frac{1}{2}$\n\nLangkah 2: Frekuensi harapan.\n$F_h = 150 \\times \\frac{1}{2} = 75$\n\nLangkah 3: Opsi A ($25$) memakai peluang satu mata saja, $\\frac{1}{6}$.\n\nLangkah 4: Opsi E ($100$) keliru menganggap $1$ prima sehingga peluangnya $\\frac{4}{6}$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P47-Q4] Dua koin dilempar bersamaan sebanyak $80$ kali. Frekuensi harapan munculnya dua angka adalah $\\dots$",
+            "opsi": [
+              "A. $20$",
+              "B. $40$",
+              "C. $60$",
+              "D. $10$",
+              "E. $80$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Peluang dua angka pada satu kali lemparan dua koin.\n$P(AA) = \\frac{1}{4}$\n\nLangkah 2: Frekuensi harapan.\n$F_h = 80 \\times \\frac{1}{4} = 20$\n\nLangkah 3: Opsi B ($40$) memakai peluang $\\frac{1}{2}$, yaitu peluang tepat satu angka.\n\nLangkah 4: Opsi C ($60$) adalah frekuensi harapan \"paling sedikit satu gambar\" ($\\frac{3}{4}$).\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P47-Q5] Tiga koin dilempar bersamaan. Peluang munculnya paling sedikit satu gambar adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{8}$",
+              "B. $\\frac{3}{8}$",
+              "C. $\\frac{1}{2}$",
+              "D. $\\frac{3}{4}$",
+              "E. $\\frac{7}{8}$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Komplemennya adalah \"tidak ada gambar sama sekali\", yaitu $AAA$.\n\nLangkah 2: Peluang komplemen itu.\n$P(AAA) = \\frac{1}{8}$\n\nLangkah 3: Hitung.\n$P = 1 - \\frac{1}{8} = \\frac{7}{8}$\n\nLangkah 4: Opsi A adalah peluang $AAA$ itu sendiri. Opsi B ($\\frac{3}{8}$) hanya menghitung tepat satu gambar.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P47-Q6] Peluang sebuah bibit tumbuh adalah $0{,}85$. Dari $400$ bibit yang ditanam, banyak bibit yang diharapkan TIDAK tumbuh adalah $\\dots$",
+            "opsi": [
+              "A. $340$",
+              "B. $60$",
+              "C. $85$",
+              "D. $15$",
+              "E. $400$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Peluang tidak tumbuh.\n$1 - 0{,}85 = 0{,}15$\n\nLangkah 2: Frekuensi harapan.\n$400 \\times 0{,}15 = 60$\n\nLangkah 3: Opsi A ($340$) adalah banyak bibit yang diharapkan TUMBUH.\n\nLangkah 4: Opsi D ($15$) adalah peluang dalam persen, bukan banyak bibit.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P47-Q7] Dua dadu dilempar bersamaan sebanyak $180$ kali. Frekuensi harapan munculnya jumlah mata dadu $7$ adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $36$",
+              "C. $30$",
+              "D. $60$",
+              "E. $5$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Peluang jumlah $7$.\n$P = \\frac{6}{36} = \\frac{1}{6}$\n\nLangkah 2: Frekuensi harapan.\n$F_h = 180 \\times \\frac{1}{6} = 30$\n\nLangkah 3: Opsi A ($6$) adalah banyak titik sampelnya, bukan frekuensi harapan.\n\nLangkah 4: Opsi E ($5$) hanya menghitung satu titik sampel, misalnya $(1, 6)$: $180 \\times \\frac{1}{36} = 5$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P47-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Untuk setiap kejadian $A$, berlaku $P(A) + P(A') = 1$.",
+              "(2) Frekuensi harapan selalu berupa bilangan bulat.",
+              "(3) Pada pelemparan dua dadu, peluang munculnya paling sedikit satu mata $6$ adalah $\\frac{11}{36}$."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): setiap hasil termasuk $A$ atau $A'$, tidak keduanya. BENAR.\n\nLangkah 2: Pernyataan (2): misalnya dadu dilempar $10$ kali, frekuensi harapan mata $6$ adalah $\\frac{10}{6} \\approx 1{,}67$ — bukan bilangan bulat. SALAH.\n\nLangkah 3: Pernyataan (3): komplemennya \"tidak ada mata $6$\", yaitu kedua dadu bermata $1$ sampai $5$: $5 \\times 5 = 25$ titik sampel.\n\nLangkah 4: Jadi $P = 1 - \\frac{25}{36} = \\frac{11}{36}$. BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P47-Q9] Sebuah dadu dilempar $60$ kali. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Frekuensi harapan mata $1$ adalah $10$.",
+              "B. Frekuensi harapan mata genap adalah $30$.",
+              "C. Frekuensi harapan mata lebih dari $4$ adalah $20$.",
+              "D. Frekuensi harapan mata $7$ adalah $10$.",
+              "E. Frekuensi harapan mata bukan $6$ adalah $55$."
+            ],
+            "kunci": "A, B, C",
+            "bahas": "Langkah 1: A: $60 \\times \\frac{1}{6} = 10$ — benar.\n\nLangkah 2: B: $60 \\times \\frac{3}{6} = 30$ — benar.\n\nLangkah 3: C: mata $5$ dan $6$, $60 \\times \\frac{2}{6} = 20$ — benar.\n\nLangkah 4: D: mata $7$ mustahil, jadi frekuensi harapannya $0$ — salah.\n\nLangkah 5: E: $60 \\times \\frac{5}{6} = 50$, bukan $55$ — salah.\n\nKesimpulan: Kunci Jawaban A, B, C."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P47-Q10] Peluang turun hujan pada suatu hari di sebuah kota adalah $0{,}4$. Dalam $30$ hari, banyak hari TIDAK hujan yang diharapkan adalah $\\dots$",
+            "opsi": [],
+            "kunci": "18",
+            "bahas": "Langkah 1: Peluang tidak hujan adalah komplemennya.\n$1 - 0{,}4 = 0{,}6$\n\nLangkah 2: Frekuensi harapan.\n$30 \\times 0{,}6 = 18$\n\nLangkah 3: Periksa: hari hujan yang diharapkan $30 \\times 0{,}4 = 12$, dan $12 + 18 = 30$ — cocok.\n\nKesimpulan: Kunci Jawaban 18."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P48",
+      "judul": "Peluang Kejadian Majemuk: Saling Lepas dan Saling Bebas",
+      "materi": {
+        "id": "P48",
+        "bab": "Bab 8: Peluang",
+        "title": "Peluang Kejadian Majemuk: Saling Lepas dan Saling Bebas",
+        "obj": [
+          "Menghitung peluang gabungan dua kejadian dengan $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.",
+          "Mengenali kejadian saling lepas ($A \\cap B = \\varnothing$) dan menghitung peluangnya dengan menjumlahkan.",
+          "Mengenali kejadian saling bebas dan menghitung peluang kedua kejadian terjadi bersamaan dengan mengalikan."
+        ],
+        "hook": "Sebuah dadu dilempar. Peluang mata genap $\\frac{3}{6}$, peluang mata prima $\\frac{3}{6}$. Apakah peluang mata genap ATAU prima sama dengan $\\frac{3}{6} + \\frac{3}{6} = 1$, yaitu pasti? Tentu tidak — mata $1$ tidak genap dan tidak prima! Kesalahannya: mata $2$ terhitung dua kali, sekali sebagai genap dan sekali sebagai prima. Pertemuan terakhir kelas X ini mengajarkan cara menggabungkan dua kejadian dengan benar: kapan peluang boleh dijumlahkan, kapan harus dikurangi bagian yang tumpang tindih, dan kapan justru harus dikalikan.",
+        "toolkit": [
+          {
+            "name": "Gabungan (ATAU)",
+            "math": "$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$"
+          },
+          {
+            "name": "Saling Lepas",
+            "math": "$$A \\cap B = \\varnothing \\Rightarrow P(A \\cup B) = P(A) + P(B)$$"
+          },
+          {
+            "name": "Saling Bebas (DAN)",
+            "math": "$$P(A \\cap B) = P(A) \\times P(B)$$"
+          },
+          {
+            "name": "Tanda Saling Lepas",
+            "math": "$$\\text{tidak mungkin terjadi bersamaan dalam satu percobaan}$$"
+          },
+          {
+            "name": "Tanda Saling Bebas",
+            "math": "$$\\text{hasil yang satu tidak memengaruhi peluang yang lain}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Sebuah dadu dilempar sekali. Tentukan peluang munculnya mata genap atau mata prima.",
+            "solution": "Langkah 1: Kejadian $A$ (genap) $= \\{2, 4, 6\\}$ dan kejadian $B$ (prima) $= \\{2, 3, 5\\}$.\n\nLangkah 2: Irisannya — yang genap sekaligus prima.\n$A \\cap B = \\{2\\}$\n\nLangkah 3: Pakai rumus gabungan.\n$P(A \\cup B) = \\frac{3}{6} + \\frac{3}{6} - \\frac{1}{6} = \\frac{5}{6}$\n\nLangkah 4: Periksa dengan mendaftar: $A \\cup B = \\{2, 3, 4, 5, 6\\}$, ada $5$ anggota, jadi $\\frac{5}{6}$ — cocok.\n\nLangkah 5: Suku $-P(A \\cap B)$ mengoreksi mata $2$ yang terhitung dua kali. Tanpa koreksi itu, hasilnya $1$ — keliru, karena mata $1$ tidak termasuk.\n\nKesimpulan: Peluang munculnya mata genap atau prima adalah $\\frac{5}{6}$."
+          },
+          {
+            "problem": "Dua dadu dilempar bersamaan. Tentukan peluang jumlah mata dadu $5$ atau $9$.",
+            "solution": "Langkah 1: Jumlah $5$ dan jumlah $9$ tidak mungkin terjadi pada satu lemparan yang sama. Kedua kejadian SALING LEPAS.\n\nLangkah 2: Jumlah $5$: $(1, 4), (2, 3), (3, 2), (4, 1)$.\n$P = \\frac{4}{36}$\n\nLangkah 3: Jumlah $9$: $(3, 6), (4, 5), (5, 4), (6, 3)$.\n$P = \\frac{4}{36}$\n\nLangkah 4: Karena saling lepas, peluangnya langsung dijumlahkan.\n$P = \\frac{4}{36} + \\frac{4}{36} = \\frac{8}{36} = \\frac{2}{9}$\n\nLangkah 5: Pada kejadian saling lepas, $P(A \\cap B) = 0$, sehingga rumus gabungan menjadi penjumlahan biasa.\n\nKesimpulan: Peluang jumlah mata dadu $5$ atau $9$ adalah $\\frac{2}{9}$."
+          },
+          {
+            "problem": "Satu kartu diambil dari satu set kartu remi. Tentukan peluang terambil kartu As atau kartu hati.",
+            "solution": "Langkah 1: Kartu As ada $4$; kartu hati ada $13$.\n\nLangkah 2: Kedua kejadian TIDAK saling lepas: As hati termasuk keduanya.\n$n(\\text{As} \\cap \\text{hati}) = 1$\n\nLangkah 3: Pakai rumus gabungan.\n$P = \\frac{4}{52} + \\frac{13}{52} - \\frac{1}{52} = \\frac{16}{52} = \\frac{4}{13}$\n\nLangkah 4: Periksa dengan menghitung langsung: $13$ kartu hati ditambah $3$ As yang bukan hati $= 16$ kartu — cocok.\n\nLangkah 5: Kekeliruan yang sering terjadi adalah menjawab $\\frac{17}{52}$, karena As hati terhitung dua kali.\n\nKesimpulan: Peluang terambil kartu As atau hati adalah $\\frac{4}{13}$."
+          },
+          {
+            "problem": "Sebuah koin dan sebuah dadu dilempar bersamaan. Tentukan peluang munculnya angka pada koin dan mata $6$ pada dadu.",
+            "solution": "Langkah 1: Hasil koin tidak memengaruhi hasil dadu, dan sebaliknya. Kedua kejadian SALING BEBAS.\n\nLangkah 2: Peluang masing-masing.\n$P(\\text{angka}) = \\frac{1}{2}$ dan $P(\\text{mata } 6) = \\frac{1}{6}$\n\nLangkah 3: Karena saling bebas, peluang keduanya terjadi bersamaan adalah hasil kalinya.\n$P = \\frac{1}{2} \\times \\frac{1}{6} = \\frac{1}{12}$\n\nLangkah 4: Periksa dengan ruang sampel: dari $12$ titik sampel, hanya $(A, 6)$ yang memenuhi, jadi $\\frac{1}{12}$ — cocok.\n\nLangkah 5: Perhatikan kata penghubungnya: \"atau\" mengarah ke penjumlahan (gabungan), sedangkan \"dan\" pada kejadian saling bebas mengarah ke perkalian.\n\nKesimpulan: Peluangnya $\\frac{1}{12}$."
+          },
+          {
+            "problem": "Kantong I berisi $3$ bola merah dan $2$ bola putih. Kantong II berisi $4$ bola merah dan $6$ bola putih. Dari setiap kantong diambil satu bola. Tentukan peluang kedua bola berwarna merah.",
+            "solution": "Langkah 1: Pengambilan dari kantong I tidak memengaruhi isi kantong II. Kedua kejadian saling bebas.\n\nLangkah 2: Peluang merah dari kantong I.\n$\\frac{3}{5}$\n\nLangkah 3: Peluang merah dari kantong II.\n$\\frac{4}{10} = \\frac{2}{5}$\n\nLangkah 4: Kalikan.\n$P = \\frac{3}{5} \\times \\frac{2}{5} = \\frac{6}{25}$\n\nLangkah 5: Kekeliruan yang sering terjadi adalah menggabungkan isi kedua kantong menjadi satu ($7$ merah dari $15$ bola) sehingga menjawab $\\frac{7}{15}$. Kedua kantong adalah percobaan terpisah.\n\nKesimpulan: Peluang kedua bola berwarna merah adalah $\\frac{6}{25}$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Di papan, setiap kelompok menulis EMPAT pasangan kejadian karangan sendiri dari percobaan dadu, koin, atau kartu — dua pasangan yang saling lepas dan dua yang tidak. Tukarkan dengan kelompok lain, yang harus menentukan mana yang saling lepas, menghitung peluang gabungannya, dan menjelaskan alasannya. Terakhir, setiap kelompok merancang satu soal \"dua kantong\" yang memakai perkalian, lalu memeriksa jawabannya dengan mendaftar semua pasangan hasil.",
+        "summary_data": {
+          "summary": [
+            "Peluang gabungan: $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.",
+            "Suku $-P(A \\cap B)$ mengoreksi titik sampel yang terhitung dua kali.",
+            "Dua kejadian saling lepas bila tidak mungkin terjadi bersamaan, yaitu $A \\cap B = \\varnothing$.",
+            "Untuk kejadian saling lepas: $P(A \\cup B) = P(A) + P(B)$.",
+            "Dua kejadian saling bebas bila terjadinya yang satu tidak memengaruhi peluang yang lain.",
+            "Untuk kejadian saling bebas: $P(A \\cap B) = P(A) \\times P(B)$.",
+            "Kata \"atau\" biasanya berarti gabungan; kata \"dan\" pada kejadian saling bebas berarti perkalian.",
+            "Hasil koin dan dadu, atau pengambilan dari dua kantong berbeda, adalah contoh kejadian saling bebas.",
+            "Kejadian genap dan ganjil pada satu dadu adalah contoh kejadian saling lepas.",
+            "Selalu periksa jawaban dengan mendaftar ruang sampel bila ruang sampelnya kecil."
+          ],
+          "islamic": "Setelah berikhtiar dengan sungguh-sungguh, serahkan hasilnya kepada Allah. \"Kemudian apabila engkau telah membulatkan tekad, maka bertawakallah kepada Allah. Sungguh, Allah mencintai orang-orang yang bertawakal.\" (QS. Ali 'Imran: 159)"
+        },
+        "collab_cases": [
+          "Sebuah dadu dilempar sekali. Tentukan peluang munculnya mata ganjil atau mata kelipatan $3$.",
+          "Dua dadu dilempar bersamaan. Tentukan peluang jumlah mata dadu $4$ atau $10$.",
+          "Satu kartu diambil dari satu set kartu remi. Tentukan peluang terambil kartu bergambar (J, Q, K) atau kartu wajik.",
+          "Dua dadu dilempar bersamaan. Tentukan peluang munculnya mata genap pada dadu pertama dan mata $5$ pada dadu kedua.",
+          "Kantong A berisi $2$ bola merah dan $3$ bola biru; kantong B berisi $5$ bola merah dan $5$ bola biru. Satu bola diambil dari setiap kantong. Tentukan peluang terambil satu merah dari A dan satu biru dari B."
+        ]
+      },
+      "soal": {
+        "id": "P48",
+        "subject": "wajib",
+        "title": "P48 • Peluang Kejadian Majemuk: Saling Lepas dan Saling Bebas",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P48-Q1] Dua kejadian $A$ dan $B$ disebut saling lepas apabila $\\dots$",
+            "opsi": [
+              "A. $A \\cap B = S$",
+              "B. $A \\cap B = \\varnothing$",
+              "C. $P(A) = P(B)$",
+              "D. $A \\cup B = \\varnothing$",
+              "E. $P(A) \\times P(B) = 1$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Saling lepas berarti kedua kejadian tidak mungkin terjadi bersamaan.\n\nLangkah 2: Artinya tidak ada titik sampel yang menjadi anggota keduanya: $A \\cap B = \\varnothing$.\n\nLangkah 3: Opsi C keliru: dua kejadian berpeluang sama belum tentu saling lepas, misalnya genap dan prima pada dadu.\n\nLangkah 4: Opsi D berarti kedua kejadian kosong — terlalu sempit.\n\nLangkah 5: Contoh saling lepas: mata genap dan mata ganjil pada satu dadu.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P48-Q2] Sebuah dadu dilempar sekali. Peluang munculnya mata genap atau mata prima adalah $\\dots$",
+            "opsi": [
+              "A. $1$",
+              "B. $\\frac{2}{3}$",
+              "C. $\\frac{5}{6}$",
+              "D. $\\frac{1}{6}$",
+              "E. $\\frac{1}{2}$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Genap $= \\{2, 4, 6\\}$, prima $= \\{2, 3, 5\\}$, dan irisannya $\\{2\\}$.\n\nLangkah 2: Pakai rumus gabungan.\n$\\frac{3}{6} + \\frac{3}{6} - \\frac{1}{6} = \\frac{5}{6}$\n\nLangkah 3: Periksa: gabungannya $\\{2, 3, 4, 5, 6\\}$, lima anggota — cocok.\n\nLangkah 4: Opsi A ($1$) lupa mengurangkan irisan, sehingga mata $2$ terhitung dua kali.\n\nLangkah 5: Opsi D ($\\frac{1}{6}$) adalah peluang irisannya, yaitu genap DAN prima.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P48-Q3] Dua dadu dilempar bersamaan. Peluang jumlah mata dadu $5$ atau $9$ adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{9}$",
+              "B. $\\frac{1}{3}$",
+              "C. $\\frac{4}{9}$",
+              "D. $\\frac{2}{9}$",
+              "E. $\\frac{1}{18}$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Kedua kejadian saling lepas: satu lemparan tidak mungkin berjumlah $5$ sekaligus $9$.\n\nLangkah 2: Jumlah $5$ mempunyai $4$ titik sampel, dan jumlah $9$ juga $4$.\n\nLangkah 3: Jumlahkan.\n$\\frac{4}{36} + \\frac{4}{36} = \\frac{8}{36} = \\frac{2}{9}$\n\nLangkah 4: Opsi A ($\\frac{1}{9}$) hanya menghitung salah satu kejadian.\n\nLangkah 5: Opsi E ($\\frac{1}{18}$) mengalikan kedua peluang — perkalian dipakai untuk \"dan\" pada kejadian saling bebas, bukan untuk \"atau\".\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P48-Q4] Sebuah koin dan sebuah dadu dilempar bersamaan. Peluang munculnya gambar pada koin dan mata ganjil pada dadu adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{4}$",
+              "B. $\\frac{1}{2}$",
+              "C. $\\frac{1}{12}$",
+              "D. $\\frac{3}{4}$",
+              "E. $\\frac{1}{6}$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Hasil koin dan dadu saling bebas.\n\nLangkah 2: Peluang masing-masing.\n$P(\\text{gambar}) = \\frac{1}{2}$ dan $P(\\text{ganjil}) = \\frac{3}{6} = \\frac{1}{2}$\n\nLangkah 3: Kalikan.\n$\\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}$\n\nLangkah 4: Periksa dengan ruang sampel: $(G, 1), (G, 3), (G, 5)$ — $3$ dari $12$, yaitu $\\frac{1}{4}$ — cocok.\n\nLangkah 5: Opsi D ($\\frac{3}{4}$) adalah peluang gambar ATAU ganjil: $\\frac{1}{2} + \\frac{1}{2} - \\frac{1}{4}$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P48-Q5] Satu kartu diambil dari satu set kartu remi. Peluang terambil kartu King atau kartu berwarna merah adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{15}{26}$",
+              "B. $\\frac{1}{2}$",
+              "C. $\\frac{8}{13}$",
+              "D. $\\frac{1}{13}$",
+              "E. $\\frac{7}{13}$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: King ada $4$, kartu merah ada $26$, dan King merah (hati dan wajik) ada $2$.\n\nLangkah 2: Pakai rumus gabungan.\n$\\frac{4}{52} + \\frac{26}{52} - \\frac{2}{52} = \\frac{28}{52} = \\frac{7}{13}$\n\nLangkah 3: Periksa langsung: $26$ kartu merah ditambah $2$ King hitam $= 28$ kartu — cocok.\n\nLangkah 4: Opsi A ($\\frac{15}{26} = \\frac{30}{52}$) lupa mengurangkan kedua King merah yang terhitung dua kali.\n\nLangkah 5: Opsi B ($\\frac{1}{2}$) hanya menghitung kartu merah.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P48-Q6] Kantong I berisi $3$ bola merah dan $2$ bola putih. Kantong II berisi $4$ bola merah dan $6$ bola putih. Dari setiap kantong diambil satu bola. Peluang kedua bola berwarna putih adalah $\\dots$",
+            "opsi": [
+              "A. $\\frac{8}{15}$",
+              "B. $\\frac{6}{25}$",
+              "C. $\\frac{2}{5}$",
+              "D. $\\frac{12}{25}$",
+              "E. $\\frac{3}{5}$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Pengambilan dari dua kantong berbeda saling bebas.\n\nLangkah 2: Peluang putih dari kantong I: $\\frac{2}{5}$. Dari kantong II: $\\frac{6}{10} = \\frac{3}{5}$.\n\nLangkah 3: Kalikan.\n$\\frac{2}{5} \\times \\frac{3}{5} = \\frac{6}{25}$\n\nLangkah 4: Opsi A ($\\frac{8}{15}$) menggabungkan isi kedua kantong: $8$ putih dari $15$ bola. Keduanya percobaan terpisah.\n\nLangkah 5: Opsi C dan E masing-masing hanya peluang dari satu kantong.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P48-Q7] Kejadian $A$ dan $B$ saling bebas dengan $P(A) = 0{,}5$ dan $P(B) = 0{,}4$. Nilai $P(A \\cup B)$ adalah $\\dots$",
+            "opsi": [
+              "A. $0{,}9$",
+              "B. $0{,}2$",
+              "C. $0{,}7$",
+              "D. $0{,}1$",
+              "E. $0{,}6$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Karena saling bebas, $P(A \\cap B) = 0{,}5 \\times 0{,}4 = 0{,}2$.\n\nLangkah 2: Pakai rumus gabungan.\n$P(A \\cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$\n\nLangkah 3: Opsi A ($0{,}9$) menganggap keduanya saling lepas, padahal kejadian saling bebas dengan peluang positif pasti beririsan.\n\nLangkah 4: Opsi B ($0{,}2$) adalah $P(A \\cap B)$, bukan $P(A \\cup B)$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P48-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Pada pelemparan satu dadu, kejadian munculnya mata genap dan kejadian munculnya mata ganjil saling lepas.",
+              "(2) Jika $A$ dan $B$ saling lepas, maka $P(A \\cup B) = P(A) \\times P(B)$.",
+              "(3) Hasil pelemparan sebuah koin dan sebuah dadu merupakan kejadian yang saling bebas."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): tidak ada mata yang genap sekaligus ganjil, jadi irisannya kosong. BENAR.\n\nLangkah 2: Pernyataan (2): untuk kejadian saling lepas, peluang gabungan adalah JUMLAH, bukan hasil kali.\n\nLangkah 3: Misalnya genap atau ganjil: $\\frac{1}{2} + \\frac{1}{2} = 1$, sedangkan $\\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}$ jelas keliru. SALAH.\n\nLangkah 4: Pernyataan (3): hasil koin tidak memengaruhi hasil dadu. BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P48-Q9] Sebuah dadu dilempar sekali. Kejadian $A = \\{1, 2, 3\\}$ dan $B = \\{3, 4\\}$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. $P(A \\cap B) = \\frac{1}{6}$",
+              "B. $P(A \\cup B) = \\frac{2}{3}$",
+              "C. $A$ dan $B$ saling lepas.",
+              "D. $P(A) + P(B) - P(A \\cap B) = \\frac{2}{3}$",
+              "E. $P(A \\cup B) = \\frac{5}{6}$"
+            ],
+            "kunci": "A, B, D",
+            "bahas": "Langkah 1: $A \\cap B = \\{3\\}$, jadi $P(A \\cap B) = \\frac{1}{6}$ — A benar.\n\nLangkah 2: $A \\cup B = \\{1, 2, 3, 4\\}$, jadi $P(A \\cup B) = \\frac{4}{6} = \\frac{2}{3}$ — B benar, E salah.\n\nLangkah 3: Karena irisannya tidak kosong, $A$ dan $B$ TIDAK saling lepas — C salah.\n\nLangkah 4: D: $\\frac{3}{6} + \\frac{2}{6} - \\frac{1}{6} = \\frac{4}{6} = \\frac{2}{3}$ — benar, sesuai dengan B.\n\nLangkah 5: Opsi E ($\\frac{5}{6}$) muncul bila irisannya tidak dikurangkan: $\\frac{3}{6} + \\frac{2}{6}$.\n\nKesimpulan: Kunci Jawaban A, B, D."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P48-Q10] Dua dadu dilempar bersamaan sebanyak $72$ kali. Frekuensi harapan munculnya jumlah mata dadu $5$ atau $9$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "16",
+            "bahas": "Langkah 1: Jumlah $5$ dan $9$ saling lepas. Masing-masing mempunyai $4$ titik sampel.\n\nLangkah 2: Peluangnya.\n$\\frac{4}{36} + \\frac{4}{36} = \\frac{8}{36} = \\frac{2}{9}$\n\nLangkah 3: Frekuensi harapan.\n$72 \\times \\frac{2}{9} = 16$\n\nLangkah 4: Soal ini menggabungkan peluang kejadian saling lepas dengan frekuensi harapan dari pertemuan sebelumnya.\n\nKesimpulan: Kunci Jawaban 16."
+          }
+        ]
+      }
+    }
+  ]
+}

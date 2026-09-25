@@ -10,7 +10,7 @@
   <link rel="manifest" href="manifest.json">
 
   <meta name="theme-color" content="#040914">
-  <meta name="description" content="Semua materi Matematika Kelas XI dalam satu tempat — Wajib, Peminatan, CLIL, dan 570 soal drilling untuk TKA dan UTBK-SNBT. Sekali dibuka, bisa dipakai tanpa internet.">
+  <meta name="description" content="Semua materi Matematika Kelas XI dalam satu tempat — Wajib, Peminatan, dan 1000 soal drilling untuk TKA dan UTBK-SNBT. Sekali dibuka, bisa dipakai tanpa internet.">
   <meta name="color-scheme" content="dark light">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -56,105 +56,131 @@
 
 
   <!-- TOP HEADER WITH LOGO, SUBJECT TABS, & LUXURY CONTROLS -->
-  <header id="app-header" class="h-14 md:h-16 border-b border-[#1a2f4a] px-3 md:px-6 flex items-center justify-between z-40 shrink-0 sticky top-0" style="background: rgba(6,15,30,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+  <header id="app-header" class="h-14 md:h-15 border-b border-slate-800/90 px-3 md:px-6 flex items-center justify-between gap-3 z-40 shrink-0 sticky top-0 bg-[#070D18]/95 backdrop-blur-md shadow-md">
     
     <!-- LEFT: DRAWER MENU TOGGLE & SCHOOL IDENTITY -->
-    <div class="flex items-center gap-2 md:gap-3 min-w-0 shrink-0 md:shrink">
-      <!-- SIDEBAR DRAWER TOGGLE BUTTON -->
-      <button onclick="toggleCurriculumDrawer()" aria-label="Buka menu kurikulum" class="laci-hanya-sempit p-2 md:px-3 md:py-2 bg-[#0D1A2E] hover:bg-slate-800 border border-[#1a2f4a] text-amber-400 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95 shadow shrink-0" title="Buka Menu Navigasi Kurikulum (Alt + M)">
-        <i class="fa-solid fa-bars-staggered text-sm"></i>
-        <span class="hidden lg:inline text-xs font-black">Menu Kurikulum</span>
+    <div class="flex items-center gap-2.5 shrink-0">
+      <button onclick="toggleCurriculumDrawer()" aria-label="Buka menu kurikulum" class="p-2 md:px-2.5 md:py-1.5 bg-slate-900/90 hover:bg-slate-800 text-amber-400 border border-slate-800 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95 shadow-sm shrink-0 cursor-pointer" title="Buka Menu Navigasi Kurikulum (Alt + M)">
+        <i class="fa-solid fa-bars-staggered text-xs"></i>
+        <span class="hidden xl:inline text-[11px] font-bold">Silabus</span>
       </button>
 
-      <div class="hidden md:flex items-center gap-2 cursor-pointer min-w-0 overflow-hidden hdr-identitas" onclick="switchSubject('home')">
-        <span role="img" aria-label="Logo Math Cihuy" class="mc-logo h-8 w-8 md:h-9 md:w-9 object-contain shrink-0"></span>
+      <div class="flex items-center gap-2 cursor-pointer min-w-0 overflow-hidden" onclick="switchSubject('home')">
+        <span role="img" aria-label="Logo Math Cihuy" class="mc-logo h-7 w-7 md:h-8 md:w-8 object-contain shrink-0"></span>
         <div class="truncate min-w-0">
-          <h1 class="text-[11px] md:text-sm font-extrabold text-amber-400 tracking-wide truncate flex items-center gap-1.5 min-w-0">
-            <span class="truncate">MATH CIHUY</span>
-          </h1>
-          <p class="text-[11px] md:text-xs text-slate-400 font-semibold truncate">
-            <span id="header-subject-label" class="text-amber-400 font-bold">Beranda Portal</span>
-            <span class="text-slate-600 hidden 2xl:inline"> • </span>
-            <span class="text-slate-400 hidden 2xl:inline">M. Ardiansyah, S.Pd.Gr.</span>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-xs md:text-sm font-black text-white tracking-wide truncate">MATHCIHUY</h1>
+            <span id="lencana-tingkat" class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">XI</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-medium truncate max-w-[120px] md:max-w-[200px]" id="header-subject-label">
+            Beranda Portal
           </p>
         </div>
       </div>
+
+      <!-- PILIH TINGKAT (hanya guru; ditampilkan & ditandai oleh app.js) -->
+      <nav id="pilih-tingkat" aria-label="Pilih tingkat kelas" class="hidden items-center gap-0.5 p-0.5 rounded-lg bg-[#050B14] border border-blue-900/60 shrink-0">
+        <a href="/10" data-tingkat="10" title="Portal Kelas X" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold text-slate-400">X</a>
+        <a href="/11" data-tingkat="11" title="Portal Kelas XI" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold text-slate-400">XI</a>
+        <a href="/" data-tingkat="12" title="Portal Kelas XII" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold text-slate-400">XII</a>
+      </nav>
     </div>
 
     <!-- CENTER: NAVIGATION TABS (BERANDA + 4 MATH STREAMS) -->
-    <div class="flex items-center gap-1 md:gap-2 min-w-0 flex-1 justify-center">
-      <div class="flex items-center bg-[#071527] p-1 rounded-xl border border-slate-800 shadow-inner max-w-full overflow-x-auto no-scrollbar">
-        <button onclick="switchSubject('home')" id="tab-home" class="px-2.5 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap bg-blue-600 text-white shadow font-black">
-          <i class="fa-solid fa-house mr-1"></i> <span class="hidden sm:inline">Beranda</span>
+    <div class="flex items-center gap-1 min-w-0 flex-1 justify-center">
+      <div class="flex items-center bg-[#050B14] p-1 rounded-2xl border border-blue-900/60 shadow-inner max-w-full overflow-x-auto no-scrollbar">
+        <button onclick="switchSubject('home')" id="tab-home" class="px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap bg-blue-600 text-white shadow flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-house text-[10px]"></i> <span>Beranda</span>
         </button>
-        <button onclick="switchSubject('wajib')" id="tab-wajib" class="px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap text-slate-300 hover:text-white">
-          <i class="fa-solid fa-shapes mr-1"></i> <span class="tab-awalan hidden 2xl:inline">Matematika </span>Wajib (21)
+        <button onclick="switchSubject('wajib')" id="tab-wajib" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-shapes text-[10px]"></i> <span>Wajib</span>
         </button>
-        <button onclick="switchSubject('minat')" id="tab-minat" class="px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap text-slate-300 hover:text-white">
-          <i class="fa-solid fa-infinity mr-1"></i> <span class="tab-awalan hidden 2xl:inline">Matematika </span>Minat (30)
+        <button onclick="switchSubject('minat')" id="tab-minat" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-chart-line text-[10px]"></i> <span>Minat</span>
         </button>
-        <button onclick="switchSubject('clil')" id="tab-clil" class="px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap text-slate-300 hover:text-white">
-          <i class="fa-solid fa-language mr-1"></i> CLIL (6)
+        <button onclick="switchSubject('clil')" id="tab-clil" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-globe text-[10px]"></i> <span>CLIL</span>
         </button>
-        <button onclick="switchSubject('tka')" id="tab-tka" class="px-2 py-1.5 md:px-3 md:py-1.5 rounded-lg text-xs font-black transition whitespace-nowrap text-slate-300 hover:text-white">
-          <i class="fa-solid fa-crosshairs mr-1"></i> <span class="tab-awalan hidden 2xl:inline">Drilling </span>CBT (57)
+        <button onclick="switchSubject('tka')" id="tab-tka" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-amber-400 flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-bolt text-[10px]"></i> <span>CBT</span>
         </button>
       </div>
     </div>
 
-    <!-- RIGHT: QUICK TOOLS & PREMIUM MODALS -->
-    <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
-      <!-- QUICK SEARCH BUTTON (CTRL + K) -->
-      <button onclick="openSearchModal()" class="px-2.5 py-1.5 md:px-3 md:py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition active:scale-95 shrink-0" title="Pencarian Cepat Materi & Rumus (Ctrl + K)">
-        <i class="fa-solid fa-magnifying-glass text-amber-400"></i>
-        <span class="hidden md:inline font-mono text-[11px] bg-slate-950 px-1.5 py-0.5 rounded border border-slate-700 text-slate-400">Ctrl K</span>
+    <!-- RIGHT: ONLY SEARCH & UNIFIED USER PROFILE MENU -->
+    <div class="flex items-center gap-2 shrink-0">
+      <!-- THEME TOGGLE (MODE TERANG & GELAP) -->
+      <button onclick="toggleTema()" id="top-theme-toggle-btn" class="p-2 md:px-3 md:py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-amber-400 hover:text-amber-300 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm cursor-pointer" title="Alihkan Mode Terang / Gelap">
+        <i id="top-theme-icon" class="fa-solid fa-sun text-sm text-amber-400"></i>
+        <span id="top-theme-label" class="hidden md:inline text-xs font-mono text-slate-300">Terang</span>
       </button>
 
-      <!-- ACADEMIC SCHEDULE & UTBK 2027 TIMELINE -->
-      <button onclick="openScheduleModal()" class="p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-xs transition" title="Jadwal KBM & Agenda TKA / UTBK 2027">
-        <i class="fa-solid fa-calendar-check text-emerald-400"></i>
-      </button>
-
-      <!-- STUDENT LEARNING ANALYTICS -->
-      <button onclick="openAnalyticsModal()" class="p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-xs transition" title="Progres Belajar & Histori Nilai CBT">
-        <i class="fa-solid fa-chart-line text-blue-400"></i>
-      </button>
-
-      <!-- WHITEBOARD PEN TOOL -->
-      <button id="btn-pen" onclick="togglePenMode()" class="p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-xs font-bold transition" title="Mode Coretan / Spidol Digital">
-        <i class="fa-solid fa-pen"></i>
-      </button>
-
-      <!-- UKURAN TAMPILAN (untuk berbagi layar) -->
-      <div class="hidden sm:flex items-center bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shrink-0" title="Perbesar tampilan untuk berbagi layar (Ctrl + tanda minus / plus)">
-        <button onclick="stepUiScale(-1)" aria-label="Perkecil tampilan" class="px-2 py-1.5 md:py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition font-bold">
-          <i class="fa-solid fa-magnifying-glass-minus text-xs"></i>
+      <!-- USER PROFILE DROPDOWN MENU -->
+      <div class="relative" id="user-menu-container">
+        <button id="user-profile-btn" onclick="toggleUserDropdownMenu(event)" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs font-mono font-bold text-slate-200 transition flex items-center gap-2 cursor-pointer shadow-sm">
+          <span id="user-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="user-display-name" class="font-bold text-amber-400 hidden sm:inline">GURU: mathcihuy</span>
+          <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
         </button>
-        <span id="ui-scale-label" class="px-1.5 text-[11px] font-mono font-bold text-amber-400 tabular-nums select-none">100%</span>
-        <button onclick="stepUiScale(1)" aria-label="Perbesar tampilan" class="px-2 py-1.5 md:py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition font-bold">
-          <i class="fa-solid fa-magnifying-glass-plus text-xs"></i>
-        </button>
+
+        <!-- DROPDOWN POPOVER MENU -->
+        <div id="user-profile-dropdown" class="hidden absolute right-0 mt-2 w-64 rounded-2xl bg-[#0D182A] border border-slate-800 shadow-2xl p-2 z-50 space-y-1.5 text-xs">
+          
+          <!-- USER INFO HEADER -->
+          <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800/80">
+            <p id="menu-user-name" class="text-xs font-bold text-white">M. Ardiansyah, S.Pd.Gr.</p>
+            <p id="menu-user-role" class="text-[10px] text-amber-400 font-mono">Guru Pengampu Matematika</p>
+          </div>
+
+          <!-- GURU SPECIAL TOOLS (HIDDEN FOR SISWA) -->
+          <div id="guru-menu-group" class="space-y-0.5 border-b border-slate-800/80 pb-1.5">
+            <button onclick="openGuruDashboard(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-emerald-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-chart-line text-amber-400 w-4 text-center"></i>
+              <span>Dashboard Monitoring Guru</span>
+            </button>
+          </div>
+
+          <!-- ACADEMIC & TEACHING TOOLS -->
+          <div class="space-y-0.5 border-b border-slate-800/80 pb-1.5">
+            <button onclick="openScheduleModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-calendar-days text-amber-400 w-4 text-center"></i>
+              <span>Jadwal & Agenda Ujian</span>
+            </button>
+            <button onclick="openAnalyticsModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-chart-pie text-blue-400 w-4 text-center"></i>
+              <span>Statistik & Progres Belajar</span>
+            </button>
+            <button onclick="pasangAplikasi(); toggleUserDropdownMenu();" id="pwa-btn" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-emerald-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-download text-amber-400 w-4 text-center"></i>
+              <span>Install Aplikasi (PWA)</span>
+            </button>
+          </div>
+
+          <!-- PREFERENCES & LOGOUT -->
+          <div class="space-y-0.5">
+            <button onclick="toggleTema();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-amber-300 transition flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-2">
+                <i id="tema-ikon" class="fa-solid fa-moon text-amber-400 w-4 text-center"></i>
+                <span>Mode Tampilan</span>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">Dark/Light</span>
+            </button>
+            <button onclick="toggleFullscreen(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-expand text-slate-400 w-4 text-center"></i>
+                <span>Layar Penuh</span>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">F11</span>
+            </button>
+            <button onclick="logoutSession()" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-blue-500/10 text-left text-amber-400 hover:text-rose-300 transition flex items-center gap-2 font-bold pt-1.5 border-t border-slate-800/80 cursor-pointer">
+              <i class="fa-solid fa-power-off text-amber-400 w-4 text-center"></i>
+              <span>Keluar Akun (Logout)</span>
+            </button>
+          </div>
+
+        </div>
       </div>
 
-      <!-- FULLSCREEN -->
-      <button onclick="pasangAplikasi()" id="pwa-btn" class="hidden items-center gap-1.5 px-2 py-1.5 md:px-2.5 md:py-2 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 rounded-xl text-xs font-bold transition" title="Pasang portal ini sebagai aplikasi di perangkat">
-        <i class="fa-solid fa-download"></i><span class="hidden xl:inline">Install Aplikasi</span>
-      </button>
-      <div id="user-info-header" class="hidden md:flex items-center gap-2 ml-auto"></div>
-      <!-- Tiap tingkat punya halamannya sendiri. Guru mengajar semua tingkat,
-           jadi ia butuh jalan pindah; siswa tidak pernah melihat tombol ini. -->
-      <a id="tingkat-btn" href="/11" class="hidden items-center gap-1.5 px-2 py-1.5 md:px-2.5 md:py-2 bg-blue-500/15 hover:bg-blue-500/25 border border-blue-400/40 text-blue-300 rounded-xl text-xs font-bold transition" title="Pindah ke portal kelas XI">
-        <i class="fa-solid fa-arrow-right-arrow-left"></i><span class="hidden xl:inline">Kelas XI</span>
-      </a>
-      <button onclick="openGuruDashboard()" id="guru-btn" class="hidden items-center gap-1.5 px-2 py-1.5 md:px-2.5 md:py-2 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 rounded-xl text-xs font-bold transition" title="Dashboard Monitoring (Guru Only)">
-        <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-analytics"></use></svg><span class="hidden xl:inline">Dashboard</span>
-      </button>
-      <button onclick="toggleTema()" id="tema-btn" class="flex p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 rounded-xl text-xs transition" title="Ganti tema terang / gelap">
-        <i id="tema-ikon" class="fa-solid fa-moon w-4 text-center"></i>
-      </button>
-      <button onclick="toggleFullscreen()" class="hidden sm:flex p-1.5 md:p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-xs transition" title="Layar Penuh (F11)">
-        <i class="fa-solid fa-expand"></i>
-      </button>
     </div>
 
   </header>
@@ -168,259 +194,219 @@
   <main class="flex-1 min-h-0 relative flex items-stretch justify-center p-2 md:p-4 overflow-hidden">
     
     <!-- VIEW 0: ULTRA-LUXURY HOMEPAGE DASHBOARD -->
-    <div id="home-stage" class="w-full h-full max-h-[900px] rounded-2xl md:rounded-3xl border shadow-2xl flex flex-col overflow-y-auto p-4 md:p-6 space-y-6 relative z-20" style="max-width: min(98vw, 1380px); background: rgba(13,26,46,0.98); border-color: #1a2f4a; box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(29,78,216,0.1);">
+    <div id="home-stage" class="w-full h-full max-h-[900px] rounded-2xl md:rounded-3xl border shadow-2xl flex flex-col overflow-hidden relative z-20" style="max-width: min(98vw, 1380px); background: rgba(11,21,40,0.98); border-color: #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(59,130,246,0.1);">
       
-      <!-- HERO BANNER -->
-      <div id="home-hero" class="p-5 md:p-7 rounded-2xl border border-slate-800 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-5 relative overflow-hidden shrink-0" style="background: linear-gradient(135deg, rgba(10,22,40,0.9), rgba(6,15,30,0.95));">
-        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="flex items-start gap-4 relative z-10">
-          <span role="img" aria-label="Logo Math Cihuy" class="mc-logo h-16 w-16 md:h-20 md:w-20 object-contain drop-shadow-xl shrink-0"></span>
-          <div class="space-y-1.5">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="px-3 py-1 bg-amber-500/20 text-amber-300 font-extrabold text-[10px] md:text-xs rounded-xl sm:rounded-full border border-amber-400/40 uppercase tracking-wide leading-snug">
-                Portal Matematika Kelas XI
-              </span>
-              <span class="px-2.5 py-0.5 bg-blue-500/20 text-blue-300 font-bold text-[10px] md:text-xs rounded-full border border-blue-400/30">
-                TP 2026/2027 • Kelas XI (Fase F)
-              </span>
-            </div>
-            <p id="sapaan-waktu" class="text-sm md:text-base font-bold text-amber-400 mb-1"></p>
-            <h2 class="text-xl md:text-3xl font-black text-white leading-tight tracking-tight [text-wrap:balance]">
-              Susah, tapi cihuy.
-            </h2>
-            <p class="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Materi Wajib, Peminatan, dan CLIL dalam satu tempat &mdash; plus <span id="jml-soal-hero">570</span> soal drilling buat TKA dan UTBK. Buka sekali, tetap bisa dipakai waktu sinyal hilang.
-            </p>
-            <div class="pt-1 flex flex-wrap items-center gap-2 text-xs text-slate-400 font-medium">
-              <span class="inline-flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-lg border border-slate-800 text-slate-200">
-                <i class="fa-solid fa-chalkboard-user text-amber-400"></i> Guru Pengampu: <strong class="text-white">Muhammad Ardiansyah, S.Pd.Gr.</strong>
-              </span>
-            </div>
+      <!-- DASHBOARD TOP BAR -->
+      <div class="h-14 bg-[#070E1B] border-b border-slate-800/80 px-4 md:px-6 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm shadow-sm">
+            <i class="fa-solid fa-square-root-variable"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-white tracking-wide">MATHCIHUY • KELAS XI (FASE F)</span>
+            <span class="text-[10px] text-slate-400 font-medium hidden sm:inline ml-2">SMA Global Islamic School 2 Serpong</span>
           </div>
         </div>
-
-        <!-- HERO QUICK ACTIONS -->
-        <div class="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0 relative z-10">
-          <button onclick="switchSubject('wajib')" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-extrabold rounded-xl text-xs shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
-            <i class="fa-solid fa-shapes"></i> <span>Mulai Belajar</span>
+        <div class="flex items-center gap-2">
+          <button onclick="openAnalyticsModal()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-pie text-blue-400"></i> <span class="hidden sm:inline">Statistik</span>
           </button>
-          <button onclick="switchSubject('tka')" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-black rounded-xl text-xs shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
-            <i class="fa-solid fa-crosshairs"></i> <span>Langsung ke Arena CBT</span>
-          </button>
-          <button onclick="openScheduleModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-calendar-days text-emerald-400"></i> <span>Jadwal & Agenda Ujian</span>
+          <button onclick="switchSubject('tka')" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 active:scale-95">
+            <i class="fa-solid fa-bolt"></i> <span>Arena CBT</span>
           </button>
         </div>
       </div>
 
-      <!-- TODAY'S ACTIVE SESSION BANNER -->
-      <div id="today-session-banner" class="hidden p-3 rounded-xl border border-emerald-500/40 flex flex-col sm:flex-row sm:items-center gap-3" style="background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.06));">
-        <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center shrink-0">
-          <i class="fa-solid fa-signal text-emerald-400"></i>
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">📡 Pertemuan Aktif Hari Ini</div>
-          <div id="today-session-text" class="text-xs font-semibold text-white mt-0.5 leading-snug">Memuat jadwal...</div>
-        </div>
-        <button id="today-session-btn" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-xl text-xs shadow flex items-center gap-1.5 shrink-0 transition active:scale-95">
-          <i class="fa-solid fa-book-open-reader"></i> Mulai Belajar
-        </button>
-      </div>
-
-      <!-- FOCUSED QUICK ACCESS BANNER (NAVIGASI UTAMA DI SIDEBAR) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+      <!-- DASHBOARD SCROLLABLE BODY (EXECUTIVE MODERN REDESIGN) -->
+      <div class="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto space-y-5 custom-scroll">
         
-        <!-- CARD 1: BUKA MENU KURIKULUM LENGKAP -->
-        <div onclick="toggleCurriculumDrawer()" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-amber-500/40 hover:border-amber-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg group-hover:bg-amber-500 group-hover:text-slate-950 transition shadow-sm">
-              <i class="fa-solid fa-bars-staggered"></i>
+        <!-- 1. HERO WELCOME BANNER -->
+        <div class="p-6 md:p-7 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl space-y-5 relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div class="space-y-2.5 max-w-2xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-[#060D1A] border border-blue-900 text-amber-400 text-xs font-bold shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                <span>TP 2026/2027 • Semester Ganjil • SMA GIS 2 Serpong</span>
+              </div>
+              <h1 class="text-xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
+                Portal Pembelajaran & Drilling CBT Matematika
+              </h1>
+              <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+                Materi interaktif 12-slide terstruktur (Building Thinking Classrooms) dan bank soal drilling TKA Nasional & UTBK-SNBT 2027.
+              </p>
+
+              <!-- ACADEMIC METADATA -->
+              <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                <div class="px-3 py-1.5 rounded-xl bg-[#081324] border border-blue-900/80 flex items-center gap-2 text-slate-200">
+                  <i class="fa-solid fa-chalkboard-user text-blue-400"></i>
+                  <span>Guru: <strong class="text-white">Muhammad Ardiansyah, S.Pd.Gr.</strong></span>
+                </div>
+
+              </div>
             </div>
-            <div>
-              <h3 class="text-sm font-extrabold text-white group-hover:text-amber-300 transition">Struktur Kurikulum</h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">Buka daftar bab & sub-menu pertemuan di sidebar</p>
+
+            <!-- HERO CTA BUTTONS -->
+            <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0">
+              <button onclick="switchSubject('wajib')" class="px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs md:text-sm shadow-xl shadow-blue-600/30 transition flex items-center justify-center gap-2.5 cursor-pointer active:scale-95">
+                <i class="fa-solid fa-play text-amber-300"></i>
+                <span>Mulai KBM Interaktif</span>
+              </button>
+              <button onclick="openScheduleModal()" class="px-5 py-3 rounded-2xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-800/80 text-amber-300 hover:text-white font-bold text-xs md:text-sm transition flex items-center justify-center gap-2.5 cursor-pointer">
+                <i class="fa-solid fa-calendar-days text-blue-400"></i>
+                <span>Lihat Jadwal KBM</span>
+              </button>
             </div>
           </div>
-          <i class="fa-solid fa-chevron-right text-amber-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
         </div>
 
-        <!-- CARD 2: DRILLING CBT TKA & UTBK -->
-        <div onclick="switchSubject('tka')" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-purple-500/40 hover:border-purple-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-400 text-lg group-hover:bg-purple-500 group-hover:text-slate-950 transition shadow-sm">
-              <i class="fa-solid fa-laptop-code"></i>
-            </div>
-            <div>
-              <h3 class="text-sm font-extrabold text-white group-hover:text-purple-300 transition">Arena CBT & Drilling</h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">Latihan 570 butir soal TKA & UTBK-SNBT 2027</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-purple-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
-        </div>
-
-        <!-- CARD 3: RUMUS SAKU & PETA KONSEP -->
-        <div onclick="openRumusSaku()" class="p-4 bg-gradient-to-br from-slate-900/95 to-slate-950/95 rounded-2xl border border-cyan-500/40 hover:border-cyan-400 shadow-xl flex items-center justify-between gap-3 cursor-pointer transition-all hover:scale-[1.02] group">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 text-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition shadow-sm">
-              <i class="fa-solid fa-book-bookmark"></i>
-            </div>
-            <div>
-              <h3 class="text-sm font-extrabold text-white group-hover:text-cyan-300 transition">Rumus Saku & Teori</h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">Rangkuman rumus cepat & pembuktian teorema</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-cyan-400 text-xs shrink-0 group-hover:translate-x-1 transition-transform"></i>
-        </div>
-
-      </div>
-
-      <!-- SECTION 1: CLEAN VISUAL JADWAL KBM KELAS XI -->
-      <div class="space-y-3 pt-1">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 text-xs">
-              <i class="fa-solid fa-clock"></i>
-            </div>
-            <h3 class="text-xs md:text-sm font-extrabold text-white tracking-wide">
-              JADWAL KBM REGULER MATEMATIKA KELAS XI (TP 2026/2027)
-            </h3>
-          </div>
-          <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
-            Total 24 JP Tatap Muka
-          </span>
-        </div>
-
-        <!-- 4 CLEAN ROMBEL CARDS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <!-- 2. 3 MAIN STREAM CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           
-          <!-- 12 F.1 -->
-          <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-              <span class="font-mono font-black text-amber-300 text-xs">12 F.1</span>
-              <span class="px-2 py-0.5 rounded-md bg-blue-600/20 text-blue-300 text-[10px] font-bold">Wajib (4 JP)</span>
+          <!-- CARD 1: WAJIB -->
+          <div onclick="switchSubject('wajib')" class="p-5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 hover:border-blue-500/80 shadow-xl transition space-y-3 flex flex-col justify-between cursor-pointer group">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center text-base group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-shapes"></i>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg bg-[#060D1A] text-amber-400 text-xs font-mono font-bold border border-blue-900">
+                  <span id="jml-wajib-kartu">44</span> Pertemuan
+                </span>
+              </div>
+              <h3 class="text-sm md:text-base font-bold text-white group-hover:text-blue-300 transition">Matematika Wajib</h3>
+              <p id="bab-wajib-kartu" class="text-xs text-slate-400 leading-relaxed">
+                Komposisi Fungsi dan Fungsi Invers, Lingkaran, Statistika Bivariat, dan Bunga Majemuk dan Anuitas.
+              </p>
             </div>
-            <div class="space-y-1.5 text-[11px]">
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Senin</span>
-                <span class="font-mono text-slate-300">13.00 - 14.15 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Rabu</span>
-                <span class="font-mono text-slate-300">07.30 - 08.00 (1 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Kamis</span>
-                <span class="font-mono text-slate-300">13.00 - 14.15 (2 JP)</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 12 F.2 -->
-          <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-              <span class="font-mono font-black text-teal-300 text-xs">12 F.2</span>
-              <span class="px-2 py-0.5 rounded-md bg-teal-600/20 text-teal-300 text-[10px] font-bold">Wajib (4 JP)</span>
-            </div>
-            <div class="space-y-1.5 text-[11px]">
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Rabu</span>
-                <span class="font-mono text-slate-300">13.00 - 14.20 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1.5 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-slate-200">Jumat</span>
-                <span class="font-mono text-slate-300">13.15 - 14.25 (2 JP)</span>
-              </div>
+            <div class="pt-2 border-t border-blue-900/60 flex items-center justify-between text-xs text-blue-300 font-semibold">
+              <span><span id="butir-wajib-kartu">440</span> Butir Soal CBT</span>
+              <i class="fa-solid fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
 
-          <!-- 12 F.3 -->
-          <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-              <span class="font-mono font-black text-amber-400 text-xs">12 F.3</span>
-              <span class="px-2 py-0.5 rounded-md bg-amber-600/20 text-amber-300 text-[10px] font-bold">Wajib & Minat (8 JP)</span>
+          <!-- CARD 2: MINAT -->
+          <div data-gate="minat" onclick="switchSubject('minat')" class="p-5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 hover:border-amber-500/80 shadow-xl transition space-y-3 flex flex-col justify-between cursor-pointer group">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-base group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg bg-[#060D1A] text-amber-400 text-xs font-mono font-bold border border-blue-900">
+                  <span id="jml-minat-kartu">56</span> Pertemuan
+                </span>
+              </div>
+              <h3 class="text-sm md:text-base font-bold text-white group-hover:text-amber-300 transition">Matematika Peminatan</h3>
+              <p id="bab-minat-kartu" class="text-xs text-slate-400 leading-relaxed">
+                Polinomial, Bilangan Kompleks, Matriks, Transformasi Geometri, Trigonometri, dan Fungsi.
+              </p>
             </div>
-            <div class="space-y-1 text-[10px]">
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Senin (Wajib)</span>
-                <span class="font-mono text-slate-300">14.15 - 15.30 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-amber-500/20">
-                <span class="font-bold text-amber-400">Selasa (Minat)</span>
-                <span class="font-mono text-slate-300">14.20 - 15.30 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Rabu (Wajib)</span>
-                <span class="font-mono text-slate-300">07.30 - 08.00 (1 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-amber-500/20">
-                <span class="font-bold text-amber-400">Kamis (Minat)</span>
-                <span class="font-mono text-slate-300">09.10 - 10.40 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Jumat (Wajib)</span>
-                <span class="font-mono text-slate-300">14.25 - 14.50 (1 JP)</span>
-              </div>
+            <div class="pt-2 border-t border-blue-900/60 flex items-center justify-between text-xs text-amber-300 font-semibold">
+              <span><span id="butir-minat-kartu">560</span> Butir Soal CBT</span>
+              <i class="fa-solid fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
 
-          <!-- 12 F.4 -->
-          <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-              <span class="font-mono font-black text-indigo-300 text-xs">12 F.4</span>
-              <span class="px-2 py-0.5 rounded-md bg-indigo-600/20 text-indigo-300 text-[10px] font-bold">Wajib & Minat (8 JP)</span>
+          <!-- CARD 3: CBT & TKA -->
+          <div onclick="switchSubject('tka')" class="p-5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 hover:border-blue-400 shadow-xl transition space-y-3 flex flex-col justify-between cursor-pointer group">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-300 border border-blue-500/30 flex items-center justify-center text-base group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-mono font-bold border border-amber-500/30">
+                  <span id="jml-soal-kartu">1000</span> Soal CBT
+                </span>
+              </div>
+              <h3 class="text-sm md:text-base font-bold text-white group-hover:text-blue-300 transition">Arena CBT & TKA Nasional</h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Simulasi Ujian CBT Mandiri & Drilling Seleksi UTBK-SNBT 2027 berwaktu riil.
+              </p>
             </div>
-            <div class="space-y-1 text-[10px]">
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Senin (Wajib)</span>
-                <span class="font-mono text-slate-300">10.15 - 12.00 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-amber-500/20">
-                <span class="font-bold text-amber-400">Selasa (Minat)</span>
-                <span class="font-mono text-slate-300">10.40 - 12.00 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-amber-500/20">
-                <span class="font-bold text-amber-400">Kamis (Minat)</span>
-                <span class="font-mono text-slate-300">10.40 - 12.00 (2 JP)</span>
-              </div>
-              <div class="flex items-center justify-between p-1 bg-slate-900 rounded-lg border border-slate-800/60">
-                <span class="font-bold text-blue-300">Jumat (Wajib)</span>
-                <span class="font-mono text-slate-300">08.00 - 09.20 (2 JP)</span>
-              </div>
+            <div class="pt-2 border-t border-blue-900/60 flex items-center justify-between text-xs text-blue-300 font-semibold">
+              <span>Pilihan Ganda & Isian</span>
+              <i class="fa-solid fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
 
         </div>
-      </div>
 
-      <!-- SECTION 2: KALENDER PENDIDIKAN & AGENDA AKADEMIK 2026/2027 (INTERACTIVE HUB) -->
-      <div class="space-y-3 pt-2">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-xs">
-              <i class="fa-solid fa-calendar-days"></i>
-            </div>
-            <div>
-              <h3 class="text-xs md:text-sm font-extrabold text-white tracking-wide">
-                KALENDER PENDIDIKAN & AGENDA AKADEMIK (TP 2026/2027)
-              </h3>
-              <p class="text-[10px] text-slate-400">Terpadu TKA Gelombang 2, Asesmen Sekolah & UTBK-SNBT 2027</p>
-            </div>
+        <!-- 3. QUICK TOOLS DOCK (ALAT BANTU BELAJAR) -->
+        <div class="p-4 bg-[#060D1A] rounded-2xl border border-blue-900/70 flex flex-col md:flex-row items-center justify-between gap-3">
+          <div class="flex items-center gap-2 text-xs font-bold text-amber-400 shrink-0">
+            <i class="fa-solid fa-toolbox text-amber-400"></i>
+            <span>Alat Bantu Pembelajaran:</span>
           </div>
-
-          <!-- INTERACTIVE CALENDAR FILTER BUTTONS -->
-          <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 overflow-x-auto text-[10px] shrink-0" id="home-cal-filters">
-            <button onclick="filterAcademicCalendar('all')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold bg-blue-600 text-white shadow" data-filter="all">🌟 Semua</button>
-            <button onclick="filterAcademicCalendar('tka')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold text-purple-300 hover:bg-slate-800" data-filter="tka">🟣 TKA & UTBK</button>
-            <button onclick="filterAcademicCalendar('ujian')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold text-blue-300 hover:bg-slate-800" data-filter="ujian">🔵 Ujian CBT</button>
-            <button onclick="filterAcademicCalendar('kbm')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold text-emerald-300 hover:bg-slate-800" data-filter="kbm">🟢 KBM Masuk</button>
-            <button onclick="filterAcademicCalendar('libur')" class="cal-filter-btn px-2.5 py-1 rounded-lg font-bold text-rose-300 hover:bg-slate-800" data-filter="libur">🔴 Libur Resmi</button>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full md:w-auto text-xs font-semibold">
+            <button onclick="openRumusSaku()" class="px-3.5 py-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-slate-200 hover:text-white transition flex items-center justify-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-book-bookmark text-blue-400"></i>
+              <span>Rumus Saku</span>
+            </button>
+            <button onclick="openPeta()" class="px-3.5 py-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-slate-200 hover:text-white transition flex items-center justify-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-diagram-project text-amber-400"></i>
+              <span>Peta Konsep</span>
+            </button>
+            <button onclick="openLab()" class="px-3.5 py-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-slate-200 hover:text-white transition flex items-center justify-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-cube text-blue-400"></i>
+              <span>Lab 3D GeoGebra</span>
+            </button>
+            <button onclick="toggleCurriculumDrawer()" class="px-3.5 py-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-slate-200 hover:text-white transition flex items-center justify-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-list-check text-amber-400"></i>
+              <span>Silabus & Matriks</span>
+            </button>
           </div>
         </div>
 
-        <!-- ACADEMIC CALENDAR MONTHLY CARDS CONTAINER -->
-        <div id="home-academic-calendar" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          <!-- Dynamically populated by JS -->
+        <!-- 4. AGENDA STRATEGIS NASIONAL (FULL WIDTH) -->
+        <div class="p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl space-y-4 pt-1">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-blue-900/80 pb-3">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-sm">
+                <i class="fa-solid fa-bullseye"></i>
+              </span>
+              <div>
+                <h3 class="text-xs md:text-sm font-bold text-white tracking-wide">AGENDA STRATEGIS & ASESMEN NASIONAL</h3>
+                <p class="text-[10px] text-slate-400">Tahun Pelajaran 2026/2027 • SMA Global Islamic School 2 Serpong</p>
+              </div>
+            </div>
+            <button onclick="openScheduleModal()" class="px-4 py-2 bg-[#081324] hover:bg-blue-600 text-amber-300 hover:text-white rounded-xl border border-blue-900 text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow shrink-0">
+              <i class="fa-solid fa-calendar-days text-blue-400"></i>
+              <span>Kalender Akademik Lengkap</span>
+              <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3.5 bg-[#081324] rounded-2xl border border-blue-900/70 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono text-purple-400 font-bold">12 - 18 OKTOBER 2026</span>
+                <span class="px-1.5 py-0.5 rounded bg-purple-950/80 text-[9px] font-mono text-purple-300 border border-purple-900/60 font-semibold">Simulasi</span>
+              </div>
+              <p class="text-white font-semibold text-xs">Gladi Bersih TKA & ANBK Gel. 2</p>
+              <p class="text-[10px] text-slate-400">Uji kesiapan teknis CBT & drilling soal standar asesmen.</p>
+            </div>
+
+            <div class="p-3.5 bg-[#081324] rounded-2xl border border-blue-900/70 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono text-blue-400 font-bold">2 - 5 NOVEMBER 2026</span>
+                <span class="px-1.5 py-0.5 rounded bg-blue-950/80 text-[9px] font-mono text-blue-300 border border-blue-900/60 font-semibold">Utama</span>
+              </div>
+              <p class="text-white font-semibold text-xs">Pelaksanaan Utama TKA Gel. 2</p>
+              <p class="text-[10px] text-slate-400">Tes Kemampuan Akademik resmi nasional SMA GIS 2.</p>
+            </div>
+
+            <div class="p-3.5 bg-[#081324] rounded-2xl border border-blue-900/70 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono text-amber-400 font-bold">21 - 30 APRIL 2027</span>
+                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-[9px] font-mono text-amber-300 border border-amber-900/60 font-semibold">Seleksi PTN</span>
+              </div>
+              <p class="text-white font-semibold text-xs">Pelaksanaan UTBK-SNBT 2027</p>
+              <p class="text-[10px] text-slate-400">Gelombang utama seleksi masuk PTN seluruh Indonesia.</p>
+            </div>
+          </div>
         </div>
+
       </div>
 
     </div>
@@ -429,30 +415,69 @@
     <div id="slide-stage" class="hidden w-full h-full max-h-[900px] rounded-2xl md:rounded-3xl border shadow-2xl flex flex-col overflow-hidden relative z-20" style="max-width: min(98vw, 1380px); background: rgba(13,26,46,0.98); border-color: #1a2f4a; box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(29,78,216,0.1);">
       
       <!-- SLIDE TOP BADGE BAR -->
-      <div class="h-11 bg-[#071527] border-b border-slate-800 px-3 md:px-6 flex items-center justify-between shrink-0">
-        <div class="flex items-center gap-2 truncate">
+      <div class="h-12 bg-[#071222] border-b border-slate-800/90 px-3 md:px-5 flex items-center justify-between gap-3 shrink-0">
+        
+        <!-- LEFT: COMPACT MEETING PICKER & FULL EXPANDED LESSON TITLE -->
+        <div class="flex items-center gap-2.5 min-w-0 flex-1">
           <button type="button" onclick="openMeetingPicker()" title="Pilih pertemuan lain (tekan P)"
-            class="picker-trigger px-2.5 py-1 bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] md:text-xs font-black rounded-lg uppercase tracking-wider truncate flex items-center gap-1.5 hover:bg-amber-500/30 transition">
-            <span id="slide-badge" class="truncate">P01 • SLIDE 1/11</span>
-            <i class="fa-solid fa-chevron-down text-[9px] opacity-70 shrink-0"></i>
+            class="picker-trigger px-2.5 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-amber-400 text-xs font-mono font-bold rounded-xl flex items-center gap-1.5 transition shrink-0 cursor-pointer shadow-sm">
+            <span id="slide-badge" class="truncate font-bold">P01</span>
+            <i class="fa-solid fa-chevron-down text-[9px] opacity-70"></i>
           </button>
-          <span id="slide-title-header" class="text-xs md:text-sm font-bold text-white truncate hidden sm:inline">
+          
+          <span id="slide-title-header" class="text-xs md:text-sm font-bold text-white truncate tracking-wide flex-1 min-w-0">
             Judul Materi
           </span>
         </div>
+
+        <!-- RIGHT: STREAMLINED ESSENTIAL TOOLS & PROGRESS COUNTER -->
         <div class="flex items-center gap-1.5 shrink-0">
-          <button type="button" onclick="buatLKPD()" title="Cetak / Ekspor LKPD pertemuan ini ke PDF A4 (tekan E)"
-            class="quick-act qa-rose"><i class="fa-solid fa-file-arrow-down"></i><span class="qa-nm">LKPD</span></button>
-          <button type="button" onclick="openLab()" title="Lab Interaktif — geser variabel, putar bangun 3D (tekan V)"
-            class="quick-act qa-cyan"><i class="fa-solid fa-flask-vial"></i><span class="qa-nm">Lab</span></button>
-          <button type="button" onclick="openRumusSaku()" title="Buku Rumus Saku — semua rumus pertemuan ini (tekan B)"
-            class="quick-act qa-gold"><i class="fa-solid fa-book-open"></i><span class="qa-nm">Rumus Saku</span></button>
+          <!-- LKPD PDF EXPORT -->
+          <button type="button" onclick="buatLKPD()" title="Cetak / Ekspor LKPD PDF A4 (tekan E)"
+            class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-medium transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-file-arrow-down text-amber-400 text-xs"></i>
+            <span class="hidden sm:inline text-[11px]">LKPD</span>
+          </button>
+
+          <!-- ARENA CBT JUMP -->
           <button type="button" onclick="jumpToCbt()" title="Lompat ke Arena CBT paket ini (tekan L)"
-            class="quick-act qa-jade"><i class="fa-solid fa-bolt"></i><span class="qa-nm">Arena CBT</span></button>
-          <button type="button" onclick="toggleCinema()" title="Cinema Mode — layar penuh tanpa bilah atas (tekan C)"
-            class="quick-act qa-blue"><i class="fa-solid fa-display" id="cinema-icon"></i><span class="qa-nm" id="cinema-nm">Cinema</span></button>
-          <span class="text-xs font-mono text-slate-400 font-bold bg-slate-950 px-2 py-0.5 rounded-md border border-slate-800 shrink-0" id="slide-counter">1 / 11</span>
+            class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow">
+            <i class="fa-solid fa-bolt text-xs"></i>
+            <span class="hidden sm:inline text-[11px]">CBT</span>
+          </button>
+
+          <!-- CONSOLIDATED SLIDE TOOLS DROPDOWN POPOVER -->
+          <div class="relative" id="slide-tools-container">
+            <button type="button" id="slide-tools-btn" onclick="toggleSlideToolsDropdown(event)" class="p-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs transition cursor-pointer" title="Alat Bantu Lainnya (Lab, Rumus Saku, Cinema)">
+              <i class="fa-solid fa-ellipsis-vertical px-0.5"></i>
+            </button>
+
+            <!-- TOOLS DROPDOWN POPOVER -->
+            <div id="slide-tools-dropdown" class="hidden absolute right-0 mt-2 w-56 rounded-2xl bg-[#0D182A] border border-slate-800 shadow-2xl p-2 z-50 space-y-1 text-xs">
+              <div class="px-2 py-1 text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800 mb-1">
+                Alat Bantu Slide KBM
+              </div>
+              <button onclick="openLab(); toggleSlideToolsDropdown();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-cyan-300 transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-flask-vial text-blue-400 w-4 text-center"></i>
+                <span>Lab Interaktif 3D (V)</span>
+              </button>
+              <button onclick="openRumusSaku(); toggleSlideToolsDropdown();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-amber-300 transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-book-bookmark text-amber-400 w-4 text-center"></i>
+                <span>Buku Rumus Saku (B)</span>
+              </button>
+              <button onclick="toggleCinema(); toggleSlideToolsDropdown();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-blue-300 transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-display text-blue-400 w-4 text-center" id="cinema-icon"></i>
+                <span id="cinema-nm">Mode Cinema Layar Penuh (C)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- SLIDE COUNTER -->
+          <div class="pl-1.5 border-l border-slate-800">
+            <span class="text-xs font-mono font-bold text-slate-200 bg-slate-950 px-2 py-0.5 rounded-md border border-slate-800 shrink-0" id="slide-counter">1 / 13</span>
+          </div>
         </div>
+
       </div>
 
       <!-- SLIDE CONTENT BODY -->
@@ -460,7 +485,7 @@
         <!-- Rendered via JS -->
       </div>
 
-      <!-- SLIDE BOTTOM VISUAL GRID (11 CLICKABLE SLIDE BUTTONS) -->
+      <!-- SLIDE BOTTOM VISUAL GRID (13 CLICKABLE SLIDE BUTTONS) -->
       <div class="h-16 md:h-[4.5rem] bg-[#071527] border-t border-slate-800 px-2 md:px-3 flex items-center justify-between shrink-0 gap-1.5">
         <button onclick="prevSlide()" class="px-2.5 py-1.5 md:px-3 md:py-2 bg-slate-800 hover:bg-slate-700 active:scale-95 text-white rounded-xl text-xs font-extrabold flex items-center gap-1.5 border border-slate-700 transition shrink-0">
           <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-chevron-left"></use></svg> <span class="hidden sm:inline">Prev</span>
@@ -504,7 +529,7 @@
             </button>
             <button type="button" onclick="openMeetingPicker()" title="Pilih paket soal lain (tekan P)"
               class="picker-trigger text-xs text-amber-300 font-bold bg-slate-950 border border-slate-800 hover:bg-slate-800 px-2.5 py-1 rounded-lg truncate max-w-[150px] md:max-w-md flex items-center gap-1.5 transition">
-              <span id="tka-pkg-name" class="truncate">P01 Kaidah Pencacahan</span>
+              <span id="tka-pkg-name" class="truncate">P01 Relasi, Fungsi, dan Tiga Daerahnya</span>
               <i class="fa-solid fa-chevron-down text-[9px] opacity-70 shrink-0"></i>
             </button>
             <button type="button" onclick="stepPkg(1)" aria-label="Paket berikutnya"
@@ -519,7 +544,7 @@
             <i class="fa-solid fa-rotate-left text-amber-400"></i>
             <span class="hidden md:inline">Ulangi Paket</span>
           </button>
-          <div class="flex items-center gap-1 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 text-xs font-mono text-slate-300">
+          <div class="flex items-center gap-1 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 text-xs font-mono text-slate-300 shadow-sm">
             <i class="fa-solid fa-stopwatch text-amber-400"></i>
             <span id="tka-timer" class="font-bold text-white">03:00</span>
           </div>
@@ -542,8 +567,8 @@
         </div>
 
         <div class="flex items-center gap-1.5 shrink-0">
-          <button onclick="showTkaScorecardModal()" class="px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-400 text-white font-black rounded-xl text-xs shadow-lg flex items-center gap-1.5 active:scale-95 transition">
-            <i class="fa-solid fa-chart-pie"></i> <span class="hidden sm:inline">Skor </span>Akhir
+          <button id="cbt-main-action-btn" onclick="handleCbtMainAction()" class="px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 text-white font-black rounded-xl text-xs shadow-lg flex items-center gap-1.5 active:scale-95 transition cursor-pointer border border-blue-400/40">
+            <i class="fa-solid fa-paper-plane text-amber-300" id="cbt-action-icon"></i> <span id="cbt-action-text">Kumpulkan Ujian</span>
           </button>
           <button onclick="nextTkaQ()" class="px-2.5 py-1.5 md:px-3.5 md:py-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 rounded-xl text-xs font-black shrink-0">
             <span class="hidden sm:inline">Berikutnya</span> <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-chevron-right"></use></svg>
@@ -560,32 +585,27 @@
   <!-- LUXURY SLIDING CURRICULUM DRAWER OVERLAY -->
   <div id="curriculum-drawer-backdrop" onclick="toggleCurriculumDrawer()" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 transition-opacity"></div>
   <aside id="curriculum-drawer" class="drawer-container fixed top-0 left-0 bottom-0 w-72 bg-[#070D18] border-r border-slate-800/80 shadow-2xl z-50 transform -translate-x-full pointer-events-none transition-transform duration-300 flex flex-col">
-    <!-- DRAWER HEADER -->
+    <!-- DRAWER HEADER (SLIM & ELEGANT) -->
     <div class="drawer-header px-3.5 py-2.5 bg-[#050A14] border-b border-slate-800/80 flex items-center justify-between shrink-0">
       <div class="flex items-center gap-2 min-w-0">
         <span role="img" aria-label="Logo Math Cihuy" class="mc-logo w-6 h-6 object-contain shrink-0"></span>
         <div class="truncate min-w-0">
-          <h3 class="text-xs font-bold text-amber-400 uppercase tracking-tight truncate">Struktur Kurikulum</h3>
-          <p class="text-[9px] text-slate-400 font-mono truncate">Math Cihuy &bull; Fase F</p>
+          <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider truncate">Silabus Fase F</h3>
+          <p class="text-[9px] text-slate-400 truncate font-mono">Math Cihuy &bull; Kelas XI</p>
         </div>
       </div>
-      <button onclick="toggleCurriculumDrawer()" class="drawer-close-btn py-1 px-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shrink-0" title="Tutup Menu Kurikulum (Alt + M)">
+      <button onclick="toggleCurriculumDrawer()" class="drawer-close-btn py-1 px-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shrink-0" title="Tutup Menu Silabus (Alt + M)">
         <i class="fa-solid fa-chevron-left text-[10px] text-amber-400"></i>
         <span>Tutup</span>
       </button>
     </div>
 
-    <!-- DRAWER SEARCH FILTER -->
-    <div class="drawer-search-box p-3 bg-[#08101E] border-b border-slate-800/80 shrink-0">
+    <!-- DRAWER SEARCH FILTER (SPACIOUS & CLEAN) -->
+    <div class="drawer-search-box p-3 bg-[#08101E] border-b border-blue-900/60 shrink-0">
       <div class="relative flex items-center">
         <i class="fa-solid fa-magnifying-glass absolute left-3 text-slate-400 text-xs pointer-events-none"></i>
-        <input type="text" id="drawer-search-input" oninput="filterDrawerMeetings(this.value)" placeholder="Cari bab, rumus, atau soal&hellip;" class="w-full bg-[#050B14] border border-blue-900/80 focus:border-amber-400 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none transition">
+        <input type="text" id="drawer-search-input" oninput="filterDrawerMeetings(this.value)" placeholder="Cari bab atau materi..." class="w-full bg-[#050B14] border border-blue-900/80 focus:border-amber-400 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none transition">
       </div>
-      <button type="button" onclick="openPeta(); closeCurriculumDrawer();" id="peta-btn"
-        class="mt-2 w-full flex items-center justify-center gap-2 px-3 py-2 bg-cyan-500/12 hover:bg-cyan-500/22 border border-cyan-400/35 text-cyan-300 rounded-xl text-xs font-bold transition"
-        title="Lihat peta keterhubungan antar bab (prasyarat materi)">
-        <i class="fa-solid fa-diagram-project"></i><span>Lihat Peta Keterhubungan Konsep</span>
-      </button>
     </div>
 
     <!-- DRAWER MEETING LIST -->
@@ -595,7 +615,7 @@
 
     <!-- DRAWER FOOTER: PROGRESS SUMMARY -->
     <div class="drawer-footer p-3 bg-slate-950 border-t border-slate-800 shrink-0 flex items-center justify-between text-xs">
-      <span class="text-slate-400 font-medium" id="drawer-progress-label">0 / 57 Pertemuan</span>
+      <span class="text-slate-400 font-medium" id="drawer-progress-label">0 / 100 Pertemuan</span>
       <button onclick="openAnalyticsModal(); closeCurriculumDrawer();" class="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1">
         <span>Histori Nilai</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
       </button>
@@ -607,7 +627,7 @@
        onclick="if (event.target === this) closePeta()">
     <div class="w-full max-w-6xl max-h-[93vh] glass-panel rounded-3xl shadow-2xl flex flex-col overflow-hidden">
       <div class="px-5 md:px-7 pt-5 pb-4 flex items-start gap-3.5 shrink-0 border-b border-slate-800">
-        <div class="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-400 text-lg shrink-0">
+        <div class="w-11 h-11 rounded-2xl bg-blue-500/15 border border-cyan-400/40 flex items-center justify-center text-blue-400 text-lg shrink-0">
           <i class="fa-solid fa-diagram-project"></i>
         </div>
         <div class="flex-1 min-w-0">
@@ -647,7 +667,7 @@
        onclick="if (event.target === this) closeTryout()">
     <div class="w-full max-w-3xl max-h-[93vh] glass-panel rounded-3xl shadow-2xl flex flex-col overflow-hidden">
       <div class="px-5 md:px-7 pt-5 pb-4 flex items-start gap-3.5 shrink-0 border-b border-slate-800">
-        <div class="w-11 h-11 rounded-2xl bg-emerald-500/15 border border-emerald-400/40 flex items-center justify-center text-emerald-400 text-lg shrink-0">
+        <div class="w-11 h-11 rounded-2xl bg-amber-500/15 border border-emerald-400/40 flex items-center justify-center text-amber-400 text-lg shrink-0">
           <i class="fa-solid fa-sliders"></i>
         </div>
         <div class="flex-1 min-w-0">
@@ -680,7 +700,7 @@
       <div class="px-5 md:px-7 py-4 border-t border-slate-800 flex items-center justify-between gap-3 shrink-0">
         <button onclick="tryoutReset()" class="lab-btn"><i class="fa-solid fa-rotate-left"></i> Kerjakan Ulang</button>
         <button id="to-mulai" onclick="tryoutMulai()"
-          class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-sm font-black shadow-lg active:scale-95 transition flex items-center gap-2">
+          class="px-5 py-2.5 bg-amber-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-sm font-black shadow-lg active:scale-95 transition flex items-center gap-2">
           <i class="fa-solid fa-play"></i> Mulai Simulasi
         </button>
       </div>
@@ -695,32 +715,12 @@
   <canvas id="pres-pen"></canvas>
   <div id="pres-laser"></div>
 
-  <!-- BILAH KENDALI MELAYANG (tampil saat layar penuh / Cinema Mode) -->
-  <div id="pres-remote" class="hidden">
-    <button type="button" onclick="prevSlide()" title="Slide sebelumnya (Panah Kiri)"><i class="fa-solid fa-chevron-left"></i></button>
-    <span id="pres-count">1 / 11</span>
-    <button type="button" onclick="nextSlide()" title="Slide berikutnya (Panah Kanan)"><i class="fa-solid fa-chevron-right"></i></button>
-    <i class="pres-sep"></i>
-    <button type="button" id="pres-b-black" onclick="presBlackout()" title="Layar gelap (B)"><i class="fa-solid fa-circle-half-stroke"></i></button>
-    <button type="button" id="pres-b-laser" onclick="presLaser()" title="Penunjuk laser (L)"><i class="fa-solid fa-wand-sparkles"></i></button>
-    <button type="button" id="pres-b-pen" onclick="presPen()" title="Mode pena (P)"><i class="fa-solid fa-pen-nib"></i></button>
-    <span id="pres-pen-tools" class="hidden">
-      <button type="button" class="pres-warna is-on" data-w="#F59E0B" style="--pw:#F59E0B"></button>
-      <button type="button" class="pres-warna" data-w="#38BDF8" style="--pw:#38BDF8"></button>
-      <button type="button" class="pres-warna" data-w="#34D399" style="--pw:#34D399"></button>
-      <button type="button" class="pres-warna" data-w="#F472B6" style="--pw:#F472B6"></button>
-      <button type="button" onclick="presPenHapus()" title="Bersihkan coretan"><i class="fa-solid fa-eraser"></i></button>
-    </span>
-    <i class="pres-sep"></i>
-    <button type="button" onclick="toggleCinema()" title="Keluar layar penuh (F)"><i class="fa-solid fa-compress"></i></button>
-  </div>
-
   <!-- LAB INTERAKTIF: grafik fungsi bergeser & kubus 3D yang bisa diputar -->
   <div id="lab-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-start md:items-center justify-center p-3 md:p-6"
        onclick="if (event.target === this) closeLab()">
     <div class="w-full max-w-6xl max-h-[93vh] glass-panel rounded-3xl shadow-2xl flex flex-col overflow-hidden">
       <div class="px-5 md:px-7 pt-5 pb-4 flex items-start gap-3.5 shrink-0 border-b border-slate-800">
-        <div class="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-400 text-lg shrink-0">
+        <div class="w-11 h-11 rounded-2xl bg-blue-500/15 border border-cyan-400/40 flex items-center justify-center text-blue-400 text-lg shrink-0">
           <i class="fa-solid fa-flask-vial"></i>
         </div>
         <div class="flex-1 min-w-0">
@@ -772,46 +772,50 @@
     </div>
   </div>
 
-  <!-- PEMILIH PERTEMUAN: dikelompokkan per BAB, bukan satu kisi datar -->
-  <div id="meeting-picker-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-start md:items-center justify-center p-3 md:p-6"
+  <!-- PEMILIH PERTEMUAN: ULTRA-SLIM COMMAND PALETTE (MAX-W-MD) -->
+  <div id="meeting-picker-modal" class="hidden fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex items-start md:items-center justify-center p-3 md:p-4"
        onclick="if (event.target === this) closeMeetingPicker()">
-    <div class="w-full max-w-6xl max-h-[93vh] bg-slate-900 border border-slate-700/70 rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+    <div class="w-full max-w-md max-h-[85vh] bg-[#060D1A] border border-blue-900/80 border border-slate-750 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
 
-      <!-- kepala -->
-      <div class="px-4 md:px-5 pt-3 pb-2.5 flex items-center gap-3 shrink-0 border-b border-slate-800">
-        <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-400 text-base shrink-0">
-          <i class="fa-solid fa-layer-group"></i>
-        </div>
-        <div class="flex-1 min-w-0">
-          <h3 class="text-base md:text-lg font-black text-white leading-tight">Pilih Pertemuan</h3>
-          <p id="picker-sub" class="text-[11px] md:text-xs text-slate-400 mt-0.5">Matematika Wajib &middot; 21 pertemuan</p>
+      <!-- kepala ringkas -->
+      <div class="px-3.5 py-2.5 bg-[#060B14] flex items-center justify-between gap-2 shrink-0 border-b border-slate-800">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400 text-xs shrink-0 font-bold">
+            <i class="fa-solid fa-shapes"></i>
+          </div>
+          <div class="truncate min-w-0">
+            <h3 class="text-xs md:text-sm font-bold text-white leading-tight truncate">Pilih Pertemuan KBM</h3>
+            <p id="picker-sub" class="text-[10px] text-slate-400 font-mono truncate">Matematika Wajib • 21 Materi</p>
+          </div>
         </div>
         <button onclick="closeMeetingPicker()" aria-label="Tutup"
-          class="w-9 h-9 rounded-xl border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center shrink-0 transition">
+          class="w-7 h-7 rounded-lg border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center shrink-0 transition text-xs cursor-pointer">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <!-- pencarian + saringan -->
-      <div class="mp-cari px-4 md:px-5 pb-2.5 space-y-2 shrink-0 border-b border-slate-800/70">
+      <!-- pencarian + saringan stream & bab -->
+      <div class="p-3 bg-[#08101E] space-y-2 shrink-0 border-b border-blue-900/60">
         <div class="relative">
-          <i class="fa-solid fa-magnifying-glass mp-cari-ikon absolute top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
           <input id="picker-search" type="text" autocomplete="off"
-            placeholder="Cari bab, rumus, atau soal&hellip;"
+            placeholder="Cari materi atau topik..."
             oninput="renderMeetingPicker(this.value)"
-            class="w-full bg-slate-950 border border-slate-800 focus:border-amber-400/70 mp-input rounded-xl py-2 pr-3 text-sm text-white placeholder-slate-500 focus:outline-none transition">
+            class="w-full bg-[#050B14] border border-blue-900/80 focus:border-blue-500 rounded-xl py-1.5 pl-8 pr-3 text-xs text-white placeholder-slate-500 focus:outline-none transition">
         </div>
-        <div id="picker-streams" class="flex flex-wrap items-center gap-2"></div>
-        <div id="picker-bab" class="flex flex-wrap items-center gap-2"></div>
+        <!-- STREAM SELECTOR (WAJIB, PEMINATAN, CLIL) -->
+        <div id="picker-streams" class="flex items-center justify-center bg-[#050B14] p-1 rounded-xl border border-blue-900/60 gap-1 text-xs"></div>
+        <!-- BAB CHIPS (BAB 1, BAB 2, BAB 3, BAB 4 - TANPA SEMUA BAB) -->
+        <div id="picker-bab" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 justify-center"></div>
       </div>
 
-      <!-- daftar per BAB -->
-      <div id="picker-body" class="px-4 md:px-5 py-3 space-y-2.5 flex-1 min-h-0 overflow-y-auto kolab-scroll"></div>
+      <!-- daftar 1 kolom ringkas -->
+      <div id="picker-body" class="p-2 space-y-1 flex-1 min-h-0 overflow-y-auto kolab-scroll text-xs"></div>
 
       <!-- kaki -->
-      <div class="px-4 md:px-5 py-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 shrink-0">
-        <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400"></i> sudah dikerjakan</span>
-        <span class="font-mono">P membuka &middot; Esc menutup &middot; klik judul BAB untuk melipat</span>
+      <div class="px-3.5 py-2 bg-[#060B14] border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400 shrink-0 font-mono">
+        <span class="flex items-center gap-1"><i class="fa-solid fa-circle-check text-amber-400"></i> Selesai</span>
+        <span>Esc untuk tutup</span>
       </div>
     </div>
   </div>
@@ -857,7 +861,7 @@
       <div id="modal-view-cal" class="space-y-3">
         <!-- FILTER BAR -->
         <div class="flex items-center justify-between gap-2 bg-slate-950 p-2 rounded-2xl border border-slate-800 overflow-x-auto text-[11px]">
-          <span class="font-bold text-slate-400 pl-1 shrink-0"><i class="fa-solid fa-filter mr-1 text-emerald-400"></i> Kategori:</span>
+          <span class="font-bold text-slate-400 pl-1 shrink-0"><i class="fa-solid fa-filter mr-1 text-amber-400"></i> Kategori:</span>
           <div class="flex items-center gap-1 shrink-0" id="modal-cal-filters">
             <button onclick="filterModalCalendar('all')" class="modal-cal-btn px-2.5 py-1 rounded-lg font-bold bg-blue-600 text-white shadow" data-mfilter="all">🌟 Semua</button>
             <button onclick="filterModalCalendar('tka')" class="modal-cal-btn px-2.5 py-1 rounded-lg font-bold text-purple-300 hover:bg-slate-800" data-mfilter="tka">🟣 TKA & UTBK</button>
@@ -875,60 +879,8 @@
 
       <!-- VIEW B: KBM TIMETABLE -->
       <div id="modal-view-kbm" class="hidden space-y-3">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-          <!-- 12 F.1 -->
-          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-              <span class="font-mono font-black text-amber-300 text-xs">12 F.1</span>
-              <span class="px-2 py-0.5 rounded bg-blue-600/20 text-blue-300 text-[10px] font-bold">Wajib (4 JP)</span>
-            </div>
-            <div class="space-y-1 text-xs text-slate-300">
-              <div class="flex justify-between"><span>Senin</span><span class="font-mono text-slate-400">13.00-14.15 (2 JP)</span></div>
-              <div class="flex justify-between"><span>Rabu</span><span class="font-mono text-slate-400">07.30-08.00 (1 JP)</span></div>
-              <div class="flex justify-between"><span>Kamis</span><span class="font-mono text-slate-400">13.00-14.15 (2 JP)</span></div>
-            </div>
-          </div>
-
-          <!-- 12 F.2 -->
-          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-              <span class="font-mono font-black text-teal-300 text-xs">12 F.2</span>
-              <span class="px-2 py-0.5 rounded bg-teal-600/20 text-teal-300 text-[10px] font-bold">Wajib (4 JP)</span>
-            </div>
-            <div class="space-y-1 text-xs text-slate-300">
-              <div class="flex justify-between"><span>Rabu</span><span class="font-mono text-slate-400">13.00-14.20 (2 JP)</span></div>
-              <div class="flex justify-between"><span>Jumat</span><span class="font-mono text-slate-400">13.15-14.25 (2 JP)</span></div>
-            </div>
-          </div>
-
-          <!-- 12 F.3 -->
-          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-              <span class="font-mono font-black text-amber-400 text-xs">12 F.3</span>
-              <span class="px-2 py-0.5 rounded bg-amber-600/20 text-amber-300 text-[10px] font-bold">Wajib & Minat (8 JP)</span>
-            </div>
-            <div class="space-y-1 text-[11px] text-slate-300">
-              <div class="flex justify-between"><span class="text-blue-300">Senin (W)</span><span class="font-mono text-slate-400">14.15-15.30</span></div>
-              <div class="flex justify-between"><span class="text-amber-300">Selasa (M)</span><span class="font-mono text-slate-400">14.20-15.30</span></div>
-              <div class="flex justify-between"><span class="text-blue-300">Rabu (W)</span><span class="font-mono text-slate-400">07.30-08.00</span></div>
-              <div class="flex justify-between"><span class="text-amber-300">Kamis (M)</span><span class="font-mono text-slate-400">09.10-10.40</span></div>
-              <div class="flex justify-between"><span class="text-blue-300">Jumat (W)</span><span class="font-mono text-slate-400">14.25-14.50</span></div>
-            </div>
-          </div>
-
-          <!-- 12 F.4 -->
-          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-              <span class="font-mono font-black text-indigo-300 text-xs">12 F.4</span>
-              <span class="px-2 py-0.5 rounded bg-indigo-600/20 text-indigo-300 text-[10px] font-bold">Wajib & Minat (8 JP)</span>
-            </div>
-            <div class="space-y-1 text-[11px] text-slate-300">
-              <div class="flex justify-between"><span class="text-blue-300">Senin (W)</span><span class="font-mono text-slate-400">10.15-12.00</span></div>
-              <div class="flex justify-between"><span class="text-amber-300">Selasa (M)</span><span class="font-mono text-slate-400">10.40-12.00</span></div>
-              <div class="flex justify-between"><span class="text-amber-300">Kamis (M)</span><span class="font-mono text-slate-400">10.40-12.00</span></div>
-              <div class="flex justify-between"><span class="text-blue-300">Jumat (W)</span><span class="font-mono text-slate-400">08.00-09.20</span></div>
-            </div>
-          </div>
+        <div class="p-6 rounded-2xl border border-slate-800 bg-slate-950 text-center text-sm text-slate-400">
+          Jadwal KBM kelas XI belum diisi.
         </div>
       </div>
 
@@ -959,7 +911,7 @@
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
           <div class="dash-kpi"><span>Soal Dikerjakan</span><b id="analytics-total-answered">0</b></div>
-          <div class="dash-kpi"><span>Rata-rata Skor</span><b id="analytics-avg-score" class="text-emerald-400">0%</b></div>
+          <div class="dash-kpi"><span>Rata-rata Skor</span><b id="analytics-avg-score" class="text-amber-400">0%</b></div>
           <div class="dash-kpi"><span>Paket Tuntas</span><b id="analytics-completed-pkgs" class="text-amber-400">0 / 57</b></div>
           <div class="dash-kpi"><span>Ketuntasan Slide</span><b id="dash-slide-pct" class="text-cyan-300">0%</b></div>
         </div>
@@ -996,12 +948,12 @@
       </div>
 
       <div class="px-5 md:px-7 py-3.5 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 shrink-0">
-        <button onclick="resetAllScores()" class="text-xs text-rose-400 hover:text-rose-300 font-bold flex items-center gap-1.5">
+        <button onclick="resetAllScores()" class="text-xs text-amber-400 hover:text-rose-300 font-bold flex items-center gap-1.5">
           <i class="fa-solid fa-trash-can"></i> Reset Riwayat Nilai
         </button>
         <div class="flex items-center gap-2">
           <button onclick="exportScoresCsv()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 rounded-xl text-xs font-bold shadow flex items-center gap-1.5">
-            <i class="fa-solid fa-file-csv text-emerald-400"></i> Unduh CSV
+            <i class="fa-solid fa-file-csv text-amber-400"></i> Unduh CSV
           </button>
           <button onclick="printReport()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 rounded-xl text-xs font-bold shadow flex items-center gap-1.5">
             <i class="fa-solid fa-print text-blue-400"></i> Cetak
@@ -1009,6 +961,48 @@
           <button onclick="closeAnalyticsModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow">Tutup</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- CBT SUBMISSION CONFIRMATION MODAL -->
+  <div id="cbt-submit-confirm-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="max-w-md w-full bg-[#08101E] border border-blue-800/80 rounded-3xl shadow-2xl p-6 space-y-5 relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <div class="text-center space-y-2 border-b border-blue-900/60 pb-3">
+        <div class="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/40 flex items-center justify-center mx-auto text-xl">
+          <i class="fa-solid fa-file-circle-check text-amber-400"></i>
+        </div>
+        <h3 class="text-lg font-black text-white">Konfirmasi Pengumpulan Ujian</h3>
+        <p class="text-xs text-slate-400" id="cbt-confirm-pkg-name">Paket CBT Drilling</p>
+      </div>
+
+      <!-- STATUS STATS -->
+      <div class="grid grid-cols-2 gap-3 text-center">
+        <div class="p-3 bg-[#0D1B2E] rounded-2xl border border-blue-900/60 space-y-0.5">
+          <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Sudah Dijawab</span>
+          <span id="cbt-confirm-answered" class="text-base md:text-lg font-black text-emerald-400 font-mono">0 / 10</span>
+        </div>
+        <div class="p-3 bg-[#0D1B2E] rounded-2xl border border-blue-900/60 space-y-0.5">
+          <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Belum Terisi</span>
+          <span id="cbt-confirm-unanswered" class="text-base md:text-lg font-black text-amber-400 font-mono">0</span>
+        </div>
+      </div>
+
+      <!-- MESSAGE -->
+      <div class="p-3.5 bg-[#050B14] rounded-2xl border border-blue-900/60 text-xs text-slate-300 leading-relaxed text-center" id="cbt-confirm-msg">
+        Pastikan seluruh jawaban telah Anda periksa dengan teliti sebelum mengirimkan lembar ujian.
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="flex items-center gap-3 pt-1">
+        <button onclick="closeCbtSubmitModal()" class="flex-1 py-2.5 bg-[#0D1B2E] hover:bg-slate-800 text-slate-300 hover:text-white font-bold rounded-xl text-xs border border-blue-900/80 transition flex items-center justify-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-arrow-left"></i> Periksa Lagi
+        </button>
+        <button onclick="confirmAndFinalizeCbt()" class="flex-1 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 text-white font-black rounded-xl text-xs shadow-xl transition flex items-center justify-center gap-1.5 cursor-pointer border border-blue-400/40">
+          <i class="fa-solid fa-paper-plane text-amber-300"></i> Ya, Kumpulkan!
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -1023,7 +1017,7 @@
         <span class="px-3 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-extrabold uppercase border border-amber-400/30">
           HASIL ASESMEN DRILLING CBT TKA NASIONAL
         </span>
-        <h3 id="scorecard-pkg-title" class="text-base md:text-xl font-black text-white">P01 • Kaidah Pencacahan</h3>
+        <h3 id="scorecard-pkg-title" class="text-base md:text-xl font-black text-white">P01 • Relasi, Fungsi, dan Tiga Daerahnya</h3>
         <p class="text-xs text-slate-400 font-medium">Math Cihuy • Kelas XI Fase F</p>
       </div>
 
@@ -1032,7 +1026,7 @@
           <span class="text-3xl md:text-4xl font-black text-slate-950 font-mono" id="scorecard-total-score">80</span>
           <span class="text-[10px] font-extrabold text-slate-900 uppercase">SKOR AKHIR</span>
         </div>
-        <span id="scorecard-predicate" class="text-xs md:text-sm font-extrabold text-emerald-400 text-center px-4 py-1 rounded-xl bg-slate-950 border border-emerald-500/30">
+        <span id="scorecard-predicate" class="text-xs md:text-sm font-extrabold text-amber-400 text-center px-4 py-1 rounded-xl bg-slate-950 border border-emerald-500/30">
           🌟 SANGAT BAIK • KOMPETENSI TERCAPAI
         </span>
       </div>
@@ -1040,11 +1034,11 @@
       <div class="grid grid-cols-3 gap-2 text-center">
         <div class="p-3 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-0.5">
           <span class="text-[10px] text-slate-400 block font-bold">BENAR</span>
-          <span id="scorecard-correct-count" class="text-sm md:text-base font-black text-emerald-400 font-mono">8 / 10</span>
+          <span id="scorecard-correct-count" class="text-sm md:text-base font-black text-amber-400 font-mono">8 / 10</span>
         </div>
         <div class="p-3 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-0.5">
           <span class="text-[10px] text-slate-400 block font-bold">SALAH</span>
-          <span id="scorecard-wrong-count" class="text-sm md:text-base font-black text-rose-400 font-mono">2 / 10</span>
+          <span id="scorecard-wrong-count" class="text-sm md:text-base font-black text-amber-400 font-mono">2 / 10</span>
         </div>
         <div class="p-3 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-0.5">
           <span class="text-[10px] text-slate-400 block font-bold">WAKTU / SOAL</span>
@@ -1078,104 +1072,143 @@
 
 
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
-    <div id="guru-dashboard-modal" class="fixed inset-0 bg-black/50 backdrop-blur z-50 hidden flex items-center justify-center">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-6xl max-h-[90vh] overflow-y-auto w-full mx-4">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-emerald-300">📊 Dashboard Monitoring Guru</h2>
-                <button onclick="closeGuruDashboard()" class="text-2xl text-slate-400 hover:text-white">&times;</button>
+    <div id="guru-dashboard-modal" style="background-color: #020611 !important; z-index: 9999;" class="fixed inset-0 hidden flex items-center justify-center p-2 sm:p-5">
+        <div style="background-color: #0A1526 !important; opacity: 1 !important;" class="border-2 border-blue-800/90 rounded-3xl p-5 sm:p-7 max-w-7xl max-h-[94vh] flex flex-col w-full shadow-2xl text-white relative">
+            
+            <!-- HEADER MODAL -->
+            <div class="flex justify-between items-center pb-4 border-b border-blue-900/80 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
+                        <i class="fa-solid fa-chart-column text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+                            Dashboard Monitoring CBT &amp; Nilai Siswa
+                        </h2>
+                        <p class="text-xs text-slate-400 font-medium">Monitoring pengerjaan live, analisis nilai, dan rekapitulasi real-time SMA GIS 2 Serpong</p>
+                    </div>
+                </div>
+                <button onclick="closeGuruDashboard()" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-rose-950/60 border border-slate-800 hover:border-rose-500/50 text-slate-400 hover:text-rose-300 text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
             </div>
 
-                                                <!-- Filter & Action Controls -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-4 items-end">
+            <!-- FILTER CONTROLS BAR -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 py-3 shrink-0">
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-users-viewfinder text-cyan-400 mr-1"></i> Pilih Rombel / Kelas</label>
-                    <select id="guru-filter-kelas" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-cyan-400 focus:outline-none transition">
-                        <!-- Diisi isiPilihanKelas() dari STUDENTS_DB, supaya nama kelas
-                             dan jumlah siswanya selalu ikut tingkat halaman ini. -->
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1"><i class="fa-solid fa-users-viewfinder text-blue-400 mr-1"></i> Rombel / Kelas</label>
+                    <select id="guru-filter-kelas" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-[#060D1A] border border-blue-900/80 rounded-xl text-white text-xs font-bold focus:border-cyan-400 focus:outline-none transition cursor-pointer">
                     </select>
                 </div>
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-book-open text-amber-400 mr-1"></i> Mata Pelajaran</label>
-                    <select id="guru-filter-mapel" onchange="updateGuruPertemuanOptions(); loadGuruDashboardData();" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-amber-400 focus:outline-none transition">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1"><i class="fa-solid fa-book-open text-amber-400 mr-1"></i> Mata Pelajaran</label>
+                    <select id="guru-filter-mapel" onchange="updateGuruPertemuanOptions(); loadGuruDashboardData();" class="w-full px-3 py-2 bg-[#060D1A] border border-blue-900/80 rounded-xl text-white text-xs font-bold focus:border-amber-400 focus:outline-none transition cursor-pointer">
                         <option value="">Semua Mapel</option>
-                        <option value="wajib" id="opsi-wajib">Matematika Wajib (21 Pertemuan)</option>
-                        <option value="peminatan" id="opsi-minat">Additional Mathematics (30 Pertemuan)</option>
-                        <option value="clil">CLIL English (6 Unit)</option>
+                        <option value="wajib" id="opsi-wajib">Matematika Wajib (44 Pertemuan)</option>
+                        <option value="peminatan" id="opsi-minat">Additional Mathematics (56 Pertemuan)</option>
+                        <option value="clil" id="opsi-clil">CLIL English (0 Unit)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5"><i class="fa-solid fa-bullseye text-emerald-400 mr-1"></i> Pilih Pertemuan / Bab</label>
-                    <select id="guru-filter-pertemuan" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-xs font-bold focus:border-emerald-400 focus:outline-none transition">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1"><i class="fa-solid fa-bullseye text-emerald-400 mr-1"></i> Pertemuan / Bab</label>
+                    <select id="guru-filter-pertemuan" onchange="loadGuruDashboardData()" class="w-full px-3 py-2 bg-[#060D1A] border border-blue-900/80 rounded-xl text-white text-xs font-bold focus:border-emerald-400 focus:outline-none transition cursor-pointer">
                         <option value="">Semua Pertemuan</option>
-                        <option value="P01">P01 - Kaidah Pencacahan 1</option>
-                        <option value="P02">P02 - Notasi Faktorial & Permutasi</option>
-                        <option value="P03">P03 - Permutasi Unsur Sama & Siklis</option>
-                        <option value="P04">P04 - Kombinasi & Delegasi</option>
-                        <option value="P05">P05 - Peluang Kejadian Tunggal</option>
-                        <option value="P06">P06 - Asesmen Sumatif 1</option>
-                        <option value="P07">P07 - Peluang Saling Lepas</option>
-                        <option value="P08">P08 - Peluang Saling Bebas & Bersyarat</option>
-                        <option value="P09">P09 - Kedudukan Titik Garis Bidang</option>
-                        <option value="P10">P10 - Jarak Titik ke Titik</option>
-                        <option value="P11">P11 - Jarak Titik ke Garis</option>
-                        <option value="P12">P12 - Jarak Titik ke Bidang</option>
-                        <option value="P13">P13 - Sudut Ruang Tiga Dimensi</option>
-                        <option value="P14">P14 - Asesmen Sumatif Terpadu Dimensi 3</option>
-                        <option value="P15">P15 - Penyajian Data Berkelompok</option>
-                        <option value="P16">P16 - Rata-rata Hitung (Mean)</option>
-                        <option value="P17">P17 - Median dan Modus</option>
-                        <option value="P18">P18 - Ukuran Letak Data</option>
-                        <option value="P19">P19 - Ukuran Penyebaran Data</option>
-                        <option value="P20">P20 - Analisis Data Bivariat</option>
-                        <option value="P21">P21 - Asesmen Sumatif Statistika</option>
+                        <option value="P01">P01 - Relasi, Fungsi, dan Tiga Daerahnya</option>
+                        <option value="P02">P02 - Notasi Fungsi dan Menghitung Nilai Fungsi</option>
+                        <option value="P03">P03 - Operasi Aljabar pada Fungsi</option>
+                        <option value="P04">P04 - Komposisi Dua Fungsi</option>
+                        <option value="P05">P05 - Sifat Komposisi dan Komposisi Tiga Fungsi</option>
+                        <option value="P06">P06 - Menentukan Fungsi Pembentuk Komposisi</option>
+                        <option value="P07">P07 - Fungsi Satu-Satu dan Syarat Adanya Invers</option>
+                        <option value="P08">P08 - Menentukan Rumus Fungsi Invers</option>
+                        <option value="P09">P09 - Invers dari Fungsi Komposisi</option>
+                        <option value="P10">P10 - Penerapan Komposisi dan Invers, serta Review Bab 1</option>
+                        <option value="P11">P11 - Unsur-Unsur Lingkaran dan Hubungan Antarunsurnya</option>
+                        <option value="P12">P12 - Sudut Pusat dan Sudut Keliling</option>
+                        <option value="P13">P13 - Sifat-Sifat Sudut Keliling</option>
+                        <option value="P14">P14 - Panjang Busur Lingkaran</option>
+                        <option value="P15">P15 - Luas Juring Lingkaran</option>
+                        <option value="P16">P16 - Luas Tembereng</option>
+                        <option value="P17">P17 - Penerapan Busur dan Juring pada Permukaan Bumi</option>
+                        <option value="P18">P18 - Garis Singgung Lingkaran dan Sifat Tegak Lurusnya</option>
+                        <option value="P19">P19 - Panjang Garis Singgung dari Titik di Luar Lingkaran</option>
+                        <option value="P20">P20 - Garis Singgung Persekutuan Luar</option>
+                        <option value="P21">P21 - Garis Singgung Persekutuan Dalam</option>
+                        <option value="P22">P22 - Tali Busur dan Sifat-Sifatnya</option>
+                        <option value="P23">P23 - Review Bab 2 dan Penerapan Gabungan</option>
+                        <option value="P24">P24 - Data Bivariat dan Diagram Pencar</option>
+                        <option value="P25">P25 - Membaca Pola pada Diagram Pencar</option>
+                        <option value="P26">P26 - Pencilan dan Pengaruhnya terhadap Kesimpulan</option>
+                        <option value="P27">P27 - Gagasan Garis Regresi Kuadrat Terkecil</option>
+                        <option value="P28">P28 - Menghitung Koefisien Arah Garis Regresi</option>
+                        <option value="P29">P29 - Menghitung Konstanta dan Menyusun Persamaan Regresi</option>
+                        <option value="P30">P30 - Memakai Persamaan Regresi untuk Menaksir</option>
+                        <option value="P31">P31 - Interpolasi dan Ekstrapolasi</option>
+                        <option value="P32">P32 - Koefisien Korelasi Pearson</option>
+                        <option value="P33">P33 - Menghitung dan Menafsirkan Koefisien Korelasi</option>
+                        <option value="P34">P34 - Koefisien Determinasi</option>
+                        <option value="P35">P35 - Korelasi Bukan Sebab-Akibat dan Tinjauan Bab</option>
+                        <option value="P36">P36 - Bunga Tunggal</option>
+                        <option value="P37">P37 - Bunga Majemuk: Gagasan dan Perbedaannya</option>
+                        <option value="P38">P38 - Menghitung Modal Akhir dan Besar Bunga</option>
+                        <option value="P39">P39 - Nilai Tunai: Mencari Modal Awal</option>
+                        <option value="P40">P40 - Mencari Suku Bunga dan Lama Waktu</option>
+                        <option value="P41">P41 - Periode Bunga Bukan Tahunan</option>
+                        <option value="P42">P42 - Pertumbuhan dan Peluruhan</option>
+                        <option value="P43">P43 - Anuitas: Pengertian dan Rumusnya</option>
+                        <option value="P44">P44 - Rencana Angsuran dan Tinjauan Bab</option>
                     </select>
                 </div>
                 <div>
-                    <button onclick="exportToExcel()" class="w-full px-4 py-2.5 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 rounded-xl font-bold text-xs shadow transition flex items-center justify-center gap-2"><i class="fa-solid fa-file-excel text-emerald-400"></i> Ekspor CSV / Excel</button>
+                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1"><i class="fa-solid fa-file-export text-cyan-400 mr-1"></i> Tindakan Data</label>
+                    <button onclick="exportToExcel()" class="w-full px-3 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 rounded-xl font-bold text-xs shadow transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-file-excel text-amber-400"></i> Ekspor CSV / Excel</button>
                 </div>
             </div>
 
             <!-- TAB STATUS PENGERJAAN & CLOUD SYNC BAR -->
-            <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-950/80 rounded-xl border border-slate-800 mb-5">
-                <div class="flex flex-wrap items-center gap-2">
-                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all">📋 Semua Data (<span id="count-semua">0</span>)</button>
-                    <button type="button" id="btn-status-sudah" onclick="setGuruStatusFilter('sudah')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-emerald-400 hover:bg-slate-700 transition-all border border-emerald-500/30">🟢 Sudah Mengerjakan (<span id="count-sudah">0</span>)</button>
-                    <button type="button" id="btn-status-sedang" onclick="setGuruStatusFilter('sedang')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-amber-300 hover:bg-slate-700 transition-all border border-amber-500/30">⚡ Sedang Mengerjakan (<span id="count-sedang">0</span>)</button>
-                    <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-rose-400 hover:bg-slate-700 transition-all border border-rose-500/30">🔴 Belum Mengerjakan (<span id="count-belum">0</span>)</button>
+            <div class="flex flex-wrap items-center justify-between gap-2.5 p-2.5 bg-[#060D1A] rounded-2xl border border-blue-900/80 mb-3 shrink-0">
+                <div class="flex flex-wrap items-center gap-1.5">
+                    <button type="button" id="btn-status-semua" onclick="setGuruStatusFilter('semua')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-md transition-all cursor-pointer">📋 Semua (<span id="count-semua">0</span>)</button>
+                    <button type="button" id="btn-status-sudah" onclick="setGuruStatusFilter('sudah')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0D1B2E] text-emerald-300 hover:text-white transition-all border border-emerald-500/30 cursor-pointer">🟢 Selesai (<span id="count-sudah">0</span>)</button>
+                    <button type="button" id="btn-status-sedang" onclick="setGuruStatusFilter('sedang')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0D1B2E] text-amber-300 hover:text-white transition-all border border-amber-500/30 cursor-pointer">⚡ Sedang (<span id="count-sedang">0</span>)</button>
+                    <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0D1B2E] text-rose-300 hover:text-white transition-all border border-rose-500/30 cursor-pointer">🔴 Belum (<span id="count-belum">0</span>)</button>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2">
                     <span id="cloud-sync-status" class="text-xs"></span>
-                    <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-lg transition-all">
-                        <i class="fa-solid fa-rotate"></i> Tarik Nilai Supabase Cloud
+                    <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition-all cursor-pointer">
+                        <i class="fa-solid fa-rotate"></i> Tarik Supabase
                     </button>
                 </div>
             </div>
 
-<div class="overflow-x-auto">
-                <table class="w-full text-sm border-collapse">
-                    <thead>
-                        <tr class="bg-slate-800 text-slate-300 font-bold">
-                            <th class="border border-slate-700 px-4 py-2 text-left">NIS</th>
-                            <th class="border border-slate-700 px-4 py-2 text-left">Nama Siswa</th>
-                            <th class="border border-slate-700 px-4 py-2 text-left">Kelas</th>
-                            <th class="border border-slate-700 px-4 py-2 text-center">Mapel</th>
-                            <th class="border border-slate-700 px-4 py-2 text-center">Bab/Pertemuan</th>
-                            <th class="border border-slate-700 px-4 py-2 text-center">Skor</th>
-                            <th class="border border-slate-700 px-4 py-2 text-center">Benar/Salah</th>
-                            <th class="border border-slate-700 px-4 py-2 text-center">Durasi</th>
-                            <th class="border border-slate-700 px-4 py-2 text-center">Tanggal</th>
-                            <th class="border border-slate-700 px-4 py-2 text-center">Aksi</th>
+            <!-- TABLE CONTAINER (SOLID OPAQUE & STICKY HEADER) -->
+            <div class="overflow-x-auto overflow-y-auto max-h-[55vh] rounded-2xl border border-blue-900/90 bg-[#071120] shadow-inner relative">
+                <table id="guru-results-table" class="w-full text-xs text-left border-collapse bg-[#071120]">
+                    <thead style="background-color: #0E1E38 !important;" class="sticky top-0 z-20 shadow-lg border-b-2 border-blue-600">
+                        <tr class="text-slate-300 font-black text-[11px] uppercase tracking-wider">
+                            <th onclick="setGuruSort('nis')" title="Urutkan NIS" class="px-3 py-3 text-left font-mono whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">NIS <span id="sort-icon-nis"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('nama')" title="Urutkan Nama" class="px-4 py-3 text-left min-w-[170px] cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Nama Siswa <span id="sort-icon-nama"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('kelas')" title="Urutkan Kelas" class="px-3 py-3 text-center whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Kelas <span id="sort-icon-kelas"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('mapel')" title="Urutkan Mapel" class="px-3 py-3 text-center whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Mapel <span id="sort-icon-mapel"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('kode')" title="Urutkan Paket" class="px-3 py-3 text-center font-mono whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Paket <span id="sort-icon-kode"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('skor')" title="Urutkan Skor / Ranking" class="px-3.5 py-3 text-center min-w-[130px] whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Status &amp; Skor <span id="sort-icon-skor"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('progress')" title="Urutkan Butir Terjawab" class="px-3 py-3 text-center min-w-[95px] whitespace-nowrap cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Progress <span id="sort-icon-progress"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('durasi')" title="Urutkan Durasi / Waktu" class="px-3 py-3 text-center whitespace-nowrap min-w-[95px] cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Durasi <span id="sort-icon-durasi"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('tanggal')" title="Urutkan Tanggal" class="px-3 py-3 text-center whitespace-nowrap min-w-[95px] cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">Tanggal <span id="sort-icon-tanggal"><i class="fa-solid fa-sort text-slate-500 opacity-40 ml-1"></i></span></th>
+                            <th onclick="setGuruSort('jam')" title="Urutkan Jam Pengumpulan" class="px-3.5 py-3 text-center whitespace-nowrap min-w-[115px] text-amber-400 cursor-pointer hover:bg-blue-900/50 transition select-none border-r border-blue-900/60">
+                                <i class="fa-solid fa-clock mr-1"></i> Jam (WIB) <span id="sort-icon-jam"><i class="fa-solid fa-sort text-amber-500 opacity-40 ml-1"></i></span>
+                            </th>
+                            <th class="px-4 py-3 text-center whitespace-nowrap min-w-[120px]">Aksi Guru</th>
                         </tr>
                     </thead>
-                    <tbody id="guru-results-tbody">
-                        <tr><td colspan="10" class="text-center py-8 text-slate-500">Memuat data...</td></tr>
+                    <tbody id="guru-results-tbody" class="divide-y divide-blue-900/40 bg-[#071120]">
+                        <tr><td colspan="11" class="text-center py-10 text-slate-400 font-medium">Memuat data...</td></tr>
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v1788449654"></script>
+        <script src="app-akhir.js?v=v1788449654"></script>
 
 </body>
 </html>
