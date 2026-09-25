@@ -561,8 +561,10 @@
             : 'background-color: #3b0d18; color: #fda4af; border: 1px solid #f43f5e;';
           statusBadge = `<span style="${kktpStyle}" class="px-2 py-0.5 rounded-full text-[9px] font-black whitespace-nowrap">${kktpText}</span>`;
           skorDisplay = `<div class="flex items-center justify-center gap-1.5 whitespace-nowrap"><span class="font-mono text-sm font-black ${isTuntas ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span> ${statusBadge}</div>`;
-          detailDisplay = `<span class="text-xs font-mono font-bold text-slate-200 whitespace-nowrap">${r.jumlah_benar}/${r.jumlah_soal} Benar</span>`;
-          durasiDisplay = `<span class="text-xs text-slate-300 font-mono whitespace-nowrap">${r.durasi_menit || 0} Menit</span>`;
+          const dDetik = Number(r.durasi_detik) || 0;
+          const isAnomaliCepat = dDetik > 0 && dDetik < 45 && Number(r.skor) >= 80;
+          const anomaliTag = isAnomaliCepat ? ' <span title="Peringatan: Ujian selesai sangat cepat (< 45 detik) dengan skor tinggi. Indikasi pengerjaan otomatis/bot." class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-robot"></i> Bot?</span>' : '';
+          durasiDisplay = `<span class="text-xs text-slate-300 font-mono whitespace-nowrap">${r.durasi_menit || 0} Menit</span>${anomaliTag}`;
           aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" title="Reset nilai agar siswa dapat mengulang" class="px-2.5 py-1 bg-slate-800 hover:bg-amber-600 border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer">Reset</button>`;
         } else if (r.status === 'sedang') {
           trBgStyle = r.livenessState === 'stuck' ? 'background-color: #24111E;' : r.livenessState === 'idle' ? 'background-color: #261D10;' : 'background-color: #0B2129;';

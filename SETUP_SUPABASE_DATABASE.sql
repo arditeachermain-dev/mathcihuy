@@ -108,6 +108,7 @@ WITH CHECK (
     AND jumlah_soal > 0
     AND jumlah_benar >= 0 AND jumlah_benar <= jumlah_soal
     AND (jumlah_benar + jumlah_salah) <= jumlah_soal
+    AND skor = round((jumlah_benar::numeric / jumlah_soal::numeric) * 100)
     AND length(trim(mapel)) > 0
     AND length(trim(kode_pertemuan)) > 0
 );

@@ -4356,7 +4356,11 @@ function showTkaScorecardModal() {
 
       if (tkaQIdx >= pkg.questions.length) tkaQIdx = 0;
       const q = pkg.questions[tkaQIdx];
-      window.tkaActiveCorrectKey = q.kunci;
+
+      // Mulai pencatatan waktu pengerjaan paket secara riil saat soal dimuat
+      if (typeof tandaiMulaiPaket === 'function') {
+        tandaiMulaiPaket(tkaSubj, tkaPkgId);
+      }
 
       userMultiAnswers = [];
       userTfAnswers = {};
@@ -4486,10 +4490,10 @@ function showTkaScorecardModal() {
                     <span class="text-xs md:text-sm text-slate-100 leading-relaxed">${stmt}</span>
                   </div>
                   <div class="flex items-center gap-2 shrink-0 self-end md:self-center">
-                    <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${bClass} transition shadow cursor-pointer">
+                    <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B', event)`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${bClass} transition shadow cursor-pointer">
                       <i class="fa-solid fa-check text-amber-400 mr-1.5"></i> BENAR
                     </button>
-                    <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S')`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${sClass} transition shadow cursor-pointer">
+                    <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S', event)`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${sClass} transition shadow cursor-pointer">
                       <i class="fa-solid fa-xmark text-amber-400 mr-1.5"></i> SALAH
                     </button>
                   </div>
@@ -4498,7 +4502,7 @@ function showTkaScorecardModal() {
             }).join('')}
             ${!isReviewMode ? `
               <p id="tf-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
-              <button id="tf-submit" onclick="submitTfAnswer('${q.kunci}', ${statements.length})" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2 mt-2">
+              <button id="tf-submit" onclick="submitTfAnswer(event, ${statements.length})" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2 mt-2">
                 <i class="fa-solid fa-circle-check"></i> SIMPAN JAWABAN BENAR / SALAH
               </button>
             ` : ''}
@@ -4536,7 +4540,7 @@ function showTkaScorecardModal() {
                 }
 
                 return `
-                  <button id="multi-opt-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `toggleMultiOption('${letter}')`}" class="multi-opt-btn${span} p-3.5 md:p-4 border rounded-2xl text-left text-sm flex items-start gap-3 transition shadow cursor-pointer ${btnStyle}">
+                  <button id="multi-opt-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `toggleMultiOption('${letter}', event)`}" class="multi-opt-btn${span} p-3.5 md:p-4 border rounded-2xl text-left text-sm flex items-start gap-3 transition shadow cursor-pointer ${btnStyle}">
                     <span id="chk-${letter}" class="w-6 h-6 rounded-lg ${chkStyle} font-bold flex items-center justify-center shrink-0 text-xs">
                       ${letter}
                     </span>
@@ -4548,7 +4552,7 @@ function showTkaScorecardModal() {
             </div>
             ${!isReviewMode ? `
               <p id="multi-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
-              <button id="multi-submit" onclick="submitMultiAnswer('${q.kunci}')" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
+              <button id="multi-submit" onclick="submitMultiAnswer(event)" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-check-double"></i> SIMPAN PILIHAN JAWABAN
               </button>
             ` : ''}
@@ -4563,7 +4567,7 @@ function showTkaScorecardModal() {
               <p class="text-xs text-emerald-300 font-bold">Kunci Jawaban Tepat: <span class="font-mono text-white text-sm">${q.kunci}</span></p>
             ` : `
               <p class="text-[11px] text-slate-400 leading-relaxed">Boleh desimal maupun pecahan (contoh: <span class="font-mono text-slate-300">0.75</span> atau <span class="font-mono text-slate-300">3/4</span>).</p>
-              <button id="numeric-submit" onclick="submitNumericAnswer('${String(q.kunci).replace(/'/g, "\'")}')" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
+              <button id="numeric-submit" onclick="submitNumericAnswer(event)" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-paper-plane"></i> SIMPAN JAWABAN NUMERIK
               </button>
             `}
@@ -4606,7 +4610,7 @@ function showTkaScorecardModal() {
               }
 
               return `
-                <button id="opt-btn-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `selectAnswer('${letter}', '${q.kunci}')`}" class="opt-btn${span} ${btnClass}">
+                <button id="opt-btn-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `selectAnswer('${letter}', event)`}" class="opt-btn${span} ${btnClass}">
                   <span class="w-6 h-6 rounded-lg ${isReviewMode && letter === correctLetter ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 border border-slate-700 text-amber-400 font-black'} flex items-center justify-center shrink-0 text-xs">
                     ${letter}
                   </span>
@@ -4696,8 +4700,10 @@ function showTkaScorecardModal() {
       } catch (e) { return; }
       if (!rec || rec.chosen === undefined || rec.chosen === null || rec.chosen === '') return;
 
-      const jenis = (rec.details && rec.details.type) || 'single';
-      const kunci = String(window.tkaActiveCorrectKey || '');
+      const srcDb = tkaSrc();
+      const curPkg = srcDb[tkaPkgId];
+      const curQ = (curPkg && curPkg.questions) ? curPkg.questions[tkaQIdx] : null;
+      const kunci = String((curQ && curQ.kunci) || '');
 
       try {
         if (isReviewMode) {
@@ -4850,13 +4856,22 @@ function showTkaScorecardModal() {
     // CBT SELECTION HANDLERS & AUTO-PERSISTENCE ENGINE
     // Selama ujian berlangsung: pilihan siswa tersimpan (ditandai 'Terpilih'),
     // bebas diubah kapan saja, dan KUNCI/PEMBAHASAN TETAP 100% TERKUNCI (HIDDEN).
-    function selectAnswer(chosen, correct) {
+    function selectAnswer(chosen, evt) {
+      if (evt && evt.isTrusted === false) {
+        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
+        return;
+      }
       if (window._tkaReviewMode === true) return; // Mode review readonly
+
+      if (typeof tandaiMulaiPaket === 'function') {
+        tandaiMulaiPaket(tkaSubj, tkaPkgId);
+      }
 
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
-      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correct };
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
       const isRight = evaluateQuestionScore(q, chosen);
+      const correct = (q && q.kunci) || '';
 
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       userSessionScores[key] = isRight;
@@ -4925,8 +4940,15 @@ function showTkaScorecardModal() {
 
     const mSpan = b => (b && b.classList.contains('md:col-span-2')) ? ' md:col-span-2' : '';
 
-    function toggleMultiOption(letter) {
+    function toggleMultiOption(letter, evt) {
+      if (evt && evt.isTrusted === false) {
+        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
+        return;
+      }
       if (window._tkaReviewMode === true) return;
+      if (typeof tandaiMulaiPaket === 'function') {
+        tandaiMulaiPaket(tkaSubj, tkaPkgId);
+      }
       const idx = userMultiAnswers.indexOf(letter);
       const btn = document.getElementById('multi-opt-' + letter);
       const chk = document.getElementById('chk-' + letter);
@@ -4985,11 +5007,19 @@ function showTkaScorecardModal() {
     const OPT_MISSED = OPT_BASE + ' bg-slate-900 border-2 border-dashed border-blue-500/60 text-slate-200';
     const OPT_MUTED = OPT_BASE + ' bg-slate-900/70 border border-slate-800 text-slate-400';
 
-    function submitMultiAnswer(correctKeysStr) {
+    function submitMultiAnswer(evt) {
+      if (evt && evt.isTrusted === false) {
+        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
+        return;
+      }
       if (window._tkaReviewMode === true) return;
+      if (typeof tandaiMulaiPaket === 'function') {
+        tandaiMulaiPaket(tkaSubj, tkaPkgId);
+      }
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
-      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctKeysStr };
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
+      const correctKeysStr = (q && q.kunci) || '';
 
       if (!userMultiAnswers || userMultiAnswers.length === 0) {
         flashHint('multi-hint', 'Pilih minimal satu pernyataan sebelum menyimpan.');
@@ -5010,8 +5040,15 @@ function showTkaScorecardModal() {
       saveAppState();
     }
 
-    function selectTfAnswer(stmtIdx, choice) {
+    function selectTfAnswer(stmtIdx, choice, evt) {
+      if (evt && evt.isTrusted === false) {
+        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
+        return;
+      }
       if (window._tkaReviewMode === true) return;
+      if (typeof tandaiMulaiPaket === 'function') {
+        tandaiMulaiPaket(tkaSubj, tkaPkgId);
+      }
       userTfAnswers[stmtIdx] = choice;
       const bBtn = document.getElementById(`tf-b-${stmtIdx}`);
       const sBtn = document.getElementById(`tf-s-${stmtIdx}`);
@@ -5076,13 +5113,22 @@ function showTkaScorecardModal() {
       saveAppState();
     }
 
-    function submitTfAnswer(correctPattern, stmtCount) {
+    function submitTfAnswer(evt, stmtCount) {
+      if (evt && evt.isTrusted === false) {
+        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
+        return;
+      }
       if (window._tkaReviewMode === true) return;
+      if (typeof tandaiMulaiPaket === 'function') {
+        tandaiMulaiPaket(tkaSubj, tkaPkgId);
+      }
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
-      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctPattern };
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
+      const correctPattern = (q && q.kunci) || '';
 
-      for (let i = 0; i < stmtCount; i++) {
+      const count = stmtCount || (q && q.statements && q.statements.length) || 4;
+      for (let i = 0; i < count; i++) {
         if (!userTfAnswers[i] && !userTfAnswers[String(i)]) {
           flashHint('tf-hint', `Pernyataan ${i + 1} belum dijawab. Tentukan Benar/Salah untuk semua pernyataan.`);
           return;
@@ -5123,8 +5169,15 @@ function showTkaScorecardModal() {
       } catch (e) { const n = parseFloat(t); return isNaN(n) ? null : n; }
     }
 
-    function submitNumericAnswer(correctVal) {
+    function submitNumericAnswer(evt) {
+      if (evt && evt.isTrusted === false) {
+        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
+        return;
+      }
       if (window._tkaReviewMode === true) return;
+      if (typeof tandaiMulaiPaket === 'function') {
+        tandaiMulaiPaket(tkaSubj, tkaPkgId);
+      }
       const inp = document.getElementById('numeric-input');
       if (!inp) return;
       const cleanVal = inp.value.trim();
@@ -5135,7 +5188,8 @@ function showTkaScorecardModal() {
       }
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
-      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : { kunci: correctVal };
+      const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
+      const correctVal = (q && q.kunci) || '';
       const isRight = evaluateQuestionScore(q, cleanVal);
 
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
