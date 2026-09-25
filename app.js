@@ -2090,12 +2090,12 @@
         };
         localStorage.setItem(k, JSON.stringify(draft));
 
-        // Sync otomatis ke Database Supabase secara real-time (< 40 ms)
+        // Sync otomatis ke Database Supabase dengan proteksi Debounce (400ms) untuk hemat egress
         if (supabaseClient) {
           const sess = getSession();
           const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : (sess && sess.type === 'guru' ? 'guru' : null);
           if (nis && nis !== 'guest') {
-            supabaseClient.from('cbt_live_answers').upsert({
+            syncLiveAnswerDebounced({
               nis: String(nis),
               mapel: String(subj),
               kode_pertemuan: String(pkgId),
@@ -2103,8 +2103,6 @@
               chosen: String(chosen || ''),
               is_right: Boolean(isRight),
               updated_at: new Date().toISOString()
-            }, { onConflict: 'nis,mapel,kode_pertemuan,q_idx' }).then(res => {
-              if (res.error) console.warn("Supabase live answer sync warning:", res.error);
             });
           }
         }
@@ -2112,16 +2110,32 @@
         // Tampilkan indikator visual tersimpan sejenak
         const badge = document.getElementById('cbt-autosave-badge');
         if (badge) {
-          badge.innerHTML = '<i class="fa-solid fa-check-double text-emerald-300"></i> Tersimpan';
-          badge.className = 'text-[11px] font-mono text-emerald-300 bg-emerald-900/80 border border-emerald-400 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow scale-105 transition-all duration-200';
+          badge.innerHTML = '<i class="fa-solid fa-check-double text-emerald-300"></i> <span class="hidden sm:inline">Tersimpan</span>';
+          badge.className = 'text-[11px] font-mono text-emerald-300 bg-emerald-900/80 border border-emerald-400 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow scale-105 transition-all duration-200 cursor-pointer';
           setTimeout(() => {
-            badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> Auto-Saved';
-            badge.className = 'text-[11px] font-mono text-amber-400 bg-emerald-950/60 border border-blue-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm transition-all duration-300';
+            badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
+            badge.className = 'text-[11px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-sm transition-all duration-300 cursor-pointer';
           }, 1200);
         }
       } catch (e) {
         console.warn('Auto-save error:', e);
       }
+    }
+
+    let _liveSyncTimers = {};
+    function syncLiveAnswerDebounced(payload) {
+      const syncKey = `${payload.nis}_${payload.mapel}_${payload.kode_pertemuan}_${payload.q_idx}`;
+      if (_liveSyncTimers[syncKey]) {
+        clearTimeout(_liveSyncTimers[syncKey]);
+      }
+      _liveSyncTimers[syncKey] = setTimeout(() => {
+        delete _liveSyncTimers[syncKey];
+        if (supabaseClient) {
+          supabaseClient.from('cbt_live_answers').upsert(payload, { onConflict: 'nis,mapel,kode_pertemuan,q_idx' }).then(res => {
+            if (res.error) console.warn("Supabase live answer sync warning:", res.error);
+          });
+        }
+      }, 400);
     }
 
 
@@ -2229,30 +2243,69 @@
       return null;
     }
 
-    function pulihkanDraftDariCloud(subj, pkgId) {
-      if (!supabaseClient) return;
+    let _lastCloudRestoreTs = {};
+    function showCloudRestoreToast(count, customMsg) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl bg-[#0D1B2E] border border-blue-500/80 text-white text-xs font-bold shadow-2xl flex items-center gap-2 animate-bounce';
+      if (count > 0) {
+        toast.innerHTML = `<i class="fa-solid fa-cloud-arrow-down text-emerald-400"></i> <span>Draf tugas tersinkronkan (${count} jawaban dipulihkan dari Cloud)!</span>`;
+      } else {
+        toast.innerHTML = `<i class="fa-solid fa-cloud text-blue-400"></i> <span>${customMsg || 'Draf tugas sudah sinkron dengan Cloud.'}</span>`;
+      }
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+
+    function pulihkanDraftDariCloud(subj, pkgId, manual) {
+      if (!supabaseClient) {
+        if (manual) showCloudRestoreToast(0, 'Koneksi database Cloud belum siap.');
+        return;
+      }
       try {
         const sess = typeof getSession === 'function' ? getSession() : null;
         const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
-        if (!nis || nis === 'guest') return;
+        if (!nis || nis === 'guest') {
+          if (manual) showCloudRestoreToast(0, 'Silakan login dengan NIS untuk memulihkan draf Cloud.');
+          return;
+        }
+
+        const throttleKey = `${nis}_${subj}_${pkgId}`;
+        const now = Date.now();
+        if (!manual && _lastCloudRestoreTs[throttleKey] && (now - _lastCloudRestoreTs[throttleKey] < 8000)) {
+          return;
+        }
+        _lastCloudRestoreTs[throttleKey] = now;
+
+        const badge = document.getElementById('cbt-autosave-badge');
+        if (badge) {
+          badge.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-cyan-400"></i> <span class="hidden sm:inline">Sinkronisasi...</span>';
+        }
 
         supabaseClient.from('cbt_live_answers')
           .select('*')
           .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
           .then(res => {
+            if (badge) {
+              badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
+            }
             if (res.data && res.data.length > 0) {
               const k = getCbtDraftKey(subj, pkgId);
               const draft = JSON.parse(localStorage.getItem(k) || '{}');
               if (!draft.answers) draft.answers = {};
               let hasNew = false;
+              let restoredCount = 0;
               res.data.forEach(row => {
-                if (draft.answers[row.q_idx] === undefined && row.chosen !== undefined && row.chosen !== null && row.chosen !== '') {
-                  draft.answers[row.q_idx] = {
-                    chosen: row.chosen,
-                    isRight: row.is_right,
-                    ts: Date.now()
-                  };
-                  hasNew = true;
+                if (row.chosen !== undefined && row.chosen !== null && row.chosen !== '') {
+                  const localAns = draft.answers[row.q_idx];
+                  if (!localAns || localAns.chosen === undefined || localAns.chosen === null || localAns.chosen === '') {
+                    draft.answers[row.q_idx] = {
+                      chosen: row.chosen,
+                      isRight: row.is_right,
+                      ts: new Date(row.updated_at || Date.now()).getTime()
+                    };
+                    hasNew = true;
+                    restoredCount++;
+                  }
                 }
               });
               if (hasNew) {
@@ -2263,8 +2316,16 @@
                 if (tkaSubj === subj && tkaPkgId === pkgId) {
                   renderAppView();
                 }
+                showCloudRestoreToast(restoredCount);
+              } else if (manual) {
+                showCloudRestoreToast(0, 'Semua jawaban lokal sudah mutakhir dengan Cloud.');
               }
+            } else if (manual) {
+              showCloudRestoreToast(0, 'Belum ada draf jawaban tersimpan di Cloud untuk paket ini.');
             }
+          }).catch(e => {
+            if (badge) badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
+            console.warn('Cloud restore draft error:', e);
           });
       } catch (e) {
         console.warn('Cloud restore draft error:', e);
@@ -2361,6 +2422,21 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           }).catch(err => {
             console.warn('Supabase submission error:', err);
           });
+
+          // Catat Riwayat & Frekuensi Percobaan Tugas Mandiri
+          if (forceSubmit) {
+            try {
+              const uid = getUserIdentifier();
+              const attemptKey = kunciTingkat(`cbt_attempts_${uid}_${subj}_${pkgId}`);
+              const prevScoreKey = kunciTingkat(`cbt_prev_score_${uid}_${subj}_${pkgId}`);
+              const curAttempts = parseInt(localStorage.getItem(attemptKey) || '0', 10);
+              
+              if (curAttempts > 0 && !localStorage.getItem(prevScoreKey)) {
+                localStorage.setItem(prevScoreKey, String(pct));
+              }
+              localStorage.setItem(attemptKey, String(curAttempts + 1));
+            } catch(e) {}
+          }
         }
       } catch (e) {
         console.warn('Supabase catatSesi error:', e);
@@ -4304,6 +4380,30 @@ function showTkaScorecardModal() {
         }
       }
 
+      // Tampilkan Riwayat Percobaan Tugas Mandiri Siswa
+      try {
+        const uid = getUserIdentifier();
+        const attemptKey = kunciTingkat(`cbt_attempts_${uid}_${tkaSubj}_${tkaPkgId}`);
+        const prevScoreKey = kunciTingkat(`cbt_prev_score_${uid}_${tkaSubj}_${tkaPkgId}`);
+        const attemptNum = parseInt(localStorage.getItem(attemptKey) || '1', 10);
+        const prevScore = localStorage.getItem(prevScoreKey);
+        
+        const attemptBadgeEl = document.getElementById('scorecard-attempt-badge');
+        const attemptTextEl = document.getElementById('scorecard-attempt-text');
+        if (attemptBadgeEl && attemptTextEl) {
+          if (attemptNum > 1 && prevScore !== null) {
+            const pVal = parseInt(prevScore, 10);
+            const diff = score - pVal;
+            const diffText = diff > 0 ? `(Meningkat +${diff} Poin! 📈)` : diff === 0 ? `(Skor Stabil)` : `(Turun ${diff} Poin)`;
+            attemptTextEl.innerHTML = `Percobaan ke-${attemptNum} • Sebelumnya: ${pVal} ➔ Sekarang: ${score} ${diffText}`;
+            attemptBadgeEl.className = "text-[11px] text-cyan-300 font-mono text-center font-bold px-3.5 py-1.5 rounded-xl bg-slate-950/90 border border-cyan-500/40 flex items-center justify-center gap-1.5 shadow-md";
+          } else {
+            attemptTextEl.innerHTML = `Percobaan ke-${attemptNum} • Pengerjaan Mandiri`;
+            attemptBadgeEl.className = "text-[11px] text-slate-300 font-mono text-center font-bold px-3.5 py-1 rounded-xl bg-slate-950/80 border border-slate-700 flex items-center justify-center gap-1.5 shadow-sm";
+          }
+        }
+      } catch (e) {}
+
       const matrixEl = document.getElementById('scorecard-q-matrix');
       if (matrixEl) {
         matrixEl.innerHTML = '';
@@ -4341,8 +4441,8 @@ function showTkaScorecardModal() {
     }
 
     function renderTkaQuestion() {
-      const recoveredDraft = pulihkanDraftJawaban(tkaSubj, tkaPkgId);
-      if (!recoveredDraft && (!window._cloudRestoreAttempted || !window._cloudRestoreAttempted[`${tkaSubj}_${tkaPkgId}`])) {
+      pulihkanDraftJawaban(tkaSubj, tkaPkgId);
+      if (!window._cloudRestoreAttempted || !window._cloudRestoreAttempted[`${tkaSubj}_${tkaPkgId}`]) {
         if (!window._cloudRestoreAttempted) window._cloudRestoreAttempted = {};
         window._cloudRestoreAttempted[`${tkaSubj}_${tkaPkgId}`] = true;
         pulihkanDraftDariCloud(tkaSubj, tkaPkgId);
@@ -4665,8 +4765,9 @@ function showTkaScorecardModal() {
           <!-- OPTIONS -->
           ${optionsHtml}
 
-          <!-- STEP-BY-STEP SOLUTION CARD -->
-          <div id="tka-solution-box" class="${isReviewMode ? 'block' : 'hidden'} p-4 md:p-6 bg-slate-900/95 rounded-2xl border-2 border-blue-500/60 shadow-2xl space-y-3 mb-10 pb-6">
+          <!-- STEP-BY-STEP SOLUTION CARD (HANYA DIRENDER SAAT MODE REVIEW) -->
+          ${isReviewMode ? `
+          <div id="tka-solution-box" class="block p-4 md:p-6 bg-slate-900/95 rounded-2xl border-2 border-blue-500/60 shadow-2xl space-y-3 mb-10 pb-6">
             <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
               <span class="text-xs font-black text-amber-400 flex items-center gap-2 uppercase tracking-wide">
                 <i class="fa-solid fa-lightbulb text-amber-400"></i> ${tkaSubj === 'clil' ? 'Step-by-Step Structured Solution:' : 'Langkah Pembahasan Terstruktur & Kunci Jawaban:'}
@@ -4679,6 +4780,7 @@ function showTkaScorecardModal() {
               ${formatSolutionHtml(q.bahas || q.pembahasan || q.solusi || 'Pembahasan terstruktur sedang disiapkan.')}
             </div>
           </div>
+          ` : ''}
         </div>
       `;
 
@@ -4875,7 +4977,7 @@ function showTkaScorecardModal() {
 
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       userSessionScores[key] = isRight;
-      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', chosen: chosen, correct: correct });
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, chosen, isRight, { type: 'single', chosen: chosen });
 
       // Highlight opsi yang dipilih siswa dengan warna Biru Terpilih (bersih, interaktif, bisa diganti)
       const span = b => b.classList.contains('md:col-span-2') ? ' md:col-span-2' : '';
@@ -4977,7 +5079,7 @@ function showTkaScorecardModal() {
       } else if (q) {
         const isRight = evaluateQuestionScore(q, userMultiAnswers);
         userSessionScores[key] = isRight;
-        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, isRight, { type: 'multi', chosen: userMultiAnswers, correct: q.kunci });
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, isRight, { type: 'multi', chosen: userMultiAnswers });
       }
 
       // Update nav pill status
@@ -5019,7 +5121,6 @@ function showTkaScorecardModal() {
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
-      const correctKeysStr = (q && q.kunci) || '';
 
       if (!userMultiAnswers || userMultiAnswers.length === 0) {
         flashHint('multi-hint', 'Pilih minimal satu pernyataan sebelum menyimpan.');
@@ -5029,7 +5130,7 @@ function showTkaScorecardModal() {
 
       const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
       userSessionScores[key] = isRight;
-      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, isRight, { type: 'multi', chosen: userMultiAnswers, correct: correctKeysStr });
+      simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, isRight, { type: 'multi', chosen: userMultiAnswers });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
       flashHint('multi-hint', '✅ Pilihan ganda kompleks berhasil disimpan.');
@@ -5068,7 +5169,7 @@ function showTkaScorecardModal() {
       if (q) {
         const isRight = evaluateQuestionScore(q, userTfAnswers);
         userSessionScores[key] = isRight;
-        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, isRight, { type: 'tf', chosen: userTfAnswers, correct: q.kunci });
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, isRight, { type: 'tf', chosen: userTfAnswers });
       } else {
         simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, null, { type: 'tf', chosen: userTfAnswers });
       }
@@ -5096,7 +5197,7 @@ function showTkaScorecardModal() {
       } else if (q) {
         const isRight = evaluateQuestionScore(q, cleanVal);
         userSessionScores[key] = isRight;
-        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, cleanVal, isRight, { type: 'numeric', chosen: cleanVal, correct: q.kunci });
+        simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, cleanVal, isRight, { type: 'numeric', chosen: cleanVal });
       } else {
         simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, cleanVal, null, { type: 'numeric', chosen: cleanVal });
       }
