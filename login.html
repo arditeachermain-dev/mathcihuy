@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' width='64' height='64' role='img' aria-label='Math Cihuy'%3E%3Ctitle%3EMath Cihuy%3C/title%3E%3Cdefs%3E%3ClinearGradient id='ramp' x1='0' y1='0' x2='.15' y2='1'%3E%3Cstop offset='0' stop-color='%23FCD34D'/%3E%3Cstop offset='.42' stop-color='%23FBBF24'/%3E%3Cstop offset='.75' stop-color='%23F97316'/%3E%3Cstop offset='1' stop-color='%23E11D48'/%3E%3C/linearGradient%3E%3CradialGradient id='glow' cx='50%25' cy='45%25' r='52%25'%3E%3Cstop offset='0' stop-color='%23F97316' stop-opacity='.30'/%3E%3Cstop offset='1' stop-color='%23F97316' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='bgg' cx='28%25' cy='16%25' r='96%25'%3E%3Cstop offset='0' stop-color='%23182742'/%3E%3Cstop offset='1' stop-color='%23070C18'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='10.2' fill='url(%23bgg)'/%3E%3Cg transform='translate(-7.33 -8.75) scale(0.7866)'%3E%3Cg transform='translate(50 41)'%3E%3Cpath d='M0 0C-13.5 -19.71 -27 -19.71 -27 0C-27 19.71 -13.5 19.71 0 0M0 0C13.5 -19.71 27 -19.71 27 0C27 19.71 13.5 19.71 0 0' fill='none' stroke='url(%23ramp)' stroke-width='7.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='-13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3Ccircle cx='13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3C/g%3E%3Cg transform='translate(50 67)'%3E%3Cdefs%3E%3Cmask id='cutI' maskUnits='userSpaceOnUse' x='-45' y='-45' width='90' height='90'%3E%3Crect x='-45' y='-45' width='90' height='90' fill='%23fff'/%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23cutI)'%3E%3Cpath d='M-17 -4Q0 12 17 -4' fill='none' stroke='%23F1F5F9' stroke-width='6.4' stroke-linecap='round'/%3E%3C/g%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23F1F5F9' stroke-width='5.2' stroke-linecap='round'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
     <title>Login - Portal Matematika XII</title>
     <style>
@@ -228,16 +229,16 @@
         <div id="guru" class="tab-content">
             <form onsubmit="loginGuru(event)">
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="username" placeholder="Masukkan username" autocomplete="off" required>
+                    <label>Email Resmi Guru</label>
+                    <input type="email" id="email_guru" placeholder="arditeacher.main@gmail.com" autocomplete="email" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password_guru" placeholder="Masukkan password" required>
+                    <label>Password Akun Guru</label>
+                    <input type="password" id="password_guru" placeholder="Masukkan password akun guru" required>
                 </div>
 
-                <button type="submit" class="login-btn">Masuk sebagai Guru</button>
+                <button type="submit" id="btn_login_guru" class="login-btn">Masuk sebagai Guru</button>
 
                 <div class="error" id="error_guru"></div>
                 <div class="success" id="success_guru"></div>
@@ -351,11 +352,19 @@
             '24400100': { nama: 'Zharfa Qisthina Alifah', kelas: 'XII F4', access_level: 'full' }
         };
 
-        // ===== GURU CREDENTIALS =====
-        const GURU_CREDENTIALS = {
-            username: 'mathcihuy',
-            password_hash: 'd8c20c4c9c8c4c4c4c4c4c4c4c4c4c4c' // SHA256 simplified
-        };
+        // =========================================================================
+        // SUPABASE CLIENT INITIALIZATION (AUTHENTICATION & CLOUD DATABASE)
+        // =========================================================================
+        const SUPABASE_URL = "https://pecvxqguqtancizghnhj.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_K51BV-D7yLxnXdYg7auMeA_uzxPSy1c";
+        let supabaseClient = null;
+        try {
+            if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        } catch (e) {
+            console.warn("Supabase init error:", e);
+        }
 
         // ===== TAB SWITCHING =====
         function switchTab(tab) {
@@ -432,42 +441,81 @@
             setTimeout(function () { gotoPortal(student.kelas); }, 500);
         }
 
-        // ===== GURU LOGIN =====
-        function loginGuru(e) {
+        // ===== GURU LOGIN VIA SUPABASE AUTHENTICATION =====
+        async function loginGuru(e) {
             e.preventDefault();
-            var username = document.getElementById('username').value;
+            var email = document.getElementById('email_guru').value.trim();
             var password = document.getElementById('password_guru').value;
             var errorEl = document.getElementById('error_guru');
             var successEl = document.getElementById('success_guru');
+            var btn = document.getElementById('btn_login_guru');
 
             errorEl.style.display = 'none';
             successEl.style.display = 'none';
-
-            if (username !== GURU_CREDENTIALS.username) {
-                errorEl.textContent = 'Username atau password belum cocok. Cek lagi — huruf besar dan kecil berpengaruh.';
-                errorEl.style.display = 'block';
-                return;
-            }
-            if (password !== 'gis2cihuy') {
-                errorEl.textContent = 'NIS atau password belum cocok. Cek lagi — huruf besar dan kecil berpengaruh.';
-                errorEl.style.display = 'block';
-                return;
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Memverifikasi ke Supabase...';
             }
 
-            localStorage.setItem('portal_session', JSON.stringify({
-                type: 'guru',
-                data: {
-                    username: username,
-                    nama: 'M. Ardiansyah, S.Pd.Gr.'
-                },
-                timestamp: Date.now()
-            }));
+            if (!supabaseClient) {
+                errorEl.textContent = 'Layanan autentikasi Supabase belum termuat. Periksa koneksi internet Anda.';
+                errorEl.style.display = 'block';
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'Masuk sebagai Guru';
+                }
+                return;
+            }
 
-            successEl.textContent = 'Berhasil masuk. Sebentar, ya.';
-            successEl.style.display = 'block';
-            // Guru mengajar semua tingkat; dibawa ke halaman kelas 12 dulu,
-            // lalu bisa berpindah lewat tombol tingkat di header.
-            setTimeout(function () { gotoPortal('XII'); }, 500);
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    if (error.message && error.message.includes('Email not confirmed')) {
+                        throw new Error('Email guru (' + email + ') belum dikonfirmasi di Supabase. Silakan cek inbox/spam email Anda untuk konfirmasi, atau hubungi administrator.');
+                    }
+                    throw new Error('Email atau password guru salah. Silakan coba lagi.');
+                }
+
+                if (!data || !data.session) {
+                    throw new Error('Sesi autentikasi tidak diterima dari server.');
+                }
+
+                var session = data.session;
+                var user = data.user;
+                var namaGuru = (user.user_metadata && user.user_metadata.nama) || 'M. Ardiansyah, S.Pd.Gr.';
+
+                localStorage.setItem('portal_session', JSON.stringify({
+                    type: 'guru',
+                    token: session.access_token,
+                    refresh_token: session.refresh_token,
+                    data: {
+                        id: user.id,
+                        email: user.email,
+                        username: user.email.split('@')[0],
+                        name: namaGuru,
+                        nama: namaGuru,
+                        role: 'guru',
+                        access_level: 'full'
+                    },
+                    timestamp: Date.now()
+                }));
+
+                successEl.textContent = 'Autentikasi Supabase Berhasil! Mengalihkan ke Portal Guru...';
+                successEl.style.display = 'block';
+                setTimeout(function () { gotoPortal('XII'); }, 500);
+
+            } catch (err) {
+                errorEl.textContent = err.message || 'Gagal masuk. Periksa kembali email dan password.';
+                errorEl.style.display = 'block';
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'Masuk sebagai Guru';
+                }
+            }
         }
 
         // ===== CEK SESI SAAT HALAMAN DIBUKA =====
