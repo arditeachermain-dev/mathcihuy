@@ -17,6 +17,7 @@ DROP POLICY IF EXISTS "siswa_guru_manage" ON siswa;
 DROP POLICY IF EXISTS "Akses Publik Nilai" ON nilai_cbt;
 DROP POLICY IF EXISTS "nilai_cbt_select_public" ON nilai_cbt;
 DROP POLICY IF EXISTS "nilai_cbt_anon_insert" ON nilai_cbt;
+DROP POLICY IF EXISTS "nilai_cbt_anon_update" ON nilai_cbt;
 DROP POLICY IF EXISTS "nilai_cbt_guru_all" ON nilai_cbt;
 
 DROP POLICY IF EXISTS "Akses Publik Live Answers" ON cbt_live_answers;
@@ -67,6 +68,26 @@ CREATE POLICY "nilai_cbt_anon_insert"
 ON nilai_cbt
 FOR INSERT
 TO anon
+WITH CHECK (
+    EXISTS (SELECT 1 FROM siswa s WHERE s.nis = nilai_cbt.nis)
+    AND skor >= 0 AND skor <= 100
+    AND jumlah_soal > 0
+    AND jumlah_benar >= 0 AND jumlah_benar <= jumlah_soal
+    AND (jumlah_benar + jumlah_salah) <= jumlah_soal
+    AND skor = round((jumlah_benar::numeric / jumlah_soal::numeric) * 100)
+    AND length(trim(mapel)) > 0
+    AND length(trim(kode_pertemuan)) > 0
+);
+
+-- Siswa (anon) DIIZINKAN UPDATE saat mengulang pengerjaan paket tugas (UPSERT)
+-- DILINDUNGI VALIDASI INTEGRITAS MATEMATIKA YANG SAMA PERSIS:
+CREATE POLICY "nilai_cbt_anon_update"
+ON nilai_cbt
+FOR UPDATE
+TO anon
+USING (
+    EXISTS (SELECT 1 FROM siswa s WHERE s.nis = nilai_cbt.nis)
+)
 WITH CHECK (
     EXISTS (SELECT 1 FROM siswa s WHERE s.nis = nilai_cbt.nis)
     AND skor >= 0 AND skor <= 100
