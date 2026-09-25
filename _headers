@@ -1,70 +1,91 @@
-# Halaman: selalu diperiksa ulang supaya deploy baru langsung sampai ke siswa,
-# tetapi boleh dijawab 304 sehingga tidak diunduh ulang setiap kali dibuka.
-/index.html
-  Cache-Control: no-cache
+# ==============================================================================
+# GLOBAL SECURITY HEADERS (Semua Path & Berkas di Math Cihuy)
+# ==============================================================================
+/*
+  # Cegah MIME-type sniffing oleh browser
   X-Content-Type-Options: nosniff
+
+  # Anti-Clickjacking: Melarang keras situs lain meng-embed portal ke dalam iframe
+  X-Frame-Options: DENY
+
+  # Referrer Policy: Kirim origin saja saat navigasi lintas domain aman
   Referrer-Policy: strict-origin-when-cross-origin
 
+  # Strict-Transport-Security (HSTS): Wajibkan enkripsi HTTPS penuh selama 1 tahun
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Batasi akses fitur perangkat keras browser yang tidak diperlukan
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+  # Perlindungan Cross-Origin & XSS Filter
+  X-XSS-Protection: 1; mode=block
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+
+  # Content-Security-Policy (CSP) Kuat & Kompatibel Penuh:
+  # - Izinkan aset internal portal ('self')
+  # - Izinkan API Supabase Cloud (HTTPS & WebSocket Realtime)
+  # - Izinkan CDN resmi jsdelivr untuk Supabase SDK & pustaka pendukung
+  # - Izinkan webhook fallback Google Apps Script
+  # - Blokir penyematan iframe dari luar (frame-ancestors 'none')
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob: https:; connect-src 'self' https://pecvxqguqtancizghnhj.supabase.co wss://pecvxqguqtancizghnhj.supabase.co https://script.google.com https://script.googleusercontent.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
+
+# ==============================================================================
+# CACHE RULES PER HUKUM PORTAL (Halaman HTML Selalu Revalidasi)
+# ==============================================================================
 /
   Cache-Control: no-cache
 
-/11.html
+/index.html
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
 
 /11
   Cache-Control: no-cache
 
-/10.html
+/11.html
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
 
 /10
   Cache-Control: no-cache
 
-# Berkas kode & data dipakai bersama semua tingkat dan berukuran besar, tetapi
-# tetap harus diperiksa ulang. Kalau di-cache lama, perbaikan tidak akan pernah
-# sampai ke perangkat siswa; dengan no-cache, yang berubah saja yang diunduh
-# ulang (sisanya dijawab 304 dan nyaris tanpa biaya).
+/10.html
+  Cache-Control: no-cache
+
+/login.html
+  Cache-Control: no-cache
+
+# ==============================================================================
+# BERKAS KODE & DATA (Revalidasi Supaya Perbaikan Langsung Tiba di Siswa)
+# ==============================================================================
 /mathcihuy.css
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
 
 /vendor.js
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
 
 /app.js
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
 
 /app-akhir.js
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
 
 /data-xii.js
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
 
 /data-xi.js
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
 
 /data-x.js
   Cache-Control: no-cache
-  X-Content-Type-Options: nosniff
 
-# ikon dan manifest jarang berubah
-/icon-*.png
-  Cache-Control: public, max-age=604800
+# ==============================================================================
+# SERVICE WORKER & ASSET STATIS
+# ==============================================================================
+/sw.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /
 
 /manifest.json
   Cache-Control: public, max-age=86400
 
-# service worker harus selalu diperiksa ulang, kalau tidak pembaruan portal
-# tidak akan pernah sampai ke perangkat yang sudah memasangnya
-/sw.js
-  Cache-Control: no-cache
-  Service-Worker-Allowed: /
+/icon-*.png
+  Cache-Control: public, max-age=604800
