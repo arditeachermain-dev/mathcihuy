@@ -2404,8 +2404,24 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           const nama = sesi.data.name || sesi.data.nama || (std ? std.nama : 'Siswa ' + nis);
           const kelas = sesi.data.kelas_name || sesi.data.kelas || (std ? std.kelas : NAMA_TINGKAT);
           const durasi = (typeof ambilDurasiPaket === 'function') ? ambilDurasiPaket(subj, pkgId) : 0;
-          
-          supabaseClient.from('nilai_cbt').upsert({
+
+          // Catat Riwayat & Frekuensi Percobaan Tugas Mandiri
+          let finalAttempt = 1;
+          try {
+            const uid = getUserIdentifier();
+            const attemptKey = kunciTingkat(`cbt_attempts_${uid}_${subj}_${pkgId}`);
+            const prevScoreKey = kunciTingkat(`cbt_prev_score_${uid}_${subj}_${pkgId}`);
+            const curAttempts = parseInt(localStorage.getItem(attemptKey) || '0', 10);
+            finalAttempt = curAttempts + 1;
+            if (curAttempts > 0 && !localStorage.getItem(prevScoreKey)) {
+              localStorage.setItem(prevScoreKey, String(pct));
+            }
+            if (forceSubmit) {
+              localStorage.setItem(attemptKey, String(finalAttempt));
+            }
+          } catch(e) {}
+
+          const payload = {
             nis: String(nis),
             nama: String(nama),
             kelas: String(kelas),
@@ -2416,27 +2432,41 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             jumlah_benar: Number(benar),
             jumlah_salah: Number(n - benar),
             durasi_detik: Number(durasi),
+            jumlah_percobaan: Number(finalAttempt),
             waktu_submit: new Date().toISOString()
-          }, { onConflict: 'nis,mapel,kode_pertemuan' }).then(res => {
-            console.log('✅ Nilai CBT berhasil disubmit ke Supabase:', res);
-          }).catch(err => {
-            console.warn('Supabase submission error:', err);
-          });
+          };
 
-          // Catat Riwayat & Frekuensi Percobaan Tugas Mandiri
-          if (forceSubmit) {
-            try {
-              const uid = getUserIdentifier();
-              const attemptKey = kunciTingkat(`cbt_attempts_${uid}_${subj}_${pkgId}`);
-              const prevScoreKey = kunciTingkat(`cbt_prev_score_${uid}_${subj}_${pkgId}`);
-              const curAttempts = parseInt(localStorage.getItem(attemptKey) || '0', 10);
-              
-              if (curAttempts > 0 && !localStorage.getItem(prevScoreKey)) {
-                localStorage.setItem(prevScoreKey, String(pct));
+          // Sinkronkan percobaan dengan data riwayat di Supabase jika ada
+          supabaseClient.from('nilai_cbt')
+            .select('jumlah_percobaan')
+            .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
+            .maybeSingle()
+            .then(resEx => {
+              if (resEx && resEx.data && resEx.data.jumlah_percobaan) {
+                const dbAtt = Number(resEx.data.jumlah_percobaan) || 0;
+                if (dbAtt >= finalAttempt) {
+                  finalAttempt = dbAtt + 1;
+                  payload.jumlah_percobaan = finalAttempt;
+                  try {
+                    const uid = getUserIdentifier();
+                    localStorage.setItem(kunciTingkat(`cbt_attempts_${uid}_${subj}_${pkgId}`), String(finalAttempt));
+                  } catch(e) {}
+                }
               }
-              localStorage.setItem(attemptKey, String(curAttempts + 1));
-            } catch(e) {}
-          }
+              return supabaseClient.from('nilai_cbt').upsert(payload, { onConflict: 'nis,mapel,kode_pertemuan' });
+            })
+            .then(res => {
+              if (res && res.error && res.error.code === 'PGRST204') {
+                // Fallback jika kolom jumlah_percobaan belum ditambahkan via SQL di Supabase
+                const fallbackPayload = Object.assign({}, payload);
+                delete fallbackPayload.jumlah_percobaan;
+                return supabaseClient.from('nilai_cbt').upsert(fallbackPayload, { onConflict: 'nis,mapel,kode_pertemuan' });
+              }
+              console.log('✅ Nilai CBT berhasil disubmit ke Supabase:', res);
+            })
+            .catch(err => {
+              console.warn('Supabase submission error:', err);
+            });
         }
       } catch (e) {
         console.warn('Supabase catatSesi error:', e);

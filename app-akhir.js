@@ -156,6 +156,7 @@
               jumlah_salah: Number(p.jumlah_salah) || 0,
               durasi_detik: Number(p.durasi_detik) || 0,
               durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 60),
+              jumlah_percobaan: Number(p.jumlah_percobaan) || 1,
               status: 'sudah'
             };
             log.push(mapped);
@@ -232,7 +233,7 @@
     }
 
     function updateSortIcons() {
-      const fields = ['nis', 'nama', 'kelas', 'mapel', 'kode', 'skor', 'progress', 'durasi', 'tanggal', 'jam'];
+      const fields = ['nis', 'nama', 'kelas', 'mapel', 'kode', 'skor', 'progress', 'durasi', 'percobaan', 'tanggal', 'jam'];
       fields.forEach(f => {
         const el = document.getElementById(`sort-icon-${f}`);
         if (!el) return;
@@ -518,6 +519,10 @@
             valA = Number(a.durasi_detik || (a.durasi_menit ? a.durasi_menit * 60 : 0));
             valB = Number(b.durasi_detik || (b.durasi_menit ? b.durasi_menit * 60 : 0));
             return (valA - valB) * dir;
+          case 'percobaan':
+            valA = Number(a.jumlah_percobaan) || 1;
+            valB = Number(b.jumlah_percobaan) || 1;
+            return (valA - valB) * dir;
           case 'tanggal':
           case 'jam':
           case 'timestamp':
@@ -538,7 +543,7 @@
           sedang: 'Tidak ada siswa yang sedang aktif mengerjakan saat ini.',
           belum: '🎉 Luar biasa! Semua siswa di kelas ini sudah mengerjakan CBT!'
         };
-        tbody.innerHTML = `<tr><td colspan="11" class="text-center py-10 text-slate-400 font-medium">${pesanKosong[statusFilter] || 'Tidak ada data'}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="12" class="text-center py-10 text-slate-400 font-medium">${pesanKosong[statusFilter] || 'Tidak ada data'}</td></tr>`;
         return;
       }
 
@@ -547,10 +552,12 @@
         let skorDisplay = '';
         let detailDisplay = '';
         let durasiDisplay = '';
+        let percobaanDisplay = '';
         let aksiButton = '';
         let trBgStyle = 'background-color: #0A1628;';
 
         const wib = formatWaktuWib(r.timestamp);
+        const nAttempt = Number(r.jumlah_percobaan) || 1;
 
         if (r.status === 'sudah') {
           trBgStyle = 'background-color: #0B172B;';
@@ -563,14 +570,27 @@
           skorDisplay = `<div class="flex items-center justify-center gap-1.5 whitespace-nowrap"><span class="font-mono text-sm font-black ${isTuntas ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span> ${statusBadge}</div>`;
           const dDetik = Number(r.durasi_detik) || 0;
           const isAnomaliCepat = dDetik > 0 && dDetik < 45 && Number(r.skor) >= 80;
-          const anomaliTag = isAnomaliCepat ? ' <span title="Peringatan: Ujian selesai sangat cepat (< 45 detik) dengan skor tinggi. Indikasi pengerjaan otomatis/bot." class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-robot"></i> Bot?</span>' : '';
+          let anomaliTag = '';
+          if (isAnomaliCepat) {
+            if (nAttempt > 1) {
+              anomaliTag = ` <span title="Wajar cepat (< 45 detik) karena ini adalah pengerjaan ulang / remedial setelah membaca kunci dan pembahasan." class="px-1.5 py-0.5 rounded bg-blue-500/20 text-cyan-300 border border-blue-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-rotate-right"></i> Ulang (${nAttempt}x)</span>`;
+            } else {
+              anomaliTag = ` <span title="Perhatian: Selesai sangat cepat (< 45 detik) pada percobaan pertama dengan skor tinggi." class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-bolt"></i> Cepat?</span>`;
+            }
+          }
           durasiDisplay = `<span class="text-xs text-slate-300 font-mono whitespace-nowrap">${r.durasi_menit || 0} Menit</span>${anomaliTag}`;
+          if (nAttempt > 1) {
+            percobaanDisplay = `<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-cyan-950 text-cyan-300 border border-cyan-500/50 whitespace-nowrap inline-flex items-center gap-1 shadow-sm" title="Mengerjakan ulang / remedial (percobaan ke-${nAttempt})"><i class="fa-solid fa-rotate-right text-cyan-400 text-[9px]"></i> Ke-${nAttempt}</span>`;
+          } else {
+            percobaanDisplay = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-slate-300 border border-slate-700 whitespace-nowrap inline-flex items-center gap-1" title="Percobaan pertama"><i class="fa-solid fa-check text-slate-400 text-[9px]"></i> Pertama</span>`;
+          }
           aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" title="Reset nilai agar siswa dapat mengulang" class="px-2.5 py-1 bg-slate-800 hover:bg-amber-600 border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer">Reset</button>`;
         } else if (r.status === 'sedang') {
           trBgStyle = r.livenessState === 'stuck' ? 'background-color: #24111E;' : r.livenessState === 'idle' ? 'background-color: #261D10;' : 'background-color: #0B2129;';
           skorDisplay = `<div class="flex flex-col items-center gap-0.5 whitespace-nowrap">${r.livenessBadge}<span class="font-mono text-xs font-black ${r.livenessState === 'stuck' ? 'text-rose-400' : 'text-emerald-400'}">${r.skor} / 100</span></div>`;
           detailDisplay = `<span class="px-2 py-0.5 rounded-lg bg-[#060E1A] text-amber-300 font-mono font-bold border border-blue-900 whitespace-nowrap text-xs">${r.progress_soal}/10 Soal</span>`;
           durasiDisplay = `<span class="text-xs font-mono whitespace-nowrap ${r.livenessState === 'live' ? 'text-emerald-400 font-bold' : 'text-slate-400'}">${r.livenessText}</span>`;
+          percobaanDisplay = `<span class="text-xs text-slate-400 font-mono whitespace-nowrap">Ke-${nAttempt}</span>`;
           aksiButton = `
             <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
               <button onclick="forceSubmitNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}', ${r.skor}, ${r.jumlah_soal}, ${r.jumlah_benar}, ${r.jumlah_salah})" title="Kumpulkan paksa ujian siswa ini dengan jawaban yang ada" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-black transition shadow flex items-center gap-1 whitespace-nowrap cursor-pointer active:scale-95">
@@ -587,6 +607,7 @@
           skorDisplay = `<span style="background-color: #3b0d18; color: #fda4af; border: 1px solid #f43f5e;" class="px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap">Belum Submit</span>`;
           detailDisplay = `<span class="text-xs text-slate-500 font-mono whitespace-nowrap">0/10 Soal</span>`;
           durasiDisplay = `<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>`;
+          percobaanDisplay = `<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>`;
           aksiButton = `<span class="text-xs text-slate-500 italic whitespace-nowrap">Menunggu</span>`;
         }
 
@@ -612,6 +633,7 @@
             <td class="border-r border-blue-900/60 px-3.5 py-2.5 text-center min-w-[130px]">${skorDisplay}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center min-w-[95px]">${detailDisplay}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center min-w-[95px]">${durasiDisplay}</td>
+            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center min-w-[90px]">${percobaanDisplay}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center min-w-[95px]">${tglCell}</td>
             <td class="border-r border-blue-900/60 px-3.5 py-2.5 text-center min-w-[115px]">${jamCell}</td>
             <td class="px-4 py-2.5 text-center min-w-[120px]">${aksiButton}</td>
