@@ -3534,7 +3534,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     }
 
     // pindah satu paket ke depan/belakang tanpa membuka modal
+    let _lastStepPkgTime = 0;
     function stepPkg(dir) {
+      const now = Date.now();
+      if (now - _lastStepPkgTime < 300) return;
+      _lastStepPkgTime = now;
       if (currentMode === 'tka') {
         const src = tkaSrc();
         const ids = sortedPkgIds(src);
@@ -4461,6 +4465,7 @@ function showTkaScorecardModal() {
       if (typeof tandaiMulaiPaket === 'function') {
         tandaiMulaiPaket(tkaSubj, tkaPkgId);
       }
+      _waktuBukaSoal = Date.now();
 
       userMultiAnswers = [];
       userTfAnswers = {};
@@ -4528,7 +4533,11 @@ function showTkaScorecardModal() {
           }
           pBtn.className = pillClass;
           pBtn.innerText = idx + 1;
-          pBtn.onclick = () => { tkaQIdx = idx; renderAppView(); };
+          pBtn.onclick = () => {
+            if (typeof periksaKecepatanKlik === 'function' && !periksaKecepatanKlik(null, false)) return;
+            tkaQIdx = idx;
+            renderAppView();
+          };
           pillsContainer.appendChild(pBtn);
         });
       }
@@ -4955,14 +4964,91 @@ function showTkaScorecardModal() {
       if (txt) txt.textContent = vizOpen ? 'Sembunyikan ilustrasi' : 'Lihat ilustrasi';
     }
 
+    // =========================================================================
+    // CBT INTERACTION RATE LIMITER & PEDAGOGICAL SPEED WARNING
+    // =========================================================================
+    let _lastCbtClickTime = 0;
+    let _waktuBukaSoal = Date.now();
+    let _speedWarningToastTimer = null;
+
+    function tampilkanPeringatanKecepatan(judul, subjudul, ikon) {
+      let toast = document.getElementById('cbt-speed-warning-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'cbt-speed-warning-toast';
+        document.body.appendChild(toast);
+      }
+
+      toast.className = 'fixed top-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-2xl bg-slate-900/95 border-2 border-amber-400 text-amber-200 text-xs md:text-sm font-bold shadow-2xl flex items-center gap-3 animate-bounce transition-all duration-300 max-w-md w-[90%] md:w-auto backdrop-blur-md';
+      toast.style.opacity = '1';
+      toast.style.transform = 'translate(-50%, 0)';
+      toast.innerHTML = `
+        <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/40 flex items-center justify-center text-lg shrink-0">
+          <i class="${ikon || 'fa-solid fa-triangle-exclamation'}"></i>
+        </div>
+        <div class="flex-1 min-w-0 text-left">
+          <p class="font-black text-amber-300 uppercase tracking-wide text-xs md:text-sm">${judul}</p>
+          <p class="text-[11px] md:text-xs text-slate-200 font-medium leading-relaxed">${subjudul}</p>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white p-1 text-sm shrink-0 cursor-pointer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      `;
+
+      if (_speedWarningToastTimer) clearTimeout(_speedWarningToastTimer);
+      _speedWarningToastTimer = setTimeout(() => {
+        if (toast && toast.parentElement) {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translate(-50%, -20px)';
+          setTimeout(() => toast.remove(), 300);
+        }
+      }, 3500);
+    }
+
+    function periksaKecepatanKlik(evt, isAnswerAction) {
+      if (evt && evt.isTrusted === false) {
+        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
+        return false;
+      }
+      if (window._tkaReviewMode === true) return true; // Review mode tidak perlu dibatasi
+
+      const now = Date.now();
+      const intervalKlik = now - _lastCbtClickTime;
+
+      // 1. Deteksi Spam Klik / Double Click Bertubi-tubi (< 450ms)
+      if (intervalKlik < 450) {
+        tampilkanPeringatanKecepatan(
+          'Klik Terlalu Cepat! ✋',
+          'Harap berikan jeda sejenak antar-klik agar sistem dapat mencatat jawaban Anda dengan rapi.',
+          'fa-solid fa-hand'
+        );
+        return false; // Abaikan klik spam
+      }
+      _lastCbtClickTime = now;
+
+      // 2. Deteksi Asal Tebak / Kecepatan Baca Soal (< 1600ms sejak soal dibuka pertama kali)
+      if (isAnswerAction && _waktuBukaSoal > 0) {
+        const durasiBaca = now - _waktuBukaSoal;
+        const key = `${tkaSubj}_${tkaPkgId}_${tkaQIdx}`;
+        const sudahDijawab = userSessionScores[key] !== undefined;
+
+        if (!sudahDijawab && durasiBaca < 1600) {
+          tampilkanPeringatanKecepatan(
+            'Pelan-Pelan ya! 💡',
+            'Bacalah soal dan hitung dengan teliti terlebih dahulu sebelum memilih opsi jawaban.',
+            'fa-solid fa-lightbulb'
+          );
+        }
+      }
+
+      return true;
+    }
+
     // CBT SELECTION HANDLERS & AUTO-PERSISTENCE ENGINE
     // Selama ujian berlangsung: pilihan siswa tersimpan (ditandai 'Terpilih'),
     // bebas diubah kapan saja, dan KUNCI/PEMBAHASAN TETAP 100% TERKUNCI (HIDDEN).
     function selectAnswer(chosen, evt) {
-      if (evt && evt.isTrusted === false) {
-        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
-        return;
-      }
+      if (!periksaKecepatanKlik(evt, true)) return;
       if (window._tkaReviewMode === true) return; // Mode review readonly
 
       if (typeof tandaiMulaiPaket === 'function') {
@@ -5043,10 +5129,7 @@ function showTkaScorecardModal() {
     const mSpan = b => (b && b.classList.contains('md:col-span-2')) ? ' md:col-span-2' : '';
 
     function toggleMultiOption(letter, evt) {
-      if (evt && evt.isTrusted === false) {
-        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
-        return;
-      }
+      if (!periksaKecepatanKlik(evt, true)) return;
       if (window._tkaReviewMode === true) return;
       if (typeof tandaiMulaiPaket === 'function') {
         tandaiMulaiPaket(tkaSubj, tkaPkgId);
@@ -5110,10 +5193,7 @@ function showTkaScorecardModal() {
     const OPT_MUTED = OPT_BASE + ' bg-slate-900/70 border border-slate-800 text-slate-400';
 
     function submitMultiAnswer(evt) {
-      if (evt && evt.isTrusted === false) {
-        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
-        return;
-      }
+      if (!periksaKecepatanKlik(evt, false)) return;
       if (window._tkaReviewMode === true) return;
       if (typeof tandaiMulaiPaket === 'function') {
         tandaiMulaiPaket(tkaSubj, tkaPkgId);
@@ -5142,10 +5222,7 @@ function showTkaScorecardModal() {
     }
 
     function selectTfAnswer(stmtIdx, choice, evt) {
-      if (evt && evt.isTrusted === false) {
-        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
-        return;
-      }
+      if (!periksaKecepatanKlik(evt, true)) return;
       if (window._tkaReviewMode === true) return;
       if (typeof tandaiMulaiPaket === 'function') {
         tandaiMulaiPaket(tkaSubj, tkaPkgId);
@@ -5215,10 +5292,7 @@ function showTkaScorecardModal() {
     }
 
     function submitTfAnswer(evt, stmtCount) {
-      if (evt && evt.isTrusted === false) {
-        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
-        return;
-      }
+      if (!periksaKecepatanKlik(evt, false)) return;
       if (window._tkaReviewMode === true) return;
       if (typeof tandaiMulaiPaket === 'function') {
         tandaiMulaiPaket(tkaSubj, tkaPkgId);
@@ -5271,10 +5345,7 @@ function showTkaScorecardModal() {
     }
 
     function submitNumericAnswer(evt) {
-      if (evt && evt.isTrusted === false) {
-        console.warn("⚠️ Interaksi terdeteksi tidak sah (simulasi bot ditolak).");
-        return;
-      }
+      if (!periksaKecepatanKlik(evt, true)) return;
       if (window._tkaReviewMode === true) return;
       if (typeof tandaiMulaiPaket === 'function') {
         tandaiMulaiPaket(tkaSubj, tkaPkgId);
@@ -5362,6 +5433,7 @@ function showTkaScorecardModal() {
     }
 
     function nextTkaQ() {
+      if (typeof periksaKecepatanKlik === 'function' && !periksaKecepatanKlik(null, false)) return;
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       if (pkg && tkaQIdx < pkg.questions.length - 1) {
@@ -5371,6 +5443,7 @@ function showTkaScorecardModal() {
     }
 
     function prevTkaQ() {
+      if (typeof periksaKecepatanKlik === 'function' && !periksaKecepatanKlik(null, false)) return;
       if (tkaQIdx > 0) {
         tkaQIdx--;
         renderAppView();
