@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS nilai_cbt (
     jumlah_benar INT NOT NULL DEFAULT 0,
     jumlah_salah INT NOT NULL DEFAULT 0,
     durasi_detik INT NOT NULL DEFAULT 0,
+    jumlah_percobaan INT NOT NULL DEFAULT 1,
     status_kktp VARCHAR(20) GENERATED ALWAYS AS (
         CASE WHEN skor >= 75 THEN 'TUNTAS KKTP' ELSE 'REMEDIAL' END
     ) STORED,
