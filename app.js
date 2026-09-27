@@ -1836,9 +1836,7 @@
       const m = sinkAmbil(CBT_MULAI_KEY, {});
       const k = subj + '_' + pkgId;
       if (!m[k]) return 0;
-      const detik = Math.max(1, Math.round((Date.now() - m[k]) / 1000));
-      delete m[k]; sinkSimpan(CBT_MULAI_KEY, m);
-      return detik;
+      return Math.max(1, Math.round((Date.now() - m[k]) / 1000));
     }
 
     // ---- sidik jari: satu hasil hanya dikirim sekali ----
