@@ -123,11 +123,45 @@
 
     async function tarikNilaiDariCloud(manual) {
       const statusEl = document.getElementById('cloud-sync-status');
-      if (statusEl) statusEl.innerHTML = '<span class="text-cyan-400 font-mono text-xs animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan Supabase SQL...</span>';
-      
+      // 1. Coba Cloudflare D1 Serverless SQLite Database terlebih dahulu (Bebas Kuota Egress & Unlimited)
+      try {
+        const d1Res = await fetch('/api/nilai?all=1');
+        if (d1Res.ok) {
+          const d1Data = await d1Res.json();
+          if (Array.isArray(d1Data) && d1Data.length > 0) {
+            console.log('⚡ Rekap Nilai dimuat dari Cloudflare D1 SQLite Database');
+            const log = [];
+            d1Data.forEach(function(p) {
+              const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[p.nis]) ? STUDENTS_DATA[p.nis] : null;
+              log.push({
+                timestamp: p.waktu_submit,
+                nis: String(p.nis || ''),
+                nama: String(p.nama || (std ? std.nama : 'Siswa ' + p.nis)),
+                kelas: String(p.kelas || (std ? std.kelas : 'XII')),
+                mapel: String(p.mapel || 'wajib'),
+                kode_pertemuan: String(p.kode_pertemuan || ''),
+                skor: Number(p.skor) || 0,
+                jumlah_soal: Number(p.jumlah_soal) || 10,
+                jumlah_benar: Number(p.jumlah_benar) || 0,
+                jumlah_salah: Number(p.jumlah_salah) || 0,
+                durasi_detik: Number(p.durasi_detik) || 0,
+                durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 60),
+                jumlah_percobaan: Number(p.jumlah_percobaan) || 1,
+                status: 'sudah'
+              });
+            });
+            sinkSimpan(CBT_LOKAL_KEY, log);
+            if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-bolt"></i> Cloudflare D1 Aktif (${log.length} nilai disubmit • Unlimited)</span>`;
+            loadGuruDashboardData();
+            return;
+          }
+        }
+      } catch(e) {}
+
+      // 2. Fallback ke Supabase jika D1 belum terhubung
       if (supabaseClient) {
         try {
-          // 1. Tarik Nilai Resmi yang Sudah Disubmit (nilai_cbt) - Hanya kolom esensial (hemat kuota)
+          // Tarik Nilai Resmi yang Sudah Disubmit (nilai_cbt) - Hanya kolom esensial (hemat kuota)
           const resNilai = await supabaseClient.from('nilai_cbt')
             .select('nis,nama,kelas,mapel,kode_pertemuan,skor,jumlah_soal,jumlah_benar,jumlah_salah,durasi_detik,jumlah_percobaan,waktu_submit')
             .order('waktu_submit', { ascending: false });

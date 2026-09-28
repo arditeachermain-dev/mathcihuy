@@ -2098,37 +2098,54 @@
           }
         } catch (e) {}
 
-        // 2. Tarik daftar nilai resmi milik siswa ini saja dari Supabase nilai_cbt
-        // Sangat ringan (< 2 KB) & hemat kuota egress
-        if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-          supabaseClient.from('nilai_cbt')
-            .select('mapel,kode_pertemuan,skor,jumlah_soal,jumlah_benar,waktu_submit')
-            .eq('nis', nis)
-            .then(res => {
-              if (res && res.data && Array.isArray(res.data)) {
-                const map = Object.assign({}, window._cbtCompletedSubmissions);
-                res.data.forEach(row => {
-                  const k = `${row.mapel}_${row.kode_pertemuan}`;
-                  map[k] = row;
-                });
-                window._cbtCompletedSubmissions = map;
-                try {
-                  localStorage.setItem(cacheKey, JSON.stringify(map));
-                } catch (e) {}
+        function prosesDataSelesai(data) {
+          if (!Array.isArray(data)) return;
+          const map = Object.assign({}, window._cbtCompletedSubmissions);
+          data.forEach(row => {
+            const k = `${row.mapel}_${row.kode_pertemuan}`;
+            map[k] = row;
+          });
+          window._cbtCompletedSubmissions = map;
+          try {
+            localStorage.setItem(cacheKey, JSON.stringify(map));
+          } catch (e) {}
 
-                // Perbarui ribbon & panggung soal jika sedang di mode TKA
-                if (typeof currentMode !== 'undefined' && currentMode === 'tka') {
-                  if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
-                  if (typeof renderTkaQuestion === 'function') renderTkaQuestion();
-                }
-                const pickerModal = document.getElementById('meeting-picker-modal');
-                if (pickerModal && !pickerModal.classList.contains('hidden') && typeof renderMeetingPicker === 'function') {
-                  renderMeetingPicker(document.getElementById('picker-search') ? document.getElementById('picker-search').value : '');
-                }
-              }
-            })
-            .catch(err => console.warn('Status selesai sync notice:', err));
+          // Perbarui ribbon & panggung soal jika sedang di mode TKA
+          if (typeof currentMode !== 'undefined' && currentMode === 'tka') {
+            if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
+            if (typeof renderTkaQuestion === 'function') renderTkaQuestion();
+          }
+          const pickerModal = document.getElementById('meeting-picker-modal');
+          if (pickerModal && !pickerModal.classList.contains('hidden') && typeof renderMeetingPicker === 'function') {
+            renderMeetingPicker(document.getElementById('picker-search') ? document.getElementById('picker-search').value : '');
+          }
         }
+
+        // 2. Tarik daftar nilai: Prioritaskan Cloudflare D1 SQLite (Bebas Kuota Egress)
+        fetch('/api/nilai?nis=' + encodeURIComponent(nis))
+          .then(r => r.ok ? r.json() : Promise.reject('D1 offline'))
+          .then(d1Rows => {
+            if (Array.isArray(d1Rows) && d1Rows.length > 0) {
+              console.log('⚡ Status CBT dimuat dari Cloudflare D1 Database (Unlimited Bandwidth)');
+              prosesDataSelesai(d1Rows);
+              return;
+            }
+            throw new Error('D1 empty/fallback');
+          })
+          .catch(() => {
+            // Fallback ke Supabase jika D1 belum dikonfigurasi
+            if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+              supabaseClient.from('nilai_cbt')
+                .select('mapel,kode_pertemuan,skor,jumlah_soal,jumlah_benar,waktu_submit')
+                .eq('nis', nis)
+                .then(res => {
+                  if (res && res.data && Array.isArray(res.data)) {
+                    prosesDataSelesai(res.data);
+                  }
+                })
+                .catch(err => console.warn('Status selesai sync notice:', err));
+            }
+          });
       } catch (e) {
         console.warn('muatStatusSelesaiSiswa error:', e);
       }
@@ -2215,6 +2232,14 @@
       }
       _liveSyncTimers[syncKey] = setTimeout(() => {
         delete _liveSyncTimers[syncKey];
+        // 1. Kirim ke Cloudflare D1 Native Database (Unlimited Bandwidth)
+        fetch('/api/live', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(() => {});
+
+        // 2. Kirim ke Supabase
         if (supabaseClient) {
           supabaseClient.from('cbt_live_answers').upsert(payload, { onConflict: 'nis,mapel,kode_pertemuan,q_idx' }).then(res => {
             if (res.error) console.warn("Supabase live answer sync warning:", res.error);
@@ -2528,7 +2553,17 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             waktu_submit: new Date().toISOString()
           };
 
-          // Sinkronkan percobaan dengan data riwayat di Supabase jika ada
+          // 1. Submit ke Cloudflare D1 Native Database (Unlimited Bandwidth & Zero Egress)
+          fetch('/api/nilai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }).then(r => r.ok ? r.json() : Promise.reject('D1 unavailable'))
+          .then(d1Res => {
+            console.log('⚡ Nilai CBT berhasil disubmit ke Cloudflare D1 Database:', d1Res);
+          }).catch(() => {});
+
+          // 2. Sinkronkan percobaan dengan data riwayat di Supabase jika ada
           supabaseClient.from('nilai_cbt')
             .select('jumlah_percobaan')
             .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
