@@ -21,6 +21,60 @@ export async function onRequestGet(context) {
   }
 }
 
+// Rate Limiting Guard: Max 10 requests per 10 seconds -> Block for 5 minutes
+async function checkRateLimit(request, env) {
+  if (!env || !env.DB) return null;
+  const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || '127.0.0.1';
+  const now = Date.now();
+
+  try {
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS auth_rate_limits (
+        ip TEXT PRIMARY KEY,
+        req_count INTEGER,
+        window_start INTEGER,
+        blocked_until INTEGER
+      )
+    `).run();
+
+    const record = await env.DB.prepare("SELECT * FROM auth_rate_limits WHERE ip = ?").bind(ip).first();
+
+    if (record) {
+      if (record.blocked_until && Number(record.blocked_until) > now) {
+        const remainingSec = Math.ceil((Number(record.blocked_until) - now) / 1000);
+        return { blocked: true, remainingSec };
+      }
+
+      if (now - Number(record.window_start) > 10000) {
+        // Reset window 10 detik
+        await env.DB.prepare(
+          "UPDATE auth_rate_limits SET req_count = 1, window_start = ?, blocked_until = 0 WHERE ip = ?"
+        ).bind(now, ip).run();
+      } else {
+        const nextCount = Number(record.req_count) + 1;
+        if (nextCount > 10) {
+          // Melebihi 10 request per 10 detik -> Blokir 5 menit (300.000 ms)
+          const blockedUntil = now + 5 * 60 * 1000;
+          await env.DB.prepare(
+            "UPDATE auth_rate_limits SET req_count = ?, blocked_until = ? WHERE ip = ?"
+          ).bind(nextCount, blockedUntil, ip).run();
+          return { blocked: true, remainingSec: 300 };
+        } else {
+          await env.DB.prepare(
+            "UPDATE auth_rate_limits SET req_count = ? WHERE ip = ?"
+          ).bind(nextCount, ip).run();
+        }
+      }
+    } else {
+      await env.DB.prepare(
+        "INSERT INTO auth_rate_limits (ip, req_count, window_start, blocked_until) VALUES (?, 1, ?, 0)"
+      ).bind(ip, now).run();
+    }
+  } catch(e) {}
+
+  return null;
+}
+
 // POST /api/auth: Login Guru atau Siswa & terbitkan Token HMAC-SHA256
 export async function onRequestPost(context) {
   try {
@@ -28,12 +82,20 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Database D1 belum terhubung' }, 503);
     }
 
+    // Rate Limiting Check (10 req/10s -> 5 menit Managed Block)
+    const rateLimitCheck = await checkRateLimit(context.request, context.env);
+    if (rateLimitCheck && rateLimitCheck.blocked) {
+      return jsonResponse({
+        error: `Terlalu banyak percobaan autentikasi (Rate Limit Terlampaui). Akses dibatasi selama 5 menit demi keamanan.`
+      }, 429, { 'Retry-After': String(rateLimitCheck.remainingSec) });
+    }
+
     const data = await context.request.json();
     const { role, email, password, nis } = data;
     const secret = await getJwtSecret(context.env);
 
     // =========================================================================
-    // 1. ALUR LOGIN GURU (OFFICIAL TEACHER)
+    // 1. ALUR LOGIN GURU (OFFICIAL TEACHER) - ZERO DATABASE CREDENTIAL STORAGE
     // =========================================================================
     if (role === 'guru' || (email && !nis)) {
       if (!email || !password) {
@@ -52,46 +114,25 @@ export async function onRequestPost(context) {
 
       let isPasswordValid = false;
 
-      // 1. Verifikasi via Cloudflare Environment Variable (GURU_PASSWORD)
+      // 1. Verifikasi via Cloudflare Environment Variable (GURU_PASSWORD) - Tidak Ada di Database
       if (context.env && context.env.GURU_PASSWORD) {
         if (cleanPwd === String(context.env.GURU_PASSWORD).trim()) {
           isPasswordValid = true;
         }
       }
 
-      // 2. Verifikasi via Database D1 tabel 'guru' (menggunakan hash SHA-256)
+      // 2. Verifikasi Hash Kriptografis SHA-256 (Tanpa Menyimpan Plaintext di DB)
       if (!isPasswordValid) {
-        try {
-          await context.env.DB.prepare(`
-            CREATE TABLE IF NOT EXISTS guru (
-              email TEXT PRIMARY KEY,
-              password_hash TEXT,
-              nama TEXT,
-              role TEXT
-            )
-          `).run();
+        const encoder = new TextEncoder();
+        const hashBuf = await crypto.subtle.digest('SHA-256', encoder.encode(cleanPwd));
+        const hexHash = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
 
-          // Hash SHA-256 dari cleanPwd untuk pencocokan kriptografis
-          const encoder = new TextEncoder();
-          const hashBuf = await crypto.subtle.digest('SHA-256', encoder.encode(cleanPwd));
-          const hexHash = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        // Master teacher password hash: ArdiTeacher#GIS2026!
+        const OFFICIAL_TEACHER_HASH = '4947deab1477641c97380e6b310a10c1d27a8dd931cd2e70e246e0e8c784f37c';
 
-          const existing = await context.env.DB.prepare("SELECT * FROM guru WHERE email = ?").bind(cleanEmail).first();
-          if (existing) {
-            if (existing.password_hash === hexHash || existing.password_hash === cleanPwd) {
-              isPasswordValid = true;
-            }
-          } else {
-            // Seed awal akun guru jika tabel masih kosong
-            const countRow = await context.env.DB.prepare("SELECT count(*) as c FROM guru").first();
-            if (!countRow || countRow.c === 0) {
-              await context.env.DB.prepare(
-                "INSERT INTO guru (email, password_hash, nama, role) VALUES (?, ?, ?, ?)"
-              ).bind(cleanEmail, hexHash, 'M. Ardiansyah, S.Pd.Gr.', 'guru').run();
-              isPasswordValid = true;
-            }
-          }
-        } catch(e) {}
+        if (hexHash === OFFICIAL_TEACHER_HASH) {
+          isPasswordValid = true;
+        }
       }
 
       if (!isPasswordValid) {
