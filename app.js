@@ -1739,6 +1739,51 @@
             }
         }
 
+        // Update user profile pill in header & dropdown menu
+        const userDisplayNameEl = document.getElementById('user-display-name');
+        const menuUserNameEl = document.getElementById('menu-user-name');
+        const menuUserRoleEl = document.getElementById('menu-user-role');
+        const guruMenuGroupEl = document.getElementById('guru-menu-group');
+        const userStatusDot = document.getElementById('user-status-dot');
+
+        if (sess.type === 'siswa') {
+            const studentName = (sess.data && (sess.data.name || sess.data.nama)) || 'Siswa';
+            const studentKelas = (sess.data && (sess.data.kelas_name || sess.data.kelas)) || 'XII';
+            if (userDisplayNameEl) {
+                userDisplayNameEl.textContent = studentName;
+                userDisplayNameEl.className = 'font-bold text-slate-200 hidden sm:inline';
+            }
+            if (userStatusDot) {
+                userStatusDot.className = 'w-2 h-2 rounded-full bg-blue-400';
+            }
+            if (menuUserNameEl) menuUserNameEl.textContent = studentName;
+            if (menuUserRoleEl) {
+                menuUserRoleEl.textContent = 'Siswa • ' + studentKelas;
+                menuUserRoleEl.className = 'text-[10px] text-blue-400 font-mono';
+            }
+            if (guruMenuGroupEl) {
+                guruMenuGroupEl.classList.add('hidden');
+            }
+        } else {
+            // Sesi Guru Resmi
+            const guruName = (sess.data && (sess.data.name || sess.data.nama)) || 'M. Ardiansyah, S.Pd.Gr.';
+            if (userDisplayNameEl) {
+                userDisplayNameEl.textContent = 'Guru: Pak Ardi';
+                userDisplayNameEl.className = 'font-bold text-amber-400 hidden sm:inline';
+            }
+            if (userStatusDot) {
+                userStatusDot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+            }
+            if (menuUserNameEl) menuUserNameEl.textContent = guruName;
+            if (menuUserRoleEl) {
+                menuUserRoleEl.textContent = 'Guru Pengampu Matematika';
+                menuUserRoleEl.className = 'text-[10px] text-amber-400 font-mono';
+            }
+            if (guruMenuGroupEl) {
+                guruMenuGroupEl.classList.remove('hidden');
+            }
+        }
+
         // Inject user info di header (clean modern pill & logout)
         const userInfoEl = document.getElementById('user-info-header');
         if (userInfoEl) {
@@ -1754,7 +1799,7 @@
                 userInfoEl.innerHTML = `
                     <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300 font-mono">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span class="font-bold text-amber-400">GURU: ${sess.data.username}</span>
+                        <span class="font-bold text-amber-400">Guru: Pak Ardi</span>
                     </div>
                     <button onclick="logoutSession()" class="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-rose-500/10 rounded-xl border border-slate-800 transition cursor-pointer" title="Logout"><i class="fa-solid fa-power-off text-xs"></i></button>
                 `;

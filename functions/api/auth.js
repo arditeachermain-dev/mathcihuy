@@ -86,11 +86,8 @@ async function resetRateLimitForIp(ip, env) {
   } catch(e) {}
 }
 
-// Master Teacher Hashes (Never plaintext in DB/repo)
-// 1. ArdiTeacher#GIS2026!
+// Master Teacher Password Hash: ArdiTeacher#GIS2026! (Never plaintext in DB/repo)
 const HASH_ARDI_GIS = '4947deab1477641c97380e6b310a10c1d27a8dd931cd2e70e246e0e8c784f37c';
-// 2. gis2cihuy
-const HASH_GIS_CIHUY = '4e628845fe7f6f843d6cb657b3a14f862dc482385696a5387e915beb959dbb65';
 
 async function checkTeacherPassword(cleanPwd, env) {
   if (!cleanPwd) return false;
@@ -107,7 +104,7 @@ async function checkTeacherPassword(cleanPwd, env) {
   const hashBuf = await crypto.subtle.digest('SHA-256', encoder.encode(cleanPwd));
   const hexHash = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
 
-  return hexHash === HASH_ARDI_GIS || hexHash === HASH_GIS_CIHUY;
+  return hexHash === HASH_ARDI_GIS;
 }
 
 // POST /api/auth: Login Guru atau Siswa & terbitkan Token HMAC-SHA256
