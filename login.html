@@ -228,13 +228,13 @@
         <div id="guru" class="tab-content">
             <form onsubmit="loginGuru(event)">
                 <div class="form-group">
-                    <label>Email Resmi Guru</label>
-                    <input type="email" id="email_guru" placeholder="arditeacher.main@gmail.com" autocomplete="email" required>
+                    <label>Email / Username Guru</label>
+                    <input type="text" id="email_guru" placeholder="arditeacher.main@gmail.com atau mathcihuy" autocomplete="username" required>
                 </div>
 
                 <div class="form-group">
                     <label>Password Akun Guru</label>
-                    <input type="password" id="password_guru" placeholder="Masukkan password akun guru" required>
+                    <input type="password" id="password_guru" placeholder="Masukkan password akun guru" autocomplete="current-password" required>
                 </div>
 
                 <button type="submit" id="btn_login_guru" class="login-btn">Masuk sebagai Guru</button>
@@ -376,7 +376,7 @@
         }
 
         function gotoPortal(kelas) {
-            sessionStorage.setItem('redirect_guard', '1');
+            sessionStorage.removeItem('redirect_guard');
             window.location.replace(halamanTingkat(kelas));
         }
 
@@ -469,7 +469,7 @@
         // ===== GURU LOGIN VIA CLOUDFLARE D1 NATIVE AUTHENTICATION =====
         async function loginGuru(e) {
             e.preventDefault();
-            var email = document.getElementById('email_guru').value.trim();
+            var identifier = document.getElementById('email_guru').value.trim();
             var password = document.getElementById('password_guru').value;
             var errorEl = document.getElementById('error_guru');
             var successEl = document.getElementById('success_guru');
@@ -486,24 +486,31 @@
                 const resp = await fetch('/api/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, password: password, role: 'guru' })
+                    body: JSON.stringify({
+                        email: identifier,
+                        username: identifier,
+                        identifier: identifier,
+                        password: password,
+                        role: 'guru'
+                    })
                 });
                 const result = await resp.json();
 
                 if (!resp.ok || !result.success) {
-                    throw new Error(result.error || 'Email atau password guru salah. Silakan coba lagi.');
+                    throw new Error(result.error || 'Email/username atau password guru salah. Silakan coba lagi.');
                 }
 
                 var user = result.user;
                 var namaGuru = user.nama || 'M. Ardiansyah, S.Pd.Gr.';
 
+                sessionStorage.removeItem('redirect_guard');
                 localStorage.setItem('portal_session', JSON.stringify({
                     type: 'guru',
                     token: result.token,
                     data: {
                         id: user.id || 'guru_ardi',
                         email: user.email,
-                        username: user.username || user.email.split('@')[0],
+                        username: user.username || (user.email ? user.email.split('@')[0] : 'mathcihuy'),
                         name: namaGuru,
                         nama: namaGuru,
                         role: 'guru',

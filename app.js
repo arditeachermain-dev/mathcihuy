@@ -1722,6 +1722,7 @@
             window.location.href = 'login.html';
             return;
         }
+        try { sessionStorage.removeItem('redirect_guard'); } catch(e) {}
 
         // Siswa hanya memakai halaman tingkatnya sendiri. Login sudah
         // mengarahkannya ke sana, tetapi alamat lain tetap bisa diketik -- dan
