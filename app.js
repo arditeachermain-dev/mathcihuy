@@ -1619,7 +1619,6 @@
 
     // (dipindah ke berkas data per tingkat)
 
-    const GURU_CREDS = {"username": "mathcihuy", "password_hash": "4e628845fe7f6f843d6cb657b3a14f862dc482385696a5387e915beb959dbb65"};
 
     // Helper: Cari siswa berdasarkan NIS
     function findStudentByNIS(nis) {
@@ -2525,6 +2524,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             }
           } catch(e) {}
 
+          // Kumpulkan draf jawaban siswa untuk Server-Side Grading
+          const answersList = [];
+          const draftAnswers = (typeof ambilDraftSemua === 'function') ? ambilDraftSemua(subj, pkgId) : {};
+          for (let i = 0; i < n; i++) {
+            const ans = (draftAnswers && draftAnswers[i] !== undefined) ? draftAnswers[i] : (typeof userAnswers !== 'undefined' ? userAnswers[i] : '');
+            answersList.push({ q_idx: i, chosen: ans !== undefined ? ans : '' });
+          }
+
           const payload = {
             nis: String(nis),
             nama: String(nama),
@@ -2537,6 +2544,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             jumlah_salah: Number(n - benar),
             durasi_detik: Number(durasi),
             jumlah_percobaan: Number(finalAttempt),
+            answers: answersList,
             waktu_submit: new Date().toISOString()
           };
 
@@ -2557,11 +2565,24 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             method: 'POST',
             headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(payload)
-          }).then(r => r.ok ? r.json() : Promise.reject('D1 unavailable'))
+          }).then(r => {
+            if (!r.ok) {
+              return r.json().then(e => Promise.reject(e)).catch(() => Promise.reject('D1 unavailable'));
+            }
+            return r.json();
+          })
           .then(d1Res => {
             console.log('⚡ Nilai CBT berhasil disubmit ke Cloudflare D1 Database:', d1Res);
+            if (d1Res && d1Res.skor !== undefined) {
+              payload.skor = d1Res.skor;
+              payload.jumlah_benar = d1Res.jumlah_benar;
+              payload.jumlah_salah = d1Res.jumlah_salah;
+            }
             onSubmissionComplete(d1Res.jumlah_percobaan);
-          }).catch(() => {
+          }).catch((err) => {
+            if (err && err.error) {
+              alert('⚠️ Peringatan Ujian:\n' + err.error);
+            }
             onSubmissionComplete();
           });
 
@@ -3851,6 +3872,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (window._lastRenderedMeetingId !== m.id) {
         window._lastRenderedMeetingId = m.id;
         window.currentMeetingPedagogy = null;
+        if (typeof tandaiMulaiPaket === 'function') {
+          tandaiMulaiPaket(currentMode, m.id);
+        }
       }
 
       const badgeEl = document.getElementById('slide-badge');

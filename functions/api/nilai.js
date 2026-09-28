@@ -1,7 +1,5 @@
-// functions/api/nilai.js
-// Endpoint Nilai CBT (Cloudflare D1 SQLite - Authenticated & Tamper-Proof)
-
 import { authenticateRequest, jsonResponse } from './_auth.js';
+import { calculateOfficialGrade } from './_grading.js';
 
 export async function onRequestGet(context) {
   try {
@@ -94,12 +92,44 @@ export async function onRequestPost(context) {
     const verifiedNama = studentInfo ? studentInfo.nama : String(session.nama || 'Siswa ' + nis).replace(/<[^>]*>/g, '').trim();
     const verifiedKelas = studentInfo ? studentInfo.kelas : String(session.kelas || 'XII').replace(/<[^>]*>/g, '').trim();
 
-    // Validasi & sanitasi numerik yang ketat
-    const cleanSkor = Math.min(100, Math.max(0, Number(skor) || 0));
-    const cleanSoal = Math.max(1, Number(jumlah_soal) || 10);
-    const cleanBenar = Math.min(cleanSoal, Math.max(0, Number(jumlah_benar) || 0));
-    const cleanSalah = Math.max(0, cleanSoal - cleanBenar);
     const cleanDurasi = Math.max(0, Number(durasi_detik) || 0);
+
+    // 1. Deteksi Anomali Durasi: Tolak jika durasi kurang dari 15 detik (untuk siswa)
+    if (session.role !== 'guru' && cleanDurasi < 15) {
+      return jsonResponse({
+        error: `Pengumpulan ditolak (Anomali Durasi): Waktu pengerjaan (${cleanDurasi} detik) terlalu cepat. Batas minimal pengerjaan wajar adalah 15 detik.`
+      }, 400);
+    }
+
+    // 2. Server-Side Grading: Ambil jawaban yang dikirim klien atau draf dari cbt_live_answers
+    let answersToGrade = data.answers;
+    if (!answersToGrade || (Array.isArray(answersToGrade) && answersToGrade.length === 0)) {
+      try {
+        const { results: liveRows } = await context.env.DB.prepare(
+          "SELECT q_idx, chosen FROM cbt_live_answers WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
+        ).bind(String(nis), String(mapel || 'wajib'), String(kode_pertemuan)).all();
+        if (liveRows && liveRows.length > 0) {
+          answersToGrade = liveRows;
+        }
+      } catch(e) {}
+    }
+
+    const studentTingkat = verifiedKelas ? verifiedKelas.replace(/[^0-9]/g, '') : '12';
+    const officialGrade = calculateOfficialGrade(studentTingkat, mapel, kode_pertemuan, answersToGrade);
+
+    let cleanSkor, cleanSoal, cleanBenar, cleanSalah;
+    if (officialGrade) {
+      cleanSkor = officialGrade.skor;
+      cleanSoal = officialGrade.jumlah_soal;
+      cleanBenar = officialGrade.jumlah_benar;
+      cleanSalah = officialGrade.jumlah_salah;
+    } else {
+      // Fallback toleran jika paket belum terdaftar di kunci resmi statis
+      cleanSkor = Math.min(100, Math.max(0, Number(skor) || 0));
+      cleanSoal = Math.max(1, Number(jumlah_soal) || 10);
+      cleanBenar = Math.min(cleanSoal, Math.max(0, Number(jumlah_benar) || 0));
+      cleanSalah = Math.max(0, cleanSoal - cleanBenar);
+    }
 
     // Hitung riwayat percobaan secara otomatis & konsisten di database
     let finalAttempt = Number(jumlah_percobaan) || 1;
@@ -141,8 +171,14 @@ export async function onRequestPost(context) {
 
     return jsonResponse({
       success: true,
+      skor: cleanSkor,
+      jumlah_soal: cleanSoal,
+      jumlah_benar: cleanBenar,
+      jumlah_salah: cleanSalah,
+      durasi_detik: cleanDurasi,
       waktu_submit: now,
-      jumlah_percobaan: finalAttempt
+      jumlah_percobaan: finalAttempt,
+      server_graded: Boolean(officialGrade)
     });
   } catch (err) {
     return jsonResponse({ error: err.message }, 500);

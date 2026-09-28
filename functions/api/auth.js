@@ -52,12 +52,14 @@ export async function onRequestPost(context) {
 
       let isPasswordValid = false;
 
-      // Kredensial Resmi Guru GIS 2 Serpong
-      if (cleanPwd === 'gis2cihuy' || cleanPwd === 'guruguru' || cleanPwd === 'mathcihuy2026') {
-        isPasswordValid = true;
+      // 1. Verifikasi via Cloudflare Environment Variable (GURU_PASSWORD)
+      if (context.env && context.env.GURU_PASSWORD) {
+        if (cleanPwd === String(context.env.GURU_PASSWORD).trim()) {
+          isPasswordValid = true;
+        }
       }
 
-      // Cek password tersimpan di tabel guru D1 jika ada
+      // 2. Verifikasi via Database D1 tabel 'guru' (menggunakan hash SHA-256)
       if (!isPasswordValid) {
         try {
           await context.env.DB.prepare(`
@@ -69,9 +71,25 @@ export async function onRequestPost(context) {
             )
           `).run();
 
+          // Hash SHA-256 dari cleanPwd untuk pencocokan kriptografis
+          const encoder = new TextEncoder();
+          const hashBuf = await crypto.subtle.digest('SHA-256', encoder.encode(cleanPwd));
+          const hexHash = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+
           const existing = await context.env.DB.prepare("SELECT * FROM guru WHERE email = ?").bind(cleanEmail).first();
-          if (existing && (existing.password_hash === cleanPwd || existing.password_hash === 'gis2cihuy')) {
-            isPasswordValid = true;
+          if (existing) {
+            if (existing.password_hash === hexHash || existing.password_hash === cleanPwd) {
+              isPasswordValid = true;
+            }
+          } else {
+            // Seed awal akun guru jika tabel masih kosong
+            const countRow = await context.env.DB.prepare("SELECT count(*) as c FROM guru").first();
+            if (!countRow || countRow.c === 0) {
+              await context.env.DB.prepare(
+                "INSERT INTO guru (email, password_hash, nama, role) VALUES (?, ?, ?, ?)"
+              ).bind(cleanEmail, hexHash, 'M. Ardiansyah, S.Pd.Gr.', 'guru').run();
+              isPasswordValid = true;
+            }
           }
         } catch(e) {}
       }
