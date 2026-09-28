@@ -1674,6 +1674,22 @@
     }
     window.getSession = getSession;
 
+    function getAuthToken() {
+        var sess = getSession();
+        return (sess && (sess.token || (sess.data && sess.data.token))) || '';
+    }
+    window.getAuthToken = getAuthToken;
+
+    function getAuthHeaders(extraHeaders) {
+        var headers = Object.assign({}, extraHeaders || {});
+        var token = getAuthToken();
+        if (token) {
+            headers['Authorization'] = 'Bearer ' + token;
+        }
+        return headers;
+    }
+    window.getAuthHeaders = getAuthHeaders;
+
     function setSession(type, data) {
         const sess = {
             type, // 'siswa' atau 'guru'
@@ -2111,7 +2127,9 @@
         }
 
         // 2. Tarik daftar nilai: Prioritaskan Cloudflare D1 SQLite (Bebas Kuota Egress)
-        fetch('/api/nilai?nis=' + encodeURIComponent(nis))
+        fetch('/api/nilai?nis=' + encodeURIComponent(nis), {
+          headers: getAuthHeaders()
+        })
           .then(r => r.ok ? r.json() : Promise.reject('D1 offline'))
           .then(d1Rows => {
             if (Array.isArray(d1Rows)) {
@@ -2210,7 +2228,7 @@
         // 1. Kirim ke Cloudflare D1 Native Database (Unlimited Bandwidth)
         fetch('/api/live', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
           body: JSON.stringify(payload)
         }).catch(() => {});
       }, 400);
@@ -2403,7 +2421,9 @@
         }
 
         // 1. Tarik dari Cloudflare D1 Native Database
-        fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`)
+        fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`, {
+          headers: getAuthHeaders()
+        })
           .then(r => r.ok ? r.json() : Promise.reject())
           .then(data => {
             prosesRestore(data);
@@ -2535,7 +2555,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           // 1. Submit ke Cloudflare D1 Native Database (Unlimited Bandwidth & Zero Egress)
           fetch('/api/nilai', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
             body: JSON.stringify(payload)
           }).then(r => r.ok ? r.json() : Promise.reject('D1 unavailable'))
           .then(d1Res => {
@@ -2547,7 +2567,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
           // 2. Bersihkan draft dari Cloudflare D1
           fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: getAuthHeaders()
           }).catch(() => {});
         }
       } catch (e) {
@@ -4318,7 +4339,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
         if (nis && nis !== 'guest') {
           fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(curSubj)}&kode=${encodeURIComponent(curPkg)}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: getAuthHeaders()
           }).catch(() => {});
         }
       } catch (e) {}

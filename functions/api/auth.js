@@ -1,35 +1,64 @@
 // functions/api/auth.js
-// Endpoint Autentikasi Mandiri Guru & Siswa (Cloudflare D1 SQLite - Zero Supabase Dependency)
+// Endpoint Autentikasi Mandiri Guru & Siswa (Cloudflare D1 SQLite - Cryptographic Tokens)
 
-export async function onRequestPost(context) {
+import { getJwtSecret, signToken, authenticateRequest, jsonResponse } from './_auth.js';
+
+// GET /api/auth: Verifikasi validitas token sesi pengguna saat ini
+export async function onRequestGet(context) {
   try {
-    const data = await context.request.json();
-    const { email, password } = data;
-
-    if (!email || !password) {
-      return new Response(JSON.stringify({ error: 'Email dan password wajib diisi' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+    const session = await authenticateRequest(context.request, context.env);
+    if (!session) {
+      return jsonResponse({ authenticated: false, error: 'Sesi tidak valid atau telah kedaluwarsa' }, 401);
     }
 
-    const cleanEmail = String(email).trim().toLowerCase();
-    const cleanPwd = String(password).trim();
+    return jsonResponse({
+      authenticated: true,
+      role: session.role,
+      user: session
+    });
+  } catch (err) {
+    return jsonResponse({ authenticated: false, error: err.message }, 500);
+  }
+}
 
-    // 1. Validasi Akun Guru Resmi SMA GIS 2 Serpong
-    const validEmails = ['arditeacher.main@gmail.com', 'ardi.teacher2@gmail.com', 'guru@mathcihuy.id'];
-    const isGuruEmail = validEmails.includes(cleanEmail) || cleanEmail.includes('arditeacher') || cleanEmail.includes('ardi.teacher');
+// POST /api/auth: Login Guru atau Siswa & terbitkan Token HMAC-SHA256
+export async function onRequestPost(context) {
+  try {
+    if (!context.env || !context.env.DB) {
+      return jsonResponse({ error: 'Database D1 belum terhubung' }, 503);
+    }
 
-    if (isGuruEmail) {
+    const data = await context.request.json();
+    const { role, email, password, nis } = data;
+    const secret = await getJwtSecret(context.env);
+
+    // =========================================================================
+    // 1. ALUR LOGIN GURU (OFFICIAL TEACHER)
+    // =========================================================================
+    if (role === 'guru' || (email && !nis)) {
+      if (!email || !password) {
+        return jsonResponse({ error: 'Email dan password guru wajib diisi' }, 400);
+      }
+
+      const cleanEmail = String(email).trim().toLowerCase();
+      const cleanPwd = String(password).trim();
+
+      const validEmails = ['arditeacher.main@gmail.com', 'ardi.teacher2@gmail.com', 'guru@mathcihuy.id'];
+      const isGuruEmail = validEmails.includes(cleanEmail) || cleanEmail.includes('arditeacher') || cleanEmail.includes('ardi.teacher');
+
+      if (!isGuruEmail) {
+        return jsonResponse({ error: 'Email resmi guru tidak terdaftar.' }, 401);
+      }
+
       let isPasswordValid = false;
 
-      // Kredensial Resmi Guru GIS 2 Serpong & Fallback Passwords
+      // Kredensial Resmi Guru GIS 2 Serpong
       if (cleanPwd === 'gis2cihuy' || cleanPwd === 'guruguru' || cleanPwd === 'mathcihuy2026') {
         isPasswordValid = true;
       }
 
-      // Cek apakah password tersimpan di tabel guru D1
-      if (!isPasswordValid && context.env && context.env.DB) {
+      // Cek password tersimpan di tabel guru D1 jika ada
+      if (!isPasswordValid) {
         try {
           await context.env.DB.prepare(`
             CREATE TABLE IF NOT EXISTS guru (
@@ -47,63 +76,90 @@ export async function onRequestPost(context) {
         } catch(e) {}
       }
 
-      // Sinkronisasi otomatis ke Supabase Auth jika masih aktif (transisi halus)
       if (!isPasswordValid) {
-        try {
-          const sbResp = await fetch("https://pecvxqguqtancizghnhj.supabase.co/auth/v1/token?grant_type=password", {
-            method: "POST",
-            headers: {
-              "apikey": "sb_publishable_K51BV-D7yLxnXdYg7auMeA_uzxPSy1c",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: cleanEmail, password: cleanPwd })
-          });
-          if (sbResp.ok) {
-            isPasswordValid = true;
-            // Rekam password ke D1 agar mandiri selamanya
-            if (context.env && context.env.DB) {
-              try {
-                await context.env.DB.prepare(
-                  "INSERT OR REPLACE INTO guru (email, password_hash, nama, role) VALUES (?, ?, ?, ?)"
-                ).bind(cleanEmail, cleanPwd, 'M. Ardiansyah, S.Pd.Gr.', 'guru').run();
-              } catch(e) {}
-            }
-          }
-        } catch(e) {}
+        return jsonResponse({ error: 'Email atau password guru salah. Silakan coba lagi.' }, 401);
       }
 
-      if (isPasswordValid) {
-        return new Response(JSON.stringify({
-          success: true,
-          type: 'guru',
-          user: {
-            id: 'guru_ardi',
-            email: cleanEmail,
-            username: cleanEmail.split('@')[0],
-            name: 'M. Ardiansyah, S.Pd.Gr.',
-            nama: 'M. Ardiansyah, S.Pd.Gr.',
-            role: 'guru',
-            access_level: 'full'
-          }
-        }), {
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
+      // Terbitkan Token Guru Resmi (Masa Aktif 7 Hari)
+      const tokenPayload = {
+        role: 'guru',
+        id: 'guru_ardi',
+        email: cleanEmail,
+        username: cleanEmail.split('@')[0],
+        name: 'M. Ardiansyah, S.Pd.Gr.',
+        nama: 'M. Ardiansyah, S.Pd.Gr.',
+        access_level: 'full',
+        iat: Date.now(),
+        exp: Date.now() + 7 * 24 * 3600 * 1000
+      };
 
-      return new Response(JSON.stringify({ error: 'Email atau password guru salah. Silakan coba lagi.' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const token = await signToken(tokenPayload, secret);
+      const cookieHeader = `auth_token=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800; Secure`;
+
+      return jsonResponse({
+        success: true,
+        type: 'guru',
+        token: token,
+        user: tokenPayload
+      }, 200, { 'Set-Cookie': cookieHeader });
     }
 
-    return new Response(JSON.stringify({ error: 'Email resmi guru tidak terdaftar.' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    // =========================================================================
+    // 2. ALUR LOGIN SISWA (OFFICIAL STUDENT)
+    // =========================================================================
+    if (role === 'siswa' || nis) {
+      const cleanNis = String(nis || '').trim();
+      const cleanPwd = String(password || '').trim();
+
+      if (!cleanNis) {
+        return jsonResponse({ error: 'NIS wajib diisi' }, 400);
+      }
+
+      // Ambil data siswa dari D1
+      const student = await context.env.DB.prepare(
+        "SELECT nis, nama, kelas, password_hash FROM siswa WHERE nis = ?"
+      ).bind(cleanNis).first();
+
+      if (!student) {
+        return jsonResponse({ error: 'NIS tidak terdaftar dalam database sekolah.' }, 401);
+      }
+
+      // Validasi password: default '1234' atau password_hash kustom
+      let isStudentPwdValid = false;
+      if (!cleanPwd || cleanPwd === '1234') {
+        isStudentPwdValid = true;
+      } else if (student.password_hash && student.password_hash === cleanPwd) {
+        isStudentPwdValid = true;
+      }
+
+      if (!isStudentPwdValid) {
+        return jsonResponse({ error: 'Password siswa salah. Standar default adalah 1234.' }, 401);
+      }
+
+      // Terbitkan Token Siswa Resmi (Masa Aktif 14 Hari)
+      const tokenPayload = {
+        role: 'siswa',
+        nis: String(student.nis),
+        nama: String(student.nama),
+        kelas: String(student.kelas),
+        name: String(student.nama),
+        iat: Date.now(),
+        exp: Date.now() + 14 * 24 * 3600 * 1000
+      };
+
+      const token = await signToken(tokenPayload, secret);
+      const cookieHeader = `auth_token=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=1209600; Secure`;
+
+      return jsonResponse({
+        success: true,
+        type: 'siswa',
+        token: token,
+        user: tokenPayload
+      }, 200, { 'Set-Cookie': cookieHeader });
+    }
+
+    return jsonResponse({ error: 'Parameter autentikasi tidak valid' }, 400);
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return jsonResponse({ error: err.message }, 500);
   }
 }

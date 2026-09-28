@@ -1,13 +1,60 @@
+    // Helper Anti-XSS Sanitizer
+    function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 
-    function openGuruDashboard() {
+    // Helper Authorization Header Guru / Siswa
+    function getTeacherAuthHeaders(extraHeaders) {
+        var headers = Object.assign({}, extraHeaders || {});
+        var sess = null;
+        try {
+            sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        } catch(e) {}
+        var token = (sess && (sess.token || (sess.data && sess.data.token))) || '';
+        if (token) {
+            headers['Authorization'] = 'Bearer ' + token;
+        }
+        return headers;
+    }
+
+    async function openGuruDashboard() {
         let sess = null;
         try {
           sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
         } catch(e) {}
 
         if (!sess || sess.type !== 'guru') {
-            alert('Hanya guru yang dapat akses dashboard');
+            alert('Akses ditolak: Hanya guru yang dapat mengakses dashboard.');
             return;
+        }
+
+        // Kritis 1: Server-Side Cryptographic Token Verification
+        const token = (sess && (sess.token || (sess.data && sess.data.token))) || '';
+        try {
+            const authCheck = await fetch('/api/auth', {
+                headers: getTeacherAuthHeaders()
+            });
+            if (!authCheck.ok) {
+                alert('Sesi guru tidak sah atau telah kedaluwarsa. Silakan login kembali.');
+                window.location.href = '/login.html';
+                return;
+            }
+            const authData = await authCheck.json();
+            if (!authData.authenticated || authData.role !== 'guru') {
+                alert('Akses ditolak: Verifikasi server menyatakan sesi bukan akun guru.');
+                return;
+            }
+        } catch (e) {
+            if (!token) {
+                alert('Akses ditolak: Token autentikasi guru tidak ditemukan.');
+                return;
+            }
         }
 
         document.getElementById('guru-dashboard-modal').classList.remove('hidden');
@@ -125,7 +172,14 @@
       const statusEl = document.getElementById('cloud-sync-status');
       // 1. Coba Cloudflare D1 Serverless SQLite Database terlebih dahulu (Bebas Kuota Egress & Unlimited)
       try {
-        const d1Res = await fetch('/api/nilai?all=1');
+        const d1Res = await fetch('/api/nilai?all=1', {
+          headers: getTeacherAuthHeaders()
+        });
+        if (d1Res.status === 401 || d1Res.status === 403) {
+          if (statusEl) statusEl.innerHTML = '<span class="text-rose-400 font-mono text-xs font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Sesi Guru Habis (Silakan Login Ulang)</span>';
+          if (manual) alert('Sesi guru telah kedaluwarsa atau tidak sah. Silakan login kembali melalui portal.');
+          return;
+        }
         if (d1Res.ok) {
           const d1Data = await d1Res.json();
           if (Array.isArray(d1Data) && d1Data.length > 0) {
@@ -572,7 +626,7 @@
           } else {
             percobaanDisplay = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-slate-300 border border-slate-700 whitespace-nowrap inline-flex items-center gap-1" title="Percobaan pertama"><i class="fa-solid fa-check text-slate-400 text-[9px]"></i> Pertama</span>`;
           }
-          aksiButton = `<button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" title="Reset nilai agar siswa dapat mengulang" class="px-2.5 py-1 bg-slate-800 hover:bg-amber-600 border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer">Reset</button>`;
+          aksiButton = `<button onclick="resetNilaiSiswa('${encodeURIComponent(r.nis)}', '${encodeURIComponent(r.kode_pertemuan || '')}', '${encodeURIComponent(r.mapel || '')}')" title="Reset nilai agar siswa dapat mengulang" class="px-2.5 py-1 bg-slate-800 hover:bg-amber-600 border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer">Reset</button>`;
         } else if (r.status === 'sedang') {
           trBgStyle = r.livenessState === 'stuck' ? 'background-color: #24111E;' : r.livenessState === 'idle' ? 'background-color: #261D10;' : 'background-color: #0B2129;';
           skorDisplay = `<div class="flex flex-col items-center gap-0.5 whitespace-nowrap">${r.livenessBadge}<span class="font-mono text-xs font-black ${r.livenessState === 'stuck' ? 'text-rose-400' : 'text-emerald-400'}">${r.skor} / 100</span></div>`;
@@ -581,10 +635,10 @@
           percobaanDisplay = `<span class="text-xs text-slate-400 font-mono whitespace-nowrap">Ke-${nAttempt}</span>`;
           aksiButton = `
             <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
-              <button onclick="forceSubmitNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}', ${r.skor}, ${r.jumlah_soal}, ${r.jumlah_benar}, ${r.jumlah_salah})" title="Kumpulkan paksa ujian siswa ini dengan jawaban yang ada" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-black transition shadow flex items-center gap-1 whitespace-nowrap cursor-pointer active:scale-95">
+              <button onclick="forceSubmitNilaiSiswa('${encodeURIComponent(r.nis)}', '${encodeURIComponent(r.kode_pertemuan || '')}', '${encodeURIComponent(r.mapel || '')}', ${Number(r.skor) || 0}, ${Number(r.jumlah_soal) || 10}, ${Number(r.jumlah_benar) || 0}, ${Number(r.jumlah_salah) || 0})" title="Kumpulkan paksa ujian siswa ini dengan jawaban yang ada" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-black transition shadow flex items-center gap-1 whitespace-nowrap cursor-pointer active:scale-95">
                 <i class="fa-solid fa-file-arrow-up text-[10px]"></i> Kumpulkan
               </button>
-              <button onclick="resetNilaiSiswa('${r.nis}', '${r.kode_pertemuan}', '${r.mapel}')" title="Reset sesi pengerjaan siswa" class="px-2 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer active:scale-95">
+              <button onclick="resetNilaiSiswa('${encodeURIComponent(r.nis)}', '${encodeURIComponent(r.kode_pertemuan || '')}', '${encodeURIComponent(r.mapel || '')}')" title="Reset sesi pengerjaan siswa" class="px-2 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded-lg text-xs font-bold transition shadow whitespace-nowrap cursor-pointer active:scale-95">
                 <i class="fa-solid fa-rotate-left text-[10px]"></i>
               </button>
             </div>
@@ -613,11 +667,11 @@
 
         return `
           <tr style="${trBgStyle}" class="border-b border-blue-900/60 transition hover:brightness-125">
-            <td class="border-r border-blue-900/60 px-3 py-2.5 font-mono text-xs font-bold text-slate-300 whitespace-nowrap">${r.nis}</td>
-            <td class="border-r border-blue-900/60 px-4 py-2.5 font-bold text-white min-w-[170px]">${r.nama}</td>
-            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs text-amber-400 font-bold whitespace-nowrap">${r.kelas}</td>
-            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs uppercase text-slate-300 whitespace-nowrap">${namaMapel}</td>
-            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs font-mono font-bold text-cyan-300 whitespace-nowrap">${r.kode_pertemuan || '-'}</td>
+            <td class="border-r border-blue-900/60 px-3 py-2.5 font-mono text-xs font-bold text-slate-300 whitespace-nowrap">${escapeHtml(r.nis)}</td>
+            <td class="border-r border-blue-900/60 px-4 py-2.5 font-bold text-white min-w-[170px]">${escapeHtml(r.nama)}</td>
+            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs text-amber-400 font-bold whitespace-nowrap">${escapeHtml(r.kelas)}</td>
+            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs uppercase text-slate-300 whitespace-nowrap">${escapeHtml(namaMapel)}</td>
+            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs font-mono font-bold text-cyan-300 whitespace-nowrap">${escapeHtml(r.kode_pertemuan || '-')}</td>
             <td class="border-r border-blue-900/60 px-3.5 py-2.5 text-center min-w-[130px]">${skorDisplay}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center min-w-[95px]">${detailDisplay}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center min-w-[95px]">${durasiDisplay}</td>
@@ -630,7 +684,10 @@
       }).join('');
     }
 
-    async function resetNilaiSiswa(nis, kodePertemuan, mapel) {
+    async function resetNilaiSiswa(rawNis, rawKodePertemuan, rawMapel) {
+        const nis = decodeURIComponent(rawNis || '');
+        const kodePertemuan = decodeURIComponent(rawKodePertemuan || '');
+        const mapel = decodeURIComponent(rawMapel || '');
         const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
         const namaSiswa = std ? std.nama : ('Siswa ' + nis);
         const infoPaket = kodePertemuan ? ` paket ${kodePertemuan} (${mapel || 'wajib'})` : '';
@@ -644,7 +701,10 @@
             let delUrl = `/api/nilai?nis=${encodeURIComponent(nis)}`;
             if (kodePertemuan) delUrl += `&kode_pertemuan=${encodeURIComponent(kodePertemuan)}`;
             if (mapel) delUrl += `&mapel=${encodeURIComponent(mapel)}`;
-            fetch(delUrl, { method: 'DELETE' }).catch(() => {});
+            fetch(delUrl, {
+                method: 'DELETE',
+                headers: getTeacherAuthHeaders()
+            }).catch(() => {});
             console.log('⚡ Cloudflare D1 delete records request sent for NIS:', nis);
         } catch (e) {}
 
@@ -709,7 +769,10 @@
     }
     
 
-    async function forceSubmitNilaiSiswa(nis, kodePertemuan, mapel, skor, jumlahSoal, jumlahBenar, jumlahSalah) {
+    async function forceSubmitNilaiSiswa(rawNis, rawKodePertemuan, rawMapel, skor, jumlahSoal, jumlahBenar, jumlahSalah) {
+      const nis = decodeURIComponent(rawNis || '');
+      const kodePertemuan = decodeURIComponent(rawKodePertemuan || '');
+      const mapel = decodeURIComponent(rawMapel || '');
       const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
       const namaSiswa = std ? std.nama : ('Siswa ' + nis);
       const kelas = std ? std.kelas : 'XII';
@@ -741,13 +804,14 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         // 1. Simpan ke Cloudflare D1 Native Database
         await fetch('/api/nilai', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getTeacherAuthHeaders({ 'Content-Type': 'application/json' }),
           body: JSON.stringify(payload)
         });
 
         // 2. Bersihkan draf live answers dari Cloudflare D1
         await fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(mapel || 'wajib')}&kode=${encodeURIComponent(kodePertemuan)}`, {
-          method: 'DELETE'
+          method: 'DELETE',
+          headers: getTeacherAuthHeaders()
         }).catch(() => {});
 
         alert(`✅ Ujian ${namaSiswa} berhasil dikumpulkan paksa! Nilai resmi ${skor}/100 telah tercatat di Cloudflare D1.`);
