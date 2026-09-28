@@ -157,57 +157,8 @@
             return;
           }
         }
-      } catch(e) {}
-
-      // 2. Fallback ke Supabase jika D1 belum terhubung
-      if (supabaseClient) {
-        try {
-          // Tarik Nilai Resmi yang Sudah Disubmit (nilai_cbt) - Hanya kolom esensial (hemat kuota)
-          const resNilai = await supabaseClient.from('nilai_cbt')
-            .select('nis,nama,kelas,mapel,kode_pertemuan,skor,jumlah_soal,jumlah_benar,jumlah_salah,durasi_detik,jumlah_percobaan,waktu_submit')
-            .order('waktu_submit', { ascending: false });
-          const dataNilai = (!resNilai.error && Array.isArray(resNilai.data)) ? resNilai.data : [];
-
-          // 2. Tarik Jawaban Real-Time yang Sedang Aktif / Tugas yang Sedang Dicicil (Rentang 14 hari terakhir)
-          const batasWaktuTugas = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
-          const resLive = await supabaseClient.from('cbt_live_answers')
-            .select('id,nis,mapel,kode_pertemuan,q_idx,chosen,is_right,updated_at')
-            .gte('updated_at', batasWaktuTugas)
-            .order('updated_at', { ascending: false })
-            .limit(200);
-          window._guruLiveAnswersCache = (!resLive.error && Array.isArray(resLive.data)) ? resLive.data : [];
-
-          const log = [];
-          dataNilai.forEach(function(p) {
-            const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[p.nis]) ? STUDENTS_DATA[p.nis] : null;
-            const mapped = {
-              timestamp: p.waktu_submit,
-              nis: String(p.nis || ''),
-              nama: String(p.nama || (std ? std.nama : 'Siswa ' + p.nis)),
-              kelas: String(p.kelas || (std ? std.kelas : 'XII')),
-              mapel: String(p.mapel || 'wajib'),
-              kode_pertemuan: String(p.kode_pertemuan || ''),
-              skor: Number(p.skor) || 0,
-              jumlah_soal: Number(p.jumlah_soal) || 10,
-              jumlah_benar: Number(p.jumlah_benar) || 0,
-              jumlah_salah: Number(p.jumlah_salah) || 0,
-              durasi_detik: Number(p.durasi_detik) || 0,
-              durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 60),
-              jumlah_percobaan: Number(p.jumlah_percobaan) || 1,
-              status: 'sudah'
-            };
-            log.push(mapped);
-          });
-
-          sinkSimpan(CBT_LOKAL_KEY, log);
-          const totalRecords = log.length;
-          if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-circle-check"></i> Cloudflare D1 Terhubung (${totalRecords} nilai disubmit)</span>`;
-          loadGuruDashboardData();
-          if (manual) alert(`✅ Berhasil menyinkronkan data!\n- Nilai Disubmit: ${totalRecords}`);
-          return;
-        } catch (e) {
-          console.warn("Sync exception:", e);
-        }
+      } catch(e) {
+        console.warn("D1 sync exception:", e);
       }
 
       if (statusEl) statusEl.innerHTML = '<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-database"></i> Cloudflare D1 Siap</span>';
@@ -697,23 +648,6 @@
             console.log('⚡ Cloudflare D1 delete records request sent for NIS:', nis);
         } catch (e) {}
 
-        // Fallback jika Supabase masih aktif
-        if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-            try {
-                let qNilai = supabaseClient.from('nilai_cbt').delete().eq('nis', String(nis));
-                let qLive = supabaseClient.from('cbt_live_answers').delete().eq('nis', String(nis));
-                if (kodePertemuan) {
-                    qNilai = qNilai.eq('kode_pertemuan', String(kodePertemuan));
-                    qLive = qLive.eq('kode_pertemuan', String(kodePertemuan));
-                }
-                if (mapel) {
-                    qNilai = qNilai.eq('mapel', String(mapel));
-                    qLive = qLive.eq('mapel', String(mapel));
-                }
-                Promise.all([qNilai, qLive]).catch(() => {});
-            } catch (e) {}
-        }
-
         // 2. Hapus dari Cache Lokal Guru
         const log = sinkAmbil(CBT_LOKAL_KEY, []);
         const filtered = log.filter(r => {
@@ -815,18 +749,6 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         await fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(mapel || 'wajib')}&kode=${encodeURIComponent(kodePertemuan)}`, {
           method: 'DELETE'
         }).catch(() => {});
-
-        // Fallback Supabase jika aktif
-        if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-          try {
-            await supabaseClient.from('nilai_cbt').upsert(payload, { onConflict: 'nis,mapel,kode_pertemuan' });
-            await supabaseClient.from('cbt_live_answers').delete().match({
-              nis: String(nis),
-              mapel: String(mapel || 'wajib'),
-              kode_pertemuan: String(kodePertemuan)
-            });
-          } catch(e) {}
-        }
 
         alert(`✅ Ujian ${namaSiswa} berhasil dikumpulkan paksa! Nilai resmi ${skor}/100 telah tercatat di Cloudflare D1.`);
         tarikNilaiDariCloud(false);

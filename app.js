@@ -2063,20 +2063,9 @@
     // =========================================================================
     
     // =========================================================================
-    // SUPABASE POSTGRESQL CLOUD DATABASE CLIENT (MATHCIHUY OFFICIAL)
+    // CLOUDFLARE D1 (SERVERLESS SQLITE) NATIVE ENGINE (UNLIMITED BANDWIDTH)
     // =========================================================================
-    const SUPABASE_URL = "https://pecvxqguqtancizghnhj.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_K51BV-D7yLxnXdYg7auMeA_uzxPSy1c";
     let supabaseClient = null;
-
-    try {
-      if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log("Supabase Client initialized successfully!");
-      }
-    } catch (e) {
-      console.warn("Supabase init warning:", e);
-    }
 
     // =========================================================================
     // SINKRONISASI STATUS SELESAI CBT SISWA DARI TABEL NILAI_CBT (HEMAT BANDWIDTH)
@@ -2131,19 +2120,8 @@
               return;
             }
           })
-          .catch(() => {
-            // Fallback ke Supabase jika D1 belum dikonfigurasi
-            if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-              supabaseClient.from('nilai_cbt')
-                .select('mapel,kode_pertemuan,skor,jumlah_soal,jumlah_benar,waktu_submit')
-                .eq('nis', nis)
-                .then(res => {
-                  if (res && res.data && Array.isArray(res.data)) {
-                    prosesDataSelesai(res.data);
-                  }
-                })
-                .catch(err => console.warn('Status selesai sync notice:', err));
-            }
+          .catch(err => {
+            console.warn('Status selesai D1 sync notice:', err);
           });
       } catch (e) {
         console.warn('muatStatusSelesaiSiswa error:', e);
@@ -2235,13 +2213,6 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         }).catch(() => {});
-
-        // 2. Kirim ke Supabase
-        if (supabaseClient) {
-          supabaseClient.from('cbt_live_answers').upsert(payload, { onConflict: 'nis,mapel,kode_pertemuan,q_idx' }).then(res => {
-            if (res.error) console.warn("Supabase live answer sync warning:", res.error);
-          });
-        }
       }, 400);
     }
 
@@ -2438,18 +2409,7 @@
             prosesRestore(data);
           })
           .catch(() => {
-            if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-              supabaseClient.from('cbt_live_answers')
-                .select('q_idx,chosen,is_right,updated_at')
-                .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
-                .then(res => {
-                  prosesRestore(res.data || []);
-                }).catch(() => {
-                  if (badge) badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
-                });
-            } else {
-              if (badge) badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
-            }
+            if (badge) badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
           });
       } catch (e) {
         console.warn('Cloud restore draft error:', e);
@@ -2589,19 +2549,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`, {
             method: 'DELETE'
           }).catch(() => {});
-
-          // 3. Fallback sinkronisasi ke Supabase jika masih aktif
-          if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-            supabaseClient.from('nilai_cbt')
-              .upsert(payload, { onConflict: 'nis,mapel,kode_pertemuan' })
-              .then(() => {
-                supabaseClient.from('cbt_live_answers').delete().match({
-                  nis: String(nis),
-                  mapel: String(subj),
-                  kode_pertemuan: String(pkgId)
-                }).catch(() => {});
-              }).catch(() => {});
-          }
         }
       } catch (e) {
         console.warn('catatNilaiCBTKeCloud error:', e);
@@ -4373,13 +4320,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(curSubj)}&kode=${encodeURIComponent(curPkg)}`, {
             method: 'DELETE'
           }).catch(() => {});
-          if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-            supabaseClient.from('cbt_live_answers').delete().match({
-              nis: String(nis),
-              mapel: String(curSubj),
-              kode_pertemuan: String(curPkg)
-            }).catch(() => {});
-          }
         }
       } catch (e) {}
 
