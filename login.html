@@ -406,7 +406,9 @@
                 const result = await resp.json();
 
                 if (!resp.ok || !result.success) {
-                    throw new Error(result.error || 'NIS atau password belum cocok. Cek lagi — huruf besar dan kecil berpengaruh.');
+                    var authErr = new Error(result.error || 'NIS atau password belum cocok. Cek lagi — huruf besar dan kecil berpengaruh.');
+                    authErr.status = resp.status;
+                    throw authErr;
                 }
 
                 var student = result.user || (typeof STUDENTS_DATA !== 'undefined' ? STUDENTS_DATA[nis] : null) || {};
@@ -434,8 +436,8 @@
                 setTimeout(function () { gotoPortal(finalKelas); }, 500);
 
             } catch (err) {
-                // Fallback offline jika jaringan terputus saat login
-                if (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis] && password === '1234') {
+                // Fallback offline HANYA jika murni terputus jaringan (bukan error 401 kredensial atau 429 IP blocked)
+                if (!err.status && typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis] && password === '1234') {
                     var localStd = STUDENTS_DATA[nis];
                     localStorage.setItem('portal_session', JSON.stringify({
                         type: 'siswa',

@@ -21,9 +21,13 @@ export async function onRequestGet(context) {
   }
 }
 
-// Rate Limiting Guard: Max 10 failed requests per 10 seconds -> Block for 5 minutes
+// Rate Limiting Guard: Progressive Tiered Backoff per IP
+// Tier 1: 5-7 percobaan gagal   -> Blokir 1 Menit (60 detik)
+// Tier 2: 8-11 percobaan gagal  -> Blokir 5 Menit (300 detik)
+// Tier 3: 12-14 percobaan gagal -> Blokir 15 Menit (900 detik)
+// Tier 4: >=15 percobaan gagal  -> Blokir 30 Menit (1800 detik)
 async function checkRateLimit(ip, env) {
-  if (!env || !env.DB || !ip) return { blocked: false };
+  if (!env || !env.DB || !ip) return { blocked: false, remainingSec: 0, attempts: 0 };
   const now = Date.now();
 
   try {
@@ -36,47 +40,106 @@ async function checkRateLimit(ip, env) {
       )
     `).run();
 
-    const record = await env.DB.prepare("SELECT * FROM auth_rate_limits WHERE ip = ?").bind(ip).first();
+    const record = await env.DB.prepare(
+      "SELECT req_count, window_start, blocked_until FROM auth_rate_limits WHERE ip = ?"
+    ).bind(ip).first();
 
     if (record && record.blocked_until && Number(record.blocked_until) > now) {
       const remainingSec = Math.ceil((Number(record.blocked_until) - now) / 1000);
-      return { blocked: true, remainingSec };
+      return {
+        blocked: true,
+        remainingSec,
+        attempts: Number(record.req_count || 0)
+      };
     }
-  } catch(e) {}
+  } catch(e) {
+    console.error('Rate limit check error:', e);
+  }
 
-  return { blocked: false };
+  return { blocked: false, remainingSec: 0, attempts: 0 };
 }
 
 async function recordFailedAttempt(ip, env) {
-  if (!env || !env.DB || !ip) return;
+  if (!env || !env.DB || !ip) return { blocked: false, count: 0, remainingSec: 0 };
   const now = Date.now();
+  const INACTIVITY_WINDOW = 15 * 60 * 1000; // Reset setelah 15 menit tanpa aktivitas
+
   try {
-    const record = await env.DB.prepare("SELECT * FROM auth_rate_limits WHERE ip = ?").bind(ip).first();
+    const record = await env.DB.prepare(
+      "SELECT req_count, window_start, blocked_until FROM auth_rate_limits WHERE ip = ?"
+    ).bind(ip).first();
+
+    let nextCount = 1;
+    let windowStart = now;
+
     if (record) {
-      if (now - Number(record.window_start) > 10000) {
-        // Reset window 10 detik
-        await env.DB.prepare(
-          "UPDATE auth_rate_limits SET req_count = 1, window_start = ?, blocked_until = 0 WHERE ip = ?"
-        ).bind(now, ip).run();
+      const isExpired = (now - Number(record.window_start || 0)) > INACTIVITY_WINDOW;
+      const isCurrentlyBlocked = record.blocked_until && Number(record.blocked_until) > now;
+
+      if (isExpired && !isCurrentlyBlocked) {
+        nextCount = 1;
+        windowStart = now;
       } else {
-        const nextCount = Number(record.req_count) + 1;
-        if (nextCount > 10) {
-          const blockedUntil = now + 5 * 60 * 1000;
-          await env.DB.prepare(
-            "UPDATE auth_rate_limits SET req_count = ?, blocked_until = ? WHERE ip = ?"
-          ).bind(nextCount, blockedUntil, ip).run();
-        } else {
-          await env.DB.prepare(
-            "UPDATE auth_rate_limits SET req_count = ? WHERE ip = ?"
-          ).bind(nextCount, ip).run();
-        }
+        nextCount = Number(record.req_count || 0) + 1;
+        windowStart = Number(record.window_start || now);
       }
+    }
+
+    // Durasi pemblokiran bertingkat (Progressive Tiered Backoff)
+    let blockSec = 0;
+    if (nextCount >= 15) {
+      blockSec = 1800; // Tier 4: 30 Menit
+    } else if (nextCount >= 12) {
+      blockSec = 900;  // Tier 3: 15 Menit
+    } else if (nextCount >= 8) {
+      blockSec = 300;  // Tier 2: 5 Menit
+    } else if (nextCount >= 5) {
+      blockSec = 60;   // Tier 1: 1 Menit
+    }
+
+    const blockedUntil = blockSec > 0 ? (now + blockSec * 1000) : 0;
+
+    if (record) {
+      await env.DB.prepare(
+        "UPDATE auth_rate_limits SET req_count = ?, window_start = ?, blocked_until = ? WHERE ip = ?"
+      ).bind(nextCount, windowStart, blockedUntil, ip).run();
     } else {
       await env.DB.prepare(
-        "INSERT INTO auth_rate_limits (ip, req_count, window_start, blocked_until) VALUES (?, 1, ?, 0)"
-      ).bind(ip, now).run();
+        "INSERT INTO auth_rate_limits (ip, req_count, window_start, blocked_until) VALUES (?, ?, ?, ?)"
+      ).bind(ip, nextCount, windowStart, blockedUntil).run();
     }
-  } catch(e) {}
+
+    return {
+      blocked: blockSec > 0,
+      remainingSec: blockSec,
+      count: nextCount
+    };
+  } catch(e) {
+    console.error('Record failed attempt error:', e);
+    return { blocked: false, count: 0, remainingSec: 0 };
+  }
+}
+
+async function handleAuthFailure(clientIp, env, defaultMessage) {
+  const failInfo = await recordFailedAttempt(clientIp, env);
+  if (failInfo && failInfo.blocked) {
+    return jsonResponse({
+      error: `Akses ditolak: Terlalu banyak percobaan autentikasi yang gagal (${failInfo.count}x). IP Anda (${clientIp}) diblokir sementara selama ${failInfo.remainingSec} detik demi keamanan sekolah.`,
+      blocked: true,
+      remainingSec: failInfo.remainingSec,
+      attempts: failInfo.count
+    }, 429, { 'Retry-After': String(failInfo.remainingSec) });
+  }
+
+  const attemptsLeft = 5 - (failInfo.count || 0);
+  const warning = failInfo.count >= 3
+    ? ` (Peringatan keamanan: Percobaan ke-${failInfo.count}. Tersisa ${attemptsLeft} kesempatan sebelum IP diblokir otomatis).`
+    : ` (Percobaan gagal ke-${failInfo.count}).`;
+
+  return jsonResponse({
+    error: `${defaultMessage}${warning}`,
+    attempts: failInfo.count
+  }, 401);
 }
 
 async function resetRateLimitForIp(ip, env) {
@@ -114,7 +177,9 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Database D1 belum terhubung' }, 503);
     }
 
-    const clientIp = context.request.headers.get('cf-connecting-ip') || context.request.headers.get('x-forwarded-for') || '127.0.0.1';
+    const clientIp = context.request.headers.get('cf-connecting-ip') || 
+      (context.request.headers.get('x-forwarded-for') ? context.request.headers.get('x-forwarded-for').split(',')[0].trim() : '') || 
+      '127.0.0.1';
 
     let data;
     try {
@@ -141,7 +206,10 @@ export async function onRequestPost(context) {
         await resetRateLimitForIp(clientIp, context.env);
       } else {
         return jsonResponse({
-          error: `Terlalu banyak percobaan autentikasi (Rate Limit Terlampaui). Akses dibatasi selama ${rateLimitCheck.remainingSec} detik demi keamanan.`
+          error: `Akses ditolak: Terlalu banyak percobaan autentikasi yang gagal (${rateLimitCheck.attempts}x). IP Anda (${clientIp}) diblokir sementara selama ${rateLimitCheck.remainingSec} detik demi keamanan sekolah.`,
+          blocked: true,
+          remainingSec: rateLimitCheck.remainingSec,
+          attempts: rateLimitCheck.attempts
         }, 429, { 'Retry-After': String(rateLimitCheck.remainingSec) });
       }
     }
@@ -182,15 +250,13 @@ export async function onRequestPost(context) {
         role === 'guru';
 
       if (!isTeacherIdentifier) {
-        await recordFailedAttempt(clientIp, context.env);
-        return jsonResponse({ error: 'Username atau email guru tidak terdaftar.' }, 401);
+        return await handleAuthFailure(clientIp, context.env, 'Username atau email guru tidak terdaftar.');
       }
 
       const isPasswordValid = await checkTeacherPassword(cleanPwd, context.env);
 
       if (!isPasswordValid) {
-        await recordFailedAttempt(clientIp, context.env);
-        return jsonResponse({ error: 'Email/username atau password guru salah. Silakan coba lagi.' }, 401);
+        return await handleAuthFailure(clientIp, context.env, 'Email/username atau password guru salah. Silakan coba lagi.');
       }
 
       // Login Guru Sukses: Bersihkan catatan limit IP guru
@@ -239,8 +305,7 @@ export async function onRequestPost(context) {
       ).bind(cleanNis).first();
 
       if (!student) {
-        await recordFailedAttempt(clientIp, context.env);
-        return jsonResponse({ error: 'NIS tidak terdaftar dalam database sekolah.' }, 401);
+        return await handleAuthFailure(clientIp, context.env, 'NIS tidak terdaftar dalam database sekolah.');
       }
 
       // Validasi password: default '1234' atau password_hash kustom
@@ -252,8 +317,7 @@ export async function onRequestPost(context) {
       }
 
       if (!isStudentPwdValid) {
-        await recordFailedAttempt(clientIp, context.env);
-        return jsonResponse({ error: 'Password siswa salah. Standar default adalah 1234.' }, 401);
+        return await handleAuthFailure(clientIp, context.env, 'Password siswa salah. Standar default adalah 1234.');
       }
 
       // Login Siswa Sukses: Bersihkan catatan limit IP
