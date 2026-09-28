@@ -128,6 +128,10 @@ export async function onRequestPost(context) {
     const cleanIdentifier = String(rawIdentifier).trim().toLowerCase();
     const cleanPwd = String(password || '').trim();
 
+    if (cleanIdentifier.length > 150 || cleanPwd.length > 256) {
+      return jsonResponse({ error: 'Panjang karakter kredensial melebihi batas wajar.' }, 400);
+    }
+
     // Rate Limiting Check
     const rateLimitCheck = await checkRateLimit(clientIp, context.env);
     if (rateLimitCheck && rateLimitCheck.blocked) {
@@ -225,8 +229,8 @@ export async function onRequestPost(context) {
     if (role === 'siswa' || nis) {
       const cleanNis = String(nis || cleanIdentifier || '').trim();
 
-      if (!cleanNis) {
-        return jsonResponse({ error: 'NIS wajib diisi' }, 400);
+      if (!cleanNis || cleanNis.length > 30) {
+        return jsonResponse({ error: 'NIS wajib diisi dengan format valid' }, 400);
       }
 
       // Ambil data siswa dari D1

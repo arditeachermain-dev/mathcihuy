@@ -1,6 +1,14 @@
 import { authenticateRequest, jsonResponse } from './_auth.js';
 import { calculateOfficialGrade } from './_grading.js';
 
+function extractTingkat(kelasStr) {
+  const k = String(kelasStr || '').toUpperCase();
+  if (k.includes('XII') || k.includes('12')) return '12';
+  if (k.includes('XI') || k.includes('11')) return '11';
+  if (k.includes('X') || k.includes('10')) return '10';
+  return '12';
+}
+
 export async function onRequestGet(context) {
   try {
     if (!context.env || !context.env.DB) {
@@ -114,7 +122,7 @@ export async function onRequestPost(context) {
       } catch(e) {}
     }
 
-    const studentTingkat = verifiedKelas ? verifiedKelas.replace(/[^0-9]/g, '') : '12';
+    const studentTingkat = extractTingkat(verifiedKelas);
     const officialGrade = calculateOfficialGrade(studentTingkat, mapel, kode_pertemuan, answersToGrade);
 
     let cleanSkor, cleanSoal, cleanBenar, cleanSalah;

@@ -2005,9 +2005,31 @@
       }, Promise.resolve()).then(function () { sinkSedangJalan = false; });
     }
 
-    window.addEventListener('online', prosesAntreanSinkron);
+    // Anti-Cheat: Monitoring Perpindahan Tab saat CBT Berlangsung
+    window._cbtTabSwitchCount = window._cbtTabSwitchCount || 0;
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'visible') prosesAntreanSinkron();
+      if (document.visibilityState === 'visible') {
+        prosesAntreanSinkron();
+        const isExamActive = (typeof currentMode !== 'undefined' && currentMode === 'tka') && 
+                             (typeof tkaIsReviewMode === 'boolean' && !tkaIsReviewMode);
+        if (isExamActive && window._cbtTabSwitchCount > 0) {
+          const existingBadge = document.getElementById('cbt-tab-warning');
+          if (!existingBadge) {
+            const badge = document.createElement('div');
+            badge.id = 'cbt-tab-warning';
+            badge.className = 'fixed bottom-5 right-5 bg-rose-950/95 text-rose-200 border-2 border-rose-500 px-4 py-2.5 rounded-2xl shadow-2xl text-xs font-bold z-50 flex items-center gap-2.5 animate-bounce';
+            badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-400 text-sm"></i> <span>Peringatan Ujian: Berpindah tab terdeteksi (${window._cbtTabSwitchCount}x)!</span>`;
+            document.body.appendChild(badge);
+            setTimeout(() => { if (badge) badge.remove(); }, 6000);
+          }
+        }
+      } else if (document.visibilityState === 'hidden') {
+        const isExamActive = (typeof currentMode !== 'undefined' && currentMode === 'tka') && 
+                             (typeof tkaIsReviewMode === 'boolean' && !tkaIsReviewMode);
+        if (isExamActive) {
+          window._cbtTabSwitchCount++;
+        }
+      }
     });
     setTimeout(prosesAntreanSinkron, 4000);
     setInterval(prosesAntreanSinkron, 5 * 60 * 1000);
@@ -5010,7 +5032,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           ${completedBannerHtml}
           ${reviewHeaderBanner}
 
-          <div class="p-4 md:p-6 bg-slate-900/90 rounded-2xl border border-amber-500/40 shadow-xl space-y-3">
+          <div class="p-4 md:p-6 bg-slate-900/90 rounded-2xl border border-amber-500/40 shadow-xl space-y-3${!isReviewMode ? ' select-none' : ''}" ${!isReviewMode ? 'oncopy="return false;" oncontextmenu="return false;"' : ''}>
             <div class="flex flex-wrap items-center gap-x-2 gap-y-1 justify-between border-b border-slate-800 pb-2">
               <div class="flex items-center gap-2 min-w-0">
                 <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg font-mono whitespace-nowrap">
