@@ -123,7 +123,10 @@ export async function onRequestPost(context) {
     }
 
     const studentTingkat = extractTingkat(verifiedKelas);
-    const officialGrade = calculateOfficialGrade(studentTingkat, mapel, kode_pertemuan, answersToGrade);
+    let officialGrade = null;
+    if (answersToGrade && (Array.isArray(answersToGrade) ? answersToGrade.length > 0 : Object.keys(answersToGrade).length > 0)) {
+      officialGrade = calculateOfficialGrade(studentTingkat, mapel, kode_pertemuan, answersToGrade);
+    }
 
     let cleanSkor, cleanSoal, cleanBenar, cleanSalah;
     if (officialGrade) {

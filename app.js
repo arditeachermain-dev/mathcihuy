@@ -2596,7 +2596,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           const answersList = [];
           const draftAnswers = (typeof ambilDraftSemua === 'function') ? ambilDraftSemua(subj, pkgId) : {};
           for (let i = 0; i < n; i++) {
-            const ans = (draftAnswers && draftAnswers[i] !== undefined) ? draftAnswers[i] : (typeof userAnswers !== 'undefined' ? userAnswers[i] : '');
+            let ans = '';
+            if (draftAnswers && draftAnswers[i] !== undefined) {
+              const dVal = draftAnswers[i];
+              ans = (dVal && typeof dVal === 'object' && dVal.chosen !== undefined) ? dVal.chosen : dVal;
+            } else if (typeof userAnswers !== 'undefined' && userAnswers[i] !== undefined) {
+              ans = userAnswers[i];
+            }
             answersList.push({ q_idx: i, chosen: ans !== undefined ? ans : '' });
           }
 
