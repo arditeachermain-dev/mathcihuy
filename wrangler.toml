@@ -1,0 +1,7 @@
+name = "mathcihuy"
+compatibility_date = "2026-08-27"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mathcihuy-db"
+database_id = "9dfecbc1-2187-4a5a-8b98-1318a87a8e4b"
