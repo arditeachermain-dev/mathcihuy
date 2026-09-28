@@ -2258,12 +2258,27 @@
         const sess = getSession();
         const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : (sess && sess.type === 'guru' ? 'guru' : null);
         if (nis && nis !== 'guest') {
+          let chosenStr = '';
+          if (chosen !== undefined && chosen !== null) {
+            if (Array.isArray(chosen)) {
+              chosenStr = chosen.join(',');
+            } else if (typeof chosen === 'object') {
+              const keys = Object.keys(chosen).sort((a, b) => Number(a) - Number(b));
+              if (keys.length > 0 && keys.every(k => !isNaN(k))) {
+                chosenStr = keys.map(k => chosen[k]).join(' - ');
+              } else {
+                chosenStr = JSON.stringify(chosen);
+              }
+            } else {
+              chosenStr = String(chosen);
+            }
+          }
           syncLiveAnswerDebounced({
             nis: String(nis),
             mapel: String(subj),
             kode_pertemuan: String(pkgId),
             q_idx: Number(qIdx),
-            chosen: String(chosen || ''),
+            chosen: chosenStr,
             is_right: Boolean(isRight),
             updated_at: new Date().toISOString()
           });
