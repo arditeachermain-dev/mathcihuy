@@ -2125,12 +2125,11 @@
         fetch('/api/nilai?nis=' + encodeURIComponent(nis))
           .then(r => r.ok ? r.json() : Promise.reject('D1 offline'))
           .then(d1Rows => {
-            if (Array.isArray(d1Rows) && d1Rows.length > 0) {
+            if (Array.isArray(d1Rows)) {
               console.log('⚡ Status CBT dimuat dari Cloudflare D1 Database (Unlimited Bandwidth)');
               prosesDataSelesai(d1Rows);
               return;
             }
-            throw new Error('D1 empty/fallback');
           })
           .catch(() => {
             // Fallback ke Supabase jika D1 belum dikonfigurasi
@@ -2192,21 +2191,19 @@
         };
         localStorage.setItem(k, JSON.stringify(draft));
 
-        // Sync otomatis ke Database Supabase dengan proteksi Debounce (400ms) untuk hemat egress
-        if (supabaseClient) {
-          const sess = getSession();
-          const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : (sess && sess.type === 'guru' ? 'guru' : null);
-          if (nis && nis !== 'guest') {
-            syncLiveAnswerDebounced({
-              nis: String(nis),
-              mapel: String(subj),
-              kode_pertemuan: String(pkgId),
-              q_idx: Number(qIdx),
-              chosen: String(chosen || ''),
-              is_right: Boolean(isRight),
-              updated_at: new Date().toISOString()
-            });
-          }
+        // Sync otomatis ke Cloudflare D1 Native Database dengan proteksi Debounce (400ms)
+        const sess = getSession();
+        const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : (sess && sess.type === 'guru' ? 'guru' : null);
+        if (nis && nis !== 'guest') {
+          syncLiveAnswerDebounced({
+            nis: String(nis),
+            mapel: String(subj),
+            kode_pertemuan: String(pkgId),
+            q_idx: Number(qIdx),
+            chosen: String(chosen || ''),
+            is_right: Boolean(isRight),
+            updated_at: new Date().toISOString()
+          });
         }
 
         // Tampilkan indikator visual tersimpan sejenak
@@ -2367,10 +2364,6 @@
     }
 
     function pulihkanDraftDariCloud(subj, pkgId, manual) {
-      if (!supabaseClient) {
-        if (manual) showCloudRestoreToast(0, 'Koneksi database Cloud belum siap.');
-        return;
-      }
       try {
         const sess = typeof getSession === 'function' ? getSession() : null;
         const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
@@ -2380,7 +2373,7 @@
         }
 
         // Jika tugas ini sudah tuntas diselesaikan dan nilai resmi telah tercatat di nilai_cbt,
-        // lewati penarikan cbt_live_answers untuk menghemat kuota bandwidth/egress
+        // lewati penarikan cbt_live_answers untuk menghemat kuota bandwidth
         if (window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${subj}_${pkgId}`]) {
           if (manual) showCloudRestoreToast(0, 'Tugas ini sudah tuntas dikerjakan dan nilai resmi telah tersimpan.');
           return;
@@ -2398,51 +2391,65 @@
           badge.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-cyan-400"></i> <span class="hidden sm:inline">Sinkronisasi...</span>';
         }
 
-        supabaseClient.from('cbt_live_answers')
-          .select('q_idx,chosen,is_right,updated_at')
-          .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
-          .then(res => {
-            if (badge) {
-              badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
-            }
-            if (res.data && res.data.length > 0) {
-              const k = getCbtDraftKey(subj, pkgId);
-              const draft = JSON.parse(localStorage.getItem(k) || '{}');
-              if (!draft.answers) draft.answers = {};
-              let hasNew = false;
-              let restoredCount = 0;
-              res.data.forEach(row => {
-                if (row.chosen !== undefined && row.chosen !== null && row.chosen !== '') {
-                  const localAns = draft.answers[row.q_idx];
-                  if (!localAns || localAns.chosen === undefined || localAns.chosen === null || localAns.chosen === '') {
-                    draft.answers[row.q_idx] = {
-                      chosen: row.chosen,
-                      isRight: row.is_right,
-                      ts: new Date(row.updated_at || Date.now()).getTime()
-                    };
-                    hasNew = true;
-                    restoredCount++;
-                  }
+        function prosesRestore(rows) {
+          if (badge) {
+            badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
+          }
+          if (Array.isArray(rows) && rows.length > 0) {
+            const k = getCbtDraftKey(subj, pkgId);
+            const draft = JSON.parse(localStorage.getItem(k) || '{}');
+            if (!draft.answers) draft.answers = {};
+            let hasNew = false;
+            let restoredCount = 0;
+            rows.forEach(row => {
+              if (row.chosen !== undefined && row.chosen !== null && row.chosen !== '') {
+                const localAns = draft.answers[row.q_idx];
+                if (!localAns || localAns.chosen === undefined || localAns.chosen === null || localAns.chosen === '') {
+                  draft.answers[row.q_idx] = {
+                    chosen: row.chosen,
+                    isRight: Boolean(row.is_right),
+                    ts: new Date(row.updated_at || Date.now()).getTime()
+                  };
+                  hasNew = true;
+                  restoredCount++;
                 }
-              });
-              if (hasNew) {
-                draft.lastUpdated = Date.now();
-                localStorage.setItem(k, JSON.stringify(draft));
-                pulihkanDraftJawaban(subj, pkgId);
-                // Render ulang jika pengguna sedang melihat paket ini
-                if (tkaSubj === subj && tkaPkgId === pkgId) {
-                  renderAppView();
-                }
-                showCloudRestoreToast(restoredCount);
-              } else if (manual) {
-                showCloudRestoreToast(0, 'Semua jawaban lokal sudah mutakhir dengan Cloud.');
               }
+            });
+            if (hasNew) {
+              draft.lastUpdated = Date.now();
+              localStorage.setItem(k, JSON.stringify(draft));
+              pulihkanDraftJawaban(subj, pkgId);
+              if (tkaSubj === subj && tkaPkgId === pkgId) {
+                renderAppView();
+              }
+              showCloudRestoreToast(restoredCount);
             } else if (manual) {
-              showCloudRestoreToast(0, 'Belum ada draf jawaban tersimpan di Cloud untuk paket ini.');
+              showCloudRestoreToast(0, 'Semua jawaban lokal sudah mutakhir dengan Cloud.');
             }
-          }).catch(e => {
-            if (badge) badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
-            console.warn('Cloud restore draft error:', e);
+          } else if (manual) {
+            showCloudRestoreToast(0, 'Belum ada draf jawaban tersimpan di Cloud untuk paket ini.');
+          }
+        }
+
+        // 1. Tarik dari Cloudflare D1 Native Database
+        fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`)
+          .then(r => r.ok ? r.json() : Promise.reject())
+          .then(data => {
+            prosesRestore(data);
+          })
+          .catch(() => {
+            if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+              supabaseClient.from('cbt_live_answers')
+                .select('q_idx,chosen,is_right,updated_at')
+                .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
+                .then(res => {
+                  prosesRestore(res.data || []);
+                }).catch(() => {
+                  if (badge) badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
+                });
+            } else {
+              if (badge) badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
+            }
           });
       } catch (e) {
         console.warn('Cloud restore draft error:', e);
@@ -2512,10 +2519,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       cbtHistory.push({ ts: Date.now(), subj: subj, pkg: pkgId, benar: benar, n: n, pct: pct });
       simpanKemajuan();
 
-      // Submit ke Supabase PostgreSQL & antrean lokal
+      // Submit ke Cloudflare D1 Native Database & antrean lokal
       try {
         const sesi = getSession();
-        if (sesi && sesi.type === 'siswa' && supabaseClient) {
+        if (sesi && sesi.type === 'siswa') {
           const nis = sesi.data.nis;
           const std = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis]) ? STUDENTS_DATA[nis] : null;
           const nama = sesi.data.name || sesi.data.nama || (std ? std.nama : 'Siswa ' + nis);
@@ -2553,6 +2560,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             waktu_submit: new Date().toISOString()
           };
 
+          function onSubmissionComplete(actualAttempt) {
+            if (actualAttempt) payload.jumlah_percobaan = actualAttempt;
+            if (!window._cbtCompletedSubmissions) window._cbtCompletedSubmissions = {};
+            window._cbtCompletedSubmissions[`${subj}_${pkgId}`] = payload;
+            try {
+              const uid = getUserIdentifier();
+              const cacheKey = typeof kunciTingkat === 'function' ? kunciTingkat('cbt_completed_' + uid) : ('cbt_completed_' + uid);
+              localStorage.setItem(cacheKey, JSON.stringify(window._cbtCompletedSubmissions));
+            } catch(e) {}
+            if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
+          }
+
           // 1. Submit ke Cloudflare D1 Native Database (Unlimited Bandwidth & Zero Egress)
           fetch('/api/nilai', {
             method: 'POST',
@@ -2561,65 +2580,31 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           }).then(r => r.ok ? r.json() : Promise.reject('D1 unavailable'))
           .then(d1Res => {
             console.log('⚡ Nilai CBT berhasil disubmit ke Cloudflare D1 Database:', d1Res);
+            onSubmissionComplete(d1Res.jumlah_percobaan);
+          }).catch(() => {
+            onSubmissionComplete();
+          });
+
+          // 2. Bersihkan draft dari Cloudflare D1
+          fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`, {
+            method: 'DELETE'
           }).catch(() => {});
 
-          // 2. Sinkronkan percobaan dengan data riwayat di Supabase jika ada
-          supabaseClient.from('nilai_cbt')
-            .select('jumlah_percobaan')
-            .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
-            .maybeSingle()
-            .then(resEx => {
-              if (resEx && resEx.data && resEx.data.jumlah_percobaan) {
-                const dbAtt = Number(resEx.data.jumlah_percobaan) || 0;
-                if (dbAtt >= finalAttempt) {
-                  finalAttempt = dbAtt + 1;
-                  payload.jumlah_percobaan = finalAttempt;
-                  try {
-                    const uid = getUserIdentifier();
-                    localStorage.setItem(kunciTingkat(`cbt_attempts_${uid}_${subj}_${pkgId}`), String(finalAttempt));
-                  } catch(e) {}
-                }
-              }
-              return supabaseClient.from('nilai_cbt').upsert(payload, { onConflict: 'nis,mapel,kode_pertemuan' });
-            })
-            .then(res => {
-              if (res && res.error && res.error.code === 'PGRST204') {
-                // Fallback jika kolom jumlah_percobaan belum ditambahkan via SQL di Supabase
-                const fallbackPayload = Object.assign({}, payload);
-                delete fallbackPayload.jumlah_percobaan;
-                return supabaseClient.from('nilai_cbt').upsert(fallbackPayload, { onConflict: 'nis,mapel,kode_pertemuan' });
-              }
-              return res;
-            })
-            .then(res => {
-              console.log('✅ Nilai CBT berhasil disubmit ke Supabase:', res);
-              // Catat ke daftar selesai lokal & state seketika
-              if (!window._cbtCompletedSubmissions) window._cbtCompletedSubmissions = {};
-              window._cbtCompletedSubmissions[`${subj}_${pkgId}`] = payload;
-              try {
-                const uid = getUserIdentifier();
-                const cacheKey = typeof kunciTingkat === 'function' ? kunciTingkat('cbt_completed_' + uid) : ('cbt_completed_' + uid);
-                localStorage.setItem(cacheKey, JSON.stringify(window._cbtCompletedSubmissions));
-              } catch(e) {}
-
-              // Bersihkan draft dari cbt_live_answers seketika
-              supabaseClient.from('cbt_live_answers').delete().match({
-                nis: String(nis),
-                mapel: String(subj),
-                kode_pertemuan: String(pkgId)
-              }).then(() => {
-                console.log('🧹 Draft live answers dibersihkan pasca-submit.');
+          // 3. Fallback sinkronisasi ke Supabase jika masih aktif
+          if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+            supabaseClient.from('nilai_cbt')
+              .upsert(payload, { onConflict: 'nis,mapel,kode_pertemuan' })
+              .then(() => {
+                supabaseClient.from('cbt_live_answers').delete().match({
+                  nis: String(nis),
+                  mapel: String(subj),
+                  kode_pertemuan: String(pkgId)
+                }).catch(() => {});
               }).catch(() => {});
-
-              // Refresh tampilan ribbon & banner
-              if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
-            })
-            .catch(err => {
-              console.warn('Supabase submission error:', err);
-            });
+          }
         }
       } catch (e) {
-        console.warn('Supabase catatSesi error:', e);
+        console.warn('catatNilaiCBTKeCloud error:', e);
       }
     }   // ---------------------------------------------------------------
     // CUSTOM TRY OUT BUILDER
@@ -4380,20 +4365,23 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       userTfAnswers = {};
       tkaQIdx = 0;
 
-      // 4. Bersihkan data live dari database Supabase HANYA untuk paket ini jika siswa login
-      if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-        try {
-          const sess = typeof getSession === 'function' ? getSession() : null;
-          const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
-          if (nis && nis !== 'guest') {
+      // 4. Bersihkan data live dari Cloudflare D1 HANYA untuk paket ini jika siswa login
+      try {
+        const sess = typeof getSession === 'function' ? getSession() : null;
+        const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
+        if (nis && nis !== 'guest') {
+          fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(curSubj)}&kode=${encodeURIComponent(curPkg)}`, {
+            method: 'DELETE'
+          }).catch(() => {});
+          if (typeof supabaseClient !== 'undefined' && supabaseClient) {
             supabaseClient.from('cbt_live_answers').delete().match({
               nis: String(nis),
               mapel: String(curSubj),
               kode_pertemuan: String(curPkg)
-            }).then(() => {});
+            }).catch(() => {});
           }
-        } catch (e) {}
-      }
+        }
+      } catch (e) {}
 
       // 5. Simpan state bersih & tutup semua modal
       saveAppState();

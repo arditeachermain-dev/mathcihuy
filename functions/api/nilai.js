@@ -103,3 +103,49 @@ export async function onRequestPost(context) {
     return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
 }
+
+export async function onRequestDelete(context) {
+  try {
+    if (!context.env || !context.env.DB) {
+      return new Response(JSON.stringify({ error: 'D1 not bound' }), { status: 503, headers: { 'Content-Type': 'application/json' } });
+    }
+
+    const url = new URL(context.request.url);
+    const nis = url.searchParams.get('nis');
+    const mapel = url.searchParams.get('mapel');
+    const kode_pertemuan = url.searchParams.get('kode_pertemuan');
+
+    if (!nis) {
+      return new Response(JSON.stringify({ error: 'Parameter nis wajib diisi' }), { status: 400 });
+    }
+
+    let sqlNilai = "DELETE FROM nilai_cbt WHERE nis = ?";
+    let sqlLive = "DELETE FROM cbt_live_answers WHERE nis = ?";
+    const params = [String(nis)];
+
+    if (mapel && kode_pertemuan) {
+      sqlNilai += " AND mapel = ? AND kode_pertemuan = ?";
+      sqlLive += " AND mapel = ? AND kode_pertemuan = ?";
+      params.push(String(mapel), String(kode_pertemuan));
+    } else if (mapel) {
+      sqlNilai += " AND mapel = ?";
+      sqlLive += " AND mapel = ?";
+      params.push(String(mapel));
+    } else if (kode_pertemuan) {
+      sqlNilai += " AND kode_pertemuan = ?";
+      sqlLive += " AND kode_pertemuan = ?";
+      params.push(String(kode_pertemuan));
+    }
+
+    await context.env.DB.prepare(sqlNilai).bind(...params).run();
+    try {
+      await context.env.DB.prepare(sqlLive).bind(...params).run();
+    } catch(e) {}
+
+    return new Response(JSON.stringify({ success: true, message: 'Nilai dan draft berhasil direset dari D1' }), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+  }
+}
