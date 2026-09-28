@@ -811,9 +811,23 @@
         sortedPkgIds(src).forEach((pkgId) => {
           const btn = document.createElement('button');
           const isAct = pkgId === tkaPkgId;
-          btn.className = `px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition shrink-0 ${isAct ? 'bg-amber-500 text-slate-950 shadow scale-105 font-black' : 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700/40'}`;
-          btn.innerText = pkgId;
-          btn.title = src[pkgId].title;
+          const comp = window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${tkaSubj}_${pkgId}`];
+          const isDone = !!comp || (typeof userSessionScores !== 'undefined' && userSessionScores[`${tkaSubj}_${pkgId}_0`] !== undefined);
+
+          let btnClass = `px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition shrink-0 flex items-center gap-1 `;
+          if (isAct) {
+            btnClass += 'bg-amber-500 text-slate-950 shadow scale-105 font-black border-2 border-amber-300';
+          } else if (comp) {
+            btnClass += 'bg-emerald-950/80 text-emerald-300 hover:bg-emerald-900 border border-emerald-500/50 shadow-sm';
+          } else if (isDone) {
+            btnClass += 'bg-blue-950/80 text-blue-300 hover:bg-blue-900 border border-blue-500/50';
+          } else {
+            btnClass += 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700/40';
+          }
+
+          btn.className = btnClass;
+          btn.innerHTML = comp ? `<i class="fa-solid fa-check text-[10px] text-emerald-400"></i> ${pkgId}` : (isDone ? `<i class="fa-solid fa-check text-[10px] text-blue-400"></i> ${pkgId}` : pkgId);
+          btn.title = comp ? `${src[pkgId].title} (Selesai • Skor: ${comp.skor}/100)` : src[pkgId].title;
           btn.onclick = () => {
             tkaPkgId = pkgId;
             tkaQIdx = 0;
@@ -826,9 +840,20 @@
         meetings.forEach((m, idx) => {
           const btn = document.createElement('button');
           const isAct = idx === currentMeetingIdx;
-          btn.className = `px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition shrink-0 ${isAct ? 'bg-blue-600 text-white shadow scale-105 font-black' : 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700/40'}`;
-          btn.innerText = m.id;
-          btn.title = m.title;
+          const comp = window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${currentMode}_${m.id}`];
+
+          let btnClass = `px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition shrink-0 flex items-center gap-1 `;
+          if (isAct) {
+            btnClass += 'bg-blue-600 text-white shadow scale-105 font-black';
+          } else if (comp) {
+            btnClass += 'bg-emerald-950/80 text-emerald-300 hover:bg-emerald-900 border border-emerald-500/50';
+          } else {
+            btnClass += 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700/40';
+          }
+
+          btn.className = btnClass;
+          btn.innerHTML = comp ? `<i class="fa-solid fa-check text-[10px] text-emerald-400"></i> ${m.id}` : m.id;
+          btn.title = comp ? `${m.title} (Selesai)` : m.title;
           btn.onclick = () => {
             currentMeetingIdx = idx;
             currentSlideIdx = 0;
@@ -1693,6 +1718,9 @@
                 window.location.replace(HALAMAN_TINGKAT[t]);
                 return;
             }
+            if (typeof muatStatusSelesaiSiswa === 'function') {
+                muatStatusSelesaiSiswa();
+            }
         }
 
         // Inject user info di header (clean modern pill & logout)
@@ -2050,6 +2078,65 @@
       console.warn("Supabase init warning:", e);
     }
 
+    // =========================================================================
+    // SINKRONISASI STATUS SELESAI CBT SISWA DARI TABEL NILAI_CBT (HEMAT BANDWIDTH)
+    // =========================================================================
+    window._cbtCompletedSubmissions = {};
+
+    function muatStatusSelesaiSiswa() {
+      try {
+        const sess = typeof getSession === 'function' ? getSession() : null;
+        const nis = (sess && sess.data && sess.data.nis) ? String(sess.data.nis) : null;
+        if (!nis || nis === 'guest') return;
+
+        // 1. Muat dari cache lokal terlebih dahulu (instan 0ms)
+        const cacheKey = typeof kunciTingkat === 'function' ? kunciTingkat('cbt_completed_' + nis) : ('cbt_completed_' + nis);
+        try {
+          const cached = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+          if (cached && typeof cached === 'object') {
+            window._cbtCompletedSubmissions = Object.assign({}, cached);
+          }
+        } catch (e) {}
+
+        // 2. Tarik daftar nilai resmi milik siswa ini saja dari Supabase nilai_cbt
+        // Sangat ringan (< 2 KB) & hemat kuota egress
+        if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+          supabaseClient.from('nilai_cbt')
+            .select('mapel,kode_pertemuan,skor,jumlah_soal,jumlah_benar,waktu_submit')
+            .eq('nis', nis)
+            .then(res => {
+              if (res && res.data && Array.isArray(res.data)) {
+                const map = Object.assign({}, window._cbtCompletedSubmissions);
+                res.data.forEach(row => {
+                  const k = `${row.mapel}_${row.kode_pertemuan}`;
+                  map[k] = row;
+                });
+                window._cbtCompletedSubmissions = map;
+                try {
+                  localStorage.setItem(cacheKey, JSON.stringify(map));
+                } catch (e) {}
+
+                // Perbarui ribbon & panggung soal jika sedang di mode TKA
+                if (typeof currentMode !== 'undefined' && currentMode === 'tka') {
+                  if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
+                  if (typeof renderTkaQuestion === 'function') renderTkaQuestion();
+                }
+                const pickerModal = document.getElementById('meeting-picker-modal');
+                if (pickerModal && !pickerModal.classList.contains('hidden') && typeof renderMeetingPicker === 'function') {
+                  renderMeetingPicker(document.getElementById('picker-search') ? document.getElementById('picker-search').value : '');
+                }
+              }
+            })
+            .catch(err => console.warn('Status selesai sync notice:', err));
+        }
+      } catch (e) {
+        console.warn('muatStatusSelesaiSiswa error:', e);
+      }
+    }
+
+    // Panggil saat inisialisasi awal
+    try { muatStatusSelesaiSiswa(); } catch(e) {}
+
 
     const CBT_DRAFT_PREFIX = kunciTingkat('cbt_draft_v1_');
 
@@ -2267,6 +2354,13 @@
           return;
         }
 
+        // Jika tugas ini sudah tuntas diselesaikan dan nilai resmi telah tercatat di nilai_cbt,
+        // lewati penarikan cbt_live_answers untuk menghemat kuota bandwidth/egress
+        if (window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${subj}_${pkgId}`]) {
+          if (manual) showCloudRestoreToast(0, 'Tugas ini sudah tuntas dikerjakan dan nilai resmi telah tersimpan.');
+          return;
+        }
+
         const throttleKey = `${nis}_${subj}_${pkgId}`;
         const now = Date.now();
         if (!manual && _lastCloudRestoreTs[throttleKey] && (now - _lastCloudRestoreTs[throttleKey] < 8000)) {
@@ -2280,7 +2374,7 @@
         }
 
         supabaseClient.from('cbt_live_answers')
-          .select('*')
+          .select('q_idx,chosen,is_right,updated_at')
           .match({ nis: String(nis), mapel: String(subj), kode_pertemuan: String(pkgId) })
           .then(res => {
             if (badge) {
@@ -2460,7 +2554,30 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 delete fallbackPayload.jumlah_percobaan;
                 return supabaseClient.from('nilai_cbt').upsert(fallbackPayload, { onConflict: 'nis,mapel,kode_pertemuan' });
               }
+              return res;
+            })
+            .then(res => {
               console.log('✅ Nilai CBT berhasil disubmit ke Supabase:', res);
+              // Catat ke daftar selesai lokal & state seketika
+              if (!window._cbtCompletedSubmissions) window._cbtCompletedSubmissions = {};
+              window._cbtCompletedSubmissions[`${subj}_${pkgId}`] = payload;
+              try {
+                const uid = getUserIdentifier();
+                const cacheKey = typeof kunciTingkat === 'function' ? kunciTingkat('cbt_completed_' + uid) : ('cbt_completed_' + uid);
+                localStorage.setItem(cacheKey, JSON.stringify(window._cbtCompletedSubmissions));
+              } catch(e) {}
+
+              // Bersihkan draft dari cbt_live_answers seketika
+              supabaseClient.from('cbt_live_answers').delete().match({
+                nis: String(nis),
+                mapel: String(subj),
+                kode_pertemuan: String(pkgId)
+              }).then(() => {
+                console.log('🧹 Draft live answers dibersihkan pasca-submit.');
+              }).catch(() => {});
+
+              // Refresh tampilan ribbon & banner
+              if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
             })
             .catch(err => {
               console.warn('Supabase submission error:', err);
@@ -3290,27 +3407,33 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         (db[tkaSubj] || []).forEach(m => { meta[m.id] = m; });
         return sortedPkgIds(src).map((pid, i) => {
           const n = (src[pid].questions || []).length;
+          const comp = window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${tkaSubj}_${pid}`];
           return {
             id: pid, label: pickerLabel(aliran, pid, i),
             title: src[pid].title || '',
             desc: n + ' butir soal pilihan ganda, isian, dan benar/salah',
             bab: (meta[pid] && meta[pid].bab) || '',
             aktif: pid === tkaPkgId,
-            selesai: userSessionScores[`${tkaSubj}_${pid}_0`] !== undefined,
+            selesai: !!comp || (typeof userSessionScores !== 'undefined' && userSessionScores[`${tkaSubj}_${pid}_0`] !== undefined),
+            completedRecord: comp || null,
             pilih: () => { tkaPkgId = pid; tkaQIdx = 0; }
           };
         });
       }
       const meetings = db[currentMode] || db['wajib'];
-      return meetings.map((m, idx) => ({
-        id: m.id, label: pickerLabel(aliran, m.id, idx),
-        title: m.title || '',
-        desc: (m.obj && m.obj[0]) || m.hook || '',
-        bab: m.bab || '',
-        aktif: idx === currentMeetingIdx,
-        selesai: userSessionScores[`${currentMode}_${m.id}_0`] !== undefined,
-        pilih: () => { currentMeetingIdx = idx; currentSlideIdx = 0; }
-      }));
+      return meetings.map((m, idx) => {
+        const comp = window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${currentMode}_${m.id}`];
+        return {
+          id: m.id, label: pickerLabel(aliran, m.id, idx),
+          title: m.title || '',
+          desc: (m.obj && m.obj[0]) || m.hook || '',
+          bab: m.bab || '',
+          aktif: idx === currentMeetingIdx,
+          selesai: !!comp || (typeof userSessionScores !== 'undefined' && userSessionScores[`${currentMode}_${m.id}_0`] !== undefined),
+          completedRecord: comp || null,
+          pilih: () => { currentMeetingIdx = idx; currentSlideIdx = 0; }
+        };
+      });
     }
 
     // Kelompokkan menurut kolom `bab` pada data — jadi pembagian di layar
@@ -3506,8 +3629,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               </div>
               <div class="flex items-center gap-1.5 shrink-0 font-mono text-[10px]">
                 ${asesmen ? '<span class="px-1.5 py-0.2 rounded bg-amber-500 text-slate-950 text-[9px] font-black">UH</span>' : ''}
-                ${it.aktif ? '<span class="px-2 py-0.2 rounded bg-white text-blue-900 font-bold text-[10px]">Buka</span>' : 
-                 (it.selesai ? '<i class="fa-solid fa-circle-check text-amber-400 text-xs"></i>' : '<span class="text-slate-500 text-[10px]">Belum</span>')}
+                ${it.aktif ? '<span class="px-2 py-0.5 rounded-lg bg-white text-blue-900 font-bold text-[10px] shadow-sm">Buka</span>' : 
+                 (it.completedRecord ? `<span class="px-2 py-0.5 rounded-lg bg-emerald-950/90 text-emerald-300 border border-emerald-500/50 text-[10px] font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-circle-check text-emerald-400"></i> ${it.completedRecord.skor}/100</span>` : 
+                  (it.selesai ? '<span class="px-2 py-0.5 rounded-lg bg-blue-950 text-blue-300 border border-blue-500/40 text-[10px] font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check text-blue-400"></i> Selesai</span>' : '<span class="text-slate-500 text-[10px]">Belum</span>'))}
               </div>
             `;
             c.onclick = () => { it.pilih(); closeMeetingPicker(); renderAppView(); };
@@ -4330,7 +4454,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       renderAppView();
     }
 
-function showTkaScorecardModal() {
+    window.bukaReviewModeCbt = function() {
+      window._tkaReviewMode = true;
+      if (typeof showTkaScorecardModal === 'function') {
+        showTkaScorecardModal();
+      }
+      renderAppView();
+    };
+
+    function showTkaScorecardModal() {
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
       if (!pkg || !pkg.questions) return;
@@ -4760,6 +4892,46 @@ function showTkaScorecardModal() {
         `;
       }
 
+      // Completion Banner jika paket ini telah tuntas disubmit di nilai_cbt
+      const compRec = window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${tkaSubj}_${tkaPkgId}`];
+      let completedBannerHtml = '';
+      if (compRec) {
+        const waktuStr = compRec.waktu_submit ? new Date(compRec.waktu_submit).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : 'Tersimpan';
+        const skorVal = Number(compRec.skor) || 0;
+        const skorBadgeClass = skorVal >= 85 ? 'bg-emerald-500 text-slate-950 font-black' : (skorVal >= 70 ? 'bg-blue-500 text-white font-bold' : 'bg-amber-500 text-slate-950 font-black');
+        completedBannerHtml = `
+          <div class="p-3.5 md:p-4 bg-gradient-to-r from-emerald-950/90 via-slate-900/95 to-emerald-950/90 border-2 border-emerald-500/80 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-xl mb-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/50 text-xl shrink-0">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-xs md:text-sm font-black text-emerald-300 uppercase tracking-wide">Tugas CBT Ini Sudah Selesai</span>
+                  <span class="px-2.5 py-0.5 rounded-lg ${skorBadgeClass} text-[11px] font-mono shadow">Nilai Resmi: ${skorVal}/100</span>
+                  <span class="px-2 py-0.5 rounded-md bg-emerald-900/80 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold">Status: Tuntas</span>
+                </div>
+                <p class="text-[11px] text-slate-300 mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                  <span><i class="fa-regular fa-clock text-emerald-400 mr-1"></i>Dikumpulkan: ${waktuStr}</span>
+                  <span class="text-slate-600">&bull;</span>
+                  <span><i class="fa-solid fa-square-check text-emerald-400 mr-1"></i>${compRec.jumlah_benar ?? '-'} Benar dari ${compRec.jumlah_soal ?? pkg.questions.length} Soal</span>
+                  <span class="text-slate-600">&bull;</span>
+                  <span class="text-emerald-400 font-medium">Nilai resmi aman tercatat di server CBT Guru</span>
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="bukaReviewModeCbt()" class="px-3.5 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 text-white font-bold rounded-xl text-xs shadow-lg flex items-center gap-1.5 cursor-pointer transition active:scale-95 border border-emerald-400/40">
+                <i class="fa-solid fa-chart-pie text-amber-300"></i> ${isReviewMode ? 'Tampilkan Skor' : 'Lihat Kunci & Skor'}
+              </button>
+              <button onclick="ulangiPengerjaanCbt()" class="px-3 py-1.5 md:px-3.5 md:py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-medium rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 cursor-pointer transition">
+                <i class="fa-solid fa-rotate-left text-amber-400"></i> Kerjakan Ulang
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
       // Review Header Banner
       const reviewHeaderBanner = isReviewMode ? `
         <div class="p-3 bg-gradient-to-r from-emerald-950/95 to-slate-900/95 border border-blue-500/60 rounded-2xl flex flex-wrap items-center justify-between gap-2.5 shadow-xl mb-4">
@@ -4780,6 +4952,7 @@ function showTkaScorecardModal() {
 
       body.innerHTML = `
         <div class="space-y-4">
+          ${completedBannerHtml}
           ${reviewHeaderBanner}
 
           <div class="p-4 md:p-6 bg-slate-900/90 rounded-2xl border border-amber-500/40 shadow-xl space-y-3">

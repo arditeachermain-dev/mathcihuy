@@ -127,17 +127,19 @@
       
       if (supabaseClient) {
         try {
-          // 1. Tarik Nilai Resmi yang Sudah Disubmit (nilai_cbt)
-          const resNilai = await supabaseClient.from('nilai_cbt').select('*').order('waktu_submit', { ascending: false });
+          // 1. Tarik Nilai Resmi yang Sudah Disubmit (nilai_cbt) - Hanya kolom esensial (hemat kuota)
+          const resNilai = await supabaseClient.from('nilai_cbt')
+            .select('nis,nama,kelas,mapel,kode_pertemuan,skor,jumlah_soal,jumlah_benar,jumlah_salah,durasi_detik,jumlah_percobaan,waktu_submit')
+            .order('waktu_submit', { ascending: false });
           const dataNilai = (!resNilai.error && Array.isArray(resNilai.data)) ? resNilai.data : [];
 
-          // 2. Tarik Jawaban Real-Time yang Sedang Aktif / Tugas yang Sedang Dicicil (Rentang 14 hari terakhir / 2 pekan tugas)
+          // 2. Tarik Jawaban Real-Time yang Sedang Aktif / Tugas yang Sedang Dicicil (Rentang 14 hari terakhir)
           const batasWaktuTugas = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
           const resLive = await supabaseClient.from('cbt_live_answers')
-            .select('*')
+            .select('id,nis,mapel,kode_pertemuan,q_idx,chosen,is_right,updated_at')
             .gte('updated_at', batasWaktuTugas)
             .order('updated_at', { ascending: false })
-            .limit(1000);
+            .limit(200);
           window._guruLiveAnswersCache = (!resLive.error && Array.isArray(resLive.data)) ? resLive.data : [];
 
           const log = [];
