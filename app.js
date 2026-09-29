@@ -2331,15 +2331,18 @@
       const kunci = q.kunci;
       if (kunci === undefined || kunci === null) return false;
 
-      const isNumeric = (!q.opsi || q.opsi.length === 0) || qType === 'Isian Singkat Numerik' || qType === 'Numeric Entry';
-      const isTF = !isNumeric && (qType === 'Pilihan Benar / Salah' || qType === 'True / False' || (kunci && /^[BSTF]\s*-\s*[BSTF]/i.test(String(kunci))));
-      const isMulti = !isNumeric && !isTF && (qType === 'Pilihan Ganda Kompleks' || qType === 'Multiple Response' || (kunci && String(kunci).includes(',')));
+      const isTF = qType === 'Pilihan Benar / Salah' || qType === 'True / False' || (kunci && /^[BSTF]\s*-\s*[BSTF]/i.test(String(kunci)));
+      const isMulti = !isTF && (qType === 'Pilihan Ganda Kompleks' || qType === 'Multiple Response' || (kunci && String(kunci).includes(',')));
+      const isNumeric = !isTF && !isMulti && (qType === 'Isian Singkat Numerik' || qType === 'Numeric Entry' || (!q.opsi || q.opsi.length === 0));
 
       if (isTF) {
         // True / False evaluation
         const normalizeTF = (val) => {
           if (val === undefined || val === null) return '';
-          const c = String(val).trim().toUpperCase()[0];
+          if (typeof val === 'boolean') return val ? 'B' : 'S';
+          const s = String(val).trim().toUpperCase();
+          if (!s) return '';
+          const c = s[0];
           if (c === 'T') return 'B';
           if (c === 'F') return 'S';
           return c;
@@ -2348,19 +2351,26 @@
         if (correctParts.length === 0) return false;
         
         let userParts = {};
-        if (typeof chosen === 'object' && chosen !== null) {
-          userParts = chosen;
-        } else if (Array.isArray(chosen)) {
+        if (Array.isArray(chosen)) {
           chosen.forEach((val, idx) => { userParts[idx] = val; });
-        } else if (typeof chosen === 'string' && chosen.includes('-')) {
-          chosen.split('-').forEach((val, idx) => { userParts[idx] = val.trim(); });
+        } else if (typeof chosen === 'object' && chosen !== null) {
+          userParts = chosen;
+        } else if (typeof chosen === 'string') {
+          const sep = chosen.includes('-') ? '-' : (chosen.includes(',') ? ',' : (chosen.includes('/') ? '/' : ''));
+          if (sep) {
+            chosen.split(sep).forEach((val, idx) => { userParts[idx] = val.trim(); });
+          } else {
+            return false;
+          }
         } else {
           return false;
         }
 
+        const isOneIndexed = (userParts[0] === undefined && userParts['0'] === undefined && (userParts[1] !== undefined || userParts['1'] !== undefined));
         for (let i = 0; i < correctParts.length; i++) {
-          const uVal = userParts[i] || userParts[String(i)];
-          if (!uVal) return false;
+          const key = isOneIndexed ? i + 1 : i;
+          let uVal = userParts[key] !== undefined ? userParts[key] : userParts[String(key)];
+          if (uVal === undefined || uVal === null || uVal === '') return false;
           const uNorm = normalizeTF(uVal);
           const expected = correctParts[i];
           if (uNorm !== expected) return false;
@@ -2390,7 +2400,7 @@
         const a = numericValue(strChosen);
         const b = numericValue(kunci);
         if (a !== null && b !== null) {
-          return Math.abs(a - b) <= Math.max(1e-5, Math.abs(b) * 1e-3);
+          return Math.abs(a - b) <= Math.max(0.005, Math.abs(b) * 0.01);
         }
         const cleanUser = strChosen.replace(/\s+/g, '').replace(/,/g, '.').toLowerCase();
         const cleanCorrect = String(kunci).trim().replace(/\s+/g, '').replace(/,/g, '.').toLowerCase();
@@ -5713,7 +5723,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         .replace(/\u00d7/g, '*')
         .replace(/\bpi\b|\u03c0/g, String(Math.PI))
         .replace(/\bsqrt/g, 'Math.sqrt');
-      if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(t)) t = t.replace(/\./g, '');   // 1.680,5 (id)
+      if (!/^-?0\./.test(t) && /^-?[1-9]\d{0,2}(\.\d{3})+(,\d+)?$/.test(t)) t = t.replace(/\./g, '');   // 1.680,5 (id)
       t = t.replace(/,/g, '.');
       if (!/^[-+*/().0-9a-z]*$/.test(t) || /[a-z]/.test(t.replace(/math\.sqrt/g, ''))) {
         const n = parseFloat(t); return isNaN(n) ? null : n;

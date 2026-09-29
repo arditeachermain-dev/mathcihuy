@@ -14,6 +14,35 @@ export function unwrapUserChosen(chosen) {
   return chosen;
 }
 
+export function parseNumericValue(raw) {
+  if (raw === undefined || raw === null) return null;
+  let t = String(raw).trim().toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/[{}$\\]/g, '')
+    .replace(/×/g, '*')
+    .replace(/,/g, '.');
+  if (!t) return null;
+  t = t.replace(/\bpi\b|π/g, String(Math.PI));
+  if (t.includes('/')) {
+    const parts = t.split('/');
+    if (parts.length === 2) {
+      const num = parseNumericValue(parts[0]);
+      const den = parseNumericValue(parts[1]);
+      if (num !== null && den !== null && den !== 0) return num / den;
+    }
+  }
+  if (t.includes('*')) {
+    const parts = t.split('*');
+    if (parts.length === 2) {
+      const a = parseNumericValue(parts[0]);
+      const b = parseNumericValue(parts[1]);
+      if (a !== null && b !== null) return a * b;
+    }
+  }
+  const n = parseFloat(t);
+  return isNaN(n) ? null : n;
+}
+
 export function evaluateQuestion(q, rawChosen) {
   const chosen = unwrapUserChosen(rawChosen);
   if (!q || chosen === undefined || chosen === null || chosen === '') return false;
@@ -28,7 +57,10 @@ export function evaluateQuestion(q, rawChosen) {
   if (isTF) {
     const normalizeTF = (val) => {
       if (val === undefined || val === null) return '';
-      const c = String(val).trim().toUpperCase()[0];
+      if (typeof val === 'boolean') return val ? 'B' : 'S';
+      const s = String(val).trim().toUpperCase();
+      if (!s) return '';
+      const c = s[0];
       if (c === 'T') return 'B';
       if (c === 'F') return 'S';
       return c;
@@ -36,18 +68,25 @@ export function evaluateQuestion(q, rawChosen) {
     const correctParts = String(kunci).split('-').map(normalizeTF).filter(Boolean);
     if (correctParts.length === 0) return false;
     let userParts = {};
-    if (typeof chosen === 'object' && chosen !== null) {
-      userParts = chosen;
-    } else if (Array.isArray(chosen)) {
+    if (Array.isArray(chosen)) {
       chosen.forEach((val, idx) => { userParts[idx] = val; });
-    } else if (typeof chosen === 'string' && chosen.includes('-')) {
-      chosen.split('-').forEach((val, idx) => { userParts[idx] = val.trim(); });
+    } else if (typeof chosen === 'object' && chosen !== null) {
+      userParts = chosen;
+    } else if (typeof chosen === 'string') {
+      const sep = chosen.includes('-') ? '-' : (chosen.includes(',') ? ',' : (chosen.includes('/') ? '/' : ''));
+      if (sep) {
+        chosen.split(sep).forEach((val, idx) => { userParts[idx] = val.trim(); });
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
+    const isOneIndexed = (userParts[0] === undefined && userParts['0'] === undefined && (userParts[1] !== undefined || userParts['1'] !== undefined));
     for (let i = 0; i < correctParts.length; i++) {
-      const uVal = userParts[i] || userParts[String(i)];
-      if (!uVal) return false;
+      const key = isOneIndexed ? i + 1 : i;
+      let uVal = userParts[key] !== undefined ? userParts[key] : userParts[String(key)];
+      if (uVal === undefined || uVal === null || uVal === '') return false;
       const uNorm = normalizeTF(uVal);
       if (uNorm !== correctParts[i]) return false;
     }
@@ -71,13 +110,13 @@ export function evaluateQuestion(q, rawChosen) {
   }
 
   if (isNumeric) {
-    const strChosen = String(chosen).trim().toLowerCase();
-    const strKunci = String(kunci).trim().toLowerCase();
+    const strChosen = String(chosen).trim().toLowerCase().replace(/\s+/g, '');
+    const strKunci = String(kunci).trim().toLowerCase().replace(/\s+/g, '');
     if (strChosen === strKunci) return true;
-    const numChosen = parseFloat(strChosen.replace(',', '.'));
-    const numKunci = parseFloat(strKunci.replace(',', '.'));
-    if (!isNaN(numChosen) && !isNaN(numKunci)) {
-      return Math.abs(numChosen - numKunci) < 0.001;
+    const numChosen = parseNumericValue(strChosen);
+    const numKunci = parseNumericValue(strKunci);
+    if (numChosen !== null && numKunci !== null) {
+      return Math.abs(numChosen - numKunci) <= Math.max(0.005, Math.abs(numKunci) * 0.01);
     }
     return false;
   }
