@@ -1074,22 +1074,22 @@ const NAMA_TINGKAT = 'XII';
         "Menyajikan dan menginterpretasikan data dalam bentuk Histogram, Poligon Frekuensi, dan Ogive Kumulatif."
       ],
       "hook": "Data nilai asesmen 200 siswa kelas XII disajikan dalam bentuk grafik Histogram dan Ogive untuk menganalisis kurva kelulusan secara visual cepat.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Aturan Sturges (Banyak Kelas)",
           "math": "$$k = 1 + 3{,}3 \\log N, \\quad c = \\frac{\\text{Jangkauan}}{k}$$"
         },
         {
           "name": "Tepi Kelas & Titik Tengah",
-          "math": "$$Tb = BB - 0,5, \\quad Ta = BA + 0,5, \\quad x_i = \\frac{BB + BA}{2}$$"
+          "math": "$$Tb = BB - 0{,}5, \\quad Ta = BA + 0{,}5, \\quad x_i = \\frac{BB + BA}{2}$$"
         },
         {
-          "name": "Jangkauan Interkuartil dan Hamparan",
-          "math": "$$QR = Q_3 - Q_1, \\quad QD = \\frac{1}{2}(Q_3 - Q_1)$$"
+          "name": "Frekuensi Relatif & Kumulatif",
+          "math": "$$f_{\\text{rel}} = \\frac{f_i}{N} \\times 100\\%, \\quad F_k = \\sum_{j=1}^i f_j$$"
         },
         {
-          "name": "Batas Pagar Outlier Pencilan Data",
-          "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5 QR, \\quad \\text{Pagar Atas} = Q_3 + 1{,}5 QR$$"
+          "name": "Karakteristik Kurva Ogive",
+          "math": "$$\\text{Ogive Positif: } F_k \\le Ta \\text{ (Monoton Naik)}, \\quad \\text{Ogive Negatif: } F_k \\ge Tb \\text{ (Monoton Turun)}$$"
         }
       ],
       "examples": [
@@ -1148,7 +1148,7 @@ const NAMA_TINGKAT = 'XII';
         "Menghitung mean menggunakan metode pengkodean (Coding) $\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) c$."
       ],
       "hook": "Bagaimana para peneliti menghitung rata-rata pendapatan per kapita jutaan penduduk dari tabel interval sensus BPS secara cepat dan presisi?",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Metode Titik Tengah",
           "math": "$$\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i}$$"
@@ -1162,12 +1162,12 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) c$$"
         },
         {
-          "name": "Jangkauan Interkuartil dan Hamparan",
-          "math": "$$QR = Q_3 - Q_1, \\quad QD = \\frac{1}{2}(Q_3 - Q_1)$$"
+          "name": "Rata-rata Gabungan",
+          "math": "$$\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2 + \\dots + n_k \\bar{x}_k}{n_1 + n_2 + \\dots + n_k}$$"
         },
         {
-          "name": "Batas Pagar Outlier Pencilan Data",
-          "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5 QR, \\quad \\text{Pagar Atas} = Q_3 + 1{,}5 QR$$"
+          "name": "Sifat Transformasi Linear Mean",
+          "math": "$$\\text{Jika } y_i = ax_i + b \\implies \\bar{y} = a\\bar{x} + b$$"
         }
       ],
       "examples": [
@@ -1227,22 +1227,22 @@ const NAMA_TINGKAT = 'XII';
         "Menganalisis kemiringan kurva (Skewness) dari perbandingan Mean, Median, dan Modus."
       ],
       "hook": "Mengapa dalam laporan ekonomi nilai Median sering lebih dipercaya dibanding Mean untuk menggambarkan pendapatan riil masyarakat? Karena Median tidak terpengaruh oleh pencilan ekstrim!",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Median Data Berkelompok",
           "math": "$$Me = Tb + \\left( \\frac{\\frac{1}{2}N - F_k}{f_{me}} \\right) c$$"
         },
         {
           "name": "Modus Data Berkelompok",
-          "math": "$$Mo = Tb + \\left( \\frac{d_1}{d_1 + d_2} \\right) c$$"
+          "math": "$$Mo = Tb + \\left( \\frac{d_1}{d_1 + d_2} \\right) c \\quad (d_1 = f_{mo} - f_{mo-1}, \\; d_2 = f_{mo} - f_{mo+1})$$"
         },
         {
-          "name": "Jangkauan Interkuartil dan Hamparan",
-          "math": "$$QR = Q_3 - Q_1, \\quad QD = \\frac{1}{2}(Q_3 - Q_1)$$"
+          "name": "Hubungan Empiris Distribusi Pearson",
+          "math": "$$\\text{Modus} \\approx 3(\\text{Median}) - 2(\\text{Mean})$$"
         },
         {
-          "name": "Batas Pagar Outlier Pencilan Data",
-          "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5 QR, \\quad \\text{Pagar Atas} = Q_3 + 1{,}5 QR$$"
+          "name": "Karakteristik Kemiringan (Skewness)",
+          "math": "$$\\text{Simetris: } \\bar{x} = Me = Mo, \\quad \\text{Miring Kanan: } \\bar{x} > Me > Mo, \\quad \\text{Miring Kiri: } \\bar{x} < Me < Mo$$"
         }
       ],
       "examples": [
@@ -1301,26 +1301,26 @@ const NAMA_TINGKAT = 'XII';
         "Mendeteksi adanya nilai pencilan ekstrim (Outlier) menggunakan batas Pagar Bawah dan Pagar Atas."
       ],
       "hook": "Perguruan Tinggi Negeri menggunakan persentil dan kuartil atas ($Q_3$) untuk menentukan passing grade kelulusan program studi favorit.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Kuartil ke-i Data Berkelompok",
           "math": "$$Q_i = Tb + \\left( \\frac{\\frac{i}{4}N - F_k}{f_{Q_i}} \\right) c \\quad (i = 1, 2, 3)$$"
         },
         {
-          "name": "Jangkauan Interkuartil",
+          "name": "Jangkauan Interkuartil & Simpangan Kuartil",
           "math": "$$QR = Q_3 - Q_1, \\quad Q_d = \\frac{1}{2} QR$$"
         },
         {
-          "name": "Batas Pagar Pencilan",
+          "name": "Batas Pagar Pencilan (Outlier)",
           "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5(QR), \\quad \\text{Pagar Atas} = Q_3 + 1{,}5(QR)$$"
         },
         {
-          "name": "Jangkauan Interkuartil dan Hamparan",
-          "math": "$$QR = Q_3 - Q_1, \\quad QD = \\frac{1}{2}(Q_3 - Q_1)$$"
+          "name": "Desil ke-i Data Berkelompok",
+          "math": "$$D_i = Tb + \\left( \\frac{\\frac{i}{10}N - F_k}{f_{D_i}} \\right) c \\quad (i = 1, 2, \\dots, 9)$$"
         },
         {
-          "name": "Batas Pagar Outlier Pencilan Data",
-          "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5 QR, \\quad \\text{Pagar Atas} = Q_3 + 1{,}5 QR$$"
+          "name": "Persentil ke-i Data Berkelompok",
+          "math": "$$P_i = Tb + \\left( \\frac{\\frac{i}{100}N - F_k}{f_{P_i}} \\right) c \\quad (i = 1, 2, \\dots, 99)$$"
         }
       ],
       "examples": [
@@ -1380,26 +1380,26 @@ const NAMA_TINGKAT = 'XII';
         "Menginterpretasikan nilai standar $Z$-Score untuk standardisasi performa nilai siswa."
       ],
       "hook": "Dua kelas memiliki rata-rata nilai sama yaitu 80, namun kelas A nilainya seragam ($S=3$) sementara kelas B sangat heterogen ($S=15$). Simpangan baku mengungkap variabilitas tersebut!",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Simpangan Rata-rata",
           "math": "$$SR = \\frac{\\sum f_i |x_i - \\bar{x}|}{N}$$"
         },
         {
           "name": "Varians & Simpangan Baku",
-          "math": "$$S^2 = \\frac{\\sum f_i (x_i - \\bar{x})^2}{N}, \\quad S = \\sqrt{S^2}$$"
+          "math": "$$S^2 = \\frac{\\sum f_i (x_i - \\bar{x})^2}{N}, \\quad S = \\sqrt{S^2}, \\quad s_{\\text{sampel}}^2 = \\frac{\\sum f_i (x_i - \\bar{x})^2}{N - 1}$$"
         },
         {
           "name": "Standar Z-Score",
           "math": "$$Z = \\frac{x - \\bar{x}}{S}$$"
         },
         {
-          "name": "Jangkauan Interkuartil dan Hamparan",
-          "math": "$$QR = Q_3 - Q_1, \\quad QD = \\frac{1}{2}(Q_3 - Q_1)$$"
+          "name": "Koefisien Variasi (KV)",
+          "math": "$$KV = \\frac{S}{\\bar{x}} \\times 100\\%$$"
         },
         {
-          "name": "Batas Pagar Outlier Pencilan Data",
-          "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5 QR, \\quad \\text{Pagar Atas} = Q_3 + 1{,}5 QR$$"
+          "name": "Sifat Transformasi Linear Ukuran Penyebaran",
+          "math": "$$\\text{Jika } y_i = ax_i + b \\implies SR_y = |a| SR_x, \\quad S_y^2 = a^2 S_x^2, \\quad S_y = |a| S_x$$"
         }
       ],
       "examples": [
@@ -1459,7 +1459,7 @@ const NAMA_TINGKAT = 'XII';
         "Menentukan persamaan garis regresi linier $\\hat{y} = a + bx$ dan membuat prediksi matematis."
       ],
       "hook": "Apakah durasi jam belajar mandiri per hari ($x$) berkorelasi linier positif dengan skor UTBK-SNBT ($y$)? Garis regresi memprediksi skor masa depan siswa!",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Persamaan Garis Regresi Linier",
           "math": "$$\\hat{y} = a + bx, \\quad b = \\frac{N \\sum xy - \\sum x \\sum y}{N \\sum x^2 - (\\sum x)^2}, \\quad a = \\bar{y} - b\\bar{x}$$"
@@ -1469,12 +1469,12 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$r = \\frac{N \\sum xy - \\sum x \\sum y}{\\sqrt{[N \\sum x^2 - (\\sum x)^2][N \\sum y^2 - (\\sum y)^2]}}$$"
         },
         {
-          "name": "Jangkauan Interkuartil dan Hamparan",
-          "math": "$$QR = Q_3 - Q_1, \\quad QD = \\frac{1}{2}(Q_3 - Q_1)$$"
+          "name": "Koefisien Determinasi (R^2)",
+          "math": "$$r^2 = (r)^2 \\times 100\\%, \\quad \\text{Kontribusi variasi } X \\text{ terhadap perubahan } Y$$"
         },
         {
-          "name": "Batas Pagar Outlier Pencilan Data",
-          "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5 QR, \\quad \\text{Pagar Atas} = Q_3 + 1{,}5 QR$$"
+          "name": "Interpretasi Nilai Korelasi Pearson",
+          "math": "$$0{,}7 \\le |r| \\le 1 \\text{ (Sangat Kuat)}, \\quad 0{,}4 \\le |r| < 0{,}7 \\text{ (Sedang)}, \\quad 0 \\le |r| < 0{,}4 \\text{ (Lemah)}$$"
         }
       ],
       "examples": [
@@ -1534,7 +1534,7 @@ const NAMA_TINGKAT = 'XII';
         "Grand Review integratif seluruh 3 Bab Matematika Wajib Kelas XII Semester 1."
       ],
       "hook": "Puncak asesmen akhir semester 1 Matematika Wajib Kelas XII: Menguji keunggulan komputasi kombinatorika, dimensi tiga, dan analisis statistika.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Matriks Distribusi Soal ASAS CBT",
           "math": "$$\\text{Bab 1: Peluang (35\\%)} + \\text{Bab 2: Dimensi Tiga (35\\%)} + \\text{Bab 3: Statistika (30\\%) }$$"
@@ -1544,12 +1544,12 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$P(A) = \\frac{n(A)}{n(S)}, \\quad d_r = s\\sqrt{3}, \\quad Me = Tb + \\left(\\frac{\\frac{1}{2}N - F_k}{f_{me}}\\right)c, \\quad \\hat{y} = a + bx$$"
         },
         {
-          "name": "Jangkauan Interkuartil dan Hamparan",
-          "math": "$$QR = Q_3 - Q_1, \\quad QD = \\frac{1}{2}(Q_3 - Q_1)$$"
+          "name": "Ringkasan Ukuran Pemusatan & Letak",
+          "math": "$$\\bar{x} = \\frac{\\sum f_i x_i}{N}, \\quad Me = Tb + \\left(\\frac{\\frac{1}{2}N - F_k}{f_{me}}\right)c, \\quad Q_i = Tb + \\left(\\frac{\\frac{i}{4}N - F_k}{f_{Q_i}}\right)c$$"
         },
         {
-          "name": "Batas Pagar Outlier Pencilan Data",
-          "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5 QR, \\quad \\text{Pagar Atas} = Q_3 + 1{,}5 QR$$"
+          "name": "Ringkasan Ukuran Penyebaran",
+          "math": "$$S^2 = \\frac{\\sum f_i(x_i - \\bar{x})^2}{N}, \\quad S = \\sqrt{S^2}, \\quad QR = Q_3 - Q_1, \\quad Z = \\frac{x - \\bar{x}}{S}$$"
         }
       ],
       "examples": [
@@ -2694,7 +2694,7 @@ const NAMA_TINGKAT = 'XII';
         "Menggambar sketsa perilaku grafik kurva rasional berdasarkan garis asimtot."
       ],
       "hook": "Garis asimtot berlaku seperti dinding tak kasatmata yang memandu arah kurva tanpa pernah tersentuh sejauh apa pun kurva melaju.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Transformasi y = 1/x",
           "math": "$$\\text{Misalkan } y = \\frac{1}{x} \\implies \\text{saat } x \\to \\infty, \\quad y \\to 0$$"
@@ -2708,12 +2708,12 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$x = c \\quad \\text{di mana penyebut } = 0$$"
         },
         {
-          "name": "Identitas Trigonometri Sudut Ganda",
-          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+          "name": "Asimtot Miring",
+          "math": "$$y = mx + c, \\quad m = \\lim_{x \\to \\pm\\infty} \\frac{f(x)}{x}, \\quad c = \\lim_{x \\to \\pm\\infty} [f(x) - mx]$$"
         },
         {
-          "name": "Teorema Apit Limit Fungsi",
-          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+          "name": "Limit Selisih Bentuk Akar Tak Hingga",
+          "math": "$$\\lim_{x \\to \\infty} (\\sqrt{ax^2+bx+c} - \\sqrt{ax^2+px+q}) = \\frac{b - p}{2\\sqrt{a}}$$"
         }
       ],
       "examples": [
@@ -2773,22 +2773,22 @@ const NAMA_TINGKAT = 'XII';
         "Mengidentifikasi kesalahan umum pada bentuk tak tentu dan transformasi trigonometri."
       ],
       "hook": "Simulasi asesmen CBT komprehensif Bab 2 untuk memastikan kesiapan 100% menghadapi ASTS Matematika Peminatan.",
-      "toolkit": [
+            "toolkit": [
         {
-          "name": "Matriks Uji Kompetensi Bab 2",
-          "math": "$$\\text{Limit Aljabar (25\\%)} + \\text{Limit Trig 0/0 (45\\%)} + \\text{Limit Tak Hingga \\& Asimtot (30\\%)}$$"
+          "name": "Matriks Distribusi Limit Bab 2",
+          "math": "$$\\text{Limit Aljabar Pemfaktoran/Akar (30\\%)} + \\text{Limit Trigonometri (40\\%)} + \\text{Limit Tak Hingga \\& Asimtot (30\\%) }$$"
         },
         {
           "name": "Kaidah L'Hopital",
           "math": "$$\\lim_{x \\to c} \\frac{f(x)}{g(x)} = \\lim_{x \\to c} \\frac{f'(x)}{g'(x)} \\quad \\left(\\text{khusus bentuk } \\frac{0}{0} \\text{ atau } \\frac{\\infty}{\\infty}\\right)$$"
         },
         {
-          "name": "Identitas Trigonometri Sudut Ganda",
-          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+          "name": "Limit Trigonometri Dasar",
+          "math": "$$\\lim_{x \\to 0} \\frac{\\sin(ax)}{bx} = \\frac{a}{b}, \\quad \\lim_{x \\to 0} \\frac{\\tan(ax)}{bx} = \\frac{a}{b}, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos(ax)}{x^2} = \\frac{a^2}{2}$$"
         },
         {
-          "name": "Teorema Apit Limit Fungsi",
-          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+          "name": "Limit Rasional Tak Hingga",
+          "math": "$$\\lim_{x \\to \\infty} \\frac{a_n x^n + \\dots}{b_m x^m + \\dots} = \\begin{cases} \\frac{a_n}{b_m}, & n = m \\\\ 0, & n < m \\\\ \\infty, & n > m \\end{cases}$$"
         }
       ],
       "examples": [
@@ -2937,7 +2937,7 @@ const NAMA_TINGKAT = 'XII';
         "Mengevaluasi nilai turunan fungsi komposisi pada titik tertentu."
       ],
       "hook": "Bagaikan membuka lapisan bawang, aturan rantai menurunkan lapisan fungsi trigonometri luar terlebih dahulu, lalu dikalikan dengan turunan fungsi aljabar di dalamnya.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Aturan Rantai Komposisi",
           "math": "$$\\frac{d}{dx}[\\sin(u)] = \\cos(u) \\cdot u', \\quad \\frac{d}{dx}[\\cos(u)] = -\\sin(u) \\cdot u'$$"
@@ -2947,12 +2947,12 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$\\frac{d}{dx}[\\sin(ax+b)] = a\\cos(ax+b), \\quad \\frac{d}{dx}[\\cos(ax+b)] = -a\\sin(ax+b)$$"
         },
         {
-          "name": "Identitas Trigonometri Sudut Ganda",
-          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+          "name": "Aturan Rantai Leibniz Dua Tahap",
+          "math": "$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$$"
         },
         {
-          "name": "Teorema Apit Limit Fungsi",
-          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+          "name": "Turunan Tangen dan Secan Berantai",
+          "math": "$$\\frac{d}{dx}[\\tan(u)] = \\sec^2(u) \\cdot u', \\quad \\frac{d}{dx}[\\sec(u)] = \\sec(u)\\tan(u) \\cdot u'$$"
         }
       ],
       "examples": [
@@ -3012,7 +3012,7 @@ const NAMA_TINGKAT = 'XII';
         "Menyederhanakan hasil turunan menggunakan identitas sudut ganda $\\sin(2u) = 2\\sin u \\cos u$."
       ],
       "hook": "Menghitung turunan $f(x) = \\sin^4(3x)$ melibatkan 3 tingkatan diferensiasi berurutan dalam satu baris ekspresi matematis.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Pangkat Trigonometri",
           "math": "$$\\frac{d}{dx}[\\sin^n(u)] = n \\sin^{n-1}(u) \\cos(u) \\cdot u'$$"
@@ -3022,12 +3022,12 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$2\\sin(u)\\cos(u) = \\sin(2u)$$"
         },
         {
-          "name": "Identitas Trigonometri Sudut Ganda",
-          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+          "name": "Turunan Pangkat Cosinus",
+          "math": "$$\\frac{d}{dx}[\\cos^n(u)] = -n \\cos^{n-1}(u) \\sin(u) \\cdot u'$$"
         },
         {
-          "name": "Teorema Apit Limit Fungsi",
-          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+          "name": "Turunan Pangkat Tangen",
+          "math": "$$\\frac{d}{dx}[\\tan^n(u)] = n \\tan^{n-1}(u) \\sec^2(u) \\cdot u'$$"
         }
       ],
       "examples": [
@@ -3087,26 +3087,26 @@ const NAMA_TINGKAT = 'XII';
         "Menyelesaikan persamaan diferensiasi harmonik sederhana $f''(x) + \\omega^2 f(x) = 0$."
       ],
       "hook": "Turunan kedua $f''(x)$ menentukan percepatan getaran dan kecekungan kurva gerak harmonik osilator.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Aturan Perkalian",
-          "math": "$$(u \\cdot v)' = u' v + u v'$$"
+          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
         },
         {
           "name": "Aturan Pembagian",
-          "math": "$$\\left(\\frac{u}{v}\\right)' = \\frac{u' v - u v'}{v^2}$$"
+          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
         },
         {
           "name": "Turunan Kedua",
           "math": "$$f''(x) = \\frac{d}{dx}[f'(x)]$$"
         },
         {
-          "name": "Turunan Perkalian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
+          "name": "Turunan Kedua Fungsi Trigonometri",
+          "math": "$$\\frac{d^2}{dx^2}[\\sin(kx)] = -k^2\\sin(kx), \\quad \\frac{d^2}{dx^2}[\\cos(kx)] = -k^2\\cos(kx)$$"
         },
         {
-          "name": "Turunan Pembagian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
+          "name": "Sifat Turunan Perkalian Tiga Fungsi",
+          "math": "$$\\frac{d}{dx}[u \\cdot v \\cdot w] = u'vw + uv'w + uvw'$$"
         }
       ],
       "examples": [
@@ -3166,7 +3166,7 @@ const NAMA_TINGKAT = 'XII';
         "Menyusun persamaan garis normal $y - y_1 = -\\frac{1}{m}(x - x_1)$ yang tegak lurus garis singgung."
       ],
       "hook": "Ketinggian pasang surut air laut mengikuti kurva trigonometri $y = 2\\sin(t)$. Kemiringan tangen menentukan laju kenaikan air laut per jam.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Gradien Garis Singgung",
           "math": "$$m = f'(x_1)$$"
@@ -3177,15 +3177,15 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "name": "Persamaan Garis Normal",
-          "math": "$$y - y_1 = -\\frac{1}{m}(x - x_1)$$"
+          "math": "$$y - y_1 = -\\frac{1}{m}(x - x_1) \\quad (m \\neq 0)$$"
         },
         {
-          "name": "Turunan Perkalian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
+          "name": "Hubungan Gradien Tegak Lurus",
+          "math": "$$m_s \\cdot m_n = -1 \\implies m_n = -\\frac{1}{m_s}$$"
         },
         {
-          "name": "Turunan Pembagian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
+          "name": "Sudut Inklinasi Garis Singgung",
+          "math": "$$m = \\tan(\\alpha) \\implies \\alpha = \\arctan(m)$$"
         }
       ],
       "examples": [
@@ -3330,26 +3330,26 @@ const NAMA_TINGKAT = 'XII';
         "Menentukan interval kecekungan kurva (cekung ke atas $f'' > 0$ dan cekung ke bawah $f'' < 0$)."
       ],
       "hook": "Menemukan puncak simpangan getaran tertinggi (amplitudo) dan titik balik getaran merupakan kunci perancangan peredam gempa bangunan tinggi.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Titik Stasioner",
           "math": "$$f'(x) = 0$$"
         },
         {
-          "name": "Uji Turunan Kedua",
-          "math": "$$f''(x) < 0 \\implies \\text{Maksimum}, \\quad f''(x) > 0 \\implies \\text{Minimum}$$"
+          "name": "Uji Turunan Kedua untuk Ekstrem",
+          "math": "$$f''(x) < 0 \\implies \\text{Maksimum Lokal}, \\quad f''(x) > 0 \\implies \\text{Minimum Lokal}$$"
         },
         {
-          "name": "Titik Belok & Kecekungan",
-          "math": "$$f''(x) = 0 \\implies \\text{Titik Belok} \\quad | \\quad f''(x) > 0 \\implies \\text{Cekung Atas}$$"
+          "name": "Titik Belok & Syarat Kecekungan",
+          "math": "$$f''(x) = 0 \\implies \\text{Uji Titik Belok} \\quad | \\quad f''(x) > 0 \\implies \\text{Cekung Atas } (\\cup)$$"
         },
         {
-          "name": "Turunan Perkalian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
+          "name": "Kecekungan Kurva Terbuka ke Bawah",
+          "math": "$$f''(x) < 0 \\implies \\text{Kurva Cekung ke Bawah } (\\cap)$$"
         },
         {
-          "name": "Turunan Pembagian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
+          "name": "Interval Cekung Atas dan Cekung Bawah",
+          "math": "$$\\text{Selesaikan pertidaksamaan } f''(x) > 0 \\text{ atau } f''(x) < 0$$"
         }
       ],
       "examples": [
@@ -3409,7 +3409,7 @@ const NAMA_TINGKAT = 'XII';
         "Menyelesaikan simulasi soal HOTS standar TKA Nasional dan UTBK-SNBT."
       ],
       "hook": "Arsitek merancang atap talang air seng berbentuk trapesium dengan sudut lipatan $\\theta$ agar dapat menampung debit volume air hujan maksimal.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Matriks Uji Kompetensi Bab 3",
           "math": "$$\\text{Turunan Dasar \\& Rantai (40\\%)} + \\text{Garis Singgung (30\\%)} + \\text{Optimasi HOTS (30\\%) }$$"
@@ -3419,12 +3419,12 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$\\text{Model Fungsi } f(\\theta) \\implies \\text{Cari } f'(\\theta) = 0 \\implies \\text{Evaluasi Nilai Maksimal}$$"
         },
         {
-          "name": "Turunan Perkalian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
+          "name": "Uji Nilai Ekstrem Global pada Interval Tertutup",
+          "math": "$$\\text{Bandingkan } f(a), \\; f(b), \\; \\text{dan } f(c) \\text{ untuk semua } c \\in (a, b) \\text{ dengan } f'(c) = 0$$"
         },
         {
-          "name": "Turunan Pembagian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
+          "name": "Syarat Keoptimalan Masalah Geometri/Fisika",
+          "math": "$$f'(x^*) = 0 \\text{ dan } f''(x^*) < 0 \\implies \\text{Maksimum Terbukti}$$"
         }
       ],
       "examples": [
@@ -3484,7 +3484,7 @@ const NAMA_TINGKAT = 'XII';
         "Menentukan nilai konstanta integrasi $C$ dari informasi nilai awal kurva $(x_0, y_0)$."
       ],
       "hook": "Sensor telemetri mencatat fungsi percepatan roket $a(t)$. Bagaimana para teknisi merekonstruksi kembali fungsi kecepatan $v(t)$ dan posisi ketinggian $s(t)$ roket?",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Aturan Pangkat Integral",
           "math": "$$\\int x^n dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$$"
@@ -3495,15 +3495,15 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "name": "Integral Trigonometri Dasar",
-          "math": "$$\\int \\cos x dx = \\sin x + C, \\quad \\int \\sin x dx = -\\cos x + C$$"
+          "math": "$$\\int \\cos x \\, dx = \\sin x + C, \\quad \\int \\sin x \\, dx = -\\cos x + C$$"
         },
         {
-          "name": "Turunan Perkalian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
+          "name": "Integral Secan Kuadrat & Cosecan Kuadrat",
+          "math": "$$\\int \\sec^2 x \\, dx = \\tan x + C, \\quad \\int \\csc^2 x \\, dx = -\\cot x + C$$"
         },
         {
-          "name": "Turunan Pembagian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
+          "name": "Integral Secan Tangen & Cosecan Cotangen",
+          "math": "$$\\int \\sec x \\tan x \\, dx = \\sec x + C, \\quad \\int \\csc x \\cot x \\, dx = -\\csc x + C$$"
         }
       ],
       "examples": [
@@ -3644,22 +3644,22 @@ const NAMA_TINGKAT = 'XII';
         "Menyelesaikan integral perkalian fungsi aljabar dengan trigonometri atau eksponensial."
       ],
       "hook": "Dalam pengolahan sinyal audio dan radar, integral perkalian $\\int x^3 \\cos(2x) dx$ diselesaikan dalam 30 detik menggunakan metode tabular Tanzalin!",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Rumus Parsial Baku",
-          "math": "$$\\int u dv = u v - \\int v du$$"
+          "math": "$$\\int u \\, dv = u v - \\int v \\, du$$"
         },
         {
           "name": "Metode Cepat Tanzalin",
           "math": "$$\\begin{array}{|c|c|c|} \\hline \\text{Tanda} & \\text{Diferensial (Turunkan ke 0)} & \\text{Integral (Integralkan)} \\\\ \\hline + & u(x) & v'(x) \\\\ - & u'(x) & v_1(x) \\\\ + & u''(x) & v_2(x) \\\\ \\hline \\end{array}$$"
         },
         {
-          "name": "Turunan Perkalian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
+          "name": "Aturan Prioritas Pemilihan u (LIATE)",
+          "math": "$$\\text{Prioritas } u: \\text{Logaritma} > \\text{Invers Trig} > \\text{Aljabar} > \\text{Trigonometri} > \\text{Eksponensial}$$"
         },
         {
-          "name": "Turunan Pembagian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
+          "name": "Integral Parsial Tentu dengan Batas",
+          "math": "$$\\int_a^b u \\, dv = [u \\cdot v]_a^b - \\int_a^b v \\, du$$"
         }
       ],
       "examples": [
@@ -3719,26 +3719,26 @@ const NAMA_TINGKAT = 'XII';
         "Menghitung nilai numerik eksak integral tentu aljabar dan trigonometri."
       ],
       "hook": "Para insinyur sipil menghitung total akumulasi debit air waduk selama 12 jam hujan lebat menggunakan integral tentu dengan batas waktu integrasi.",
-      "toolkit": [
+            "toolkit": [
         {
           "name": "Teorema Dasar Kalkulus (FTC)",
-          "math": "$$\\int_{a}^{b} f(x) dx = [F(x)]_a^b = F(b) - F(a)$$"
+          "math": "$$\\int_{a}^{b} f(x) \\, dx = [F(x)]_a^b = F(b) - F(a)$$"
         },
         {
           "name": "Sifat Pembalikan Batas",
-          "math": "$$\\int_{a}^{b} f(x) dx = -\\int_{b}^{a} f(x) dx, \\quad \\int_{a}^{a} f(x) dx = 0$$"
+          "math": "$$\\int_{a}^{b} f(x) \\, dx = -\\int_{b}^{a} f(x) \\, dx, \\quad \\int_{a}^{a} f(x) \\, dx = 0$$"
         },
         {
           "name": "Sifat Penjumlahan Selang",
-          "math": "$$\\int_{a}^{b} f(x) dx + \\int_{b}^{c} f(x) dx = \\int_{a}^{c} f(x) dx$$"
+          "math": "$$\\int_{a}^{b} f(x) \\, dx + \\int_{b}^{c} f(x) \\, dx = \\int_{a}^{c} f(x) \\, dx$$"
         },
         {
-          "name": "Turunan Perkalian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
+          "name": "Teorema Nilai Rata-rata Integral (MVT)",
+          "math": "$$\\bar{f} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx$$"
         },
         {
-          "name": "Turunan Pembagian Fungsi Aljabar",
-          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
+          "name": "Teorema Dasar Kalkulus I (Turunan Bentuk Integral)",
+          "math": "$$\\frac{d}{dx} \\left[ \\int_a^{g(x)} f(t) \\, dt \\right] = f(g(x)) \\cdot g'(x)$$"
         }
       ],
       "examples": [
@@ -7053,8 +7053,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $Tb = 40$ dan $Ta = 50$",
             "E. $Tb = 45{,}5$ dan $Ta = 53{,}5$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Mengidentifikasi rumus titik tengah kelas interval ($x_i$):\n$$x_i = \\frac{\\text{Batas Bawah} + \\text{Batas Atas}}{2}$$\nLangkah 2: Mensubstitusikan batas bawah $60$ dan batas atas $69$:\n$$x_i = \\frac{60 + 69}{2} = \\frac{129}{2} = 64{,}5$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan tepi bawah ($Tb$) kelas interval $45 - 54$:\n$$Tb = \\text{Batas Bawah} - 0{,}5 = 45 - 0{,}5 = 44{,}5$$\nLangkah 2: Menentukan tepi atas ($Ta$):\n$$Ta = \\text{Batas Atas} + 0{,}5 = 54 + 0{,}5 = 54{,}5$$\nKesimpulan: $Tb = 44{,}5$ dan $Ta = 54{,}5$. Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Tepi bawah ($Tb$) dan tepi atas ($Ta$) untuk kelas interval $45 - 54$ pada data pengukuran berat badan adalah ..."
@@ -7073,8 +7073,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5",
             "E. 11"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung Tepi Bawah ($Tb$) dan Tepi Atas ($Ta$) interval 50 - 59:\n$$Tb = 50 - 0{,}5 = 49{,}5$$\n$$Ta = 59 + 0{,}5 = 59{,}5$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Panjang kelas interval dihitung dengan rumus:\n$$p = \\text{Batas Atas} - \\text{Batas Bawah} + 1$$\nLangkah 2: Untuk kelas $60 - 69$:\n$$p = 69 - 60 + 1 = 10$$\nKesimpulan: Panjang kelas interval adalah $10$. Kunci Jawaban B.",
           "viz": {
             "t": "histogram",
             "src": "Panjang kelas (interval $c$) dari kelas $60 - 69$ adalah ..."
@@ -7093,8 +7093,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 75",
             "E. 74,5"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung panjang kelas interval ($p$):\n$$p = Ta - Tb = 49{,}5 - 39{,}5 = 10$$\n*(atau $p = 49 - 40 + 1 = 10$)*.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Titik tengah kelas interval dihitung dengan rumus:\n$$x_i = \\frac{\\text{Batas Bawah} + \\text{Batas Atas}}{2}$$\nLangkah 2: Untuk kelas $70 - 78$:\n$$x_i = \\frac{70 + 78}{2} = \\frac{148}{2} = 74$$\nKesimpulan: Titik tengah kelas interval $70 - 78$ adalah $74$. Kunci Jawaban C.",
           "viz": {
             "t": "histogram",
             "src": "Titik tengah ($x_i$) dari kelas interval $70 - 78$ adalah ..."
@@ -7113,8 +7113,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 30",
             "E. 20"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Memahami definisi kurva ogive:\n- Ogive positif: Kurva frekuensi kumulatif \"kurang dari\" ($f_k \\le$).\n- Ogive negatif: Kurva frekuensi kumulatif \"lebih dari\" ($f_k \\ge$).\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Frekuensi kumulatif kurang dari ($F_k$) dihitung dengan menjumlahkan frekuensi dari kelas pertama sampai kelas yang dimaksud.\nLangkah 2: Kelas kedua adalah $50 - 59$ dengan tepi atas $59{,}5$.\n$$F_k = f_1 + f_2 = 6 + 10 = 16$$\nKesimpulan: Frekuensi kumulatif kurang dari tepi atas kelas kedua adalah $16$. Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14]\nFrekuensi kumulatif kurang dari ($F_k$) tepi atas kelas kedua adalah ..."
@@ -7131,8 +7131,8 @@ const NAMA_TINGKAT = 'XII';
             "Panjang kelas interval (p) sama dengan tepi atas dikurangi tepi bawah",
             "Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5"
           ],
-          "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nPanjang interval $p = Ta - Tb$ adalah benar.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nTitik tengah $x_i = \\frac{Bb + Ba}{2}$ adalah benar.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nOgive negatif menggunakan frekuensi kumulatif \"lebih dari\", bukan kurang dari.\n$\\implies$ Pernyataan (3) bernilai SALAH.\n\nKesimpulan: Kunci Jawaban B - B - S.",
+          "kunci": "S - B - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nTitik tengah kelas $50 - 59$: $x_i = \\frac{50 + 59}{2} = \\frac{109}{2} = 54{,}5 \\neq 55$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nPanjang kelas interval: $p = Ta - Tb = (\\text{Ba}+0{,}5) - (\\text{Bb}-0{,}5) = \\text{Ba} - \\text{Bb} + 1$. Namun jika $p = Ta - Tb$ secara definisi, ini BENAR.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nTepi bawah $= \\text{Batas Bawah} - 0{,}5$. Ini adalah definisi yang benar.\n$\\implies$ Pernyataan (3) bernilai BENAR.\n\nKesimpulan: Kunci Jawaban S - B - B.",
           "viz": {
             "t": "histogram",
             "src": "Tentukan kebenaran tabel distribusi frekuensi data berkelompok:\n(1) Titik tengah kelas interval 50 - 59 adalah 55.\n(2) Panjang kelas interval (p) sama dengan tepi atas dikurangi tepi bawah.\n(3) Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5."
@@ -7151,8 +7151,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 6 kelas",
             "E. 7 kelas"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menggunakan Aturan Sturgess untuk $n = 100$:\n$$k = 1 + 3{,}3 \\log(100) = 1 + 3{,}3(2) = 1 + 6{,}6 = 7{,}6 \\approx 8 \\text{ kelas}$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menggunakan Aturan Sturgess:\n$$k = 1 + 3{,}3 \\log(n)$$\nLangkah 2: Substitusi $n = 100$ dan $\\log 100 = 2$:\n$$k = 1 + 3{,}3 \\times 2 = 1 + 6{,}6 = 7{,}6$$\nLangkah 3: Bulatkan ke atas: $k \\approx 8$ kelas.\nKesimpulan: Banyak kelas ideal adalah $8$ kelas. Kunci Jawaban B.",
           "viz": {
             "t": "histogram",
             "src": "Berapakah banyak kelas ideal menurut aturan Sturgess untuk data dengan ukuran sampel $n = 100$ siswa? (Gunakan $\\log 100 = 2$)"
@@ -7171,8 +7171,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Naik kemudian turun",
             "E. Selalu monoton naik"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung frekuensi kumulatif sampai kelas ke-3 (60 - 69):\n$$f_k \\le 69 = 4 + 8 + 14 = 26$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Ogive negatif adalah kurva frekuensi kumulatif \\\"lebih dari\\\".\nLangkah 2: Karena frekuensi kumulatif \\\"lebih dari\\\" dimulai dari total $n$ dan berkurang setiap kelas, grafik ogive negatif selalu monoton turun (dari kiri ke kanan nilainya terus menurun).\nKesimpulan: Grafik ogive negatif selalu monoton turun. Kunci Jawaban C.",
           "viz": {
             "t": "histogram",
             "src": "Pada ogive negatif, grafik kurva menunjukkan kecenderungan ..."
@@ -7191,8 +7191,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Batas bawah kelas adalah 60 dan batas atas kelas adalah 68.",
             "E. Tepi bawah kelas interval adalah 59,5."
           ],
-          "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Analisis seluruh pernyataan:\n- Opsi A: Total $n = 4 + 8 + 14 + 10 + 4 = 40$ (BENAR).\n- Opsi B: Titik tengah kelas modus (60-69) adalah $\\frac{60+69}{2} = 64{,}5$ (BENAR).\n- Opsi C: Frekuensi kumulatif kelas terakhir $= n = 40$ (BENAR).\n- Opsi D: Panjang kelas $p = 10$ (BENAR).\n- Opsi E: Tepi bawah kelas pertama adalah $39{,}5$, bukan $40{,}0$ (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
+          "kunci": "A, B, C, D, E",
+          "bahas": "Langkah 1: Analisis kelas interval $60 - 68$:\n- Opsi A: Titik tengah $= \\frac{60 + 68}{2} = \\frac{128}{2} = 64$ \\checkmark BENAR.\n- Opsi B: Panjang kelas $= 68 - 60 + 1 = 9$ \\checkmark BENAR.\n- Opsi C: Tepi atas $= 68 + 0{,}5 = 68{,}5$ \\checkmark BENAR.\n- Opsi D: Batas bawah $= 60$, batas atas $= 68$ \\checkmark BENAR.\n- Opsi E: Tepi bawah $= 60 - 0{,}5 = 59{,}5$ \\checkmark BENAR.\nKesimpulan: Semua pernyataan bernilai BENAR. Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "histogram",
             "src": "Pada data berkelompok dengan kelas interval 60 - 68, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)"
@@ -7211,8 +7211,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 5",
             "E. 8"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung panjang kelas dari jangkauan $R = 50$ dan $k = 7$:\n$$p = \\frac{R}{k} = \\frac{50}{7} \\approx 7{,}14 \\implies \\text{dibulatkan ke atas menjadi } 8$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Panjang kelas interval dihitung dengan rumus:\n$$c = \\frac{R}{k}$$\nLangkah 2: Substitusi $R = 40$ dan $k = 5$:\n$$c = \\frac{40}{5} = 8$$\nKesimpulan: Panjang kelas interval adalah $8$. Kunci Jawaban E.",
           "viz": {
             "t": "histogram",
             "src": "Jika jangkauan data $R = 40$ dan banyak kelas $k = 5$, maka panjang kelas interval $c$ adalah ..."
@@ -7225,8 +7225,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P15-Q10] Nilai titik tengah kelas interval $81 - 99$ adalah ...",
           "opsi": [],
-          "kunci": "85",
-          "bahas": "Langkah 1: Menghitung titik tengah interval 80 - 90:\n$$x_i = \\frac{80 + 90}{2} = 85$$\nKesimpulan: Kunci Jawaban 85.",
+          "kunci": "90",
+          "bahas": "Langkah 1: Titik tengah kelas interval dihitung dengan rumus:\n$$x_i = \\frac{\\text{Batas Bawah} + \\text{Batas Atas}}{2}$$\nLangkah 2: Untuk kelas $81 - 99$:\n$$x_i = \\frac{81 + 99}{2} = \\frac{180}{2} = 90$$\nKesimpulan: Kunci Jawaban 90.",
           "viz": {
             "t": "histogram",
             "src": "Nilai titik tengah kelas interval $81 - 99$ adalah ..."
@@ -7252,8 +7252,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 73,50",
             "E. 72,00"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung $\\sum f_i x_i$:\n- 20-24 ($f=4, x=22 \\implies fx = 88$)\n- 25-29 ($f=8, x=27 \\implies fx = 216$)\n- 30-34 ($f=10, x=32 \\implies fx = 320$)\n- 35-39 ($f=6, x=37 \\implies fx = 222$)\n- 40-44 ($f=2, x=42 \\implies fx = 84$)\n$$\\sum f_i x_i = 88 + 216 + 320 + 222 + 84 = 930$$\n\nLangkah 2: Menghitung mean:\n$$\\bar{x} = \\frac{930}{30} = 31{,}00$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung titik tengah ($x_i$) setiap kelas dan $f_i \\cdot x_i$:\n- $50-59$: $x_i = 54{,}5$, $f \\times x = 5 \\times 54{,}5 = 272{,}5$\n- $60-69$: $x_i = 64{,}5$, $f \\times x = 10 \\times 64{,}5 = 645$\n- $70-79$: $x_i = 74{,}5$, $f \\times x = 15 \\times 74{,}5 = 1.117{,}5$\n- $80-89$: $x_i = 84{,}5$, $f \\times x = 10 \\times 84{,}5 = 845$\n\nLangkah 2: Menghitung mean:\n$$\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{272{,}5 + 645 + 1.117{,}5 + 845}{40} = \\frac{2.880}{40} = 72{,}00$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi data nilai siswa berikut:\n[50-59: 5], [60-69: 10], [70-79: 15], [80-89: 10]\nTotal frekuensi $n = 40$. Nilai rata-rata hitung (mean) data tersebut adalah ..."
@@ -7272,8 +7272,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 73,00",
             "E. 69,50"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung mean dengan metode coding:\n$$\\bar{x} = x_s + \\left(\\frac{\\sum f u}{n}\\right) \\times p = 32 + (-0{,}2 \\times 5) = 32 - 1 = 31{,}00$$\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menggunakan rumus rataan sementara:\n$$\\bar{x} = x_s + \\frac{\\sum f_i d_i}{\\sum f_i}$$\nLangkah 2: Substitusi $x_s = 74{,}5$, $\\sum f_i d_i = -130$, $\\sum f_i = 40$:\n$$\\bar{x} = 74{,}5 + \\frac{-130}{40} = 74{,}5 + (-3{,}25) = 71{,}25$$\nKesimpulan: Kunci Jawaban B.",
         },
         {
           "no": 3,
@@ -7288,8 +7288,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 71,2",
             "E. 70,5"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menghitung rata-rata gabungan:\n$$\\bar{x}_{\\text{gab}} = \\frac{(20 \\times 75) + (30 \\times 85)}{20 + 30} = \\frac{1.500 + 2.550}{50} = \\frac{4.050}{50} = 81{,}00$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menggunakan rumus metode pengkodean (coding):\n$$\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{n}\\right) \\times c$$\nLangkah 2: Substitusi $x_s = 70$, $\\sum f_i u_i = 12$, $n = 60$, $c = 10$:\n$$\\bar{x} = 70 + \\left(\\frac{12}{60}\\right) \\times 10 = 70 + 0{,}2 \\times 10 = 70 + 2 = 72{,}0$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "histogram",
             "src": "Pada metode pengkodean (coding), $x_s = 70$, panjang kelas $c = 10$, $\\sum f_i u_i = 12$, dan $n = 60$. Nilai rata-rata hitung data adalah ..."
@@ -7308,8 +7308,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 80,0",
             "E. 83,0"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Formula coding rata-rata data berkelompok:\n$$\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) \\times p$$\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung rata-rata gabungan:\n$$\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2}{n_1 + n_2}$$\nLangkah 2: Substitusi $n_1 = 20$, $\\bar{x}_1 = 75$, $n_2 = 30$, $\\bar{x}_2 = 85$:\n$$\\bar{x}_{\\text{gab}} = \\frac{(20 \\times 75) + (30 \\times 85)}{20 + 30} = \\frac{1.500 + 2.550}{50} = \\frac{4.050}{50} = 81{,}0$$\nKesimpulan: Kunci Jawaban B.",
         },
         {
           "no": 5,
@@ -7322,8 +7322,8 @@ const NAMA_TINGKAT = 'XII';
             "Pada metode rataan sementara, bar(x) = x_s + [sum(fi . di) / sum(fi)]",
             "Jika setiap data ditambah 5, maka nilai rata-rata data tidak mengalami perubahan"
           ],
-          "kunci": "B - B - B",
-          "bahas": "Langkah 1: Evaluasi pernyataan:\n(1) Metode titik tengah dan coding menghasilkan nilai identik $\\implies$ BENAR.\n(2) Rumus mean gabungan $\\implies$ BENAR.\n(3) Penambahan konstanta $c$ pada seluruh data menaikkan mean sebesar $c$ $\\implies$ BENAR.\nKesimpulan: Kunci Jawaban B - B - B."
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nRumus mean data berkelompok $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i}$ adalah definisi yang benar.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPada metode rataan sementara, $\\bar{x} = x_s + \\frac{\\sum f_i d_i}{\\sum f_i}$ di mana $d_i = x_i - x_s$. Rumus ini benar.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJika setiap data ditambah konstanta $c = 5$, maka mean baru $= \\bar{x} + 5$. Mean BERUBAH (bertambah 5), bukan tetap.\n$\\implies$ Pernyataan (3) bernilai SALAH.\n\nKesimpulan: Kunci Jawaban B - B - S.",
         },
         {
           "no": 6,
@@ -7338,8 +7338,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 8,5",
             "E. 8,0"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung nilai siswa susulan:\n$$\\text{Nilai Susulan} = (10 \\times 80) - (9 \\times 78) = 800 - 702 = 98$$\nKesimpulan: Kunci Jawaban A."
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung mean data tunggal:\n$$\\bar{x} = \\frac{\\sum x_i}{n}$$\nLangkah 2: Substitusi data $6, 8, 7, 9, 10$:\n$$\\bar{x} = \\frac{6 + 8 + 7 + 9 + 10}{5} = \\frac{40}{5} = 8{,}0$$\nKesimpulan: Kunci Jawaban E.",
         },
         {
           "no": 7,
@@ -7354,8 +7354,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 31,5",
             "E. 30,5"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung mean dari rataan sementara $x_s = 65$:\n$$\\bar{x} = x_s + \\frac{\\sum f_i d_i}{n} = 65 + \\frac{60}{40} = 65 + 1{,}5 = 66{,}5$$\nKesimpulan: Kunci Jawaban A."
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung titik tengah ($x_i$) dan $f_i \\cdot x_i$:\n- $10-19$: $x_i = 14{,}5$, $f \\times x = 2 \\times 14{,}5 = 29$\n- $20-29$: $x_i = 24{,}5$, $f \\times x = 8 \\times 24{,}5 = 196$\n- $30-39$: $x_i = 34{,}5$, $f \\times x = 6 \\times 34{,}5 = 207$\n- $40-49$: $x_i = 44{,}5$, $f \\times x = 4 \\times 44{,}5 = 178$\n\nLangkah 2: Menghitung mean:\n$$\\bar{x} = \\frac{29 + 196 + 207 + 178}{20} = \\frac{610}{20} = 30{,}5$$\nKesimpulan: Kunci Jawaban E.",
         },
         {
           "no": 8,
@@ -7370,8 +7370,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Rata-rata gabungan seluruh 40 siswa adalah 77,5.",
             "E. Jumlah total nilai seluruh 40 siswa adalah 3.100."
           ],
-          "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Evaluasi opsi:\n- Total siswa $= 24 + 16 = 40$ (BENAR).\n- Jumlah nilai putri $= 24 \\times 80 = 1.920$ (BENAR).\n- Jumlah nilai putra $= 16 \\times 70 = 1.120$ (BENAR).\n- Mean gabungan $= \\frac{1.920 + 1.120}{40} = \\frac{3.040}{40} = 76{,}0$ (BENAR).\n- Opsi E SALAH karena mean lebih dekat ke rata-rata putri (jumlah putri lebih banyak).\nKesimpulan: Kunci Jawaban A, B, C, D."
+          "kunci": "B, C, D, E",
+          "bahas": "Langkah 1: Hitung total nilai masing-masing:\n- Total nilai 30 siswa: $30 \\times 75 = 2.250$ $\\implies$ Opsi B BENAR.\n- Total nilai 10 siswa baru: $10 \\times 85 = 850$ $\\implies$ Opsi C BENAR.\n\nLangkah 2: Hitung rata-rata gabungan:\n$$\\bar{x}_{\\text{gab}} = \\frac{2.250 + 850}{30 + 10} = \\frac{3.100}{40} = 77{,}5$$\n- Opsi D: Rata-rata gabungan $= 77{,}5$ $\\implies$ BENAR.\n- Opsi E: Total seluruh $= 3.100$ $\\implies$ BENAR.\n\nLangkah 3: Cek Opsi A:\n- Rata-rata gabungan $77{,}5$ berada di DALAM rentang $[75, 85]$, bukan di luar.\n$\\implies$ Opsi A SALAH.\n\nKesimpulan: Kunci Jawaban B, C, D, E.",
         },
         {
           "no": 9,
@@ -7676,8 +7676,8 @@ const NAMA_TINGKAT = 'XII';
             "Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1",
             "Kuartil kedua (Q2) bernilai sama dengan Median (Me)"
           ],
-          "kunci": "B - B - B",
-          "bahas": "Langkah 1: Evaluasi ukuran letak:\n(1) $Q_d = \\frac{1}{2}(Q_3 - Q_1) \\implies$ BENAR.\n(2) $QR = Q_3 - Q_1 \\implies$ BENAR.\n(3) $Q_2 = Me \\implies$ BENAR.\nKesimpulan: Kunci Jawaban B - B - B.",
+          "kunci": "S - B - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nRumus simpangan kuartil yang benar adalah $Q_d = \\frac{1}{2}(Q_3 - Q_1)$, bukan $Q_d = Q_3 + Q_1$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nJangkauan interkuartil $QR = Q_3 - Q_1$ adalah benar.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKuartil kedua $Q_2$ memang bernilai sama dengan median $Me$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran ukuran letak data:\n(1) Simpangan Kuartil dirumuskan sebagai Qd = Q3 + Q1.\n(2) Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1.\n(3) Kuartil kedua (Q2) bernilai sama dengan Median (Me)."
@@ -8179,8 +8179,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 17,50",
             "E. 18,75"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menghitung $\\sum f_i x_i$ dari tabel distribusi frekuensi ($n = 20$):\n- Kelas 10-14 ($f = 4$): $x_1 = 12 \\implies f_1 x_1 = 48$\n- Kelas 15-19 ($f = 8$): $x_2 = 17 \\implies f_2 x_2 = 136$\n- Kelas 20-24 ($f = 5$): $x_3 = 22 \\implies f_3 x_3 = 110$\n- Kelas 25-29 ($f = 3$): $x_4 = 27 \\implies f_4 x_4 = 81$\n$$\\sum f_i x_i = 48 + 136 + 110 + 81 = 375$$\n\nLangkah 2: Menghitung rata-rata hitung (mean):\n$$\\bar{x} = \\frac{375}{20} = 18{,}75$$\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung $\\sum f_i x_i$ dari tabel distribusi frekuensi ($n = 20$):\n- Kelas 10-14 ($f = 4$): $x_1 = 12 \\implies f_1 x_1 = 48$\n- Kelas 15-19 ($f = 8$): $x_2 = 17 \\implies f_2 x_2 = 136$\n- Kelas 20-24 ($f = 5$): $x_3 = 22 \\implies f_3 x_3 = 110$\n- Kelas 25-29 ($f = 3$): $x_4 = 27 \\implies f_4 x_4 = 81$\n$$\\sum f_i x_i = 48 + 136 + 110 + 81 = 375$$\n\nLangkah 2: Menghitung rata-rata hitung (mean):\n$$\\bar{x} = \\frac{375}{20} = 18{,}75$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[10-14: 4], [15-19: 8], [20-24: 5], [25-29: 3]\nTotal frekuensi $n = 20$. Nilai rata-rata hitung (mean) data tersebut adalah ..."
