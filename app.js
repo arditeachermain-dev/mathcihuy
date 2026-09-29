@@ -2183,6 +2183,7 @@
         function prosesDataSelesai(data) {
           if (!Array.isArray(data)) return;
           const map = Object.assign({}, window._cbtCompletedSubmissions);
+          const serverKeys = new Set(data.map(r => `${r.mapel}_${r.kode_pertemuan}`));
           data.forEach(row => {
             const k = `${row.mapel}_${row.kode_pertemuan}`;
             map[k] = row;
@@ -2191,6 +2192,37 @@
           try {
             localStorage.setItem(cacheKey, JSON.stringify(map));
           } catch (e) {}
+
+          // Auto-Heal Sync: jika ada paket di memori lokal yang belum masuk ke server D1, otomatis sinkronkan ke server
+          try {
+            Object.keys(map).forEach(localKey => {
+              if (!serverKeys.has(localKey)) {
+                const item = map[localKey];
+                if (item && item.skor !== undefined && item.kode_pertemuan) {
+                  const parts = localKey.split('_');
+                  const subj = item.mapel || parts[0] || 'wajib';
+                  const pkg = item.kode_pertemuan || parts[1];
+                  fetch('/api/nilai', {
+                    method: 'POST',
+                    headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+                    body: JSON.stringify({
+                      nis: String(nis),
+                      nama: item.nama || '',
+                      kelas: item.kelas || '',
+                      mapel: subj,
+                      kode_pertemuan: pkg,
+                      skor: Number(item.skor) || 0,
+                      jumlah_soal: Number(item.jumlah_soal) || 10,
+                      jumlah_benar: Number(item.jumlah_benar) || 10,
+                      jumlah_salah: Number(item.jumlah_salah) || 0,
+                      durasi_detik: Number(item.durasi_detik) || 60,
+                      jumlah_percobaan: Number(item.jumlah_percobaan) || 1
+                    })
+                  }).catch(() => {});
+                }
+              }
+            });
+          } catch(e) {}
 
           // Perbarui ribbon & panggung soal jika sedang di mode TKA
           if (typeof currentMode !== 'undefined' && currentMode === 'tka') {
