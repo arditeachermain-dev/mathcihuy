@@ -411,8 +411,8 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 4. COMMAND: /progres [nama]
-    if (cmdName === "progres") {
+    // 4. COMMAND: /progres atau /cbt [nama]
+    if (cmdName === "progres" || cmdName === "cbt") {
       const options = data?.options || [];
       const namaOpt = options.find(o => o.name === "nama")?.value;
       let targetNis = null;
