@@ -929,14 +929,21 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (isDone && item.waktu_submit) {
         try {
           const d = new Date(item.waktu_submit);
-          waktuFormatted = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }) + ', ' +
-                           d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+          if (!isNaN(d.getTime())) {
+            waktuFormatted = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }) + ', ' +
+                             d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+          }
         } catch(e) {}
       }
 
-      const mapelBadge = item.mapel === 'minat' ?
-        '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Peminatan</span>' :
-        '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Wajib</span>';
+      let mapelBadge = '';
+      if (item.mapel === 'minat') {
+        mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Peminatan</span>';
+      } else if (item.mapel === 'clil') {
+        mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">CLIL</span>';
+      } else {
+        mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Wajib</span>';
+      }
 
       const subtitle = isDone ?
         `${escapeHtml(item.bab || '')} • Waktu: ${durasiText} • ${attemptsText} • ${waktuFormatted}` :
@@ -957,10 +964,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         </div>`;
 
       const actionBtn = isDone ? `
-        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95" style="background-color: #FFFFFF; color: #2F3437; border: 1px solid #D3CFBE;">
+        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 shadow-sm cursor-pointer" title="Kerjakan ulang paket ${escapeHtml(item.id)}">
           <i class="fa-solid fa-arrow-rotate-right text-[11px]" style="color: #787774;"></i> <span>Ulangi</span>
         </button>` : `
-        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="px-3.5 py-1.5 rounded-lg text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95" style="background-color: #2E384D;">
+        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-primary px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-sm cursor-pointer" title="Mulai kerjakan paket ${escapeHtml(item.id)}">
           <i class="fa-solid fa-play text-[10px]"></i> <span>Kerjakan</span>
         </button>`;
 
@@ -1003,8 +1010,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           const matchId = (item.id || '').toLowerCase().includes(q);
           const matchTitle = (item.title || '').toLowerCase().includes(q);
           const matchBab = (item.bab || '').toLowerCase().includes(q);
-          const matchMapel = (item.mapel || '').toLowerCase().includes(q);
-          if (!matchId && !matchTitle && !matchBab && !matchMapel) return false;
+          const matchMapel = (item.mapel || '').toLowerCase().includes(q) || (item.mapelLabel || '').toLowerCase().includes(q);
+          const matchStatus = (item.status || '').toLowerCase().includes(q);
+          if (!matchId && !matchTitle && !matchBab && !matchMapel && !matchStatus) return false;
         }
 
         return true;
@@ -1029,17 +1037,19 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const btn = document.getElementById(`rapor-tab-${k}`);
         if (!btn) return;
         if (k === filterKey) {
+          btn.classList.add('active');
           btn.style.backgroundColor = '#2E384D';
           btn.style.color = '#FFFFFF';
-          btn.className = 'px-3 py-1.5 rounded-lg font-bold shadow-sm transition whitespace-nowrap cursor-pointer';
+          btn.className = 'notion-btn-tab active px-3 py-1.5 rounded-lg font-bold shadow-sm transition whitespace-nowrap cursor-pointer';
         } else {
+          btn.classList.remove('active');
           btn.style.backgroundColor = 'transparent';
           if (k === 'tuntas') {
             btn.style.color = '#2E7D32';
-            btn.className = 'px-3 py-1.5 rounded-lg hover:bg-[#EDF7ED] transition whitespace-nowrap cursor-pointer font-medium';
+            btn.className = 'notion-btn-tab px-3 py-1.5 rounded-lg hover:bg-[#EDF7ED] transition whitespace-nowrap cursor-pointer font-medium';
           } else {
             btn.style.color = '#787774';
-            btn.className = 'px-3 py-1.5 rounded-lg hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium';
+            btn.className = 'notion-btn-tab px-3 py-1.5 rounded-lg hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium';
           }
         }
       });
@@ -1071,8 +1081,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         }
       }
 
+      const defaultTingkat = (typeof NAMA_TINGKAT !== 'undefined') ? NAMA_TINGKAT : 'XII';
       const nama = (std && std.nama) ? std.nama : ('Siswa ' + targetNis);
-      const kelas = (std && std.kelas) ? std.kelas : 'XII';
+      const kelas = (std && std.kelas) ? std.kelas : defaultTingkat;
 
       const words = nama.trim().split(/\s+/);
       const initials = words.length >= 2 ? (words[0][0] + words[1][0]).toUpperCase() : (words[0].substring(0, 2)).toUpperCase();
@@ -1205,8 +1216,13 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (countAll) countAll.textContent = totalCount;
       const countWajib = document.getElementById('rapor-count-wajib');
       if (countWajib) countWajib.textContent = _raporAllPackages.filter(p => p.mapel === 'wajib').length;
+      const minatCount = _raporAllPackages.filter(p => p.mapel === 'minat').length;
       const countMinat = document.getElementById('rapor-count-minat');
-      if (countMinat) countMinat.textContent = _raporAllPackages.filter(p => p.mapel === 'minat').length;
+      if (countMinat) countMinat.textContent = minatCount;
+      const tabMinat = document.getElementById('rapor-tab-minat');
+      if (tabMinat) {
+        tabMinat.style.display = (minatCount > 0) ? '' : 'none';
+      }
       const countTuntas = document.getElementById('rapor-count-tuntas');
       if (countTuntas) countTuntas.textContent = completedCount;
       const countBelum = document.getElementById('rapor-count-belum');
@@ -1245,10 +1261,13 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function cetakRaporSiswa() {
       document.body.classList.add('rapor-printing');
-      window.print();
-      setTimeout(() => {
+      const cleanup = () => {
         document.body.classList.remove('rapor-printing');
-      }, 1000);
+        window.removeEventListener('afterprint', cleanup);
+      };
+      window.addEventListener('afterprint', cleanup);
+      window.print();
+      setTimeout(cleanup, 2500);
     }
 
     function openRaporModal(targetNis) {

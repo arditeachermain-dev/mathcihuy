@@ -1452,17 +1452,96 @@
         padding: 0 !important;
         overflow: visible !important;
       }
-      body.rapor-printing #rapor-siswa-modal > div {
+      body.rapor-printing #rapor-siswa-modal,
+      body.rapor-printing #rapor-siswa-modal * {
+        overflow: visible !important;
         max-height: none !important;
+      }
+      body.rapor-printing #rapor-siswa-modal > div {
         box-shadow: none !important;
         border: 1px solid #E8E6DF !important;
-        overflow: visible !important;
       }
       body.rapor-printing #rapor-siswa-modal button,
-      body.rapor-printing #rapor-siswa-modal input {
+      body.rapor-printing #rapor-siswa-modal input,
+      body.rapor-printing #rapor-siswa-modal select,
+      body.rapor-printing #rapor-guru-switcher,
+      body.rapor-printing .rapor-toolbar,
+      body.rapor-printing #rapor-toolbar {
         display: none !important;
       }
+      body.rapor-printing #rapor-cards-grid > div {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
     }
+
+    /* ---- Notion Warm Paper Aesthetic Component Styles ---- */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #D3CFBE;
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #B8B4A5;
+    }
+
+    .notion-btn-primary {
+      background-color: #2E384D !important;
+      color: #FFFFFF !important;
+      transition: background-color 0.15s ease, transform 0.1s ease;
+    }
+    .notion-btn-primary:hover {
+      background-color: #1E2533 !important;
+    }
+    .notion-btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .notion-btn-secondary {
+      background-color: #FFFFFF !important;
+      color: #2F3437 !important;
+      border: 1px solid #D3CFBE !important;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+    .notion-btn-secondary:hover {
+      background-color: #F0EFEA !important;
+      border-color: #B8B4A5 !important;
+      color: #1E2533 !important;
+    }
+    .notion-btn-secondary:active {
+      transform: scale(0.97);
+    }
+
+    .notion-btn-tab {
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .notion-btn-tab.active {
+      background-color: #2E384D !important;
+      color: #FFFFFF !important;
+    }
+    .notion-btn-tab:not(.active):hover {
+      background-color: #F0EFEA !important;
+      color: #2F3437 !important;
+    }
+
+    .notion-input {
+      background-color: #FFFFFF !important;
+      border: 1px solid #E8E6DF !important;
+      color: #2F3437 !important;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .notion-input:focus {
+      border-color: #2E384D !important;
+      box-shadow: 0 0 0 1px #2E384D !important;
+      outline: none !important;
+    }
+
 
     /* ---- Mode Presentasi Guru ---- */
     #pres-blackout {

@@ -211,8 +211,8 @@
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openRaporModal()" class="px-3 py-1.5 bg-[#081324] hover:bg-emerald-950/60 text-emerald-400 hover:text-white border border-emerald-500/40 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-1.5 shadow cursor-pointer">
-            <i class="fa-solid fa-graduation-cap text-emerald-400"></i> <span class="hidden sm:inline">Rapor CBT</span>
+          <button onclick="openRaporModal()" class="notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Lihat Rapor Capaian Siswa">
+            <i class="fa-solid fa-graduation-cap text-amber-300"></i> <span class="hidden sm:inline">Rapor Siswa</span>
           </button>
           <button onclick="openAnalyticsModal()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-1.5">
             <i class="fa-solid fa-chart-pie text-blue-400"></i> <span class="hidden sm:inline">Statistik</span>
@@ -1109,15 +1109,15 @@
             </select>
           </div>
 
-          <button type="button" onclick="refreshRaporData(true)" title="Sinkronkan nilai terbaru dari Cloudflare D1" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-sm" style="background-color: #FFFFFF; color: #2F3437; border: 1px solid #D3CFBE;">
+          <button type="button" onclick="refreshRaporData(true)" title="Sinkronkan nilai terbaru dari Cloudflare D1" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
             <i class="fa-solid fa-rotate text-[#787774]"></i> <span class="hidden sm:inline">Sinkron Data</span>
           </button>
 
-          <button type="button" onclick="cetakRaporSiswa()" title="Cetak Rapor Siswa" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-sm" style="background-color: #FFFFFF; color: #2F3437; border: 1px solid #D3CFBE;">
+          <button type="button" onclick="cetakRaporSiswa()" title="Cetak Rapor Siswa" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
             <i class="fa-solid fa-print text-[#787774]"></i> <span class="hidden sm:inline">Cetak</span>
           </button>
 
-          <button type="button" onclick="closeRaporModal()" aria-label="Tutup Rapor" class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition cursor-pointer" style="border: 1px solid #E8E6DF; color: #787774; background-color: #FFFFFF;">
+          <button type="button" onclick="closeRaporModal()" aria-label="Tutup Rapor" class="notion-btn-secondary w-8 h-8 rounded-lg flex items-center justify-center shrink-0 cursor-pointer text-[#787774]">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -1187,28 +1187,28 @@
         </div>
 
         <!-- FILTER TABS & SEARCH BAR -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          <div class="flex items-center gap-1 p-1 rounded-xl border text-xs font-semibold overflow-x-auto custom-scroll shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-            <button type="button" onclick="setRaporFilter('all')" id="rapor-tab-all" class="px-3 py-1.5 rounded-lg text-white font-bold shadow-sm transition whitespace-nowrap cursor-pointer" style="background-color: #2E384D;">
+        <div id="rapor-toolbar" class="rapor-toolbar flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div id="rapor-filter-bar" class="flex items-center gap-1 p-1 rounded-xl border text-xs font-semibold overflow-x-auto custom-scroll shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+            <button type="button" onclick="setRaporFilter('all')" id="rapor-tab-all" class="notion-btn-tab active px-3 py-1.5 rounded-lg text-white font-bold shadow-sm transition whitespace-nowrap cursor-pointer" style="background-color: #2E384D;">
               Semua Paket (<span id="rapor-count-all">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('wajib')" id="rapor-tab-wajib" class="px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
+            <button type="button" onclick="setRaporFilter('wajib')" id="rapor-tab-wajib" class="notion-btn-tab px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
               Matematika Wajib (<span id="rapor-count-wajib">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('minat')" id="rapor-tab-minat" class="px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
+            <button type="button" onclick="setRaporFilter('minat')" id="rapor-tab-minat" class="notion-btn-tab px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
               Matematika Peminatan (<span id="rapor-count-minat">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('tuntas')" id="rapor-tab-tuntas" class="px-3 py-1.5 rounded-lg text-[#2E7D32] hover:bg-[#EDF7ED] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
+            <button type="button" onclick="setRaporFilter('tuntas')" id="rapor-tab-tuntas" class="notion-btn-tab px-3 py-1.5 rounded-lg text-[#2E7D32] hover:bg-[#EDF7ED] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
               <i class="fa-solid fa-circle-check mr-1"></i>Tuntas (<span id="rapor-count-tuntas">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('belum')" id="rapor-tab-belum" class="px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
+            <button type="button" onclick="setRaporFilter('belum')" id="rapor-tab-belum" class="notion-btn-tab px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
               <i class="fa-regular fa-clock mr-1"></i>Belum / Remedial (<span id="rapor-count-belum">0</span>)
             </button>
           </div>
 
           <div class="relative w-full sm:w-72">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[#787774]"></i>
-            <input type="text" id="rapor-search-input" oninput="searchRapor(this.value)" placeholder="Cari kode (P15) atau topik..." class="w-full rounded-xl pl-8 pr-3 py-1.5 text-xs text-[#2F3437] placeholder-[#787774] focus:outline-none transition shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E8E6DF;">
+            <input type="text" id="rapor-search-input" oninput="searchRapor(this.value)" placeholder="Cari kode (P15) atau topik..." class="notion-input w-full rounded-xl pl-8 pr-3 py-1.5 text-xs text-[#2F3437] placeholder-[#787774] transition shadow-sm">
           </div>
         </div>
 
@@ -1226,7 +1226,7 @@
           <span>Data terverifikasi otomatis dengan Serverless Cloudflare D1 SQLite.</span>
         </div>
         <div class="flex items-center gap-2">
-          <button type="button" onclick="closeRaporModal()" class="px-5 py-2 text-white rounded-xl font-semibold shadow-sm transition cursor-pointer" style="background-color: #2E384D;">
+          <button type="button" onclick="closeRaporModal()" class="notion-btn-primary px-5 py-2 text-white rounded-xl font-semibold shadow-sm cursor-pointer">
             Tutup
           </button>
         </div>
