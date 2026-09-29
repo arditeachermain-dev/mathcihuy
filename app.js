@@ -2291,11 +2291,11 @@
         // Tampilkan indikator visual tersimpan sejenak
         const badge = document.getElementById('cbt-autosave-badge');
         if (badge) {
-          badge.innerHTML = '<i class="fa-solid fa-check-double text-emerald-300"></i> <span class="hidden sm:inline">Tersimpan</span>';
-          badge.className = 'text-[11px] font-mono text-emerald-300 bg-emerald-900/80 border border-emerald-400 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow scale-105 transition-all duration-200 cursor-pointer';
+          badge.innerHTML = '<i class="fa-solid fa-check text-xs"></i>';
+          badge.className = 'cbt-autosave-btn text-emerald-300 bg-emerald-900/80 border border-emerald-400 rounded-lg flex items-center justify-center shadow scale-110 transition-all duration-200 cursor-pointer shrink-0';
           setTimeout(() => {
-            badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
-            badge.className = 'text-[11px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-sm transition-all duration-300 cursor-pointer';
+            badge.innerHTML = '<i class="fa-solid fa-check text-xs"></i>';
+            badge.className = 'cbt-autosave-btn text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 rounded-lg flex items-center justify-center shadow-sm transition-all duration-300 hover:bg-emerald-900/60 cursor-pointer shrink-0';
           }, 1200);
         }
       } catch (e) {
@@ -2463,12 +2463,12 @@
 
         const badge = document.getElementById('cbt-autosave-badge');
         if (badge) {
-          badge.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-cyan-400"></i> <span class="hidden sm:inline">Sinkronisasi...</span>';
+          badge.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs text-cyan-400"></i>';
         }
 
         function prosesRestore(rows) {
           if (badge) {
-            badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
+            badge.innerHTML = '<i class="fa-solid fa-check text-xs"></i>';
           }
           if (Array.isArray(rows) && rows.length > 0) {
             const k = getCbtDraftKey(subj, pkgId);
@@ -2515,7 +2515,7 @@
             prosesRestore(data);
           })
           .catch(() => {
-            if (badge) badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> <span class="hidden sm:inline">Auto-Saved</span>';
+            if (badge) badge.innerHTML = '<i class="fa-solid fa-check text-xs"></i>';
           });
       } catch (e) {
         console.warn('Cloud restore draft error:', e);

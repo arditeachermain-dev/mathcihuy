@@ -2578,6 +2578,39 @@ html.terang #tka-stage .text-emerald-400 {
   color: #2E7D32 !important;
 }
 
+/* Compact Auto-Save Checklist Badge (CBT Toolbar) */
+.cbt-autosave-btn,
+#cbt-autosave-badge {
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  min-width: 1.75rem !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 0.5rem !important;
+  transition: all 0.2s ease !important;
+}
+html.terang .cbt-autosave-btn,
+html.terang #cbt-autosave-badge {
+  background-color: #EDF7ED !important;
+  border: 1px solid #C8E6C9 !important;
+  color: #2E7D32 !important;
+}
+html.terang .cbt-autosave-btn:hover,
+html.terang #cbt-autosave-badge:hover {
+  background-color: #E2F0E2 !important;
+  border-color: #A5D6A7 !important;
+}
+html.terang .cbt-autosave-btn i,
+html.terang .cbt-autosave-btn i[class*="fa-"],
+html.terang #cbt-autosave-badge i,
+html.terang #cbt-autosave-badge i[class*="fa-"] {
+  background-color: #2E7D32 !important;
+  color: #2E7D32 !important;
+  fill: #2E7D32 !important;
+}
+
 /* Typography Overrides in Warm Paper Mode (PROTECT DARK BUTTONS, TABS, & BADGES) */
 html.terang .text-white:not(.notion-btn-primary):not(.notion-btn-tab):not(#rapor-student-avatar):not(.tab-active):not(.active-subject-tab):not([id^="tab-"]):not([class*="bg-amber-500"]):not([class*="bg-blue-6"]):not([class*="bg-emerald-6"]):not([class*="bg-rose-"]):not(.text-white-keep) {
   color: #2F3437 !important;
