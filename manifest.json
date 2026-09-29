@@ -1,7 +1,7 @@
 {
-  "name": "Math Cihuy - Portal Matematika Kelas XII",
-  "short_name": "Math Cihuy",
-  "description": "Portal Pembelajaran Matematika Kelas XII Fase F - Kurikulum & Drilling CBT TKA Nasional",
+  "name": "Mathcihuy - Matematika Susah, Tapi Cihuuyy..",
+  "short_name": "Mathcihuy",
+  "description": "Mathcihuy - Matematika Susah, Tapi Cihuuyy.. Portal pembelajaran interaktif dan CBT latihan soal.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#040914",
