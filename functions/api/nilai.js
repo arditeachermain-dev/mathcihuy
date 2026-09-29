@@ -51,7 +51,7 @@ export async function onRequestGet(context) {
       }
 
       const { results } = await context.env.DB.prepare(
-        "SELECT mapel, kode_pertemuan, skor, jumlah_soal, jumlah_benar, waktu_submit FROM nilai_cbt WHERE nis = ?"
+        "SELECT mapel, kode_pertemuan, skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt WHERE nis = ? ORDER BY id ASC"
       ).bind(String(nis)).all();
       return jsonResponse(results || []);
     }

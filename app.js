@@ -1649,7 +1649,7 @@
 
     // Session Management
     const SESSION_KEY = 'portal_session';
-    const SESSION_TIMEOUT = 24 * 60 * 60 * 1000; // 24 jam
+    const SESSION_TIMEOUT = 14 * 24 * 60 * 60 * 1000; // 14 hari (selaras dengan masa aktif token Cloudflare D1)
 
     function getSession() {
         const sess = localStorage.getItem(SESSION_KEY);
@@ -2195,6 +2195,9 @@
           const pickerModal = document.getElementById('meeting-picker-modal');
           if (pickerModal && !pickerModal.classList.contains('hidden') && typeof renderMeetingPicker === 'function') {
             renderMeetingPicker(document.getElementById('picker-search') ? document.getElementById('picker-search').value : '');
+          }
+          if (typeof renderCurriculumDrawer === 'function') {
+            renderCurriculumDrawer();
           }
         }
 
@@ -7712,7 +7715,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           // KONTEN LEVEL 3: PERTEMUAN (P01, P02, dst.)
           mList.forEach(m => {
             totalMeetings++;
-            const hasQuizDone = userSessionScores[`${subj}_${m.id}_0`] !== undefined;
+            const comp = window._cbtCompletedSubmissions && (
+              window._cbtCompletedSubmissions[`${subj}_${m.id}`] ||
+              window._cbtCompletedSubmissions[`${subj}_${m.id.toUpperCase()}`] ||
+              window._cbtCompletedSubmissions[`${subj}_${m.id.toLowerCase()}`]
+            );
+            const hasQuizDone = comp || (userSessionScores && userSessionScores[`${subj}_${m.id}_0`] !== undefined);
             if (hasQuizDone) completedMeetings++;
 
             const sedangDibuka = (currentMode === subj) &&

@@ -1517,8 +1517,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const searchInput = document.getElementById('rapor-search-input');
       if (searchInput) searchInput.value = '';
       _raporSearchQuery = '';
-      const currentSubjectMode = (typeof currentMode !== 'undefined' && (currentMode === 'minat' || currentMode === 'wajib' || currentMode === 'clil')) ? currentMode : 'wajib';
-      setRaporFilter(currentSubjectMode);
+      // Default ke tab 'all' (Semua) agar siswa langsung melihat SELURUH progres belajarnya (Wajib & Peminatan)
+      setRaporFilter('all');
 
       const isGuru = sess && sess.type === 'guru';
       const isSiswa = sess && sess.type === 'siswa';
