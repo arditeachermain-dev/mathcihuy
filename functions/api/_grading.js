@@ -22,11 +22,18 @@ export function evaluateQuestion(q, rawChosen) {
   if (kunci === undefined || kunci === null) return false;
 
   const isNumeric = qType === 'Isian Singkat Numerik' || qType === 'Numeric Entry';
-  const isTF = !isNumeric && (qType === 'Pilihan Benar / Salah' || qType === 'True / False' || (kunci && /^[BS]\s*-\s*[BS]/i.test(String(kunci))));
+  const isTF = !isNumeric && (qType === 'Pilihan Benar / Salah' || qType === 'True / False' || (kunci && /^[BSTF]\s*-\s*[BSTF]/i.test(String(kunci))));
   const isMulti = !isNumeric && !isTF && (qType === 'Pilihan Ganda Kompleks' || qType === 'Multiple Response' || (kunci && String(kunci).includes(',')));
 
   if (isTF) {
-    const correctParts = String(kunci).split('-').map(s => s.trim().toUpperCase()[0]).filter(Boolean);
+    const normalizeTF = (val) => {
+      if (val === undefined || val === null) return '';
+      const c = String(val).trim().toUpperCase()[0];
+      if (c === 'T') return 'B';
+      if (c === 'F') return 'S';
+      return c;
+    };
+    const correctParts = String(kunci).split('-').map(normalizeTF).filter(Boolean);
     if (correctParts.length === 0) return false;
     let userParts = {};
     if (typeof chosen === 'object' && chosen !== null) {
@@ -41,7 +48,7 @@ export function evaluateQuestion(q, rawChosen) {
     for (let i = 0; i < correctParts.length; i++) {
       const uVal = userParts[i] || userParts[String(i)];
       if (!uVal) return false;
-      const uNorm = String(uVal).trim().toUpperCase()[0];
+      const uNorm = normalizeTF(uVal);
       if (uNorm !== correctParts[i]) return false;
     }
     return true;

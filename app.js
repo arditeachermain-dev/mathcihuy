@@ -496,6 +496,7 @@
       isi('opsi-clil', 'CLIL English (' + jml('clil') + ' Unit)');
       isi('butir-wajib-kartu', String(butir('wajib')));
       isi('butir-minat-kartu', String(butir('minat')));
+      isi('butir-clil-kartu', String(butir('clil')));
       // Mapel yang tidak ada di tingkat ini tidak ditawarkan di filter dasbor.
       [['opsi-minat', 'minat'], ['opsi-clil', 'clil']].forEach(function (p) {
         const el = document.getElementById(p[0]);
@@ -2331,12 +2332,19 @@
       if (kunci === undefined || kunci === null) return false;
 
       const isNumeric = (!q.opsi || q.opsi.length === 0) || qType === 'Isian Singkat Numerik' || qType === 'Numeric Entry';
-      const isTF = !isNumeric && (qType === 'Pilihan Benar / Salah' || qType === 'True / False' || (kunci && /^[BS]\s*-\s*[BS]/i.test(String(kunci))));
+      const isTF = !isNumeric && (qType === 'Pilihan Benar / Salah' || qType === 'True / False' || (kunci && /^[BSTF]\s*-\s*[BSTF]/i.test(String(kunci))));
       const isMulti = !isNumeric && !isTF && (qType === 'Pilihan Ganda Kompleks' || qType === 'Multiple Response' || (kunci && String(kunci).includes(',')));
 
       if (isTF) {
         // True / False evaluation
-        const correctParts = String(kunci).split('-').map(s => s.trim().toUpperCase()[0]).filter(Boolean);
+        const normalizeTF = (val) => {
+          if (val === undefined || val === null) return '';
+          const c = String(val).trim().toUpperCase()[0];
+          if (c === 'T') return 'B';
+          if (c === 'F') return 'S';
+          return c;
+        };
+        const correctParts = String(kunci).split('-').map(normalizeTF).filter(Boolean);
         if (correctParts.length === 0) return false;
         
         let userParts = {};
@@ -2353,7 +2361,7 @@
         for (let i = 0; i < correctParts.length; i++) {
           const uVal = userParts[i] || userParts[String(i)];
           if (!uVal) return false;
-          const uNorm = String(uVal).trim().toUpperCase()[0];
+          const uNorm = normalizeTF(uVal);
           const expected = correctParts[i];
           if (uNorm !== expected) return false;
         }
@@ -3151,41 +3159,41 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         '<div class="lk-kop">' +
           '<span class="lk-logo"></span>' +
           '<div class="lk-kop-t">' +
-            '<div class="lk-sekolah">SMA GLOBAL ISLAMIC SCHOOL 2 SERPONG</div>' +
-            '<div class="lk-alamat">Jalan Raya Serpong &middot; Tangerang Selatan, Banten &middot; Tahun Pelajaran 2026/2027</div>' +
-            '<div class="lk-judul">LEMBAR KERJA PESERTA DIDIK (LKPD)</div>' +
+            '<div class="lk-sekolah">' + (isClil ? 'GIS 2 SERPONG SENIOR HIGH SCHOOL' : 'SMA GLOBAL ISLAMIC SCHOOL 2 SERPONG') + '</div>' +
+            '<div class="lk-alamat">' + (isClil ? 'Jalan Raya Serpong &middot; South Tangerang, Banten &middot; Academic Year 2026/2027' : 'Jalan Raya Serpong &middot; Tangerang Selatan, Banten &middot; Tahun Pelajaran 2026/2027') + '</div>' +
+            '<div class="lk-judul">' + (isClil ? 'STUDENT ACTIVITY WORKSHEET (LKPD)' : 'LEMBAR KERJA PESERTA DIDIK (LKPD)') + '</div>' +
           '</div>' +
         '</div>' +
 
         '<table class="lk-id"><tbody>' +
-          '<tr><td class="lk-k">Nama</td><td class="lk-isi"></td><td class="lk-k">Kelas</td><td class="lk-isi lk-kecil"></td></tr>' +
-          '<tr><td class="lk-k">Kelompok</td><td class="lk-isi"></td><td class="lk-k">Tanggal</td><td class="lk-isi lk-kecil"></td></tr>' +
+          '<tr><td class="lk-k">' + (isClil ? 'Name' : 'Nama') + '</td><td class="lk-isi"></td><td class="lk-k">' + (isClil ? 'Grade' : 'Kelas') + '</td><td class="lk-isi lk-kecil"></td></tr>' +
+          '<tr><td class="lk-k">' + (isClil ? 'Group' : 'Kelompok') + '</td><td class="lk-isi"></td><td class="lk-k">' + (isClil ? 'Date' : 'Tanggal') + '</td><td class="lk-isi lk-kecil"></td></tr>' +
         '</tbody></table>' +
 
         '<table class="lk-meta"><tbody>' +
-          '<tr><td class="lk-k">Mata Pelajaran</td><td>' + lkpdEsc(streamNama) + '</td></tr>' +
-          '<tr><td class="lk-k">Bab</td><td>' + lkpdEsc(m.bab || '-') + '</td></tr>' +
-          '<tr><td class="lk-k">Pertemuan</td><td><b>' + lkpdEsc(m.id) + '</b> &mdash; ' + lkpdEsc(m.title) + '</td></tr>' +
-          '<tr><td class="lk-k">Metode</td><td>' + lkpdEsc(isClil ? (ped.name_en || ped.name) : ped.name) +
+          '<tr><td class="lk-k">' + (isClil ? 'Subject' : 'Mata Pelajaran') + '</td><td>' + lkpdEsc(streamNama) + '</td></tr>' +
+          '<tr><td class="lk-k">' + (isClil ? 'Unit / Chapter' : 'Bab') + '</td><td>' + lkpdEsc(m.bab || '-') + '</td></tr>' +
+          '<tr><td class="lk-k">' + (isClil ? 'Lesson' : 'Pertemuan') + '</td><td><b>' + lkpdEsc(m.id) + '</b> &mdash; ' + lkpdEsc(m.title) + '</td></tr>' +
+          '<tr><td class="lk-k">' + (isClil ? 'Pedagogy' : 'Metode') + '</td><td>' + lkpdEsc(isClil ? (ped.name_en || ped.name) : ped.name) +
             ' (' + lkpdEsc(isClil ? (ped.tag_en || ped.tag) : ped.tag) + ')</td></tr>' +
         '</tbody></table>' +
 
-        '<h2 class="lk-h">A. Tujuan Pembelajaran</h2>' +
+        '<h2 class="lk-h">' + (isClil ? 'A. Learning Objectives' : 'A. Tujuan Pembelajaran') + '</h2>' +
         '<ol class="lk-ol">' + (m.obj || []).map(function (o) { return '<li>' + o + '</li>'; }).join('') + '</ol>' +
 
-        '<h2 class="lk-h">B. Rumus &amp; Kaidah Kunci</h2>' +
+        '<h2 class="lk-h">' + (isClil ? 'B. Core Formulas &amp; Key Theorems' : 'B. Rumus &amp; Kaidah Kunci') + '</h2>' +
         '<div class="lk-rumus">' + (m.toolkit || []).map(function (f) {
           return '<div class="lk-rumus-b"><span class="lk-rumus-n">' + lkpdEsc(f.name) + '</span>' +
                  '<div class="lk-rumus-m">' + f.math + '</div></div>';
         }).join('') + '</div>' +
 
-        '<h2 class="lk-h">C. Petunjuk Kolaborasi</h2>' +
+        '<h2 class="lk-h">' + (isClil ? 'C. Collaborative Learning Protocol' : 'C. Petunjuk Kolaborasi') + '</h2>' +
         '<ol class="lk-ol lk-ol-tebal">' + langkah.map(function (t) {
           return '<li><b>' + t.num + '</b> &mdash; ' + t.text + '</li>';
         }).join('') + '</ol>' +
         '<p class="lk-tip">' + (isClil ? (ped.tip_en || ped.tip) : ped.tip) + '</p>' +
 
-        '<h2 class="lk-h lk-break">D. Tugas Kolaborasi Kelompok</h2>' +
+        '<h2 class="lk-h lk-break">' + (isClil ? 'D. Group Collaborative Tasks' : 'D. Tugas Kolaborasi Kelompok') + '</h2>' +
         kasus.map(function (q, i) {
           const bersih = q.replace(/^\[[A-Za-z0-9_.-]+\]\s*/, '');
           return '<div class="lk-soal">' +
@@ -3194,7 +3202,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           '</div>';
         }).join('') +
 
-        (latihan.length ? ('<h2 class="lk-h lk-break">E. Latihan Mandiri</h2>' +
+        (latihan.length ? ('<h2 class="lk-h lk-break">' + (isClil ? 'E. Independent Practice Problems' : 'E. Latihan Mandiri') + '</h2>' +
           latihan.map(function (q, i) {
             const t = String(q.tanya || '').replace(/^\[[A-Za-z0-9_.-]+\]\s*/, '');
             return '<div class="lk-soal">' +
@@ -3204,13 +3212,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           }).join('')) : '') +
 
         '<div class="lk-ttd">' +
-          '<div><div class="lk-ttd-l">Nilai</div><div class="lk-kotak"></div></div>' +
-          '<div><div class="lk-ttd-l">Tangerang Selatan, ' + lkpdTanggal() + '</div>' +
-            '<div class="lk-ttd-r">Guru Pengampu</div><div class="lk-ttd-sp"></div>' +
+          '<div><div class="lk-ttd-l">' + (isClil ? 'Grade / Score' : 'Nilai') + '</div><div class="lk-kotak"></div></div>' +
+          '<div><div class="lk-ttd-l">' + (isClil ? 'South Tangerang, ' : 'Tangerang Selatan, ') + lkpdTanggal() + '</div>' +
+            '<div class="lk-ttd-r">' + (isClil ? 'Mathematics Instructor' : 'Guru Pengampu') + '</div><div class="lk-ttd-sp"></div>' +
             '<div class="lk-ttd-n">Muhammad Ardiansyah, S.Pd.Gr.</div></div>' +
         '</div>' +
-        '<div class="lk-kaki">LKPD ' + lkpdEsc(m.id) + ' &middot; ' + lkpdEsc(streamNama) +
-          ' &middot; SMA Global Islamic School 2 Serpong</div>';
+        '<div class="lk-kaki">' + (isClil ? 'Worksheet' : 'LKPD') + ' ' + lkpdEsc(m.id) + ' &middot; ' + lkpdEsc(streamNama) +
+          ' &middot; ' + (isClil ? 'GIS 2 Serpong Senior High School' : 'SMA Global Islamic School 2 Serpong') + '</div>';
 
       if (window.renderMathInElement) {
         try {
@@ -4047,9 +4055,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           badgePill2 = { icon: 'fa-solid fa-arrow-trend-up', text: 'Optimasi & Ekstrim' };
           if (!topicTagline) topicTagline = '✨ Laju Perubahan Sesaat, Aturan Rantai Diferensiasi, & Pemodelan Optimasi Ekstrim';
         } else if (mBabUpper.includes('INTEGRAL') || mTitleUpper.includes('INTEGRAL') || mTitleUpper.includes('LUAS') || mTitleUpper.includes('VOLUME')) {
-          badgePill1 = { icon: 'fa-solid fa-shapes', text: 'Kalkulus Integral' };
-          badgePill2 = { icon: 'fa-solid fa-rotate', text: 'Volume Benda Putar' };
-          if (!topicTagline) topicTagline = '✨ Akumulasi Kontinu, Antiturunan Terstruktur, & Kalkulasi Luas/Volume Benda Putar';
+          badgePill1 = { icon: 'fa-solid fa-shapes', text: isClil ? 'Integral Calculus' : 'Kalkulus Integral' };
+          badgePill2 = { icon: 'fa-solid fa-rotate', text: isClil ? 'Solids of Revolution' : 'Volume Benda Putar' };
+          badgePill3 = { icon: 'fa-solid fa-bullseye', text: isClil ? 'Cambridge & AP Standard' : 'Standar UTBK-SNBT' };
+          if (!topicTagline) topicTagline = isClil ? '✨ Continuous Accumulation, Analytical Antiderivatives, & Geometric Modeling' : '✨ Akumulasi Kontinu, Antiturunan Terstruktur, & Kalkulasi Luas/Volume Benda Putar';
         }
 
         if (!topicTagline) {
@@ -4068,13 +4077,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             <!-- 1. TOP METADATA PILLS -->
             <div class="flex flex-wrap items-center justify-center gap-2 relative z-10 shrink-0">
               <span class="px-3 py-1 rounded-full bg-blue-600/20 text-blue-300 border border-blue-500/40 text-[11px] font-mono font-black flex items-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-graduation-cap text-amber-400"></i> FASE F &middot; KELAS XII
+                <i class="fa-solid fa-graduation-cap text-amber-400"></i> ${isClil ? 'PHASE F &middot; GRADE XII' : 'FASE F &middot; KELAS XII'}
               </span>
               <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 text-[11px] font-mono font-bold shadow-sm">
                 ${babLabel} &middot; ${m.id}
               </span>
               <span class="px-3 py-1 rounded-full bg-[#081324] text-slate-300 border border-blue-900 text-[11px] font-mono font-semibold">
-                12 Slide Alur KBM
+                ${isClil ? '12-Slide Instructional Sequence' : '12 Slide Alur KBM'}
               </span>
             </div>
 
@@ -4112,12 +4121,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </div>
                   <div>
                     <strong class="text-white block font-bold text-xs md:text-sm">Muhammad Ardiansyah, S.Pd.Gr.</strong>
-                    <span class="text-[11px] text-slate-400">Guru Pengampu Matematika</span>
+                    <span class="text-[11px] text-slate-400">${isClil ? 'Mathematics Instructor' : 'Guru Pengampu Matematika'}</span>
                   </div>
                 </div>
                 <div class="text-right border-l border-blue-900/60 pl-4">
-                  <span class="text-xs text-slate-200 font-bold block">SMA Global Islamic School 2 Serpong</span>
-                  <span class="text-[10px] text-amber-400/90 font-mono">Tahun Pelajaran 2026/2027</span>
+                  <span class="text-xs text-slate-200 font-bold block">${isClil ? 'GIS 2 Serpong Senior High School' : 'SMA Global Islamic School 2 Serpong'}</span>
+                  <span class="text-[10px] text-amber-400/90 font-mono">${isClil ? 'Academic Year 2026/2027' : 'Tahun Pelajaran 2026/2027'}</span>
                 </div>
               </div>
             </div>
@@ -4169,7 +4178,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </div>
                 </div>
                 <span class="px-2.5 py-1 rounded-lg bg-[#060D1A] border border-amber-500/30 text-amber-300 text-xs font-mono font-bold shrink-0">
-                  ${formulas.length} Kaidah
+                  ${formulas.length} ${isClil ? (formulas.length === 1 ? 'Rule' : 'Rules') : 'Kaidah'}
                 </span>
               </div>
               
@@ -4191,13 +4200,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                     <span class="text-xs font-bold text-amber-300 font-mono uppercase tracking-wider flex items-center gap-1.5">
                       <i class="fa-solid fa-cube"></i> ${isClil ? 'Interactive Visualizer' : 'Visualisasi Geometri 3D'}
                     </span>
-                    ${toolkitSvg ? `<button type="button" onclick="toggleToolkitSvg()" class="text-[10px] text-slate-400 hover:text-white font-mono underline cursor-pointer">gambar diam</button>` : ''}
+                    ${toolkitSvg ? `<button type="button" onclick="toggleToolkitSvg()" class="text-[10px] text-slate-400 hover:text-white font-mono underline cursor-pointer">${isClil ? 'static diagram' : 'gambar diam'}</button>` : ''}
                   </div>
                   <div id="lab-inline-host" class="flex-1 min-h-[180px] flex items-center justify-center"></div>
                   ${toolkitSvg ? `<div id="toolkit-svg-box" class="hidden bg-[#081324] p-2 rounded-xl border border-blue-900/60 flex items-center justify-center">${toolkitSvg}</div>` : ''}
                   <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-blue-900/40">
-                    <span>Rotasi: <b>360°</b></span>
-                    <span class="text-amber-300">Sentuh/geser bangun</span>
+                    <span>${isClil ? 'Rotation' : 'Rotasi'}: <b>360°</b></span>
+                    <span class="text-amber-300">${isClil ? 'Touch/drag 3D model' : 'Sentuh/geser bangun'}</span>
                   </div>
                 </div>
               </div>
@@ -4531,12 +4540,36 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const unansEl = document.getElementById('cbt-confirm-unanswered');
       if (unansEl) unansEl.innerText = `${unansweredCount}`;
 
+      const isClilSubj = tkaSubj === 'clil';
+      const modalHeaderEl = document.querySelector('#cbt-submit-confirm-modal h3');
+      if (modalHeaderEl) modalHeaderEl.innerText = isClilSubj ? 'Confirm Assessment Submission' : 'Konfirmasi Pengumpulan Ujian';
+
+      const statLabels = document.querySelectorAll('#cbt-submit-confirm-modal .grid span.text-\\[10px\\]');
+      if (statLabels && statLabels.length >= 2) {
+        statLabels[0].innerText = isClilSubj ? 'Answered' : 'Sudah Dijawab';
+        statLabels[1].innerText = isClilSubj ? 'Unanswered' : 'Belum Terisi';
+      }
+
+      const modalBtns = document.querySelectorAll('#cbt-submit-confirm-modal .flex.items-center.gap-3 button');
+      if (modalBtns && modalBtns.length >= 2) {
+        modalBtns[0].innerHTML = `<i class="fa-solid fa-arrow-left"></i> ${isClilSubj ? 'Review Answers' : 'Periksa Lagi'}`;
+        modalBtns[1].innerHTML = `<i class="fa-solid fa-paper-plane text-amber-300"></i> ${isClilSubj ? 'Yes, Submit!' : 'Ya, Kumpulkan!'}`;
+      }
+
       const msgEl = document.getElementById('cbt-confirm-msg');
       if (msgEl) {
-        if (unansweredCount === 0) {
-          msgEl.innerHTML = '<span class="text-emerald-300 font-bold">✨ Hebat!</span> Seluruh ' + totalQ + ' butir soal telah kamu jawab lengkap. Siap mengumpulkan dan melihat skor akhir?';
+        if (isClilSubj) {
+          if (unansweredCount === 0) {
+            msgEl.innerHTML = '<span class="text-emerald-300 font-bold">✨ Excellent!</span> You have answered all ' + totalQ + ' questions. Ready to submit and view your final scorecard?';
+          } else {
+            msgEl.innerHTML = '<span class="text-amber-400 font-bold">⚠️ Notice:</span> You still have <b>' + unansweredCount + ' unanswered question(s)</b>. Are you sure you want to submit now?';
+          }
         } else {
-          msgEl.innerHTML = '<span class="text-amber-400 font-bold">⚠️ Perhatian:</span> Masih ada <b>' + unansweredCount + ' soal</b> yang belum kamu isi. Apakah kamu yakin ingin mengumpulkan sekarang?';
+          if (unansweredCount === 0) {
+            msgEl.innerHTML = '<span class="text-emerald-300 font-bold">✨ Hebat!</span> Seluruh ' + totalQ + ' butir soal telah kamu jawab lengkap. Siap mengumpulkan dan melihat skor akhir?';
+          } else {
+            msgEl.innerHTML = '<span class="text-amber-400 font-bold">⚠️ Perhatian:</span> Masih ada <b>' + unansweredCount + ' soal</b> yang belum kamu isi. Apakah kamu yakin ingin mengumpulkan sekarang?';
+          }
         }
       }
 
@@ -4619,29 +4652,67 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const badgeEl = document.getElementById('scorecard-badge');
       const predEl = document.getElementById('scorecard-predicate');
 
+      const isClil = tkaSubj === 'clil';
+      const modal = document.getElementById('tka-scorecard-modal');
+      if (modal) {
+        const topBadge = modal.querySelector('span.uppercase');
+        if (topBadge) topBadge.innerText = isClil ? 'CBT DRILLING ASSESSMENT RESULTS' : 'HASIL ASESMEN DRILLING CBT TKA NASIONAL';
+        
+        const subtitle = modal.querySelector('p.text-slate-400');
+        if (subtitle) subtitle.innerText = isClil ? 'Math Cihuy • Phase F Grade XII' : 'Math Cihuy • Kelas XII Fase F';
+
+        const scoreLabel = modal.querySelector('#scorecard-badge span.uppercase');
+        if (scoreLabel) scoreLabel.innerText = isClil ? 'FINAL SCORE' : 'SKOR AKHIR';
+
+        const statCols = modal.querySelectorAll('.grid-cols-3 > div');
+        if (statCols && statCols.length >= 3) {
+          const l0 = statCols[0].querySelector('span.text-\\[10px\\]');
+          if (l0) l0.innerText = isClil ? 'CORRECT' : 'BENAR';
+          const l1 = statCols[1].querySelector('span.text-\\[10px\\]');
+          if (l1) l1.innerText = isClil ? 'INCORRECT' : 'SALAH';
+          const l2 = statCols[2].querySelector('span.text-\\[10px\\]');
+          if (l2) l2.innerText = isClil ? 'TIME / QUESTION' : 'WAKTU / SOAL';
+          const t2 = statCols[2].querySelector('span.font-mono');
+          if (t2) t2.innerText = isClil ? '3 Mins' : '3 Menit';
+        }
+
+        const matrixHeader = modal.querySelector('.space-y-1\\.5 > span');
+        if (matrixHeader) {
+          matrixHeader.innerHTML = isClil 
+            ? '<i class="fa-solid fa-list-ol text-amber-400"></i> Question Status (Click number to Review):' 
+            : '<i class="fa-solid fa-list-ol text-amber-400"></i> Status Butir Soal (Klik nomor untuk Review):';
+        }
+
+        const actionBtns = modal.querySelectorAll('.flex.items-center.gap-2.pt-2 button');
+        if (actionBtns && actionBtns.length >= 2) {
+          actionBtns[0].innerHTML = `<i class="fa-solid fa-rotate-left"></i> ${isClil ? 'Retake This Unit' : 'Ulangi Paket Ini'}`;
+          actionBtns[1].innerHTML = `<i class="fa-solid fa-book-open"></i> ${isClil ? 'Review Solutions' : 'Review Pembahasan'}`;
+        }
+      }
+
       if (score >= 85) {
         if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
         if (predEl) {
-          predEl.innerText = "🏆 Mantap! Kompetensi Tercapai Maksimal!";
+          predEl.innerText = isClil ? "🏆 Excellent! Maximum Mastery Achieved!" : "🏆 Mantap! Kompetensi Tercapai Maksimal!";
           predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
         }
         confettiCelebration();
       } else if (score >= 70) {
         if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
         if (predEl) {
-          predEl.innerText = "✨ Sangat Baik! Kuasai beberapa detail lagi.";
+          predEl.innerText = isClil ? "✨ Very Good! Minor review recommended." : "✨ Sangat Baik! Kuasai beberapa detail lagi.";
           predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
         }
       } else if (score >= 50) {
         if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
         if (predEl) {
-          predEl.innerText = "💡 Cukup Baik! Bedah bagian pembahasan di bawah.";
+          predEl.innerText = isClil ? "💡 Good Effort! Review the worked solutions below." : "💡 Cukup Baik! Bedah bagian pembahasan di bawah.";
           predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
         }
       } else {
         if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
         if (predEl) {
-          predEl.innerText = "📚 Perlu Penguatan! Review pembahasan lengkap.";
+          predEl.innerText = isClil ? "📚 Needs Reinforcement! Study full worked solutions." : "📚 Perlu Penguatan! Review pembahasan lengkap.";
           predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
         }
       }
@@ -4660,11 +4731,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           if (attemptNum > 1 && prevScore !== null) {
             const pVal = parseInt(prevScore, 10);
             const diff = score - pVal;
-            const diffText = diff > 0 ? `(Meningkat +${diff} Poin! 📈)` : diff === 0 ? `(Skor Stabil)` : `(Turun ${diff} Poin)`;
-            attemptTextEl.innerHTML = `Percobaan ke-${attemptNum} • Sebelumnya: ${pVal} ➔ Sekarang: ${score} ${diffText}`;
+            const diffText = diff > 0 ? (isClil ? `(+${diff} Pts Improvement! 📈)` : `(Meningkat +${diff} Poin! 📈)`) : diff === 0 ? (isClil ? `(Score Stable)` : `(Skor Stabil)`) : (isClil ? `(-${Math.abs(diff)} Pts)` : `(Turun ${diff} Poin)`);
+            attemptTextEl.innerHTML = isClil ? `Attempt #${attemptNum} • Previous: ${pVal} ➔ Current: ${score} ${diffText}` : `Percobaan ke-${attemptNum} • Sebelumnya: ${pVal} ➔ Sekarang: ${score} ${diffText}`;
             attemptBadgeEl.className = "text-[11px] text-cyan-300 font-mono text-center font-bold px-3.5 py-1.5 rounded-xl bg-slate-950/90 border border-cyan-500/40 flex items-center justify-center gap-1.5 shadow-md";
           } else {
-            attemptTextEl.innerHTML = `Percobaan ke-${attemptNum} • Pengerjaan Mandiri`;
+            attemptTextEl.innerHTML = isClil ? `Attempt #${attemptNum} • Independent Practice` : `Percobaan ke-${attemptNum} • Pengerjaan Mandiri`;
             attemptBadgeEl.className = "text-[11px] text-slate-300 font-mono text-center font-bold px-3.5 py-1 rounded-xl bg-slate-950/80 border border-slate-700 flex items-center justify-center gap-1.5 shadow-sm";
           }
         }
@@ -4697,7 +4768,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         }
       }
 
-      const modal = document.getElementById('tka-scorecard-modal');
       if (modal) modal.classList.remove('hidden');
     }
 
@@ -4764,13 +4834,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         if (isReviewMode) {
           actionBtn.className = "px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-400 text-white font-black rounded-xl text-xs shadow-lg flex items-center gap-1.5 active:scale-95 transition cursor-pointer border border-emerald-400/40";
           if (actionIcon) actionIcon.className = "fa-solid fa-chart-pie text-amber-300";
-          actionText.innerText = "Lihat Skor Akhir";
+          actionText.innerText = tkaSubj === 'clil' ? "View Scorecard" : "Lihat Skor Akhir";
         } else {
           actionBtn.className = "px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 text-white font-black rounded-xl text-xs shadow-lg flex items-center gap-1.5 active:scale-95 transition cursor-pointer border border-blue-400/40";
           if (actionIcon) actionIcon.className = "fa-solid fa-paper-plane text-amber-300";
-          actionText.innerText = "Kumpulkan Ujian";
+          actionText.innerText = tkaSubj === 'clil' ? "Submit Test" : "Kumpulkan Ujian";
         }
       }
+
+      const prevSpan = document.querySelector('button[onclick="prevTkaQ()"] span');
+      if (prevSpan) prevSpan.innerText = tkaSubj === 'clil' ? 'Previous' : 'Sebelumnya';
+      const nextSpan = document.querySelector('button[onclick="nextTkaQ()"] span');
+      if (nextSpan) nextSpan.innerText = tkaSubj === 'clil' ? 'Next' : 'Berikutnya';
 
       // Render Question Nav Pills
       const pillsContainer = document.getElementById('tka-q-pills');
@@ -4862,10 +4937,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </div>
                   <div class="flex items-center gap-2 shrink-0 self-end md:self-center">
                     <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B', event)`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${bClass} transition shadow cursor-pointer">
-                      <i class="fa-solid fa-check text-amber-400 mr-1.5"></i> BENAR
+                      <i class="fa-solid fa-check text-amber-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE' : 'BENAR'}
                     </button>
                     <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S', event)`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${sClass} transition shadow cursor-pointer">
-                      <i class="fa-solid fa-xmark text-amber-400 mr-1.5"></i> SALAH
+                      <i class="fa-solid fa-xmark text-amber-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE' : 'SALAH'}
                     </button>
                   </div>
                 </div>
@@ -4874,7 +4949,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             ${!isReviewMode ? `
               <p id="tf-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
               <button id="tf-submit" onclick="submitTfAnswer(event, ${statements.length})" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2 mt-2">
-                <i class="fa-solid fa-circle-check"></i> SIMPAN JAWABAN BENAR / SALAH
+                <i class="fa-solid fa-circle-check"></i> ${tkaSubj === 'clil' ? 'SUBMIT TRUE / FALSE ANSWERS' : 'SIMPAN JAWABAN BENAR / SALAH'}
               </button>
             ` : ''}
           </div>
@@ -4884,7 +4959,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         optionsHtml = `
           <div class="space-y-3">
             <div class="p-2.5 bg-blue-950/40 border border-blue-500/30 rounded-xl text-xs text-blue-300 font-bold flex items-center gap-2">
-              <i class="fa-solid fa-square-check text-blue-400"></i> Pilihan Ganda Kompleks: Pilih semua pernyataan yang bernilai BENAR!
+              <i class="fa-solid fa-square-check text-blue-400"></i> ${tkaSubj === 'clil' ? 'Multiple Response: Select all statements that are TRUE!' : 'Pilihan Ganda Kompleks: Pilih semua pernyataan yang bernilai BENAR!'}
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
               ${q.opsi.map((opt, i) => {
@@ -4902,12 +4977,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   if (isCorrectLetter) {
                     btnStyle = "bg-emerald-950/90 border-2 border-emerald-400 text-white font-semibold";
                     chkStyle = "bg-emerald-600 border-emerald-400 text-white font-black";
-                    markBadge = '<span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black"><i class="fa-solid fa-check mr-1"></i>BENAR</span>';
+                    markBadge = `<span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black"><i class="fa-solid fa-check mr-1"></i>${tkaSubj === 'clil' ? 'TRUE' : 'BENAR'}</span>`;
                   }
                 } else if (isPicked) {
                   btnStyle = "bg-blue-900/60 border-2 border-blue-400 text-white shadow-lg shadow-blue-900/40";
                   chkStyle = "bg-blue-600 border border-blue-400 text-white font-bold";
-                  markBadge = '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-square-check text-amber-300"></i> Terpilih</span>';
+                  markBadge = `<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-square-check text-amber-300"></i> ${tkaSubj === 'clil' ? 'Selected' : 'Terpilih'}</span>`;
                 }
 
                 return `
@@ -4924,7 +4999,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             ${!isReviewMode ? `
               <p id="multi-hint" class="hidden text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-xl px-3 py-2"></p>
               <button id="multi-submit" onclick="submitMultiAnswer(event)" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-check-double"></i> SIMPAN PILIHAN JAWABAN
+                <i class="fa-solid fa-check-double"></i> ${tkaSubj === 'clil' ? 'SAVE MULTIPLE SELECTIONS' : 'SIMPAN PILIHAN JAWABAN'}
               </button>
             ` : ''}
           </div>
@@ -4935,11 +5010,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             <span class="text-xs font-bold text-amber-300 uppercase block">${tkaSubj === 'clil' ? 'Numeric Entry:' : 'Isian Singkat Numerik:'}</span>
             <input type="text" id="numeric-input" oninput="saveNumericDraft(this.value)" value="${isReviewMode ? String(q.kunci) : (userChosen || '')}" ${isReviewMode ? 'readonly' : ''} class="w-full ${isReviewMode ? 'bg-emerald-950 border-2 border-emerald-400 text-white' : 'bg-slate-950 border-slate-700 text-white'} border rounded-2xl py-3 px-4 text-center text-lg font-mono font-bold focus:outline-none focus:border-amber-400 shadow-inner">
             ${isReviewMode ? `
-              <p class="text-xs text-emerald-300 font-bold">Kunci Jawaban Tepat: <span class="font-mono text-white text-sm">${q.kunci}</span></p>
+              <p class="text-xs text-emerald-300 font-bold">${tkaSubj === 'clil' ? 'Exact Answer Key:' : 'Kunci Jawaban Tepat:'} <span class="font-mono text-white text-sm">${q.kunci}</span></p>
             ` : `
-              <p class="text-[11px] text-slate-400 leading-relaxed">Boleh desimal maupun pecahan (contoh: <span class="font-mono text-slate-300">0.75</span> atau <span class="font-mono text-slate-300">3/4</span>).</p>
+              <p class="text-[11px] text-slate-400 leading-relaxed">${tkaSubj === 'clil' ? 'Decimals or fractions allowed (e.g. 0.75 or 3/4).' : 'Boleh desimal maupun pecahan (contoh: <span class="font-mono text-slate-300">0.75</span> atau <span class="font-mono text-slate-300">3/4</span>).'}</p>
               <button id="numeric-submit" onclick="submitNumericAnswer(event)" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-paper-plane"></i> SIMPAN JAWABAN NUMERIK
+                <i class="fa-solid fa-paper-plane"></i> ${tkaSubj === 'clil' ? 'SUBMIT NUMERIC ANSWER' : 'SIMPAN JAWABAN NUMERIK'}
               </button>
             `}
           </div>
@@ -4965,19 +5040,19 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 if (letter === correctLetter) {
                   btnClass = "p-3.5 md:p-4 bg-emerald-950/90 border-2 border-emerald-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-emerald-950/50";
                   if (userChosen === correctLetter) {
-                    badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> JAWABAN ANDA TEPAT (+10)</span>';
+                    badgeHtml = `<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> ${tkaSubj === 'clil' ? 'YOUR ANSWER IS CORRECT (+10)' : 'JAWABAN ANDA TEPAT (+10)'}</span>`;
                   } else {
-                    badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-check"></i> KUNCI JAWABAN BENAR</span>';
+                    badgeHtml = `<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-check"></i> ${tkaSubj === 'clil' ? 'CORRECT ANSWER KEY' : 'KUNCI JAWABAN BENAR'}</span>`;
                   }
                 } else if (userChosen === letter) {
                   btnClass = "p-3.5 md:p-4 bg-rose-950/90 border-2 border-rose-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-rose-950/50";
-                  badgeHtml = '<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-xmark"></i> JAWABAN ANDA</span>';
+                  badgeHtml = `<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-xmark"></i> ${tkaSubj === 'clil' ? 'YOUR ANSWER' : 'JAWABAN ANDA'}</span>`;
                 } else {
                   btnClass = "p-3.5 md:p-4 bg-slate-900/60 border border-slate-800 rounded-2xl text-left text-sm text-slate-400 flex items-start gap-3 opacity-60";
                 }
               } else if (userChosen === letter) {
                 btnClass = "p-3.5 md:p-4 bg-blue-900/60 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-blue-900/40";
-                badgeHtml = '<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-circle-check text-amber-300"></i> Terpilih</span>';
+                badgeHtml = `<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-circle-check text-amber-300"></i> ${tkaSubj === 'clil' ? 'Selected' : 'Terpilih'}</span>`;
               }
 
               return `
@@ -4998,7 +5073,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const compRec = window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${tkaSubj}_${tkaPkgId}`];
       let completedBannerHtml = '';
       if (compRec) {
-        const waktuStr = compRec.waktu_submit ? new Date(compRec.waktu_submit).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : 'Tersimpan';
+        const waktuStr = compRec.waktu_submit ? new Date(compRec.waktu_submit).toLocaleString(tkaSubj === 'clil' ? 'en-US' : 'id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : (tkaSubj === 'clil' ? 'Saved' : 'Tersimpan');
         const skorVal = Number(compRec.skor) || 0;
         const skorBadgeClass = skorVal >= 85 ? 'bg-emerald-500 text-slate-950 font-black' : (skorVal >= 70 ? 'bg-blue-500 text-white font-bold' : 'bg-amber-500 text-slate-950 font-black');
         completedBannerHtml = `
@@ -5009,25 +5084,25 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               </div>
               <div class="min-w-0">
                 <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-xs md:text-sm font-black text-emerald-300 uppercase tracking-wide">Tugas CBT Ini Sudah Selesai</span>
-                  <span class="px-2.5 py-0.5 rounded-lg ${skorBadgeClass} text-[11px] font-mono shadow">Nilai Resmi: ${skorVal}/100</span>
-                  <span class="px-2 py-0.5 rounded-md bg-emerald-900/80 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold">Status: Tuntas</span>
+                  <span class="text-xs md:text-sm font-black text-emerald-300 uppercase tracking-wide">${tkaSubj === 'clil' ? 'This CBT Assessment is Completed' : 'Tugas CBT Ini Sudah Selesai'}</span>
+                  <span class="px-2.5 py-0.5 rounded-lg ${skorBadgeClass} text-[11px] font-mono shadow">${tkaSubj === 'clil' ? 'Official Score' : 'Nilai Resmi'}: ${skorVal}/100</span>
+                  <span class="px-2 py-0.5 rounded-md bg-emerald-900/80 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold">${tkaSubj === 'clil' ? 'Status: Completed' : 'Status: Tuntas'}</span>
                 </div>
                 <p class="text-[11px] text-slate-300 mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                  <span><i class="fa-regular fa-clock text-emerald-400 mr-1"></i>Dikumpulkan: ${waktuStr}</span>
+                  <span><i class="fa-regular fa-clock text-emerald-400 mr-1"></i>${tkaSubj === 'clil' ? 'Submitted' : 'Dikumpulkan'}: ${waktuStr}</span>
                   <span class="text-slate-600">&bull;</span>
-                  <span><i class="fa-solid fa-square-check text-emerald-400 mr-1"></i>${compRec.jumlah_benar ?? '-'} Benar dari ${compRec.jumlah_soal ?? pkg.questions.length} Soal</span>
+                  <span><i class="fa-solid fa-square-check text-emerald-400 mr-1"></i>${compRec.jumlah_benar ?? '-'} ${tkaSubj === 'clil' ? 'Correct of' : 'Benar dari'} ${compRec.jumlah_soal ?? pkg.questions.length} ${tkaSubj === 'clil' ? 'Questions' : 'Soal'}</span>
                   <span class="text-slate-600">&bull;</span>
-                  <span class="text-emerald-400 font-medium">Nilai resmi aman tercatat di server CBT Guru</span>
+                  <span class="text-emerald-400 font-medium">${tkaSubj === 'clil' ? 'Official grade recorded securely on CBT Server' : 'Nilai resmi aman tercatat di server CBT Guru'}</span>
                 </p>
               </div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
               <button onclick="bukaReviewModeCbt()" class="px-3.5 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 text-white font-bold rounded-xl text-xs shadow-lg flex items-center gap-1.5 cursor-pointer transition active:scale-95 border border-emerald-400/40">
-                <i class="fa-solid fa-chart-pie text-amber-300"></i> ${isReviewMode ? 'Tampilkan Skor' : 'Lihat Kunci & Skor'}
+                <i class="fa-solid fa-chart-pie text-amber-300"></i> ${isReviewMode ? (tkaSubj === 'clil' ? 'View Scorecard' : 'Tampilkan Skor') : (tkaSubj === 'clil' ? 'View Solutions & Score' : 'Lihat Kunci & Skor')}
               </button>
               <button onclick="ulangiPengerjaanCbt()" class="px-3 py-1.5 md:px-3.5 md:py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-medium rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 cursor-pointer transition">
-                <i class="fa-solid fa-rotate-left text-amber-400"></i> Kerjakan Ulang
+                <i class="fa-solid fa-rotate-left text-amber-400"></i> ${tkaSubj === 'clil' ? 'Retake Unit' : 'Kerjakan Ulang'}
               </button>
             </div>
           </div>
@@ -5042,12 +5117,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <i class="fa-solid fa-graduation-cap"></i>
             </span>
             <div>
-              <span class="text-xs font-black text-emerald-300 uppercase tracking-wide">Mode Review Pembahasan & Kunci Jawaban</span>
-              <p class="text-[10px] text-slate-300">Langkah penyelesaian terstruktur dan evaluasi per butir soal</p>
+              <span class="text-xs font-black text-emerald-300 uppercase tracking-wide">${tkaSubj === 'clil' ? 'Worked Solutions & Answer Key Review' : 'Mode Review Pembahasan & Kunci Jawaban'}</span>
+              <p class="text-[10px] text-slate-300">${tkaSubj === 'clil' ? 'Step-by-step analytical derivation and per-question evaluation' : 'Langkah penyelesaian terstruktur dan evaluasi per butir soal'}</p>
             </div>
           </div>
           <button onclick="showTkaScorecardModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 cursor-pointer active:scale-95">
-            <i class="fa-solid fa-chart-pie"></i> <span>Lihat Skor Akhir</span>
+            <i class="fa-solid fa-chart-pie"></i> <span>${tkaSubj === 'clil' ? 'View Scorecard' : 'Lihat Skor Akhir'}</span>
           </button>
         </div>
       ` : '';
@@ -5065,7 +5140,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 </span>
                 <span class="text-xs text-slate-400 truncate">${typeLabel}</span>
               </div>
-              <span class="text-xs font-bold text-amber-400/80 whitespace-nowrap">${q.level || 'C4 Analisis'} &middot; ${q.bobot || 10} Poin</span>
+              <span class="text-xs font-bold text-amber-400/80 whitespace-nowrap">${q.level || (tkaSubj === 'clil' ? 'C4 Analysis' : 'C4 Analisis')} &middot; ${q.bobot || 10} ${tkaSubj === 'clil' ? 'Points' : 'Poin'}</span>
             </div>
             
             <div class="text-sm md:text-base font-semibold text-white leading-relaxed">
@@ -5506,7 +5581,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const q = (pkg && pkg.questions) ? pkg.questions[tkaQIdx] : null;
 
       if (!userMultiAnswers || userMultiAnswers.length === 0) {
-        flashHint('multi-hint', 'Pilih minimal satu pernyataan sebelum menyimpan.');
+        flashHint('multi-hint', tkaSubj === 'clil' ? 'Select at least one statement before saving.' : 'Pilih minimal satu pernyataan sebelum menyimpan.');
         return;
       }
       const isRight = evaluateQuestionScore(q, userMultiAnswers);
@@ -5516,7 +5591,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userMultiAnswers, isRight, { type: 'multi', chosen: userMultiAnswers });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
-      flashHint('multi-hint', '✅ Pilihan ganda kompleks berhasil disimpan.');
+      flashHint('multi-hint', tkaSubj === 'clil' ? '✅ Multiple response saved successfully.' : '✅ Pilihan ganda kompleks berhasil disimpan.');
       
       const solBox = document.getElementById('tka-solution-box');
       if (solBox) solBox.classList.add('hidden');
@@ -5608,7 +5683,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const count = stmtCount || (q && q.statements && q.statements.length) || 4;
       for (let i = 0; i < count; i++) {
         if (!userTfAnswers[i] && !userTfAnswers[String(i)]) {
-          flashHint('tf-hint', `Pernyataan ${i + 1} belum dijawab. Tentukan Benar/Salah untuk semua pernyataan.`);
+          flashHint('tf-hint', tkaSubj === 'clil' 
+            ? `Statement ${i + 1} has not been answered. Please determine True or False for all statements.`
+            : `Pernyataan ${i + 1} belum dijawab. Tentukan Benar/Salah untuk semua pernyataan.`);
           return;
         }
       }
@@ -5619,7 +5696,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, userTfAnswers, isRight, { type: 'tf', chosen: userTfAnswers, correct: correctPattern });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
-      flashHint('tf-hint', '✅ Jawaban Benar / Salah berhasil disimpan.');
+      flashHint('tf-hint', tkaSubj === 'clil' ? '✅ True / False response saved successfully.' : '✅ Jawaban Benar / Salah berhasil disimpan.');
 
       const solBox = document.getElementById('tka-solution-box');
       if (solBox) solBox.classList.add('hidden');
@@ -5657,7 +5734,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (!inp) return;
       const cleanVal = inp.value.trim();
       if (!cleanVal) {
-        flashHint('numeric-hint', 'Isi dulu jawabanmu sebelum menyimpan.');
+        flashHint('numeric-hint', tkaSubj === 'clil' ? 'Please enter your answer before saving.' : 'Isi dulu jawabanmu sebelum menyimpan.');
         inp.focus();
         return;
       }
@@ -5672,7 +5749,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       simpanDraftJawaban(tkaSubj, tkaPkgId, tkaQIdx, cleanVal, isRight, { type: 'numeric', chosen: cleanVal, correct: correctVal });
       catatSesiCbt(tkaSubj, tkaPkgId);
 
-      flashHint('numeric-hint', '✅ Jawaban numerik berhasil disimpan.');
+      flashHint('numeric-hint', tkaSubj === 'clil' ? '✅ Numeric answer saved successfully.' : '✅ Jawaban numerik berhasil disimpan.');
 
       const solBox = document.getElementById('tka-solution-box');
       if (solBox) solBox.classList.add('hidden');
@@ -6151,21 +6228,21 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         'nht': {
           title: isClil ? 'Numbered Heads Together Protocol' : 'Sintaks Numbered Heads Together',
           count: 3,
-          labels: isClil ? ['Soal 1: Pemanasan Nomor', 'Soal 2: Heads Together', 'Soal 3: Panggilan Acak'] : ['Soal 1: Pemanasan Nomor', 'Soal 2: Heads Together', 'Soal 3: Panggilan Acak'],
+          labels: isClil ? ['Problem 1: Number Warm-up', 'Problem 2: Heads Together', 'Problem 3: Random Call'] : ['Soal 1: Pemanasan Nomor', 'Soal 2: Heads Together', 'Soal 3: Panggilan Acak'],
           hint: isClil ? 'Ensure all numbered members master 100% of the solution.' : 'Pastikan seluruh siswa bernomor menguasai 100% alur solusi.',
           protocolTitle: isClil ? 'NHT Protocol:' : 'Panduan Numbered Heads:'
         },
         'speed_dating': {
           title: isClil ? 'Speed Dating Rapid Problem Flow' : 'Rotasi Pasangan Kilat',
           count: 3,
-          labels: isClil ? ['Ronde 1 (3 Menit)', 'Ronde 2 (3 Menit)', 'Ronde 3 (3 Menit)'] : ['Ronde 1 (3 Menit)', 'Ronde 2 (3 Menit)', 'Ronde 3 (3 Menit)'],
+          labels: isClil ? ['Round 1 (3 Mins)', 'Round 2 (3 Mins)', 'Round 3 (3 Mins)'] : ['Ronde 1 (3 Menit)', 'Ronde 2 (3 Menit)', 'Ronde 3 (3 Menit)'],
           hint: isClil ? 'Rotate 1 seat right upon chime.' : 'Bergeser 1 kursi ke kanan saat bel berbunyi.',
           protocolTitle: isClil ? 'Speed Dating Protocol:' : 'Panduan Speed Dating:'
         },
         'vnps': {
           title: isClil ? 'Vertical Surfaces Team Challenge' : 'Tantangan Papan Tulis Vertikal',
           count: 3,
-          labels: isClil ? ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS'] : ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS'],
+          labels: isClil ? ['Level 1: Team Warm-up', 'Level 2: Progressive Challenge', 'Level 3: HOTS Extension'] : ['Level 1: Pemanasan Tim', 'Level 2: Tantangan Bertingkat', 'Level 3: Ekstensi HOTS'],
           hint: isClil ? 'All members stand actively. 1 marker rotates among members.' : 'Semua anggota berdiri aktif. 1 spidol wajib bergantian antar anggota tim.',
           protocolTitle: isClil ? 'VNPS Rules (BTC):' : '4 Aturan Main Papan Vertikal:'
         }
@@ -6179,9 +6256,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         window._collabActiveLevel = 0;
       }
       const activeQIdx = window._collabActiveLevel;
-      const rawQ = questionsList[activeQIdx] || questionsList[0] || 'Diskusikan strategi penyelesaian bersama kelompok.';
+      const rawQ = questionsList[activeQIdx] || questionsList[0] || (isClil ? 'Discuss the solution strategy with your group.' : 'Diskusikan strategi penyelesaian bersama kelompok.');
       const cleanActiveQ = rawQ.replace(/^\[[A-Za-z0-9_.-]+\]\s*/, '').replace(/^(?:Kelompok\s+[A-Za-z0-9_]+|Tantangan\s+\d+|Soal\s+[A-Z0-9]+|Kasus\s+[A-Z0-9]+|Level\s+\d+|Babak\s+\d+|Meja\s+Ahli\s+[A-Z]|Pos\s+\d+|Stasiun\s+\d+)\s*:\s*/i, '');
-      const activeLabel = taskCfg.labels[activeQIdx] || `Tantangan ${activeQIdx + 1}`;
+      const activeLabel = taskCfg.labels[activeQIdx] || (isClil ? `Challenge ${activeQIdx + 1}` : `Tantangan ${activeQIdx + 1}`);
 
       // Role Detection: Check if current user is Teacher (Guru)
       const sess = typeof getSession === 'function' ? getSession() : null;
@@ -6189,30 +6266,32 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
       // High-End Pedagogical Solution Formatter for Active Collaborative Case
       const rawSols = m.collab_solutions || [];
-      const activeSol = rawSols[activeQIdx] || `Langkah 1: Identifikasi parameter dan variabel matematis dari ${activeLabel}.\nLangkah 2: Terapkan metode analitis sesuai topik ${title}.\nLangkah 3: Lakukan komputasi aljabar atau geometri langkah demi langkah.\nKesimpulan: Kunci solusi terverifikasi untuk fasilitasi guru.`;
+      const activeSol = rawSols[activeQIdx] || (isClil ? 
+        `Step 1: Identify given mathematical parameters and modeling conditions for ${activeLabel}.\nStep 2: Apply analytical calculus methods aligned with ${title}.\nStep 3: Perform rigorous algebraic or geometric derivation step-by-step.\nConclusion: Verified analytical solution for instructional facilitation.` :
+        `Langkah 1: Identifikasi parameter dan variabel matematis dari ${activeLabel}.\nLangkah 2: Terapkan metode analitis sesuai topik ${title}.\nLangkah 3: Lakukan komputasi aljabar atau geometri langkah demi langkah.\nKesimpulan: Kunci solusi terverifikasi untuk fasilitasi guru.`);
 
       const lines = activeSol.split('\n').map(l => l.trim()).filter(Boolean);
       let formattedCollabSolHtml = '';
 
       lines.forEach((line, lIdx) => {
-        if (line.startsWith('Kesimpulan:')) {
-          const resText = line.replace(/^Kesimpulan:\s*/i, '');
+        if (line.startsWith('Kesimpulan:') || line.startsWith('Conclusion:')) {
+          const resText = line.replace(/^(?:Kesimpulan|Conclusion):\s*/i, '');
           formattedCollabSolHtml += `
             <div class="mt-2 p-3 rounded-xl bg-gradient-to-r from-emerald-950/70 via-emerald-900/40 to-[#081324] border border-emerald-500/50 shadow-md flex items-start gap-2.5">
               <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xs shrink-0 font-bold mt-0.5">
                 <i class="fa-solid fa-award"></i>
               </span>
               <div class="text-xs text-emerald-200 leading-relaxed font-medium flex-1">
-                <strong class="text-emerald-300 font-bold uppercase tracking-wider block text-[10px] mb-0.5 font-mono">🎯 HASIL AKHIR &amp; KESIMPULAN:</strong>
+                <strong class="text-emerald-300 font-bold uppercase tracking-wider block text-[10px] mb-0.5 font-mono">${isClil ? '🎯 FINAL RESULT &amp; CONCLUSION:' : '🎯 HASIL AKHIR &amp; KESIMPULAN:'}</strong>
                 ${resText}
               </div>
             </div>
           `;
         } else {
-          const stepMatch = line.match(/^(?:Langkah|Tahap)\s*(\d+)\s*:\s*(.*)$/i);
+          const stepMatch = line.match(/^(?:Langkah|Tahap|Step)\s*(\d+)\s*:\s*(.*)$/i);
           let stepNum = lIdx + 1;
           let stepContent = line;
-          let stepTitle = 'Analisis Prosedural';
+          let stepTitle = isClil ? 'Procedural Analysis' : 'Analisis Prosedural';
           let icon = 'fa-solid fa-calculator';
           let borderTheme = 'border-blue-900/70';
           let badgeTheme = 'bg-blue-600/25 text-blue-300 border-blue-500/40';
@@ -6224,29 +6303,35 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           }
 
           if (stepNum == 1) {
-            stepTitle = 'Identifikasi Data &amp; Pemodelan';
+            stepTitle = isClil ? 'Identify Given Data &amp; Modeling' : 'Identifikasi Data &amp; Pemodelan';
             icon = 'fa-solid fa-magnifying-glass';
             borderTheme = 'border-blue-900/80';
             badgeTheme = 'bg-blue-600/30 text-blue-300 border-blue-500/50';
             titleColor = 'text-blue-300';
           } else if (stepNum == 2) {
-            stepTitle = 'Strategi &amp; Konsep Kunci';
+            stepTitle = isClil ? 'Key Strategies &amp; Core Concepts' : 'Strategi &amp; Konsep Kunci';
             icon = 'fa-solid fa-lightbulb';
             borderTheme = 'border-amber-900/80';
             badgeTheme = 'bg-amber-500/25 text-amber-300 border-amber-500/50';
             titleColor = 'text-amber-300';
           } else if (stepNum == 3) {
-            stepTitle = 'Komputasi &amp; Penjabaran Aljabar';
+            stepTitle = isClil ? 'Computation &amp; Algebraic Expansion' : 'Komputasi &amp; Penjabaran Aljabar';
             icon = 'fa-solid fa-square-root-variable';
             borderTheme = 'border-cyan-900/80';
             badgeTheme = 'bg-cyan-600/25 text-cyan-300 border-cyan-500/50';
             titleColor = 'text-cyan-300';
           } else if (stepNum == 4) {
-            stepTitle = 'Verifikasi &amp; Uji Kondisi Batas';
+            stepTitle = isClil ? 'Verification &amp; Boundary Conditions' : 'Verifikasi &amp; Uji Kondisi Batas';
             icon = 'fa-solid fa-circle-check';
             borderTheme = 'border-indigo-900/80';
             badgeTheme = 'bg-indigo-600/25 text-indigo-300 border-indigo-500/50';
             titleColor = 'text-indigo-300';
+          } else if (stepNum >= 5) {
+            stepTitle = isClil ? 'Extension &amp; Synthesis' : 'Ekstensi &amp; Sintesis';
+            icon = 'fa-solid fa-diagram-project';
+            borderTheme = 'border-purple-900/80';
+            badgeTheme = 'bg-purple-600/25 text-purple-300 border-purple-500/50';
+            titleColor = 'text-purple-300';
           }
 
           formattedCollabSolHtml += `
@@ -6268,7 +6353,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       // Level Tabs
       const levelTabsHtml = questionsList.map((q, qIdx) => {
         const isAct = qIdx === activeQIdx;
-        const lbl = taskCfg.labels[qIdx] || `Level ${qIdx + 1}`;
+        const lbl = taskCfg.labels[qIdx] || (isClil ? `Level ${qIdx + 1}` : `Level ${qIdx + 1}`);
         const tabClass = isAct ? 
           'bg-blue-600 text-white font-bold shadow' : 
           'text-slate-400 hover:text-white';
@@ -6314,7 +6399,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             <div class="flex items-center gap-2 shrink-0">
               <button onclick="const d = document.getElementById('slide-teacher-drawer'); if(d) d.classList.toggle('hidden');" class="px-3 py-1.5 bg-[#081324] hover:bg-amber-500/20 text-amber-300 hover:text-amber-200 border border-amber-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm">
                 <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
-                <span>Panduan Guru</span>
+                <span>${isClil ? "Teacher's Guide" : "Panduan Guru"}</span>
               </button>
               
               <div class="relative">
@@ -6336,15 +6421,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   <i class="fa-solid fa-lightbulb"></i>
                 </span>
                 <span class="text-xs font-bold text-amber-300 font-mono uppercase tracking-wide">
-                  Panduan Fasilitasi Guru (${ped.name})
+                  ${isClil ? 'Teacher Facilitation Guide' : 'Panduan Fasilitasi Guru'} (${isClil ? (ped.name_en || ped.name) : ped.name})
                 </span>
               </div>
               <button onclick="document.getElementById('slide-teacher-drawer').classList.add('hidden')" class="text-[10px] text-slate-400 hover:text-white px-2 py-0.5 rounded-md bg-slate-900 border border-slate-700 cursor-pointer">
-                ✕ Tutup
+                ${isClil ? '✕ Close' : '✕ Tutup'}
               </button>
             </div>
             <p class="text-xs text-slate-200 leading-relaxed font-medium">
-              💡 <strong>Petunjuk Guru:</strong> ${cleanTip}
+              💡 <strong>${isClil ? 'Teacher Tip:' : 'Petunjuk Guru:'}</strong> ${cleanTip}
             </p>
           </div>
 
@@ -6376,10 +6461,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 <div class="flex items-center justify-between">
                   <button onclick="const el = document.getElementById('teacher-collab-sol-box'); if(el) { el.classList.toggle('hidden'); if(!el.classList.contains('hidden') && window.renderMathInElement) { renderMathInElement(el, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]}); } }" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 hover:text-amber-200 font-bold text-xs flex items-center gap-2 transition cursor-pointer shadow-sm">
                     <i class="fa-solid fa-key text-amber-400"></i>
-                    <span>Kunci Solusi & Pembahasan Guru</span>
+                    <span>${isClil ? 'Teacher Solution Key &amp; Discussion' : 'Kunci Solusi &amp; Pembahasan Guru'}</span>
                   </button>
                   <span class="text-[10px] text-amber-400/80 font-mono flex items-center gap-1">
-                    <i class="fa-solid fa-shield-halved text-emerald-400"></i> Khusus Akun Guru
+                    <i class="fa-solid fa-shield-halved text-emerald-400"></i> ${isClil ? 'Teacher Account Exclusive' : 'Khusus Akun Guru'}
                   </span>
                 </div>
 
@@ -6392,15 +6477,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                       </span>
                       <div>
                         <span class="text-xs font-bold text-amber-300 font-mono block">
-                          PANDUAN SOLUSI GURU &bull; ${activeLabel}
+                          ${isClil ? 'TEACHER SOLUTION GUIDE' : 'PANDUAN SOLUSI GURU'} &bull; ${activeLabel}
                         </span>
                         <span class="text-[9px] text-slate-400 font-sans">
-                          Sintaks penyelesaian terstruktur untuk fasilitasi &amp; scaffolding kelas
+                          ${isClil ? 'Structured solution syntax for classroom facilitation &amp; scaffolding' : 'Sintaks penyelesaian terstruktur untuk fasilitasi &amp; scaffolding kelas'}
                         </span>
                       </div>
                     </div>
                     <button onclick="document.getElementById('teacher-collab-sol-box').classList.add('hidden')" class="text-[10px] text-slate-400 hover:text-white px-2 py-1 rounded-lg bg-[#081324] border border-slate-700 hover:border-slate-500 cursor-pointer transition">
-                      ✕ Tutup
+                      ${isClil ? '✕ Close' : '✕ Tutup'}
                     </button>
                   </div>
                   <div class="space-y-2 pt-1 max-h-[40vh] overflow-y-auto pr-1">
@@ -6435,13 +6520,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </span>
                   <div>
                     <span id="btc-timer-display" class="text-xs md:text-sm font-black text-white tracking-widest block leading-tight">05:00</span>
-                    <span class="text-[8px] text-slate-400 uppercase">Waktu Diskusi</span>
+                    <span class="text-[8px] text-slate-400 uppercase">${isClil ? 'Discussion Timer' : 'Waktu Diskusi'}</span>
                   </div>
                 </div>
                 <div class="flex items-center gap-1 font-mono text-[9px]">
                   <button onclick="startBtcTimer(180)" class="px-2 py-0.5 rounded bg-[#0D1B2E] text-slate-300 hover:text-white border border-blue-900 cursor-pointer">3m</button>
                   <button onclick="startBtcTimer(300)" class="px-2 py-0.5 rounded bg-blue-600 text-white font-bold cursor-pointer">5m</button>
-                  <button onclick="toggleBtcTimer()" id="btc-timer-btn" class="px-2.5 py-0.5 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold shadow border border-blue-400/40 cursor-pointer">Mulai</button>
+                  <button onclick="toggleBtcTimer()" id="btc-timer-btn" class="px-2.5 py-0.5 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold shadow border border-blue-400/40 cursor-pointer">${isClil ? 'Start' : 'Mulai'}</button>
                 </div>
               </div>
 

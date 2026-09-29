@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788449925">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788449930">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -264,8 +264,8 @@
           </div>
         </div>
 
-        <!-- 2. 3 MAIN STREAM CARDS -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 2. 4 MAIN STREAM CARDS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
           <!-- CARD 1: WAJIB -->
           <div onclick="switchSubject('wajib')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
@@ -311,7 +311,29 @@
             </div>
           </div>
 
-          <!-- CARD 3: CBT & TKA -->
+          <!-- CARD 3: CLIL -->
+          <div data-gate="clil" onclick="switchSubject('clil')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #F3E8FF; color: #7E22CE; border: 1px solid #E9D5FF;">
+                  <i class="fa-solid fa-earth-americas"></i>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #F3E8FF; color: #7E22CE; border: 1px solid #E9D5FF;">
+                  <span id="jml-clil-kartu">6</span> Units
+                </span>
+              </div>
+              <h3 class="text-sm md:text-base font-bold transition" style="color: #2F3437;">CLIL Bilingual Stream</h3>
+              <p id="bab-clil-kartu" class="text-xs leading-relaxed" style="color: #787774;">
+                Integral Calculus, Integration by Parts, FTC, Area of Plane Regions, &amp; Solids of Revolution.
+              </p>
+            </div>
+            <div class="pt-2 border-t flex items-center justify-between text-xs font-semibold" style="border-color: #E8E6DF; color: #7E22CE;">
+              <span><span id="butir-clil-kartu">60</span> Butir Soal CBT</span>
+              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform" style="color: #7E22CE;"></i>
+            </div>
+          </div>
+
+          <!-- CARD 4: CBT & TKA -->
           <div onclick="switchSubject('tka')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between">
@@ -1133,8 +1155,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v1788449925"></script>
-  <script src="app.js?v=v1788449925"></script>
+  <script src="data-xii.js?v=v1788449930"></script>
+  <script src="app.js?v=v1788449930"></script>
 
 
   <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
@@ -1409,7 +1431,7 @@
         </div>
     </div>
 
-        <script src="app-akhir.js?v=v1788449925"></script>
+        <script src="app-akhir.js?v=v1788449930"></script>
 
 </body>
 </html>

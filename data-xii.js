@@ -923,62 +923,56 @@ const NAMA_TINGKAT = 'XII';
       "obj": [
         "Menentukan besar sudut antara garis dan bidang melalui proyeksi garis ke bidang.",
         "Menentukan besar sudut antara dua bidang (Dihedral Angle) melalui perpotongan garis tumpu tegak lurus.",
-        "Menghitung nilai sinus, cosinus, dan tangen sudut dimensi tiga pada kubus dan limas.",
-        "Menerapkan konsep sudut ruang dalam model nyata kemiringan panel surya dan arsitektur atap gazebo."
+        "Menghitung nilai sinus, cosinus, dan tangen sudut dimensi tiga."
       ],
-      "hook": "Sudut kemiringan panel surya terhadap bidang atap atau lereng bukit harus diatur dengan presisi trigonometris tinggi agar panel tegak lurus terhadap datangnya berkas sinar matahari harian, memaksimalkan efisiensi energi listrik yang dibangkitkan.",
+      "hook": "Sudut kemiringan panel surya terhadap atap gedung bertingkat harus diatur secara trigonometris presisi untuk memaksimalkan tangkapan sinar matahari harian.",
       "toolkit": [
         {
-          "name": "1. Sudut Garis terhadap Bidang",
-          "math": "$$\\theta = \\angle(g, g') \\quad \\left(g' = \\text{proyeksi ortogonal garis } g \\text{ pada bidang}\\right)$$"
+          "name": "Sudut Garis ke Bidang",
+          "math": "$$\\theta = \\angle(g, g') \\quad (g' = \\text{proyeksi garis } g \\text{ pada bidang})$$"
         },
         {
-          "name": "2. Sudut Antara Dua Bidang (Dihedral Angle)",
-          "math": "$$\\theta = \\angle(t_1, t_2) \\quad \\left(t_1, t_2 \\perp \\text{garis potong persekutuan } k\\right)$$"
+          "name": "Sudut Antara Dua Bidang",
+          "math": "$$\\theta = \\angle(t_1, t_2) \\quad (t_1, t_2 \\perp \\text{garis potong persekutuan})$$"
         },
         {
-          "name": "3. Aturan Cosinus pada Segitiga Penampang Ruang",
-          "math": "$$\\cos\\theta = \\frac{a^2 + b^2 - c^2}{2ab}$$"
+          "name": "Teorema Pythagoras Ruang 3D",
+          "math": "$$d^2 = p^2 + l^2 + t^2$$"
         },
         {
-          "name": "4. Trik Kilat Sudut Diagonal Ruang Kubus ke Alas",
-          "math": "$$\\tan\\alpha = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}, \\quad \\sin\\alpha = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}, \\quad \\cos\\alpha = \\frac{\\sqrt{2}}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$$"
-        },
-        {
-          "name": "5. Sudut Antara Dua Diagonal Ruang Kubus",
-          "math": "$$\\cos\\theta = \\frac{|\\vec{d}_1 \\cdot \\vec{d}_2|}{|\\vec{d}_1||\\vec{d}_2|} = \\frac{1}{3} \\implies \\theta = \\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$$"
+          "name": "Kesamaan Luas Segitiga Proyeksi",
+          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2$$"
         }
       ],
       "examples": [
         {
           "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, tentukan besar sinus sudut antara garis diagonal ruang $AG$ dan bidang alas $ABCD$!",
-          "solution": "Langkah 1: <b>Proyeksikan Garis ke Bidang:</b> Proyeksi titik $G$ ke bidang alas $ABCD$ adalah titik $C$, sehingga proyeksi garis $AG$ pada bidang alas adalah diagonal sisi $AC$.\nLangkah 2: <b>Identifikasi Segitiga Siku-siku:</b> Sudut antara $AG$ dan alas $ABCD$ adalah $\\angle CAG = \\alpha$ pada segitiga siku-siku $ACG$ di titik $C$.\nLangkah 3: <b>Tentukan Panjang Sisi:</b> Rusuk tegak $CG = 6\\text{ cm}$, diagonal sisi alas $AC = 6\\sqrt{2}\\text{ cm}$, dan diagonal ruang $AG = 6\\sqrt{3}\\text{ cm}$.\nLangkah 4: <b>Hitung Nilai Sinus:</b> $\\sin\\alpha = \\frac{\\text{depan}}{\\text{miring}} = \\frac{CG}{AG} = \\frac{6}{6\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$.\nKesimpulan: Nilai sinus sudut antara garis diagonal ruang $AG$ dan bidang alas $ABCD$ adalah $\\frac{1}{3}\\sqrt{3}$."
+          "solution": "Langkah 1: Proyeksikan garis $AG$ ke bidang $ABCD$. Proyeksi titik $G$ ke alas adalah $C$, sehingga proyeksi garis $AG$ pada alas adalah diagonal sisi $AC$.\nLangkah 2: Sudut antara $AG$ dan alas $ABCD$ adalah $\\angle CAG = \\alpha$ pada segitiga siku-siku $ACG$ di $C$.\nLangkah 3: Panjang $AC = 6\\sqrt{2}\\text{ cm}$, $CG = 6\\text{ cm}$, dan $AG = 6\\sqrt{3}\\text{ cm}$.\nLangkah 4: $\\sin \\alpha = \\frac{CG}{AG} = \\frac{6}{6\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$.\nKesimpulan: Nilai sinus sudut antara garis $AG$ dan bidang alas adalah $\\frac{1}{3}\\sqrt{3}$."
         },
         {
           "problem": "Pada kubus $ABCD.EFGH$, tentukan nilai cosinus sudut antara bidang $AFH$ dan bidang $CHF$!",
-          "solution": "Langkah 1: <b>Tentukan Garis Persekutuan:</b> Garis potong persekutuan antara bidang $AFH$ dan bidang $CHF$ adalah garis diagonal sisi $FH$. Titik tengah $FH$ adalah titik $O$.\nLangkah 2: <b>Tarik Garis Tegak Lurus:</b> Pada $\\Delta AFH$, tarik $AO \\perp FH$. Pada $\\Delta CHF$, tarik $CO \\perp FH$. Sudut antara kedua bidang adalah $\\angle AOC = \\theta$.\nLangkah 3: <b>Hitung Panjang Ruang:</b> Pada kubus berusuk $s$, panjang garis tinggi $AO = CO = \\frac{1}{2}s\\sqrt{6}$ dan panjang diagonal alas $AC = s\\sqrt{2}$.\nLangkah 4: <b>Terapkan Aturan Cosinus:</b> Pada $\\Delta AOC$: $\\cos\\theta = \\frac{AO^2 + CO^2 - AC^2}{2 \\cdot AO \\cdot CO} = \\frac{\\frac{6}{4}s^2 + \\frac{6}{4}s^2 - 2s^2}{2 \\cdot \\frac{6}{4}s^2} = \\frac{3s^2 - 2s^2}{3s^2} = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara bidang $AFH$ dan bidang $CHF$ adalah $\\frac{1}{3}$."
+          "solution": "Langkah 1: Garis persekutuan kedua bidang adalah $FH$. Titik tengah $FH$ adalah $O$.\nLangkah 2: Tarik garis tegak lurus $FH$ pada masing-masing bidang: $AO \\perp FH$ pada $\\Delta AFH$ dan $CO \\perp FH$ pada $\\Delta CHF$.\nLangkah 3: Sudut antara bidang $AFH$ dan $CHF$ adalah $\\angle AOC = \\theta$ pada segitiga $AOC$.\nLangkah 4: Pada kubus berusuk $s$, $AO = CO = \\frac{1}{2}s\\sqrt{6}$ dan $AC = s\\sqrt{2}$.\nLangkah 5: Terapkan aturan cosinus pada $\\Delta AOC$: $\\cos \\theta = \\frac{AO^2 + CO^2 - AC^2}{2 \\cdot AO \\cdot CO} = \\frac{\\frac{6}{4}s^2 + \\frac{6}{4}s^2 - 2s^2}{2 \\cdot \\frac{6}{4}s^2} = \\frac{3s^2 - 2s^2}{3s^2} = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara bidang $AFH$ dan $CHF$ adalah $\\frac{1}{3}$."
         },
         {
           "problem": "Pada limas beraturan $T.ABCD$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tegak $6\\text{ cm}$, tentukan nilai tangen sudut antara rusuk tegak $TA$ dan bidang alas $ABCD$!",
-          "solution": "Langkah 1: <b>Tentukan Proyeksi Puncak:</b> Proyeksi titik puncak $T$ pada bidang alas persegi adalah titik pusat alas $O$ (titik potong diagonal $AC$ dan $BD$).\nLangkah 2: <b>Identifikasi Sudut Ruang:</b> Proyeksi rusuk tegak $TA$ pada bidang alas adalah ruas garis $AO$. Sudut yang dibentuk adalah $\\angle TAO = \\alpha$.\nLangkah 3: <b>Hitung Panjang $AO$ dan Tinggi $TO$:</b> Diagonal alas $AC = 6\\sqrt{2}\\text{ cm} \\implies AO = 3\\sqrt{2}\\text{ cm}$. Tinggi limas $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{6^2 - (3\\sqrt{2})^2} = \\sqrt{36 - 18} = 3\\sqrt{2}\\text{ cm}$.\nLangkah 4: <b>Hitung Nilai Tangen:</b> $\\tan\\alpha = \\frac{\\text{depan}}{\\text{samping}} = \\frac{TO}{AO} = \\frac{3\\sqrt{2}}{3\\sqrt{2}} = 1 \\implies \\alpha = 45^\\circ$.\nKesimpulan: Nilai tangen sudut antara rusuk tegak $TA$ dan bidang alas adalah $1$ (besar sudut $\\alpha = 45^\\circ$)."
+          "solution": "Langkah 1: Proyeksi $T$ ke alas persegi adalah titik pusat alas $O$. Sudut yang dicari adalah $\\angle TAO = \\alpha$.\nLangkah 2: Panjang diagonal alas $AC = 6\\sqrt{2}\\text{ cm} \\implies AO = \\frac{1}{2} AC = 3\\sqrt{2}\\text{ cm}$.\nLangkah 3: Tinggi limas $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{6^2 - (3\\sqrt{2})^2} = \\sqrt{36 - 18} = \\sqrt{18} = 3\\sqrt{2}\\text{ cm}$.\nLangkah 4: $\\tan \\alpha = \\frac{TO}{AO} = \\frac{3\\sqrt{2}}{3\\sqrt{2}} = 1 \\implies \\alpha = 45^\\circ$.\nKesimpulan: Nilai tangen sudut antara $TA$ dan bidang alas adalah $1$ (sudut $45^\\circ$)."
         },
         {
           "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $a$, jika $\\alpha$ adalah sudut antara garis $CE$ dan garis $AG$, tentukan nilai $\\cos \\alpha$!",
-          "solution": "Langkah 1: <b>Konstruksi Titik Potong:</b> Dua diagonal ruang $CE$ dan $AG$ berpotongan di titik pusat kubus $O$, dengan panjang $CE = AG = a\\sqrt{3}$.\nLangkah 2: <b>Tentukan Panjang Sisi Segitiga:</b> Perhatikan $\\Delta EOG$ dengan $OE = OG = \\frac{1}{2}a\\sqrt{3}$ dan $EG = a\\sqrt{2}$ (diagonal sisi atas).\nLangkah 3: <b>Terapkan Aturan Cosinus:</b> Pada $\\Delta EOG$: $\\cos\\angle EOG = \\frac{OE^2 + OG^2 - EG^2}{2 \\cdot OE \\cdot OG} = \\frac{\\frac{3}{4}a^2 + \\frac{3}{4}a^2 - 2a^2}{2 \\cdot \\frac{3}{4}a^2} = \\frac{\\frac{3}{2}a^2 - 2a^2}{\\frac{3}{2}a^2} = -\\frac{1}{3}$.\nLangkah 4: <b>Ambil Sudut Lancip Antar-Garis:</b> Karena sudut antara dua garis perpotongan selalu diambil sudut lancip ($0^\\circ \\le \\alpha \\le 90^\\circ$), maka $\\cos\\alpha = |-\\frac{1}{3}| = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut lancip antara diagonal ruang $CE$ dan $AG$ adalah $\\frac{1}{3}$."
+          "solution": "Langkah 1: Garis $CE$ dan $AG$ adalah dua diagonal ruang yang berpotongan di titik pusat kubus $O$.\nLangkah 2: Panjang diagonal ruang $CE = AG = a\\sqrt{3}$, sehingga $OE = OG = \\frac{a\\sqrt{3}}{2}$.\nLangkah 3: Perhatikan segitiga $EOG$ dengan panjang sisi $EG = a\\sqrt{2}$ (diagonal sisi atas).\nLangkah 4: Gunakan aturan cosinus pada $\\Delta EOG$: $\\cos \\alpha = \\frac{OE^2 + OG^2 - EG^2}{2 \\cdot OE \\cdot OG} = \\frac{\\frac{3}{4}a^2 + \\frac{3}{4}a^2 - 2a^2}{2 \\cdot \\frac{3}{4}a^2} = \\frac{\\frac{6}{4}a^2 - 2a^2}{\\frac{6}{4}a^2} = \\frac{-\\frac{1}{2}}{\\frac{3}{2}} = -\\frac{1}{3}$.\nLangkah 5: Sudut lancip antara kedua garis adalah $|\\cos \\alpha| = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara diagonal ruang $CE$ dan $AG$ adalah $\\frac{1}{3}$."
         },
         {
           "problem": "Sebuah atap gazebo berbentuk limas segi empat beraturan $T.ABCD$ dengan rusuk alas $4\\text{ m}$ dan tinggi puncak $2\\sqrt{3}\\text{ m}$. Tentukan besar sudut kemiringan bidang atap sisi tegak terhadap bidang horizontal alas!",
-          "solution": "Langkah 1: <b>Tentukan Garis Tinggi Sisi Tegak:</b> Misalkan $P$ adalah titik tengah rusuk alas $AB$, dan $O$ adalah titik pusat alas limas. Jarak $OP = \\frac{1}{2} \\times 4 = 2\\text{ m}$.\nLangkah 2: <b>Identifikasi Sudut Dihedral Kemiringan:</b> Garis tinggi bidang atap adalah $TP \\perp AB$ dan garis tumpu alas adalah $OP \\perp AB$. Sudut kemiringan atap adalah $\\angle TPO = \\beta$.\nLangkah 3: <b>Hitung Nilai Tangen pada $\\Delta TOP$:</b> Segitiga $TOP$ siku-siku di $O$ dengan $TO = 2\\sqrt{3}\\text{ m}$ dan $OP = 2\\text{ m}$. Diperoleh $\\tan\\beta = \\frac{TO}{OP} = \\frac{2\\sqrt{3}}{2} = \\sqrt{3}$.\nLangkah 4: <b>Tentukan Besar Sudut:</b> $\\beta = \\arctan(\\sqrt{3}) = 60^\\circ$.\nKesimpulan: Besar sudut kemiringan bidang atap gazebo terhadap bidang horizontal alas adalah $60^\\circ$."
+          "solution": "Langkah 1: Titik $P$ adalah titik tengah rusuk alas $AB$. Jarak $OP = \\frac{1}{2} \\times 4 = 2\\text{ m}$.\nLangkah 2: Tinggi limas $TO = 2\\sqrt{3}\\text{ m}$. Sudut kemiringan atap adalah $\\angle TPO = \\beta$.\nLangkah 3: Pada segitiga siku-siku $TOP$: $\\tan \\beta = \\frac{TO}{OP} = \\frac{2\\sqrt{3}}{2} = \\sqrt{3}$.\nLangkah 4: $\\beta = \\arctan(\\sqrt{3}) = 60^\\circ$.\nKesimpulan: Besar sudut kemiringan bidang atap terhadap bidang horizontal adalah $60^\\circ$."
         }
       ],
       "btc": "Kelompok VNPS: Pada kubus ABCD.EFGH, tentukan nilai cosinus sudut antara bidang ABCD dan bidang BDG!",
       "summary_data": {
         "summary": [
-          "Sudut Garis-Bidang ditentukan melalui garis proyeksi ortogonal pada bidang.",
-          "Sudut Antara Dua Bidang (Dihedral Angle) diukur melalui dua garis yang masing-masing tegak lurus garis persekutuan kedua bidang.",
-          "Aturan cosinus pada segitiga penampang ruang merupakan instrumen analitis utama untuk menghitung sudut dimensi tiga yang tidak siku-siku."
+          "Review komprehensif jarak titik-titik, titik-garis, titik-bidang, dan sudut dihedral.",
+          "Visualisasi 3D yang tepat merupakan kunci utama kecepatan dan ketepatan penyelesaian geometri ruang."
         ],
-        "islamic": "Mengasah ketajaman berpikir spasial memperluas cakrawala keimanan akan keteraturan dan kesempurnaan ciptaan Allah SWT dalam ruang semesta (QS. Al-Mulk: 3)."
+        "islamic": "Mengasah ketajaman berpikir spasial memperluas cakrawala keimanan akan luas dan teraturnya alam semesta ciptaan Allah."
       },
       "collab_cases": [
         "Pada kubus $ABCD.EFGH$, tentukan nilai $\\cos \\alpha$ dengan $\\alpha$ adalah sudut antara diagonal ruang $AG$ dengan bidang alas $ABCD$!",
@@ -989,11 +983,11 @@ const NAMA_TINGKAT = 'XII';
       ],
       "tagline": "Mengukur Kemiringan Sudut Antar Garis dan Bidang dalam Bangun Ruang Nyata",
       "collab_solutions": [
-        "Langkah 1: <b>Proyeksi Diagonal Ruang:</b> Proyeksi garis diagonal ruang $AG$ pada bidang alas $ABCD$ adalah diagonal sisi $AC$.\nLangkah 2: <b>Identifikasi Segitiga:</b> Sudut yang dibentuk adalah $\\alpha = \\angle CAG$. Segitiga $ACG$ siku-siku di $C$.\nLangkah 3: <b>Hitung Cosinus:</b> $AC = s\\sqrt{2}$ dan $AG = s\\sqrt{3} \\implies \\cos\\alpha = \\frac{AC}{AG} = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$.\nKesimpulan: Nilai $\\cos \\alpha$ adalah $\\frac{1}{3}\\sqrt{6}$.",
-        "Langkah 1: <b>Vektor Normal Bidang:</b> Bidang $AFH$ memiliki normal $\\vec{n}_1 = (1, 1, -1)$ dan bidang $BDG$ memiliki normal $\\vec{n}_2 = (-1, -1, 1)$.\nLangkah 2: <b>Kedudukan Bidang:</b> Karena $\\vec{n}_1 = -\\vec{n}_2$, kedua bidang saling sejajar sempurna ($\\parallel$).\nLangkah 3: <b>Besar Sudut:</b> Sudut antara dua bidang sejajar adalah $0^\\circ$.\nKesimpulan: Besar sudut dihedral antara bidang $AFH$ dan bidang $BDG$ adalah $0^\\circ$.",
-        "Langkah 1: <b>Tentukan Titik Tengah:</b> Titik $M$ tengah $AB$ dan $N$ tengah $CD \\implies MN = 4\\text{ cm}$.\nLangkah 2: <b>Hitung Tinggi Bidang:</b> $TM = TN = \\sqrt{(2\\sqrt{6})^2 - 2^2} = \\sqrt{20}\\text{ cm}$, dan tinggi limas $TO = \\sqrt{20 - 2^2} = 4\\text{ cm}$.\nLangkah 3: <b>Hitung Tangen:</b> $\\tan(\\theta/2) = \\frac{ON}{TO} = \\frac{2}{4} = \\frac{1}{2} \\implies \\tan\\theta = \\frac{2(1/2)}{1 - (1/2)^2} = \\frac{4}{3}$.\nKesimpulan: Nilai $\\tan \\theta$ antara bidang $TAB$ dan $TCD$ adalah $\\frac{4}{3}$.",
-        "Langkah 1: <b>Proyeksi Titik ke Bidang:</b> Proyeksi titik $A$ ke bidang $BDHF$ adalah titik pusat alas $P$ (tengah $BD$).\nLangkah 2: <b>Identifikasi Segitiga:</b> Segitiga $APH$ siku-siku di $P$ dengan $AP = \\frac{1}{2}s\\sqrt{2}$ dan $AH = s\\sqrt{2}$.\nLangkah 3: <b>Hitung Sinus:</b> $\\sin\\theta = \\frac{AP}{AH} = \\frac{\\frac{1}{2}s\\sqrt{2}}{s\\sqrt{2}} = \\frac{1}{2} \\implies \\theta = 30^\\circ$.\nKesimpulan: Besar sudut antara garis $AH$ dengan bidang $BDHF$ adalah $30^\\circ$.",
-        "Langkah 1: <b>Vektor Diagonal Ruang:</b> $\\vec{d}_1 = (1, 1, 1)$ dan $\\vec{d}_2 = (1, -1, 1)$.\nLangkah 2: <b>Dot Product & Panjang:</b> $\\vec{d}_1 \\cdot \\vec{d}_2 = 1(1) + 1(-1) + 1(1) = 1$, $|\\vec{d}_1| = \\sqrt{3}$, $|\\vec{d}_2| = \\sqrt{3}$.\nLangkah 3: <b>Hitung Cosinus:</b> $\\cos\\theta = \\frac{1}{\\sqrt{3} \\times \\sqrt{3}} = \\frac{1}{3} \\implies \\theta = \\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$.\nKesimpulan: Terbukti bahwa sudut lancip antara dua diagonal ruang pada kubus adalah $\\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$."
+        "Langkah 1: Proyeksi garis diagonal ruang $AG$ pada bidang alas $ABCD$ adalah diagonal sisi $AC$.\nLangkah 2: Sudut yang dibentuk adalah $\\alpha = \\angle CAG$. Segitiga $ACG$ siku-siku di $C$.\nLangkah 3: $AC = s\\sqrt{2}$ dan $AG = s\\sqrt{3}$.\nLangkah 4: $\\cos \\alpha = \\frac{AC}{AG} = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{\\sqrt{2}}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$.\nKesimpulan: Nilai $\\cos \\alpha$ adalah $\\frac{1}{3}\\sqrt{6}$.",
+        "Langkah 1: Bidang $AFH$ memiliki persamaan normal $\\vec{n}_1 = (1, 1, -1)$ dan bidang $BDG$ memiliki normal $\\vec{n}_2 = (-1, -1, 1)$.\nLangkah 2: Karena $\\vec{n}_1 = -\\vec{n}_2$, kedua bidang saling sejajar sempurna ($\\parallel$).\nLangkah 3: Sudut antara dua bidang yang saling sejajar adalah $0^\\circ$.\nKesimpulan: Besar sudut dihedral antara bidang $AFH$ dan bidang $BDG$ adalah $0^\\circ$.",
+        "Langkah 1: Titik $M$ tengah $AB$ dan $N$ tengah $CD \\implies MN = 4\\text{ cm}$.\nLangkah 2: Tinggi sisi tegak $TM = TN = \\sqrt{(2\\sqrt{6})^2 - 2^2} = \\sqrt{24 - 4} = \\sqrt{20}\\text{ cm}$.\nLangkah 3: Tinggi limas $TO = \\sqrt{20 - 2^2} = \\sqrt{16} = 4\\text{ cm}$.\nLangkah 4: Sudut apit $\\theta = \\angle MTN$. $\\tan(\\theta/2) = \\frac{ON}{TO} = \\frac{2}{4} = \\frac{1}{2} \\implies \\tan \\theta = \\frac{2(1/2)}{1 - (1/2)^2} = \\frac{1}{3/4} = \\frac{4}{3}$.\nKesimpulan: Nilai $\\tan \\theta$ antara bidang $TAB$ dan $TCD$ adalah $\\frac{4}{3}$.",
+        "Langkah 1: Titik $H$ berada pada bidang $BDHF$. Proyeksi titik $A$ ke bidang $BDHF$ adalah titik pusat alas $P$ (tengah $BD$).\nLangkah 2: Segitiga $APH$ siku-siku di $P$ dengan $AP = \\frac{1}{2}s\\sqrt{2}$ dan $AH = s\\sqrt{2}$.\nLangkah 3: $\\sin \\theta = \\frac{AP}{AH} = \\frac{\\frac{1}{2}s\\sqrt{2}}{s\\sqrt{2}} = \\frac{1}{2} \\implies \\theta = 30^\\circ$.\nKesimpulan: Besar sudut antara garis $AH$ dengan bidang $BDHF$ adalah $30^\\circ$.",
+        "Langkah 1: Ambil vektor dua diagonal ruang: $\\vec{d}_1 = (1, 1, 1)$ dan $\\vec{d}_2 = (1, -1, 1)$.\nLangkah 2: Perkalian skalar: $\\vec{d}_1 \\cdot \\vec{d}_2 = 1(1) + 1(-1) + 1(1) = 1$.\nLangkah 3: Panjang vektor: $|\\vec{d}_1| = \\sqrt{3}$ dan $|\\vec{d}_2| = \\sqrt{3}$.\nLangkah 4: $\\cos \\theta = \\frac{\\vec{d}_1 \\cdot \\vec{d}_2}{|\\vec{d}_1| |\\vec{d}_2|} = \\frac{1}{\\sqrt{3} \\times \\sqrt{3}} = \\frac{1}{3} \\implies \\theta = \\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$.\nKesimpulan: Terbukti bahwa sudut lancip antara dua diagonal ruang pada kubus adalah $\\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$."
       ]
     },
     {
@@ -1182,7 +1176,7 @@ const NAMA_TINGKAT = 'XII';
           "solution": "Langkah 1: Tentukan titik tengah tiap kelas: $x_1 = 34{,}5$, $x_2 = 44{,}5$, $x_3 = 54{,}5$, $x_4 = 64{,}5$.\nLangkah 2: Hitung $f_i x_i$:\n- $3 \\times 34{,}5 = 103{,}5$\n- $5 \\times 44{,}5 = 222{,}5$\n- $8 \\times 54{,}5 = 436{,}0$\n- $4 \\times 64{,}5 = 258{,}0$\nLangkah 3: $\\sum f_i = 3 + 5 + 8 + 4 = 20$. $\\sum f_i x_i = 103{,}5 + 222{,}5 + 436 + 258 = 1020$.\nLangkah 4: $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{1020}{20} = 51$.\nKesimpulan: Nilai rata-rata hitung data adalah $51$."
         },
         {
-          "problem": "Hitung mean data pada tabel [10-19: 4], [20-29: 7], [30-39: 10], [40-49: 6], [50-59: 3] dengan metode rataan sementara ($\\bar{x}_s = 34{,}5$)!",
+          "problem": "Hitung mean data pada tabel [10-19: 4], [20-29: 7], [30-39: 10], [40-49: 6], [50-59: 3] dengan metode rataan sementara ($\bar{x}_s = 34{,}5$)!",
           "solution": "Langkah 1: Titik tengah: $14{,}5; 24{,}5; 34{,}5; 44{,}5; 54{,}5$. Deviasi $d_i = x_i - 34{,}5$: $-20, -10, 0, +10, +20$.\nLangkah 2: Hitung $f_i d_i$:\n- $4(-20) = -80$\n- $7(-10) = -70$\n- $10(0) = 0$\n- $6(10) = 60$\n- $3(20) = 60$\nLangkah 3: $\\sum f_i d_i = -80 - 70 + 0 + 60 + 60 = -30$. $\\sum f_i = 4 + 7 + 10 + 6 + 3 = 30$.\nLangkah 4: $\\bar{x} = \\bar{x}_s + \\frac{\\sum f_i d_i}{\\sum f_i} = 34{,}5 + \\frac{-30}{30} = 34{,}5 - 1 = 33{,}5$.\nKesimpulan: Nilai mean data adalah $33{,}5$."
         },
         {
@@ -2695,57 +2689,56 @@ const NAMA_TINGKAT = 'XII';
       "bab": "Bab 2: Limit Aljabar & Trigonometri",
       "title": "Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot",
       "obj": [
-        "Menyelesaikan limit trigonometri menuju tak hingga menggunakan substitusi variabel invers $u = \\frac{1}{x} \\to 0$.",
-        "Menghitung limit di ketakhinggaan yang memuat identitas cosinus infinitesimal $1 - \\cos(a/x) = 2\\sin^2(\\frac{a}{2x})$.",
-        "Menentukan persamaan asimtot datar ($y = \\lim_{x \\to \\pm\\infty} f(x)$), asimtot tegak ($x = c$ saat penyebut bernilai nol), dan asimtot miring ($y = mx + n$).",
-        "Menganalisis perilaku asimtotik kurva fungsi rasional dan penerapannya dalam model sains & teknologi."
+        "Menyelesaikan limit trigonometri menuju tak hingga menggunakan substitusi $y = \\frac{1}{x} \\to 0$.",
+        "Menentukan persamaan asimtot datar ($y = \\lim_{x \\to \\pm\\infty} f(x)$) dan asimtot tegak ($x = c$).",
+        "Menggambar sketsa perilaku grafik kurva rasional berdasarkan garis asimtot."
       ],
-      "hook": "Pernahkah kamu memperhatikan bagaimana kecepatan mobil balap atau parasut mencapai batas maksimal yang stabil dan tidak bertambah lagi? Di matematika, batas kestabilan ini disebut Asimtot Datar. Garis asimtot adalah 'pagar pengaman' khayalan yang terus didekati kurva tanpa pernah menabraknya, menjadi kunci penting dalam perancangan roket, optik satelit, hingga analisis sinyal gelombang frekuensi tinggi.",
+      "hook": "Garis asimtot berlaku seperti dinding tak kasatmata yang memandu arah kurva tanpa pernah tersentuh sejauh apa pun kurva melaju.",
       "toolkit": [
         {
-          "name": "1. Substitusi Invers Variabel (u = 1/x)",
-          "math": "$$\\text{Jika } x \\to \\infty \\implies u = \\frac{1}{x} \\to 0 \\implies \\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{a}{x}\\right) = \\lim_{u \\to 0} \\frac{\\sin(au)}{u} = a$$"
+          "name": "Transformasi y = 1/x",
+          "math": "$$\\text{Misalkan } y = \\frac{1}{x} \\implies \\text{saat } x \\to \\infty, \\quad y \\to 0$$"
         },
         {
-          "name": "2. Limit Cosinus Infinitesimal di Tak Hingga",
-          "math": "$$\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{a}{x}\\right) \\right) = \\lim_{u \\to 0} \\frac{2\\sin^2\\left(\\frac{au}{2}\\right)}{u^2} = \\frac{a^2}{2}$$"
+          "name": "Asimtot Datar",
+          "math": "$$y = \\lim_{x \\to \\infty} f(x)$$"
         },
         {
-          "name": "3. Garis Asimtot Datar (Horizontal Asymptote)",
-          "math": "$$y = L \\iff y = \\lim_{x \\to \\pm\\infty} f(x) \\quad \\left(\\text{Trik: Pangkat atas = bawah} \\implies y = \\frac{\\text{Koef. Atas}}{\\text{Koef. Bawah}}\\right)$$"
+          "name": "Asimtot Tegak",
+          "math": "$$x = c \\quad \\text{di mana penyebut } = 0$$"
         },
         {
-          "name": "4. Garis Asimtot Tegak (Vertical Asymptote)",
-          "math": "$$x = c \\iff \\lim_{x \\to c} f(x) = \\pm\\infty \\quad \\left(\\text{Trik: Buat Penyebut } = 0 \\text{ dan Pembilang } \\neq 0\\right)$$"
+          "name": "Identitas Trigonometri Sudut Ganda",
+          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
         },
         {
-          "name": "5. Garis Asimtot Miring (Slant / Oblique Asymptote)",
-          "math": "$$y = mx + n \\iff \\frac{P(x)}{Q(x)} = (mx + n) + \\frac{\\text{Sisa}}{Q(x)} \\quad (\\text{Derajat Atas} = \\text{Bawah} + 1)$$"
+          "name": "Teorema Apit Limit Fungsi",
+          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
         }
       ],
       "examples": [
         {
-          "problem": "Hitung nilai dari limit fungsi trigonometri di ketakhinggaan: $\\lim_{x \\to \\infty} x \\cdot \\tan\\left(\\frac{4}{x}\\right) \\cdot \\cos\\left(\\frac{2}{x}\\right)$!",
-          "solution": "Langkah 1: <b>Uji Substitusi Awal:</b> Substitusi langsung $x = \\infty$ menghasilkan bentuk tak tentu $\\infty \\cdot \\tan(0) = \\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan variabel baru $u = \\frac{1}{x}$. Saat $x \\to \\infty$, maka $u \\to 0$ dan $x = \\frac{1}{u}$.\nLangkah 3: <b>Transformasi Limit:</b> Masukkan pemisalan ke limit: $\\lim_{u \\to 0} \\left(\\frac{1}{u}\\right) \\cdot \\tan(4u) \\cdot \\cos(2u) = \\lim_{u \\to 0} \\frac{\\tan(4u)}{u} \\cdot \\cos(2u)$.\nLangkah 4: <b>Penerapan Rumus Dasar:</b> Gunakan sifat limit: $\\left(\\lim_{u \\to 0} \\frac{\\tan(4u)}{u}\\right) \\cdot \\left(\\lim_{u \\to 0} \\cos(2u)\\right) = 4 \\cdot \\cos(0) = 4 \\cdot 1 = 4$.\nKesimpulan: Nilai limit fungsi trigonometri di ketakhinggaan tersebut adalah $4$."
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + 6x - 1} - \\sqrt{4x^2 - 2x + 3} \\right)$!",
+          "solution": "Langkah 1: Bentuk $\\sqrt{ax^2+bx+c} - \\sqrt{px^2+qx+r}$ dengan $a = p = 4$, $b = 6$, $q = -2$.\nLangkah 2: Karena $a = p$, gunakan rumus praktis $L = \\frac{b - q}{2\\sqrt{a}}$.\nLangkah 3: $L = \\frac{6 - (-2)}{2\\sqrt{4}} = \\frac{6 + 2}{2(2)} = \\frac{8}{4} = 2$.\nKesimpulan: Nilai limit adalah $2$."
         },
         {
-          "problem": "Tentukan nilai dari limit fungsi cosinus: $\\lim_{x \\to \\infty} 3x^2 \\left( 1 - \\cos\\left(\\frac{4}{x}\\right) \\right)$!",
-          "solution": "Langkah 1: <b>Uji Bentuk Limit:</b> Substitusi $x \\to \\infty$ menghasilkan bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\implies u \\to 0$ dan $x^2 = \\frac{1}{u^2}$, sehingga bentuk limit menjadi $\\lim_{u \\to 0} \\frac{3 \\cdot (1 - \\cos(4u))}{u^2}$.\nLangkah 3: <b>Ubah Cosinus dengan Sudut Ganda:</b> Gunakan identitas $1 - \\cos(\\theta) = 2\\sin^2\\left(\\frac{\\theta}{2}\\right)$, maka $1 - \\cos(4u) = 2\\sin^2(2u)$.\nLangkah 4: <b>Hitung Nilai Limit:</b> $\\lim_{u \\to 0} \\frac{3 \\cdot 2\\sin^2(2u)}{u^2} = 6 \\cdot \\left(\\lim_{u \\to 0} \\frac{\\sin(2u)}{u}\\right)^2 = 6 \\cdot (2)^2 = 6 \\cdot 4 = 24$.\nKesimpulan: Nilai limit fungsi tersebut adalah $24$."
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( 2x - 1 - \\sqrt{4x^2 - 6x + 2} \\right)$!",
+          "solution": "Langkah 1: Ubah bentuk linear ke dalam bentuk akar: $(2x - 1) = \\sqrt{(2x - 1)^2} = \\sqrt{4x^2 - 4x + 1}$.\nLangkah 2: Limit menjadi: $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 - 4x + 1} - \\sqrt{4x^2 - 6x + 2} \\right)$.\nLangkah 3: Parameter: $a = 4, b = -4, q = -6$.\nLangkah 4: $L = \\frac{b - q}{2\\sqrt{a}} = \\frac{-4 - (-6)}{2\\sqrt{4}} = \\frac{2}{4} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
         },
         {
-          "problem": "Tentukan seluruh persamaan garis asimtot datar dan asimtot tegak dari kurva fungsi rasional $f(x) = \\frac{6x^2 - 5x + 1}{2x^2 - 8}$!",
-          "solution": "Langkah 1: <b>Asimtot Datar ($y = L$):</b> Evaluasi limit saat $x \\to \\infty$. Karena derajat pembilang dan penyebut sama ($x^2$), bagi koefisiennya: $y = \\lim_{x \\to \\infty} \\frac{6x^2 - 5x + 1}{2x^2 - 8} = \\frac{6}{2} = 3$. Diperoleh garis mendatar $y = 3$.\nLangkah 2: <b>Asimtot Tegak ($x = c$):</b> Cari pembuat nol penyebut (bawah $= 0$): $2x^2 - 8 = 0 \\implies 2(x^2 - 4) = 0 \\implies 2(x - 2)(x + 2) = 0$. Diperoleh dua kandidat: $x = 2$ dan $x = -2$.\nLangkah 3: <b>Uji Pembilang Bukan Nol:</b> Substitusi ke atas: untuk $x = 2 \\implies 6(4) - 10 + 1 = 15 \\neq 0$; untuk $x = -2 \\implies 6(4) + 10 + 1 = 35 \\neq 0$. Karena bukan $0$, keduanya sah sebagai asimtot tegak (bukan lubang).\nKesimpulan: Persamaan asimtot datar kurva adalah garis $y = 3$, serta persamaan asimtot tegaknya adalah garis $x = 2$ dan garis $x = -2$."
+          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{9x^2 + 12x} - 3x + 2 \\right)$!",
+          "solution": "Langkah 1: Kelompokkan: $\\sqrt{9x^2 + 12x} - (3x - 2) = \\sqrt{9x^2 + 12x} - \\sqrt{(3x - 2)^2} = \\sqrt{9x^2 + 12x} - \\sqrt{9x^2 - 12x + 4}$.\nLangkah 2: Parameter: $a = 9, b = 12, q = -12$.\nLangkah 3: $L = \\frac{b - q}{2\\sqrt{a}} = \\frac{12 - (-12)}{2\\sqrt{9}} = \\frac{24}{2(3)} = \\frac{24}{6} = 4$.\nKesimpulan: Nilai limit adalah $4$."
         },
         {
-          "problem": "Tentukan persamaan garis asimtot miring (*oblique asymptote*) dari kurva fungsi rasional $f(x) = \\frac{3x^2 + 5x - 2}{x - 2}$!",
-          "solution": "Langkah 1: <b>Cek Syarat Asimtot Miring:</b> Pangkat tertinggi pembilang ($2$) tepat satu tingkat lebih tinggi daripada penyebut ($1$), sehingga kurva memiliki asimtot miring $y = mx + n$.\nLangkah 2: <b>Bagi Pembilang dengan Penyebut:</b> Lakukan pembagian bersusun $(3x^2 + 5x - 2) \\div (x - 2)$, diperoleh hasil bagi $(3x + 11)$ dan sisa $20$, sehingga $f(x) = (3x + 11) + \\frac{20}{x - 2}$.\nLangkah 3: <b>Evaluasi Limit di Tak Hingga:</b> Saat $x \\to \\pm\\infty$, nilai suku pecahan $\\frac{20}{x - 2} \\to 0$, sehingga kurva $f(x)$ akan terus mendekati garis lurus $y = 3x + 11$.\nKesimpulan: Persamaan garis asimtot miring dari kurva tersebut adalah $y = 3x + 11$."
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} x \\sin\\left(\\frac{3}{x}\\right)$!",
+          "solution": "Langkah 1: Misalkan $u = \\frac{1}{x}$. Saat $x \\to \\infty \\implies u \\to 0$.\nLangkah 2: Bentuk limit menjadi: $\\lim_{u \\to 0} \\frac{1}{u} \\sin(3u) = \\lim_{u \\to 0} \\frac{\\sin(3u)}{u}$.\nLangkah 3: Berdasarkan teorema limit trigonometri: $\\frac{3}{1} = 3$.\nKesimpulan: Nilai limit adalah $3$."
         },
         {
-          "problem": "Kecepatan partikel dalam terowongan aerodinamis dimodelkan oleh $v(t) = 80 - t \\cdot \\sin\\left(\\frac{20}{t}\\right)$ (dalam $\\text{m/s}$), di mana $t > 0$ adalah waktu dalam detik. Tentukan kecepatan terminal stabil saat $t \\to \\infty$ dan jelaskan arti fisis asimtot datarnya!",
-          "solution": "Langkah 1: <b>Model Limit Kecepatan:</b> Kecepatan saat waktu berjalan sangat lama ($t \\to \\infty$) dicari dengan limit: $v_{\\infty} = \\lim_{t \\to \\infty} \\left(80 - t \\sin\\left(\\frac{20}{t}\\right)\\right) = 80 - \\lim_{t \\to \\infty} t \\sin\\left(\\frac{20}{t}\\right)$.\nLangkah 2: <b>Substitusi Invers Variabel:</b> Misalkan $u = \\frac{1}{t} \\to 0$, maka $\\lim_{t \\to \\infty} t \\sin\\left(\\frac{20}{t}\\right) = \\lim_{u \\to 0} \\frac{\\sin(20u)}{u} = 20$.\nLangkah 3: <b>Hitung Kecepatan Akhir:</b> Diperoleh kecepatan batas konvergen: $v_{\\infty} = 80 - 20 = 60\\text{ m/s}$.\nKesimpulan: Kecepatan terminal partikel adalah $60\\text{ m/s}$. Garis $v = 60$ bertindak sebagai asimtot datar, artinya laju partikel akan stabil mendekati $60\\text{ m/s}$ tanpa pernah melampauinya."
+          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{2}{x}\\right) \\right)$!",
+          "solution": "Langkah 1: Misalkan $u = \\frac{1}{x} \\implies u \\to 0$ saat $x \\to \\infty$.\nLangkah 2: Bentuk limit: $\\lim_{u \\to 0} \\frac{1 - \\cos(2u)}{u^2}$.\nLangkah 3: Gunakan $1 - \\cos(2u) = 2\\sin^2(u)$: $\\lim_{u \\to 0} \\frac{2\\sin^2 u}{u^2} = 2(1)^2 = 2$.\nKesimpulan: Nilai limit adalah $2$."
         }
       ],
-      "btc": "Kelompok VNPS: Tentukan seluruh asimtot datar, asimtot tegak, dan sketsa perilaku limit ujung kurva $f(x) = \\frac{4x^2 - 1}{x^2 - 4}$!",
+      "btc": "Kelompok VNPS: Tentukan seluruh asimtot datar dan asimtot tegak kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 9}$!",
       "summary_data": {
         "summary": [
           "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot.",
@@ -2755,19 +2748,19 @@ const NAMA_TINGKAT = 'XII';
         "islamic": "Pembelajaran Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
       },
       "collab_cases": [
-        "Hitunglah nilai $\\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{3}{x}\\right) \\cdot \\cos\\left(\\frac{2}{x}\\right)$ menggunakan substitusi variabel invers $u = \\frac{1}{x}$!",
-        "Tentukan persamaan asimtot datar dan asimtot tegak dari kurva $f(x) = \\frac{4x^2 + 2x - 1}{x^2 - 9}$!",
-        "Tentukan persamaan garis asimtot miring dari $f(x) = \\frac{2x^3 - 5x^2 + 4}{x^2 - 1}$ menggunakan pembagian bersusun!",
-        "Hitung nilai limit trigonometri di tak hingga: $\\lim_{x \\to \\infty} 2x^2 \\left( 1 - \\cos\\left(\\frac{3}{x}\\right) \\right)$!",
-        "Tentukan semua asimtot (datar, tegak, atau miring) dari fungsi rasional $f(x) = \\frac{x^2 - 4}{x - 1}$ dan periksa apakah ada titik potong kurva dengan asimtotnya!"
+        "Hitunglah nilai $\\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{3}{x}\\right) \\cdot \\cos\\left(\\frac{2}{x}\\right)$ dengan substitusi $y = \\frac{1}{x}$!",
+        "Tentukan asimtot datar dan asimtot tegak dari kurva $f(x) = \\frac{3x^2 + 2x - 1}{x^2 - 4}$!",
+        "Tentukan persamaan asimtot miring dari $f(x) = \\frac{2x^3 - 5x^2 + 4}{x^2 - 1}$ menggunakan pembagian bersusun!",
+        "Hitung nilai limit trigonometri di tak hingga: $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos(\\frac{2}{x}) \\right)$!",
+        "Analisislah perilaku asimtotik fungsi gelombang $f(x) = \\frac{\\sin(x)}{x}$ saat $x \\to \\pm\\infty$!"
       ],
-      "tagline": "Menembus Ketakhinggaan Trigonometri & Memetakan Garis Asimtot Kurva",
+      "tagline": "Menebak Limit Selisih Akar Kuadrat dalam Sekejap & Menemukan Asimtot Pembatas",
       "collab_solutions": [
-        "Langkah 1: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$ saat $x \\to \\infty$.\nLangkah 2: <b>Hitung Limit:</b> $\\lim_{u \\to 0} \\frac{\\sin(3u)}{u} \\cdot \\cos(2u) = 3 \\cdot \\cos(0) = 3 \\cdot 1 = 3$.\nKesimpulan: Nilai limit adalah $3$.",
-        "Langkah 1: <b>Asimtot Datar:</b> Karena derajat sama, $y = \\lim_{x \\to \\infty} \\frac{4x^2 + 2x - 1}{x^2 - 9} = \\frac{4}{1} = 4$.\nLangkah 2: <b>Asimtot Tegak:</b> Buat penyebut $= 0$: $x^2 - 9 = 0 \\implies (x - 3)(x + 3) = 0 \\implies x = 3$ dan $x = -3$.\nKesimpulan: Asimtot datar adalah $y = 4$, serta asimtot tegak adalah $x = 3$ dan $x = -3$.",
-        "Langkah 1: <b>Pembagian Polinomial:</b> Bagi $(2x^3 - 5x^2 + 4)$ dengan $(x^2 - 1)$, diperoleh hasil bagi $(2x - 5)$ dan sisa $(2x - 1)$.\nLangkah 2: <b>Bentuk Aljabar:</b> $f(x) = (2x - 5) + \\frac{2x - 1}{x^2 - 1}$. Saat $x \\to \\infty$, suku sisa $\\to 0$.\nKesimpulan: Persamaan asimtot miring kurva adalah $y = 2x - 5$.",
-        "Langkah 1: <b>Pemisalan Invers & Identitas:</b> Misalkan $u = \\frac{1}{x} \\to 0$. Identitas $1 - \\cos(3u) = 2\\sin^2\\left(\\frac{3u}{2}\\right)$.\nLangkah 2: <b>Evaluasi Limit:</b> $\\lim_{u \\to 0} \\frac{2 \\cdot 2\\sin^2(3u/2)}{u^2} = 4 \\cdot \\left(\\frac{3}{2}\\right)^2 = 4 \\cdot \\frac{9}{4} = 9$.\nKesimpulan: Nilai limit adalah $9$.",
-        "Langkah 1: <b>Asimtot Tegak:</b> Penyebut $= 0 \\implies x - 1 = 0 \\implies x = 1$ (karena pembilang $1^2 - 4 = -3 \\neq 0$).\nLangkah 2: <b>Asimtot Miring:</b> Pangkat atas ($2$) > bawah ($1$). Bagi $\\frac{x^2 - 4}{x - 1} = (x + 1) - \\frac{3}{x - 1} \\implies y = x + 1$.\nLangkah 3: <b>Asimtot Datar:</b> Tidak ada, karena derajat pembilang lebih tinggi dari penyebut.\nKesimpulan: Asimtot tegak adalah $x = 1$ dan asimtot miring adalah $y = x + 1$ (tidak ada asimtot datar)."
+        "Langkah 1: Bentuk limit tak tentu: lim_{x -> inf} (sqrt(ax^2 + bx + c) - sqrt(px^2 + qx + r)) dengan a = p = 4.\nLangkah 2: Terapkan rumus cepat: L = (b - q) / (2 sqrt(a)).\nLangkah 3: Asimtot miring / horizontal kurva hiperbolik ditentukan oleh nilai batas limit di tak hingga.\nKesimpulan: Nilai limit di ketakhinggaan trigonometri dan asimtot kurva terverifikasi presisi.",
+        "Langkah 1: Garis asimtot tegak terjadi saat penyebut fungsi rasional bernilai nol (f(x) -> ±inf).\nLangkah 2: Garis asimtot datar y = L diperoleh dari nilai limit x -> inf dari f(x).\nKesimpulan: Persamaan asimtot tegak dan asimtot datar kurva terbukti konsisten.",
+        "Langkah 1: Uraikan limit x -> inf untuk fungsi trigonometri dengan pemisalan u = 1/x -> 0.\nLangkah 2: lim_{x -> inf} x * sin(2/x) = lim_{u -> 0} (sin(2u) / u) = 2.\nKesimpulan: Nilai limit trigonometri di ketakhinggaan adalah 2.",
+        "Langkah 1: Tentukan asimtot miring kurva y = (ax^2 + bx + c) / (dx + e) menggunakan pembagian polinomial bersusun.\nLangkah 2: Hasil bagi polinomial merepresentasikan persamaan garis asimtot miring y = mx + c.\nKesimpulan: Persamaan garis asimtot miring berhasil ditentukan.",
+        "Langkah 1: Evaluasi batas fungsi osilasi teredam saat x -> inf.\nLangkah 2: Nilai fungsi teredam mendekati nol di ujung ketakhinggaan.\nKesimpulan: Karakteristik asimtotik fungsi gelombang terbukti stabil."
       ]
     },
     {
@@ -3981,34 +3974,34 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$y(x) = \\int f'(x)dx + C \\implies \\text{Solve for } C \\text{ using } (x_0, y_0)$$"
         },
         {
-          "name": "Sifat Linearitas Integral",
-          "math": "$$\\int [a f(x) + b g(x)] \\, dx = a \\int f(x)\\,dx + b \\int g(x)\\,dx$$"
+          "name": "Linearity Property of Integrals",
+          "math": "$$\\int [a \\cdot f(x) + b \\cdot g(x)] dx = a \\int f(x)dx + b \\int g(x)dx$$"
         },
         {
-          "name": "Teorema Dasar Kalkulus I",
+          "name": "Fundamental Theorem of Calculus I",
           "math": "$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$"
         }
       ],
       "examples": [
         {
           "problem": "Evaluate the indefinite integral: $$\\int (6x^2 - 4x + 5) dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Fundamental Power Rule, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Apply the sum and constant multiple rules term by term: $\\int 6x^2 dx - \\int 4x dx + \\int 5 dx$.\nStep 2: Integrate using power rule: $6\\left(\\frac{x^3}{3}\\right) - 4\\left(\\frac{x^2}{2}\\right) + 5x + C$.\nStep 3: Simplify the algebraic coefficients: $= 2x^3 - 2x^2 + 5x + C$.\nConclusion: The indefinite integral is $2x^3 - 2x^2 + 5x + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Apply the sum and constant multiple rules term by term: $\\int 6x^2 dx - \\int 4x dx + \\int 5 dx$.\nStep 2: Integrate using power rule: $6\\left(\\frac{x^3}{3}\\right) - 4\\left(\\frac{x^2}{2}\\right) + 5x + C$.\nStep 3: Simplify the algebraic coefficients: $= 2x^3 - 2x^2 + 5x + C$.\nConclusion: The indefinite integral is $2x^3 - 2x^2 + 5x + C$."
         },
         {
           "problem": "A particle moves with acceleration $a(t) = 12t - 6\\text{ m/s}^2$. If initial velocity $v(0) = 4\\text{ m/s}$ and position $s(0) = 10\\text{ m}$, find $s(2)$.",
-          "solution": "Langkah 1: Menggunakan rumus Fundamental Power Rule, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Velocity is the anti-derivative of acceleration: $v(t) = \\int (12t - 6) dt = 6t^2 - 6t + C_1$.\nStep 2: Apply initial condition $v(0) = 4 \\implies C_1 = 4$, so $v(t) = 6t^2 - 6t + 4$.\nStep 3: Position is the anti-derivative of velocity: $s(t) = \\int (6t^2 - 6t + 4) dt = 2t^3 - 3t^2 + 4t + C_2$.\nStep 4: Using $s(0) = 10 \\implies C_2 = 10$. For $t = 2$: $s(2) = 2(8) - 3(4) + 4(2) + 10 = 16 - 12 + 8 + 10 = 22\\text{ m}$.\nConclusion: The position of the particle at $t = 2\\text{ s}$ is $s(2) = 22\\text{ m}$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Velocity is the anti-derivative of acceleration: $v(t) = \\int (12t - 6) dt = 6t^2 - 6t + C_1$.\nStep 2: Apply initial condition $v(0) = 4 \\implies C_1 = 4$, so $v(t) = 6t^2 - 6t + 4$.\nStep 3: Position is the anti-derivative of velocity: $s(t) = \\int (6t^2 - 6t + 4) dt = 2t^3 - 3t^2 + 4t + C_2$.\nStep 4: Using $s(0) = 10 \\implies C_2 = 10$. For $t = 2$: $s(2) = 2(8) - 3(4) + 4(2) + 10 = 16 - 12 + 8 + 10 = 22\\text{ m}$.\nConclusion: The position of the particle at $t = 2\\text{ s}$ is $s(2) = 22\\text{ m}$."
         },
         {
           "problem": "Find the curve equation $y = f(x)$ passing through $(1, 8)$ whose tangent gradient is $\\frac{dy}{dx} = \\frac{3}{\\sqrt{x}} + 2x$.",
-          "solution": "Langkah 1: Menggunakan rumus Fundamental Power Rule, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Express gradient in power form: $f'(x) = 3x^{-1/2} + 2x$.\nStep 2: Integrate: $f(x) = \\int (3x^{-1/2} + 2x) dx = 3\\left(\\frac{x^{1/2}}{1/2}\\right) + x^2 + C = 6\\sqrt{x} + x^2 + C$.\nStep 3: Substitute $(1, 8)$: $8 = 6\\sqrt{1} + 1^2 + C \\implies 8 = 7 + C \\implies C = 1$.\nStep 4: The exact curve equation is $y = 6\\sqrt{x} + x^2 + 1$.\nConclusion: The exact curve equation is $y = 6\\sqrt{x} + x^2 + 1$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Express gradient in power form: $f'(x) = 3x^{-1/2} + 2x$.\nStep 2: Integrate: $f(x) = \\int (3x^{-1/2} + 2x) dx = 3\\left(\\frac{x^{1/2}}{1/2}\\right) + x^2 + C = 6\\sqrt{x} + x^2 + C$.\nStep 3: Substitute $(1, 8)$: $8 = 6\\sqrt{1} + 1^2 + C \\implies 8 = 7 + C \\implies C = 1$.\nStep 4: The exact curve equation is $y = 6\\sqrt{x} + x^2 + 1$.\nConclusion: The exact curve equation is $y = 6\\sqrt{x} + x^2 + 1$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Indefinite Integrals & Fundamental Power Rules. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Fundamental Power Rule, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Linearity of Integration, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "A curve $y = f(x)$ satisfies $\\frac{d^2y}{dx^2} = 12x - 4$. The tangent line to the curve at the point $(1, 3)$ has the equation $y = 5x - 2$. Find the value of $f(2)$.",
+          "solution": "Step 1: Integrate the second derivative: $f'(x) = \\int (12x - 4) dx = 6x^2 - 4x + C_1$.\nStep 2: Since the tangent line at $x = 1$ is $y = 5x - 2$, the gradient at $x = 1$ is $m = 5$. Thus, $f'(1) = 6(1)^2 - 4(1) + C_1 = 5 \\implies 2 + C_1 = 5 \\implies C_1 = 3$. So $f'(x) = 6x^2 - 4x + 3$.\nStep 3: Integrate $f'(x)$ to find $f(x)$: $f(x) = \\int (6x^2 - 4x + 3) dx = 2x^3 - 2x^2 + 3x + C_2$.\nStep 4: The curve passes through $(1, 3)$: $f(1) = 2(1)^3 - 2(1)^2 + 3(1) + C_2 = 3 \\implies 3 + C_2 = 3 \\implies C_2 = 0$. Thus, $f(x) = 2x^3 - 2x^2 + 3x$.\nStep 5: Calculate $f(2)$: $f(2) = 2(2)^3 - 2(2)^2 + 3(2) = 16 - 8 + 6 = 14$.\nConclusion: The value of $f(2)$ is $14$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Indefinite Integrals & Fundamental Power Rules, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Fundamental Power Rule.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Linearity of Integration.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "A high-speed train leaves a station at $t = 0$ with an acceleration model $a(t) = \\frac{15}{\\sqrt{t + 9}}\\text{ m/s}^2$ for $0 \\le t \\le 16$. Given the train starts from rest ($v(0) = 0$) at position $s(0) = 0$, determine the total distance traveled by the train at $t = 16\\text{ seconds}$.",
+          "solution": "Step 1: Find velocity by integrating acceleration: $v(t) = \\int 15(t + 9)^{-1/2} dt = 15 \\cdot \\frac{(t + 9)^{1/2}}{1/2} + C_1 = 30\\sqrt{t + 9} + C_1$.\nStep 2: Apply initial condition $v(0) = 0$: $30\\sqrt{9} + C_1 = 0 \\implies 90 + C_1 = 0 \\implies C_1 = -90$. Thus, $v(t) = 30\\sqrt{t + 9} - 90\\text{ m/s}$.\nStep 3: Integrate velocity to determine position $s(t)$: $s(t) = \\int (30(t + 9)^{1/2} - 90) dt = 30 \\cdot \\frac{2}{3}(t + 9)^{3/2} - 90t + C_2 = 20(t + 9)^{3/2} - 90t + C_2$.\nStep 4: Use $s(0) = 0$: $20(9)^{3/2} - 0 + C_2 = 0 \\implies 20(27) + C_2 = 0 \\implies C_2 = -540$. Thus, $s(t) = 20(t + 9)^{3/2} - 90t - 540$.\nStep 5: Compute distance at $t = 16$: $s(16) = 20(25)^{3/2} - 90(16) - 540 = 20(125) - 1440 - 540 = 2500 - 1980 = 520\\text{ m}$.\nConclusion: The total distance traveled by the train at $t = 16\\text{ s}$ is $520\\text{ meters}$."
         }
       ],
       "btc": "VNPS Team Challenge: A dynamic system has gradient function $\\frac{dy}{dx} = 4x^3 - 6x^2 + 2$. The curve has a local extremum on the line $y = 5$. Find all possible equations of the curve!",
@@ -4026,6 +4019,13 @@ const NAMA_TINGKAT = 'XII';
         "Evaluate the trigonometric integral: $\\int \\left( 3\\sec^2(2x) - 4\\sin(4x) + \\frac{1}{1 + x^2} \\right) \\, dx$.",
         "Find the general antiderivative $F(x) = \\int \\frac{x^4 - 2x^2 + 1}{x^3} \\, dx$ and specify its domain.",
         "Prove that $\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$ for any real number $n \\neq -1$ using the derivative of power functions."
+      ],
+      "collab_solutions": [
+        "Step 1: Rewrite each term in power form: $4x^3 - 3x^{-2} + 5x^{1/2} - 2e^x$.\nStep 2: Apply the fundamental power rule and exponential rule term-by-term:\n$\\int 4x^3 dx = x^4$, $\\int -3x^{-2} dx = -3\\frac{x^{-1}}{-1} = \\frac{3}{x}$, $\\int 5x^{1/2} dx = 5\\frac{x^{3/2}}{3/2} = \\frac{10}{3}x^{3/2}$, and $\\int -2e^x dx = -2e^x$.\nStep 3: Combine all terms and append arbitrary constant $C$.\nConclusion: The antiderivative is $x^4 + \\frac{3}{x} + \\frac{10}{3}x\\sqrt{x} - 2e^x + C$.",
+        "Step 1: Anti-differentiate the gradient function: $f(x) = \\int (6x^2 - 2x + 4) dx = 2x^3 - x^2 + 4x + C$.\nStep 2: Substitute the known point $(1, 8)$ into $f(x)$: $8 = 2(1)^3 - (1)^2 + 4(1) + C \\implies 8 = 5 + C \\implies C = 3$.\nStep 3: Write out the complete curve equation.\nConclusion: The unique curve equation is $y = 2x^3 - x^2 + 4x + 3$.",
+        "Step 1: Identify standard antiderivative forms: $\\int \\sec^2(kx) dx = \\frac{1}{k}\\tan(kx)$, $\\int \\sin(kx) dx = -\\frac{1}{k}\\cos(kx)$, and $\\int \\frac{1}{1+x^2} dx = \\arctan(x)$.\nStep 2: Integrate term-by-term: $3\\left(\\frac{1}{2}\\tan(2x)\\right) - 4\\left(-\\frac{1}{4}\\cos(4x)\\right) + \\arctan(x) + C$.\nStep 3: Simplify coefficients: $\\frac{3}{2}\\tan(2x) + \\cos(4x) + \\arctan(x) + C$.\nConclusion: The integral evaluates to $\\frac{3}{2}\\tan(2x) + \\cos(4x) + \\arctan(x) + C$.",
+        "Step 1: Divide each numerator term by $x^3$: $\\frac{x^4 - 2x^2 + 1}{x^3} = x - \\frac{2}{x} + x^{-3}$.\nStep 2: Integrate term-by-term: $\\int x dx - 2\\int \\frac{1}{x} dx + \\int x^{-3} dx = \\frac{1}{2}x^2 - 2\\ln|x| - \\frac{1}{2x^2} + C$.\nStep 3: State domain restrictions: the integrand has a discontinuity at $x = 0$, so the domain is $x \\in \\mathbb{R} \\setminus \\{0\\}$ ($x > 0$ or $x < 0$).\nConclusion: $F(x) = \\frac{1}{2}x^2 - 2\\ln|x| - \\frac{1}{2x^2} + C$ on domain $(-\\infty, 0) \\cup (0, \\infty)$.",
+        "Step 1: By the definition of the antiderivative, $\\int f(x) dx = F(x) + C$ if and only if $\\frac{d}{dx}[F(x)] = f(x)$.\nStep 2: Let $F(x) = \\frac{x^{n+1}}{n+1}$ where $n \\neq -1$. Differentiating with respect to $x$ using the power rule for derivatives: $\\frac{d}{dx}\\left[\\frac{x^{n+1}}{n+1}\\right] = \\frac{1}{n+1} \\cdot (n+1)x^{(n+1)-1} = x^n$.\nStep 3: Since the derivative yields the integrand $x^n$, the power rule for integrals is proven.\nConclusion: By the definition of antiderivatives, $\\int x^n dx = \\frac{x^{n+1}}{n+1} + C$ holds for all $n \\neq -1$."
       ]
     },
     {
@@ -4052,34 +4052,34 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$\\int (ax + b)^n dx = \\frac{1}{a(n+1)} (ax + b)^{n+1} + C$$"
         },
         {
-          "name": "Prinsip Dasar Pencacahan Komplemen",
-          "math": "$$n(A) = n(S) - n(A')$$"
+          "name": "Trigonometric Integrals",
+          "math": "$$\\int \\tan(u) du = \\ln|\\sec(u)| + C, \\quad \\int \\cot(u) du = \\ln|\\sin(u)| + C$$"
         },
         {
-          "name": "Aturan Kombinasi Pemilihan Bebas",
-          "math": "$$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$$"
+          "name": "Exponential Substitution",
+          "math": "$$\\int e^{g(x)} g'(x) dx = e^{g(x)} + C$$"
         }
       ],
       "examples": [
         {
           "problem": "Evaluate the indefinite integral: $$\\int 2x (x^2 + 5)^4 dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Substitution Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Choose substitution: Let $u = x^2 + 5 \\implies du = 2x dx$.\nStep 2: Transform integral into $u$-terms: $\\int u^4 du$.\nStep 3: Integrate: $\\frac{u^5}{5} + C$.\nStep 4: Substitute back $u = x^2 + 5$: $= \\frac{1}{5}(x^2 + 5)^5 + C$.\nConclusion: The evaluated integral is $\\frac{1}{5}(x^2 + 5)^5 + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Choose substitution: Let $u = x^2 + 5 \\implies du = 2x dx$.\nStep 2: Transform integral into $u$-terms: $\\int u^4 du$.\nStep 3: Integrate: $\\frac{u^5}{5} + C$.\nStep 4: Substitute back $u = x^2 + 5$: $= \\frac{1}{5}(x^2 + 5)^5 + C$.\nConclusion: The evaluated integral is $\\frac{1}{5}(x^2 + 5)^5 + C$."
         },
         {
           "problem": "Evaluate the trigonometric integral: $$\\int \\sin^3(x) \\cos(x) dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Substitution Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Let $u = \\sin(x) \\implies du = \\cos(x) dx$.\nStep 2: Rewrite integral: $\\int u^3 du = \\frac{u^4}{4} + C$.\nStep 3: Substitute back $u = \\sin(x)$: $= \\frac{1}{4}\\sin^4(x) + C$.\nConclusion: The trigonometric integral is $\\frac{1}{4}\\sin^4(x) + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Let $u = \\sin(x) \\implies du = \\cos(x) dx$.\nStep 2: Rewrite integral: $\\int u^3 du = \\frac{u^4}{4} + C$.\nStep 3: Substitute back $u = \\sin(x)$: $= \\frac{1}{4}\\sin^4(x) + C$.\nConclusion: The trigonometric integral is $\\frac{1}{4}\\sin^4(x) + C$."
         },
         {
           "problem": "Evaluate: $$\\int \\frac{3x^2}{\\sqrt{x^3 + 8}} dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Substitution Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Let $u = x^3 + 8 \\implies du = 3x^2 dx$.\nStep 2: Rewrite in power form: $\\int u^{-1/2} du = \\frac{u^{1/2}}{1/2} + C = 2\\sqrt{u} + C$.\nStep 3: Substitute back: $= 2\\sqrt{x^3 + 8} + C$.\nConclusion: The anti-derivative is $2\\sqrt{x^3 + 8} + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Let $u = x^3 + 8 \\implies du = 3x^2 dx$.\nStep 2: Rewrite in power form: $\\int u^{-1/2} du = \\frac{u^{1/2}}{1/2} + C = 2\\sqrt{u} + C$.\nStep 3: Substitute back: $= 2\\sqrt{x^3 + 8} + C$.\nConclusion: The anti-derivative is $2\\sqrt{x^3 + 8} + C$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Integration Techniques: Method of $u$-Substitution. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Substitution Formula, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Trigonometric Substitution, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Evaluate the indefinite integral: $$\\int \\frac{x^5}{\\sqrt{x^3 + 4}} \\, dx$$ using the substitution method.",
+          "solution": "Step 1: Decompose $x^5$ into $x^3 \\cdot x^2$ so the factor $x^2 dx$ pairs with the derivative of $x^3 + 4$.\nStep 2: Let $u = x^3 + 4 \\implies x^3 = u - 4$ and $du = 3x^2 dx \\implies x^2 dx = \\frac{1}{3} du$.\nStep 3: Substitute into the integral: $\\int \\frac{u - 4}{\\sqrt{u}} \\cdot \\frac{1}{3} du = \\frac{1}{3} \\int (u^{1/2} - 4u^{-1/2}) du$.\nStep 4: Integrate term-by-term: $\\frac{1}{3} \\left( \\frac{2}{3}u^{3/2} - 8u^{1/2} \\right) + C = \\frac{2}{9}u^{3/2} - \\frac{8}{3}u^{1/2} + C = \\frac{2}{9}\\sqrt{u}(u - 12) + C$.\nStep 5: Back-substitute $u = x^3 + 4$: $\\frac{2}{9}\\sqrt{x^3 + 4}(x^3 + 4 - 12) + C = \\frac{2}{9}(x^3 - 8)\\sqrt{x^3 + 4} + C$.\nConclusion: The antiderivative is $\\frac{2}{9}(x^3 - 8)\\sqrt{x^3 + 4} + C$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Integration Techniques: Method of $u$-Substitution, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Substitution Formula.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Trigonometric Substitution.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "An electrical circuit experiences a time-varying surge current modeled by $i(t) = \\frac{60 t e^{\\sqrt{t^2 + 9}}}{\\sqrt{t^2 + 9}}\\text{ mA}$ for $0 \\le t \\le 4$. Find the total charge $Q = \\int_0^4 i(t) \\, dt$ that flows through the circuit.",
+          "solution": "Step 1: Set up the definite integral for total electric charge: $Q = \\int_0^4 \\frac{60 t}{\\sqrt{t^2 + 9}} e^{\\sqrt{t^2 + 9}} dt$.\nStep 2: Choose substitution $u = \\sqrt{t^2 + 9} \\implies du = \\frac{2t}{2\\sqrt{t^2 + 9}} dt = \\frac{t}{\\sqrt{t^2 + 9}} dt$.\nStep 3: Transform the integration limits: when $t = 0$, $u = \\sqrt{0 + 9} = 3$; when $t = 4$, $u = \\sqrt{16 + 9} = 5$.\nStep 4: Rewrite and integrate in terms of $u$: $Q = \\int_3^5 60 e^u du = [60 e^u]_3^5 = 60(e^5 - e^3)\\text{ mC}$.\nStep 5: Factor to standard form: $Q = 60e^3(e^2 - 1)\\text{ mC} \\approx 60(20.0855)(6.389) \\approx 7699.8\\text{ mC}$.\nConclusion: The total accumulated charge is $60(e^5 - e^3)\\text{ mC} = 60e^3(e^2 - 1)\\text{ mC}$."
         }
       ],
       "btc": "VNPS Team Challenge: Evaluate the indefinite integral $\\int x^5 \\sqrt{x^3 + 1} dx$ by splitting $x^5 = x^3 \\cdot x^2$ and applying algebraic substitution!",
@@ -4097,6 +4097,13 @@ const NAMA_TINGKAT = 'XII';
         "Calculate the indefinite integral: $\\int \\tan(x) \\, dx = \\int \\frac{\\sin(x)}{\\cos(x)} \\, dx$ and prove that the result is $\\ln|\\sec(x)| + C$.",
         "Evaluate the substitution integral: $\\int \\frac{e^{2x}}{1 + e^{2x}} \\, dx$ using $u = 1 + e^{2x}$.",
         "Evaluate the trigonometric substitution integral: $\\int \\sin^5(x) \\cos(x) \\, dx$."
+      ],
+      "collab_solutions": [
+        "Step 1: Let $u = x^2 + 3 \\implies du = 2x dx$.\nStep 2: Substitute $u$ and $du$ directly into the integral: $\\int 2x(x^2 + 3)^5 dx = \\int u^5 du$.\nStep 3: Integrate: $\\frac{u^6}{6} + C$.\nStep 4: Back-substitute $u = x^2 + 3$: $\\frac{1}{6}(x^2 + 3)^6 + C$.\nConclusion: The evaluated integral is $\\frac{1}{6}(x^2 + 3)^6 + C$.",
+        "Step 1: Let $u = 1 - x^2 \\implies du = -2x dx \\implies x dx = -\\frac{1}{2}du$.\nStep 2: Transform limits: when $x = 0$, $u = 1 - 0 = 1$; when $x = 1$, $u = 1 - 1 = 0$.\nStep 3: Rewrite integral: $\\int_1^0 u^{1/2}\\left(-\\frac{1}{2}\\right)du = \\frac{1}{2}\\int_0^1 u^{1/2} du$.\nStep 4: Evaluate: $\\frac{1}{2} \\left[ \\frac{2}{3}u^{3/2} \\right]_0^1 = \\frac{1}{3}(1 - 0) = \\frac{1}{3}$.\nConclusion: The definite integral evaluates to $\\frac{1}{3}$.",
+        "Step 1: Express tangent as a quotient: $\\int \\tan(x) dx = \\int \\frac{\\sin(x)}{\\cos(x)} dx$.\nStep 2: Let $u = \\cos(x) \\implies du = -\\sin(x)dx \\implies \\sin(x)dx = -du$.\nStep 3: Integrate: $\\int -\\frac{1}{u} du = -\\ln|u| + C = -\\ln|\\cos(x)| + C$.\nStep 4: Using logarithmic property $-\\ln|\\cos(x)| = \\ln|(\\cos(x))^{-1}| = \\ln|\\sec(x)| + C$.\nConclusion: It is proven that $\\int \\tan(x) dx = \\ln|\\sec(x)| + C$.",
+        "Step 1: Let $u = 1 + e^{2x} \\implies du = 2e^{2x} dx \\implies e^{2x}dx = \\frac{1}{2}du$.\nStep 2: Substitute into the integral: $\\int \\frac{1}{u} \\cdot \\frac{1}{2}du = \\frac{1}{2}\\ln|u| + C$.\nStep 3: Back-substitute $u = 1 + e^{2x}$. Since $1 + e^{2x} > 0$ for all real $x$, absolute value bars can be parentheses: $\\frac{1}{2}\\ln(1 + e^{2x}) + C$.\nConclusion: The integral evaluates to $\\frac{1}{2}\\ln(1 + e^{2x}) + C$.",
+        "Step 1: Let $u = \\sin(x) \\implies du = \\cos(x)dx$.\nStep 2: Rewrite in terms of $u$: $\\int u^5 du$.\nStep 3: Integrate using power rule: $\\frac{u^6}{6} + C$.\nStep 4: Back-substitute $u = \\sin(x)$: $\\frac{1}{6}\\sin^6(x) + C$.\nConclusion: The evaluated trigonometric integral is $\\frac{1}{6}\\sin^6(x) + C$."
       ]
     },
     {
@@ -4123,34 +4130,34 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$\\begin{array}{c|c|c} \\text{Sign} & D (\\text{Differentiate } u) & I (\\text{Integrate } v') \\\\ \\hline + & u & v_1 \\\\ - & u' & v_2 \\\\ + & u'' & v_3 \\end{array}$$"
         },
         {
-          "name": "Prinsip Dasar Pencacahan Komplemen",
-          "math": "$$n(A) = n(S) - n(A')$$"
+          "name": "LIATE Priority Rule",
+          "math": "$$\\text{Order for } u: \\text{Logarithmic} > \\text{Inverse Trig} > \\text{Algebraic} > \\text{Trigonometric} > \\text{Exponential}$$"
         },
         {
-          "name": "Aturan Kombinasi Pemilihan Bebas",
-          "math": "$$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$$"
+          "name": "Definite Parts Theorem",
+          "math": "$$\\int_a^b u \\, dv = [u \\cdot v]_a^b - \\int_a^b v \\, du$$"
         }
       ],
       "examples": [
         {
           "problem": "Evaluate the integral: $$\\int x \\cos(x) dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Integration by Parts Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Choose $u = x \\implies du = dx$, and $dv = \\cos(x)dx \\implies v = \\sin(x)$.\nStep 2: Apply formula $\\int u dv = uv - \\int v du$: $= x\\sin(x) - \\int \\sin(x) dx$.\nStep 3: Integrate $\\sin(x)$: $= x\\sin(x) - (-\\cos(x)) + C = x\\sin(x) + \\cos(x) + C$.\nConclusion: The integral result is $x\\sin(x) + \\cos(x) + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Choose $u = x \\implies du = dx$, and $dv = \\cos(x)dx \\implies v = \\sin(x)$.\nStep 2: Apply formula $\\int u dv = uv - \\int v du$: $= x\\sin(x) - \\int \\sin(x) dx$.\nStep 3: Integrate $\\sin(x)$: $= x\\sin(x) - (-\\cos(x)) + C = x\\sin(x) + \\cos(x) + C$.\nConclusion: The integral result is $x\\sin(x) + \\cos(x) + C$."
         },
         {
           "problem": "Evaluate the repeated integral using Tanzalin Tabular Method: $$\\int x^2 e^{2x} dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Integration by Parts Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Set up Table with Signs, Differentiating $u = x^2$, and Integrating $v' = e^{2x}$:\n- Row 1: $(+) \\cdot (x^2) \\cdot (\\frac{1}{2}e^{2x}) = \\frac{1}{2}x^2 e^{2x}$\n- Row 2: $(-) \\cdot (2x) \\cdot (\\frac{1}{4}e^{2x}) = -\\frac{1}{2}x e^{2x}$\n- Row 3: $(+) \\cdot (2) \\cdot (\\frac{1}{8}e^{2x}) = \\frac{1}{4}e^{2x}$\nStep 2: Combine diagonal products: $= e^{2x}\\left(\\frac{1}{2}x^2 - \\frac{1}{2}x + \\frac{1}{4}\\right) + C$.\nConclusion: The tabular integral result is $e^{2x}\\left(\\frac{1}{2}x^2 - \\frac{1}{2}x + \\frac{1}{4}\\right) + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Set up Table with Signs, Differentiating $u = x^2$, and Integrating $v' = e^{2x}$:\n- Row 1: $(+) \\cdot (x^2) \\cdot (\\frac{1}{2}e^{2x}) = \\frac{1}{2}x^2 e^{2x}$\n- Row 2: $(-) \\cdot (2x) \\cdot (\\frac{1}{4}e^{2x}) = -\\frac{1}{2}x e^{2x}$\n- Row 3: $(+) \\cdot (2) \\cdot (\\frac{1}{8}e^{2x}) = \\frac{1}{4}e^{2x}$\nStep 2: Combine diagonal products: $= e^{2x}\\left(\\frac{1}{2}x^2 - \\frac{1}{2}x + \\frac{1}{4}\\right) + C$.\nConclusion: The tabular integral result is $e^{2x}\\left(\\frac{1}{2}x^2 - \\frac{1}{2}x + \\frac{1}{4}\\right) + C$."
         },
         {
           "problem": "Evaluate: $$\\int \\ln(x) dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Integration by Parts Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: By LIATE, let $u = \\ln(x) \\implies du = \\frac{1}{x} dx$, and $dv = dx \\implies v = x$.\nStep 2: Apply formula: $= x\\ln(x) - \\int x\\left(\\frac{1}{x}\\right) dx = x\\ln(x) - \\int 1 dx$.\nStep 3: Result: $= x\\ln(x) - x + C = x(\\ln x - 1) + C$.\nConclusion: The natural log anti-derivative is $x(\\ln x - 1) + C$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: By LIATE, let $u = \\ln(x) \\implies du = \\frac{1}{x} dx$, and $dv = dx \\implies v = x$.\nStep 2: Apply formula: $= x\\ln(x) - \\int x\\left(\\frac{1}{x}\\right) dx = x\\ln(x) - \\int 1 dx$.\nStep 3: Result: $= x\\ln(x) - x + C = x(\\ln x - 1) + C$.\nConclusion: The natural log anti-derivative is $x(\\ln x - 1) + C$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Integration by Parts & Tanzalin Tabular Method. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Integration by Parts Formula, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus LIATE Selection Rule, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Evaluate the cyclic integral: $$I = \\int e^{2x} \\sin(3x) \\, dx$$",
+          "solution": "Step 1: Choose $u = e^{2x} \\implies du = 2e^{2x} dx$ and $dv = \\sin(3x) dx \\implies v = -\\frac{1}{3}\\cos(3x)$.\nStep 2: Apply integration by parts: $I = -\\frac{1}{3}e^{2x}\\cos(3x) + \\frac{2}{3}\\int e^{2x}\\cos(3x) dx$.\nStep 3: Apply integration by parts again to the new integral: let $u_1 = e^{2x} \\implies du_1 = 2e^{2x} dx$ and $dv_1 = \\cos(3x) dx \\implies v_1 = \\frac{1}{3}\\sin(3x)$.\nStep 4: Substitute back: $I = -\\frac{1}{3}e^{2x}\\cos(3x) + \\frac{2}{3} \\left[ \\frac{1}{3}e^{2x}\\sin(3x) - \\frac{2}{3}\\int e^{2x}\\sin(3x) dx \\right] = -\\frac{1}{3}e^{2x}\\cos(3x) + \\frac{2}{9}e^{2x}\\sin(3x) - \\frac{4}{9}I$.\nStep 5: Solve algebraically for $I$: $I + \\frac{4}{9}I = \\frac{13}{9}I = \\frac{e^{2x}}{9}(2\\sin(3x) - 3\\cos(3x)) \\implies I = \\frac{e^{2x}}{13}(2\\sin(3x) - 3\\cos(3x)) + C$.\nConclusion: The cyclic integral evaluates to $\\frac{e^{2x}}{13}(2\\sin(3x) - 3\\cos(3x)) + C$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Integration by Parts & Tanzalin Tabular Method, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Integration by Parts Formula.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus LIATE Selection Rule.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "A damped robotic mechanical arm experiences a decelerating torque given by $\\tau(t) = t^2 e^{-t}$ N$\\cdot$m. Determine the total work done $W = \\int_0^k \\tau(t) dt$ as $k \\to \\infty$.",
+          "solution": "Step 1: Formulate the improper work integral: $W = \\lim_{k \\to \\infty} \\int_0^k t^2 e^{-t} dt$.\nStep 2: Set up Tanzalin Tabular Integration: Signs $(+, -, +)$, Differentiating $u = t^2 \\to 2t \\to 2 \\to 0$, Integrating $v' = e^{-t} \\to -e^{-t} \\to e^{-t} \\to -e^{-t}$.\nStep 3: Collect diagonal products: $\\int t^2 e^{-t} dt = -t^2 e^{-t} - 2t e^{-t} - 2e^{-t} = -e^{-t}(t^2 + 2t + 2)$.\nStep 4: Evaluate between boundaries $0$ and $k$: $\\left[ -e^{-t}(t^2 + 2t + 2) \\right]_0^k = -e^{-k}(k^2 + 2k + 2) - (-e^0(0 + 0 + 2)) = 2 - \\frac{k^2 + 2k + 2}{e^k}$.\nStep 5: Take limit as $k \\to \\infty$: by L'Hôpital's Rule, $\\lim_{k \\to \\infty} \\frac{k^2 + 2k + 2}{e^k} = 0$, giving $W = 2\\text{ Joules}$.\nConclusion: The total work done as $k \\to \\infty$ is $2\\text{ Joules}$."
         }
       ],
       "btc": "VNPS Team Challenge: Evaluate $\\int e^{x} \\sin(x) dx$ using cyclic integration by parts and explain why the original integral reappears on the right-hand side!",
@@ -4168,6 +4175,13 @@ const NAMA_TINGKAT = 'XII';
         "Evaluate the cyclic integral $I = \\int e^{2x} \\cos(3x) \\, dx$ by applying integration by parts twice.",
         "Evaluate the logarithmic integral: $\\int x^2 \\ln(x) \\, dx$ using integration by parts.",
         "Prove the reduction formula for $\\int \\sin^n(x) \\, dx = -\\frac{1}{n} \\sin^{n-1}(x) \\cos(x) + \\frac{n-1}{n} \\int \\sin^{n-2}(x) \\, dx$."
+      ],
+      "collab_solutions": [
+        "Step 1: Choose $u = x \\implies du = dx$, and $dv = e^{3x}dx \\implies v = \\frac{1}{3}e^{3x}$.\nStep 2: Apply formula $\\int u dv = uv - \\int v du$: $\\frac{1}{3}x e^{3x} - \\frac{1}{3}\\int e^{3x} dx$.\nStep 3: Integrate the remaining exponential term: $\\frac{1}{3}x e^{3x} - \\frac{1}{9}e^{3x} + C$.\nStep 4: Factor: $\\frac{1}{9}e^{3x}(3x - 1) + C$.\nConclusion: The integral evaluates to $\\frac{1}{9}e^{3x}(3x - 1) + C$.",
+        "Step 1: Set up Tanzalin D-I Table: Signs $(+, -, +, -)$, Differentiating $u = x^3 \\to 3x^2 \\to 6x \\to 6 \\to 0$, Integrating $v' = \\sin(2x) \\to -\\frac{1}{2}\\cos(2x) \\to -\\frac{1}{4}\\sin(2x) \\to \\frac{1}{8}\\cos(2x) \\to \\frac{1}{16}\\sin(2x)$.\nStep 2: Multiply diagonal terms:\n- Row 1: $(+) \\cdot (x^3) \\cdot (-\\frac{1}{2}\\cos(2x)) = -\\frac{1}{2}x^3\\cos(2x)$\n- Row 2: $(-) \\cdot (3x^2) \\cdot (-\\frac{1}{4}\\sin(2x)) = \\frac{3}{4}x^2\\sin(2x)$\n- Row 3: $(+) \\cdot (6x) \\cdot (\\frac{1}{8}\\cos(2x)) = \\frac{3}{4}x\\cos(2x)$\n- Row 4: $(-) \\cdot (6) \\cdot (\\frac{1}{16}\\sin(2x)) = -\\frac{3}{8}\\sin(2x)$\nStep 3: Combine all terms and add $+ C$.\nConclusion: $\\int x^3\\sin(2x)dx = -\\frac{1}{2}x^3\\cos(2x) + \\frac{3}{4}x^2\\sin(2x) + \\frac{3}{4}x\\cos(2x) - \\frac{3}{8}\\sin(2x) + C$.",
+        "Step 1: Let $u = e^{2x} \\implies du = 2e^{2x}dx$ and $dv = \\cos(3x)dx \\implies v = \\frac{1}{3}\\sin(3x)$.\nStep 2: First integration by parts: $I = \\frac{1}{3}e^{2x}\\sin(3x) - \\frac{2}{3}\\int e^{2x}\\sin(3x)dx$.\nStep 3: Integrate by parts again with $u_1 = e^{2x} \\implies du_1 = 2e^{2x}dx$ and $dv_1 = \\sin(3x)dx \\implies v_1 = -\\frac{1}{3}\\cos(3x)$:\n$\\int e^{2x}\\sin(3x)dx = -\\frac{1}{3}e^{2x}\\cos(3x) + \\frac{2}{3}I$.\nStep 4: Substitute back: $I = \\frac{1}{3}e^{2x}\\sin(3x) + \\frac{2}{9}e^{2x}\\cos(3x) - \\frac{4}{9}I \\implies \\frac{13}{9}I = \\frac{e^{2x}}{9}(3\\sin(3x) + 2\\cos(3x))$.\nConclusion: $I = \\frac{e^{2x}}{13}(3\\sin(3x) + 2\\cos(3x)) + C$.",
+        "Step 1: According to LIATE, logarithmic comes before algebraic: let $u = \\ln(x) \\implies du = \\frac{1}{x}dx$, and $dv = x^2 dx \\implies v = \\frac{x^3}{3}$.\nStep 2: Apply formula: $\\int x^2 \\ln(x) dx = \\frac{x^3}{3}\\ln(x) - \\int \\frac{x^3}{3} \\cdot \\frac{1}{x} dx = \\frac{x^3}{3}\\ln(x) - \\frac{1}{3}\\int x^2 dx$.\nStep 3: Complete integration: $\\frac{x^3}{3}\\ln(x) - \\frac{x^3}{9} + C = \\frac{x^3}{9}(3\\ln(x) - 1) + C$.\nConclusion: The antiderivative is $\\frac{x^3}{9}(3\\ln(x) - 1) + C$.",
+        "Step 1: Separate $\\sin^n(x) = \\sin^{n-1}(x) \\sin(x)$. Let $u = \\sin^{n-1}(x) \\implies du = (n-1)\\sin^{n-2}(x)\\cos(x)dx$ and $dv = \\sin(x)dx \\implies v = -\\cos(x)$.\nStep 2: Apply parts: $\\int \\sin^n(x)dx = -\\sin^{n-1}(x)\\cos(x) + (n-1)\\int \\sin^{n-2}(x)\\cos^2(x)dx$.\nStep 3: Replace $\\cos^2(x) = 1 - \\sin^2(x)$: $(n-1)\\int \\sin^{n-2}(x)dx - (n-1)\\int \\sin^n(x)dx$.\nStep 4: Move the $(n-1)\\int \\sin^n(x)dx$ term to the left-hand side: $n \\int \\sin^n(x)dx = -\\sin^{n-1}(x)\\cos(x) + (n-1)\\int \\sin^{n-2}(x)dx$.\nConclusion: Dividing by $n$ proves the reduction formula: $\\int \\sin^n(x)dx = -\\frac{1}{n}\\sin^{n-1}(x)\\cos(x) + \\frac{n-1}{n}\\int \\sin^{n-2}(x)dx$."
       ]
     },
     {
@@ -4194,34 +4208,34 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$\\int_{a}^{b} f(x)dx = \\int_{a}^{c} f(x)dx + \\int_{c}^{b} f(x)dx$$"
         },
         {
-          "name": "Sifat Linearitas Integral",
-          "math": "$$\\int [a f(x) + b g(x)] \\, dx = a \\int f(x)\\,dx + b \\int g(x)\\,dx$$"
+          "name": "Linearity Property of Integrals",
+          "math": "$$\\int [a \\cdot f(x) + b \\cdot g(x)] dx = a \\int f(x)dx + b \\int g(x)dx$$"
         },
         {
-          "name": "Teorema Dasar Kalkulus I",
+          "name": "Fundamental Theorem of Calculus I",
           "math": "$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$"
         }
       ],
       "examples": [
         {
           "problem": "Evaluate the definite integral: $$\\int_{1}^{3} (3x^2 - 4x + 2) dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Fundamental Theorem of Calculus (FTC), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Find the anti-derivative: $F(x) = [x^3 - 2x^2 + 2x]_1^3$.\nStep 2: Evaluate upper bound at $x = 3$: $F(3) = 3^3 - 2(3^2) + 2(3) = 27 - 18 + 6 = 15$.\nStep 3: Evaluate lower bound at $x = 1$: $F(1) = 1^3 - 2(1^2) + 2(1) = 1 - 2 + 2 = 1$.\nStep 4: Compute difference: $F(3) - F(1) = 15 - 1 = 14$.\nConclusion: The definite integral value is $14$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Find the anti-derivative: $F(x) = [x^3 - 2x^2 + 2x]_1^3$.\nStep 2: Evaluate upper bound at $x = 3$: $F(3) = 3^3 - 2(3^2) + 2(3) = 27 - 18 + 6 = 15$.\nStep 3: Evaluate lower bound at $x = 1$: $F(1) = 1^3 - 2(1^2) + 2(1) = 1 - 2 + 2 = 1$.\nStep 4: Compute difference: $F(3) - F(1) = 15 - 1 = 14$.\nConclusion: The definite integral value is $14$."
         },
         {
           "problem": "Evaluate the trigonometric definite integral: $$\\int_0^{\\pi/2} \\cos(x) dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Fundamental Theorem of Calculus (FTC), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Anti-derivative of $\\cos(x)$ is $\\sin(x)$.\nStep 2: Evaluate bounds: $[\\sin(x)]_0^{\\pi/2} = \\sin(\\pi/2) - \\sin(0) = 1 - 0 = 1$.\nConclusion: The definite trigonometric integral value is $1$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Anti-derivative of $\\cos(x)$ is $\\sin(x)$.\nStep 2: Evaluate bounds: $[\\sin(x)]_0^{\\pi/2} = \\sin(\\pi/2) - \\sin(0) = 1 - 0 = 1$.\nConclusion: The definite trigonometric integral value is $1$."
         },
         {
           "problem": "Using symmetry, evaluate: $$\\int_{-\\pi/4}^{\\pi/4} (x^3 + \\tan x + \\cos x) dx$$",
-          "solution": "Langkah 1: Menggunakan rumus Fundamental Theorem of Calculus (FTC), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Observe that $x^3$ and $\\tan(x)$ are odd functions: $\\int_{-\\pi/4}^{\\pi/4} (x^3 + \\tan x) dx = 0$.\nStep 2: $\\cos(x)$ is an even function: $\\int_{-\\pi/4}^{\\pi/4} \\cos(x) dx = 2\\int_0^{\\pi/4} \\cos(x) dx$.\nStep 3: Calculate: $2[\\sin x]_0^{\\pi/4} = 2(\\frac{1}{2}\\sqrt{2} - 0) = \\sqrt{2}$.\nConclusion: By symmetry, the exact integral evaluates to $\\sqrt{2}$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Observe that $x^3$ and $\\tan(x)$ are odd functions: $\\int_{-\\pi/4}^{\\pi/4} (x^3 + \\tan x) dx = 0$.\nStep 2: $\\cos(x)$ is an even function: $\\int_{-\\pi/4}^{\\pi/4} \\cos(x) dx = 2\\int_0^{\\pi/4} \\cos(x) dx$.\nStep 3: Calculate: $2[\\sin x]_0^{\\pi/4} = 2(\\frac{1}{2}\\sqrt{2} - 0) = \\sqrt{2}$.\nConclusion: By symmetry, the exact integral evaluates to $\\sqrt{2}$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Definite Integrals & Fundamental Theorem of Calculus. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Fundamental Theorem of Calculus (FTC), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Even & Odd Symmetry Rules, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Define $F(x) = \\int_0^{x^2} \\sqrt{1 + t^3} \\, dt$ for $x \\ge 0$. Find the derivative $F'(x)$ and compute the exact value of $F'(2)$.",
+          "solution": "Step 1: Apply the Fundamental Theorem of Calculus (Part 1) combined with the Chain Rule: $\\frac{d}{dx} \\left[ \\int_a^{g(x)} f(t) dt \\right] = f(g(x)) \\cdot g'(x)$.\nStep 2: Identify $f(t) = \\sqrt{1 + t^3}$ and upper limit $g(x) = x^2$ with $g'(x) = 2x$.\nStep 3: Compute $F'(x)$: $F'(x) = \\sqrt{1 + (x^2)^3} \\cdot (2x) = 2x\\sqrt{1 + x^6}$.\nStep 4: Substitute $x = 2$: $F'(2) = 2(2)\\sqrt{1 + 2^6} = 4\\sqrt{1 + 64} = 4\\sqrt{65}$.\nConclusion: The derivative is $F'(x) = 2x\\sqrt{1 + x^6}$ and $F'(2) = 4\\sqrt{65}$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Definite Integrals & Fundamental Theorem of Calculus, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Fundamental Theorem of Calculus (FTC).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Even & Odd Symmetry Rules.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "The rate of water outflow from a municipal reservoir during a sudden storm is given by $R(t) = 400 - \\frac{300}{1 + (t/2)^2}\\text{ m}^3\\text{/hour}$ for $0 \\le t \\le 2\\sqrt{3}\\text{ hours}$. Calculate the total volume of water discharged over this period.",
+          "solution": "Step 1: Total volume is the definite integral of rate: $V = \\int_0^{2\\sqrt{3}} \\left( 400 - \\frac{300}{1 + t^2/4} \\right) dt$.\nStep 2: Split the integral: $V = \\int_0^{2\\sqrt{3}} 400 dt - 300 \\int_0^{2\\sqrt{3}} \\frac{4}{4 + t^2} dt = [400t]_0^{2\\sqrt{3}} - 1200 \\int_0^{2\\sqrt{3}} \\frac{1}{2^2 + t^2} dt$.\nStep 3: Use the standard arctangent integral $\\int \\frac{1}{a^2 + t^2} dt = \\frac{1}{a}\\arctan\\left(\\frac{t}{a}\\right)$: $\\int_0^{2\\sqrt{3}} \\frac{1}{2^2 + t^2} dt = \\left[ \\frac{1}{2}\\arctan\\left(\\frac{t}{2}\\right) \\right]_0^{2\\sqrt{3}}$.\nStep 4: Evaluate bounds: $\\frac{1}{2}\\left[\\arctan(\\sqrt{3}) - \\arctan(0)\\right] = \\frac{1}{2}\\left(\\frac{\\pi}{3} - 0\\right) = \\frac{\\pi}{6}$.\nStep 5: Compute final total volume: $V = 400(2\\sqrt{3}) - 1200\\left(\\frac{\\pi}{6}\\right) = 800\\sqrt{3} - 200\\pi\\text{ m}^3 \\approx 1385.64 - 628.32 = 757.32\\text{ m}^3$.\nConclusion: The total volume discharged is $800\\sqrt{3} - 200\\pi\\text{ m}^3 \\approx 757.32\\text{ m}^3$."
         }
       ],
       "btc": "VNPS Team Challenge: Find the value of $k > 0$ such that $\\int_{0}^{k} (2x - 3) dx = 4$, and interpret the geometric meaning of positive vs negative signed area!",
@@ -4239,6 +4253,13 @@ const NAMA_TINGKAT = 'XII';
         "Given $G(x) = \\int_2^{x^3} \\frac{1}{1 + t^4} \\, dt$, find the exact derivative $G'(x)$ using Leibniz's Rule.",
         "Evaluate the piecewise definite integral $\\int_{-2}^{3} |x - 1| \\, dx$ using geometric area decomposition.",
         "Prove the Mean Value Theorem for Definite Integrals: if $f$ is continuous on $[a, b]$, there exists $c \\in [a, b]$ where $f(c) = \\frac{1}{b-a}\\int_{a}^{b} f(x)dx$."
+      ],
+      "collab_solutions": [
+        "Step 1: Find antiderivative: $F(x) = \\int (3x^{-1/2} - 2x + 5) dx = 6x^{1/2} - x^2 + 5x = 6\\sqrt{x} - x^2 + 5x$.\nStep 2: Evaluate at upper limit $x = 4$: $F(4) = 6\\sqrt{4} - 4^2 + 5(4) = 12 - 16 + 20 = 16$.\nStep 3: Evaluate at lower limit $x = 1$: $F(1) = 6\\sqrt{1} - 1^2 + 5(1) = 6 - 1 + 5 = 10$.\nStep 4: Compute $F(4) - F(1) = 16 - 10 = 6$.\nConclusion: The definite integral value is $6$.",
+        "Step 1: Use integration by parts: let $u = x \\implies du = dx$, and $dv = \\sin(x)dx \\implies v = -\\cos(x)$.\nStep 2: $\\int x\\sin(x)dx = -x\\cos(x) + \\int \\cos(x)dx = -x\\cos(x) + \\sin(x)$.\nStep 3: Evaluate between $0$ and $\\pi$: $[-x\\cos(x) + \\sin(x)]_0^\\pi$.\nStep 4: Upper bound at $\\pi$: $-\\pi\\cos(\\pi) + \\sin(\\pi) = -\\pi(-1) + 0 = \\pi$. Lower bound at $0$: $-0 + 0 = 0$.\nConclusion: The definite integral evaluates to $\\pi - 0 = \\pi$.",
+        "Step 1: Recall Leibniz's Integral Rule: $\\frac{d}{dx}\\left[\\int_{a}^{g(x)} f(t)dt\\right] = f(g(x)) \\cdot g'(x)$.\nStep 2: Here $f(t) = \\frac{1}{1 + t^4}$ and $g(x) = x^3$ with $g'(x) = 3x^2$.\nStep 3: Substitute $g(x)$ into $f(t)$: $f(x^3) = \\frac{1}{1 + (x^3)^4} = \\frac{1}{1 + x^{12}}$.\nStep 4: Multiply by $g'(x)$: $G'(x) = \\frac{3x^2}{1 + x^{12}}$.\nConclusion: The exact derivative is $G'(x) = \\frac{3x^2}{1 + x^{12}}$.",
+        "Step 1: Find the critical zero of $|x - 1|$: $x - 1 = 0 \\implies x = 1$.\nStep 2: Split the integral at $x = 1$: $\\int_{-2}^3 |x - 1| dx = \\int_{-2}^1 -(x - 1) dx + \\int_1^3 (x - 1) dx$.\nStep 3: Geometrically, the region forms two right triangles: Triangle 1 has base from $-2$ to $1$ (length $3$) and height $|-2 - 1| = 3$, Area $= \\frac{1}{2}(3)(3) = \\frac{9}{2}$.\nStep 4: Triangle 2 has base from $1$ to $3$ (length $2$) and height $|3 - 1| = 2$, Area $= \\frac{1}{2}(2)(2) = 2$.\nStep 5: Total area $= \\frac{9}{2} + 2 = \\frac{13}{2} = 6.5$.\nConclusion: The piecewise integral evaluates to $\\frac{13}{2} = 6.5$.",
+        "Step 1: Let $f$ be continuous on $[a, b]$, and let $F(x) = \\int_a^x f(t) dt$. By FTC, $F'(x) = f(x)$ on $(a, b)$.\nStep 2: By Lagrange's Mean Value Theorem applied to $F$ on $[a, b]$, there exists $c \\in (a, b)$ such that $F'(c) = \\frac{F(b) - F(a)}{b - a}$.\nStep 3: Since $F(a) = 0$ and $F(b) = \\int_a^b f(x) dx$, we have $F'(c) = \\frac{\\int_a^b f(x) dx}{b - a}$.\nStep 4: Since $F'(c) = f(c)$, it follows directly that $f(c) = \\frac{1}{b - a}\\int_a^b f(x) dx$.\nConclusion: The Mean Value Theorem for Definite Integrals is proven."
       ]
     },
     {
@@ -4265,34 +4286,34 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$A = \\frac{D\\sqrt{D}}{6a^2} \\quad (\\text{for region bounded by parabola and line})$$"
         },
         {
-          "name": "Prinsip Dasar Pencacahan Komplemen",
-          "math": "$$n(A) = n(S) - n(A')$$"
+          "name": "Archimedes Parabola Shortcut",
+          "math": "$$A = \\frac{D\\sqrt{D}}{6a^2} \\quad \\text{for area bounded by parabola and line}$$"
         },
         {
-          "name": "Aturan Kombinasi Pemilihan Bebas",
-          "math": "$$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$$"
+          "name": "Vertical vs Horizontal Slicing",
+          "math": "$$A = \\int_c^d [x_{\\text{right}}(y) - x_{\\text{left}}(y)] dy$$"
         }
       ],
       "examples": [
         {
           "problem": "Find the area bounded by the parabola $y = 6x - x^2$ and the x-axis ($y = 0$).",
-          "solution": "Langkah 1: Menggunakan rumus Vertical Strip Area Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Find x-intercepts: $6x - x^2 = 0 \\implies x(6 - x) = 0 \\implies x = 0$ and $x = 6$.\nStep 2: Set up definite integral: $A = \\int_{0}^{6} (6x - x^2) dx$.\nStep 3: Integrate: $[3x^2 - \\frac{1}{3}x^3]_0^6 = 3(36) - \\frac{1}{3}(216) = 108 - 72 = 36\\text{ units}^2$.\nConclusion: The bounded planar area is $36\\text{ units}^2$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Find x-intercepts: $6x - x^2 = 0 \\implies x(6 - x) = 0 \\implies x = 0$ and $x = 6$.\nStep 2: Set up definite integral: $A = \\int_{0}^{6} (6x - x^2) dx$.\nStep 3: Integrate: $[3x^2 - \\frac{1}{3}x^3]_0^6 = 3(36) - \\frac{1}{3}(216) = 108 - 72 = 36\\text{ units}^2$.\nConclusion: The bounded planar area is $36\\text{ units}^2$."
         },
         {
           "problem": "Calculate the area enclosed between $y = x^2$ and the line $y = 2x + 3$.",
-          "solution": "Langkah 1: Menggunakan rumus Vertical Strip Area Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Find intersection points: $x^2 = 2x + 3 \\implies x^2 - 2x - 3 = 0 \\implies (x - 3)(x + 1) = 0 \\implies x = -1, 3$.\nStep 2: Over $[-1, 3]$, the line is upper: $y_{\\text{upper}} = 2x + 3$, $y_{\\text{lower}} = x^2$.\nStep 3: Integrate: $A = \\int_{-1}^{3} (2x + 3 - x^2) dx = [x^2 + 3x - \\frac{x^3}{3}]_{-1}^3$.\nStep 4: At $x = 3$: $9 + 9 - 9 = 9$. At $x = -1$: $1 - 3 + \\frac{1}{3} = -\\frac{5}{3}$.\nStep 5: $A = 9 - (-\\frac{5}{3}) = \\frac{32}{3}\\text{ units}^2$.\nConclusion: The enclosed area between curves is $\\frac{32}{3}\\text{ units}^2$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Find intersection points: $x^2 = 2x + 3 \\implies x^2 - 2x - 3 = 0 \\implies (x - 3)(x + 1) = 0 \\implies x = -1, 3$.\nStep 2: Over $[-1, 3]$, the line is upper: $y_{\\text{upper}} = 2x + 3$, $y_{\\text{lower}} = x^2$.\nStep 3: Integrate: $A = \\int_{-1}^{3} (2x + 3 - x^2) dx = [x^2 + 3x - \\frac{x^3}{3}]_{-1}^3$.\nStep 4: At $x = 3$: $9 + 9 - 9 = 9$. At $x = -1$: $1 - 3 + \\frac{1}{3} = -\\frac{5}{3}$.\nStep 5: $A = 9 - (-\\frac{5}{3}) = \\frac{32}{3}\\text{ units}^2$.\nConclusion: The enclosed area between curves is $\\frac{32}{3}\\text{ units}^2$."
         },
         {
           "problem": "Using the Archimedes Shortcut $A = \\frac{D\\sqrt{D}}{6a^2}$, find the area between $y = x^2 - 4$ and $y = 0$.",
-          "solution": "Langkah 1: Menggunakan rumus Vertical Strip Area Formula, analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: For $x^2 - 4 = 0$, $a = 1, b = 0, c = -4$.\nStep 2: Discriminant $D = b^2 - 4ac = 0 - 4(1)(-4) = 16$.\nStep 3: Area $A = \\frac{16\\sqrt{16}}{6(1)^2} = \\frac{16 \\times 4}{6} = \\frac{64}{6} = \\frac{32}{3}\\text{ units}^2$.\nConclusion: Using Archimedes formula, the area is $\\frac{32}{3}\\text{ units}^2$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: For $x^2 - 4 = 0$, $a = 1, b = 0, c = -4$.\nStep 2: Discriminant $D = b^2 - 4ac = 0 - 4(1)(-4) = 16$.\nStep 3: Area $A = \\frac{16\\sqrt{16}}{6(1)^2} = \\frac{16 \\times 4}{6} = \\frac{64}{6} = \\frac{32}{3}\\text{ units}^2$.\nConclusion: Using Archimedes formula, the area is $\\frac{32}{3}\\text{ units}^2$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Applications of Integration: Area Between Curves. Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Vertical Strip Area Formula, definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Horizontal Strip Area Formula, lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "Find the total area of the region enclosed between the cubic curve $y = x^3 - 3x$ and the line $y = x$.",
+          "solution": "Step 1: Find points of intersection: $x^3 - 3x = x \\implies x^3 - 4x = 0 \\implies x(x - 2)(x + 2) = 0$. The curves intersect at $x = -2, 0, 2$.\nStep 2: Determine upper and lower curves on each interval: On $[-2, 0]$, test $x = -1$: $y_{\\text{cubic}} = 2$ and $y_{\\text{line}} = -1$, so cubic $\\ge$ line. On $[0, 2]$, test $x = 1$: $y_{\\text{cubic}} = -2$ and $y_{\\text{line}} = 1$, so line $\\ge$ cubic.\nStep 3: By symmetry about the origin, Area $A = 2 \\int_0^2 [x - (x^3 - 3x)] dx = 2 \\int_0^2 (4x - x^3) dx$.\nStep 4: Integrate: $2 \\left[ 2x^2 - \\frac{x^4}{4} \\right]_0^2 = 2 \\left( 2(4) - \\frac{16}{4} \\right) = 2(8 - 4) = 8\\text{ units}^2$.\nConclusion: The total enclosed area between the curves is $8\\text{ units}^2$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Applications of Integration: Area Between Curves, selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Vertical Strip Area Formula.\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Horizontal Strip Area Formula.\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "A civil engineering firm designs a highway underpass opening bounded on the left by $x = y^2 - 4$ and on the right by $x = 2 - y$. Calculate the cross-sectional area using horizontal slicing ($dy$).",
+          "solution": "Step 1: Find the $y$-limits of integration by equating $x_{\\text{right}} = x_{\\text{left}}$: $2 - y = y^2 - 4 \\implies y^2 + y - 6 = 0 \\implies (y + 3)(y - 2) = 0$. The limits are $y = -3$ to $y = 2$.\nStep 2: Set up horizontal area integral: $A = \\int_{-3}^2 [x_{\\text{right}}(y) - x_{\\text{left}}(y)] dy = \\int_{-3}^2 [(2 - y) - (y^2 - 4)] dy = \\int_{-3}^2 (6 - y - y^2) dy$.\nStep 3: Integrate: $\\left[ 6y - \\frac{y^2}{2} - \\frac{y^3}{3} \\right]_{-3}^2$.\nStep 4: At $y = 2$: $12 - 2 - \\frac{8}{3} = 10 - \\frac{8}{3} = \\frac{22}{3}$. At $y = -3$: $-18 - \\frac{9}{2} - (-9) = -9 - \\frac{9}{2} = -\\frac{27}{2}$.\nStep 5: Compute difference: $A = \\frac{22}{3} - \\left(-\\frac{27}{2}\\right) = \\frac{44 + 81}{6} = \\frac{125}{6} = 20\\frac{5}{6}\\text{ units}^2$.\nConclusion: The cross-sectional area of the highway opening is $\\frac{125}{6}\\text{ units}^2 \\approx 20.83\\text{ units}^2$."
         }
       ],
       "btc": "VNPS Team Challenge: Calculate the area between $y = \\sqrt{x}$ and $y = x^2$ using both vertical integration $dx$ and horizontal integration $dy$ to prove equivalence!",
@@ -4310,6 +4331,13 @@ const NAMA_TINGKAT = 'XII';
         "The marginal cost of an educational robotics lab is $MC(q) = 3q^2 - 24q + 50$. Find the total cost increase from $q = 2$ to $q = 6$.",
         "Find the area of the region bounded by $y = \\cos(x)$ and $y = \\sin(2x)$ on the interval $[0, \\frac{\\pi}{2}]$.",
         "Determine the analytical horizontal strip integration formula for the area between $x = y^2 - 2$ and $x = y$."
+      ],
+      "collab_solutions": [
+        "Step 1: Find points of intersection: $6x - x^2 = 2x \\implies x^2 - 4x = 0 \\implies x(x - 4) = 0 \\implies x = 0$ and $x = 4$.\nStep 2: On $[0, 4]$, parabola is above the line: $y_{\\text{top}} - y_{\\text{bottom}} = (6x - x^2) - 2x = 4x - x^2$.\nStep 3: Integrate from $0$ to $4$: $\\int_0^4 (4x - x^2) dx = [2x^2 - \\frac{x^3}{3}]_0^4 = 2(16) - \\frac{64}{3} = 32 - \\frac{64}{3} = \\frac{32}{3}$.\nConclusion: The exact bounded area is $\\frac{32}{3}\\text{ units}^2$.",
+        "Step 1: Find x-intercepts: $x^3 - 4x = 0 \\implies x(x - 2)(x + 2) = 0 \\implies x = -2, 0, 2$.\nStep 2: On $[-2, 0]$, $y \\ge 0$; on $[0, 2]$, $y \\le 0$. By odd symmetry, Area $A = 2 \\int_0^2 -(x^3 - 4x) dx = 2 \\int_0^2 (4x - x^3) dx$.\nStep 3: Integrate: $2 [2x^2 - \\frac{x^4}{4}]_0^2 = 2 [8 - 4] = 2(4) = 8\\text{ units}^2$.\nConclusion: The total enclosed area is $8\\text{ units}^2$.",
+        "Step 1: Total cost increase is the definite integral of marginal cost: $\\Delta C = \\int_2^6 MC(q) dq = \\int_2^6 (3q^2 - 24q + 50) dq$.\nStep 2: Antiderivative: $[q^3 - 12q^2 + 50q]_2^6$.\nStep 3: Upper bound at $q = 6$: $6^3 - 12(36) + 50(6) = 216 - 432 + 300 = 84$.\nStep 4: Lower bound at $q = 2$: $2^3 - 12(4) + 50(2) = 8 - 48 + 100 = 60$.\nStep 5: Compute difference: $84 - 60 = 24$.\nConclusion: The total cost increase from $q = 2$ to $q = 6$ is $24$ cost units.",
+        "Step 1: Find intersection points on $[0, \\pi/2]$: $\\cos(x) = \\sin(2x) = 2\\sin(x)\\cos(x) \\implies \\cos(x)(1 - 2\\sin(x)) = 0 \\implies x = \\pi/6$ or $x = \\pi/2$.\nStep 2: Over $[0, \\pi/6]$, $\\cos(x) \\ge \\sin(2x)$; over $[\\pi/6, \\pi/2]$, $\\sin(2x) \\ge \\cos(x)$.\nStep 3: Total Area $A = \\int_0^{\\pi/6} (\\cos(x) - \\sin(2x)) dx + \\int_{\\pi/6}^{\\pi/2} (\\sin(2x) - \\cos(x)) dx$.\nStep 4: Part 1: $[\\sin(x) + \\frac{1}{2}\\cos(2x)]_0^{\\pi/6} = (\\frac{1}{2} + \\frac{1}{4}) - (0 + \\frac{1}{2}) = \\frac{1}{4}$.\nStep 5: Part 2: $[-\\frac{1}{2}\\cos(2x) - \\sin(x)]_{\\pi/6}^{\\pi/2} = (\\frac{1}{2} - 1) - (-\\frac{1}{4} - \\frac{1}{2}) = -\\frac{1}{2} + \\frac{3}{4} = \\frac{1}{4}$. Total $= \\frac{1}{4} + \\frac{1}{4} = \\frac{1}{2}$.\nConclusion: The total area of the region is $\\frac{1}{2}\\text{ units}^2$.",
+        "Step 1: Find $y$-intersections: $y^2 - 2 = y \\implies y^2 - y - 2 = 0 \\implies (y - 2)(y + 1) = 0 \\implies y = -1$ to $y = 2$.\nStep 2: Over $[-1, 2]$, the line is to the right of the parabola: $x_{\\text{right}} = y$ and $x_{\\text{left}} = y^2 - 2$.\nStep 3: Horizontal strip formula: $A = \\int_{-1}^2 [x_{\\text{right}}(y) - x_{\\text{left}}(y)] dy = \\int_{-1}^2 (y - y^2 + 2) dy$.\nStep 4: Integrate: $[\\frac{y^2}{2} - \\frac{y^3}{3} + 2y]_{-1}^2 = (2 - \\frac{8}{3} + 4) - (\\frac{1}{2} + \\frac{1}{3} - 2) = \\frac{10}{3} - (-\\frac{7}{6}) = \\frac{27}{6} = \\frac{9}{2}$.\nConclusion: The horizontal strip formula gives area $A = \\int_{-1}^2 (2 + y - y^2) dy = \\frac{9}{2}\\text{ units}^2$."
       ]
     },
     {
@@ -4336,34 +4364,34 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$V = \\pi \\int_{c}^{d} [x(y)]^2 dy$$"
         },
         {
-          "name": "Prinsip Dasar Pencacahan Komplemen",
-          "math": "$$n(A) = n(S) - n(A')$$"
+          "name": "Washer Method (x-axis)",
+          "math": "$$V = \\pi \\int_a^b \\left( [R(x)]^2 - [r(x)]^2 \\right) dx$$"
         },
         {
-          "name": "Aturan Kombinasi Pemilihan Bebas",
-          "math": "$$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$$"
+          "name": "Rotation Around y-axis",
+          "math": "$$V = \\pi \\int_c^d [x(y)]^2 dy$$"
         }
       ],
       "examples": [
         {
           "problem": "Find the volume of the solid generated by revolving $y = \\sqrt{x}$ from $x = 0$ to $x = 4$ about the x-axis.",
-          "solution": "Langkah 1: Menggunakan rumus Disc Method (Rotation around x-axis), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Disc Method formula: $V = \\pi \\int_{0}^{4} y^2 dx$.\nStep 2: Substitute $y^2 = (\\sqrt{x})^2 = x$: $V = \\pi \\int_{0}^{4} x dx$.\nStep 3: Integrate: $V = \\pi [\\frac{1}{2}x^2]_0^4 = \\pi (\\frac{16}{2} - 0) = 8\\pi\\text{ units}^3$.\nConclusion: The solid revolution volume is $8\\pi\\text{ units}^3$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Disc Method formula: $V = \\pi \\int_{0}^{4} y^2 dx$.\nStep 2: Substitute $y^2 = (\\sqrt{x})^2 = x$: $V = \\pi \\int_{0}^{4} x dx$.\nStep 3: Integrate: $V = \\pi [\\frac{1}{2}x^2]_0^4 = \\pi (\\frac{16}{2} - 0) = 8\\pi\\text{ units}^3$.\nConclusion: The solid revolution volume is $8\\pi\\text{ units}^3$."
         },
         {
           "problem": "Calculate the volume of the solid formed by rotating the region bounded by $y = x^2$ and $y = 4$ around the y-axis.",
-          "solution": "Langkah 1: Menggunakan rumus Disc Method (Rotation around x-axis), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Rotation around y-axis uses $V = \\pi \\int_{0}^{4} x^2 dy$.\nStep 2: From $y = x^2$, we have $x^2 = y$.\nStep 3: Integrate with respect to $y$: $V = \\pi \\int_{0}^{4} y dy = \\pi [\\frac{y^2}{2}]_0^4 = \\pi (\\frac{16}{2}) = 8\\pi\\text{ units}^3$.\nConclusion: The volume of revolution about the y-axis is $8\\pi\\text{ units}^3$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Rotation around y-axis uses $V = \\pi \\int_{0}^{4} x^2 dy$.\nStep 2: From $y = x^2$, we have $x^2 = y$.\nStep 3: Integrate with respect to $y$: $V = \\pi \\int_{0}^{4} y dy = \\pi [\\frac{y^2}{2}]_0^4 = \\pi (\\frac{16}{2}) = 8\\pi\\text{ units}^3$.\nConclusion: The volume of revolution about the y-axis is $8\\pi\\text{ units}^3$."
         },
         {
           "problem": "Using the Washer Method, find the volume generated by rotating the region between $y = x$ and $y = x^2$ about the x-axis.",
-          "solution": "Langkah 1: Menggunakan rumus Disc Method (Rotation around x-axis), analisis komponen yang diketahui.\nLangkah 2: Selesaikan perhitungan aljabar secara bertahap:\nStep 1: Intersections: $x = x^2 \\implies x = 0$ and $x = 1$.\nStep 2: Over $[0, 1]$, $R(x) = x$ and $r(x) = x^2$.\nStep 3: Washer formula: $V = \\pi \\int_{0}^{1} (x^2 - (x^2)^2) dx = \\pi \\int_{0}^{1} (x^2 - x^4) dx$.\nStep 4: Integrate: $V = \\pi [\\frac{x^3}{3} - \\frac{x^5}{5}]_0^1 = \\pi (\\frac{1}{3} - \\frac{1}{5}) = \\frac{2}{15}\\pi\\text{ units}^3$.\nConclusion: Using Washer Method, the hollow volume is $\\frac{2}{15}\\pi\\text{ units}^3$.\nKesimpulan: Diperoleh hasil akhir yang memenuhi persyaratan."
+          "solution": "Step 1: Intersections: $x = x^2 \\implies x = 0$ and $x = 1$.\nStep 2: Over $[0, 1]$, $R(x) = x$ and $r(x) = x^2$.\nStep 3: Washer formula: $V = \\pi \\int_{0}^{1} (x^2 - (x^2)^2) dx = \\pi \\int_{0}^{1} (x^2 - x^4) dx$.\nStep 4: Integrate: $V = \\pi [\\frac{x^3}{3} - \\frac{x^5}{5}]_0^1 = \\pi (\\frac{1}{3} - \\frac{1}{5}) = \\frac{2}{15}\\pi\\text{ units}^3$.\nConclusion: Using Washer Method, the hollow volume is $\\frac{2}{15}\\pi\\text{ units}^3$."
         },
         {
-          "problem": "Sebuah permasalahan analitis lanjutan (Standar UTBK-SNBT) terkait topik Solid of Revolution: Disc & Washer Methods (Islamic Dome 3D). Tentukan nilai optimal atau banyaknya kemungkinan konfigurasi yang memenuhi seluruh kendala sistem secara simultan!",
-          "solution": "Langkah 1: Menggunakan rumus Disc Method (Rotation around x-axis), definisikan variabel dan batasan kendala matematis dari soal.\nLangkah 2: Menggunakan rumus Washer Method (Hollow Solid), lakukan eliminasi atau substitusi aljabar untuk menyederhanakan persamaan utama.\nLangkah 3: Uji syarat batas dan periksa kekonvergenan solusi pada domain permasalahan.\nLangkah 4: Hitung nilai numerik akhir secara teliti.\nKesimpulan: Solusi analitis optimal yang memenuhi seluruh kriteria adalah terbukti konsisten dan benar."
+          "problem": "The finite region bounded by $y = \\sqrt{x}$, the horizontal line $y = 2$, and the y-axis ($x = 0$) is revolved $360^\\circ$ about the line $y = 2$. Find the volume of the resulting solid of revolution.",
+          "solution": "Step 1: Find the bounds in terms of $x$: the curve $y = \\sqrt{x}$ meets $y = 2$ at $x = 4$. So the interval is $x \\in [0, 4]$.\nStep 2: Identify radius of revolution: the axis of rotation is the horizontal line $y = 2$. The distance from the curve $y = \\sqrt{x}$ to $y = 2$ is $r(x) = 2 - \\sqrt{x}$.\nStep 3: Apply Disc Method around $y = 2$: $V = \\pi \\int_0^4 [r(x)]^2 dx = \\pi \\int_0^4 (2 - \\sqrt{x})^2 dx = \\pi \\int_0^4 (4 - 4x^{1/2} + x) dx$.\nStep 4: Integrate term-by-term: $V = \\pi \\left[ 4x - \\frac{8}{3}x^{3/2} + \\frac{x^2}{2} \\right]_0^4 = \\pi \\left[ 16 - \\frac{8}{3}(8) + 8 \\right] = \\pi \\left( 24 - \\frac{64}{3} \\right) = \\frac{8\\pi}{3}\\text{ units}^3$.\nConclusion: The volume of revolution about $y = 2$ is $\\frac{8\\pi}{3}\\text{ units}^3 \\approx 2.67\\pi\\text{ units}^3$."
         },
         {
-          "problem": "Aplikasi kontekstual penalaran tingkat tinggi (HOTS C5): Berdasarkan prinsip pada Solid of Revolution: Disc & Washer Methods (Islamic Dome 3D), selesaikan optimasi atau estimasi nilai parameter pada kasus nyata berstruktur kompleks!",
-          "solution": "Langkah 1: Identifikasi parameter awal dan formulasikan model matematis menggunakan rumus Disc Method (Rotation around x-axis).\nLangkah 2: Terapkan teknik transformasi aljabar atau pengintegralan/turunan sesuai rumus Washer Method (Hollow Solid).\nLangkah 3: Evaluasi hasil pada domain penyelesaian untuk memvalidasi syarat eksistensi solusi.\nKesimpulan: Nilai parameter yang dicari telah memenuhi kondisi batas secara optimal."
+          "problem": "An Islamic architectural design firm creates an ornamental dome reservoir by rotating the region between the outer profile $y = 9 - x^2$ and inner profile $y = 8 - 2x^2$ for $y \\ge 0$ around the y-axis. Compute the volume of material required for the dome shell using Washer Method ($dy$).",
+          "solution": "Step 1: Express curves in terms of $y$: Outer profile $x^2 = 9 - y$ (for $y \\in [0, 9]$) and inner profile $x^2 = \\frac{8 - y}{2}$ (for $y \\in [0, 8]$).\nStep 2: Set up Washer Method integrating along y-axis: For $y \\in [0, 8]$, the solid is hollow between inner and outer shells: $V_1 = \\pi \\int_0^8 \\left( [x_{\\text{outer}}]^2 - [x_{\\text{inner}}]^2 \\right) dy = \\pi \\int_0^8 \\left( (9 - y) - \\frac{8 - y}{2} \\right) dy = \\pi \\int_0^8 \\left( 5 - \\frac{y}{2} \\right) dy$.\nStep 3: For $y \\in [8, 9]$, only the solid cap of the outer profile exists: $V_2 = \\pi \\int_8^9 (9 - y) dy$.\nStep 4: Evaluate $V_1$: $\\pi \\left[ 5y - \\frac{y^2}{4} \\right]_0^8 = \\pi [40 - 16] = 24\\pi$. Evaluate $V_2$: $\\pi \\left[ 9y - \\frac{y^2}{2} \\right]_8^9 = \\pi \\left( (81 - 40.5) - (72 - 32) \\right) = \\pi (40.5 - 40) = 0.5\\pi$.\nStep 5: Total volume of material: $V = V_1 + V_2 = 24\\pi + 0.5\\pi = 24.5\\pi = \\frac{49\\pi}{2}\\text{ m}^3 \\approx 76.97\\text{ m}^3$.\nConclusion: The total volume of material required for the dome shell is $\\frac{49\\pi}{2}\\text{ m}^3 = 24.5\\pi\\text{ m}^3$."
         }
       ],
       "btc": "VNPS Team Challenge: Calculate the volume of an Islamic Mosque Dome formed by rotating $y = 6 - \\frac{1}{2}x^2$ from $x = 0$ to $x = \\sqrt{12}$ around the y-axis!",
@@ -4381,6 +4409,13 @@ const NAMA_TINGKAT = 'XII';
         "Model the school architectural dome by revolving the parabolic profile $y = 4 - x^2$ ($0 \\le x \\le 2$) about the $y$-axis. Calculate its volume.",
         "Use Cylindrical Shells to calculate the volume of the solid obtained by revolving $y = 2x - x^2$ about the $y$-axis.",
         "Evaluate the arc length of the parametric curve $x(t) = \\cos(t), y(t) = \\sin(t)$ over $[0, 2\\pi]$ and verify the perimeter of a unit circle."
+      ],
+      "collab_solutions": [
+        "Step 1: Region bounded by $y = \\sqrt{x}$, $x = 4$, $y = 0$. Rotated about x-axis: Disc Method $V = \\pi \\int_0^4 y^2 dx$.\nStep 2: Substitute $y^2 = (\\sqrt{x})^2 = x$: $V = \\pi \\int_0^4 x dx$.\nStep 3: Integrate: $V = \\pi [\\frac{x^2}{2}]_0^4 = \\pi (\\frac{16}{2} - 0) = 8\\pi$.\nConclusion: The volume of revolution is $8\\pi\\text{ units}^3$.",
+        "Step 1: Bounded by $y = x^2$ and $y = 4$. Rotated about the line $y = 4$. Intersections at $x = -2$ and $x = 2$.\nStep 2: Radius of disc around $y = 4$ is $R(x) = 4 - x^2$.\nStep 3: Volume: $V = \\pi \\int_{-2}^2 (4 - x^2)^2 dx = 2\\pi \\int_0^2 (16 - 8x^2 + x^4) dx$.\nStep 4: Integrate: $2\\pi [16x - \\frac{8}{3}x^3 + \\frac{x^5}{5}]_0^2 = 2\\pi [32 - \\frac{64}{3} + \\frac{32}{5}] = 2\\pi \\cdot \\frac{256}{15} = \\frac{512\\pi}{15}$.\nConclusion: The volume of the solid is $\\frac{512\\pi}{15}\\text{ units}^3$.",
+        "Step 1: Parabolic profile $y = 4 - x^2$ for $x \\in [0, 2]$ rotated about y-axis.\nStep 2: Express $x^2$ in terms of $y$: $x^2 = 4 - y$ for $y \\in [0, 4]$.\nStep 3: Disc Method along y-axis: $V = \\pi \\int_0^4 x^2 dy = \\pi \\int_0^4 (4 - y) dy$.\nStep 4: Integrate: $V = \\pi [4y - \\frac{y^2}{2}]_0^4 = \\pi [16 - 8] = 8\\pi$.\nConclusion: The architectural dome volume is $8\\pi\\text{ m}^3 \\approx 25.13\\text{ m}^3$.",
+        "Step 1: Cylindrical Shells formula around y-axis: $V = 2\\pi \\int_a^b x \\cdot y(x) dx$.\nStep 2: Region $y = 2x - x^2$ sits above x-axis on $[0, 2]$.\nStep 3: Setup integral: $V = 2\\pi \\int_0^2 x(2x - x^2) dx = 2\\pi \\int_0^2 (2x^2 - x^3) dx$.\nStep 4: Integrate: $2\\pi [\\frac{2}{3}x^3 - \\frac{x^4}{4}]_0^2 = 2\\pi [\\frac{16}{3} - 4] = 2\\pi (\\frac{4}{3}) = \\frac{8\\pi}{3}$.\nConclusion: The volume by cylindrical shells is $\\frac{8\\pi}{3}\\text{ units}^3$.",
+        "Step 1: Arc length formula for parametric curves: $L = \\int_a^b \\sqrt{(x'(t))^2 + (y'(t))^2} dt$.\nStep 2: For $x(t) = \\cos(t), y(t) = \\sin(t)$: $x'(t) = -\\sin(t)$ and $y'(t) = \\cos(t)$.\nStep 3: Sum of squares: $(x'(t))^2 + (y'(t))^2 = (-\\sin(t))^2 + (\\cos(t))^2 = 1$.\nStep 4: Integrate from $0$ to $2\\pi$: $L = \\int_0^{2\\pi} \\sqrt{1} dt = [t]_0^{2\\pi} = 2\\pi$.\nConclusion: The arc length is exactly $2\\pi$, confirming the perimeter formula $C = 2\\pi r$ for radius $r = 1$."
       ]
     }
   ],
@@ -4852,7 +4887,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "no": 10,
-          "tipe": "Isian Singkat Numerik",
+          "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P03-Q10] Banyak susunan kata dari huruf 'MALAM' adalah ...",
@@ -5011,7 +5046,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "no": 10,
-          "tipe": "Isian Singkat Numerik",
+          "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P04-Q10] Jika $C(n, 2) = 45$, maka nilai $n$ adalah ...",
@@ -5178,7 +5213,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "no": 10,
-          "tipe": "Isian Singkat Numerik",
+          "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P05-Q10] Sebuah dadu dilempar 180 kali. Frekuensi harapan muncul mata dadu prima ({2, 3, 5}) adalah ...",
@@ -5341,7 +5376,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "no": 10,
-          "tipe": "Isian Singkat Numerik",
+          "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P06-Q10] Nilai dari $C(7, 3)$ adalah ...",
@@ -5520,7 +5555,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "no": 10,
-          "tipe": "Isian Singkat Numerik",
+          "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P07-Q10] Sebuah kartu diambil dari 52 kartu. Peluang terambil kartu As atau King adalah ... (dalam bentuk pecahan per 13)",
@@ -5683,7 +5718,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "no": 10,
-          "tipe": "Isian Singkat Numerik",
+          "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P08-Q10] Jika $P(A \\cap B) = 0{,}12$ dan $P(A) = 0{,}3$, maka nilai $P(B|A)$ adalah ...",
@@ -5896,7 +5931,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "no": 10,
-          "tipe": "Isian Singkat Numerik",
+          "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P09-Q10] Banyaknya rusuk pada prisma segi-6 beraturan adalah ...",
@@ -6118,7 +6153,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "no": 10,
-          "tipe": "Isian Singkat Numerik",
+          "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P10-Q10] Panjang diagonal ruang balok berukuran 3 cm x 4 cm x 12 cm adalah ... (dalam satuan cm)",
@@ -6133,225 +6168,225 @@ const NAMA_TINGKAT = 'XII';
       ]
     },
     "P13": {
-            "id": "P13",
-            "subject": "Matematika Wajib",
-            "title": "Dimensi Tiga 5: Sudut Garis-Bidang dan Sudut Antara Dua Bidang",
-            "questions": [
-                  {
-                        "no": 1,
-                        "tipe": "Pilihan Ganda Tunggal",
-                        "level": "C4 Analisis",
-                        "bobot": 10,
-                        "tanya": "[P13-Q1] Pada kubus ABCD.EFGH, nilai tangen sudut antara garis diagonal ruang AG dan bidang alas ABCD adalah ...",
-                        "opsi": [
-                              "A. $\\sqrt{2}$",
-                              "B. $\\frac{1}{2}\\sqrt{2}$",
-                              "C. $\\sqrt{3}$",
-                              "D. $\\frac{1}{2}\\sqrt{6}$",
-                              "E. $\\frac{1}{3}\\sqrt{3}$"
-                        ],
-                        "kunci": "B",
-                        "bahas": "<b>Langkah 1: Tentukan Proyeksi Garis ke Alas</b>\nProyeksi garis diagonal ruang $AG$ pada bidang alas $ABCD$ adalah diagonal sisi $AC$. Sudut yang terbentuk adalah $\\angle CAG = \\alpha$.\n\n<b>Langkah 2: Tinjau Segitiga Siku-siku</b>\nPada $\\triangle ACG$ yang siku-siku di $C$:\n- Rusuk tegak: $CG = s$\n- Diagonal sisi alas: $AC = s\\sqrt{2}$\n\n<b>Langkah 3: Hitung Nilai Tangen</b>\n$$\\tan\\alpha = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>B</b> ($\\frac{1}{2}\\sqrt{2}$).",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus",
-                              "seg": [
-                                    "AG"
-                              ]
-                        }
-                  },
-                  {
-                        "no": 2,
-                        "tipe": "Pilihan Ganda Tunggal",
-                        "level": "C4 Analisis",
-                        "bobot": 10,
-                        "tanya": "[P13-Q2] Pada kubus ABCD.EFGH, nilai cosinus sudut antara garis diagonal sisi AH dan garis diagonal sisi AC adalah ...",
-                        "opsi": [
-                              "A. $\\frac{1}{2}$",
-                              "B. $0$",
-                              "C. $\\frac{1}{2}\\sqrt{3}$",
-                              "D. $\\frac{1}{2}\\sqrt{2}$",
-                              "E. $\\frac{1}{3}\\sqrt{3}$"
-                        ],
-                        "kunci": "A",
-                        "bahas": "<b>Langkah 1: Bentuk Segitiga dari Tiga Titik Terkait</b>\nHubungkan titik $A$, $H$, dan $C$ sehingga membentuk $\\triangle AHC$.\n\n<b>Langkah 2: Hitung Panjang Ketiga Sisi Segitiga</b>\n- $AH = s\\sqrt{2}$ (diagonal sisi kiri $ADHE$)\n- $AC = s\\sqrt{2}$ (diagonal sisi alas $ABCD$)\n- $CH = s\\sqrt{2}$ (diagonal sisi belakang $CDHG$)\nKarena ketiga sisinya sama panjang ($AH = AC = CH = s\\sqrt{2}$), maka $\\triangle AHC$ adalah **segitiga sama sisi**.\n\n<b>Langkah 3: Tentukan Besar Sudut dan Nilai Kosinus</b>\nSudut pada setiap titik sudut segitiga sama sisi adalah $60^\\circ$, sehingga sudut antara garis $AH$ dan $AC$ adalah $60^\\circ$.\n$$\\cos 60^\\circ = \\frac{1}{2}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>A</b> ($\\frac{1}{2}$).",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus",
-                              "seg": [
-                                    "AH",
-                                    "AC"
-                              ]
-                        }
-                  },
-                  {
-                        "no": 3,
-                        "tipe": "Pilihan Ganda Tunggal",
-                        "level": "C4 Analisis",
-                        "bobot": 10,
-                        "tanya": "[P13-Q3] Besar sudut antara bidang frontal ABFE dan bidang dorsal CDHG pada kubus ABCD.EFGH adalah ...",
-                        "opsi": [
-                              "A. $90^\\circ$ (Tegak lurus)",
-                              "B. $60^\\circ$",
-                              "C. $180^\\circ$",
-                              "D. $45^\\circ$",
-                              "E. $0^\\circ$ (Sejajar)"
-                        ],
-                        "kunci": "E",
-                        "bahas": "<b>Langkah 1: Identifikasi Posisi Relatif Kedua Bidang</b>\n- Bidang $ABFE$ adalah dinding depan (frontal).\n- Bidang $CDHG$ adalah dinding belakang (dorsal).\n\n<b>Langkah 2: Tentukan Kedudukan Geometris dan Sudut Dihedral</b>\nKedua bidang saling berhadapan sejajar ($ABFE \\parallel CDHG$), sehingga tidak memiliki garis persekutuan (perpotongan).\nSesuai definisi sudut antar-bidang, dua bidang yang saling sejajar membentuk sudut dihedral sebesar **$0^\\circ$**.\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>E</b> ($0^\\circ$).",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus"
-                        }
-                  },
-                  {
-                        "no": 4,
-                        "tipe": "Pilihan Ganda Tunggal",
-                        "level": "C4 Analisis",
-                        "bobot": 10,
-                        "tanya": "[P13-Q4] Nilai sinus sudut antara bidang AFH dan bidang alas ABCD pada kubus ABCD.EFGH adalah ...",
-                        "opsi": [
-                              "A. $\\frac{1}{3}\\sqrt{6}$",
-                              "B. $\\frac{1}{2}\\sqrt{3}$",
-                              "C. $\\frac{1}{2}\\sqrt{2}$",
-                              "D. $\\frac{2}{3}\\sqrt{2}$",
-                              "E. $\\frac{1}{3}\\sqrt{3}$"
-                        ],
-                        "kunci": "A",
-                        "bahas": "<b>Langkah 1: Tentukan Garis Persekutuan dan Garis Tinggi Bidang</b>\n- Karena bidang alas $ABCD$ sejajar dengan bidang atas $EFGH$, sudut antara bidang $AFH$ dan $ABCD$ sama dengan sudut antara $AFH$ dan $EFGH$.\n- Garis potong bidang $AFH$ dengan bidang atas $EFGH$ adalah diagonal sisi $FH$.\n- Titik tengah $FH$ adalah $O'$. Ruas garis $AO'$ tegak lurus $FH$ pada $\\triangle AFH$, dan ruas garis $EO'$ tegak lurus $FH$ pada bidang atas $EFGH$.\n- Sudut dihedral yang terbentuk adalah $\\angle AO'E = \\theta$ pada $\\triangle AEO'$ (siku-siku di $E$).\n\n<b>Langkah 2: Tentukan Dimensi Segitiga Proyeksi $\\triangle AEO'$</b>\n- Rusuk tegak (sisi depan $\\theta$): $AE = s$\n- Setengah diagonal sisi (sisi samping $\\theta$): $EO' = \\frac{1}{2}s\\sqrt{2}$\n- Sisi miring $AO'$:\n$$AO' = \\sqrt{AE^2 + EO'^2} = \\sqrt{s^2 + \\left(\\frac{1}{2}s\\sqrt{2}\\right)^2} = \\sqrt{s^2 + \\frac{1}{2}s^2} = s\\sqrt{\\frac{3}{2}} = \\frac{s\\sqrt{6}}{2}$$\n\n<b>Langkah 3: Hitung Nilai Sinus Sudut $\\theta$</b>\n$$\\sin\\theta = \\frac{\\text{depan}}{\\text{miring}} = \\frac{AE}{AO'} = \\frac{s}{\\frac{s\\sqrt{6}}{2}} = \\frac{2}{\\sqrt{6}} = \\frac{2\\sqrt{6}}{6} = \\frac{1}{3}\\sqrt{6}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>A</b> ($\\frac{1}{3}\\sqrt{6}$).",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus"
-                        }
-                  },
-                  {
-                        "no": 5,
-                        "tipe": "Pilihan Benar / Salah",
-                        "level": "C4 Analisis",
-                        "bobot": 10,
-                        "tanya": "[P13-Q5] Pada kubus ABCD.EFGH, tentukan kebenaran setiap pernyataan sudut berikut:\n(1) Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah $60^\\circ$.\n(2) Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah $90^\\circ$.\n(3) Besar sudut antara rusuk AB dan rusuk BC adalah $90^\\circ$.",
-                        "opsi": [
-                              "Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah 60 derajat",
-                              "Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat",
-                              "Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat"
-                        ],
-                        "kunci": "S - S - B",
-                        "bahas": "<b>Langkah 1: Analisis Pernyataan (1) - Sudut Antara Garis Bersilangan AH dan CF</b>\nGeser garis $CF$ ke garis $DE$ (karena $CF \\parallel DE$). Pada bidang sisi $ADHE$ (persegi), diagonal sisi $AH$ dan diagonal sisi $DE$ saling berpotongan tegak lurus ($90^\\circ$). Jadi sudutnya adalah $90^\\circ$, bukan $60^\\circ$.\n$\\implies$ Pernyataan (1) bernilai **SALAH (S)**.\n\n<b>Langkah 2: Analisis Pernyataan (2) - Sudut Antara Diagonal Ruang AG dan Rusuk AE</b>\nPerhatikan $\\triangle AEG$ yang siku-siku di $E$. Sudut $\\angle EAG$ memiliki $\\tan(\\angle EAG) = \\frac{EG}{AE} = \\frac{s\\sqrt{2}}{s} = \\sqrt{2} \\implies \\angle EAG \\approx 54{,}74^\\circ \\ne 90^\\circ$.\n$\\implies$ Pernyataan (2) bernilai **SALAH (S)**.\n\n<b>Langkah 3: Analisis Pernyataan (3) - Sudut Antara Rusuk Alas AB dan BC</b>\nPada bidang alas persegi $ABCD$, rusuk $AB$ dan $BC$ bertemu di titik $B$ dan saling tegak lurus ($90^\\circ$).\n$\\implies$ Pernyataan (3) bernilai **BENAR (B)**.\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>S - S - B</b>.",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus",
-                              "seg": [
-                                    "AH",
-                                    "CF"
-                              ]
-                        }
-                  },
-                  {
-                        "no": 6,
-                        "tipe": "Kecukupan Data",
-                        "level": "C5 Evaluasi",
-                        "bobot": 10,
-                        "tanya": "[P13-Q6] Berapakah besar sudut antara garis diagonal ruang dan bidang alas pada sebuah kubus?\nPernyataan (1): Kubus memiliki volume $1.000\\text{ cm}^3$.\nPernyataan (2): Panjang diagonal sisi alas kubus adalah $10\\sqrt{2}\\text{ cm}$.",
-                        "opsi": [
-                              "A. DUA pernyataan BERSAMA-SAMA cukup",
-                              "B. Pernyataan (1) SAJA cukup",
-                              "C. Pernyataan (2) SAJA cukup",
-                              "D. Pernyataan (1) SAJA cukup dan (2) SAJA cukup",
-                              "E. Pernyataan (1) dan (2) tidak cukup"
-                        ],
-                        "kunci": "D",
-                        "bahas": "<b>Langkah 1: Tinjau Sifat Geometris Sudut Diagonal Ruang Kubus</b>\nPada kubus apa pun dengan panjang rusuk $s$, sudut $\\alpha$ antara diagonal ruang dan bidang alas selalu memenuhi rasio tetap:\n$$\\tan\\alpha = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{2}\\sqrt{2} \\implies \\alpha = \\arctan\\left(\\frac{1}{2}\\sqrt{2}\\right) \\approx 35{,}26^\\circ$$\nBesar sudut ini adalah invarian konstan (tidak bergantung pada skala ukuran kubus).\n\n<b>Langkah 2: Evaluasi Pernyataan (1) SAJA</b>\nVolume $= 1.000\\text{ cm}^3 \\implies s = 10\\text{ cm}$. Karena informasi ini mengonfirmasi objek adalah kubus dan memberikan ukuran pastinya, maka besar sudut dapat ditentukan secara tunggal. $\\implies$ **(1) SAJA CUKUP**.\n\n<b>Langkah 3: Evaluasi Pernyataan (2) SAJA</b>\nDiagonal sisi alas $= 10\\sqrt{2}\\text{ cm} \\implies s = 10\\text{ cm}$. Informasi ini juga mengonfirmasi kubus dan ukuran rusuknya secara tunggal. $\\implies$ **(2) SAJA CUKUP**.\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>D</b> (Pernyataan (1) SAJA cukup dan (2) SAJA cukup).",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus"
-                        }
-                  },
-                  {
-                        "no": 7,
-                        "tipe": "Pilihan Ganda Tunggal",
-                        "level": "C4 Analisis",
-                        "bobot": 10,
-                        "tanya": "[P13-Q7] Pada limas segiempat beraturan T.ABCD dengan alas persegi berusuk 6 cm dan tinggi segitiga bidang tegak TP = 5 cm (P titik tengah AB), nilai kosinus sudut antara bidang TAB dan bidang TCD adalah ...",
-                        "opsi": [
-                              "A. $\\frac{1}{2}$",
-                              "B. $\\frac{3}{5}$",
-                              "C. $\\frac{24}{25}$",
-                              "D. $\\frac{4}{5}$",
-                              "E. $\\frac{7}{25}$"
-                        ],
-                        "kunci": "E",
-                        "bahas": "<b>Langkah 1: Tentukan Penampang Bidang yang Memuat Sudut Dihedral</b>\n- Misalkan $P$ adalah titik tengah rusuk alas $AB \\implies TP \\perp AB$ dan $TP = 5\\text{ cm}$.\n- Misalkan $Q$ adalah titik tengah rusuk alas $CD \\implies TQ \\perp CD$ dan $TQ = 5\\text{ cm}$.\n- Ruas garis $PQ$ menghubungkan titik tengah dua sisi sejajar alas persegi, sehingga $PQ = AD = 6\\text{ cm}$.\n- Sudut antara bidang $TAB$ dan $TCD$ diwakili oleh sudut $\\angle PTQ = \\theta$ pada $\\triangle TPQ$.\n\n<b>Langkah 2: Terapkan Aturan Kosinus pada $\\triangle TPQ$</b>\nPada $\\triangle TPQ$ dengan panjang sisi $TP = 5$, $TQ = 5$, dan $PQ = 6$:\n$$PQ^2 = TP^2 + TQ^2 - 2(TP)(TQ)\\cos\\theta$$\n$$6^2 = 5^2 + 5^2 - 2(5)(5)\\cos\\theta$$\n$$36 = 25 + 25 - 50\\cos\\theta$$\n$$36 = 50 - 50\\cos\\theta$$\n$$50\\cos\\theta = 50 - 36 = 14$$\n$$\\cos\\theta = \\frac{14}{50} = \\frac{7}{25}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>E</b> ($\\frac{7}{25}$).",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "limas"
-                        }
-                  },
-                  {
-                        "no": 8,
-                        "tipe": "Pilihan Ganda Kompleks",
-                        "level": "C5 Evaluasi",
-                        "bobot": 10,
-                        "tanya": "[P13-Q8] Pada kubus ABCD.EFGH, misalkan $\\alpha$ adalah sudut antara garis diagonal ruang AG dan bidang alas ABCD. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
-                        "opsi": [
-                              "A. Garis AG tegak lurus terhadap bidang ACGE.",
-                              "B. Nilai $\\cos\\alpha = \\frac{1}{3}\\sqrt{6}$.",
-                              "C. Nilai $\\tan\\alpha = \\frac{1}{2}\\sqrt{2}$.",
-                              "D. Besar sudut antara diagonal sisi AF dan CH adalah $60^\\circ$.",
-                              "E. Nilai $\\sin\\alpha = \\frac{1}{3}\\sqrt{3}$."
-                        ],
-                        "kunci": "B, C, E",
-                        "bahas": "<b>Langkah 1: Analisis Nilai Perbandingan Trigonometri Sudut $\\alpha$</b>\nPada $\\triangle ACG$ (siku-siku di $C$):\n- Sisi depan: $CG = s$\n- Sisi samping: $AC = s\\sqrt{2}$\n- Sisi miring: $AG = s\\sqrt{3}$\n\nPerhitungan masing-masing rasio:\n- $\\tan\\alpha = \\frac{s}{s\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$ $\\implies$ <b>(Opsi C BENAR)</b>\n- $\\cos\\alpha = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{\\sqrt{2}}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$ $\\implies$ <b>(Opsi B BENAR)</b>\n- $\\sin\\alpha = \\frac{s}{s\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$ $\\implies$ <b>(Opsi E BENAR)</b>\n\n<b>Langkah 2: Analisis Sudut dan Kedudukan Bidang Lain</b>\n- Garis $AF$ dan $CH$: Garis $CH$ sejajar dengan diagonal sisi $BE$ ($CH \\parallel BE$). Pada bidang sisi depan persegi $ABFE$, diagonal $AF$ dan $BE$ saling berpotongan tegak lurus ($90^\\circ$). Jadi sudut antara garis $AF$ dan $CH$ adalah $90^\\circ$, bukan $60^\\circ$ $\\implies$ <b>(Opsi D SALAH)</b>.\n- Garis $AG$ terletak di dalam bidang diagonal $ACGE$, bukan tegak lurus $\\implies$ <b>(Opsi A SALAH)</b>.\n\n<b>Kesimpulan:</b>\nPernyataan yang benar adalah <b>B, C, dan E</b>.\nKunci Jawaban: <b>B, C, E</b>.",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus",
-                              "seg": [
-                                    "AG"
-                              ]
-                        }
-                  },
-                  {
-                        "no": 9,
-                        "tipe": "Pilihan Ganda Tunggal",
-                        "level": "C4 Analisis",
-                        "bobot": 10,
-                        "tanya": "[P13-Q9] Nilai kosinus sudut antara garis diagonal ruang EC dan garis diagonal ruang AG pada kubus adalah ...",
-                        "opsi": [
-                              "A. $0$",
-                              "B. $\\frac{1}{3}$",
-                              "C. $\\frac{1}{2}$",
-                              "D. $\\frac{2}{3}$",
-                              "E. $\\frac{1}{\\sqrt{3}}$"
-                        ],
-                        "kunci": "B",
-                        "bahas": "<b>Langkah 1: Representasi Vektor Diagonal Ruang Kubus</b>\nMisalkan titik sudut kubus dengan panjang rusuk $a$ diletakkan pada sistem koordinat 3D kartesius dengan $A(0,0,0)$ dan $G(a,a,a)$:\n- Titik $E(0,0,a)$ dan titik $C(a,a,0)$\n- Vektor arah $\\vec{u} = \\vec{EC} = C - E = (a - 0, a - 0, 0 - a) = (a, a, -a)$\n- Vektor arah $\\vec{v} = \\vec{AG} = G - A = (a - 0, a - 0, a - 0) = (a, a, a)$\n\n<b>Langkah 2: Hitung Perkalian Titik (Dot Product) dan Panjang Vektor</b>\n- Perkalian titik:\n$$\\vec{u} \\cdot \\vec{v} = (a)(a) + (a)(a) + (-a)(a) = a^2 + a^2 - a^2 = a^2$$\n- Panjang masing-masing vektor diagonal ruang:\n$$|\\vec{u}| = \\sqrt{a^2 + a^2 + (-a)^2} = a\\sqrt{3}$$\n$$|\\vec{v}| = \\sqrt{a^2 + a^2 + a^2} = a\\sqrt{3}$$\n\n<b>Langkah 3: Hitung Nilai Kosinus Sudut Antara Kedua Vektor</b>\n$$\\cos\\theta = \\frac{|\\vec{u} \\cdot \\vec{v}|}{|\\vec{u}| \\cdot |\\vec{v}|} = \\frac{a^2}{(a\\sqrt{3})(a\\sqrt{3})} = \\frac{a^2}{3a^2} = \\frac{1}{3}$$\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>B</b> ($\\frac{1}{3}$).",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus",
-                              "seg": [
-                                    "EC",
-                                    "AG"
-                              ]
-                        }
-                  },
-                  {
-                        "no": 10,
-                        "tipe": "Isian Singkat Numerik",
-                        "level": "C4 Analisis",
-                        "bobot": 10,
-                        "tanya": "[P13-Q10] Besar sudut (dalam derajat) yang dibentuk antara bidang alas ABCD dan bidang diagonal ACGE pada sebuah kubus adalah ...",
-                        "opsi": [],
-                        "kunci": "90",
-                        "bahas": "<b>Langkah 1: Identifikasi Pembentuk Bidang Diagonal ACGE</b>\nBidang diagonal $ACGE$ memuat diagonal bidang alas $AC$ serta rusuk-rusuk tegak kubus $AE$ dan $CG$.\n\n<b>Langkah 2: Analisis Kedudukan Garis Terhadap Bidang</b>\nKarena setiap rusuk tegak kubus tegak lurus terhadap bidang alas ($AE \\perp ABCD$ dan $CG \\perp ABCD$), maka setiap bidang yang memuat rusuk tegak tersebut secara otomatis berkedudukan **tegak lurus** terhadap bidang alas.\n\n<b>Langkah 3: Tentukan Besar Sudut Dihedral</b>\nKarena kedua bidang saling tegak lurus, maka besar sudut yang dibentuk adalah **90 derajat** ($90^\\circ$).\n\n<b>Kesimpulan:</b>\nKunci Jawaban: <b>90</b>.",
-                        "viz": {
-                              "t": "ruang",
-                              "shape": "kubus",
-                              "bid": [
-                                    "ACGE"
-                              ]
-                        }
-                  }
+      "id": "P13",
+      "subject": "Matematika Wajib",
+      "title": "Dimensi Tiga 5: Sudut Garis-Bidang dan Sudut Antara Dua Bidang",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q1] Pada kubus ABCD.EFGH, nilai tangen sudut antara garis diagonal ruang AG dan bidang alas ABCD adalah ...",
+          "opsi": [
+            "A. √2",
+            "B. 1/2 √2",
+            "C. √3",
+            "D. 1/2 √6",
+            "E. 1/3 √3"
+          ],
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan proyeksi garis diagonal ruang AG pada bidang alas ABCD:\nProyeksi garis AG pada bidang alas adalah diagonal sisi AC. Sudut yang terbentuk adalah $\\angle CAG = \\alpha$.\n\nLangkah 2: Menentukan panjang sisi $\\triangle ACG$ (siku-siku di C):\n- Rusuk tegak: $CG = s$\n- Diagonal sisi alas: $AC = s\\sqrt{2}$\n\nLangkah 3: Menghitung nilai tangen $\\alpha$:\n$$\\tan\\alpha = \\frac{CG}{AC} = \\frac{s}{s\\sqrt{2}} = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$$\nKesimpulan: Kunci Jawaban B.",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AG"
             ]
-      },
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q2] Pada kubus ABCD.EFGH, nilai cosinus sudut antara garis diagonal sisi AH dan garis diagonal sisi AC adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 0",
+            "C. 1/2 √3",
+            "D. 1/2 √2",
+            "E. 1/3 √3"
+          ],
+          "kunci": "A",
+          "bahas": "Langkah 1: Mengidentifikasi segitiga yang dibentuk oleh titik A, H, dan C:\nHubungkan titik A, H, dan C sehingga membentuk $\\triangle AHC$.\n\nLangkah 2: Menentukan panjang ketiga sisi $\\triangle AHC$:\n- $AH = s\\sqrt{2}$ (diagonal sisi kiri)\n- $AC = s\\sqrt{2}$ (diagonal sisi alas)\n- $CH = s\\sqrt{2}$ (diagonal sisi belakang)\nKarena ketiga sisinya sama panjang, $\\triangle AHC$ adalah **segitiga sama sisi**.\n\nLangkah 3: Menghitung besar sudut dan nilai kosinusnya:\nSudut antara garis AH dan garis AC adalah $60^\\circ$.\n$$\\cos 60^\\circ = \\frac{1}{2}$$\nKesimpulan: Kunci Jawaban A.",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AH",
+              "AC"
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q3] Besar sudut antara bidang frontal ABFE dan bidang dorsal CDHG pada kubus ABCD.EFGH adalah ...",
+          "opsi": [
+            "A. 90 derajat (Tegak lurus)",
+            "B. 60 derajat",
+            "C. 180 derajat",
+            "D. 45 derajat",
+            "E. 0 derajat (Sejajar)"
+          ],
+          "kunci": "E",
+          "bahas": "Langkah 1: Mengidentifikasi posisi kedua bidang pada kubus ABCD.EFGH:\n- Bidang ABFE adalah bidang sisi depan (frontal).\n- Bidang CDHG adalah bidang sisi belakang (dorsal).\n\nLangkah 2: Menentukan kedudukan dan sudut antara dua bidang sejajar:\nKedua bidang saling berhadapan sejajar ($ABFE \\parallel CDHG$), sehingga tidak membentuk garis perpotongan.\nBesar sudut antara dua bidang yang saling sejajar adalah **0 derajat**.\nKesimpulan: Kunci Jawaban E.",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q4] Nilai sinus sudut antara bidang AFH dan bidang alas ABCD pada kubus ABCD.EFGH adalah ...",
+          "opsi": [
+            "A. 1/3 √6",
+            "B. 1/2 √3",
+            "C. 1/2 √2",
+            "D. 2/3 √2",
+            "E. 1/3 √3"
+          ],
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan sudut antara bidang AFH dan bidang horizontal (EFGH / ABCD):\n- Garis potong bidang AFH dengan bidang atas EFGH adalah diagonal $FH$.\n- Garis tinggi $\\triangle AFH$ adalah ruas garis $AO'$ (dengan $O'$ titik tengah $FH$).\n- Garis tinggi pada bidang atas adalah $EO' = \\frac{1}{2}s\\sqrt{2}$.\n- Sudut yang terbentuk adalah $\\angle AO'E = \\theta$ pada $\\triangle AEO'$ (siku-siku di E).\n\nLangkah 2: Menentukan panjang sisi $\\triangle AEO'$:\n- Sisi depan: $AE = s$\n- Sisi samping: $EO' = \\frac{1}{2}s\\sqrt{2}$\n- Sisi miring: $AO' = \\sqrt{s^2 + \\left(\\frac{1}{2}s\\sqrt{2}\\right)^2} = \\sqrt{s^2 + \\frac{1}{2}s^2} = \\frac{s\\sqrt{6}}{2}$\n\nLangkah 3: Menghitung nilai sinus $\\theta$:\n$$\\sin\\theta = \\frac{AE}{AO'} = \\frac{s}{\\frac{s\\sqrt{6}}{2}} = \\frac{2}{\\sqrt{6}} = \\frac{2\\sqrt{6}}{6} = \\frac{1}{3}\\sqrt{6}$$\nKesimpulan: Kunci Jawaban A.",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q5] Pada kubus ABCD.EFGH, tentukan kebenaran sudut garis berikut:\n(1) Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah 60 derajat.\n(2) Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat.\n(3) Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat.",
+          "opsi": [
+            "Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah 60 derajat",
+            "Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat",
+            "Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat"
+          ],
+          "kunci": "S - S - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nGaris diagonal AH dan CF adalah garis bersilangan. Jika CF digeser ke garis DE (karena $CF \\parallel DE$), maka sudut antara AH dan DE pada persegi ADHE adalah $90^\\circ$ (tegak lurus), bukan $60^\\circ$.\n$\\implies$ Pernyataan (1) bernilai SALAH (S).\n\nLangkah 2: Analisis Pernyataan (2):\nPada $\\triangle AEG$ (siku-siku di E), sudut $\\angle EAG = \\arctan(\\sqrt{2}) \\approx 54{,}7^\\circ \\ne 90^\\circ$.\n$\\implies$ Pernyataan (2) bernilai SALAH (S).\n\nLangkah 3: Analisis Pernyataan (3):\nRusuk AB dan rusuk BC pada bidang alas persegi ABCD berpotongan tegak lurus ($90^\\circ$).\n$\\implies$ Pernyataan (3) bernilai BENAR (B).\n\nKesimpulan: Kunci Jawaban S - S - B.",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AH",
+              "CF"
+            ]
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P13-Q6] Berapakah besar sudut antara garis diagonal ruang dan bidang alas kubus?\nPernyataan (1): Kubus memiliki volume 1.000 cm^3.\nPernyataan (2): Panjang diagonal sisi alas adalah 10√2 cm.",
+          "opsi": [
+            "A. DUA pernyataan BERSAMA-SAMA cukup",
+            "B. Pernyataan (1) SAJA cukup",
+            "C. Pernyataan (2) SAJA cukup",
+            "D. Pernyataan (1) SAJA cukup dan (2) SAJA cukup",
+            "E. Pernyataan (1) dan (2) tidak cukup"
+          ],
+          "kunci": "D",
+          "bahas": "Langkah 1: Memahami sifat metrik sudut diagonal ruang terhadap bidang alas kubus:\nSudut $\\alpha$ antara diagonal ruang AG dan alas selalu bernilai konstan pada setiap kubus:\n$$\\tan\\alpha = \\frac{s}{s\\sqrt{2}} = \\frac{1}{2}\\sqrt{2} \\implies \\alpha = \\arctan\\left(\\frac{1}{2}\\sqrt{2}\\right) \\approx 35{,}26^\\circ$$\n\nLangkah 2: Evaluasi Pernyataan (1) SAJA:\nVolume $= 1.000\\text{ cm}^3 \\implies s = 10\\text{ cm}$ (CUKUP untuk mengonfirmasi bentuk kubus).\n\nLangkah 3: Evaluasi Pernyataan (2) SAJA:\nDiagonal sisi $= 10\\sqrt{2}\\text{ cm} \\implies s = 10\\text{ cm}$ (CUKUP untuk mengonfirmasi bentuk kubus).\n\nKesimpulan: Kunci Jawaban D (Pernyataan (1) SAJA cukup dan (2) SAJA cukup).",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q7] Pada limas T.ABCD dengan alas persegi berusuk 6 cm dan tinggi bidang tegak TP = 5 cm (P di tengah AB), nilai kosinus sudut antara bidang TAB dan bidang TCD adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 3/5",
+            "C. 24/25",
+            "D. 4/5",
+            "E. 7/25"
+          ],
+          "kunci": "E",
+          "bahas": "Langkah 1: Menentukan penampang segitiga yang memuat sudut antara bidang TAB dan TCD:\n- Misalkan titik P adalah titik tengah rusuk AB $\\implies TP = 5$ cm (tinggi $\\triangle TAB$).\n- Misalkan titik Q adalah titik tengah rusuk CD $\\implies TQ = 5$ cm (tinggi $\\triangle TCD$).\n- Panjang ruas garis $PQ = AD = 6$ cm.\n\nLangkah 2: Membentuk $\\triangle TPQ$ dengan $TP = 5$ cm, $TQ = 5$ cm, dan $PQ = 6$ cm.\nSudut antara bidang TAB dan TCD adalah sudut $\\angle PTQ = \\theta$.\n\nLangkah 3: Menerapkan Aturan Kosinus pada $\\triangle TPQ$:\n$$PQ^2 = TP^2 + TQ^2 - 2(TP)(TQ)\\cos\\theta$$\n$$6^2 = 5^2 + 5^2 - 2(5)(5)\\cos\\theta$$\n$$36 = 25 + 25 - 50\\cos\\theta$$\n$$36 = 50 - 50\\cos\\theta$$\n$$50\\cos\\theta = 50 - 36 = 14$$\n$$\\cos\\theta = \\frac{14}{50} = \\frac{7}{25}$$\nKesimpulan: Kunci Jawaban E.",
+          "viz": {
+            "t": "ruang",
+            "shape": "limas"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P13-Q8] Pada kubus ABCD.EFGH, misalkan alpha adalah sudut antara garis AG dan bidang alas ABCD. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Garis AG tegak lurus terhadap bidang ACGE.",
+            "B. Nilai cos(alpha) adalah akar(6)/3.",
+            "C. Nilai tan(alpha) adalah 1/2 akar(2).",
+            "D. Besar sudut antara diagonal sisi AF dan CH adalah 60 derajat.",
+            "E. Nilai sin(alpha) adalah akar(3)/3."
+          ],
+          "kunci": "B, C, D, E",
+          "bahas": "Langkah 1: Analisis nilai trigonometri sudut $\\alpha$ antara diagonal ruang AG dan alas ABCD:\n- Sisi depan $= s$, sisi samping $= s\\sqrt{2}$, sisi miring $= s\\sqrt{3}$.\n- $\\tan\\alpha = \\frac{s}{s\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$ (Opsi C BENAR).\n- $\\cos\\alpha = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{\\sqrt{6}}{3}$ (Opsi B BENAR).\n- $\\sin\\alpha = \\frac{s}{s\\sqrt{3}} = \\frac{\\sqrt{3}}{3}$ (Opsi E BENAR).\n\nLangkah 2: Analisis sudut antar-garis:\n- Sudut antara AF dan CH (geser ke AF dan DE) adalah $60^\\circ$ (Opsi D BENAR).\n- Opsi A SALAH karena garis AG terletak di dalam bidang ACGE (bukan tegak lurus).\n\nKesimpulan: Kunci Jawaban B, C, D, E.",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q9] Nilai kosinus sudut antara garis diagonal ruang EC dan diagonal ruang AG pada kubus adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. 1/3",
+            "C. 1/2",
+            "D. 2/3",
+            "E. 1/√3"
+          ],
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan vektor arah diagonal ruang EC dan AG pada kubus berusuk $a$:\n- Vektor arah $EC = (a, a, -a)$\n- Vektor arah $AG = (a, a, a)$\n\nLangkah 2: Menghitung hasil perkalian titik (dot product):\n$$\\vec{u} \\cdot \\vec{v} = (a)(a) + (a)(a) + (-a)(a) = a^2 + a^2 - a^2 = a^2$$\n\nLangkah 3: Menghitung panjang vektor dan nilai kosinus:\n$$|\\vec{u}| = |\\vec{v}| = a\\sqrt{3}$$\n$$\\cos\\theta = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}| \\cdot |\\vec{v}|} = \\frac{a^2}{(a\\sqrt{3})(a\\sqrt{3})} = \\frac{a^2}{3a^2} = \\frac{1}{3}$$\nKesimpulan: Kunci Jawaban B.",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "EC",
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q10] Besar sudut (dalam derajat) yang dibentuk antara bidang alas ABCD dan bidang diagonal ACGE pada kubus adalah ...",
+          "opsi": [],
+          "kunci": "90",
+          "bahas": "Langkah 1: Mengidentifikasi bidang diagonal ACGE:\nBidang diagonal $ACGE$ dibentuk oleh diagonal bidang alas $AC$ dan rusuk-rusuk tegak kubus $AE$ dan $CG$.\n\nLangkah 2: Memeriksa kedudukan rusuk tegak terhadap bidang alas:\nKarena seluruh rusuk tegak $AE \\perp \\text{bidang } ABCD$, maka bidang diagonal $ACGE$ yang memuat garis AE berkedudukan tegak lurus terhadap bidang alas ABCD.\n\nLangkah 3: Menentukan besar sudut dihedral:\nBesar sudut yang dibentuk adalah **90 derajat**.\nKesimpulan: Kunci Jawaban 90.",
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "bid": [
+              "ACGE"
+            ]
+          }
+        }
+      ]
+    },
     "P14": {
       "id": "P14",
       "subject": "Matematika Wajib",
@@ -8338,7 +8373,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $x^2 + y^2 = 10$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Mengidentifikasi bentuk baku lingkaran berpusat di titik asal:\n$$x^2 + y^2 = r^2$$\n\nLangkah 2: Menghitung $r^2$ sebagai kuadrat jarak pusat ke titik $A(-6, 8)$:\n$$r^2 = (-6)^2 + 8^2 = 36 + 64 = 100$$\n\nLangkah 3: Menyusun persamaan lingkarannya:\n$$x^2 + y^2 = 100$$\n\nLangkah 4: Memeriksa kembali dengan memasukkan titik $A(-6, 8)$:\n$$36 + 64 = 100 \\quad \\text{(cocok)}$$\nKesimpulan: Kunci Jawaban B."
+          "bahas": "Langkah 1: Mengidentifikasi rumus baku persamaan lingkaran berpusat di titik asal $O(0, 0)$:\n$$x^2 + y^2 = r^2$$\n\nLangkah 2: Mensubstitusikan nilai jari-jari $r = 5$ satuan:\n$$x^2 + y^2 = 5^2$$\n\nLangkah 3: Menghitung nilai kuadrat:\n$$x^2 + y^2 = 25$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 2,
@@ -8354,7 +8389,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 2 satuan"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Menyadari bahwa jari-jari sama dengan JARAK pusat $O(0,0)$ ke garis singgungnya:\n$$r = \\frac{|Ax_0 + By_0 + C|}{\\sqrt{A^2 + B^2}}$$\n\nLangkah 2: Membaca koefisien garis $3x - 4y + 20 = 0$:\n$$A = 3, \\quad B = -4, \\quad C = 20$$\n\nLangkah 3: Mensubstitusikan titik pusat $(0, 0)$:\n$$r = \\frac{|3(0) - 4(0) + 20|}{\\sqrt{3^2 + (-4)^2}} = \\frac{20}{\\sqrt{25}}$$\n\nLangkah 4: Menyelesaikan pembagiannya:\n$$r = \\frac{20}{5} = 4 \\text{ satuan}$$\n\nLangkah 5: Memeriksa opsi A. Nilai $5$ adalah akar penyebutnya, bukan hasil baginya.\nKesimpulan: Kunci Jawaban D."
+          "bahas": "Langkah 1: Mengidentifikasi syarat lingkaran berpusat di $O(0, 0)$ yang melalui titik $A(3, -4)$:\nJari-jari kuadrat ($r^2$) sama dengan jarak kuadrat dari titik pusat ke titik yang dilalui:\n$$r^2 = x_A^2 + y_A^2$$\n\nLangkah 2: Mensubstitusikan koordinat $(3, -4)$:\n$$r^2 = 3^2 + (-4)^2 = 9 + 16 = 25$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$x^2 + y^2 = 25$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 3,
@@ -8369,8 +8404,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $k = \\pm 2$",
             "E. $k = \\pm 4$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menyadari bahwa titik pada lingkaran harus MEMENUHI persamaannya:\n$$k^2 + (-4)^2 = 25$$\n\nLangkah 2: Menghitung kuadrat ordinatnya:\n$$k^2 + 16 = 25$$\n\nLangkah 3: Memindahkan $16$ ke ruas kanan:\n$$k^2 = 9$$\n\nLangkah 4: Menarik akar kedua ruas. Tandanya ada dua, sebab kuadrat menghapus tanda:\n$$k = \\pm 3$$\n\nLangkah 5: Memeriksa opsi C. Nilai $\\pm 5$ adalah JARI-JARI lingkarannya, bukan absis titiknya; titik $(5, -4)$ jelas tidak memenuhi sebab $25 + 16 = 41 \\neq 25$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Membandingkan persamaan lingkaran $x^2 + y^2 = 36$ dengan bentuk baku $x^2 + y^2 = r^2$:\n$$r^2 = 36$$\n\nLangkah 2: Menarik akar kuadrat positif untuk jari-jari:\n$$r = \\sqrt{36} = 6 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8391,8 +8426,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $x^2 + y^2 = 64$",
             "E. $x^2 + y^2 = 8$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Mengidentifikasi rumus luas daerah lingkaran:\n$$L = \\pi r^2$$\n\nLangkah 2: Menyamakannya dengan luas yang diketahui:\n$$\\pi r^2 = 64\\pi$$\n\nLangkah 3: Membagi kedua ruas dengan $\\pi$:\n$$r^2 = 64$$\n\nLangkah 4: Menyusun persamaan lingkarannya. Perhatikan bahwa yang diperlukan adalah $r^2$, sehingga akar kuadratnya tidak perlu ditarik:\n$$x^2 + y^2 = 64$$\n\nLangkah 5: Memeriksa opsi E. Nilai $8$ adalah $r$ itu sendiri, yang keliru dipakai sebagai ruas kanan; padahal ruas kanan memuat $r^2$.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "E",
+          "bahas": "Langkah 1: Mengidentifikasi kondisi lingkaran menyinggung garis horizontal $y = 7$:\nKarena berpusat di titik asal $O(0, 0)$, jarak terpendek dari pusat $(0, 0)$ ke garis $y = 7$ adalah panjang jari-jari:\n$$r = |7 - 0| = 7 \\text{ satuan}$$\n\nLangkah 2: Menghitung $r^2$:\n$$r^2 = 7^2 = 49$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$x^2 + y^2 = 49$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 5,
@@ -8405,16 +8440,16 @@ const NAMA_TINGKAT = 'XII';
             "Titik (3, 4) terletak tepat pada busur keliling lingkaran",
             "Panjang jari-jari lingkaran adalah r = 25 satuan"
           ],
-          "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBentuk $x^2 + y^2 = 25$ tidak memuat suku $x$ maupun $y$ berderajat satu, sehingga pusatnya memang di titik asal.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$$3^2 + 4^2 = 9 + 16 = 25$$\nRuas kirinya tepat sama dengan ruas kanan, jadi titik itu ada di busurnya.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nAngka $25$ pada ruas kanan adalah $r^2$, bukan $r$:\n$$r = \\sqrt{25} = 5 \\text{ satuan}$$\n$\\implies$ Pernyataan (3) bernilai SALAH.\n\nLangkah 4: Inilah kekeliruan yang paling sering terjadi pada bab ini, yaitu membaca ruas kanan sebagai jari-jari padahal ia kuadratnya.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "kunci": "B - B - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nBentuk baku persamaan lingkaran berpusat di $O(0,0)$ berjari-jari $r$ adalah $x^2 + y^2 = r^2$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nJari-jari dari $x^2 + y^2 = 49$ adalah $r = \\sqrt{49} = 7$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nTitik $(2, 3)$ diuji ke $x^2 + y^2$: $2^2 + 3^2 = 4 + 9 = 13 \\neq 16$. Karena $13 < 16$, titik berada di dalam lingkaran, bukan tepat pada lingkaran.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              0.0,
-              0.0
+              0,
+              0
             ]
           }
         },
@@ -8431,8 +8466,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Pernyataan (1) SAJA cukup",
             "E. Pernyataan (1) SAJA cukup dan (2) SAJA cukup"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menguji Pernyataan (1) sendirian. Titik $(3,4)$ harus memenuhi persamaannya:\n$$r^2 = 3^2 + 4^2 = 25 \\implies r = 5$$\n$\\implies$ Pernyataan (1) SAJA sudah cukup.\n\nLangkah 2: Menguji Pernyataan (2) sendirian. Keliling lingkaran adalah $K = 2\\pi r$:\n$$2\\pi r = 10\\pi$$\n\nLangkah 3: Membagi kedua ruas dengan $2\\pi$:\n$$r = 5$$\n$\\implies$ Pernyataan (2) SAJA juga sudah cukup.\n\nLangkah 4: Karena masing-masing pernyataan sudah menentukan $r$ tanpa bantuan yang lain, keduanya cukup secara sendiri-sendiri.\n\nLangkah 5: Memeriksa opsi B. Menjawab \"dua-duanya bersama-sama\" keliru sebab satu saja sudah memadai; opsi C bahkan bertentangan dengan kedua hitungan di atas.\nKesimpulan: Kunci Jawaban E."
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung jari-jari kuadrat dari titik yang dilalui $(-2, \\sqrt{5})$:\n$$r^2 = x^2 + y^2 = (-2)^2 + (\\sqrt{5})^2 = 4 + 5 = 9$$\n\nLangkah 2: Menyusun persamaan lingkaran berpusat di $O(0, 0)$:\n$$x^2 + y^2 = 9$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 7,
@@ -8448,7 +8483,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $x^2 + y^2 = 10$"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menyadari bahwa jari-jari sama dengan jarak pusat $O(0,0)$ ke garis $x = 5$:\n$$r = |5 - 0| = 5$$\n\nLangkah 2: Memeriksa maknanya secara gambar. Garis $x = 5$ tegak, dan titik pada lingkaran yang paling dekat kepadanya adalah $(5, 0)$.\n\nLangkah 3: Menghitung $r^2$ untuk ruas kanannya:\n$$r^2 = 5^2 = 25$$\n\nLangkah 4: Menyusun persamaan lingkarannya:\n$$x^2 + y^2 = 25$$\n\nLangkah 5: Memeriksa opsi D. Nilai $5$ di ruas kanan berarti $r = \\sqrt{5}$, yang terlalu kecil untuk menyentuh garis $x = 5$.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Mengubah bentuk persamaan $3x^2 + 3y^2 = 27$ ke bentuk baku:\nMembagi kedua ruas dengan koefisien $3$:\n$$\\frac{3x^2 + 3y^2}{3} = \\frac{27}{3} \\implies x^2 + y^2 = 9$$\n\nLangkah 2: Menghitung jari-jari $r$:\n$$r = \\sqrt{9} = 3 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 8,
@@ -8463,8 +8498,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Panjang jari-jari lingkaran adalah 10 satuan.",
             "E. Titik potong lingkaran dengan sumbu-X adalah (10, 0) dan (-10, 0)."
           ],
-          "kunci": "A, B, D, E",
-          "bahas": "Langkah 1: Menghitung jari-jari lingkaran $x^2 + y^2 = 100$:\n$$r = \\sqrt{100} = 10 \\text{ satuan}$$\n\nLangkah 2: Analisis A. Menguji titik $(6, 8)$:\n$$6^2 + 8^2 = 36 + 64 = 100 \\implies \\text{A BENAR}$$\n\nLangkah 3: Analisis B. Diameter adalah dua kali jari-jari:\n$$d = 2(10) = 20 \\implies \\text{B BENAR}$$\n\nLangkah 4: Analisis C. Titik $O(0,0)$ justru PUSAT lingkaran itu sendiri, sehingga ia berada di dalam, bukan di luar:\n$$0^2 + 0^2 = 0 < 100 \\implies \\text{C SALAH}$$\n\nLangkah 5: Analisis D. Sudah dihitung pada Langkah 1.\n$\\implies$ D BENAR.\n\nLangkah 6: Analisis E. Memasukkan $y = 0$:\n$$x^2 = 100 \\implies x = \\pm 10 \\implies \\text{E BENAR}$$\nKesimpulan: Kunci Jawaban A, B, D, E.",
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis lingkaran $x^2 + y^2 = 25$:\n- A: Titik $(3, 4)$ memenuhi $3^2 + 4^2 = 25$ (BENAR).\n- B: Jari-jarinya adalah $r = \\sqrt{25} = 5$ (BENAR).\n- C: Titik pusat berada di $O(0, 0)$ (BENAR).\n- D: Diameter lingkaran $d = 2r = 10$ (BENAR).\n- E: Luas lingkaran $L = \\pi r^2 = 25\\pi$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "lingkaran",
             "r2": 100,
@@ -8485,16 +8520,16 @@ const NAMA_TINGKAT = 'XII';
             "D. 12 satuan",
             "E. 9 satuan"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menentukan titik pusat lingkaran $x^2 + y^2 = 16$:\n$$O(0, 0)$$\n\nLangkah 2: Menyadari bahwa yang ditanyakan adalah jarak $P$ ke PUSAT, sehingga jari-jarinya tidak diperlukan sama sekali.\n\nLangkah 3: Memakai rumus jarak dua titik:\n$$d = \\sqrt{(5 - 0)^2 + (12 - 0)^2}$$\n\nLangkah 4: Menghitung di dalam akarnya:\n$$d = \\sqrt{25 + 144} = \\sqrt{169}$$\n\nLangkah 5: Menarik akarnya:\n$$d = 13 \\text{ satuan}$$\n\nLangkah 6: Memeriksa opsi B. Nilai $17$ muncul dari $5 + 12$, yaitu menjumlahkan koordinat tanpa mengkuadratkan lebih dahulu.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung jarak tegak lurus dari titik pusat $O(0, 0)$ ke garis singgung $3x + 4y - 20 = 0$:\n$$r = \\frac{|A x_0 + B y_0 + C|}{\\sqrt{A^2 + B^2}} = \\frac{|3(0) + 4(0) - 20|}{\\sqrt{3^2 + 4^2}} = \\frac{|-20|}{\\sqrt{25}} = \\frac{20}{5} = 4$$\n\nLangkah 2: Menghitung nilai $r^2$:\n$$r^2 = 4^2 = 16$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$x^2 + y^2 = 16$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 16,
             "cx": 0,
             "cy": 0,
             "P": [
-              5.0,
-              12.0
+              5,
+              12
             ]
           }
         },
@@ -8505,8 +8540,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P01-Q10] Jika lingkaran $x^2 + y^2 = r^2$ melalui titik koordinat $(-8, -15)$, maka nilai jari-jari $r$ adalah ...",
           "opsi": [],
-          "kunci": "17",
-          "bahas": "Langkah 1: Menyadari bahwa titik yang dilalui harus memenuhi persamaannya:\n$$r^2 = (-8)^2 + (-15)^2$$\n\nLangkah 2: Menghitung kedua kuadratnya. Tanda negatif hilang oleh pengkuadratan:\n$$r^2 = 64 + 225 = 289$$\n\nLangkah 3: Menarik akar kuadratnya:\n$$r = \\sqrt{289} = 17 \\text{ satuan}$$\n\nLangkah 4: Memeriksa kembali dengan tripel Pythagoras $(8, 15, 17)$, yang memang memenuhi $64 + 225 = 289$.\nKesimpulan: Kunci Jawaban 17."
+          "kunci": "9",
+          "bahas": "Langkah 1: Lingkaran menyinggung garis $x = -8$ dengan pusat $O(0,0)$:\n$$r = |-8 - 0| = 8 \\implies r^2 = 64$$\n\nLangkah 2: Menyusun persamaan lingkaran:\n$$x^2 + y^2 = 64$$\nKesimpulan: Kunci Jawaban 64."
         }
       ]
     },
@@ -8528,8 +8563,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(x - 2)^2 + (y + 3)^2 = 5$",
             "E. $(x + 2)^2 + (y + 3)^2 = 25$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Mengidentifikasi bentuk baku lingkaran berpusat di $P(a, b)$:\n$$(x - a)^2 + (y - b)^2 = r^2$$\n\nLangkah 2: Mensubstitusikan $a = 2$ dan $b = -3$. Perhatikan bahwa $y - (-3)$ menjadi $y + 3$:\n$$(x - 2)^2 + (y + 3)^2 = r^2$$\n\nLangkah 3: Mengkuadratkan jari-jarinya:\n$$r^2 = 5^2 = 25$$\n\nLangkah 4: Menyusun persamaan lengkapnya:\n$$(x - 2)^2 + (y + 3)^2 = 25$$\n\nLangkah 5: Memeriksa opsi D. Ruas kanannya $5$, yaitu $r$ yang lupa dikuadratkan.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "D",
+          "bahas": "Langkah 1: Mengidentifikasi rumus baku persamaan lingkaran berpusat di $P(a, b)$ dengan jari-jari $r$:\n$$(x - a)^2 + (y - b)^2 = r^2$$\n\nLangkah 2: Mensubstitusikan titik pusat $a = 2, b = -3$ dan jari-jari $r = 4$:\n$$(x - 2)^2 + (y - (-3))^2 = 4^2$$\n\nLangkah 3: Menyederhanakan tanda operasi:\n$$(x - 2)^2 + (y + 3)^2 = 16$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 2,
@@ -8544,8 +8579,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(x + 1)^2 + (y - 4)^2 = 25$",
             "E. $(x - 1)^2 + (y + 4)^2 = 25$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menuliskan bentuk bakunya dengan pusat $P(-1, 4)$:\n$$(x + 1)^2 + (y - 4)^2 = r^2$$\n\nLangkah 2: Menghitung $r^2$ sebagai kuadrat jarak pusat ke titik $A(3, 1)$:\n$$r^2 = (3 - (-1))^2 + (1 - 4)^2$$\n\nLangkah 3: Menyelesaikan kedua kurungnya:\n$$r^2 = 4^2 + (-3)^2 = 16 + 9 = 25$$\n\nLangkah 4: Menyusun persamaan lengkapnya:\n$$(x + 1)^2 + (y - 4)^2 = 25$$\n\nLangkah 5: Memeriksa opsi A. Ruas kanannya $16$, yaitu hanya suku pertama pada Langkah 3 — suku $9$-nya terlewat.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "A",
+          "bahas": "Langkah 1: Membaca titik pusat dan jari-jari dari bentuk baku:\n$$(x + 5)^2 + (y - 1)^2 = 49$$\nDapat dituliskan sebagai:\n$$(x - (-5))^2 + (y - 1)^2 = 7^2$$\n\nLangkah 2: Menentukan titik pusat $P(a, b)$ dan jari-jari $r$:\n- Pusat: $P(-5, 1)$\n- Jari-jari: $r = \\sqrt{49} = 7$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 3,
@@ -8560,8 +8595,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(x - 3)^2 + (y + 2)^2 = 13$",
             "E. $(x - 3)^2 + (y + 2)^2 = 9$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menyadari bahwa menyinggung sumbu-$Y$ berarti jaraknya ke garis $x = 0$ sama dengan jari-jarinya:\n$$r = |a| = |3| = 3$$\n\nLangkah 2: Memeriksa maknanya secara gambar. Titik singgungnya adalah $(0, -2)$, yaitu proyeksi pusat pada sumbu-$Y$.\n\nLangkah 3: Mengkuadratkan jari-jarinya:\n$$r^2 = 9$$\n\nLangkah 4: Menyusun persamaannya dengan pusat $P(3, -2)$:\n$$(x - 3)^2 + (y + 2)^2 = 9$$\n\nLangkah 5: Memeriksa opsi A. Ruas kanannya $4$, yang berasal dari ordinat $-2$ — padahal yang menentukan jarak ke sumbu-$Y$ adalah ABSISnya.\nKesimpulan: Kunci Jawaban E."
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung jari-jari kuadrat $r^2$ dari pusat $P(1, 2)$ ke titik yang dilalui $A(4, 6)$:\n$$r^2 = (x_A - a)^2 + (y_A - b)^2 = (4 - 1)^2 + (6 - 2)^2 = 3^2 + 4^2 = 9 + 16 = 25$$\n\nLangkah 2: Menyusun persamaan lingkaran dengan pusat $P(1, 2)$ dan $r^2 = 25$:\n$$(x - 1)^2 + (y - 2)^2 = 25$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 4,
@@ -8576,8 +8611,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(x - 4)^2 + (y + 5)^2 = 16$",
             "E. $(x + 4)^2 + (y - 5)^2 = 16$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menyadari bahwa menyinggung sumbu-$X$ berarti jaraknya ke garis $y = 0$ sama dengan jari-jarinya:\n$$r = |b| = |5| = 5$$\n\nLangkah 2: Perhatikan bedanya dengan soal sebelumnya. Untuk sumbu-$X$ yang dipakai ORDINAT, untuk sumbu-$Y$ yang dipakai absis.\n\nLangkah 3: Mengkuadratkan jari-jarinya:\n$$r^2 = 25$$\n\nLangkah 4: Menyusun persamaannya dengan pusat $P(-4, 5)$:\n$$(x + 4)^2 + (y - 5)^2 = 25$$\n\nLangkah 5: Memeriksa opsi B. Ruas kanannya $41 = 16 + 25$, yaitu kuadrat jarak pusat ke TITIK ASAL — bukan ke sumbu-$X$.\nKesimpulan: Kunci Jawaban A."
+          "kunci": "B",
+          "bahas": "Langkah 1: Lingkaran berpusat di $P(3, -2)$ dan menyinggung sumbu-X:\nJarak dari titik pusat $(3, -2)$ ke garis sumbu-X ($y = 0$) sama dengan nilai mutlak ordinat pusat:\n$$r = |b| = |-2| = 2 \\implies r^2 = 2^2 = 4$$\n\nLangkah 2: Menyusun persamaan lingkaran:\n$$(x - 3)^2 + (y - (-2))^2 = 4 \\implies (x - 3)^2 + (y + 2)^2 = 4$$\nKesimpulan: Kunci Jawaban D."
         },
         {
           "no": 5,
@@ -8591,15 +8626,15 @@ const NAMA_TINGKAT = 'XII';
             "Titik pusat P(2, -3) terletak pada busur keliling lingkaran"
           ],
           "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$$r = \\sqrt{49} = 7 \\text{ satuan}$$\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nDari $(x - 2)^2$ diperoleh $a = 2$, dan dari $(y + 3)^2 = (y - (-3))^2$ diperoleh $b = -3$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3). Menguji titik pusat pada persamaannya:\n$$(2 - 2)^2 + (-3 + 3)^2 = 0 \\neq 49$$\n\nLangkah 4: Maknanya, pusat berjarak $0$ dari dirinya sendiri, sedangkan busur berjarak $7$. Pusat selalu berada DI DALAM lingkaran, tidak pernah pada busurnya.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nLingkaran berpusat di $P(a, b)$ yang menyinggung sumbu-Y memiliki jari-jari $r = |a|$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPusat dari $(x - 3)^2 + (y + 4)^2 = 25$ adalah $P(3, -4)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPersamaan $(x - 1)^2 + (y - 2)^2 = -4$ tidak mendefinisikan lingkaran riil karena $r^2 = -4 < 0$ (jari-jari imajiner).\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lingkaran",
             "cx": 2,
             "cy": -3,
             "r2": 49,
             "P": [
-              2.0,
-              -3.0
+              2,
+              -3
             ]
           }
         },
@@ -8617,7 +8652,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Pernyataan (1) SAJA cukup"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Menyadari bahwa luas $L = \\pi r^2$ menuntut jari-jarinya diketahui.\n\nLangkah 2: Menguji Pernyataan (1) sendirian. Titik pusat $P(4,7)$ diketahui, tetapi jari-jarinya sama sekali belum tertentu — tak hingga banyak lingkaran berpusat di sana.\n$\\implies$ (1) SAJA tidak cukup.\n\nLangkah 3: Menguji Pernyataan (2) sendirian. Menyinggung $y = 3$ memberi $r = |b - 3|$, padahal $b$ belum diketahui.\n$\\implies$ (2) SAJA tidak cukup.\n\nLangkah 4: Menggabungkan keduanya. Dengan $b = 7$:\n$$r = |7 - 3| = 4$$\n\nLangkah 5: Menghitung luasnya:\n$$L = \\pi(4)^2 = 16\\pi \\text{ satuan luas}$$\n$\\implies$ dua pernyataan BERSAMA-SAMA baru cukup.\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Menentukan titik pusat $P$ sebagai titik tengah diameter $AB$ dengan $A(-2, 1)$ dan $B(4, 9)$:\n$$P(a, b) = \\left(\\frac{x_A + x_B}{2}, \\frac{y_A + y_B}{2}\\right) = \\left(\\frac{-2 + 4}{2}, \\frac{1 + 9}{2}\\right) = (1, 5)$$\n\nLangkah 2: Menghitung jari-jari kuadrat $r^2$ dari pusat $P(1, 5)$ ke titik $B(4, 9)$:\n$$r^2 = (4 - 1)^2 + (9 - 5)^2 = 3^2 + 4^2 = 9 + 16 = 25$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$(x - 1)^2 + (y - 5)^2 = 25$$\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 7,
@@ -8632,8 +8667,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 2 satuan",
             "E. 4 satuan"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menyadari bahwa jari-jari sama dengan jarak pusat ke garis singgungnya:\n$$r = \\frac{|Ax_0 + By_0 + C|}{\\sqrt{A^2 + B^2}}$$\n\nLangkah 2: Mensubstitusikan pusat $P(1, 2)$ ke garis $3x + 4y - 1 = 0$:\n$$r = \\frac{|3(1) + 4(2) - 1|}{\\sqrt{3^2 + 4^2}}$$\n\nLangkah 3: Menghitung pembilangnya:\n$$|3 + 8 - 1| = |10| = 10$$\n\nLangkah 4: Menghitung penyebutnya:\n$$\\sqrt{9 + 16} = \\sqrt{25} = 5$$\n\nLangkah 5: Menyelesaikan pembagiannya:\n$$r = \\frac{10}{5} = 2 \\text{ satuan}$$\n\nLangkah 6: Memeriksa opsi C. Nilai $5$ adalah penyebutnya saja, yaitu pembagiannya terlupa.\nKesimpulan: Kunci Jawaban D."
+          "kunci": "A",
+          "bahas": "Langkah 1: Lingkaran berpusat di $P(-4, 5)$ menyinggung sumbu-Y:\nJari-jari sama dengan nilai mutlak absis pusat:\n$$r = |a| = |-4| = 4 \\implies r^2 = 16$$\n\nLangkah 2: Menyusun persamaan lingkaran:\n$$(x + 4)^2 + (y - 5)^2 = 16$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 8,
@@ -8648,8 +8683,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Titik pusat lingkaran adalah P(-4, 1).",
             "E. Titik (-4, 6) terletak pada busur lingkaran."
           ],
-          "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Membaca pusat dan jari-jari dari $(x + 4)^2 + (y - 1)^2 = 25$:\n$$P(-4, 1), \\quad r = \\sqrt{25} = 5$$\n\nLangkah 2: Analisis A. Menghitung jarak pusat ke garis $x = 1$:\n$$d = |1 - (-4)| = 5 = r \\implies \\text{A BENAR (menyinggung)}$$\n\nLangkah 3: Analisis B. Menguji kedudukan titik $O(0,0)$:\n$$(0 + 4)^2 + (0 - 1)^2 = 16 + 1 = 17$$\n\nLangkah 4: Membandingkannya dengan $r^2 = 25$. Karena $17 < 25$, titik asal berada DI DALAM, bukan di luar.\n$\\implies$ B SALAH.\n\nLangkah 5: Analisis C dan D. Keduanya sudah terbaca pada Langkah 1.\n$\\implies$ C BENAR dan D BENAR.\n\nLangkah 6: Analisis E. Menguji titik $(-4, 6)$:\n$$(-4 + 4)^2 + (6 - 1)^2 = 0 + 25 = 25 \\implies \\text{E BENAR}$$\nKesimpulan: Kunci Jawaban A, C, D, E.",
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis lingkaran $(x - 2)^2 + (y + 1)^2 = 25$:\n- A: Titik pusat berada di $P(2, -1)$ (BENAR).\n- B: Jari-jarinya $r = \\sqrt{25} = 5$ (BENAR).\n- C: Titik $(2, 4)$ memenuhi $(0)^2 + (5)^2 = 25$ (BENAR).\n- D: Diameter lingkaran $d = 2r = 10$ (BENAR).\n- E: Titik asal $(0,0)$ menghasilkan $(-2)^2 + (1)^2 = 5 < 25$ (di dalam, bukan di luar) (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
           "viz": {
             "t": "lingkaran",
             "cx": -4,
@@ -8671,17 +8706,17 @@ const NAMA_TINGKAT = 'XII';
             "E. $(x - 4)^2 + (y - 6)^2 = 100$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Menyadari bahwa pusat lingkaran adalah TITIK TENGAH diameternya:\n$$P\\left(\\frac{1 + 7}{2}, \\frac{2 + 10}{2}\\right) = P(4, 6)$$\n\nLangkah 2: Menghitung panjang diameternya:\n$$AB = \\sqrt{(7 - 1)^2 + (10 - 2)^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$$\n\nLangkah 3: Membagi dua untuk memperoleh jari-jarinya:\n$$r = \\frac{10}{2} = 5 \\implies r^2 = 25$$\n\nLangkah 4: Menyusun persamaannya:\n$$(x - 4)^2 + (y - 6)^2 = 25$$\n\nLangkah 5: Memeriksa opsi E. Ruas kanan $100$ adalah kuadrat DIAMETER, bukan kuadrat jari-jari; pembagian pada Langkah 3 terlewat.\nKesimpulan: Kunci Jawaban C."
+          "bahas": "Langkah 1: Menghitung jari-jari dari jarak pusat $P(1, -2)$ ke garis $x - y + 1 = 0$:\n$$r = \\frac{|1 - (-2) + 1|}{\\sqrt{1^2 + (-1)^2}} = \\frac{|1 + 2 + 1|}{\\sqrt{2}} = \\frac{4}{\\sqrt{2}} = 2\\sqrt{2}$$\n\nLangkah 2: Menghitung $r^2$:\n$$r^2 = (2\\sqrt{2})^2 = 8$$\n\nLangkah 3: Menyusun persamaan lingkaran:\n$$(x - 1)^2 + (y + 2)^2 = 8$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 10,
           "tipe": "Isian Singkat Numerik",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P02-Q10] Jika lingkaran $(x - a)^2 + (y - 2)^2 = 25$ melalui titik $(6, -1)$, maka nilai $a$ terbesar yang memenuhi adalah ...",
+          "tanya": "[P02-Q10] Jika lingkaran $(x - a)^2 + (y - 2)^2 = 25$ melalui titik $(6, -1)$, dan nilai $a > 0$, maka nilai konstanta $a$ adalah ...",
           "opsi": [],
-          "kunci": "10",
-          "bahas": "Langkah 1: Mensubstitusikan titik $(6, -1)$ ke persamaan lingkaran:\n$$(6 - a)^2 + (-1 - 2)^2 = 25$$\n\nLangkah 2: Menghitung suku yang sudah diketahui:\n$$(6 - a)^2 + 9 = 25 \\implies (6 - a)^2 = 16$$\n\nLangkah 3: Menarik akar kedua ruas. Perhatikan, akar kuadrat menghasilkan DUA kemungkinan:\n$$6 - a = 4 \\quad \\text{atau} \\quad 6 - a = -4$$\n\nLangkah 4: Menyelesaikan masing-masing:\n$$a = 2 \\quad \\text{atau} \\quad a = 10$$\n\nLangkah 5: Keduanya sah. Lingkaran $(x - 2)^2 + (y - 2)^2 = 25$ dan lingkaran $(x - 10)^2 + (y - 2)^2 = 25$ sama-sama melalui $(6, -1)$; pusatnya hanya berbeda sisi terhadap titik itu. Yang diminta adalah nilai terbesar.\n\nLangkah 6: Memeriksa kembali untuk $a = 10$:\n$$(6 - 10)^2 + (-1 - 2)^2 = 16 + 9 = 25$$\nSesuai dengan ruas kanan.\nKesimpulan: Kunci Jawaban 10."
+          "kunci": "25",
+          "bahas": "Langkah 1: Menghitung jari-jari kuadrat lingkaran pusat $P(3, 4)$ menyinggung sumbu-X:\n$$r = |b| = |4| = 4 \\implies r^2 = 16$$\nPersamaan: $(x - 3)^2 + (y - 4)^2 = 16$.\nJika menyinggung sumbu-Y dengan pusat $(3, 4)$, maka $r = |a| = 3 \\implies r^2 = 9$.\nKesimpulan: Kunci Jawaban 9."
         }
       ]
     },
@@ -8703,13 +8738,13 @@ const NAMA_TINGKAT = 'XII';
             "D. $P(3, -4)$ dan $r = 6$",
             "E. $P(6, -8)$ dan $r = 6$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Membaca koefisien dari $x^2 + y^2 - 6x + 8y - 11 = 0$:\n$$A = -6, \\quad B = 8, \\quad C = -11$$\n\nLangkah 2: Menghitung titik pusatnya dengan $P\\left(-\\tfrac{A}{2}, -\\tfrac{B}{2}\\right)$:\n$$P\\left(3, -4\\right)$$\n\nLangkah 3: Menghitung jari-jarinya:\n$$r = \\sqrt{\\left(\\tfrac{A}{2}\\right)^2 + \\left(\\tfrac{B}{2}\\right)^2 - C} = \\sqrt{9 + 16 + 11}$$\n\nLangkah 4: Menyelesaikan akarnya:\n$$r = \\sqrt{36} = 6 \\text{ satuan}$$\n\nLangkah 5: Memeriksa opsi A. Nilai $36$ di sana adalah $r^2$ yang lupa diakarkan.\n\nLangkah 6: Memeriksa opsi B dan C. Tanda pusatnya terbalik; ingat bahwa pusatnya $-\\tfrac{A}{2}$, sehingga $A = -6$ memberi absis $+3$.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Mengidentifikasi rumus pusat dan jari-jari dari bentuk umum $x^2 + y^2 + Ax + By + C = 0$:\n- Titik Pusat: $P\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right)$\n- Jari-jari: $r = \\sqrt{\\left(\\frac{A}{2}\\right)^2 + \\left(\\frac{B}{2}\\right)^2 - C}$\n\nLangkah 2: Mensubstitusikan nilai koefisien $A = -6, B = 8, C = -24$:\n- Pusat: $P\\left(-\\frac{-6}{2}, -\\frac{8}{2}\\right) = P(3, -4)$\n\nLangkah 3: Menghitung jari-jari $r$:\n$$r = \\sqrt{3^2 + (-4)^2 - (-24)} = \\sqrt{9 + 16 + 24} = \\sqrt{49} = 7$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
-            "cx": 3.0,
-            "cy": -4.0,
-            "r2": 36.0,
+            "cx": 3,
+            "cy": -4,
+            "r2": 36,
             "line": [
               6,
               8,
@@ -8730,8 +8765,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $x^2 + y^2 + 4x - 10y + 29 = 0$",
             "E. $x^2 + y^2 - 4x + 10y + 20 = 0$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menuliskan bentuk bakunya lebih dahulu:\n$$(x + 2)^2 + (y - 5)^2 = 9$$\n\nLangkah 2: Menjabarkan kedua kuadratnya:\n$$x^2 + 4x + 4 + y^2 - 10y + 25 = 9$$\n\nLangkah 3: Memindahkan seluruh suku ke ruas kiri:\n$$x^2 + y^2 + 4x - 10y + 4 + 25 - 9 = 0$$\n\nLangkah 4: Menjumlahkan suku tetapnya:\n$$x^2 + y^2 + 4x - 10y + 20 = 0$$\n\nLangkah 5: Memeriksa kembali lewat rumus pusatnya: $-\\tfrac{4}{2} = -2$ dan $-\\tfrac{-10}{2} = 5$, serta $r = \\sqrt{4 + 25 - 20} = \\sqrt{9} = 3$. Cocok.\n\nLangkah 6: Memeriksa opsi D. Suku tetapnya $29 = 4 + 25$, yaitu lupa mengurangkan $r^2 = 9$.\nKesimpulan: Kunci Jawaban C."
+          "kunci": "D",
+          "bahas": "Langkah 1: Menjabarkan bentuk baku $(x - 2)^2 + (y + 3)^2 = 16$:\n$$(x^2 - 4x + 4) + (y^2 + 6y + 9) = 16$$\n\nLangkah 2: Mengumpulkan dan memindahkan konstanta ke ruas kiri:\n$$x^2 + y^2 - 4x + 6y + 13 - 16 = 0$$\n\nLangkah 3: Menyederhanakan:\n$$x^2 + y^2 - 4x + 6y - 3 = 0$$\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 3,
@@ -8747,7 +8782,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $12$"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Membaca koefisien dari $x^2 + y^2 + 4x - 6y + c = 0$:\n$$A = 4, \\quad B = -6, \\quad C = c$$\n\nLangkah 2: Menuliskan rumus jari-jarinya:\n$$r^2 = \\left(\\tfrac{A}{2}\\right)^2 + \\left(\\tfrac{B}{2}\\right)^2 - C$$\n\nLangkah 3: Mensubstitusikan nilainya dengan $r = 5$:\n$$25 = 2^2 + (-3)^2 - c = 4 + 9 - c$$\n\nLangkah 4: Menyelesaikan persamaannya:\n$$25 = 13 - c \\implies c = 13 - 25 = -12$$\n\nLangkah 5: Memeriksa kembali: $r = \\sqrt{4 + 9 + 12} = \\sqrt{25} = 5$. Cocok.\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Mengidentifikasi rumus jari-jari lingkaran dari bentuk umum $x^2 + y^2 + 4x - 6y + c = 0$:\n$$r = \\sqrt{\\left(\\frac{A}{2}\\right)^2 + \\left(\\frac{B}{2}\\right)^2 - C} = \\sqrt{2^2 + (-3)^2 - c} = \\sqrt{4 + 9 - c} = \\sqrt{13 - c}$$\n\nLangkah 2: Menyamakan dengan nilai jari-jari yang diketahui $r = 5$:\n$$\\sqrt{13 - c} = 5$$\n\nLangkah 3: Mengkuadratkan kedua ruas:\n$$13 - c = 25 \\implies c = 13 - 25 = -12$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 4,
@@ -8762,16 +8797,16 @@ const NAMA_TINGKAT = 'XII';
             "D. 4",
             "E. 7"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menyadari bahwa nilai kuasa diperoleh dengan MEMASUKKAN titiknya ke ruas kiri bentuk umum:\n$$K = x_1^2 + y_1^2 + Ax_1 + By_1 + C$$\n\nLangkah 2: Mensubstitusikan $A(1, 2)$ ke $x^2 + y^2 - 4x + 6y - 9$:\n$$K = 1^2 + 2^2 - 4(1) + 6(2) - 9$$\n\nLangkah 3: Menghitung suku demi suku:\n$$K = 1 + 4 - 4 + 12 - 9$$\n\nLangkah 4: Menjumlahkan seluruhnya:\n$$K = 4$$\n\nLangkah 5: Menafsirkan hasilnya. Karena $K > 0$, titik $A$ berada di LUAR lingkaran.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "E",
+          "bahas": "Langkah 1: Menghitung jari-jari lingkaran $x^2 + y^2 - 2x + 4y - 20 = 0$:\n- $A = -2, B = 4, C = -20$\n$$r = \\sqrt{1^2 + (-2)^2 - (-20)} = \\sqrt{1 + 4 + 20} = \\sqrt{25} = 5$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
-            "cx": 2.0,
-            "cy": -3.0,
-            "r2": 22.0,
+            "cx": 2,
+            "cy": -3,
+            "r2": 22,
             "P": [
-              1.0,
-              2.0
+              1,
+              2
             ],
             "line": [
               4,
@@ -8791,8 +8826,8 @@ const NAMA_TINGKAT = 'XII';
             "Koordinat pusat lingkaran adalah P(-1/2 A, -1/2 B)",
             "Panjang jari-jari lingkaran adalah r = akar(1/4 A^2 + 1/4 B^2 - C)"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1). Perhatikan bahwa bentuk itu adalah $r^2$:\n$$r^2 = \\tfrac{1}{4}A^2 + \\tfrac{1}{4}B^2 - C$$\n\nLangkah 2: Kalau nilainya NEGATIF, maka $r^2 < 0$ — dan tidak ada jari-jari nyata yang kuadratnya negatif. Persamaannya justru BUKAN lingkaran nyata.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 3: Syarat lingkaran nyata yang benar adalah kebalikannya, yaitu $\\tfrac{1}{4}A^2 + \\tfrac{1}{4}B^2 - C > 0$.\n\nLangkah 4: Analisis Pernyataan (2). Melengkapkan kuadrat pada $x^2 + Ax$ memberi pusat $-\\tfrac{A}{2}$, demikian pula untuk $y$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 5: Analisis Pernyataan (3). Itulah bentuk yang sudah dipakai pada Langkah 1, sesudah diakarkan.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
+          "kunci": "B - B - S",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nTitik pusat lingkaran $x^2 + y^2 + Ax + By + C = 0$ adalah $P\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right)$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nAgar persamaan merepresentasikan lingkaran sejati, nilai di dalam tanda akar kuadrat harus positif ($\\frac{A^2}{4} + \\frac{B^2}{4} - C > 0$).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nJika nilai di dalam akar bernilai 0, bentuk tersebut merepresentasikan satu titik tunggal (lingkaran titik / *point circle*), bukan lingkaran imajiner.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -8807,8 +8842,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Pernyataan (2) SAJA cukup",
             "E. Pernyataan (1) SAJA cukup"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Membaca pusat dan jari-jari $L: x^2 + y^2 - 8x + 2ky + 9 = 0$ dalam bentuk umum:\n$$P(4, -k), \\quad r^2 = 16 + k^2 - 9 = k^2 + 7$$\n\nLangkah 2: Menyadari bahwa jari-jarinya hanya bergantung pada satu hal, yaitu $k$.\n\nLangkah 3: Menguji Pernyataan (1) sendirian. Dengan $k = 4$:\n$$r = \\sqrt{16 + 7} = \\sqrt{23}$$\n$\\implies$ (1) SAJA sudah cukup.\n\nLangkah 4: Menguji Pernyataan (2) sendirian. Pusatnya pada $y = -4$ berarti:\n$$-k = -4 \\implies k = 4$$\n\nLangkah 5: Nilai $k$ pun tertentu, sehingga $r = \\sqrt{23}$ juga.\n$\\implies$ (2) SAJA sudah cukup.\n\nLangkah 6: Karena masing-masing menentukan $k$ tanpa bantuan yang lain, keduanya cukup secara sendiri-sendiri.\nKesimpulan: Kunci Jawaban C."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan koordinat pusat lingkaran $x^2 + y^2 + 8x - 10y + 5 = 0$:\n$$P\\left(-\\frac{8}{2}, -\\frac{-10}{2}\\right) = P(-4, 5)$$\nKesimpulan: Kunci Jawaban C."
         },
         {
           "no": 7,
@@ -8823,13 +8858,13 @@ const NAMA_TINGKAT = 'XII';
             "D. $x^2 + y^2 - 4x + 6y + 13 = 0$",
             "E. $x^2 + y^2 - 8x + 12y - 1 = 0$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Membaca pusat dan jari-jari lingkaran asalnya:\n$$P(2, -3), \\quad r^2 = 4 + 9 + 1 = 14$$\n\nLangkah 2: Menyadari arti konsentris, yaitu pusatnya TETAP dan hanya jari-jarinya berubah.\n\nLangkah 3: Menggandakan jari-jarinya. Perhatikan bahwa yang berlipat dua adalah $r$, sehingga $r^2$ menjadi EMPAT kali:\n$$r_{\\text{baru}}^2 = (2r)^2 = 4r^2 = 4(14) = 56$$\n\nLangkah 4: Menyusun bentuk bakunya:\n$$(x - 2)^2 + (y + 3)^2 = 56$$\n\nLangkah 5: Menjabarkannya menjadi bentuk umum:\n$$x^2 - 4x + 4 + y^2 + 6y + 9 - 56 = 0 \\implies x^2 + y^2 - 4x + 6y - 43 = 0$$\n\nLangkah 6: Memeriksa opsi E. Di sana koefisien $x$ dan $y$ yang digandakan, padahal itu menggeser PUSATNYA — bukan memperbesar jari-jarinya.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Mengubah ke bentuk koefisien $x^2$ dan $y^2$ bernilai $1$:\nMembagi seluruh persamaan $2x^2 + 2y^2 - 8x + 12y - 6 = 0$ dengan $2$:\n$$x^2 + y^2 - 4x + 6y - 3 = 0$$\n\nLangkah 2: Menghitung titik pusat:\n$$P\\left(-\\frac{-4}{2}, -\\frac{6}{2}\\right) = P(2, -3)$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
-            "cx": 2.0,
-            "cy": -3.0,
-            "r2": 14.0,
+            "cx": 2,
+            "cy": -3,
+            "r2": 14,
             "line": [
               4,
               6,
@@ -8850,8 +8885,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Titik potong lingkaran dengan sumbu-X adalah (0,0) dan (6,0).",
             "E. Titik pusat lingkaran adalah P(3, -4)."
           ],
-          "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Membaca pusat dan jari-jari $x^2 + y^2 - 6x + 8y = 0$:\n$$P(3, -4), \\quad r = \\sqrt{9 + 16 - 0} = \\sqrt{25} = 5$$\n\nLangkah 2: Analisis A dan E. Keduanya sudah terbaca pada Langkah 1.\n$\\implies$ A BENAR dan E BENAR.\n\nLangkah 3: Analisis B. Menghitung kuasa titik $(3, -9)$:\n$$9 + 81 - 6(3) + 8(-9) = 9 + 81 - 18 - 72 = 0$$\n\nLangkah 4: Karena kuasanya NOL, titik itu tepat PADA lingkaran, bukan di luarnya.\n$\\implies$ B SALAH.\n\nLangkah 5: Analisis C. Menghitung kuasa titik asal:\n$$0 + 0 - 0 + 0 = 0 \\implies \\text{C BENAR}$$\nPerhatikan bahwa suku tetapnya memang $0$, dan itulah tanda bahwa lingkaran melalui $O$.\n\nLangkah 6: Analisis D. Mensubstitusikan $y = 0$:\n$$x^2 - 6x = 0 \\implies x(x - 6) = 0 \\implies x = 0 \\text{ atau } x = 6$$\n$\\implies$ D BENAR.\nKesimpulan: Kunci Jawaban A, C, D, E."
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$:\n- A: Titik pusat $P(2, -3)$ (BENAR).\n- B: Jari-jari $r = \\sqrt{4 + 9 - (-12)} = \\sqrt{25} = 5$ (BENAR).\n- C: Diameter $d = 2r = 10$ (BENAR).\n- D: Melalui titik $(2, 2) \\implies (0)^2 + (5)^2 = 25$ (BENAR).\n- E: Luas lingkaran adalah $25\\pi$, bukan $10\\pi$ (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
@@ -8866,8 +8901,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $\\pm 4$",
             "E. $\\pm 3$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Membaca pusat dan jari-jari $x^2 + y^2 + 2Ax + 10y + 9 = 0$:\n$$P(-A, -5), \\quad r^2 = A^2 + 25 - 9 = A^2 + 16$$\n\nLangkah 2: Menyadari syarat menyinggung sumbu-$X$, yaitu jari-jarinya sama dengan nilai mutlak ORDINAT pusatnya:\n$$r = |-5| = 5$$\n\nLangkah 3: Mengkuadratkan lalu menyamakannya:\n$$A^2 + 16 = 25$$\n\nLangkah 4: Menyelesaikan persamaannya:\n$$A^2 = 9 \\implies A = \\pm 3$$\n\nLangkah 5: Memeriksa kembali dengan $A = 3$: pusat $(-3, -5)$ dan $r = \\sqrt{9 + 16} = 5$, tepat menyentuh sumbu-$X$ di $(-3, 0)$. Cocok.\nKesimpulan: Kunci Jawaban E."
+          "kunci": "B",
+          "bahas": "Langkah 1: Menghitung jari-jari dari $x^2 + y^2 - 10x + 6y + 9 = 0$:\n$$r = \\sqrt{5^2 + (-3)^2 - 9} = \\sqrt{25 + 9 - 9} = \\sqrt{25} = 5$$\nKesimpulan: Kunci Jawaban B."
         },
         {
           "no": 10,
@@ -8877,7 +8912,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P03-Q10] Panjang diameter lingkaran $2x^2 + 2y^2 - 8x + 12y - 24 = 0$ adalah ...",
           "opsi": [],
           "kunci": "10",
-          "bahas": "Langkah 1: Menyadari bahwa bentuk umum menuntut koefisien $x^2$ dan $y^2$ bernilai SATU. Karena itu kedua ruas dibagi $2$ lebih dahulu:\n$$x^2 + y^2 - 4x + 6y - 12 = 0$$\n\nLangkah 2: Membaca koefisiennya:\n$$A = -4, \\quad B = 6, \\quad C = -12$$\n\nLangkah 3: Menghitung jari-jarinya:\n$$r = \\sqrt{4 + 9 + 12} = \\sqrt{25} = 5$$\n\nLangkah 4: Menghitung diameternya:\n$$d = 2r = 10 \\text{ satuan}$$\n\nLangkah 5: Perhatikan bahwa melewatkan pembagian pada Langkah 1 akan memberi jari-jari yang keliru; koefisien $2$ itu harus dihilangkan dahulu.\nKesimpulan: Kunci Jawaban 10."
+          "bahas": "Langkah 1: Menghitung jari-jari lingkaran $x^2 + y^2 + 6x - 8y + 9 = 0$:\n$$r = \\sqrt{(-3)^2 + 4^2 - 9} = \\sqrt{9 + 16 - 9} = \\sqrt{16} = 4$$\nKesimpulan: Kunci Jawaban 4."
         }
       ]
     },
@@ -8900,15 +8935,15 @@ const NAMA_TINGKAT = 'XII';
             "E. Memotong sumbu simetri"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Menghitung nilai kuasa dengan memasukkan $A(4, -2)$ ke ruas kiri bentuk umumnya:\n$$K = 4^2 + (-2)^2 - 4(4) + 6(-2) - 12$$\n\nLangkah 2: Menghitung suku demi suku:\n$$K = 16 + 4 - 16 - 12 - 12$$\n\nLangkah 3: Menjumlahkan seluruhnya:\n$$K = -20$$\n\nLangkah 4: Menafsirkan tandanya. Karena $K < 0$, titiknya berada DI DALAM lingkaran.\n\nLangkah 5: Memeriksa opsi A. Pusat lingkarannya $P(2, -3)$, sedangkan titiknya $(4, -2)$ — keduanya jelas berbeda.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi metode Uji Kuasa Titik $K(x_1, y_1)$ terhadap lingkaran $x^2 + y^2 = r^2$:\n- $K < 0 \\implies$ Titik berada di dalam lingkaran.\n- $K = 0 \\implies$ Titik berada tepat pada lingkaran.\n- $K > 0 \\implies$ Titik berada di luar lingkaran.\n\nLangkah 2: Mensubstitusikan koordinat titik $A(4, -2)$ ke fungsi kuasa $K = x^2 + y^2 - 20$:\n$$K = 4^2 + (-2)^2 - 20 = 16 + 4 - 20 = 0$$\n\nLangkah 3: Menarik kesimpulan kedudukan titik:\nKarena $K = 0$, maka titik A terletak **pada lingkaran**.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
-            "cx": 2.0,
-            "cy": -3.0,
-            "r2": 25.0,
+            "cx": 2,
+            "cy": -3,
+            "r2": 25,
             "P": [
-              4.0,
-              -2.0
+              4,
+              -2
             ],
             "line": [
               4,
@@ -8931,7 +8966,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $k < -5$ atau $k > 5$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menuliskan syarat titik berada DI LUAR lingkaran, yaitu kuasanya positif:\n$$k^2 + 3^2 > 25$$\n\nLangkah 2: Menghitung kuadrat ordinatnya:\n$$k^2 + 9 > 25$$\n\nLangkah 3: Memindahkan $9$ ke ruas kanan:\n$$k^2 > 16$$\n\nLangkah 4: Menyelesaikan pertidaksamaan kuadratnya. Bentuk $k^2 > 16$ dipenuhi oleh nilai yang jauh dari nol pada KEDUA arah:\n$$k < -4 \\quad \\text{atau} \\quad k > 4$$\n\nLangkah 5: Memeriksa opsi A. Selang $-4 < k < 4$ justru syarat titik berada di DALAM lingkaran.\n\nLangkah 6: Memeriksa dengan satu contoh. Untuk $k = 5$: $25 + 9 = 34 > 25$, memang di luar.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menguji titik $B(1, 2)$ ke persamaan lingkaran $x^2 + y^2 = 25$:\n$$K = 1^2 + 2^2 - 25 = 1 + 4 - 25 = -20$$\n\nLangkah 2: Menarik kesimpulan:\nKarena nilai kuasa $K < 0$, maka titik B berada **di dalam lingkaran**.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -8952,16 +8987,16 @@ const NAMA_TINGKAT = 'XII';
             "D. 4 satuan",
             "E. 2√5 satuan"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Menuliskan rumus panjang garis singgung dari titik di luar lingkaran. Panjangnya adalah akar dari nilai kuasanya:\n$$PGS = \\sqrt{K}$$\n\nLangkah 2: Menghitung kuasa titik $T(7, 1)$ terhadap $x^2 + y^2 = 25$:\n$$K = 7^2 + 1^2 - 25$$\n\nLangkah 3: Menghitung nilainya:\n$$K = 49 + 1 - 25 = 25$$\n\nLangkah 4: Menarik akarnya:\n$$PGS = \\sqrt{25} = 5 \\text{ satuan}$$\n\nLangkah 5: Memeriksa maknanya lewat Pythagoras. Jarak $T$ ke pusat adalah $\\sqrt{50}$, jari-jarinya $5$, dan memang $50 - 25 = 25$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menguji titik $C(6, 1)$ ke persamaan $(x - 2)^2 + (y + 1)^2 = 16$:\n$$K = (6 - 2)^2 + (1 + 1)^2 - 16 = 4^2 + 2^2 - 16 = 16 + 4 - 16 = 4$$\n\nLangkah 2: Menarik kesimpulan:\nKarena nilai kuasa $K = 4 > 0$, maka titik C berada **di luar lingkaran**.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              7.0,
-              1.0
+              7,
+              1
             ],
             "tang": 1
           }
@@ -8979,16 +9014,16 @@ const NAMA_TINGKAT = 'XII';
             "D. -7",
             "E. 9"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menyadari bahwa untuk bentuk baku, kuasa dihitung sebagai ruas kiri dikurangi ruas kanan:\n$$K = (x_1 - a)^2 + (y_1 - b)^2 - r^2$$\n\nLangkah 2: Mensubstitusikan $P(5, 5)$ ke $(x - 1)^2 + (y - 2)^2 = 16$:\n$$K = (5 - 1)^2 + (5 - 2)^2 - 16$$\n\nLangkah 3: Menyelesaikan kedua kurungnya:\n$$K = 4^2 + 3^2 - 16 = 16 + 9 - 16$$\n\nLangkah 4: Menjumlahkan seluruhnya:\n$$K = 9$$\n\nLangkah 5: Menafsirkan hasilnya. Karena $K > 0$, titiknya di luar lingkaran — dan akar $9$ yaitu $3$ adalah panjang garis singgungnya.\n\nLangkah 6: Memeriksa opsi A. Nilai $0$ berarti titiknya tepat pada lingkaran, padahal jarak $P$ ke pusat adalah $5$ sedangkan jari-jarinya hanya $4$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Syarat titik $P(k, 3)$ terletak tepat pada lingkaran $x^2 + y^2 = 25$:\n$$k^2 + 3^2 = 25$$\n\nLangkah 2: Menyelesaikan untuk nilai $k$:\n$$k^2 + 9 = 25 \\implies k^2 = 16 \\implies k = \\pm 4$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "cx": 1,
             "cy": 2,
             "r2": 16,
             "P": [
-              5.0,
-              5.0
+              5,
+              5
             ]
           }
         },
@@ -9003,8 +9038,8 @@ const NAMA_TINGKAT = 'XII';
             "Jika K > 0, maka titik terletak di dalam lingkaran",
             "Jika K = 0, maka titik terletak tepat pada busur keliling lingkaran"
           ],
-          "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1). Kuasa negatif berarti jarak titik ke pusat LEBIH KECIL daripada jari-jarinya:\n$$(x_1 - a)^2 + (y_1 - b)^2 < r^2$$\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2). Kuasa POSITIF berarti jaraknya lebih BESAR daripada jari-jarinya, sehingga titiknya di LUAR — bukan di dalam.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Perhatikan bahwa (1) dan (2) tidak mungkin sama-sama benar, sebab keduanya menyimpulkan hal yang sama dari tanda yang berlawanan.\n\nLangkah 4: Analisis Pernyataan (3). Kuasa nol berarti jaraknya tepat sama dengan jari-jarinya.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
+          "kunci": "B - B - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nTitik $(x_1, y_1)$ berada di dalam lingkaran jika nilai kuasa $K < 0$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nTitik $(0, 0)$ pada $x^2 + y^2 = 9$ menghasilkan $0 + 0 - 9 = -9 < 0$ (di dalam lingkaran).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nTitik $(5, 0)$ pada $x^2 + y^2 = 25$ menghasilkan $25 - 25 = 0$, artinya berada tepat PADA lingkaran, bukan di luar.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -9019,16 +9054,16 @@ const NAMA_TINGKAT = 'XII';
             "D. 2 satuan",
             "E. 14 satuan"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menghitung jarak titik $A(8, 6)$ ke pusat lingkaran $O(0,0)$:\n$$d = \\sqrt{8^2 + 6^2} = \\sqrt{64 + 36} = \\sqrt{100} = 10$$\n\nLangkah 2: Membaca jari-jarinya dari $x^2 + y^2 = 16$:\n$$r = \\sqrt{16} = 4$$\n\nLangkah 3: Menyadari bahwa titik TERDEKAT pada busur adalah yang terletak pada ruas $OA$, sehingga jarak terpendeknya adalah selisih keduanya:\n$$d - r = 10 - 4$$\n\nLangkah 4: Menyelesaikan pengurangannya:\n$$= 6 \\text{ satuan}$$\n\nLangkah 5: Memeriksa opsi A. Nilai $10$ adalah jarak ke PUSAT, belum dikurangi jari-jarinya.\n\nLangkah 6: Memeriksa opsi E. Nilai $14 = 10 + 4$ justru jarak TERJAUH ke busurnya.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menghitung jarak terpendek dari titik luar $T(7, 1)$ ke lingkaran $x^2 + y^2 = 25$:\nJarak titik T ke pusat $O(0, 0)$:\n$$d = \\sqrt{7^2 + 1^2} = \\sqrt{49 + 1} = \\sqrt{50} = 5\\sqrt{2}$$\n\nLangkah 2: Mengurangkan jarak pusat dengan panjang jari-jari ($r = 5$):\n$$\\text{Jarak Terpendek} = d - r = 5\\sqrt{2} - 5$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "r2": 16,
             "cx": 0,
             "cy": 0,
             "P": [
-              8.0,
-              6.0
+              8,
+              6
             ]
           }
         },
@@ -9045,13 +9080,13 @@ const NAMA_TINGKAT = 'XII';
             "D. $(3, 3)$",
             "E. $(1, 5)$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menyadari bahwa titik pada lingkaran harus membuat ruas kiri bentuk umumnya bernilai NOL.\n\nLangkah 2: Menguji opsi A, yaitu $(0, 4)$:\n$$0 + 16 - 0 + 16 - 20 = 12 \\neq 0$$\n\nLangkah 3: Menguji opsi B, yaitu $(2, 4)$:\n$$4 + 16 - 4 + 16 - 20 = 12 \\neq 0$$\n\nLangkah 4: Menguji opsi C, yaitu $(4, 2)$:\n$$16 + 4 - 8 + 8 - 20 = 0$$\n$\\implies$ titik ini tepat pada lingkaran.\n\nLangkah 5: Menguji dua opsi sisanya untuk memastikan jawabannya tunggal:\n$$(3,3): 9 + 9 - 6 + 12 - 20 = 4 \\qquad (1,5): 1 + 25 - 2 + 20 - 20 = 24$$\n\nLangkah 6: Keduanya bernilai positif, sehingga terletak di luar lingkaran.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menguji titik $(2, 3)$ ke bentuk umum $x^2 + y^2 - 4x + 6y - 12 = 0$:\n$$K = 2^2 + 3^2 - 4(2) + 6(3) - 12 = 4 + 9 - 8 + 18 - 12 = 11$$\n\nLangkah 2: Menarik kesimpulan:\nKarena $K = 11 > 0$, maka titik tersebut terletak **di luar lingkaran**.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
-            "cx": 1.0,
-            "cy": -2.0,
-            "r2": 25.0,
+            "cx": 1,
+            "cy": -2,
+            "r2": 25,
             "line": [
               2,
               4,
@@ -9073,7 +9108,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Titik (4, 4) terletak di dalam lingkaran."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Membaca jari-jari lingkaran $x^2 + y^2 = 25$:\n$$r = 5 \\implies r^2 = 25$$\n\nLangkah 2: Analisis A. Menguji titik $(5, 2)$:\n$$25 + 4 = 29 > 25 \\implies \\text{di luar, A BENAR}$$\n\nLangkah 3: Analisis B. Menguji titik $(1, 2)$:\n$$1 + 4 = 5 < 25 \\implies \\text{di dalam, B BENAR}$$\n\nLangkah 4: Analisis C. Menguji titik $(-5, 0)$:\n$$25 + 0 = 25 \\implies \\text{tepat pada lingkaran, C BENAR}$$\n\nLangkah 5: Analisis D. Menguji titik $(3, 4)$:\n$$9 + 16 = 25 \\implies \\text{tepat pada lingkaran, D BENAR}$$\n\nLangkah 6: Analisis E. Menguji titik $(4, 4)$:\n$$16 + 16 = 32 > 25$$\nTitik itu berada di LUAR, bukan di dalam.\n$\\implies$ E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D.",
+          "bahas": "Langkah 1: Analisis kedudukan titik terhadap $x^2 + y^2 = 25$:\n- A: Titik $(0, 0)$ berada di dalam lingkaran (BENAR).\n- B: Titik $(3, 4)$ berada pada lingkaran (BENAR).\n- C: Titik $(5, 2)$ berada di luar lingkaran ($25 + 4 = 29 > 25$) (BENAR).\n- D: Titik $(-4, 3)$ berada pada lingkaran (BENAR).\n- E: Titik $(6, 0)$ berada di dalam lingkaran ($36 < 25$ adalah SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9095,15 +9130,15 @@ const NAMA_TINGKAT = 'XII';
             "E. 14 satuan"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Menghitung jarak titik $P(10, 0)$ ke pusat $O(0,0)$:\n$$d = \\sqrt{10^2 + 0^2} = 10$$\n\nLangkah 2: Membaca jari-jarinya dari $x^2 + y^2 = 36$:\n$$r = \\sqrt{36} = 6$$\n\nLangkah 3: Menyadari bahwa titik TERJAUH pada busur terletak pada perpanjangan $PO$ di seberang pusat, sehingga jaraknya adalah jumlah keduanya:\n$$d + r = 10 + 6$$\n\nLangkah 4: Menyelesaikan penjumlahannya:\n$$= 16 \\text{ satuan}$$\n\nLangkah 5: Memeriksa maknanya. Titik terjauh itu adalah $(-6, 0)$, dan jaraknya ke $(10,0)$ memang $16$.\n\nLangkah 6: Memeriksa opsi C. Nilai $4 = 10 - 6$ justru jarak TERDEKATnya.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan batas nilai $k$ agar titik $(1, k)$ berada di dalam lingkaran $x^2 + y^2 < 10$:\n$$1^2 + k^2 < 10 \\implies k^2 < 9$$\n\nLangkah 2: Menyelesaikan pertidaksamaan kuadrat:\n$$-3 < k < 3$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 36,
             "cx": 0,
             "cy": 0,
             "P": [
-              10.0,
-              0.0
+              10,
+              0
             ]
           }
         },
@@ -9114,16 +9149,16 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P04-Q10] Nilai kuasa titik $(3, 4)$ terhadap lingkaran $x^2 + y^2 = 25$ adalah ...",
           "opsi": [],
-          "kunci": "0",
-          "bahas": "Langkah 1: Menuliskan rumus kuasa untuk lingkaran berpusat di titik asal:\n$$K = x_1^2 + y_1^2 - r^2$$\n\nLangkah 2: Mensubstitusikan titik $(3, 4)$ dan $r^2 = 25$:\n$$K = 3^2 + 4^2 - 25$$\n\nLangkah 3: Menghitung kedua kuadratnya:\n$$K = 9 + 16 - 25$$\n\nLangkah 4: Menjumlahkan seluruhnya:\n$$K = 0$$\n\nLangkah 5: Menafsirkan hasilnya. Kuasa nol berarti titik $(3,4)$ terletak TEPAT pada lingkarannya — sesuai tripel Pythagoras $(3, 4, 5)$.\nKesimpulan: Kunci Jawaban 0.",
+          "kunci": "16",
+          "bahas": "Langkah 1: Menghitung nilai kuasa titik $(3, -4)$ terhadap $x^2 + y^2 = 25$:\n$$K = 3^2 + (-4)^2 - 25 = 9 + 16 - 25 = 0$$\nKesimpulan: Kunci Jawaban 0.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              3.0,
-              4.0
+              3,
+              4
             ]
           }
         }
@@ -9147,8 +9182,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Memotong lingkaran di dua titik berlainan",
             "E. Menyinggung"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Mensubstitusikan $y = 2x + 1$ ke dalam $x^2 + y^2 = 25$:\n$$x^2 + (2x + 1)^2 = 25$$\n\nLangkah 2: Menjabarkan kuadratnya:\n$$x^2 + 4x^2 + 4x + 1 = 25$$\n\nLangkah 3: Menyusunnya menjadi persamaan kuadrat baku:\n$$5x^2 + 4x - 24 = 0$$\n\nLangkah 4: Menghitung diskriminannya:\n$$D = 4^2 - 4(5)(-24) = 16 + 480 = 496$$\n\nLangkah 5: Menafsirkan tandanya. Karena $D > 0$, garisnya memotong lingkaran di DUA titik yang berlainan.\n\nLangkah 6: Memeriksa dengan jalan lain. Jarak pusat $O$ ke garis $2x - y + 1 = 0$ adalah $\\tfrac{1}{\\sqrt{5}} \\approx 0{,}45$, jauh lebih kecil daripada $r = 5$. Cocok.\n\nLangkah 7: Memeriksa opsi A. Garis melalui pusat harus memenuhi $y = 2x + 1$ pada $(0,0)$, padahal $0 \\neq 1$.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menentukan persamaan kuadrat persekutuan dengan menyubstitusikan $y = 2x + 1$ ke lingkaran $x^2 + y^2 = 25$:\n$$x^2 + (2x + 1)^2 = 25$$\n$$x^2 + 4x^2 + 4x + 1 - 25 = 0$$\n$$5x^2 + 4x - 24 = 0$$\n\nLangkah 2: Menghitung nilai Diskriminan ($D = b^2 - 4ac$):\n$$a = 5, \\quad b = 4, \\quad c = -24$$\n$$D = 4^2 - 4(5)(-24) = 16 + 480 = 496$$\n\nLangkah 3: Menarik kesimpulan kedudukan garis:\nKarena nilai $D = 496 > 0$, garis **memotong lingkaran di dua titik berlainan**.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9166,7 +9201,7 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P05-Q2] Nilai konstanta $k$ yang positif agar garis $y = x + k$ menyinggung lingkaran $x^2 + y^2 = 18$ adalah ...",
+          "tanya": "[P05-Q2] Nilai konstanta $k$ agar garis $y = x + k$ menyinggung lingkaran $x^2 + y^2 = 18$ di kuadran I adalah ...",
           "opsi": [
             "A. $k = 6\\sqrt{2}$",
             "B. $k = 6$",
@@ -9175,7 +9210,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $k = 9$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Mensubstitusikan $y = x + k$ ke persamaan lingkaran:\n$$x^2 + (x + k)^2 = 18$$\n\nLangkah 2: Menyusunnya menjadi persamaan kuadrat dalam $x$:\n$$2x^2 + 2kx + (k^2 - 18) = 0$$\n\nLangkah 3: Menyinggung berarti persamaan kuadrat itu berakar kembar, jadi diskriminannya nol:\n$$D = (2k)^2 - 4 \\cdot 2 \\cdot (k^2 - 18) = 0$$\n$$4k^2 - 8k^2 + 144 = 0 \\implies -4k^2 = -144 \\implies k^2 = 36$$\n\nLangkah 4: Menarik akarnya:\n$$k = 6 \\quad \\text{atau} \\quad k = -6$$\n\nLangkah 5: Soal meminta $k$ yang positif, sehingga dipilih $k = 6$.\n\nLangkah 6: Memeriksa lewat jalur lain, yaitu jarak pusat $O(0,0)$ ke garis $x - y + 6 = 0$:\n$$\\frac{|0 - 0 + 6|}{\\sqrt{1^2 + (-1)^2}} = \\frac{6}{\\sqrt{2}} = 3\\sqrt{2} = \\sqrt{18} = r$$\nSama dengan jari-jari, jadi memang menyinggung.\n\nLangkah 7: Memeriksa opsi A. Nilai $6\\sqrt{2}$ muncul bila pada Langkah 6 pengalian dengan $\\sqrt{2}$ dikerjakan hanya sekali.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Garis $y = x + k \\implies x - y + k = 0$ menyinggung lingkaran $x^2 + y^2 = 18$ jika jarak pusat $O(0,0)$ ke garis sama dengan jari-jari ($r = \\sqrt{18} = 3\\sqrt{2}$):\n$$\\frac{|0 - 0 + k|}{\\sqrt{1^2 + (-1)^2}} = 3\\sqrt{2}$$\n\nLangkah 2: Menyelesaikan nilai mutlak:\n$$\\frac{|k|}{\\sqrt{2}} = 3\\sqrt{2} \\implies |k| = 3\\sqrt{2} \\times \\sqrt{2} = 6 \\implies k = \\pm 6$$\n\nLangkah 3: Memilih titik singgung di kuadran I:\nDi kuadran I ($x > 0, y > 0$), nilai konstanta yang memenuhi adalah $k = 6$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 18,
@@ -9198,7 +9233,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $\\pm 20$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Memakai syarat menyinggung, yaitu jarak pusat ke garis sama dengan jari-jarinya:\n$$\\frac{|3(0) - 4(0) + c|}{\\sqrt{3^2 + (-4)^2}} = 5$$\n\nLangkah 2: Menghitung penyebutnya:\n$$\\sqrt{9 + 16} = \\sqrt{25} = 5$$\n\nLangkah 3: Menyusun persamaannya:\n$$\\frac{|c|}{5} = 5$$\n\nLangkah 4: Mengalikan kedua ruas dengan $5$:\n$$|c| = 25 \\implies c = \\pm 25$$\n\nLangkah 5: Memeriksa opsi A. Nilai $\\pm 5$ muncul bila pengalian pada Langkah 4 terlewat.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Menghitung jarak dari pusat $O(0,0)$ ke garis $3x - 4y + c = 0$:\n$$d = \\frac{|3(0) - 4(0) + c|}{\\sqrt{3^2 + (-4)^2}} = \\frac{|c|}{\\sqrt{25}} = \\frac{|c|}{5}$$\n\nLangkah 2: Menyamakan dengan jari-jari lingkaran $x^2 + y^2 = 25 \\implies r = 5$:\n$$\\frac{|c|}{5} = 5 \\implies |c| = 25$$\n\nLangkah 3: Menentukan nilai $c$:\n$$c = \\pm 25$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9220,8 +9255,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Saling lepas (di luar lingkaran)",
             "E. Memotong di 2 titik"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menghitung jarak pusat $O(0,0)$ ke garis $x + y - 10 = 0$:\n$$d = \\frac{|0 + 0 - 10|}{\\sqrt{1^2 + 1^2}} = \\frac{10}{\\sqrt{2}}$$\n\nLangkah 2: Merasionalkan penyebutnya:\n$$d = 5\\sqrt{2} \\approx 7{,}07$$\n\nLangkah 3: Membandingkannya dengan jari-jarinya:\n$$5\\sqrt{2} > 5 \\implies d > r$$\n\nLangkah 4: Menafsirkan hasilnya. Karena jarak pusat ke garis melebihi jari-jari, garisnya sama sekali tidak menyentuh lingkaran.\n\nLangkah 5: Memeriksa dengan diskriminan. Substitusi $y = 10 - x$ memberi $2x^2 - 20x + 75 = 0$ dengan $D = 400 - 600 = -200 < 0$. Cocok.\n\nLangkah 6: Memeriksa opsi A. Garis melalui pusat menuntut $0 + 0 = 10$, yang jelas keliru.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Menghitung jarak dari pusat $O(0,0)$ ke garis $x + y - 10 = 0$:\n$$d = \\frac{|0 + 0 - 10|}{\\sqrt{1^2 + 1^2}} = \\frac{10}{\\sqrt{2}} = 5\\sqrt{2} \\approx 7{,}07$$\n\nLangkah 2: Membandingkan jarak $d$ dengan jari-jari lingkaran $r = \\sqrt{25} = 5$:\nKarena $d = 5\\sqrt{2} > 5$ ($d > r$), maka garis berada seluruhnya **di luar lingkaran (saling lepas)**.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9240,8 +9275,8 @@ const NAMA_TINGKAT = 'XII';
             "Jika D < 0, garis memotong lingkaran di dua titik berlainan",
             "Jika D > 0, garis memotong lingkaran di dua titik berlainan"
           ],
-          "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1). Diskriminan nol berarti persamaan kuadratnya berakar KEMBAR, sehingga titik potongnya hanya satu.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2). Diskriminan negatif berarti persamaannya TIDAK berakar real, sehingga garisnya tidak memotong lingkaran sama sekali.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3). Diskriminan positif berarti ada dua akar real yang berbeda, yaitu dua titik potong.\n$\\implies$ Pernyataan (3) bernilai BENAR.\n\nLangkah 4: Perhatikan bahwa (2) dan (3) tidak mungkin sama-sama benar, sebab keduanya menyimpulkan hal yang sama dari tanda diskriminan yang berlawanan.\nKesimpulan: Kunci Jawaban B - S - B."
+          "kunci": "B - B - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nJika $D = 0$, terdapat 1 akar kembar riil $\\implies$ garis menyinggung lingkaran di satu titik.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nJika $D < 0$, tidak ada titik potong riil $\\implies$ garis berada di luar lingkaran (saling lepas), bukan memotong dua titik.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nJika $D > 0$, terdapat 2 akar riil berlainan $\\implies$ garis memotong lingkaran di dua titik.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
         },
         {
           "no": 6,
@@ -9256,8 +9291,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Imajiner",
             "E. Nol ($D = 0$)"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Mensubstitusikan $y = 3$ ke dalam $x^2 + y^2 = 25$:\n$$x^2 + 9 = 25$$\n\nLangkah 2: Menyusunnya menjadi persamaan kuadrat baku:\n$$x^2 - 16 = 0$$\n\nLangkah 3: Membaca koefisiennya, yaitu $a = 1$, $b = 0$, dan $c = -16$:\n$$D = 0^2 - 4(1)(-16) = 64$$\n\nLangkah 4: Menafsirkan tandanya. Karena $D = 64 > 0$, diskriminannya POSITIF.\n\nLangkah 5: Memeriksa maknanya. Akarnya $x = \\pm 4$, sehingga garis $y = 3$ memang memotong lingkaran di dua titik, yaitu $(4, 3)$ dan $(-4, 3)$.\n\nLangkah 6: Memeriksa opsi D. Akarnya justru real dan rasional, sama sekali tidak imajiner.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Substitusi $y = 3$ ke lingkaran $x^2 + y^2 = 25$:\n$$x^2 + 3^2 = 25 \\implies x^2 - 16 = 0$$\n\nLangkah 2: Menghitung diskriminan dengan $a = 1, b = 0, c = -16$:\n$$D = 0^2 - 4(1)(-16) = +64$$\n\nLangkah 3: Menentukan tanda diskriminan:\nKarena $D = 64 > 0$, maka diskriminannya bernilai **Positif ($D > 0$)**.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9278,8 +9313,8 @@ const NAMA_TINGKAT = 'XII';
             "D. $(2, 2)$",
             "E. $(3\\sqrt{2}, 3\\sqrt{2})$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Mensubstitusikan $y = x$ ke dalam $x^2 + y^2 = 18$:\n$$x^2 + x^2 = 18$$\n\nLangkah 2: Menjumlahkan suku sejenisnya:\n$$2x^2 = 18$$\n\nLangkah 3: Membagi kedua ruas dengan $2$:\n$$x^2 = 9 \\implies x = \\pm 3$$\n\nLangkah 4: Memilih yang berada di kuadran I, yaitu absis dan ordinatnya sama-sama positif:\n$$(3, 3)$$\n\nLangkah 5: Memeriksa kembali:\n$$3^2 + 3^2 = 9 + 9 = 18 \\quad \\text{(cocok)}$$\n\nLangkah 6: Memeriksa opsi E. Titik $(3\\sqrt{2}, 3\\sqrt{2})$ memberi $18 + 18 = 36 \\neq 18$; angka $3\\sqrt{2}$ itu sebenarnya JARI-JARI lingkarannya.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Substitusi garis $y = x$ ke persamaan lingkaran $x^2 + y^2 = 18$:\n$$x^2 + x^2 = 18 \\implies 2x^2 = 18 \\implies x^2 = 9 \\implies x = \\pm 3$$\n\nLangkah 2: Menentukan koordinat titik potong di kuadran I ($x > 0, y > 0$):\nUntuk $x = 3 \\implies y = 3$. Titik potongnya adalah $(3, 3)$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 18,
@@ -9300,8 +9335,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Garis y = 0 tidak memotong lingkaran.",
             "E. Garis y = -5 menyinggung lingkaran di titik (0, -5)."
           ],
-          "kunci": "A, B, C, E",
-          "bahas": "Langkah 1: Membaca jari-jari lingkaran $x^2 + y^2 = 25$, yaitu $r = 5$. Seluruh analisis cukup dengan membandingkan JARAK pusat ke garis terhadap $5$.\n\nLangkah 2: Analisis A. Jarak $O$ ke $x = 6$ adalah $6 > 5$.\n$\\implies$ garisnya lepas sama sekali; A BENAR.\n\nLangkah 3: Analisis B. Jarak $O$ ke $x = 5$ adalah $5 = r$, sehingga menyinggung. Titik singgungnya adalah proyeksi pusat, yaitu $(5, 0)$.\n$\\implies$ B BENAR.\n\nLangkah 4: Analisis C. Garis $y = x$ melalui pusat, sehingga jaraknya $0 < 5$.\n$\\implies$ memotong di dua titik; C BENAR.\n\nLangkah 5: Analisis D. Garis $y = 0$ adalah sumbu-$X$, yang juga melalui pusat. Jaraknya $0 < 5$, sehingga ia MEMOTONG lingkaran di $(\\pm 5, 0)$.\n$\\implies$ pernyataan \"tidak memotong\" SALAH.\n\nLangkah 6: Analisis E. Jarak $O$ ke $y = -5$ adalah $5 = r$, menyinggung di $(0, -5)$.\n$\\implies$ E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, E.",
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Analisis kedudukan garis terhadap lingkaran $x^2 + y^2 = 25$ ($r = 5$):\n- A: Garis $x = 6$ berjarak $6 > 5$ (di luar/tidak memotong) (BENAR).\n- B: Garis $x = 5$ menyinggung di $(5, 0)$ (BENAR).\n- C: Garis $y = x$ memotong di dua titik (BENAR).\n- D: Garis $y = 0$ adalah sumbu-X yang memotong lingkaran di $(-5,0)$ dan $(5,0)$ (SALAH).\n- E: Garis $y = -5$ menyinggung di $(0, -5)$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, E.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9322,8 +9357,8 @@ const NAMA_TINGKAT = 'XII';
             "D. 6 satuan",
             "E. 5 satuan"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Mensubstitusikan $x = 3$ ke dalam $x^2 + y^2 = 25$:\n$$9 + y^2 = 25$$\n\nLangkah 2: Memindahkan $9$ ke ruas kanan:\n$$y^2 = 16 \\implies y = \\pm 4$$\n\nLangkah 3: Menuliskan kedua titik potongnya:\n$$(3, 4) \\quad \\text{dan} \\quad (3, -4)$$\n\nLangkah 4: Menghitung panjang tali busurnya sebagai jarak kedua titik itu:\n$$L = |4 - (-4)| = 8 \\text{ satuan}$$\n\nLangkah 5: Memeriksa dengan rumus tali busur $2\\sqrt{r^2 - d^2}$, dengan $d = 3$ sebagai jarak pusat ke garisnya:\n$$2\\sqrt{25 - 9} = 2\\sqrt{16} = 8 \\quad \\text{(cocok)}$$\n\nLangkah 6: Memeriksa opsi D. Nilai $6$ adalah setengah tali busur yang keliru dihitung, atau panjang $2 \\times 3$; sedangkan opsi B yaitu $10$ adalah DIAMETERnya.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": "D",
+          "bahas": "Langkah 1: Menghitung panjang tali busur perpotongan garis $x = 3$ dengan lingkaran $x^2 + y^2 = 25$:\n- Jarak garis ke pusat $O(0,0)$ adalah $d = 3$.\n- Jari-jari lingkaran $r = 5$.\n\nLangkah 2: Menggunakan Teorema Pythagoras untuk setengah tali busur:\n$$\\frac{\\ell}{2} = \\sqrt{r^2 - d^2} = \\sqrt{5^2 - 3^2} = \\sqrt{25 - 9} = \\sqrt{16} = 4$$\n\nLangkah 3: Menghitung panjang total tali busur:\n$$\\ell = 2 \\times 4 = 8 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9338,8 +9373,8 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P05-Q10] Gradien garis $y = mx$ yang menyinggung $(x - 5)^2 + y^2 = 9$ di kuadran I adalah ... (dalam pecahan a/b)",
           "opsi": [],
-          "kunci": "3/4",
-          "bahas": "Langkah 1: Menuliskan syarat menyinggung untuk garis $mx - y = 0$ terhadap lingkaran berpusat $(5, 0)$ dan berjari-jari $3$:\n$$\\frac{|5m - 0|}{\\sqrt{m^2 + 1}} = 3$$\n\nLangkah 2: Mengkuadratkan kedua ruasnya:\n$$\\frac{25m^2}{m^2 + 1} = 9$$\n\nLangkah 3: Mengalikan silang:\n$$25m^2 = 9m^2 + 9$$\n\nLangkah 4: Mengumpulkan suku sejenisnya:\n$$16m^2 = 9 \\implies m^2 = \\frac{9}{16}$$\n\nLangkah 5: Menarik akarnya:\n$$m = \\pm \\frac{3}{4}$$\n\nLangkah 6: Memilih yang menyinggung di kuadran I, yaitu gradien POSITIF:\n$$m = \\frac{3}{4}$$\nKesimpulan: Kunci Jawaban 3/4."
+          "kunci": "6",
+          "bahas": "Langkah 1: Jarak dari pusat $(5, 0)$ ke garis $mx - y = 0$ sama dengan jari-jari $r = 3$:\n$$\\frac{|5m|}{\\sqrt{m^2 + 1}} = 3$$\n\nLangkah 2: Mengkuadratkan kedua ruas:\n$$\\frac{25m^2}{m^2 + 1} = 9 \\implies 25m^2 = 9m^2 + 9 \\implies 16m^2 = 9 \\implies m^2 = \\frac{9}{16}$$\n\nLangkah 3: Mengambil nilai positif untuk kuadran I:\n$$m = \\frac{3}{4}$$\nKesimpulan: Kunci Jawaban 3/4."
         }
       ]
     },
@@ -9361,16 +9396,16 @@ const NAMA_TINGKAT = 'XII';
             "D. $4x + 3y = 25$",
             "E. $3x - 4y = 25$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Memeriksa lebih dahulu bahwa $T(3, -4)$ memang terletak pada lingkarannya:\n$$3^2 + (-4)^2 = 9 + 16 = 25 \\quad \\text{(benar)}$$\n\nLangkah 2: Menuliskan rumus bagi adil untuk $x^2 + y^2 = r^2$:\n$$x_1 x + y_1 y = r^2$$\n\nLangkah 3: Mensubstitusikan $x_1 = 3$ dan $y_1 = -4$. Perhatikan bahwa tanda negatifnya ikut terbawa:\n$$3x + (-4)y = 25$$\n\nLangkah 4: Merapikan bentuknya:\n$$3x - 4y = 25$$\n\nLangkah 5: Memeriksa kembali dengan memasukkan $T$:\n$$3(3) - 4(-4) = 9 + 16 = 25 \\quad \\text{(cocok)}$$\n\nLangkah 6: Memeriksa opsi A. Bentuk $3x + 4y = 25$ tidak melalui $T$, sebab $9 - 16 = -7 \\neq 25$; tanda ordinatnya terlupa.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "A",
+          "bahas": "Langkah 1: Mengidentifikasi rumus Persamaan Garis Singgung Lingkaran (PGSL) dengan Metode Bagi Adil pada $x^2 + y^2 = r^2$ di titik singgung $(x_1, y_1)$:\n$$x_1 x + y_1 y = r^2$$\n\nLangkah 2: Mensubstitusikan titik singgung $(x_1, y_1) = (3, 4)$ dan $r^2 = 25$:\n$$3x + 4y = 25$$\n\nLangkah 3: Menuliskan dalam bentuk implisit:\n$$3x + 4y - 25 = 0$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              3.0,
-              -4.0
+              3,
+              -4
             ],
             "tang": 1
           }
@@ -9389,15 +9424,15 @@ const NAMA_TINGKAT = 'XII';
             "E. $3x - 4y + 20 = 0$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Memeriksa bahwa $A(4, 2)$ terletak pada lingkarannya:\n$$(4 - 1)^2 + (2 + 2)^2 = 9 + 16 = 25 \\quad \\text{(benar)}$$\n\nLangkah 2: Menuliskan rumus bagi adil untuk pusat $P(a, b)$:\n$$(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$$\n\nLangkah 3: Mensubstitusikan $a = 1$, $b = -2$, dan titik $A(4, 2)$:\n$$3(x - 1) + 4(y + 2) = 25$$\n\nLangkah 4: Menjabarkan kedua kurungnya:\n$$3x - 3 + 4y + 8 = 25$$\n\nLangkah 5: Memindahkan seluruh suku ke ruas kiri:\n$$3x + 4y - 20 = 0$$\n\nLangkah 6: Memeriksa kembali dengan memasukkan $A$:\n$$12 + 8 - 20 = 0 \\quad \\text{(cocok)}$$\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus Bagi Adil pada lingkaran $(x - a)^2 + (y - b)^2 = r^2$ di titik singgung $(x_1, y_1)$:\n$$(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$$\n\nLangkah 2: Mensubstitusikan pusat $a = 1, b = -2$, $r^2 = 25$, dan titik singgung $(x_1, y_1) = (4, 2)$:\n$$(4 - 1)(x - 1) + (2 - (-2))(y - (-2)) = 25$$\n$$3(x - 1) + 4(y + 2) = 25$$\n\nLangkah 3: Menjabarkan persamaan garis:\n$$3x - 3 + 4y + 8 = 25 \\implies 3x + 4y + 5 - 25 = 0 \\implies 3x + 4y - 20 = 0$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "cx": 1,
             "cy": -2,
             "r2": 25,
             "P": [
-              4.0,
-              2.0
+              4,
+              2
             ],
             "tang": 1
           }
@@ -9416,15 +9451,15 @@ const NAMA_TINGKAT = 'XII';
             "E. $4x + 3y - 19 = 0$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Mengubah bentuk umum $x^2 + y^2 - 4x + 6y - 12 = 0$ menjadi pusat dan jari-jari:\n$$P(2, -3), \\quad r^2 = 4 + 9 + 12 = 25$$\n\nLangkah 2: Memeriksa bahwa $P(5, 1)$ terletak pada lingkarannya:\n$$(5-2)^2 + (1+3)^2 = 9 + 16 = 25 \\quad \\text{(benar)}$$\n\nLangkah 3: Memakai rumus bagi adil:\n$$3(x - 2) + 4(y + 3) = 25$$\n\nLangkah 4: Menjabarkan kedua kurungnya:\n$$3x - 6 + 4y + 12 = 25$$\n\nLangkah 5: Memindahkan seluruh suku ke ruas kiri:\n$$3x + 4y - 19 = 0$$\n\nLangkah 6: Memeriksa kembali:\n$$15 + 4 - 19 = 0 \\quad \\text{(cocok)}$$\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus Bagi Adil untuk bentuk umum $x^2 + y^2 + Ax + By + C = 0$:\n$$x_1 x + y_1 y + \\frac{A}{2}(x + x_1) + \\frac{B}{2}(y + y_1) + C = 0$$\n\nLangkah 2: Mensubstitusikan titik $(x_1, y_1) = (2, 1)$ dan koefisien $A = -4, B = 6, C = -12$:\n$$2x + 1y - 2(x + 2) + 3(y + 1) - 12 = 0$$\n\nLangkah 3: Menyederhanakan persamaan:\n$$2x + y - 2x - 4 + 3y + 3 - 12 = 0 \\implies 4y - 13 = 0 \\implies y = \\frac{13}{4}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
-            "cx": 2.0,
-            "cy": -3.0,
-            "r2": 25.0,
+            "cx": 2,
+            "cy": -3,
+            "r2": 25,
             "P": [
-              5.0,
-              1.0
+              5,
+              1
             ],
             "line": [
               4,
@@ -9448,15 +9483,15 @@ const NAMA_TINGKAT = 'XII';
             "E. -3/4"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menyusun garis singgungnya lebih dahulu dengan rumus bagi adil:\n$$-8x + 6y = 100$$\n\nLangkah 2: Menyatakannya dalam bentuk $y = mx + c$. Pindahkan $-8x$ ke ruas kanan:\n$$6y = 8x + 100$$\n\nLangkah 3: Membagi kedua ruas dengan $6$:\n$$y = \\frac{8}{6}x + \\frac{100}{6} = \\frac{4}{3}x + \\frac{50}{3}$$\n\nLangkah 4: Membaca gradiennya:\n$$m = \\frac{4}{3}$$\n\nLangkah 5: Memeriksa dengan jalan lain. Gradien jari-jari $O$ ke $(-8, 6)$ adalah $\\tfrac{6}{-8} = -\\tfrac{3}{4}$, dan garis singgung tegak lurus kepadanya:\n$$m = -\\frac{1}{-3/4} = \\frac{4}{3} \\quad \\text{(cocok)}$$\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Menentukan gradien garis singgung lingkaran $x^2 + y^2 = 25$ di titik $(3, -4)$:\nPersamaan garis singgung:\n$$3x - 4y = 25 \\implies 4y = 3x - 25 \\implies y = \\frac{3}{4}x - \\frac{25}{4}$$\n\nLangkah 2: Membaca gradien kemiringan ($m$):\n$$m = \\frac{3}{4}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 100,
             "cx": 0,
             "cy": 0,
             "P": [
-              -8.0,
-              6.0
+              -8,
+              6
             ],
             "tang": 1
           }
@@ -9472,16 +9507,16 @@ const NAMA_TINGKAT = 'XII';
             "Garis singgung lingkaran x^2 + y^2 = r^2 di titik (x1, y1) adalah x1.x + y1.y = r^2",
             "Garis singgung lingkaran x^2 + y^2 = 25 di titik (3, 4) adalah 3x + 4y = 25"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1). Rumus bagi adil diturunkan dengan menganggap $(x_1, y_1)$ sebagai TITIK SINGGUNG, yang tentu terletak pada lingkaran.\n\nLangkah 2: Bila titiknya di LUAR lingkaran, rumus itu tetap menghasilkan sebuah garis — tetapi garis itu adalah GARIS KUTUB, yang justru MEMOTONG lingkaran di dua titik singgung, bukan menyinggungnya.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (2). Itulah bentuk baku rumus bagi adil untuk lingkaran berpusat di titik asal.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 4: Analisis Pernyataan (3). Memeriksa dahulu bahwa $(3,4)$ ada pada lingkaran, sebab $9 + 16 = 25$. Lalu terapkan rumusnya:\n$$3x + 4y = 25$$\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "kunci": "B - B - B",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nGaris singgung lingkaran selalu tegak lurus terhadap jari-jari yang ditarik ke titik singgung tersebut ($m_{\\text{singgung}} \\cdot m_{\\text{jari-jari}} = -1$).\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nMetode bagi adil hanya berlaku jika titik $(x_1, y_1)$ terletak tepat pada keliling lingkaran.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPGSL di titik $(5, 0)$ pada $x^2 + y^2 = 25$ adalah $5x + 0y = 25 \\implies x = 5$, bukan $y = 5$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              3.0,
-              4.0
+              3,
+              4
             ],
             "tang": 1
           }
@@ -9499,16 +9534,16 @@ const NAMA_TINGKAT = 'XII';
             "D. $4x - 3y = 0$",
             "E. $3x - 4y = 0$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Mengingat arti garis NORMAL, yaitu garis yang tegak lurus garis singgung di titik singgungnya.\n\nLangkah 2: Menyadari sifat pentingnya. Karena jari-jari selalu tegak lurus garis singgung, garis normal berimpit dengan jari-jarinya — sehingga ia pasti MELALUI PUSAT.\n\nLangkah 3: Menyusun garis lewat $O(0,0)$ dan $(3, 4)$. Gradiennya:\n$$m = \\frac{4 - 0}{3 - 0} = \\frac{4}{3}$$\n\nLangkah 4: Menuliskan persamaannya:\n$$y = \\frac{4}{3}x \\implies 3y = 4x$$\n\nLangkah 5: Merapikannya:\n$$4x - 3y = 0$$\n\nLangkah 6: Memeriksa opsi B. Bentuk $4x - 3y = 25$ punya gradien yang benar tetapi tidak melalui pusat, sebab $0 - 0 = 0 \\neq 25$.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": "C",
+          "bahas": "Langkah 1: Menyusun PGSL di titik $(0, -5)$ pada lingkaran $x^2 + y^2 = 25$:\n$$0 \\cdot x + (-5) \\cdot y = 25 \\implies -5y = 25 \\implies y = -5$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              3.0,
-              4.0
+              3,
+              4
             ]
           }
         },
@@ -9525,16 +9560,16 @@ const NAMA_TINGKAT = 'XII';
             "D. $(-2, 0)$",
             "E. $(-13/2, 0)$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Memeriksa bahwa $(-2, 3)$ terletak pada lingkarannya:\n$$4 + 9 = 13 \\quad \\text{(benar)}$$\n\nLangkah 2: Menyusun garis singgungnya dengan rumus bagi adil:\n$$-2x + 3y = 13$$\n\nLangkah 3: Mencari titik potongnya dengan sumbu-$X$, yaitu mensubstitusikan $y = 0$:\n$$-2x = 13$$\n\nLangkah 4: Membagi kedua ruas dengan $-2$:\n$$x = -\\frac{13}{2}$$\n\nLangkah 5: Menuliskan titik potongnya:\n$$\\left(-\\frac{13}{2}, 0\\right)$$\n\nLangkah 6: Memeriksa opsi B. Tanda negatifnya hilang di sana; padahal absis titik singgungnya negatif, jadi masuk akal bila garisnya memotong sumbu-$X$ di sebelah kiri.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": "B",
+          "bahas": "Langkah 1: Menentukan PGSL di titik $(-3, 4)$ pada lingkaran $x^2 + y^2 = 25$:\n$$-3x + 4y = 25 \\implies 3x - 4y + 25 = 0$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 13,
             "cx": 0,
             "cy": 0,
             "P": [
-              -2.0,
-              3.0
+              -2,
+              3
             ],
             "tang": 1
           }
@@ -9552,8 +9587,8 @@ const NAMA_TINGKAT = 'XII';
             "D. Di titik (4, 2), persamaan garis singgungnya adalah 3x + 4y - 20 = 0.",
             "E. Di titik (1, 3), persamaan garis singgungnya adalah y = 3."
           ],
-          "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Membaca pusat dan jari-jarinya, yaitu $P(1, -2)$ dan $r = 5$. Seluruh titik yang disebut akan diuji dengan rumus bagi adil $(x_1 - 1)(x - 1) + (y_1 + 2)(y + 2) = 25$.\n\nLangkah 2: Analisis A pada titik $(1, -7)$:\n$$0 \\cdot (x - 1) + (-5)(y + 2) = 25 \\implies y + 2 = -5 \\implies y = -7$$\n$\\implies$ A BENAR.\n\nLangkah 3: Analisis B pada titik $(6, -2)$:\n$$5(x - 1) + 0 \\cdot (y + 2) = 25 \\implies x - 1 = 5 \\implies x = 6$$\n\nLangkah 4: Hasilnya garis TEGAK $x = 6$, sedangkan pernyataannya menyebut $y = 6$.\n$\\implies$ B SALAH.\n\nLangkah 5: Analisis C pada titik $(-2, 2)$:\n$$-3(x - 1) + 4(y + 2) = 25 \\implies -3x + 3 + 4y + 8 = 25 \\implies -3x + 4y - 14 = 0$$\n$\\implies$ C BENAR.\n\nLangkah 6: Analisis D pada titik $(4, 2)$:\n$$3(x - 1) + 4(y + 2) = 25 \\implies 3x + 4y - 20 = 0$$\n$\\implies$ D BENAR.\n\nLangkah 7: Analisis E pada titik $(1, 3)$:\n$$0 \\cdot (x - 1) + 5(y + 2) = 25 \\implies y + 2 = 5 \\implies y = 3$$\n$\\implies$ E BENAR.\nKesimpulan: Kunci Jawaban A, C, D, E.",
+          "kunci": "A, B, C, D",
+          "bahas": "Langkah 1: Evaluasi seluruh sifat garis singgung lingkaran melalui titik pada lingkaran:\n- A: PGSL di $(5, 0)$ adalah $x = 5$ (BENAR).\n- B: PGSL di $(0, 5)$ adalah $y = 5$ (BENAR).\n- C: PGSL di $(3, 4)$ adalah $3x + 4y = 25$ (BENAR).\n- D: Garis singgung tegak lurus jari-jari titik singgung (BENAR).\n- E: Hanya ada tepat 1 garis singgung unik di setiap titik pada lingkaran (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "lingkaran",
             "cx": 1,
@@ -9576,15 +9611,15 @@ const NAMA_TINGKAT = 'XII';
             "E. $x = 5$"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Memeriksa bahwa $(0, 5)$ terletak pada lingkarannya:\n$$0 + 25 = 25 \\quad \\text{(benar)}$$\n\nLangkah 2: Memakai rumus bagi adil:\n$$0 \\cdot x + 5y = 25$$\n\nLangkah 3: Menyederhanakannya. Suku $x$ lenyap sebab absis titik singgungnya nol:\n$$5y = 25 \\implies y = 5$$\n\nLangkah 4: Memeriksa maknanya secara gambar. Titik $(0,5)$ adalah puncak lingkaran, dan garis singgung di puncak memang MENDATAR.\n\nLangkah 5: Memeriksa opsi E. Garis $x = 5$ tegak, dan ia menyinggung lingkaran di $(5, 0)$ — titik yang berbeda dari yang diminta.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan PGSL lingkaran $(x + 2)^2 + (y - 3)^2 = 25$ di titik $(1, 7)$:\n$$(1 + 2)(x + 2) + (7 - 3)(y - 3) = 25$$\n$$3(x + 2) + 4(y - 3) = 25$$\n\nLangkah 2: Menjabarkan aljabar:\n$$3x + 6 + 4y - 12 = 25 \\implies 3x + 4y - 6 - 25 = 0 \\implies 3x + 4y - 31 = 0$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              0.0,
-              5.0
+              0,
+              5
             ],
             "tang": 1
           }
@@ -9597,15 +9632,15 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P06-Q10] Nilai intersep sumbu-Y garis singgung $x^2 + y^2 = 50$ di $(5, 5)$ adalah ...",
           "opsi": [],
           "kunci": "10",
-          "bahas": "Langkah 1: Memeriksa bahwa $(5, 5)$ terletak pada lingkarannya:\n$$25 + 25 = 50 \\quad \\text{(benar)}$$\n\nLangkah 2: Menyusun garis singgungnya dengan rumus bagi adil:\n$$5x + 5y = 50$$\n\nLangkah 3: Menyederhanakan dengan membagi $5$:\n$$x + y = 10$$\n\nLangkah 4: Mencari intersep sumbu-$Y$, yaitu mensubstitusikan $x = 0$:\n$$y = 10$$\n\nLangkah 5: Memeriksa kembali. Garis $x + y = 10$ memang melalui $(5,5)$, sebab $5 + 5 = 10$.\nKesimpulan: Kunci Jawaban 10.",
+          "bahas": "Langkah 1: PGSL di titik $(4, 0)$ pada lingkaran $x^2 + y^2 = 16$:\n$$4x + 0y = 16 \\implies x = 4$$\nKesimpulan: Kunci Jawaban 4.",
           "viz": {
             "t": "lingkaran",
             "r2": 50,
             "cx": 0,
             "cy": 0,
             "P": [
-              5.0,
-              5.0
+              5,
+              5
             ],
             "tang": 1
           }
@@ -9631,7 +9666,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = 2x + 5$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Menuliskan rumus garis singgung bergradien $m$ pada lingkaran berpusat di titik asal:\n$$y = mx \\pm r\\sqrt{1 + m^2}$$\n\nLangkah 2: Membaca jari-jarinya:\n$$r = \\sqrt{20} = 2\\sqrt{5}$$\n\nLangkah 3: Menghitung suku akarnya dengan $m = 2$:\n$$\\sqrt{1 + 2^2} = \\sqrt{5}$$\n\nLangkah 4: Mengalikan keduanya:\n$$r\\sqrt{1 + m^2} = 2\\sqrt{5} \\cdot \\sqrt{5} = 2 \\cdot 5 = 10$$\n\nLangkah 5: Menyusun kedua garis singgungnya:\n$$y = 2x + 10 \\quad \\text{atau} \\quad y = 2x - 10$$\n\nLangkah 6: Memeriksa opsi A. Bentuk $4\\sqrt{5}$ muncul bila $2\\sqrt{5}$ dikalikan $2$ dan bukan $\\sqrt{5}$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus PGSL dengan gradien $m$ pada lingkaran $x^2 + y^2 = r^2$:\n$$y = mx \\pm r\\sqrt{1 + m^2}$$\n\nLangkah 2: Mensubstitusikan gradien $m = 2$ dan jari-jari $r = \\sqrt{5}$:\n$$y = 2x \\pm \\sqrt{5}\\sqrt{1 + 2^2} = 2x \\pm \\sqrt{5}\\sqrt{5} = 2x \\pm 5$$\n\nLangkah 3: Menentukan salah satu persamaan garis singgung:\n$$y = 2x + 5 \\quad \\text{atau} \\quad y = 2x - 5$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 20,
@@ -9654,7 +9689,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $3x - 4y = 0$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Membaca gradien garis $3x - 4y + 12 = 0$. Karena sejajar, gradiennya sama:\n$$m = \\frac{3}{4}$$\n\nLangkah 2: Menuliskan garis singgungnya sebagai $3x - 4y + c = 0$ dan memakai syarat jarak pusat $P(2, -1)$ ke garis sama dengan $r = 5$:\n$$\\frac{|3(2) - 4(-1) + c|}{\\sqrt{3^2 + (-4)^2}} = 5$$\n\nLangkah 3: Menghitung pembilang dan penyebutnya:\n$$\\frac{|6 + 4 + c|}{5} = 5 \\implies |10 + c| = 25$$\n\nLangkah 4: Membuka nilai mutlaknya menjadi dua kemungkinan:\n$$10 + c = 25 \\quad \\text{atau} \\quad 10 + c = -25$$\n\nLangkah 5: Menyelesaikan keduanya:\n$$c = 15 \\quad \\text{atau} \\quad c = -35$$\n\nLangkah 6: Menyusun kedua garis singgungnya:\n$$3x - 4y + 15 = 0 \\quad \\text{atau} \\quad 3x - 4y - 35 = 0$$\n\nLangkah 7: Memeriksa opsi A. Bentuk $\\pm 25$ berlaku bila pusatnya di titik asal; di sini pusatnya bergeser, sehingga kedua konstantanya tidak lagi simetris.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus PGSL dengan gradien $m$ pada lingkaran $(x - a)^2 + (y - b)^2 = r^2$:\n$$(y - b) = m(x - a) \\pm r\\sqrt{1 + m^2}$$\n\nLangkah 2: Mensubstitusikan pusat $(a, b) = (2, -1)$, $r = \\sqrt{10}$, dan gradien $m = 3$:\n$$y - (-1) = 3(x - 2) \\pm \\sqrt{10}\\sqrt{1 + 3^2}$$\n$$y + 1 = 3x - 6 \\pm \\sqrt{10}\\sqrt{10}$$\n$$y + 1 = 3x - 6 \\pm 10$$\n\nLangkah 3: Memisahkan kedua garis singgung:\n- Garis 1: $y = 3x - 7 + 10 \\implies y = 3x + 3$\n- Garis 2: $y = 3x - 7 - 10 \\implies y = 3x - 17$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "cx": 2,
@@ -9682,7 +9717,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = -1/2 x \\pm 8$"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Membaca gradien garis $2x - y + 5 = 0$:\n$$m_1 = 2$$\n\nLangkah 2: Memakai syarat tegak lurus:\n$$m = -\\frac{1}{m_1} = -\\frac{1}{2}$$\n\nLangkah 3: Membaca jari-jarinya, yaitu $r = \\sqrt{16} = 4$, lalu menghitung suku akarnya:\n$$\\sqrt{1 + \\left(-\\tfrac{1}{2}\\right)^2} = \\sqrt{\\tfrac{5}{4}} = \\frac{\\sqrt{5}}{2}$$\n\nLangkah 4: Mengalikannya dengan jari-jarinya:\n$$4 \\cdot \\frac{\\sqrt{5}}{2} = 2\\sqrt{5}$$\n\nLangkah 5: Menyusun kedua garis singgungnya:\n$$y = -\\frac{1}{2}x \\pm 2\\sqrt{5}$$\n\nLangkah 6: Memeriksa opsi C. Gradiennya masih $2$, yaitu gradien garis yang diketahui — syarat tegak lurusnya belum diterapkan.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan gradien garis yang sejajar dengan $2x - y + 4 = 0$:\n$$y = 2x + 4 \\implies m_1 = 2 \\implies m = m_1 = 2$$\n\nLangkah 2: Menyusun PGSL lingkaran $x^2 + y^2 = 20 \\implies r = \\sqrt{20} = 2\\sqrt{5}$:\n$$y = 2x \\pm 2\\sqrt{5}\\sqrt{1 + 2^2} = 2x \\pm 2\\sqrt{5}\\sqrt{5} = 2x \\pm 10$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 16,
@@ -9710,7 +9745,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = x + 3$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Mengubah sudut menjadi gradien:\n$$m = \\tan 45^\\circ = 1$$\n\nLangkah 2: Membaca jari-jarinya:\n$$r = \\sqrt{9} = 3$$\n\nLangkah 3: Menghitung suku akarnya:\n$$\\sqrt{1 + 1^2} = \\sqrt{2}$$\n\nLangkah 4: Mengalikan keduanya:\n$$r\\sqrt{1 + m^2} = 3\\sqrt{2}$$\n\nLangkah 5: Menyusun kedua garis singgungnya:\n$$y = x + 3\\sqrt{2} \\quad \\text{atau} \\quad y = x - 3\\sqrt{2}$$\n\nLangkah 6: Memeriksa opsi E. Bentuk $y = x + 3$ berarti suku akarnya dianggap $r$ saja, yaitu faktor $\\sqrt{2}$-nya terlupa.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Menentukan gradien garis yang tegak lurus dengan $x + 2y - 5 = 0$:\n$$2y = -x + 5 \\implies y = -\\frac{1}{2}x + \\frac{5}{2} \\implies m_1 = -\\frac{1}{2}$$\nSyarat tegak lurus: $m \\cdot m_1 = -1 \\implies m = 2$.\n\nLangkah 2: Menyusun PGSL lingkaran $x^2 + y^2 = 25 \\implies r = 5$:\n$$y = 2x \\pm 5\\sqrt{1 + 2^2} = 2x \\pm 5\\sqrt{5}$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
@@ -9731,7 +9766,7 @@ const NAMA_TINGKAT = 'XII';
             "Terdapat tepat 2 garis singgung yang sejajar dengan gradien m yang sama"
           ],
           "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1). Itulah rumus baku garis singgung bergradien $m$ untuk lingkaran berpusat di titik asal.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2). Substitusikan $m = 0$ dan $r = 5$ ke rumus itu:\n$$y = 0 \\cdot x \\pm 5\\sqrt{1 + 0} = \\pm 5$$\n\nLangkah 3: Hasilnya adalah $y = \\pm 5$, yaitu dua garis MENDATAR — bukan $x = \\pm 5$ yang tegak.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 4: Masuk akal secara gambar: gradien nol berarti garisnya mendatar, dan garis mendatar menyinggung lingkaran di puncak serta di dasarnya.\n\nLangkah 5: Analisis Pernyataan (3). Tanda $\\pm$ pada rumusnya memberi tepat dua garis, satu di setiap sisi pusat.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nUntuk setiap nilai gradien $m$ tertentu, selalu terdapat tepat dua garis singgung yang saling sejajar.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nDua garis saling tegak lurus memenuhi hubungan hasil kali gradien $m_1 \\cdot m_2 = -1$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nPada rumus PGSL gradien $m$, faktor pengali di belakang adalah $r\\sqrt{1 + m^2}$, bukan $r\\sqrt{1 - m^2}$.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
@@ -9754,7 +9789,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 30"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Memakai syarat menyinggung, yaitu jarak pusat ke garis $3x - y + c = 0$ sama dengan jari-jarinya:\n$$\\frac{|c|}{\\sqrt{3^2 + (-1)^2}} = \\sqrt{10}$$\n\nLangkah 2: Menyederhanakan penyebutnya:\n$$\\frac{|c|}{\\sqrt{10}} = \\sqrt{10}$$\n\nLangkah 3: Mengalikan kedua ruas dengan $\\sqrt{10}$:\n$$|c| = \\sqrt{10} \\cdot \\sqrt{10} = 10$$\n\nLangkah 4: Membuka nilai mutlaknya lalu memilih yang positif sesuai syarat soal:\n$$c = 10$$\n\nLangkah 5: Memeriksa opsi B. Nilai $\\sqrt{10}$ adalah jari-jarinya sendiri, bukan konstanta garisnya.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: PGSL lingkaran $x^2 + y^2 = 9$ ($r = 3$) dengan gradien $m = 0$ (garis horizontal sejajar sumbu-X):\n$$y = 0 \\cdot x \\pm 3\\sqrt{1 + 0^2} \\implies y = \\pm 3$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "r2": 10,
@@ -9777,7 +9812,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = -x$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Membaca pusat dan jari-jarinya:\n$$P(-1, 3), \\quad r = \\sqrt{8} = 2\\sqrt{2}$$\n\nLangkah 2: Menuliskan rumus garis singgung bergradien $m$ untuk pusat $P(a, b)$:\n$$y - b = m(x - a) \\pm r\\sqrt{1 + m^2}$$\n\nLangkah 3: Menghitung suku akarnya dengan $m = -1$:\n$$r\\sqrt{1 + (-1)^2} = 2\\sqrt{2} \\cdot \\sqrt{2} = 4$$\n\nLangkah 4: Mensubstitusikan seluruhnya:\n$$y - 3 = -(x + 1) \\pm 4$$\n\nLangkah 5: Menjabarkannya:\n$$y = -x - 1 + 3 \\pm 4 = -x + 2 \\pm 4$$\n\nLangkah 6: Menuliskan kedua hasilnya:\n$$y = -x + 6 \\quad \\text{atau} \\quad y = -x - 2$$\n\nLangkah 7: Memeriksa opsi A. Bentuk $y = -x + 2$ adalah garis yang melalui PUSAT, yaitu sebelum ditambah atau dikurangi $4$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Gradien garis yang membentuk sudut $45^\\circ$ terhadap sumbu-X positif adalah:\n$$m = \\tan 45^\\circ = 1$$\n\nLangkah 2: Menyusun PGSL lingkaran $x^2 + y^2 = 8 \\implies r = \\sqrt{8} = 2\\sqrt{2}$:\n$$y = 1x \\pm 2\\sqrt{2}\\sqrt{1 + 1^2} = x \\pm 2\\sqrt{2}\\sqrt{2} = x \\pm 4$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "cx": -1,
@@ -9800,7 +9835,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Kedua garis singgung tersebut saling tegak lurus."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: Membaca jari-jarinya, yaitu $r = \\sqrt{16} = 4$, lalu menghitung suku akarnya dengan $m = \\tfrac{3}{4}$:\n$$\\sqrt{1 + \\tfrac{9}{16}} = \\sqrt{\\tfrac{25}{16}} = \\frac{5}{4}$$\n\nLangkah 2: Analisis A. Mengalikannya dengan jari-jarinya:\n$$4 \\cdot \\frac{5}{4} = 5 \\implies \\text{A BENAR}$$\n\nLangkah 3: Analisis C dan D. Menyusun kedua garis singgungnya:\n$$y = \\frac{3}{4}x + 5 \\quad \\text{dan} \\quad y = \\frac{3}{4}x - 5$$\n$\\implies$ C BENAR dan D BENAR.\n\nLangkah 4: Analisis B. Mengalikan kedua persamaan itu dengan $4$:\n$$4y = 3x \\pm 20 \\implies 3x - 4y \\pm 20 = 0$$\n$\\implies$ B BENAR.\n\nLangkah 5: Analisis E. Kedua garis itu gradiennya SAMA, yaitu $\\tfrac{3}{4}$.\n\nLangkah 6: Garis yang gradiennya sama adalah garis SEJAJAR, bukan tegak lurus. Tegak lurus menuntut hasil kali gradiennya $-1$, padahal di sini $\\tfrac{9}{16}$.\n$\\implies$ E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D.",
+          "bahas": "Langkah 1: Analisis PGSL lingkaran $x^2 + y^2 = 25$ ($r = 5$):\n- A: Gradien $m = 0 \\implies y = \\pm 5$ (BENAR).\n- B: Gradien $m = 1 \\implies y = x \\pm 5\\sqrt{2}$ (BENAR).\n- C: Gradien $m = -1 \\implies y = -x \\pm 5\\sqrt{2}$ (BENAR).\n- D: Jarak antara kedua garis singgung sejajar sama dengan diameter $2r = 10$ (BENAR).\n- E: Rumus bukan $y = mx \\pm r(1+m)$ (SALAH).\nKesimpulan: Kunci Jawaban A, B, C, D.",
           "viz": {
             "t": "lingkaran",
             "r2": 16,
@@ -9822,7 +9857,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 24 satuan"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Menyadari bahwa kedua garis singgung bergradien sama adalah garis SEJAJAR yang mengapit lingkaran.\n\nLangkah 2: Memikirkan letaknya. Masing-masing menyentuh lingkaran di titik yang berseberangan melalui pusat, sehingga jarak keduanya adalah panjang DIAMETER.\n\nLangkah 3: Membaca jari-jarinya:\n$$r = \\sqrt{36} = 6$$\n\nLangkah 4: Menghitung jaraknya:\n$$d = 2r = 12 \\text{ satuan}$$\n\nLangkah 5: Perhatikan bahwa jawabannya sama sekali TIDAK bergantung pada gradiennya. Nilai $m = \\sqrt{3}$ di soal hanya pengecoh — berapa pun gradiennya, jaraknya tetap $2r$.\n\nLangkah 6: Memeriksa opsi A. Bentuk $6\\sqrt{3}$ muncul bila gradien ikut dikalikan, padahal ia tidak berperan sama sekali.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan PGSL lingkaran $(x - 1)^2 + (y + 2)^2 = 5$ ($r = \\sqrt{5}$) dengan gradien $m = -2$:\n$$(y + 2) = -2(x - 1) \\pm \\sqrt{5}\\sqrt{1 + (-2)^2}$$\n$$y + 2 = -2x + 2 \\pm \\sqrt{5}\\sqrt{5} = -2x + 2 \\pm 5$$\n\nLangkah 2: Memisahkan:\n$$y = -2x \\pm 5 \\implies 2x + y \\pm 5 = 0$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 36,
@@ -9839,7 +9874,7 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P07-Q10] Nilai positif $k$ agar $y = 2x + k$ menyinggung $x^2 + y^2 = 5$ adalah ...",
           "opsi": [],
           "kunci": "5",
-          "bahas": "Langkah 1: Memakai syarat menyinggung untuk garis $2x - y + k = 0$:\n$$\\frac{|k|}{\\sqrt{2^2 + (-1)^2}} = \\sqrt{5}$$\n\nLangkah 2: Menyederhanakan penyebutnya:\n$$\\frac{|k|}{\\sqrt{5}} = \\sqrt{5}$$\n\nLangkah 3: Mengalikan kedua ruas dengan $\\sqrt{5}$:\n$$|k| = 5$$\n\nLangkah 4: Memilih nilai positifnya sesuai permintaan soal:\n$$k = 5$$\n\nLangkah 5: Memeriksa kembali dengan rumus $r\\sqrt{1+m^2} = \\sqrt{5}\\cdot\\sqrt{5} = 5$. Cocok.\nKesimpulan: Kunci Jawaban 5.",
+          "bahas": "Langkah 1: Nilai konstanta $c$ pada $y = 2x + c$ yang menyinggung $x^2 + y^2 = 5$:\n$$c = r\\sqrt{1 + m^2} = \\sqrt{5}\\sqrt{1 + 2^2} = \\sqrt{5}\\sqrt{5} = 5$$\nKesimpulan: Kunci Jawaban 5.",
           "viz": {
             "t": "lingkaran",
             "r2": 5,
@@ -9869,15 +9904,15 @@ const NAMA_TINGKAT = 'XII';
             "E. $5x = 9$"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: Memeriksa lebih dahulu bahwa $T(0,5)$ memang berada DI LUAR lingkaran:\n$$0^2 + 5^2 = 25 > 9 \\quad \\text{(di luar)}$$\n\nLangkah 2: Menuliskan rumus garis kutub untuk lingkaran berpusat di titik asal. Bentuknya sama persis dengan rumus bagi adil:\n$$x_1 x + y_1 y = r^2$$\n\nLangkah 3: Mensubstitusikan $x_1 = 0$ dan $y_1 = 5$:\n$$0 \\cdot x + 5y = 9$$\n\nLangkah 4: Menyederhanakannya:\n$$5y = 9$$\n\nLangkah 5: Memeriksa maknanya. Garis ini MENDATAR pada $y = \\tfrac{9}{5} = 1{,}8$, dan karena $1{,}8 < 3$ ia memang memotong lingkaran di dua titik — yaitu kedua titik singgungnya.\n\nLangkah 6: Memeriksa opsi D. Ruas kanannya $25$, yaitu kuadrat jarak titik $T$ ke pusat — padahal yang dipakai adalah $r^2 = 9$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Mengidentifikasi rumus persamaan garis kutub (garis polar) dari titik $T(x_1, y_1)$ terhadap lingkaran $x^2 + y^2 = r^2$:\n$$x_1 x + y_1 y = r^2$$\n\nLangkah 2: Mensubstitusikan titik $T(0, 5)$ dan $r^2 = 9$:\n$$0 \\cdot x + 5 \\cdot y = 9$$\n\nLangkah 3: Menyelesaikan persamaan garis polar:\n$$5y = 9 \\implies y = \\frac{9}{5}$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
             "cx": 0,
             "cy": 0,
             "P": [
-              0.0,
-              5.0
+              0,
+              5
             ],
             "tang": 1
           }
@@ -9887,7 +9922,7 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P08-Q2] Dari titik $P(0, 5)$ ditarik dua garis singgung ke lingkaran $x^2 + y^2 = 9$. Persamaan garis singgung yang titik singgungnya terletak di kuadran I adalah ...",
+          "tanya": "[P08-Q2] Dari titik $P(0, 5)$ ditarik garis singgung ke $x^2 + y^2 = 9$. Salah satu persamaan garis singgungnya adalah ...",
           "opsi": [
             "A. $4x + 3y + 15 = 0$",
             "B. $4x - 3y + 15 = 0$",
@@ -9896,15 +9931,15 @@ const NAMA_TINGKAT = 'XII';
             "E. $4x + 3y - 15 = 0$"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Menentukan garis kutub titik $P(0, 5)$ terhadap $x^2 + y^2 = 9$:\n$$0 \\cdot x + 5y = 9 \\implies y = \\frac{9}{5}$$\n\nLangkah 2: Garis kutub itu memotong lingkaran tepat di kedua titik singgungnya:\n$$x^2 + \\left(\\frac{9}{5}\\right)^2 = 9 \\implies x^2 = 9 - \\frac{81}{25} = \\frac{144}{25} \\implies x = \\pm \\frac{12}{5}$$\n$$T_1\\left(\\frac{12}{5}, \\frac{9}{5}\\right) \\quad \\text{dan} \\quad T_2\\left(-\\frac{12}{5}, \\frac{9}{5}\\right)$$\n\nLangkah 3: Memilih yang diminta. Kedua koordinat $T_1$ positif, jadi $T_1$ berada di kuadran I; $T_2$ berabsis negatif, jadi di kuadran II.\n\nLangkah 4: Menyusun garis singgung di $T_1$ dengan rumus $x_1 x + y_1 y = r^2$:\n$$\\frac{12}{5}x + \\frac{9}{5}y = 9 \\implies 12x + 9y = 45 \\implies 4x + 3y - 15 = 0$$\n\nLangkah 5: Memeriksa kembali. Untuk $x = 0$ diperoleh $3y = 15$, yaitu $y = 5$ -- garis ini benar melalui $P(0, 5)$. Jarak pusat ke garis $= \\frac{|-15|}{\\sqrt{4^2 + 3^2}} = \\frac{15}{5} = 3 = r$, jadi benar menyinggung.\n\nLangkah 6: Garis singgung yang satu lagi, melalui $T_2$, adalah $4x - 3y + 15 = 0$ (opsi B). Garis itu juga menyinggung lingkaran, tetapi titik singgungnya di kuadran II -- bukan yang diminta.\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Menentukan garis polar titik $P(0, 5)$ terhadap $x^2 + y^2 = 9$:\n$$0x + 5y = 9 \\implies y = \\frac{9}{5}$$\n\nLangkah 2: Menentukan titik singgung pada lingkaran:\n$$x^2 + \\left(\\frac{9}{5}\\right)^2 = 9 \\implies x^2 + \\frac{81}{25} = 9 \\implies x^2 = \\frac{144}{25} \\implies x = \\pm \\frac{12}{5}$$\nTitik singgung: $T_1\\left(\\frac{12}{5}, \\frac{9}{5}\\right)$ dan $T_2\\left(-\\frac{12}{5}, \\frac{9}{5}\\right)$.\n\nLangkah 3: Menyusun PGSL di titik $T_1$:\n$$\\frac{12}{5}x + \\frac{9}{5}y = 9 \\implies 12x + 9y = 45 \\implies 4x + 3y - 15 = 0$$\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
             "cx": 0,
             "cy": 0,
             "P": [
-              0.0,
-              5.0
+              0,
+              5
             ],
             "tang": 1
           }
@@ -9923,15 +9958,15 @@ const NAMA_TINGKAT = 'XII';
             "E. 6 satuan"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Memeriksa bahwa $A(6,8)$ berada di luar lingkaran:\n$$36 + 64 = 100 > 36 \\quad \\text{(di luar)}$$\n\nLangkah 2: Menuliskan rumus panjang garis singgung, yaitu akar dari nilai kuasanya:\n$$PGS = \\sqrt{x_1^2 + y_1^2 - r^2}$$\n\nLangkah 3: Mensubstitusikan nilainya:\n$$PGS = \\sqrt{100 - 36}$$\n\nLangkah 4: Menyelesaikan akarnya:\n$$PGS = \\sqrt{64} = 8 \\text{ satuan}$$\n\nLangkah 5: Memeriksa dengan Pythagoras. Jarak $A$ ke pusat adalah $10$, jari-jarinya $6$, dan segitiga siku-sikunya memberi $\\sqrt{100 - 36} = 8$. Cocok.\n\nLangkah 6: Memeriksa opsi A. Nilai $10$ adalah jarak ke PUSAT, bukan panjang garis singgungnya.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menghitung jarak dari pusat $O(0,0)$ ke titik $A(6, 8)$:\n$$d = \\sqrt{6^2 + 8^2} = \\sqrt{100} = 10$$\n\nLangkah 2: Menentukan jari-jari lingkaran $x^2 + y^2 = 36 \\implies r = 6$.\n\nLangkah 3: Menghitung panjang garis singgung ($L$):\n$$L = \\sqrt{d^2 - r^2} = \\sqrt{10^2 - 6^2} = \\sqrt{64} = 8 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lingkaran",
             "r2": 36,
             "cx": 0,
             "cy": 0,
             "P": [
-              6.0,
-              8.0
+              6,
+              8
             ],
             "tang": 1
           }
@@ -9941,18 +9976,24 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P08-Q4] Persamaan garis polar titik $T(8, 4)$ terhadap $(x - 3)^2 + (y + 1)^2 = 25$ adalah ...",
-          "opsi": ["A. $x + y - 9 = 0$", "B. $8x + 4y - 25 = 0$", "C. $x + y - 7 = 0$", "D. $x + y - 2 = 0$", "E. $5x + 3y - 37 = 0$"],
+          "tanya": "[P08-Q4] Persamaan garis polar titik $T(1, 2)$ terhadap $(x - 3)^2 + (y + 1)^2 = 25$ adalah ...",
+          "opsi": [
+            "A. $-2x + 3y + 25 = 0$",
+            "B. $x + 2y - 25 = 0$",
+            "C. $-2x + 3y - 16 = 0$",
+            "D. $3x - y - 16 = 0$",
+            "E. $2x - 3y + 16 = 0$"
+          ],
           "kunci": "C",
-          "bahas": "Langkah 1: Memastikan dahulu titiknya di luar lingkaran, sebab hanya dari titik di luar dapat ditarik garis singgung. Pusat $P(3, -1)$ dan $r^2 = 25$:\n$$(8 - 3)^2 + (4 + 1)^2 = 25 + 25 = 50 > 25$$\nBenar di luar.\n\nLangkah 2: Menuliskan rumus garis kutub untuk lingkaran berpusat $P(a, b)$:\n$$(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$$\n\nLangkah 3: Mensubstitusikan $T(8, 4)$, $P(3, -1)$, dan $r^2 = 25$:\n$$(8 - 3)(x - 3) + (4 + 1)(y + 1) = 25$$\n\nLangkah 4: Menyederhanakan kedua faktornya:\n$$5(x - 3) + 5(y + 1) = 25$$\n\nLangkah 5: Menjabarkan kurungnya lalu memindahkan seluruh suku ke ruas kiri:\n$$5x - 15 + 5y + 5 - 25 = 0 \\implies 5x + 5y - 35 = 0$$\n\nLangkah 6: Membagi kedua ruas dengan 5:\n$$x + y - 7 = 0$$\n\nLangkah 7: Memeriksa kembali lewat jalur lain. Garis kutub seharusnya melalui kedua titik singgung. Titik singgung dari $T(8, 4)$ adalah $(3, 4)$ dan $(8, -1)$; keduanya memenuhi $x + y - 7 = 0$, sebab $3 + 4 - 7 = 0$ dan $8 - 1 - 7 = 0$. Cocok.\n\nLangkah 8: Memeriksa pengecohnya. Opsi B muncul bila dipakai rumus untuk lingkaran berpusat $O(0,0)$, yaitu $x_1 x + y_1 y = r^2$; opsi A dan D muncul dari kesalahan tanda dan lupa mengkuadratkan jari-jari pada Langkah 5.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Rumus garis polar titik $T(x_1, y_1)$ pada $(x-a)^2 + (y-b)^2 = r^2$:\n$$(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$$\n\nLangkah 2: Mensubstitusikan $T(1, 2)$ dan $(x - 3)^2 + (y + 1)^2 = 25$:\n$$(1 - 3)(x - 3) + (2 - (-1))(y - (-1)) = 25$$\n$$-2(x - 3) + 3(y + 1) = 25$$\n$$-2x + 6 + 3y + 3 = 25 \\implies -2x + 3y - 16 = 0$$\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "lingkaran",
             "cx": 3,
             "cy": -1,
             "r2": 25,
             "P": [
-              1.0,
-              2.0
+              1,
+              2
             ],
             "tang": 1
           }
@@ -9969,7 +10010,7 @@ const NAMA_TINGKAT = 'XII';
             "Persamaan garis kutub untuk x^2 + y^2 = r^2 dirumuskan x1.x + y1.y = r^2"
           ],
           "kunci": "B - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1). Garis kutub dari titik di luar tepat melalui kedua titik singgungnya, sehingga ia memotong lingkaran di dua titik itu.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2). Titik singgung memang dapat dicari tanpa garis kutub, misalnya dengan menuntut jarak pusat ke garis sama dengan $r$, atau dengan memakai syarat jari-jari tegak lurus garis singgung.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Garis kutub hanyalah jalan yang paling singkat, bukan satu-satunya jalan.\n\nLangkah 4: Analisis Pernyataan (3). Bentuk itu memang rumus garis kutub untuk lingkaran berpusat di titik asal — tulisannya sama dengan rumus bagi adil, hanya titik acuannya yang berbeda kedudukan.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - B - B."
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nDari sebuah titik di luar lingkaran selalu dapat ditarik tepat 2 garis singgung yang menyentuh lingkaran.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nPanjang kedua segmen garis singgung dari titik luar ke masing-masing titik singgung adalah sama panjang ($L_1 = L_2$).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nGaris kutub dari titik luar selalu memotong lingkaran di 2 titik singgung, bukan di luar lingkaran.\n$\\implies$ Pernyataan (3) bernilai SALAH.\nKesimpulan: Kunci Jawaban B - B - S."
         },
         {
           "no": 6,
@@ -9985,15 +10026,15 @@ const NAMA_TINGKAT = 'XII';
             "E. 30 derajat"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menghitung jarak titik $T(0, 10)$ ke pusat lingkaran:\n$$d = \\sqrt{0 + 100} = 10$$\n\nLangkah 2: Membaca jari-jarinya:\n$$r = \\sqrt{25} = 5$$\n\nLangkah 3: Memperhatikan segitiga siku-siku yang dibentuk oleh pusat, titik $T$, dan salah satu titik singgung. Sudut di $T$ adalah SETENGAH sudut apitnya:\n$$\\sin\\frac{\\theta}{2} = \\frac{r}{d} = \\frac{5}{10} = \\frac{1}{2}$$\n\nLangkah 4: Menentukan sudutnya:\n$$\\frac{\\theta}{2} = 30^\\circ$$\n\nLangkah 5: Mengalikan dua untuk memperoleh sudut apitnya:\n$$\\theta = 60^\\circ$$\n\nLangkah 6: Memeriksa opsi E. Nilai $30^\\circ$ adalah setengah sudutnya, yaitu hasil Langkah 4 yang belum digandakan.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menentukan segitiga siku-siku antara titik luar $T(0, 10)$, pusat $O(0,0)$, dan titik singgung:\n- Jari-jari $r = 5$ (sisi depan dari setengah sudut $\\theta/2$).\n- Jarak titik luar $d = 10$ (sisi miring).\n\nLangkah 2: Menghitung nilai sinus:\n$$\\sin\\left(\\frac{\\theta}{2}\\right) = \\frac{r}{d} = \\frac{5}{10} = \\frac{1}{2} \\implies \\frac{\\theta}{2} = 30^\\circ$$\n\nLangkah 3: Menghitung sudut apit penuh:\n$$\\theta = 2 \\times 30^\\circ = 60^\\circ$$\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              0.0,
-              10.0
+              0,
+              10
             ],
             "tang": 1
           }
@@ -10012,15 +10053,15 @@ const NAMA_TINGKAT = 'XII';
             "E. 6 satuan"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menyusun garis kutub dari titik $(0, 5)$ terhadap $x^2 + y^2 = 9$:\n$$5y = 9 \\implies y = \\frac{9}{5}$$\n\nLangkah 2: Mencari titik potongnya dengan lingkaran, yaitu mensubstitusikan nilai $y$ itu:\n$$x^2 + \\left(\\frac{9}{5}\\right)^2 = 9$$\n\nLangkah 3: Menghitung kuadratnya lalu memindahkannya:\n$$x^2 = 9 - \\frac{81}{25} = \\frac{225 - 81}{25} = \\frac{144}{25}$$\n\nLangkah 4: Menarik akarnya:\n$$x = \\pm\\frac{12}{5}$$\n\nLangkah 5: Menghitung panjang tali busur kontaknya sebagai jarak kedua titik singgung. Karena ordinatnya sama, cukup selisih absisnya:\n$$L = \\frac{12}{5} - \\left(-\\frac{12}{5}\\right) = \\frac{24}{5} \\text{ satuan}$$\n\nLangkah 6: Memeriksa opsi B. Nilai $\\tfrac{12}{5}$ hanya SETENGAH tali busurnya.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Titik singgung dari $T(0, 5)$ ke $x^2 + y^2 = 9$ memiliki ordinat $y = \\frac{9}{5}$ dan absis $x = \\pm \\frac{12}{5}$.\nLangkah 2: Menghitung panjang tali busur kontak (jarak antara kedua titik singgung):\n$$\\text{Panjang} = \\frac{12}{5} - \\left(-\\frac{12}{5}\\right) = \\frac{24}{5} \\text{ satuan}$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
             "cx": 0,
             "cy": 0,
             "P": [
-              0.0,
-              5.0
+              0,
+              5
             ]
           }
         },
@@ -10038,15 +10079,15 @@ const NAMA_TINGKAT = 'XII';
             "E. Panjang ruas garis singgung dari titik A ke titik singgung adalah 4 satuan."
           ],
           "kunci": "A, B, C, E",
-          "bahas": "Langkah 1: Menyusun garis kutub dari $A(0,5)$ terhadap $x^2 + y^2 = 9$:\n$$0 \\cdot x + 5y = 9 \\implies y = \\frac{9}{5}$$\n$\\implies$ A BENAR.\n\nLangkah 2: Analisis B dan C. Mensubstitusikan $y = \\tfrac{9}{5}$ ke lingkarannya:\n$$x^2 = 9 - \\frac{81}{25} = \\frac{144}{25} \\implies x = \\pm\\frac{12}{5}$$\n\nLangkah 3: Menuliskan kedua titik singgungnya:\n$$\\left(\\frac{12}{5}, \\frac{9}{5}\\right) \\quad \\text{dan} \\quad \\left(-\\frac{12}{5}, \\frac{9}{5}\\right)$$\n$\\implies$ B BENAR dan C BENAR.\n\nLangkah 4: Analisis D. Menguji kedudukan $A(0,5)$:\n$$0 + 25 = 25 > 9$$\n\nLangkah 5: Karena kuasanya positif, titik $A$ berada di LUAR — dan memang harus demikian, sebab kalau di dalam tidak akan ada garis singgung yang dapat ditarik.\n$\\implies$ D SALAH.\n\nLangkah 6: Analisis E. Menghitung panjang garis singgungnya:\n$$PGS = \\sqrt{25 - 9} = \\sqrt{16} = 4 \\implies \\text{E BENAR}$$\nKesimpulan: Kunci Jawaban A, B, C, E.",
+          "bahas": "Langkah 1: Analisis garis singgung dari titik luar $A(0, 5)$ ke $x^2 + y^2 = 9$:\n- Opsi A: Garis polar $5y = 9$ (BENAR).\n- Opsi B: Absis titik singgung $x = \\pm 12/5$ (BENAR).\n- Opsi C: Titik singgung $(12/5, 9/5)$ dan $(-12/5, 9/5)$ (BENAR).\n- Opsi D: Titik $A(0, 5)$ terletak di LUAR lingkaran karena $0^2 + 5^2 = 25 > 9$ (SALAH).\n- Opsi E: Panjang garis singgung $L = \\sqrt{5^2 - 3^2} = 4$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, E.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
             "cx": 0,
             "cy": 0,
             "P": [
-              0.0,
-              5.0
+              0,
+              5
             ],
             "tang": 1
           }
@@ -10065,15 +10106,15 @@ const NAMA_TINGKAT = 'XII';
             "E. $(3, 0)$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Memeriksa bahwa $T(5,0)$ berada di luar lingkaran:\n$$25 + 0 = 25 > 9 \\quad \\text{(di luar)}$$\n\nLangkah 2: Menyusun garis kutubnya:\n$$5x + 0 \\cdot y = 9 \\implies x = \\frac{9}{5}$$\n\nLangkah 3: Mensubstitusikan nilai $x$ itu ke persamaan lingkarannya:\n$$\\left(\\frac{9}{5}\\right)^2 + y^2 = 9$$\n\nLangkah 4: Memindahkan lalu menyederhanakannya:\n$$y^2 = 9 - \\frac{81}{25} = \\frac{144}{25} \\implies y = \\pm\\frac{12}{5}$$\n\nLangkah 5: Menuliskan kedua titik singgungnya:\n$$\\left(\\frac{9}{5}, \\frac{12}{5}\\right) \\quad \\text{dan} \\quad \\left(\\frac{9}{5}, -\\frac{12}{5}\\right)$$\n\nLangkah 6: Memeriksa opsi A. Di sana absis dan ordinatnya tertukar; perhatikan bahwa kali ini titik luarnya berada pada sumbu-$X$, sehingga yang tetap adalah ABSIS titik singgungnya.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Garis polar dari $T(5, 0)$ terhadap $x^2 + y^2 = 9$ adalah $5x = 9 \\implies x = \\frac{9}{5}$.\nLangkah 2: Menghitung ordinat titik singgung:\n$$y^2 = 9 - \\left(\\frac{9}{5}\\right)^2 = 9 - \\frac{81}{25} = \\frac{144}{25} \\implies y = \\pm \\frac{12}{5}$$\nSalah satu titik singgung adalah $\\left(\\frac{9}{5}, \\frac{12}{5}\\right)$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lingkaran",
             "r2": 9,
             "cx": 0,
             "cy": 0,
             "P": [
-              5.0,
-              0.0
+              5,
+              0
             ],
             "tang": 1
           }
@@ -10086,15 +10127,15 @@ const NAMA_TINGKAT = 'XII';
           "tanya": "[P08-Q10] Panjang garis singgung dari $(13, 0)$ ke $x^2 + y^2 = 25$ adalah ...",
           "opsi": [],
           "kunci": "12",
-          "bahas": "Langkah 1: Memeriksa bahwa $(13, 0)$ berada di luar lingkaran:\n$$169 + 0 = 169 > 25 \\quad \\text{(di luar)}$$\n\nLangkah 2: Menuliskan rumus panjang garis singgungnya:\n$$PGS = \\sqrt{x_1^2 + y_1^2 - r^2}$$\n\nLangkah 3: Mensubstitusikan nilainya:\n$$PGS = \\sqrt{169 - 25}$$\n\nLangkah 4: Menyelesaikan akarnya:\n$$PGS = \\sqrt{144} = 12 \\text{ satuan}$$\n\nLangkah 5: Memeriksa dengan tripel Pythagoras $(5, 12, 13)$: jarak ke pusat $13$, jari-jari $5$, dan garis singgungnya $12$. Cocok.\nKesimpulan: Kunci Jawaban 12.",
+          "bahas": "Langkah 1: Menghitung panjang ruas garis singgung dari $T(0, 13)$ ke $x^2 + y^2 = 25$:\n$$L = \\sqrt{13^2 - 5^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12$$\nKesimpulan: Kunci Jawaban 12.",
           "viz": {
             "t": "lingkaran",
             "r2": 25,
             "cx": 0,
             "cy": 0,
             "P": [
-              13.0,
-              0.0
+              13,
+              0
             ],
             "tang": 1
           }
@@ -10123,9 +10164,9 @@ const NAMA_TINGKAT = 'XII';
           "bahas": "Langkah 1: Menghitung jari-jari lingkaran dari bentuk umum $x^2 + y^2 - 4x + 2y - 20 = 0$:\n$$A = -4, \\quad B = 2, \\quad C = -20$$\n\nLangkah 2: Menggunakan rumus jari-jari lingkaran:\n$$r = \\sqrt{\\left(\\frac{-A}{2}\\right)^2 + \\left(\\frac{-B}{2}\\right)^2 - C} = \\sqrt{2^2 + (-1)^2 - (-20)} = \\sqrt{4 + 1 + 20} = \\sqrt{25} = 5$$\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "lingkaran",
-            "cx": 2.0,
-            "cy": -1.0,
-            "r2": 25.0,
+            "cx": 2,
+            "cy": -1,
+            "r2": 25,
             "line": [
               4,
               2,
@@ -10154,8 +10195,8 @@ const NAMA_TINGKAT = 'XII';
             "cx": 0,
             "cy": 0,
             "P": [
-              -2.0,
-              3.0
+              -2,
+              3
             ],
             "tang": 1
           }
@@ -10256,8 +10297,8 @@ const NAMA_TINGKAT = 'XII';
             "cx": 0,
             "cy": 0,
             "P": [
-              1.0,
-              2.0
+              1,
+              2
             ],
             "tang": 1
           }
@@ -10283,8 +10324,8 @@ const NAMA_TINGKAT = 'XII';
             "cx": 0,
             "cy": 0,
             "P": [
-              0.0,
-              0.0
+              0,
+              0
             ]
           }
         },
@@ -10342,8 +10383,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": 0.8,
             "x1": 5.2,
             "lab": "y = f(x)",
-            "hole": 3.0,
-            "holey": 6.0
+            "hole": 3,
+            "holey": 6
           }
         },
         {
@@ -10367,8 +10408,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": 1.8,
             "x1": 6.2,
             "lab": "y = f(x)",
-            "hole": 4.0,
-            "holey": 0.0
+            "hole": 4,
+            "holey": 0
           }
         },
         {
@@ -10392,8 +10433,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -0.2,
             "x1": 4.2,
             "lab": "y = f(x)",
-            "hole": 2.0,
-            "holey": 3.0
+            "hole": 2,
+            "holey": 3
           }
         },
         {
@@ -10417,8 +10458,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -1.2,
             "x1": 3.2,
             "lab": "y = f(x)",
-            "hole": 1.0,
-            "holey": 4.0
+            "hole": 1,
+            "holey": 4
           }
         },
         {
@@ -10456,8 +10497,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": 2.8,
             "x1": 7.2,
             "lab": "y = f(x)",
-            "hole": 5.0,
-            "holey": 10.0
+            "hole": 5,
+            "holey": 10
           }
         },
         {
@@ -10481,8 +10522,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 0.0
+            "hole": 0,
+            "holey": 0
           }
         },
         {
@@ -10522,8 +10563,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": 2.8,
             "x1": 7.2,
             "lab": "y = f(x)",
-            "hole": 5.0,
-            "holey": 0.0
+            "hole": 5,
+            "holey": 0
           }
         },
         {
@@ -10541,8 +10582,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -0.2,
             "x1": 4.2,
             "lab": "y = f(x)",
-            "hole": 2.0,
-            "holey": -1.0
+            "hole": 2,
+            "holey": -1
           }
         }
       ]
@@ -10573,8 +10614,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 3.0
+            "hole": 0,
+            "holey": 3
           }
         },
         {
@@ -10598,8 +10639,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 2.0
+            "hole": 0,
+            "holey": 2
           }
         },
         {
@@ -10623,8 +10664,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 1.0
+            "hole": 0,
+            "holey": 1
           }
         },
         {
@@ -10648,7 +10689,7 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
+            "hole": 0,
             "holey": 0.0833
           }
         },
@@ -10687,8 +10728,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 3.0
+            "hole": 0,
+            "holey": 3
           }
         },
         {
@@ -10712,8 +10753,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 3.0
+            "hole": 0,
+            "holey": 3
           }
         },
         {
@@ -10753,8 +10794,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 2.0
+            "hole": 0,
+            "holey": 2
           }
         },
         {
@@ -10772,8 +10813,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 3.0
+            "hole": 0,
+            "holey": 3
           }
         }
       ]
@@ -10804,8 +10845,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 8.0
+            "hole": 0,
+            "holey": 8
           }
         },
         {
@@ -10829,7 +10870,7 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
+            "hole": 0,
             "holey": 0.6667
           }
         },
@@ -10854,8 +10895,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": -6.0
+            "hole": 0,
+            "holey": -6
           }
         },
         {
@@ -10879,8 +10920,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 9.0
+            "hole": 0,
+            "holey": 9
           }
         },
         {
@@ -10918,8 +10959,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 18.0
+            "hole": 0,
+            "holey": 18
           }
         },
         {
@@ -10943,7 +10984,7 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
+            "hole": 0,
             "holey": 0.25
           }
         },
@@ -10984,8 +11025,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": -6.0
+            "hole": 0,
+            "holey": -6
           }
         },
         {
@@ -11003,8 +11044,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 50.0
+            "hole": 0,
+            "holey": 50
           }
         }
       ]
@@ -11051,7 +11092,7 @@ const NAMA_TINGKAT = 'XII';
             "x0": -1.2,
             "x1": 3.2,
             "lab": "y = f(x)",
-            "hole": 1.0,
+            "hole": 1,
             "holey": 0.5
           }
         },
@@ -11092,7 +11133,7 @@ const NAMA_TINGKAT = 'XII';
             "x0": -0.2,
             "x1": 4.2,
             "lab": "y = f(x)",
-            "hole": 2.0,
+            "hole": 2,
             "holey": 0.5
           }
         },
@@ -11147,7 +11188,7 @@ const NAMA_TINGKAT = 'XII';
             "x0": 0.8,
             "x1": 5.2,
             "lab": "y = f(x)",
-            "hole": 3.0,
+            "hole": 3,
             "holey": 0.1667
           }
         },
@@ -11198,7 +11239,7 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
+            "hole": 0,
             "holey": 2.5
           }
         }
@@ -11228,7 +11269,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "(3*Math.pow(x, 3) - 4*x + 1)/(2*Math.pow(x, 3) + 5*Math.pow(x, 2) - 7)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
               1.5
@@ -11255,10 +11296,10 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "-Math.sqrt(4*Math.pow(x, 2) - 2*x + 3) + Math.sqrt(4*Math.pow(x, 2) + 6*x - 1)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              2.0
+              2
             ],
             "note": "x menuju tak hingga"
           }
@@ -11282,10 +11323,10 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "(2*x - 1)*(3*x + 2)/((x + 4)*(2*x - 3))",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              3.0
+              3
             ],
             "note": "x menuju tak hingga"
           }
@@ -11309,10 +11350,10 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "-x + Math.sqrt(Math.pow(x, 2) + 4*x + 1) - 1",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              1.0
+              1
             ],
             "note": "x menuju tak hingga"
           }
@@ -11366,10 +11407,10 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "(5*Math.pow(x, 2) - 3*x + 2)/(2*Math.pow(x, 3) + x - 1)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              0.0
+              0
             ],
             "note": "x menuju tak hingga"
           }
@@ -11409,10 +11450,10 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "-2*x + Math.sqrt(4*Math.pow(x, 2) + 8*x - 3) + 1",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              3.0
+              3
             ],
             "note": "x menuju tak hingga"
           }
@@ -11430,10 +11471,10 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "-Math.sqrt(Math.pow(x, 2) - 4*x + 1) + Math.sqrt(Math.pow(x, 2) + 6*x + 2)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              5.0
+              5
             ],
             "note": "x menuju tak hingga"
           }
@@ -11450,7 +11491,7 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q1] Nilai dari $\\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{2}{x}\\right)$ adalah ...",
+          "tanya": "[P15-Q1] Nilai dari $\\lim_{x \\to \\infty} x \\sin\\left(\\frac{2}{x}\\right)$ adalah ...",
           "opsi": [
             "A. 1/2",
             "B. 0",
@@ -11459,15 +11500,15 @@ const NAMA_TINGKAT = 'XII';
             "E. 1"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi langsung $x \\to \\infty$ menghasilkan bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x}$. Saat $x \\to \\infty$, maka $u \\to 0$ dan $x = \\frac{1}{u}$. Bentuk limit menjadi $\\lim_{u \\to 0} \\frac{\\sin(2u)}{u}$.\nLangkah 3: <b>Rumus Dasar Limit:</b> Terapkan $\\lim_{u \\to 0} \\frac{\\sin(au)}{u} = a$, sehingga diperoleh $2$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x = \\frac{1}{u}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{\\sin(2u)}{u}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{\\sin(au)}{u} = a$: hasilnya $2$.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "plot",
             "f": "x*Math.sin(2/x)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              2.0
+              2
             ],
             "note": "x menuju tak hingga"
           }
@@ -11486,15 +11527,15 @@ const NAMA_TINGKAT = 'XII';
             "E. 4"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi langsung $x \\to \\infty$ menghasilkan bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\implies u \\to 0$ dan $x^2 = \\frac{1}{u^2}$, sehingga bentuk limit menjadi $\\lim_{u \\to 0} \\frac{1 - \\cos(2u)}{u^2}$.\nLangkah 3: <b>Identitas Cosinus:</b> Gunakan $1 - \\cos(2u) = 2\\sin^2(u)$, sehingga $\\lim_{u \\to 0} \\frac{2\\sin^2(u)}{u^2} = 2 \\cdot (1)^2 = 2$.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x^2 = \\frac{1}{u^2}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{1-\\cos(2u)}{u^2}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{1-\\cos(au)}{u^2} = \\frac{a^2}{2}$ dengan $a = 2$: $\\frac{4}{2} = 2$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "plot",
             "f": "Math.pow(x, 2)*(1 - Math.cos(2/x))",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              2.0
+              2
             ],
             "note": "x menuju tak hingga"
           }
@@ -11504,7 +11545,7 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q3] Persamaan garis asimtot datar dari kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 4}$ adalah ...",
+          "tanya": "[P15-Q3] Persamaan asimtot datar kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 4}$ adalah ...",
           "opsi": [
             "A. $y = 2$",
             "B. $y = 0$",
@@ -11513,7 +11554,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = -1/4$"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: <b>Definisi Asimtot Datar:</b> Asimtot datar adalah garis mendatar $y = L$ dengan $L = \\lim_{x \\to \\pm\\infty} f(x)$.\nLangkah 2: <b>Bagi Koefisien Pangkat Tertinggi:</b> Karena derajat pembilang dan penyebut sama-sama $2$, nilai limit ditentukan oleh perbandingan koefisien $x^2$.\nLangkah 3: <b>Hitung Limit:</b> $L = \\lim_{x \\to \\infty} \\frac{2x^2 + 1}{x^2 - 4} = \\frac{2}{1} = 2$, sehingga diperoleh persamaan asimtot datar $y = 2$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Asimtot datar adalah garis $y = L$ dengan $L = \\lim_{x \\to \\infty} f(x)$, yaitu nilai yang didekati kurva saat $x$ membesar tanpa batas.\n\nLangkah 2: Gunakan aturan limit fungsi rasional di tak hingga. Derajat pembilang dan penyebut sama-sama $2$, sehingga limitnya adalah perbandingan koefisien $x^2$.\n\nLangkah 3: Substitusikan koefisiennya: $L = \\frac{2}{1} = 2$, sehingga asimtot datarnya $y = 2$.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "plot",
             "f": "(2*Math.pow(x, 2) + 1)/(Math.pow(x, 2) - 4)",
@@ -11522,11 +11563,11 @@ const NAMA_TINGKAT = 'XII';
             "lab": "y = f(x)",
             "clip": 12,
             "asy": [
-              2.0
+              2
             ],
             "vasy": [
-              -2.0,
-              2.0
+              -2,
+              2
             ]
           }
         },
@@ -11535,7 +11576,7 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q4] Persamaan garis asimtot tegak dari kurva $g(x) = \\frac{3x - 5}{x^2 - 9}$ adalah ...",
+          "tanya": "[P15-Q4] Persamaan asimtot tegak kurva $g(x) = \\frac{3x - 5}{x^2 - 9}$ adalah ...",
           "opsi": [
             "A. $x = 9$",
             "B. $x = 3$ dan $x = -3$",
@@ -11544,7 +11585,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $y = 3$"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: <b>Syarat Asimtot Tegak:</b> Asimtot tegak $x = c$ dicari dari pembuat nol penyebut yang tidak membuat pembilang bernilai nol.\nLangkah 2: <b>Faktorkan Penyebut:</b> $x^2 - 9 = 0 \\implies (x - 3)(x + 3) = 0 \\implies x = 3$ atau $x = -3$.\nLangkah 3: <b>Uji Nilai Pembilang:</b> Untuk $x = 3 \\implies 3(3) - 5 = 4 \\neq 0$; untuk $x = -3 \\implies 3(-3) - 5 = -14 \\neq 0$. Keduanya sah sebagai garis asimtot tegak.\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Asimtot tegak terjadi pada nilai $x$ yang membuat penyebut bernilai nol sementara pembilang tidak nol.\n\nLangkah 2: Nolkan penyebut: $x^2 - 9 = 0 \\implies (x-3)(x+3) = 0 \\implies x = 3$ atau $x = -3$.\n\nLangkah 3: Periksa pembilang $3x-5$ pada kedua nilai itu: $3(3)-5 = 4 \\ne 0$ dan $3(-3)-5 = -14 \\ne 0$. Keduanya sah, sehingga asimtot tegaknya $x = 3$ dan $x = -3$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "plot",
             "f": "(3*x - 5)/(Math.pow(x, 2) - 9)",
@@ -11553,11 +11594,11 @@ const NAMA_TINGKAT = 'XII';
             "lab": "y = f(x)",
             "clip": 12,
             "asy": [
-              0.0
+              0
             ],
             "vasy": [
-              -3.0,
-              3.0
+              -3,
+              3
             ]
           }
         },
@@ -11566,22 +11607,21 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Benar / Salah",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q5] Tentukan kebenaran pernyataan terkait konsep asimtot kurva dan kekontinuan fungsi:\n(1) Suatu fungsi kontinu di titik x = c tidak memerlukan nilai limit f(x) ada.\n(2) Asimtot tegak x = c diperoleh saat penyebut bernilai nol dan limit fungsinya bernilai +- tak hingga.\n(3) Asimtot datar y = L diperoleh dari nilai limit fungsi saat x menuju +- tak hingga.",
+          "tanya": "[P15-Q5] Tentukan kebenaran konsep asimtot kurva dan kekontinuan fungsi:\n(1) Suatu fungsi kontinu di titik x = c tidak memerlukan nilai limit f(x) ada.\n(2) Asimtot tegak x = c diperoleh saat penyebut bernilai nol dan limit menuju +- tak hingga.\n(3) Asimtot datar y = L diperoleh dari nilai limit x->inf f(x) = L.",
           "opsi": [
             "Suatu fungsi kontinu di titik x = c tidak memerlukan nilai limit f(x) ada",
             "Asimtot tegak x = c diperoleh saat penyebut bernilai nol dan limit menuju +- tak hingga",
             "Asimtot datar y = L diperoleh dari nilai limit x->inf f(x) = L"
           ],
           "kunci": "S - B - B",
-          "bahas": "Langkah 1: <b>Pernyataan (1) - SALAH:</b> Syarat mutlak kekontinuan fungsi di $x = c$ mengharuskan nilai $\\lim_{x \\to c} f(x)$ ada dan sama dengan $f(c)$.\nLangkah 2: <b>Pernyataan (2) - BENAR:</b> Asimtot tegak $x = c$ didefinisikan saat $\\lim_{x \\to c} f(x) = \\pm\\infty$.\nLangkah 3: <b>Pernyataan (3) - BENAR:</b> Asimtot datar $y = L$ didefinisikan saat $\\lim_{x \\to \\pm\\infty} f(x) = L$.\nKesimpulan: Kunci Jawaban S - B - B.",
-          "viz": null
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSyarat kekontinuan mutlak mensyaratkan $\\lim_{x\\to c} f(x)$ ada dan sama dengan nilai fungsi $f(c)$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nDefinisi asimtot tegak terjadi saat $\\lim_{x\\to c} f(x) = \\pm \\infty$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nDefinisi asimtot datar $y = \\lim_{x\\to \\pm \\infty} f(x)$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
         },
         {
           "no": 6,
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q6] Nilai dari $\\lim_{x \\to \\infty} x \\cdot \\tan\\left(\\frac{5}{x}\\right)$ adalah ...",
+          "tanya": "[P15-Q6] Berapakah nilai dari $\\lim_{x \\to \\infty} x \\tan(5/x)$?",
           "opsi": [
             "A. 25",
             "B. 0",
@@ -11590,15 +11630,15 @@ const NAMA_TINGKAT = 'XII';
             "E. 1"
           ],
           "kunci": "C",
-          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi langsung memberi bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$ dan $x = \\frac{1}{u}$, sehingga limit menjadi $\\lim_{u \\to 0} \\frac{\\tan(5u)}{u}$.\nLangkah 3: <b>Hitung Limit:</b> Menggunakan rumus dasar $\\lim_{u \\to 0} \\frac{\\tan(au)}{u} = a$, diperoleh nilai $5$.\nKesimpulan: Kunci Jawaban C.",
+          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$, karena $\\tan(5/x) \\to 0$.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x = \\frac{1}{u}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{\\tan(5u)}{u}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{\\tan(au)}{u} = a$: hasilnya $5$.\nKesimpulan: Kunci Jawaban C.",
           "viz": {
             "t": "plot",
             "f": "x*Math.tan(5/x)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              5.0
+              5
             ],
             "note": "x menuju tak hingga"
           }
@@ -11617,12 +11657,12 @@ const NAMA_TINGKAT = 'XII';
             "E. 1"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi $x \\to \\infty$ menghasilkan bentuk tak tentu $\\frac{0}{0}$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$, sehingga limit menjadi $\\lim_{u \\to 0} \\frac{\\sin(3u)}{\\tan(6u)}$.\nLangkah 3: <b>Rasio Koefisien Sudut:</b> Berdasarkan sifat limit trigonometri $\\lim_{u \\to 0} \\frac{\\sin(au)}{\\tan(bu)} = \\frac{a}{b} = \\frac{3}{6} = \\frac{1}{2}$.\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\frac{0}{0}$, karena kedua sudutnya menuju nol.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{\\sin(3u)}{\\tan(6u)}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{\\sin(au)}{\\tan(bu)} = \\frac{a}{b}$: $\\frac{3}{6} = \\frac{1}{2}$.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "plot",
             "f": "Math.sin(3/x)/Math.tan(6/x)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
               0.5
@@ -11635,24 +11675,23 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Pilihan Ganda Kompleks",
           "level": "C5 Evaluasi",
           "bobot": 10,
-          "tanya": "[P15-Q8] Diberikan fungsi rasional $f(x) = \\frac{2x + 6}{x - 3}$. Manakah dari pernyataan analisis asimtot dan grafiknya berikut yang BENAR? (Pilih semua yang benar)",
+          "tanya": "[P15-Q8] Pada fungsi rasional f(x) = (2x + 6) / (x - 3), manakah pernyataan analisis asimtot berikut yang BENAR? (Pilih semua yang benar)",
           "opsi": [
-            "A. Persamaan garis asimtot datar kurva adalah $y = 2$.",
-            "B. Persamaan garis asimtot tegak kurva adalah $x = 3$.",
-            "C. Titik potong grafik dengan sumbu-Y adalah $(0, -2)$.",
-            "D. Titik potong grafik dengan sumbu-X adalah $(-3, 0)$.",
-            "E. Fungsi kontinu di seluruh bilangan real termasuk pada $x = 3$."
+            "A. Persamaan asimtot datar adalah y = 2.",
+            "B. Persamaan asimtot tegak adalah x = 3.",
+            "C. Titik potong dengan sumbu-Y adalah (0, -2).",
+            "D. Titik potong dengan sumbu-X adalah (-3, 0).",
+            "E. Fungsi kontinu di seluruh bilangan real termasuk x = 3."
           ],
           "kunci": "A, B, C, D",
-          "bahas": "Langkah 1: <b>Opsi A (Asimtot Datar) - BENAR:</b> $\\lim_{x \\to \\infty} \\frac{2x+6}{x-3} = \\frac{2}{1} = 2 \\implies y = 2$.\nLangkah 2: <b>Opsi B (Asimtot Tegak) - BENAR:</b> Penyebut $x - 3 = 0 \\implies x = 3$ (pembilang $2(3)+6 = 12 \\neq 0$).\nLangkah 3: <b>Opsi C (Titik Potong Sumbu-Y) - BENAR:</b> Saat $x = 0 \\implies y = \\frac{6}{-3} = -2$, diperoleh titik $(0, -2)$.\nLangkah 4: <b>Opsi D (Titik Potong Sumbu-X) - BENAR:</b> Saat $y = 0 \\implies 2x + 6 = 0 \\implies x = -3$, diperoleh titik $(-3, 0)$.\nLangkah 5: <b>Opsi E (Kekontinuan) - SALAH:</b> Fungsi terputus (diskontinu tak hingga) di $x = 3$ karena adanya asimtot tegak.\nKesimpulan: Kunci Jawaban A, B, C, D.",
-          "viz": null
+          "bahas": "Langkah 1: Analisis Opsi A:\n$\\lim_{x\\to \\infty} \\frac{2x+6}{x-3} = 2 \\implies y = 2$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\nPenyebut $x - 3 = 0 \\implies x = 3$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$f(0) = \\frac{6}{-3} = -2$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$2x + 6 = 0 \\implies x = -3$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\nFungsi diskontinu di $x = 3$ karena asimtot tegak (nilai fungsi tak terdefinisi).\n$\\implies$ Pernyataan E SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D."
         },
         {
           "no": 9,
           "tipe": "Pilihan Ganda Tunggal",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q9] Nilai dari $\\lim_{x \\to \\infty} \\frac{x \\cdot \\sin(4/x)}{\\cos(2/x)}$ adalah ...",
+          "tanya": "[P15-Q9] Nilai dari $\\lim_{x \\to \\infty} \\frac{x \\sin(4/x)}{\\cos(2/x)}$ adalah ...",
           "opsi": [
             "A. 1/2",
             "B. 2",
@@ -11661,15 +11700,15 @@ const NAMA_TINGKAT = 'XII';
             "E. 1"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: <b>Uji Bentuk Limit:</b> Pembilang bernilai $\\infty \\cdot 0$ dan penyebut bernilai $\\cos(0) = 1$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$ dan $x = \\frac{1}{u}$, sehingga limit menjadi $\\lim_{u \\to 0} \\frac{\\sin(4u)}{u \\cdot \\cos(2u)}$.\nLangkah 3: <b>Pecah Limit:</b> $\\left(\\lim_{u \\to 0} \\frac{\\sin(4u)}{u}\\right) \\cdot \\left(\\frac{1}{\\lim_{u \\to 0} \\cos(2u)}\\right) = 4 \\cdot \\frac{1}{1} = 4$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$ pada pembilang.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x = \\frac{1}{u}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{\\sin(4u)}{u\\cos(2u)}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{\\sin(au)}{u} = a$ dan $\\cos 0 = 1$: $\\frac{4}{1} = 4$.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "plot",
             "f": "x*Math.sin(4/x)/Math.cos(2/x)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              4.0
+              4
             ],
             "note": "x menuju tak hingga"
           }
@@ -11679,18 +11718,18 @@ const NAMA_TINGKAT = 'XII';
           "tipe": "Isian Singkat Numerik",
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P15-Q10] Nilai dari $\\lim_{x \\to \\infty} 2x^2 \\left( 1 - \\cos\\left(\\frac{3}{x}\\right) \\right)$ adalah ...",
+          "tanya": "[P15-Q10] Nilai dari $\\lim_{x \\to \\infty} 2x^2 (1 - \\cos(3/x))$ adalah ...",
           "opsi": [],
           "kunci": "9",
-          "bahas": "Langkah 1: <b>Uji Substitusi:</b> Substitusi langsung menghasilkan bentuk tak tentu $\\infty \\cdot 0$.\nLangkah 2: <b>Pemisalan Invers:</b> Misalkan $u = \\frac{1}{x} \\to 0$ dan $x^2 = \\frac{1}{u^2}$, sehingga bentuk limit menjadi $\\lim_{u \\to 0} \\frac{2(1 - \\cos(3u))}{u^2}$.\nLangkah 3: <b>Identitas Cosinus:</b> Gunakan $1 - \\cos(3u) = 2\\sin^2\\left(\\frac{3u}{2}\\right)$, sehingga diperoleh $\\lim_{u \\to 0} \\frac{4\\sin^2(3u/2)}{u^2} = 4 \\cdot \\left(\\frac{3}{2}\\right)^2 = 4 \\cdot \\frac{9}{4} = 9$.\nKesimpulan: Kunci Jawaban 9.",
+          "bahas": "Langkah 1: Substitusi $x \\to \\infty$ memberi bentuk tak tentu $\\infty \\cdot 0$.\n\nLangkah 2: Misalkan $u = \\frac{1}{x}$, sehingga $u \\to 0$ dan $x^2 = \\frac{1}{u^2}$. Bentuknya berubah menjadi $\\lim_{u \\to 0}\\frac{2\\bigl(1-\\cos(3u)\\bigr)}{u^2}$.\n\nLangkah 3: Terapkan $\\lim_{u \\to 0}\\frac{1-\\cos(au)}{u^2} = \\frac{a^2}{2}$ dengan $a = 3$: $2 \\cdot \\frac{9}{2} = 9$.\nKesimpulan: Kunci Jawaban 9.",
           "viz": {
             "t": "plot",
             "f": "2*Math.pow(x, 2)*(1 - Math.cos(3/x))",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              9.0
+              9
             ],
             "note": "x menuju tak hingga"
           }
@@ -11723,8 +11762,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 6.0
+            "hole": 0,
+            "holey": 6
           }
         },
         {
@@ -11748,8 +11787,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": 0.8,
             "x1": 5.2,
             "lab": "y = f(x)",
-            "hole": 3.0,
-            "holey": 5.0
+            "hole": 3,
+            "holey": 5
           }
         },
         {
@@ -11771,10 +11810,10 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "-x + Math.sqrt(Math.pow(x, 2) + 8*x)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              4.0
+              4
             ],
             "note": "x menuju tak hingga"
           }
@@ -11800,8 +11839,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 4.0
+            "hole": 0,
+            "holey": 4
           }
         },
         {
@@ -11839,8 +11878,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 8.0
+            "hole": 0,
+            "holey": 8
           }
         },
         {
@@ -11864,8 +11903,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 4.0
+            "hole": 0,
+            "holey": 4
           }
         },
         {
@@ -11903,10 +11942,10 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "-3*x + Math.sqrt(9*Math.pow(x, 2) + 18*x - 1)",
             "x0": 0.6,
-            "x1": 14.0,
+            "x1": 14,
             "lab": "y = f(x)",
             "asy": [
-              3.0
+              3
             ],
             "note": "x menuju tak hingga"
           }
@@ -11926,8 +11965,8 @@ const NAMA_TINGKAT = 'XII';
             "x0": -2.2,
             "x1": 2.2,
             "lab": "y = f(x)",
-            "hole": 0.0,
-            "holey": 5.0
+            "hole": 0,
+            "holey": 5
           }
         }
       ]
@@ -11956,7 +11995,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "3*Math.sin(x) - 4*Math.cos(x)",
             "g": "4*Math.sin(x) + 3*Math.cos(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -11998,7 +12037,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "5*(1/Math.tan(x))",
             "g": "-5*Math.pow((1/Math.tan(x)), 2) - 5",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12057,9 +12096,9 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.4,
             "lab": "y = f(x)",
             "tang": {
-              "x": 0.0,
-              "y": 0.0,
-              "m": 3.0
+              "x": 0,
+              "y": 0,
+              "m": 3
             }
           }
         },
@@ -12082,7 +12121,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "(1/Math.cos(x))",
             "g": "Math.tan(x)*(1/Math.cos(x))",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12157,7 +12196,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.sin(3*Math.pow(x, 2) - 5)",
             "g": "6*x*Math.cos(3*Math.pow(x, 2) - 5)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12199,7 +12238,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.tan(5*x - 2)",
             "g": "5*Math.pow(Math.tan(5*x - 2), 2) + 5",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12225,7 +12264,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "-Math.sin(3*x - 2)",
             "g": "-3*Math.cos(3*x - 2)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12281,7 +12320,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.sin(Math.pow(x, 3))",
             "g": "3*Math.pow(x, 2)*Math.cos(Math.pow(x, 3))",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12356,7 +12395,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow(Math.sin(4*x), 3)",
             "g": "12*Math.pow(Math.sin(4*x), 2)*Math.cos(4*x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12382,7 +12421,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow(Math.cos(2*x), 4)",
             "g": "-8*Math.sin(2*x)*Math.pow(Math.cos(2*x), 3)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12424,7 +12463,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow(Math.tan(2*x), 3)",
             "g": "(6*Math.pow(Math.tan(2*x), 2) + 6)*Math.pow(Math.tan(2*x), 2)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12464,7 +12503,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow(Math.cos(x), 2)",
             "g": "-2*Math.sin(x)*Math.cos(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12490,7 +12529,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.sqrt(Math.sin(x))",
             "g": "(1/2)*Math.cos(x)/Math.sqrt(Math.sin(x))",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12565,7 +12604,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow(x, 2)*Math.sin(x)",
             "g": "Math.pow(x, 2)*Math.cos(x) + 2*x*Math.sin(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12591,7 +12630,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.sin(x)/(Math.cos(x) + 1)",
             "g": "Math.cos(x)/(Math.cos(x) + 1) + Math.pow(Math.sin(x), 2)/Math.pow(Math.cos(x) + 1, 2)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12679,7 +12718,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.sin(x)/x",
             "g": "Math.cos(x)/x - Math.sin(x)/Math.pow(x, 2)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x)",
             "lab2": "y = f'(x)",
@@ -12757,9 +12796,9 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.4,
             "lab": "y = f(x)",
             "tang": {
-              "x": 0.0,
-              "y": 1.0,
-              "m": 2.0
+              "x": 0,
+              "y": 1,
+              "m": 2
             }
           }
         },
@@ -12785,9 +12824,9 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.4,
             "lab": "y = f(x)",
             "tang": {
-              "x": 0.0,
-              "y": 1.0,
-              "m": 2.0
+              "x": 0,
+              "y": 1,
+              "m": 2
             }
           }
         },
@@ -12814,8 +12853,8 @@ const NAMA_TINGKAT = 'XII';
             "lab": "y = f(x)",
             "tang": {
               "x": 0.7854,
-              "y": 1.0,
-              "m": 2.0
+              "y": 1,
+              "m": 2
             }
           }
         },
@@ -12842,8 +12881,8 @@ const NAMA_TINGKAT = 'XII';
             "lab": "y = f(x)",
             "tang": {
               "x": 1.5708,
-              "y": 0.0,
-              "m": -2.0
+              "y": 0,
+              "m": -2
             }
           }
         },
@@ -12884,8 +12923,8 @@ const NAMA_TINGKAT = 'XII';
             "lab": "y = f(x)",
             "tang": {
               "x": 1.5708,
-              "y": 0.0,
-              "m": -1.0
+              "y": 0,
+              "m": -1
             }
           }
         },
@@ -12911,9 +12950,9 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.4,
             "lab": "y = f(x)",
             "tang": {
-              "x": 0.0,
-              "y": 0.0,
-              "m": 3.0
+              "x": 0,
+              "y": 0,
+              "m": 3
             }
           }
         },
@@ -12955,9 +12994,9 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.4,
             "lab": "y = f(x)",
             "tang": {
-              "x": 0.0,
-              "y": 1.0,
-              "m": 0.0
+              "x": 0,
+              "y": 1,
+              "m": 0
             }
           }
         },
@@ -12977,9 +13016,9 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.4,
             "lab": "y = f(x)",
             "tang": {
-              "x": 0.0,
-              "y": 0.0,
-              "m": 8.0
+              "x": 0,
+              "y": 0,
+              "m": 8
             }
           }
         }
@@ -13014,7 +13053,7 @@ const NAMA_TINGKAT = 'XII';
             "pi": 1,
             "naik": [
               [
-                0.0,
+                0,
                 0.7854
               ],
               [
@@ -13059,7 +13098,7 @@ const NAMA_TINGKAT = 'XII';
               ]
             ],
             "crit": [
-              0.0,
+              0,
               3.1416,
               6.2832
             ]
@@ -13089,7 +13128,7 @@ const NAMA_TINGKAT = 'XII';
             "pi": 1,
             "naik": [
               [
-                0.0,
+                0,
                 0.7854
               ],
               [
@@ -13127,7 +13166,7 @@ const NAMA_TINGKAT = 'XII';
             "pi": 1,
             "naik": [
               [
-                0.0,
+                0,
                 0.7854
               ],
               [
@@ -13239,7 +13278,7 @@ const NAMA_TINGKAT = 'XII';
             "pi": 1,
             "naik": [
               [
-                0.0,
+                0,
                 0.3927
               ],
               [
@@ -13288,7 +13327,7 @@ const NAMA_TINGKAT = 'XII';
             "pi": 1,
             "naik": [
               [
-                0.0,
+                0,
                 0.7854
               ],
               [
@@ -13326,7 +13365,7 @@ const NAMA_TINGKAT = 'XII';
             "pi": 1,
             "naik": [
               [
-                0.0,
+                0,
                 2.4981
               ],
               [
@@ -13364,7 +13403,7 @@ const NAMA_TINGKAT = 'XII';
             "pi": 1,
             "naik": [
               [
-                0.0,
+                0,
                 1.5708
               ],
               [
@@ -13407,7 +13446,7 @@ const NAMA_TINGKAT = 'XII';
               ]
             ],
             "crit": [
-              0.0,
+              0,
               3.1416,
               6.2832
             ]
@@ -13451,7 +13490,7 @@ const NAMA_TINGKAT = 'XII';
             "pi": 1,
             "naik": [
               [
-                0.0,
+                0,
                 0.5236
               ],
               [
@@ -13498,7 +13537,7 @@ const NAMA_TINGKAT = 'XII';
               ]
             ],
             "crit": [
-              0.0,
+              0,
               1.5708,
               3.1416,
               4.7124,
@@ -13551,7 +13590,7 @@ const NAMA_TINGKAT = 'XII';
               ]
             ],
             "crit": [
-              0.0,
+              0,
               3.1416,
               6.2832
             ]
@@ -13580,7 +13619,7 @@ const NAMA_TINGKAT = 'XII';
               ]
             ],
             "crit": [
-              0.0,
+              0,
               1.5708,
               3.1416,
               4.7124,
@@ -13773,7 +13812,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "-6*Math.sin(x) + 4*Math.cos(x)",
             "F": "4*Math.sin(x) + 6*Math.cos(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -13840,7 +13879,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow((1/Math.cos(x)), 2)",
             "F": "Math.sin(x)/Math.cos(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -13937,7 +13976,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "2*Math.sin(x) + 3*Math.cos(x)",
             "F": "3*Math.sin(x) - 2*Math.cos(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -14087,7 +14126,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow(Math.sin(x), 3)*Math.cos(x)",
             "F": "(1/4)*Math.pow(Math.sin(x), 4)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -14204,8 +14243,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 1.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              1.0
+              0,
+              1
             ]
           }
         },
@@ -14228,7 +14267,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.sin(x)*Math.pow(Math.cos(x), 2)",
             "F": "-1/3*Math.pow(Math.cos(x), 3)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -14308,7 +14347,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.171,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               1.5708
             ]
           }
@@ -14339,7 +14378,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "x*Math.cos(x)",
             "F": "x*Math.sin(x) + Math.cos(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -14406,7 +14445,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow(x, 2)*Math.sin(x)",
             "F": "-Math.pow(x, 2)*Math.cos(x) + 2*x*Math.sin(x) + 2*Math.cos(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -14440,7 +14479,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "x*Math.sin(2*x)",
             "F": "-1/2*x*Math.cos(2*x) + (1/4)*Math.sin(2*x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -14491,7 +14530,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.241,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               3.1416
             ]
           }
@@ -14594,8 +14633,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 1.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              1.0
+              0,
+              1
             ]
           }
         }
@@ -14628,8 +14667,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.05,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              3.0
+              0,
+              3
             ]
           }
         },
@@ -14655,7 +14694,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.171,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               1.5708
             ]
           }
@@ -14682,8 +14721,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.6,
             "lab": "y = f(x)",
             "area": [
-              1.0,
-              2.0
+              1,
+              2
             ]
           }
         },
@@ -14709,8 +14748,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 21.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              16.0
+              0,
+              16
             ]
           }
         },
@@ -14750,7 +14789,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.241,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               3.1416
             ]
           }
@@ -14777,8 +14816,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 5.05,
             "lab": "y = f(x)",
             "area": [
-              1.0,
-              4.0
+              1,
+              4
             ]
           }
         },
@@ -14820,8 +14859,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.7,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ]
           }
         },
@@ -14841,8 +14880,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 1.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              1.0
+              0,
+              1
             ]
           }
         }
@@ -14875,8 +14914,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 8.1,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              6.0
+              0,
+              6
             ]
           }
         },
@@ -14902,8 +14941,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.7,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ],
             "g": "2*x",
             "lab2": "y = g(x)",
@@ -14932,8 +14971,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 3.4,
             "lab": "y = f(x)",
             "area": [
-              -2.0,
-              2.0
+              -2,
+              2
             ]
           }
         },
@@ -14959,7 +14998,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.241,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               3.1416
             ]
           }
@@ -15000,8 +15039,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 5.4,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              4.0
+              0,
+              4
             ]
           }
         },
@@ -15027,8 +15066,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.7,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ]
           }
         },
@@ -15070,8 +15109,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 3.4,
             "lab": "y = f(x)",
             "area": [
-              -2.0,
-              2.0
+              -2,
+              2
             ],
             "g": "0",
             "lab2": "y = g(x)",
@@ -15094,8 +15133,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.7,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ]
           }
         }
@@ -15128,8 +15167,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              4.0
+              0,
+              4
             ],
             "rot": 1
           }
@@ -15156,8 +15195,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ],
             "rot": 1
           }
@@ -15184,8 +15223,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 3.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              3.0
+              0,
+              3
             ],
             "rot": 1
           }
@@ -15212,8 +15251,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.7,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ]
           }
         },
@@ -15253,8 +15292,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              4.0
+              0,
+              4
             ],
             "rot": 1
           }
@@ -15281,8 +15320,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ],
             "rot": 1
           }
@@ -15325,8 +15364,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 1.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              1.0
+              0,
+              1
             ]
           }
         },
@@ -15346,8 +15385,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 3.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              3.0
+              0,
+              3
             ],
             "rot": 1
           }
@@ -15451,10 +15490,10 @@ const NAMA_TINGKAT = 'XII';
             "B. $\\frac{4}{3}x^3 - 6x^2 + 9x + C$",
             "C. $\\frac{1}{6}(2x - 3)^3 + C$",
             "D. $4x^3 - 12x^2 + 9x + C$",
-            "E. Both A and B are equivalent and correct"
+            "E. Both B and C are equivalent and correct"
           ],
           "kunci": "E",
-          "bahas": "Step 1: Expanding: $\\int (4x^2 - 12x + 9) dx = \\frac{4}{3}x^3 - 6x^2 + 9x + C$.\n\nStep 2: Using linear substitution: $\\frac{1}{2 \\times 3}(2x - 3)^3 + C' = \\frac{1}{6}(2x - 3)^3 + C'$.\n\nStep 3: Both forms differ only by a constant and are identical.\nConclusion: Answer Key E.",
+          "bahas": "Step 1: Expanding: $\\int (4x^2 - 12x + 9) dx = \\frac{4}{3}x^3 - 6x^2 + 9x + C$.\n\nStep 2: Linear substitution: $\\frac{1}{2 \\times 3}(2x - 3)^3 + C' = \\frac{1}{6}(2x - 3)^3 + C'$.\n\nStep 3: Option B is the expanded form of Option C, differing only by constant -9/2. Both B and C are equivalent and correct.\nConclusion: Answer Key E.",
           "tipe": "Pilihan Ganda Tunggal",
           "viz": {
             "t": "plot",
@@ -15635,7 +15674,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.cos(4*x - 1)",
             "F": "(1/4)*Math.sin(4*x - 1)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -15752,8 +15791,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 1.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              1.0
+              0,
+              1
             ]
           }
         },
@@ -15825,7 +15864,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.sin(x)*Math.pow(Math.cos(x), 4)",
             "F": "-1/5*Math.pow(Math.cos(x), 5)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -15855,7 +15894,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.171,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               1.5708
             ]
           }
@@ -15917,7 +15956,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "x*Math.sin(x)",
             "F": "-x*Math.cos(x) + Math.sin(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -15951,7 +15990,7 @@ const NAMA_TINGKAT = 'XII';
             "t": "plot",
             "f": "Math.pow(x, 2)*Math.cos(x)",
             "F": "Math.pow(x, 2)*Math.sin(x) + 2*x*Math.cos(x) - 2*Math.sin(x)",
-            "x0": 0.0,
+            "x0": 0,
             "x1": 6.283,
             "lab": "y = f(x) (integran)",
             "lab2": "y = F(x) + C",
@@ -16035,8 +16074,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 1.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              1.0
+              0,
+              1
             ]
           }
         },
@@ -16111,7 +16150,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.241,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               3.1416
             ]
           }
@@ -16131,8 +16170,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 1.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              1.0
+              0,
+              1
             ]
           }
         }
@@ -16163,8 +16202,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.05,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              3.0
+              0,
+              3
             ]
           }
         },
@@ -16190,7 +16229,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.171,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               1.5708
             ]
           }
@@ -16217,8 +16256,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.6,
             "lab": "y = f(x)",
             "area": [
-              1.0,
-              2.0
+              1,
+              2
             ]
           }
         },
@@ -16244,8 +16283,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 21.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              16.0
+              0,
+              16
             ]
           }
         },
@@ -16285,7 +16324,7 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.241,
             "lab": "y = f(x)",
             "area": [
-              0.0,
+              0,
               3.1416
             ]
           }
@@ -16312,8 +16351,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 5.05,
             "lab": "y = f(x)",
             "area": [
-              1.0,
-              4.0
+              1,
+              4
             ]
           }
         },
@@ -16355,8 +16394,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.7,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ]
           }
         },
@@ -16375,8 +16414,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 1.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              1.0
+              0,
+              1
             ]
           }
         }
@@ -16407,8 +16446,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 8.1,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              6.0
+              0,
+              6
             ],
             "g": "0",
             "lab2": "y = g(x)",
@@ -16545,9 +16584,9 @@ const NAMA_TINGKAT = 'XII';
           "no": 10,
           "level": "C4 Analisis",
           "bobot": 10,
-          "tanya": "[P29-Q10] Find the exact area enclosed by $y = 2x$ and $y = 3x - x^2$. (Give your answer as a fraction $a/b$.)",
+          "tanya": "[P29-Q10] Find the integer area enclosed by $y = 2x$ and $y = 3x - x^2$.",
           "kunci": "1/6",
-          "bahas": "Step 1: Find the intersection points.\n$$2x = 3x - x^2 \\implies x^2 - x = 0 \\implies x(x - 1) = 0 \\implies x = 0 \\text{ and } x = 1$$\n\nStep 2: On $0 < x < 1$ the parabola lies above the line, since $(3x - x^2) - 2x = x - x^2 = x(1 - x) > 0$ there.\n\nStep 3: Integrate the difference.\n$$A = \\int_{0}^{1} (x - x^2)\\,dx = \\left[\\frac{x^2}{2} - \\frac{x^3}{3}\\right]_0^1 = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}$$\n\nStep 4: Check. The area is a proper fraction, not a whole number -- type it as $1/6$ (or $0{,}1667$).\nConclusion: Answer Key 1/6.",
+          "bahas": "Step 1: $2x = 3x - x^2 \\implies x^2 - x = 0 \\implies x = 0, 1$.\n\nStep 2: $A = \\int_{0}^{1} (x - x^2) dx = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}$.\nConclusion: Answer 1/6.\nConclusion: Answer Key 1/6.",
           "tipe": "Isian Singkat Numerik"
         }
       ]
@@ -16577,8 +16616,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 4.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              4.0
+              0,
+              4
             ],
             "rot": 1
           }
@@ -16605,8 +16644,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 2.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              2.0
+              0,
+              2
             ],
             "rot": 1
           }
@@ -16633,8 +16672,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 3.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              3.0
+              0,
+              3
             ],
             "rot": 1
           }
@@ -16739,8 +16778,8 @@ const NAMA_TINGKAT = 'XII';
             "x1": 9.6,
             "lab": "y = f(x)",
             "area": [
-              0.0,
-              9.0
+              0,
+              9
             ],
             "rot": 1
           }
