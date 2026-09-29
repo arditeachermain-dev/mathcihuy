@@ -103,15 +103,17 @@ export async function onRequestPost(context) {
 
     const cleanDurasi = Math.max(0, Number(durasi_detik) || 0);
 
-    // 1. Deteksi Anomali Durasi & Anti-Rapid-Fire Bot
+    // 1. Deteksi Anomali Durasi & Anti-Rapid-Fire Bot (Smart & Lenient Protection)
     if (session.role !== 'guru') {
-      if (cleanDurasi < 20) {
+      // Tolak hanya durasi yang murni tidak masuk akal / script bot (< 3 detik)
+      if (cleanDurasi < 3) {
         return jsonResponse({
-          error: `Pengumpulan ditolak (Anomali Durasi): Waktu pengerjaan (${cleanDurasi} detik) terlalu cepat. Batas minimal pengerjaan wajar adalah 20 detik.`
+          error: `Pengumpulan ditolak (Anomali Durasi): Waktu pengerjaan (${cleanDurasi} detik) terdeteksi otomatisasi script. Batas minimal wajar adalah 3 detik.`,
+          error_code: 'DURATION_TOO_SHORT'
         }, 400);
       }
 
-      // Deteksi Rapid-Fire Bot antar paket
+      // Deteksi Rapid-Fire Bot antar paket (< 4 detik antar paket berbeda)
       try {
         const lastSub = await context.env.DB.prepare(
           "SELECT waktu_submit FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit DESC LIMIT 1"
@@ -121,9 +123,10 @@ export async function onRequestPost(context) {
           const lastTime = new Date(lastSub.waktu_submit).getTime();
           const nowTime = Date.now();
           const diffSec = (nowTime - lastTime) / 1000;
-          if (diffSec >= 0 && diffSec < 35) {
+          if (diffSec >= 0 && diffSec < 4) {
             return jsonResponse({
-              error: `Pengumpulan ditolak (Proteksi Anti-Bot): Terdeteksi jeda submit antar paket (${Math.round(diffSec)} detik) tidak wajar. Harap luangkan waktu minimal 35 detik untuk mempelajari paket berikutnya.`
+              error: `Pengumpulan ditolak (Proteksi Anti-Bot): Terdeteksi jeda submit antar paket (${Math.round(diffSec)} detik) terlalu cepat. Harap luangkan jeda minimal 4 detik.`,
+              error_code: 'RATE_LIMIT'
             }, 429);
           }
         }

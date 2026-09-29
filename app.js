@@ -2582,6 +2582,208 @@
     }
 
 
+    // =========================================================================
+    // PROTOKOL ZERO-DATA-LOSS: ANTI-GHOST FINISH ENGINE
+    // =========================================================================
+    const CBT_OUTBOX_STORAGE_KEY = 'cbt_pending_outbox_queue_v2';
+
+    function ambilSemuaOutboxCbt() {
+      try {
+        const raw = localStorage.getItem(CBT_OUTBOX_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e) {
+        return [];
+      }
+    }
+
+    function simpanKeOutboxCbt(payload) {
+      if (!payload || !payload.mapel || !payload.kode_pertemuan) return;
+      try {
+        const list = ambilSemuaOutboxCbt();
+        const idx = list.findIndex(x => x.nis === payload.nis && x.mapel === payload.mapel && x.kode_pertemuan === payload.kode_pertemuan);
+        if (idx >= 0) {
+          list[idx] = payload;
+        } else {
+          list.push(payload);
+        }
+        localStorage.setItem(CBT_OUTBOX_STORAGE_KEY, JSON.stringify(list));
+        updateOutboxBannerUI();
+      } catch(e) {
+        console.warn('Gagal simpan ke outbox:', e);
+      }
+    }
+
+    function hapusDariOutboxCbt(nis, mapel, kode_pertemuan) {
+      try {
+        let list = ambilSemuaOutboxCbt();
+        list = list.filter(x => !(String(x.nis) === String(nis) && String(x.mapel) === String(mapel) && String(x.kode_pertemuan) === String(kode_pertemuan)));
+        localStorage.setItem(CBT_OUTBOX_STORAGE_KEY, JSON.stringify(list));
+        updateOutboxBannerUI();
+      } catch(e) {}
+    }
+
+    let _syncingOutboxRunning = false;
+    async function sinkronkanAntreanOutbox(silent = true) {
+      if (_syncingOutboxRunning) return;
+      const list = ambilSemuaOutboxCbt();
+      if (!list || list.length === 0) {
+        updateOutboxBannerUI();
+        return;
+      }
+
+      const sess = getSession();
+      if (!sess || sess.type !== 'siswa' || !sess.data || !sess.data.nis) {
+        updateOutboxBannerUI();
+        return;
+      }
+
+      const curNis = String(sess.data.nis);
+      _syncingOutboxRunning = true;
+      let successCount = 0;
+
+      try {
+        for (const item of list) {
+          if (String(item.nis) !== curNis) continue;
+          try {
+            const res = await fetch('/api/nilai', {
+              method: 'POST',
+              headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+              body: JSON.stringify(item)
+            });
+
+            if (res.ok) {
+              const d1 = await res.json();
+              console.log('⚡ Outbox tersinkron ke D1:', item.mapel, item.kode_pertemuan, d1);
+              hapusDariOutboxCbt(item.nis, item.mapel, item.kode_pertemuan);
+              successCount++;
+
+              if (!window._cbtCompletedSubmissions) window._cbtCompletedSubmissions = {};
+              item.skor = d1.skor;
+              item.jumlah_benar = d1.jumlah_benar;
+              item.jumlah_salah = d1.jumlah_salah;
+              item.jumlah_percobaan = d1.jumlah_percobaan;
+              window._cbtCompletedSubmissions[`${item.mapel}_${item.kode_pertemuan}`] = item;
+              try {
+                const uid = getUserIdentifier();
+                const cacheKey = typeof kunciTingkat === 'function' ? kunciTingkat('cbt_completed_' + uid) : ('cbt_completed_' + uid);
+                localStorage.setItem(cacheKey, JSON.stringify(window._cbtCompletedSubmissions));
+              } catch(e) {}
+              if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
+            }
+          } catch(err) {
+            console.warn('Gagal sync item outbox:', item.kode_pertemuan, err);
+          }
+        }
+      } finally {
+        _syncingOutboxRunning = false;
+        updateOutboxBannerUI();
+        if (!silent && successCount > 0) {
+          alert(`✅ Berhasil menyinkronkan ${successCount} nilai ujian ke server sekolah!`);
+        }
+      }
+    }
+    window.sinkronkanAntreanOutbox = sinkronkanAntreanOutbox;
+
+    function updateOutboxBannerUI() {
+      const list = ambilSemuaOutboxCbt();
+      const sess = getSession();
+      const curNis = (sess && sess.data && sess.data.nis) ? String(sess.data.nis) : '';
+      const userList = list.filter(x => !curNis || String(x.nis) === curNis);
+
+      let banner = document.getElementById('cbt-outbox-sync-banner');
+      if (userList.length === 0) {
+        if (banner) banner.remove();
+        return;
+      }
+
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'cbt-outbox-sync-banner';
+        document.body.appendChild(banner);
+      }
+
+      banner.className = 'fixed bottom-4 right-4 z-50 max-w-sm p-4 bg-amber-950/95 border-2 border-amber-500 text-amber-200 rounded-2xl shadow-2xl backdrop-blur-md space-y-2 flex flex-col';
+      banner.innerHTML = `
+        <div class="flex items-start gap-2.5">
+          <i class="fa-solid fa-cloud-arrow-up text-amber-400 text-xl shrink-0 mt-0.5 animate-bounce"></i>
+          <div class="flex-1">
+            <h4 class="font-bold text-white text-xs">⚠️ ${userList.length} Nilai Ujian Belum Terkirim</h4>
+            <p class="text-[11px] text-amber-300/90 mt-0.5 leading-snug">Nilai tersimpan aman di perangkat ini, namun belum masuk ke server sekolah.</p>
+          </div>
+        </div>
+        <button onclick="window.sinkronkanAntreanOutbox(false)" class="w-full py-1.5 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-1.5 transition active:scale-95 shadow cursor-pointer">
+          <i class="fa-solid fa-arrows-rotate"></i> Sinkronkan ke Server Sekarang
+        </button>
+      `;
+    }
+
+    function tampilkanPeringatanGagalSubmit(subj, pkgId, payload, err, successCallback) {
+      const errMsg = (err && err.error) ? err.error : (typeof err === 'string' ? err : 'Koneksi jaringan terputus atau sesi login berakhir.');
+      const modal = document.getElementById('tka-scorecard-modal');
+      
+      let alertBox = document.getElementById('scorecard-submission-alert');
+      if (!alertBox && modal) {
+        alertBox = document.createElement('div');
+        alertBox.id = 'scorecard-submission-alert';
+        const card = modal.querySelector('.max-w-md') || modal.firstElementChild;
+        if (card) card.insertBefore(alertBox, card.firstChild);
+      }
+
+      if (alertBox) {
+        alertBox.className = 'mb-4 p-4 bg-rose-950/95 border-2 border-rose-500 text-rose-200 rounded-2xl text-xs space-y-2.5 shadow-2xl';
+        alertBox.innerHTML = `
+          <div class="flex items-start gap-2.5">
+            <i class="fa-solid fa-triangle-exclamation text-rose-400 text-xl shrink-0 mt-0.5 animate-pulse"></i>
+            <div class="flex-1">
+              <h4 class="font-black text-white text-sm">⚠️ Pengiriman Nilai Belum Berhasil!</h4>
+              <p class="text-[11px] text-rose-300 mt-0.5 leading-relaxed">${errMsg}</p>
+              <p class="text-[10px] text-rose-400 mt-1 font-medium italic">🛡️ Lembar jawaban Anda telah diamankan di antrean offline browser ini. Harap kirim ulang sekarang agar tercatat di rapor guru.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-1 border-t border-rose-900/60">
+            <button id="btn-scorecard-retry-action" class="flex-1 py-2 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow transition active:scale-95 cursor-pointer">
+              <i class="fa-solid fa-arrows-rotate"></i> Coba Kirim Ulang Sekarang
+            </button>
+          </div>
+        `;
+
+        const btn = document.getElementById('btn-scorecard-retry-action');
+        if (btn) {
+          btn.onclick = function() {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim Ulang ke Server...';
+            
+            fetch('/api/nilai', {
+              method: 'POST',
+              headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+              body: JSON.stringify(payload)
+            }).then(r => {
+              if (!r.ok) return r.json().then(e => Promise.reject(e)).catch(() => Promise.reject('D1 unavailable'));
+              return r.json();
+            }).then(d1Res => {
+              alertBox.className = 'mb-4 p-3 bg-emerald-950/95 border-2 border-emerald-500 text-emerald-200 rounded-2xl text-xs shadow-xl flex items-center gap-2.5';
+              alertBox.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i> <span class="font-bold text-white text-xs">Alhamdulillah! Nilai berhasil diverifikasi dan tersimpan resmi di server sekolah.</span>';
+              hapusDariOutboxCbt(payload.nis, subj, pkgId);
+              if (typeof successCallback === 'function') successCallback(d1Res.jumlah_percobaan);
+              setTimeout(() => { alertBox.remove(); }, 3000);
+            }).catch(errRetry => {
+              btn.disabled = false;
+              btn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Coba Kirim Ulang Sekarang';
+              const rMsg = (errRetry && errRetry.error) ? errRetry.error : errRetry;
+              alert('⚠️ Pengiriman ulang masih belum berhasil: ' + rMsg + '\n\nNilai Anda tetap aman tersimpan di antrean perangkat dan akan otomatis disinkronkan saat koneksi kembali stabil.');
+            });
+          };
+        }
+      } else {
+        alert('⚠️ Pengiriman Nilai Tertunda:\n' + errMsg + '\n\nLembar jawaban Anda tersimpan aman di antrean offline browser ini.');
+      }
+    }
+
+    // Auto-sync listener saat online dan periodik
+    window.addEventListener('online', function() { sinkronkanAntreanOutbox(true); });
+    setInterval(function() { sinkronkanAntreanOutbox(true); }, 25000);
+    setTimeout(function() { sinkronkanAntreanOutbox(true); }, 3000);
+
 function catatSesiCbt(subj, pkgId, forceSubmit) {
       pastikanKemajuan();
       const src = tkaSrc(subj);
@@ -2674,7 +2876,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
           }
 
-          // 1. Submit ke Cloudflare D1 Native Database (Unlimited Bandwidth & Zero Egress)
+          // PROTOKOL ANTI-GHOST FINISH:
+          // 1. Simpan lembar jawaban lengkap langsung ke Offline Outbox terlebih dahulu
+          simpanKeOutboxCbt(payload);
+
+          // 2. Submit ke Cloudflare D1 Native Database
           fetch('/api/nilai', {
             method: 'POST',
             headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
@@ -2686,7 +2892,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             return r.json();
           })
           .then(d1Res => {
-            console.log('⚡ Nilai CBT berhasil disubmit ke Cloudflare D1 Database:', d1Res);
+            console.log('⚡ Nilai CBT berhasil diverifikasi & disimpan resmi di Cloudflare D1:', d1Res);
+            
+            // Konfirmasi Sukses Server: Hapus dari antrean outbox perangkat
+            hapusDariOutboxCbt(nis, subj, pkgId);
+
             if (d1Res && d1Res.skor !== undefined) {
               payload.skor = d1Res.skor;
               payload.jumlah_benar = d1Res.jumlah_benar;
@@ -2711,19 +2921,21 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 terapkanPembahasanPaket(subj, pkgId, d1Res.solutions);
               }
             }
+
+            // Bersihkan draft live answers dari Cloudflare D1
+            fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`, {
+              method: 'DELETE',
+              headers: getAuthHeaders()
+            }).catch(() => {});
+
+            // HANYA tandai selesai setelah server mengonfirmasi!
             onSubmissionComplete(d1Res.jumlah_percobaan);
           }).catch((err) => {
-            if (err && err.error) {
-              alert('⚠️ Peringatan Ujian:\n' + err.error);
-            }
-            onSubmissionComplete();
+            console.warn('⚠️ Gagal terhubung ke Cloudflare D1, lembar jawaban aman di Outbox:', err);
+            // JANGAN panggil onSubmissionComplete() di sini!
+            // Berikan notifikasi UI tegas & tombol Coba Kirim Ulang:
+            tampilkanPeringatanGagalSubmit(subj, pkgId, payload, err, onSubmissionComplete);
           });
-
-          // 2. Bersihkan draft dari Cloudflare D1
-          fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`, {
-            method: 'DELETE',
-            headers: getAuthHeaders()
-          }).catch(() => {});
         }
       } catch (e) {
         console.warn('catatNilaiCBTKeCloud error:', e);
