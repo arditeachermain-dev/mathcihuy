@@ -28,8 +28,19 @@ const db = {"wajib": [{"id": "P01", "bab": "Bab 1: Komposisi Fungsi dan Fungsi I
 // BELUM DIISI: daftar siswa kelas XI belum ada. Selama masih kosong, tidak ada
 // siswa yang bisa masuk ke halaman ini -- guru tetap bisa membukanya untuk
 // memeriksa materi. Isi ketiganya dengan bentuk yang sama seperti data-xii.js.
-const STUDENTS_DB = {};
+const STUDENTS_DB = {
+  "ALUMNI": {
+    "kelas_name": "Alumni 2026",
+    "access_level": "all",
+    "students": [
+      { "nis": "23400016", "name": "Aunillah Fath Al Ashya" }
+    ]
+  }
+};
 
-window.STUDENTS_DATA = {};
+window.STUDENTS_DATA = {
+  '23400016': { nama: 'Aunillah Fath Al Ashya', kelas: 'Alumni 2026', access_level: 'all' },
+  'aunillah': { nama: 'Aunillah Fath Al Ashya', kelas: 'Alumni 2026', access_level: 'all' }
+};
 
 const CALENDAR_DATA = [];

@@ -398,12 +398,14 @@ export async function onRequestPost(context) {
       await resetRateLimitForIp(clientIp, context.env);
 
       // Terbitkan Token Siswa Resmi (Masa Aktif 14 Hari)
+      const isAlumni = String(student.kelas || '').toLowerCase().includes('alumni');
       const tokenPayload = {
         role: 'siswa',
         nis: String(student.nis),
         nama: String(student.nama),
         kelas: String(student.kelas),
         name: String(student.nama),
+        access_level: isAlumni ? 'all' : (String(student.kelas).includes('F3') || String(student.kelas).includes('F4') ? 'full' : 'wajib_only'),
         iat: Date.now(),
         exp: Date.now() + 14 * 24 * 3600 * 1000
       };

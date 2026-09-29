@@ -1734,10 +1734,13 @@
         // nilai yang dikerjakan di halaman tingkat lain akan dikirim atas NIS
         // yang sama sehingga menimpa nilai "P01" miliknya sendiri. Guru bebas.
         if (sess.type === 'siswa' && sess.data) {
-            const t = tingkatDariKelas(sess.data.kelas_name || sess.data.kelas);
-            if (t && t !== TINGKAT_HALAMAN && HALAMAN_TINGKAT[t]) {
-                window.location.replace(HALAMAN_TINGKAT[t]);
-                return;
+            const isAlumni = String(sess.data.kelas_name || sess.data.kelas || '').toLowerCase().includes('alumni') || sess.data.access_level === 'all';
+            if (!isAlumni) {
+                const t = tingkatDariKelas(sess.data.kelas_name || sess.data.kelas);
+                if (t && t !== TINGKAT_HALAMAN && HALAMAN_TINGKAT[t]) {
+                    window.location.replace(HALAMAN_TINGKAT[t]);
+                    return;
+                }
             }
             if (typeof muatStatusSelesaiSiswa === 'function') {
                 muatStatusSelesaiSiswa();
@@ -1839,6 +1842,8 @@
         // sedang dibuka ditandai dari TINGKAT halaman ini, bukan dari markup,
         // supaya ketiga halaman bisa dibangkitkan dari index.html yang sama.
         const guru = sess?.type === 'guru';
+        const isAlumni = String(sess?.data?.kelas_name || sess?.data?.kelas || '').toLowerCase().includes('alumni') || sess?.data?.access_level === 'all';
+        const canSwitchTingkat = guru || isAlumni;
         const pilih = document.getElementById('pilih-tingkat');
         const lencana = document.getElementById('lencana-tingkat');
         if (lencana && typeof NAMA_TINGKAT !== 'undefined') lencana.textContent = NAMA_TINGKAT;
@@ -1849,10 +1854,10 @@
                 if (aktif) a.setAttribute('aria-current', 'page');
                 else a.removeAttribute('aria-current');
             });
-            pilih.classList.toggle('hidden', !guru);
-            pilih.classList.toggle('flex', guru);
+            pilih.classList.toggle('hidden', !canSwitchTingkat);
+            pilih.classList.toggle('flex', canSwitchTingkat);
         }
-        if (lencana) lencana.classList.toggle('hidden', guru);
+        if (lencana) lencana.classList.toggle('hidden', canSwitchTingkat);
         if (!guruBtn) return;
 
         if (guru) {

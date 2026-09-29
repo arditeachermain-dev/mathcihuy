@@ -364,8 +364,8 @@
             '24400074': { nama: 'Nazwa Avrilia Putri Abzis', kelas: 'XII F3', access_level: 'full' },
             '24400085': { nama: 'Raydhan Jiffar Seniawanputra', kelas: 'XII F3', access_level: 'full' },
             '24400094': { nama: 'Syahra Lenira Rangkuti', kelas: 'XII F3', access_level: 'full' },
-            '23400016': { nama: 'Aunillah Fath Al Ashya', kelas: 'XII F3', access_level: 'full' },
-            'aunillah': { nama: 'Aunillah Fath Al Ashya', kelas: 'XII F3', access_level: 'full' },
+            '23400016': { nama: 'Aunillah Fath Al Ashya', kelas: 'Alumni 2026', access_level: 'all' },
+            'aunillah': { nama: 'Aunillah Fath Al Ashya', kelas: 'Alumni 2026', access_level: 'all' },
             '24400002': { nama: 'Ahmad Bayanaka Rajab', kelas: 'XII F4', access_level: 'full' },
             '24400020': { nama: 'Atsyla Athano Biandra', kelas: 'XII F4', access_level: 'full' },
             '24400022': { nama: 'Azzadin Al Azzam', kelas: 'XII F4', access_level: 'full' },
@@ -486,6 +486,7 @@
         // Urutan pemeriksaan penting: 'XII F1' juga diawali 'XI' dan 'X'.
         function halamanTingkat(kelas) {
             var k = String(kelas || '').trim().toUpperCase();
+            if (k.indexOf('ALUMNI') !== -1) return '/'; // Alumni bebas akses semua tingkat (default ke portal utama XII)
             if (k.indexOf('XII') === 0) return '/';
             if (k.indexOf('XI') === 0) return '/11';
             if (k.indexOf('X') === 0) return '/10';
@@ -541,8 +542,9 @@
                 var student = result.user || (typeof STUDENTS_DATA !== 'undefined' ? (STUDENTS_DATA[nis] || STUDENTS_DATA['23400016']) : null) || {};
                 var rawMaster = (typeof STUDENTS_DATA !== 'undefined' ? (STUDENTS_DATA[student.nis] || STUDENTS_DATA[nis]) : null) || {};
                 var finalNama = student.nama || rawMaster.nama || ('Siswa ' + (student.nis || nis));
-                var finalKelas = student.kelas || rawMaster.kelas || 'XII F3';
+                var finalKelas = student.kelas || rawMaster.kelas || 'Alumni 2026';
                 var canonicalNis = student.nis || (rawMaster.nama ? (rawMaster.nis || nis) : nis);
+                var isAlumni = finalKelas.toLowerCase().indexOf('alumni') !== -1;
 
                 localStorage.setItem('portal_session', JSON.stringify({
                     type: 'siswa',
@@ -554,7 +556,7 @@
                         kelas_name: finalKelas,
                         kelas: finalKelas,
                         token: result.token,
-                        access_level: rawMaster.access_level || (finalKelas.indexOf('F3') !== -1 || finalKelas.indexOf('F4') !== -1 ? 'full' : 'wajib_only')
+                        access_level: isAlumni ? 'all' : (rawMaster.access_level || (finalKelas.indexOf('F3') !== -1 || finalKelas.indexOf('F4') !== -1 ? 'full' : 'wajib_only'))
                     },
                     timestamp: Date.now()
                 }));
@@ -573,6 +575,7 @@
                 var matchedKey = (typeof STUDENTS_DATA !== 'undefined') ? (STUDENTS_DATA[nis] ? nis : Object.keys(STUDENTS_DATA).find(function(k) { return k.toLowerCase() === nis.toLowerCase() || (STUDENTS_DATA[k].nama && STUDENTS_DATA[k].nama.toLowerCase().indexOf(nis.toLowerCase()) !== -1); })) : null;
                 if (!err.status && matchedKey && password === '1234') {
                     var localStd = STUDENTS_DATA[matchedKey];
+                    var isOfflineAlumni = (localStd.kelas && localStd.kelas.toLowerCase().indexOf('alumni') !== -1);
                     localStorage.setItem('portal_session', JSON.stringify({
                         type: 'siswa',
                         token: '',
@@ -583,7 +586,7 @@
                             kelas_name: localStd.kelas,
                             kelas: localStd.kelas,
                             token: '',
-                            access_level: localStd.access_level || 'full'
+                            access_level: isOfflineAlumni ? 'all' : (localStd.access_level || 'full')
                         },
                         timestamp: Date.now()
                     }));
