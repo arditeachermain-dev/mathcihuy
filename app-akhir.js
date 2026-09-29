@@ -1247,16 +1247,13 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           btn.classList.add('active');
           btn.style.backgroundColor = '#2E384D';
           btn.style.color = '#FFFFFF';
-          btn.className = 'notion-btn-tab active px-3 py-1.5 rounded-lg font-bold shadow-sm transition whitespace-nowrap cursor-pointer';
         } else {
           btn.classList.remove('active');
           btn.style.backgroundColor = 'transparent';
           if (k === 'tuntas') {
             btn.style.color = '#2E7D32';
-            btn.className = 'notion-btn-tab px-3 py-1.5 rounded-lg hover:bg-[#EDF7ED] transition whitespace-nowrap cursor-pointer font-medium';
           } else {
             btn.style.color = '#787774';
-            btn.className = 'notion-btn-tab px-3 py-1.5 rounded-lg hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium';
           }
         }
       });
@@ -1517,6 +1514,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       _raporSelectedBab = 'all';
       _raporExpandedBabs.clear();
+      const searchInput = document.getElementById('rapor-search-input');
+      if (searchInput) searchInput.value = '';
+      _raporSearchQuery = '';
       const currentSubjectMode = (typeof currentMode !== 'undefined' && (currentMode === 'minat' || currentMode === 'wajib' || currentMode === 'clil')) ? currentMode : 'wajib';
       setRaporFilter(currentSubjectMode);
 

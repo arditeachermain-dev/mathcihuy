@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788449960">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788449980">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -1254,29 +1254,29 @@
           </div>
         </div>
 
-        <!-- FILTER TABS & SEARCH BAR (COMPACT) -->
-        <div id="rapor-toolbar" class="rapor-toolbar flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
-          <div id="rapor-filter-bar" class="flex items-center gap-1 p-0.5 rounded-lg border text-xs font-semibold overflow-x-auto custom-scroll shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-            <button type="button" onclick="setRaporFilter('all')" id="rapor-tab-all" class="notion-btn-tab active px-2.5 py-1 rounded-md text-white font-bold shadow-sm transition whitespace-nowrap cursor-pointer text-xs" style="background-color: #2E384D;">
+        <!-- FILTER TABS & SEARCH BAR (COMPACT & POLISHED) -->
+        <div id="rapor-toolbar" class="rapor-toolbar flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+          <div id="rapor-filter-bar" class="rapor-filter-bar flex items-center gap-1 p-0.5 rounded-lg border text-xs font-semibold shadow-sm shrink-0 overflow-x-auto" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+            <button type="button" onclick="setRaporFilter('all')" id="rapor-tab-all" class="notion-btn-tab active">
               Semua (<span id="rapor-count-all">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('wajib')" id="rapor-tab-wajib" class="notion-btn-tab px-2.5 py-1 rounded-md text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium text-xs" style="background-color: transparent;">
+            <button type="button" onclick="setRaporFilter('wajib')" id="rapor-tab-wajib" class="notion-btn-tab">
               Wajib (<span id="rapor-count-wajib">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('minat')" id="rapor-tab-minat" class="notion-btn-tab px-2.5 py-1 rounded-md text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium text-xs" style="background-color: transparent;">
+            <button type="button" onclick="setRaporFilter('minat')" id="rapor-tab-minat" class="notion-btn-tab">
               Peminatan (<span id="rapor-count-minat">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('tuntas')" id="rapor-tab-tuntas" class="notion-btn-tab px-2.5 py-1 rounded-md text-[#2E7D32] hover:bg-[#EDF7ED] transition whitespace-nowrap cursor-pointer font-medium text-xs" style="background-color: transparent;">
-              <i class="fa-solid fa-circle-check mr-1"></i>Tuntas (<span id="rapor-count-tuntas">0</span>)
+            <button type="button" onclick="setRaporFilter('tuntas')" id="rapor-tab-tuntas" class="notion-btn-tab">
+              <i class="fa-solid fa-circle-check mr-1" style="font-size: 10px;"></i>Tuntas (<span id="rapor-count-tuntas">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('belum')" id="rapor-tab-belum" class="notion-btn-tab px-2.5 py-1 rounded-md text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium text-xs" style="background-color: transparent;">
+            <button type="button" onclick="setRaporFilter('belum')" id="rapor-tab-belum" class="notion-btn-tab">
               Belum (<span id="rapor-count-belum">0</span>)
             </button>
           </div>
 
-          <div class="relative w-full sm:w-64">
-            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-[11px] text-[#787774]"></i>
-            <input type="text" id="rapor-search-input" oninput="searchRapor(this.value)" placeholder="Cari paket / topik..." class="notion-input w-full rounded-lg pl-7 pr-2.5 py-1 text-xs text-[#2F3437] placeholder-[#787774] transition shadow-sm border border-[#E8E6DF] bg-white">
+          <div class="notion-search-wrap w-full sm:w-56 shrink-0">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="rapor-search-input" oninput="searchRapor(this.value)" placeholder="Cari paket / topik..." class="notion-search-input">
           </div>
         </div>
 
@@ -1422,7 +1422,7 @@
         </div>
     </div>
 
-        <script src="app-akhir.js?v=v1788449970"></script>
+        <script src="app-akhir.js?v=v1788449980"></script>
 
 </body>
 </html>
