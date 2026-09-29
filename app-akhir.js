@@ -845,6 +845,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     let _raporSearchQuery = '';
     let _raporAllPackages = [];
     let _raporActiveStudentNis = '';
+    let _raporSelectedBab = 'all';
+    let _raporExpandedBabs = new Set();
 
     function getRaporPackageList() {
       const pkgs = [];
@@ -963,7 +965,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         </button>`;
 
       return `
-        <div class="px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#FBFBFA] transition" style="background-color: #FFFFFF; ${isDone ? '' : 'opacity: 0.95;'}">
+        <div class="rapor-package-row px-4 sm:px-6 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition" style="${isDone ? '' : 'opacity: 0.95;'}">
           <div class="flex items-start gap-3 min-w-0">
             <span class="font-mono font-bold text-xs px-2.5 py-1 rounded shrink-0 mt-0.5" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #2F3437;">
               ${escapeHtml(item.id)}
@@ -981,14 +983,38 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         </div>`;
     }
 
-    function renderRaporCards() {
-      const cardsContainer = document.getElementById('rapor-cards-grid');
-      if (!cardsContainer) return;
+    function setRaporBab(babKey) {
+      _raporSelectedBab = babKey;
+      if (babKey !== 'all') {
+        _raporExpandedBabs.add(babKey);
+      }
+      renderRaporCards();
+    }
 
+    function toggleRaporBab(babKey) {
+      if (_raporExpandedBabs.has(babKey)) {
+        _raporExpandedBabs.delete(babKey);
+      } else {
+        _raporExpandedBabs.add(babKey);
+      }
+      renderRaporCards();
+    }
+
+    function toggleAllRaporBabs() {
+      const activeBabs = getFilteredBabList();
+      const allExpanded = activeBabs.every(g => _raporExpandedBabs.has(g.key));
+      if (allExpanded) {
+        _raporExpandedBabs.clear();
+      } else {
+        activeBabs.forEach(g => _raporExpandedBabs.add(g.key));
+      }
+      renderRaporCards();
+    }
+
+    function getFilteredBabList() {
       const q = (_raporSearchQuery || '').trim().toLowerCase();
       const f = _raporCurrentFilter || 'all';
 
-      // 1. Kumpulkan seluruh Bab unik berdasarkan urutan kemunculan di kurikulum
       const babMap = new Map();
       const babList = [];
 
@@ -1010,8 +1036,6 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         babMap.get(key).allPackages.push(pkg);
       });
 
-      // 2. Filter butir soal di setiap Bab sesuai tab & pencarian
-      let totalFilteredItems = 0;
       babList.forEach(group => {
         group.filteredPackages = group.allPackages.filter(item => {
           if (f === 'wajib' && item.mapel !== 'wajib') return false;
@@ -1030,11 +1054,80 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
           return true;
         });
-        totalFilteredItems += group.filteredPackages.length;
       });
 
-      // 3. Tampilkan pesan kosong jika tidak ada yang sesuai
-      if (totalFilteredItems === 0) {
+      return babList.filter(g => g.filteredPackages.length > 0);
+    }
+
+    function renderRaporCards() {
+      const cardsContainer = document.getElementById('rapor-cards-grid');
+      if (!cardsContainer) return;
+
+      const activeBabs = getFilteredBabList();
+
+      // Update Bab Filter Chips Bar (#rapor-bab-bar)
+      const babBar = document.getElementById('rapor-bab-bar');
+      if (babBar) {
+        if (activeBabs.length > 1) {
+          let babBarHtml = `
+            <div class="w-full flex items-center justify-between gap-2 py-1 flex-wrap">
+              <div class="flex items-center gap-1.5 overflow-x-auto custom-scroll no-scrollbar py-1 max-w-full">
+                <button type="button" onclick="setRaporBab('all')" class="px-2.5 py-1 rounded-lg text-xs whitespace-nowrap transition cursor-pointer font-semibold ${
+                  _raporSelectedBab === 'all'
+                    ? 'bg-[#2E384D] text-white shadow-sm font-bold'
+                    : 'text-[#787774] hover:text-[#2F3437] hover:bg-[#E8E6DF] bg-white border border-[#E8E6DF]'
+                }">
+                  Semua Bab (${activeBabs.length})
+                </button>
+          `;
+          activeBabs.forEach(g => {
+            const isSel = _raporSelectedBab === g.key;
+            let shortLabel = g.bab;
+            const colonIdx = shortLabel.indexOf(':');
+            if (colonIdx !== -1 && colonIdx < 12) {
+              const part1 = shortLabel.substring(0, colonIdx);
+              const part2 = shortLabel.substring(colonIdx + 1).trim().split('&')[0].trim().split(',')[0].trim();
+              shortLabel = `${part1}: ${part2}`;
+            }
+            babBarHtml += `
+              <button type="button" onclick="setRaporBab('${escapeHtml(g.key)}')" class="px-2.5 py-1 rounded-lg text-xs whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 ${
+                isSel
+                  ? 'bg-[#2E384D] text-white shadow-sm font-bold'
+                  : 'text-[#787774] hover:text-[#2F3437] hover:bg-[#E8E6DF] bg-white border border-[#E8E6DF] font-medium'
+              }">
+                <i class="fa-solid fa-book-open text-[10px] ${isSel ? 'text-white' : 'text-[#787774]'}"></i>
+                <span>${escapeHtml(shortLabel)}</span>
+                <span class="text-[10px] opacity-75 font-mono">(${g.filteredPackages.length})</span>
+              </button>
+            `;
+          });
+          const allExp = activeBabs.every(g => _raporExpandedBabs.has(g.key));
+          babBarHtml += `
+              </div>
+              <button type="button" onclick="toggleAllRaporBabs()" class="text-[11px] font-medium text-[#787774] hover:text-[#2F3437] underline whitespace-nowrap shrink-0 cursor-pointer">
+                ${allExp ? 'Tutup Semua Bab' : 'Buka Semua Bab'}
+              </button>
+            </div>
+          `;
+          babBar.innerHTML = babBarHtml;
+          babBar.classList.remove('hidden');
+        } else {
+          babBar.innerHTML = '';
+          babBar.classList.add('hidden');
+        }
+      }
+
+      // Filter by selected Bab
+      let displayedBabs = activeBabs;
+      if (_raporSelectedBab !== 'all') {
+        displayedBabs = activeBabs.filter(g => g.key === _raporSelectedBab);
+        if (displayedBabs.length === 0) {
+          displayedBabs = activeBabs;
+          _raporSelectedBab = 'all';
+        }
+      }
+
+      if (displayedBabs.length === 0) {
         cardsContainer.innerHTML = `
           <div class="p-12 text-center rounded-2xl border shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
             <i class="fa-regular fa-folder-open text-3xl mb-3 block" style="color: #D3CFBE;"></i>
@@ -1044,93 +1137,106 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         return;
       }
 
-      // 4. Render kartu modular per Bab (Notion Warm Paper Architecture)
-      const htmlSections = babList
-        .filter(group => group.filteredPackages.length > 0)
-        .map(group => {
-          const totalInBab = group.allPackages.length;
-          const completedInBab = group.allPackages.filter(p => p.status === 'sempurna' || p.status === 'tuntas').length;
-          const isAllDone = (completedInBab === totalInBab) && totalInBab > 0;
-          
-          let sumBabScore = 0;
-          let attemptedInBab = 0;
-          group.allPackages.forEach(p => {
-            if (p.skor !== null && p.skor !== undefined) {
-              sumBabScore += Number(p.skor);
-              attemptedInBab++;
-            }
-          });
-          const avgBab = attemptedInBab > 0 ? (sumBabScore / attemptedInBab).toFixed(1) : null;
+      // Default accordion state: if none set, expand active/first bab
+      if (_raporExpandedBabs.size === 0) {
+        if (_raporSelectedBab !== 'all') {
+          _raporExpandedBabs.add(_raporSelectedBab);
+        } else if (displayedBabs.length > 0) {
+          _raporExpandedBabs.add(displayedBabs[0].key);
+        }
+      }
 
-          let mapelBadge = '';
-          if (group.mapel === 'minat') {
-            mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Peminatan</span>';
-          } else if (group.mapel === 'clil') {
-            mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">CLIL</span>';
-          } else {
-            mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Wajib</span>';
+      const htmlSections = displayedBabs.map(group => {
+        const totalInBab = group.allPackages.length;
+        const completedInBab = group.allPackages.filter(p => p.status === 'sempurna' || p.status === 'tuntas').length;
+        const isAllDone = (completedInBab === totalInBab) && totalInBab > 0;
+        
+        let sumBabScore = 0;
+        let attemptedInBab = 0;
+        group.allPackages.forEach(p => {
+          if (p.skor !== null && p.skor !== undefined) {
+            sumBabScore += Number(p.skor);
+            attemptedInBab++;
           }
-
-          let progressBadge = '';
-          if (isAllDone) {
-            progressBadge = `
-              <span class="text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #A5D6A7;">
-                <i class="fa-solid fa-circle-check" style="color: #2E7D32;"></i> Tuntas Penuh (${completedInBab}/${totalInBab})
-              </span>`;
-          } else if (completedInBab > 0) {
-            progressBadge = `
-              <span class="text-[10px] sm:text-[11px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
-                ${completedInBab} / ${totalInBab} Tuntas
-              </span>`;
-          } else {
-            progressBadge = `
-              <span class="text-[10px] sm:text-[11px] font-medium px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #F0EFEA; color: #787774; border: 1px solid #E8E6DF;">
-                ${completedInBab} / ${totalInBab} Tuntas
-              </span>`;
-          }
-
-          const avgBadge = avgBab ? `
-            <span class="text-[10px] sm:text-[11px] font-mono font-bold px-2 py-0.5 rounded inline-flex items-center gap-1" style="background-color: #FBFBFA; color: #2F3437; border: 1px solid #E8E6DF;" title="Rata-rata skor resmi CBT bab ini">
-              <span class="font-sans font-normal text-[10px]" style="color: #787774;">Rerata:</span> ${avgBab}
-            </span>` : '';
-
-          return `
-            <div class="rapor-bab-card rounded-2xl border shadow-sm overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-              <!-- BAB HEADER -->
-              <div class="px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b" style="background-color: #FBFBFA; border-color: #E8E6DF;">
-                <div class="flex items-center gap-3 min-w-0">
-                  <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold shrink-0" style="background-color: #F0EFEA; color: #2E384D; border: 1px solid #E8E6DF;">
-                    <i class="fa-solid fa-book-bookmark text-xs" style="color: #2E384D;"></i>
-                  </div>
-                  <div class="min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <h4 class="font-bold text-sm text-[#2F3437] truncate" style="color: #2F3437;">${escapeHtml(group.bab)}</h4>
-                      ${mapelBadge}
-                    </div>
-                    <p class="text-[11px] mt-0.5" style="color: #787774;">
-                      Menampilkan ${group.filteredPackages.length} dari ${totalInBab} paket CBT
-                    </p>
-                  </div>
-                </div>
-
-                <div class="flex items-center gap-2 shrink-0">
-                  ${avgBadge}
-                  ${progressBadge}
-                </div>
-              </div>
-
-              <!-- BAB PACKAGES LIST -->
-              <div class="divide-y divide-[#E8E6DF]">
-                ${group.filteredPackages.map(renderSingleRaporCard).join('')}
-              </div>
-            </div>`;
         });
+        const avgBab = attemptedInBab > 0 ? (sumBabScore / attemptedInBab).toFixed(1) : null;
+
+        let mapelBadge = '';
+        if (group.mapel === 'minat') {
+          mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Peminatan</span>';
+        } else if (group.mapel === 'clil') {
+          mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">CLIL</span>';
+        } else {
+          mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Wajib</span>';
+        }
+
+        let progressBadge = '';
+        if (isAllDone) {
+          progressBadge = `
+            <span class="text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #A5D6A7;">
+              <i class="fa-solid fa-circle-check" style="color: #2E7D32;"></i> Tuntas (${completedInBab}/${totalInBab})
+            </span>`;
+        } else if (completedInBab > 0) {
+          progressBadge = `
+            <span class="text-[10px] sm:text-[11px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
+              ${completedInBab} / ${totalInBab} Tuntas
+            </span>`;
+        } else {
+          progressBadge = `
+            <span class="text-[10px] sm:text-[11px] font-medium px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #F0EFEA; color: #787774; border: 1px solid #E8E6DF;">
+              ${completedInBab} / ${totalInBab} Tuntas
+            </span>`;
+        }
+
+        const avgBadge = avgBab ? `
+          <span class="text-[10px] sm:text-[11px] font-mono font-bold px-2 py-0.5 rounded inline-flex items-center gap-1" style="background-color: #FBFBFA; color: #2F3437; border: 1px solid #E8E6DF;" title="Rata-rata skor resmi CBT bab ini">
+            <span class="font-sans font-normal text-[10px]" style="color: #787774;">Rerata:</span> ${avgBab}
+          </span>` : '';
+
+        const isExpanded = _raporExpandedBabs.has(group.key);
+
+        return `
+          <div class="rapor-bab-card rounded-2xl border shadow-sm overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+            <!-- BAB HEADER (ACCORDION TOGGLE) -->
+            <div onclick="toggleRaporBab('${escapeHtml(group.key)}')" class="rapor-bab-header px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-6 h-6 flex items-center justify-center text-[#787774] shrink-0">
+                  <i class="fa-solid fa-chevron-${isExpanded ? 'down' : 'right'} text-xs transition-transform"></i>
+                </div>
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold shrink-0" style="background-color: #F0EFEA; color: #2E384D; border: 1px solid #E8E6DF;">
+                  <i class="fa-solid fa-book-open text-xs" style="color: #2E384D;"></i>
+                </div>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 class="font-bold text-sm text-[#2F3437] truncate" style="color: #2F3437;">${escapeHtml(group.bab)}</h4>
+                    ${mapelBadge}
+                  </div>
+                  <p class="text-[11px] mt-0.5 text-[#787774]">
+                    ${group.filteredPackages.length} paket CBT ${isExpanded ? '• Klik untuk menutup' : '• Klik untuk membuka'}
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 shrink-0">
+                ${avgBadge}
+                ${progressBadge}
+              </div>
+            </div>
+
+            <!-- BAB PACKAGES LIST -->
+            <div class="${isExpanded ? '' : 'hidden'} divide-y divide-[#E8E6DF]">
+              ${group.filteredPackages.map(renderSingleRaporCard).join('')}
+            </div>
+          </div>`;
+      });
 
       cardsContainer.innerHTML = htmlSections.join('');
     }
 
     function setRaporFilter(filterKey) {
       _raporCurrentFilter = filterKey;
+      _raporSelectedBab = 'all';
+      _raporExpandedBabs.clear();
       ['all', 'wajib', 'minat', 'tuntas', 'belum'].forEach(k => {
         const btn = document.getElementById(`rapor-tab-${k}`);
         if (!btn) return;
@@ -1400,6 +1506,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (!modal) return;
       modal.classList.remove('hidden');
 
+      _raporSelectedBab = 'all';
+      _raporExpandedBabs.clear();
+      const currentSubjectMode = (typeof currentMode !== 'undefined' && (currentMode === 'minat' || currentMode === 'wajib' || currentMode === 'clil')) ? currentMode : 'wajib';
+      setRaporFilter(currentSubjectMode);
+
       const isGuru = sess && sess.type === 'guru';
       const isSiswa = sess && sess.type === 'siswa';
       const switcher = document.getElementById('rapor-guru-switcher');
@@ -1458,4 +1569,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     window.refreshRaporData = refreshRaporData;
     window.bukaPaketCbtDariRapor = bukaPaketCbtDariRapor;
     window.cetakRaporSiswa = cetakRaporSiswa;
+    window.setRaporBab = setRaporBab;
+    window.toggleRaporBab = toggleRaporBab;
+    window.toggleAllRaporBabs = toggleAllRaporBabs;
 

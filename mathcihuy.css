@@ -2803,12 +2803,49 @@ html.terang #app-header button[id^="tab-"].inactive-subject-tab:hover i {
 }
 
 /* Notion Bab Card Styling & Hover */
+#rapor-siswa-modal .overflow-y-auto {
+  overflow-x: hidden !important;
+}
+
 .rapor-bab-card {
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  overflow: hidden;
 }
 .rapor-bab-card:hover {
   border-color: #D3CFBE !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+}
+
+.rapor-bab-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+html.terang .rapor-bab-header:hover {
+  background-color: #F0EFEA !important;
+}
+
+.rapor-package-row {
+  transition: background-color 0.15s ease;
+}
+html.terang .rapor-package-row {
+  background-color: #FFFFFF;
+}
+html.terang .rapor-package-row:hover {
+  background-color: #F7F6F3 !important;
+}
+
+#rapor-bab-bar button {
+  transition: all 0.15s ease;
+}
+html.terang #rapor-bab-bar button.bg-\[\#2E384D\] {
+  background-color: #2E384D !important;
+  color: #FFFFFF !important;
+}
+html.terang #rapor-bab-bar button.bg-\[\#2E384D\] i,
+html.terang #rapor-bab-bar button.bg-\[\#2E384D\] span {
+  color: #FFFFFF !important;
+  background-color: transparent !important;
 }
 
 @media print {

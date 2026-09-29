@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788449910">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788449925">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -1081,8 +1081,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xi.js?v=v1788449910"></script>
-  <script src="app.js?v=v1788449910"></script>
+  <script src="data-xi.js?v=v1788449925"></script>
+  <script src="app.js?v=v1788449925"></script>
 
 
   <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
@@ -1127,7 +1127,7 @@
       </div>
 
       <!-- SCROLLABLE BODY -->
-      <div class="flex-1 min-h-0 overflow-y-auto px-5 md:px-7 py-5 space-y-5 custom-scroll" style="background-color: #F7F6F3;">
+      <div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-5 md:px-7 py-5 space-y-4 custom-scroll" style="background-color: #F7F6F3;">
         
         <!-- PROFILE & KPI HERO CARD (Warm Paper Style) -->
         <div class="p-5 md:p-6 rounded-2xl border shadow-sm relative overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
@@ -1214,6 +1214,9 @@
             <input type="text" id="rapor-search-input" oninput="searchRapor(this.value)" placeholder="Cari kode (P15) atau topik..." class="notion-input w-full rounded-xl pl-8 pr-3 py-1.5 text-xs text-[#2F3437] placeholder-[#787774] transition shadow-sm">
           </div>
         </div>
+
+        <!-- BAB SELECTOR BAR (PER BAB SELECTION) -->
+        <div id="rapor-bab-bar" class="hidden"></div>
 
         <!-- BAB GROUPS CONTAINER -->
         <div id="rapor-cards-grid" class="space-y-4">
@@ -1377,7 +1380,7 @@
         </div>
     </div>
 
-        <script src="app-akhir.js?v=v1788449910"></script>
+        <script src="app-akhir.js?v=v1788449925"></script>
 
 </body>
 </html>
