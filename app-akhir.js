@@ -894,41 +894,25 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const isRemedial = isDone && !isTuntas;
 
       let badgeHtml = '';
-      let cardBorder = 'border-blue-900/70 hover:border-blue-500/80';
-      let cardBg = 'bg-[#0B172B]';
-      let ringColor = 'text-blue-500';
-      let scoreColor = 'text-blue-400';
-
       if (isPerfect) {
-        cardBorder = 'border-emerald-500/60 hover:border-emerald-400 shadow-emerald-950/20';
-        ringColor = 'text-emerald-400';
-        scoreColor = 'text-emerald-400';
         badgeHtml = `
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-gradient-to-r from-emerald-500/20 to-teal-500/20 text-emerald-300 border border-emerald-400/40 flex items-center gap-1 shadow">
-            <i class="fa-solid fa-crown text-amber-400"></i> Sempurna (100)
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded inline-flex items-center gap-1 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #A5D6A7;">
+            <i class="fa-solid fa-crown" style="color: #B26B00;"></i> Sempurna (100)
           </span>`;
       } else if (isTuntas) {
-        cardBorder = 'border-blue-600/50 hover:border-blue-400';
-        ringColor = 'text-blue-400';
-        scoreColor = 'text-blue-300';
         badgeHtml = `
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30 flex items-center gap-1">
-            <i class="fa-solid fa-circle-check text-emerald-400"></i> Tuntas KKM
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded inline-flex items-center gap-1 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
+            <i class="fa-solid fa-circle-check" style="color: #2E7D32;"></i> Tuntas KKM
           </span>`;
       } else if (isRemedial) {
-        cardBorder = 'border-rose-600/50 hover:border-rose-400';
-        ringColor = 'text-rose-500';
-        scoreColor = 'text-rose-400';
         badgeHtml = `
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center gap-1">
-            <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Perlu Remedial
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded inline-flex items-center gap-1 shadow-none" style="background-color: #FFF1F0; color: #CF1322; border: 1px solid #FFA39E;">
+            <i class="fa-solid fa-triangle-exclamation" style="color: #CF1322;"></i> Remedial
           </span>`;
       } else {
-        cardBorder = 'border-slate-800/80 hover:border-slate-700 opacity-90';
-        cardBg = 'bg-[#081224]';
         badgeHtml = `
-          <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-800 text-slate-400 border border-slate-700">
-            Belum Dikerjakan
+          <span class="text-[10px] font-medium px-2 py-0.5 rounded inline-flex items-center gap-1 shadow-none" style="background-color: #F0EFEA; color: #787774; border: 1px solid #E8E6DF;">
+            Belum
           </span>`;
       }
 
@@ -951,59 +935,52 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
 
       const mapelBadge = item.mapel === 'minat' ?
-        '<span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Peminatan</span>' :
-        '<span class="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">Wajib</span>';
+        '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Peminatan</span>' :
+        '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Wajib</span>';
 
-      const scoreGauge = isDone ? `
-        <div class="relative w-14 h-14 flex items-center justify-center flex-shrink-0">
-          <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-            <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-            <path class="${ringColor}" stroke-dasharray="${item.skor}, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-          </svg>
-          <div class="absolute text-center">
-            <span class="font-black text-sm ${scoreColor} leading-none block">${item.skor}</span>
-            <span class="text-[8px] text-slate-400 font-mono">/100</span>
+      const subtitle = isDone ?
+        `${escapeHtml(item.bab || '')} • Waktu: ${durasiText} • ${attemptsText} • ${waktuFormatted}` :
+        `${escapeHtml(item.bab || '')} • Beban: 10 butir soal CBT mandiri`;
+
+      const scoreHtml = isDone ? `
+        <div class="text-right">
+          ${badgeHtml}
+          <div class="font-mono font-bold text-sm mt-0.5" style="color: #2F3437;">
+            ${item.skor} <span class="text-xs font-normal" style="color: #787774;">/ 100</span>
           </div>
         </div>` : `
-        <div class="w-14 h-14 rounded-full border-2 border-dashed border-slate-700 flex flex-col items-center justify-center flex-shrink-0 text-slate-500">
-          <span class="text-xs font-mono">—</span>
-          <span class="text-[8px]">/100</span>
+        <div class="text-right">
+          ${badgeHtml}
+          <div class="font-mono text-sm mt-0.5" style="color: #787774;">
+            — <span class="text-xs">/ 100</span>
+          </div>
         </div>`;
 
       const actionBtn = isDone ? `
-        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="w-full py-2 bg-slate-800 hover:bg-blue-600 text-slate-200 hover:text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer">
-          <i class="fa-solid fa-arrow-rotate-right text-[11px]"></i> <span>Buka CBT / Kerjakan Ulang</span>
+        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95" style="background-color: #FFFFFF; color: #2F3437; border: 1px solid #D3CFBE;">
+          <i class="fa-solid fa-arrow-rotate-right text-[11px]" style="color: #787774;"></i> <span>Ulangi</span>
         </button>` : `
-        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
-          <i class="fa-solid fa-play text-amber-300 text-[10px]"></i> <span>Mulai Kerjakan Sekarang</span>
+        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="px-3.5 py-1.5 rounded-lg text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95" style="background-color: #2E384D;">
+          <i class="fa-solid fa-play text-[10px]"></i> <span>Kerjakan</span>
         </button>`;
 
       return `
-        <div class="${cardBg} rounded-2xl border ${cardBorder} p-4 flex flex-col justify-between space-y-3 shadow-lg transition duration-200 group">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
+        <div class="px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#FBFBFA] transition" style="background-color: #FFFFFF; ${isDone ? '' : 'opacity: 0.9;'}">
+          <div class="flex items-start gap-3 min-w-0">
+            <span class="font-mono font-bold text-xs px-2.5 py-1 rounded shrink-0 mt-0.5" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #2F3437;">
+              ${escapeHtml(item.id)}
+            </span>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-bold text-sm" style="color: #2F3437;">${escapeHtml(item.title)}</span>
                 ${mapelBadge}
-                <span class="font-mono text-xs font-bold text-white px-2 py-0.5 rounded bg-[#060D1A] border border-blue-900">${escapeHtml(item.id)}</span>
               </div>
-              ${badgeHtml}
-            </div>
-
-            <div class="flex items-start justify-between gap-3 pt-1">
-              <div class="min-w-0 flex-1">
-                <h4 class="text-xs font-bold text-white group-hover:text-blue-300 transition line-clamp-2 leading-snug">${escapeHtml(item.title)}</h4>
-                <p class="text-[10px] text-slate-400 mt-1 line-clamp-1">${escapeHtml(item.bab || '')}</p>
-              </div>
-              ${scoreGauge}
+              <p class="text-[11px] mt-0.5 truncate" style="color: #787774;">${subtitle}</p>
             </div>
           </div>
 
-          <div class="pt-2 border-t border-blue-900/60 space-y-2">
-            <div class="flex items-center justify-between text-[11px] text-slate-400">
-              <span><i class="fa-solid fa-stopwatch text-amber-400 mr-1"></i>${durasiText}</span>
-              <span><i class="fa-solid fa-arrow-rotate-left text-blue-400 mr-1"></i>${attemptsText}</span>
-              <span class="text-[10px] font-mono text-slate-500">${waktuFormatted}</span>
-            </div>
+          <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 pl-10 sm:pl-0">
+            ${scoreHtml}
             ${actionBtn}
           </div>
         </div>`;
@@ -1035,10 +1012,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       if (filtered.length === 0) {
         cardsContainer.innerHTML = `
-          <div class="col-span-full text-center py-16 p-6 bg-[#071120] rounded-2xl border border-blue-900/60 text-slate-400">
-            <i class="fa-solid fa-folder-open text-3xl text-slate-600 mb-2 block"></i>
-            <p class="font-bold text-sm text-slate-300">Tidak ada paket yang sesuai kriteria pencarian</p>
-            <p class="text-xs text-slate-500 mt-1">Coba sesuaikan kata kunci atau pilih tab filter "Semua Paket".</p>
+          <div class="p-12 text-center text-xs" style="color: #787774; background-color: #FFFFFF;">
+            <i class="fa-regular fa-folder-open text-2xl mb-2 block" style="color: #D3CFBE;"></i>
+            <p class="font-bold text-sm" style="color: #2F3437;">Tidak ada paket yang sesuai kriteria pencarian</p>
+            <p class="text-xs mt-1" style="color: #787774;">Coba sesuaikan kata kunci atau pilih tab filter "Semua Paket".</p>
           </div>`;
         return;
       }
@@ -1052,10 +1029,18 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const btn = document.getElementById(`rapor-tab-${k}`);
         if (!btn) return;
         if (k === filterKey) {
-          btn.className = 'px-3.5 py-1.5 rounded-xl bg-blue-600 text-white shadow font-bold transition whitespace-nowrap cursor-pointer';
+          btn.style.backgroundColor = '#2E384D';
+          btn.style.color = '#FFFFFF';
+          btn.className = 'px-3 py-1.5 rounded-lg font-bold shadow-sm transition whitespace-nowrap cursor-pointer';
         } else {
-          const textCol = k === 'tuntas' ? 'text-emerald-400' : (k === 'belum' ? 'text-amber-400' : 'text-slate-400');
-          btn.className = `px-3.5 py-1.5 rounded-xl ${textCol} hover:text-white transition whitespace-nowrap cursor-pointer`;
+          btn.style.backgroundColor = 'transparent';
+          if (k === 'tuntas') {
+            btn.style.color = '#2E7D32';
+            btn.className = 'px-3 py-1.5 rounded-lg hover:bg-[#EDF7ED] transition whitespace-nowrap cursor-pointer font-medium';
+          } else {
+            btn.style.color = '#787774';
+            btn.className = 'px-3 py-1.5 rounded-lg hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium';
+          }
         }
       });
       renderRaporCards();
@@ -1070,7 +1055,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       _raporActiveStudentNis = targetNis;
       const cardsContainer = document.getElementById('rapor-cards-grid');
       if (cardsContainer) {
-        cardsContainer.innerHTML = '<div class="col-span-full text-center py-16 text-slate-400 font-medium"><i class="fa-solid fa-spinner fa-spin text-2xl text-blue-400 mb-3 block"></i>Mengambil rekap nilai resmi dari Cloudflare D1...</div>';
+        cardsContainer.innerHTML = '<div class="p-12 text-center text-xs font-medium" style="color: #787774; background-color: #FFFFFF;"><i class="fa-solid fa-spinner fa-spin text-xl mb-2 block" style="color: #2E384D;"></i>Mengambil rekap nilai resmi dari Cloudflare D1...</div>';
       }
 
       // 1. Cari info identitas siswa
@@ -1259,7 +1244,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     function cetakRaporSiswa() {
+      document.body.classList.add('rapor-printing');
       window.print();
+      setTimeout(() => {
+        document.body.classList.remove('rapor-printing');
+      }, 1000);
     }
 
     function openRaporModal(targetNis) {

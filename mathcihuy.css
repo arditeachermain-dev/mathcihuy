@@ -1433,12 +1433,35 @@
         overflow: visible !important; display: block !important;
       }
       body::before { display: none !important; }
-      body > *:not(#lkpd-sheet) { display: none !important; }
+      body:not(.rapor-printing) > *:not(#lkpd-sheet) { display: none !important; }
       #lkpd-sheet {
         position: static !important; left: auto !important; top: auto !important;
         width: auto !important; display: block !important;
       }
       #lkpd-sheet .lk-soal, #lkpd-sheet .lk-rumus-b { page-break-inside: avoid; }
+
+      /* Notion Warm Paper Rapor Print Layout */
+      body.rapor-printing > *:not(#rapor-siswa-modal) {
+        display: none !important;
+      }
+      body.rapor-printing #rapor-siswa-modal {
+        position: static !important;
+        inset: auto !important;
+        background: #FFFFFF !important;
+        display: block !important;
+        padding: 0 !important;
+        overflow: visible !important;
+      }
+      body.rapor-printing #rapor-siswa-modal > div {
+        max-height: none !important;
+        box-shadow: none !important;
+        border: 1px solid #E8E6DF !important;
+        overflow: visible !important;
+      }
+      body.rapor-printing #rapor-siswa-modal button,
+      body.rapor-printing #rapor-siswa-modal input {
+        display: none !important;
+      }
     }
 
     /* ---- Mode Presentasi Guru ---- */

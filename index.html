@@ -1142,155 +1142,150 @@
 
 
   <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
-  <div id="rapor-siswa-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-start md:items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div style="background-color: #0A1526 !important;" class="border-2 border-blue-800/90 rounded-3xl max-w-6xl max-h-[95vh] flex flex-col w-full shadow-2xl text-white relative overflow-hidden">
+  <div id="rapor-siswa-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-start md:items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div style="background-color: #FBFBFA !important;" class="border border-[#E8E6DF] rounded-2xl max-w-6xl max-h-[95vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans">
       
       <!-- MODAL TOP BAR -->
-      <div class="px-5 md:px-7 py-4 border-b border-blue-900/80 flex flex-wrap items-center justify-between gap-3 shrink-0 bg-[#071120]">
+      <div class="px-5 md:px-7 py-4 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-3 shrink-0 bg-[#FFFFFF]">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xl shrink-0 shadow-lg">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 shadow-sm text-white" style="background-color: #2E384D;">
             <i class="fa-solid fa-graduation-cap"></i>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="text-base md:text-lg font-black text-white leading-tight">Rapor Capaian Belajar &amp; Skor CBT Tiap Paket</h3>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30">D1 Serverless</span>
+              <h3 class="text-base md:text-lg font-bold text-[#2F3437] leading-tight">Rapor Capaian Belajar &amp; Skor CBT Tiap Paket</h3>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">D1 Serverless</span>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">Rekapitulasi resmi skor CBT per pertemuan, ketuntasan KKM (&ge; 75), dan evaluasi mandiri siswa.</p>
+            <p class="text-xs text-[#787774] mt-0.5">Rekapitulasi resmi skor CBT per pertemuan, ketuntasan KKM (&ge; 75), dan evaluasi mandiri siswa.</p>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
           <!-- GURU STUDENT SWITCHER (Hanya tampil jika akun guru) -->
-          <div id="rapor-guru-switcher" class="hidden flex items-center gap-2 bg-[#0E1E38] px-3 py-1.5 rounded-xl border border-blue-800/80 text-xs">
-            <span class="text-amber-400 font-bold"><i class="fa-solid fa-user-gear mr-1"></i>Siswa:</span>
-            <select id="rapor-select-siswa" onchange="gantiSiswaRapor(this.value)" class="bg-[#071120] border border-blue-900 text-white rounded-lg px-2 py-1 font-semibold text-xs focus:ring-2 focus:ring-emerald-500 outline-none cursor-pointer max-w-[220px]">
+          <div id="rapor-guru-switcher" class="hidden flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs" style="background-color: #F0EFEA; border: 1px solid #E8E6DF;">
+            <span class="font-semibold text-[#2F3437]"><i class="fa-solid fa-user-gear mr-1 text-[#787774]"></i>Siswa:</span>
+            <select id="rapor-select-siswa" onchange="gantiSiswaRapor(this.value)" class="rounded-lg px-2.5 py-1 font-medium text-xs outline-none cursor-pointer max-w-[220px]" style="background-color: #FFFFFF; border: 1px solid #D3CFBE; color: #2F3437;">
             </select>
           </div>
 
-          <button type="button" onclick="refreshRaporData(true)" title="Sinkronkan nilai terbaru dari Cloudflare D1" class="px-3 py-2 bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 hover:text-white border border-blue-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow">
-            <i class="fa-solid fa-rotate"></i> <span class="hidden sm:inline">Sinkron Data</span>
+          <button type="button" onclick="refreshRaporData(true)" title="Sinkronkan nilai terbaru dari Cloudflare D1" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-sm" style="background-color: #FFFFFF; color: #2F3437; border: 1px solid #D3CFBE;">
+            <i class="fa-solid fa-rotate text-[#787774]"></i> <span class="hidden sm:inline">Sinkron Data</span>
           </button>
 
-          <button type="button" onclick="cetakRaporSiswa()" title="Cetak Rapor Siswa" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow">
-            <i class="fa-solid fa-print text-amber-400"></i> <span class="hidden sm:inline">Cetak</span>
+          <button type="button" onclick="cetakRaporSiswa()" title="Cetak Rapor Siswa" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-sm" style="background-color: #FFFFFF; color: #2F3437; border: 1px solid #D3CFBE;">
+            <i class="fa-solid fa-print text-[#787774]"></i> <span class="hidden sm:inline">Cetak</span>
           </button>
 
-          <button type="button" onclick="closeRaporModal()" aria-label="Tutup Rapor" class="w-9 h-9 rounded-xl border border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center shrink-0 transition cursor-pointer">
+          <button type="button" onclick="closeRaporModal()" aria-label="Tutup Rapor" class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition cursor-pointer" style="border: 1px solid #E8E6DF; color: #787774; background-color: #FFFFFF;">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
       </div>
 
       <!-- SCROLLABLE BODY -->
-      <div class="flex-1 min-h-0 overflow-y-auto px-5 md:px-7 py-5 space-y-5 custom-scroll">
+      <div class="flex-1 min-h-0 overflow-y-auto px-5 md:px-7 py-5 space-y-5 custom-scroll" style="background-color: #F7F6F3;">
         
-        <!-- PROFILE & KPI HERO CARD -->
-        <div class="p-5 md:p-6 bg-gradient-to-br from-[#0D1E38] via-[#091528] to-[#071120] rounded-3xl border border-blue-800/80 shadow-xl relative overflow-hidden">
-          <div class="absolute -top-20 -right-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-          <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
+        <!-- PROFILE & KPI HERO CARD (Warm Paper Style) -->
+        <div class="p-5 md:p-6 rounded-2xl border shadow-sm relative overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
             <!-- Student Info -->
             <div class="flex items-center gap-4">
-              <div id="rapor-student-avatar" class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-emerald-400 p-0.5 shadow-xl flex-shrink-0">
-                <div class="w-full h-full bg-[#071120] rounded-[14px] flex items-center justify-center font-black text-2xl md:text-3xl text-emerald-400" id="rapor-student-initials">
-                  --
-                </div>
+              <div id="rapor-student-avatar" class="w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center font-bold text-xl md:text-2xl shadow-sm flex-shrink-0 text-white" style="background-color: #2E384D;">
+                <span id="rapor-student-initials">--</span>
               </div>
               <div class="space-y-1">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <h2 id="rapor-student-name" class="text-lg md:text-2xl font-black text-white tracking-tight">Memuat Data Siswa...</h2>
-                  <span id="rapor-student-status-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  <h2 id="rapor-student-name" class="text-lg md:text-xl font-bold tracking-tight text-[#2F3437]">Memuat Data Siswa...</h2>
+                  <span id="rapor-student-status-badge" class="px-2.5 py-0.5 rounded text-[11px] font-semibold" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
                     <i class="fa-solid fa-circle-check mr-1"></i>Terdaftar Aktif
                   </span>
                 </div>
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-300">
-                  <span><i class="fa-solid fa-id-card text-blue-400 mr-1.5"></i>NIS: <b id="rapor-student-nis" class="text-white font-mono">-</b></span>
-                  <span><i class="fa-solid fa-school text-indigo-400 mr-1.5"></i>Kelas: <b id="rapor-student-class" class="text-white font-semibold">-</b></span>
-                  <span><i class="fa-solid fa-award text-amber-400 mr-1.5"></i>SMA GIS 2 Serpong</span>
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#787774]">
+                  <span><i class="fa-solid fa-id-card text-[#787774] mr-1.5"></i>NIS: <b id="rapor-student-nis" class="text-[#2F3437] font-mono">-</b></span>
+                  <span><i class="fa-solid fa-school text-[#787774] mr-1.5"></i>Kelas: <b id="rapor-student-class" class="text-[#2F3437] font-semibold">-</b></span>
+                  <span><i class="fa-solid fa-award text-[#787774] mr-1.5"></i>SMA GIS 2 Serpong</span>
                 </div>
               </div>
             </div>
 
             <!-- 4 KPI Cards -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full lg:w-auto">
-              <div class="p-3 bg-[#060D1A]/90 border border-blue-900/80 rounded-2xl text-center shadow">
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Rata-Rata</span>
-                <span id="rapor-kpi-avg" class="text-xl md:text-2xl font-black text-emerald-400 font-mono">0.0</span>
-                <span class="text-[9px] text-slate-500 block">Skor Resmi CBT</span>
+              <div class="p-3 rounded-xl text-center" style="background-color: #FBFBFA; border: 1px solid #E8E6DF;">
+                <span class="text-[10px] font-bold uppercase tracking-wider block text-[#787774]">Rata-Rata</span>
+                <span id="rapor-kpi-avg" class="text-xl md:text-2xl font-bold font-mono text-[#2F3437]">0.0</span>
+                <span class="text-[9px] text-[#787774] block">Skor Resmi CBT</span>
               </div>
-              <div class="p-3 bg-[#060D1A]/90 border border-blue-900/80 rounded-2xl text-center shadow">
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Tuntas KKM</span>
-                <span id="rapor-kpi-completed" class="text-xl md:text-2xl font-black text-blue-400 font-mono">0 / 0</span>
-                <span class="text-[9px] text-slate-500 block">Batas KKM = 75</span>
+              <div class="p-3 rounded-xl text-center" style="background-color: #FBFBFA; border: 1px solid #E8E6DF;">
+                <span class="text-[10px] font-bold uppercase tracking-wider block text-[#787774]">Tuntas KKM</span>
+                <span id="rapor-kpi-completed" class="text-xl md:text-2xl font-bold font-mono" style="color: #2E7D32;">0 / 0</span>
+                <span class="text-[9px] text-[#787774] block">Batas KKM = 75</span>
               </div>
-              <div class="p-3 bg-[#060D1A]/90 border border-blue-900/80 rounded-2xl text-center shadow">
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Ketuntasan</span>
-                <span id="rapor-kpi-pct" class="text-xl md:text-2xl font-black text-amber-400 font-mono">0%</span>
-                <span class="text-[9px] text-slate-500 block">Target 100%</span>
+              <div class="p-3 rounded-xl text-center" style="background-color: #FBFBFA; border: 1px solid #E8E6DF;">
+                <span class="text-[10px] font-bold uppercase tracking-wider block text-[#787774]">Ketuntasan</span>
+                <span id="rapor-kpi-pct" class="text-xl md:text-2xl font-bold font-mono" style="color: #B26B00;">0%</span>
+                <span class="text-[9px] text-[#787774] block">Target 100%</span>
               </div>
-              <div class="p-3 bg-[#060D1A]/90 border border-blue-900/80 rounded-2xl text-center shadow">
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Predikat</span>
-                <span id="rapor-kpi-grade" class="text-xl md:text-2xl font-black text-purple-400">-</span>
-                <span id="rapor-kpi-grade-desc" class="text-[9px] text-slate-500 block">-</span>
+              <div class="p-3 rounded-xl text-center" style="background-color: #FBFBFA; border: 1px solid #E8E6DF;">
+                <span class="text-[10px] font-bold uppercase tracking-wider block text-[#787774]">Predikat</span>
+                <span id="rapor-kpi-grade" class="text-xl md:text-2xl font-bold" style="color: #2E384D;">-</span>
+                <span id="rapor-kpi-grade-desc" class="text-[9px] text-[#787774] block">-</span>
               </div>
             </div>
           </div>
 
           <!-- OVERALL PROGRESS BAR -->
-          <div class="mt-4 pt-4 border-t border-blue-900/60">
+          <div class="mt-4 pt-4 border-t border-[#E8E6DF]">
             <div class="flex justify-between items-center text-xs mb-1.5">
-              <span class="text-slate-300 font-medium">Progres Kumulatif Penyelesaian Paket Mandiri:</span>
-              <span id="rapor-progress-text" class="font-mono text-emerald-400 font-bold">0 dari 0 Paket Tuntas (0%)</span>
+              <span class="text-[#787774] font-medium">Progres Kumulatif Penyelesaian Paket Mandiri:</span>
+              <span id="rapor-progress-text" class="font-mono font-bold" style="color: #2E7D32;">0 dari 0 Paket Tuntas (0%)</span>
             </div>
-            <div class="w-full h-3 bg-[#060D1A] rounded-full overflow-hidden p-0.5 border border-blue-900/80">
-              <div id="rapor-progress-bar" class="h-full bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400 rounded-full transition-all duration-700 shadow-sm" style="width: 0%;"></div>
+            <div class="w-full h-2.5 rounded-full overflow-hidden" style="background-color: #E8E6DF;">
+              <div id="rapor-progress-bar" class="h-full rounded-full transition-all duration-500 shadow-none" style="width: 0%; background-color: #2E384D;"></div>
             </div>
           </div>
         </div>
 
         <!-- FILTER TABS & SEARCH BAR -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          <div class="flex items-center gap-1.5 bg-[#071120] p-1.5 rounded-2xl border border-blue-900/80 text-xs font-semibold overflow-x-auto custom-scroll">
-            <button type="button" onclick="setRaporFilter('all')" id="rapor-tab-all" class="px-3.5 py-1.5 rounded-xl bg-blue-600 text-white shadow font-bold transition whitespace-nowrap cursor-pointer">
+          <div class="flex items-center gap-1 p-1 rounded-xl border text-xs font-semibold overflow-x-auto custom-scroll shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+            <button type="button" onclick="setRaporFilter('all')" id="rapor-tab-all" class="px-3 py-1.5 rounded-lg text-white font-bold shadow-sm transition whitespace-nowrap cursor-pointer" style="background-color: #2E384D;">
               Semua Paket (<span id="rapor-count-all">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('wajib')" id="rapor-tab-wajib" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white transition whitespace-nowrap cursor-pointer">
+            <button type="button" onclick="setRaporFilter('wajib')" id="rapor-tab-wajib" class="px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
               Matematika Wajib (<span id="rapor-count-wajib">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('minat')" id="rapor-tab-minat" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white transition whitespace-nowrap cursor-pointer">
+            <button type="button" onclick="setRaporFilter('minat')" id="rapor-tab-minat" class="px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
               Matematika Peminatan (<span id="rapor-count-minat">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('tuntas')" id="rapor-tab-tuntas" class="px-3.5 py-1.5 rounded-xl text-emerald-400 hover:text-white transition whitespace-nowrap cursor-pointer">
+            <button type="button" onclick="setRaporFilter('tuntas')" id="rapor-tab-tuntas" class="px-3 py-1.5 rounded-lg text-[#2E7D32] hover:bg-[#EDF7ED] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
               <i class="fa-solid fa-circle-check mr-1"></i>Tuntas (<span id="rapor-count-tuntas">0</span>)
             </button>
-            <button type="button" onclick="setRaporFilter('belum')" id="rapor-tab-belum" class="px-3.5 py-1.5 rounded-xl text-amber-400 hover:text-white transition whitespace-nowrap cursor-pointer">
-              <i class="fa-solid fa-clock mr-1"></i>Belum / Remedial (<span id="rapor-count-belum">0</span>)
+            <button type="button" onclick="setRaporFilter('belum')" id="rapor-tab-belum" class="px-3 py-1.5 rounded-lg text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] transition whitespace-nowrap cursor-pointer font-medium" style="background-color: transparent;">
+              <i class="fa-regular fa-clock mr-1"></i>Belum / Remedial (<span id="rapor-count-belum">0</span>)
             </button>
           </div>
 
           <div class="relative w-full sm:w-72">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-            <input type="text" id="rapor-search-input" oninput="searchRapor(this.value)" placeholder="Cari kode (P15) atau topik..." class="w-full bg-[#071120] border border-blue-900/80 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[#787774]"></i>
+            <input type="text" id="rapor-search-input" oninput="searchRapor(this.value)" placeholder="Cari kode (P15) atau topik..." class="w-full rounded-xl pl-8 pr-3 py-1.5 text-xs text-[#2F3437] placeholder-[#787774] focus:outline-none transition shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E8E6DF;">
           </div>
         </div>
 
-        <!-- CARDS GRID CONTAINER -->
-        <div id="rapor-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Populated by JavaScript -->
+        <!-- CARDS CONTAINER (CLEAN TABULAR ROW LIST) -->
+        <div id="rapor-cards-grid" class="rounded-2xl divide-y overflow-hidden shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E8E6DF; border-color: #E8E6DF;">
+          <!-- Populated by JavaScript as clean tabular rows -->
         </div>
 
       </div>
 
       <!-- MODAL FOOTER -->
-      <div class="px-5 md:px-7 py-3 border-t border-blue-900/80 bg-[#071120] flex flex-wrap items-center justify-between gap-3 shrink-0 text-xs">
-        <div class="flex items-center gap-2 text-slate-400">
-          <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+      <div class="px-5 md:px-7 py-3 border-t flex flex-wrap items-center justify-between gap-3 shrink-0 text-xs" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+        <div class="flex items-center gap-2 text-[#787774]">
+          <i class="fa-solid fa-shield-halved" style="color: #2E7D32;"></i>
           <span>Data terverifikasi otomatis dengan Serverless Cloudflare D1 SQLite.</span>
         </div>
         <div class="flex items-center gap-2">
-          <button type="button" onclick="closeRaporModal()" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold shadow transition cursor-pointer">
+          <button type="button" onclick="closeRaporModal()" class="px-5 py-2 text-white rounded-xl font-semibold shadow-sm transition cursor-pointer" style="background-color: #2E384D;">
             Tutup
           </button>
         </div>
