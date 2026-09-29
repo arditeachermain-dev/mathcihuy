@@ -169,6 +169,11 @@ async function generateStudentProgressEmbed(env, nis, mapel = "wajib") {
     "SELECT kode_pertemuan, skor, jumlah_percobaan FROM nilai_cbt WHERE nis = ? AND mapel = ?"
   ).bind(String(nis), cleanMapel).all();
 
+  const { results: drafts } = await env.DB.prepare(
+    "SELECT DISTINCT kode_pertemuan FROM cbt_live_answers WHERE nis = ? AND mapel = ?"
+  ).bind(String(nis), cleanMapel).all().catch(() => ({ results: [] }));
+  const draftSet = new Set((drafts || []).map(d => String(d.kode_pertemuan || '').toUpperCase().trim()));
+
   const scoreMap = {};
   const attemptMap = {};
   for (const s of (scores || [])) {
@@ -187,43 +192,51 @@ async function generateStudentProgressEmbed(env, nis, mapel = "wajib") {
 
   for (let i = 1; i <= pkgCount; i++) {
     const pCode = `P${String(i).padStart(2, '0')}`;
-    let valStr = "⬜ Belum";
+    let line = `⬜ **${pCode}:** Belum dikerjakan`;
     if (scoreMap[pCode] !== undefined && scoreMap[pCode] !== null) {
       completedCnt++;
       totalScore += scoreMap[pCode];
       const att = attemptMap[pCode] && attemptMap[pCode] > 1 ? ` (${attemptMap[pCode]}x)` : '';
       const icon = scoreMap[pCode] >= 75 ? "✅" : "⚠️";
-      valStr = `${icon} **${scoreMap[pCode]}/100**${att}`;
+      line = `${icon} **${pCode}:** ${scoreMap[pCode]}/100${att}`;
+    } else if (draftSet.has(pCode)) {
+      line = `📝 **${pCode}:** Draft (Sedang Dikerjakan)`;
     }
 
-    const line = `• **${pCode}:** ${valStr}`;
     if (i <= half) col1.push(line);
     else col2.push(line);
   }
 
-  const percent = Math.round((completedCnt / pkgCount) * 100);
-  const avgScore = completedCnt > 0 ? (totalScore / completedCnt).toFixed(1) : 0;
-  const blocks = Math.floor(percent / 10);
+  const percentRaw = (completedCnt / pkgCount) * 100;
+  const percentStr = percentRaw % 1 === 0 ? String(percentRaw) : percentRaw.toFixed(1);
+  const avgScore = completedCnt > 0 ? (totalScore / completedCnt).toFixed(1) : "0";
+  const blocks = Math.floor(percentRaw / 10);
   const bar = "█".repeat(blocks) + "░".repeat(10 - blocks);
 
-  const embedColor = cleanMapel === "minat" ? 0xE67E22 : (percent >= 70 ? 0x2ECC71 : (percent >= 30 ? 0xF1C40F : 0xE74C3C));
+  const embedColor = cleanMapel === "minat" ? 0xE67E22 : (percentRaw >= 70 ? 0x2ECC71 : (percentRaw >= 30 ? 0xF1C40F : 0xE74C3C));
+  const titlePrefix = cleanMapel === "minat" ? "📊 KARTU CBT PEMINATAN" : "📊 KARTU PROGRES CBT";
 
   return {
     embed: {
-      title: `📊 KARTU CBT ${cleanMapel === 'minat' ? 'PEMINATAN' : 'WAJIB'} • ${student.nama.toUpperCase()}`,
+      title: `${titlePrefix} • ${student.nama.toUpperCase()}`,
       description: `• **NIS:** \`${student.nis}\` | **Kelas:** \`${student.kelas}\`\n` +
                    `• **Mata Pelajaran:** **${mapelTitle}**\n` +
-                   `• **Total Selesai:** **${completedCnt} / ${pkgCount} Paket** (${percent}%)\n` +
-                   `• **Progress Bar:** \`[${bar}]\` **${percent}%**\n` +
+                   `• **Total Selesai:** **${completedCnt} / ${pkgCount} Paket** (${percentStr}%)\n` +
+                   `• **Progress Bar:** \`[${bar}]\` **${percentStr}%**\n` +
                    `• **Rata-rata Skor Selesai:** **${avgScore} / 100**\n` +
-                   `• **Database:** ⚡ Cloudflare D1 (Serverless SQLite)\n` +
+                   `• **Tenggat Remedial:** ⏰ **30 September 2026**\n` +
                    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
       color: embedColor,
       fields: [
         { name: `📌 Paket P01 s.d. P${String(half).padStart(2, '0')}`, value: col1.join("\n"), inline: true },
-        { name: `📌 Paket P${String(half + 1).padStart(2, '0')} s.d. P${String(pkgCount).padStart(2, '0')}`, value: col2.join("\n"), inline: true }
+        { name: `📌 Paket P${String(half + 1).padStart(2, '0')} s.d. P${String(pkgCount).padStart(2, '0')}`, value: col2.join("\n"), inline: true },
+        {
+          name: "🔗 Lanjutkan Pengerjaan CBT",
+          value: "Akses portal resmi: [**mathcihuy.pages.dev**](https://mathcihuy.pages.dev)\n*Login menggunakan NIS untuk melanjutkan modul.*",
+          inline: false
+        }
       ],
-      footer: { text: "MathCihuy Cloudflare 24/7 Engine • SMA GIS 2 Serpong" },
+      footer: { text: "MathCihuy Real-Time Sync Engine • SMA GIS 2 Serpong" },
       timestamp: new Date().toISOString()
     }
   };
