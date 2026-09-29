@@ -56,3 +56,7 @@ __pycache__/
 # akar folder. Kalau ikut ter-commit, repositori menyimpan berkas 1,9 MB dua
 # kali dan suatu saat keduanya akan berbeda tanpa ketahuan.
 Claude outputs/
+
+# Cloudflare Wrangler local cache / build state
+.wrangler/
+

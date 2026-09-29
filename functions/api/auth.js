@@ -6,6 +6,12 @@ import { getJwtSecret, signToken, authenticateRequest, jsonResponse } from './_a
 // GET /api/auth: Verifikasi validitas token sesi pengguna saat ini
 export async function onRequestGet(context) {
   try {
+    const url = new URL(context.request.url);
+    if (url.searchParams.get('config') === 'turnstile') {
+      const siteKey = (context.env && context.env.TURNSTILE_SITE_KEY) || '1x00000000000000000000AA';
+      return jsonResponse({ turnstileSiteKey: siteKey });
+    }
+
     const session = await authenticateRequest(context.request, context.env);
     if (!session) {
       return jsonResponse({ authenticated: false, error: 'Sesi tidak valid atau telah kedaluwarsa' }, 401);
@@ -170,6 +176,59 @@ async function checkTeacherPassword(cleanPwd, env) {
   return hexHash === HASH_ARDI_GIS;
 }
 
+// =============================================================================
+// VERIFIKASI CLOUDFLARE TURNSTILE (SMART ANTI-BOT CAPTCHA REPLACEMENT)
+// =============================================================================
+async function verifyTurnstileToken(token, clientIp, env) {
+  const secretKey = (env && env.TURNSTILE_SECRET_KEY) || '1x0000000000000000000000000000000AA';
+
+  // Jika token kosong
+  if (!token) {
+    // Jika secret kustom produksi diatur, token Turnstile wajib diisi
+    if (env && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SECRET_KEY !== '1x0000000000000000000000000000000AA') {
+      return {
+        success: false,
+        error: 'Verifikasi keamanan bot (Cloudflare Turnstile) wajib diselesaikan.'
+      };
+    }
+    // Jika masih menggunakan testing key di dev/preview
+    return { success: true };
+  }
+
+  try {
+    const formData = new FormData();
+    formData.append('secret', secretKey);
+    formData.append('response', token);
+    if (clientIp && clientIp !== '127.0.0.1') {
+      formData.append('remoteip', clientIp);
+    }
+
+    const resp = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!resp.ok) {
+      console.warn('Turnstile siteverify HTTP response:', resp.status);
+      return { success: true, warning: 'Siteverify HTTP ' + resp.status };
+    }
+
+    const outcome = await resp.json();
+    if (!outcome.success) {
+      console.warn('Turnstile validation failed:', outcome);
+      return {
+        success: false,
+        error: 'Verifikasi keamanan bot (Cloudflare Turnstile) tidak valid atau telah kedaluwarsa. Silakan refresh halaman.'
+      };
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error('Turnstile verification network error:', err);
+    return { success: true, warning: 'Network error connecting to Turnstile' };
+  }
+}
+
 // POST /api/auth: Login Guru atau Siswa & terbitkan Token HMAC-SHA256
 export async function onRequestPost(context) {
   try {
@@ -186,6 +245,15 @@ export async function onRequestPost(context) {
       data = await context.request.json();
     } catch(e) {
       return jsonResponse({ error: 'Payload JSON tidak valid' }, 400);
+    }
+
+    // 0. Verifikasi Cloudflare Turnstile Anti-Bot
+    const turnstileToken = data.turnstileToken || data['cf-turnstile-response'] || '';
+    const turnstileCheck = await verifyTurnstileToken(turnstileToken, clientIp, context.env);
+    if (!turnstileCheck.success) {
+      return jsonResponse({
+        error: turnstileCheck.error || 'Verifikasi keamanan bot gagal. Silakan coba lagi.'
+      }, 403);
     }
 
     const { role, password, nis } = data;

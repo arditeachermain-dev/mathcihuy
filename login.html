@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' width='64' height='64' role='img' aria-label='Math Cihuy'%3E%3Ctitle%3EMath Cihuy%3C/title%3E%3Cdefs%3E%3ClinearGradient id='ramp' x1='0' y1='0' x2='.15' y2='1'%3E%3Cstop offset='0' stop-color='%23FCD34D'/%3E%3Cstop offset='.42' stop-color='%23FBBF24'/%3E%3Cstop offset='.75' stop-color='%23F97316'/%3E%3Cstop offset='1' stop-color='%23E11D48'/%3E%3C/linearGradient%3E%3CradialGradient id='glow' cx='50%25' cy='45%25' r='52%25'%3E%3Cstop offset='0' stop-color='%23F97316' stop-opacity='.30'/%3E%3Cstop offset='1' stop-color='%23F97316' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='bgg' cx='28%25' cy='16%25' r='96%25'%3E%3Cstop offset='0' stop-color='%23182742'/%3E%3Cstop offset='1' stop-color='%23070C18'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='10.2' fill='url(%23bgg)'/%3E%3Cg transform='translate(-7.33 -8.75) scale(0.7866)'%3E%3Cg transform='translate(50 41)'%3E%3Cpath d='M0 0C-13.5 -19.71 -27 -19.71 -27 0C-27 19.71 -13.5 19.71 0 0M0 0C13.5 -19.71 27 -19.71 27 0C27 19.71 13.5 19.71 0 0' fill='none' stroke='url(%23ramp)' stroke-width='7.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='-13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3Ccircle cx='13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3C/g%3E%3Cg transform='translate(50 67)'%3E%3Cdefs%3E%3Cmask id='cutI' maskUnits='userSpaceOnUse' x='-45' y='-45' width='90' height='90'%3E%3Crect x='-45' y='-45' width='90' height='90' fill='%23fff'/%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23cutI)'%3E%3Cpath d='M-17 -4Q0 12 17 -4' fill='none' stroke='%23F1F5F9' stroke-width='6.4' stroke-linecap='round'/%3E%3C/g%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23F1F5F9' stroke-width='5.2' stroke-linecap='round'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
     <title>Login - Portal Matematika XII</title>
+    <!-- Cloudflare Turnstile (Anti-Bot Tanpa Captcha Ribet) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit" async defer></script>
     <style>
         * {
             margin: 0;
@@ -179,6 +181,23 @@
             line-height: 1.5;
         }
 
+        .turnstile-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0 20px;
+            min-height: 65px;
+            width: 100%;
+        }
+
+        .cf-turnstile-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 65px;
+        }
+
         @media (max-width: 480px) {
             .login-container {
                 padding: 40px 20px;
@@ -216,7 +235,12 @@
                     <input type="password" id="password_siswa" placeholder="Masukkan password" required>
                 </div>
 
-                <button type="submit" class="login-btn">Masuk</button>
+                <!-- Cloudflare Turnstile Siswa -->
+                <div class="turnstile-wrapper">
+                    <div id="turnstile-siswa" class="cf-turnstile-box"></div>
+                </div>
+
+                <button type="submit" id="btn_login_siswa" class="login-btn">Masuk</button>
 
                 <div class="error" id="error_siswa"></div>
                 <div class="success" id="success_siswa"></div>
@@ -235,6 +259,11 @@
                 <div class="form-group">
                     <label>Password Akun Guru</label>
                     <input type="password" id="password_guru" placeholder="Masukkan password" autocomplete="current-password" required>
+                </div>
+
+                <!-- Cloudflare Turnstile Guru -->
+                <div class="turnstile-wrapper">
+                    <div id="turnstile-guru" class="cf-turnstile-box"></div>
                 </div>
 
                 <button type="submit" id="btn_login_guru" class="login-btn">Masuk sebagai Guru</button>
@@ -351,6 +380,78 @@
             '24400100': { nama: 'Zharfa Qisthina Alifah', kelas: 'XII F4', access_level: 'full' }
         };
 
+        // ===== CLOUDFLARE TURNSTILE (SMART ANTI-BOT) =====
+        var turnstileWidgetSiswa = null;
+        var turnstileWidgetGuru = null;
+        var turnstileTokenSiswa = '';
+        var turnstileTokenGuru = '';
+        var DEFAULT_TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
+        window.TURNSTILE_SITE_KEY = window.TURNSTILE_SITE_KEY || DEFAULT_TURNSTILE_SITE_KEY;
+
+        function renderTurnstileWidgets() {
+            if (typeof turnstile === 'undefined') return;
+            var siteKey = window.TURNSTILE_SITE_KEY || DEFAULT_TURNSTILE_SITE_KEY;
+
+            var elSiswa = document.getElementById('turnstile-siswa');
+            if (elSiswa && turnstileWidgetSiswa === null) {
+                try {
+                    turnstileWidgetSiswa = turnstile.render('#turnstile-siswa', {
+                        sitekey: siteKey,
+                        theme: 'dark',
+                        size: 'flexible',
+                        callback: function(token) {
+                            turnstileTokenSiswa = token;
+                        },
+                        'expired-callback': function() {
+                            turnstileTokenSiswa = '';
+                        },
+                        'error-callback': function() {
+                            turnstileTokenSiswa = '';
+                        }
+                    });
+                } catch(err) {
+                    console.warn('Turnstile Siswa render warn:', err);
+                }
+            }
+
+            var elGuru = document.getElementById('turnstile-guru');
+            if (elGuru && turnstileWidgetGuru === null) {
+                try {
+                    turnstileWidgetGuru = turnstile.render('#turnstile-guru', {
+                        sitekey: siteKey,
+                        theme: 'dark',
+                        size: 'flexible',
+                        callback: function(token) {
+                            turnstileTokenGuru = token;
+                        },
+                        'expired-callback': function() {
+                            turnstileTokenGuru = '';
+                        },
+                        'error-callback': function() {
+                            turnstileTokenGuru = '';
+                        }
+                    });
+                } catch(err) {
+                    console.warn('Turnstile Guru render warn:', err);
+                }
+            }
+        }
+
+        window.onloadTurnstileCallback = function() {
+            // Ambil Site Key dinamis dari server jika diatur pada environment Cloudflare Pages
+            fetch('/api/auth?config=turnstile')
+                .then(function(res) { return res.json(); })
+                .then(function(cfg) {
+                    if (cfg && cfg.turnstileSiteKey) {
+                        window.TURNSTILE_SITE_KEY = cfg.turnstileSiteKey;
+                    }
+                    renderTurnstileWidgets();
+                })
+                .catch(function() {
+                    renderTurnstileWidgets();
+                });
+        };
+
         // ===== TAB SWITCHING =====
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -358,6 +459,9 @@
 
             document.getElementById(tab).classList.add('active');
             event.target.classList.add('active');
+
+            // Render widget jika tab baru dibuka
+            renderTurnstileWidgets();
         }
 
         // ===== PINDAH KE PORTAL =====
@@ -396,12 +500,22 @@
                 submitBtn.textContent = 'Memverifikasi...';
             }
 
+            var tokenToSubmit = turnstileTokenSiswa;
+            if (!tokenToSubmit && typeof turnstile !== 'undefined' && turnstileWidgetSiswa !== null) {
+                try { tokenToSubmit = turnstile.getResponse(turnstileWidgetSiswa); } catch(err) {}
+            }
+
             try {
                 // Autentikasi ke Cloudflare D1 Native Database
                 const resp = await fetch('/api/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ role: 'siswa', nis: nis, password: password })
+                    body: JSON.stringify({ 
+                        role: 'siswa', 
+                        nis: nis, 
+                        password: password,
+                        turnstileToken: tokenToSubmit
+                    })
                 });
                 const result = await resp.json();
 
@@ -436,6 +550,11 @@
                 setTimeout(function () { gotoPortal(finalKelas); }, 500);
 
             } catch (err) {
+                if (typeof turnstile !== 'undefined' && turnstileWidgetSiswa !== null) {
+                    try { turnstile.reset(turnstileWidgetSiswa); } catch(e) {}
+                    turnstileTokenSiswa = '';
+                }
+
                 // Fallback offline HANYA jika murni terputus jaringan (bukan error 401 kredensial atau 429 IP blocked)
                 if (!err.status && typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[nis] && password === '1234') {
                     var localStd = STUDENTS_DATA[nis];
@@ -484,6 +603,11 @@
                 btn.textContent = 'Memverifikasi Akun Guru...';
             }
 
+            var tokenToSubmit = turnstileTokenGuru;
+            if (!tokenToSubmit && typeof turnstile !== 'undefined' && turnstileWidgetGuru !== null) {
+                try { tokenToSubmit = turnstile.getResponse(turnstileWidgetGuru); } catch(err) {}
+            }
+
             try {
                 const resp = await fetch('/api/auth', {
                     method: 'POST',
@@ -493,7 +617,8 @@
                         username: identifier,
                         identifier: identifier,
                         password: password,
-                        role: 'guru'
+                        role: 'guru',
+                        turnstileToken: tokenToSubmit
                     })
                 });
                 const result = await resp.json();
@@ -527,6 +652,11 @@
                 setTimeout(function () { gotoPortal('XII'); }, 500);
 
             } catch (err) {
+                if (typeof turnstile !== 'undefined' && turnstileWidgetGuru !== null) {
+                    try { turnstile.reset(turnstileWidgetGuru); } catch(e) {}
+                    turnstileTokenGuru = '';
+                }
+
                 errorEl.textContent = err.message || 'Gagal masuk. Periksa kembali email dan password.';
                 errorEl.style.display = 'block';
                 if (btn) {
