@@ -166,7 +166,7 @@ export async function onRequestPost(context) {
     // Hitung riwayat percobaan secara otomatis & konsisten di database
     let finalAttempt = Number(jumlah_percobaan) || 1;
     const existing = await context.env.DB.prepare(
-      "SELECT jumlah_percobaan FROM nilai_cbt WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
+      "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
     ).bind(String(nis), String(mapel || 'wajib'), String(kode_pertemuan)).first();
 
     if (existing && existing.jumlah_percobaan && Number(existing.jumlah_percobaan) >= finalAttempt) {
@@ -174,6 +174,17 @@ export async function onRequestPost(context) {
     }
 
     const now = new Date().toISOString();
+    const prevSkor = (existing && existing.skor !== undefined && existing.skor !== null) ? Number(existing.skor) : -1;
+    // Logika Best Score (Nilai Tertinggi): Nilai rapor hanya diperbarui jika skor baru LEBIH TINGGI / SAMA DENGAN skor sebelumnya
+    const isNewRecordBest = cleanSkor >= prevSkor;
+
+    const finalSkor = isNewRecordBest ? cleanSkor : prevSkor;
+    const finalSoal = isNewRecordBest ? cleanSoal : (Number(existing.jumlah_soal) || cleanSoal);
+    const finalBenar = isNewRecordBest ? cleanBenar : (existing.jumlah_benar !== undefined ? Number(existing.jumlah_benar) : cleanBenar);
+    const finalSalah = isNewRecordBest ? cleanSalah : (existing.jumlah_salah !== undefined ? Number(existing.jumlah_salah) : cleanSalah);
+    const finalDurasi = isNewRecordBest ? cleanDurasi : (Number(existing.durasi_detik) || cleanDurasi);
+    const finalWaktu = isNewRecordBest ? now : (existing.waktu_submit || now);
+
     await context.env.DB.prepare(`
       INSERT INTO nilai_cbt (
         nis, nama, kelas, mapel, kode_pertemuan,
@@ -181,13 +192,13 @@ export async function onRequestPost(context) {
         durasi_detik, jumlah_percobaan, waktu_submit
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(nis, mapel, kode_pertemuan) DO UPDATE SET
-        skor = excluded.skor,
-        jumlah_soal = excluded.jumlah_soal,
-        jumlah_benar = excluded.jumlah_benar,
-        jumlah_salah = excluded.jumlah_salah,
-        durasi_detik = excluded.durasi_detik,
-        jumlah_percobaan = excluded.jumlah_percobaan,
-        waktu_submit = excluded.waktu_submit
+        skor = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.skor ELSE nilai_cbt.skor END,
+        jumlah_soal = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.jumlah_soal ELSE nilai_cbt.jumlah_soal END,
+        jumlah_benar = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.jumlah_benar ELSE nilai_cbt.jumlah_benar END,
+        jumlah_salah = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.jumlah_salah ELSE nilai_cbt.jumlah_salah END,
+        durasi_detik = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.durasi_detik ELSE nilai_cbt.durasi_detik END,
+        waktu_submit = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.waktu_submit ELSE nilai_cbt.waktu_submit END,
+        jumlah_percobaan = excluded.jumlah_percobaan
     `).bind(
       String(nis), verifiedNama, verifiedKelas, String(mapel || 'wajib'), String(kode_pertemuan),
       cleanSkor, cleanSoal, cleanBenar, cleanSalah,
@@ -205,12 +216,14 @@ export async function onRequestPost(context) {
 
     return jsonResponse({
       success: true,
-      skor: cleanSkor,
-      jumlah_soal: cleanSoal,
-      jumlah_benar: cleanBenar,
-      jumlah_salah: cleanSalah,
-      durasi_detik: cleanDurasi,
-      waktu_submit: now,
+      skor: finalSkor,
+      jumlah_soal: finalSoal,
+      jumlah_benar: finalBenar,
+      jumlah_salah: finalSalah,
+      durasi_detik: finalDurasi,
+      waktu_submit: finalWaktu,
+      attempt_skor: cleanSkor,
+      is_best_score: isNewRecordBest,
       jumlah_percobaan: finalAttempt,
       server_graded: Boolean(officialGrade),
       solutions: solutions

@@ -2698,6 +2698,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               if (corCntEl) corCntEl.innerText = `${d1Res.jumlah_benar} / ${payload.jumlah_soal}`;
               const wrgCntEl = document.getElementById('scorecard-wrong-count');
               if (wrgCntEl) wrgCntEl.innerText = `${d1Res.jumlah_salah} / ${payload.jumlah_soal}`;
+
+              if (d1Res.is_best_score === false && d1Res.attempt_skor !== undefined) {
+                const attText = document.getElementById('scorecard-attempt-text');
+                if (attText) {
+                  attText.innerText = `Percobaan ke-${d1Res.jumlah_percobaan} (Skor Kali Ini: ${d1Res.attempt_skor} • Rekor Terbaik: ${d1Res.skor})`;
+                }
+              }
             }
             if (d1Res && d1Res.solutions && Array.isArray(d1Res.solutions)) {
               if (typeof terapkanPembahasanPaket === 'function') {
