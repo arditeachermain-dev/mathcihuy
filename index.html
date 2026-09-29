@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full text-slate-100" style="background:#040914">
+<html lang="id" class="h-full terang" style="background:#F7F6F3">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -9,18 +9,18 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="manifest" href="manifest.json">
 
-  <meta name="theme-color" content="#040914">
+  <meta name="theme-color" content="#F7F6F3">
   <meta name="description" content="Semua materi Matematika Kelas XII dalam satu tempat — Wajib, Peminatan, CLIL, dan 570 soal drilling untuk TKA dan UTBK-SNBT. Sekali dibuka, bisa dipakai tanpa internet.">
-  <meta name="color-scheme" content="dark light">
+  <meta name="color-scheme" content="light dark">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Math Cihuy">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788449654">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788449850">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -30,7 +30,7 @@
 
   <!-- 100% INLINE OFFLINE KATEX ASSETS -->
   <!-- gaya dipindah ke mathcihuy.css -->
-  <script src="vendor.js?v=v1788449654"></script>
+  <script src="vendor.js?v=v1788449850"></script>
 <!-- digabung ke vendor.js -->
 
   <!-- gaya dipindah ke mathcihuy.css -->
@@ -43,7 +43,7 @@
        Tidak butuh internet, tidak ada berkas font, tidak ada perubahan JS. -->
   <!-- gaya dipindah ke mathcihuy.css -->
 </head>
-<body class="h-full min-h-full text-slate-100 flex flex-col overflow-x-hidden font-sans">
+<body class="h-full min-h-full flex flex-col overflow-x-hidden font-sans" style="background-color: #F7F6F3; color: #2F3437;">
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0"
      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <defs>
@@ -54,53 +54,53 @@
 </svg>
 
 
-  <!-- TOP HEADER WITH LOGO, SUBJECT TABS, & LUXURY CONTROLS -->
-  <header id="app-header" class="h-14 md:h-15 border-b border-slate-800/90 px-3 md:px-6 flex items-center justify-between gap-3 z-40 shrink-0 sticky top-0 bg-[#070D18]/95 backdrop-blur-md shadow-md">
+  <!-- TOP HEADER WITH LOGO, SUBJECT TABS, & NOTION WARM PAPER STYLING -->
+  <header id="app-header" class="h-14 md:h-15 border-b px-3 md:px-6 flex items-center justify-between gap-3 z-40 shrink-0 sticky top-0 shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
     
     <!-- LEFT: DRAWER MENU TOGGLE & SCHOOL IDENTITY -->
     <div class="flex items-center gap-2.5 shrink-0">
-      <button onclick="toggleCurriculumDrawer()" aria-label="Buka menu kurikulum" class="p-2 md:px-2.5 md:py-1.5 bg-slate-900/90 hover:bg-slate-800 text-amber-400 border border-slate-800 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95 shadow-sm shrink-0 cursor-pointer" title="Buka Menu Navigasi Kurikulum (Alt + M)">
-        <i class="fa-solid fa-bars-staggered text-xs"></i>
-        <span class="hidden xl:inline text-[11px] font-bold">Silabus</span>
+      <button onclick="toggleCurriculumDrawer()" aria-label="Buka menu kurikulum" class="notion-btn-secondary p-2 md:px-2.5 md:py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 active:scale-95 shadow-sm shrink-0 cursor-pointer" title="Buka Menu Navigasi Kurikulum (Alt + M)">
+        <i class="fa-solid fa-bars-staggered text-xs" style="color: #787774;"></i>
+        <span class="hidden xl:inline text-[11px] font-bold" style="color: #2F3437;">Silabus</span>
       </button>
 
       <div class="flex items-center gap-2 cursor-pointer min-w-0 overflow-hidden" onclick="switchSubject('home')">
         <span role="img" aria-label="Logo Math Cihuy" class="mc-logo h-7 w-7 md:h-8 md:w-8 object-contain shrink-0"></span>
         <div class="truncate min-w-0">
           <div class="flex items-center gap-1.5">
-            <h1 class="text-xs md:text-sm font-black text-white tracking-wide truncate">MATHCIHUY</h1>
-            <span id="lencana-tingkat" class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">XII</span>
+            <h1 class="text-xs md:text-sm font-bold tracking-wide truncate" style="color: #2F3437;">MATHCIHUY</h1>
+            <span id="lencana-tingkat" class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">XII</span>
           </div>
-          <p class="text-[10px] text-slate-400 font-medium truncate max-w-[120px] md:max-w-[200px]" id="header-subject-label">
+          <p class="text-[10px] font-medium truncate max-w-[120px] md:max-w-[200px]" style="color: #787774;" id="header-subject-label">
             Beranda Portal
           </p>
         </div>
       </div>
 
       <!-- PILIH TINGKAT (hanya guru; ditampilkan & ditandai oleh app.js) -->
-      <nav id="pilih-tingkat" aria-label="Pilih tingkat kelas" class="hidden items-center gap-0.5 p-0.5 rounded-lg bg-[#050B14] border border-blue-900/60 shrink-0">
-        <a href="/10" data-tingkat="10" title="Portal Kelas X" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold text-slate-400">X</a>
-        <a href="/11" data-tingkat="11" title="Portal Kelas XI" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold text-slate-400">XI</a>
-        <a href="/" data-tingkat="12" title="Portal Kelas XII" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold text-slate-400">XII</a>
+      <nav id="pilih-tingkat" aria-label="Pilih tingkat kelas" class="hidden items-center gap-0.5 p-0.5 rounded-lg shrink-0" style="background-color: #F0EFEA; border: 1px solid #E8E6DF;">
+        <a href="/10" data-tingkat="10" title="Portal Kelas X" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #787774;">X</a>
+        <a href="/11" data-tingkat="11" title="Portal Kelas XI" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #787774;">XI</a>
+        <a href="/" data-tingkat="12" title="Portal Kelas XII" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #787774;">XII</a>
       </nav>
     </div>
 
     <!-- CENTER: NAVIGATION TABS (BERANDA + 4 MATH STREAMS) -->
     <div class="flex items-center gap-1 min-w-0 flex-1 justify-center">
-      <div class="flex items-center bg-[#050B14] p-1 rounded-2xl border border-blue-900/60 shadow-inner max-w-full overflow-x-auto no-scrollbar">
-        <button onclick="switchSubject('home')" id="tab-home" class="px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap bg-blue-600 text-white shadow flex items-center gap-1.5 cursor-pointer">
+      <div class="flex items-center p-1 rounded-xl border shadow-sm max-w-full overflow-x-auto no-scrollbar" style="background-color: #F0EFEA; border-color: #E8E6DF;">
+        <button onclick="switchSubject('home')" id="tab-home" class="px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white" style="background-color: #2E384D;">
           <i class="fa-solid fa-house text-[10px]"></i> <span>Beranda</span>
         </button>
-        <button onclick="switchSubject('wajib')" id="tab-wajib" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+        <button onclick="switchSubject('wajib')" id="tab-wajib" class="px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #787774;">
           <i class="fa-solid fa-shapes text-[10px]"></i> <span>Wajib</span>
         </button>
-        <button onclick="switchSubject('minat')" id="tab-minat" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+        <button onclick="switchSubject('minat')" id="tab-minat" class="px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #787774;">
           <i class="fa-solid fa-chart-line text-[10px]"></i> <span>Minat</span>
         </button>
-        <button onclick="switchSubject('clil')" id="tab-clil" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
+        <button onclick="switchSubject('clil')" id="tab-clil" class="px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #787774;">
           <i class="fa-solid fa-globe text-[10px]"></i> <span>CLIL</span>
         </button>
-        <button onclick="switchSubject('tka')" id="tab-tka" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-amber-400 flex items-center gap-1.5 cursor-pointer">
+        <button onclick="switchSubject('tka')" id="tab-tka" class="px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#B26B00] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #787774;">
           <i class="fa-solid fa-bolt text-[10px]"></i> <span>CBT</span>
         </button>
       </div>
@@ -109,17 +109,17 @@
     <!-- RIGHT: ONLY SEARCH & UNIFIED USER PROFILE MENU -->
     <div class="flex items-center gap-2 shrink-0">
       <!-- THEME TOGGLE (MODE TERANG & GELAP) -->
-      <button onclick="toggleTema()" id="top-theme-toggle-btn" class="p-2 md:px-3 md:py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-amber-400 hover:text-amber-300 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm cursor-pointer" title="Alihkan Mode Terang / Gelap">
-        <i id="top-theme-icon" class="fa-solid fa-sun text-sm text-amber-400"></i>
-        <span id="top-theme-label" class="hidden md:inline text-xs font-mono text-slate-300">Terang</span>
+      <button onclick="toggleTema()" id="top-theme-toggle-btn" class="notion-btn-secondary p-2 md:px-3 md:py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm cursor-pointer" title="Alihkan Mode Terang / Gelap">
+        <i id="top-theme-icon" class="fa-solid fa-moon text-sm text-blue-600"></i>
+        <span id="top-theme-label" class="hidden md:inline text-xs font-mono" style="color: #787774;">Gelap</span>
       </button>
 
       <!-- USER PROFILE DROPDOWN MENU -->
       <div class="relative" id="user-menu-container">
-        <button id="user-profile-btn" onclick="toggleUserDropdownMenu(event)" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs font-mono font-bold text-slate-200 transition flex items-center gap-2 cursor-pointer shadow-sm">
-          <span id="user-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="user-display-name" class="font-bold text-slate-200 hidden sm:inline">Portal</span>
-          <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+        <button id="user-profile-btn" onclick="toggleUserDropdownMenu(event)" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-mono font-semibold flex items-center gap-2 cursor-pointer shadow-sm">
+          <span id="user-status-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span id="user-display-name" class="font-bold hidden sm:inline" style="color: #2F3437;">Portal</span>
+          <i class="fa-solid fa-chevron-down text-[10px] text-[#787774]"></i>
         </button>
 
         <!-- DROPDOWN POPOVER MENU -->
@@ -197,70 +197,67 @@
   <main class="flex-1 min-h-0 relative flex items-stretch justify-center p-2 md:p-4 overflow-hidden">
     
     <!-- VIEW 0: ULTRA-LUXURY HOMEPAGE DASHBOARD -->
-    <div id="home-stage" class="w-full h-full max-h-[900px] rounded-2xl md:rounded-3xl border shadow-2xl flex flex-col overflow-hidden relative z-20" style="max-width: min(98vw, 1380px); background: rgba(11,21,40,0.98); border-color: #1e293b; box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(59,130,246,0.1);">
+    <div id="home-stage" class="w-full h-full max-h-[900px] rounded-2xl md:rounded-3xl border flex flex-col overflow-hidden relative z-20 shadow-sm" style="max-width: min(98vw, 1380px); background-color: #FFFFFF; border-color: #E8E6DF;">
       
       <!-- DASHBOARD TOP BAR -->
-      <div class="h-14 bg-[#070E1B] border-b border-slate-800/80 px-4 md:px-6 flex items-center justify-between shrink-0">
+      <div class="h-14 border-b px-4 md:px-6 flex items-center justify-between shrink-0" style="background-color: #FFFFFF; border-color: #E8E6DF;">
         <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm shadow-sm">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm text-white" style="background-color: #2E384D;">
             <i class="fa-solid fa-square-root-variable"></i>
           </div>
           <div>
-            <span class="text-xs font-bold text-white tracking-wide">MATHCIHUY • KELAS XII (FASE F)</span>
-            <span class="text-[10px] text-slate-400 font-medium hidden sm:inline ml-2">SMA Global Islamic School 2 Serpong</span>
+            <span class="text-xs font-bold tracking-wide" style="color: #2F3437;">MATHCIHUY • KELAS XII (FASE F)</span>
+            <span class="text-[10px] font-medium hidden sm:inline ml-2" style="color: #787774;">SMA Global Islamic School 2 Serpong</span>
           </div>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="openRaporModal()" class="notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Lihat Rapor Capaian Siswa">
-            <i class="fa-solid fa-graduation-cap text-amber-300"></i> <span class="hidden sm:inline">Rapor Siswa</span>
+            <i class="fa-solid fa-graduation-cap" style="color: #FBBF24;"></i> <span class="hidden sm:inline">Rapor Siswa</span>
           </button>
-          <button onclick="openAnalyticsModal()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-1.5">
-            <i class="fa-solid fa-chart-pie text-blue-400"></i> <span class="hidden sm:inline">Statistik</span>
+          <button onclick="openAnalyticsModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Statistik &amp; Progres Belajar">
+            <i class="fa-solid fa-chart-pie" style="color: #1B4F8B;"></i> <span class="hidden sm:inline">Statistik</span>
           </button>
-          <button onclick="switchSubject('tka')" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 active:scale-95">
-            <i class="fa-solid fa-bolt"></i> <span>Arena CBT</span>
+          <button onclick="switchSubject('tka')" class="notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Masuk Arena CBT">
+            <i class="fa-solid fa-bolt" style="color: #B26B00;"></i> <span>Arena CBT</span>
           </button>
         </div>
       </div>
 
-      <!-- DASHBOARD SCROLLABLE BODY (EXECUTIVE MODERN REDESIGN) -->
-      <div class="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto space-y-5 custom-scroll">
+      <!-- DASHBOARD SCROLLABLE BODY (NOTION WARM PAPER REDESIGN) -->
+      <div class="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto space-y-5 custom-scroll" style="background-color: #F7F6F3;">
         
         <!-- 1. HERO WELCOME BANNER -->
-        <div class="p-6 md:p-7 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl space-y-5 relative overflow-hidden">
-          <div class="absolute -right-12 -top-12 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
+        <div class="p-6 md:p-7 rounded-2xl border shadow-sm space-y-5 relative overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
             <div class="space-y-2.5 max-w-2xl">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-[#060D1A] border border-blue-900 text-amber-400 text-xs font-bold shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-semibold shadow-none" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #5F5E5B;">
+                <span class="w-2 h-2 rounded-full" style="background-color: #2E7D32;"></span>
                 <span>TP 2026/2027 • Semester Ganjil • SMA GIS 2 Serpong</span>
               </div>
-              <h1 class="text-xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
-                Portal Pembelajaran & Drilling CBT Matematika
+              <h1 class="text-xl md:text-3xl font-bold tracking-tight leading-tight" style="color: #2F3437;">
+                Portal Pembelajaran &amp; Drilling CBT Matematika
               </h1>
-              <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-                Materi interaktif 12-slide terstruktur (Building Thinking Classrooms) dan bank soal drilling TKA Nasional & UTBK-SNBT 2027.
+              <p class="text-xs md:text-sm leading-relaxed" style="color: #787774;">
+                Materi interaktif 12-slide terstruktur (Building Thinking Classrooms) dan bank soal drilling TKA Nasional &amp; UTBK-SNBT 2027.
               </p>
 
               <!-- ACADEMIC METADATA -->
               <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                <div class="px-3 py-1.5 rounded-xl bg-[#081324] border border-blue-900/80 flex items-center gap-2 text-slate-200">
-                  <i class="fa-solid fa-chalkboard-user text-blue-400"></i>
-                  <span>Guru: <strong class="text-white">Muhammad Ardiansyah, S.Pd.Gr.</strong></span>
+                <div class="px-3 py-1.5 rounded-xl flex items-center gap-2 text-xs font-medium" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #5F5E5B;">
+                  <i class="fa-solid fa-chalkboard-user" style="color: #787774;"></i>
+                  <span>Guru Pengampu: <strong style="color: #2F3437;">Muhammad Ardiansyah, S.Pd.Gr.</strong></span>
                 </div>
-
               </div>
             </div>
 
             <!-- HERO CTA BUTTONS -->
             <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0">
-              <button onclick="switchSubject('wajib')" class="px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs md:text-sm shadow-xl shadow-blue-600/30 transition flex items-center justify-center gap-2.5 cursor-pointer active:scale-95">
-                <i class="fa-solid fa-play text-amber-300"></i>
+              <button onclick="switchSubject('wajib')" class="notion-btn-primary px-5 py-3 rounded-xl font-bold text-xs md:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
+                <i class="fa-solid fa-play" style="color: #FBBF24;"></i>
                 <span>Mulai KBM Interaktif</span>
               </button>
-              <button onclick="openScheduleModal()" class="px-5 py-3 rounded-2xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-800/80 text-amber-300 hover:text-white font-bold text-xs md:text-sm transition flex items-center justify-center gap-2.5 cursor-pointer">
-                <i class="fa-solid fa-calendar-days text-blue-400"></i>
+              <button onclick="openScheduleModal()" class="notion-btn-secondary px-5 py-3 rounded-xl font-semibold text-xs md:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
+                <i class="fa-solid fa-calendar-days" style="color: #787774;"></i>
                 <span>Lihat Jadwal KBM</span>
               </button>
             </div>
@@ -271,144 +268,144 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           
           <!-- CARD 1: WAJIB -->
-          <div onclick="switchSubject('wajib')" class="p-5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 hover:border-blue-500/80 shadow-xl transition space-y-3 flex flex-col justify-between cursor-pointer group">
+          <div onclick="switchSubject('wajib')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between">
-                <div class="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center text-base group-hover:scale-105 transition-transform">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">
                   <i class="fa-solid fa-shapes"></i>
                 </div>
-                <span class="px-2.5 py-0.5 rounded-lg bg-[#060D1A] text-amber-400 text-xs font-mono font-bold border border-blue-900">
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">
                   <span id="jml-wajib-kartu">21</span> Pertemuan
                 </span>
               </div>
-              <h3 class="text-sm md:text-base font-bold text-white group-hover:text-blue-300 transition">Matematika Wajib</h3>
-              <p id="bab-wajib-kartu" class="text-xs text-slate-400 leading-relaxed">
-                Kaidah Pencacahan & Peluang, Geometri Dimensi Tiga, dan Statistika Data Bivariat.
+              <h3 class="text-sm md:text-base font-bold transition" style="color: #2F3437;">Matematika Wajib</h3>
+              <p id="bab-wajib-kartu" class="text-xs leading-relaxed" style="color: #787774;">
+                Kaidah Pencacahan &amp; Peluang, Geometri Dimensi Tiga, dan Statistika Data Bivariat.
               </p>
             </div>
-            <div class="pt-2 border-t border-blue-900/60 flex items-center justify-between text-xs text-blue-300 font-semibold">
+            <div class="pt-2 border-t flex items-center justify-between text-xs font-semibold" style="border-color: #E8E6DF; color: #1B4F8B;">
               <span><span id="butir-wajib-kartu">210</span> Butir Soal CBT</span>
-              <i class="fa-solid fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
+              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform" style="color: #1B4F8B;"></i>
             </div>
           </div>
 
           <!-- CARD 2: MINAT -->
-          <div data-gate="minat" onclick="switchSubject('minat')" class="p-5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 hover:border-amber-500/80 shadow-xl transition space-y-3 flex flex-col justify-between cursor-pointer group">
+          <div data-gate="minat" onclick="switchSubject('minat')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between">
-                <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-base group-hover:scale-105 transition-transform">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
                   <i class="fa-solid fa-chart-line"></i>
                 </div>
-                <span class="px-2.5 py-0.5 rounded-lg bg-[#060D1A] text-amber-400 text-xs font-mono font-bold border border-blue-900">
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
                   <span id="jml-minat-kartu">30</span> Pertemuan
                 </span>
               </div>
-              <h3 class="text-sm md:text-base font-bold text-white group-hover:text-amber-300 transition">Matematika Peminatan</h3>
-              <p id="bab-minat-kartu" class="text-xs text-slate-400 leading-relaxed">
+              <h3 class="text-sm md:text-base font-bold transition" style="color: #2F3437;">Matematika Peminatan</h3>
+              <p id="bab-minat-kartu" class="text-xs leading-relaxed" style="color: #787774;">
                 Geometri Analitik Lingkaran, Limit Fungsi, Turunan Trigonometri, dan Integral.
               </p>
             </div>
-            <div class="pt-2 border-t border-blue-900/60 flex items-center justify-between text-xs text-amber-300 font-semibold">
+            <div class="pt-2 border-t flex items-center justify-between text-xs font-semibold" style="border-color: #E8E6DF; color: #B26B00;">
               <span><span id="butir-minat-kartu">300</span> Butir Soal CBT</span>
-              <i class="fa-solid fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
+              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform" style="color: #B26B00;"></i>
             </div>
           </div>
 
           <!-- CARD 3: CBT & TKA -->
-          <div onclick="switchSubject('tka')" class="p-5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 hover:border-blue-400 shadow-xl transition space-y-3 flex flex-col justify-between cursor-pointer group">
+          <div onclick="switchSubject('tka')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between">
-                <div class="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-300 border border-blue-500/30 flex items-center justify-center text-base group-hover:scale-105 transition-transform">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
                   <i class="fa-solid fa-laptop-code"></i>
                 </div>
-                <span class="px-2.5 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-mono font-bold border border-amber-500/30">
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
                   <span id="jml-soal-kartu">570</span> Soal CBT
                 </span>
               </div>
-              <h3 class="text-sm md:text-base font-bold text-white group-hover:text-blue-300 transition">Arena CBT & TKA Nasional</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Simulasi Ujian CBT Mandiri & Drilling Seleksi UTBK-SNBT 2027 berwaktu riil.
+              <h3 class="text-sm md:text-base font-bold transition" style="color: #2F3437;">Arena CBT &amp; TKA Nasional</h3>
+              <p class="text-xs leading-relaxed" style="color: #787774;">
+                Simulasi Ujian CBT Mandiri &amp; Drilling Seleksi UTBK-SNBT 2027 berwaktu riil.
               </p>
             </div>
-            <div class="pt-2 border-t border-blue-900/60 flex items-center justify-between text-xs text-blue-300 font-semibold">
-              <span>Pilihan Ganda & Isian</span>
-              <i class="fa-solid fa-arrow-right text-amber-400 group-hover:translate-x-1 transition-transform"></i>
+            <div class="pt-2 border-t flex items-center justify-between text-xs font-semibold" style="border-color: #E8E6DF; color: #2E7D32;">
+              <span>Pilihan Ganda &amp; Isian</span>
+              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform" style="color: #2E7D32;"></i>
             </div>
           </div>
 
         </div>
 
         <!-- 3. QUICK TOOLS DOCK (ALAT BANTU BELAJAR) -->
-        <div class="p-4 bg-[#060D1A] rounded-2xl border border-blue-900/70 flex flex-col md:flex-row items-center justify-between gap-3">
-          <div class="flex items-center gap-2 text-xs font-bold text-amber-400 shrink-0">
-            <i class="fa-solid fa-toolbox text-amber-400"></i>
-            <span>Alat Bantu Pembelajaran:</span>
+        <div class="p-4 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-3 shadow-sm" style="background-color: #F0EFEA; border-color: #E8E6DF;">
+          <div class="flex items-center gap-2 text-xs font-bold shrink-0" style="color: #2F3437;">
+            <i class="fa-solid fa-toolbox" style="color: #787774;"></i>
+            <span>Alat Bantu Pembelajaran Mandiri:</span>
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full md:w-auto text-xs font-semibold">
-            <button onclick="openRumusSaku()" class="px-3.5 py-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-slate-200 hover:text-white transition flex items-center justify-center gap-2 cursor-pointer">
-              <i class="fa-solid fa-book-bookmark text-blue-400"></i>
+            <button onclick="openRumusSaku()" class="notion-btn-secondary px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+              <i class="fa-solid fa-book-bookmark" style="color: #1B4F8B;"></i>
               <span>Rumus Saku</span>
             </button>
-            <button onclick="openPeta()" class="px-3.5 py-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-slate-200 hover:text-white transition flex items-center justify-center gap-2 cursor-pointer">
-              <i class="fa-solid fa-diagram-project text-amber-400"></i>
+            <button onclick="openPeta()" class="notion-btn-secondary px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+              <i class="fa-solid fa-diagram-project" style="color: #B26B00;"></i>
               <span>Peta Konsep</span>
             </button>
-            <button onclick="openLab()" class="px-3.5 py-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-slate-200 hover:text-white transition flex items-center justify-center gap-2 cursor-pointer">
-              <i class="fa-solid fa-cube text-blue-400"></i>
+            <button onclick="openLab()" class="notion-btn-secondary px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+              <i class="fa-solid fa-cube" style="color: #2E7D32;"></i>
               <span>Lab 3D GeoGebra</span>
             </button>
-            <button onclick="toggleCurriculumDrawer()" class="px-3.5 py-2 rounded-xl bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-slate-200 hover:text-white transition flex items-center justify-center gap-2 cursor-pointer">
-              <i class="fa-solid fa-list-check text-amber-400"></i>
-              <span>Silabus & Matriks</span>
+            <button onclick="toggleCurriculumDrawer()" class="notion-btn-secondary px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+              <i class="fa-solid fa-list-check" style="color: #787774;"></i>
+              <span>Silabus &amp; Matriks</span>
             </button>
           </div>
         </div>
 
         <!-- 4. AGENDA STRATEGIS NASIONAL (FULL WIDTH) -->
-        <div class="p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl space-y-4 pt-1">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-blue-900/80 pb-3">
+        <div class="p-5 rounded-2xl border shadow-sm space-y-4 pt-1" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3" style="border-color: #E8E6DF;">
             <div class="flex items-center gap-2.5">
-              <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-sm">
+              <span class="w-8 h-8 rounded-xl flex items-center justify-center text-sm" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
                 <i class="fa-solid fa-bullseye"></i>
               </span>
               <div>
-                <h3 class="text-xs md:text-sm font-bold text-white tracking-wide">AGENDA STRATEGIS & ASESMEN NASIONAL</h3>
-                <p class="text-[10px] text-slate-400">Tahun Pelajaran 2026/2027 • SMA Global Islamic School 2 Serpong</p>
+                <h3 class="text-xs md:text-sm font-bold tracking-wide" style="color: #2F3437;">AGENDA STRATEGIS &amp; ASESMEN NASIONAL</h3>
+                <p class="text-[10px]" style="color: #787774;">Tahun Pelajaran 2026/2027 • SMA Global Islamic School 2 Serpong</p>
               </div>
             </div>
-            <button onclick="openScheduleModal()" class="px-4 py-2 bg-[#081324] hover:bg-blue-600 text-amber-300 hover:text-white rounded-xl border border-blue-900 text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow shrink-0">
-              <i class="fa-solid fa-calendar-days text-blue-400"></i>
+            <button onclick="openScheduleModal()" class="notion-btn-secondary px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm shrink-0">
+              <i class="fa-solid fa-calendar-days" style="color: #787774;"></i>
               <span>Kalender Akademik Lengkap</span>
-              <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              <i class="fa-solid fa-arrow-right text-[10px]" style="color: #787774;"></i>
             </button>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-            <div class="p-3.5 bg-[#081324] rounded-2xl border border-blue-900/70 space-y-1">
+            <div class="p-3.5 rounded-xl border space-y-1" style="background-color: #FBFBFA; border-color: #E8E6DF;">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono text-purple-400 font-bold">12 - 18 OKTOBER 2026</span>
-                <span class="px-1.5 py-0.5 rounded bg-purple-950/80 text-[9px] font-mono text-purple-300 border border-purple-900/60 font-semibold">Simulasi</span>
+                <span class="text-[10px] font-mono font-bold" style="color: #531DAB;">12 - 18 OKTOBER 2026</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #F9F0FF; color: #531DAB; border: 1px solid #D3ADF7;">Simulasi</span>
               </div>
-              <p class="text-white font-semibold text-xs">Gladi Bersih TKA & ANBK Gel. 2</p>
-              <p class="text-[10px] text-slate-400">Uji kesiapan teknis CBT & drilling soal standar asesmen.</p>
+              <p class="font-semibold text-xs" style="color: #2F3437;">Gladi Bersih TKA &amp; ANBK Gel. 2</p>
+              <p class="text-[10px]" style="color: #787774;">Uji kesiapan teknis CBT &amp; drilling soal standar asesmen.</p>
             </div>
 
-            <div class="p-3.5 bg-[#081324] rounded-2xl border border-blue-900/70 space-y-1">
+            <div class="p-3.5 rounded-xl border space-y-1" style="background-color: #FBFBFA; border-color: #E8E6DF;">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono text-blue-400 font-bold">2 - 5 NOVEMBER 2026</span>
-                <span class="px-1.5 py-0.5 rounded bg-blue-950/80 text-[9px] font-mono text-blue-300 border border-blue-900/60 font-semibold">Utama</span>
+                <span class="text-[10px] font-mono font-bold" style="color: #1B4F8B;">2 - 5 NOVEMBER 2026</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">Utama</span>
               </div>
-              <p class="text-white font-semibold text-xs">Pelaksanaan Utama TKA Gel. 2</p>
-              <p class="text-[10px] text-slate-400">Tes Kemampuan Akademik resmi nasional SMA GIS 2.</p>
+              <p class="font-semibold text-xs" style="color: #2F3437;">Pelaksanaan Utama TKA Gel. 2</p>
+              <p class="text-[10px]" style="color: #787774;">Tes Kemampuan Akademik resmi nasional SMA GIS 2.</p>
             </div>
 
-            <div class="p-3.5 bg-[#081324] rounded-2xl border border-blue-900/70 space-y-1">
+            <div class="p-3.5 rounded-xl border space-y-1" style="background-color: #FBFBFA; border-color: #E8E6DF;">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono text-amber-400 font-bold">21 - 30 APRIL 2027</span>
-                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-[9px] font-mono text-amber-300 border border-amber-900/60 font-semibold">Seleksi PTN</span>
+                <span class="text-[10px] font-mono font-bold" style="color: #B26B00;">21 - 30 APRIL 2027</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Seleksi PTN</span>
               </div>
-              <p class="text-white font-semibold text-xs">Pelaksanaan UTBK-SNBT 2027</p>
-              <p class="text-[10px] text-slate-400">Gelombang utama seleksi masuk PTN seluruh Indonesia.</p>
+              <p class="font-semibold text-xs" style="color: #2F3437;">Pelaksanaan UTBK-SNBT 2027</p>
+              <p class="text-[10px]" style="color: #787774;">Gelombang utama seleksi masuk PTN seluruh Indonesia.</p>
             </div>
           </div>
         </div>
@@ -1137,8 +1134,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v1788449654"></script>
-  <script src="app.js?v=v1788449654"></script>
+  <script src="data-xii.js?v=v1788449850"></script>
+  <script src="app.js?v=v1788449850"></script>
 
 
   <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
@@ -1271,9 +1268,9 @@
           </div>
         </div>
 
-        <!-- CARDS CONTAINER (CLEAN TABULAR ROW LIST) -->
-        <div id="rapor-cards-grid" class="rounded-2xl divide-y overflow-hidden shadow-sm" style="background-color: #FFFFFF; border: 1px solid #E8E6DF; border-color: #E8E6DF;">
-          <!-- Populated by JavaScript as clean tabular rows -->
+        <!-- BAB GROUPS CONTAINER -->
+        <div id="rapor-cards-grid" class="space-y-4">
+          <!-- Populated by JavaScript grouped by Bab -->
         </div>
 
       </div>
@@ -1410,7 +1407,7 @@
         </div>
     </div>
 
-        <script src="app-akhir.js?v=v1788449654"></script>
+        <script src="app-akhir.js?v=v1788449850"></script>
 
 </body>
 </html>

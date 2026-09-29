@@ -1459,7 +1459,11 @@
       }
       body.rapor-printing #rapor-siswa-modal > div {
         box-shadow: none !important;
-        border: 1px solid #E8E6DF !important;
+        border: none !important;
+        border-radius: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
       }
       body.rapor-printing #rapor-siswa-modal button,
       body.rapor-printing #rapor-siswa-modal input,
@@ -1528,6 +1532,10 @@
     .notion-btn-tab:not(.active):hover {
       background-color: #F0EFEA !important;
       color: #2F3437 !important;
+    }
+    .notion-btn-tab#rapor-tab-tuntas:not(.active):hover {
+      background-color: #EDF7ED !important;
+      color: #2E7D32 !important;
     }
 
     .notion-input {
@@ -2458,107 +2466,180 @@ html:not(.terang) #peta-modal > div {
 }
 
 /* --------------------------------------------------------------------------
-   2. LIGHT MODE (html.terang) — HIGH CONTRAST WCAG AAA
+   2. NOTION WARM PAPER EDITORIAL MODE (html.terang)
    -------------------------------------------------------------------------- */
 html.terang, html.terang body {
-  background-color: #F1F5F9 !important;
-  color: #0F172A !important;
+  background-color: #F7F6F3 !important;
+  color: #2F3437 !important;
+}
+
+html.terang #app-header {
+  background-color: #FFFFFF !important;
+  border-bottom-color: #E8E6DF !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.terang #app-header .bg-\[\#050B14\],
+html.terang #app-header nav {
+  background-color: #F0EFEA !important;
+  border-color: #E8E6DF !important;
 }
 
 html.terang #slide-stage,
 html.terang #tka-stage,
 html.terang #home-stage {
   background-color: #FFFFFF !important;
-  border-color: #CBD5E1 !important;
-  color: #0F172A !important;
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
+  border-color: #E8E6DF !important;
+  color: #2F3437 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Cards & Insets inside Slide & CBT Stages in Light Mode */
+/* Cards & Insets inside Slide & CBT Stages in Warm Paper Mode */
 html.terang .bg-\[\#0D1B2E\],
 html.terang .bg-\[\#081324\],
 html.terang .bg-\[\#060D1A\],
 html.terang .bg-\[\#0F1D32\],
-html.terang .bg-\[\#0D1A2E\] {
-  background-color: #F8FAFC !important;
-  border-color: #E2E8F0 !important;
-  color: #0F172A !important;
+html.terang .bg-\[\#0D1A2E\],
+html.terang .bg-\[\#070E1B\],
+html.terang .bg-\[\#070D18\],
+html.terang .bg-\[\#050A14\],
+html.terang .bg-\[\#08101E\] {
+  background-color: #F0EFEA !important;
+  border-color: #E8E6DF !important;
+  color: #2F3437 !important;
 }
 
-/* CBT Option Buttons in Light Mode */
+html.terang .border-blue-900,
+html.terang .border-blue-800,
+html.terang .border-slate-800 {
+  border-color: #E8E6DF !important;
+}
+
+/* CBT Option Buttons in Warm Paper Mode */
 html.terang #tka-stage button {
-  color: #0F172A !important;
+  color: #2F3437 !important;
 }
 html.terang #tka-stage button.bg-slate-900,
 html.terang #tka-stage button.bg-slate-950,
 html.terang #tka-stage button.bg-\[\#081324\],
 html.terang #tka-stage button.bg-\[\#0D1B2E\] {
   background-color: #FFFFFF !important;
-  border-color: #CBD5E1 !important;
-  color: #0F172A !important;
+  border-color: #D3CFBE !important;
+  color: #2F3437 !important;
 }
 html.terang #tka-stage button.border-blue-500,
 html.terang #tka-stage button.border-blue-600,
 html.terang #tka-stage button.border-2 {
-  border-color: #2563EB !important;
+  border-color: #2E384D !important;
 }
 
-/* CBT Correct / Review Box in Light Mode */
+/* CBT Correct / Review Box in Warm Paper Mode */
 html.terang #tka-stage .bg-emerald-950,
 html.terang #tka-stage .bg-emerald-950\/90,
 html.terang #tka-stage .bg-emerald-950\/95,
 html.terang #tka-stage .bg-gradient-to-r {
-  background: #EFF6FF !important;
-  border-color: #93C5FD !important;
-  color: #1E3A8A !important;
+  background: #EDF7ED !important;
+  border-color: #C8E6C9 !important;
+  color: #2E7D32 !important;
 }
 html.terang #tka-stage .text-emerald-300,
 html.terang #tka-stage .text-emerald-400 {
-  color: #1D4ED8 !important;
+  color: #2E7D32 !important;
 }
 
-/* Typography Overrides in Light Mode */
-html.terang .text-white {
-  color: #0F172A !important;
+/* Typography Overrides in Warm Paper Mode (PROTECT DARK BUTTONS & BADGES) */
+html.terang .text-white:not(.notion-btn-primary):not(.notion-btn-tab):not(#rapor-student-avatar):not([style*="#2E384D"]):not([style*="#2e384d"]):not([class*="bg-amber-500"]):not([class*="bg-blue-6"]):not([class*="bg-emerald-6"]):not([class*="bg-rose-"]):not(.text-white-keep) {
+  color: #2F3437 !important;
 }
-html.terang .text-slate-200,
-html.terang .text-slate-300 {
-  color: #1E293B !important;
+html.terang .text-slate-100:not(.notion-btn-primary):not([style*="#2E384D"]):not([class*="bg-blue-6"]):not([class*="bg-amber-5"]):not([class*="bg-emerald-6"]),
+html.terang .text-slate-200:not(.notion-btn-primary):not([style*="#2E384D"]):not([class*="bg-blue-6"]):not([class*="bg-amber-5"]):not([class*="bg-emerald-6"]),
+html.terang .text-slate-300:not(.notion-btn-primary):not([style*="#2E384D"]):not([class*="bg-blue-6"]):not([class*="bg-amber-5"]):not([class*="bg-emerald-6"]) {
+  color: #2F3437 !important;
 }
-html.terang .text-slate-400 {
-  color: #475569 !important;
+html.terang .text-slate-400,
+html.terang .text-slate-500 {
+  color: #787774 !important;
 }
 
-/* KaTeX Formulas in Light Mode */
+/* Enforce crisp white text on Notion Dark Primary Elements & Badges */
+.notion-btn-primary,
+.notion-btn-primary *,
+html.terang .notion-btn-primary,
+html.terang .notion-btn-primary *,
+.notion-btn-tab.active,
+.notion-btn-tab.active *,
+html.terang .notion-btn-tab.active,
+html.terang .notion-btn-tab.active *,
+#rapor-student-avatar,
+#rapor-student-avatar *,
+html.terang #rapor-student-avatar,
+html.terang #rapor-student-avatar *,
+[style*="#2E384D"] *,
+[style*="#2e384d"] *,
+html.terang [style*="#2E384D"] *,
+html.terang [style*="#2e384d"] *,
+html.terang #app-header button[id^="tab-"].bg-blue-600,
+html.terang #app-header button[id^="tab-"].bg-blue-600 * {
+  color: #FFFFFF !important;
+}
+
+.notion-btn-secondary,
+.notion-btn-secondary * {
+  color: #2F3437 !important;
+}
+.notion-btn-secondary:hover,
+.notion-btn-secondary:hover * {
+  color: #1E2533 !important;
+}
+
+/* Notion Bab Card Styling & Hover */
+.rapor-bab-card {
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.rapor-bab-card:hover {
+  border-color: #D3CFBE !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+}
+
+@media print {
+  .rapor-bab-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    border: 1px solid #E8E6DF !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* KaTeX Formulas in Warm Paper Mode */
 html.terang .katex,
 html.terang .katex-display,
 html.terang .katex-html {
-  color: #0F172A !important;
+  color: #2F3437 !important;
 }
 
-/* Formula Boxes in Light Mode */
+/* Formula Boxes in Warm Paper Mode */
 html.terang .formula-box {
   background: #FFFFFF !important;
-  border: 1px solid #E2E8F0 !important;
-  border-left: 4px solid #D97706 !important;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+  border: 1px solid #E8E6DF !important;
+  border-left: 4px solid #B26B00 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 html.terang .formula-box .fb-name {
-  color: #B45309 !important;
+  color: #B26B00 !important;
 }
 html.terang .formula-box .fb-math {
-  color: #0F172A !important;
+  color: #2F3437 !important;
 }
 
-/* Modal Dialogs in Light Mode */
+/* Modal Dialogs in Warm Paper Mode */
 html.terang #meeting-picker-modal > div,
 html.terang #schedule-modal > div,
 html.terang #analytics-modal > div,
 html.terang #tka-scorecard-modal > div,
 html.terang #peta-modal > div {
   background-color: #FFFFFF !important;
-  border-color: #CBD5E1 !important;
-  box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.25) !important;
+  border-color: #E8E6DF !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12) !important;
 }
 
 #pres-remote { display: none !important; }

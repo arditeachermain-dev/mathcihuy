@@ -703,9 +703,13 @@
         const btn = document.getElementById('tab-' + m);
         if (btn) {
           if (m === currentMode) {
-            btn.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition whitespace-nowrap bg-blue-600 text-white shadow flex items-center gap-1.5";
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white";
+            btn.style.backgroundColor = "#2E384D";
+            btn.style.color = "#FFFFFF";
           } else {
-            btn.className = "px-2.5 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap text-slate-400 hover:text-white flex items-center gap-1";
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer";
+            btn.style.backgroundColor = "transparent";
+            btn.style.color = "#787774";
           }
         }
       });
@@ -2051,7 +2055,7 @@
     // transition permanen pada seluruh unsur membuat penggeseran dan gulir
     // ikut tersendat di PC kelas.
     // ---------------------------------------------------------------
-    const STORAGE_TEMA_KEY = 'gis_math_portal_tema';
+    const STORAGE_TEMA_KEY = 'gis_math_portal_tema_v2';
 
     function terapkanTema(t, halus) {
       const html = document.documentElement;
@@ -2095,8 +2099,8 @@
     }
 
     function muatTema() {
-      let t = 'gelap';
-      try { t = localStorage.getItem(STORAGE_TEMA_KEY) || 'gelap'; } catch (e) { }
+      let t = 'terang';
+      try { t = localStorage.getItem(STORAGE_TEMA_KEY) || 'terang'; } catch (e) { }
       terapkanTema(t, false);
     }
     muatTema();

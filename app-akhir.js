@@ -888,9 +888,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     function renderSingleRaporCard(item) {
-      const isDone = item.status !== 'belum';
-      const isPerfect = item.skor === 100;
-      const isTuntas = item.skor >= 75;
+      const isDone = item.status === 'sempurna' || item.status === 'tuntas' || item.status === 'remedial';
+      const isPerfect = isDone && item.skor === 100;
+      const isTuntas = isDone && item.skor >= 75;
       const isRemedial = isDone && !isTuntas;
 
       let badgeHtml = '';
@@ -936,18 +936,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         } catch(e) {}
       }
 
-      let mapelBadge = '';
-      if (item.mapel === 'minat') {
-        mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Peminatan</span>';
-      } else if (item.mapel === 'clil') {
-        mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">CLIL</span>';
-      } else {
-        mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Wajib</span>';
-      }
-
       const subtitle = isDone ?
-        `${escapeHtml(item.bab || '')} • Waktu: ${durasiText} • ${attemptsText} • ${waktuFormatted}` :
-        `${escapeHtml(item.bab || '')} • Beban: 10 butir soal CBT mandiri`;
+        `Waktu: ${durasiText} • ${attemptsText} • ${waktuFormatted}` :
+        `Beban: 10 butir CBT mandiri • Target KKM &ge; 75`;
 
       const scoreHtml = isDone ? `
         <div class="text-right">
@@ -967,26 +958,23 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 shadow-sm cursor-pointer" title="Kerjakan ulang paket ${escapeHtml(item.id)}">
           <i class="fa-solid fa-arrow-rotate-right text-[11px]" style="color: #787774;"></i> <span>Ulangi</span>
         </button>` : `
-        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-primary px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-sm cursor-pointer" title="Mulai kerjakan paket ${escapeHtml(item.id)}">
-          <i class="fa-solid fa-play text-[10px]"></i> <span>Kerjakan</span>
+        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-primary px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-sm cursor-pointer text-white" title="Mulai kerjakan paket ${escapeHtml(item.id)}">
+          <i class="fa-solid fa-play text-[10px]" style="color: #FFFFFF;"></i> <span>Kerjakan</span>
         </button>`;
 
       return `
-        <div class="px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#FBFBFA] transition" style="background-color: #FFFFFF; ${isDone ? '' : 'opacity: 0.9;'}">
+        <div class="px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#FBFBFA] transition" style="background-color: #FFFFFF; ${isDone ? '' : 'opacity: 0.95;'}">
           <div class="flex items-start gap-3 min-w-0">
             <span class="font-mono font-bold text-xs px-2.5 py-1 rounded shrink-0 mt-0.5" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #2F3437;">
               ${escapeHtml(item.id)}
             </span>
             <div class="min-w-0">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="font-bold text-sm" style="color: #2F3437;">${escapeHtml(item.title)}</span>
-                ${mapelBadge}
-              </div>
+              <span class="font-bold text-xs sm:text-sm block" style="color: #2F3437;">${escapeHtml(item.title)}</span>
               <p class="text-[11px] mt-0.5 truncate" style="color: #787774;">${subtitle}</p>
             </div>
           </div>
 
-          <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 pl-10 sm:pl-0">
+          <div class="flex items-center justify-between sm:justify-end gap-3.5 shrink-0 pl-10 sm:pl-0">
             ${scoreHtml}
             ${actionBtn}
           </div>
@@ -1000,35 +988,145 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const q = (_raporSearchQuery || '').trim().toLowerCase();
       const f = _raporCurrentFilter || 'all';
 
-      const filtered = _raporAllPackages.filter(item => {
-        if (f === 'wajib' && item.mapel !== 'wajib') return false;
-        if (f === 'minat' && item.mapel !== 'minat') return false;
-        if (f === 'tuntas' && (item.status !== 'sempurna' && item.status !== 'tuntas')) return false;
-        if (f === 'belum' && (item.status === 'sempurna' || item.status === 'tuntas')) return false;
+      // 1. Kumpulkan seluruh Bab unik berdasarkan urutan kemunculan di kurikulum
+      const babMap = new Map();
+      const babList = [];
 
-        if (q) {
-          const matchId = (item.id || '').toLowerCase().includes(q);
-          const matchTitle = (item.title || '').toLowerCase().includes(q);
-          const matchBab = (item.bab || '').toLowerCase().includes(q);
-          const matchMapel = (item.mapel || '').toLowerCase().includes(q) || (item.mapelLabel || '').toLowerCase().includes(q);
-          const matchStatus = (item.status || '').toLowerCase().includes(q);
-          if (!matchId && !matchTitle && !matchBab && !matchMapel && !matchStatus) return false;
+      _raporAllPackages.forEach(pkg => {
+        const babName = pkg.bab || (pkg.mapel === 'minat' ? 'Kurikulum Peminatan' : 'Kurikulum Wajib');
+        const key = `${pkg.mapel}___${babName}`;
+        if (!babMap.has(key)) {
+          const group = {
+            key: key,
+            bab: babName,
+            mapel: pkg.mapel,
+            mapelLabel: pkg.mapelLabel || (pkg.mapel === 'minat' ? 'Matematika Peminatan' : 'Matematika Wajib'),
+            allPackages: [],
+            filteredPackages: []
+          };
+          babMap.set(key, group);
+          babList.push(group);
         }
-
-        return true;
+        babMap.get(key).allPackages.push(pkg);
       });
 
-      if (filtered.length === 0) {
+      // 2. Filter butir soal di setiap Bab sesuai tab & pencarian
+      let totalFilteredItems = 0;
+      babList.forEach(group => {
+        group.filteredPackages = group.allPackages.filter(item => {
+          if (f === 'wajib' && item.mapel !== 'wajib') return false;
+          if (f === 'minat' && item.mapel !== 'minat') return false;
+          if (f === 'tuntas' && (item.status !== 'sempurna' && item.status !== 'tuntas')) return false;
+          if (f === 'belum' && (item.status === 'sempurna' || item.status === 'tuntas')) return false;
+
+          if (q) {
+            const matchId = (item.id || '').toLowerCase().includes(q);
+            const matchTitle = (item.title || '').toLowerCase().includes(q);
+            const matchBab = (item.bab || '').toLowerCase().includes(q);
+            const matchMapel = (item.mapel || '').toLowerCase().includes(q) || (item.mapelLabel || '').toLowerCase().includes(q);
+            const matchStatus = (item.status || '').toLowerCase().includes(q);
+            if (!matchId && !matchTitle && !matchBab && !matchMapel && !matchStatus) return false;
+          }
+
+          return true;
+        });
+        totalFilteredItems += group.filteredPackages.length;
+      });
+
+      // 3. Tampilkan pesan kosong jika tidak ada yang sesuai
+      if (totalFilteredItems === 0) {
         cardsContainer.innerHTML = `
-          <div class="p-12 text-center text-xs" style="color: #787774; background-color: #FFFFFF;">
-            <i class="fa-regular fa-folder-open text-2xl mb-2 block" style="color: #D3CFBE;"></i>
-            <p class="font-bold text-sm" style="color: #2F3437;">Tidak ada paket yang sesuai kriteria pencarian</p>
-            <p class="text-xs mt-1" style="color: #787774;">Coba sesuaikan kata kunci atau pilih tab filter "Semua Paket".</p>
+          <div class="p-12 text-center rounded-2xl border shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+            <i class="fa-regular fa-folder-open text-3xl mb-3 block" style="color: #D3CFBE;"></i>
+            <p class="font-bold text-sm" style="color: #2F3437;">Tidak ada paket atau bab yang sesuai kriteria</p>
+            <p class="text-xs mt-1" style="color: #787774;">Coba sesuaikan kata kunci pencarian atau pilih tab "Semua Paket".</p>
           </div>`;
         return;
       }
 
-      cardsContainer.innerHTML = filtered.map(renderSingleRaporCard).join('');
+      // 4. Render kartu modular per Bab (Notion Warm Paper Architecture)
+      const htmlSections = babList
+        .filter(group => group.filteredPackages.length > 0)
+        .map(group => {
+          const totalInBab = group.allPackages.length;
+          const completedInBab = group.allPackages.filter(p => p.status === 'sempurna' || p.status === 'tuntas').length;
+          const isAllDone = (completedInBab === totalInBab) && totalInBab > 0;
+          
+          let sumBabScore = 0;
+          let attemptedInBab = 0;
+          group.allPackages.forEach(p => {
+            if (p.skor !== null && p.skor !== undefined) {
+              sumBabScore += Number(p.skor);
+              attemptedInBab++;
+            }
+          });
+          const avgBab = attemptedInBab > 0 ? (sumBabScore / attemptedInBab).toFixed(1) : null;
+
+          let mapelBadge = '';
+          if (group.mapel === 'minat') {
+            mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Peminatan</span>';
+          } else if (group.mapel === 'clil') {
+            mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">CLIL</span>';
+          } else {
+            mapelBadge = '<span class="text-[10px] px-2 py-0.5 rounded font-semibold shrink-0" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Wajib</span>';
+          }
+
+          let progressBadge = '';
+          if (isAllDone) {
+            progressBadge = `
+              <span class="text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #A5D6A7;">
+                <i class="fa-solid fa-circle-check" style="color: #2E7D32;"></i> Tuntas Penuh (${completedInBab}/${totalInBab})
+              </span>`;
+          } else if (completedInBab > 0) {
+            progressBadge = `
+              <span class="text-[10px] sm:text-[11px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
+                ${completedInBab} / ${totalInBab} Tuntas
+              </span>`;
+          } else {
+            progressBadge = `
+              <span class="text-[10px] sm:text-[11px] font-medium px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shadow-none" style="background-color: #F0EFEA; color: #787774; border: 1px solid #E8E6DF;">
+                ${completedInBab} / ${totalInBab} Tuntas
+              </span>`;
+          }
+
+          const avgBadge = avgBab ? `
+            <span class="text-[10px] sm:text-[11px] font-mono font-bold px-2 py-0.5 rounded inline-flex items-center gap-1" style="background-color: #FBFBFA; color: #2F3437; border: 1px solid #E8E6DF;" title="Rata-rata skor resmi CBT bab ini">
+              <span class="font-sans font-normal text-[10px]" style="color: #787774;">Rerata:</span> ${avgBab}
+            </span>` : '';
+
+          return `
+            <div class="rapor-bab-card rounded-2xl border shadow-sm overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+              <!-- BAB HEADER -->
+              <div class="px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold shrink-0" style="background-color: #F0EFEA; color: #2E384D; border: 1px solid #E8E6DF;">
+                    <i class="fa-solid fa-book-bookmark text-xs" style="color: #2E384D;"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <h4 class="font-bold text-sm text-[#2F3437] truncate" style="color: #2F3437;">${escapeHtml(group.bab)}</h4>
+                      ${mapelBadge}
+                    </div>
+                    <p class="text-[11px] mt-0.5" style="color: #787774;">
+                      Menampilkan ${group.filteredPackages.length} dari ${totalInBab} paket CBT
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 shrink-0">
+                  ${avgBadge}
+                  ${progressBadge}
+                </div>
+              </div>
+
+              <!-- BAB PACKAGES LIST -->
+              <div class="divide-y divide-[#E8E6DF]">
+                ${group.filteredPackages.map(renderSingleRaporCard).join('')}
+              </div>
+            </div>`;
+        });
+
+      cardsContainer.innerHTML = htmlSections.join('');
     }
 
     function setRaporFilter(filterKey) {
@@ -1081,6 +1179,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         }
       }
 
+      if (!std && targetNis === '24400083') {
+        std = { nama: 'Rania Zivanka Kurniawan', kelas: 'XII F.4' };
+      }
+
       const defaultTingkat = (typeof NAMA_TINGKAT !== 'undefined') ? NAMA_TINGKAT : 'XII';
       const nama = (std && std.nama) ? std.nama : ('Siswa ' + targetNis);
       const kelas = (std && std.kelas) ? std.kelas : defaultTingkat;
@@ -1096,6 +1198,19 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (classEl) classEl.textContent = kelas;
       const initEl = document.getElementById('rapor-student-initials');
       if (initEl) initEl.textContent = initials;
+
+      const statusBadge = document.getElementById('rapor-student-status-badge');
+      if (statusBadge) {
+        let sess = null;
+        try { sess = JSON.parse(localStorage.getItem('portal_session') || 'null'); } catch(e) {}
+        if (sess && sess.type === 'guru') {
+          statusBadge.innerHTML = '<i class="fa-solid fa-user-check mr-1"></i>Akses Guru Terverifikasi';
+        } else if (sess && sess.type === 'siswa') {
+          statusBadge.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i>Terdaftar Aktif';
+        } else {
+          statusBadge.innerHTML = '<i class="fa-solid fa-eye mr-1"></i>Mode Pratinjau';
+        }
+      }
 
       // 2. Fetch nilai Cloudflare D1
       let subMap = {};
@@ -1261,14 +1376,19 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function cetakRaporSiswa() {
       document.body.classList.add('rapor-printing');
-      const cleanup = () => {
-        document.body.classList.remove('rapor-printing');
-        window.removeEventListener('afterprint', cleanup);
-      };
-      window.addEventListener('afterprint', cleanup);
       window.print();
-      setTimeout(cleanup, 2500);
     }
+
+    // Tangani print shortcut (Ctrl+P) dan tombol Cetak secara konsisten
+    window.addEventListener('beforeprint', function () {
+      const modal = document.getElementById('rapor-siswa-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        document.body.classList.add('rapor-printing');
+      }
+    });
+    window.addEventListener('afterprint', function () {
+      document.body.classList.remove('rapor-printing');
+    });
 
     function openRaporModal(targetNis) {
       let sess = null;
@@ -1276,33 +1396,35 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
       } catch(e) {}
 
-      if (!sess) {
-        if (confirm('Silakan masuk (login) terlebih dahulu untuk melihat rapor capaian belajar Anda.\n\nKlik OK untuk menuju ke halaman login.')) {
-          window.location.href = '/login.html';
-        }
-        return;
-      }
-
       const modal = document.getElementById('rapor-siswa-modal');
       if (!modal) return;
       modal.classList.remove('hidden');
 
-      const isGuru = sess.type === 'guru';
+      const isGuru = sess && sess.type === 'guru';
+      const isSiswa = sess && sess.type === 'siswa';
       const switcher = document.getElementById('rapor-guru-switcher');
       const sel = document.getElementById('rapor-select-siswa');
 
-      if (isGuru) {
+      if (isGuru || !sess) {
         if (switcher) switcher.classList.remove('hidden');
         if (sel && sel.options.length <= 1) {
           sel.innerHTML = '';
           const stds = window.STUDENTS_DATA || {};
-          const sortedNis = Object.keys(stds).sort((a,b) => (stds[a].nama || '').localeCompare(stds[b].nama || ''));
-          sortedNis.forEach(n => {
+          const nisKeys = Object.keys(stds);
+          if (nisKeys.length > 0) {
+            const sortedNis = nisKeys.sort((a,b) => (stds[a].nama || '').localeCompare(stds[b].nama || ''));
+            sortedNis.forEach(n => {
+              const opt = document.createElement('option');
+              opt.value = n;
+              opt.textContent = `${stds[n].nama} (${stds[n].kelas || 'XII'})`;
+              sel.appendChild(opt);
+            });
+          } else {
             const opt = document.createElement('option');
-            opt.value = n;
-            opt.textContent = `${stds[n].nama} (${stds[n].kelas || 'XII'})`;
+            opt.value = '24400083';
+            opt.textContent = 'Rania Zivanka Kurniawan (XII F.4)';
             sel.appendChild(opt);
-          });
+          }
         }
 
         let chosenNis = targetNis;
@@ -1311,14 +1433,14 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         if (!chosenNis) chosenNis = '24400083'; // Default: Rania Zivanka
         if (sel) sel.value = chosenNis;
         loadRaporData(chosenNis, false);
-      } else {
+      } else if (isSiswa) {
         if (switcher) switcher.classList.add('hidden');
         const studentNis = (sess.data && sess.data.nis) ? String(sess.data.nis) : '';
-        if (!studentNis) {
-          alert('NIS siswa tidak ditemukan dalam sesi login aktif.');
-          return;
+        if (studentNis) {
+          loadRaporData(studentNis, false);
+        } else {
+          loadRaporData('24400083', false);
         }
-        loadRaporData(studentNis, false);
       }
     }
 
