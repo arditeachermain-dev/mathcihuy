@@ -367,13 +367,19 @@ export async function onRequestPost(context) {
         return jsonResponse({ error: 'NIS wajib diisi dengan format valid' }, 400);
       }
 
-      // Ambil data siswa dari D1
-      const student = await context.env.DB.prepare(
+      // Ambil data siswa dari D1 (prioritas NIS persis, fallback pencarian nama/username)
+      let student = await context.env.DB.prepare(
         "SELECT nis, nama, kelas, password_hash FROM siswa WHERE nis = ?"
       ).bind(cleanNis).first();
 
       if (!student) {
-        return await handleAuthFailure(clientIp, context.env, 'NIS tidak terdaftar dalam database sekolah.');
+        student = await context.env.DB.prepare(
+          "SELECT nis, nama, kelas, password_hash FROM siswa WHERE lower(nama) LIKE ? OR lower(nis) = ?"
+        ).bind('%' + cleanNis.toLowerCase() + '%', cleanNis.toLowerCase()).first();
+      }
+
+      if (!student) {
+        return await handleAuthFailure(clientIp, context.env, 'NIS atau username siswa tidak terdaftar dalam database sekolah.');
       }
 
       // Validasi password: default '1234' atau password_hash kustom
