@@ -847,6 +847,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     let _raporActiveStudentNis = '';
     let _raporSelectedBab = 'all';
     let _raporExpandedBabs = new Set();
+    let _raporExpandedBabsInitialized = false;
 
     function getRaporPackageList() {
       const pkgs = [];
@@ -898,85 +899,87 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       let badgeHtml = '';
       if (isPerfect) {
         badgeHtml = `
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded inline-flex items-center gap-1 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #A5D6A7;">
-            <i class="fa-solid fa-crown" style="color: #B26B00;"></i> Sempurna (100)
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded inline-flex items-center gap-1 shrink-0" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #A5D6A7;">
+            <i class="fa-solid fa-crown text-[9px]" style="color: #B26B00;"></i> 100
           </span>`;
       } else if (isTuntas) {
         badgeHtml = `
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded inline-flex items-center gap-1 shadow-none" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
-            <i class="fa-solid fa-circle-check" style="color: #2E7D32;"></i> Tuntas KKM
+          <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded inline-flex items-center gap-1 shrink-0" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
+            <i class="fa-solid fa-circle-check text-[9px]" style="color: #2E7D32;"></i> Tuntas
           </span>`;
       } else if (isRemedial) {
         badgeHtml = `
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded inline-flex items-center gap-1 shadow-none" style="background-color: #FFF1F0; color: #CF1322; border: 1px solid #FFA39E;">
-            <i class="fa-solid fa-triangle-exclamation" style="color: #CF1322;"></i> Remedial
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded inline-flex items-center gap-1 shrink-0" style="background-color: #FFF1F0; color: #CF1322; border: 1px solid #FFA39E;">
+            <i class="fa-solid fa-triangle-exclamation text-[9px]" style="color: #CF1322;"></i> Remedial
           </span>`;
       } else {
         badgeHtml = `
-          <span class="text-[10px] font-medium px-2 py-0.5 rounded inline-flex items-center gap-1 shadow-none" style="background-color: #F0EFEA; color: #787774; border: 1px solid #E8E6DF;">
+          <span class="text-[10px] font-medium px-1.5 py-0.5 rounded inline-flex items-center gap-1 shrink-0" style="background-color: #F0EFEA; color: #787774; border: 1px solid #E8E6DF;">
             Belum
           </span>`;
       }
 
-      let durasiText = '-';
+      let durasiText = '';
       if (isDone && item.durasi_detik) {
         const m = Math.floor(item.durasi_detik / 60);
         const s = item.durasi_detik % 60;
         durasiText = m > 0 ? `${m}m ${s}s` : `${s}s`;
       }
 
-      const attemptsText = (isDone && item.jumlah_percobaan) ? `${item.jumlah_percobaan}x coba` : '1x coba';
+      const attemptsText = (isDone && item.jumlah_percobaan) ? `${item.jumlah_percobaan}x coba` : '';
 
-      let waktuFormatted = '-';
+      let waktuFormatted = '';
       if (isDone && item.waktu_submit) {
         try {
           const d = new Date(item.waktu_submit);
           if (!isNaN(d.getTime())) {
-            waktuFormatted = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }) + ', ' +
-                             d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+            waktuFormatted = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
           }
         } catch(e) {}
       }
 
-      const subtitle = isDone ?
-        `Waktu: ${durasiText} • ${attemptsText} • ${waktuFormatted}` :
-        `Beban: 10 butir CBT mandiri • Target KKM &ge; 75`;
+      let metaParts = [];
+      if (durasiText) metaParts.push(durasiText);
+      if (attemptsText) metaParts.push(attemptsText);
+      if (waktuFormatted) metaParts.push(waktuFormatted);
+      const subtitle = isDone ? metaParts.join(' • ') : '10 butir CBT • Target KKM ≥ 75';
 
       const scoreHtml = isDone ? `
-        <div class="text-right">
+        <div class="flex items-center gap-1.5">
           ${badgeHtml}
-          <div class="font-mono font-bold text-sm mt-0.5" style="color: #2F3437;">
-            ${item.skor} <span class="text-xs font-normal" style="color: #787774;">/ 100</span>
-          </div>
+          <span class="font-mono font-bold text-xs text-[#2F3437]">
+            ${item.skor}<span class="text-[10px] font-normal text-[#787774]">/100</span>
+          </span>
         </div>` : `
-        <div class="text-right">
+        <div class="flex items-center gap-1.5">
           ${badgeHtml}
-          <div class="font-mono text-sm mt-0.5" style="color: #787774;">
-            — <span class="text-xs">/ 100</span>
-          </div>
+          <span class="font-mono text-xs text-[#787774]">—</span>
         </div>`;
 
       const actionBtn = isDone ? `
-        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 shadow-sm cursor-pointer" title="Kerjakan ulang paket ${escapeHtml(item.id)}">
-          <i class="fa-solid fa-arrow-rotate-right text-[11px]" style="color: #787774;"></i> <span>Ulangi</span>
+        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-secondary px-2.5 py-1 rounded-md text-[11px] font-semibold flex items-center gap-1 shrink-0 shadow-sm cursor-pointer hover:bg-[#E8E6DF]" title="Kerjakan ulang paket ${escapeHtml(item.id)}">
+          <i class="fa-solid fa-arrow-rotate-right text-[10px] text-[#787774]"></i> <span>Ulangi</span>
         </button>` : `
-        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-primary px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-sm cursor-pointer text-white" title="Mulai kerjakan paket ${escapeHtml(item.id)}">
-          <i class="fa-solid fa-play text-[10px]" style="color: #FFFFFF;"></i> <span>Kerjakan</span>
+        <button type="button" onclick="bukaPaketCbtDariRapor('${escapeHtml(item.mapel)}', '${escapeHtml(item.id)}')" class="notion-btn-primary px-2.5 py-1 rounded-md text-[11px] font-bold flex items-center gap-1 shrink-0 shadow-sm cursor-pointer text-white" title="Mulai kerjakan paket ${escapeHtml(item.id)}">
+          <i class="fa-solid fa-play text-[9px] text-white"></i> <span>Mulai</span>
         </button>`;
 
       return `
-        <div class="rapor-package-row px-4 sm:px-6 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition" style="${isDone ? '' : 'opacity: 0.95;'}">
-          <div class="flex items-start gap-3 min-w-0">
-            <span class="font-mono font-bold text-xs px-2.5 py-1 rounded shrink-0 mt-0.5" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #2F3437;">
+        <div class="rapor-package-row px-3 sm:px-4 py-2 flex items-center justify-between gap-2.5 transition hover:bg-[#FBFBFA]" style="${isDone ? '' : 'opacity: 0.95;'}">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="font-mono font-bold text-[11px] px-2 py-0.5 rounded shrink-0" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #2E384D;">
               ${escapeHtml(item.id)}
             </span>
             <div class="min-w-0">
-              <span class="font-bold text-xs sm:text-sm block" style="color: #2F3437;">${escapeHtml(item.title)}</span>
-              <p class="text-[11px] mt-0.5 truncate" style="color: #787774;">${subtitle}</p>
+              <div class="flex items-center gap-2">
+                <span class="font-medium text-xs text-[#2F3437] truncate" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</span>
+                <span class="text-[10px] text-[#787774] hidden md:inline shrink-0 font-normal">(${subtitle})</span>
+              </div>
+              <span class="text-[10px] text-[#787774] block md:hidden truncate font-normal">${subtitle}</span>
             </div>
           </div>
 
-          <div class="flex items-center justify-between sm:justify-end gap-3.5 shrink-0 pl-10 sm:pl-0">
+          <div class="flex items-center gap-2.5 shrink-0 ml-2">
             ${scoreHtml}
             ${actionBtn}
           </div>
@@ -985,6 +988,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function setRaporBab(babKey) {
       _raporSelectedBab = babKey;
+      _raporExpandedBabsInitialized = true;
       if (babKey !== 'all') {
         _raporExpandedBabs.add(babKey);
       }
@@ -992,6 +996,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     function toggleRaporBab(babKey) {
+      _raporExpandedBabsInitialized = true;
       if (_raporExpandedBabs.has(babKey)) {
         _raporExpandedBabs.delete(babKey);
       } else {
@@ -1001,6 +1006,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     function toggleAllRaporBabs() {
+      _raporExpandedBabsInitialized = true;
       const activeBabs = getFilteredBabList();
       const allExpanded = activeBabs.every(g => _raporExpandedBabs.has(g.key));
       if (allExpanded) {
@@ -1137,8 +1143,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         return;
       }
 
-      // Default accordion state: if none set, expand active/first bab
-      if (_raporExpandedBabs.size === 0) {
+      // Default accordion state: expand first bab only on initial load or filter change
+      if (!_raporExpandedBabsInitialized) {
+        _raporExpandedBabsInitialized = true;
+        _raporExpandedBabs.clear();
         if (_raporSelectedBab !== 'all') {
           _raporExpandedBabs.add(_raporSelectedBab);
         } else if (displayedBabs.length > 0) {
@@ -1196,28 +1204,22 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const isExpanded = _raporExpandedBabs.has(group.key);
 
         return `
-          <div class="rapor-bab-card rounded-2xl border shadow-sm overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+          <div class="rapor-bab-card rounded-xl border shadow-none overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
             <!-- BAB HEADER (ACCORDION TOGGLE) -->
-            <div onclick="toggleRaporBab('${escapeHtml(group.key)}')" class="rapor-bab-header px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b" style="background-color: #FBFBFA; border-color: #E8E6DF;">
-              <div class="flex items-center gap-3 min-w-0">
-                <div class="w-6 h-6 flex items-center justify-center text-[#787774] shrink-0">
-                  <i class="fa-solid fa-chevron-${isExpanded ? 'down' : 'right'} text-xs transition-transform"></i>
+            <div onclick="toggleRaporBab('${escapeHtml(group.key)}')" class="rapor-bab-header px-3.5 sm:px-4 py-2 flex items-center justify-between gap-2 border-b cursor-pointer select-none transition hover:bg-[#F5F4F0]" style="background-color: #FBFBFA; border-color: #E8E6DF;" title="${isExpanded ? 'Klik untuk meminimalkan bab' : 'Klik untuk membuka bab'}">
+              <div class="flex items-center gap-2 min-w-0">
+                <i class="fa-solid fa-chevron-${isExpanded ? 'down' : 'right'} text-[11px] text-[#787774] w-3.5 shrink-0 transition-transform"></i>
+                <div class="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold shrink-0" style="background-color: #F0EFEA; color: #2E384D; border: 1px solid #E8E6DF;">
+                  <i class="fa-solid fa-book-open text-[10px]" style="color: #2E384D;"></i>
                 </div>
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold shrink-0" style="background-color: #F0EFEA; color: #2E384D; border: 1px solid #E8E6DF;">
-                  <i class="fa-solid fa-book-open text-xs" style="color: #2E384D;"></i>
-                </div>
-                <div class="min-w-0">
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <h4 class="font-bold text-sm text-[#2F3437] truncate" style="color: #2F3437;">${escapeHtml(group.bab)}</h4>
-                    ${mapelBadge}
-                  </div>
-                  <p class="text-[11px] mt-0.5 text-[#787774]">
-                    ${group.filteredPackages.length} paket CBT ${isExpanded ? '• Klik untuk menutup' : '• Klik untuk membuka'}
-                  </p>
+                <div class="min-w-0 flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                  <h4 class="font-bold text-xs sm:text-sm text-[#2F3437] truncate">${escapeHtml(group.bab)}</h4>
+                  ${mapelBadge}
+                  <span class="text-[10px] text-[#787774] hidden md:inline">(${group.filteredPackages.length} paket CBT)</span>
                 </div>
               </div>
 
-              <div class="flex items-center gap-2 shrink-0">
+              <div class="flex items-center gap-1.5 shrink-0">
                 ${avgBadge}
                 ${progressBadge}
               </div>
@@ -1236,6 +1238,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function setRaporFilter(filterKey) {
       _raporCurrentFilter = filterKey;
       _raporSelectedBab = 'all';
+      _raporExpandedBabsInitialized = false;
       _raporExpandedBabs.clear();
       ['all', 'wajib', 'minat', 'tuntas', 'belum'].forEach(k => {
         const btn = document.getElementById(`rapor-tab-${k}`);
@@ -1262,11 +1265,17 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function searchRapor(query) {
       _raporSearchQuery = query;
+      if (query && query.trim().length > 0) {
+        const activeBabs = getFilteredBabList();
+        activeBabs.forEach(g => _raporExpandedBabs.add(g.key));
+        _raporExpandedBabsInitialized = true;
+      }
       renderRaporCards();
     }
 
     async function loadRaporData(targetNis, forceSync) {
       _raporActiveStudentNis = targetNis;
+      _raporExpandedBabsInitialized = false;
       const cardsContainer = document.getElementById('rapor-cards-grid');
       if (cardsContainer) {
         cardsContainer.innerHTML = '<div class="p-12 text-center text-xs font-medium" style="color: #787774; background-color: #FFFFFF;"><i class="fa-solid fa-spinner fa-spin text-xl mb-2 block" style="color: #2E384D;"></i>Mengambil rekap nilai resmi dari Cloudflare D1...</div>';
