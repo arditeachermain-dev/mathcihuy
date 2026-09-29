@@ -20,7 +20,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v1788449850">
+  <link rel="stylesheet" href="mathcihuy.css?v=v1788449900">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -88,19 +88,19 @@
     <!-- CENTER: NAVIGATION TABS (BERANDA + 4 MATH STREAMS) -->
     <div class="flex items-center gap-1 min-w-0 flex-1 justify-center">
       <div class="flex items-center p-1 rounded-xl border shadow-sm max-w-full overflow-x-auto no-scrollbar" style="background-color: #F0EFEA; border-color: #E8E6DF;">
-        <button onclick="switchSubject('home')" id="tab-home" class="px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white" style="background-color: #2E384D;">
+        <button onclick="switchSubject('home')" id="tab-home" class="tab-active active-subject-tab px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white" style="background-color: #2E384D; color: #FFFFFF;">
           <i class="fa-solid fa-house text-[10px]"></i> <span>Beranda</span>
         </button>
-        <button onclick="switchSubject('wajib')" id="tab-wajib" class="px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #787774;">
+        <button onclick="switchSubject('wajib')" id="tab-wajib" class="tab-inactive inactive-subject-tab px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #5F5E5B;">
           <i class="fa-solid fa-shapes text-[10px]"></i> <span>Wajib</span>
         </button>
-        <button onclick="switchSubject('minat')" id="tab-minat" class="px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #787774;">
+        <button onclick="switchSubject('minat')" id="tab-minat" class="tab-inactive inactive-subject-tab px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #5F5E5B;">
           <i class="fa-solid fa-chart-line text-[10px]"></i> <span>Minat</span>
         </button>
-        <button onclick="switchSubject('clil')" id="tab-clil" class="px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #787774;">
+        <button onclick="switchSubject('clil')" id="tab-clil" class="tab-inactive inactive-subject-tab px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #5F5E5B;">
           <i class="fa-solid fa-globe text-[10px]"></i> <span>CLIL</span>
         </button>
-        <button onclick="switchSubject('tka')" id="tab-tka" class="px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#B26B00] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #787774;">
+        <button onclick="switchSubject('tka')" id="tab-tka" class="tab-inactive inactive-subject-tab px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#B26B00] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #5F5E5B;">
           <i class="fa-solid fa-bolt text-[10px]"></i> <span>CBT</span>
         </button>
       </div>
@@ -1134,8 +1134,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v1788449850"></script>
-  <script src="app.js?v=v1788449850"></script>
+  <script src="data-xii.js?v=v1788449900"></script>
+  <script src="app.js?v=v1788449900"></script>
 
 
   <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
@@ -1407,7 +1407,7 @@
         </div>
     </div>
 
-        <script src="app-akhir.js?v=v1788449850"></script>
+        <script src="app-akhir.js?v=v1788449900"></script>
 
 </body>
 </html>

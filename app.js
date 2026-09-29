@@ -703,13 +703,13 @@
         const btn = document.getElementById('tab-' + m);
         if (btn) {
           if (m === currentMode) {
-            btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white";
-            btn.style.backgroundColor = "#2E384D";
-            btn.style.color = "#FFFFFF";
+            btn.className = "tab-active active-subject-tab px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white";
+            btn.style.setProperty('background-color', '#2E384D', 'important');
+            btn.style.setProperty('color', '#FFFFFF', 'important');
           } else {
-            btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer";
-            btn.style.backgroundColor = "transparent";
-            btn.style.color = "#787774";
+            btn.className = "tab-inactive inactive-subject-tab px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer";
+            btn.style.setProperty('background-color', 'transparent', 'important');
+            btn.style.setProperty('color', '#5F5E5B', 'important');
           }
         }
       });
