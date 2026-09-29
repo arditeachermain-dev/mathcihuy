@@ -1,5 +1,6 @@
 import { authenticateRequest, jsonResponse } from './_auth.js';
 import { calculateOfficialGrade } from './_grading.js';
+import { getSolutionsForPackage } from './_solutions.js';
 
 function extractTingkat(kelasStr) {
   const k = String(kelasStr || '').toUpperCase();
@@ -102,11 +103,31 @@ export async function onRequestPost(context) {
 
     const cleanDurasi = Math.max(0, Number(durasi_detik) || 0);
 
-    // 1. Deteksi Anomali Durasi: Tolak jika durasi kurang dari 15 detik (untuk siswa)
-    if (session.role !== 'guru' && cleanDurasi < 15) {
-      return jsonResponse({
-        error: `Pengumpulan ditolak (Anomali Durasi): Waktu pengerjaan (${cleanDurasi} detik) terlalu cepat. Batas minimal pengerjaan wajar adalah 15 detik.`
-      }, 400);
+    // 1. Deteksi Anomali Durasi & Anti-Rapid-Fire Bot
+    if (session.role !== 'guru') {
+      if (cleanDurasi < 20) {
+        return jsonResponse({
+          error: `Pengumpulan ditolak (Anomali Durasi): Waktu pengerjaan (${cleanDurasi} detik) terlalu cepat. Batas minimal pengerjaan wajar adalah 20 detik.`
+        }, 400);
+      }
+
+      // Deteksi Rapid-Fire Bot antar paket
+      try {
+        const lastSub = await context.env.DB.prepare(
+          "SELECT waktu_submit FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit DESC LIMIT 1"
+        ).bind(String(nis)).first();
+
+        if (lastSub && lastSub.waktu_submit) {
+          const lastTime = new Date(lastSub.waktu_submit).getTime();
+          const nowTime = Date.now();
+          const diffSec = (nowTime - lastTime) / 1000;
+          if (diffSec >= 0 && diffSec < 35) {
+            return jsonResponse({
+              error: `Pengumpulan ditolak (Proteksi Anti-Bot): Terdeteksi jeda submit antar paket (${Math.round(diffSec)} detik) tidak wajar. Harap luangkan waktu minimal 35 detik untuk mempelajari paket berikutnya.`
+            }, 429);
+          }
+        }
+      } catch(e) {}
     }
 
     // 2. Server-Side Grading: Ambil jawaban yang dikirim klien atau draf dari cbt_live_answers
@@ -180,6 +201,8 @@ export async function onRequestPost(context) {
       ).bind(String(nis), String(mapel || 'wajib'), String(kode_pertemuan)).run();
     } catch(e) {}
 
+    const solutions = getSolutionsForPackage(studentTingkat, mapel, kode_pertemuan) || [];
+
     return jsonResponse({
       success: true,
       skor: cleanSkor,
@@ -189,7 +212,8 @@ export async function onRequestPost(context) {
       durasi_detik: cleanDurasi,
       waktu_submit: now,
       jumlah_percobaan: finalAttempt,
-      server_graded: Boolean(officialGrade)
+      server_graded: Boolean(officialGrade),
+      solutions: solutions
     });
   } catch (err) {
     return jsonResponse({ error: err.message }, 500);

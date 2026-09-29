@@ -21,6 +21,8 @@ desktop.ini
 
 # Berkas cadangan editor
 *.bak
+*.BAK_WITH_KEYS
+*.TEST_CLEAN
 *~
 
 # Dokumen kerja untuk melengkapi materi (bukan bagian situs)

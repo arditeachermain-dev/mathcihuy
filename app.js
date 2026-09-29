@@ -2688,6 +2688,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               payload.skor = d1Res.skor;
               payload.jumlah_benar = d1Res.jumlah_benar;
               payload.jumlah_salah = d1Res.jumlah_salah;
+
+              const totScoreEl = document.getElementById('scorecard-total-score');
+              if (totScoreEl) totScoreEl.innerText = d1Res.skor;
+              const corCntEl = document.getElementById('scorecard-correct-count');
+              if (corCntEl) corCntEl.innerText = `${d1Res.jumlah_benar} / ${payload.jumlah_soal}`;
+              const wrgCntEl = document.getElementById('scorecard-wrong-count');
+              if (wrgCntEl) wrgCntEl.innerText = `${d1Res.jumlah_salah} / ${payload.jumlah_soal}`;
+            }
+            if (d1Res && d1Res.solutions && Array.isArray(d1Res.solutions)) {
+              if (typeof terapkanPembahasanPaket === 'function') {
+                terapkanPembahasanPaket(subj, pkgId, d1Res.solutions);
+              }
             }
             onSubmissionComplete(d1Res.jumlah_percobaan);
           }).catch((err) => {
@@ -4407,21 +4419,72 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     // RENDER TKA QUESTION (WITH 3-MINUTE QUESTION TIMER & INTERACTIVE CBT FEEDBACK)
     // =========================================================================
-    // CBT REVIEW MODE & SCORECARD ACTIONS
+    // CBT ON-DEMAND SOLUTIONS & REVIEW ENGINE (ANTI-BOT SECURE DELIVERY)
     // =========================================================================
+    window._cbtLoadedSolutions = window._cbtLoadedSolutions || {};
+
+    function terapkanPembahasanPaket(subj, pkgId, solutions) {
+      if (!solutions || !Array.isArray(solutions)) return;
+      const srcDb = tkaSrc(subj);
+      const pkg = srcDb && srcDb[pkgId];
+      if (!pkg || !pkg.questions) return;
+      solutions.forEach(sol => {
+        const idx = (sol.no !== undefined ? sol.no - 1 : -1);
+        const q = (idx >= 0 && pkg.questions[idx]) ? pkg.questions[idx] : pkg.questions.find(item => item.no === sol.no);
+        if (q) {
+          q.kunci = sol.kunci;
+          q.bahas = sol.bahas;
+          if (sol.tipe && !q.tipe) q.tipe = sol.tipe;
+        }
+      });
+      window._cbtLoadedSolutions[`${subj}_${pkgId}`] = solutions;
+    }
+
+    async function muatPembahasanJikaPerlu(subj, pkgId) {
+      const srcDb = tkaSrc(subj);
+      const pkg = srcDb && srcDb[pkgId];
+      if (!pkg || !pkg.questions) return;
+
+      const sudahAdaKunci = pkg.questions.some(q => q.kunci && String(q.kunci).trim() !== '');
+      if (sudahAdaKunci) return;
+
+      if (window._cbtLoadedSolutions && window._cbtLoadedSolutions[`${subj}_${pkgId}`]) {
+        terapkanPembahasanPaket(subj, pkgId, window._cbtLoadedSolutions[`${subj}_${pkgId}`]);
+        return;
+      }
+
+      try {
+        const url = `/api/pembahasan?tingkat=${encodeURIComponent(TINGKAT_HALAMAN)}&mapel=${encodeURIComponent(subj)}&kode_pertemuan=${encodeURIComponent(pkgId)}`;
+        const r = await fetch(url, { headers: getAuthHeaders() });
+        if (r.ok) {
+          const res = await r.json();
+          if (res && res.solutions) {
+            terapkanPembahasanPaket(subj, pkgId, res.solutions);
+            if (window._tkaReviewMode === true) {
+              renderAppView();
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Gagal memuat pembahasan on-demand:', e);
+      }
+    }
+
     window._tkaReviewMode = false;
 
-    function startTkaReviewMode() {
+    async function startTkaReviewMode() {
       window._tkaReviewMode = true;
       closeTkaScorecardModal();
       tkaQIdx = 0;
+      await muatPembahasanJikaPerlu(tkaSubj, tkaPkgId);
       renderAppView();
     }
 
-    function openTkaQuestionInReview(idx) {
+    async function openTkaQuestionInReview(idx) {
       window._tkaReviewMode = true;
       closeTkaScorecardModal();
       tkaQIdx = idx;
+      await muatPembahasanJikaPerlu(tkaSubj, tkaPkgId);
       renderAppView();
     }
 
@@ -4592,15 +4655,17 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (modal) modal.classList.add('hidden');
     }
 
-    function confirmAndFinalizeCbt() {
+    async function confirmAndFinalizeCbt() {
       closeCbtSubmitModal();
       window._tkaReviewMode = true;
       showTkaScorecardModal();
+      await muatPembahasanJikaPerlu(tkaSubj, tkaPkgId);
       renderAppView();
     }
 
-    window.bukaReviewModeCbt = function() {
+    window.bukaReviewModeCbt = async function() {
       window._tkaReviewMode = true;
+      await muatPembahasanJikaPerlu(tkaSubj, tkaPkgId);
       if (typeof showTkaScorecardModal === 'function') {
         showTkaScorecardModal();
       }
