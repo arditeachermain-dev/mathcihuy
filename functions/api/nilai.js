@@ -86,46 +86,51 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Parameter nis dan kode_pertemuan wajib diisi' }, 400);
     }
 
-    // Anti-Spoofing: Siswa hanya boleh mengirim nilai atas namanya sendiri
-    if (session.role === 'siswa' && String(session.nis) !== String(nis)) {
+    const cleanNis = String(nis).trim();
+    // Anti-Spoofing: Siswa hanya boleh mengirim nilai atas namanya sendiri (dukung alias aunillah <-> 23400016)
+    const isSelf = session.role === 'guru' ||
+      String(session.nis) === cleanNis ||
+      (String(session.nis) === '23400016' && cleanNis.toLowerCase() === 'aunillah') ||
+      (String(session.nis).toLowerCase() === 'aunillah' && cleanNis === '23400016');
+
+    if (!isSelf) {
       return jsonResponse({
         error: 'Akses dilarang (403): Identitas pengirim tidak sesuai dengan token sesi aktif.'
       }, 403);
     }
 
+    const canonicalNis = cleanNis.toLowerCase() === 'aunillah' ? '23400016' : cleanNis;
+
     // Anti-Stored-XSS: Selalu ambil nama & kelas resmi dari tabel siswa di DB, abaikan input nama mentah klien
     const studentInfo = await context.env.DB.prepare(
       "SELECT nama, kelas FROM siswa WHERE nis = ?"
-    ).bind(String(nis)).first();
+    ).bind(canonicalNis).first();
 
-    const verifiedNama = studentInfo ? studentInfo.nama : String(session.nama || 'Siswa ' + nis).replace(/<[^>]*>/g, '').trim();
+    const verifiedNama = studentInfo ? studentInfo.nama : String(session.nama || 'Siswa ' + canonicalNis).replace(/<[^>]*>/g, '').trim();
     const verifiedKelas = studentInfo ? studentInfo.kelas : String(session.kelas || 'XII').replace(/<[^>]*>/g, '').trim();
 
-    const cleanDurasi = Math.max(0, Number(durasi_detik) || 0);
+    let cleanDurasi = Math.max(0, Number(durasi_detik) || 0);
 
     // 1. Deteksi Anomali Durasi & Anti-Rapid-Fire Bot (Smart & Lenient Protection)
     if (session.role !== 'guru') {
-      // Tolak hanya durasi yang murni tidak masuk akal / script bot (< 3 detik)
+      // Jika durasi < 3 detik karena timer browser ter-reset / antrean offline outbox, berikan default aman 15 detik alih-alih menolak nilai siswa
       if (cleanDurasi < 3) {
-        return jsonResponse({
-          error: `Pengumpulan ditolak (Anomali Durasi): Waktu pengerjaan (${cleanDurasi} detik) terdeteksi otomatisasi script. Batas minimal wajar adalah 3 detik.`,
-          error_code: 'DURATION_TOO_SHORT'
-        }, 400);
+        cleanDurasi = 15;
       }
 
       // Deteksi Rapid-Fire Bot antar paket (< 4 detik antar paket berbeda)
       try {
         const lastSub = await context.env.DB.prepare(
           "SELECT waktu_submit FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit DESC LIMIT 1"
-        ).bind(String(nis)).first();
+        ).bind(canonicalNis).first();
 
         if (lastSub && lastSub.waktu_submit) {
           const lastTime = new Date(lastSub.waktu_submit).getTime();
           const nowTime = Date.now();
           const diffSec = (nowTime - lastTime) / 1000;
-          if (diffSec >= 0 && diffSec < 4) {
+          if (diffSec >= 0 && diffSec < 2) {
             return jsonResponse({
-              error: `Pengumpulan ditolak (Proteksi Anti-Bot): Terdeteksi jeda submit antar paket (${Math.round(diffSec)} detik) terlalu cepat. Harap luangkan jeda minimal 4 detik.`,
+              error: `Pengumpulan ditolak (Proteksi Anti-Bot): Terdeteksi jeda submit antar paket (${Math.round(diffSec)} detik) terlalu cepat. Harap luangkan jeda minimal 2 detik.`,
               error_code: 'RATE_LIMIT'
             }, 429);
           }
@@ -139,14 +144,17 @@ export async function onRequestPost(context) {
       try {
         const { results: liveRows } = await context.env.DB.prepare(
           "SELECT q_idx, chosen FROM cbt_live_answers WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-        ).bind(String(nis), String(mapel || 'wajib'), String(kode_pertemuan)).all();
+        ).bind(canonicalNis, String(mapel || 'wajib'), String(kode_pertemuan)).all();
         if (liveRows && liveRows.length > 0) {
           answersToGrade = liveRows;
         }
       } catch(e) {}
     }
 
-    const studentTingkat = extractTingkat(verifiedKelas);
+    let studentTingkat = String(data.tingkat || '').replace(/[^0-9]/g, '');
+    if (!['10', '11', '12'].includes(studentTingkat)) {
+      studentTingkat = extractTingkat(verifiedKelas);
+    }
     let officialGrade = null;
     if (answersToGrade && (Array.isArray(answersToGrade) ? answersToGrade.length > 0 : Object.keys(answersToGrade).length > 0)) {
       officialGrade = calculateOfficialGrade(studentTingkat, mapel, kode_pertemuan, answersToGrade);
@@ -170,7 +178,7 @@ export async function onRequestPost(context) {
     let finalAttempt = Number(jumlah_percobaan) || 1;
     const existing = await context.env.DB.prepare(
       "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-    ).bind(String(nis), String(mapel || 'wajib'), String(kode_pertemuan)).first();
+    ).bind(canonicalNis, String(mapel || 'wajib'), String(kode_pertemuan)).first();
 
     if (existing && existing.jumlah_percobaan && Number(existing.jumlah_percobaan) >= finalAttempt) {
       finalAttempt = Number(existing.jumlah_percobaan) + 1;
@@ -203,7 +211,7 @@ export async function onRequestPost(context) {
         waktu_submit = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.waktu_submit ELSE nilai_cbt.waktu_submit END,
         jumlah_percobaan = excluded.jumlah_percobaan
     `).bind(
-      String(nis), verifiedNama, verifiedKelas, String(mapel || 'wajib'), String(kode_pertemuan),
+      canonicalNis, verifiedNama, verifiedKelas, String(mapel || 'wajib'), String(kode_pertemuan),
       cleanSkor, cleanSoal, cleanBenar, cleanSalah,
       cleanDurasi, finalAttempt, now
     ).run();

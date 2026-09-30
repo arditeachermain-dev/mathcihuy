@@ -2957,3 +2957,33 @@ html.terang #peta-modal > div {
 }
 
 #pres-remote { display: none !important; }
+
+/* Guaranteed floating sync toast for offline outbox */
+#cbt-outbox-sync-banner {
+  position: fixed !important;
+  bottom: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  top: auto !important;
+  max-width: 380px !important;
+  width: calc(100vw - 32px) !important;
+  z-index: 99999 !important;
+  padding: 14px 16px !important;
+  background: #2D1802 !important;
+  background: linear-gradient(135deg, #2D1802 0%, #1A0D00 100%) !important;
+  border: 2px solid #F59E0B !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+  color: #FDE68A !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 640px) {
+  #cbt-outbox-sync-banner {
+    left: 16px !important;
+    right: 16px !important;
+    bottom: 16px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}

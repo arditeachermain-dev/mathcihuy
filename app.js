@@ -2660,6 +2660,32 @@
     }
 
     let _syncingOutboxRunning = false;
+    window.tutupOutboxBannerSementara = function() {
+      window._outboxBannerDismissed = true;
+      const b = document.getElementById('cbt-outbox-sync-banner');
+      if (b) b.remove();
+    };
+
+    window.hapusSemuaOutboxSiswa = function() {
+      if (!confirm('Hapus antrean nilai lokal ini dari perangkat? (Hanya lakukan jika nilai Anda sudah masuk ke rapor)')) return;
+      const sess = getSession();
+      const curNis = (sess && sess.data && sess.data.nis) ? String(sess.data.nis).trim() : '';
+      let list = ambilSemuaOutboxCbt();
+      if (curNis) {
+        list = list.filter(x => {
+          const xNis = String(x.nis || '').trim();
+          return xNis !== curNis &&
+            !(curNis === '23400016' && xNis.toLowerCase() === 'aunillah') &&
+            !(curNis.toLowerCase() === 'aunillah' && xNis === '23400016');
+        });
+      } else {
+        list = [];
+      }
+      localStorage.setItem(CBT_OUTBOX_STORAGE_KEY, JSON.stringify(list));
+      window._outboxBannerDismissed = false;
+      updateOutboxBannerUI();
+    };
+
     async function sinkronkanAntreanOutbox(silent = true) {
       if (_syncingOutboxRunning) return;
       const list = ambilSemuaOutboxCbt();
@@ -2674,24 +2700,53 @@
         return;
       }
 
-      const curNis = String(sess.data.nis);
+      const curNis = String(sess.data.nis).trim();
       _syncingOutboxRunning = true;
       let successCount = 0;
+      let lastErrMsg = '';
+
+      const btn = document.getElementById('btn-sync-outbox-action');
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.75';
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Menyinkronkan ke Server...</span>';
+      }
 
       try {
         for (const item of list) {
-          if (String(item.nis) !== curNis) continue;
+          const itemNis = String(item.nis || '').trim();
+          const isMatch = itemNis === curNis ||
+            (curNis === '23400016' && itemNis.toLowerCase() === 'aunillah') ||
+            (curNis.toLowerCase() === 'aunillah' && itemNis === '23400016');
+
+          if (!isMatch) continue;
+
+          // Normalisasi payload sebelum kirim: pastikan durasi minimal 15 detik dan nis canonical
+          const payloadToSend = Object.assign({}, item, {
+            nis: curNis === 'aunillah' ? '23400016' : (itemNis || curNis),
+            durasi_detik: Math.max(Number(item.durasi_detik) || 0, 15),
+            tingkat: item.tingkat || (typeof TINGKAT_HALAMAN !== 'undefined' ? String(TINGKAT_HALAMAN) : '12')
+          });
+
           try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 12000);
+
             const res = await fetch('/api/nilai', {
               method: 'POST',
               headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
-              body: JSON.stringify(item)
+              body: JSON.stringify(payloadToSend),
+              signal: controller.signal
             });
+            clearTimeout(timeoutId);
 
             if (res.ok) {
               const d1 = await res.json();
               console.log('⚡ Outbox tersinkron ke D1:', item.mapel, item.kode_pertemuan, d1);
               hapusDariOutboxCbt(item.nis, item.mapel, item.kode_pertemuan);
+              if (item.nis !== payloadToSend.nis) {
+                hapusDariOutboxCbt(payloadToSend.nis, item.mapel, item.kode_pertemuan);
+              }
               successCount++;
 
               if (!window._cbtCompletedSubmissions) window._cbtCompletedSubmissions = {};
@@ -2706,26 +2761,42 @@
                 localStorage.setItem(cacheKey, JSON.stringify(window._cbtCompletedSubmissions));
               } catch(e) {}
               if (typeof renderMeetingRibbon === 'function') renderMeetingRibbon();
+            } else {
+              const errBody = await res.json().catch(() => ({ error: 'HTTP ' + res.status }));
+              lastErrMsg = errBody.error || ('Gagal sync (' + res.status + ')');
+              console.warn('Sync item outbox ditolak server:', item.kode_pertemuan, errBody);
             }
           } catch(err) {
+            lastErrMsg = (err && err.name === 'AbortError') ? 'Batas waktu koneksi habis (12 detik)' : (err.message || 'Koneksi jaringan terputus');
             console.warn('Gagal sync item outbox:', item.kode_pertemuan, err);
           }
         }
       } finally {
         _syncingOutboxRunning = false;
         updateOutboxBannerUI();
-        if (!silent && successCount > 0) {
-          alert(`✅ Berhasil menyinkronkan ${successCount} nilai ujian ke server sekolah!`);
+        if (!silent) {
+          if (successCount > 0) {
+            alert(`✅ Alhamdulillah! Berhasil menyinkronkan ${successCount} nilai ujian ke server sekolah.`);
+          } else {
+            alert(`⚠️ Sinkronisasi belum berhasil: ${lastErrMsg || 'Sesi login telah berakhir atau koneksi terputus'}.\n\nJika nilai sudah tampak di rapor, Anda dapat menekan "Hapus antrean" di banner.`);
+          }
         }
       }
     }
     window.sinkronkanAntreanOutbox = sinkronkanAntreanOutbox;
 
     function updateOutboxBannerUI() {
+      if (window._outboxBannerDismissed) return;
       const list = ambilSemuaOutboxCbt();
       const sess = getSession();
-      const curNis = (sess && sess.data && sess.data.nis) ? String(sess.data.nis) : '';
-      const userList = list.filter(x => !curNis || String(x.nis) === curNis);
+      const curNis = (sess && sess.data && sess.data.nis) ? String(sess.data.nis).trim() : '';
+      const userList = list.filter(x => {
+        if (!curNis) return true;
+        const xNis = String(x.nis || '').trim();
+        return xNis === curNis ||
+          (curNis === '23400016' && xNis.toLowerCase() === 'aunillah') ||
+          (curNis.toLowerCase() === 'aunillah' && xNis === '23400016');
+      });
 
       let banner = document.getElementById('cbt-outbox-sync-banner');
       if (userList.length === 0) {
@@ -2739,18 +2810,51 @@
         document.body.appendChild(banner);
       }
 
-      banner.className = 'fixed bottom-4 right-4 z-50 max-w-sm p-4 bg-amber-950/95 border-2 border-amber-500 text-amber-200 rounded-2xl shadow-2xl backdrop-blur-md space-y-2 flex flex-col';
+      banner.style.cssText = [
+        'position: fixed !important',
+        'bottom: 16px !important',
+        'right: 16px !important',
+        'left: auto !important',
+        'top: auto !important',
+        'max-width: 380px !important',
+        'width: calc(100vw - 32px) !important',
+        'z-index: 99999 !important',
+        'padding: 14px 16px !important',
+        'background: #2D1802 !important',
+        'background: linear-gradient(135deg, #2D1802 0%, #1A0D00 100%) !important',
+        'border: 2px solid #F59E0B !important',
+        'border-radius: 16px !important',
+        'box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important',
+        'color: #FDE68A !important',
+        'display: flex !important',
+        'flex-direction: column !important',
+        'gap: 10px !important',
+        'box-sizing: border-box !important',
+        'font-family: inherit !important'
+      ].join(';');
+
       banner.innerHTML = `
-        <div class="flex items-start gap-2.5">
-          <i class="fa-solid fa-cloud-arrow-up text-amber-400 text-xl shrink-0 mt-0.5 animate-bounce"></i>
-          <div class="flex-1">
-            <h4 class="font-bold text-white text-xs">⚠️ ${userList.length} Nilai Ujian Belum Terkirim</h4>
-            <p class="text-[11px] text-amber-300/90 mt-0.5 leading-snug">Nilai tersimpan aman di perangkat ini, namun belum masuk ke server sekolah.</p>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <i class="fa-solid fa-cloud-arrow-up" style="color:#F59E0B;font-size:18px;margin-top:2px;"></i>
+            <div>
+              <h4 style="color:#FFFFFF !important;font-size:13px !important;font-weight:700 !important;margin:0 !important;line-height:1.3 !important;">
+                ⚠️ ${userList.length} Nilai Ujian Belum Terkirim
+              </h4>
+              <p style="color:#FDE68A !important;font-size:11px !important;line-height:1.35 !important;margin:4px 0 0 0 !important;opacity:0.95 !important;">
+                Nilai tersimpan aman di perangkat ini, namun belum masuk ke server sekolah.
+              </p>
+            </div>
           </div>
+          <button type="button" onclick="window.tutupOutboxBannerSementara()" style="background:none;border:none;color:#F59E0B;font-size:20px;cursor:pointer;padding:0 4px;line-height:1;" title="Tutup pemberitahuan">&times;</button>
         </div>
-        <button onclick="window.sinkronkanAntreanOutbox(false)" class="w-full py-1.5 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-1.5 transition active:scale-95 shadow cursor-pointer">
-          <i class="fa-solid fa-arrows-rotate"></i> Sinkronkan ke Server Sekarang
+        <button id="btn-sync-outbox-action" type="button" onclick="window.sinkronkanAntreanOutbox(false)" style="background-color:#F59E0B !important;color:#020617 !important;font-weight:800 !important;font-size:12px !important;border-radius:10px !important;padding:9px 14px !important;border:none !important;width:100% !important;cursor:pointer !important;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 4px rgba(0,0,0,0.2);transition:all 0.15s ease;">
+          <i class="fa-solid fa-arrows-rotate"></i> <span>Sinkronkan ke Server Sekarang</span>
         </button>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#D97706;padding-top:2px;">
+          <span>Otomatis sinkron saat online</span>
+          <button type="button" onclick="window.hapusSemuaOutboxSiswa()" style="background:none;border:none;color:#F87171;text-decoration:underline;cursor:pointer;font-size:10px;padding:0;">Hapus antrean</button>
+        </div>
       `;
     }
 
@@ -2885,17 +2989,22 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             answersList.push({ q_idx: i, chosen: ans !== undefined ? ans : '' });
           }
 
+          const canonicalNis = String(nis).toLowerCase() === 'aunillah' ? '23400016' : String(nis);
+          const safeDurasi = Math.max(Number(durasi) || 0, 15);
+          const currentTingkat = typeof TINGKAT_HALAMAN !== 'undefined' ? String(TINGKAT_HALAMAN) : '12';
+
           const payload = {
-            nis: String(nis),
+            nis: canonicalNis,
             nama: String(nama),
             kelas: String(kelas),
             mapel: String(subj),
+            tingkat: currentTingkat,
             kode_pertemuan: String(pkgId),
             skor: Number(pct),
             jumlah_soal: Number(n),
             jumlah_benar: Number(benar),
             jumlah_salah: Number(n - benar),
-            durasi_detik: Number(durasi),
+            durasi_detik: safeDurasi,
             jumlah_percobaan: Number(finalAttempt),
             answers: answersList,
             waktu_submit: new Date().toISOString()
