@@ -16,7 +16,7 @@
 //    permintaan navigasi, sehingga halaman gagal terbuka sama sekali. Karena
 //    itu yang disimpan hanya alamat kanonik ('/' dan '/11'), dan respons yang
 //    ternyata hasil pantulan tidak pernah dipakai untuk navigasi.
-const VERSI = 'mathcihuy-v1788449960';
+const VERSI = 'mathcihuy-v1790742500';
 
 // Hanya alamat kanonik -- jangan pernah menambahkan yang berakhiran .html.
 const HALAMAN = ['./', './11', './10'];
@@ -71,32 +71,31 @@ self.addEventListener('fetch', (e) => {
     const kunci = kunciHalaman(url.pathname);
     if (!kunci) return;                       // alamat lain: biarkan apa adanya
     e.respondWith((async () => {
-      const tersimpan = await caches.match(kunci);
-      // Respons hasil pantulan tidak sah untuk navigasi -- jangan dipakai.
-      const sah = tersimpan && !tersimpan.redirected ? tersimpan : null;
-      if (sah) {
-        // Segarkan simpanan di latar, tanpa menahan pembukaan halaman.
-        e.waitUntil(fetch(req).then((res) => {
-          if (res && res.ok && !res.redirected) {
-            return caches.open(VERSI).then((c) => c.put(kunci, res.clone()));
-          }
-        }).catch(() => {}));
-        return sah;
-      }
+      // 1. Prioritas Utama (Network-First): Selalu ambil HTML paling mutakhir saat online
       try {
-        const res = await fetch(req);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2800);
+        const res = await fetch(req, { signal: controller.signal });
+        clearTimeout(timeoutId);
         if (res && res.ok && !res.redirected) {
           const salinan = res.clone();
           e.waitUntil(caches.open(VERSI).then((c) => c.put(kunci, salinan)));
+          return res;
         }
-        return res;
       } catch (err) {
-        // Jaringan mati dan belum pernah tersimpan: sajikan halaman mana pun
-        // yang ada supaya portal tidak benar-benar kosong.
-        const cadangan = await caches.match('./');
-        if (cadangan && !cadangan.redirected) return cadangan;
-        throw err;
+        // Jaringan timeout, offline, atau sinyal lambat: lanjut ke cache
       }
+
+      // 2. Cache-Fallback: Sajikan salinan offline jika jaringan terputus
+      const tersimpan = await caches.match(kunci);
+      const sah = tersimpan && !tersimpan.redirected ? tersimpan : null;
+      if (sah) return sah;
+
+      // Jaringan mati dan belum pernah tersimpan: sajikan halaman mana pun yang ada
+      const cadangan = await caches.match('./');
+      if (cadangan && !cadangan.redirected) return cadangan;
+
+      return fetch(req);
     })());
     return;
   }

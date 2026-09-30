@@ -79,6 +79,29 @@
 
     // 3. INITIALIZATION & ROUTING ENGINE
     function initPortal() {
+      // SMART CACHE & INTEGRITY AUTO-GUARD:
+      // Memastikan perangkat siswa tidak terjebak pada cache berkas lama
+      const CURRENT_APP_BUILD = 'v1790742500';
+      try {
+        const storedBuild = localStorage.getItem('mathcihuy_app_build');
+        if (storedBuild && storedBuild !== CURRENT_APP_BUILD) {
+          console.log(`🔄 Terdeteksi pembaruan versi (${storedBuild} ➔ ${CURRENT_APP_BUILD}). Membersihkan cache lama...`);
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => {
+                if (name !== 'mathcihuy-' + CURRENT_APP_BUILD) caches.delete(name);
+              });
+            });
+          }
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(regs => {
+              regs.forEach(r => r.update());
+            });
+          }
+        }
+        localStorage.setItem('mathcihuy_app_build', CURRENT_APP_BUILD);
+      } catch (e) {}
+
       // Load scores
       try {
         const sc = localStorage.getItem(STORAGE_SCORES_KEY);
@@ -5288,7 +5311,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
       } catch (e) {}
 
-      const isPending = (pendingCount > 0 && answeredCount === pendingCount);
+      const isPending = (pendingCount > 0);
       const localScore = isPending ? 0 : Math.round((correctCount / totalQ) * 100);
       const localWrong = isPending ? 0 : (totalQ - correctCount);
 
@@ -5314,6 +5337,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         isNewBest: (prevBest === null || localScore >= prevBest),
         isPending
       });
+
+      // PENTING: Jika ada butir yang menunggu verifikasi kunci resmi server, picu sinkronisasi server segera
+      if (isPending && typeof catatSesiCbt === 'function') {
+        catatSesiCbt(tkaSubj, tkaPkgId, true);
+      }
     }
 
     function closeTkaScorecardModal() {
@@ -5321,7 +5349,39 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (modal) modal.classList.add('hidden');
     }
 
+    async function autoHealPackageKeys(subj, pkgId) {
+      try {
+        const sourceDb = tkaSrc();
+        const pkg = sourceDb[pkgId];
+        if (!pkg || !pkg.questions || pkg.questions.length === 0) return;
+        const hasMissingKey = pkg.questions.some(q => !q.kunci || q.kunci.trim() === '');
+        if (!hasMissingKey) return;
+
+        const tingkat = typeof TINGKAT !== 'undefined' ? TINGKAT : 12;
+        const res = await fetch(`/api/pembahasan?tingkat=${tingkat}&mapel=${subj}&kode_pertemuan=${pkgId}`, {
+          headers: getAuthHeaders()
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.solutions)) {
+            data.solutions.forEach((sol, idx) => {
+              if (pkg.questions[idx]) {
+                if (sol.kunci && (!pkg.questions[idx].kunci || pkg.questions[idx].kunci.trim() === '')) {
+                  pkg.questions[idx].kunci = sol.kunci;
+                }
+                if (sol.bahas && (!pkg.questions[idx].bahas || pkg.questions[idx].bahas.trim() === '')) {
+                  pkg.questions[idx].bahas = sol.bahas;
+                }
+              }
+            });
+            console.log(`✨ Kunci jawaban resmi ${pkgId} berhasil di-autoheal dari Cloudflare!`);
+          }
+        }
+      } catch (e) {}
+    }
+
     function renderTkaQuestion() {
+      autoHealPackageKeys(tkaSubj, tkaPkgId);
       pulihkanDraftJawaban(tkaSubj, tkaPkgId);
       if (!window._cloudRestoreAttempted || !window._cloudRestoreAttempted[`${tkaSubj}_${tkaPkgId}`]) {
         if (!window._cloudRestoreAttempted) window._cloudRestoreAttempted = {};
