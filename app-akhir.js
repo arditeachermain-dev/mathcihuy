@@ -849,41 +849,77 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     let _raporExpandedBabs = new Set();
     let _raporExpandedBabsInitialized = false;
 
-    function getRaporPackageList() {
+    function getRaporPackageList(kelas, accessLevel, subMap) {
       const pkgs = [];
       const database = (typeof db !== 'undefined') ? db : {};
+      const cleanKelas = String(kelas || '').toUpperCase();
+      const currentTingkat = (typeof TINGKAT_HALAMAN !== 'undefined') ? Number(TINGKAT_HALAMAN) : 12;
+
+      // Siswa F1 dan F2 (atau access_level === 'wajib_only') tidak mengambil Matematika Peminatan
+      const isWajibOnly = accessLevel === 'wajib_only' || cleanKelas.includes('F1') || cleanKelas.includes('F2');
       
+      // Kumpulan paket yang telah memiliki riwayat submit resmi di D1/lokal
+      const completedCodes = new Set();
+      if (subMap && typeof subMap === 'object') {
+        Object.keys(subMap).forEach(k => {
+          const item = subMap[k];
+          if (item && item.kode_pertemuan && (item.skor !== null && item.skor !== undefined)) {
+            completedCodes.add(`${(item.mapel || 'wajib').toLowerCase()}_${String(item.kode_pertemuan).toUpperCase()}`);
+          }
+        });
+      }
+
       // 1. Matematika Wajib
+      // Untuk Kelas 12, target kurikulum PTS adalah 14 paket (P01 s.d. P14: Kaidah Pencacahan & Dimensi Tiga).
+      // Paket P15 s.d. P21 (Statistika) adalah materi lanjutan pasca-PTS dan ditampilkan jika siswa sudah mengerjakannya.
       if (Array.isArray(database.wajib)) {
         database.wajib.forEach(m => {
-          pkgs.push({
-            id: m.id,
-            mapel: 'wajib',
-            mapelLabel: 'Matematika Wajib',
-            title: m.title || ('Pertemuan ' + m.id),
-            bab: m.bab || 'Kaidah Pencacahan, Geometri, & Statistika'
-          });
+          const num = parseInt(String(m.id).replace(/\D/g, ''), 10) || 0;
+          const isSubmitted = completedCodes.has(`wajib_${String(m.id).toUpperCase()}`);
+          if (currentTingkat !== 12 || num <= 14 || isSubmitted) {
+            pkgs.push({
+              id: m.id,
+              mapel: 'wajib',
+              mapelLabel: 'Matematika Wajib',
+              title: m.title || ('Pertemuan ' + m.id),
+              bab: m.bab || 'Kurikulum Wajib'
+            });
+          }
         });
       }
       
       // 2. Matematika Peminatan
-      if (Array.isArray(database.minat)) {
+      // Khusus Kelas 12 F-3 & 12 F-4 (atau alumni / non-wajib_only).
+      // Target kurikulum PTS adalah 16 paket (P01 s.d. P16: Geometri Lingkaran & Limit).
+      // Paket P17 s.d. P30 (Turunan & Integral) adalah materi lanjutan dan ditampilkan jika siswa sudah mengerjakannya.
+      if (!isWajibOnly && Array.isArray(database.minat) && database.minat.length > 0) {
         database.minat.forEach(m => {
-          pkgs.push({
-            id: m.id,
-            mapel: 'minat',
-            mapelLabel: 'Matematika Peminatan',
-            title: m.title || ('Pertemuan ' + m.id),
-            bab: m.bab || 'Geometri Analitik, Limit, Turunan, & Integral'
-          });
+          const num = parseInt(String(m.id).replace(/\D/g, ''), 10) || 0;
+          const isSubmitted = completedCodes.has(`minat_${String(m.id).toUpperCase()}`);
+          if (currentTingkat !== 12 || num <= 16 || isSubmitted) {
+            pkgs.push({
+              id: m.id,
+              mapel: 'minat',
+              mapelLabel: 'Matematika Peminatan',
+              title: m.title || ('Pertemuan ' + m.id),
+              bab: m.bab || 'Kurikulum Peminatan'
+            });
+          }
         });
       }
 
       // Fallback aman jika database belum terinisiasi
       if (pkgs.length === 0) {
-        for (let i = 1; i <= 21; i++) {
+        const wajibMax = (currentTingkat === 12) ? 14 : 21;
+        for (let i = 1; i <= wajibMax; i++) {
           const pid = 'P' + (i < 10 ? '0' + i : i);
           pkgs.push({ id: pid, mapel: 'wajib', mapelLabel: 'Matematika Wajib', title: 'Pertemuan ' + pid, bab: 'Kurikulum Wajib' });
+        }
+        if (!isWajibOnly && currentTingkat === 12) {
+          for (let i = 1; i <= 16; i++) {
+            const pid = 'P' + (i < 10 ? '0' + i : i);
+            pkgs.push({ id: pid, mapel: 'minat', mapelLabel: 'Matematika Peminatan', title: 'Pertemuan ' + pid, bab: 'Kurikulum Peminatan' });
+          }
         }
       }
 
@@ -1235,6 +1271,65 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       cardsContainer.innerHTML = htmlSections.join('');
     }
 
+    function updateRaporKPI() {
+      let targetPackages = [];
+      const f = _raporCurrentFilter || 'all';
+
+      if (f === 'wajib') {
+        targetPackages = _raporAllPackages.filter(p => p.mapel === 'wajib');
+      } else if (f === 'minat') {
+        targetPackages = _raporAllPackages.filter(p => p.mapel === 'minat');
+      } else if (f === 'tuntas') {
+        targetPackages = _raporAllPackages.filter(p => p.status === 'sempurna' || p.status === 'tuntas');
+      } else if (f === 'belum') {
+        targetPackages = _raporAllPackages.filter(p => p.status !== 'sempurna' && p.status !== 'tuntas');
+      } else {
+        targetPackages = _raporAllPackages;
+      }
+
+      const totalCount = targetPackages.length;
+      const completedPackages = targetPackages.filter(p => p.status === 'sempurna' || p.status === 'tuntas');
+      const completedCount = completedPackages.length;
+
+      let sumScore = 0;
+      let attemptedCount = 0;
+      targetPackages.forEach(p => {
+        if (p.skor !== null && p.skor !== undefined) {
+          sumScore += Number(p.skor);
+          attemptedCount++;
+        }
+      });
+
+      const avgVal = attemptedCount > 0 ? (sumScore / attemptedCount) : 0;
+      const avgStr = attemptedCount > 0 ? avgVal.toFixed(1) : '0.0';
+      const pctVal = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+
+      let grade = '-';
+      let gradeDesc = '-';
+      if (attemptedCount > 0) {
+        if (avgVal >= 92) { grade = 'A+'; gradeDesc = 'Sangat Memuaskan'; }
+        else if (avgVal >= 84) { grade = 'A'; gradeDesc = 'Memuaskan'; }
+        else if (avgVal >= 75) { grade = 'B'; gradeDesc = 'Tuntas KKM'; }
+        else { grade = 'C'; gradeDesc = 'Perlu Pembinaan'; }
+      }
+
+      const kpiAvg = document.getElementById('rapor-kpi-avg');
+      if (kpiAvg) kpiAvg.textContent = avgStr;
+      const kpiComp = document.getElementById('rapor-kpi-completed');
+      if (kpiComp) kpiComp.textContent = `${completedCount} / ${totalCount}`;
+      const kpiPct = document.getElementById('rapor-kpi-pct');
+      if (kpiPct) kpiPct.textContent = `${pctVal}%`;
+      const kpiGrade = document.getElementById('rapor-kpi-grade');
+      if (kpiGrade) kpiGrade.textContent = grade;
+      const kpiGradeDesc = document.getElementById('rapor-kpi-grade-desc');
+      if (kpiGradeDesc) kpiGradeDesc.textContent = gradeDesc;
+
+      const progText = document.getElementById('rapor-progress-text');
+      if (progText) progText.textContent = `${completedCount} dari ${totalCount} Paket Tuntas (${pctVal}%)`;
+      const progBar = document.getElementById('rapor-progress-bar');
+      if (progBar) progBar.style.width = `${pctVal}%`;
+    }
+
     function setRaporFilter(filterKey) {
       _raporCurrentFilter = filterKey;
       _raporSelectedBab = 'all';
@@ -1257,6 +1352,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           }
         }
       });
+      updateRaporKPI();
       renderRaporCards();
     }
 
@@ -1287,17 +1383,19 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         let sess = null;
         try { sess = JSON.parse(localStorage.getItem('portal_session') || 'null'); } catch(e) {}
         if (sess && sess.data && String(sess.data.nis) === String(targetNis)) {
-          std = { nama: sess.data.nama || sess.data.name, kelas: sess.data.kelas || sess.data.kelas_name };
+          std = { nama: sess.data.nama || sess.data.name, kelas: sess.data.kelas || sess.data.kelas_name, access_level: sess.data.access_level };
         }
       }
 
       if (!std && targetNis === '24400083') {
-        std = { nama: 'Rania Zivanka Kurniawan', kelas: 'XII F.4' };
+        std = { nama: 'Rania Zivanka Kurniawan', kelas: 'XII F4', access_level: 'full' };
       }
 
       const defaultTingkat = (typeof NAMA_TINGKAT !== 'undefined') ? NAMA_TINGKAT : 'XII';
       const nama = (std && std.nama) ? std.nama : ('Siswa ' + targetNis);
       const kelas = (std && std.kelas) ? std.kelas : defaultTingkat;
+      const cleanKls = String(kelas).toUpperCase();
+      const accessLevel = (std && std.access_level) ? std.access_level : ((cleanKls.includes('F1') || cleanKls.includes('F2')) ? 'wajib_only' : 'full');
 
       const words = nama.trim().split(/\s+/);
       const initials = words.length >= 2 ? (words[0][0] + words[1][0]).toUpperCase() : (words[0].substring(0, 2)).toUpperCase();
@@ -1317,7 +1415,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         try { sess = JSON.parse(localStorage.getItem('portal_session') || 'null'); } catch(e) {}
         if (sess && sess.type === 'guru') {
           statusBadge.innerHTML = '<i class="fa-solid fa-user-check mr-1"></i>Akses Guru Terverifikasi';
-        } else if (sess && sess.type === 'siswa') {
+        } else if (sess && sess.type === 'siswa' && String(sess.data && sess.data.nis) === String(targetNis)) {
           statusBadge.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i>Terdaftar Aktif';
         } else {
           statusBadge.innerHTML = '<i class="fa-solid fa-eye mr-1"></i>Mode Pratinjau';
@@ -1332,7 +1430,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const isGuru = sess && sess.type === 'guru';
         const headers = isGuru ? getTeacherAuthHeaders() : (typeof getAuthHeaders === 'function' ? getAuthHeaders() : {});
 
-        const resp = await fetch(`/api/nilai?nis=${encodeURIComponent(targetNis)}${forceSync ? ('&_t=' + Date.now()) : ''}`, {
+        const resp = await fetch(`/api/nilai?nis=${encodeURIComponent(targetNis)}&_t=${Date.now()}`, {
           headers: headers
         });
         if (resp.ok) {
@@ -1347,7 +1445,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
               subMap[k3] = r;
             });
 
-            if (!isGuru) {
+            if (!isGuru && String(targetNis) === String((sess && sess.data && sess.data.nis) || '')) {
               window._cbtCompletedSubmissions = Object.assign(window._cbtCompletedSubmissions || {}, subMap);
             }
           }
@@ -1356,11 +1454,29 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         console.warn('Gagal menarik nilai dari D1:', err);
       }
 
-      // 3. Gabungkan dengan paket materi
-      const rawList = getRaporPackageList();
-      let completedCount = 0;
-      let attemptedCount = 0;
-      let sumScore = 0;
+      // Fallback lokal jika ada pengerjaan offline yang belum tersinkron
+      try {
+        const cacheKey = typeof kunciTingkat === 'function' ? kunciTingkat('cbt_completed_' + targetNis) : ('cbt_completed_' + targetNis);
+        const cached = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+        if (cached && typeof cached === 'object') {
+          Object.keys(cached).forEach(k => {
+            if (!subMap[k]) {
+              const item = cached[k];
+              if (item) {
+                const k1 = `${item.mapel}_${item.kode_pertemuan}`;
+                const k2 = `${(item.mapel || '').toLowerCase()}_${String(item.kode_pertemuan || '').toUpperCase()}`;
+                const k3 = `${(item.mapel || '').toLowerCase()}_${String(item.kode_pertemuan || '').toLowerCase()}`;
+                subMap[k1] = item;
+                subMap[k2] = item;
+                subMap[k3] = item;
+              }
+            }
+          });
+        }
+      } catch (e) {}
+
+      // 3. Gabungkan dengan paket materi sesuai kurikulum kelas siswa
+      const rawList = getRaporPackageList(kelas, accessLevel, subMap);
 
       _raporAllPackages = rawList.map(p => {
         const k1 = `${p.mapel}_${p.id}`;
@@ -1380,15 +1496,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           jumlah_percobaan = Number(rec.jumlah_percobaan) || 1;
           waktu_submit = rec.waktu_submit || null;
 
-          attemptedCount++;
-          sumScore += skor;
-
           if (skor === 100) {
             status = 'sempurna';
-            completedCount++;
           } else if (skor >= 75) {
             status = 'tuntas';
-            completedCount++;
           } else {
             status = 'remedial';
           }
@@ -1408,37 +1519,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         };
       });
 
-      // 4. Perbarui Metrik KPI
+      // 4. Perbarui Badge Hitungan Tab Filter
       const totalCount = _raporAllPackages.length;
-      const avgVal = attemptedCount > 0 ? (sumScore / attemptedCount) : 0;
-      const avgStr = attemptedCount > 0 ? avgVal.toFixed(1) : '0.0';
-      const pctVal = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
-
-      let grade = '-';
-      let gradeDesc = '-';
-      if (attemptedCount > 0) {
-        if (avgVal >= 92) { grade = 'A+'; gradeDesc = 'Sangat Memuaskan'; }
-        else if (avgVal >= 84) { grade = 'A'; gradeDesc = 'Memuaskan'; }
-        else if (avgVal >= 75) { grade = 'B'; gradeDesc = 'Tuntas KKM'; }
-        else { grade = 'C'; gradeDesc = 'Perlu Pembinaan'; }
-      }
-
-      const kpiAvg = document.getElementById('rapor-kpi-avg');
-      if (kpiAvg) kpiAvg.textContent = avgStr;
-      const kpiComp = document.getElementById('rapor-kpi-completed');
-      if (kpiComp) kpiComp.textContent = `${completedCount} / ${totalCount}`;
-      const kpiPct = document.getElementById('rapor-kpi-pct');
-      if (kpiPct) kpiPct.textContent = `${pctVal}%`;
-      const kpiGrade = document.getElementById('rapor-kpi-grade');
-      if (kpiGrade) kpiGrade.textContent = grade;
-      const kpiGradeDesc = document.getElementById('rapor-kpi-grade-desc');
-      if (kpiGradeDesc) kpiGradeDesc.textContent = gradeDesc;
-
-      const progText = document.getElementById('rapor-progress-text');
-      if (progText) progText.textContent = `${completedCount} dari ${totalCount} Paket Tuntas (${pctVal}%)`;
-      const progBar = document.getElementById('rapor-progress-bar');
-      if (progBar) progBar.style.width = `${pctVal}%`;
-
       const countAll = document.getElementById('rapor-count-all');
       if (countAll) countAll.textContent = totalCount;
       const countWajib = document.getElementById('rapor-count-wajib');
@@ -1450,11 +1532,32 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (tabMinat) {
         tabMinat.style.display = (minatCount > 0) ? '' : 'none';
       }
+      const allCompleted = _raporAllPackages.filter(p => p.status === 'sempurna' || p.status === 'tuntas').length;
       const countTuntas = document.getElementById('rapor-count-tuntas');
-      if (countTuntas) countTuntas.textContent = completedCount;
+      if (countTuntas) countTuntas.textContent = allCompleted;
       const countBelum = document.getElementById('rapor-count-belum');
-      if (countBelum) countBelum.textContent = totalCount - completedCount;
+      if (countBelum) countBelum.textContent = totalCount - allCompleted;
 
+      // Jika tab minat aktif tetapi siswa tidak memiliki mapel minat, alihkan ke tab 'all'
+      if (_raporCurrentFilter === 'minat' && minatCount === 0) {
+        _raporCurrentFilter = 'all';
+        ['all', 'wajib', 'minat', 'tuntas', 'belum'].forEach(k => {
+          const btn = document.getElementById(`rapor-tab-${k}`);
+          if (!btn) return;
+          if (k === 'all') {
+            btn.classList.add('active');
+            btn.style.backgroundColor = '#2E384D';
+            btn.style.color = '#FFFFFF';
+          } else {
+            btn.classList.remove('active');
+            btn.style.backgroundColor = 'transparent';
+            btn.style.color = (k === 'tuntas') ? '#2E7D32' : '#787774';
+          }
+        });
+      }
+
+      // 5. Perbarui Metrik KPI Sesuai Tab & Render Kartu
+      updateRaporKPI();
       renderRaporCards();
     }
 

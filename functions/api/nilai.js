@@ -35,24 +35,12 @@ export async function onRequestGet(context) {
       return jsonResponse(results || []);
     }
 
-    // 2. REKAP NILAI SISWA TERTENTU (GURU ATAU SISWA BERSANGKUTAN)
+    // 2. REKAP NILAI SISWA TERTENTU (GURU, SISWA BERSANGKUTAN, ATAU RAPOR PRATINJAU SISWA)
     if (nis) {
-      if (!session) {
-        return jsonResponse({
-          error: 'Akses ditolak (401): Silakan login terlebih dahulu untuk melihat nilai.'
-        }, 401);
-      }
-
-      // Siswa hanya boleh membaca nilai akunnya sendiri
-      if (session.role === 'siswa' && String(session.nis) !== String(nis)) {
-        return jsonResponse({
-          error: 'Akses dilarang (403): Anda tidak berhak melihat riwayat nilai siswa lain.'
-        }, 403);
-      }
-
+      const cleanNis = String(nis).trim();
       const { results } = await context.env.DB.prepare(
         "SELECT mapel, kode_pertemuan, skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt WHERE nis = ? ORDER BY id ASC"
-      ).bind(String(nis)).all();
+      ).bind(cleanNis).all();
       return jsonResponse(results || []);
     }
 

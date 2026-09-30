@@ -185,6 +185,8 @@ async function generateStudentProgressEmbed(env, nis, mapel = "wajib") {
   }
 
   let completedCnt = 0;
+  let tuntasCnt = 0;
+  let remedialCnt = 0;
   let totalScore = 0;
   const col1 = [];
   const col2 = [];
@@ -196,6 +198,8 @@ async function generateStudentProgressEmbed(env, nis, mapel = "wajib") {
     if (scoreMap[pCode] !== undefined && scoreMap[pCode] !== null) {
       completedCnt++;
       totalScore += scoreMap[pCode];
+      if (scoreMap[pCode] >= 75) tuntasCnt++;
+      else remedialCnt++;
       const att = attemptMap[pCode] && attemptMap[pCode] > 1 ? ` (${attemptMap[pCode]}x)` : '';
       const icon = scoreMap[pCode] >= 75 ? "✅" : "⚠️";
       line = `${icon} **${pCode}:** ${scoreMap[pCode]}/100${att}`;
@@ -216,12 +220,16 @@ async function generateStudentProgressEmbed(env, nis, mapel = "wajib") {
   const embedColor = cleanMapel === "minat" ? 0xE67E22 : (percentRaw >= 70 ? 0x2ECC71 : (percentRaw >= 30 ? 0xF1C40F : 0xE74C3C));
   const titlePrefix = cleanMapel === "minat" ? "📊 KARTU CBT PEMINATAN" : "📊 KARTU PROGRES CBT";
 
+  const detailStatus = remedialCnt > 0 
+    ? `(${tuntasCnt} Tuntas • ⚠️ ${remedialCnt} Remedial)`
+    : `(${percentStr}% Tuntas)`;
+
   return {
     embed: {
       title: `${titlePrefix} • ${student.nama.toUpperCase()}`,
       description: `• **NIS:** \`${student.nis}\` | **Kelas:** \`${student.kelas}\`\n` +
                    `• **Mata Pelajaran:** **${mapelTitle}**\n` +
-                   `• **Total Selesai:** **${completedCnt} / ${pkgCount} Paket** (${percentStr}%)\n` +
+                   `• **Total Selesai:** **${completedCnt} / ${pkgCount} Paket** ${detailStatus}\n` +
                    `• **Progress Bar:** \`[${bar}]\` **${percentStr}%**\n` +
                    `• **Rata-rata Skor Selesai:** **${avgScore} / 100**\n` +
                    `• **Tenggat Remedial:** ⏰ **30 September 2026**\n` +
