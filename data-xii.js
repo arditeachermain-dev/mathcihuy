@@ -9647,716 +9647,716 @@ const NAMA_TINGKAT = 'XII';
             }
       ]
 },
-    "P07": {
-      "id": "P07",
-      "subject": "Matematika Peminatan",
-      "title": "Geometri Analitik Lingkaran 7: PGSL dengan Gradien m Tertentu",
-      "questions": [
-        {
-          "no": 1,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q1] Salah satu persamaan garis singgung lingkaran $x^2 + y^2 = 20$ yang memiliki gradien $m = 2$ adalah ...",
-          "opsi": [
-            "A. $y = 2x + 4\\sqrt{5}$",
-            "B. $y = 2x + 8$",
-            "C. $y = 2x + 10$",
-            "D. $y = 2x + 20$",
-            "E. $y = 2x + 5$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 20,
-            "cx": 0,
-            "cy": 0,
-            "tang": 1
-          }
-        },
-        {
-          "no": 2,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q2] Persamaan garis singgung lingkaran $(x - 2)^2 + (y + 1)^2 = 25$ yang sejajar dengan $3x - 4y + 12 = 0$ adalah ...",
-          "opsi": [
-            "A. $3x - 4y + 25 = 0$ atau $3x - 4y - 25 = 0$",
-            "B. $3x - 4y + 15 = 0$ atau $3x - 4y - 35 = 0$",
-            "C. $3x - 4y + 10 = 0$",
-            "D. $4x + 3y + 15 = 0$",
-            "E. $3x - 4y = 0$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "cx": 2,
-            "cy": -1,
-            "r2": 25,
-            "line": [
-              3,
-              -4,
-              12
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 3,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q3] Persamaan garis singgung lingkaran $x^2 + y^2 = 16$ yang tegak lurus dengan garis $2x - y + 5 = 0$ adalah ...",
-          "opsi": [
-            "A. $y = -2x \\pm 2\\sqrt{5}$",
-            "B. $y = -1/2 x \\pm 4\\sqrt{5}$",
-            "C. $y = 2x \\pm 4\\sqrt{5}$",
-            "D. $y = -1/2 x \\pm 2\\sqrt{5}$",
-            "E. $y = -1/2 x \\pm 8$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 16,
-            "cx": 0,
-            "cy": 0,
-            "line": [
-              2,
-              -1,
-              5
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 4,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q4] Salah satu garis singgung lingkaran $x^2 + y^2 = 9$ bersudut $45^\\circ$ terhadap sumbu-$X$ positif adalah ...",
-          "opsi": [
-            "A. $y = x + 6$",
-            "B. $y = x + 9$",
-            "C. $y = x + 3\\sqrt{2}$",
-            "D. $y = x + 2\\sqrt{3}$",
-            "E. $y = x + 3$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 9,
-            "cx": 0,
-            "cy": 0,
-            "tang": 1
-          }
-        },
-        {
-          "no": 5,
-          "tipe": "Pilihan Benar / Salah",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q5] Tentukan kebenaran persamaan garis singgung bergradien m:\n(1) Pada x^2 + y^2 = r^2, rumusnya adalah y = mx +- r akar(1 + m^2).\n(2) Garis singgung bergradien m = 0 pada x^2 + y^2 = 25 adalah x = +- 5.\n(3) Terdapat tepat 2 garis singgung yang sejajar dengan gradien m yang sama.",
-          "opsi": [
-            "Pada x^2 + y^2 = r^2, rumusnya adalah y = mx +- r akar(1 + m^2)",
-            "Garis singgung bergradien m = 0 pada x^2 + y^2 = 25 adalah x = +- 5",
-            "Terdapat tepat 2 garis singgung yang sejajar dengan gradien m yang sama"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 25,
-            "cx": 0,
-            "cy": 0,
-            "tang": 1
-          }
-        },
-        {
-          "no": 6,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q6] Berapakah $c$ pada $y = 3x + c$ yang menyinggung $x^2 + y^2 = 10$ dengan $c > 0$?",
-          "opsi": [
-            "A. 10",
-            "B. √10",
-            "C. 5",
-            "D. 20",
-            "E. 30"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 10,
-            "cx": 0,
-            "cy": 0,
-            "tang": 1
-          }
-        },
-        {
-          "no": 7,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q7] Persamaan garis singgung $(x + 1)^2 + (y - 3)^2 = 8$ dengan gradien $m = -1$ adalah ...",
-          "opsi": [
-            "A. $y = -x + 2$",
-            "B. $y = -x + 6$ atau $y = -x - 2$",
-            "C. $y = -x + 4$",
-            "D. $y = -x + 8$",
-            "E. $y = -x$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "cx": -1,
-            "cy": 3,
-            "r2": 8,
-            "tang": 1
-          }
-        },
-        {
-          "no": 8,
-          "tipe": "Pilihan Ganda Kompleks",
-          "level": "C5 Evaluasi",
-          "bobot": 10,
-          "tanya": "[P07-Q8] Pada lingkaran x^2 + y^2 = 16 dengan gradien m = 3/4, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
-          "opsi": [
-            "A. Nilai r akar(1 + m^2) adalah 5.",
-            "B. Dalam bentuk umum, persamaannya adalah 3x - 4y + 20 = 0 dan 3x - 4y - 20 = 0.",
-            "C. Garis singgung lainnya adalah y = 3/4 x - 5.",
-            "D. Salah satu garis singgungnya adalah y = 3/4 x + 5.",
-            "E. Kedua garis singgung tersebut saling tegak lurus."
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 16,
-            "cx": 0,
-            "cy": 0
-          }
-        },
-        {
-          "no": 9,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q9] Jarak antara dua garis singgung lingkaran $x^2 + y^2 = 36$ yang bergradien $m = \\sqrt{3}$ adalah ...",
-          "opsi": [
-            "A. 6√3 satuan",
-            "B. 6 satuan",
-            "C. 18 satuan",
-            "D. 12 satuan",
-            "E. 24 satuan"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 36,
-            "cx": 0,
-            "cy": 0,
-            "tang": 1
-          }
-        },
-        {
-          "no": 10,
-          "tipe": "Isian Singkat Numerik",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P07-Q10] Nilai positif $k$ agar $y = 2x + k$ menyinggung $x^2 + y^2 = 5$ adalah ...",
-          "opsi": [],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 5,
-            "cx": 0,
-            "cy": 0,
-            "tang": 1
-          }
+"P07": {
+    "id": "P07",
+    "subject": "Matematika Peminatan",
+    "title": "Geometri Analitik Lingkaran 7: PGSL dengan Gradien m Tertentu",
+    "questions": [
+      {
+        "no": 1,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q1] Salah satu persamaan garis singgung lingkaran $x^2 + y^2 = 20$ yang memiliki gradien $m = 2$ adalah ...",
+        "opsi": [
+          "A. $y = 2x + 4\\sqrt{5}$",
+          "B. $y = 2x + 8$",
+          "C. $y = 2x + 10$",
+          "D. $y = 2x + 20$",
+          "E. $y = 2x + 5$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Mengidentifikasi rumus baku PGSL bergradien $m$ pada lingkaran $x^2 + y^2 = r^2$:\n$$y = mx \\pm r\\sqrt{1 + m^2}$$\n\nLangkah 2: Menentukan parameter lingkaran dan garis:\nDari $x^2 + y^2 = 20$, diperoleh jari-jari $r = \\sqrt{20}$. Gradien yang diminta adalah $m = 2$.\n\nLangkah 3: Mensubstitusikan nilai ke dalam rumus:\n$$y = 2x \\pm \\sqrt{20}\\sqrt{1 + 2^2} = 2x \\pm \\sqrt{20}\\sqrt{5} = 2x \\pm \\sqrt{100} = 2x \\pm 10$$\n\nLangkah 4: Dua persamaan garis singgung yang memenuhi adalah $y = 2x + 10$ atau $y = 2x - 10$.\nKesimpulan: Kunci Jawaban C ($y = 2x + 10$).",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 20,
+          "cx": 0,
+          "cy": 0,
+          "tang": 1
         }
-      ]
-    },
-    "P08": {
-      "id": "P08",
-      "subject": "Matematika Peminatan",
-      "title": "Geometri Analitik Lingkaran 8: PGSL Titik di Luar Lingkaran & Garis Kutub",
-      "questions": [
-        {
-          "no": 1,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q1] Persamaan garis kutub (garis polar) dari titik $T(0, 5)$ terhadap lingkaran $x^2 + y^2 = 9$ adalah ...",
-          "opsi": [
-            "A. $5x + y = 9$",
-            "B. $x + 5y = 9$",
-            "C. $5y = 9$",
-            "D. $5y = 25$",
-            "E. $5x = 9$"
+      },
+      {
+        "no": 2,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q2] Persamaan garis singgung lingkaran $(x - 2)^2 + (y + 1)^2 = 25$ yang sejajar dengan $3x - 4y + 12 = 0$ adalah ...",
+        "opsi": [
+          "A. $3x - 4y + 25 = 0$ atau $3x - 4y - 25 = 0$",
+          "B. $3x - 4y + 15 = 0$ atau $3x - 4y - 35 = 0$",
+          "C. $3x - 4y + 10 = 0$",
+          "D. $4x + 3y + 15 = 0$",
+          "E. $3x - 4y = 0$"
+        ],
+        "kunci": "B",
+        "bahas": "Langkah 1: Mengidentifikasi parameter lingkaran $(x - 2)^2 + (y + 1)^2 = 25$:\nPusat lingkaran $(a, b) = (2, -1)$ dan jari-jari $r = \\sqrt{25} = 5$.\n\nLangkah 2: Menentukan gradien garis yang sejajar dengan $3x - 4y + 12 = 0$:\n$$4y = 3x + 12 \\implies y = \\frac{3}{4}x + 3 \\implies m = \\frac{3}{4}$$\n\nLangkah 3: Menerapkan rumus PGSL bentuk $(x - a)^2 + (y - b)^2 = r^2$:\n$$(y - b) = m(x - a) \\pm r\\sqrt{1 + m^2}$$\n$$y - (-1) = \\frac{3}{4}(x - 2) \\pm 5\\sqrt{1 + \\left(\\frac{3}{4}\\right)^2}$$\n$$y + 1 = \\frac{3}{4}(x - 2) \\pm 5\\sqrt{\\frac{25}{16}} = \\frac{3}{4}(x - 2) \\pm 5 \\cdot \\frac{5}{4} = \\frac{3}{4}(x - 2) \\pm \\frac{25}{4}$$\n\nLangkah 4: Mengalikan kedua ruas dengan 4 untuk mengeliminasi pecahan:\n$$4(y + 1) = 3(x - 2) \\pm 25 \\implies 4y + 4 = 3x - 6 \\pm 25$$\n$$3x - 4y - 10 \\pm 25 = 0$$\n- Garis 1: $3x - 4y - 10 + 25 = 0 \\implies 3x - 4y + 15 = 0$\n- Garis 2: $3x - 4y - 10 - 25 = 0 \\implies 3x - 4y - 35 = 0$\nKesimpulan: Kunci Jawaban B ($3x - 4y + 15 = 0$ atau $3x - 4y - 35 = 0$).",
+        "viz": {
+          "t": "lingkaran",
+          "cx": 2,
+          "cy": -1,
+          "r2": 25,
+          "line": [
+            3,
+            -4,
+            12
           ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 9,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              0,
-              5
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 2,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q2] Dari titik $P(0, 5)$ ditarik garis singgung ke $x^2 + y^2 = 9$. Salah satu persamaan garis singgungnya adalah ...",
-          "opsi": [
-            "A. $4x + 3y + 15 = 0$",
-            "B. $4x - 3y + 15 = 0$",
-            "C. $3x + 4y - 15 = 0$",
-            "D. $3x - 4y + 15 = 0$",
-            "E. $4x + 3y - 15 = 0$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 9,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              0,
-              5
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 3,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q3] Panjang garis singgung dari titik $A(6, 8)$ ke lingkaran $x^2 + y^2 = 36$ adalah ...",
-          "opsi": [
-            "A. 10 satuan",
-            "B. 2√7 satuan",
-            "C. 4√5 satuan",
-            "D. 8 satuan",
-            "E. 6 satuan"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 36,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              6,
-              8
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 4,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q4] Persamaan garis polar titik $T(1, 2)$ terhadap $(x - 3)^2 + (y + 1)^2 = 25$ adalah ...",
-          "opsi": [
-            "A. $-2x + 3y + 25 = 0$",
-            "B. $x + 2y - 25 = 0$",
-            "C. $-2x + 3y - 16 = 0$",
-            "D. $3x - y - 16 = 0$",
-            "E. $2x - 3y + 16 = 0$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "cx": 3,
-            "cy": -1,
-            "r2": 25,
-            "P": [
-              1,
-              2
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 5,
-          "tipe": "Pilihan Benar / Salah",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q5] Tentukan kebenaran konsep garis kutub (polar) dari titik luar A(x1, y1):\n(1) Garis kutub memotong lingkaran tepat di dua titik singgung lingkaran.\n(2) Titik singgung dapat ditentukan tanpa menggunakan bantuan garis kutub.\n(3) Persamaan garis kutub untuk x^2 + y^2 = r^2 dirumuskan x1.x + y1.y = r^2.",
-          "opsi": [
-            "Garis kutub memotong lingkaran tepat di dua titik singgung lingkaran",
-            "Titik singgung dapat ditentukan tanpa menggunakan bantuan garis kutub",
-            "Persamaan garis kutub untuk x^2 + y^2 = r^2 dirumuskan x1.x + y1.y = r^2"
-          ],
-          "kunci": "",
-          "bahas": ""
-        },
-        {
-          "no": 6,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q6] Berapakah sudut apit antara dua garis singgung lingkaran $x^2 + y^2 = 25$ dari titik luar $T(0, 10)$?",
-          "opsi": [
-            "A. 120 derajat",
-            "B. 60 derajat",
-            "C. 90 derajat",
-            "D. 45 derajat",
-            "E. 30 derajat"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 25,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              0,
-              10
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 7,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q7] Panjang tali busur kontak dari titik $(0, 5)$ ke lingkaran $x^2 + y^2 = 9$ adalah ...",
-          "opsi": [
-            "A. 24/5 satuan",
-            "B. 12/5 satuan",
-            "C. 18/5 satuan",
-            "D. 8 satuan",
-            "E. 6 satuan"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 9,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              0,
-              5
-            ]
-          }
-        },
-        {
-          "no": 8,
-          "tipe": "Pilihan Ganda Kompleks",
-          "level": "C5 Evaluasi",
-          "bobot": 10,
-          "tanya": "[P08-Q8] Ditarik garis singgung dari titik A(0, 5) ke lingkaran x^2 + y^2 = 9. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
-          "opsi": [
-            "A. Persamaan garis kutub titik A terhadap lingkaran adalah 5y = 9 (atau y = 9/5).",
-            "B. Nilai absis titik-titik singgung adalah x = 12/5 dan x = -12/5.",
-            "C. Titik singgung pada lingkaran adalah (12/5, 9/5) dan (-12/5, 9/5).",
-            "D. Titik A(0, 5) terletak di dalam lingkaran.",
-            "E. Panjang ruas garis singgung dari titik A ke titik singgung adalah 4 satuan."
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 9,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              0,
-              5
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 9,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q9] Dari titik $T(5, 0)$ ditarik garis singgung ke $x^2 + y^2 = 9$. Salah satu titik singgungnya berkoordinat ...",
-          "opsi": [
-            "A. $(12/5, 9/5)$",
-            "B. $(9/5, 12/5)$",
-            "C. $(9/5, -9/5)$",
-            "D. $(0, 3)$",
-            "E. $(3, 0)$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 9,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              5,
-              0
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 10,
-          "tipe": "Isian Singkat Numerik",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P08-Q10] Panjang garis singgung dari $(13, 0)$ ke $x^2 + y^2 = 25$ adalah ...",
-          "opsi": [],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 25,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              13,
-              0
-            ],
-            "tang": 1
-          }
+          "tang": 1
         }
-      ]
-    },
-    "P09": {
-      "id": "P09",
-      "subject": "Matematika Peminatan",
-      "title": "Asesmen Sumatif Bab 1: Geometri Analitik Lingkaran",
-      "questions": [
-        {
-          "no": 1,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q1] Jari-jari lingkaran $x^2 + y^2 - 4x + 2y - 20 = 0$ adalah ...",
-          "opsi": [
-            "A. 5",
-            "B. 4",
-            "C. √20",
-            "D. 6",
-            "E. 25"
+      },
+      {
+        "no": 3,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q3] Persamaan garis singgung lingkaran $x^2 + y^2 = 16$ yang tegak lurus dengan garis $2x - y + 5 = 0$ adalah ...",
+        "opsi": [
+          "A. $y = -2x \\pm 2\\sqrt{5}$",
+          "B. $y = -1/2 x \\pm 4\\sqrt{5}$",
+          "C. $y = 2x \\pm 4\\sqrt{5}$",
+          "D. $y = -1/2 x \\pm 2\\sqrt{5}$",
+          "E. $y = -1/2 x \\pm 8$"
+        ],
+        "kunci": "D",
+        "bahas": "Langkah 1: Menentukan gradien garis penunjuk $2x - y + 5 = 0$:\n$$y = 2x + 5 \\implies m_1 = 2$$\n\nLangkah 2: Karena garis singgung tegak lurus dengan garis tersebut, berlaku syarat:\n$$m \\cdot m_1 = -1 \\implies m \\cdot 2 = -1 \\implies m = -\\frac{1}{2}$$\n\nLangkah 3: Lingkaran $x^2 + y^2 = 16$ memiliki pusat $(0,0)$ dan jari-jari $r = 4$. Substitusikan ke rumus PGSL:\n$$y = mx \\pm r\\sqrt{1 + m^2}$$\n$$y = -\\frac{1}{2}x \\pm 4\\sqrt{1 + \\left(-\\frac{1}{2}\\right)^2} = -\\frac{1}{2}x \\pm 4\\sqrt{\\frac{5}{4}} = -\\frac{1}{2}x \\pm 4 \\cdot \\frac{\\sqrt{5}}{2} = -\\frac{1}{2}x \\pm 2\\sqrt{5}$$\nKesimpulan: Kunci Jawaban D ($y = -1/2 x \\pm 2\\sqrt{5}$).",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 16,
+          "cx": 0,
+          "cy": 0,
+          "line": [
+            2,
+            -1,
+            5
           ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "cx": 2,
-            "cy": -1,
-            "r2": 25,
-            "line": [
-              4,
-              2,
-              -20
-            ]
-          }
-        },
-        {
-          "no": 2,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q2] Persamaan garis singgung lingkaran $x^2 + y^2 = 13$ di titik $(-2, 3)$ adalah ...",
-          "opsi": [
-            "A. $2x + 3y = 13$",
-            "B. $2x - 3y = 13$",
-            "C. $-2x + 3y = 13$",
-            "D. $-2x - 3y = 13$",
-            "E. $3x - 2y = 13$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 13,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              -2,
-              3
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 3,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q3] Lingkaran $(x - 3)^2 + (y + 4)^2 = 100$ memotong sumbu-$X$ di titik ...",
-          "opsi": [
-            "A. $(3 \\pm 2\\sqrt{21}, 0)$",
-            "B. $(10, 0)$ dan $(-4, 0)$",
-            "C. $(0, 0)$",
-            "D. $(7, 0)$ dan $(-1, 0)$",
-            "E. $(13, 0)$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "cx": 3,
-            "cy": -4,
-            "r2": 100
-          }
-        },
-        {
-          "no": 4,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q4] Persamaan garis singgung lingkaran $x^2 + y^2 = 10$ yang bergradien $m = 3$ adalah ...",
-          "opsi": [
-            "A. $y = 3x \\pm 5$",
-            "B. $y = 3x \\pm \\sqrt{10}$",
-            "C. $y = 3x \\pm 10$",
-            "D. $y = 3x \\pm 10\\sqrt{2}$",
-            "E. $y = 3x \\pm 20$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 10,
-            "cx": 0,
-            "cy": 0,
-            "tang": 1
-          }
-        },
-        {
-          "no": 5,
-          "tipe": "Pilihan Benar / Salah",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q5] Tentukan kebenaran hubungan dua lingkaran berjari-jari R dan r (pusat P1 dan P2 dengan jarak d = P1P2):\n(1) Jika d > R + r, kedua lingkaran saling berpotongan di dua titik.\n(2) Jika d = R + r, kedua lingkaran bersinggungan di luar.\n(3) Jika d = R - r (R > r), kedua lingkaran bersinggungan di dalam.",
-          "opsi": [
-            "Jika d > R + r, kedua lingkaran saling berpotongan di dua titik",
-            "Jika d = R + r, kedua lingkaran bersinggungan di luar",
-            "Jika d = R - r (R > r), kedua lingkaran bersinggungan di dalam"
-          ],
-          "kunci": "",
-          "bahas": ""
-        },
-        {
-          "no": 6,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q6] Berapakah jari-jari lingkaran $x^2 + y^2 + 6x - 8y + c = 0$ jika menyinggung sumbu-Y?",
-          "opsi": [
-            "A. 6 satuan",
-            "B. 4 satuan",
-            "C. 5 satuan",
-            "D. 8 satuan",
-            "E. 3 satuan"
-          ],
-          "kunci": "",
-          "bahas": ""
-        },
-        {
-          "no": 7,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q7] Jarak titik $P(1, 2)$ ke garis singgung lingkaran $x^2 + y^2 = 5$ di $(1, 2)$ adalah ...",
-          "opsi": [
-            "A. 1 satuan",
-            "B. √5 satuan",
-            "C. 5 satuan",
-            "D. 0 satuan",
-            "E. 2 satuan"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 5,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              1,
-              2
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 8,
-          "tipe": "Pilihan Ganda Kompleks",
-          "level": "C5 Evaluasi",
-          "bobot": 10,
-          "tanya": "[P09-Q8] Diberikan L1: x^2 + y^2 = 9 (pusat (0,0), R = 3) dan L2: (x - 8)^2 + y^2 = 16 (pusat (8,0), r = 4). Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
-          "opsi": [
-            "A. Karena d > R + r (8 > 7), kedua lingkaran saling lepas di luar.",
-            "B. Jarak antara kedua pusat lingkaran adalah d = 8 satuan.",
-            "C. Kedua lingkaran saling bersinggungan di titik (3, 0).",
-            "D. Kedua lingkaran memiliki 4 garis singgung persekutuan.",
-            "E. Nilai R + r adalah 7 satuan."
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 9,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "no": 9,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q9] Nilai konstanta $k$ agar lingkaran $x^2 + y^2 = k$ melalui titik $(-3, 4)$ adalah ...",
-          "opsi": [
-            "A. 5",
-            "B. 49",
-            "C. 7",
-            "D. 12",
-            "E. 25"
-          ],
-          "kunci": "",
-          "bahas": ""
-        },
-        {
-          "no": 10,
-          "tipe": "Isian Singkat Numerik",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P09-Q10] Panjang diameter lingkaran $x^2 + y^2 - 6x - 8y = 0$ adalah ...",
-          "opsi": [],
-          "kunci": "",
-          "bahas": ""
+          "tang": 1
         }
-      ]
-    },
+      },
+      {
+        "no": 4,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q4] Salah satu garis singgung lingkaran $x^2 + y^2 = 9$ bersudut $45^\\circ$ terhadap sumbu-$X$ positif adalah ...",
+        "opsi": [
+          "A. $y = x + 6$",
+          "B. $y = x + 9$",
+          "C. $y = x + 3\\sqrt{2}$",
+          "D. $y = x + 2\\sqrt{3}$",
+          "E. $y = x + 3$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Menentukan gradien garis singgung dari sudut inklinasi terhadap sumbu-X positif:\n$$m = \\tan 45^\\circ = 1$$\n\nLangkah 2: Menentukan parameter lingkaran $x^2 + y^2 = 9$:\nPusat $(0,0)$ dan jari-jari $r = \\sqrt{9} = 3$.\n\nLangkah 3: Menyusun persamaan garis singgung:\n$$y = mx \\pm r\\sqrt{1 + m^2}$$\n$$y = 1x \\pm 3\\sqrt{1 + 1^2} = x \\pm 3\\sqrt{2}$$\nSalah satu persamaan garis singgung yang tersedia pada opsi adalah $y = x + 3\\sqrt{2}$.\nKesimpulan: Kunci Jawaban C ($y = x + 3\\sqrt{2}$).",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 9,
+          "cx": 0,
+          "cy": 0,
+          "tang": 1
+        }
+      },
+      {
+        "no": 5,
+        "tipe": "Pilihan Benar / Salah",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q5] Tentukan kebenaran persamaan garis singgung bergradien m:\n(1) Pada x^2 + y^2 = r^2, rumusnya adalah y = mx +- r akar(1 + m^2).\n(2) Garis singgung bergradien m = 0 pada x^2 + y^2 = 25 adalah x = +- 5.\n(3) Terdapat tepat 2 garis singgung yang sejajar dengan gradien m yang sama.",
+        "opsi": [
+          "Pada x^2 + y^2 = r^2, rumusnya adalah y = mx +- r akar(1 + m^2)",
+          "Garis singgung bergradien m = 0 pada x^2 + y^2 = 25 adalah x = +- 5",
+          "Terdapat tepat 2 garis singgung yang sejajar dengan gradien m yang sama"
+        ],
+        "kunci": "B - S - B",
+        "bahas": "Langkah 1: Analisis Pernyataan (1):\nPada lingkaran $x^2 + y^2 = r^2$, persamaan garis singgung dengan gradien $m$ dirumuskan secara baku sebagai $y = mx \\pm r\\sqrt{1 + m^2}$. Rumus ini diturunkan dari kondisi diskriminan $D = 0$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nGaris singgung bergradien $m = 0$ merupakan garis mendatar (horizontal) yang sejajar sumbu-X. Rumusnya adalah $y = 0 \\cdot x \\pm 5\\sqrt{1 + 0^2} \\implies y = \\pm 5$, bukan garis vertikal $x = \\pm 5$.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\nKarena tanda plus-minus $(\\pm)$ di depan suku jari-jari, untuk setiap nilai gradien tertentu selalu dihasilkan tepat dua garis singgung yang sejajar di kedua sisi lingkaran.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 25,
+          "cx": 0,
+          "cy": 0,
+          "tang": 1
+        }
+      },
+      {
+        "no": 6,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q6] Berapakah $c$ pada $y = 3x + c$ yang menyinggung $x^2 + y^2 = 10$ dengan $c > 0$?",
+        "opsi": [
+          "A. 10",
+          "B. √10",
+          "C. 5",
+          "D. 20",
+          "E. 30"
+        ],
+        "kunci": "A",
+        "bahas": "Langkah 1: Mengidentifikasi persamaan garis $y = 3x + c$:\nGradien garis adalah $m = 3$ dan konstanta garis adalah $c$.\n\nLangkah 2: Menentukan parameter lingkaran $x^2 + y^2 = 10$:\nJari-jari lingkaran adalah $r = \\sqrt{10}$.\n\nLangkah 3: Menerapkan syarat garis singgung lingkaran $y = mx \\pm r\\sqrt{1 + m^2}$:\nKonstanta $c$ harus memenuhi:\n$$c = \\pm r\\sqrt{1 + m^2} = \\pm \\sqrt{10}\\sqrt{1 + 3^2} = \\pm \\sqrt{10}\\sqrt{10} = \\pm 10$$\nKarena diminta nilai $c > 0$ (positif), maka $c = 10$.\nKesimpulan: Kunci Jawaban A (10).",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 10,
+          "cx": 0,
+          "cy": 0,
+          "tang": 1
+        }
+      },
+      {
+        "no": 7,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q7] Persamaan garis singgung $(x + 1)^2 + (y - 3)^2 = 8$ dengan gradien $m = -1$ adalah ...",
+        "opsi": [
+          "A. $y = -x + 2$",
+          "B. $y = -x + 6$ atau $y = -x - 2$",
+          "C. $y = -x + 4$",
+          "D. $y = -x + 8$",
+          "E. $y = -x$"
+        ],
+        "kunci": "B",
+        "bahas": "Langkah 1: Mengidentifikasi parameter lingkaran $(x + 1)^2 + (y - 3)^2 = 8$:\nPusat $(a, b) = (-1, 3)$ dan jari-jari $r = \\sqrt{8} = 2\\sqrt{2}$. Gradien yang diberikan $m = -1$.\n\nLangkah 2: Mensubstitusikan ke rumus PGSL pusat $(a, b)$:\n$$(y - b) = m(x - a) \\pm r\\sqrt{1 + m^2}$$\n$$y - 3 = -1(x - (-1)) \\pm 2\\sqrt{2}\\sqrt{1 + (-1)^2}$$\n$$y - 3 = -(x + 1) \\pm 2\\sqrt{2}\\sqrt{2} = -x - 1 \\pm 4$$\n\nLangkah 3: Memisahkan kedua garis singgung:\n- Garis 1 ($+4$): $y - 3 = -x - 1 + 4 \\implies y - 3 = -x + 3 \\implies y = -x + 6$\n- Garis 2 ($-4$): $y - 3 = -x - 1 - 4 \\implies y - 3 = -x - 5 \\implies y = -x - 2$\nKedua garis singgungnya adalah $y = -x + 6$ atau $y = -x - 2$.\nKesimpulan: Kunci Jawaban B ($y = -x + 6$ atau $y = -x - 2$).",
+        "viz": {
+          "t": "lingkaran",
+          "cx": -1,
+          "cy": 3,
+          "r2": 8,
+          "tang": 1
+        }
+      },
+      {
+        "no": 8,
+        "tipe": "Pilihan Ganda Kompleks",
+        "level": "C5 Evaluasi",
+        "bobot": 10,
+        "tanya": "[P07-Q8] Pada lingkaran x^2 + y^2 = 16 dengan gradien m = 3/4, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+        "opsi": [
+          "A. Nilai r akar(1 + m^2) adalah 5.",
+          "B. Dalam bentuk umum, persamaannya adalah 3x - 4y + 20 = 0 dan 3x - 4y - 20 = 0.",
+          "C. Garis singgung lainnya adalah y = 3/4 x - 5.",
+          "D. Salah satu garis singgungnya adalah y = 3/4 x + 5.",
+          "E. Kedua garis singgung tersebut saling tegak lurus."
+        ],
+        "kunci": "A, B, C, D",
+        "bahas": "Langkah 1: Mengidentifikasi parameter lingkaran $x^2 + y^2 = 16$ dan gradien $m = \\frac{3}{4}$:\nJari-jari $r = \\sqrt{16} = 4$.\n\nLangkah 2: Menghitung faktor pengali jari-jari:\n$$r\\sqrt{1 + m^2} = 4\\sqrt{1 + \\left(\\frac{3}{4}\\right)^2} = 4\\sqrt{\\frac{25}{16}} = 4 \\cdot \\frac{5}{4} = 5$$\nOpsi A menyatakan nilainya 5 $\\implies$ BENAR.\n\nLangkah 3: Menentukan persamaan kedua garis singgung:\n$$y = mx \\pm r\\sqrt{1 + m^2} \\implies y = \\frac{3}{4}x \\pm 5$$\n- Garis 1: $y = \\frac{3}{4}x + 5$ (Opsi D $\\implies$ BENAR).\n- Garis 2: $y = \\frac{3}{4}x - 5$ (Opsi C $\\implies$ BENAR).\n\nLangkah 4: Mengubah ke bentuk persamaan umum implisit:\n$$4y = 3x \\pm 20 \\implies 3x - 4y \\pm 20 = 0$$\nYaitu $3x - 4y + 20 = 0$ dan $3x - 4y - 20 = 0$ (Opsi B $\\implies$ BENAR).\n\nLangkah 5: Opsi E menyatakan kedua garis saling tegak lurus. Karena keduanya memiliki gradien sama ($m = 3/4$), kedua garis tersebut sejajar, bukan tegak lurus $\\implies$ SALAH.\nKesimpulan: Kunci Jawaban A, B, C, D.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 16,
+          "cx": 0,
+          "cy": 0
+        }
+      },
+      {
+        "no": 9,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q9] Jarak antara dua garis singgung lingkaran $x^2 + y^2 = 36$ yang bergradien $m = \\sqrt{3}$ adalah ...",
+        "opsi": [
+          "A. 6√3 satuan",
+          "B. 6 satuan",
+          "C. 18 satuan",
+          "D. 12 satuan",
+          "E. 24 satuan"
+        ],
+        "kunci": "D",
+        "bahas": "Langkah 1: Menentukan parameter lingkaran $x^2 + y^2 = 36$:\nPusat berada di titik asal $O(0, 0)$ dan jari-jari lingkaran adalah $r = \\sqrt{36} = 6$ satuan.\n\nLangkah 2: Menganalisis sifat geometris dua garis singgung dengan gradien sama:\nDua garis singgung pada sebuah lingkaran yang memiliki gradien sama ($m = \\sqrt{3}$) merupakan pasangan garis singgung sejajar yang terletak pada dua sisi lingkaran yang saling berseberangan secara simetris.\n\nLangkah 3: Menghitung jarak tegak lurus antara kedua garis:\nJarak tegak lurus antara dua garis singgung sejajar pada suatu lingkaran selalu tepat sama dengan panjang diameter lingkaran tersebut:\n$$\\text{Jarak} = 2r = 2 \\times 6 = 12\\text{ satuan}$$\n(Verifikasi analitis: kedua garis adalah $\\sqrt{3}x - y + 12 = 0$ dan $\\sqrt{3}x - y - 12 = 0$; jaraknya $d = \\frac{|12 - (-12)|}{\\sqrt{(\\sqrt{3})^2 + (-1)^2}} = \\frac{24}{2} = 12$).\nKesimpulan: Kunci Jawaban D (12 satuan).",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 36,
+          "cx": 0,
+          "cy": 0,
+          "tang": 1
+        }
+      },
+      {
+        "no": 10,
+        "tipe": "Isian Singkat Numerik",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P07-Q10] Nilai positif $k$ agar $y = 2x + k$ menyinggung $x^2 + y^2 = 5$ adalah ...",
+        "opsi": [],
+        "kunci": "5",
+        "bahas": "Langkah 1: Menentukan syarat garis $y = 2x + k$ menyinggung lingkaran $x^2 + y^2 = 5$:\nGradien garis $m = 2$ dan jari-jari lingkaran $r = \\sqrt{5}$.\n\nLangkah 2: Menghitung nilai konstanta singgung $k$:\n$$k = r\\sqrt{1 + m^2} = \\sqrt{5}\\sqrt{1 + 2^2} = \\sqrt{5}\\sqrt{5} = 5$$\nKarena disyaratkan nilai positif $k > 0$, maka $k = 5$.\nKesimpulan: Kunci Jawaban 5.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 5,
+          "cx": 0,
+          "cy": 0,
+          "tang": 1
+        }
+      }
+    ]
+  },
+  "P08": {
+    "id": "P08",
+    "subject": "Matematika Peminatan",
+    "title": "Geometri Analitik Lingkaran 8: PGSL Titik di Luar Lingkaran & Garis Kutub",
+    "questions": [
+      {
+        "no": 1,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q1] Persamaan garis kutub (garis polar) dari titik $T(0, 5)$ terhadap lingkaran $x^2 + y^2 = 9$ adalah ...",
+        "opsi": [
+          "A. $5x + y = 9$",
+          "B. $x + 5y = 9$",
+          "C. $5y = 9$",
+          "D. $5y = 25$",
+          "E. $5x = 9$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Mengidentifikasi rumus persamaan garis kutub (garis polar) dari titik $T(x_1, y_1)$ terhadap lingkaran $x^2 + y^2 = r^2$:\n$$x_1 x + y_1 y = r^2$$\n\nLangkah 2: Mensubstitusikan titik $T(0, 5)$ dan $r^2 = 9$:\n$$0 \\cdot x + 5 \\cdot y = 9$$\n\nLangkah 3: Menyelesaikan persamaan garis polar:\n$$5y = 9 \\implies y = \\frac{9}{5}$$\nKesimpulan: Kunci Jawaban C.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 9,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            0,
+            5
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 2,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q2] Dari titik $P(0, 5)$ ditarik garis singgung ke $x^2 + y^2 = 9$. Salah satu persamaan garis singgungnya adalah ...",
+        "opsi": [
+          "A. $4x + 3y + 15 = 0$",
+          "B. $4x - 3y + 15 = 0$",
+          "C. $3x + 4y - 15 = 0$",
+          "D. $3x - 4y + 15 = 0$",
+          "E. $4x + 3y - 15 = 0$"
+        ],
+        "kunci": "E",
+        "bahas": "Langkah 1: Menentukan garis polar titik $P(0, 5)$ terhadap $x^2 + y^2 = 9$:\n$$0x + 5y = 9 \\implies y = \\frac{9}{5}$$\n\nLangkah 2: Menentukan titik singgung pada lingkaran:\n$$x^2 + \\left(\\frac{9}{5}\\right)^2 = 9 \\implies x^2 + \\frac{81}{25} = 9 \\implies x^2 = \\frac{144}{25} \\implies x = \\pm \\frac{12}{5}$$\nTitik singgung: $T_1\\left(\\frac{12}{5}, \\frac{9}{5}\\right)$ dan $T_2\\left(-\\frac{12}{5}, \\frac{9}{5}\\right)$.\n\nLangkah 3: Menyusun PGSL di titik $T_1$:\n$$\\frac{12}{5}x + \\frac{9}{5}y = 9 \\implies 12x + 9y = 45 \\implies 4x + 3y - 15 = 0$$\nKesimpulan: Kunci Jawaban E.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 9,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            0,
+            5
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 3,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q3] Panjang garis singgung dari titik $A(6, 8)$ ke lingkaran $x^2 + y^2 = 36$ adalah ...",
+        "opsi": [
+          "A. 10 satuan",
+          "B. 2√7 satuan",
+          "C. 4√5 satuan",
+          "D. 8 satuan",
+          "E. 6 satuan"
+        ],
+        "kunci": "D",
+        "bahas": "Langkah 1: Menghitung jarak dari pusat $O(0,0)$ ke titik $A(6, 8)$:\n$$d = \\sqrt{6^2 + 8^2} = \\sqrt{100} = 10$$\n\nLangkah 2: Menentukan jari-jari lingkaran $x^2 + y^2 = 36 \\implies r = 6$.\n\nLangkah 3: Menghitung panjang garis singgung ($L$):\n$$L = \\sqrt{d^2 - r^2} = \\sqrt{10^2 - 6^2} = \\sqrt{64} = 8 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban D.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 36,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            6,
+            8
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 4,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q4] Persamaan garis polar titik $T(1, 2)$ terhadap $(x - 3)^2 + (y + 1)^2 = 25$ adalah ...",
+        "opsi": [
+          "A. $-2x + 3y + 25 = 0$",
+          "B. $x + 2y - 25 = 0$",
+          "C. $-2x + 3y - 16 = 0$",
+          "D. $3x - y - 16 = 0$",
+          "E. $2x - 3y + 16 = 0$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Rumus garis polar titik $T(x_1, y_1)$ pada $(x-a)^2 + (y-b)^2 = r^2$:\n$$(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$$\n\nLangkah 2: Mensubstitusikan $T(1, 2)$ dan $(x - 3)^2 + (y + 1)^2 = 25$:\n$$(1 - 3)(x - 3) + (2 - (-1))(y - (-1)) = 25$$\n$$-2(x - 3) + 3(y + 1) = 25$$\n$$-2x + 6 + 3y + 3 = 25 \\implies -2x + 3y - 16 = 0$$\nKesimpulan: Kunci Jawaban C.",
+        "viz": {
+          "t": "lingkaran",
+          "cx": 3,
+          "cy": -1,
+          "r2": 25,
+          "P": [
+            1,
+            2
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 5,
+        "tipe": "Pilihan Benar / Salah",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q5] Tentukan kebenaran konsep garis kutub (polar) dari titik luar A(x1, y1):\n(1) Garis kutub memotong lingkaran tepat di dua titik singgung lingkaran.\n(2) Titik singgung dapat ditentukan tanpa menggunakan bantuan garis kutub.\n(3) Persamaan garis kutub untuk x^2 + y^2 = r^2 dirumuskan x1.x + y1.y = r^2.",
+        "opsi": [
+          "Garis kutub memotong lingkaran tepat di dua titik singgung lingkaran",
+          "Titik singgung dapat ditentukan tanpa menggunakan bantuan garis kutub",
+          "Persamaan garis kutub untuk x^2 + y^2 = r^2 dirumuskan x1.x + y1.y = r^2"
+        ],
+        "kunci": "B - B - B",
+        "bahas": "Langkah 1: Analisis Pernyataan (1):\nGaris kutub (garis polar) yang ditarik dari titik di luar lingkaran $A(x_1, y_1)$ didefinisikan sebagai garis penghubung antara kedua titik singgung pada lingkaran. Dengan demikian, garis kutub tersebut memotong lingkaran tepat di dua titik singgung lingkaran.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\nKoordinat titik singgung dapat dicari tanpa menggunakan garis kutub, misalnya dengan memisalkan garis bergradien $m$ yang melalui $A(x_1, y_1)$, mensubstitusikannya ke persamaan lingkaran, dan mensyaratkan diskriminan $D = 0$ (atau metode trigonometri/vektor jarak pusat ke garis).\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nBerdasarkan metode bagi adil (metode polar), persamaan garis kutub dari titik luar $(x_1, y_1)$ terhadap lingkaran $x^2 + y^2 = r^2$ dirumuskan secara baku sebagai $x_1 x + y_1 y = r^2$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - B - B."
+      },
+      {
+        "no": 6,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q6] Berapakah sudut apit antara dua garis singgung lingkaran $x^2 + y^2 = 25$ dari titik luar $T(0, 10)$?",
+        "opsi": [
+          "A. 120 derajat",
+          "B. 60 derajat",
+          "C. 90 derajat",
+          "D. 45 derajat",
+          "E. 30 derajat"
+        ],
+        "kunci": "B",
+        "bahas": "Langkah 1: Menentukan segitiga siku-siku antara titik luar $T(0, 10)$, pusat $O(0,0)$, dan titik singgung:\n- Jari-jari $r = 5$ (sisi depan dari setengah sudut $\\theta/2$).\n- Jarak titik luar $d = 10$ (sisi miring).\n\nLangkah 2: Menghitung nilai sinus:\n$$\\sin\\left(\\frac{\\theta}{2}\\right) = \\frac{r}{d} = \\frac{5}{10} = \\frac{1}{2} \\implies \\frac{\\theta}{2} = 30^\\circ$$\n\nLangkah 3: Menghitung sudut apit penuh:\n$$\\theta = 2 \\times 30^\\circ = 60^\\circ$$\nKesimpulan: Kunci Jawaban B.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 25,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            0,
+            10
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 7,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q7] Panjang tali busur kontak dari titik $(0, 5)$ ke lingkaran $x^2 + y^2 = 9$ adalah ...",
+        "opsi": [
+          "A. 24/5 satuan",
+          "B. 12/5 satuan",
+          "C. 18/5 satuan",
+          "D. 8 satuan",
+          "E. 6 satuan"
+        ],
+        "kunci": "A",
+        "bahas": "Langkah 1: Titik singgung dari $T(0, 5)$ ke $x^2 + y^2 = 9$ memiliki ordinat $y = \\frac{9}{5}$ dan absis $x = \\pm \\frac{12}{5}$.\nLangkah 2: Menghitung panjang tali busur kontak (jarak antara kedua titik singgung):\n$$\\text{Panjang} = \\frac{12}{5} - \\left(-\\frac{12}{5}\\right) = \\frac{24}{5} \\text{ satuan}$$\nKesimpulan: Kunci Jawaban A.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 9,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            0,
+            5
+          ]
+        }
+      },
+      {
+        "no": 8,
+        "tipe": "Pilihan Ganda Kompleks",
+        "level": "C5 Evaluasi",
+        "bobot": 10,
+        "tanya": "[P08-Q8] Ditarik garis singgung dari titik A(0, 5) ke lingkaran x^2 + y^2 = 9. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+        "opsi": [
+          "A. Persamaan garis kutub titik A terhadap lingkaran adalah 5y = 9 (atau y = 9/5).",
+          "B. Nilai absis titik-titik singgung adalah x = 12/5 dan x = -12/5.",
+          "C. Titik singgung pada lingkaran adalah (12/5, 9/5) dan (-12/5, 9/5).",
+          "D. Titik A(0, 5) terletak di dalam lingkaran.",
+          "E. Panjang ruas garis singgung dari titik A ke titik singgung adalah 4 satuan."
+        ],
+        "kunci": "A, B, C, E",
+        "bahas": "Langkah 1: Analisis garis singgung dari titik luar $A(0, 5)$ ke $x^2 + y^2 = 9$:\n- Opsi A: Garis polar $5y = 9$ (BENAR).\n- Opsi B: Absis titik singgung $x = \\pm 12/5$ (BENAR).\n- Opsi C: Titik singgung $(12/5, 9/5)$ dan $(-12/5, 9/5)$ (BENAR).\n- Opsi D: Titik $A(0, 5)$ terletak di LUAR lingkaran karena $0^2 + 5^2 = 25 > 9$ (SALAH).\n- Opsi E: Panjang garis singgung $L = \\sqrt{5^2 - 3^2} = 4$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, E.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 9,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            0,
+            5
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 9,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q9] Dari titik $T(5, 0)$ ditarik garis singgung ke $x^2 + y^2 = 9$. Salah satu titik singgungnya berkoordinat ...",
+        "opsi": [
+          "A. $(12/5, 9/5)$",
+          "B. $(9/5, 12/5)$",
+          "C. $(9/5, -9/5)$",
+          "D. $(0, 3)$",
+          "E. $(3, 0)$"
+        ],
+        "kunci": "B",
+        "bahas": "Langkah 1: Garis polar dari $T(5, 0)$ terhadap $x^2 + y^2 = 9$ adalah $5x = 9 \\implies x = \\frac{9}{5}$.\nLangkah 2: Menghitung ordinat titik singgung:\n$$y^2 = 9 - \\left(\\frac{9}{5}\\right)^2 = 9 - \\frac{81}{25} = \\frac{144}{25} \\implies y = \\pm \\frac{12}{5}$$\nSalah satu titik singgung adalah $\\left(\\frac{9}{5}, \\frac{12}{5}\\right)$.\nKesimpulan: Kunci Jawaban B.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 9,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            5,
+            0
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 10,
+        "tipe": "Isian Singkat Numerik",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P08-Q10] Panjang garis singgung dari $(13, 0)$ ke $x^2 + y^2 = 25$ adalah ...",
+        "opsi": [],
+        "kunci": "12",
+        "bahas": "Langkah 1: Menghitung panjang ruas garis singgung dari $T(0, 13)$ ke $x^2 + y^2 = 25$:\n$$L = \\sqrt{13^2 - 5^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12$$\nKesimpulan: Kunci Jawaban 12.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 25,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            13,
+            0
+          ],
+          "tang": 1
+        }
+      }
+    ]
+  },
+  "P09": {
+    "id": "P09",
+    "subject": "Matematika Peminatan",
+    "title": "Asesmen Sumatif Bab 1: Geometri Analitik Lingkaran",
+    "questions": [
+      {
+        "no": 1,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q1] Jari-jari lingkaran $x^2 + y^2 - 4x + 2y - 20 = 0$ adalah ...",
+        "opsi": [
+          "A. 5",
+          "B. 4",
+          "C. √20",
+          "D. 6",
+          "E. 25"
+        ],
+        "kunci": "A",
+        "bahas": "Langkah 1: Menghitung jari-jari lingkaran dari bentuk umum $x^2 + y^2 - 4x + 2y - 20 = 0$:\n$$A = -4, \\quad B = 2, \\quad C = -20$$\n\nLangkah 2: Menggunakan rumus jari-jari lingkaran:\n$$r = \\sqrt{\\left(\\frac{-A}{2}\\right)^2 + \\left(\\frac{-B}{2}\\right)^2 - C} = \\sqrt{2^2 + (-1)^2 - (-20)} = \\sqrt{4 + 1 + 20} = \\sqrt{25} = 5$$\nKesimpulan: Kunci Jawaban A.",
+        "viz": {
+          "t": "lingkaran",
+          "cx": 2,
+          "cy": -1,
+          "r2": 25,
+          "line": [
+            4,
+            2,
+            -20
+          ]
+        }
+      },
+      {
+        "no": 2,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q2] Persamaan garis singgung lingkaran $x^2 + y^2 = 13$ di titik $(-2, 3)$ adalah ...",
+        "opsi": [
+          "A. $2x + 3y = 13$",
+          "B. $2x - 3y = 13$",
+          "C. $-2x + 3y = 13$",
+          "D. $-2x - 3y = 13$",
+          "E. $3x - 2y = 13$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Memeriksa kedudukan titik $(-2, 3)$ pada lingkaran $x^2 + y^2 = 13$:\n$$(-2)^2 + 3^2 = 4 + 9 = 13 \\quad (\\text{terletak pada lingkaran})$$\n\nLangkah 2: Menerapkan rumus garis singgung di titik singgung $(x_1, y_1)$:\n$$x_1 x + y_1 y = r^2$$\n$$(-2)x + (3)y = 13 \\implies -2x + 3y = 13$$\nKesimpulan: Kunci Jawaban C.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 13,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            -2,
+            3
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 3,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q3] Lingkaran $(x - 3)^2 + (y + 4)^2 = 100$ memotong sumbu-$X$ di titik ...",
+        "opsi": [
+          "A. $(3 \\pm 2\\sqrt{21}, 0)$",
+          "B. $(10, 0)$ dan $(-4, 0)$",
+          "C. $(0, 0)$",
+          "D. $(7, 0)$ dan $(-1, 0)$",
+          "E. $(13, 0)$"
+        ],
+        "kunci": "A",
+        "bahas": "Langkah 1: Menentukan syarat titik potong kurva dengan sumbu-$X$:\nSubstitusikan nilai ordinat $y = 0$ ke dalam persamaan lingkaran:\n$$(x - 3)^2 + (0 + 4)^2 = 100$$\n$$(x - 3)^2 + 16 = 100 \\implies (x - 3)^2 = 84$$\n\nLangkah 2: Menarik akar kuadrat pada kedua ruas:\n$$x - 3 = \\pm\\sqrt{84} = \\pm\\sqrt{4 \\times 21} = \\pm 2\\sqrt{21}$$\n$$x = 3 \\pm 2\\sqrt{21}$$\n\nLangkah 3: Kesimpulan:\nLingkaran memotong sumbu-$X$ di titik $(3 \\pm 2\\sqrt{21}, 0)$.\nKesimpulan: Kunci Jawaban A.",
+        "viz": {
+          "t": "lingkaran",
+          "cx": 3,
+          "cy": -4,
+          "r2": 100
+        }
+      },
+      {
+        "no": 4,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q4] Persamaan garis singgung lingkaran $x^2 + y^2 = 10$ yang bergradien $m = 3$ adalah ...",
+        "opsi": [
+          "A. $y = 3x \\pm 5$",
+          "B. $y = 3x \\pm \\sqrt{10}$",
+          "C. $y = 3x \\pm 10$",
+          "D. $y = 3x \\pm 10\\sqrt{2}$",
+          "E. $y = 3x \\pm 20$"
+        ],
+        "kunci": "C",
+        "bahas": "Langkah 1: Mengidentifikasi parameter lingkaran dan gradien garis singgung:\nLingkaran $x^2 + y^2 = 10$ memiliki pusat $O(0,0)$ dan $r = \\sqrt{10}$. Gradien garis $m = 3$.\n\nLangkah 2: Menerapkan rumus PGSL dengan gradien tertentu:\n$$y = mx \\pm r\\sqrt{1 + m^2}$$\n$$y = 3x \\pm \\sqrt{10}\\sqrt{1 + 3^2} = 3x \\pm \\sqrt{10}\\sqrt{10} = 3x \\pm 10$$\nKesimpulan: Kunci Jawaban C.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 10,
+          "cx": 0,
+          "cy": 0,
+          "tang": 1
+        }
+      },
+      {
+        "no": 5,
+        "tipe": "Pilihan Benar / Salah",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q5] Tentukan kebenaran hubungan dua lingkaran berjari-jari R dan r (pusat P1 dan P2 dengan jarak d = P1P2):\n(1) Jika d > R + r, kedua lingkaran saling berpotongan di dua titik.\n(2) Jika d = R + r, kedua lingkaran bersinggungan di luar.\n(3) Jika d = R - r (R > r), kedua lingkaran bersinggungan di dalam.",
+        "opsi": [
+          "Jika d > R + r, kedua lingkaran saling berpotongan di dua titik",
+          "Jika d = R + r, kedua lingkaran bersinggungan di luar",
+          "Jika d = R - r (R > r), kedua lingkaran bersinggungan di dalam"
+        ],
+        "kunci": "S - B - B",
+        "bahas": "Langkah 1: Analisis Pernyataan (1):\nJika jarak pusat $d > R + r$, kedua lingkaran saling terpisah (saling lepas di luar), bukan berpotongan di 2 titik.\n$\\implies$ Pernyataan (1) bernilai SALAH (S).\n\nLangkah 2: Analisis Pernyataan (2):\nJika jarak pusat $d = R + r$, kedua lingkaran menyentuh di satu titik batas luar (bersinggungan di luar).\n$\\implies$ Pernyataan (2) bernilai BENAR (B).\n\nLangkah 3: Analisis Pernyataan (3):\nJika jarak pusat $d = R - r$ dengan $R > r$, lingkaran kecil berada di dalam lingkaran besar dan menyentuh di satu titik dalam (bersinggungan di dalam).\n$\\implies$ Pernyataan (3) bernilai BENAR (B).\n\nKesimpulan: Kunci Jawaban S - B - B."
+      },
+      {
+        "no": 6,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q6] Berapakah jari-jari lingkaran $x^2 + y^2 + 6x - 8y + c = 0$ jika menyinggung sumbu-Y?",
+        "opsi": [
+          "A. 6 satuan",
+          "B. 4 satuan",
+          "C. 5 satuan",
+          "D. 8 satuan",
+          "E. 3 satuan"
+        ],
+        "kunci": "E",
+        "bahas": "Langkah 1: Menentukan titik pusat lingkaran dari bentuk umum $x^2 + y^2 + 6x - 8y + c = 0$:\n$$P(a, b) = \\left(-\\frac{6}{2}, -\\frac{-8}{2}\\right) = P(-3, 4)$$\n\nLangkah 2: Menggunakan sifat lingkaran yang menyinggung sumbu-$Y$:\nLingkaran yang menyinggung sumbu-$Y$ memiliki jari-jari sebesar nilai mutlak absis titik pusatnya:\n$$r = |a| = |-3| = 3 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban E."
+      },
+      {
+        "no": 7,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q7] Jarak titik $P(1, 2)$ ke garis singgung lingkaran $x^2 + y^2 = 5$ di $(1, 2)$ adalah ...",
+        "opsi": [
+          "A. 1 satuan",
+          "B. √5 satuan",
+          "C. 5 satuan",
+          "D. 0 satuan",
+          "E. 2 satuan"
+        ],
+        "kunci": "D",
+        "bahas": "Langkah 1: Mengidentifikasi posisi titik $P(1, 2)$ terhadap lingkaran:\n$$1^2 + 2^2 = 1 + 4 = 5 \\implies P(1, 2) \\text{ terletak pada lingkaran}$$\n\nLangkah 2: Menentukan jarak titik ke garis singgung yang melalui titik tersebut:\nKarena garis singgung lingkaran dibuat tepat di titik $P(1, 2)$, maka titik $P(1, 2)$ terletak pada garis singgung itu sendiri.\n$$\\text{Jarak Titik ke Garis} = 0 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban D.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 5,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            1,
+            2
+          ],
+          "tang": 1
+        }
+      },
+      {
+        "no": 8,
+        "tipe": "Pilihan Ganda Kompleks",
+        "level": "C5 Evaluasi",
+        "bobot": 10,
+        "tanya": "[P09-Q8] Diberikan L1: x^2 + y^2 = 9 (pusat (0,0), R = 3) dan L2: (x - 8)^2 + y^2 = 16 (pusat (8,0), r = 4). Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+        "opsi": [
+          "A. Karena d > R + r (8 > 7), kedua lingkaran saling lepas di luar.",
+          "B. Jarak antara kedua pusat lingkaran adalah d = 8 satuan.",
+          "C. Kedua lingkaran saling bersinggungan di titik (3, 0).",
+          "D. Kedua lingkaran memiliki 4 garis singgung persekutuan.",
+          "E. Nilai R + r adalah 7 satuan."
+        ],
+        "kunci": "A, B, D, E",
+        "bahas": "Langkah 1: Menganalisis parameter kedua lingkaran:\n- $L_1$: Pusat $P_1(0,0)$ dan jari-jari $R = 3$.\n- $L_2$: Pusat $P_2(8,0)$ dan jari-jari $r = 4$.\n\nLangkah 2: Menghitung jarak pusat dan perbandingan jari-jari:\n- Jarak kedua pusat: $d = \\sqrt{(8-0)^2 + (0-0)^2} = 8$ satuan (Opsi B BENAR).\n- Jumlah jari-jari: $R + r = 3 + 4 = 7$ satuan (Opsi E BENAR).\n- Karena $d = 8 > R + r = 7$, maka kedua lingkaran **saling lepas di luar** (Opsi A BENAR).\n- Dua lingkaran yang saling lepas di luar memiliki 4 garis singgung persekutuan (2 luar dan 2 dalam) (Opsi D BENAR).\n- Kedua lingkaran tidak bersinggungan (Opsi C SALAH).\n\nKesimpulan: Kunci Jawaban A, B, D, E.",
+        "viz": {
+          "t": "lingkaran",
+          "r2": 9,
+          "cx": 0,
+          "cy": 0,
+          "P": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "no": 9,
+        "tipe": "Pilihan Ganda Tunggal",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q9] Nilai konstanta $k$ agar lingkaran $x^2 + y^2 = k$ melalui titik $(-3, 4)$ adalah ...",
+        "opsi": [
+          "A. 5",
+          "B. 49",
+          "C. 7",
+          "D. 12",
+          "E. 25"
+        ],
+        "kunci": "E",
+        "bahas": "Langkah 1: Mensubstitusikan koordinat titik $(-3, 4)$ ke persamaan lingkaran $x^2 + y^2 = k$:\n$$(-3)^2 + (4)^2 = k$$\n$$9 + 16 = k \\implies k = 25$$\nKesimpulan: Kunci Jawaban E."
+      },
+      {
+        "no": 10,
+        "tipe": "Isian Singkat Numerik",
+        "level": "C4 Analisis",
+        "bobot": 10,
+        "tanya": "[P09-Q10] Panjang diameter lingkaran $x^2 + y^2 - 6x - 8y = 0$ adalah ...",
+        "opsi": [],
+        "kunci": "10",
+        "bahas": "Langkah 1: Menghitung jari-jari lingkaran dari $x^2 + y^2 - 6x - 8y = 0$:\n$$r = \\sqrt{\\left(\\frac{-(-6)}{2}\\right)^2 + \\left(\\frac{-(-8)}{2}\\right)^2 - 0} = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$$\n\nLangkah 2: Menghitung panjang diameter ($d = 2r$):\n$$d = 2 \\times 5 = 10 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban 10."
+      }
+    ]
+  },
     "P10": {
       "id": "P10",
       "subject": "Matematika Peminatan",
