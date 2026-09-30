@@ -2228,7 +2228,7 @@
                     const subj = item.mapel || parts[0] || 'wajib';
                     const pkg = item.kode_pertemuan || parts[1];
                     try {
-                      await fetch('/api/nilai', {
+                      const res = await fetch('/api/nilai', {
                         method: 'POST',
                         headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
                         body: JSON.stringify({
@@ -2247,8 +2247,17 @@
                           source: 'auto-heal'
                         })
                       });
-                    } catch (e) {}
-                    await new Promise(r => setTimeout(r, 200));
+                      if (res.ok) {
+                        serverKeys.add(localKey);
+                        if (typeof hapusDariOutboxCbt === 'function') {
+                          hapusDariOutboxCbt(nis, subj, pkg);
+                        }
+                        console.log('⚡ Auto-Heal: tersinkron ke Cloudflare D1:', localKey);
+                      }
+                    } catch (e) {
+                      console.warn('Auto-Heal gagal:', localKey, e);
+                    }
+                    await new Promise(r => setTimeout(r, 150));
                   }
                 }
               })();

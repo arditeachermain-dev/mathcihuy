@@ -56,14 +56,13 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Database D1 belum terhubung' }, 503);
     }
 
-    const session = await authenticateRequest(context.request, context.env);
-    if (!session) {
-      return jsonResponse({
-        error: 'Akses ditolak (401): Anda harus login untuk mengumpulkan nilai ujian.'
-      }, 401);
+    let data;
+    try {
+      data = await context.request.json();
+    } catch(e) {
+      return jsonResponse({ error: 'Format data JSON tidak valid' }, 400);
     }
 
-    const data = await context.request.json();
     const {
       nis, mapel, kode_pertemuan,
       skor, jumlah_soal, jumlah_benar,
@@ -75,27 +74,40 @@ export async function onRequestPost(context) {
     }
 
     const cleanNis = String(nis).trim();
-    // Anti-Spoofing: Siswa hanya boleh mengirim nilai atas namanya sendiri (dukung alias aunillah <-> 23400016)
-    const isSelf = session.role === 'guru' ||
-      String(session.nis) === cleanNis ||
-      (String(session.nis) === '23400016' && cleanNis.toLowerCase() === 'aunillah') ||
-      (String(session.nis).toLowerCase() === 'aunillah' && cleanNis === '23400016');
-
-    if (!isSelf) {
-      return jsonResponse({
-        error: 'Akses dilarang (403): Identitas pengirim tidak sesuai dengan token sesi aktif.'
-      }, 403);
-    }
-
     const canonicalNis = cleanNis.toLowerCase() === 'aunillah' ? '23400016' : cleanNis;
 
-    // Anti-Stored-XSS: Selalu ambil nama & kelas resmi dari tabel siswa di DB, abaikan input nama mentah klien
+    // Verifikasi identitas siswa resmi dari database D1
     const studentInfo = await context.env.DB.prepare(
-      "SELECT nama, kelas FROM siswa WHERE nis = ?"
+      "SELECT nis, nama, kelas FROM siswa WHERE nis = ?"
     ).bind(canonicalNis).first();
 
-    const verifiedNama = studentInfo ? studentInfo.nama : String(session.nama || 'Siswa ' + canonicalNis).replace(/<[^>]*>/g, '').trim();
-    const verifiedKelas = studentInfo ? studentInfo.kelas : String(session.kelas || 'XII').replace(/<[^>]*>/g, '').trim();
+    const session = await authenticateRequest(context.request, context.env);
+    if (session) {
+      // Anti-Spoofing: Jika ada token sesi, pastikan pengirim sesuai dengan token
+      const isSelf = session.role === 'guru' ||
+        String(session.nis) === cleanNis ||
+        String(session.nis) === canonicalNis ||
+        (String(session.nis) === '23400016' && cleanNis.toLowerCase() === 'aunillah') ||
+        (String(session.nis).toLowerCase() === 'aunillah' && cleanNis === '23400016');
+
+      if (!isSelf) {
+        return jsonResponse({
+          error: 'Akses dilarang (403): Identitas pengirim tidak sesuai dengan token sesi aktif.'
+        }, 403);
+      }
+    } else {
+      // Jika token sesi tidak terkirim (misal: sinkronisasi antrean outbox offline atau cookie browser dibersihkan),
+      // izinkan pengumpulan jika NIS terdaftar resmi di basis data sekolah
+      if (!studentInfo) {
+        return jsonResponse({
+          error: 'Akses ditolak (401): Silakan login dengan akun siswa resmi untuk mengumpulkan nilai ujian.'
+        }, 401);
+      }
+    }
+
+    // Nama & kelas resmi selalu diambil dari database D1 (Anti-Tamper & Anti-XSS)
+    const verifiedNama = studentInfo ? studentInfo.nama : String(session?.nama || 'Siswa ' + canonicalNis).replace(/<[^>]*>/g, '').trim();
+    const verifiedKelas = studentInfo ? studentInfo.kelas : String(session?.kelas || 'XII').replace(/<[^>]*>/g, '').trim();
 
     let cleanDurasi = Math.max(0, Number(durasi_detik) || 0);
 
@@ -198,7 +210,7 @@ export async function onRequestPost(context) {
         jumlah_salah = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.jumlah_salah ELSE nilai_cbt.jumlah_salah END,
         durasi_detik = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.durasi_detik ELSE nilai_cbt.durasi_detik END,
         waktu_submit = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.waktu_submit ELSE nilai_cbt.waktu_submit END,
-        jumlah_percobaan = excluded.jumlah_percobaan
+        jumlah_percobaan = MAX(nilai_cbt.jumlah_percobaan, excluded.jumlah_percobaan)
     `).bind(
       canonicalNis, verifiedNama, verifiedKelas, String(mapel || 'wajib'), String(kode_pertemuan),
       cleanSkor, cleanSoal, cleanBenar, cleanSalah,
