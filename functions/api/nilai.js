@@ -100,7 +100,8 @@ export async function onRequestPost(context) {
     let cleanDurasi = Math.max(0, Number(durasi_detik) || 0);
 
     // 1. Deteksi Anomali Durasi & Anti-Rapid-Fire Bot (Smart & Lenient Protection)
-    if (session.role !== 'guru') {
+    const isSyncSubmission = data.is_sync === true || data.source === 'outbox' || data.source === 'auto-heal';
+    if (session.role !== 'guru' && !isSyncSubmission) {
       // Jika durasi < 3 detik karena timer browser ter-reset / antrean offline outbox, berikan default aman 15 detik alih-alih menolak nilai siswa
       if (cleanDurasi < 3) {
         cleanDurasi = 15;

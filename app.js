@@ -81,7 +81,7 @@
     function initPortal() {
       // SMART CACHE & INTEGRITY AUTO-GUARD:
       // Memastikan perangkat siswa tidak terjebak pada cache berkas lama
-      const CURRENT_APP_BUILD = 'v1790742500';
+      const CURRENT_APP_BUILD = 'v1790745500';
       try {
         const storedBuild = localStorage.getItem('mathcihuy_app_build');
         if (storedBuild && storedBuild !== CURRENT_APP_BUILD) {
@@ -2216,35 +2216,43 @@
             localStorage.setItem(cacheKey, JSON.stringify(map));
           } catch (e) {}
 
-          // Auto-Heal Sync: jika ada paket di memori lokal yang belum masuk ke server D1, otomatis sinkronkan ke server
+          // Auto-Heal Sync: jika ada paket di memori lokal yang belum masuk ke server D1, otomatis sinkronkan ke server secara berurutan
           try {
-            Object.keys(map).forEach(localKey => {
-              if (!serverKeys.has(localKey)) {
-                const item = map[localKey];
-                if (item && item.skor !== undefined && item.kode_pertemuan) {
-                  const parts = localKey.split('_');
-                  const subj = item.mapel || parts[0] || 'wajib';
-                  const pkg = item.kode_pertemuan || parts[1];
-                  fetch('/api/nilai', {
-                    method: 'POST',
-                    headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
-                    body: JSON.stringify({
-                      nis: String(nis),
-                      nama: item.nama || '',
-                      kelas: item.kelas || '',
-                      mapel: subj,
-                      kode_pertemuan: pkg,
-                      skor: Number(item.skor) || 0,
-                      jumlah_soal: Number(item.jumlah_soal) || 10,
-                      jumlah_benar: Number(item.jumlah_benar) || 10,
-                      jumlah_salah: Number(item.jumlah_salah) || 0,
-                      durasi_detik: Number(item.durasi_detik) || 60,
-                      jumlah_percobaan: Number(item.jumlah_percobaan) || 1
-                    })
-                  }).catch(() => {});
+            const missingKeys = Object.keys(map).filter(k => !serverKeys.has(k));
+            if (missingKeys.length > 0) {
+              (async () => {
+                for (const localKey of missingKeys) {
+                  const item = map[localKey];
+                  if (item && item.skor !== undefined && item.kode_pertemuan) {
+                    const parts = localKey.split('_');
+                    const subj = item.mapel || parts[0] || 'wajib';
+                    const pkg = item.kode_pertemuan || parts[1];
+                    try {
+                      await fetch('/api/nilai', {
+                        method: 'POST',
+                        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+                        body: JSON.stringify({
+                          nis: String(nis),
+                          nama: item.nama || '',
+                          kelas: item.kelas || '',
+                          mapel: subj,
+                          kode_pertemuan: pkg,
+                          skor: Number(item.skor) || 0,
+                          jumlah_soal: Number(item.jumlah_soal) || 10,
+                          jumlah_benar: Number(item.jumlah_benar) || 10,
+                          jumlah_salah: Number(item.jumlah_salah) || 0,
+                          durasi_detik: Math.max(Number(item.durasi_detik) || 60, 15),
+                          jumlah_percobaan: Number(item.jumlah_percobaan) || 1,
+                          is_sync: true,
+                          source: 'auto-heal'
+                        })
+                      });
+                    } catch (e) {}
+                    await new Promise(r => setTimeout(r, 200));
+                  }
                 }
-              }
-            });
+              })();
+            }
           } catch(e) {}
 
           // Perbarui ribbon & panggung soal jika sedang di mode TKA
@@ -2748,7 +2756,9 @@
           const payloadToSend = Object.assign({}, item, {
             nis: curNis === 'aunillah' ? '23400016' : (itemNis || curNis),
             durasi_detik: Math.max(Number(item.durasi_detik) || 0, 15),
-            tingkat: item.tingkat || (typeof TINGKAT_HALAMAN !== 'undefined' ? String(TINGKAT_HALAMAN) : '12')
+            tingkat: item.tingkat || (typeof TINGKAT_HALAMAN !== 'undefined' ? String(TINGKAT_HALAMAN) : '12'),
+            is_sync: true,
+            source: 'outbox'
           });
 
           try {
