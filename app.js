@@ -5356,12 +5356,42 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               const correctChoice = correctParts[idx] || 'B';
               const userChoice = userTfAnswers ? (userTfAnswers[idx] || userTfAnswers[String(idx)]) : null;
               
+              const normUser = userChoice ? String(userChoice).trim().toUpperCase()[0] : null;
+              const normKey = correctChoice ? String(correctChoice).trim().toUpperCase()[0] : 'B';
+              const isRowCorrect = normUser && (normUser === normKey);
+
               let bClass = "border-slate-600 bg-slate-900 text-slate-200";
               let sClass = "border-slate-600 bg-slate-900 text-slate-200";
+              let bLabel = `<i class="fa-solid fa-check text-amber-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE' : 'BENAR'}`;
+              let sLabel = `<i class="fa-solid fa-xmark text-amber-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE' : 'SALAH'}`;
+              let statusBadge = "";
 
               if (isReviewMode) {
-                bClass = correctChoice === 'B' ? 'border-emerald-400 bg-emerald-600 text-white font-black' : 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
-                sClass = correctChoice === 'S' ? 'border-rose-400 bg-rose-600 text-white font-black' : 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+                if (isRowCorrect) {
+                  statusBadge = `<span class="px-2.5 py-1 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-circle-check text-emerald-400"></i> ${tkaSubj === 'clil' ? 'Correct!' : 'Jawaban Anda Tepat!'}</span>`;
+                } else if (normUser) {
+                  statusBadge = `<span class="px-2.5 py-1 rounded-xl bg-rose-950/80 border border-rose-500/50 text-rose-300 text-[11px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-circle-xmark text-rose-400"></i> ${tkaSubj === 'clil' ? 'Incorrect' : 'Kurang Tepat'}</span>`;
+                }
+
+                if (normKey === 'B') {
+                  bClass = 'border-2 border-emerald-400 bg-emerald-600 text-white font-black shadow-lg';
+                  bLabel = `<i class="fa-solid fa-circle-check text-white mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE (KEY)' : 'BENAR (KUNCI)'}`;
+                  if (normUser === 'S') {
+                    sClass = 'border-2 border-rose-500 bg-rose-950/90 text-rose-200 font-bold';
+                    sLabel = `<i class="fa-solid fa-xmark text-rose-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE (YOUR CHOICE)' : 'SALAH (PILIHAN ANDA)'}`;
+                  } else {
+                    sClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+                  }
+                } else {
+                  sClass = 'border-2 border-emerald-400 bg-emerald-600 text-white font-black shadow-lg';
+                  sLabel = `<i class="fa-solid fa-circle-check text-white mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE (KEY)' : 'SALAH (KUNCI)'}`;
+                  if (normUser === 'B') {
+                    bClass = 'border-2 border-rose-500 bg-rose-950/90 text-rose-200 font-bold';
+                    bLabel = `<i class="fa-solid fa-xmark text-rose-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE (YOUR CHOICE)' : 'BENAR (PILIHAN ANDA)'}`;
+                  } else {
+                    bClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+                  }
+                }
               } else if (userChoice === 'B') {
                 bClass = 'border-2 border-blue-400 bg-blue-600 text-white font-black shadow scale-105';
                 sClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
@@ -5378,12 +5408,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                     </span>
                     <span class="text-xs md:text-sm text-slate-100 leading-relaxed">${stmt}</span>
                   </div>
-                  <div class="flex items-center gap-2 shrink-0 self-end md:self-center">
-                    <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B', event)`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${bClass} transition shadow cursor-pointer">
-                      <i class="fa-solid fa-check text-amber-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE' : 'BENAR'}
+                  <div class="flex flex-wrap items-center gap-2 shrink-0 self-end md:self-center">
+                    ${statusBadge}
+                    <button id="tf-b-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'B', event)`}" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${bClass} transition shadow cursor-pointer">
+                      ${bLabel}
                     </button>
-                    <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S', event)`}" class="px-4 py-2 rounded-xl text-xs font-bold border ${sClass} transition shadow cursor-pointer">
-                      <i class="fa-solid fa-xmark text-amber-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE' : 'SALAH'}
+                    <button id="tf-s-${idx}" onclick="${isReviewMode ? '' : `selectTfAnswer(${idx}, 'S', event)`}" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${sClass} transition shadow cursor-pointer">
+                      ${sLabel}
                     </button>
                   </div>
                 </div>
@@ -8842,94 +8873,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }
     }
 
-    // SCORECARD MODAL (SUBMIT NILAI AKHIR KE SUPABASE)
-    function showTkaScorecardModal() {
-      if (typeof pulihkanDraftJawaban === 'function') {
-        pulihkanDraftJawaban(tkaSubj, tkaPkgId);
-      }
-      // Catat & Submit Nilai Resmi ke Supabase (meskipun baru mengerjakan beberapa soal)
-      if (typeof catatSesiCbt === 'function') {
-        catatSesiCbt(tkaSubj, tkaPkgId, true);
-      }
-      const sourceDb = tkaSrc();
-      const pkg = sourceDb[tkaPkgId];
-      if (!pkg || !pkg.questions) return;
-
-      const totalQ = pkg.questions.length;
-      let correctCount = 0;
-      let answeredCount = 0;
-
-      for (let i = 0; i < totalQ; i++) {
-        const key = `${tkaSubj}_${tkaPkgId}_${i}`;
-        if (userSessionScores[key] !== undefined) {
-          answeredCount++;
-          if (userSessionScores[key] === true) correctCount++;
-        }
-      }
-
-      const score = Math.round((correctCount / totalQ) * 100);
-      const wrongCount = answeredCount - correctCount;
-
-      document.getElementById('scorecard-pkg-title').innerText = `${tkaPkgId} • ${pkg.title}`;
-      document.getElementById('scorecard-total-score').innerText = score;
-      document.getElementById('scorecard-correct-count').innerText = `${correctCount} / ${totalQ}`;
-      document.getElementById('scorecard-wrong-count').innerText = `${wrongCount} / ${totalQ}`;
-
-      const badgeEl = document.getElementById('scorecard-badge');
-      const predEl = document.getElementById('scorecard-predicate');
-
-      if (score >= 85) {
-        badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
-        predEl.innerText = "Mantap. Ini bukan hoki — kamu memang sudah paham.";
-        predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
-        confettiCelebration();
-      } else if (score >= 70) {
-        badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
-        predEl.innerText = "Aman. Tinggal rapikan yang beberapa meleset tadi.";
-        predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
-      } else if (score >= 50) {
-        badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
-        predEl.innerText = "Setengah jalan. Justru yang salah tadi bagian paling berguna buat dibedah.";
-        predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
-      } else {
-        badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
-        predEl.innerText = "Belum. Kata kuncinya belum, bukan tidak bisa. Balik ke babnya, lalu ke sini lagi.";
-        predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
-      }
-
-      const matrixEl = document.getElementById('scorecard-q-matrix');
-      matrixEl.innerHTML = '';
-      for (let i = 0; i < totalQ; i++) {
-        const key = `${tkaSubj}_${tkaPkgId}_${i}`;
-        const st = userSessionScores[key];
-        let qBg = "bg-slate-800 border-slate-700 text-slate-400";
-        let icon = `<i class="fa-solid fa-minus text-[10px]"></i>`;
-        
-        if (st === true) {
-          qBg = "bg-emerald-950 border-emerald-400 text-emerald-300";
-          icon = `<i class="fa-solid fa-check text-[10px]"></i>`;
-        } else if (st === false) {
-          qBg = "bg-rose-950 border-rose-400 text-rose-300";
-          icon = `<i class="fa-solid fa-xmark text-[10px]"></i>`;
-        }
-
-        const item = document.createElement('button');
-        item.className = `p-2 rounded-xl border text-center text-xs font-mono font-bold flex flex-col items-center justify-center gap-0.5 transition active:scale-95 ${qBg} hover:brightness-125`;
-        item.innerHTML = `<span>Q${i + 1}</span> ${icon}`;
-        item.onclick = () => {
-          closeTkaScorecardModal();
-          tkaQIdx = i;
-          renderAppView();
-        };
-        matrixEl.appendChild(item);
-      }
-
-      document.getElementById('tka-scorecard-modal').classList.remove('hidden');
-    }
-
-    function closeTkaScorecardModal() {
-      document.getElementById('tka-scorecard-modal').classList.add('hidden');
-    }
 
     // CANVAS PEN TOOL
     function togglePenMode() {
