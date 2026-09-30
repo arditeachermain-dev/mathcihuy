@@ -125,7 +125,8 @@ export async function onRequestPost(context) {
                              data.source === 'rapor-auto-heal' ||
                              data.source === 'visibility-sync' ||
                              data.source === 'pagehide-sync';
-    if (session.role !== 'guru' && !isSyncSubmission) {
+    const isGuru = Boolean(session && session.role === 'guru');
+    if (!isGuru && !isSyncSubmission) {
       // Jika durasi < 3 detik karena timer browser ter-reset / antrean offline outbox, berikan default aman 15 detik alih-alih menolak nilai siswa
       if (cleanDurasi < 3) {
         cleanDurasi = 15;
