@@ -60,7 +60,12 @@ export async function onRequestPost(context) {
     try {
       data = await context.request.json();
     } catch(e) {
-      return jsonResponse({ error: 'Format data JSON tidak valid' }, 400);
+      try {
+        const raw = await context.request.text();
+        data = JSON.parse(raw);
+      } catch(e2) {
+        return jsonResponse({ error: 'Format data JSON tidak valid' }, 400);
+      }
     }
 
     const {
@@ -75,6 +80,8 @@ export async function onRequestPost(context) {
 
     const cleanNis = String(nis).trim();
     const canonicalNis = cleanNis.toLowerCase() === 'aunillah' ? '23400016' : cleanNis;
+    const cleanMapel = String(mapel || 'wajib').trim().toLowerCase();
+    const cleanKode = String(kode_pertemuan || '').trim().toUpperCase();
 
     // Verifikasi identitas siswa resmi dari database D1
     const studentInfo = await context.env.DB.prepare(
@@ -112,7 +119,12 @@ export async function onRequestPost(context) {
     let cleanDurasi = Math.max(0, Number(durasi_detik) || 0);
 
     // 1. Deteksi Anomali Durasi & Anti-Rapid-Fire Bot (Smart & Lenient Protection)
-    const isSyncSubmission = data.is_sync === true || data.source === 'outbox' || data.source === 'auto-heal';
+    const isSyncSubmission = data.is_sync === true || 
+                             data.source === 'outbox' || 
+                             data.source === 'auto-heal' || 
+                             data.source === 'rapor-auto-heal' ||
+                             data.source === 'visibility-sync' ||
+                             data.source === 'pagehide-sync';
     if (session.role !== 'guru' && !isSyncSubmission) {
       // Jika durasi < 3 detik karena timer browser ter-reset / antrean offline outbox, berikan default aman 15 detik alih-alih menolak nilai siswa
       if (cleanDurasi < 3) {
@@ -145,7 +157,7 @@ export async function onRequestPost(context) {
       try {
         const { results: liveRows } = await context.env.DB.prepare(
           "SELECT q_idx, chosen FROM cbt_live_answers WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-        ).bind(canonicalNis, String(mapel || 'wajib'), String(kode_pertemuan)).all();
+        ).bind(canonicalNis, cleanMapel, cleanKode).all();
         if (liveRows && liveRows.length > 0) {
           answersToGrade = liveRows;
         }
@@ -158,7 +170,7 @@ export async function onRequestPost(context) {
     }
     let officialGrade = null;
     if (answersToGrade && (Array.isArray(answersToGrade) ? answersToGrade.length > 0 : Object.keys(answersToGrade).length > 0)) {
-      officialGrade = calculateOfficialGrade(studentTingkat, mapel, kode_pertemuan, answersToGrade);
+      officialGrade = calculateOfficialGrade(studentTingkat, cleanMapel, cleanKode, answersToGrade);
     }
 
     let cleanSkor, cleanSoal, cleanBenar, cleanSalah;
@@ -179,7 +191,7 @@ export async function onRequestPost(context) {
     let finalAttempt = Number(jumlah_percobaan) || 1;
     const existing = await context.env.DB.prepare(
       "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-    ).bind(canonicalNis, String(mapel || 'wajib'), String(kode_pertemuan)).first();
+    ).bind(canonicalNis, cleanMapel, cleanKode).first();
 
     if (existing && existing.jumlah_percobaan && Number(existing.jumlah_percobaan) >= finalAttempt) {
       finalAttempt = Number(existing.jumlah_percobaan) + 1;
@@ -212,7 +224,7 @@ export async function onRequestPost(context) {
         waktu_submit = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.waktu_submit ELSE nilai_cbt.waktu_submit END,
         jumlah_percobaan = MAX(nilai_cbt.jumlah_percobaan, excluded.jumlah_percobaan)
     `).bind(
-      canonicalNis, verifiedNama, verifiedKelas, String(mapel || 'wajib'), String(kode_pertemuan),
+      canonicalNis, verifiedNama, verifiedKelas, cleanMapel, cleanKode,
       cleanSkor, cleanSoal, cleanBenar, cleanSalah,
       cleanDurasi, finalAttempt, now
     ).run();
@@ -221,10 +233,10 @@ export async function onRequestPost(context) {
     try {
       await context.env.DB.prepare(
         "DELETE FROM cbt_live_answers WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-      ).bind(String(nis), String(mapel || 'wajib'), String(kode_pertemuan)).run();
+      ).bind(canonicalNis, cleanMapel, cleanKode).run();
     } catch(e) {}
 
-    const solutions = getSolutionsForPackage(studentTingkat, mapel, kode_pertemuan) || [];
+    const solutions = getSolutionsForPackage(studentTingkat, cleanMapel, cleanKode) || [];
 
     return jsonResponse({
       success: true,

@@ -1454,24 +1454,59 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         console.warn('Gagal menarik nilai dari D1:', err);
       }
 
-      // Fallback lokal jika ada pengerjaan offline yang belum tersinkron
+      // Fallback lokal jika ada pengerjaan offline yang belum tersinkron + Otomatis Auto-Heal ke Cloudflare D1
       try {
         const cacheKey = typeof kunciTingkat === 'function' ? kunciTingkat('cbt_completed_' + targetNis) : ('cbt_completed_' + targetNis);
         const cached = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+        const missingFromD1 = [];
         if (cached && typeof cached === 'object') {
           Object.keys(cached).forEach(k => {
-            if (!subMap[k]) {
-              const item = cached[k];
-              if (item) {
-                const k1 = `${item.mapel}_${item.kode_pertemuan}`;
-                const k2 = `${(item.mapel || '').toLowerCase()}_${String(item.kode_pertemuan || '').toUpperCase()}`;
-                const k3 = `${(item.mapel || '').toLowerCase()}_${String(item.kode_pertemuan || '').toLowerCase()}`;
+            const item = cached[k];
+            if (item && item.kode_pertemuan && item.skor !== undefined) {
+              const k1 = `${item.mapel}_${item.kode_pertemuan}`;
+              const k2 = `${(item.mapel || '').toLowerCase()}_${String(item.kode_pertemuan || '').toUpperCase()}`;
+              const k3 = `${(item.mapel || '').toLowerCase()}_${String(item.kode_pertemuan || '').toLowerCase()}`;
+              if (!subMap[k1] && !subMap[k2] && !subMap[k3]) {
                 subMap[k1] = item;
                 subMap[k2] = item;
                 subMap[k3] = item;
+                missingFromD1.push(item);
               }
             }
           });
+        }
+
+        // Auto-Heal: Jika ada nilai lokal yang belum masuk ke server D1, langsung unggah ke D1 di latar belakang
+        if (missingFromD1.length > 0 && !isGuru) {
+          (async () => {
+            for (const item of missingFromD1) {
+              try {
+                await fetch('/api/nilai', {
+                  method: 'POST',
+                  headers: typeof getAuthHeaders === 'function' ? getAuthHeaders({ 'Content-Type': 'application/json' }) : { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    nis: String(targetNis),
+                    nama: item.nama || '',
+                    kelas: item.kelas || '',
+                    mapel: item.mapel || 'wajib',
+                    kode_pertemuan: item.kode_pertemuan,
+                    skor: Number(item.skor) || 0,
+                    jumlah_soal: Number(item.jumlah_soal) || 10,
+                    jumlah_benar: Number(item.jumlah_benar) || 10,
+                    jumlah_salah: Number(item.jumlah_salah) || 0,
+                    durasi_detik: Math.max(Number(item.durasi_detik) || 60, 15),
+                    jumlah_percobaan: Number(item.jumlah_percobaan) || 1,
+                    answers: item.answers || [],
+                    is_sync: true,
+                    source: 'rapor-auto-heal'
+                  }),
+                  keepalive: true
+                });
+                console.log('⚡ Rapor Auto-Heal: tersinkron ke D1:', item.mapel, item.kode_pertemuan);
+              } catch (e) {}
+              await new Promise(r => setTimeout(r, 200));
+            }
+          })();
         }
       } catch (e) {}
 

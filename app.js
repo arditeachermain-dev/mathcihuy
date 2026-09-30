@@ -81,7 +81,7 @@
     function initPortal() {
       // SMART CACHE & INTEGRITY AUTO-GUARD:
       // Memastikan perangkat siswa tidak terjebak pada cache berkas lama
-      const CURRENT_APP_BUILD = 'v1790745500';
+      const CURRENT_APP_BUILD = 'v20260930_zero_desync';
       try {
         const storedBuild = localStorage.getItem('mathcihuy_app_build');
         if (storedBuild && storedBuild !== CURRENT_APP_BUILD) {
@@ -2206,10 +2206,11 @@
         function prosesDataSelesai(data) {
           if (!Array.isArray(data)) return;
           const map = Object.assign({}, window._cbtCompletedSubmissions);
-          const serverKeys = new Set(data.map(r => `${r.mapel}_${r.kode_pertemuan}`));
+          const serverKeys = new Set(data.map(r => `${String(r.mapel || '').trim().toLowerCase()}_${String(r.kode_pertemuan || '').trim().toUpperCase()}`));
           data.forEach(row => {
-            const k = `${row.mapel}_${row.kode_pertemuan}`;
-            map[k] = row;
+            const subj = String(row.mapel || 'wajib').trim().toLowerCase();
+            const pkg = String(row.kode_pertemuan || '').trim().toUpperCase();
+            map[`${subj}_${pkg}`] = row;
           });
           window._cbtCompletedSubmissions = map;
           try {
@@ -2218,15 +2219,22 @@
 
           // Auto-Heal Sync: jika ada paket di memori lokal yang belum masuk ke server D1, otomatis sinkronkan ke server secara berurutan
           try {
-            const missingKeys = Object.keys(map).filter(k => !serverKeys.has(k));
+            const missingKeys = Object.keys(map).filter(k => {
+              const parts = k.split('_');
+              const item = map[k];
+              const subj = String(item.mapel || parts[0] || 'wajib').trim().toLowerCase();
+              const pkg = String(item.kode_pertemuan || parts[1] || '').trim().toUpperCase();
+              return !serverKeys.has(`${subj}_${pkg}`);
+            });
             if (missingKeys.length > 0) {
               (async () => {
                 for (const localKey of missingKeys) {
                   const item = map[localKey];
-                  if (item && item.skor !== undefined && item.kode_pertemuan) {
+                  if (item && item.skor !== undefined) {
                     const parts = localKey.split('_');
-                    const subj = item.mapel || parts[0] || 'wajib';
-                    const pkg = item.kode_pertemuan || parts[1];
+                    const subj = String(item.mapel || parts[0] || 'wajib').trim().toLowerCase();
+                    const pkg = String(item.kode_pertemuan || parts[1] || '').trim().toUpperCase();
+                    if (!pkg) continue;
                     try {
                       const res = await fetch('/api/nilai', {
                         method: 'POST',
@@ -2243,16 +2251,18 @@
                           jumlah_salah: Number(item.jumlah_salah) || 0,
                           durasi_detik: Math.max(Number(item.durasi_detik) || 60, 15),
                           jumlah_percobaan: Number(item.jumlah_percobaan) || 1,
+                          answers: item.answers || [],
                           is_sync: true,
                           source: 'auto-heal'
-                        })
+                        }),
+                        keepalive: true
                       });
                       if (res.ok) {
-                        serverKeys.add(localKey);
+                        serverKeys.add(`${subj}_${pkg}`);
                         if (typeof hapusDariOutboxCbt === 'function') {
                           hapusDariOutboxCbt(nis, subj, pkg);
                         }
-                        console.log('⚡ Auto-Heal: tersinkron ke Cloudflare D1:', localKey);
+                        console.log('⚡ Auto-Heal: tersinkron ke Cloudflare D1:', `${subj}_${pkg}`);
                       }
                     } catch (e) {
                       console.warn('Auto-Heal gagal:', localKey, e);
@@ -2734,13 +2744,9 @@
         return;
       }
 
-      const sess = getSession();
-      if (!sess || sess.type !== 'siswa' || !sess.data || !sess.data.nis) {
-        updateOutboxBannerUI();
-        return;
-      }
+      const sess = typeof getSession === 'function' ? getSession() : null;
+      const curNis = (sess && sess.type === 'siswa' && sess.data && sess.data.nis) ? String(sess.data.nis).trim() : '';
 
-      const curNis = String(sess.data.nis).trim();
       _syncingOutboxRunning = true;
       let successCount = 0;
       let lastErrMsg = '';
@@ -2755,15 +2761,19 @@
       try {
         for (const item of list) {
           const itemNis = String(item.nis || '').trim();
-          const isMatch = itemNis === curNis ||
+          // Jika sesi siswa aktif, cocokkan dengan siswa saat ini.
+          // Jika sesi sedang tidak aktif/kedaluwarsa, tetap kirimkan paket antrean lokal yang memiliki NIS valid.
+          const isMatch = !curNis || 
+            itemNis === curNis ||
             (curNis === '23400016' && itemNis.toLowerCase() === 'aunillah') ||
             (curNis.toLowerCase() === 'aunillah' && itemNis === '23400016');
 
           if (!isMatch) continue;
 
+          const canonicalNis = (curNis === 'aunillah' || itemNis.toLowerCase() === 'aunillah') ? '23400016' : (curNis || itemNis);
           // Normalisasi payload sebelum kirim: pastikan durasi minimal 15 detik dan nis canonical
           const payloadToSend = Object.assign({}, item, {
-            nis: curNis === 'aunillah' ? '23400016' : (itemNis || curNis),
+            nis: canonicalNis,
             durasi_detik: Math.max(Number(item.durasi_detik) || 0, 15),
             tingkat: item.tingkat || (typeof TINGKAT_HALAMAN !== 'undefined' ? String(TINGKAT_HALAMAN) : '12'),
             is_sync: true,
@@ -2778,7 +2788,8 @@
               method: 'POST',
               headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
               body: JSON.stringify(payloadToSend),
-              signal: controller.signal
+              signal: controller.signal,
+              keepalive: true
             });
             clearTimeout(timeoutId);
 
@@ -2826,6 +2837,32 @@
       }
     }
     window.sinkronkanAntreanOutbox = sinkronkanAntreanOutbox;
+
+    function flushOutboxKeepalive() {
+      try {
+        const list = ambilSemuaOutboxCbt();
+        if (!list || list.length === 0) return;
+        const sess = typeof getSession === 'function' ? getSession() : null;
+        const curNis = (sess && sess.data && sess.data.nis) ? String(sess.data.nis).trim() : '';
+        for (const item of list) {
+          const itemNis = String(item.nis || '').trim();
+          if (curNis && itemNis !== curNis && !(curNis === '23400016' && itemNis === 'aunillah')) continue;
+          const payload = Object.assign({}, item, {
+            nis: curNis === 'aunillah' ? '23400016' : (curNis || itemNis),
+            durasi_detik: Math.max(Number(item.durasi_detik) || 0, 15),
+            is_sync: true,
+            source: 'pagehide-sync'
+          });
+          fetch('/api/nilai', {
+            method: 'POST',
+            headers: typeof getAuthHeaders === 'function' ? getAuthHeaders({ 'Content-Type': 'application/json' }) : { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            keepalive: true
+          }).catch(() => {});
+        }
+      } catch(e) {}
+    }
+    window.flushOutboxKeepalive = flushOutboxKeepalive;
 
     function updateOutboxBannerUI() {
       if (window._outboxBannerDismissed) return;
@@ -2962,8 +2999,34 @@
       }
     }
 
-    // Auto-sync listener saat online dan periodik
-    window.addEventListener('online', function() { sinkronkanAntreanOutbox(true); });
+    // Auto-sync listener komprehensif: Online, Focus, VisibilityChange, PageHide, BeforeUnload, Storage, & Heartbeat
+    window.addEventListener('online', function() { 
+      sinkronkanAntreanOutbox(true); 
+      if (typeof muatStatusSelesaiSiswa === 'function') muatStatusSelesaiSiswa();
+    });
+    window.addEventListener('focus', function() { 
+      sinkronkanAntreanOutbox(true); 
+    });
+    window.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'visible') {
+        sinkronkanAntreanOutbox(true);
+        if (typeof muatStatusSelesaiSiswa === 'function') muatStatusSelesaiSiswa();
+      } else if (document.visibilityState === 'hidden') {
+        flushOutboxKeepalive();
+      }
+    });
+    window.addEventListener('pagehide', function() {
+      flushOutboxKeepalive();
+    });
+    window.addEventListener('beforeunload', function() {
+      flushOutboxKeepalive();
+    });
+    window.addEventListener('storage', function(e) {
+      if (e && (e.key === CBT_OUTBOX_STORAGE_KEY || (e.key && e.key.includes('cbt_completed')))) {
+        sinkronkanAntreanOutbox(true);
+        if (typeof muatStatusSelesaiSiswa === 'function') muatStatusSelesaiSiswa();
+      }
+    });
     setInterval(function() { sinkronkanAntreanOutbox(true); }, 25000);
     setTimeout(function() { sinkronkanAntreanOutbox(true); }, 3000);
 
@@ -3068,11 +3131,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           // 1. Simpan lembar jawaban lengkap langsung ke Offline Outbox terlebih dahulu
           simpanKeOutboxCbt(payload);
 
-          // 2. Submit ke Cloudflare D1 Native Database
+          // 2. Submit ke Cloudflare D1 Native Database (dengan keepalive untuk proteksi penutupan tab/aplikasi)
           fetch('/api/nilai', {
             method: 'POST',
             headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            keepalive: true
           }).then(r => {
             if (!r.ok) {
               return r.json().then(e => Promise.reject(e)).catch(() => Promise.reject('D1 unavailable'));
