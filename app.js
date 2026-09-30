@@ -2369,7 +2369,7 @@
       if (!q || chosen === undefined || chosen === null) return false;
       const qType = q.tipe || q.type || '';
       const kunci = q.kunci;
-      if (kunci === undefined || kunci === null) return false;
+      if (kunci === undefined || kunci === null || String(kunci).trim() === '') return null;
 
       const isTF = qType === 'Pilihan Benar / Salah' || qType === 'True / False' || (kunci && /^[BSTF]\s*-\s*[BSTF]/i.test(String(kunci)));
       const isMulti = !isTF && (qType === 'Pilihan Ganda Kompleks' || qType === 'Multiple Response' || (kunci && String(kunci).includes(',')));
@@ -3048,23 +3048,39 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               payload.jumlah_benar = d1Res.jumlah_benar;
               payload.jumlah_salah = d1Res.jumlah_salah;
 
-              const totScoreEl = document.getElementById('scorecard-total-score');
-              if (totScoreEl) totScoreEl.innerText = d1Res.skor;
-              const corCntEl = document.getElementById('scorecard-correct-count');
-              if (corCntEl) corCntEl.innerText = `${d1Res.jumlah_benar} / ${payload.jumlah_soal}`;
-              const wrgCntEl = document.getElementById('scorecard-wrong-count');
-              if (wrgCntEl) wrgCntEl.innerText = `${d1Res.jumlah_salah} / ${payload.jumlah_soal}`;
+              // Terapkan evaluasi resmi per butir soal ke userSessionScores & draf lokal
+              if (d1Res.evaluations && Array.isArray(d1Res.evaluations)) {
+                d1Res.evaluations.forEach((isRight, qIdx) => {
+                  const key = `${subj}_${pkgId}_${qIdx}`;
+                  userSessionScores[key] = Boolean(isRight);
+                });
+                try {
+                  localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
+                } catch(e) {}
+              }
 
-              if (d1Res.is_best_score === false && d1Res.attempt_skor !== undefined) {
-                const attText = document.getElementById('scorecard-attempt-text');
-                if (attText) {
-                  attText.innerText = `Percobaan ke-${d1Res.jumlah_percobaan} (Skor Kali Ini: ${d1Res.attempt_skor} • Rekor Terbaik: ${d1Res.skor})`;
+              if (d1Res.solutions && Array.isArray(d1Res.solutions)) {
+                if (typeof terapkanPembahasanPaket === 'function') {
+                  terapkanPembahasanPaket(subj, pkgId, d1Res.solutions);
                 }
               }
-            }
-            if (d1Res && d1Res.solutions && Array.isArray(d1Res.solutions)) {
-              if (typeof terapkanPembahasanPaket === 'function') {
-                terapkanPembahasanPaket(subj, pkgId, d1Res.solutions);
+
+              if (typeof updateScorecardWithServerResult === 'function') {
+                updateScorecardWithServerResult(subj, pkgId, d1Res, payload.jumlah_soal);
+              } else {
+                const totScoreEl = document.getElementById('scorecard-total-score');
+                if (totScoreEl) totScoreEl.innerText = d1Res.skor;
+                const corCntEl = document.getElementById('scorecard-correct-count');
+                if (corCntEl) corCntEl.innerText = `${d1Res.jumlah_benar} / ${payload.jumlah_soal}`;
+                const wrgCntEl = document.getElementById('scorecard-wrong-count');
+                if (wrgCntEl) wrgCntEl.innerText = `${d1Res.jumlah_salah} / ${payload.jumlah_soal}`;
+
+                if (d1Res.is_best_score === false && d1Res.attempt_skor !== undefined) {
+                  const attText = document.getElementById('scorecard-attempt-text');
+                  if (attText) {
+                    attText.innerText = `Percobaan ke-${d1Res.jumlah_percobaan} (Skor Kali Ini: ${d1Res.attempt_skor} • Rekor Terbaik: ${d1Res.skor})`;
+                  }
+                }
               }
             }
 
@@ -5040,6 +5056,93 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       renderAppView();
     };
 
+    function updateScorecardWithServerResult(subj, pkgId, d1Res, customTotalQ) {
+      if (!d1Res) return;
+      const isClil = subj === 'clil';
+      const totalQ = d1Res.jumlah_soal || customTotalQ || 10;
+      const score = Number(d1Res.skor) || 0;
+      const benar = Number(d1Res.jumlah_benar) || 0;
+      const salah = (d1Res.jumlah_salah !== undefined) ? Number(d1Res.jumlah_salah) : Math.max(0, totalQ - benar);
+
+      const totScoreEl = document.getElementById('scorecard-total-score');
+      if (totScoreEl) totScoreEl.innerText = score;
+      const corCntEl = document.getElementById('scorecard-correct-count');
+      if (corCntEl) corCntEl.innerText = `${benar} / ${totalQ}`;
+      const wrgCntEl = document.getElementById('scorecard-wrong-count');
+      if (wrgCntEl) wrgCntEl.innerText = `${salah} / ${totalQ}`;
+
+      const badgeEl = document.getElementById('scorecard-badge');
+      const predEl = document.getElementById('scorecard-predicate');
+
+      if (score >= 85) {
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
+        if (predEl) {
+          predEl.innerText = isClil ? "🏆 Excellent! Maximum Mastery Achieved!" : "🏆 Mantap! Kompetensi Tercapai Maksimal!";
+          predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
+        }
+        if (typeof confettiCelebration === 'function') confettiCelebration();
+      } else if (score >= 70) {
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
+        if (predEl) {
+          predEl.innerText = isClil ? "✨ Very Good! Minor review recommended." : "✨ Sangat Baik! Kuasai beberapa detail lagi.";
+          predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
+        }
+      } else if (score >= 50) {
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
+        if (predEl) {
+          predEl.innerText = isClil ? "💡 Good Effort! Review the worked solutions below." : "💡 Cukup Baik! Bedah bagian pembahasan di bawah.";
+          predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
+        }
+      } else {
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
+        if (predEl) {
+          predEl.innerText = isClil ? "📚 Needs Reinforcement! Study full worked solutions." : "📚 Perlu Penguatan! Review pembahasan lengkap.";
+          predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
+        }
+      }
+
+      if (d1Res.is_best_score === false && d1Res.attempt_skor !== undefined) {
+        const attText = document.getElementById('scorecard-attempt-text');
+        if (attText) {
+          attText.innerText = isClil 
+            ? `Attempt #${d1Res.jumlah_percobaan} (This Attempt: ${d1Res.attempt_skor} • Best Record: ${d1Res.skor})`
+            : `Percobaan ke-${d1Res.jumlah_percobaan} (Skor Kali Ini: ${d1Res.attempt_skor} • Rekor Terbaik: ${d1Res.skor})`;
+        }
+      }
+
+      // Perbarui matriks status butir soal dengan hasil verifikasi resmi
+      const matrixEl = document.getElementById('scorecard-q-matrix');
+      if (matrixEl) {
+        matrixEl.innerHTML = '';
+        for (let i = 0; i < totalQ; i++) {
+          const key = `${subj}_${pkgId}_${i}`;
+          let st = userSessionScores[key];
+          if (d1Res.evaluations && d1Res.evaluations[i] !== undefined) {
+            st = Boolean(d1Res.evaluations[i]);
+            userSessionScores[key] = st;
+          }
+          let qBg = "bg-slate-800 border-slate-700 text-slate-400";
+          let icon = `<i class="fa-solid fa-minus text-[10px]"></i>`;
+          
+          if (st === true) {
+            qBg = "bg-emerald-950 border-emerald-400 text-emerald-300";
+            icon = `<i class="fa-solid fa-check text-[10px]"></i>`;
+          } else if (st === false) {
+            qBg = "bg-rose-950 border-rose-400 text-rose-300";
+            icon = `<i class="fa-solid fa-xmark text-[10px]"></i>`;
+          }
+
+          const item = document.createElement('button');
+          item.className = `p-2 rounded-xl border text-center text-xs font-mono font-bold flex flex-col items-center justify-center gap-0.5 transition active:scale-95 cursor-pointer ${qBg} hover:brightness-125`;
+          item.innerHTML = `<span>Q${i + 1}</span> ${icon}`;
+          item.onclick = () => {
+            if (typeof openTkaQuestionInReview === 'function') openTkaQuestionInReview(i);
+          };
+          matrixEl.appendChild(item);
+        }
+      }
+    }
+
     function showTkaScorecardModal() {
       const sourceDb = tkaSrc();
       const pkg = sourceDb[tkaPkgId];
@@ -5064,38 +5167,34 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
       } catch (e) {}
 
-      // Catat & Submit Nilai Resmi ke Supabase
+      // Catat & Submit Nilai Resmi ke Supabase / Cloudflare D1
       if (typeof catatSesiCbt === 'function') {
         catatSesiCbt(tkaSubj, tkaPkgId, true);
       }
 
       let correctCount = 0;
       let answeredCount = 0;
+      let pendingCount = 0;
 
       for (let i = 0; i < totalQ; i++) {
         const key = `${tkaSubj}_${tkaPkgId}_${i}`;
-        if (userSessionScores[key] !== undefined) {
+        const st = userSessionScores[key];
+        if (st !== undefined) {
           answeredCount++;
-          if (userSessionScores[key] === true) correctCount++;
+          if (st === true) correctCount++;
+          if (st === null) pendingCount++;
         }
       }
 
-      const score = Math.round((correctCount / totalQ) * 100);
-      const wrongCount = answeredCount - correctCount;
-
+      const isClil = tkaSubj === 'clil';
       const pkgTitleEl = document.getElementById('scorecard-pkg-title');
       if (pkgTitleEl) pkgTitleEl.innerText = `${tkaPkgId} • ${pkg.title}`;
       const totScoreEl = document.getElementById('scorecard-total-score');
-      if (totScoreEl) totScoreEl.innerText = score;
       const corCntEl = document.getElementById('scorecard-correct-count');
-      if (corCntEl) corCntEl.innerText = `${correctCount} / ${totalQ}`;
       const wrgCntEl = document.getElementById('scorecard-wrong-count');
-      if (wrgCntEl) wrgCntEl.innerText = `${wrongCount} / ${totalQ}`;
-
       const badgeEl = document.getElementById('scorecard-badge');
       const predEl = document.getElementById('scorecard-predicate');
 
-      const isClil = tkaSubj === 'clil';
       const modal = document.getElementById('tka-scorecard-modal');
       if (modal) {
         const topBadge = modal.querySelector('span.uppercase');
@@ -5133,30 +5232,49 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         }
       }
 
-      if (score >= 85) {
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
+      if (pendingCount > 0 && answeredCount === pendingCount) {
+        // Semua kunci lokal belum terunduh / menunggu verifikasi server
+        if (totScoreEl) totScoreEl.innerHTML = `<span class="inline-flex items-center gap-1.5 text-base md:text-xl text-cyan-300 font-mono animate-pulse"><i class="fa-solid fa-circle-notch fa-spin text-sm"></i> Verifikasi...</span>`;
+        if (corCntEl) corCntEl.innerText = `- / ${totalQ}`;
+        if (wrgCntEl) wrgCntEl.innerText = `- / ${totalQ}`;
         if (predEl) {
-          predEl.innerText = isClil ? "🏆 Excellent! Maximum Mastery Achieved!" : "🏆 Mantap! Kompetensi Tercapai Maksimal!";
-          predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
+          predEl.innerText = isClil ? "⏳ Verifying official score with Cloudflare server..." : "⏳ Memverifikasi nilai resmi dengan server Cloudflare...";
+          predEl.className = "text-xs md:text-sm font-extrabold text-cyan-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-cyan-500/40";
         }
-        confettiCelebration();
-      } else if (score >= 70) {
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
-        if (predEl) {
-          predEl.innerText = isClil ? "✨ Very Good! Minor review recommended." : "✨ Sangat Baik! Kuasai beberapa detail lagi.";
-          predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
-        }
-      } else if (score >= 50) {
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
-        if (predEl) {
-          predEl.innerText = isClil ? "💡 Good Effort! Review the worked solutions below." : "💡 Cukup Baik! Bedah bagian pembahasan di bawah.";
-          predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
-        }
+        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-cyan-300/60 animate-pulse";
       } else {
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
-        if (predEl) {
-          predEl.innerText = isClil ? "📚 Needs Reinforcement! Study full worked solutions." : "📚 Perlu Penguatan! Review pembahasan lengkap.";
-          predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
+        const score = Math.round((correctCount / totalQ) * 100);
+        const wrongCount = answeredCount - correctCount;
+
+        if (totScoreEl) totScoreEl.innerText = score;
+        if (corCntEl) corCntEl.innerText = `${correctCount} / ${totalQ}`;
+        if (wrgCntEl) wrgCntEl.innerText = `${wrongCount} / ${totalQ}`;
+
+        if (score >= 85) {
+          if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
+          if (predEl) {
+            predEl.innerText = isClil ? "🏆 Excellent! Maximum Mastery Achieved!" : "🏆 Mantap! Kompetensi Tercapai Maksimal!";
+            predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
+          }
+          confettiCelebration();
+        } else if (score >= 70) {
+          if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
+          if (predEl) {
+            predEl.innerText = isClil ? "✨ Very Good! Minor review recommended." : "✨ Sangat Baik! Kuasai beberapa detail lagi.";
+            predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
+          }
+        } else if (score >= 50) {
+          if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
+          if (predEl) {
+            predEl.innerText = isClil ? "💡 Good Effort! Review the worked solutions below." : "💡 Cukup Baik! Bedah bagian pembahasan di bawah.";
+            predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
+          }
+        } else {
+          if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
+          if (predEl) {
+            predEl.innerText = isClil ? "📚 Needs Reinforcement! Study full worked solutions." : "📚 Perlu Penguatan! Review pembahasan lengkap.";
+            predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
+          }
         }
       }
 
@@ -5199,6 +5317,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           } else if (st === false) {
             qBg = "bg-rose-950 border-rose-400 text-rose-300";
             icon = `<i class="fa-solid fa-xmark text-[10px]"></i>`;
+          } else if (st === null) {
+            qBg = "bg-cyan-950/70 border-cyan-500/50 text-cyan-300";
+            icon = `<i class="fa-solid fa-circle-notch fa-spin text-[10px]"></i>`;
           }
 
           const item = document.createElement('button');
@@ -5951,6 +6072,28 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     function tandaiOpsiTunggal(chosen, correct) {
       const C = String(chosen || '').toUpperCase();
       const K = String(correct || '').toUpperCase();
+
+      // Jika kunci jawaban belum tersedia di klien
+      if (!K) {
+        document.querySelectorAll('.opt-btn').forEach(b => {
+          const L = String(b.getAttribute('data-letter') || '').toUpperCase();
+          const span = mSpan(b);
+          b.disabled = true;
+          if (L === C) {
+            b.className = 'opt-btn' + span + ' pointer-events-none p-3.5 md:p-4 bg-cyan-950/70 border-2 border-cyan-400 rounded-2xl text-left text-sm text-cyan-200 flex items-start gap-3 shadow';
+            const mark = b.querySelector('.opt-mark');
+            if (mark) {
+              mark.innerHTML = '<span class="px-2.5 py-1 rounded-lg bg-cyan-600 text-white text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> JAWABAN ANDA</span>';
+            }
+          } else {
+            b.className = 'opt-btn' + span + ' pointer-events-none p-3.5 md:p-4 bg-slate-800/40 border border-slate-700/50 rounded-2xl text-left text-sm text-slate-500 opacity-60 flex items-start gap-3';
+            const mark = b.querySelector('.opt-mark');
+            if (mark) mark.innerHTML = '';
+          }
+        });
+        return;
+      }
+
       document.querySelectorAll('.opt-btn').forEach(b => {
         const L = String(b.getAttribute('data-letter') || '').toUpperCase();
         const span = mSpan(b);

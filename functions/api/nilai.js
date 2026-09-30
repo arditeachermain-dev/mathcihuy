@@ -237,6 +237,8 @@ export async function onRequestPost(context) {
       is_best_score: isNewRecordBest,
       jumlah_percobaan: finalAttempt,
       server_graded: Boolean(officialGrade),
+      evaluations: officialGrade ? officialGrade.evaluations : null,
+      details: officialGrade ? officialGrade.details : null,
       solutions: solutions
     });
   } catch (err) {

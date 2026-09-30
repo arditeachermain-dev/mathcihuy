@@ -164,13 +164,23 @@ export function calculateOfficialGrade(tingkat, mapel, kodePertemuan, answers) {
 
   let jumlahBenar = 0;
   const totalSoal = questions.length;
+  const evaluations = [];
+  const details = [];
 
   for (let i = 0; i < totalSoal; i++) {
     const q = questions[i];
     const userChosen = answerMap[i];
-    if (evaluateQuestion(q, userChosen)) {
+    const isRight = evaluateQuestion(q, userChosen);
+    if (isRight) {
       jumlahBenar++;
     }
+    evaluations.push(Boolean(isRight));
+    details.push({
+      q_idx: i,
+      is_right: Boolean(isRight),
+      kunci: q.kunci || '',
+      chosen: userChosen !== undefined ? userChosen : null
+    });
   }
 
   const jumlahSalah = totalSoal - jumlahBenar;
@@ -181,6 +191,8 @@ export function calculateOfficialGrade(tingkat, mapel, kodePertemuan, answers) {
     jumlah_soal: totalSoal,
     jumlah_benar: jumlahBenar,
     jumlah_salah: jumlahSalah,
+    evaluations: evaluations,
+    details: details,
     server_verified: true
   };
 }
