@@ -234,6 +234,8 @@ export async function onRequestPost(context) {
       durasi_detik: finalDurasi,
       waktu_submit: finalWaktu,
       attempt_skor: cleanSkor,
+      attempt_benar: cleanBenar,
+      attempt_salah: cleanSalah,
       is_best_score: isNewRecordBest,
       jumlah_percobaan: finalAttempt,
       server_graded: Boolean(officialGrade),

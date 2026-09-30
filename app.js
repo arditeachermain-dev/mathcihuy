@@ -3067,20 +3067,6 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
               if (typeof updateScorecardWithServerResult === 'function') {
                 updateScorecardWithServerResult(subj, pkgId, d1Res, payload.jumlah_soal);
-              } else {
-                const totScoreEl = document.getElementById('scorecard-total-score');
-                if (totScoreEl) totScoreEl.innerText = d1Res.skor;
-                const corCntEl = document.getElementById('scorecard-correct-count');
-                if (corCntEl) corCntEl.innerText = `${d1Res.jumlah_benar} / ${payload.jumlah_soal}`;
-                const wrgCntEl = document.getElementById('scorecard-wrong-count');
-                if (wrgCntEl) wrgCntEl.innerText = `${d1Res.jumlah_salah} / ${payload.jumlah_soal}`;
-
-                if (d1Res.is_best_score === false && d1Res.attempt_skor !== undefined) {
-                  const attText = document.getElementById('scorecard-attempt-text');
-                  if (attText) {
-                    attText.innerText = `Percobaan ke-${d1Res.jumlah_percobaan} (Skor Kali Ini: ${d1Res.attempt_skor} • Rekor Terbaik: ${d1Res.skor})`;
-                  }
-                }
               }
             }
 
@@ -5042,7 +5028,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     async function confirmAndFinalizeCbt() {
       closeCbtSubmitModal();
       window._tkaReviewMode = true;
+      
+      // 1. Tampilkan scorecard secara instan dengan evaluasi draf lokal
       showTkaScorecardModal();
+      
+      // 2. Submit & sinkronisasi nilai resmi ke Cloudflare D1 (HANYA SEKALI di sini!)
+      if (typeof catatSesiCbt === 'function') {
+        catatSesiCbt(tkaSubj, tkaPkgId, true);
+      }
+
       await muatPembahasanJikaPerlu(tkaSubj, tkaPkgId);
       renderAppView();
     }
@@ -5050,86 +5044,155 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     window.bukaReviewModeCbt = async function() {
       window._tkaReviewMode = true;
       await muatPembahasanJikaPerlu(tkaSubj, tkaPkgId);
+      // Di sini hanya membuka modal scorecard tanpa men-trigger submit ulang ke server!
       if (typeof showTkaScorecardModal === 'function') {
         showTkaScorecardModal();
       }
       renderAppView();
     };
 
-    function updateScorecardWithServerResult(subj, pkgId, d1Res, customTotalQ) {
-      if (!d1Res) return;
+    function renderUnifiedScorecard(params) {
+      const {
+        subj,
+        pkgId,
+        totalQ = 10,
+        attemptScore = 0,
+        attemptBenar = 0,
+        attemptSalah = 0,
+        evaluations = [],
+        attemptNum = 1,
+        recordBest = null,
+        isNewBest = true,
+        isPending = false
+      } = params;
+
       const isClil = subj === 'clil';
-      const totalQ = d1Res.jumlah_soal || customTotalQ || 10;
-      const score = Number(d1Res.skor) || 0;
-      const benar = Number(d1Res.jumlah_benar) || 0;
-      const salah = (d1Res.jumlah_salah !== undefined) ? Number(d1Res.jumlah_salah) : Math.max(0, totalQ - benar);
+      const sourceDb = (typeof tkaSrc === 'function') ? tkaSrc() : ((window.db && window.db['tka_' + subj]) || {});
+      const pkg = sourceDb[pkgId] || {};
+      const pkgTitle = pkg.title || '';
+
+      const modal = document.getElementById('tka-scorecard-modal');
+      if (!modal) return;
+
+      const pkgTitleEl = document.getElementById('scorecard-pkg-title');
+      if (pkgTitleEl) pkgTitleEl.innerText = `${pkgId} • ${pkgTitle}`;
+
+      const topBadge = modal.querySelector('span.uppercase');
+      if (topBadge) topBadge.innerText = isClil ? 'CBT DRILLING ASSESSMENT RESULTS' : 'HASIL ASESMEN DRILLING CBT TKA NASIONAL';
+
+      const subtitle = modal.querySelector('p.text-slate-400');
+      if (subtitle) subtitle.innerText = isClil ? 'Math Cihuy • Phase F Grade XII' : 'Math Cihuy • Kelas XII Fase F';
+
+      const scoreLabel = modal.querySelector('#scorecard-badge span.uppercase');
+      if (scoreLabel) scoreLabel.innerText = isClil ? 'FINAL SCORE' : 'SKOR AKHIR';
 
       const totScoreEl = document.getElementById('scorecard-total-score');
-      if (totScoreEl) totScoreEl.innerText = score;
       const corCntEl = document.getElementById('scorecard-correct-count');
-      if (corCntEl) corCntEl.innerText = `${benar} / ${totalQ}`;
       const wrgCntEl = document.getElementById('scorecard-wrong-count');
-      if (wrgCntEl) wrgCntEl.innerText = `${salah} / ${totalQ}`;
-
       const badgeEl = document.getElementById('scorecard-badge');
       const predEl = document.getElementById('scorecard-predicate');
 
-      if (score >= 85) {
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
+      const statCols = modal.querySelectorAll('.grid-cols-3 > div');
+      if (statCols && statCols.length >= 3) {
+        const l0 = statCols[0].querySelector('span.text-\\[10px\\]') || statCols[0].querySelector('span[class*="text-[10px]"]');
+        if (l0) l0.innerText = isClil ? 'CORRECT' : 'BENAR';
+        const l1 = statCols[1].querySelector('span.text-\\[10px\\]') || statCols[1].querySelector('span[class*="text-[10px]"]');
+        if (l1) l1.innerText = isClil ? 'INCORRECT' : 'SALAH';
+        const l2 = statCols[2].querySelector('span.text-\\[10px\\]') || statCols[2].querySelector('span[class*="text-[10px]"]');
+        if (l2) l2.innerText = isClil ? 'TIME / QUESTION' : 'WAKTU / SOAL';
+        const t2 = statCols[2].querySelector('span.font-mono');
+        if (t2) t2.innerText = isClil ? '3 Mins' : '3 Menit';
+      }
+
+      if (isPending) {
+        if (totScoreEl) totScoreEl.innerHTML = `<span class="inline-flex items-center gap-1.5 text-base md:text-xl text-cyan-300 font-mono animate-pulse"><i class="fa-solid fa-circle-notch fa-spin text-sm"></i> Verifikasi...</span>`;
+        if (corCntEl) corCntEl.innerText = `- / ${totalQ}`;
+        if (wrgCntEl) wrgCntEl.innerText = `- / ${totalQ}`;
         if (predEl) {
-          predEl.innerText = isClil ? "🏆 Excellent! Maximum Mastery Achieved!" : "🏆 Mantap! Kompetensi Tercapai Maksimal!";
-          predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
+          predEl.innerText = isClil ? '⏳ Verifying official score with Cloudflare server...' : '⏳ Memverifikasi nilai resmi dengan server Cloudflare...';
+          predEl.className = 'text-xs md:text-sm font-extrabold text-cyan-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-cyan-500/40';
         }
-        if (typeof confettiCelebration === 'function') confettiCelebration();
-      } else if (score >= 70) {
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
-        if (predEl) {
-          predEl.innerText = isClil ? "✨ Very Good! Minor review recommended." : "✨ Sangat Baik! Kuasai beberapa detail lagi.";
-          predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
-        }
-      } else if (score >= 50) {
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
-        if (predEl) {
-          predEl.innerText = isClil ? "💡 Good Effort! Review the worked solutions below." : "💡 Cukup Baik! Bedah bagian pembahasan di bawah.";
-          predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
-        }
+        if (badgeEl) badgeEl.className = 'w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-cyan-300/60 animate-pulse';
       } else {
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
-        if (predEl) {
-          predEl.innerText = isClil ? "📚 Needs Reinforcement! Study full worked solutions." : "📚 Perlu Penguatan! Review pembahasan lengkap.";
-          predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
+        const displayScore = Math.max(0, Math.min(100, Math.round(attemptScore)));
+        const displayBenar = Number(attemptBenar) || 0;
+        const displaySalah = (attemptSalah !== undefined) ? Number(attemptSalah) : Math.max(0, totalQ - displayBenar);
+
+        if (totScoreEl) totScoreEl.innerText = displayScore;
+        if (corCntEl) corCntEl.innerText = `${displayBenar} / ${totalQ}`;
+        if (wrgCntEl) wrgCntEl.innerText = `${displaySalah} / ${totalQ}`;
+
+        if (displayScore >= 85) {
+          if (badgeEl) badgeEl.className = 'w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60';
+          if (predEl) {
+            predEl.innerText = isClil ? '🏆 Excellent! Maximum Mastery Achieved!' : '🏆 Mantap! Kompetensi Tercapai Maksimal!';
+            predEl.className = 'text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40';
+          }
+          if (typeof confettiCelebration === 'function') confettiCelebration();
+        } else if (displayScore >= 70) {
+          if (badgeEl) badgeEl.className = 'w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60';
+          if (predEl) {
+            predEl.innerText = isClil ? '✨ Very Good! Minor review recommended.' : '✨ Sangat Baik! Kuasai beberapa detail lagi.';
+            predEl.className = 'text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40';
+          }
+        } else if (displayScore >= 50) {
+          if (badgeEl) badgeEl.className = 'w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60';
+          if (predEl) {
+            predEl.innerText = isClil ? '💡 Good Effort! Review the worked solutions below.' : '💡 Cukup Baik! Bedah bagian pembahasan di bawah.';
+            predEl.className = 'text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40';
+          }
+        } else {
+          if (badgeEl) badgeEl.className = 'w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60';
+          if (predEl) {
+            predEl.innerText = isClil ? '📚 Needs Reinforcement! Study full worked solutions.' : '📚 Perlu Penguatan! Review pembahasan lengkap.';
+            predEl.className = 'text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40';
+          }
         }
       }
 
-      if (d1Res.is_best_score === false && d1Res.attempt_skor !== undefined) {
-        const attText = document.getElementById('scorecard-attempt-text');
-        if (attText) {
-          attText.innerText = isClil 
-            ? `Attempt #${d1Res.jumlah_percobaan} (This Attempt: ${d1Res.attempt_skor} • Best Record: ${d1Res.skor})`
-            : `Percobaan ke-${d1Res.jumlah_percobaan} (Skor Kali Ini: ${d1Res.attempt_skor} • Rekor Terbaik: ${d1Res.skor})`;
+      // Banner riwayat & percobaan
+      const attemptBadgeEl = document.getElementById('scorecard-attempt-badge');
+      const attemptTextEl = document.getElementById('scorecard-attempt-text');
+      if (attemptBadgeEl && attemptTextEl) {
+        if (recordBest !== null && recordBest !== undefined && !isNewBest) {
+          attemptTextEl.innerHTML = isClil
+            ? `<i class="fa-solid fa-arrows-rotate"></i> Attempt #${attemptNum} (This Attempt: <b>${Math.round(attemptScore)}</b> • Safe Record Best: <b>${Math.round(recordBest)}</b>)`
+            : `<i class="fa-solid fa-arrows-rotate"></i> Percobaan ke-${attemptNum} (Skor Kali Ini: <b>${Math.round(attemptScore)}</b> • Rekor Terbaik Aman: <b>${Math.round(recordBest)}</b>)`;
+          attemptBadgeEl.className = 'text-[11px] text-amber-300 font-mono text-center font-bold px-3.5 py-1.5 rounded-xl bg-slate-950/90 border border-amber-500/40 flex items-center justify-center gap-1.5 shadow-md';
+        } else if (attemptNum > 1 && isNewBest) {
+          attemptTextEl.innerHTML = isClil
+            ? `🏆 NEW RECORD! Attempt #${attemptNum} • Score: <b>${Math.round(attemptScore)}</b> (Saved as New Best)`
+            : `🏆 REKOR BARU TERCAPAI! Percobaan ke-${attemptNum} • Skor: <b>${Math.round(attemptScore)}</b> (Tersimpan sebagai nilai tertinggi)`;
+          attemptBadgeEl.className = 'text-[11px] text-emerald-300 font-mono text-center font-bold px-3.5 py-1.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 flex items-center justify-center gap-1.5 shadow-md';
+        } else {
+          attemptTextEl.innerHTML = isClil
+            ? `Attempt #${attemptNum} • Independent Practice`
+            : `Percobaan ke-${attemptNum} • Pengerjaan Mandiri`;
+          attemptBadgeEl.className = 'text-[11px] text-slate-300 font-mono text-center font-bold px-3.5 py-1 rounded-xl bg-slate-950/80 border border-slate-700 flex items-center justify-center gap-1.5 shadow-sm';
         }
       }
 
-      // Perbarui matriks status butir soal dengan hasil verifikasi resmi
+      // Matriks status butir soal Q1 s.d. Q10
       const matrixEl = document.getElementById('scorecard-q-matrix');
       if (matrixEl) {
         matrixEl.innerHTML = '';
         for (let i = 0; i < totalQ; i++) {
-          const key = `${subj}_${pkgId}_${i}`;
-          let st = userSessionScores[key];
-          if (d1Res.evaluations && d1Res.evaluations[i] !== undefined) {
-            st = Boolean(d1Res.evaluations[i]);
-            userSessionScores[key] = st;
-          }
-          let qBg = "bg-slate-800 border-slate-700 text-slate-400";
-          let icon = `<i class="fa-solid fa-minus text-[10px]"></i>`;
-          
+          let st = (Array.isArray(evaluations) && evaluations[i] !== undefined)
+            ? evaluations[i]
+            : (userSessionScores ? userSessionScores[`${subj}_${pkgId}_${i}`] : undefined);
+
+          let qBg = 'bg-slate-800 border-slate-700 text-slate-400';
+          let icon = '<i class="fa-solid fa-minus text-[10px]"></i>';
+
           if (st === true) {
-            qBg = "bg-emerald-950 border-emerald-400 text-emerald-300";
-            icon = `<i class="fa-solid fa-check text-[10px]"></i>`;
+            qBg = 'bg-emerald-950 border-emerald-400 text-emerald-300';
+            icon = '<i class="fa-solid fa-check text-[10px]"></i>';
           } else if (st === false) {
-            qBg = "bg-rose-950 border-rose-400 text-rose-300";
-            icon = `<i class="fa-solid fa-xmark text-[10px]"></i>`;
+            qBg = 'bg-rose-950 border-rose-400 text-rose-300';
+            icon = '<i class="fa-solid fa-xmark text-[10px]"></i>';
+          } else if (st === null) {
+            qBg = 'bg-cyan-950/70 border-cyan-500/50 text-cyan-300';
+            icon = '<i class="fa-solid fa-circle-notch fa-spin text-[10px]"></i>';
           }
 
           const item = document.createElement('button');
@@ -5141,6 +5204,52 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           matrixEl.appendChild(item);
         }
       }
+
+      modal.classList.remove('hidden');
+    }
+
+    function updateScorecardWithServerResult(subj, pkgId, d1Res, customTotalQ) {
+      if (!d1Res) return;
+      const totalQ = d1Res.jumlah_soal || customTotalQ || 10;
+      const isNewBest = d1Res.is_best_score !== false;
+      const attemptScore = (d1Res.attempt_skor !== undefined) ? Number(d1Res.attempt_skor) : Number(d1Res.skor);
+      const recordBest = (d1Res.skor !== undefined) ? Number(d1Res.skor) : attemptScore;
+      
+      let attemptBenar;
+      if (d1Res.attempt_benar !== undefined) {
+        attemptBenar = Number(d1Res.attempt_benar);
+      } else if (Array.isArray(d1Res.evaluations)) {
+        attemptBenar = d1Res.evaluations.filter(Boolean).length;
+      } else {
+        attemptBenar = Math.round((attemptScore / 100) * totalQ);
+      }
+      
+      const attemptSalah = (d1Res.attempt_salah !== undefined)
+        ? Number(d1Res.attempt_salah)
+        : Math.max(0, totalQ - attemptBenar);
+
+      if (Array.isArray(d1Res.evaluations)) {
+        d1Res.evaluations.forEach((st, idx) => {
+          userSessionScores[`${subj}_${pkgId}_${idx}`] = Boolean(st);
+        });
+        try {
+          localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
+        } catch(e) {}
+      }
+
+      renderUnifiedScorecard({
+        subj,
+        pkgId,
+        totalQ,
+        attemptScore,
+        attemptBenar,
+        attemptSalah,
+        evaluations: d1Res.evaluations,
+        attemptNum: d1Res.jumlah_percobaan || 1,
+        recordBest,
+        isNewBest,
+        isPending: false
+      });
     }
 
     function showTkaScorecardModal() {
@@ -5151,7 +5260,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const totalQ = pkg.questions.length;
       const allDrafts = ambilDraftSemua(tkaSubj, tkaPkgId);
 
-      // Pastikan seluruh butir soal (Pilihan Ganda, Benar/Salah, Isian Singkat, Kompleks) dinilai dengan presisi penuh
+      let correctCount = 0;
+      let answeredCount = 0;
+      let pendingCount = 0;
+      const localEvaluations = [];
+
       for (let i = 0; i < totalQ; i++) {
         const key = `${tkaSubj}_${tkaPkgId}_${i}`;
         const qItem = pkg.questions[i];
@@ -5161,178 +5274,46 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           const evalResult = evaluateQuestionScore(qItem, draftItem.chosen);
           userSessionScores[key] = evalResult;
           draftItem.isRight = evalResult;
+          localEvaluations[i] = evalResult;
+          answeredCount++;
+          if (evalResult === true) correctCount++;
+          if (evalResult === null) pendingCount++;
+        } else {
+          userSessionScores[key] = false;
+          localEvaluations[i] = false;
         }
       }
+
       try {
         localStorage.setItem(STORAGE_SCORES_KEY, JSON.stringify(userSessionScores));
       } catch (e) {}
 
-      // Catat & Submit Nilai Resmi ke Supabase / Cloudflare D1
-      if (typeof catatSesiCbt === 'function') {
-        catatSesiCbt(tkaSubj, tkaPkgId, true);
-      }
+      const isPending = (pendingCount > 0 && answeredCount === pendingCount);
+      const localScore = isPending ? 0 : Math.round((correctCount / totalQ) * 100);
+      const localWrong = isPending ? 0 : (totalQ - correctCount);
 
-      let correctCount = 0;
-      let answeredCount = 0;
-      let pendingCount = 0;
-
-      for (let i = 0; i < totalQ; i++) {
-        const key = `${tkaSubj}_${tkaPkgId}_${i}`;
-        const st = userSessionScores[key];
-        if (st !== undefined) {
-          answeredCount++;
-          if (st === true) correctCount++;
-          if (st === null) pendingCount++;
-        }
-      }
-
-      const isClil = tkaSubj === 'clil';
-      const pkgTitleEl = document.getElementById('scorecard-pkg-title');
-      if (pkgTitleEl) pkgTitleEl.innerText = `${tkaPkgId} • ${pkg.title}`;
-      const totScoreEl = document.getElementById('scorecard-total-score');
-      const corCntEl = document.getElementById('scorecard-correct-count');
-      const wrgCntEl = document.getElementById('scorecard-wrong-count');
-      const badgeEl = document.getElementById('scorecard-badge');
-      const predEl = document.getElementById('scorecard-predicate');
-
-      const modal = document.getElementById('tka-scorecard-modal');
-      if (modal) {
-        const topBadge = modal.querySelector('span.uppercase');
-        if (topBadge) topBadge.innerText = isClil ? 'CBT DRILLING ASSESSMENT RESULTS' : 'HASIL ASESMEN DRILLING CBT TKA NASIONAL';
-        
-        const subtitle = modal.querySelector('p.text-slate-400');
-        if (subtitle) subtitle.innerText = isClil ? 'Math Cihuy • Phase F Grade XII' : 'Math Cihuy • Kelas XII Fase F';
-
-        const scoreLabel = modal.querySelector('#scorecard-badge span.uppercase');
-        if (scoreLabel) scoreLabel.innerText = isClil ? 'FINAL SCORE' : 'SKOR AKHIR';
-
-        const statCols = modal.querySelectorAll('.grid-cols-3 > div');
-        if (statCols && statCols.length >= 3) {
-          const l0 = statCols[0].querySelector('span.text-\\[10px\\]');
-          if (l0) l0.innerText = isClil ? 'CORRECT' : 'BENAR';
-          const l1 = statCols[1].querySelector('span.text-\\[10px\\]');
-          if (l1) l1.innerText = isClil ? 'INCORRECT' : 'SALAH';
-          const l2 = statCols[2].querySelector('span.text-\\[10px\\]');
-          if (l2) l2.innerText = isClil ? 'TIME / QUESTION' : 'WAKTU / SOAL';
-          const t2 = statCols[2].querySelector('span.font-mono');
-          if (t2) t2.innerText = isClil ? '3 Mins' : '3 Menit';
-        }
-
-        const matrixHeader = modal.querySelector('.space-y-1\\.5 > span');
-        if (matrixHeader) {
-          matrixHeader.innerHTML = isClil 
-            ? '<i class="fa-solid fa-list-ol text-amber-400"></i> Question Status (Click number to Review):' 
-            : '<i class="fa-solid fa-list-ol text-amber-400"></i> Status Butir Soal (Klik nomor untuk Review):';
-        }
-
-        const actionBtns = modal.querySelectorAll('.flex.items-center.gap-2.pt-2 button');
-        if (actionBtns && actionBtns.length >= 2) {
-          actionBtns[0].innerHTML = `<i class="fa-solid fa-rotate-left"></i> ${isClil ? 'Retake This Unit' : 'Ulangi Paket Ini'}`;
-          actionBtns[1].innerHTML = `<i class="fa-solid fa-book-open"></i> ${isClil ? 'Review Solutions' : 'Review Pembahasan'}`;
-        }
-      }
-
-      if (pendingCount > 0 && answeredCount === pendingCount) {
-        // Semua kunci lokal belum terunduh / menunggu verifikasi server
-        if (totScoreEl) totScoreEl.innerHTML = `<span class="inline-flex items-center gap-1.5 text-base md:text-xl text-cyan-300 font-mono animate-pulse"><i class="fa-solid fa-circle-notch fa-spin text-sm"></i> Verifikasi...</span>`;
-        if (corCntEl) corCntEl.innerText = `- / ${totalQ}`;
-        if (wrgCntEl) wrgCntEl.innerText = `- / ${totalQ}`;
-        if (predEl) {
-          predEl.innerText = isClil ? "⏳ Verifying official score with Cloudflare server..." : "⏳ Memverifikasi nilai resmi dengan server Cloudflare...";
-          predEl.className = "text-xs md:text-sm font-extrabold text-cyan-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-cyan-500/40";
-        }
-        if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-cyan-300/60 animate-pulse";
-      } else {
-        const score = Math.round((correctCount / totalQ) * 100);
-        const wrongCount = answeredCount - correctCount;
-
-        if (totScoreEl) totScoreEl.innerText = score;
-        if (corCntEl) corCntEl.innerText = `${correctCount} / ${totalQ}`;
-        if (wrgCntEl) wrgCntEl.innerText = `${wrongCount} / ${totalQ}`;
-
-        if (score >= 85) {
-          if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-emerald-300/60";
-          if (predEl) {
-            predEl.innerText = isClil ? "🏆 Excellent! Maximum Mastery Achieved!" : "🏆 Mantap! Kompetensi Tercapai Maksimal!";
-            predEl.className = "text-xs md:text-sm font-extrabold text-emerald-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
-          }
-          confettiCelebration();
-        } else if (score >= 70) {
-          if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-blue-300/60";
-          if (predEl) {
-            predEl.innerText = isClil ? "✨ Very Good! Minor review recommended." : "✨ Sangat Baik! Kuasai beberapa detail lagi.";
-            predEl.className = "text-xs md:text-sm font-extrabold text-blue-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-blue-500/40";
-          }
-        } else if (score >= 50) {
-          if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-amber-300/60";
-          if (predEl) {
-            predEl.innerText = isClil ? "💡 Good Effort! Review the worked solutions below." : "💡 Cukup Baik! Bedah bagian pembahasan di bawah.";
-            predEl.className = "text-xs md:text-sm font-extrabold text-amber-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40";
-          }
-        } else {
-          if (badgeEl) badgeEl.className = "w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-rose-600 to-red-400 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-rose-300/60";
-          if (predEl) {
-            predEl.innerText = isClil ? "📚 Needs Reinforcement! Study full worked solutions." : "📚 Perlu Penguatan! Review pembahasan lengkap.";
-            predEl.className = "text-xs md:text-sm font-extrabold text-rose-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-rose-500/40";
-          }
-        }
-      }
-
-      // Tampilkan Riwayat Percobaan Tugas Mandiri Siswa
+      let attemptNum = 1;
+      let prevBest = null;
       try {
         const uid = getUserIdentifier();
-        const attemptKey = kunciTingkat(`cbt_attempts_${uid}_${tkaSubj}_${tkaPkgId}`);
-        const prevScoreKey = kunciTingkat(`cbt_prev_score_${uid}_${tkaSubj}_${tkaPkgId}`);
-        const attemptNum = parseInt(localStorage.getItem(attemptKey) || '1', 10);
-        const prevScore = localStorage.getItem(prevScoreKey);
-        
-        const attemptBadgeEl = document.getElementById('scorecard-attempt-badge');
-        const attemptTextEl = document.getElementById('scorecard-attempt-text');
-        if (attemptBadgeEl && attemptTextEl) {
-          if (attemptNum > 1 && prevScore !== null) {
-            const pVal = parseInt(prevScore, 10);
-            const diff = score - pVal;
-            const diffText = diff > 0 ? (isClil ? `(+${diff} Pts Improvement! 📈)` : `(Meningkat +${diff} Poin! 📈)`) : diff === 0 ? (isClil ? `(Score Stable)` : `(Skor Stabil)`) : (isClil ? `(-${Math.abs(diff)} Pts)` : `(Turun ${diff} Poin)`);
-            attemptTextEl.innerHTML = isClil ? `Attempt #${attemptNum} • Previous: ${pVal} ➔ Current: ${score} ${diffText}` : `Percobaan ke-${attemptNum} • Sebelumnya: ${pVal} ➔ Sekarang: ${score} ${diffText}`;
-            attemptBadgeEl.className = "text-[11px] text-cyan-300 font-mono text-center font-bold px-3.5 py-1.5 rounded-xl bg-slate-950/90 border border-cyan-500/40 flex items-center justify-center gap-1.5 shadow-md";
-          } else {
-            attemptTextEl.innerHTML = isClil ? `Attempt #${attemptNum} • Independent Practice` : `Percobaan ke-${attemptNum} • Pengerjaan Mandiri`;
-            attemptBadgeEl.className = "text-[11px] text-slate-300 font-mono text-center font-bold px-3.5 py-1 rounded-xl bg-slate-950/80 border border-slate-700 flex items-center justify-center gap-1.5 shadow-sm";
-          }
-        }
+        attemptNum = parseInt(localStorage.getItem(kunciTingkat(`cbt_attempts_${uid}_${tkaSubj}_${tkaPkgId}`)) || '1', 10);
+        const storedPrev = localStorage.getItem(kunciTingkat(`cbt_prev_score_${uid}_${tkaSubj}_${tkaPkgId}`));
+        if (storedPrev !== null) prevBest = parseInt(storedPrev, 10);
       } catch (e) {}
 
-      const matrixEl = document.getElementById('scorecard-q-matrix');
-      if (matrixEl) {
-        matrixEl.innerHTML = '';
-        for (let i = 0; i < totalQ; i++) {
-          const key = `${tkaSubj}_${tkaPkgId}_${i}`;
-          const st = userSessionScores[key];
-          let qBg = "bg-slate-800 border-slate-700 text-slate-400";
-          let icon = `<i class="fa-solid fa-minus text-[10px]"></i>`;
-          
-          if (st === true) {
-            qBg = "bg-emerald-950 border-emerald-400 text-emerald-300";
-            icon = `<i class="fa-solid fa-check text-[10px]"></i>`;
-          } else if (st === false) {
-            qBg = "bg-rose-950 border-rose-400 text-rose-300";
-            icon = `<i class="fa-solid fa-xmark text-[10px]"></i>`;
-          } else if (st === null) {
-            qBg = "bg-cyan-950/70 border-cyan-500/50 text-cyan-300";
-            icon = `<i class="fa-solid fa-circle-notch fa-spin text-[10px]"></i>`;
-          }
-
-          const item = document.createElement('button');
-          item.className = `p-2 rounded-xl border text-center text-xs font-mono font-bold flex flex-col items-center justify-center gap-0.5 transition active:scale-95 cursor-pointer ${qBg} hover:brightness-125`;
-          item.innerHTML = `<span>Q${i + 1}</span> ${icon}`;
-          item.onclick = () => {
-            openTkaQuestionInReview(i);
-          };
-          matrixEl.appendChild(item);
-        }
-      }
-
-      if (modal) modal.classList.remove('hidden');
+      renderUnifiedScorecard({
+        subj: tkaSubj,
+        pkgId: tkaPkgId,
+        totalQ,
+        attemptScore: localScore,
+        attemptBenar: correctCount,
+        attemptSalah: localWrong,
+        evaluations: localEvaluations,
+        attemptNum,
+        recordBest: prevBest,
+        isNewBest: (prevBest === null || localScore >= prevBest),
+        isPending
+      });
     }
 
     function closeTkaScorecardModal() {
