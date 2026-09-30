@@ -8921,249 +8921,249 @@ const NAMA_TINGKAT = 'XII';
       "subject": "Matematika Peminatan",
       "title": "Geometri Analitik Lingkaran 4: Kedudukan Titik Terhadap Lingkaran (Uji Kuasa)",
       "questions": [
-        {
-          "no": 1,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q1] Kedudukan titik $A(4, -2)$ terhadap lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$ adalah ...",
-          "opsi": [
-            "A. Berada di titik pusat",
-            "B. Terletak di luar lingkaran",
-            "C. Terletak di dalam lingkaran",
-            "D. Terletak pada lingkaran",
-            "E. Memotong sumbu simetri"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "cx": 2,
-            "cy": -3,
-            "r2": 25,
-            "P": [
-              4,
-              -2
-            ],
-            "line": [
-              4,
-              6,
-              -12
-            ]
-          }
-        },
-        {
-          "no": 2,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q2] Jika titik $P(k, 3)$ terletak di luar lingkaran $x^2 + y^2 = 25$, maka batas nilai $k$ adalah ...",
-          "opsi": [
-            "A. $-4 < k < 4$",
-            "B. $k < -4$ atau $k > 4$",
-            "C. $-5 < k < 5$",
-            "D. $k < -3$ atau $k > 3$",
-            "E. $k < -5$ atau $k > 5$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 25,
-            "cx": 0,
-            "cy": 0
-          }
-        },
-        {
-          "no": 3,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q3] Panjang garis singgung dari titik $T(7, 1)$ ke lingkaran $x^2 + y^2 = 25$ adalah ...",
-          "opsi": [
-            "A. 5 satuan",
-            "B. 2√6 satuan",
-            "C. 6 satuan",
-            "D. 4 satuan",
-            "E. 2√5 satuan"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 25,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              7,
-              1
-            ],
-            "tang": 1
-          }
-        },
-        {
-          "no": 4,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q4] Nilai kuasa titik $P(5, 5)$ terhadap lingkaran $(x - 1)^2 + (y - 2)^2 = 16$ adalah ...",
-          "opsi": [
-            "A. 0",
-            "B. 25",
-            "C. 16",
-            "D. -7",
-            "E. 9"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "cx": 1,
-            "cy": 2,
-            "r2": 16,
-            "P": [
-              5,
-              5
-            ]
-          }
-        },
-        {
-          "no": 5,
-          "tipe": "Pilihan Benar / Salah",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q5] Tentukan kebenaran uji kuasa titik K(x1, y1) terhadap lingkaran L: (x - a)^2 + (y - b)^2 = r^2:\n(1) Jika K < 0, maka titik terletak di dalam lingkaran.\n(2) Jika K > 0, maka titik terletak di dalam lingkaran.\n(3) Jika K = 0, maka titik terletak tepat pada busur keliling lingkaran.",
-          "opsi": [
-            "Jika K < 0, maka titik terletak di dalam lingkaran",
-            "Jika K > 0, maka titik terletak di dalam lingkaran",
-            "Jika K = 0, maka titik terletak tepat pada busur keliling lingkaran"
-          ],
-          "kunci": "",
-          "bahas": ""
-        },
-        {
-          "no": 6,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q6] Jarak terpendek dari titik $A(8, 6)$ ke busur lingkaran $x^2 + y^2 = 16$ adalah ...",
-          "opsi": [
-            "A. 10 satuan",
-            "B. 6 satuan",
-            "C. 4 satuan",
-            "D. 2 satuan",
-            "E. 14 satuan"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 16,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              8,
-              6
-            ]
-          }
-        },
-        {
-          "no": 7,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q7] Titik berikut yang terletak tepat pada lingkaran $x^2 + y^2 - 2x + 4y - 20 = 0$ adalah ...",
-          "opsi": [
-            "A. $(0, 4)$",
-            "B. $(2, 4)$",
-            "C. $(4, 2)$",
-            "D. $(3, 3)$",
-            "E. $(1, 5)$"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "cx": 1,
-            "cy": -2,
-            "r2": 25,
-            "line": [
-              2,
-              4,
-              -20
-            ]
-          }
-        },
-        {
-          "no": 8,
-          "tipe": "Pilihan Ganda Kompleks",
-          "level": "C5 Evaluasi",
-          "bobot": 10,
-          "tanya": "[P04-Q8] Pada lingkaran x^2 + y^2 = 25, manakah pernyataan kedudukan titik berikut yang BENAR? (Pilih semua yang benar)",
-          "opsi": [
-            "A. Titik (5, 2) terletak di luar lingkaran.",
-            "B. Titik (1, 2) terletak di dalam lingkaran.",
-            "C. Titik (-5, 0) terletak tepat pada lingkaran.",
-            "D. Titik (3, 4) terletak tepat pada lingkaran.",
-            "E. Titik (4, 4) terletak di dalam lingkaran."
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 25,
-            "cx": 0,
-            "cy": 0
-          }
-        },
-        {
-          "no": 9,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q9] Jarak terjauh dari titik $P(10, 0)$ ke busur lingkaran $x^2 + y^2 = 36$ adalah ...",
-          "opsi": [
-            "A. 10 satuan",
-            "B. 12 satuan",
-            "C. 4 satuan",
-            "D. 16 satuan",
-            "E. 14 satuan"
-          ],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 36,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              10,
-              0
-            ]
-          }
-        },
-        {
-          "no": 10,
-          "tipe": "Isian Singkat Numerik",
-          "level": "C4 Analisis",
-          "bobot": 10,
-          "tanya": "[P04-Q10] Nilai kuasa titik $(3, 4)$ terhadap lingkaran $x^2 + y^2 = 25$ adalah ...",
-          "opsi": [],
-          "kunci": "",
-          "bahas": "",
-          "viz": {
-            "t": "lingkaran",
-            "r2": 25,
-            "cx": 0,
-            "cy": 0,
-            "P": [
-              3,
-              4
-            ]
-          }
-        }
+            {
+                  "no": 1,
+                  "tipe": "Pilihan Ganda Tunggal",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q1] Kedudukan titik $A(4, -2)$ terhadap lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$ adalah ...",
+                  "opsi": [
+                        "A. Berada di titik pusat",
+                        "B. Terletak di luar lingkaran",
+                        "C. Terletak di dalam lingkaran",
+                        "D. Terletak pada lingkaran",
+                        "E. Memotong sumbu simetri"
+                  ],
+                  "kunci": "C",
+                  "bahas": "Langkah 1: Mengidentifikasi rumus Uji Kuasa Titik $K(x_1, y_1)$ terhadap lingkaran $x^2 + y^2 + Ax + By + C = 0$:\n$$K = x_1^2 + y_1^2 + A x_1 + B y_1 + C$$\n\nLangkah 2: Mensubstitusikan koordinat titik $A(4, -2)$ ke dalam persamaan:\n$$K = 4^2 + (-2)^2 - 4(4) + 6(-2) - 12$$\n$$K = 16 + 4 - 16 - 12 - 12 = -20$$\n\nLangkah 3: Menentukan kedudukan titik berdasarkan tanda nilai kuasa:\n- $K < 0 \\implies$ Titik terletak di dalam lingkaran.\n- $K = 0 \\implies$ Titik terletak tepat pada lingkaran.\n- $K > 0 \\implies$ Titik terletak di luar lingkaran.\n\nKarena $K = -20 < 0$, maka titik $A(4, -2)$ terletak di dalam lingkaran.\nKesimpulan: Kunci Jawaban C.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "cx": 2,
+                        "cy": -3,
+                        "r2": 25,
+                        "P": [
+                              4,
+                              -2
+                        ],
+                        "line": [
+                              4,
+                              6,
+                              -12
+                        ]
+                  }
+            },
+            {
+                  "no": 2,
+                  "tipe": "Pilihan Ganda Tunggal",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q2] Jika titik $P(k, 3)$ terletak di luar lingkaran $x^2 + y^2 = 25$, maka batas nilai $k$ adalah ...",
+                  "opsi": [
+                        "A. $-4 < k < 4$",
+                        "B. $k < -4$ atau $k > 4$",
+                        "C. $-5 < k < 5$",
+                        "D. $k < -3$ atau $k > 3$",
+                        "E. $k < -5$ atau $k > 5$"
+                  ],
+                  "kunci": "B",
+                  "bahas": "Langkah 1: Menentukan syarat titik $P(k, 3)$ terletak di luar lingkaran $x^2 + y^2 = 25$:\nNilai kuasa harus lebih besar dari nol ($K > 0$):\n$$k^2 + 3^2 - 25 > 0$$\n\nLangkah 2: Menyelesaikan pertidaksamaan kuadrat:\n$$k^2 + 9 - 25 > 0 \\implies k^2 - 16 > 0$$\n$$(k - 4)(k + 4) > 0$$\n\nLangkah 3: Menentukan interval batas nilai $k$:\nPembuat nol adalah $k = -4$ dan $k = 4$. Karena tanda pertidaksamaan $> 0$, maka interval penyelesaiannya adalah:\n$$k < -4 \\quad \\text{atau} \\quad k > 4$$\nKesimpulan: Kunci Jawaban B.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "r2": 25,
+                        "cx": 0,
+                        "cy": 0
+                  }
+            },
+            {
+                  "no": 3,
+                  "tipe": "Pilihan Ganda Tunggal",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q3] Panjang garis singgung dari titik $T(7, 1)$ ke lingkaran $x^2 + y^2 = 25$ adalah ...",
+                  "opsi": [
+                        "A. 5 satuan",
+                        "B. 2√6 satuan",
+                        "C. 6 satuan",
+                        "D. 4 satuan",
+                        "E. 2√5 satuan"
+                  ],
+                  "kunci": "A",
+                  "bahas": "Langkah 1: Menghitung jarak titik $T(7, 1)$ ke pusat lingkaran $O(0, 0)$:\n$$d = \\sqrt{7^2 + 1^2} = \\sqrt{49 + 1} = \\sqrt{50}$$\n\nLangkah 2: Menentukan panjang jari-jari lingkaran $r$ dari $x^2 + y^2 = 25$:\n$$r = \\sqrt{25} = 5$$\n\nLangkah 3: Menghitung panjang garis singgung menggunakan Teorema Pythagoras pada segitiga siku-siku garis singgung:\n$$\\text{Panjang Garis Singgung} = \\sqrt{d^2 - r^2} = \\sqrt{50 - 25} = \\sqrt{25} = 5 \\text{ satuan}$$\n(Atau langsung dari akar nilai kuasa: $\\sqrt{K} = \\sqrt{7^2 + 1^2 - 25} = \\sqrt{25} = 5$).\nKesimpulan: Kunci Jawaban A.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "r2": 25,
+                        "cx": 0,
+                        "cy": 0,
+                        "P": [
+                              7,
+                              1
+                        ],
+                        "tang": 1
+                  }
+            },
+            {
+                  "no": 4,
+                  "tipe": "Pilihan Ganda Tunggal",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q4] Nilai kuasa titik $P(5, 5)$ terhadap lingkaran $(x - 1)^2 + (y - 2)^2 = 16$ adalah ...",
+                  "opsi": [
+                        "A. 0",
+                        "B. 25",
+                        "C. 16",
+                        "D. -7",
+                        "E. 9"
+                  ],
+                  "kunci": "E",
+                  "bahas": "Langkah 1: Mengidentifikasi rumus nilai kuasa titik $P(x_1, y_1)$ terhadap lingkaran bentuk baku $(x - a)^2 + (y - b)^2 = r^2$:\n$$K = (x_1 - a)^2 + (y_1 - b)^2 - r^2$$\n\nLangkah 2: Mensubstitusikan koordinat titik $P(5, 5)$ ke persamaan lingkaran $(x - 1)^2 + (y - 2)^2 - 16$:\n$$K = (5 - 1)^2 + (5 - 2)^2 - 16$$\n$$K = 4^2 + 3^2 - 16$$\n$$K = 16 + 9 - 16 = 9$$\n\nJadi nilai kuasa titik $P(5, 5)$ terhadap lingkaran tersebut adalah 9.\nKesimpulan: Kunci Jawaban E.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "cx": 1,
+                        "cy": 2,
+                        "r2": 16,
+                        "P": [
+                              5,
+                              5
+                        ]
+                  }
+            },
+            {
+                  "no": 5,
+                  "tipe": "Pilihan Benar / Salah",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q5] Tentukan kebenaran uji kuasa titik K(x1, y1) terhadap lingkaran L: (x - a)^2 + (y - b)^2 = r^2:\n(1) Jika K < 0, maka titik terletak di dalam lingkaran.\n(2) Jika K > 0, maka titik terletak di dalam lingkaran.\n(3) Jika K = 0, maka titik terletak tepat pada busur keliling lingkaran.",
+                  "opsi": [
+                        "Jika K < 0, maka titik terletak di dalam lingkaran",
+                        "Jika K > 0, maka titik terletak di dalam lingkaran",
+                        "Jika K = 0, maka titik terletak tepat pada busur keliling lingkaran"
+                  ],
+                  "kunci": "B - S - B",
+                  "bahas": "Langkah 1: Analisis Pernyataan (1):\n'Jika $K < 0$, maka titik terletak di dalam lingkaran.'\nBerdasarkan definisi geometri analitik, titik berada di dalam kurva keliling lingkaran jika jaraknya ke pusat lebih kecil dari jari-jari ($d < r \\iff d^2 - r^2 < 0 \\iff K < 0$).\n$\\implies$ Pernyataan (1) bernilai BENAR (B).\n\nLangkah 2: Analisis Pernyataan (2):\n'Jika $K > 0$, maka titik terletak di dalam lingkaran.'\nJika $K > 0$, artinya jarak titik ke pusat lebih besar dari jari-jari ($d > r$), sehingga titik terletak di LUAR lingkaran, bukan di dalam lingkaran.\n$\\implies$ Pernyataan (2) bernilai SALAH (S).\n\nLangkah 3: Analisis Pernyataan (3):\n'Jika $K = 0$, maka titik terletak tepat pada busur keliling lingkaran.'\nJika $K = 0$, artinya jarak titik ke pusat sama persis dengan jari-jari ($d = r$), sehingga koordinat titik memenuhi persamaan lingkaran.\n$\\implies$ Pernyataan (3) bernilai BENAR (B).\n\nUrutan kebenaran: B - S - B.\nKesimpulan: Kunci Jawaban B - S - B."
+            },
+            {
+                  "no": 6,
+                  "tipe": "Pilihan Ganda Tunggal",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q6] Jarak terpendek dari titik $A(8, 6)$ ke busur lingkaran $x^2 + y^2 = 16$ adalah ...",
+                  "opsi": [
+                        "A. 10 satuan",
+                        "B. 6 satuan",
+                        "C. 4 satuan",
+                        "D. 2 satuan",
+                        "E. 14 satuan"
+                  ],
+                  "kunci": "B",
+                  "bahas": "Langkah 1: Menentukan pusat dan jari-jari lingkaran $x^2 + y^2 = 16$:\nPusat $O(0, 0)$ dan jari-jari $r = \\sqrt{16} = 4$.\n\nLangkah 2: Menghitung jarak titik $A(8, 6)$ ke titik pusat $O(0, 0)$:\n$$d = \\sqrt{8^2 + 6^2} = \\sqrt{64 + 36} = \\sqrt{100} = 10 \\text{ satuan}$$\n\nLangkah 3: Menghitung jarak terpendek titik $A$ ke busur lingkaran:\nKarena titik $A$ berada di luar lingkaran ($d > r$), jarak terpendeknya adalah selisih jarak pusat dengan jari-jari:\n$$\\text{Jarak Terpendek} = d - r = 10 - 4 = 6 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban B.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "r2": 16,
+                        "cx": 0,
+                        "cy": 0,
+                        "P": [
+                              8,
+                              6
+                        ]
+                  }
+            },
+            {
+                  "no": 7,
+                  "tipe": "Pilihan Ganda Tunggal",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q7] Titik berikut yang terletak tepat pada lingkaran $x^2 + y^2 - 2x + 4y - 20 = 0$ adalah ...",
+                  "opsi": [
+                        "A. $(0, 4)$",
+                        "B. $(2, 4)$",
+                        "C. $(4, 2)$",
+                        "D. $(3, 3)$",
+                        "E. $(1, 5)$"
+                  ],
+                  "kunci": "C",
+                  "bahas": "Langkah 1: Memahami syarat suatu titik terletak tepat pada lingkaran:\nTitik $(x, y)$ terletak pada lingkaran jika substitusi koordinatnya memenuhi persamaan lingkaran, yaitu $K = 0$.\n\nLangkah 2: Menguji setiap pilihan jawaban ke $x^2 + y^2 - 2x + 4y - 20 = 0$:\n- Titik (0, 4): $0 + 16 - 0 + 16 - 20 = 12 \\neq 0$ (di luar)\n- Titik (2, 4): $4 + 16 - 4 + 16 - 20 = 12 \\neq 0$ (di luar)\n- Titik (4, 2): $4^2 + 2^2 - 2(4) + 4(2) - 20 = 16 + 4 - 8 + 8 - 20 = 0$ (TEPAT PADA LINGKARAN)\n- Titik (3, 3): $9 + 9 - 6 + 12 - 20 = 4 \\neq 0$ (di luar)\n- Titik (1, 5): $1 + 25 - 2 + 20 - 20 = 24 \\neq 0$ (di luar)\n\nJadi titik yang terletak tepat pada lingkaran adalah $(4, 2)$.\nKesimpulan: Kunci Jawaban C.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "cx": 1,
+                        "cy": -2,
+                        "r2": 25,
+                        "line": [
+                              2,
+                              4,
+                              -20
+                        ]
+                  }
+            },
+            {
+                  "no": 8,
+                  "tipe": "Pilihan Ganda Kompleks",
+                  "level": "C5 Evaluasi",
+                  "bobot": 10,
+                  "tanya": "[P04-Q8] Pada lingkaran x^2 + y^2 = 25, manakah pernyataan kedudukan titik berikut yang BENAR? (Pilih semua yang benar)",
+                  "opsi": [
+                        "A. Titik (5, 2) terletak di luar lingkaran.",
+                        "B. Titik (1, 2) terletak di dalam lingkaran.",
+                        "C. Titik (-5, 0) terletak tepat pada lingkaran.",
+                        "D. Titik (3, 4) terletak tepat pada lingkaran.",
+                        "E. Titik (4, 4) terletak di dalam lingkaran."
+                  ],
+                  "kunci": "A, B, C, D",
+                  "bahas": "Langkah 1: Menghitung nilai kuasa masing-masing titik terhadap lingkaran $x^2 + y^2 = 25$ ($K = x^2 + y^2 - 25$):\n- A. Titik (5, 2): $K = 5^2 + 2^2 - 25 = 25 + 4 - 25 = 4 > 0 \\implies$ Terletak di luar lingkaran (BENAR).\n- B. Titik (1, 2): $K = 1^2 + 2^2 - 25 = 1 + 4 - 25 = -20 < 0 \\implies$ Terletak di dalam lingkaran (BENAR).\n- C. Titik (-5, 0): $K = (-5)^2 + 0^2 - 25 = 25 - 25 = 0 \\implies$ Terletak tepat pada lingkaran (BENAR).\n- D. Titik (3, 4): $K = 3^2 + 4^2 - 25 = 9 + 16 - 25 = 0 \\implies$ Terletak tepat pada lingkaran (BENAR).\n- E. Titik (4, 4): $K = 4^2 + 4^2 - 25 = 16 + 16 - 25 = 7 > 0 \\implies$ Terletak di luar lingkaran, bukan di dalam (SALAH).\n\nPernyataan yang BENAR adalah A, B, C, dan D.\nKesimpulan: Kunci Jawaban A, B, C, D.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "r2": 25,
+                        "cx": 0,
+                        "cy": 0
+                  }
+            },
+            {
+                  "no": 9,
+                  "tipe": "Pilihan Ganda Tunggal",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q9] Jarak terjauh dari titik $P(10, 0)$ ke busur lingkaran $x^2 + y^2 = 36$ adalah ...",
+                  "opsi": [
+                        "A. 10 satuan",
+                        "B. 12 satuan",
+                        "C. 4 satuan",
+                        "D. 16 satuan",
+                        "E. 14 satuan"
+                  ],
+                  "kunci": "D",
+                  "bahas": "Langkah 1: Menentukan pusat dan jari-jari lingkaran $x^2 + y^2 = 36$:\nPusat $O(0, 0)$ dan jari-jari $r = \\sqrt{36} = 6$.\n\nLangkah 2: Menghitung jarak titik $P(10, 0)$ ke titik pusat $O(0, 0)$:\n$$d = \\sqrt{(10 - 0)^2 + (0 - 0)^2} = 10 \\text{ satuan}$$\n\nLangkah 3: Menghitung jarak terjauh dari titik $P$ ke busur lingkaran:\nJarak terjauh diperoleh dengan menarik garis dari titik $P$ melalui pusat lingkaran menuju sisi busur lingkaran yang berlawanan:\n$$\\text{Jarak Terjauh} = d + r = 10 + 6 = 16 \\text{ satuan}$$\nKesimpulan: Kunci Jawaban D.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "r2": 36,
+                        "cx": 0,
+                        "cy": 0,
+                        "P": [
+                              10,
+                              0
+                        ]
+                  }
+            },
+            {
+                  "no": 10,
+                  "tipe": "Isian Singkat Numerik",
+                  "level": "C4 Analisis",
+                  "bobot": 10,
+                  "tanya": "[P04-Q10] Nilai kuasa titik $(3, 4)$ terhadap lingkaran $x^2 + y^2 = 25$ adalah ...",
+                  "opsi": [],
+                  "kunci": "0",
+                  "bahas": "Langkah 1: Mengidentifikasi rumus nilai kuasa titik $(x_1, y_1)$ terhadap lingkaran $x^2 + y^2 = r^2$:\n$$K = x_1^2 + y_1^2 - r^2$$\n\nLangkah 2: Mensubstitusikan koordinat titik $(3, 4)$ dan nilai $r^2 = 25$:\n$$K = 3^2 + 4^2 - 25$$\n$$K = 9 + 16 - 25 = 25 - 25 = 0$$\n\nKarena $K = 0$, nilai kuasa titik $(3, 4)$ terhadap lingkaran $x^2 + y^2 = 25$ adalah 0.\nKesimpulan: Kunci Jawaban 0.",
+                  "viz": {
+                        "t": "lingkaran",
+                        "r2": 25,
+                        "cx": 0,
+                        "cy": 0,
+                        "P": [
+                              3,
+                              4
+                        ]
+                  }
+            }
       ]
-    },
+},
     "P05": {
       "id": "P05",
       "subject": "Matematika Peminatan",
