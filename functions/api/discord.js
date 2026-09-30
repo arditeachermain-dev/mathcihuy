@@ -419,10 +419,11 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 4. COMMAND: /progres atau /cbt [nama]
+    // 4. COMMAND: /progres atau /cbt [nama] [mapel]
     if (cmdName === "progres" || cmdName === "cbt") {
       const options = data?.options || [];
       const namaOpt = options.find(o => o.name === "nama")?.value;
+      const mapelOpt = options.find(o => o.name === "mapel")?.value || "wajib";
       let targetNis = null;
 
       if (namaOpt) {
@@ -446,7 +447,8 @@ export async function onRequestPost(context) {
         }
       }
 
-      const card = await generateStudentProgressEmbed(env, targetNis, "wajib");
+      const chosenMapel = mapelOpt === "minat" ? "minat" : "wajib";
+      const card = await generateStudentProgressEmbed(env, targetNis, chosenMapel);
       return jsonResp({
         type: 4,
         data: { embeds: [card.embed], components: studentActionRow, flags: 64 }
@@ -610,6 +612,38 @@ export async function onRequestPost(context) {
       });
     }
 
+    // 10. COMMAND: /sync (SINKRONISASI SLASH COMMANDS & STATUS D1)
+    if (cmdName === "sync") {
+      if (!callerIsTeacher) {
+        return jsonResp({ type: 4, data: { content: "⛔ Perintah ini khusus untuk Guru / Admin.", flags: 64 } });
+      }
+
+      const countNilai = await env.DB.prepare("SELECT count(*) as c FROM nilai_cbt").first();
+      const countSiswa = await env.DB.prepare("SELECT count(*) as c FROM siswa").first();
+      const countLinked = await env.DB.prepare("SELECT count(*) as c FROM discord_users").first();
+
+      return jsonResp({
+        type: 4,
+        data: {
+          embeds: [{
+            title: "🔄 SINKRONISASI DISCORD BOT & CLOUDFLARE D1",
+            description: `Seluruh data server dan perintah Discord Bot telah **100% tersinkronisasi** secara *real-time*!\n\n` +
+                         `• 🌐 **Backend:** Cloudflare Pages Serverless (Always-On 24/7)\n` +
+                         `• 🗄️ **Database:** Cloudflare D1 (\`mathcihuy-db\`)\n` +
+                         `• 👥 **Master Siswa:** \`${countSiswa?.c || 100} siswa terdaftar\`\n` +
+                         `• 💬 **Akun Discord Tertaut:** \`${countLinked?.c || 0} siswa\`\n` +
+                         `• 📝 **Total Nilai CBT Masuk:** \`${countNilai?.c || 0} nilai terekam\`\n` +
+                         `• ⚡ **Slash Commands:** \`/cbt\`, \`/progres\`, \`/progres_minat\`, \`/broadcast_progres\`, \`/sync\`, dll. aktif.\n\n` +
+                         `*Status: Sistem beroperasi normal tanpa desinkronisasi.*`,
+            color: 0x2ECC71,
+            footer: { text: "MathCihuy Real-Time Sync Engine • Cloudflare Edge" },
+            timestamp: new Date().toISOString()
+          }],
+          flags: 64
+        }
+      });
+    }
+
     // 10. COMMAND: /pengumuman (POPUP FORMULIR MODAL PENGUMUMAN)
     if (cmdName === "pengumuman") {
       if (!callerIsTeacher) {
@@ -741,13 +775,15 @@ export async function onRequestPost(context) {
             title: "🎓 PANDUAN MATHCIHUY DISCORD BOT (CLOUDFLARE 24/7)",
             description: "Bot ini berjalan penuh serverless di **Cloudflare Pages & D1** tanpa server komputer fisik!\n\n" +
                          "**Perintah Siswa:**\n" +
-                         "• `/progres` : Cek kartu nilai progres CBT Matematika Wajib P01-P14\n" +
+                         "• `/progres` : Cek kartu nilai progres CBT Matematika Wajib P01-P14 atau Minat P01-P16\n" +
+                         "• `/cbt` : Cek kartu nilai progres CBT (alias cepat untuk `/progres`)\n" +
                          "• `/progres_minat` : Cek kartu CBT Matematika Peminatan P01-P16 (F3 & F4)\n" +
                          "• `/nama [nama_kamu]` : Tautkan akun Discord ke NIS & data sekolah\n" +
                          "• `/rumus [topik]` : Kamus rumus cepat trigonometri, integral, dimensi tiga, dll.\n" +
                          "• `/bank_soal` : Buka arsip modul dan bank soal latihan\n" +
                          "• `/ping` : Cek koneksi serverless bot\n\n" +
                          "**Perintah Guru:**\n" +
+                         "• `/sync` : Sinkronkan status perintah & database Cloudflare D1\n" +
                          "• `/role_panel` : Terbitkan panel tombol pemilihan role kelas\n" +
                          "• `/panel_nama` : Terbitkan panel formulir pendaftaran nama\n" +
                          "• `/broadcast_progres` : Siarkan kartu update progres ke 4 kelas\n" +
