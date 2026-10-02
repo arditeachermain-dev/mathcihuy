@@ -709,11 +709,8 @@
 
       <!-- Tab Siswa (MathCihuy Authentic Tab) -->
       <div class="mc-tabs">
-        <button class="mc-tab-btn active" type="button">
+        <button class="mc-tab-btn active cursor-default" type="button">
           <i class="fa-solid fa-user-graduate mr-1.5"></i>Siswa
-        </button>
-        <button class="mc-tab-btn" type="button" onclick="alert('Untuk portal Guru, silakan buka portal utama MathCihuy.')">
-          <i class="fa-solid fa-chalkboard-user mr-1.5"></i>Guru
         </button>
       </div>
 
@@ -732,13 +729,10 @@
 
         <!-- Password -->
         <div class="mc-form-group">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="mc-label mb-0" for="input-login-pass">
-              Password
-            </label>
-            <span class="text-[10px] text-slate-400 font-mono">Default: 1234</span>
-          </div>
-          <input type="password" id="input-login-pass" value="1234" placeholder="Masukkan password"
+          <label class="mc-label" for="input-login-pass">
+            Password
+          </label>
+          <input type="password" id="input-login-pass" placeholder="Masukkan password"
                  class="mc-input"
                  onkeydown="if(event.key==='Enter') handleStudentLogin()">
         </div>
