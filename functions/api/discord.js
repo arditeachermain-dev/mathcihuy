@@ -2,6 +2,8 @@
 // Cloudflare Pages Serverless Discord Bot Endpoint (HTTP Interactions API)
 // 100% Serverless • 24/7 Always-On • Full Feature Port • Zero Local PC Dependency
 
+import { QUIZ_BANK } from './_quiz_bank.js';
+
 const DEFAULT_PUBLIC_KEY = "3703e790fc773d168f97a93b2f0fed58e0e2363bb03cf37b4dc0730310350607";
 const DEFAULT_GUILD_ID = "1525419440529870981";
 const P1 = "MTU0MDk5MTE4ODU5MTcwNjIwMg";
@@ -847,6 +849,79 @@ export async function onRequestPost(context) {
           }
         });
       }
+    }
+
+    // A.1. INTERAKTIF KUIS SORE: JAWABAN SISWA (TOMBOL A/B/C/D)
+    if (customId && customId.startsWith("quiz_ans_")) {
+      const parts = customId.split("_"); // ["quiz", "ans", qid, option]
+      const qid = parseInt(parts[2], 10);
+      const chosenOption = (parts[3] || "").toUpperCase();
+      const q = QUIZ_BANK.find(item => item.id === qid);
+
+      if (!q) {
+        return jsonResp({
+          type: 4,
+          data: { content: "⚠️ Soal kuis tidak ditemukan atau sudah diarsipkan.", flags: 64 }
+        });
+      }
+
+      const isCorrect = chosenOption === q.correct.toUpperCase();
+      if (isCorrect) {
+        return jsonResp({
+          type: 4,
+          data: {
+            embeds: [{
+              title: "🎉 JAWABAN KAMU BENAR! 🏆",
+              description: `Hebat sekali <@${callerId}>! Opsi **${chosenOption}** adalah jawaban yang tepat! ✨\n\n` +
+                           `**💡 Pembahasan Lengkap:**\n${q.explanation}`,
+              color: 0x2ECC71,
+              footer: { text: "MathCihuy Quiz • Pertahankan Prestasimu!" }
+            }],
+            flags: 64
+          }
+        });
+      } else {
+        return jsonResp({
+          type: 4,
+          data: {
+            embeds: [{
+              title: "❌ JAWABAN KURANG TEPAT!",
+              description: `Halo <@${callerId}>, pilihanmu **${chosenOption}** belum tepat.\n\n` +
+                           `🔍 *Petunjuk:* Coba teliti kembali langkah perhitunganmu atau periksa kembali rumus dasarnya. Kamu masih bisa mencoba mengklik opsi lain pada soal ini!`,
+              color: 0xE74C3C,
+              footer: { text: "MathCihuy Quiz • Jangan Menyerah, Coba Lagi!" }
+            }],
+            flags: 64
+          }
+        });
+      }
+    }
+
+    // A.2. INTERAKTIF KUIS SORE: KUNCI & PEMBAHASAN
+    if (customId && customId.startsWith("quiz_hint_")) {
+      const qid = parseInt(customId.replace("quiz_hint_", ""), 10);
+      const q = QUIZ_BANK.find(item => item.id === qid);
+      if (!q) {
+        return jsonResp({
+          type: 4,
+          data: { content: "⚠️ Pembahasan tidak ditemukan.", flags: 64 }
+        });
+      }
+
+      return jsonResp({
+        type: 4,
+        data: {
+          embeds: [{
+            title: `📖 KUNCI JAWABAN & PEMBAHASAN #${q.id}`,
+            description: `• **Topik:** \`${q.category}\`\n` +
+                         `• **Kunci Jawaban:** **Opsi ${q.correct}** (${q.options[q.correct]})\n\n` +
+                         `**💡 Langkah Pembahasan:**\n${q.explanation}`,
+            color: 0x3498DB,
+            footer: { text: "Kunci Jawaban Kuis • MathCihuy" }
+          }],
+          flags: 64
+        }
+      });
     }
 
     // B. BUKA MODAL SET NAMA PANGGILAN
