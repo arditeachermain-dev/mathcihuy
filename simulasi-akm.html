@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Simulasi ANBK & TKA Pusmendik • Literasi Numerasi Kelas XII • SMA GIS 2 Serpong</title>
+  <title>Simulasi ANBK & TKA Pusmendik • Literasi Numerasi Kelas XII • Math Cihuy</title>
   <link rel="icon" type="image/png" href="icon-192.png">
 
   <!-- Core MathCihuy & KaTeX Styles -->
@@ -729,16 +729,6 @@
                  onkeydown="if(event.key==='Enter') handleStudentLogin()">
         </div>
 
-        <!-- Quick Select Dropdown (100 Siswa Kelas XII) -->
-        <div class="mc-form-group">
-          <label class="mc-label text-[11px]" for="select-quick-student">
-            Cari Cepat Nama Siswa (Kelas XII):
-          </label>
-          <select id="select-quick-student" onchange="onQuickSelectStudent(this.value)"
-                  class="mc-select cursor-pointer text-xs">
-            <option value="">-- Pilih Nama Siswa / Kelas (Opsional) --</option>
-          </select>
-        </div>
 
         <!-- Password -->
         <div class="mc-form-group">
@@ -764,11 +754,7 @@
           MASUK
         </button>
 
-        <div class="text-center pt-3">
-          <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest block">
-            PORTAL CBT • SMA GLOBAL ISLAMIC SCHOOL 2 SERPONG
-          </span>
-        </div>
+
 
       </div>
 
@@ -785,13 +771,13 @@
       <div class="flex items-center justify-between gap-4 pb-4 border-b border-white/10">
         <div class="flex items-center gap-3.5">
           <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 p-2 flex items-center justify-center shrink-0">
-            <img src="gis_official_logo.png" alt="Logo GIS" class="w-full h-full object-contain" onerror="this.src='icon-192.png'">
+            <img src="icon-192.png" alt="Math Cihuy" class="w-full h-full object-contain">
           </div>
           <div>
             <span class="text-[10px] font-mono font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">
               KONFIRMASI TES CBT
             </span>
-            <h2 class="text-base sm:text-lg font-black tracking-tight text-white text-white-keep mt-1">SMA GLOBAL ISLAMIC SCHOOL 2 SERPONG</h2>
+            <h2 class="text-base sm:text-lg font-black tracking-tight text-white text-white-keep mt-1">PORTAL ASESMEN LITERASI &amp; NUMERASI</h2>
           </div>
         </div>
         <button onclick="handleLogoutStudent(false)" class="text-xs text-white-keep text-slate-300 hover:text-white px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition flex items-center gap-1.5 cursor-pointer" title="Ganti Siswa">
@@ -906,18 +892,18 @@
       <!-- Brand & Assessment Title -->
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 border border-white/40 shadow-xs">
-          <img src="gis_official_logo.png" alt="Logo GIS" class="w-8 h-8 object-contain" onerror="this.src='icon-192.png'">
+          <img src="icon-192.png" alt="Math Cihuy" class="w-8 h-8 object-contain">
         </div>
         <div class="leading-tight">
           <div class="flex items-center gap-2">
-            <span class="text-[10px] sm:text-xs font-black tracking-wider uppercase px-2 py-0.5 rounded font-mono cbt-badge" style="color: #ffffff !important;">CBT SENIOR HIGH</span>
+            <span class="text-[10px] sm:text-xs font-black tracking-wider uppercase px-2 py-0.5 rounded font-mono cbt-badge" style="color: #ffffff !important;">CBT PUSMENDIK</span>
             <select id="select-akm-pkg" onchange="switchAkmPackage(this.value)" class="bg-white text-slate-800 border border-white/40 rounded-lg px-2.5 py-1 text-xs font-bold outline-none cursor-pointer shadow-xs hover:bg-slate-50">
               <option value="GLADI_01">Paket 1: Gladi Bersih Gelombang 2 (25 Soal • 75 Menit)</option>
               <option value="GLADI_02">Paket 2: Drilling Asesmen Nasional (25 Soal • 75 Menit)</option>
             </select>
           </div>
           <h1 class="text-xs sm:text-sm md:text-base font-extrabold tracking-tight mt-0.5" id="header-pkg-title" style="color: #ffffff !important;">
-            GLOBAL ISLAMIC SCHOOL 2 SERPONG • GELOMBANG 2
+            SIMULASI ANBK &amp; TKA • GELOMBANG 2
           </h1>
         </div>
       </div>
@@ -1165,7 +1151,7 @@
           LEMBAR DIAGNOSIS CAPAIAN PUSMENDIK
         </span>
         <h2 class="text-lg sm:text-2xl font-black tracking-tight text-slate-900">RAPOR SIMULASI LITERASI NUMERASI TKA</h2>
-        <p class="text-xs sm:text-sm text-slate-500 mt-0.5">SMA Global Islamic School 2 Serpong • TP 2026/2027</p>
+        <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Asesmen Nasional Literasi &amp; Numerasi • TP 2026/2027</p>
 
         <div class="mt-4 inline-flex items-center gap-3 bg-white px-4 py-2 rounded-xl border border-slate-200 text-xs shadow-xs">
           <span>Peserta: <strong id="report-student-name" class="text-slate-900">-</strong></span>
@@ -1268,7 +1254,7 @@
 
     // Student Session Info
     let studentInfo = {
-      nama: "Siswa SMA GIS 2",
+      nama: "Siswa Kelas XII",
       nis: "",
       kelas: "12 F"
     };
@@ -1448,13 +1434,13 @@
       const nisInput = document.getElementById('input-login-nis');
       const nis = (nisInput.value || '').trim();
       if (!nis) {
-        showLoginError("Silakan masukkan 8 digit NIS Anda atau pilih nama dari daftar.");
+        showLoginError("Silakan masukkan 8 digit NIS Anda.");
         return;
       }
 
       const found = STUDENTS_MASTER[nis];
       if (!found) {
-        showLoginError(`NIS "${nis}" tidak terdaftar dalam database resmi Kelas XII SMA GIS 2 Serpong.`);
+        showLoginError(`NIS "${nis}" tidak terdaftar dalam sistem.`);
         return;
       }
 

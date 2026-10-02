@@ -16,7 +16,7 @@
 //    permintaan navigasi, sehingga halaman gagal terbuka sama sekali. Karena
 //    itu yang disimpan hanya alamat kanonik ('/' dan '/11'), dan respons yang
 //    ternyata hasil pantulan tidak pernah dipakai untuk navigasi.
-const VERSI = 'mathcihuy-v20261003_akm_mathcihuy_login_ui';
+const VERSI = 'mathcihuy-v20261003_akm_clean_login_nogis';
 
 // Hanya alamat kanonik -- jangan pernah menambahkan yang berakhiran .html.
 const HALAMAN = ['./', './11', './10', './simulasi-akm'];
