@@ -9,7 +9,7 @@
   <!-- Core MathCihuy & KaTeX Styles -->
   <link rel="stylesheet" href="mathcihuy.css?v=v1788450600">
   <script src="vendor.js?v=v1788449850"></script>
-  <script src="data-akm.js?v=v1788450600"></script>
+  <script src="data-akm.js?v=v1788520000"></script>
 
   <style>
     /* =========================================================================
@@ -57,7 +57,37 @@
     }
 
     /* Primary Container Surfaces */
-    header, footer {
+    html.terang header.atlantis-header, html header.atlantis-header, header.atlantis-header {
+      background: linear-gradient(135deg, #1269db 0%, #1572e8 100%) !important;
+      border-bottom: 2px solid #0d5bb5 !important;
+      color: #FFFFFF !important;
+    }
+    html.terang header.atlantis-header h1,
+    html.terang header.atlantis-header h2,
+    html.terang header.atlantis-header #header-pkg-title,
+    html.terang header.atlantis-header #user-display-name,
+    html.terang header.atlantis-header .cbt-badge,
+    html.terang header.atlantis-header span.text-white {
+      color: #FFFFFF !important;
+    }
+    html.terang header.atlantis-header #user-display-nis,
+    html.terang header.atlantis-header .text-blue-100 {
+      color: #DBEAFE !important;
+    }
+    html.terang header.atlantis-header .text-blue-200 {
+      color: #BFDBFE !important;
+    }
+    html.terang header.atlantis-header #pusmendik-timer {
+      color: #0F172A !important;
+    }
+    html.terang header.atlantis-header .timer-label {
+      color: #64748B !important;
+    }
+    html.terang header.atlantis-header .cbt-badge {
+      background-color: rgba(255, 255, 255, 0.22) !important;
+      border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    }
+    footer {
       background-color: #FFFFFF !important;
       border-color: #E2E8F0 !important;
       color: #1E293B !important;
@@ -431,56 +461,61 @@
   <!-- ===================================================================== -->
   <!-- 1. PUSMENDIK TOP HEADER BAR (LIGHT & GENTLE)                          -->
   <!-- ===================================================================== -->
-  <header class="bg-white text-slate-800 shadow-xs z-30 shrink-0 border-b border-slate-200">
+  <header class="atlantis-header shadow-md z-30 shrink-0 border-b border-blue-600/40">
     <div class="max-w-[1700px] mx-auto px-3 sm:px-5 py-2.5 flex items-center justify-between gap-3">
       
       <!-- Brand & Assessment Title -->
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-slate-50 p-1 flex items-center justify-center shrink-0 border border-slate-200 shadow-xs">
-          <img src="icon-192.png" alt="Logo GIS" class="w-8 h-8 object-contain">
+        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 border border-white/40 shadow-xs">
+          <img src="gis_official_logo.png" alt="Logo GIS" class="w-8 h-8 object-contain" onerror="this.src='icon-192.png'">
         </div>
         <div class="leading-tight">
           <div class="flex items-center gap-2">
-            <span class="text-[10px] sm:text-xs font-black tracking-wider uppercase bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded font-mono">PUSMENDIK ANBK 2026</span>
-            <select id="select-akm-pkg" onchange="switchAkmPackage(this.value)" class="bg-slate-50 text-slate-800 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-semibold outline-none cursor-pointer hover:border-slate-400 focus:border-blue-500 shadow-xs">
+            <span class="text-[10px] sm:text-xs font-black tracking-wider uppercase px-2 py-0.5 rounded font-mono cbt-badge" style="color: #ffffff !important;">CBT SENIOR HIGH</span>
+            <select id="select-akm-pkg" onchange="switchAkmPackage(this.value)" class="bg-white text-slate-800 border border-white/40 rounded-lg px-2.5 py-1 text-xs font-bold outline-none cursor-pointer shadow-xs hover:bg-slate-50">
               <option value="GLADI_01">Paket 1: Gladi Bersih Gelombang 2 (25 Soal • 75 Menit)</option>
               <option value="GLADI_02">Paket 2: Drilling Asesmen Nasional (25 Soal • 75 Menit)</option>
             </select>
           </div>
-          <h1 class="text-xs sm:text-sm md:text-base font-extrabold tracking-tight text-slate-900 mt-0.5" id="header-pkg-title">
-            SIMULASI LITERASI NUMERASI &amp; TKA • GELOMBANG 2
+          <h1 class="text-xs sm:text-sm md:text-base font-extrabold tracking-tight mt-0.5" id="header-pkg-title" style="color: #ffffff !important;">
+            GLOBAL ISLAMIC SCHOOL 2 SERPONG • GELOMBANG 2
           </h1>
         </div>
       </div>
 
       <!-- Center: Font Size Controller -->
-      <div class="hidden lg:flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 text-xs text-slate-600">
-        <span class="text-slate-500 font-semibold text-[11px] mr-1">Font:</span>
-        <button onclick="setFontSize('fs-small')" id="btn-font-s" class="px-2 py-0.5 rounded font-bold transition hover:bg-slate-200 text-slate-700 text-xs" title="Font Kecil">A-</button>
-        <button onclick="setFontSize('fs-normal')" id="btn-font-n" class="px-2 py-0.5 rounded font-bold transition bg-white shadow-xs text-blue-700 text-sm border border-slate-200" title="Font Normal">A</button>
-        <button onclick="setFontSize('fs-large')" id="btn-font-l" class="px-2 py-0.5 rounded font-bold transition hover:bg-slate-200 text-slate-700 text-base" title="Font Besar">A+</button>
+      <div class="hidden lg:flex items-center gap-1.5 bg-white/15 px-2.5 py-1 rounded-lg border border-white/20 text-xs text-white">
+        <span class="font-semibold text-[11px] mr-1" style="color: #dbeafe !important;">Font:</span>
+        <button onclick="setFontSize('fs-small')" id="btn-font-s" class="px-2 py-0.5 rounded font-bold transition hover:bg-white/20 text-xs" style="color: #ffffff !important;" title="Font Kecil">A-</button>
+        <button onclick="setFontSize('fs-normal')" id="btn-font-n" class="px-2 py-0.5 rounded font-bold transition bg-white shadow-xs text-blue-700 text-sm border border-white font-black" title="Font Normal">A</button>
+        <button onclick="setFontSize('fs-large')" id="btn-font-l" class="px-2 py-0.5 rounded font-bold transition hover:bg-white/20 text-base" style="color: #ffffff !important;" title="Font Besar">A+</button>
       </div>
 
       <!-- Right: User Info, Countdown Timer, & Question List Button -->
       <div class="flex items-center gap-2 sm:gap-3.5">
         
         <!-- Student Info Chip -->
-        <div class="hidden sm:flex flex-col text-right text-xs leading-snug">
-          <span class="font-extrabold text-slate-800 truncate max-w-[140px] md:max-w-[200px]" id="user-display-name">Peserta Ujian</span>
-          <span class="text-[10px] text-slate-500 font-mono" id="user-display-nis">NIS: 24400000 • 12 F</span>
+        <div class="hidden sm:flex items-center gap-2.5 bg-white/15 px-3 py-1.5 rounded-xl border border-white/20 text-right text-xs leading-snug">
+          <div class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-xs" style="color: #ffffff !important;">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="flex flex-col text-right">
+            <span class="font-extrabold truncate max-w-[140px] md:max-w-[200px]" id="user-display-name" style="color: #ffffff !important;">Peserta Ujian</span>
+            <span class="text-[10px] font-mono" id="user-display-nis" style="color: #dbeafe !important;">NIS: 24400000 • 12 F • siswa</span>
+          </div>
         </div>
 
         <!-- Digital Timer -->
-        <div class="bg-amber-50/80 border border-amber-300 px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-xs">
-          <i class="fa-solid fa-clock text-amber-600 text-xs"></i>
+        <div class="bg-white border border-white/60 px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-xs">
+          <i class="fa-solid fa-clock text-amber-500 text-xs"></i>
           <div class="flex flex-col text-right">
-            <span class="text-[9px] uppercase tracking-wider text-slate-500 font-bold leading-none hidden xs:inline">Sisa Waktu</span>
-            <span class="text-xs sm:text-sm font-black font-mono tracking-wider text-slate-900" id="pusmendik-timer">01:15:00</span>
+            <span class="text-[9px] uppercase tracking-wider font-bold leading-none hidden xs:inline timer-label">Sisa Waktu</span>
+            <span class="text-xs sm:text-sm font-black font-mono tracking-wider" id="pusmendik-timer">01:15:00</span>
           </div>
         </div>
 
         <!-- Daftar Soal Button -->
-        <button onclick="toggleDaftarSoalModal()" id="btn-daftar-soal" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm shadow-xs flex items-center gap-2 cursor-pointer transition active:scale-95 shrink-0">
+        <button onclick="toggleDaftarSoalModal()" id="btn-daftar-soal" class="bg-white hover:bg-slate-100 text-blue-700 font-black px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm shadow-sm flex items-center gap-2 cursor-pointer transition active:scale-95 shrink-0 border border-white/60">
           <i class="fa-solid fa-table-cells"></i>
           <span>DAFTAR SOAL</span>
         </button>
@@ -864,15 +899,15 @@
         el.classList.add(sizeClass);
       });
       document.querySelectorAll('#btn-font-s, #btn-font-n, #btn-font-l').forEach(b => {
-        b.classList.remove('bg-white', 'shadow-xs', 'text-blue-700', 'border', 'border-slate-200');
-        b.classList.add('hover:bg-slate-200', 'text-slate-700');
+        b.classList.remove('bg-white', 'shadow-xs', 'text-blue-700', 'border', 'border-white');
+        b.classList.add('hover:bg-white/20', 'text-white');
       });
       const activeBtn = (sizeClass === 'fs-small') ? document.getElementById('btn-font-s') :
                         (sizeClass === 'fs-normal') ? document.getElementById('btn-font-n') :
                         document.getElementById('btn-font-l');
       if (activeBtn) {
-        activeBtn.classList.remove('hover:bg-slate-200', 'text-slate-700');
-        activeBtn.classList.add('bg-white', 'shadow-xs', 'text-blue-700', 'border', 'border-slate-200');
+        activeBtn.classList.remove('hover:bg-white/20', 'text-white');
+        activeBtn.classList.add('bg-white', 'shadow-xs', 'text-blue-700', 'border', 'border-white');
       }
     }
 
