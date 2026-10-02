@@ -908,18 +908,47 @@ export async function onRequestPost(context) {
         });
       }
 
+      const optDesc = q.options && q.options[q.correct] ? ` (${q.options[q.correct]})` : "";
       return jsonResp({
         type: 4,
         data: {
           embeds: [{
             title: `📖 KUNCI JAWABAN & PEMBAHASAN #${q.id}`,
             description: `• **Topik:** \`${q.category}\`\n` +
-                         `• **Kunci Jawaban:** **Opsi ${q.correct}** (${q.options[q.correct]})\n\n` +
+                         `• **Kunci Jawaban:** **${q.correct}**${optDesc}\n\n` +
                          `**💡 Langkah Pembahasan:**\n${q.explanation}`,
             color: 0x3498DB,
-            footer: { text: "Kunci Jawaban Kuis • MathCihuy" }
+            footer: { text: "Kunci Jawaban Kuis • MathCihuy TKA Engine" }
           }],
           flags: 64
+        }
+      });
+    }
+
+    // A.3. INTERAKTIF KUIS: BUKA MODAL ISIAN SINGKAT
+    if (customId && customId.startsWith("quiz_open_input_")) {
+      const qid = parseInt(customId.replace("quiz_open_input_", ""), 10);
+      return jsonResp({
+        type: 9, // APPLICATION_MODAL
+        data: {
+          title: `✍️ Isian Singkat Soal #${qid}`,
+          custom_id: `modal_quiz_${qid}`,
+          components: [
+            {
+              type: 1,
+              components: [
+                {
+                  type: 4, // TEXT_INPUT
+                  custom_id: "quiz_input_val",
+                  label: "Ketik Nilai / Jawaban Angka Pasti:",
+                  style: 1, // SHORT
+                  placeholder: "Contoh: 8 atau 1 atau -5",
+                  required: true,
+                  max_length: 30
+                }
+              ]
+            }
+          ]
         }
       });
     }
@@ -1049,6 +1078,51 @@ export async function onRequestPost(context) {
         type: 4,
         data: { content: "✅ **Pengumuman Berhasil Diterbitkan!** Pesan telah dikirim ke channel pengumuman resmi.", flags: 64 }
       });
+    }
+
+    // C. SUBMIT MODAL KUIS ISIAN SINGKAT (TKA PUSMENDIK)
+    if (modalId && modalId.startsWith("modal_quiz_")) {
+      const qid = parseInt(modalId.replace("modal_quiz_", ""), 10);
+      const q = QUIZ_BANK.find(item => item.id === qid);
+      const inputVal = (data?.components?.[0]?.components?.[0]?.value || "").trim();
+
+      if (!q) {
+        return jsonResp({
+          type: 4,
+          data: { content: "⚠️ Soal kuis tidak ditemukan atau sudah diarsipkan.", flags: 64 }
+        });
+      }
+
+      const isCorrect = inputVal.toLowerCase() === String(q.correct).trim().toLowerCase();
+      if (isCorrect) {
+        return jsonResp({
+          type: 4,
+          data: {
+            embeds: [{
+              title: "🎉 JAWABAN ISIAN SINGKAT BENAR! 🏆",
+              description: `Luar biasa <@${callerId}>! Jawaban kamu **"${inputVal}"** tepat sekali! ✨\n\n` +
+                           `**💡 Pembahasan Lengkap:**\n${q.explanation}`,
+              color: 0x2ECC71,
+              footer: { text: "TKA Mandiri Pusmendik • MathCihuy Engine" }
+            }],
+            flags: 64
+          }
+        });
+      } else {
+        return jsonResp({
+          type: 4,
+          data: {
+            embeds: [{
+              title: "❌ JAWABAN BELUM TEPAT!",
+              description: `Halo <@${callerId}>, jawaban kamu **"${inputVal}"** belum tepat.\n\n` +
+                           `🔍 *Petunjuk:* Periksa kembali operasi aljabar atau langkah perhitunganmu. Kamu masih bisa mengklik tombol **Ketik Jawaban Angka** untuk mencoba lagi!`,
+              color: 0xE74C3C,
+              footer: { text: "TKA Mandiri Pusmendik • MathCihuy Engine" }
+            }],
+            flags: 64
+          }
+        });
+      }
     }
   }
 
