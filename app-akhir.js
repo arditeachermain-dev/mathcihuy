@@ -96,7 +96,7 @@
         alert('Alamat database tersimpan. Hasil yang tertahan akan dikirim otomatis.');
     }
 
-    const NAMA_MAPEL = { wajib: 'Wajib', minat: 'Peminatan', peminatan: 'Peminatan', clil: 'CLIL', custom: 'Racikan' };
+    const NAMA_MAPEL = { wajib: 'Wajib', minat: 'Peminatan', peminatan: 'Peminatan', clil: 'CLIL', custom: 'Racikan', akm: 'ANBK / TKA' };
 
     // State filter status pengerjaan guru
     window._guruFilterStatus = 'semua'; // 'semua' | 'sudah' | 'belum'
@@ -130,6 +130,16 @@
       const selectPertemuan = document.getElementById('guru-filter-pertemuan');
       if (!pilihMapel || !selectPertemuan) return;
       const mapel = pilihMapel.value;
+
+      if (mapel === 'akm') {
+        selectPertemuan.innerHTML = `
+          <option value="">Semua Paket Simulasi</option>
+          <option value="GLADI_01">GLADI_01 - Gladi Bersih ANBK Gelombang 2 (25 Soal)</option>
+          <option value="GLADI_02">GLADI_02 - Drilling Asesmen Nasional (25 Soal)</option>
+        `;
+        return;
+      }
+
       const bank = mapel === 'peminatan' ? 'minat' : (mapel === 'clil' ? 'clil' : 'wajib');
       const paket = (typeof db !== 'undefined' && db && db['tka_' + bank]) || {};
       const aman = function (t) {

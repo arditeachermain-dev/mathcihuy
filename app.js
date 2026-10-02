@@ -8465,7 +8465,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       calBody.innerHTML = `
         <div class="p-1.5 bg-slate-950/80 border border-slate-800/80 rounded-lg">
           <div class="flex justify-between items-center"><span class="font-bold text-purple-300 text-[10px]">Gladi Bersih TKA</span><span class="font-mono text-[9px] text-slate-400">12 - 18 Okt 2026</span></div>
-          <p class="text-[9px] text-slate-500">Gelombang 2 SMA GIS 2 Serpong</p>
+          <p class="text-[9px] text-slate-500">Pelaksanaan Gelombang 2</p>
         </div>
         <div class="p-1.5 bg-slate-950/80 border border-slate-800/80 rounded-lg">
           <div class="flex justify-between items-center"><span class="font-bold text-rose-300 text-[10px]">Pelaksanaan Utama TKA</span><span class="font-mono text-[9px] text-slate-400">2 - 5 Nov 2026</span></div>
