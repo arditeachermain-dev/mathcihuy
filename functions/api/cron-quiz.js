@@ -35,7 +35,19 @@ const TARGET_CHANNELS = [
 const TEACHER_LOG_CHANNEL = "1550788530404458506";
 const CRON_SECRET = "mathcihuy-super-secret-cron-2026";
 
+export async function onRequestGet(context) {
+  return handleCronQuiz(context);
+}
+
+export async function onRequestPost(context) {
+  return handleCronQuiz(context);
+}
+
 export async function onRequest(context) {
+  return handleCronQuiz(context);
+}
+
+async function handleCronQuiz(context) {
   const { request, env } = context;
   const url = new URL(request.url);
 
