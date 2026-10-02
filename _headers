@@ -53,6 +53,12 @@
 /login.html
   Cache-Control: no-cache
 
+/simulasi-akm
+  Cache-Control: no-cache
+
+/simulasi-akm.html
+  Cache-Control: no-cache
+
 # ==============================================================================
 # BERKAS KODE & DATA (Revalidasi Supaya Perbaikan Langsung Tiba di Siswa)
 # ==============================================================================
@@ -75,6 +81,9 @@
   Cache-Control: no-cache
 
 /data-x.js
+  Cache-Control: no-cache
+
+/data-akm.js
   Cache-Control: no-cache
 
 # ==============================================================================

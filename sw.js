@@ -16,13 +16,13 @@
 //    permintaan navigasi, sehingga halaman gagal terbuka sama sekali. Karena
 //    itu yang disimpan hanya alamat kanonik ('/' dan '/11'), dan respons yang
 //    ternyata hasil pantulan tidak pernah dipakai untuk navigasi.
-const VERSI = 'mathcihuy-v20260930_zero_desync';
+const VERSI = 'mathcihuy-v20261002_pusmendik_akm';
 
 // Hanya alamat kanonik -- jangan pernah menambahkan yang berakhiran .html.
-const HALAMAN = ['./', './11', './10'];
+const HALAMAN = ['./', './11', './10', './simulasi-akm'];
 const ASET = [
   './mathcihuy.css', './vendor.js', './app.js', './app-akhir.js',
-  './data-xii.js', './data-xi.js', './data-x.js',
+  './data-xii.js', './data-xi.js', './data-x.js', './data-akm.js',
   './manifest.json', './icon-192.png', './icon-512.png'
 ];
 
@@ -58,6 +58,7 @@ function kunciHalaman(pathname) {
   if (pathname === '/' || pathname === '/index.html' || pathname === '/index') return './';
   if (pathname === '/11' || pathname === '/11.html') return './11';
   if (pathname === '/10' || pathname === '/10.html') return './10';
+  if (pathname === '/simulasi-akm' || pathname === '/simulasi-akm.html') return './simulasi-akm';
   return null;
 }
 
