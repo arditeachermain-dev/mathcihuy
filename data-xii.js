@@ -1176,7 +1176,7 @@ const NAMA_TINGKAT = 'XII';
           "solution": "Langkah 1: Tentukan titik tengah tiap kelas: $x_1 = 34{,}5$, $x_2 = 44{,}5$, $x_3 = 54{,}5$, $x_4 = 64{,}5$.\nLangkah 2: Hitung $f_i x_i$:\n- $3 \\times 34{,}5 = 103{,}5$\n- $5 \\times 44{,}5 = 222{,}5$\n- $8 \\times 54{,}5 = 436{,}0$\n- $4 \\times 64{,}5 = 258{,}0$\nLangkah 3: $\\sum f_i = 3 + 5 + 8 + 4 = 20$. $\\sum f_i x_i = 103{,}5 + 222{,}5 + 436 + 258 = 1020$.\nLangkah 4: $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{1020}{20} = 51$.\nKesimpulan: Nilai rata-rata hitung data adalah $51$."
         },
         {
-          "problem": "Hitung mean data pada tabel [10-19: 4], [20-29: 7], [30-39: 10], [40-49: 6], [50-59: 3] dengan metode rataan sementara ($\bar{x}_s = 34{,}5$)!",
+          "problem": "Hitung mean data pada tabel [10-19: 4], [20-29: 7], [30-39: 10], [40-49: 6], [50-59: 3] dengan metode rataan sementara ($\\bar{x}_s = 34{,}5$)!",
           "solution": "Langkah 1: Titik tengah: $14{,}5; 24{,}5; 34{,}5; 44{,}5; 54{,}5$. Deviasi $d_i = x_i - 34{,}5$: $-20, -10, 0, +10, +20$.\nLangkah 2: Hitung $f_i d_i$:\n- $4(-20) = -80$\n- $7(-10) = -70$\n- $10(0) = 0$\n- $6(10) = 60$\n- $3(20) = 60$\nLangkah 3: $\\sum f_i d_i = -80 - 70 + 0 + 60 + 60 = -30$. $\\sum f_i = 4 + 7 + 10 + 6 + 3 = 30$.\nLangkah 4: $\\bar{x} = \\bar{x}_s + \\frac{\\sum f_i d_i}{\\sum f_i} = 34{,}5 + \\frac{-30}{30} = 34{,}5 - 1 = 33{,}5$.\nKesimpulan: Nilai mean data adalah $33{,}5$."
         },
         {
@@ -1184,7 +1184,7 @@ const NAMA_TINGKAT = 'XII';
           "solution": "Langkah 1: Rataan sementara $\\bar{x}_s = 64{,}5$. Kode $u_i$: $-2, -1, 0, +1, +2$.\nLangkah 2: Hitung $f_i u_i$: $6(-2) = -12$, $12(-1) = -12$, $18(0) = 0$, $10(1) = 10$, $4(2) = 8$.\nLangkah 3: $\\sum f_i u_i = -12 - 12 + 0 + 10 + 8 = -6$. $\\sum f_i = 50$.\nLangkah 4: $\\bar{x} = \\bar{x}_s + \\left( \\frac{\\sum f_i u_i}{\\sum f_i} \\right) c = 64{,}5 + \\left(\\frac{-6}{50}\\right) 10 = 64{,}5 - 1{,}2 = 63{,}3$.\nKesimpulan: Nilai rata-rata data adalah $63{,}3$."
         },
         {
-          "problem": "Rata-rata nilai ujian matematika dari 40 siswa yang disajikan dalam tabel distribusi adalah 72. Jika frekuensi pada kelas $70-79$ tertutup noda dan dimisalkan $k$, sedangkan total frekuensi kelas lain adalah 32 dengan jumlah $f_i x_i$ selain kelas tersebut adalah 2.260, tentukan nilai $k$!",
+          "problem": "Rata-rata nilai ujian matematika dari 40 siswa yang disajikan dalam tabel distribusi adalah 71,4. Jika frekuensi pada kelas $70-79$ tertutup noda dan dimisalkan $k$, sedangkan total frekuensi kelas lain adalah 32 dengan jumlah $f_i x_i$ selain kelas tersebut adalah 2.260, tentukan nilai $k$!",
           "solution": "Langkah 1: Total siswa $N = 32 + k = 40 \\implies k = 8$.\nLangkah 2: Titik tengah kelas $70-79$ adalah $x_k = 74{,}5$.\nLangkah 3: Total $f_i x_i = 2260 + 8(74{,}5) = 2260 + 596 = 2856$.\nLangkah 4: Uji mean: $\\bar{x} = \\frac{2856}{40} = 71{,}4$.\nKesimpulan: Banyak frekuensi yang tertutup noda adalah $k = 8$ siswa."
         },
         {
@@ -7387,7 +7387,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 15,0"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menghitung nilai anak ke-5:\n$$x_5 = (5 \\times 80) - (75 + 80 + 85 + 90) = 400 - 330 = 70$$\nKesimpulan: Kunci Jawaban A."
+          "bahas": "Langkah 1: Menghitung total nilai 5 bilangan asli awal:\n$\\sum x_{\\text{awal}} = 5 \\times 12 = 60$\n\nLangkah 2: Menambahkan satu bilangan baru bernilai 18:\n$\\sum x_{\\text{baru}} = 60 + 18 = 78$\n\nLangkah 3: Menghitung rata-rata baru untuk $n = 5 + 1 = 6$ bilangan:\n$\\bar{x}_{\\text{baru}} = \\frac{78}{6} = 13{,}0$\n\nKesimpulan: Kunci Jawaban A."
         },
         {
           "no": 10,
