@@ -60,3 +60,5 @@ Claude outputs/
 # Cloudflare Wrangler local cache / build state
 .wrangler/
 
+
+scratch/

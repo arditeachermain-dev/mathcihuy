@@ -1,6 +1,6 @@
 // functions/api/cron-quiz.js
 // Cloudflare Pages Serverless Cron Endpoint untuk Kuis Harian 16:00 WIB
-// 100% Cloud-Native • 24/7 Always-On • Mengadaptasi 5 Tipe Soal Resmi TKA Pusmendik
+// 100% Cloud-Native • 24/7 Always-On • Strict 1 Soal Per Hari • Silent Message (Zero-Ping)
 
 import { QUIZ_BANK, TKA_TYPES } from './_quiz_bank.js';
 
@@ -51,7 +51,7 @@ async function handleCronQuiz(context) {
   const { request, env } = context;
   const url = new URL(request.url);
 
-  // Verifikasi Autentikasi Secret
+  // 1. Verifikasi Autentikasi Secret
   const authHeader = request.headers.get("Authorization") || "";
   const keyParam = url.searchParams.get("key") || "";
   const isAuthorized = authHeader.includes(CRON_SECRET) || keyParam === CRON_SECRET;
@@ -63,7 +63,41 @@ async function handleCronQuiz(context) {
     });
   }
 
-  // Pilih Soal (bisa via parameter ?qid=..., atau rotasi otomatis berdasarkan tanggal)
+  // 2. Proteksi Idempotensi Ketat: 1 Soal Saja Per Hari (WIB)
+  const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
+  const todayWibStr = nowWib.toISOString().slice(0, 10); // "YYYY-MM-DD"
+  const isForce = url.searchParams.get("force") === "true";
+
+  if (env?.DB) {
+    try {
+      await env.DB.prepare(`
+        CREATE TABLE IF NOT EXISTS daily_quiz_log (
+          quiz_date TEXT PRIMARY KEY,
+          question_id INTEGER,
+          published_at TEXT
+        )
+      `).run();
+
+      const existing = await env.DB.prepare(
+        "SELECT question_id, published_at FROM daily_quiz_log WHERE quiz_date = ?"
+      ).bind(todayWibStr).first();
+
+      if (existing && !isForce) {
+        return new Response(JSON.stringify({
+          success: true,
+          skipped: true,
+          message: `Kuis untuk hari ini (${todayWibStr}) sudah terbit (Soal #${existing.question_id} pada ${existing.published_at}). Pengiriman dihentikan untuk menjaga aturan: maksimal 1 soal per hari tanpa spam.`
+        }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+    } catch (dbErr) {
+      console.warn("DB check error in cron-quiz:", dbErr);
+    }
+  }
+
+  // 3. Pilih Soal (Rotasi otomatis berdasarkan tanggal atau parameter ?qid=...)
   const qidParam = url.searchParams.get("qid");
   let question;
   if (qidParam) {
@@ -71,7 +105,6 @@ async function handleCronQuiz(context) {
   }
   if (!question) {
     // Rotasi berbasis hari UTC+7
-    const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
     const dayOfYear = Math.floor((nowWib - new Date(nowWib.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
     const index = dayOfYear % QUIZ_BANK.length;
     question = QUIZ_BANK[index] || QUIZ_BANK[0];
@@ -80,7 +113,7 @@ async function handleCronQuiz(context) {
   const token = env?.DISCORD_BOT_TOKEN || BOT_TOKEN;
   const typeInfo = TKA_TYPES[question.type] || { name: question.type, desc: "" };
 
-  // Bangun Konten Soal Sesuai Tipe
+  // 4. Bangun Konten Soal Sesuai Tipe
   let descText = `🏷️ **Tipe Soal TKA:** \`${typeInfo.name}\`\n` +
     `📌 **Panduan:** *${typeInfo.desc}*\n` +
     `📚 **Materi:** \`${question.category}\`\n` +
@@ -98,7 +131,6 @@ async function handleCronQuiz(context) {
     descText += `*(Klik tombol '✍️ Ketik Jawaban Angka' di bawah untuk memasukkan hasil perhitunganmu secara privat!)*`;
   }
 
-  // Embed Color bergradasi sesuai tipe TKA
   let embedColor = 0x3498DB; // Blue (PG)
   if (question.type === "PGK_MCMA") embedColor = 0xE67E22; // Orange
   else if (question.type === "PGK_KATEGORI") embedColor = 0xF1C40F; // Gold
@@ -110,7 +142,7 @@ async function handleCronQuiz(context) {
     description: descText,
     color: embedColor,
     footer: {
-      text: `MathCihuy 24/7 TKA Engine • SMA GIS 2 Serpong`
+      text: `MathCihuy 24/7 TKA Engine • SMA GIS 2 Serpong (1 Soal/Hari)`
     },
     timestamp: new Date().toISOString()
   };
@@ -138,7 +170,6 @@ async function handleCronQuiz(context) {
       ]
     });
   } else {
-    // Tombol Pilihan Jawaban
     components.push({
       type: 1,
       components: [
@@ -168,7 +199,6 @@ async function handleCronQuiz(context) {
         }
       ]
     });
-    // Baris Kedua: Tombol Pembahasan
     components.push({
       type: 1,
       components: [
@@ -185,16 +215,16 @@ async function handleCronQuiz(context) {
 
   const results = [];
 
-  // Broadcast ke 4 Channel Diskusi Kelas
+  // 5. Broadcast ke 4 Channel Diskusi Kelas (MODE SENYAP / ZERO-PING / ANTI-BERISIK)
   for (const ch of TARGET_CHANNELS) {
     const payload = {
-      content: `📢 **[TKA KEMENDIKDASMEN] KUIS SORE TELAH TERBIT!** ☕🎯 *(Pukul 16:00 WIB)*\n` +
-        `Uji kemampuan konsepmu <@&${ch.roleId}>! Selesaikan 1 tantangan soal tipe **${typeInfo.name}** berikut:`,
+      // TIDAK MENTION ROLE (@role) agar HP siswa tidak berbunyi/getar ("tidak berisik")
+      content: `☕ **[ISENG-ISENG DIKIT] KUIS SORE MATEMATIKA** 🎯 *(Pukul 16:00 WIB)*\n` +
+        `Rehat sejenak sambil asah otak santai teman-teman **${ch.kelas}**! Coba selesaikan 1 soal tipe **${typeInfo.name}** hari ini:`,
       embeds: [embed],
       components,
-      allowed_mentions: {
-        roles: [ch.roleId]
-      }
+      flags: 4096, // SUPPRESS_NOTIFICATIONS: Pesan masuk hening/senyap tanpa notifikasi suara
+      allowed_mentions: { parse: [] } // Blokir seluruh ping mention
     };
 
     try {
@@ -225,17 +255,29 @@ async function handleCronQuiz(context) {
     }
   }
 
-  // Kirim Laporan ke Channel Mr. Ardi
+  // 6. Catat Log ke D1 Database agar Terkunci untuk Hari Ini
+  if (env?.DB) {
+    try {
+      await env.DB.prepare(`
+        INSERT OR REPLACE INTO daily_quiz_log (quiz_date, question_id, published_at)
+        VALUES (?, ?, ?)
+      `).bind(todayWibStr, question.id, nowWib.toISOString()).run();
+    } catch (logErr) {
+      console.error("Gagal simpan daily_quiz_log ke D1:", logErr);
+    }
+  }
+
+  // 7. Kirim Laporan ke Channel Mr. Ardi
   try {
     const reportPayload = {
       embeds: [{
-        title: "📋 [LAPORAN OTOMATIS] Kuis Sore 16:00 WIB Telah Terbit (24/7 Cloud)",
-        description: `✅ **Kuis Harian TKA #${question.id}** telah sukses disiarkan ke 4 channel diskusi kelas!\n\n` +
+        title: "📋 [LAPORAN OTOMATIS] Kuis Sore 16:00 WIB Telah Terbit (1 Soal/Hari)",
+        description: `✅ **Kuis Harian TKA #${question.id}** telah disiarkan ke 4 channel diskusi kelas dalam **Mode Senyap (Zero-Ping)**.\n\n` +
+          `• **Tanggal Terbit:** \`${todayWibStr}\`\n` +
           `• **Tipe Soal TKA:** \`${typeInfo.name}\`\n` +
           `• **Materi Pokok:** \`${question.category}\`\n` +
           `• **Level Kognitif:** \`${question.difficulty}\`\n` +
-          `• **Status Eksekusi:** Cloudflare Pages 24/7 Serverless Cron\n` +
-          `• **Waktu:** ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB`,
+          `• **Proteksi:** Idempotensi Harian Aktif (Terkunci 1 soal/hari)`,
         color: 0x2ECC71,
         footer: { text: "MathCihuy Teacher Monitoring System" },
         timestamp: new Date().toISOString()
