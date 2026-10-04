@@ -63,10 +63,26 @@ async function handleCronQuiz(context) {
     });
   }
 
-  // 2. Proteksi Idempotensi Ketat: 1 Soal Saja Per Hari (WIB)
+  // 2. Proteksi Waktu & Idempotensi Ketat: 1 Soal Saja Per Hari (WIB)
   const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
   const todayWibStr = nowWib.toISOString().slice(0, 10); // "YYYY-MM-DD"
+  const hourWib = nowWib.getUTCHours();
+  const minuteWib = nowWib.getUTCMinutes();
   const isForce = url.searchParams.get("force") === "true";
+
+  // 2.1. Jendela Waktu Kuis Sore (15:50 s.d. 18:00 WIB)
+  // Menjamin kuis sore TIDAK AKAN PERNAH terbit malam hari (seperti jam 21:28) jika scheduler telat
+  const isWithinTimeWindow = (hourWib === 15 && minuteWib >= 50) || (hourWib >= 16 && hourWib < 18);
+  if (!isWithinTimeWindow && !isForce) {
+    return new Response(JSON.stringify({
+      success: true,
+      skipped: true,
+      message: `Di luar jendela waktu kuis sore (16:00 - 18:00 WIB). Saat ini pukul ${String(hourWib).padStart(2, '0')}:${String(minuteWib).padStart(2, '0')} WIB. Pengiriman dibatalkan otomatis agar kuis sore tidak muncul malam hari.`
+    }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
 
   if (env?.DB) {
     try {

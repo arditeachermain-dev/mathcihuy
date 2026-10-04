@@ -2,8 +2,12 @@ name: Kuis Sore Otomatis 16:00 WIB
 
 on:
   schedule:
-    # 09:00 UTC = 16:00 WIB (Setiap hari)
-    - cron: '0 9 * * *'
+    # Menggunakan beberapa slot berurutan untuk menghindari antrean server GitHub Actions
+    # Sistem Cloudflare D1 akan otomatis mengunci hanya 1 pengiriman per hari
+    - cron: '55 8 * * *'  # 15:55 WIB (Slot utama mendahului antrean :00)
+    - cron: '0 9 * * *'   # 16:00 WIB (Slot standar)
+    - cron: '5 9 * * *'   # 16:05 WIB (Cadangan 1)
+    - cron: '15 9 * * *'  # 16:15 WIB (Cadangan 2)
   workflow_dispatch:
 
 jobs:
@@ -23,4 +27,4 @@ jobs:
             echo "Failed to broadcast quiz! Status: $STATUS"
             exit 1
           fi
-          echo "Kuis Sore 16:00 WIB berhasil disiarkan ke Discord!"
+          echo "Kuis Sore 16:00 WIB berhasil dieksekusi!"
