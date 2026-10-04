@@ -1,0 +1,8 @@
+name = "mathcihuy-cron"
+main = "index.js"
+compatibility_date = "2026-08-27"
+account_id = "041bb46428825b8e890e94c0af7861ac"
+
+[triggers]
+# 09:00 UTC = Tepat Pukul 16:00:00 WIB (Setiap Hari)
+crons = ["0 9 * * *"]
