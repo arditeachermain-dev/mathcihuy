@@ -543,12 +543,14 @@ function renderTeacherAngketStats(data) {
   if (tableBody && data.data) {
     let tHtml = '';
     data.data.forEach((r, idx) => {
+      const totPoin = (r.total_poin !== null && r.total_poin !== undefined) ? r.total_poin : Math.round(Number(r.skor_total || 0) * 10);
       tHtml += `
         <tr class="hover:bg-[#F7F6F3] border-b border-[#E8E6DF] text-xs">
           <td class="p-2.5 font-mono text-[#787774]">${idx + 1}</td>
           <td class="p-2.5 font-mono font-semibold text-[#2F3437]">${r.nis}</td>
           <td class="p-2.5 font-bold text-[#2F3437]">${r.nama}</td>
           <td class="p-2.5"><span class="px-2 py-0.5 rounded bg-gray-100 font-mono font-semibold">${r.kelas}</span></td>
+          <td class="p-2.5 font-mono text-center font-black text-amber-600 bg-amber-50/50 rounded-lg text-sm">${totPoin} <span class="text-[10px] text-gray-400 font-normal">/ 100</span></td>
           <td class="p-2.5 font-mono text-center text-sky-700 font-bold">${r.skor_d3}</td>
           <td class="p-2.5 font-mono text-center text-emerald-700 font-bold">${r.skor_peluang}</td>
           <td class="p-2.5 font-mono text-center font-bold text-[#2F3437]">${r.skor_total}</td>
@@ -556,6 +558,6 @@ function renderTeacherAngketStats(data) {
         </tr>
       `;
     });
-    tableBody.innerHTML = tHtml || '<tr><td colspan="8" class="p-4 text-center text-gray-400">Belum ada siswa yang mengisi.</td></tr>';
+    tableBody.innerHTML = tHtml || '<tr><td colspan="9" class="p-4 text-center text-gray-400">Belum ada siswa yang mengisi.</td></tr>';
   }
 }

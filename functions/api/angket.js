@@ -19,7 +19,7 @@ export async function onRequestGet(context) {
     // 1. EXPORT CSV UNTUK PRAKTIKUM STATISTIKA (GURU ATAU SISWA KELAS)
     if (isCsv) {
       const { results } = await context.env.DB.prepare(
-        "SELECT nis, nama, kelas, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, skor_d3, skor_peluang, skor_total, catatan, created_at, updated_at FROM angket_refleksi ORDER BY kelas ASC, nama ASC"
+        "SELECT nis, nama, kelas, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, total_poin, skor_d3, skor_peluang, skor_total, catatan, created_at, updated_at FROM angket_refleksi ORDER BY kelas ASC, nama ASC"
       ).all();
 
       const rows = results || [];
@@ -28,7 +28,7 @@ export async function onRequestGet(context) {
         'Q1_Visualisasi_3D', 'Q2_Jarak_Titik_Garis', 'Q3_Jarak_Titik_Bidang', 'Q4_Sudut_Ruang',
         'Q5_Filling_Slots', 'Q6_Permutasi_Kombinasi', 'Q7_Peluang_Majemuk', 'Q8_Peluang_Bersyarat',
         'Q9_Kecukupan_Data', 'Q10_Keyakinan_TKA',
-        'Rerata_Dimensi_3', 'Rerata_Peluang', 'Skor_Total_Refleksi', 'Catatan_Siswa', 'Waktu_Submit'
+        'Total_Poin_10_Soal', 'Rerata_Dimensi_3', 'Rerata_Peluang', 'Skor_Rerata_Total', 'Catatan_Siswa', 'Waktu_Submit'
       ];
 
       let csvContent = '\uFEFF' + headers.join(',') + '\n';
@@ -37,6 +37,7 @@ export async function onRequestGet(context) {
           const str = String(val === null || val === undefined ? '' : val).replace(/"/g, '""');
           return `"${str}"`;
         };
+        const totalP = r.total_poin !== null && r.total_poin !== undefined ? r.total_poin : (r.q1 + r.q2 + r.q3 + r.q4 + r.q5 + r.q6 + r.q7 + r.q8 + r.q9 + r.q10);
         const row = [
           escapeCsv(r.nis),
           escapeCsv(r.nama),
@@ -44,6 +45,7 @@ export async function onRequestGet(context) {
           r.q1, r.q2, r.q3, r.q4,
           r.q5, r.q6, r.q7, r.q8,
           r.q9, r.q10,
+          totalP,
           Number(r.skor_d3 || 0).toFixed(2),
           Number(r.skor_peluang || 0).toFixed(2),
           Number(r.skor_total || 0).toFixed(2),
@@ -66,7 +68,7 @@ export async function onRequestGet(context) {
     // 2. REKAP SELURUH ANGKET (ALL DATA & AGGREGATE STATS)
     if (isAll) {
       const { results } = await context.env.DB.prepare(
-        "SELECT nis, nama, kelas, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, skor_d3, skor_peluang, skor_total, catatan, created_at, updated_at FROM angket_refleksi ORDER BY kelas ASC, nama ASC"
+        "SELECT nis, nama, kelas, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, total_poin, skor_d3, skor_peluang, skor_total, catatan, created_at, updated_at FROM angket_refleksi ORDER BY kelas ASC, nama ASC"
       ).all();
 
       const list = results || [];
@@ -78,7 +80,8 @@ export async function onRequestGet(context) {
         q_avg: Array(10).fill(0),
         avg_d3: 0,
         avg_peluang: 0,
-        avg_total: 0
+        avg_total: 0,
+        avg_poin: 0
       };
 
       for (const item of list) {
@@ -89,7 +92,8 @@ export async function onRequestGet(context) {
             q_sum: Array(10).fill(0),
             sum_d3: 0,
             sum_peluang: 0,
-            sum_total: 0
+            sum_total: 0,
+            sum_poin: 0
           };
         }
         classSummary[k].count++;
@@ -98,13 +102,16 @@ export async function onRequestGet(context) {
           classSummary[k].q_sum[i - 1] += val;
           overall.q_avg[i - 1] += val;
         }
+        const pTotal = item.total_poin !== null && item.total_poin !== undefined ? Number(item.total_poin) : (Number(item.skor_total || 0) * 10);
         classSummary[k].sum_d3 += Number(item.skor_d3 || 0);
         classSummary[k].sum_peluang += Number(item.skor_peluang || 0);
         classSummary[k].sum_total += Number(item.skor_total || 0);
+        classSummary[k].sum_poin += pTotal;
 
         overall.avg_d3 += Number(item.skor_d3 || 0);
         overall.avg_peluang += Number(item.skor_peluang || 0);
         overall.avg_total += Number(item.skor_total || 0);
+        overall.avg_poin += pTotal;
       }
 
       // Finalize Averages
@@ -113,6 +120,7 @@ export async function onRequestGet(context) {
         overall.avg_d3 = Number((overall.avg_d3 / list.length).toFixed(2));
         overall.avg_peluang = Number((overall.avg_peluang / list.length).toFixed(2));
         overall.avg_total = Number((overall.avg_total / list.length).toFixed(2));
+        overall.avg_poin = Number((overall.avg_poin / list.length).toFixed(1));
       }
 
       for (const k in classSummary) {
@@ -121,10 +129,12 @@ export async function onRequestGet(context) {
         c.avg_d3 = Number((c.sum_d3 / c.count).toFixed(2));
         c.avg_peluang = Number((c.sum_peluang / c.count).toFixed(2));
         c.avg_total = Number((c.sum_total / c.count).toFixed(2));
+        c.avg_poin = Number((c.sum_poin / c.count).toFixed(1));
         delete c.q_sum;
         delete c.sum_d3;
         delete c.sum_peluang;
         delete c.sum_total;
+        delete c.sum_poin;
       }
 
       return jsonResponse({
@@ -180,15 +190,16 @@ export async function onRequestPost(context) {
     }
 
     const cleanQ = questions.map(q => Math.round(Number(q)));
+    const total_poin = cleanQ.reduce((a, b) => a + b, 0); // 10 s.d 100 poin
     const skor_d3 = Number(((cleanQ[0] + cleanQ[1] + cleanQ[2] + cleanQ[3]) / 4).toFixed(2));
     const skor_peluang = Number(((cleanQ[4] + cleanQ[5] + cleanQ[6] + cleanQ[7]) / 4).toFixed(2));
-    const skor_total = Number((cleanQ.reduce((a, b) => a + b, 0) / 10).toFixed(2));
+    const skor_total = Number((total_poin / 10).toFixed(2));
 
     await context.env.DB.prepare(`
       INSERT INTO angket_refleksi (
         nis, nama, kelas, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, catatan,
-        skor_d3, skor_peluang, skor_total, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        total_poin, skor_d3, skor_peluang, skor_total, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
       ON CONFLICT(nis) DO UPDATE SET
         nama = excluded.nama,
         kelas = excluded.kelas,
@@ -203,6 +214,7 @@ export async function onRequestPost(context) {
         q9 = excluded.q9,
         q10 = excluded.q10,
         catatan = excluded.catatan,
+        total_poin = excluded.total_poin,
         skor_d3 = excluded.skor_d3,
         skor_peluang = excluded.skor_peluang,
         skor_total = excluded.skor_total,
@@ -214,6 +226,7 @@ export async function onRequestPost(context) {
       cleanQ[0], cleanQ[1], cleanQ[2], cleanQ[3], cleanQ[4],
       cleanQ[5], cleanQ[6], cleanQ[7], cleanQ[8], cleanQ[9],
       catatan ? String(catatan).trim() : '',
+      total_poin,
       skor_d3, skor_peluang, skor_total
     ).run();
 
@@ -221,6 +234,7 @@ export async function onRequestPost(context) {
       success: true,
       message: 'Refleksi diri matematika Anda berhasil tersimpan!',
       summary: {
+        total_poin,
         skor_d3,
         skor_peluang,
         skor_total
