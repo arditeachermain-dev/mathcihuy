@@ -149,10 +149,18 @@
               <i class="fa-solid fa-chart-line text-amber-400 w-4 text-center"></i>
               <span>Dashboard Monitoring Guru</span>
             </button>
+            <button onclick="openTeacherAngketModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-sky-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-clipboard-question text-sky-400 w-4 text-center"></i>
+              <span>Rekap Angket Refleksi (Statistika)</span>
+            </button>
           </div>
 
           <!-- ACADEMIC & TEACHING TOOLS -->
           <div class="space-y-0.5 border-b border-slate-800/80 pb-1.5">
+            <button onclick="openAngketModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-sky-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-pen-to-square text-sky-400 w-4 text-center"></i>
+              <span>Isi Angket Refleksi Matematika</span>
+            </button>
             <button onclick="openRaporModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-emerald-300 transition flex items-center gap-2 cursor-pointer">
               <i class="fa-solid fa-graduation-cap text-emerald-400 w-4 text-center"></i>
               <span>Rapor Capaian Siswa (CBT)</span>
@@ -223,6 +231,9 @@
           </div>
         </div>
         <div class="flex items-center gap-2">
+          <button onclick="openAngketModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Isi Angket Refleksi Pemahaman Siswa">
+            <i class="fa-solid fa-clipboard-question" style="color: #0284C7;"></i> <span class="hidden md:inline">Angket Refleksi</span>
+          </button>
           <button onclick="openRaporModal()" class="notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Lihat Rapor Capaian Siswa">
             <i class="fa-solid fa-graduation-cap" style="color: #FBBF24;"></i> <span class="hidden sm:inline">Rapor Siswa</span>
           </button>
@@ -271,6 +282,39 @@
               <button onclick="openScheduleModal()" class="notion-btn-secondary px-5 py-3 rounded-xl font-semibold text-xs md:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
                 <i class="fa-solid fa-calendar-days" style="color: #787774;"></i>
                 <span>Lihat Jadwal KBM</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SPECIAL BANNER: ANGKET REFLEKSI BELAJAR MATEMATIKA (DATA PRAKTIKUM STATISTIKA) -->
+        <div id="angket-banner-card" class="p-5 md:p-6 rounded-2xl border shadow-sm transition space-y-4 relative overflow-hidden" style="background-color: #FFFFFF; border-color: #D3CFBE;">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">
+                <i class="fa-solid fa-clipboard-question"></i>
+              </div>
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-50 text-blue-800 border border-blue-200">
+                    Praktikum Bab Statistika
+                  </span>
+                  <span id="angket-banner-status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> Wajib Diisi Seluruh Siswa Kelas XII
+                  </span>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold" style="color: #2F3437;">
+                  Angket Refleksi Diri Pemahaman Matematika (Bab Peluang &amp; Dimensi Tiga)
+                </h3>
+                <p class="text-xs text-[#787774] leading-relaxed max-w-3xl">
+                  Beri penilaian jujur (skala 1–10) terhadap pemahamanmu di 10 topik materi. Data ini akan kita gunakan langsung di kelas untuk menyusun Tabel Distribusi Frekuensi, Mean, Median, dan Diagram Pencar (Scatter Plot)!
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5 shrink-0 sm:self-center">
+              <button onclick="openAngketModal()" class="notion-btn-primary px-5 py-2.5 rounded-xl font-bold text-xs shadow-sm flex items-center gap-2 cursor-pointer whitespace-nowrap">
+                <i class="fa-solid fa-pen-to-square" style="color: #FBBF24;"></i>
+                <span>Isi Angket Sekarang</span>
               </button>
             </div>
           </div>
@@ -1334,6 +1378,134 @@
   </div>
 
 
+  <!-- MODAL ANGKET REFLEKSI SISWA KELAS XII (NOTION WARM PAPER STYLE) -->
+  <div id="modal-angket-refleksi" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6">
+    <div class="rounded-3xl border flex flex-col w-full max-w-4xl max-h-[92vh] shadow-2xl relative overflow-hidden bg-[#FFFFFF]" style="border-color: #D3CFBE; color: #2F3437;">
+      
+      <!-- MODAL HEADER -->
+      <div class="px-5 py-4 border-b flex items-center justify-between shrink-0 bg-[#FFFFFF]" style="border-color: #E8E6DF;">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-lg shadow-sm" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">
+            <i class="fa-solid fa-clipboard-question"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-[#2F3437] leading-tight">
+              Angket Refleksi Diri Pemahaman Matematika
+            </h3>
+            <p class="text-xs text-[#787774]">
+              Kelas XII (Fase F) • Refleksi Bab Peluang &amp; Dimensi Tiga untuk Praktikum Bab Statistika
+            </p>
+          </div>
+        </div>
+        <button onclick="closeAngketModal()" class="w-8 h-8 rounded-xl bg-[#F0EFEA] hover:bg-[#E8E6DF] text-[#787774] hover:text-[#2F3437] text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
+      </div>
+
+      <!-- MODAL BODY (SCROLLABLE) -->
+      <div class="flex-1 min-h-0 p-4 sm:p-6 overflow-y-auto space-y-5 bg-[#F7F6F3] custom-scroll">
+        
+        <!-- ALERT JIKA SUDAH PERNAH MENGISI -->
+        <div id="angket-already-filled-alert" class="hidden p-3.5 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-900 text-xs"></div>
+
+        <!-- FORM IDENTITAS SISWA -->
+        <div class="p-4 sm:p-5 rounded-2xl border border-[#E8E6DF] bg-white shadow-sm space-y-3">
+          <div class="flex items-center justify-between border-b border-[#E8E6DF] pb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2F3437]">
+              <i class="fa-solid fa-id-card text-blue-600 mr-1.5"></i> Identitas Siswa
+            </span>
+            <span id="angket-identity-locked-msg" class="hidden text-[11px] text-emerald-700 font-medium">
+              <i class="fa-solid fa-lock text-[10px] mr-1"></i> Terkunci dari akun aktif
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-[#787774] uppercase mb-1">NIS Siswa</label>
+              <input type="text" id="angket-input-nis" placeholder="Contoh: 24400083" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E8E6DF] bg-[#F7F6F3] font-mono text-[#2F3437] focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#787774] uppercase mb-1">Nama Lengkap</label>
+              <input type="text" id="angket-input-nama" placeholder="Nama lengkap siswa..." class="w-full px-3 py-2 text-xs rounded-xl border border-[#E8E6DF] bg-[#F7F6F3] text-[#2F3437] focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-[#787774] uppercase mb-1">Kelas (Rombel)</label>
+              <select id="angket-input-kelas" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E8E6DF] bg-[#F7F6F3] text-[#2F3437] focus:outline-none focus:border-blue-500 font-semibold">
+                <option value="12 F1">12 F1</option>
+                <option value="12 F2">12 F2</option>
+                <option value="12 F3">12 F3</option>
+                <option value="12 F4">12 F4</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- REALTIME SCORECARD PREVIEW -->
+        <div class="p-4 sm:p-5 rounded-2xl border border-[#D3CFBE] bg-white shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2F3437]">
+              <i class="fa-solid fa-chart-simple text-emerald-600 mr-1.5"></i> Ringkasan Refleksi Kamu (Live Preview)
+            </span>
+            <span id="angket-progress-count" class="text-xs font-mono font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-lg">
+              0 dari 10 Pertanyaan Terisi
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <div class="p-3 rounded-xl border border-sky-200 bg-sky-50/70">
+              <div class="text-[11px] font-bold text-sky-800">Spasial (Dimensi 3)</div>
+              <div id="preview-avg-d3" class="text-xl font-mono font-black text-sky-700 mt-1">0.0 / 10</div>
+              <div class="text-[10px] text-sky-800/80">Rerata Q1 s.d Q4</div>
+            </div>
+
+            <div class="p-3 rounded-xl border border-emerald-200 bg-emerald-50/70">
+              <div class="text-[11px] font-bold text-emerald-800">Logika (Peluang)</div>
+              <div id="preview-avg-peluang" class="text-xl font-mono font-black text-emerald-700 mt-1">0.0 / 10</div>
+              <div class="text-[10px] text-emerald-800/80">Rerata Q5 s.d Q8</div>
+            </div>
+
+            <div class="p-3 rounded-xl border border-amber-200 bg-amber-50/70">
+              <div class="text-[11px] font-bold text-amber-800">Mentalitas TKA</div>
+              <div id="preview-avg-mental" class="text-xl font-mono font-black text-amber-700 mt-1">0.0 / 10</div>
+              <div class="text-[10px] text-amber-800/80">Rerata Q9 s.d Q10</div>
+            </div>
+
+            <div class="p-3 rounded-xl border border-purple-200 bg-purple-50/70">
+              <div class="text-[11px] font-bold text-purple-800">Skor Total Refleksi</div>
+              <div id="preview-avg-total" class="text-xl font-mono font-black text-purple-700 mt-1">0.0 / 10</div>
+              <div class="text-[10px] text-purple-800/80">Rerata Keseluruhan</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAFTAR 10 PERTANYAAN (RENDERED DYNAMICALLY) -->
+        <div id="angket-questions-container" class="space-y-4">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- CATATAN TAMBAHAN (OPSIONAL) -->
+        <div class="p-4 sm:p-5 rounded-2xl border border-[#E8E6DF] bg-white shadow-sm space-y-2">
+          <label class="block text-xs font-bold text-[#2F3437] uppercase tracking-wider">
+            <i class="fa-solid fa-comment-dots text-gray-500 mr-1.5"></i> Catatan &amp; Topik yang Paling Ingin Kamu Kuasai (Opsional)
+          </label>
+          <textarea id="angket-input-catatan" rows="3" placeholder="Tuliskan jika ada kendala spesifik, misal: 'Saya paling bingung mencari segitiga siku-siku pada jarak titik ke garis'..." class="w-full px-3 py-2 text-xs rounded-xl border border-[#E8E6DF] bg-[#F7F6F3] text-[#2F3437] focus:outline-none focus:border-blue-500"></textarea>
+        </div>
+
+      </div>
+
+      <!-- MODAL FOOTER -->
+      <div class="px-5 py-3 border-t flex items-center justify-between shrink-0 bg-[#FFFFFF]" style="border-color: #E8E6DF;">
+        <button type="button" onclick="closeAngketModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#787774] hover:bg-[#F0EFEA] transition cursor-pointer">
+          Batal
+        </button>
+        <button type="button" id="btn-submit-angket" onclick="submitAngketRefleksi()" class="notion-btn-primary px-6 py-2.5 rounded-xl text-xs font-bold text-white shadow-sm flex items-center gap-2 cursor-pointer">
+          <i class="fa-solid fa-paper-plane mr-1"></i>
+          <span>Kirim Refleksi Saya ✨</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
     <div id="guru-dashboard-modal" style="background-color: #020611 !important; z-index: 9999;" class="fixed inset-0 hidden flex items-center justify-center p-2 sm:p-5">
         <div style="background-color: #0A1526 !important; opacity: 1 !important;" class="border-2 border-blue-800/90 rounded-3xl p-5 sm:p-7 max-w-7xl max-h-[94vh] flex flex-col w-full shadow-2xl text-white relative">
@@ -1413,6 +1585,9 @@
                     <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0D1B2E] text-rose-300 hover:text-white transition-all border border-rose-500/30 cursor-pointer">🔴 Belum (<span id="count-belum">0</span>)</button>
                 </div>
                 <div class="flex items-center gap-2">
+                    <button type="button" onclick="openTeacherAngketModal()" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition-all cursor-pointer">
+                        <i class="fa-solid fa-clipboard-question"></i> Data Angket Statistika
+                    </button>
                     <span id="cloud-sync-status" class="text-xs"></span>
                     <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition-all cursor-pointer">
                         <i class="fa-solid fa-rotate"></i> Tarik Data D1
@@ -1450,7 +1625,104 @@
         </div>
     </div>
 
-        <script src="app-akhir.js?v=v20260930_zero_desync"></script>
+    <!-- MODAL REKAP ANGKET REFLEKSI GURU (DATA STATISTIKA) -->
+    <div id="modal-guru-angket-rekap" style="background-color: #020611 !important; z-index: 9999;" class="fixed inset-0 hidden flex items-center justify-center p-2 sm:p-5">
+        <div style="background-color: #0A1526 !important; opacity: 1 !important;" class="border-2 border-sky-800/90 rounded-3xl p-5 sm:p-7 max-w-7xl max-h-[94vh] flex flex-col w-full shadow-2xl text-white relative">
+            
+            <!-- HEADER MODAL -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-sky-900/80 gap-3 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-sky-600/20 border border-sky-500/40 flex items-center justify-center text-sky-400">
+                        <i class="fa-solid fa-clipboard-question text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+                            Rekapitulasi Angket Refleksi Matematika Siswa
+                        </h2>
+                        <p class="text-xs text-slate-400 font-medium">Data Nyata Pemahaman Siswa Kelas XII (Fase F) untuk Praktikum Bab Statistika</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="/api/angket?export=csv" target="_blank" download="Data_Refleksi_Matematika_Kelas_XII.csv" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg transition-all cursor-pointer">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span>Download CSV (Buka di Excel)</span>
+                    </a>
+                    <button onclick="closeTeacherAngketModal()" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-rose-950/60 border border-slate-800 hover:border-rose-500/50 text-slate-400 hover:text-rose-300 text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
+                </div>
+            </div>
+
+            <!-- LOADING SPINNER -->
+            <div id="guru-angket-loading" class="py-16 text-center text-slate-400">
+                <i class="fa-solid fa-spinner fa-spin text-2xl text-sky-400 mb-2"></i>
+                <p class="text-xs font-mono">Memuat data angket dari Cloudflare D1...</p>
+            </div>
+
+            <!-- CONTENT BODY (SCROLLABLE) -->
+            <div id="guru-angket-content" class="hidden flex-1 min-h-0 overflow-y-auto space-y-4 py-4 custom-scroll">
+                
+                <!-- 4 METRIC CARDS -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="p-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl">
+                        <div class="text-[11px] font-bold text-slate-400 uppercase">Total Responden</div>
+                        <div id="guru-angket-total-count" class="text-2xl font-black text-white font-mono mt-1">0 Siswa</div>
+                        <div class="text-[10px] text-slate-500">Dari total 100 Siswa Kelas XII</div>
+                    </div>
+                    <div class="p-3.5 bg-slate-900/90 border border-sky-900/50 rounded-2xl">
+                        <div class="text-[11px] font-bold text-sky-400 uppercase">Rerata Dimensi 3</div>
+                        <div id="guru-angket-avg-d3" class="text-2xl font-black text-sky-300 font-mono mt-1">0.0 / 10</div>
+                        <div class="text-[10px] text-slate-500">Visualisasi, Jarak, &amp; Sudut</div>
+                    </div>
+                    <div class="p-3.5 bg-slate-900/90 border border-emerald-900/50 rounded-2xl">
+                        <div class="text-[11px] font-bold text-emerald-400 uppercase">Rerata Peluang</div>
+                        <div id="guru-angket-avg-peluang" class="text-2xl font-black text-emerald-300 font-mono mt-1">0.0 / 10</div>
+                        <div class="text-[10px] text-slate-500">Pencacahan, Permutasi, Bayes</div>
+                    </div>
+                    <div class="p-3.5 bg-slate-900/90 border border-purple-900/50 rounded-2xl">
+                        <div class="text-[11px] font-bold text-purple-400 uppercase">Rerata Total Angkatan</div>
+                        <div id="guru-angket-avg-total" class="text-2xl font-black text-purple-300 font-mono mt-1">0.0 / 10</div>
+                        <div class="text-[10px] text-slate-500">Indeks Refleksi Keseluruhan</div>
+                    </div>
+                </div>
+
+                <!-- SEBARAN KELAS (12 F1 s.d 12 F4) -->
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Sebaran Rerata Per Rombel:</h3>
+                    <div id="guru-angket-class-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- TABLE DAFTAR SISWA -->
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Daftar Lengkap Responden Siswa:</h3>
+                    <div class="overflow-x-auto rounded-2xl border border-sky-900/80 bg-[#071120] max-h-[42vh] overflow-y-auto">
+                        <table class="w-full text-xs text-left border-collapse">
+                            <thead class="sticky top-0 bg-[#0E1E38] border-b border-sky-800 text-slate-300 font-bold uppercase text-[10px] tracking-wider">
+                                <tr>
+                                    <th class="p-2.5">No</th>
+                                    <th class="p-2.5 font-mono">NIS</th>
+                                    <th class="p-2.5">Nama Lengkap</th>
+                                    <th class="p-2.5">Kelas</th>
+                                    <th class="p-2.5 text-center text-sky-400">Rerata D3</th>
+                                    <th class="p-2.5 text-center text-emerald-400">Rerata Peluang</th>
+                                    <th class="p-2.5 text-center text-purple-400">Total Refleksi</th>
+                                    <th class="p-2.5">Catatan Siswa</th>
+                                </tr>
+                            </thead>
+                            <tbody id="guru-angket-table-body" class="divide-y divide-sky-950/60 bg-[#071120]">
+                                <tr><td colspan="8" class="p-4 text-center text-slate-500">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="app-akhir.js?v=v20260930_zero_desync"></script>
+    <script src="angket.js?v=20261007_v1"></script>
 
 </body>
 </html>
