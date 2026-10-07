@@ -8,10 +8,11 @@ export default {
     const triggerTime = new Date().toISOString();
     console.log(`[Cloudflare Native Cron] Memulai trigger tepat waktu: ${triggerTime} (Cron: ${event.cron})`);
 
+    const secret = env.CRON_SECRET || "mathcihuy-super-secret-cron-2026";
     const callPromise = fetch("https://mathcihuy.pages.dev/api/cron-quiz", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer mathcihuy-super-secret-cron-2026",
+        "Authorization": `Bearer ${secret}`,
         "Content-Type": "application/json",
         "User-Agent": "Cloudflare-Native-Cron-Worker/1.0"
       }
@@ -28,13 +29,14 @@ export default {
   // HTTP Endpoint untuk manual ping / diagnosa status worker
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    const secret = env.CRON_SECRET || "mathcihuy-super-secret-cron-2026";
     const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
 
     if (url.pathname === "/test" || url.pathname === "/run") {
       const resp = await fetch(`https://mathcihuy.pages.dev/api/cron-quiz${url.search}`, {
         method: "POST",
         headers: {
-          "Authorization": "Bearer mathcihuy-super-secret-cron-2026",
+          "Authorization": `Bearer ${secret}`,
           "Content-Type": "application/json"
         }
       });

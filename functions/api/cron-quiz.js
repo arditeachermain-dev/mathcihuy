@@ -52,9 +52,10 @@ async function handleCronQuiz(context) {
   const url = new URL(request.url);
 
   // 1. Verifikasi Autentikasi Secret
+  const activeSecret = env.CRON_SECRET || CRON_SECRET;
   const authHeader = request.headers.get("Authorization") || "";
   const keyParam = url.searchParams.get("key") || "";
-  const isAuthorized = authHeader.includes(CRON_SECRET) || keyParam === CRON_SECRET;
+  const isAuthorized = (activeSecret && (authHeader.includes(activeSecret) || keyParam === activeSecret));
 
   if (!isAuthorized) {
     return new Response(JSON.stringify({ error: "Unauthorized. Secret key required." }), {
