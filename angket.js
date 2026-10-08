@@ -199,7 +199,7 @@ function renderAngketQuestions() {
                       currentCat === 'peluang' ? 'fa-dice' : 'fa-brain';
 
       html += `
-        <div class="pt-4 pb-1">
+        <div class="pt-3 pb-1">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg border text-xs font-bold uppercase tracking-wider ${catColor}">
             <i class="fa-solid ${catIcon}"></i>
             <span>${q.catLabel}</span>
@@ -209,43 +209,54 @@ function renderAngketQuestions() {
     }
 
     const currentVal = angketAnswers[`q${q.id}`] || 0;
+    const badgeData = getScoreBadgeData(currentVal);
+    const meaning = getRatingMeaning(currentVal);
 
     html += `
-      <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-sm space-y-3 transition-all hover:border-[#D3CFBE]">
+      <div class="angket-q-card" id="q-card-${q.id}">
+        <!-- CARD TOP: NUMBER, TITLE, BADGE -->
         <div class="flex items-start justify-between gap-3">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="w-6 h-6 rounded-full bg-[#2E384D] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0">
-                ${q.id}
-              </span>
-              <h4 class="text-sm font-bold text-[#2F3437]">${q.title}</h4>
-            </div>
-            <p class="text-xs text-[#787774] leading-relaxed pl-8">${q.desc}</p>
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="w-6 h-6 rounded-lg bg-[#2E384D] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0">
+              ${q.id}
+            </span>
+            <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] leading-snug">${q.title}</h4>
           </div>
-          <div class="shrink-0 text-right">
-            <span id="score-badge-${q.id}" class="inline-block px-2.5 py-1 rounded-lg text-xs font-mono font-bold ${getScoreBadgeClass(currentVal)}">
-              ${currentVal > 0 ? `${currentVal} / 10` : 'Belum Diisi'}
+          <div class="shrink-0">
+            <span id="score-badge-${q.id}" class="inline-block px-2.5 py-0.5 rounded-lg text-xs font-mono font-bold ${badgeData.cls}">
+              ${badgeData.label}
             </span>
           </div>
         </div>
 
-        <!-- 10 BUTTON SELECTOR STRIP -->
-        <div class="pl-8 pt-1">
-          <div class="grid grid-cols-10 gap-1 sm:gap-1.5">
+        <!-- DESCRIPTION -->
+        <p class="text-xs text-[#787774] leading-relaxed">${q.desc}</p>
+
+        <!-- 10 BUTTON SELECTOR STRIP (RESPONSIVE 10 COLS / 5 COLS MOBILE) -->
+        <div class="space-y-2 pt-0.5">
+          <div class="angket-btn-grid">
             ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => `
               <button type="button" onclick="selectAngketRating(${q.id}, ${num})"
                       id="btn-q${q.id}-${num}"
-                      class="h-9 sm:h-10 rounded-lg text-xs font-bold font-mono transition-all flex items-center justify-center border cursor-pointer ${
-                        currentVal === num ? getActiveBtnClass(num) : 'bg-[#F7F6F3] border-[#E8E6DF] text-[#5F5E5B] hover:bg-[#E8E6DF] hover:text-[#2F3437]'
-                      }">
+                      class="angket-rating-btn ${currentVal === num ? getActiveBtnClass(num) : ''}">
                 ${num}
               </button>
             `).join('')}
           </div>
-          <div class="flex justify-between text-[11px] text-[#A09D95] mt-1.5 font-medium px-0.5">
-            <span>${q.lowLabel}</span>
-            <span id="label-desc-${q.id}" class="font-semibold text-xs text-[#2F3437]">${getRatingMeaning(currentVal)}</span>
-            <span>${q.highLabel}</span>
+
+          <!-- FEEDBACK STRIP BELOW BUTTONS -->
+          <div class="angket-feedback-strip">
+            <span class="text-[11px] text-[#A09D95] font-medium">${q.lowLabel}</span>
+            <div id="feedback-wrap-${q.id}">
+              ${currentVal > 0 ? `
+                <span id="label-desc-${q.id}" class="angket-feedback-pill ${badgeData.pillClass}">
+                  <i class="fa-solid ${badgeData.icon}"></i> ${currentVal}/10 — ${meaning}
+                </span>
+              ` : `
+                <span id="label-desc-${q.id}" class="text-[11px] text-[#A09D95] italic">Pilih 1 s.d. 10</span>
+              `}
+            </div>
+            <span class="text-[11px] text-[#A09D95] font-medium">${q.highLabel}</span>
           </div>
         </div>
       </div>
@@ -257,26 +268,50 @@ function renderAngketQuestions() {
 
 // Helper arti nilai 1-10
 function getRatingMeaning(val) {
-  if (val <= 0) return '';
-  if (val <= 3) return 'Sangat Sulit / Bingung (1-3)';
-  if (val <= 6) return 'Cukup / Ragu-ragu (4-6)';
-  if (val <= 8) return 'Bisa & Menguasai (7-8)';
-  return 'Sangat Mahir & Percaya Diri (9-10)';
+  if (val <= 0) return 'Belum Diisi';
+  if (val <= 3) return 'Sulit / Bingung';
+  if (val <= 6) return 'Cukup / Ragu-ragu';
+  if (val <= 8) return 'Bisa & Menguasai';
+  return 'Sangat Mahir';
 }
 
 function getActiveBtnClass(val) {
-  if (val <= 3) return 'bg-rose-600 text-white border-rose-700 shadow-sm ring-2 ring-rose-300';
-  if (val <= 6) return 'bg-amber-500 text-white border-amber-600 shadow-sm ring-2 ring-amber-300';
-  if (val <= 8) return 'bg-sky-600 text-white border-sky-700 shadow-sm ring-2 ring-sky-300';
-  return 'bg-emerald-600 text-white border-emerald-700 shadow-sm ring-2 ring-emerald-300';
+  if (val <= 3) return 'active-low';
+  if (val <= 6) return 'active-mid';
+  return 'active-high';
 }
 
-function getScoreBadgeClass(val) {
-  if (val <= 0) return 'bg-gray-100 text-gray-500 border border-gray-200';
-  if (val <= 3) return 'bg-rose-50 text-rose-700 border border-rose-200';
-  if (val <= 6) return 'bg-amber-50 text-amber-700 border border-amber-200';
-  if (val <= 8) return 'bg-sky-50 text-sky-700 border border-sky-200';
-  return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+function getScoreBadgeData(val) {
+  if (val <= 0) {
+    return {
+      label: 'Belum Diisi',
+      cls: 'bg-gray-100 text-gray-500 border border-gray-200',
+      pillClass: 'bg-gray-100 text-gray-600',
+      icon: 'fa-circle-question'
+    };
+  }
+  if (val <= 3) {
+    return {
+      label: `${val} / 10`,
+      cls: 'bg-rose-50 text-rose-700 border border-rose-200',
+      pillClass: 'low',
+      icon: 'fa-circle-exclamation'
+    };
+  }
+  if (val <= 6) {
+    return {
+      label: `${val} / 10`,
+      cls: 'bg-blue-50 text-blue-700 border border-blue-200',
+      pillClass: 'mid',
+      icon: 'fa-circle-half-stroke'
+    };
+  }
+  return {
+    label: `${val} / 10`,
+    cls: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    pillClass: 'high',
+    icon: 'fa-circle-check'
+  };
 }
 
 // Siswa Memilih Rating
@@ -288,23 +323,31 @@ function selectAngketRating(qId, val) {
     const btn = document.getElementById(`btn-q${qId}-${num}`);
     if (btn) {
       if (num === val) {
-        btn.className = `h-9 sm:h-10 rounded-lg text-xs font-bold font-mono transition-all flex items-center justify-center border cursor-pointer ${getActiveBtnClass(val)}`;
+        btn.className = `angket-rating-btn ${getActiveBtnClass(val)}`;
       } else {
-        btn.className = 'h-9 sm:h-10 rounded-lg text-xs font-bold font-mono transition-all flex items-center justify-center border cursor-pointer bg-[#F7F6F3] border-[#E8E6DF] text-[#5F5E5B] hover:bg-[#E8E6DF] hover:text-[#2F3437]';
+        btn.className = 'angket-rating-btn';
       }
     }
   }
 
-  // Update badge & desc
+  const badgeData = getScoreBadgeData(val);
+  const meaning = getRatingMeaning(val);
+
+  // Update badge
   const badge = document.getElementById(`score-badge-${qId}`);
   if (badge) {
     badge.textContent = `${val} / 10`;
-    badge.className = `inline-block px-2.5 py-1 rounded-lg text-xs font-mono font-bold ${getScoreBadgeClass(val)}`;
+    badge.className = `inline-block px-2.5 py-0.5 rounded-lg text-xs font-mono font-bold ${badgeData.cls}`;
   }
 
-  const desc = document.getElementById(`label-desc-${qId}`);
-  if (desc) {
-    desc.textContent = getRatingMeaning(val);
+  // Update feedback strip pill
+  const feedbackWrap = document.getElementById(`feedback-wrap-${qId}`);
+  if (feedbackWrap) {
+    feedbackWrap.innerHTML = `
+      <span id="label-desc-${qId}" class="angket-feedback-pill ${badgeData.pillClass}">
+        <i class="fa-solid ${badgeData.icon}"></i> ${val}/10 — ${meaning}
+      </span>
+    `;
   }
 
   updateAngketSummaryPreview();
@@ -328,21 +371,38 @@ function updateAngketSummaryPreview() {
   const allFilled = [q.q1, q.q2, q.q3, q.q4, q.q5, q.q6, q.q7, q.q8, q.q9, q.q10].filter(v => v > 0).length;
   const totalSum = d3Sum + pelSum + mentalSum;
   const avgTotal = allFilled > 0 ? (totalSum / 10).toFixed(1) : '0.0';
+  const totalPoin = allFilled > 0 ? totalSum : 0;
 
   const previewD3 = document.getElementById('preview-avg-d3');
-  if (previewD3) previewD3.textContent = `${avgD3} / 10`;
+  if (previewD3) previewD3.textContent = avgD3;
 
   const previewPel = document.getElementById('preview-avg-peluang');
-  if (previewPel) previewPel.textContent = `${avgPel} / 10`;
+  if (previewPel) previewPel.textContent = avgPel;
 
   const previewMental = document.getElementById('preview-avg-mental');
-  if (previewMental) previewMental.textContent = `${avgMental} / 10`;
+  if (previewMental) previewMental.textContent = avgMental;
 
   const previewTot = document.getElementById('preview-avg-total');
-  if (previewTot) previewTot.textContent = `${avgTotal} / 10`;
+  if (previewTot) previewTot.textContent = avgTotal;
 
   const progressEl = document.getElementById('angket-progress-count');
-  if (progressEl) progressEl.textContent = `${allFilled} dari 10 Pertanyaan Terisi`;
+  if (progressEl) progressEl.textContent = `${allFilled} dari 10 Pertanyaan`;
+
+  const totalScoreBadge = document.getElementById('angket-total-score-badge');
+  if (totalScoreBadge) {
+    totalScoreBadge.textContent = `Total: ${totalPoin} / 100 Poin`;
+    if (allFilled === 10) {
+      totalScoreBadge.className = 'text-xs font-mono font-black text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-lg';
+    } else {
+      totalScoreBadge.className = 'text-xs font-mono font-black text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-lg';
+    }
+  }
+
+  const barFill = document.getElementById('angket-progress-bar-fill');
+  if (barFill) {
+    const pct = Math.round((allFilled / 10) * 100);
+    barFill.style.width = `${pct}%`;
+  }
 }
 
 // Muat data angket sebelumnya (jika ada)
@@ -461,6 +521,10 @@ async function submitAngketRefleksi() {
 // FITUR REKAP ANGKET GURU (MONITORING & EXPORT CSV PRAKTIKUM)
 // ===========================================================================
 
+let teacherAngketCache = null;
+let currentAngketFilter = 'all';
+let currentAngketSearch = '';
+
 async function openTeacherAngketModal() {
   const modal = document.getElementById('modal-guru-angket-rekap');
   if (!modal) return;
@@ -478,7 +542,16 @@ async function openTeacherAngketModal() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Gagal memuat rekap');
 
+    teacherAngketCache = data;
+    currentAngketFilter = 'all';
+    currentAngketSearch = '';
+
+    const searchInput = document.getElementById('guru-angket-search');
+    if (searchInput) searchInput.value = '';
+
     renderTeacherAngketStats(data);
+    renderFilteredTeacherTable();
+
     if (loader) loader.classList.add('hidden');
     if (content) content.classList.remove('hidden');
   } catch (err) {
@@ -521,15 +594,15 @@ function renderTeacherAngketStats(data) {
           <div class="space-y-1 text-xs">
             <div class="flex justify-between text-[#787774]">
               <span>Dimensi 3:</span>
-              <strong class="text-[#2F3437]">${c.avg_d3}</strong>
+              <strong class="text-sky-700">${c.avg_d3}</strong>
             </div>
             <div class="flex justify-between text-[#787774]">
               <span>Peluang:</span>
-              <strong class="text-[#2F3437]">${c.avg_peluang}</strong>
+              <strong class="text-emerald-700">${c.avg_peluang}</strong>
             </div>
             <div class="flex justify-between border-t border-[#E8E6DF] pt-1 text-[#2F3437] font-bold">
               <span>Rerata:</span>
-              <span class="text-emerald-700 font-mono">${c.avg_total}</span>
+              <span class="text-purple-700 font-mono">${c.avg_total}</span>
             </div>
           </div>
         </div>
@@ -537,27 +610,75 @@ function renderTeacherAngketStats(data) {
     });
     classContainer.innerHTML = cHtml;
   }
+}
 
-  // Render Tabel Rincian Siswa
+// Filter Tabel berdasarkan Rombel
+function filterTeacherAngketTable(rombel) {
+  currentAngketFilter = rombel;
+
+  const buttons = document.querySelectorAll('#guru-angket-filter-buttons button');
+  buttons.forEach(btn => {
+    if (btn.id === `btn-filter-${rombel}`) {
+      btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold border border-[#2E384D] bg-[#2E384D] text-white cursor-pointer';
+    } else {
+      btn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F0EFEA] cursor-pointer';
+    }
+  });
+
+  renderFilteredTeacherTable();
+}
+
+// Pencarian Nama / NIS Siswa
+function searchTeacherAngketTable(val) {
+  currentAngketSearch = (val || '').toLowerCase().trim();
+  renderFilteredTeacherTable();
+}
+
+// Render Data Siswa dengan Filter & Search
+function renderFilteredTeacherTable() {
   const tableBody = document.getElementById('guru-angket-table-body');
-  if (tableBody && data.data) {
-    let tHtml = '';
-    data.data.forEach((r, idx) => {
-      const totPoin = (r.total_poin !== null && r.total_poin !== undefined) ? r.total_poin : Math.round(Number(r.skor_total || 0) * 10);
-      tHtml += `
-        <tr class="hover:bg-[#F7F6F3] border-b border-[#E8E6DF] text-xs">
-          <td class="p-2.5 font-mono text-[#787774]">${idx + 1}</td>
-          <td class="p-2.5 font-mono font-semibold text-[#2F3437]">${r.nis}</td>
-          <td class="p-2.5 font-bold text-[#2F3437]">${r.nama}</td>
-          <td class="p-2.5"><span class="px-2 py-0.5 rounded bg-gray-100 font-mono font-semibold">${r.kelas}</span></td>
-          <td class="p-2.5 font-mono text-center font-black text-amber-600 bg-amber-50/50 rounded-lg text-sm">${totPoin} <span class="text-[10px] text-gray-400 font-normal">/ 100</span></td>
-          <td class="p-2.5 font-mono text-center text-sky-700 font-bold">${r.skor_d3}</td>
-          <td class="p-2.5 font-mono text-center text-emerald-700 font-bold">${r.skor_peluang}</td>
-          <td class="p-2.5 font-mono text-center font-bold text-[#2F3437]">${r.skor_total}</td>
-          <td class="p-2.5 text-[#787774] truncate max-w-xs" title="${r.catatan || ''}">${r.catatan || '-'}</td>
-        </tr>
-      `;
-    });
-    tableBody.innerHTML = tHtml || '<tr><td colspan="9" class="p-4 text-center text-gray-400">Belum ada siswa yang mengisi.</td></tr>';
+  if (!tableBody || !teacherAngketCache || !teacherAngketCache.data) return;
+
+  const filtered = teacherAngketCache.data.filter(r => {
+    const matchClass = currentAngketFilter === 'all' || r.kelas === currentAngketFilter;
+    const matchSearch = !currentAngketSearch || 
+      (r.nama && r.nama.toLowerCase().includes(currentAngketSearch)) || 
+      (r.nis && String(r.nis).includes(currentAngketSearch));
+    return matchClass && matchSearch;
+  });
+
+  if (filtered.length === 0) {
+    tableBody.innerHTML = '<tr><td colspan="9" class="p-6 text-center text-[#787774]">Tidak ada data siswa yang cocok dengan filter atau pencarian.</td></tr>';
+    return;
   }
+
+  let tHtml = '';
+  filtered.forEach((r, idx) => {
+    const totPoin = (r.total_poin !== null && r.total_poin !== undefined) ? r.total_poin : Math.round(Number(r.skor_total || 0) * 10);
+    const scoreClass = totPoin >= 75 ? 'text-emerald-700 bg-emerald-50 border-emerald-200' :
+                       totPoin >= 55 ? 'text-amber-700 bg-amber-50 border-amber-200' :
+                       'text-rose-700 bg-rose-50 border-rose-200';
+
+    tHtml += `
+      <tr class="hover:bg-[#F7F6F3] border-b border-[#E8E6DF] text-xs transition">
+        <td class="p-2.5 text-center font-mono text-[#787774]">${idx + 1}</td>
+        <td class="p-2.5 font-mono font-bold text-[#2F3437]">${r.nis}</td>
+        <td class="p-2.5 font-bold text-[#2F3437]">${r.nama}</td>
+        <td class="p-2.5 text-center">
+          <span class="px-2 py-0.5 rounded-md bg-[#F0EFEA] border border-[#E8E6DF] font-mono font-semibold text-[#5F5E5B]">${r.kelas}</span>
+        </td>
+        <td class="p-2.5 text-center">
+          <span class="inline-block px-2.5 py-0.5 rounded-lg border font-mono font-black text-xs ${scoreClass}">
+            ${totPoin} <span class="text-[10px] opacity-75 font-normal">/ 100</span>
+          </span>
+        </td>
+        <td class="p-2.5 text-center font-mono font-bold text-sky-700">${r.skor_d3}</td>
+        <td class="p-2.5 text-center font-mono font-bold text-emerald-700">${r.skor_peluang}</td>
+        <td class="p-2.5 text-center font-mono font-black text-purple-700">${r.skor_total}</td>
+        <td class="p-2.5 text-[#787774] max-w-xs truncate" title="${r.catatan || ''}">${r.catatan || '-'}</td>
+      </tr>
+    `;
+  });
+
+  tableBody.innerHTML = tHtml;
 }

@@ -53,7 +53,229 @@
        satu per satu di markup tidak akan menjangkau yang di JavaScript, jadi
        ikon dipasang lewat CSS: bentuknya jadi mask, warnanya ikut warna teks.
        Tidak butuh internet, tidak ada berkas font, tidak ada perubahan JS. -->
-  <!-- gaya dipindah ke mathcihuy.css -->
+  <!-- ================= ANGKET REFLEKSI STYLES (NOTION WARM PAPER & BULLETPROOF RESPONSIVE) ================= -->
+  <style id="angket-custom-styles">
+    /* Modal Outer & Frame */
+    .angket-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 25, 23, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+    @media (max-width: 640px) {
+      .angket-modal-backdrop {
+        padding: 0;
+      }
+    }
+    .angket-modal-frame {
+      width: 100%;
+      max-width: 900px;
+      height: 92vh;
+      max-height: 92vh;
+      background: #FFFFFF;
+      border: 1px solid #D3CFBE;
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      color: #2F3437;
+      font-family: inherit;
+    }
+    @media (max-width: 640px) {
+      .angket-modal-frame {
+        height: 100dvh;
+        max-height: 100dvh;
+        border-radius: 0;
+        border: none;
+      }
+    }
+    .angket-header {
+      padding: 14px 20px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E8E6DF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 12px;
+    }
+    .angket-body {
+      flex: 1 1 0%;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 16px 20px;
+      background: #F7F6F3;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      -webkit-overflow-scrolling: touch;
+    }
+    @media (max-width: 640px) {
+      .angket-header { padding: 12px 16px; }
+      .angket-body { padding: 12px 14px; gap: 12px; }
+    }
+    .angket-footer {
+      padding: 12px 20px;
+      background: #FFFFFF;
+      border-top: 1px solid #E8E6DF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 10px;
+    }
+    @media (max-width: 640px) {
+      .angket-footer { padding: 10px 16px; }
+    }
+
+    /* Sticky Summary / Scorecard */
+    .angket-sticky-summary {
+      background: #FFFFFF;
+      border: 1px solid #D3CFBE;
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .angket-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 640px) {
+      .angket-chips-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+    }
+    .angket-chip {
+      padding: 6px 8px;
+      border-radius: 10px;
+      border: 1px solid #E8E6DF;
+      background: #FBFBFA;
+      text-align: center;
+    }
+    .angket-chip .chip-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #787774;
+      display: block;
+    }
+    .angket-chip .chip-val {
+      font-size: 15px;
+      font-family: ui-monospace, monospace;
+      font-weight: 900;
+      margin-top: 1px;
+      display: block;
+    }
+
+    /* Question Cards */
+    .angket-q-card {
+      background: #FFFFFF;
+      border: 1px solid #E8E6DF;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .angket-q-card:hover {
+      border-color: #D3CFBE;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    @media (max-width: 640px) {
+      .angket-q-card { padding: 12px; gap: 10px; }
+    }
+
+    /* 10 Button Grid: 10 cols desktop, 5 cols mobile */
+    .angket-btn-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 6px;
+    }
+    @media (max-width: 640px) {
+      .angket-btn-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+      }
+    }
+    .angket-rating-btn {
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid #E8E6DF;
+      background: #FBFBFA;
+      color: #2F3437;
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+    .angket-rating-btn:hover {
+      background: #E8E6DF;
+      transform: translateY(-1px);
+    }
+    .angket-rating-btn.active-low {
+      background: #E11D48 !important;
+      color: #FFFFFF !important;
+      border-color: #BE123C !important;
+      box-shadow: 0 2px 6px rgba(225, 29, 72, 0.35);
+    }
+    .angket-rating-btn.active-mid {
+      background: #2563EB !important;
+      color: #FFFFFF !important;
+      border-color: #1D4ED8 !important;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+    }
+    .angket-rating-btn.active-high {
+      background: #10B981 !important;
+      color: #FFFFFF !important;
+      border-color: #059669 !important;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.35);
+    }
+
+    /* Feedback Row */
+    .angket-feedback-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #A09D95;
+      padding: 0 2px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .angket-feedback-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .angket-feedback-pill.low { background: #FFE4E6; color: #9F1239; }
+    .angket-feedback-pill.mid { background: #E0F2FE; color: #075985; }
+    .angket-feedback-pill.high { background: #DCFCE7; color: #166534; }
+  </style>
 </head>
 <body class="h-full min-h-full flex flex-col overflow-x-hidden font-sans" style="background-color: #F7F6F3; color: #2F3437;">
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0"
@@ -1379,11 +1601,11 @@
 
 
   <!-- MODAL ANGKET REFLEKSI SISWA KELAS XII (NOTION WARM PAPER STYLE) -->
-  <div id="modal-angket-refleksi" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6">
-    <div class="rounded-3xl border flex flex-col w-full max-w-4xl max-h-[92vh] shadow-2xl relative overflow-hidden bg-[#FFFFFF]" style="border-color: #D3CFBE; color: #2F3437;">
+  <div id="modal-angket-refleksi" class="hidden angket-modal-backdrop">
+    <div class="angket-modal-frame">
       
       <!-- MODAL HEADER -->
-      <div class="px-5 py-4 border-b flex items-center justify-between shrink-0 bg-[#FFFFFF]" style="border-color: #E8E6DF;">
+      <div class="angket-header">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-lg shadow-sm" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">
             <i class="fa-solid fa-clipboard-question"></i>
@@ -1393,26 +1615,26 @@
               Angket Refleksi Diri Pemahaman Matematika
             </h3>
             <p class="text-xs text-[#787774]">
-              Kelas XII (Fase F) • Refleksi Bab Peluang &amp; Dimensi Tiga untuk Praktikum Bab Statistika
+              Kelas XII (Fase F) • Refleksi Bab Peluang &amp; Dimensi Tiga untuk Praktikum Statistika
             </p>
           </div>
         </div>
         <button onclick="closeAngketModal()" class="w-8 h-8 rounded-xl bg-[#F0EFEA] hover:bg-[#E8E6DF] text-[#787774] hover:text-[#2F3437] text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
       </div>
 
-      <!-- MODAL BODY (SCROLLABLE) -->
-      <div class="flex-1 min-h-0 p-4 sm:p-6 overflow-y-auto space-y-5 bg-[#F7F6F3] custom-scroll">
+      <!-- MODAL BODY (SCROLLABLE & NEVER CUT OFF) -->
+      <div class="angket-body custom-scroll">
         
         <!-- ALERT JIKA SUDAH PERNAH MENGISI -->
         <div id="angket-already-filled-alert" class="hidden p-3.5 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-900 text-xs"></div>
 
-        <!-- FORM IDENTITAS SISWA -->
-        <div class="p-4 sm:p-5 rounded-2xl border border-[#E8E6DF] bg-white shadow-sm space-y-3">
+        <!-- FORM IDENTITAS SISWA (COMPACT) -->
+        <div id="angket-identity-section" class="p-4 rounded-2xl border border-[#E8E6DF] bg-white shadow-sm space-y-3">
           <div class="flex items-center justify-between border-b border-[#E8E6DF] pb-2">
             <span class="text-xs font-bold uppercase tracking-wider text-[#2F3437]">
               <i class="fa-solid fa-id-card text-blue-600 mr-1.5"></i> Identitas Siswa
             </span>
-            <span id="angket-identity-locked-msg" class="hidden text-[11px] text-emerald-700 font-medium">
+            <span id="angket-identity-locked-msg" class="hidden text-[11px] text-emerald-700 font-semibold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
               <i class="fa-solid fa-lock text-[10px] mr-1"></i> Terkunci dari akun aktif
             </span>
           </div>
@@ -1438,61 +1660,62 @@
           </div>
         </div>
 
-        <!-- REALTIME SCORECARD PREVIEW -->
-        <div class="p-4 sm:p-5 rounded-2xl border border-[#D3CFBE] bg-white shadow-sm space-y-3">
+        <!-- STICKY REALTIME SCORECARD & PROGRESS SUMMARY -->
+        <div class="angket-sticky-summary">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#2F3437]">
-              <i class="fa-solid fa-chart-simple text-emerald-600 mr-1.5"></i> Ringkasan Refleksi Kamu (Live Preview)
+            <span class="text-xs font-bold text-[#2F3437] flex items-center gap-1.5">
+              <i class="fa-solid fa-chart-pie text-blue-600"></i> Progres: <strong id="angket-progress-count" class="font-mono text-blue-700">0 dari 10 Pertanyaan</strong>
             </span>
-            <span id="angket-progress-count" class="text-xs font-mono font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-lg">
-              0 dari 10 Pertanyaan Terisi
+            <span id="angket-total-score-badge" class="text-xs font-mono font-black text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-lg">
+              Total: 0 / 100 Poin
             </span>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-            <div class="p-3 rounded-xl border border-sky-200 bg-sky-50/70">
-              <div class="text-[11px] font-bold text-sky-800">Spasial (Dimensi 3)</div>
-              <div id="preview-avg-d3" class="text-xl font-mono font-black text-sky-700 mt-1">0.0 / 10</div>
-              <div class="text-[10px] text-sky-800/80">Rerata Q1 s.d Q4</div>
+          <!-- PROGRESS BAR -->
+          <div class="w-full h-1.5 rounded-full overflow-hidden bg-[#E8E6DF]">
+            <div id="angket-progress-bar-fill" class="h-full rounded-full bg-gradient-to-r from-blue-600 to-emerald-500 transition-all duration-300" style="width: 0%;"></div>
+          </div>
+
+          <div class="angket-chips-grid">
+            <div class="angket-chip">
+              <span class="chip-lbl">Dimensi Tiga</span>
+              <span id="preview-avg-d3" class="chip-val" style="color: #0284C7;">0.0</span>
             </div>
 
-            <div class="p-3 rounded-xl border border-emerald-200 bg-emerald-50/70">
-              <div class="text-[11px] font-bold text-emerald-800">Logika (Peluang)</div>
-              <div id="preview-avg-peluang" class="text-xl font-mono font-black text-emerald-700 mt-1">0.0 / 10</div>
-              <div class="text-[10px] text-emerald-800/80">Rerata Q5 s.d Q8</div>
+            <div class="angket-chip">
+              <span class="chip-lbl">Peluang</span>
+              <span id="preview-avg-peluang" class="chip-val" style="color: #059669;">0.0</span>
             </div>
 
-            <div class="p-3 rounded-xl border border-amber-200 bg-amber-50/70">
-              <div class="text-[11px] font-bold text-amber-800">Mentalitas TKA</div>
-              <div id="preview-avg-mental" class="text-xl font-mono font-black text-amber-700 mt-1">0.0 / 10</div>
-              <div class="text-[10px] text-amber-800/80">Rerata Q9 s.d Q10</div>
+            <div class="angket-chip">
+              <span class="chip-lbl">Mental TKA</span>
+              <span id="preview-avg-mental" class="chip-val" style="color: #D97706;">0.0</span>
             </div>
 
-            <div class="p-3 rounded-xl border border-purple-200 bg-purple-50/70">
-              <div class="text-[11px] font-bold text-purple-800">Skor Total Refleksi</div>
-              <div id="preview-avg-total" class="text-xl font-mono font-black text-purple-700 mt-1">0.0 / 10</div>
-              <div class="text-[10px] text-purple-800/80">Rerata Keseluruhan</div>
+            <div class="angket-chip">
+              <span class="chip-lbl">Rerata Total</span>
+              <span id="preview-avg-total" class="chip-val" style="color: #7C3AED;">0.0</span>
             </div>
           </div>
         </div>
 
         <!-- DAFTAR 10 PERTANYAAN (RENDERED DYNAMICALLY) -->
-        <div id="angket-questions-container" class="space-y-4">
+        <div id="angket-questions-container" class="space-y-3">
           <!-- Populated by JavaScript -->
         </div>
 
         <!-- CATATAN TAMBAHAN (OPSIONAL) -->
-        <div class="p-4 sm:p-5 rounded-2xl border border-[#E8E6DF] bg-white shadow-sm space-y-2">
+        <div class="p-4 rounded-2xl border border-[#E8E6DF] bg-white shadow-sm space-y-2">
           <label class="block text-xs font-bold text-[#2F3437] uppercase tracking-wider">
-            <i class="fa-solid fa-comment-dots text-gray-500 mr-1.5"></i> Catatan &amp; Topik yang Paling Ingin Kamu Kuasai (Opsional)
+            <i class="fa-solid fa-comment-dots text-gray-500 mr-1.5"></i> Catatan &amp; Topik yang Ingin Kamu Kuasai (Opsional)
           </label>
-          <textarea id="angket-input-catatan" rows="3" placeholder="Tuliskan jika ada kendala spesifik, misal: 'Saya paling bingung mencari segitiga siku-siku pada jarak titik ke garis'..." class="w-full px-3 py-2 text-xs rounded-xl border border-[#E8E6DF] bg-[#F7F6F3] text-[#2F3437] focus:outline-none focus:border-blue-500"></textarea>
+          <textarea id="angket-input-catatan" rows="2" placeholder="Tuliskan jika ada kendala spesifik, misal: 'Saya paling bingung mencari segitiga siku-siku pada jarak titik ke garis'..." class="w-full px-3 py-2 text-xs rounded-xl border border-[#E8E6DF] bg-[#F7F6F3] text-[#2F3437] focus:outline-none focus:border-blue-500"></textarea>
         </div>
 
       </div>
 
       <!-- MODAL FOOTER -->
-      <div class="px-5 py-3 border-t flex items-center justify-between shrink-0 bg-[#FFFFFF]" style="border-color: #E8E6DF;">
+      <div class="angket-footer">
         <button type="button" onclick="closeAngketModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#787774] hover:bg-[#F0EFEA] transition cursor-pointer">
           Batal
         </button>
@@ -1625,95 +1848,111 @@
         </div>
     </div>
 
-    <!-- MODAL REKAP ANGKET REFLEKSI GURU (DATA STATISTIKA) -->
-    <div id="modal-guru-angket-rekap" style="background-color: #020611 !important; z-index: 9999;" class="fixed inset-0 hidden flex items-center justify-center p-2 sm:p-5">
-        <div style="background-color: #0A1526 !important; opacity: 1 !important;" class="border-2 border-sky-800/90 rounded-3xl p-5 sm:p-7 max-w-7xl max-h-[94vh] flex flex-col w-full shadow-2xl text-white relative">
+    <!-- MODAL REKAP ANGKET REFLEKSI GURU (NOTION WARM PAPER EDITORIAL) -->
+    <div id="modal-guru-angket-rekap" class="hidden angket-modal-backdrop">
+        <div class="angket-modal-frame" style="max-width: 1100px;">
             
             <!-- HEADER MODAL -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-sky-900/80 gap-3 shrink-0">
+            <div class="angket-header">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-sky-600/20 border border-sky-500/40 flex items-center justify-center text-sky-400">
-                        <i class="fa-solid fa-clipboard-question text-lg"></i>
+                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-lg shadow-sm" style="background-color: #EDF7ED; color: #166534; border: 1px solid #C8E6C9;">
+                        <i class="fa-solid fa-table-list"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+                        <h2 class="text-base sm:text-lg font-bold text-[#2F3437] leading-tight">
                             Rekapitulasi Angket Refleksi Matematika Siswa
                         </h2>
-                        <p class="text-xs text-slate-400 font-medium">Data Nyata Pemahaman Siswa Kelas XII (Fase F) untuk Praktikum Bab Statistika</p>
+                        <p class="text-xs text-[#787774]">Data Riil Kelas XII (Fase F) • Siap Digunakan untuk Praktikum Bab Statistika</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <a href="/api/angket?export=csv" target="_blank" download="Data_Refleksi_Matematika_Kelas_XII.csv" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg transition-all cursor-pointer">
+                    <a href="/api/angket?export=csv" target="_blank" download="Data_Refleksi_Matematika_Kelas_XII.csv" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
                         <i class="fa-solid fa-file-excel"></i>
-                        <span>Download CSV (Buka di Excel)</span>
+                        <span>Unduh CSV (Excel)</span>
                     </a>
-                    <button onclick="closeTeacherAngketModal()" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-rose-950/60 border border-slate-800 hover:border-rose-500/50 text-slate-400 hover:text-rose-300 text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
+                    <button onclick="closeTeacherAngketModal()" class="w-8 h-8 rounded-xl bg-[#F0EFEA] hover:bg-[#E8E6DF] text-[#787774] hover:text-[#2F3437] text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
                 </div>
             </div>
 
             <!-- LOADING SPINNER -->
-            <div id="guru-angket-loading" class="py-16 text-center text-slate-400">
-                <i class="fa-solid fa-spinner fa-spin text-2xl text-sky-400 mb-2"></i>
+            <div id="guru-angket-loading" class="py-16 text-center text-[#787774]">
+                <i class="fa-solid fa-spinner fa-spin text-2xl text-blue-600 mb-2"></i>
                 <p class="text-xs font-mono">Memuat data angket dari Cloudflare D1...</p>
             </div>
 
-            <!-- CONTENT BODY (SCROLLABLE) -->
-            <div id="guru-angket-content" class="hidden flex-1 min-h-0 overflow-y-auto space-y-4 py-4 custom-scroll">
+            <!-- CONTENT BODY (SCROLLABLE & FULLY READABLE) -->
+            <div id="guru-angket-content" class="hidden angket-body custom-scroll">
                 
-                <!-- 4 METRIC CARDS -->
+                <!-- 4 METRIC CARDS (NOTION EDITORIAL) -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div class="p-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl">
-                        <div class="text-[11px] font-bold text-slate-400 uppercase">Total Responden</div>
-                        <div id="guru-angket-total-count" class="text-2xl font-black text-white font-mono mt-1">0 Siswa</div>
-                        <div class="text-[10px] text-slate-500">Dari total 100 Siswa Kelas XII</div>
+                    <div class="p-3.5 bg-white border border-[#E8E6DF] rounded-2xl shadow-sm">
+                        <div class="text-[11px] font-bold text-[#787774] uppercase">Total Responden</div>
+                        <div id="guru-angket-total-count" class="text-xl sm:text-2xl font-black text-[#2F3437] font-mono mt-1">0 Siswa</div>
+                        <div class="text-[10px] text-[#A09D95]">Dari 100 Siswa Terdaftar</div>
                     </div>
-                    <div class="p-3.5 bg-slate-900/90 border border-sky-900/50 rounded-2xl">
-                        <div class="text-[11px] font-bold text-sky-400 uppercase">Rerata Dimensi 3</div>
-                        <div id="guru-angket-avg-d3" class="text-2xl font-black text-sky-300 font-mono mt-1">0.0 / 10</div>
-                        <div class="text-[10px] text-slate-500">Visualisasi, Jarak, &amp; Sudut</div>
+                    <div class="p-3.5 bg-white border border-[#E8E6DF] rounded-2xl shadow-sm">
+                        <div class="text-[11px] font-bold text-sky-700 uppercase">Rerata Dimensi 3</div>
+                        <div id="guru-angket-avg-d3" class="text-xl sm:text-2xl font-black text-sky-700 font-mono mt-1">0.0 / 10</div>
+                        <div class="text-[10px] text-[#A09D95]">Visualisasi, Jarak, Sudut</div>
                     </div>
-                    <div class="p-3.5 bg-slate-900/90 border border-emerald-900/50 rounded-2xl">
-                        <div class="text-[11px] font-bold text-emerald-400 uppercase">Rerata Peluang</div>
-                        <div id="guru-angket-avg-peluang" class="text-2xl font-black text-emerald-300 font-mono mt-1">0.0 / 10</div>
-                        <div class="text-[10px] text-slate-500">Pencacahan, Permutasi, Bayes</div>
+                    <div class="p-3.5 bg-white border border-[#E8E6DF] rounded-2xl shadow-sm">
+                        <div class="text-[11px] font-bold text-emerald-700 uppercase">Rerata Peluang</div>
+                        <div id="guru-angket-avg-peluang" class="text-xl sm:text-2xl font-black text-emerald-700 font-mono mt-1">0.0 / 10</div>
+                        <div class="text-[10px] text-[#A09D95]">Pencacahan, Kombinasi, Bayes</div>
                     </div>
-                    <div class="p-3.5 bg-slate-900/90 border border-purple-900/50 rounded-2xl">
-                        <div class="text-[11px] font-bold text-purple-400 uppercase">Rerata Total Angkatan</div>
-                        <div id="guru-angket-avg-total" class="text-2xl font-black text-purple-300 font-mono mt-1">0.0 / 10</div>
-                        <div class="text-[10px] text-slate-500">Indeks Refleksi Keseluruhan</div>
+                    <div class="p-3.5 bg-white border border-[#E8E6DF] rounded-2xl shadow-sm">
+                        <div class="text-[11px] font-bold text-purple-700 uppercase">Rerata Total Angkatan</div>
+                        <div id="guru-angket-avg-total" class="text-xl sm:text-2xl font-black text-purple-700 font-mono mt-1">0.0 / 10</div>
+                        <div class="text-[10px] text-[#A09D95]">Indeks Refleksi Keseluruhan</div>
                     </div>
                 </div>
 
                 <!-- SEBARAN KELAS (12 F1 s.d 12 F4) -->
                 <div>
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Sebaran Rerata Per Rombel:</h3>
+                    <h3 class="text-xs font-bold text-[#787774] uppercase tracking-wider mb-2">Sebaran Rerata Per Rombel:</h3>
                     <div id="guru-angket-class-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <!-- Populated by JavaScript -->
                     </div>
                 </div>
 
-                <!-- TABLE DAFTAR SISWA -->
-                <div>
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Daftar Lengkap Responden Siswa:</h3>
-                    <div class="overflow-x-auto rounded-2xl border border-sky-900/80 bg-[#071120] max-h-[42vh] overflow-y-auto">
-                        <table class="w-full text-xs text-left border-collapse">
-                            <thead class="sticky top-0 bg-[#0E1E38] border-b border-sky-800 text-slate-300 font-bold uppercase text-[10px] tracking-wider">
-                                <tr>
-                                    <th class="p-2.5">No</th>
-                                    <th class="p-2.5 font-mono">NIS</th>
-                                    <th class="p-2.5">Nama Lengkap</th>
-                                    <th class="p-2.5">Kelas</th>
-                                    <th class="p-2.5 text-center text-amber-400 font-bold">Total Poin (10-100)</th>
-                                    <th class="p-2.5 text-center text-sky-400">Rerata D3</th>
-                                    <th class="p-2.5 text-center text-emerald-400">Rerata Peluang</th>
-                                    <th class="p-2.5 text-center text-purple-400">Rerata Total</th>
-                                    <th class="p-2.5">Catatan Siswa</th>
-                                </tr>
-                            </thead>
-                            <tbody id="guru-angket-table-body" class="divide-y divide-sky-950/60 bg-[#071120]">
-                                <tr><td colspan="8" class="p-4 text-center text-slate-500">Memuat data...</td></tr>
-                            </tbody>
-                        </table>
+                <!-- TABLE DAFTAR SISWA (CLEAN EDITORIAL & SEARCHABLE) -->
+                <div class="space-y-2">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                        <div class="flex items-center gap-1.5 flex-wrap" id="guru-angket-filter-buttons">
+                            <span class="text-xs font-bold text-[#787774] mr-1">Filter:</span>
+                            <button type="button" onclick="filterTeacherAngketTable('all')" class="px-2.5 py-1 rounded-lg text-xs font-bold border border-[#2E384D] bg-[#2E384D] text-white cursor-pointer" id="btn-filter-all">Semua</button>
+                            <button type="button" onclick="filterTeacherAngketTable('12 F1')" class="px-2.5 py-1 rounded-lg text-xs font-semibold border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F0EFEA] cursor-pointer" id="btn-filter-12 F1">12 F1</button>
+                            <button type="button" onclick="filterTeacherAngketTable('12 F2')" class="px-2.5 py-1 rounded-lg text-xs font-semibold border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F0EFEA] cursor-pointer" id="btn-filter-12 F2">12 F2</button>
+                            <button type="button" onclick="filterTeacherAngketTable('12 F3')" class="px-2.5 py-1 rounded-lg text-xs font-semibold border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F0EFEA] cursor-pointer" id="btn-filter-12 F3">12 F3</button>
+                            <button type="button" onclick="filterTeacherAngketTable('12 F4')" class="px-2.5 py-1 rounded-lg text-xs font-semibold border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F0EFEA] cursor-pointer" id="btn-filter-12 F4">12 F4</button>
+                        </div>
+                        <div class="relative">
+                            <input type="text" id="guru-angket-search" oninput="searchTeacherAngketTable(this.value)" placeholder="Cari nama / NIS siswa..." class="px-3 py-1.5 pl-8 text-xs rounded-xl border border-[#E8E6DF] bg-white text-[#2F3437] focus:outline-none focus:border-blue-500 w-full sm:w-56">
+                            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-[#A09D95] text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-[#D3CFBE] bg-white shadow-sm overflow-hidden">
+                        <div class="overflow-x-auto max-h-[46vh] overflow-y-auto custom-scroll">
+                            <table class="w-full text-xs text-left border-collapse">
+                                <thead class="sticky top-0 bg-[#F0EFEA] border-b border-[#D3CFBE] text-[#5F5E5B] font-bold uppercase text-[10px] tracking-wider z-10">
+                                    <tr>
+                                        <th class="p-2.5 text-center" style="width: 45px;">No</th>
+                                        <th class="p-2.5 font-mono" style="width: 90px;">NIS</th>
+                                        <th class="p-2.5">Nama Lengkap</th>
+                                        <th class="p-2.5 text-center" style="width: 75px;">Kelas</th>
+                                        <th class="p-2.5 text-center font-bold text-amber-800" style="width: 120px;">Total Poin (10-100)</th>
+                                        <th class="p-2.5 text-center text-sky-800" style="width: 85px;">Rerata D3</th>
+                                        <th class="p-2.5 text-center text-emerald-800" style="width: 85px;">Rerata Peluang</th>
+                                        <th class="p-2.5 text-center text-purple-800" style="width: 85px;">Rerata Total</th>
+                                        <th class="p-2.5">Catatan Siswa</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="guru-angket-table-body" class="divide-y divide-[#E8E6DF] bg-white">
+                                    <tr><td colspan="9" class="p-4 text-center text-[#A09D95]">Memuat data...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -1723,7 +1962,7 @@
     </div>
 
     <script src="app-akhir.js?v=v20260930_zero_desync"></script>
-    <script src="angket.js?v=20261007_v1"></script>
+    <script src="angket.js?v=20261008_v2_unclipped"></script>
 
 </body>
 </html>
