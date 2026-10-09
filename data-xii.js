@@ -1088,8 +1088,8 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$f_{\\text{rel}} = \\frac{f_i}{N} \\times 100\\%, \\quad F_k = \\sum_{j=1}^i f_j$$"
         },
         {
-          "name": "Karakteristik Kurva Ogive",
-          "math": "$$\\text{Ogive Positif: } F_k \\le Ta \\text{ (Monoton Naik)}, \\quad \\text{Ogive Negatif: } F_k \\ge Tb \\text{ (Monoton Turun)}$$"
+          "name": "Karakteristik Kurva Ogive & Titik Potong Median",
+          "math": "$$\\text{Ogive Positif: } F_k \\le Ta \\text{ (Naik)}, \\quad \\text{Ogive Negatif: } F_k \\ge Tb \\text{ (Turun)}, \\quad \\text{Titik Potong Kedua Kurva} = \\text{Median (Me)}$$"
         }
       ],
       "examples": [
@@ -1158,8 +1158,8 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$\\bar{x} = x_s + \\frac{\\sum f_i d_i}{\\sum f_i} \\quad (d_i = x_i - x_s)$$"
         },
         {
-          "name": "Metode Coding",
-          "math": "$$\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) c$$"
+          "name": "Metode Coding (Senjata Rahasia UTBK)",
+          "math": "$$\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) c \\quad (u_i = \\dots, -2, -1, 0, +1, +2, \\dots)$$"
         },
         {
           "name": "Rata-rata Gabungan",
@@ -1311,8 +1311,8 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$QR = Q_3 - Q_1, \\quad Q_d = \\frac{1}{2} QR$$"
         },
         {
-          "name": "Batas Pagar Pencilan (Outlier)",
-          "math": "$$\\text{Pagar Bawah} = Q_1 - 1{,}5(QR), \\quad \\text{Pagar Atas} = Q_3 + 1{,}5(QR)$$"
+          "name": "Diagram Kotak-Garis (Boxplot) & Batas Pencilan",
+          "math": "$$\\text{Panjang Kotak} = QR = Q_3 - Q_1, \\quad PB = Q_1 - 1{,}5(QR), \\quad PA = Q_3 + 1{,}5(QR)$$"
         },
         {
           "name": "Desil ke-i Data Berkelompok",
@@ -1461,7 +1461,7 @@ const NAMA_TINGKAT = 'XII';
       "hook": "Apakah durasi jam belajar mandiri per hari ($x$) berkorelasi linier positif dengan skor UTBK-SNBT ($y$)? Garis regresi memprediksi skor masa depan siswa!",
       "toolkit": [
         {
-          "name": "Persamaan Garis Regresi Linier",
+          "name": "Garis Regresi Linier (Metode Kuadrat Terkecil)",
           "math": "$$\\hat{y} = a + bx, \\quad b = \\frac{N \\sum xy - \\sum x \\sum y}{N \\sum x^2 - (\\sum x)^2}, \\quad a = \\bar{y} - b\\bar{x}$$"
         },
         {
@@ -1473,8 +1473,8 @@ const NAMA_TINGKAT = 'XII';
           "math": "$$r^2 = (r)^2 \\times 100\\%, \\quad \\text{Kontribusi variasi } X \\text{ terhadap perubahan } Y$$"
         },
         {
-          "name": "Interpretasi Nilai Korelasi Pearson",
-          "math": "$$0{,}7 \\le |r| \\le 1 \\text{ (Sangat Kuat)}, \\quad 0{,}4 \\le |r| < 0{,}7 \\text{ (Sedang)}, \\quad 0 \\le |r| < 0{,}4 \\text{ (Lemah)}$$"
+          "name": "Interpretasi Tren & Korelasi (Tips UTBK)",
+          "math": "$$\\text{Gradien } b > 0 \\implies r > 0 \\text{ (Arah Searah)}, \\quad b < 0 \\implies r < 0 \\text{ (Arah Berlawanan)}, \\quad |r| \\ge 0{,}7 \\text{ (Kuat)}$$"
         }
       ],
       "examples": [
@@ -7114,7 +7114,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 20"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Frekuensi kumulatif kurang dari ($F_k$) dihitung dengan menjumlahkan frekuensi dari kelas pertama sampai kelas yang dimaksud.\nLangkah 2: Kelas kedua adalah $50 - 59$ dengan tepi atas $59{,}5$.\n$$F_k = f_1 + f_2 = 6 + 10 = 16$$\nKesimpulan: Frekuensi kumulatif kurang dari tepi atas kelas kedua adalah $16$. Kunci Jawaban A.",
+          "bahas": "Langkah 1: Memahami Konsep Frekuensi Kumulatif Kurang Dari ($F_k$):\nPENTING: Jangan tertukar antara Frekuensi Kelas ($f_2 = 10$) dengan Frekuensi Kumulatif Kurang Dari ($F_k$)!\nFrekuensi kumulatif kurang dari tepi atas kelas kedua adalah akumulasi penjumlahan seluruh frekuensi dari kelas pertama hingga kelas kedua.\n\nLangkah 2: Menghitung akumulasi frekuensi:\n- Tepi atas kelas 1 ($49{,}5$): $F_k = f_1 = 6$\n- Tepi atas kelas 2 ($59{,}5$): $F_k = f_1 + f_2 = 6 + 10 = 16$\n- Tepi atas kelas 3 ($69{,}5$): $F_k = f_1 + f_2 + f_3 = 6 + 10 + 14 = 30$\n\nTrik Memori GIS 2: Nilai $F_k$ pada setiap tepi atas ($Ta$) inilah yang menjadi koordinat titik pembentuk Kurva Ogive Positif (Ogive Naik).\nKesimpulan: Frekuensi kumulatif kurang dari tepi atas kelas kedua adalah $16$. Kunci Jawaban A.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14]\nFrekuensi kumulatif kurang dari ($F_k$) tepi atas kelas kedua adalah ..."
@@ -7253,7 +7253,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 72,00"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Menghitung titik tengah ($x_i$) setiap kelas dan $f_i \\cdot x_i$:\n- $50-59$: $x_i = 54{,}5$, $f \\times x = 5 \\times 54{,}5 = 272{,}5$\n- $60-69$: $x_i = 64{,}5$, $f \\times x = 10 \\times 64{,}5 = 645$\n- $70-79$: $x_i = 74{,}5$, $f \\times x = 15 \\times 74{,}5 = 1.117{,}5$\n- $80-89$: $x_i = 84{,}5$, $f \\times x = 10 \\times 84{,}5 = 845$\n\nLangkah 2: Menghitung mean:\n$$\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{272{,}5 + 645 + 1.117{,}5 + 845}{40} = \\frac{2.880}{40} = 72{,}00$$\nKesimpulan: Kunci Jawaban E.",
+          "bahas": "Langkah 1: Metode Titik Tengah Konvensional:\n- Kelas 50-59 ($f_1 = 5$): $x_1 = 54{,}5 \\implies f_1 x_1 = 5 \\times 54{,}5 = 272{,}5$\n- Kelas 60-69 ($f_2 = 10$): $x_2 = 64{,}5 \\implies f_2 x_2 = 10 \\times 64{,}5 = 645$\n- Kelas 70-79 ($f_3 = 15$): $x_3 = 74{,}5 \\implies f_3 x_3 = 15 \\times 74{,}5 = 1.117{,}5$\n- Kelas 80-89 ($f_4 = 10$): $x_4 = 84{,}5 \\implies f_4 x_4 = 10 \\times 84{,}5 = 845$\n$$\\sum f_i x_i = 272{,}5 + 645 + 1.117{,}5 + 845 = 2.880$$\n$$\\bar{x} = \\frac{2.880}{40} = 72{,}00$$\n\nLangkah 2: SENJATA RAHASIA UTBK (Metode Coding ui - Hemat 80% Waktu & 0 Risiko Salah Hitung):\nPilih kelas ke-3 ($70-79$) sebagai acuan: rataan sementara $x_s = 74{,}5$ dengan kode $u_3 = 0$ dan panjang kelas $c = 10$.\n- Kelas 1 ($u_1 = -2$): $f_1 u_1 = 5(-2) = -10$\n- Kelas 2 ($u_2 = -1$): $f_2 u_2 = 10(-1) = -10$\n- Kelas 3 ($u_3 = 0$): $f_3 u_3 = 15(0) = 0$\n- Kelas 4 ($u_4 = +1$): $f_4 u_4 = 10(+1) = +10$\n$$\\sum f_i u_i = -10 - 10 + 0 + 10 = -10$$\n$$\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) \\times c = 74{,}5 + \\left(\\frac{-10}{40}\\right) \\times 10 = 74{,}5 - 2{,}5 = 72{,}00$$\nTanpa perkalian desimal rumit, selesai dalam 20 detik!\nKesimpulan: Kunci Jawaban E.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi data nilai siswa berikut:\n[50-59: 5], [60-69: 10], [70-79: 15], [80-89: 10]\nTotal frekuensi $n = 40$. Nilai rata-rata hitung (mean) data tersebut adalah ..."
@@ -7355,7 +7355,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 30,5"
           ],
           "kunci": "E",
-          "bahas": "Langkah 1: Menghitung titik tengah ($x_i$) dan $f_i \\cdot x_i$:\n- $10-19$: $x_i = 14{,}5$, $f \\times x = 2 \\times 14{,}5 = 29$\n- $20-29$: $x_i = 24{,}5$, $f \\times x = 8 \\times 24{,}5 = 196$\n- $30-39$: $x_i = 34{,}5$, $f \\times x = 6 \\times 34{,}5 = 207$\n- $40-49$: $x_i = 44{,}5$, $f \\times x = 4 \\times 44{,}5 = 178$\n\nLangkah 2: Menghitung mean:\n$$\\bar{x} = \\frac{29 + 196 + 207 + 178}{20} = \\frac{610}{20} = 30{,}5$$\nKesimpulan: Kunci Jawaban E."
+          "bahas": "Langkah 1: Metode Titik Tengah:\nTitik tengah kelas ($x_i$): $14{,}5; 24{,}5; 34{,}5; 44{,}5$.\n$$\\sum f_i x_i = (2 \\times 14{,}5) + (8 \\times 24{,}5) + (6 \\times 34{,}5) + (4 \\times 44{,}5) = 29 + 196 + 207 + 178 = 610$$\n$$\\bar{x} = \\frac{610}{20} = 30{,}5$$\n\nLangkah 2: Trik Cepat Coding (ui):\nPilih kelas ke-2 ($20-29$) sebagai acuan: $x_s = 24{,}5$ ($u = 0$) dengan panjang kelas $c = 10$.\n- $u_1 = -1 \\implies 2(-1) = -2$\n- $u_2 = 0 \\implies 8(0) = 0$\n- $u_3 = +1 \\implies 6(1) = +6$\n- $u_4 = +2 \\implies 4(2) = +8$\n$$\\sum f_i u_i = -2 + 0 + 6 + 8 = 12$$\n$$\\bar{x} = 24{,}5 + \\left(\\frac{12}{20}\\right) \\times 10 = 24{,}5 + 6 = 30{,}5$$\nSangat cepat, bersih, dan membebaskan siswa dari beban perkalian desimal!\nKesimpulan: Kunci Jawaban E."
         },
         {
           "no": 8,
@@ -7420,7 +7420,7 @@ const NAMA_TINGKAT = 'XII';
             "E. 66,50"
           ],
           "kunci": "A",
-          "bahas": "Langkah 1: Menentukan kelas Median ($n = 40 \\implies \\frac{n}{2} = 20$):\nKelas median berada pada interval 60 - 69 ($F_k = 10, f_m = 12, Tb = 59{,}5, p = 10$).\n\nLangkah 2: Menghitung Median ($Me$):\n$$Me = 59{,}5 + \\left(\\frac{20 - 10}{12}\\right) \\times 10 = 59{,}5 + \\frac{100}{12} = 59{,}5 + 8{,}33 = 67{,}83$$\nKesimpulan: Kunci Jawaban A.",
+          "bahas": "Langkah 1: Perhitungan Formal Interpolasi Median:\n- Letak Median: $\\frac{1}{2} n = \\frac{1}{2}(40) = 20$.\n- Frekuensi kumulatif sebelum kelas median ($40-59$): $F_k = 4 + 6 = 10$.\n- Kelas median berada pada interval $60 - 69$ ($Tb = 59{,}5, f_m = 12, c = 10$).\n$$Me = Tb + \\left(\\frac{\\frac{n}{2} - F_k}{f_m}\\right) \\times c = 59{,}5 + \\left(\\frac{20 - 10}{12}\\right) \\times 10 = 59{,}5 + \\frac{100}{12} = 59{,}5 + 8{,}33 = 67{,}83$$\n\nLangkah 2: TRIK ESTIMASI & ELIMINASI CEPAT SNBT (Tanpa Bagi Kurung Manual!):\nPerhatikan pecahan selisih: $\\frac{20 - 10}{12} = \\frac{10}{12} = \\frac{5}{6} \\approx 0{,}83$.\nKarena panjang kelas $c = 10$, pertambahan nilai dari tepi bawah adalah $0{,}83 \\times 10 = 8{,}33$.\nTitik tengah kelas $60-69$ adalah $64{,}5$. Karena posisi median berada di $\\frac{5}{6}$ (bagian atas) kelas, nilainya pasti mendekati $68$.\nOpsi A ($67{,}83$) langsung terpilih dalam 10 detik; opsi B ($65{,}75$), C ($69{,}00$), D ($68{,}25$), dan E ($66{,}50$) tereliminasi seketika.\nKesimpulan: Kunci Jawaban A.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nTotal frekuensi $n = 40$. Nilai median ($Me$) data tersebut adalah ..."
@@ -7562,7 +7562,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Median > Mean > Modus"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Pada kurva condong ke kanan (positively skewed), berlaku:\n$$\\text{Mean} > \\text{Median} > \\text{Modus}$$\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Konsep Karakteristik Kemiringan Kurva (Skewness Pearson):\n- Kurva Condong ke Kanan (Positively Skewed / Ekor Memanjang ke Kanan):\n  Terdapat beberapa nilai pencilan ekstrem tinggi yang menarik nilai rata-rata ke kanan, sehingga berlaku:\n  $$\\mathbf{\\text{Mean} > \\text{Median} > \\text{Modus}}$$\n  *(Contoh nyata: Distribusi pendapatan penduduk di mana segelintir konglomerat berpendapatan sangat tinggi menarik rata-rata ke atas)*.\n- Kurva Simetris (Kurva Normal): $\\text{Mean} = \\text{Median} = \\text{Modus}$.\n- Kurva Condong ke Kiri (Negatively Skewed): $\\text{Modus} > \\text{Median} > \\text{Mean}$.\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lonceng",
             "src": "Pada kurva distribusi yang condong ke kanan (positively skewed), hubungan ukuran pemusatan yang berlaku adalah ..."
@@ -7697,7 +7697,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Q1 - QR"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Pagar Dalam Bawah ($PD$) dirumuskan sebagai:\n$$PD = Q_1 - 1{,}5 \\times QR$$\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menentukan Batas Pencilan Bawah (Pagar Dalam Bawah):\nBerdasarkan aturan Tukey pada Diagram Kotak-Garis (Boxplot):\n$$PD_{\\text{bawah}} = Q_1 - 1{,}5 \\times QR \\quad (\\text{dengan } QR = Q_3 - Q_1)$$\n\nLangkah 2: Makna Geometris pada Diagram Kotak-Garis (Box-and-Whisker Plot):\n- Sayap (whisker) bawah menjulur maksimal sejauh $Q_1 - 1{,}5(QR)$.\n- Setiap amatan data yang nilainya jatuh lebih rendah dari batas pagar ini otomatis diklasifikasikan sebagai **pencilan bawah (outlier)**.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "boxplot",
             "src": "Batas pencilan bawah (Pagar Dalam Bawah) pada diagram kotak garis dirumuskan sebagai ..."
@@ -7733,7 +7733,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Simpangan kuartil (Qd) bernilai 15."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Evaluasi jika $Q_1 = 40$ dan $Q_3 = 70$:\n- $QR = 70 - 40 = 30$ (Opsi D BENAR).\n- $Q_d = 15$ (Opsi E BENAR).\n- Pagar Dalam Bawah $= 40 - 1{,}5(30) = -5$ (Opsi A BENAR).\n- Pagar Dalam Atas $= 70 + 1{,}5(30) = 115$ (Opsi B BENAR).\n- Data $120 > 115 \\implies$ outlier (Opsi C BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E."
+          "bahas": "Langkah 1: Evaluasi Parameter Ukuran Letak Data ($Q_1 = 40$ dan $Q_3 = 70$):\n- Jangkauan Interkuartil ($QR$): $QR = Q_3 - Q_1 = 70 - 40 = 30$ (Opsi D BENAR).\n- Simpangan Kuartil ($Q_d$): $Q_d = \\frac{1}{2} QR = \\frac{1}{2}(30) = 15$ (Opsi E BENAR).\n- Pagar Dalam Bawah ($PB$): $PB = Q_1 - 1{,}5(QR) = 40 - 1{,}5(30) = 40 - 45 = -5$ (Opsi A BENAR).\n- Pagar Dalam Atas ($PA$): $PA = Q_3 + 1{,}5(QR) = 70 + 1{,}5(30) = 70 + 45 = 115$ (Opsi B BENAR).\n- Uji Data Pencilan: Nilai amatan $120 > 115$ terletak di luar batas Pagar Atas, sehingga valid sebagai data pencilan (outlier) (Opsi C BENAR).\n\nTrik Visual Boxplot: Pada diagram kotak-garis, kotak utama memiliki lebar 30 satuan (rentang 40 sampai 70) dan data 120 ditandai dengan tanda bintang (*) terpisah di luar garis sayap.\nKesimpulan: Kunci Jawaban A, B, C, D, E."
         },
         {
           "no": 9,
@@ -7790,7 +7790,7 @@ const NAMA_TINGKAT = 'XII';
             "E. $\\sqrt{10}$"
           ],
           "kunci": "D",
-          "bahas": "Langkah 1: Menghitung rata-rata data 6, 7, 8, 9, 10 $\\implies \\bar{x} = 8$.\nLangkah 2: $\\sum (x_i - \\bar{x})^2 = 4 + 1 + 0 + 1 + 4 = 10$.\nLangkah 3: Simpangan baku populasi $\\sigma = \\sqrt{\\frac{10}{5}} = \\sqrt{2}$.\nKesimpulan: Kunci Jawaban D.",
+          "bahas": "Langkah 1: Menghitung mean data tunggal:\nData: $6, 7, 8, 9, 10$ ($n = 5$).\n$$\\bar{x} = \\frac{6 + 7 + 8 + 9 + 10}{5} = \\frac{40}{5} = 8$$\n\nLangkah 2: Menghitung jumlah kuadrat selisih deviasi:\n$$\\sum (x_i - \\bar{x})^2 = (6-8)^2 + (7-8)^2 + (8-8)^2 + (9-8)^2 + (10-8)^2 = 4 + 1 + 0 + 1 + 4 = 10$$\n\nLangkah 3: Menghitung Simpangan Baku (Standar Kurikulum SMA Fase F):\nDalam pembelajaran kurikulum standar nasional tingkat SMA, default rumus simpangan baku menggunakan pembagi ukuran data penuh $N$:\n$$S = \\sqrt{\\frac{\\sum (x_i - \\bar{x})^2}{N}} = \\sqrt{\\frac{10}{5}} = \\sqrt{2}$$\n*(Catatan: Jika secara eksplisit dinyatakan varians sampel tak-bias Bessel derajat kebebasan $n-1$, pembagi adalah $4$)*.\nKesimpulan: Kunci Jawaban D.",
           "viz": {
             "t": "lonceng",
             "src": "Diberikan data sampel tunggal: 6, 7, 8, 9, 10. Nilai simpangan baku ($S$) dari data tersebut adalah ..."
@@ -7884,7 +7884,7 @@ const NAMA_TINGKAT = 'XII';
             "E. +1,5"
           ],
           "kunci": "B",
-          "bahas": "Langkah 1: Menghitung Skor Baku ($Z$-score):\n$$Z = \\frac{x - \\bar{x}}{S} = \\frac{85 - 75}{5} = \\frac{10}{5} = +2{,}0$$\nKesimpulan: Kunci Jawaban B.",
+          "bahas": "Langkah 1: Menghitung Skor Baku ($Z$-score):\n$$Z = \\frac{x - \\bar{x}}{S} = \\frac{85 - 75}{5} = \\frac{10}{5} = +2{,}0$$\n\nLangkah 2: Interpretasi Standarisasi Kognitif (Standar UTBK IRT):\nNilai $Z = +2{,}0$ bermakna bahwa skor siswa tersebut berada tepat **2 simpangan baku di atas rata-rata kelompok**.\nPada kurva normal standar, siswa dengan $Z = +2{,}0$ berada di atas $97{,}7\\%$ seluruh populasi peserta ujian (kategori sangat superior).\nKesimpulan: Kunci Jawaban B.",
           "viz": {
             "t": "lonceng",
             "src": "Berapakah nilai $Z$-score siswa yang memperoleh nilai ujian $x = 85$ jika mean kelas $\\bar{x} = 75$ dan simpangan baku $S = 5$?"
@@ -8119,7 +8119,7 @@ const NAMA_TINGKAT = 'XII';
             "E. Jika x = 10, estimasi nilai y_hat adalah 40."
           ],
           "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis model $\\hat{y} = 15 + 2{,}5x$ ($r = 0{,}80$):\n- $R^2 = 64\\%$ (BENAR).\n- Kenaikan 1 satuan $X$ menaikkan $Y$ sebesar 2,5 (BENAR).\n- Intersep $= 15$ (BENAR).\n- Gradien $= 2{,}5$ (BENAR).\n- Saat $x = 10 \\implies \\hat{y} = 40$ (BENAR).\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
+          "bahas": "Langkah 1: Analisis Mendalam Model Regresi Linier $\\hat{y} = 15 + 2{,}5x$ ($r = 0{,}80$):\n- Koefisien Determinasi ($R^2$): $R^2 = (r)^2 = (0{,}80)^2 = 0{,}64 = 64\\%$. Artinya $64\\%$ variasi variabel $Y$ dapat dijelaskan secara linier oleh variabel $X$ (Opsi A BENAR).\n- Makna Gradien Kemiringan ($b = 2{,}5$): Setiap peningkatan 1 satuan pada variabel $X$, nilai estimasi $Y$ diprediksi bertambah sebesar 2,5 satuan (Opsi B dan D BENAR).\n- Makna Intersep ($a = 15$): Nilai perkiraan awal $Y$ ketika variabel $X = 0$ adalah 15 (Opsi C BENAR).\n- Prediksi saat $x = 10$: $\\hat{y} = 15 + 2{,}5(10) = 15 + 25 = 40$ (Opsi E BENAR).\n\nTIPS TKA & UTBK-SNBT: Jangan takut dengan rumus panjang Pearson! Soal ujian nasional tidak pernah meminta siswa menghitung tabel 5 kolom dari nol. Penguji akan selalu memberikan tabel ringkasan $(\\sum x, \\sum y, \\dots)$ atau model regresi siap pakai. Fokus utama kalian adalah memahami interpretasi fisis koefisien $a$, $b$, dan $r$.\nKesimpulan: Kunci Jawaban A, B, C, D, E.",
           "viz": {
             "t": "regresi",
             "src": "Pada persamaan regresi y_hat = 15 + 2,5x dengan r = 0,80, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)"
@@ -8254,7 +8254,7 @@ const NAMA_TINGKAT = 'XII';
             "Median dan Kuartil bersifat robust terhadap pengaruh nilai pencilan ekstrim"
           ],
           "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSimpangan baku hanya bernilai 0 jika seluruh data seragam bernilai sama. Jika data bervariasi, $S > 0$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nMean menjumlahkan semua amatan sehingga sangat terpengaruh oleh pencilan ekstrim.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nMedian dan kuartil berbasis urutan posisi sehingga bersifat robust (kebal) terhadap nilai pencilan ekstrim.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "bahas": "Langkah 1: Analisis Pernyataan (1):\nSimpangan baku $S = \\sqrt{\\frac{\\sum (x_i - \\bar{x})^2}{N}}$ hanya bernilai 0 jika seluruh amatan data bernilai identik seragam. Jika ada variasi amatan, $S > 0$. $\\implies$ Pernyataan (1) bernilai SALAH (S).\n\nLangkah 2: Analisis Pernyataan (2):\nRata-rata hitung (mean) melibatkan seluruh nilai amatan dalam penjumlahannya, sehingga kemunculan satu saja nilai pencilan ekstrem (outlier) akan menggeser mean secara drastis $\\implies$ Mean bersifat *non-robust* (sangat sensitif). $\\implies$ Pernyataan (2) bernilai BENAR (B).\n\nLangkah 3: Analisis Pernyataan (3):\nMedian ($Q_2$) dan Kuartil berbasis urutan posisi data (*order statistics*), bukan besaran numerik ekstrem amatan ujung. Jika nilai amatan terbesar melonjak $10\\times$ lipat, posisi median tetap tidak bergeser $\\implies$ Bersifat *robust* (kebal). $\\implies$ Pernyataan (3) bernilai BENAR (B).\nKesimpulan: Kunci Jawaban S - B - B.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran rangkuman evaluasi statistika:\n(1) Simpangan baku dari suatu data selalu bernilai 0 untuk segala jenis data.\n(2) Rata-rata hitung (mean) sangat sensitif terhadap nilai pencilan ekstrim.\n(3) Median dan Kuartil bersifat robust terhadap pengaruh nilai pencilan ekstrim."
@@ -16797,6 +16797,7 @@ const NAMA_TINGKAT = 'XII';
     }
   }
 };
+
 const STUDENTS_DB = {"XII_F1": {"kelas_name": "Kelas XII F1", "access_level": "wajib_only", "students": [{"nis": "24400004", "name": "Aisyah Rachma Ufaira"}, {"nis": "24400005", "name": "Al Atha Uqail Ahmad Yudanto"}, {"nis": "24400006", "name": "Alifatis Muhammad Khalid"}, {"nis": "24400007", "name": "Alifia Nur Arfa Dinata"}, {"nis": "24400008", "name": "Alika Ayu Namira"}, {"nis": "24400010", "name": "Almira Latifah Alma Suryana"}, {"nis": "24400012", "name": "Aqeela Khumaira Hardian"}, {"nis": "24400019", "name": "Athalariq Akbar Mukti"}, {"nis": "24400024", "name": "Bilqis Zhafif Khumaira"}, {"nis": "24400028", "name": "Danish Attaya Akbar"}, {"nis": "24400031", "name": "Fazila Kayla Shiva"}, {"nis": "24400037", "name": "Hamzah Athaullah Sathi"}, {"nis": "24400044", "name": "Kaori Yobi Kalevi"}, {"nis": "24400046", "name": "Keisha Maritza Ahmad"}, {"nis": "24400047", "name": "Khayra Putri Ariny"}, {"nis": "24400052", "name": "Maheswari Kirana Paramitha Riyadh"}, {"nis": "24400058", "name": "Muhammad Fachrizky Athaya"}, {"nis": "24400065", "name": "Nala Ardika Naraditya Althaf"}, {"nis": "24400075", "name": "Nesya Linetta Sarostha"}, {"nis": "24400076", "name": "Nur Hanifah Qiani"}, {"nis": "24400078", "name": "Prinsa Amikal Suria"}, {"nis": "24400081", "name": "Rakei Friandary"}, {"nis": "24400088", "name": "Rhania Syifa Evliya"}, {"nis": "24400091", "name": "Satoru Kenzie"}, {"nis": "24400097", "name": "Yusfa Nova Almira"}]}, "XII_F2": {"kelas_name": "Kelas XII F2", "access_level": "wajib_only", "students": [{"nis": "24400003", "name": "Ahmad Dzaka Fithraya Rasalhague"}, {"nis": "24400009", "name": "Alliyah Noor"}, {"nis": "24400011", "name": "Anezka Kendra Cielika"}, {"nis": "24400013", "name": "Arfa Adiwinata Setyadi"}, {"nis": "24400014", "name": "Arizty Al Ghayda Mahardhika"}, {"nis": "24400015", "name": "Arjuna Satrio Lanang"}, {"nis": "24400029", "name": "Emir Kaysan Askar"}, {"nis": "25400101", "name": "Galuh Chandra Kirana"}, {"nis": "24400035", "name": "Ghazi Saverio Wangkoro"}, {"nis": "24400040", "name": "Hilgan Rabbani Kusnadi"}, {"nis": "24400045", "name": "Kayla Asyifa Jasmine"}, {"nis": "24400048", "name": "Kiminurintani Ghimaz Pratiwi"}, {"nis": "24400057", "name": "Muhammad Bintang Satria"}, {"nis": "24400061", "name": "Muhammad Hanif Hafuza Martono"}, {"nis": "24400064", "name": "Nadifa Misyka Alfarisi"}, {"nis": "24400068", "name": "Nasya Bintang Atifa"}, {"nis": "24400069", "name": "Nasya Shifra Edgina"}, {"nis": "24400073", "name": "Nayla Rasya"}, {"nis": "24400077", "name": "Oryza Sativa"}, {"nis": "24400087", "name": "Revayya Almira Radhiza"}, {"nis": "24400090", "name": "Sashikianna Putri Sugiharjo"}, {"nis": "24400092", "name": "Sausan Audrey Lathifah"}, {"nis": "24400095", "name": "Tzeirasuva Mustika Ananta Ralliargya"}, {"nis": "24400096", "name": "Vania Azzara"}, {"nis": "24400098", "name": "Zahra Kaila Putri"}]}, "XII_F3": {"kelas_name": "Kelas XII F3", "access_level": "full", "students": [{"nis": "24400001", "name": "Abdurrahman Athar"}, {"nis": "24400016", "name": "Asha Maulida Nasuha"}, {"nis": "24400017", "name": "Assyifa Q Aina"}, {"nis": "24400018", "name": "Atha Maiva Dialfi"}, {"nis": "24400021", "name": "Auriel Latisha Rustiadi"}, {"nis": "24400026", "name": "Chalisa Nasha Janitra"}, {"nis": "24400027", "name": "Cyrilla Qanita Salsabila"}, {"nis": "24400032", "name": "Fazli Fayyaz Bibra"}, {"nis": "24400033", "name": "Gavin Ananta Mudiartono"}, {"nis": "24400034", "name": "Gede Radheya Javaskalki Nararya"}, {"nis": "24400043", "name": "Jae Hwa Evelyn Az Zahra"}, {"nis": "24400049", "name": "Kinanthi Sekarlangit"}, {"nis": "24400050", "name": "Kyara Najla Putri"}, {"nis": "24400053", "name": "Miftahul Rizqi Rabani"}, {"nis": "24400054", "name": "Milan Adyaraka Sudiro"}, {"nis": "24400055", "name": "Mohammed Febro Arkenzie"}, {"nis": "24400056", "name": "Muhammad Arkan Wicaksena"}, {"nis": "24400062", "name": "Muhammad Mufid Zhafran"}, {"nis": "24400066", "name": "Nararya Fatih Mainza"}, {"nis": "24400070", "name": "Naufal Indriatno"}, {"nis": "24400071", "name": "Navira Qisya Camilla"}, {"nis": "24400072", "name": "Nayla Adriani Noormandiri"}, {"nis": "24400074", "name": "Nazwa Avrilia Putri Abzis"}, {"nis": "24400085", "name": "Raydhan Jiffar Seniawanputra"}, {"nis": "24400094", "name": "Syahra Lenira Rangkuti"}]}, "XII_F4": {"kelas_name": "Kelas XII F4", "access_level": "full", "students": [{"nis": "24400002", "name": "Ahmad Bayanaka Rajab"}, {"nis": "24400020", "name": "Atsyla Athano Biandra"}, {"nis": "24400022", "name": "Azzadin Al Azzam"}, {"nis": "24400023", "name": "Bianda Alana Bilham"}, {"nis": "24400025", "name": "Bima Fattah Ghaisan"}, {"nis": "24400030", "name": "Fabian Putra Anzil Firdaus"}, {"nis": "24400036", "name": "Gwen Rasendriya Doanda"}, {"nis": "24400038", "name": "Hanako Marihot Kiarra Tampubolon"}, {"nis": "24400039", "name": "Hazika Hanin Aqilani"}, {"nis": "24400041", "name": "Ikram Apriliano Putra Keisa"}, {"nis": "24400042", "name": "Izzan Maulana"}, {"nis": "24400059", "name": "Muhammad Farras Afif"}, {"nis": "24400060", "name": "Muhammad Firman Thaheer"}, {"nis": "24400063", "name": "Muhammad Regan Arrizki"}, {"nis": "24400067", "name": "Naryama Damai Abyasa"}, {"nis": "24400079", "name": "Raden Zaviero Marcega"}, {"nis": "24400080", "name": "Raditya Kara Nararya"}, {"nis": "24400082", "name": "Rakha Sanjaya"}, {"nis": "24400083", "name": "Rania Zivanka Kurniawan"}, {"nis": "24400084", "name": "Raushan Garlen Disiyona"}, {"nis": "24400086", "name": "Reyhan Putra Sahlan"}, {"nis": "24400089", "name": "Safa Klarisza Praja Darma"}, {"nis": "24400093", "name": "Setia Muhammad Abrar"}, {"nis": "24400099", "name": "Zerlinda Arissa Hudoyo"}, {"nis": "24400100", "name": "Zharfa Qisthina Alifah"}]}, "ALUMNI": {"kelas_name": "Alumni 2026", "access_level": "all", "students": [{"nis": "23400016", "name": "Aunillah Fath Al Ashya"}]}};
 
     // ===== DAFTAR 100 SISWA RESMI KELAS XII (12 F.1 s.d 12 F.4) =====
