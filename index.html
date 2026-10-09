@@ -68,6 +68,10 @@
       justify-content: center;
       padding: 12px;
     }
+    .angket-modal-backdrop.hidden,
+    .angket-modal-backdrop[hidden] {
+      display: none !important;
+    }
     @media (max-width: 640px) {
       .angket-modal-backdrop {
         padding: 0;
@@ -149,6 +153,14 @@
       z-index: 20;
       box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
+    @media (max-width: 640px) {
+      .angket-sticky-summary {
+        position: relative;
+        top: auto;
+        box-shadow: none;
+        margin-bottom: 4px;
+      }
+    }
     .angket-chips-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -191,6 +203,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      scroll-margin-top: 140px;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .angket-q-card:hover {
@@ -198,16 +211,20 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     @media (max-width: 640px) {
-      .angket-q-card { padding: 12px; gap: 10px; }
+      .angket-q-card {
+        padding: 12px;
+        gap: 10px;
+        scroll-margin-top: 16px;
+      }
     }
 
-    /* 10 Button Grid: 10 cols desktop, 5 cols mobile */
+    /* 10 Button Grid: 10 cols desktop, 5 cols tablet & mobile */
     .angket-btn-grid {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
       gap: 6px;
     }
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .angket-btn-grid {
         grid-template-columns: repeat(5, 1fr);
         gap: 6px;
@@ -1601,7 +1618,7 @@
 
 
   <!-- MODAL ANGKET REFLEKSI SISWA KELAS XII (NOTION WARM PAPER STYLE) -->
-  <div id="modal-angket-refleksi" class="hidden angket-modal-backdrop">
+  <div id="modal-angket-refleksi" class="hidden angket-modal-backdrop" style="display: none;">
     <div class="angket-modal-frame">
       
       <!-- MODAL HEADER -->
@@ -1651,10 +1668,10 @@
             <div>
               <label class="block text-[11px] font-bold text-[#787774] uppercase mb-1">Kelas (Rombel)</label>
               <select id="angket-input-kelas" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E8E6DF] bg-[#F7F6F3] text-[#2F3437] focus:outline-none focus:border-blue-500 font-semibold">
-                <option value="12 F1">12 F1</option>
-                <option value="12 F2">12 F2</option>
-                <option value="12 F3">12 F3</option>
-                <option value="12 F4">12 F4</option>
+                <option value="12 F1">12 F1 (XII F1)</option>
+                <option value="12 F2">12 F2 (XII F2)</option>
+                <option value="12 F3">12 F3 (XII F3)</option>
+                <option value="12 F4">12 F4 (XII F4)</option>
               </select>
             </div>
           </div>
@@ -1849,7 +1866,7 @@
     </div>
 
     <!-- MODAL REKAP ANGKET REFLEKSI GURU (NOTION WARM PAPER EDITORIAL) -->
-    <div id="modal-guru-angket-rekap" class="hidden angket-modal-backdrop">
+    <div id="modal-guru-angket-rekap" class="hidden angket-modal-backdrop" style="display: none;">
         <div class="angket-modal-frame" style="max-width: 1100px;">
             
             <!-- HEADER MODAL -->
@@ -1934,7 +1951,7 @@
 
                     <div class="rounded-2xl border border-[#D3CFBE] bg-white shadow-sm overflow-hidden">
                         <div class="overflow-x-auto max-h-[46vh] overflow-y-auto custom-scroll">
-                            <table class="w-full text-xs text-left border-collapse">
+                            <table class="w-full min-w-[720px] text-xs text-left border-collapse">
                                 <thead class="sticky top-0 bg-[#F0EFEA] border-b border-[#D3CFBE] text-[#5F5E5B] font-bold uppercase text-[10px] tracking-wider z-10">
                                     <tr>
                                         <th class="p-2.5 text-center" style="width: 45px;">No</th>
@@ -1962,7 +1979,7 @@
     </div>
 
     <script src="app-akhir.js?v=v20260930_zero_desync"></script>
-    <script src="angket.js?v=20261008_v2_unclipped"></script>
+    <script src="angket.js?v=20261009_v3_fixed"></script>
 
 </body>
 </html>

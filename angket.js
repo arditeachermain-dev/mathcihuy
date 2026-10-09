@@ -108,6 +108,17 @@ let angketAnswers = {
   catatan: ''
 };
 
+// Helper normalisasi nama kelas (12 F1 vs XII F1)
+function normalizeKelas(k) {
+  if (!k) return '12 F1';
+  const str = String(k).trim().toUpperCase();
+  if (str.includes('F1') || str.includes('F.1')) return '12 F1';
+  if (str.includes('F2') || str.includes('F.2')) return '12 F2';
+  if (str.includes('F3') || str.includes('F.3')) return '12 F3';
+  if (str.includes('F4') || str.includes('F.4')) return '12 F4';
+  return '12 F1';
+}
+
 // Ambil info sesi siswa yang sedang aktif
 function getActiveStudentInfo() {
   let sess = null;
@@ -119,7 +130,7 @@ function getActiveStudentInfo() {
     return {
       nis: String(sess.data.nis),
       nama: sess.data.nama || sess.data.name || 'Siswa',
-      kelas: sess.data.kelas || '12 F1'
+      kelas: normalizeKelas(sess.data.kelas)
     };
   }
 
@@ -131,7 +142,7 @@ function getActiveStudentInfo() {
   return {
     nis: nisInput ? nisInput.value.trim() : '',
     nama: namaInput ? namaInput.value.trim() : '',
-    kelas: kelasInput ? kelasInput.value : '12 F1'
+    kelas: normalizeKelas(kelasInput ? kelasInput.value : '12 F1')
   };
 }
 
@@ -141,6 +152,7 @@ async function openAngketModal() {
   if (!modal) return;
 
   modal.classList.remove('hidden');
+  modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 
   // Isi data identitas otomatis
@@ -157,7 +169,7 @@ async function openAngketModal() {
   if (sess && sess.data && sess.data.nis) {
     if (nisEl) { nisEl.value = sess.data.nis; nisEl.readOnly = true; }
     if (namaEl) { namaEl.value = sess.data.nama || sess.data.name || ''; namaEl.readOnly = true; }
-    if (kelasEl) { kelasEl.value = sess.data.kelas || '12 F1'; kelasEl.disabled = true; }
+    if (kelasEl) { kelasEl.value = normalizeKelas(sess.data.kelas); kelasEl.disabled = true; }
     if (identityLockMsg) identityLockMsg.classList.remove('hidden');
     
     // Muat data lama jika sudah pernah mengisi
@@ -176,7 +188,10 @@ async function openAngketModal() {
 // Tutup Modal Angket
 function closeAngketModal() {
   const modal = document.getElementById('modal-angket-refleksi');
-  if (modal) modal.classList.add('hidden');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.style.display = 'none';
+  }
   document.body.style.overflow = '';
 }
 
@@ -530,6 +545,7 @@ async function openTeacherAngketModal() {
   if (!modal) return;
 
   modal.classList.remove('hidden');
+  modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 
   const loader = document.getElementById('guru-angket-loading');
@@ -561,7 +577,10 @@ async function openTeacherAngketModal() {
 
 function closeTeacherAngketModal() {
   const modal = document.getElementById('modal-guru-angket-rekap');
-  if (modal) modal.classList.add('hidden');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.style.display = 'none';
+  }
   document.body.style.overflow = '';
 }
 
@@ -640,7 +659,8 @@ function renderFilteredTeacherTable() {
   if (!tableBody || !teacherAngketCache || !teacherAngketCache.data) return;
 
   const filtered = teacherAngketCache.data.filter(r => {
-    const matchClass = currentAngketFilter === 'all' || r.kelas === currentAngketFilter;
+    const matchClass = currentAngketFilter === 'all' || 
+      normalizeKelas(r.kelas) === normalizeKelas(currentAngketFilter);
     const matchSearch = !currentAngketSearch || 
       (r.nama && r.nama.toLowerCase().includes(currentAngketSearch)) || 
       (r.nis && String(r.nis).includes(currentAngketSearch));
@@ -665,7 +685,7 @@ function renderFilteredTeacherTable() {
         <td class="p-2.5 font-mono font-bold text-[#2F3437]">${r.nis}</td>
         <td class="p-2.5 font-bold text-[#2F3437]">${r.nama}</td>
         <td class="p-2.5 text-center">
-          <span class="px-2 py-0.5 rounded-md bg-[#F0EFEA] border border-[#E8E6DF] font-mono font-semibold text-[#5F5E5B]">${r.kelas}</span>
+          <span class="px-2 py-0.5 rounded-md bg-[#F0EFEA] border border-[#E8E6DF] font-mono font-semibold text-[#5F5E5B]">${normalizeKelas(r.kelas)}</span>
         </td>
         <td class="p-2.5 text-center">
           <span class="inline-block px-2.5 py-0.5 rounded-lg border font-mono font-black text-xs ${scoreClass}">
@@ -682,3 +702,15 @@ function renderFilteredTeacherTable() {
 
   tableBody.innerHTML = tHtml;
 }
+
+// Global exports for window context
+window.openAngketModal = openAngketModal;
+window.closeAngketModal = closeAngketModal;
+window.selectAngketRating = selectAngketRating;
+window.selectAngketScore = selectAngketRating; // alias for backwards compatibility
+window.submitAngketRefleksi = submitAngketRefleksi;
+window.openTeacherAngketModal = openTeacherAngketModal;
+window.closeTeacherAngketModal = closeTeacherAngketModal;
+window.filterTeacherAngketTable = filterTeacherAngketTable;
+window.searchTeacherAngketTable = searchTeacherAngketTable;
+window.normalizeKelas = normalizeKelas;
