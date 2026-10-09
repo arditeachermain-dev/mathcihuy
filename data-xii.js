@@ -1545,7 +1545,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "name": "Ringkasan Ukuran Pemusatan & Letak",
-          "math": "$$\\bar{x} = \\frac{\\sum f_i x_i}{N}, \\quad Me = Tb + \\left(\\frac{\\frac{1}{2}N - F_k}{f_{me}}\right)c, \\quad Q_i = Tb + \\left(\\frac{\\frac{i}{4}N - F_k}{f_{Q_i}}\right)c$$"
+          "math": "$$\\bar{x} = \\frac{\\sum f_i x_i}{N}, \\quad Me = Tb + \\left(\\frac{\\frac{1}{2}N - F_k}{f_{me}}\\right)c, \\quad Q_i = Tb + \\left(\\frac{\\frac{i}{4}N - F_k}{f_{Q_i}}\\right)c$$"
         },
         {
           "name": "Ringkasan Ukuran Penyebaran",
