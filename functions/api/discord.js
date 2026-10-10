@@ -3,6 +3,7 @@
 // 100% Serverless • 24/7 Always-On • Full Feature Port • Zero Local PC Dependency
 
 import { QUIZ_BANK } from './_quiz_bank.js';
+import { updateStudentGamification } from './gamifikasi.js';
 
 const DEFAULT_PUBLIC_KEY = "3703e790fc773d168f97a93b2f0fed58e0e2363bb03cf37b4dc0730310350607";
 const DEFAULT_GUILD_ID = "1525419440529870981";
@@ -507,14 +508,27 @@ export async function onRequestPost(context) {
           official_class = excluded.official_class, updated_at = excluded.updated_at
       `).bind(String(callerId), callerUser?.username || '', callerUser?.global_name || callerUser?.username || '', String(student.nis), String(student.nama), String(student.kelas), now).run();
 
+      // Sinkronkan riwayat kuis discord sebelumnya yang belum memiliki NIS
+      try {
+        await env.DB.prepare("UPDATE discord_quiz_answers SET nis = ? WHERE user_id = ? AND (nis IS NULL OR nis = '')").bind(String(student.nis), String(callerId)).run();
+      } catch (eSync) {}
+
+      let gamifSync = null;
+      try {
+        gamifSync = await updateStudentGamification(env.DB, student.nis);
+      } catch (eG) {}
+
+      const gamifInfo = gamifSync ? `\n• **Math Cihuy Gamifikasi:** \`${gamifSync.total_xp} XP\` (Level ${gamifSync.level} • *${gamifSync.gelar}*)\n• **Daily Streak:** 🔥 \`${gamifSync.current_streak} Hari\`\n` : '';
+
       return jsonResp({
         type: 4,
         data: {
           content: `✅ **Identitas Berhasil Ditautkan ke Cloudflare D1!**\n\n` +
                    `• **Nama Lengkap:** **${student.nama}**\n` +
                    `• **NIS:** \`${student.nis}\`\n` +
-                   `• **Kelas:** \`${student.kelas}\`\n\n` +
-                   `Sekarang kamu bisa langsung ketik \`/progres\` atau \`/progres_minat\` kapan saja!`,
+                   `• **Kelas:** \`${student.kelas}\`` +
+                   gamifInfo + `\n` +
+                   `Kini seluruh aktivitas kuis harian sore di Discord otomatis tersinkron ke Rapor & Leaderboard web portal!`,
           flags: 64
         }
       });
@@ -866,13 +880,101 @@ export async function onRequestPost(context) {
       }
 
       const isCorrect = chosenOption === q.correct.toUpperCase();
+
+      // Sinkronisasi Tanggal WIB & Identitas Siswa
+      const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
+      const todayWibStr = nowWib.toISOString().slice(0, 10);
+
+      let linkedNis = null;
+      let studentName = null;
+      if (env?.DB) {
+        try {
+          const linkedUser = await env.DB.prepare(
+            "SELECT nis, full_name, official_class FROM discord_users WHERE user_id = ?"
+          ).bind(String(callerId)).first();
+          if (linkedUser && linkedUser.nis) {
+            linkedNis = linkedUser.nis;
+            studentName = linkedUser.full_name;
+          }
+        } catch (eLink) {}
+      }
+
+      // Cek jawaban sebelumnya pada hari yang sama
+      let existingAns = null;
+      if (env?.DB) {
+        try {
+          existingAns = await env.DB.prepare(
+            "SELECT id, is_correct, xp_awarded FROM discord_quiz_answers WHERE user_id = ? AND quiz_date = ?"
+          ).bind(String(callerId), todayWibStr).first();
+        } catch (eAns) {}
+      }
+
+      let earnedXp = 0;
       if (isCorrect) {
+        if (!existingAns) {
+          earnedXp = 50; // 30 Base + 20 Bonus Benar
+        } else if (existingAns.is_correct === 0) {
+          earnedXp = 25; // Upgrade dari 15 ke 40 XP
+        } else {
+          earnedXp = 0;
+        }
+      } else {
+        if (!existingAns) {
+          earnedXp = 15; // XP keikutsertaan / usaha kognitif
+        } else {
+          earnedXp = 0;
+        }
+      }
+
+      if (env?.DB) {
+        try {
+          if (!existingAns) {
+            await env.DB.prepare(`
+              INSERT INTO discord_quiz_answers (user_id, nis, quiz_date, question_id, selected_option, is_correct, xp_awarded, created_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+            `).bind(String(callerId), linkedNis, todayWibStr, qid, chosenOption, isCorrect ? 1 : 0, earnedXp).run();
+          } else if (existingAns.is_correct === 0 && isCorrect) {
+            await env.DB.prepare(`
+              UPDATE discord_quiz_answers 
+              SET is_correct = 1, selected_option = ?, xp_awarded = xp_awarded + ? 
+              WHERE id = ?
+            `).bind(chosenOption, earnedXp, existingAns.id).run();
+          }
+        } catch (dbErr) {
+          console.warn('Simpan jawaban kuis discord:', dbErr);
+        }
+      }
+
+      let gamif = null;
+      if (env?.DB && linkedNis) {
+        try {
+          gamif = await updateStudentGamification(env.DB, linkedNis);
+        } catch (gErr) {
+          console.warn('Update gamifikasi kuis discord:', gErr);
+        }
+      }
+
+      if (isCorrect) {
+        let rewardDesc = "";
+        if (linkedNis && gamif) {
+          const badgeText = gamif.badges?.includes('skena_discord') ? "\n• 🏅 **Lencana Baru:** *Jam Kritis 16:00* (Skena Discord Sore!)" : "";
+          rewardDesc = `\n\n✨ **Sinkronisasi Math Cihuy Portal:**\n` +
+                       `• **+${earnedXp > 0 ? earnedXp : 0} EXP** bertambah ke akunmu!\n` +
+                       `• **Total EXP:** \`${gamif.total_xp} XP\` (Level ${gamif.level} • *${gamif.gelar}*)\n` +
+                       `• **Daily Streak:** 🔥 \`${gamif.current_streak} Hari Berturut-turut\`${badgeText}`;
+        } else {
+          rewardDesc = `\n\n✨ **Reward Kuis Sore:**\n` +
+                       `• **+${earnedXp} EXP** siap diklaim ke portal web!\n` +
+                       `💡 *Catatan:* Akun Discord kamu belum tertaut ke NIS. Ketik \`/nama [Nama Lengkap / NIS]\` agar EXP langsung tersinkron ke Rapor & Leaderboard web!`;
+        }
+
         return jsonResp({
           type: 4,
           data: {
             embeds: [{
               title: "🎉 JAWABAN KAMU BENAR! 🏆",
-              description: `Hebat sekali <@${callerId}>! Opsi **${chosenOption}** adalah jawaban yang tepat! ✨\n\n` +
+              description: `Hebat sekali <@${callerId}>! Opsi **${chosenOption}** adalah jawaban yang tepat! ✨` +
+                           rewardDesc + `\n\n` +
                            `**💡 Pembahasan Lengkap:**\n${q.explanation}`,
               color: 0x2ECC71,
               footer: { text: "MathCihuy Quiz • Pertahankan Prestasimu!" }
@@ -881,13 +983,20 @@ export async function onRequestPost(context) {
           }
         });
       } else {
+        let rewardDesc = "";
+        if (linkedNis && gamif && earnedXp > 0) {
+          rewardDesc = `\n\n✨ **Apresiasi Eksplorasi Belajar:**\n` +
+                       `• **+${earnedXp} EXP** tetap bertambah untuk usaha kognitifmu! (Total: \`${gamif.total_xp} XP\`)\n`;
+        }
+
         return jsonResp({
           type: 4,
           data: {
             embeds: [{
               title: "❌ JAWABAN KURANG TEPAT!",
-              description: `Halo <@${callerId}>, pilihanmu **${chosenOption}** belum tepat.\n\n` +
-                           `🔍 *Petunjuk:* Coba teliti kembali langkah perhitunganmu atau periksa kembali rumus dasarnya. Kamu masih bisa mencoba mengklik opsi lain pada soal ini!`,
+              description: `Halo <@${callerId}>, pilihanmu **${chosenOption}** belum tepat.` +
+                           rewardDesc + `\n\n` +
+                           `🔍 *Petunjuk:* Coba teliti kembali langkah perhitunganmu atau periksa kembali rumus dasarnya. Kamu masih bisa mencoba mengklik opsi lain pada soal ini untuk menyempurnakan jawaban & mengklaim bonus EXP penuh!`,
               color: 0xE74C3C,
               footer: { text: "MathCihuy Quiz • Jangan Menyerah, Coba Lagi!" }
             }],
@@ -1041,14 +1150,27 @@ export async function onRequestPost(context) {
           official_class = excluded.official_class, updated_at = excluded.updated_at
       `).bind(String(callerId), callerUser?.username || '', callerUser?.global_name || callerUser?.username || '', String(student.nis), String(student.nama), String(student.kelas), now).run();
 
+      // Sinkronkan riwayat kuis discord sebelumnya yang belum memiliki NIS
+      try {
+        await env.DB.prepare("UPDATE discord_quiz_answers SET nis = ? WHERE user_id = ? AND (nis IS NULL OR nis = '')").bind(String(student.nis), String(callerId)).run();
+      } catch (eSync) {}
+
+      let gamifSync = null;
+      try {
+        gamifSync = await updateStudentGamification(env.DB, student.nis);
+      } catch (eG) {}
+
+      const gamifInfo = gamifSync ? `\n• **Math Cihuy Gamifikasi:** \`${gamifSync.total_xp} XP\` (Level ${gamifSync.level} • *${gamifSync.gelar}*)\n• **Daily Streak:** 🔥 \`${gamifSync.current_streak} Hari\`\n` : '';
+
       return jsonResp({
         type: 4,
         data: {
           content: `✅ **Identitas Berhasil Ditautkan!**\n\n` +
                    `• **Nama Lengkap:** **${student.nama}**\n` +
                    `• **NIS:** \`${student.nis}\`\n` +
-                   `• **Kelas:** \`${student.kelas}\`\n\n` +
-                   `Sekarang kamu bisa langsung ketik \`/progres\` atau \`/progres_minat\` kapan saja!`,
+                   `• **Kelas:** \`${student.kelas}\`` +
+                   gamifInfo + `\n` +
+                   `Kini seluruh aktivitas kuis harian sore di Discord otomatis tersinkron ke Rapor & Leaderboard web portal!`,
           flags: 64
         }
       });
@@ -1094,13 +1216,101 @@ export async function onRequestPost(context) {
       }
 
       const isCorrect = inputVal.toLowerCase() === String(q.correct).trim().toLowerCase();
+
+      // Sinkronisasi Tanggal WIB & Identitas Siswa
+      const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
+      const todayWibStr = nowWib.toISOString().slice(0, 10);
+
+      let linkedNis = null;
+      let studentName = null;
+      if (env?.DB) {
+        try {
+          const linkedUser = await env.DB.prepare(
+            "SELECT nis, full_name, official_class FROM discord_users WHERE user_id = ?"
+          ).bind(String(callerId)).first();
+          if (linkedUser && linkedUser.nis) {
+            linkedNis = linkedUser.nis;
+            studentName = linkedUser.full_name;
+          }
+        } catch (eLink) {}
+      }
+
+      // Cek jawaban sebelumnya pada hari yang sama
+      let existingAns = null;
+      if (env?.DB) {
+        try {
+          existingAns = await env.DB.prepare(
+            "SELECT id, is_correct, xp_awarded FROM discord_quiz_answers WHERE user_id = ? AND quiz_date = ?"
+          ).bind(String(callerId), todayWibStr).first();
+        } catch (eAns) {}
+      }
+
+      let earnedXp = 0;
       if (isCorrect) {
+        if (!existingAns) {
+          earnedXp = 50; // 30 Base + 20 Bonus Benar
+        } else if (existingAns.is_correct === 0) {
+          earnedXp = 25; // Upgrade dari 15 ke 40 XP
+        } else {
+          earnedXp = 0;
+        }
+      } else {
+        if (!existingAns) {
+          earnedXp = 15; // XP keikutsertaan / usaha kognitif
+        } else {
+          earnedXp = 0;
+        }
+      }
+
+      if (env?.DB) {
+        try {
+          if (!existingAns) {
+            await env.DB.prepare(`
+              INSERT INTO discord_quiz_answers (user_id, nis, quiz_date, question_id, selected_option, is_correct, xp_awarded, created_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+            `).bind(String(callerId), linkedNis, todayWibStr, qid, inputVal, isCorrect ? 1 : 0, earnedXp).run();
+          } else if (existingAns.is_correct === 0 && isCorrect) {
+            await env.DB.prepare(`
+              UPDATE discord_quiz_answers 
+              SET is_correct = 1, selected_option = ?, xp_awarded = xp_awarded + ? 
+              WHERE id = ?
+            `).bind(inputVal, earnedXp, existingAns.id).run();
+          }
+        } catch (dbErr) {
+          console.warn('Simpan isian singkat kuis discord:', dbErr);
+        }
+      }
+
+      let gamif = null;
+      if (env?.DB && linkedNis) {
+        try {
+          gamif = await updateStudentGamification(env.DB, linkedNis);
+        } catch (gErr) {
+          console.warn('Update gamifikasi isian singkat discord:', gErr);
+        }
+      }
+
+      if (isCorrect) {
+        let rewardDesc = "";
+        if (linkedNis && gamif) {
+          const badgeText = gamif.badges?.includes('skena_discord') ? "\n• 🏅 **Lencana Baru:** *Jam Kritis 16:00* (Skena Discord Sore!)" : "";
+          rewardDesc = `\n\n✨ **Sinkronisasi Math Cihuy Portal:**\n` +
+                       `• **+${earnedXp > 0 ? earnedXp : 0} EXP** bertambah ke akunmu!\n` +
+                       `• **Total EXP:** \`${gamif.total_xp} XP\` (Level ${gamif.level} • *${gamif.gelar}*)\n` +
+                       `• **Daily Streak:** 🔥 \`${gamif.current_streak} Hari Berturut-turut\`${badgeText}`;
+        } else {
+          rewardDesc = `\n\n✨ **Reward Kuis Sore:**\n` +
+                       `• **+${earnedXp} EXP** siap diklaim ke portal web!\n` +
+                       `💡 *Catatan:* Akun Discord kamu belum tertaut ke NIS. Ketik \`/nama [Nama Lengkap / NIS]\` agar EXP langsung tersinkron ke Rapor & Leaderboard web!`;
+        }
+
         return jsonResp({
           type: 4,
           data: {
             embeds: [{
               title: "🎉 JAWABAN ISIAN SINGKAT BENAR! 🏆",
-              description: `Luar biasa <@${callerId}>! Jawaban kamu **"${inputVal}"** tepat sekali! ✨\n\n` +
+              description: `Luar biasa <@${callerId}>! Jawaban kamu **"${inputVal}"** tepat sekali! ✨` +
+                           rewardDesc + `\n\n` +
                            `**💡 Pembahasan Lengkap:**\n${q.explanation}`,
               color: 0x2ECC71,
               footer: { text: "TKA Mandiri Pusmendik • MathCihuy Engine" }
@@ -1109,13 +1319,20 @@ export async function onRequestPost(context) {
           }
         });
       } else {
+        let rewardDesc = "";
+        if (linkedNis && gamif && earnedXp > 0) {
+          rewardDesc = `\n\n✨ **Apresiasi Eksplorasi Belajar:**\n` +
+                       `• **+${earnedXp} EXP** tetap bertambah untuk usaha kognitifmu! (Total: \`${gamif.total_xp} XP\`)\n`;
+        }
+
         return jsonResp({
           type: 4,
           data: {
             embeds: [{
               title: "❌ JAWABAN BELUM TEPAT!",
-              description: `Halo <@${callerId}>, jawaban kamu **"${inputVal}"** belum tepat.\n\n` +
-                           `🔍 *Petunjuk:* Periksa kembali operasi aljabar atau langkah perhitunganmu. Kamu masih bisa mengklik tombol **Ketik Jawaban Angka** untuk mencoba lagi!`,
+              description: `Halo <@${callerId}>, jawaban kamu **"${inputVal}"** belum tepat.` +
+                           rewardDesc + `\n\n` +
+                           `🔍 *Petunjuk:* Periksa kembali operasi aljabar atau langkah perhitunganmu. Kamu masih bisa mengklik tombol **Ketik Jawaban Angka** untuk mencoba lagi dan mengklaim bonus EXP penuh!`,
               color: 0xE74C3C,
               footer: { text: "TKA Mandiri Pusmendik • MathCihuy Engine" }
             }],

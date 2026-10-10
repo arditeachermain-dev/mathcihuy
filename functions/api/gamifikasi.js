@@ -16,51 +16,83 @@ export const LEVEL_CONFIG = [
 export const BADGE_CATALOG = {
   perfect_100: {
     id: 'perfect_100',
-    name: 'Nilai Sempurna',
+    name: 'Gacor No Counter',
     icon: 'fa-solid fa-bullseye',
     color: '#B26B00',
     bg: '#FFF7E6',
-    desc: 'Meraih skor 100 pada ujian CBT'
+    desc: 'Meraih skor 100 mutlak di ujian CBT. Definisi sepuh matematika tanpa ampun!'
   },
   fast_thinker: {
     id: 'fast_thinker',
-    name: 'Berpikir Cepat',
+    name: 'Speedrun Mode On',
     icon: 'fa-solid fa-bolt',
     color: '#0284C7',
     bg: '#EBF3FB',
-    desc: 'Menyelesaikan CBT dalam waktu efisien (<= 20 menit) dan tuntas KKM'
+    desc: 'Selesai CBT under 20 menit dan tuntas KKM. Ngerjainnya sat-set tanpa overthinking!'
   },
   streak_hero: {
     id: 'streak_hero',
-    name: 'Pahlawan Konsistensi',
+    name: 'Anti-Skip Club',
     icon: 'fa-solid fa-fire-flame-curved',
     color: '#DC2626',
     bg: '#FEF2F2',
-    desc: 'Belajar dan submit CBT minimal 3 hari berturut-turut'
+    desc: 'Konsisten belajar & submit ujian minimal 3 hari berturut-turut. Pantang fomo!'
   },
   dimensi_tiga: {
     id: 'dimensi_tiga',
-    name: 'Penakluk Geometri',
+    name: 'Sepuh Dimensi Tiga',
     icon: 'fa-solid fa-cube',
     color: '#2E7D32',
     bg: '#EDF7ED',
-    desc: 'Menuntaskan paket ujian Geometri Dimensi Tiga (P09-P14)'
+    desc: 'Bantai tuntas kubus, balok, dan limas P09-P14. Otak spasial 3D no debat!'
   },
   statistika_pioneer: {
     id: 'statistika_pioneer',
-    name: 'Pelopor Statistika',
+    name: 'Dukun Data',
     icon: 'fa-solid fa-chart-column',
     color: '#7C3AED',
     bg: '#F5F3FF',
-    desc: 'Menuntaskan paket ujian Statistika & Data Bivariat (P15-P21)'
+    desc: 'Kuasai data berkelompok sampai regresi bivariat P15-P21. Angka langsung tunduk!'
   },
   reflective_mind: {
     id: 'reflective_mind',
-    name: 'Reflektif Mandiri',
+    name: 'Jujurly Reflektif',
     icon: 'fa-solid fa-brain',
     color: '#2E384D',
     bg: '#F0EFEA',
-    desc: 'Melengkapi angket refleksi pemahaman diri matematika'
+    desc: 'Tuntaskan angket refleksi pemahaman diri matematika apa adanya tanpa jaim.'
+  },
+  skena_discord: {
+    id: 'skena_discord',
+    name: 'Jam Kritis 16:00',
+    icon: 'fa-solid fa-comments',
+    color: '#5865F2',
+    bg: '#EEF0FD',
+    desc: 'Nongkrong produktif di Discord tiap jam 4 sore & submit kuis harian. Vibes anak rajin!'
+  },
+  quiz_master_discord: {
+    id: 'quiz_master_discord',
+    name: 'Sniper Kuis Sore',
+    icon: 'fa-solid fa-crosshairs',
+    color: '#059669',
+    bg: '#ECFDF5',
+    desc: 'Jawab benar kuis harian Discord minimal 5 kali. Nembak jawaban selalu on point!'
+  },
+  pencacahan_pro: {
+    id: 'pencacahan_pro',
+    name: 'Master Kombinatorika',
+    icon: 'fa-solid fa-dice',
+    color: '#D97706',
+    bg: '#FEF3C7',
+    desc: 'Taklukkan permutasi, kombinasi, & filling slots P01-P08 tanpa ketuker rumus!'
+  },
+  lingkaran_lord: {
+    id: 'lingkaran_lord',
+    name: 'Penguasa Sirkular',
+    icon: 'fa-solid fa-bullseye',
+    color: '#0D9488',
+    bg: '#F0FDFA',
+    desc: 'Bantai geometri analitik lingkaran, garis singgung bagi adil, & uji kuasa P01-P09!'
   }
 };
 
@@ -133,9 +165,26 @@ export async function updateStudentGamification(db, nis) {
   const angket = await db.prepare("SELECT id FROM angket_refleksi WHERE nis = ?").bind(cleanNis).first();
   const hasAngket = !!angket;
 
-  // 4. Hitung XP & Badges
-  const dates = (exams || []).map(e => e.tgl);
-  const streakInfo = calculateStreaks(dates);
+  // 3.5. Cek aktivitas kuis harian Discord
+  let discordQuizStats = { total_quiz: 0, total_correct: 0, total_quiz_xp: 0, dates: [] };
+  try {
+    const { results: quizRows } = await db.prepare(
+      "SELECT quiz_date, is_correct, xp_awarded FROM discord_quiz_answers WHERE nis = ? ORDER BY quiz_date ASC"
+    ).bind(cleanNis).all();
+    if (quizRows && quizRows.length > 0) {
+      discordQuizStats.total_quiz = quizRows.length;
+      discordQuizStats.total_correct = quizRows.filter(r => r.is_correct === 1).length;
+      discordQuizStats.total_quiz_xp = quizRows.reduce((acc, r) => acc + (Number(r.xp_awarded) || 0), 0);
+      discordQuizStats.dates = quizRows.map(r => r.quiz_date);
+    }
+  } catch (e) {
+    // Graceful fallback
+  }
+
+  // 4. Hitung XP & Badges (Gabungkan tanggal aktif CBT dan Kuis Discord untuk Streak)
+  const examDates = (exams || []).map(e => e.tgl);
+  const allActiveDates = [...examDates, ...discordQuizStats.dates];
+  const streakInfo = calculateStreaks(allActiveDates);
 
   let totalXp = 0;
   let totalUjian = (exams || []).length;
@@ -144,8 +193,10 @@ export async function updateStudentGamification(db, nis) {
   const badges = [];
 
   let hasFast = false;
+  let hasPencacahan = false;
   let hasDimensiTiga = false;
   let hasStatistika = false;
+  let hasLingkaran = false;
 
   (exams || []).forEach(e => {
     totalXp += 50; // Base XP
@@ -162,23 +213,42 @@ export async function updateStudentGamification(db, nis) {
       hasFast = true;
     }
     const kode = String(e.kode_pertemuan || '').toUpperCase();
-    if (['P09','P10','P11','P12','P13','P14'].includes(kode)) {
+    const mapel = String(e.mapel || '').toLowerCase();
+    if (['P01','P02','P03','P04','P05','P06','P07','P08'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
+      hasPencacahan = true;
+    }
+    if (['P09','P10','P11','P12','P13','P14'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
       hasDimensiTiga = true;
     }
-    if (['P15','P16','P17','P18','P19','P20','P21'].includes(kode)) {
+    if (['P15','P16','P17','P18','P19','P20','P21'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
       hasStatistika = true;
+    }
+    if (['P01','P02','P03','P04','P05','P06','P07','P08','P09'].includes(kode) && mapel === 'minat') {
+      hasLingkaran = true;
     }
   });
 
+  // Tambahkan akumulasi XP dari Kuis Harian Discord
+  totalXp += discordQuizStats.total_quiz_xp;
+
+  // Lencana Karakter Reflektif
   if (hasAngket) {
     totalXp += 100;
     badges.push('reflective_mind');
   }
+
+  // Lencana Performa & Chapter
   if (totalSempurna > 0) badges.push('perfect_100');
   if (hasFast) badges.push('fast_thinker');
   if (streakInfo.max >= 3) badges.push('streak_hero');
+  if (hasPencacahan) badges.push('pencacahan_pro');
   if (hasDimensiTiga) badges.push('dimensi_tiga');
   if (hasStatistika) badges.push('statistika_pioneer');
+  if (hasLingkaran) badges.push('lingkaran_lord');
+
+  // Lencana Interaktivitas Discord Kuis Sore
+  if (discordQuizStats.total_quiz >= 1) badges.push('skena_discord');
+  if (discordQuizStats.total_correct >= 5) badges.push('quiz_master_discord');
 
   totalXp += (streakInfo.current || 1) * 10;
 
@@ -225,7 +295,8 @@ export async function updateStudentGamification(db, nis) {
     max_streak: streakInfo.max || 1,
     total_ujian: totalUjian,
     total_sempurna: totalSempurna,
-    badges
+    badges,
+    discord_stats: discordQuizStats
   };
 }
 
@@ -278,6 +349,23 @@ export async function onRequestGet(context) {
         badgesList = [];
       }
 
+      let discordStats = { total_quiz: 0, total_correct: 0, total_quiz_xp: 0, is_linked: false };
+      try {
+        const linkedDiscord = await db.prepare("SELECT user_id, username FROM discord_users WHERE nis = ?").bind(cleanNis).first();
+        if (linkedDiscord) {
+          discordStats.is_linked = true;
+          discordStats.discord_username = linkedDiscord.username;
+        }
+        const qStats = await db.prepare(
+          "SELECT COUNT(*) as total, SUM(CASE WHEN is_correct = 1 THEN 1 ELSE 0 END) as correct, SUM(xp_awarded) as xp FROM discord_quiz_answers WHERE nis = ?"
+        ).bind(cleanNis).first();
+        if (qStats) {
+          discordStats.total_quiz = qStats.total || 0;
+          discordStats.total_correct = qStats.correct || 0;
+          discordStats.total_quiz_xp = qStats.xp || 0;
+        }
+      } catch (e) {}
+
       const enrichedBadges = badgesList.map(bId => BADGE_CATALOG[bId] || { id: bId, name: bId, icon: 'fa-solid fa-award', color: '#787774', bg: '#F0EFEA', desc: '' });
 
       return jsonResponse({
@@ -301,9 +389,11 @@ export async function onRequestGet(context) {
           total_global: totalSiswaGlobal,
           rank_class: rankClass,
           total_class: totalSiswaClass,
-          badges: enrichedBadges
+          badges: enrichedBadges,
+          discord_stats: discordStats
         },
-        catalog: BADGE_CATALOG
+        catalog: BADGE_CATALOG,
+        levels: LEVEL_CONFIG
       });
     }
 

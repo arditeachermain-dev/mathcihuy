@@ -1864,6 +1864,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       if (view === 'catalog') {
         switchLeaderboardView('catalog');
+      } else if (view === 'roadmap') {
+        switchLeaderboardView('roadmap');
       } else {
         switchLeaderboardView('table');
         switchLeaderboardFilter(kelasFilter || _currentLbFilter || 'all');
@@ -1876,22 +1878,30 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (modal) modal.classList.add('hidden');
     }
 
-    // Ganti Tampilan Antara Tabel Leaderboard dan Katalog Lencana
+    // Ganti Tampilan Antara Tabel Leaderboard, Katalog Lencana, dan Roadmap Capaian
     function switchLeaderboardView(view) {
       _currentLbView = view;
       const tableView = document.getElementById('lb-view-table');
       const catalogView = document.getElementById('lb-view-catalog');
+      const roadmapView = document.getElementById('lb-view-roadmap');
       const catalogTabBtn = document.getElementById('btn-lb-tab-catalog');
+      const roadmapTabBtn = document.getElementById('btn-lb-tab-roadmap');
+
+      // Sembunyikan semua kontainer tampilan
+      if (tableView) tableView.classList.add('hidden');
+      if (catalogView) catalogView.classList.add('hidden');
+      if (roadmapView) roadmapView.classList.add('hidden');
+
+      // Reset tombol filter & tab
+      ['all', '12f1', '12f2', '12f3', '12f4'].forEach(k => {
+        const btn = document.getElementById('btn-lb-filter-' + k);
+        if (btn) btn.classList.remove('active');
+      });
+      if (catalogTabBtn) catalogTabBtn.classList.remove('active');
+      if (roadmapTabBtn) roadmapTabBtn.classList.remove('active');
 
       if (view === 'catalog') {
-        if (tableView) tableView.classList.add('hidden');
         if (catalogView) catalogView.classList.remove('hidden');
-
-        // Reset filter button styles
-        ['all', '12f1', '12f2', '12f3', '12f4'].forEach(k => {
-          const btn = document.getElementById('btn-lb-filter-' + k);
-          if (btn) btn.classList.remove('active');
-        });
         if (catalogTabBtn) catalogTabBtn.classList.add('active');
 
         // Render catalog contents if data ready
@@ -1900,10 +1910,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         } else {
           loadLeaderboardData(_currentLbFilter);
         }
+      } else if (view === 'roadmap') {
+        if (roadmapView) roadmapView.classList.remove('hidden');
+        if (roadmapTabBtn) roadmapTabBtn.classList.add('active');
       } else {
-        if (catalogView) catalogView.classList.add('hidden');
         if (tableView) tableView.classList.remove('hidden');
-        if (catalogTabBtn) catalogTabBtn.classList.remove('active');
       }
     }
 

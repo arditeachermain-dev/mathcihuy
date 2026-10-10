@@ -237,7 +237,8 @@ async function handleCronQuiz(context) {
     const payload = {
       // TIDAK MENTION ROLE (@role) agar HP siswa tidak berbunyi/getar ("tidak berisik")
       content: `☕ **[ISENG-ISENG DIKIT] KUIS SORE MATEMATIKA** 🎯 *(Pukul 16:00 WIB)*\n` +
-        `Rehat sejenak sambil asah otak santai teman-teman **${ch.kelas}**! Coba selesaikan 1 soal tipe **${typeInfo.name}** hari ini:`,
+        `Rehat sejenak sambil asah otak santai teman-teman **${ch.kelas}**! Coba selesaikan 1 soal tipe **${typeInfo.name}** hari ini:\n` +
+        `🎮 *Klik opsi untuk klaim **+50 EXP**, perpanjang **Daily Streak**, & buka lencana **Jam Kritis 16:00** di web!*`,
       embeds: [embed],
       components,
       flags: 4096, // SUPPRESS_NOTIFICATIONS: Pesan masuk hening/senyap tanpa notifikasi suara

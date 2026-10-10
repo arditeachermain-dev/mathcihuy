@@ -1908,6 +1908,9 @@
           <button type="button" onclick="switchLeaderboardView('catalog')" id="btn-lb-tab-catalog" class="notion-btn-tab ml-1">
             <i class="fa-solid fa-award mr-1 text-amber-600"></i>Katalog Lencana
           </button>
+          <button type="button" onclick="switchLeaderboardView('roadmap')" id="btn-lb-tab-roadmap" class="notion-btn-tab ml-1">
+            <i class="fa-solid fa-diagram-project mr-1 text-blue-600"></i>Roadmap Capaian &amp; EXP
+          </button>
         </div>
 
         <!-- STATS POOL SUMMARY -->
@@ -2028,6 +2031,13 @@
                 </div>
                 <p class="text-[11px] text-[#787774]">Bonus apresiasi saat mengisi Angket Refleksi Belajar Matematika.</p>
               </div>
+              <div class="p-3 rounded-lg border border-[#E8E6DF] bg-[#F7F6F3] space-y-1">
+                <div class="font-bold text-[#2F3437] flex items-center justify-between">
+                  <span>Kuis Harian Discord (16:00 WIB)</span>
+                  <span class="text-blue-600 font-mono">+15 s.d. +50 XP</span>
+                </div>
+                <p class="text-[11px] text-[#787774]">Asah otak santai di Discord kelas tiap jam 4 sore. Jawaban langsung sinkron ke web &amp; perpanjang streak!</p>
+              </div>
             </div>
           </div>
 
@@ -2041,13 +2051,287 @@
             </div>
           </div>
 
-          <!-- ENAM LENCANA PRESTASI RESMI -->
+          <!-- KATALOG LENCANA PRESTASI GEN Z -->
           <div class="space-y-3">
-            <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] flex items-center gap-2">
-              <i class="fa-solid fa-award text-amber-500"></i> Katalog 6 Lencana Prestasi Matematika
-            </h4>
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] flex items-center gap-2">
+                <i class="fa-solid fa-award text-amber-500"></i> Katalog Lencana Prestasi Math Cihuy (Gen Z Edition)
+              </h4>
+              <span class="px-2 py-0.5 rounded text-[10.5px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                10 Lencana Prestasi
+              </span>
+            </div>
             <div id="lb-catalog-badges-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAMPILAN ROADMAP CAPAIAN PEMBELAJARAN & ALOKASI EXP CHAPTER -->
+        <div id="lb-view-roadmap" class="hidden space-y-6">
+          <!-- HERO BANNER ROADMAP -->
+          <div class="p-4 sm:p-5 rounded-xl border border-[#E8E6DF] bg-[#FFFFFF] shadow-2xs space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2.5">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-blue-50 text-blue-700 border border-blue-200">
+                  <i class="fa-solid fa-diagram-project"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-[#2F3437]">Roadmap Capaian Pembelajaran &amp; Alokasi EXP Chapter</h4>
+                  <p class="text-[11px] text-[#787774]">Kurikulum Matematika Wajib &amp; Peminatan Kelas XII • TP 2026/2027</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-[#2E384D] text-white">
+                  Total Potensi: 16.075+ XP
+                </span>
+              </div>
+            </div>
+            <p class="text-xs text-[#5F5E5B] leading-relaxed">
+              Setiap bab materi dirancang dengan target kompetensi (*Learning Outcomes*) terstruktur. Selesaikan latihan CBT, isi angket refleksi, dan ikuti kuis harian Discord pukul 16:00 WIB untuk menaikkan level gelar akademik serta membuka lencana eksklusif!
+            </p>
+            
+            <!-- DISCORD LIVE SYNC BANNER -->
+            <div class="p-3 rounded-lg border border-indigo-200 bg-indigo-50/70 flex flex-wrap items-center justify-between gap-2 text-xs text-indigo-900">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-comments text-indigo-600 text-sm"></i>
+                <span><strong>Sinkronisasi Kuis Sore Discord (16:00 WIB) Aktif:</strong> Setiap jawaban langsung menambah <strong>+50 EXP</strong> &amp; menjaga <strong>Daily Streak</strong> belajarmu!</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10.5px] font-semibold bg-white text-indigo-700 border border-indigo-200">
+                Live Cloudflare D1
+              </span>
+            </div>
+          </div>
+
+          <!-- GROUP 1: MATEMATIKA WAJIB -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                Matematika Wajib (Fase F - Kelas XII Semester 1)
+              </h4>
+              <span class="text-xs font-mono font-semibold text-[#787774]">3 Bab • 21 Paket • Maks 4.725 XP</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+              <!-- BAB 1 WAJIB -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      P01 - P08 (8 Paket)
+                    </span>
+                    <span class="text-xs font-bold font-mono text-[#B26B00]">Maks 1.800 XP</span>
+                  </div>
+                  <h5 class="text-xs sm:text-sm font-bold text-[#2F3437]">Kaidah Pencacahan &amp; Teori Peluang</h5>
+                  <ul class="text-[11px] text-[#5F5E5B] space-y-1 leading-relaxed">
+                    <li>• Aturan Penjumlahan &amp; Perkalian (Filling Slots)</li>
+                    <li>• Permutasi (Unsur Beda, Unsur Sama, Siklis)</li>
+                    <li>• Kombinasi Pemilihan Delegasi &amp; Himpunan</li>
+                    <li>• Peluang Saling Lepas &amp; Peluang Bersyarat</li>
+                  </ul>
+                </div>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center justify-between text-[11px]">
+                  <span class="text-[#787774]">Lencana Target:</span>
+                  <span class="inline-flex items-center gap-1 font-semibold text-amber-700">
+                    <i class="fa-solid fa-dice text-[10px]"></i> Master Kombinatorika
+                  </span>
+                </div>
+              </div>
+
+              <!-- BAB 2 WAJIB -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      P09 - P14 (6 Paket)
+                    </span>
+                    <span class="text-xs font-bold font-mono text-[#B26B00]">Maks 1.350 XP</span>
+                  </div>
+                  <h5 class="text-xs sm:text-sm font-bold text-[#2F3437]">Geometri Dimensi Tiga</h5>
+                  <ul class="text-[11px] text-[#5F5E5B] space-y-1 leading-relaxed">
+                    <li>• Kedudukan Titik, Garis, &amp; Bidang Ruang</li>
+                    <li>• Jarak Titik ke Titik &amp; Titik ke Garis</li>
+                    <li>• Jarak Titik ke Bidang (Teorema Diagonal 3D)</li>
+                    <li>• Sudut Garis-Bidang &amp; Dihedral Angle</li>
+                  </ul>
+                </div>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center justify-between text-[11px]">
+                  <span class="text-[#787774]">Lencana Target:</span>
+                  <span class="inline-flex items-center gap-1 font-semibold text-emerald-700">
+                    <i class="fa-solid fa-cube text-[10px]"></i> Sepuh Dimensi Tiga
+                  </span>
+                </div>
+              </div>
+
+              <!-- BAB 3 WAJIB -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      P15 - P21 (7 Paket)
+                    </span>
+                    <span class="text-xs font-bold font-mono text-[#B26B00]">Maks 1.575 XP</span>
+                  </div>
+                  <h5 class="text-xs sm:text-sm font-bold text-[#2F3437]">Statistika &amp; Data Bivariat</h5>
+                  <ul class="text-[11px] text-[#5F5E5B] space-y-1 leading-relaxed">
+                    <li>• Histogram, Ogive, Mean, Median, &amp; Modus</li>
+                    <li>• Kuartil, Desil, IQR, &amp; Deteksi Pencilan</li>
+                    <li>• Simpangan Baku, Varians, &amp; Z-Score</li>
+                    <li>• Scatter Plot, Korelasi Pearson, &amp; Regresi</li>
+                  </ul>
+                </div>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center justify-between text-[11px]">
+                  <span class="text-[#787774]">Lencana Target:</span>
+                  <span class="inline-flex items-center gap-1 font-semibold text-purple-700">
+                    <i class="fa-solid fa-chart-column text-[10px]"></i> Dukun Data
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUP 2: ADDITIONAL MATHEMATICS / PEMINATAN -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                Additional Mathematics (Peminatan Kelas XII Semester 1)
+              </h4>
+              <span class="text-xs font-mono font-semibold text-[#787774]">4 Bab • 30 Paket • Maks 6.750 XP</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+              <!-- BAB 1 MINAT -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-50 text-amber-800 border border-amber-200">
+                      P01 - P09 (9 Paket)
+                    </span>
+                    <span class="text-xs font-bold font-mono text-[#B26B00]">2.025 XP</span>
+                  </div>
+                  <h5 class="text-xs font-bold text-[#2F3437]">Geometri Lingkaran</h5>
+                  <p class="text-[11px] text-[#5F5E5B] leading-relaxed">Persamaan baku &amp; umum, uji kuasa titik, garis singgung bagi adil, gradien m, garis polar.</p>
+                </div>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center justify-between text-[11px]">
+                  <span class="text-[#787774]">Lencana:</span>
+                  <span class="inline-flex items-center gap-1 font-semibold text-teal-700">
+                    <i class="fa-solid fa-bullseye text-[10px]"></i> Penguasa Sirkular
+                  </span>
+                </div>
+              </div>
+
+              <!-- BAB 2 MINAT -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-50 text-amber-800 border border-amber-200">
+                      P10 - P16 (7 Paket)
+                    </span>
+                    <span class="text-xs font-bold font-mono text-[#B26B00]">1.575 XP</span>
+                  </div>
+                  <h5 class="text-xs font-bold text-[#2F3437]">Limit Aljabar &amp; Trig</h5>
+                  <p class="text-[11px] text-[#5F5E5B] leading-relaxed">Limit trigonometri, bentuk tak tentu 0/0, identitas cosinus, limit tak hingga, asimtot kurva.</p>
+                </div>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center justify-between text-[11px]">
+                  <span class="text-[#787774]">Lencana:</span>
+                  <span class="inline-flex items-center gap-1 font-semibold text-blue-700">
+                    <i class="fa-solid fa-bolt text-[10px]"></i> Limit Breaker
+                  </span>
+                </div>
+              </div>
+
+              <!-- BAB 3 MINAT -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-50 text-amber-800 border border-amber-200">
+                      P17 - P24 (8 Paket)
+                    </span>
+                    <span class="text-xs font-bold font-mono text-[#B26B00]">1.800 XP</span>
+                  </div>
+                  <h5 class="text-xs font-bold text-[#2F3437]">Turunan Trigonometri</h5>
+                  <p class="text-[11px] text-[#5F5E5B] leading-relaxed">Aturan rantai, turunan perkalian/pembagian, garis singgung &amp; normal, stasioner, optimasi.</p>
+                </div>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center justify-between text-[11px]">
+                  <span class="text-[#787774]">Lencana:</span>
+                  <span class="inline-flex items-center gap-1 font-semibold text-rose-700">
+                    <i class="fa-solid fa-chart-line text-[10px]"></i> Kalkulus Akrobatik
+                  </span>
+                </div>
+              </div>
+
+              <!-- BAB 4 MINAT & CLIL -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-50 text-amber-800 border border-amber-200">
+                      P25 - P30 (6 Paket)
+                    </span>
+                    <span class="text-xs font-bold font-mono text-[#B26B00]">1.350 XP</span>
+                  </div>
+                  <h5 class="text-xs font-bold text-[#2F3437]">Integral &amp; CLIL</h5>
+                  <p class="text-[11px] text-[#5F5E5B] leading-relaxed">Substitusi, parsial Tanzalin, Teorema Dasar Kalkulus, luas kurva Archimedes, volume putar.</p>
+                </div>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center justify-between text-[11px]">
+                  <span class="text-[#787774]">Lencana:</span>
+                  <span class="inline-flex items-center gap-1 font-semibold text-indigo-700">
+                    <i class="fa-solid fa-graduation-cap text-[10px]"></i> Grandmaster Integral
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUP 3: DAILY MICRO-HABIT & REFLEKSI -->
+          <div class="space-y-3">
+            <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+              Daily Micro-Habits &amp; Metacognitive Quests
+            </h4>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <!-- QUEST 1: DISCORD 16.00 -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    Tiap Hari Jam 16:00 WIB
+                  </span>
+                  <span class="text-xs font-bold font-mono text-indigo-700">Potensi 4.500 XP</span>
+                </div>
+                <h5 class="text-xs sm:text-sm font-bold text-[#2F3437]">Kuis Harian Sore Discord (1 Soal / Hari)</h5>
+                <p class="text-[11px] text-[#5F5E5B] leading-relaxed">
+                  Latihan mikro harian soal TKA Pusmendik &amp; UTBK-SNBT di channel kelas. Menjawab benar dapat <strong>+50 XP</strong>, salah tetap dapat <strong>+15 XP</strong> usaha kognitif, dan menjaga Daily Streak belajarmu tetap menyala!
+                </p>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    <i class="fa-solid fa-comments mr-1"></i>Jam Kritis 16:00
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <i class="fa-solid fa-crosshairs mr-1"></i>Sniper Kuis Sore
+                  </span>
+                </div>
+              </div>
+
+              <!-- QUEST 2: ANGKET REFLEKSI -->
+              <div class="p-4 rounded-xl border border-[#E8E6DF] bg-white shadow-2xs space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#F0EFEA] text-[#2F3437] border border-[#E8E6DF]">
+                    Evaluasi Metakognitif
+                  </span>
+                  <span class="text-xs font-bold font-mono text-[#2E384D]">+100 XP Instan</span>
+                </div>
+                <h5 class="text-xs sm:text-sm font-bold text-[#2F3437]">Angket Refleksi Pemahaman Diri Matematika</h5>
+                <p class="text-[11px] text-[#5F5E5B] leading-relaxed">
+                  Mengevaluasi kesiapan belajar, memetakan topik yang masih butuh scaffolding, dan melatih kejujuran akademis. Isi angket secara lengkap untuk langsung mengklaim bonus XP dan membuka lencana.
+                </p>
+                <div class="pt-2 border-t border-[#F0EFEA] flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-800 border border-slate-300">
+                    <i class="fa-solid fa-brain mr-1"></i>Jujurly Reflektif
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2301,7 +2585,7 @@
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v20261010_gamifikasi_fase1b"></script>
+    <script src="app-akhir.js?v=v20261010_discord_genz_roadmap"></script>
     <script src="angket.js?v=20261009_v3_fixed"></script>
 
 </body>
