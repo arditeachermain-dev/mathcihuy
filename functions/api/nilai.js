@@ -1,6 +1,7 @@
 import { authenticateRequest, jsonResponse } from './_auth.js';
 import { calculateOfficialGrade } from './_grading.js';
 import { getSolutionsForPackage } from './_solutions.js';
+import { updateStudentGamification } from './gamifikasi.js';
 
 function extractTingkat(kelasStr) {
   const k = String(kelasStr || '').toUpperCase();
@@ -237,6 +238,14 @@ export async function onRequestPost(context) {
       ).bind(canonicalNis, cleanMapel, cleanKode).run();
     } catch(e) {}
 
+    // Otomatis perbarui profil gamifikasi, level XP, dan daily streak di D1
+    let gamifikasiUpdate = null;
+    try {
+      gamifikasiUpdate = await updateStudentGamification(context.env.DB, canonicalNis);
+    } catch(gamErr) {
+      console.warn('Gamifikasi update error:', gamErr);
+    }
+
     const solutions = getSolutionsForPackage(studentTingkat, cleanMapel, cleanKode) || [];
 
     return jsonResponse({
@@ -255,6 +264,7 @@ export async function onRequestPost(context) {
       server_graded: Boolean(officialGrade),
       evaluations: officialGrade ? officialGrade.evaluations : null,
       details: officialGrade ? officialGrade.details : null,
+      gamifikasi: gamifikasiUpdate,
       solutions: solutions
     });
   } catch (err) {

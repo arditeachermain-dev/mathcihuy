@@ -470,6 +470,9 @@
           </div>
         </div>
         <div class="flex items-center gap-2">
+          <button onclick="openLeaderboardModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Papan Peringkat, Level XP & Prestasi Siswa">
+            <i class="fa-solid fa-trophy" style="color: #D97706;"></i> <span class="hidden md:inline">Peringkat &amp; XP</span>
+          </button>
           <button onclick="openAngketModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Isi Angket Refleksi Pemahaman Siswa">
             <i class="fa-solid fa-clipboard-question" style="color: #0284C7;"></i> <span class="hidden md:inline">Angket Refleksi</span>
           </button>
@@ -521,6 +524,116 @@
               <button onclick="openScheduleModal()" class="notion-btn-secondary px-5 py-3 rounded-xl font-semibold text-xs md:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
                 <i class="fa-solid fa-calendar-days" style="color: #787774;"></i>
                 <span>Lihat Jadwal KBM</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1.1 GAMIFIKASI & DAILY STREAK HERO CARD (NOTION WARM PAPER AESTHETIC) -->
+        <div id="gamifikasi-hero-card" class="p-5 md:p-6 rounded-2xl border shadow-sm transition space-y-4 relative overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+            <!-- SISI KIRI: PROFIL SISWA, LEVEL & GELAR AKADEMIK -->
+            <div class="flex items-start sm:items-center gap-4 flex-1">
+              <div class="relative shrink-0">
+                <div id="gamifikasi-avatar" class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-bold text-base sm:text-lg text-white shadow-sm" style="background-color: #2E384D;">
+                  <span id="gamifikasi-avatar-initials">--</span>
+                </div>
+                <span id="gamifikasi-level-pill" class="absolute -bottom-1 -right-1 px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold text-white shadow-xs" style="background-color: #D97706;">
+                  Lvl 1
+                </span>
+              </div>
+
+              <div class="space-y-1.5 flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 id="gamifikasi-nama" class="text-sm sm:text-base font-bold truncate" style="color: #2F3437;">
+                    Memuat Profil Belajar...
+                  </h3>
+                  <span id="gamifikasi-kelas" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">
+                    XII
+                  </span>
+                  <span id="gamifikasi-gelar-badge" class="px-2 py-0.5 rounded-md text-[11px] font-semibold flex items-center gap-1" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
+                    <i class="fa-solid fa-crown text-[10px]"></i> <span id="gamifikasi-gelar-text">Novice Explorer</span>
+                  </span>
+                </div>
+
+                <!-- PROGRESS BAR XP MENUJU LEVEL BERIKUTNYA -->
+                <div class="space-y-1 max-w-md">
+                  <div class="flex items-center justify-between text-[11px]">
+                    <span id="gamifikasi-xp-label" class="font-semibold" style="color: #5F5E5B;">
+                      <i class="fa-solid fa-bolt text-amber-500 mr-1"></i><span id="gamifikasi-total-xp">0</span> XP
+                    </span>
+                    <span id="gamifikasi-next-xp" class="font-mono text-[10.5px]" style="color: #787774;">
+                      0% menuju level berikutnya
+                    </span>
+                  </div>
+                  <div class="w-full h-2 rounded-full overflow-hidden" style="background-color: #F0EFEA;">
+                    <div id="gamifikasi-xp-bar" class="h-full rounded-full transition-all duration-700" style="width: 0%; background-color: #2E384D;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SISI KANAN: STATS KOTAK (STREAK, AKURASI SEMPURNA, PERINGKAT) -->
+            <div class="flex flex-wrap sm:flex-nowrap items-center gap-2.5 shrink-0">
+              <!-- Kotak Daily Streak -->
+              <div class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs" style="background-color: #FEF2F2; border-color: #FEE2E2;">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-base text-rose-600 bg-white shadow-xs">
+                  <i class="fa-solid fa-fire-flame-curved"></i>
+                </div>
+                <div>
+                  <div class="text-[10px] font-semibold uppercase tracking-wider text-rose-700">Daily Streak</div>
+                  <div class="text-sm font-extrabold text-rose-900 font-mono flex items-center gap-1">
+                    <span id="gamifikasi-streak-count">1</span> <span class="text-xs font-normal">Hari</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kotak Nilai Sempurna 100 -->
+              <div class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs" style="background-color: #FFFDF5; border-color: #FEF3C7;">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-base text-amber-600 bg-white shadow-xs">
+                  <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <div>
+                  <div class="text-[10px] font-semibold uppercase tracking-wider text-amber-700">Skor 100</div>
+                  <div class="text-sm font-extrabold text-amber-900 font-mono flex items-center gap-1">
+                    <span id="gamifikasi-sempurna-count">0</span> <span class="text-xs font-normal">Kali</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kotak Peringkat -->
+              <div class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs" style="background-color: #F8FAFC; border-color: #E2E8F0;">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-base text-slate-700 bg-white shadow-xs">
+                  <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div>
+                  <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-600">Peringkat Kelas</div>
+                  <div class="text-sm font-extrabold text-slate-800 font-mono flex items-center gap-1">
+                    <span id="gamifikasi-rank-text">#-</span> <span id="gamifikasi-rank-sub" class="text-xs font-normal text-slate-500"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BARIS BAWAH: KOLEKSI LENCANA & TOMBOL LEADERBOARD -->
+          <div class="pt-3 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3" style="border-color: #E8E6DF;">
+            <div class="flex items-center gap-2 overflow-x-auto py-0.5 custom-scroll">
+              <span class="text-[11px] font-semibold shrink-0 mr-1" style="color: #787774;">
+                <i class="fa-solid fa-award text-amber-500 mr-1"></i>Lencana:
+              </span>
+              <div id="gamifikasi-badges-pills" class="flex items-center gap-1.5 flex-wrap">
+                <!-- Badges rendered via JavaScript -->
+                <span class="text-[11px] italic" style="color: #787774;">Menghubungkan lencana...</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+              <button onclick="openLeaderboardModal('all', 'catalog')" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
+                <i class="fa-solid fa-award text-amber-600"></i> <span>Katalog Lencana</span>
+              </button>
+              <button onclick="openLeaderboardModal()" class="notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm">
+                <i class="fa-solid fa-trophy text-amber-400"></i> <span>Papan Peringkat</span>
               </button>
             </div>
           </div>
@@ -1466,7 +1579,7 @@
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
   <script src="data-xii.js?v=v20260930_zero_desync"></script>
-  <script src="app.js?v=v20260930_zero_desync"></script>
+  <script src="app.js?v=v20261010_gamifikasi_fase1"></script>
 
 
     <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
@@ -1742,6 +1855,217 @@
         </button>
       </div>
 
+  </div>
+
+
+  <!-- MODAL PAPAN PERINGKAT, LEVEL XP & DAILY STREAK (NOTION WARM PAPER AESTHETIC) -->
+  <div id="leaderboard-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-start md:items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div style="background-color: #FBFBFA !important;" class="border border-[#E8E6DF] rounded-2xl max-w-5xl max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans">
+      
+      <!-- MODAL TOP BAR (COMPACT & CLEAN) -->
+      <div class="px-4 sm:px-6 py-3 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-[#FFFFFF]">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base shrink-0 shadow-sm text-amber-700 bg-amber-50 border border-amber-200">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm sm:text-base font-bold text-[#2F3437] leading-tight">Papan Peringkat &amp; Gelar Akademik Siswa</h3>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">TP 2026/2027</span>
+            </div>
+            <p class="text-[11px] text-[#787774] hidden sm:block">Apresiasi konsistensi belajar, daily streak, dan capaian pemahaman matematika SMA GIS 2 Serpong.</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="loadLeaderboardData()" title="Segarkan Data Leaderboard" class="notion-btn-secondary px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
+            <i class="fa-solid fa-rotate text-[#787774] text-xs"></i> <span class="hidden sm:inline">Segarkan</span>
+          </button>
+          <button type="button" onclick="closeLeaderboardModal()" aria-label="Tutup Papan Peringkat" class="notion-btn-secondary w-8 h-8 rounded-lg flex items-center justify-center shrink-0 cursor-pointer text-[#787774]">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- FILTER TABS & STATS BAR -->
+      <div class="px-4 sm:px-6 py-2.5 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-[#F7F6F3]">
+        <!-- FILTER KELAS / TAB -->
+        <div class="flex items-center gap-1.5 overflow-x-auto custom-scroll py-0.5" id="lb-tabs-container">
+          <button type="button" onclick="switchLeaderboardFilter('all')" id="btn-lb-filter-all" class="notion-btn-tab active">
+            Semua Angkatan XII
+          </button>
+          <button type="button" onclick="switchLeaderboardFilter('XII_F1')" id="btn-lb-filter-12f1" class="notion-btn-tab">
+            XII F1
+          </button>
+          <button type="button" onclick="switchLeaderboardFilter('XII_F2')" id="btn-lb-filter-12f2" class="notion-btn-tab">
+            XII F2
+          </button>
+          <button type="button" onclick="switchLeaderboardFilter('XII_F3')" id="btn-lb-filter-12f3" class="notion-btn-tab">
+            XII F3
+          </button>
+          <button type="button" onclick="switchLeaderboardFilter('XII_F4')" id="btn-lb-filter-12f4" class="notion-btn-tab">
+            XII F4
+          </button>
+          <button type="button" onclick="switchLeaderboardView('catalog')" id="btn-lb-tab-catalog" class="notion-btn-tab ml-1">
+            <i class="fa-solid fa-award mr-1 text-amber-600"></i>Katalog Lencana
+          </button>
+        </div>
+
+        <!-- STATS POOL SUMMARY -->
+        <div class="hidden md:flex items-center gap-3 text-[11px] text-[#5F5E5B]">
+          <span class="flex items-center gap-1">
+            <i class="fa-solid fa-users text-[#787774]"></i> <strong id="lb-stat-students">101</strong> Siswa Aktif
+          </span>
+          <span class="text-[#D3CFBE]">•</span>
+          <span class="flex items-center gap-1">
+            <i class="fa-solid fa-bolt text-amber-500"></i> <strong id="lb-stat-xp">0</strong> Total XP
+          </span>
+          <span class="text-[#D3CFBE]">•</span>
+          <span class="flex items-center gap-1">
+            <i class="fa-solid fa-fire text-rose-500"></i> Rata-rata Streak: <strong id="lb-stat-streak">1.0</strong> Hari
+          </span>
+        </div>
+      </div>
+
+      <!-- MODAL BODY CONTAINER (SCROLLABLE) -->
+      <div class="flex-1 min-h-0 p-4 sm:p-6 overflow-y-auto space-y-6 custom-scroll" style="background-color: #FBFBFA;">
+        
+        <!-- VIEW 1: LEADERBOARD TABLE & PODIUM -->
+        <div id="lb-view-table" class="space-y-6">
+          
+          <!-- PODIUM TOP 3 -->
+          <div id="lb-podium-container" class="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-1">
+            <!-- Rendered via JavaScript: Juara 2 (Perak), Juara 1 (Emas), Juara 3 (Perunggu) -->
+          </div>
+
+          <!-- TABEL PERINGKAT (PERINGKAT 4+) -->
+          <div class="rounded-xl border border-[#E8E6DF] bg-white overflow-hidden shadow-xs">
+            <div class="px-4 py-3 border-b border-[#E8E6DF] flex items-center justify-between bg-[#FDFDFD]">
+              <span class="text-xs font-bold text-[#2F3437] flex items-center gap-1.5">
+                <i class="fa-solid fa-list-ol text-[#787774]"></i> Daftar Peringkat Belajar
+              </span>
+              <span id="lb-filter-label" class="text-[11px] font-mono text-[#787774]">Menampilkan Semua Kelas XII</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-[#E8E6DF] text-[11px] font-bold text-[#787774] bg-[#F7F6F3]">
+                    <th class="py-2.5 px-3 text-center" style="width: 48px;">#</th>
+                    <th class="py-2.5 px-3">Siswa</th>
+                    <th class="py-2.5 px-3 text-center" style="width: 80px;">Kelas</th>
+                    <th class="py-2.5 px-3">Gelar Akademik</th>
+                    <th class="py-2.5 px-3 text-center" style="width: 88px;">Streak</th>
+                    <th class="py-2.5 px-3 text-center" style="width: 88px;">Skor 100</th>
+                    <th class="py-2.5 px-3 text-right" style="width: 100px;">Total XP</th>
+                    <th class="py-2.5 px-3 text-center" style="width: 130px;">Lencana</th>
+                  </tr>
+                </thead>
+                <tbody id="lb-table-tbody" class="divide-y divide-[#E8E6DF] text-[#2F3437]">
+                  <tr>
+                    <td colspan="8" class="py-8 text-center text-[#787774]">
+                      <i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat data peringkat siswa...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 2: KATALOG LENCANA & SISTEM LEVEL (TOGGLEABLE) -->
+        <div id="lb-view-catalog" class="hidden space-y-6">
+          <!-- PANDUAN PEROLEHAN XP -->
+          <div class="p-4 sm:p-5 rounded-xl border border-[#E8E6DF] bg-white shadow-xs space-y-3">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg flex items-center justify-center text-amber-600 bg-amber-50 border border-amber-200 text-xs">
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+              <h4 class="text-xs sm:text-sm font-bold text-[#2F3437]">Cara Mengumpulkan XP &amp; Meningkatkan Level</h4>
+            </div>
+            <p class="text-xs text-[#787774] leading-relaxed">
+              XP (Experience Points) mencerminkan ketekunan, konsistensi belajar harian, dan pemahaman konsep matematika. Sistem penilaian transparan dan terstandarisasi:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 pt-1 text-xs">
+              <div class="p-3 rounded-lg border border-[#E8E6DF] bg-[#F7F6F3] space-y-1">
+                <div class="font-bold text-[#2F3437] flex items-center justify-between">
+                  <span>Partisipasi CBT</span>
+                  <span class="text-amber-600 font-mono">+50 XP</span>
+                </div>
+                <p class="text-[11px] text-[#787774]">Diperoleh setiap menyelesaikan dan mengumpulkan 1 paket ujian CBT.</p>
+              </div>
+              <div class="p-3 rounded-lg border border-[#E8E6DF] bg-[#F7F6F3] space-y-1">
+                <div class="font-bold text-[#2F3437] flex items-center justify-between">
+                  <span>Skor CBT Murni</span>
+                  <span class="text-blue-600 font-mono">0 s.d. +100 XP</span>
+                </div>
+                <p class="text-[11px] text-[#787774]">Setiap 1 poin nilai ujian CBT dikonversi langsung menjadi 1 XP.</p>
+              </div>
+              <div class="p-3 rounded-lg border border-[#E8E6DF] bg-[#F7F6F3] space-y-1">
+                <div class="font-bold text-[#2F3437] flex items-center justify-between">
+                  <span>Bonus Nilai Sempurna</span>
+                  <span class="text-amber-700 font-mono">+50 XP</span>
+                </div>
+                <p class="text-[11px] text-[#787774]">Bonus tambahan istimewa saat meraih skor sempurna 100.</p>
+              </div>
+              <div class="p-3 rounded-lg border border-[#E8E6DF] bg-[#F7F6F3] space-y-1">
+                <div class="font-bold text-[#2F3437] flex items-center justify-between">
+                  <span>Bonus Tuntas KKM</span>
+                  <span class="text-emerald-700 font-mono">+25 XP</span>
+                </div>
+                <p class="text-[11px] text-[#787774]">Diberikan saat nilai ujian mencapai atau melampaui KKM (skor ≥ 75).</p>
+              </div>
+              <div class="p-3 rounded-lg border border-[#E8E6DF] bg-[#F7F6F3] space-y-1">
+                <div class="font-bold text-[#2F3437] flex items-center justify-between">
+                  <span>Daily Micro-Streak</span>
+                  <span class="text-rose-600 font-mono">+10 XP × Hari</span>
+                </div>
+                <p class="text-[11px] text-[#787774]">Bonus konsistensi belajar berturut-turut setiap harinya.</p>
+              </div>
+              <div class="p-3 rounded-lg border border-[#E8E6DF] bg-[#F7F6F3] space-y-1">
+                <div class="font-bold text-[#2F3437] flex items-center justify-between">
+                  <span>Refleksi Pemahaman Diri</span>
+                  <span class="text-indigo-600 font-mono">+100 XP</span>
+                </div>
+                <p class="text-[11px] text-[#787774]">Bonus apresiasi saat mengisi Angket Refleksi Belajar Matematika.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ENAM TINGKATAN GELAR AKADEMIK -->
+          <div class="space-y-3">
+            <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] flex items-center gap-2">
+              <i class="fa-solid fa-graduation-cap text-[#2E384D]"></i> 6 Tingkatan Gelar Akademik Siswa
+            </h4>
+            <div id="lb-levels-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- ENAM LENCANA PRESTASI RESMI -->
+          <div class="space-y-3">
+            <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] flex items-center gap-2">
+              <i class="fa-solid fa-award text-amber-500"></i> Katalog 6 Lencana Prestasi Matematika
+            </h4>
+            <div id="lb-catalog-badges-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MODAL FOOTER -->
+      <div class="px-4 sm:px-6 py-2.5 border-t border-[#E8E6DF] flex items-center justify-between shrink-0 bg-[#FFFFFF]">
+        <div class="text-[11px] text-[#787774] flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+          <span>Data diverifikasi otomatis oleh Cloudflare D1 Native Database</span>
+        </div>
+        <button type="button" onclick="closeLeaderboardModal()" class="notion-btn-secondary px-4 py-1.5 rounded-lg text-xs font-semibold cursor-pointer">
+          Tutup
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -1978,7 +2302,7 @@
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v20260930_zero_desync"></script>
+    <script src="app-akhir.js?v=v20261010_gamifikasi_fase1"></script>
     <script src="angket.js?v=20261009_v3_fixed"></script>
 
 </body>

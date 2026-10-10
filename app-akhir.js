@@ -1730,3 +1730,545 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     window.toggleRaporBab = toggleRaporBab;
     window.toggleAllRaporBabs = toggleAllRaporBabs;
 
+    // =========================================================================
+    // MODUL GAMIFIKASI, DAILY STREAK & PAPAN PERINGKAT (LEADERBOARD) SISWA
+    // Standar Guru & IT Profesional SMA GIS 2 Serpong • Notion Warm Paper Style
+    // =========================================================================
+
+    let _currentLbFilter = 'all';
+    let _currentLbView = 'table';
+    let _cachedGamifikasiProfile = null;
+    let _cachedLeaderboardData = null;
+
+    // Helper Initials Siswa
+    function getStudentInitials(name) {
+      if (!name) return '??';
+      const clean = String(name).trim();
+      const parts = clean.split(/\s+/);
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+      return clean.slice(0, 2).toUpperCase();
+    }
+
+    // Ambil Profil Gamifikasi Siswa Tertentu
+    async function fetchGamificationProfile(targetNis) {
+      try {
+        let nis = targetNis;
+        if (!nis) {
+          let sess = null;
+          try { sess = JSON.parse(localStorage.getItem('portal_session') || 'null'); } catch(e) {}
+          if (sess && sess.data && sess.data.nis) {
+            nis = sess.data.nis;
+          } else {
+            nis = '24400083'; // Fallback default demo siswa
+          }
+        }
+
+        const resp = await fetch(`/api/gamifikasi?nis=${encodeURIComponent(nis)}&_t=${Date.now()}`);
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        if (data && data.success && data.profile) {
+          _cachedGamifikasiProfile = data.profile;
+          try {
+            localStorage.setItem('mathcihuy_gamifikasi_' + nis, JSON.stringify(data.profile));
+          } catch(e) {}
+          renderGamificationHeroCard(data.profile);
+          return data.profile;
+        }
+      } catch (err) {
+        console.warn('Gagal memuat profil gamifikasi:', err);
+      }
+      return null;
+    }
+
+    // Render Kartu Hero Gamifikasi di Home Stage
+    function renderGamificationHeroCard(profile) {
+      if (!profile) return;
+      const card = document.getElementById('gamifikasi-hero-card');
+      if (!card) return;
+
+      const avatarInitialsEl = document.getElementById('gamifikasi-avatar-initials');
+      const levelPillEl = document.getElementById('gamifikasi-level-pill');
+      const namaEl = document.getElementById('gamifikasi-nama');
+      const kelasEl = document.getElementById('gamifikasi-kelas');
+      const gelarBadgeEl = document.getElementById('gamifikasi-gelar-badge');
+      const gelarTextEl = document.getElementById('gamifikasi-gelar-text');
+      const totalXpEl = document.getElementById('gamifikasi-total-xp');
+      const nextXpEl = document.getElementById('gamifikasi-next-xp');
+      const xpBarEl = document.getElementById('gamifikasi-xp-bar');
+      const streakCountEl = document.getElementById('gamifikasi-streak-count');
+      const sempurnaCountEl = document.getElementById('gamifikasi-sempurna-count');
+      const rankTextEl = document.getElementById('gamifikasi-rank-text');
+      const rankSubEl = document.getElementById('gamifikasi-rank-sub');
+      const badgesContainer = document.getElementById('gamifikasi-badges-pills');
+
+      if (avatarInitialsEl) avatarInitialsEl.textContent = getStudentInitials(profile.nama);
+      if (levelPillEl) levelPillEl.textContent = 'Lvl ' + (profile.level || 1);
+      if (namaEl) namaEl.textContent = profile.nama || 'Siswa GIS 2';
+      if (kelasEl) kelasEl.textContent = profile.kelas || 'XII';
+      if (gelarTextEl) gelarTextEl.textContent = profile.gelar || 'Novice Explorer';
+      if (totalXpEl) totalXpEl.textContent = (profile.total_xp || 0).toLocaleString('id-ID');
+
+      if (nextXpEl) {
+        if (profile.level >= 6) {
+          nextXpEl.textContent = 'Level Maksimal (Grandmaster)';
+        } else {
+          const sisaXp = Math.max(0, (profile.next_level_xp || 200) - (profile.current_xp || 0));
+          nextXpEl.textContent = `${profile.progress_pct || 0}% • Butuh ${sisaXp.toLocaleString('id-ID')} XP lagi`;
+        }
+      }
+
+      if (xpBarEl) {
+        const pct = Math.min(100, Math.max(0, profile.progress_pct || 0));
+        xpBarEl.style.width = pct + '%';
+      }
+
+      if (streakCountEl) streakCountEl.textContent = profile.current_streak || 1;
+      if (sempurnaCountEl) sempurnaCountEl.textContent = profile.total_sempurna || 0;
+
+      if (rankTextEl) {
+        const rCls = profile.rank_class || 1;
+        rankTextEl.textContent = '#' + rCls;
+      }
+      if (rankSubEl) {
+        const rGbl = profile.rank_global || 1;
+        rankSubEl.textContent = `(Angkatan: #${rGbl})`;
+      }
+
+      // Render Lencana Koleksi
+      if (badgesContainer) {
+        const badges = profile.badges || [];
+        if (badges.length === 0) {
+          badgesContainer.innerHTML = '<span class="text-[11px] text-[#787774] italic">Belum ada lencana. Selesaikan CBT &amp; Angket untuk membuka!</span>';
+        } else {
+          badgesContainer.innerHTML = badges.map(b => `
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10.5px] font-semibold border cursor-help shadow-2xs transition-transform hover:scale-105"
+                  style="background-color: ${b.bg || '#F0EFEA'}; color: ${b.color || '#2F3437'}; border-color: ${b.color ? b.color + '33' : '#E8E6DF'};"
+                  title="${escapeHtml(b.name || b.id)}: ${escapeHtml(b.desc || '')}">
+              <i class="${escapeHtml(b.icon || 'fa-solid fa-award')} text-[10px]"></i>
+              <span>${escapeHtml(b.name || b.id)}</span>
+            </span>
+          `).join('');
+        }
+      }
+    }
+
+    // Buka Modal Leaderboard
+    function openLeaderboardModal(kelasFilter, view) {
+      const modal = document.getElementById('leaderboard-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+
+      if (view === 'catalog') {
+        switchLeaderboardView('catalog');
+      } else {
+        switchLeaderboardView('table');
+        switchLeaderboardFilter(kelasFilter || _currentLbFilter || 'all');
+      }
+    }
+
+    // Tutup Modal Leaderboard
+    function closeLeaderboardModal() {
+      const modal = document.getElementById('leaderboard-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Ganti Tampilan Antara Tabel Leaderboard dan Katalog Lencana
+    function switchLeaderboardView(view) {
+      _currentLbView = view;
+      const tableView = document.getElementById('lb-view-table');
+      const catalogView = document.getElementById('lb-view-catalog');
+      const catalogTabBtn = document.getElementById('btn-lb-tab-catalog');
+
+      if (view === 'catalog') {
+        if (tableView) tableView.classList.add('hidden');
+        if (catalogView) catalogView.classList.remove('hidden');
+
+        // Reset filter button styles
+        ['all', '12f1', '12f2', '12f3', '12f4'].forEach(k => {
+          const btn = document.getElementById('btn-lb-filter-' + k);
+          if (btn) btn.classList.remove('active');
+        });
+        if (catalogTabBtn) catalogTabBtn.classList.add('active');
+
+        // Render catalog contents if data ready
+        if (_cachedLeaderboardData) {
+          renderBadgeCatalog(_cachedLeaderboardData.catalog, _cachedLeaderboardData.levels);
+        } else {
+          loadLeaderboardData(_currentLbFilter);
+        }
+      } else {
+        if (catalogView) catalogView.classList.add('hidden');
+        if (tableView) tableView.classList.remove('hidden');
+        if (catalogTabBtn) catalogTabBtn.classList.remove('active');
+      }
+    }
+
+    // Ganti Filter Kelas Leaderboard
+    function switchLeaderboardFilter(kelas) {
+      _currentLbFilter = kelas || 'all';
+      switchLeaderboardView('table');
+
+      // Update Tab Styles
+      const tabMap = {
+        'all': 'btn-lb-filter-all',
+        'XII_F1': 'btn-lb-filter-12f1',
+        'XII_F2': 'btn-lb-filter-12f2',
+        'XII_F3': 'btn-lb-filter-12f3',
+        'XII_F4': 'btn-lb-filter-12f4'
+      };
+
+      Object.keys(tabMap).forEach(k => {
+        const btn = document.getElementById(tabMap[k]);
+        if (btn) {
+          if (k === _currentLbFilter) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      });
+
+      const labelEl = document.getElementById('lb-filter-label');
+      if (labelEl) {
+        if (_currentLbFilter === 'all') {
+          labelEl.textContent = 'Menampilkan Semua Angkatan XII';
+        } else {
+          labelEl.textContent = 'Menampilkan Kelas ' + _currentLbFilter.replace('_', ' ');
+        }
+      }
+
+      loadLeaderboardData(_currentLbFilter);
+    }
+
+    // Fetch & Render Leaderboard Data dari D1
+    async function loadLeaderboardData(kelasFilter) {
+      const targetFilter = kelasFilter || _currentLbFilter || 'all';
+      const podiumContainer = document.getElementById('lb-podium-container');
+      const tableTbody = document.getElementById('lb-table-tbody');
+
+      if (tableTbody) {
+        tableTbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-8 text-center text-[#787774]">
+              <i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengambil data peringkat resmi dari Cloudflare D1...
+            </td>
+          </tr>`;
+      }
+
+      try {
+        const resp = await fetch(`/api/gamifikasi?leaderboard=1&kelas=${encodeURIComponent(targetFilter)}&limit=50&_t=${Date.now()}`);
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+        if (!data || !data.success) throw new Error('Data tidak valid');
+
+        _cachedLeaderboardData = data;
+
+        // 1. Update Pool Stats
+        if (data.stats) {
+          const sTotal = document.getElementById('lb-stat-students');
+          const sXp = document.getElementById('lb-stat-xp');
+          const sStreak = document.getElementById('lb-stat-streak');
+          if (sTotal) sTotal.textContent = data.stats.total_students || 0;
+          if (sXp) sXp.textContent = (data.stats.total_xp_pool || 0).toLocaleString('id-ID');
+          if (sStreak) sStreak.textContent = data.stats.average_streak || '1.0';
+        }
+
+        // 2. Tentukan NIS siswa yang sedang aktif login
+        let currentNis = '';
+        try {
+          const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+          if (sess && sess.data && sess.data.nis) currentNis = String(sess.data.nis);
+        } catch(e) {}
+
+        const list = data.leaderboard || [];
+
+        // 3. Render Top 3 Podium
+        renderLeaderboardPodium(list.slice(0, 3), currentNis);
+
+        // 4. Render Table (Peringkat 4 dst atau keseluruhan jika < 3)
+        renderLeaderboardTable(list, currentNis);
+
+        // 5. Render Catalog
+        renderBadgeCatalog(data.catalog, data.levels);
+
+      } catch (err) {
+        console.error('Error load leaderboard:', err);
+        if (tableTbody) {
+          tableTbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="py-6 text-center text-rose-600 font-medium">
+                <i class="fa-solid fa-triangle-exclamation mr-1"></i> Gagal memuat data peringkat: ${escapeHtml(err.message)}
+              </td>
+            </tr>`;
+        }
+      }
+    }
+
+    // Render Podium Top 3 (Emas, Perak, Perunggu)
+    function renderLeaderboardPodium(top3, currentNis) {
+      const container = document.getElementById('lb-podium-container');
+      if (!container) return;
+      if (!top3 || top3.length === 0) {
+        container.innerHTML = '<div class="col-span-3 text-center py-6 text-xs text-[#787774]">Belum ada data pengerjaan CBT.</div>';
+        return;
+      }
+
+      // Susun urutan visual: Juara 2 (Perak - Kiri), Juara 1 (Emas - Tengah), Juara 3 (Perunggu - Kanan)
+      const r1 = top3[0] || null;
+      const r2 = top3[1] || null;
+      const r3 = top3[2] || null;
+
+      const orderedPodium = [
+        { rank: 2, item: r2, bg: '#F8FAFC', border: '#E2E8F0', medal: '🥈', medalColor: '#64748B', title: 'Peringkat 2' },
+        { rank: 1, item: r1, bg: '#FFFDF5', border: '#FDE68A', medal: '🥇', medalColor: '#D97706', title: 'Peringkat 1 (Puncak)', highlight: true },
+        { rank: 3, item: r3, bg: '#FFF7ED', border: '#FED7AA', medal: '🥉', medalColor: '#C2410C', title: 'Peringkat 3' }
+      ];
+
+      container.innerHTML = orderedPodium.map(slot => {
+        const item = slot.item;
+        if (!item) {
+          return `
+            <div class="p-4 rounded-xl border border-dashed flex flex-col items-center justify-center text-center opacity-40 min-h-[170px]" style="background-color: ${slot.bg}; border-color: ${slot.border};">
+              <span class="text-2xl mb-1">${slot.medal}</span>
+              <span class="text-xs font-bold text-[#787774]">${slot.title}</span>
+              <span class="text-[11px] text-[#A8A29E]">Menunggu siswa</span>
+            </div>`;
+        }
+
+        const isMe = String(item.nis) === String(currentNis);
+        const initials = getStudentInitials(item.nama);
+        const badgesList = item.badges || [];
+
+        return `
+          <div class="p-4 rounded-xl border shadow-xs relative flex flex-col justify-between transition-transform hover:-translate-y-0.5 ${slot.highlight ? 'ring-1 ring-amber-300 md:-translate-y-1' : ''}"
+               style="background-color: ${slot.bg}; border-color: ${slot.border};">
+            
+            <!-- BADGE MEDALI SUDUT -->
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xl">${slot.medal}</span>
+                <span class="text-[11px] font-bold uppercase tracking-wider" style="color: ${slot.medalColor};">
+                  ${slot.title}
+                </span>
+              </div>
+              ${isMe ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-white shadow-2xs">KAMU</span>' : ''}
+            </div>
+
+            <!-- PROFIL SISWA -->
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center text-sm font-bold text-white shadow-xs shrink-0" style="background-color: #2E384D;">
+                ${escapeHtml(initials)}
+              </div>
+              <div class="min-w-0 flex-1">
+                <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] truncate" title="${escapeHtml(item.nama)}">
+                  ${escapeHtml(item.nama)}
+                </h4>
+                <div class="flex items-center gap-1.5 text-[11px] text-[#5F5E5B]">
+                  <span class="font-mono font-semibold">${escapeHtml(item.kelas)}</span>
+                  <span>•</span>
+                  <span class="truncate" style="color: #787774;">${escapeHtml(item.gelar)}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STATS PRESTASI PODIUM -->
+            <div class="pt-2.5 border-t border-black/5 grid grid-cols-3 gap-1 text-center text-xs">
+              <div>
+                <div class="text-[10px] text-[#787774]">Total XP</div>
+                <div class="font-extrabold text-[#2F3437] font-mono">${(item.total_xp || 0).toLocaleString('id-ID')}</div>
+              </div>
+              <div>
+                <div class="text-[10px] text-[#787774]">Streak 🔥</div>
+                <div class="font-bold text-rose-700 font-mono">${item.current_streak || 1} Hari</div>
+              </div>
+              <div>
+                <div class="text-[10px] text-[#787774]">Skor 100</div>
+                <div class="font-bold text-amber-700 font-mono">${item.total_sempurna || 0}x</div>
+              </div>
+            </div>
+
+            <!-- PREVIEW LENCANA -->
+            ${badgesList.length > 0 ? `
+              <div class="mt-2.5 pt-2 border-t border-black/5 flex items-center gap-1 flex-wrap">
+                ${badgesList.slice(0, 4).map(b => `
+                  <span class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] border shadow-2xs cursor-help"
+                        style="background-color: ${b.bg || '#FFFFFF'}; color: ${b.color || '#2F3437'}; border-color: ${b.color ? b.color + '33' : '#E8E6DF'};"
+                        title="${escapeHtml(b.name || '')}">
+                    <i class="${escapeHtml(b.icon || 'fa-solid fa-award')}"></i>
+                  </span>
+                `).join('')}
+                ${badgesList.length > 4 ? `<span class="text-[10px] font-mono text-[#787774]">+${badgesList.length - 4}</span>` : ''}
+              </div>` : ''}
+          </div>`;
+      }).join('');
+    }
+
+    // Render Tabel Leaderboard Lengkap (Peringkat 1 s/d 50)
+    function renderLeaderboardTable(list, currentNis) {
+      const tbody = document.getElementById('lb-table-tbody');
+      if (!tbody) return;
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="py-8 text-center text-[#787774]">Tidak ada data siswa ditemukan untuk filter ini.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map(item => {
+        const isMe = String(item.nis) === String(currentNis);
+        const initials = getStudentInitials(item.nama);
+        const badgesList = item.badges || [];
+
+        let rankBadge = `<span class="font-mono font-bold text-xs text-[#5F5E5B]">${item.rank}</span>`;
+        if (item.rank === 1) rankBadge = `<span class="text-base" title="Juara 1">🥇</span>`;
+        else if (item.rank === 2) rankBadge = `<span class="text-base" title="Juara 2">🥈</span>`;
+        else if (item.rank === 3) rankBadge = `<span class="text-base" title="Juara 3">🥉</span>`;
+
+        return `
+          <tr class="transition-colors hover:bg-[#F7F6F3]/70 ${isMe ? 'bg-amber-50/70 font-semibold' : ''}">
+            <td class="py-2.5 px-3 text-center">${rankBadge}</td>
+            <td class="py-2.5 px-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold text-white shrink-0 shadow-2xs" style="background-color: #2E384D;">
+                  ${escapeHtml(initials)}
+                </div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold text-[#2F3437] truncate max-w-[200px] flex items-center gap-1.5" title="${escapeHtml(item.nama)}">
+                    <span>${escapeHtml(item.nama)}</span>
+                    ${isMe ? '<span class="px-1.5 py-0.2 rounded text-[9.5px] font-extrabold bg-amber-500 text-white">KAMU</span>' : ''}
+                  </div>
+                  <div class="text-[10px] text-[#787774] font-mono sm:hidden">${escapeHtml(item.kelas)}</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-center font-mono text-[11px] text-[#5F5E5B]">${escapeHtml(item.kelas)}</td>
+            <td class="py-2.5 px-3">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10.5px] font-medium" style="background-color: #F0EFEA; color: #2F3437; border: 1px solid #E8E6DF;">
+                <span class="text-[10px] font-mono font-bold text-amber-700">Lvl ${item.level}</span>
+                <span>${escapeHtml(item.gelar)}</span>
+              </span>
+            </td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-rose-700">
+                <i class="fa-solid fa-fire text-[10px] text-rose-500"></i> ${item.current_streak || 1}
+              </span>
+            </td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-amber-800">
+                <i class="fa-solid fa-bullseye text-[10px] text-amber-600"></i> ${item.total_sempurna || 0}
+              </span>
+            </td>
+            <td class="py-2.5 px-3 text-right font-mono font-bold text-xs text-[#2F3437]">
+              ${(item.total_xp || 0).toLocaleString('id-ID')}
+            </td>
+            <td class="py-2.5 px-3 text-center">
+              <div class="flex items-center justify-center gap-1 flex-wrap">
+                ${badgesList.length > 0 ? badgesList.map(b => `
+                  <span class="w-5 h-5 rounded flex items-center justify-center text-[10px] border shadow-2xs cursor-help"
+                        style="background-color: ${b.bg || '#FFFFFF'}; color: ${b.color || '#2F3437'}; border-color: ${b.color ? b.color + '33' : '#E8E6DF'};"
+                        title="${escapeHtml(b.name || '')}">
+                    <i class="${escapeHtml(b.icon || 'fa-solid fa-award')}"></i>
+                  </span>
+                `).join('') : '<span class="text-[10px] text-[#A8A29E]">-</span>'}
+              </div>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    // Render Katalog Lencana & Tingkatan Gelar Akademik
+    function renderBadgeCatalog(catalog, levels) {
+      const levelsContainer = document.getElementById('lb-levels-container');
+      const badgesContainer = document.getElementById('lb-catalog-badges-container');
+
+      if (levelsContainer && levels && Array.isArray(levels)) {
+        levelsContainer.innerHTML = levels.map(lvl => `
+          <div class="p-3.5 rounded-xl border border-[#E8E6DF] bg-white space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded text-[10.5px] font-mono font-bold bg-[#2E384D] text-white">
+                Level ${lvl.level}
+              </span>
+              <span class="text-[11px] font-mono text-[#787774]">
+                ${lvl.maxXp < 999999 ? `${lvl.minXp} - ${lvl.maxXp} XP` : `≥ ${lvl.minXp} XP`}
+              </span>
+            </div>
+            <h5 class="text-xs font-bold text-[#2F3437]">${escapeHtml(lvl.gelar)}</h5>
+            <p class="text-[11px] text-[#787774] leading-relaxed">
+              ${lvl.level === 6 ? 'Pencapaian kalkulus tertinggi angkatan XII.' : 'Tingkatan pemahaman dan eksplorasi konsep matematika.'}
+            </p>
+          </div>
+        `).join('');
+      }
+
+      if (badgesContainer && catalog) {
+        const badgeKeys = Object.keys(catalog);
+        badgesContainer.innerHTML = badgeKeys.map(k => {
+          const b = catalog[k];
+          return `
+            <div class="p-3.5 rounded-xl border space-y-2 shadow-2xs"
+                 style="background-color: ${b.bg || '#FFFFFF'}; border-color: ${b.color ? b.color + '33' : '#E8E6DF'};">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-2xs shrink-0"
+                     style="background-color: #FFFFFF; color: ${b.color || '#2F3437'}; border: 1px solid ${b.color ? b.color + '33' : '#E8E6DF'};">
+                  <i class="${escapeHtml(b.icon || 'fa-solid fa-award')}"></i>
+                </div>
+                <div>
+                  <h5 class="text-xs font-bold" style="color: ${b.color || '#2F3437'};">${escapeHtml(b.name)}</h5>
+                  <span class="text-[10px] text-[#787774] font-mono">${escapeHtml(b.id)}</span>
+                </div>
+              </div>
+              <p class="text-[11px] text-[#5F5E5B] leading-relaxed">${escapeHtml(b.desc)}</p>
+            </div>`;
+        }).join('');
+      }
+    }
+
+    // Auto-Init Gamifikasi saat aplikasi dimuat
+    function initGamificationOnLoad() {
+      try {
+        let sess = null;
+        try { sess = JSON.parse(localStorage.getItem('portal_session') || 'null'); } catch(e) {}
+        let nis = null;
+        if (sess && sess.data && sess.data.nis) {
+          nis = sess.data.nis;
+        } else if (sess && sess.type === 'siswa') {
+          nis = '24400083';
+        }
+
+        // Cek cache lokal terlebih dahulu untuk instant rendering tanpa kedip
+        if (nis) {
+          const cached = localStorage.getItem('mathcihuy_gamifikasi_' + nis);
+          if (cached) {
+            try {
+              const parsed = JSON.parse(cached);
+              renderGamificationHeroCard(parsed);
+            } catch(e) {}
+          }
+        }
+
+        // Fetch fresh profil gamifikasi resmi dari D1
+        fetchGamificationProfile(nis);
+
+      } catch (e) {
+        console.warn('Init gamifikasi:', e);
+      }
+    }
+
+    // Jalankan initGamificationOnLoad saat dokumen siap
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initGamificationOnLoad);
+    } else {
+      setTimeout(initGamificationOnLoad, 100);
+    }
+
+    // EXPOSE FUNGSI GAMIFIKASI & LEADERBOARD KE WINDOW
+    window.fetchGamificationProfile = fetchGamificationProfile;
+    window.renderGamificationHeroCard = renderGamificationHeroCard;
+    window.openLeaderboardModal = openLeaderboardModal;
+    window.closeLeaderboardModal = closeLeaderboardModal;
+    window.switchLeaderboardFilter = switchLeaderboardFilter;
+    window.switchLeaderboardView = switchLeaderboardView;
+    window.loadLeaderboardData = loadLeaderboardData;
+
+

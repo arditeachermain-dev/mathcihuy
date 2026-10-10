@@ -3174,6 +3174,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               if (typeof updateScorecardWithServerResult === 'function') {
                 updateScorecardWithServerResult(subj, pkgId, d1Res, payload.jumlah_soal);
               }
+
+              // Update status gamifikasi & streak siswa secara langsung pasca submit CBT
+              if (d1Res.gamifikasi && typeof renderGamificationHeroCard === 'function') {
+                renderGamificationHeroCard(d1Res.gamifikasi);
+              } else if (typeof fetchGamificationProfile === 'function') {
+                fetchGamificationProfile(nis);
+              }
             }
 
             // Bersihkan draft live answers dari Cloudflare D1
