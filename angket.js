@@ -194,6 +194,7 @@ function closeAngketModal() {
   }
   document.body.style.overflow = '';
 }
+window.closeAngketModal = closeAngketModal;
 
 // Render 10 Butir Pertanyaan Angket
 function renderAngketQuestions() {
@@ -583,6 +584,7 @@ function closeTeacherAngketModal() {
   }
   document.body.style.overflow = '';
 }
+window.closeTeacherAngketModal = closeTeacherAngketModal;
 
 function renderTeacherAngketStats(data) {
   const totalRespondenEl = document.getElementById('guru-angket-total-count');

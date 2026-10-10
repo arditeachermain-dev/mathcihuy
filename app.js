@@ -77,6 +77,257 @@
     const STORAGE_STATE_KEY = kunciTingkat('gis_math_portal_state_v3');
     const STORAGE_SCORES_KEY = kunciTingkat('gis_math_portal_scores_v3');
 
+    // =========================================================================
+    // GLOBAL ESCAPE MODAL MANAGER (TUTUP SEMUA DIALOG DENGAN TOMBOL ESC)
+    // =========================================================================
+    function closeTopmostModal() {
+      // 1. Dropdown popover menu & slide tools
+      const userMenu = document.getElementById('user-profile-dropdown');
+      if (userMenu && !userMenu.classList.contains('hidden')) {
+        userMenu.classList.add('hidden');
+        return true;
+      }
+      const slideTools = document.getElementById('slide-tools-dropdown');
+      if (slideTools && !slideTools.classList.contains('hidden')) {
+        slideTools.classList.add('hidden');
+        return true;
+      }
+
+      // 2. High-priority confirmation & modal dialog overlays
+      const cbtSubmit = document.getElementById('cbt-submit-confirm-modal');
+      if (cbtSubmit && !cbtSubmit.classList.contains('hidden')) {
+        if (typeof closeCbtSubmitModal === 'function') closeCbtSubmitModal();
+        else cbtSubmit.classList.add('hidden');
+        return true;
+      }
+
+      const integrityModal = document.getElementById('modal-integrity-warning');
+      if (integrityModal && !integrityModal.classList.contains('hidden') && integrityModal.style.display !== 'none') {
+        if (typeof window.closeIntegrityWarningDialog === 'function') window.closeIntegrityWarningDialog();
+        else if (typeof closeIntegrityWarningDialog === 'function') closeIntegrityWarningDialog();
+        else {
+          integrityModal.classList.add('hidden');
+          integrityModal.classList.remove('flex');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.body.style.overflow = '';
+        return true;
+      }
+
+      const balasModal = document.getElementById('modal-balas-laporan-guru');
+      if (balasModal && !balasModal.classList.contains('hidden') && balasModal.style.display !== 'none') {
+        if (typeof window.closeBalasLaporanGuruModal === 'function') window.closeBalasLaporanGuruModal();
+        else if (typeof closeBalasLaporanGuruModal === 'function') closeBalasLaporanGuruModal();
+        else {
+          balasModal.classList.add('hidden');
+          balasModal.classList.remove('flex');
+        }
+        return true;
+      }
+
+      const broadcastModal = document.getElementById('modal-broadcast-guru');
+      if (broadcastModal && !broadcastModal.classList.contains('hidden') && broadcastModal.style.display !== 'none') {
+        if (typeof window.closeBroadcastModalGuru === 'function') window.closeBroadcastModalGuru();
+        else if (typeof closeBroadcastModalGuru === 'function') closeBroadcastModalGuru();
+        else {
+          broadcastModal.classList.add('hidden');
+          broadcastModal.classList.remove('flex');
+        }
+        return true;
+      }
+
+      // 3. Child & helpdesk modals
+      const laporModal = document.getElementById('modal-lapor-kendala');
+      if (laporModal && !laporModal.classList.contains('hidden') && laporModal.style.display !== 'none') {
+        if (typeof window.closeLaporModal === 'function') window.closeLaporModal();
+        else if (typeof closeLaporModal === 'function') closeLaporModal();
+        else {
+          laporModal.classList.add('hidden');
+          laporModal.classList.remove('flex');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.body.style.overflow = '';
+        return true;
+      }
+
+      const notifModal = document.getElementById('modal-notifikasi');
+      if (notifModal && !notifModal.classList.contains('hidden') && notifModal.style.display !== 'none') {
+        if (typeof window.closeNotifikasiModal === 'function') window.closeNotifikasiModal();
+        else if (typeof closeNotifikasiModal === 'function') closeNotifikasiModal();
+        else {
+          notifModal.classList.add('hidden');
+          notifModal.classList.remove('flex');
+        }
+        return true;
+      }
+
+      const teacherAngketModal = document.getElementById('modal-guru-angket-rekap');
+      if (teacherAngketModal && !teacherAngketModal.classList.contains('hidden') && teacherAngketModal.style.display !== 'none') {
+        if (typeof window.closeTeacherAngketModal === 'function') window.closeTeacherAngketModal();
+        else if (typeof closeTeacherAngketModal === 'function') closeTeacherAngketModal();
+        else {
+          teacherAngketModal.classList.add('hidden');
+          teacherAngketModal.style.display = 'none';
+        }
+        document.body.style.overflow = '';
+        return true;
+      }
+
+      const angketModal = document.getElementById('modal-angket-refleksi');
+      if (angketModal && !angketModal.classList.contains('hidden') && angketModal.style.display !== 'none') {
+        if (typeof window.closeAngketModal === 'function') window.closeAngketModal();
+        else if (typeof closeAngketModal === 'function') closeAngketModal();
+        else {
+          angketModal.classList.add('hidden');
+          angketModal.style.display = 'none';
+        }
+        document.body.style.overflow = '';
+        return true;
+      }
+
+      // 4. Feature modals (Leaderboard, Rapor, CBT Scorecard, Guru Dashboard, Search, Jadwal, Analytics, Lab, Rumus, dll.)
+      const lbModal = document.getElementById('leaderboard-modal');
+      if (lbModal && !lbModal.classList.contains('hidden') && lbModal.style.display !== 'none') {
+        if (typeof window.closeLeaderboardModal === 'function') window.closeLeaderboardModal();
+        else if (typeof closeLeaderboardModal === 'function') closeLeaderboardModal();
+        else {
+          lbModal.classList.add('hidden');
+          lbModal.classList.remove('flex');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.body.style.overflow = '';
+        return true;
+      }
+
+      const raporModal = document.getElementById('rapor-siswa-modal');
+      if (raporModal && !raporModal.classList.contains('hidden') && raporModal.style.display !== 'none') {
+        if (typeof window.closeRaporModal === 'function') window.closeRaporModal();
+        else if (typeof closeRaporModal === 'function') closeRaporModal();
+        else {
+          raporModal.classList.add('hidden');
+          raporModal.classList.remove('flex');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.body.style.overflow = '';
+        return true;
+      }
+
+      const scorecardModal = document.getElementById('tka-scorecard-modal');
+      if (scorecardModal && !scorecardModal.classList.contains('hidden') && scorecardModal.style.display !== 'none') {
+        if (typeof closeTkaScorecardModal === 'function') closeTkaScorecardModal();
+        else scorecardModal.classList.add('hidden');
+        return true;
+      }
+
+      const guruDashboardModal = document.getElementById('guru-dashboard-modal');
+      if (guruDashboardModal && !guruDashboardModal.classList.contains('hidden') && guruDashboardModal.style.display !== 'none') {
+        if (typeof window.closeGuruDashboard === 'function') window.closeGuruDashboard();
+        else if (typeof closeGuruDashboard === 'function') closeGuruDashboard();
+        else {
+          guruDashboardModal.classList.add('hidden');
+          guruDashboardModal.classList.remove('flex');
+        }
+        return true;
+      }
+
+      const quickSearch = document.getElementById('quick-search-modal');
+      if (quickSearch && !quickSearch.classList.contains('hidden') && quickSearch.style.display !== 'none') {
+        if (typeof closeSearchModal === 'function') closeSearchModal();
+        else quickSearch.classList.add('hidden');
+        return true;
+      }
+
+      const schedModal = document.getElementById('schedule-modal');
+      if (schedModal && !schedModal.classList.contains('hidden') && schedModal.style.display !== 'none') {
+        if (typeof closeScheduleModal === 'function') closeScheduleModal();
+        else schedModal.classList.add('hidden');
+        return true;
+      }
+
+      const analyticsModal = document.getElementById('analytics-modal');
+      if (analyticsModal && !analyticsModal.classList.contains('hidden') && analyticsModal.style.display !== 'none') {
+        if (typeof closeAnalyticsModal === 'function') closeAnalyticsModal();
+        else analyticsModal.classList.add('hidden');
+        return true;
+      }
+
+      const meetingPicker = document.getElementById('meeting-picker-modal');
+      if (meetingPicker && !meetingPicker.classList.contains('hidden') && meetingPicker.style.display !== 'none') {
+        if (typeof closeMeetingPicker === 'function') closeMeetingPicker();
+        else meetingPicker.classList.add('hidden');
+        return true;
+      }
+
+      const rumusModal = document.getElementById('rumus-modal');
+      if (rumusModal && !rumusModal.classList.contains('hidden') && rumusModal.style.display !== 'none') {
+        if (typeof closeRumusSaku === 'function') closeRumusSaku();
+        else rumusModal.classList.add('hidden');
+        return true;
+      }
+
+      const labModal = document.getElementById('lab-modal');
+      if (labModal && !labModal.classList.contains('hidden') && labModal.style.display !== 'none') {
+        if (typeof closeLab === 'function') closeLab();
+        else labModal.classList.add('hidden');
+        return true;
+      }
+
+      const tryoutModal = document.getElementById('tryout-modal');
+      if (tryoutModal && !tryoutModal.classList.contains('hidden') && tryoutModal.style.display !== 'none') {
+        if (typeof closeTryout === 'function') closeTryout();
+        else tryoutModal.classList.add('hidden');
+        return true;
+      }
+
+      const petaModal = document.getElementById('peta-modal');
+      if (petaModal && !petaModal.classList.contains('hidden') && petaModal.style.display !== 'none') {
+        if (typeof closePeta === 'function') closePeta();
+        else petaModal.classList.add('hidden');
+        return true;
+      }
+
+      // 5. Drawer Kurikulum
+      const drawer = document.getElementById('curriculum-drawer');
+      const drawerBackdrop = document.getElementById('curriculum-drawer-backdrop');
+      if (drawer && (!drawer.classList.contains('-translate-x-full') || (drawerBackdrop && !drawerBackdrop.classList.contains('hidden')))) {
+        if (typeof closeCurriculumDrawer === 'function') closeCurriculumDrawer();
+        return true;
+      }
+
+      // 6. Presenter Tools & Cinema
+      if (typeof presState !== 'undefined' && (presState.black || presState.laser || presState.pen)) {
+        if (typeof presReset === 'function') presReset();
+        return true;
+      }
+      if (typeof cinemaAktif === 'function' && cinemaAktif() && !document.fullscreenElement) {
+        if (typeof setCinema === 'function') setCinema(false);
+        return true;
+      }
+
+      // 7. Generic Fallback: Temukan modal lain yang sedang aktif & klik tombol tutup (x)-nya
+      const allModals = document.querySelectorAll('[role="dialog"], .fixed.inset-0, [id*="modal"]');
+      for (const m of allModals) {
+        if (m.id === 'curriculum-drawer-backdrop') continue;
+        const isVisible = !m.classList.contains('hidden') && m.style.display !== 'none' && (m.offsetWidth > 0 || m.offsetHeight > 0);
+        if (isVisible) {
+          const btn = m.querySelector('button[aria-label*="utup" i], button[aria-label*="lose" i], button[onclick*="close" i], button[onclick*="tutup" i]');
+          if (btn) {
+            btn.click();
+            return true;
+          } else {
+            m.classList.add('hidden');
+            if (m.style.display && m.style.display !== 'none') m.style.display = 'none';
+            document.body.classList.remove('overflow-hidden');
+            document.body.style.overflow = '';
+            return true;
+          }
+        }
+      }
+
+      return false;
+    }
+    window.closeTopmostModal = closeTopmostModal;
+
     // 3. INITIALIZATION & ROUTING ENGINE
     function initPortal() {
       // SMART CACHE & INTEGRITY AUTO-GUARD:
@@ -143,8 +394,17 @@
         }
         const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || '')
                     || (e.target && e.target.isContentEditable);
-        const modalOpen = ['quick-search-modal', 'schedule-modal', 'analytics-modal', 'tka-scorecard-modal', 'meeting-picker-modal', 'rumus-modal', 'lab-modal', 'tryout-modal']
-          .some(id => { const m = document.getElementById(id); return m && !m.classList.contains('hidden'); });
+        const modalOpen = [
+          'quick-search-modal', 'schedule-modal', 'analytics-modal', 'tka-scorecard-modal',
+          'meeting-picker-modal', 'rumus-modal', 'lab-modal', 'tryout-modal', 'peta-modal',
+          'rapor-siswa-modal', 'leaderboard-modal', 'guru-dashboard-modal',
+          'modal-lapor-kendala', 'modal-notifikasi', 'modal-integrity-warning',
+          'modal-balas-laporan-guru', 'modal-broadcast-guru', 'modal-angket-refleksi',
+          'modal-guru-angket-rekap', 'cbt-submit-confirm-modal'
+        ].some(id => {
+          const m = document.getElementById(id);
+          return m && !m.classList.contains('hidden') && m.style.display !== 'none';
+        });
 
         if (!typing && !modalOpen && !e.ctrlKey && !e.metaKey && !e.altKey) {
           // presenter keys: arrows / space page through slides and questions,
@@ -198,18 +458,14 @@
         }
         if ((e.ctrlKey || e.metaKey) && e.key === '0') { e.preventDefault(); uiStepIdx = 0; applyUiScale(); return; }
         if (e.key === 'Escape') {
-          closePeta();
-          closeTryout();
-          if (presState.black || presState.laser || presState.pen) { presReset(); return; }
-          closeLab();
-          closeRumusSaku();
-          closeMeetingPicker();
-          if (cinemaAktif() && !document.fullscreenElement) setCinema(false);
-          closeSearchModal();
-          closeCurriculumDrawer();
-          closeScheduleModal();
-          closeAnalyticsModal();
-          closeTkaScorecardModal();
+          if (e.target && typeof e.target.blur === 'function') {
+            e.target.blur();
+          }
+          const closed = closeTopmostModal();
+          if (closed) {
+            e.preventDefault();
+            return;
+          }
         }
       });
 
@@ -9500,6 +9756,19 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         window.loadGuruDashboardData();
       }
     };
+
+    // Expose Core Modal Closers to Global Window
+    window.closeCbtSubmitModal = closeCbtSubmitModal;
+    window.closeTkaScorecardModal = closeTkaScorecardModal;
+    window.closeSearchModal = closeSearchModal;
+    window.closeScheduleModal = closeScheduleModal;
+    window.closeAnalyticsModal = closeAnalyticsModal;
+    window.closeMeetingPicker = closeMeetingPicker;
+    window.closeRumusSaku = closeRumusSaku;
+    window.closeLab = closeLab;
+    window.closePeta = closePeta;
+    window.closeTryout = closeTryout;
+    window.closeCurriculumDrawer = closeCurriculumDrawer;
 
 
 function paksaPerbaruiAplikasi() {
