@@ -60,5 +60,5 @@ Claude outputs/
 # Cloudflare Wrangler local cache / build state
 .wrangler/
 
-
+node_modules/
 scratch/
