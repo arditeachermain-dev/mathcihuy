@@ -1876,9 +1876,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         }
       }
 
-      // Render Widget Event Mingguan
+      // Render Widget Event Mingguan (Raid Boss Battle)
       if (typeof renderWeeklyEventWidget === 'function') {
-        renderWeeklyEventWidget(profile.weekly_event);
+        renderWeeklyEventWidget(profile.raid_boss || profile.weekly_event);
       }
     }
 
@@ -2585,97 +2585,383 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     // =========================================================================
-    // MODUL 1: WEEKLY EXP BLITZ & QUESTS (TANTANGAN MINGGUAN MATEMATIKA)
+    // MODUL 1: WEEKLY RAID BOSS BATTLE — TITAN STATIGO (WAJIB P15, P16 & MINAT P17)
     // =========================================================================
-    function renderWeeklyEventWidget(eventData) {
-      if (!eventData) return;
+    let _cachedRaidBossData = null;
+    let _filteredRaidBossLeaderboard = [];
+
+    function renderWeeklyEventWidget(data) {
+      if (!data) return;
       const card = document.getElementById('weekly-event-card');
       if (!card) return;
 
-      const weekBadgeEl = document.getElementById('weekly-week-badge');
-      if (weekBadgeEl && eventData.week_label) {
-        weekBadgeEl.textContent = eventData.week_label;
-      }
+      const isRaidBoss = Boolean(data.boss_name || data.total_damage_dealt !== undefined || data.boss_id);
 
-      const timerTextEl = document.getElementById('weekly-timer-text');
-      if (timerTextEl) {
-        if (eventData.days_remaining > 0) {
-          timerTextEl.textContent = `Tersisa ${eventData.days_remaining} hari (Reset Minggu 23:59 WIB)`;
-        } else {
-          timerTextEl.textContent = `Tersisa ${eventData.hours_remaining || 0} jam (Reset Malam Ini!)`;
+      if (isRaidBoss) {
+        _cachedRaidBossData = data;
+        const bossName = data.boss_name || 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF';
+        const phase = data.phase || 'FASE 2 • WEAKENED';
+        const maxHp = Number(data.max_hp) || 150000;
+        const curHp = Math.max(0, Number(data.current_hp) || 0);
+        const totalDmg = Number(data.total_damage_dealt) || 0;
+        const pctHp = Math.max(0, Math.min(100, Number(data.pct_hp_remaining) || Math.round((curHp / maxHp) * 100)));
+        const totalAttackers = Number(data.total_attackers) || 0;
+        const isDefeated = Boolean(data.is_defeated || curHp <= 0);
+
+        // Phase Badge
+        const phaseBadge = document.getElementById('boss-phase-badge');
+        if (phaseBadge) {
+          phaseBadge.textContent = phase;
+          if (isDefeated) {
+            phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
+          } else if (pctHp <= 25) {
+            phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300 animate-pulse';
+          } else {
+            phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200';
+          }
+        }
+
+        // Timer text
+        const timerText = document.getElementById('boss-timer-text');
+        if (timerText) {
+          if (data.days_remaining > 0) {
+            timerText.innerHTML = `<i class="fa-solid fa-hourglass-half text-[11px]"></i> <span>Tersisa ${data.days_remaining} hari (Reset Minggu 23:59 WIB)</span>`;
+          } else {
+            timerText.innerHTML = `<i class="fa-solid fa-hourglass-end text-[11px] animate-bounce"></i> <span>Tersisa ${data.hours_remaining || 0} jam (Reset Malam Ini!)</span>`;
+          }
+        }
+
+        // HP Text & Bar
+        const hpText = document.getElementById('boss-hp-text');
+        if (hpText) {
+          hpText.textContent = `${curHp.toLocaleString('id-ID')} / ${maxHp.toLocaleString('id-ID')} HP (${pctHp}% Tersisa)`;
+        }
+        const hpBar = document.getElementById('boss-hp-bar');
+        if (hpBar) {
+          hpBar.style.width = `${pctHp}%`;
+          if (pctHp <= 25) {
+            hpBar.className = 'h-full rounded-full transition-all duration-700 bg-gradient-to-r from-red-600 to-rose-500 animate-pulse';
+          } else if (pctHp <= 60) {
+            hpBar.className = 'h-full rounded-full transition-all duration-700 bg-gradient-to-r from-rose-600 via-amber-500 to-yellow-400';
+          } else {
+            hpBar.className = 'h-full rounded-full transition-all duration-700 bg-gradient-to-r from-emerald-500 to-cyan-500';
+          }
+        }
+
+        // Total Damage & Attackers
+        const totalDmgText = document.getElementById('boss-total-damage-text');
+        if (totalDmgText) totalDmgText.textContent = `${totalDmg.toLocaleString('id-ID')} DMG`;
+        const attackersText = document.getElementById('boss-attackers-count');
+        if (attackersText) attackersText.textContent = totalAttackers;
+
+        // User Attack Stats
+        const uStats = data.user_stats;
+        const p15Status = document.getElementById('boss-p15-status');
+        const p16Status = document.getElementById('boss-p16-status');
+        const p17Status = document.getElementById('boss-p17-status');
+        const userDmgEl = document.getElementById('boss-user-dmg');
+        const userRankBadge = document.getElementById('boss-user-rank-badge');
+        const userRewardEl = document.getElementById('boss-user-reward');
+
+        if (uStats) {
+          if (p15Status) {
+            if (uStats.p15_wajib_skor > 0) {
+              const dmg15 = uStats.p15_wajib_skor * 10 + (uStats.p15_wajib_skor === 100 ? 500 : 0);
+              p15Status.innerHTML = `<span class="text-emerald-700 font-bold">${uStats.p15_wajib_skor}</span> <span class="text-[10px] text-slate-500">(${dmg15} DMG)</span>`;
+            } else {
+              p15Status.textContent = 'Belum Serang';
+            }
+          }
+          if (p16Status) {
+            if (uStats.p16_wajib_skor > 0) {
+              const dmg16 = uStats.p16_wajib_skor * 10 + (uStats.p16_wajib_skor === 100 ? 500 : 0);
+              p16Status.innerHTML = `<span class="text-emerald-700 font-bold">${uStats.p16_wajib_skor}</span> <span class="text-[10px] text-slate-500">(${dmg16} DMG)</span>`;
+            } else {
+              p16Status.textContent = 'Belum Serang';
+            }
+          }
+          if (p17Status) {
+            if (uStats.p17_minat_skor > 0) {
+              const dmg17 = uStats.p17_minat_skor * 15 + (uStats.p17_minat_skor === 100 ? 500 : 0);
+              p17Status.innerHTML = `<span class="text-amber-800 font-bold">${uStats.p17_minat_skor}</span> <span class="text-[10px] text-slate-500">(${dmg17} DMG)</span>`;
+            } else {
+              p17Status.textContent = 'Belum Serang';
+            }
+          }
+
+          if (userDmgEl) userDmgEl.textContent = `${(uStats.total_damage || 0).toLocaleString('id-ID')} DMG`;
+          if (userRankBadge) {
+            if (uStats.total_damage > 0) {
+              userRankBadge.textContent = `Peringkat #${uStats.rank || '-'}`;
+              userRankBadge.className = 'px-2 py-0.5 rounded-md text-[10.5px] font-mono font-bold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]';
+            } else {
+              userRankBadge.textContent = 'Belum Peringkat';
+              userRankBadge.className = 'px-2 py-0.5 rounded-md text-[10.5px] font-mono font-semibold bg-[#F0EFEA] text-[#787774] border border-[#E8E6DF]';
+            }
+          }
+          if (userRewardEl) {
+            const baseReward = uStats.reward_xp || 0;
+            const extraReward = isDefeated ? 250 : 0;
+            userRewardEl.textContent = `(Potensi +${baseReward + extraReward} EXP)`;
+          }
+        }
+
+        // Victory Banner
+        const vicBanner = document.getElementById('boss-victory-banner');
+        if (vicBanner) {
+          if (isDefeated) {
+            vicBanner.classList.remove('hidden');
+          } else {
+            vicBanner.classList.add('hidden');
+          }
+        }
+      }
+    }
+
+    function serangRaidBoss(mapel, kode) {
+      closeRaidBossLeaderboardModal();
+      if (typeof bukaPaketCbtDariRapor === 'function') {
+        bukaPaketCbtDariRapor(mapel, kode);
+      } else if (typeof openTkaForCurrentMeeting === 'function') {
+        openTkaForCurrentMeeting(kode, 0, mapel);
+      } else {
+        if (typeof switchSubject === 'function') switchSubject('tka');
+        if (typeof tkaSubj !== 'undefined') tkaSubj = mapel;
+        if (typeof tkaPkgId !== 'undefined') tkaPkgId = kode;
+        if (typeof renderAppView === 'function') renderAppView();
+      }
+    }
+
+    async function openRaidBossLeaderboardModal() {
+      const modal = document.getElementById('raid-boss-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      const scrollBody = modal.querySelector('.kolab-scroll');
+      if (scrollBody) scrollBody.scrollTop = 0;
+
+      // Jika data belum lengkap di cache, fetch langsung dari API
+      if (!_cachedRaidBossData || !_cachedRaidBossData.leaderboard || _cachedRaidBossData.leaderboard.length === 0) {
+        try {
+          const nisParam = (typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) ? currentSiswa.nis : '';
+          const res = await fetch(`/api/gamifikasi?raid_boss=1&nis=${encodeURIComponent(nisParam)}`);
+          if (res.ok) {
+            const json = await res.json();
+            if (json.raid_boss) {
+              _cachedRaidBossData = json.raid_boss;
+            }
+          }
+        } catch (e) {
+          console.warn('Gagal memuat remote raid boss data:', e);
         }
       }
 
-      const totalEarnedEl = document.getElementById('weekly-total-earned');
-      if (totalEarnedEl) {
-        totalEarnedEl.textContent = eventData.earned_bonus_xp || 0;
+      if (_cachedRaidBossData) {
+        renderRaidBossLeaderboard(_cachedRaidBossData);
       }
+    }
 
-      const quests = Array.isArray(eventData.quests) ? eventData.quests : [];
-      const qCbt = quests[0] || { progress: 0, target: 2, is_done: false };
-      const qDiscord = quests[1] || { progress: 0, target: 3, is_done: false };
-      const qAngket = quests[2] || { progress: 0, target: 1, is_done: false };
+    function closeRaidBossLeaderboardModal() {
+      const modal = document.getElementById('raid-boss-modal');
+      if (modal) modal.classList.add('hidden');
+    }
 
-      // Quest 1: CBT
-      const cbtStatusEl = document.getElementById('quest-cbt-status');
-      const cbtPctEl = document.getElementById('quest-cbt-pct');
-      const cbtBarEl = document.getElementById('quest-cbt-bar');
-      const cbtCardEl = document.getElementById('quest-card-cbt');
-      const cbtPct = Math.min(100, Math.round(((qCbt.progress || 0) / (qCbt.target || 2)) * 100));
-      if (cbtStatusEl) cbtStatusEl.textContent = `${qCbt.progress || 0} / ${qCbt.target || 2} Selesai`;
-      if (cbtPctEl) cbtPctEl.textContent = `${cbtPct}%`;
-      if (cbtBarEl) {
-        cbtBarEl.style.width = `${cbtPct}%`;
-        if (qCbt.is_done) cbtBarEl.className = 'h-full rounded-full bg-emerald-600 transition-all duration-500';
-      }
-      if (cbtCardEl && qCbt.is_done) {
-        cbtCardEl.style.borderColor = '#A7F3D0';
-        cbtCardEl.style.backgroundColor = '#F0FDF4';
-      }
+    function renderRaidBossLeaderboard(data) {
+      if (!data) return;
+      _cachedRaidBossData = data;
+      _filteredRaidBossLeaderboard = Array.isArray(data.leaderboard) ? [...data.leaderboard] : [];
 
-      // Quest 2: Discord
-      const discordStatusEl = document.getElementById('quest-discord-status');
-      const discordPctEl = document.getElementById('quest-discord-pct');
-      const discordBarEl = document.getElementById('quest-discord-bar');
-      const discordCardEl = document.getElementById('quest-card-discord');
-      const discordPct = Math.min(100, Math.round(((qDiscord.progress || 0) / (qDiscord.target || 3)) * 100));
-      if (discordStatusEl) discordStatusEl.textContent = `${qDiscord.progress || 0} / ${qDiscord.target || 3} Selesai`;
-      if (discordPctEl) discordPctEl.textContent = `${discordPct}%`;
-      if (discordBarEl) {
-        discordBarEl.style.width = `${discordPct}%`;
-        if (qDiscord.is_done) discordBarEl.className = 'h-full rounded-full bg-emerald-600 transition-all duration-500';
-      }
-      if (discordCardEl && qDiscord.is_done) {
-        discordCardEl.style.borderColor = '#A7F3D0';
-        discordCardEl.style.backgroundColor = '#F0FDF4';
-      }
+      const curHp = Math.max(0, Number(data.current_hp) || 0);
+      const maxHp = Number(data.max_hp) || 150000;
+      const pctHp = Math.max(0, Math.min(100, Number(data.pct_hp_remaining) || Math.round((curHp / maxHp) * 100)));
+      const isDefeated = Boolean(data.is_defeated || curHp <= 0);
 
-      // Quest 3: Angket
-      const angketStatusEl = document.getElementById('quest-angket-status');
-      const angketPctEl = document.getElementById('quest-angket-pct');
-      const angketBarEl = document.getElementById('quest-angket-bar');
-      const angketCardEl = document.getElementById('quest-card-angket');
-      const angketPct = qAngket.is_done ? 100 : 0;
-      if (angketStatusEl) angketStatusEl.textContent = qAngket.is_done ? 'Sudah Diisi' : 'Belum Diisi';
-      if (angketPctEl) angketPctEl.textContent = `${angketPct}%`;
-      if (angketBarEl) {
-        angketBarEl.style.width = `${angketPct}%`;
-        if (qAngket.is_done) angketBarEl.className = 'h-full rounded-full bg-emerald-600 transition-all duration-500';
-      }
-      if (angketCardEl && qAngket.is_done) {
-        angketCardEl.style.borderColor = '#A7F3D0';
-        angketCardEl.style.backgroundColor = '#F0FDF4';
-      }
+      // Header & Status Info
+      const phaseBadge = document.getElementById('rb-modal-phase-badge');
+      if (phaseBadge) phaseBadge.textContent = data.phase || 'FASE 2 • WEAKENED';
+      const bossName = document.getElementById('rb-modal-boss-name');
+      if (bossName) bossName.textContent = data.boss_name || 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF';
+      const hpText = document.getElementById('rb-modal-hp-text');
+      if (hpText) hpText.textContent = `${curHp.toLocaleString('id-ID')} / ${maxHp.toLocaleString('id-ID')} HP (${pctHp}%)`;
+      const hpBar = document.getElementById('rb-modal-hp-bar');
+      if (hpBar) hpBar.style.width = `${pctHp}%`;
 
-      // All-Clear Banner
-      const allClearBanner = document.getElementById('weekly-all-clear-banner');
-      if (allClearBanner) {
-        if (eventData.all_done) {
-          allClearBanner.classList.remove('hidden');
+      const totalDmgEl = document.getElementById('rb-modal-total-dmg');
+      if (totalDmgEl) totalDmgEl.textContent = `${(data.total_damage_dealt || 0).toLocaleString('id-ID')} DMG`;
+      const attackersEl = document.getElementById('rb-modal-total-attackers');
+      if (attackersEl) attackersEl.textContent = `${(data.total_attackers || 0)} Siswa`;
+      
+      let critHitsTotal = 0;
+      if (Array.isArray(data.leaderboard)) {
+        critHitsTotal = data.leaderboard.reduce((acc, cur) => acc + (Number(cur.critical_hits) || 0), 0);
+      }
+      const critEl = document.getElementById('rb-modal-critical-hits');
+      if (critEl) critEl.textContent = `${critHitsTotal} Hits`;
+
+      const statusText = document.getElementById('rb-modal-status-text');
+      if (statusText) {
+        if (isDefeated) {
+          statusText.textContent = 'Titan Tumbang!';
+          statusText.className = 'text-xs sm:text-sm font-bold text-amber-700';
+        } else if (pctHp <= 25) {
+          statusText.textContent = 'Critical Rage (25%)';
+          statusText.className = 'text-xs sm:text-sm font-bold text-rose-700';
         } else {
-          allClearBanner.classList.add('hidden');
+          statusText.textContent = 'Weakened (Bertahan)';
+          statusText.className = 'text-xs sm:text-sm font-bold text-amber-800';
         }
       }
+
+      // User Personal Standing
+      const u = data.user_stats;
+      const uCard = document.getElementById('rb-user-standing-card');
+      if (u && uCard) {
+        const uIdent = document.getElementById('rb-user-identity');
+        if (uIdent) uIdent.textContent = `${u.nama || 'Kamu'} • ${u.kelas || 'XII'} (${u.nis || '-'})`;
+        const uRank = document.getElementById('rb-user-rank-tag');
+        if (uRank) {
+          uRank.textContent = u.total_damage > 0 ? `Peringkat #${u.rank || '-'}` : 'Belum Ada Peringkat';
+        }
+        const uTitle = document.getElementById('rb-user-title-tag');
+        if (uTitle) uTitle.textContent = u.title || (u.total_damage > 0 ? 'Brave Warrior' : 'Belum Menyerang');
+
+        const p15Det = document.getElementById('rb-user-p15-detail');
+        if (p15Det) {
+          const dmg15 = u.p15_wajib_skor > 0 ? (u.p15_wajib_skor * 10 + (u.p15_wajib_skor === 100 ? 500 : 0)) : 0;
+          p15Det.textContent = u.p15_wajib_skor > 0 ? `Skor ${u.p15_wajib_skor} (${dmg15} DMG)` : 'Belum Serang';
+        }
+
+        const p16Det = document.getElementById('rb-user-p16-detail');
+        if (p16Det) {
+          const dmg16 = u.p16_wajib_skor > 0 ? (u.p16_wajib_skor * 10 + (u.p16_wajib_skor === 100 ? 500 : 0)) : 0;
+          p16Det.textContent = u.p16_wajib_skor > 0 ? `Skor ${u.p16_wajib_skor} (${dmg16} DMG)` : 'Belum Serang';
+        }
+
+        const p17Det = document.getElementById('rb-user-p17-detail');
+        if (p17Det) {
+          const dmg17 = u.p17_minat_skor > 0 ? (u.p17_minat_skor * 15 + (u.p17_minat_skor === 100 ? 500 : 0)) : 0;
+          p17Det.textContent = u.p17_minat_skor > 0 ? `Skor ${u.p17_minat_skor} (${dmg17} DMG)` : 'Belum Serang';
+        }
+
+        const uTotalDmg = document.getElementById('rb-user-total-dmg-detail');
+        if (uTotalDmg) uTotalDmg.textContent = `${(u.total_damage || 0).toLocaleString('id-ID')} DMG`;
+      }
+
+      // Podium Top 3
+      renderRaidBossPodium(data.leaderboard || []);
+
+      // Tabel Seluruh Penyerang
+      renderRaidBossTable(_filteredRaidBossLeaderboard);
+    }
+
+    function renderRaidBossPodium(list) {
+      const container = document.getElementById('rb-podium-container');
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<div class="col-span-3 text-center py-4 text-xs text-[#787774]">Belum ada penyerang terdaftar. Jadilah yang pertama menumbangkan Titan!</div>';
+        return;
+      }
+
+      const top3 = list.slice(0, 3);
+      const podiumConfig = [
+        { rank: 1, label: 'Juara 1 • Titan Slayer', reward: '+500 EXP', medal: '🥇', bg: '#FFFBEB', border: '#FDE68A', text: '#92400E' },
+        { rank: 2, label: 'Juara 2 • Grand Conqueror', reward: '+400 EXP', medal: '🥈', bg: '#F8FAFC', border: '#E2E8F0', text: '#334155' },
+        { rank: 3, label: 'Juara 3 • Grand Conqueror', reward: '+400 EXP', medal: '🥉', bg: '#FFF7ED', border: '#FFEDD5', text: '#9A3412' }
+      ];
+
+      container.innerHTML = top3.map((p, idx) => {
+        const cfg = podiumConfig[idx] || podiumConfig[1];
+        return `
+          <div class="p-3.5 rounded-xl border flex flex-col justify-between gap-2 shadow-2xs transition hover:shadow-xs"
+               style="background-color: ${cfg.bg}; border-color: ${cfg.border};">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">${cfg.medal}</span>
+                <div>
+                  <h6 class="text-xs font-bold text-[#2F3437] line-clamp-1" title="${escapeHtml(p.nama)}">${escapeHtml(p.nama)}</h6>
+                  <span class="text-[10px] text-[#787774] font-mono">${escapeHtml(p.kelas || 'XII')} • NIS ${escapeHtml(p.nis)}</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold" style="background-color: #FFFFFF; color: ${cfg.text}; border: 1px solid ${cfg.border};">
+                ${cfg.reward}
+              </span>
+            </div>
+
+            <div class="pt-2 border-t flex items-center justify-between text-xs" style="border-color: ${cfg.border};">
+              <span class="text-[10.5px] text-[#787774]">${cfg.label}</span>
+              <strong class="font-mono font-black text-rose-700">${Number(p.total_damage || 0).toLocaleString('id-ID')} DMG</strong>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderRaidBossTable(list) {
+      const tbody = document.getElementById('rb-leaderboard-tbody');
+      const countEl = document.getElementById('rb-table-count');
+      if (countEl) countEl.textContent = (list || []).length;
+      if (!tbody) return;
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-6 text-xs text-[#787774]">Tidak ada data penyerang yang cocok.</td></tr>';
+        return;
+      }
+
+      const currentNis = (typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) ? String(currentSiswa.nis).trim() : '';
+
+      tbody.innerHTML = list.map(item => {
+        const isSelf = currentNis && String(item.nis).trim() === currentNis;
+        const rowBg = isSelf ? 'background-color: #FEF9C3;' : '';
+        const rankBadge = item.rank === 1 ? '🥇 1' : (item.rank === 2 ? '🥈 2' : (item.rank === 3 ? '🥉 3' : `#${item.rank}`));
+        
+        const p15Val = item.p15_wajib_skor > 0 
+          ? `<span class="font-mono font-bold text-emerald-700">${item.p15_wajib_skor}</span>` 
+          : `<span class="text-[#A8A29E] font-mono">-</span>`;
+        const p16Val = item.p16_wajib_skor > 0 
+          ? `<span class="font-mono font-bold text-emerald-700">${item.p16_wajib_skor}</span>` 
+          : `<span class="text-[#A8A29E] font-mono">-</span>`;
+        const p17Val = item.p17_minat_skor > 0 
+          ? `<span class="font-mono font-bold text-amber-800">${item.p17_minat_skor}</span>` 
+          : `<span class="text-[#A8A29E] font-mono">-</span>`;
+
+        return `
+          <tr class="hover:bg-[#F5F4F0] transition-colors" style="${rowBg}">
+            <td class="py-2 px-3 text-center font-mono font-bold text-[11px] text-[#5F5E5B]">${rankBadge}</td>
+            <td class="py-2 px-3">
+              <div class="font-semibold text-xs text-[#2F3437] line-clamp-1 flex items-center gap-1.5">
+                <span>${escapeHtml(item.nama)}</span>
+                ${isSelf ? '<span class="px-1 py-0.2 rounded text-[9px] font-bold bg-amber-200 text-amber-900">KAMU</span>' : ''}
+              </div>
+            </td>
+            <td class="py-2 px-2 text-center text-[11px] font-mono text-[#787774]">${escapeHtml(item.kelas || 'XII')}</td>
+            <td class="py-2 px-2 text-center text-xs">${p15Val}</td>
+            <td class="py-2 px-2 text-center text-xs">${p16Val}</td>
+            <td class="py-2 px-2 text-center text-xs">${p17Val}</td>
+            <td class="py-2 px-3 text-right font-mono font-bold text-rose-700 text-xs">
+              ${Number(item.total_damage || 0).toLocaleString('id-ID')}
+            </td>
+            <td class="py-2 px-3 text-right font-mono text-[11px] text-[#5F5E5B]">
+              +${item.reward_xp || 200} EXP
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function filterRaidBossLeaderboard() {
+      const q = (document.getElementById('rb-search-input')?.value || '').trim().toLowerCase();
+      if (!_cachedRaidBossData || !Array.isArray(_cachedRaidBossData.leaderboard)) return;
+
+      if (!q) {
+        _filteredRaidBossLeaderboard = [..._cachedRaidBossData.leaderboard];
+      } else {
+        _filteredRaidBossLeaderboard = _cachedRaidBossData.leaderboard.filter(item => {
+          const nama = (item.nama || '').toLowerCase();
+          const kelas = (item.kelas || '').toLowerCase();
+          const nis = String(item.nis || '').toLowerCase();
+          return nama.includes(q) || kelas.includes(q) || nis.includes(q);
+        });
+      }
+      renderRaidBossTable(_filteredRaidBossLeaderboard);
     }
 
     // =========================================================================
@@ -3602,8 +3888,13 @@ Guru Pengampu: Mr. Ardi
     window.loadLeaderboardData = loadLeaderboardData;
     window.loadRombelLeaderboardData = loadRombelLeaderboardData;
 
-    // EXPOSE FUNGSI FITUR BARU: WEEKLY EVENT, SKILL TREE & SHARE CARD
+    // EXPOSE FUNGSI FITUR BARU: WEEKLY EVENT (RAID BOSS), SKILL TREE & SHARE CARD
     window.renderWeeklyEventWidget = renderWeeklyEventWidget;
+    window.openRaidBossLeaderboardModal = openRaidBossLeaderboardModal;
+    window.closeRaidBossLeaderboardModal = closeRaidBossLeaderboardModal;
+    window.renderRaidBossLeaderboard = renderRaidBossLeaderboard;
+    window.filterRaidBossLeaderboard = filterRaidBossLeaderboard;
+    window.serangRaidBoss = serangRaidBoss;
     window.openSkillTreeModal = openSkillTreeModal;
     window.closeSkillTreeModal = closeSkillTreeModal;
     window.switchSkillTreeTab = switchSkillTreeTab;

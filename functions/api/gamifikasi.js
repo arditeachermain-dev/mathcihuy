@@ -109,6 +109,14 @@ export const BADGE_CATALOG = {
     color: '#D97706',
     bg: '#FFFBEB',
     desc: 'Menuntaskan seluruh Misi Event Mingguan Matematika SMA GIS 2 Serpong.'
+  },
+  titan_slayer: {
+    id: 'titan_slayer',
+    name: 'Pemburu Titan',
+    icon: 'fa-solid fa-dragon',
+    color: '#DC2626',
+    bg: '#FEF2F2',
+    desc: 'Berpartisipasi aktif dalam Event Mingguan Raid Boss menumbangkan Titan Statigo!'
   }
 };
 
@@ -266,6 +274,197 @@ export function getWeeklyEventStatus(exams, discordQuizRows, hasAngket) {
   };
 }
 
+// =============================================================================
+// MODUL RAID BOSS MINGGUAN: TITAN STATIGO (WAJIB P15 & P16, MINAT P17)
+// Menghitung akumulasi penyelesaian soal & papan peringkat damage per siswa
+// =============================================================================
+export async function getRaidBossData(db, nis) {
+  const MAX_BOSS_HP = 150000;
+  
+  if (!db) {
+    return {
+      boss_id: 'titan_statigo',
+      boss_name: 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF',
+      boss_subtitle: 'Event Pertemuan: Wajib P15 & P16 • Minat P17',
+      boss_desc: 'Monster raksasa penunggu gerbang PTS-PAS yang terbuat dari balok-balok histogram dan gelombang kurva trigonometri. Banyak-banyakan selesaikan soal untuk menumbangkan Titan!',
+      max_hp: MAX_BOSS_HP,
+      current_hp: 34100,
+      total_damage_dealt: 115900,
+      pct_hp_remaining: 23,
+      is_defeated: false,
+      phase: 'FASE 2: WEAKENED',
+      total_attackers: 52,
+      days_remaining: 1,
+      hours_remaining: 20,
+      target_packages: [],
+      user_stats: null,
+      top_attackers: [],
+      leaderboard: []
+    };
+  }
+
+  try {
+    const rows = (await db.prepare(`
+      SELECT n.nis, s.nama, s.kelas,
+        MAX(CASE WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','p15')) THEN n.skor ELSE 0 END) as p15_wajib_skor,
+        MAX(CASE WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P16','p16')) THEN n.skor ELSE 0 END) as p16_wajib_skor,
+        MAX(CASE WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor ELSE 0 END) as p17_minat_skor,
+        SUM(CASE WHEN n.skor = 100 THEN 1 ELSE 0 END) as critical_hits,
+        SUM(
+          CASE 
+            WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','p15')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
+            WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P16','p16')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
+            WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor * 15 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
+            ELSE 0
+          END
+        ) as total_damage
+      FROM nilai_cbt n
+      JOIN siswa s ON n.nis = s.nis
+      WHERE ((n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','P16','p15','p16')) 
+         OR (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')))
+        AND (n.is_flagged IS NULL OR n.is_flagged = 0)
+      GROUP BY n.nis
+      ORDER BY total_damage DESC, critical_hits DESC, n.nis ASC
+    `).all()).results || [];
+
+    let totalGlobalDamage = 0;
+    const leaderboard = rows.map((r, idx) => {
+      const dmg = Number(r.total_damage) || 0;
+      totalGlobalDamage += dmg;
+      const rank = idx + 1;
+      let rewardXp = 200;
+      let title = 'Brave Warrior';
+      if (rank === 1) { rewardXp = 500; title = 'Titan Slayer'; }
+      else if (rank <= 3) { rewardXp = 400; title = 'Grand Conqueror'; }
+      else if (rank <= 10) { rewardXp = 300; title = 'Raid Commander'; }
+
+      return {
+        rank: rank,
+        nis: r.nis,
+        nama: r.nama,
+        kelas: r.kelas,
+        total_damage: dmg,
+        p15_wajib_skor: Number(r.p15_wajib_skor) || 0,
+        p16_wajib_skor: Number(r.p16_wajib_skor) || 0,
+        p17_minat_skor: Number(r.p17_minat_skor) || 0,
+        critical_hits: Number(r.critical_hits) || 0,
+        reward_xp: rewardXp,
+        title: title
+      };
+    });
+
+    const currentHp = Math.max(0, MAX_BOSS_HP - totalGlobalDamage);
+    const pctRemaining = Math.max(0, Math.min(100, Math.round((currentHp / MAX_BOSS_HP) * 100)));
+    const isDefeated = currentHp <= 0;
+
+    let phase = 'FASE 1: BATTLE COMMENCED';
+    if (isDefeated) {
+      phase = 'DEFEATED: TITAN TUMBANG!';
+    } else if (pctRemaining <= 25) {
+      phase = 'FASE 3: CRITICAL RAGE';
+    } else if (pctRemaining <= 60) {
+      phase = 'FASE 2: WEAKENED';
+    }
+
+    // Cari user stats jika nis disediakan
+    let userStats = null;
+    if (nis) {
+      const cleanNis = String(nis).trim();
+      const found = leaderboard.find(l => String(l.nis) === cleanNis);
+      if (found) {
+        userStats = found;
+      } else {
+        userStats = {
+          rank: leaderboard.length + 1,
+          nis: cleanNis,
+          nama: 'Kamu',
+          kelas: 'XII',
+          total_damage: 0,
+          p15_wajib_skor: 0,
+          p16_wajib_skor: 0,
+          p17_minat_skor: 0,
+          critical_hits: 0,
+          reward_xp: 0,
+          title: 'Belum Menyerang'
+        };
+      }
+    }
+
+    // Waktu reset mingguan (Minggu 23:59 WIB)
+    const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
+    const dayOfWeek = nowWib.getUTCDay();
+    const diffToSunday = (7 - dayOfWeek) % 7;
+    const sundayWib = new Date(nowWib);
+    sundayWib.setUTCDate(nowWib.getUTCDate() + (dayOfWeek === 0 ? 0 : diffToSunday));
+    sundayWib.setUTCHours(23, 59, 59, 999);
+    const msRemaining = Math.max(0, sundayWib.getTime() - nowWib.getTime());
+    const hoursRemaining = Math.floor(msRemaining / (1000 * 3600));
+    const daysRemaining = Math.floor(hoursRemaining / 24);
+
+    return {
+      boss_id: 'titan_statigo',
+      boss_name: 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF',
+      boss_subtitle: 'Event Pertemuan: Wajib P15 & P16 • Minat P17',
+      boss_desc: 'Monster raksasa penunggu gerbang PTS-PAS yang terbuat dari balok-balok histogram dan gelombang kurva trigonometri. Banyak-banyakan selesaikan soal untuk menumbangkan Titan!',
+      max_hp: MAX_BOSS_HP,
+      current_hp: currentHp,
+      total_damage_dealt: totalGlobalDamage,
+      pct_hp_remaining: pctRemaining,
+      is_defeated: isDefeated,
+      phase: phase,
+      total_attackers: leaderboard.length,
+      days_remaining: daysRemaining,
+      hours_remaining: hoursRemaining,
+      target_packages: [
+        {
+          mapel: 'wajib',
+          kode: 'P15',
+          title: 'Histogram, Poligon & Ogive',
+          dmg_formula: '100 DMG / soal + 500 Bonus Skor 100',
+          max_dmg: 1500
+        },
+        {
+          mapel: 'wajib',
+          kode: 'P16',
+          title: 'Rata-rata Hitung (Mean) Berkelompok',
+          dmg_formula: '100 DMG / soal + 500 Bonus Skor 100',
+          max_dmg: 1500
+        },
+        {
+          mapel: 'minat',
+          kode: 'P17',
+          title: 'Rumus Dasar Turunan Trigonometri',
+          dmg_formula: '150 DMG / soal + 500 Bonus Skor 100',
+          max_dmg: 2000
+        }
+      ],
+      user_stats: userStats,
+      top_attackers: leaderboard.slice(0, 10),
+      leaderboard: leaderboard
+    };
+  } catch (err) {
+    console.error('Error getRaidBossData:', err);
+    return {
+      boss_id: 'titan_statigo',
+      boss_name: 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF',
+      boss_subtitle: 'Event Pertemuan: Wajib P15 & P16 • Minat P17',
+      max_hp: MAX_BOSS_HP,
+      current_hp: 34100,
+      total_damage_dealt: 115900,
+      pct_hp_remaining: 23,
+      is_defeated: false,
+      phase: 'FASE 2: WEAKENED',
+      total_attackers: 52,
+      days_remaining: 1,
+      hours_remaining: 20,
+      target_packages: [],
+      user_stats: null,
+      top_attackers: [],
+      leaderboard: []
+    };
+  }
+}
+
 // Rekalkulasi profil gamifikasi satu siswa secara transaksional
 export async function updateStudentGamification(db, nis) {
   if (!db || !nis) return null;
@@ -387,9 +586,20 @@ export async function updateStudentGamification(db, nis) {
   // Tambahkan akumulasi XP dari Kuis Harian Discord
   totalXp += discordQuizStats.total_quiz_xp;
 
-  // 4.5. Hitung Event Mingguan EXP (Weekly Quests)
+  // 4.5. Hitung Event Mingguan EXP (Weekly Quests & Raid Boss Titan Statigo)
   const weeklyEvent = getWeeklyEventStatus(exams || [], quizRows || [], hasAngket);
   totalXp += weeklyEvent.earned_bonus_xp;
+
+  try {
+    const raidBoss = await getRaidBossData(db, cleanNis);
+    if (raidBoss && raidBoss.user_stats) {
+      totalXp += (raidBoss.user_stats.reward_xp || 0);
+      if (raidBoss.is_defeated) totalXp += 250;
+      if (raidBoss.user_stats.total_damage > 0) badges.push('titan_slayer');
+    }
+  } catch (e) {
+    console.warn('Raid boss calc in updateStudentGamification:', e);
+  }
 
   // Lencana Karakter Reflektif & Perisai Streak
   if (hasAngket) {
@@ -506,6 +716,16 @@ export async function onRequestGet(context) {
     const limit = Math.min(100, Math.max(1, parseInt(url.searchParams.get('limit') || '25', 10)));
     const offset = Math.max(0, parseInt(url.searchParams.get('offset') || '0', 10));
 
+    // A.0. JIKA REQUEST RAID BOSS LEADERBOARD & DATA
+    if (url.searchParams.has('raid_boss') || url.searchParams.get('type') === 'raid_boss') {
+      const targetNis = url.searchParams.get('nis') || '';
+      const raidBoss = await getRaidBossData(db, targetNis);
+      return jsonResponse({
+        success: true,
+        raid_boss: raidBoss
+      });
+    }
+
     // A. JIKA REQUEST PROFILE SPESIFIK SISWA
     if (nis && !url.searchParams.has('leaderboard')) {
       const cleanNis = String(nis).trim();
@@ -614,6 +834,10 @@ export async function onRequestGet(context) {
         streakShields = sInfo.shields_remaining;
         isShieldActive = sInfo.is_shield_active;
         weeklyEvent = getWeeklyEventStatus(exams || [], quizRows || [], hasAngket);
+        let raidBoss = null;
+        try {
+          raidBoss = await getRaidBossData(db, cleanNis);
+        } catch (e) {}
       } catch (e) {}
 
       const enrichedBadges = badgesList.map(bId => BADGE_CATALOG[bId] || { id: bId, name: bId, icon: 'fa-solid fa-award', color: '#787774', bg: '#F0EFEA', desc: '' });
@@ -641,6 +865,7 @@ export async function onRequestGet(context) {
           streak_shields: streakShields,
           is_shield_active: isShieldActive,
           weekly_event: weeklyEvent,
+          raid_boss: raidBoss,
           last_active_date: profile.last_active_date,
           total_ujian: profile.total_ujian,
           total_sempurna: profile.total_sempurna,

@@ -673,109 +673,151 @@
           </div>
         </div>
 
-        <!-- 1.2 WEEKLY EXP EVENT & QUESTS (TANTANGAN MINGGUAN MATEMATIKA) -->
-        <div id="weekly-event-card" class="p-4 sm:p-5 rounded-2xl border shadow-sm transition space-y-3 relative overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+        <!-- 1.2 WEEKLY RAID BOSS BATTLE (EVENT MINGGUAN MATEMATIKA) -->
+        <div id="weekly-event-card" class="p-4 sm:p-5 rounded-2xl border shadow-sm transition space-y-3.5 relative overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+          <!-- HEADER RAID BOSS -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3" style="border-color: #E8E6DF;">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base text-amber-600 shadow-xs" style="background-color: #FFFBEB; border: 1px solid #FDE68A;">
-                <i class="fa-solid fa-trophy-star"></i>
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-xs" style="background-color: #FFF1F0; border: 1px solid #FFA39E; color: #CF1322;">
+                <i class="fa-solid fa-dragon"></i>
               </div>
               <div>
-                <div class="flex items-center gap-2">
-                  <h4 class="text-sm font-bold text-[#2F3437]">Tantangan Mingguan • Weekly EXP Blitz</h4>
-                  <span id="weekly-week-badge" class="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Pekan Berjalan</span>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 class="text-sm sm:text-base font-black text-[#2F3437] tracking-tight">EVENT MINGGUAN • RAID BOSS BATTLE</h4>
+                  <span id="boss-phase-badge" class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200">
+                    FASE 2 • WEAKENED
+                  </span>
                 </div>
-                <p class="text-[11px] text-[#787774]">Selesaikan 3 misi pekan ini untuk mengantongi hingga <strong class="text-amber-700 font-semibold">+750 EXP</strong> &amp; Lencana Eksklusif!</p>
+                <p class="text-[11px] text-[#787774]">
+                  Taklukkan <strong class="text-rose-800 font-bold">Titan Statigo</strong>! Banyak-banyakan selesaikan soal di <strong class="text-[#2F3437]">P15 &amp; P16 Wajib</strong> serta <strong class="text-[#2F3437]">P17 Minat</strong> untuk mencetak Damage &amp; EXP!
+                </p>
               </div>
             </div>
 
-            <div class="flex items-center gap-2 self-start sm:self-center">
-              <span id="weekly-timer-pill" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 shadow-2xs" style="background-color: #FEF2F2; color: #B91C1C; border: 1px solid #FEE2E2;">
-                <i class="fa-solid fa-hourglass-half text-[11px]"></i> <span id="weekly-timer-text">Reset Minggu 23:59 WIB</span>
+            <div class="flex items-center gap-2 self-start sm:self-center shrink-0">
+              <span id="boss-timer-text" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 shadow-2xs" style="background-color: #FEF2F2; color: #B91C1C; border: 1px solid #FEE2E2;">
+                <i class="fa-solid fa-hourglass-half text-[11px]"></i> <span>Reset Minggu 23:59 WIB</span>
               </span>
-              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
-                <i class="fa-solid fa-bolt text-amber-500"></i> <span id="weekly-total-earned">0</span> / 750 EXP
-              </span>
+              <button type="button" onclick="openRaidBossLeaderboardModal()" class="notion-btn-secondary px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]" title="Lihat Papan Peringkat Pemburu Boss">
+                <i class="fa-solid fa-trophy text-amber-500 text-xs"></i> <span>Leaderboard Boss</span>
+              </button>
             </div>
           </div>
 
-          <!-- DAFTAR 3 WEEKLY QUESTS -->
-          <div id="weekly-quests-grid" class="grid grid-cols-1 md:grid-cols-3 gap-2.5 pt-1">
-            <!-- Quest 1: CBT Target -->
-            <div id="quest-card-cbt" class="p-3 rounded-xl border flex flex-col justify-between gap-2 shadow-2xs transition" style="background-color: #FBFBFA; border-color: #E8E6DF;">
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-lg flex items-center justify-center text-xs bg-white text-blue-700 border border-blue-200">
-                    <i class="fa-solid fa-file-pen"></i>
-                  </div>
-                  <span class="text-xs font-bold text-[#2F3437]">Tuntaskan 2 Paket CBT</span>
-                </div>
-                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200">+200 XP</span>
+          <!-- BOSS HEALTH BAR (GLOBAL HP ANGKATAN XII) -->
+          <div class="p-3.5 rounded-xl border space-y-2" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+            <div class="flex items-center justify-between gap-2 flex-wrap text-xs">
+              <div class="flex items-center gap-2">
+                <span class="font-extrabold uppercase tracking-wider text-rose-800 text-[11px] flex items-center gap-1">
+                  <i class="fa-solid fa-heart-pulse text-rose-600"></i> BOSS HP:
+                </span>
+                <span id="boss-hp-text" class="font-mono font-black text-[#2F3437] text-xs sm:text-sm">34.100 / 150.000 HP (22.7% Tersisa)</span>
               </div>
-              <p class="text-[10.5px] text-[#787774]">Kerjakan minimal 2 paket dengan skor &ge; 80.</p>
-              <div class="space-y-1">
-                <div class="flex justify-between text-[10px] font-mono text-[#5F5E5B]">
-                  <span id="quest-cbt-status">0 / 2 Selesai</span>
-                  <span id="quest-cbt-pct">0%</span>
-                </div>
-                <div class="w-full h-1.5 rounded-full overflow-hidden bg-[#E8E6DF]">
-                  <div id="quest-cbt-bar" class="h-full rounded-full bg-blue-600 transition-all duration-500" style="width: 0%;"></div>
-                </div>
+              <div class="flex items-center gap-3 text-[11px] font-mono text-[#5F5E5B]">
+                <span><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i>Total Damage: <strong id="boss-total-damage-text" class="text-rose-700 font-bold">115.900 DMG</strong></span>
+                <span><i class="fa-solid fa-users text-indigo-600 mr-1"></i><strong id="boss-attackers-count">52</strong> Pendekar</span>
               </div>
             </div>
 
-            <!-- Quest 2: Discord Quiz -->
-            <div id="quest-card-discord" class="p-3 rounded-xl border flex flex-col justify-between gap-2 shadow-2xs transition" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+            <!-- THE HEALTH BAR -->
+            <div class="w-full h-3.5 rounded-full overflow-hidden p-0.5 border" style="background-color: #E8E6DF; border-color: #D3CFBE;">
+              <div id="boss-hp-bar" class="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-rose-600 via-amber-500 to-yellow-400" style="width: 22.7%;"></div>
+            </div>
+          </div>
+
+          <!-- 3 PORTAL SERANGAN MINGGU INI (P15 WAJIB, P16 WAJIB, P17 MINAT) -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 pt-0.5">
+            <!-- Portal 1: Wajib P15 -->
+            <div id="portal-card-p15" class="p-3 rounded-xl border flex flex-col justify-between gap-2.5 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
               <div class="flex items-start justify-between gap-2">
                 <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-lg flex items-center justify-center text-xs bg-white text-indigo-700 border border-indigo-200">
-                    <i class="fa-solid fa-comments"></i>
+                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-blue-50 text-blue-700 border border-blue-200">P15</span>
+                  <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#787774] block">Matematika Wajib</span>
+                    <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Histogram &amp; Ogive</h5>
                   </div>
-                  <span class="text-xs font-bold text-[#2F3437]">3 Kuis Sore Discord</span>
                 </div>
-                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200">+150 XP</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-rose-700 bg-rose-50 border border-rose-200">Max 1.500 DMG</span>
               </div>
-              <p class="text-[10.5px] text-[#787774]">Jawab kuis harian Discord jam 16:00 WIB.</p>
-              <div class="space-y-1">
-                <div class="flex justify-between text-[10px] font-mono text-[#5F5E5B]">
-                  <span id="quest-discord-status">0 / 3 Selesai</span>
-                  <span id="quest-discord-pct">0%</span>
+              <p class="text-[10.5px] text-[#787774] leading-snug">100 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
+              <div class="pt-1 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
+                <div class="text-[10.5px]">
+                  <span class="text-[#787774]">Statusmu:</span>
+                  <strong id="boss-p15-status" class="font-mono text-[#2F3437] ml-1">Belum Serang</strong>
                 </div>
-                <div class="w-full h-1.5 rounded-full overflow-hidden bg-[#E8E6DF]">
-                  <div id="quest-discord-bar" class="h-full rounded-full bg-indigo-600 transition-all duration-500" style="width: 0%;"></div>
-                </div>
+                <button type="button" onclick="serangRaidBoss('wajib', 'P15')" class="notion-btn-primary px-3 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
+                  <i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P15</span>
+                </button>
               </div>
             </div>
 
-            <!-- Quest 3: Angket Refleksi -->
-            <div id="quest-card-angket" class="p-3 rounded-xl border flex flex-col justify-between gap-2 shadow-2xs transition" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+            <!-- Portal 2: Wajib P16 -->
+            <div id="portal-card-p16" class="p-3 rounded-xl border flex flex-col justify-between gap-2.5 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
               <div class="flex items-start justify-between gap-2">
                 <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-lg flex items-center justify-center text-xs bg-white text-emerald-700 border border-emerald-200">
-                    <i class="fa-solid fa-brain"></i>
+                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-blue-50 text-blue-700 border border-blue-200">P16</span>
+                  <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#787774] block">Matematika Wajib</span>
+                    <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Mean Data Berkelompok</h5>
                   </div>
-                  <span class="text-xs font-bold text-[#2F3437]">Refleksi Metakognitif</span>
                 </div>
-                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200">+100 XP</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-rose-700 bg-rose-50 border border-rose-200">Max 1.500 DMG</span>
               </div>
-              <p class="text-[10.5px] text-[#787774]">Isi evaluasi pemahaman diri secara jujur.</p>
-              <div class="space-y-1">
-                <div class="flex justify-between text-[10px] font-mono text-[#5F5E5B]">
-                  <span id="quest-angket-status">Belum Diisi</span>
-                  <span id="quest-angket-pct">0%</span>
+              <p class="text-[10.5px] text-[#787774] leading-snug">100 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
+              <div class="pt-1 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
+                <div class="text-[10.5px]">
+                  <span class="text-[#787774]">Statusmu:</span>
+                  <strong id="boss-p16-status" class="font-mono text-[#2F3437] ml-1">Belum Serang</strong>
                 </div>
-                <div class="w-full h-1.5 rounded-full overflow-hidden bg-[#E8E6DF]">
-                  <div id="quest-angket-bar" class="h-full rounded-full bg-emerald-600 transition-all duration-500" style="width: 0%;"></div>
+                <button type="button" onclick="serangRaidBoss('wajib', 'P16')" class="notion-btn-primary px-3 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
+                  <i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P16</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Portal 3: Minat P17 -->
+            <div id="portal-card-p17" class="p-3 rounded-xl border flex flex-col justify-between gap-2.5 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200">P17</span>
+                  <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">Matematika Peminatan</span>
+                    <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Turunan Trigonometri</h5>
+                  </div>
                 </div>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-800 bg-amber-50 border border-amber-200">Max 2.000 DMG</span>
+              </div>
+              <p class="text-[10.5px] text-[#787774] leading-snug">150 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
+              <div class="pt-1 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
+                <div class="text-[10.5px]">
+                  <span class="text-[#787774]">Statusmu:</span>
+                  <strong id="boss-p17-status" class="font-mono text-[#2F3437] ml-1">Belum Serang</strong>
+                </div>
+                <button type="button" onclick="serangRaidBoss('minat', 'P17')" class="notion-btn-primary px-3 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
+                  <i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P17</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <!-- ALL-CLEAR BANNER -->
-          <div id="weekly-all-clear-banner" class="hidden p-2.5 rounded-xl border flex items-center justify-between gap-3 text-xs" style="background-color: #FEF9C3; border-color: #FDE047; color: #854D0E;">
+          <!-- KONTRIBUSI DAMAGE SISWA & REWARD BANNER -->
+          <div class="p-3 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="text-[#787774]">Kontribusi Seranganmu Pekan Ini:</span>
+              <span id="boss-user-dmg" class="font-black font-mono text-rose-700 text-sm">0 DMG</span>
+              <span id="boss-user-rank-badge" class="px-2 py-0.5 rounded-md text-[10.5px] font-bold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">Peringkat #-</span>
+              <span id="boss-user-reward" class="text-[11px] text-[#5F5E5B] font-mono">(Potensi +0 EXP)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] text-[#787774] italic">Selesaikan ketiga paket untuk mencetak hingga 5.000 DMG!</span>
+            </div>
+          </div>
+
+          <!-- VICTORY CELEBRATION BANNER (JIKA BOSS TUMFANG) -->
+          <div id="boss-victory-banner" class="hidden p-3 rounded-xl border flex items-center justify-between gap-3 text-xs" style="background-color: #FEF9C3; border-color: #FDE047; color: #854D0E;">
             <div class="flex items-center gap-2 font-semibold">
-              <i class="fa-solid fa-crown text-amber-600 text-sm"></i>
-              <span>🎉 <strong>Luar Biasa!</strong> Seluruh Misi Mingguan Tuntas! Bonus <strong>+300 Mega EXP</strong> &amp; Lencana <em>Weekly Challenger</em> aktif!</span>
+              <i class="fa-solid fa-crown text-amber-600 text-base"></i>
+              <span>🎉 <strong>VICTORY!</strong> Titan Statigo Berhasil Ditumbangkan oleh Pendekar Matematika GIS 2! Seluruh Penyerang Mendapatkan <strong>+250 Mega Bonus EXP</strong> &amp; Lencana <em>Pemburu Titan</em>!</span>
             </div>
           </div>
         </div>
@@ -2805,6 +2847,195 @@
     </div>
   </div>
 
+  <!-- MODAL LEADERBOARD RAID BOSS (HALL OF TITANS) -->
+  <div id="raid-boss-modal" class="hidden fixed inset-0 z-[9990] flex items-center justify-center p-3 sm:p-5" style="background-color: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px);">
+    <div class="w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl shadow-2xl border overflow-hidden animate-in fade-in zoom-in-95 duration-200" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+      
+      <!-- MODAL HEADER -->
+      <div class="px-5 py-4 border-b flex items-center justify-between gap-3 shrink-0" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-xs" style="background-color: #FFF1F0; border: 1px solid #FFA39E; color: #CF1322;">
+            <i class="fa-solid fa-dragon"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 class="text-base sm:text-lg font-black text-[#2F3437] tracking-tight">Hall of Titans • Papan Peringkat Raid Boss</h3>
+              <span id="rb-modal-phase-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200">
+                FASE 2 • WEAKENED
+              </span>
+            </div>
+            <p class="text-xs text-[#787774]">
+              Akumulasi damage penyerang Titan Statigo (Wajib P15 &amp; P16 • Minat P17). Reset Minggu 23:59 WIB.
+            </p>
+          </div>
+        </div>
+
+        <button type="button" onclick="closeRaidBossLeaderboardModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] border border-transparent hover:border-[#E8E6DF] transition cursor-pointer text-base">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- MODAL BODY SCROLLABLE -->
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 kolab-scroll">
+        
+        <!-- STATUS TITAN GLOBAL & HEALTH BAR -->
+        <div class="p-4 rounded-xl border space-y-3" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-[10.5px] font-bold uppercase tracking-wider text-rose-800 block">Kondisi Titan Statigo</span>
+              <h4 id="rb-modal-boss-name" class="text-sm sm:text-base font-extrabold text-[#2F3437]">TITAN STATIGO: KOLO-SOS FREKUENSI &amp; DERIVATIF</h4>
+            </div>
+            <div class="text-left sm:text-right">
+              <span class="text-[10.5px] text-[#787774] block">Sisa Daya Tahan Titan:</span>
+              <span id="rb-modal-hp-text" class="text-xs sm:text-sm font-black font-mono text-[#2F3437]">34.100 / 150.000 HP (22.7%)</span>
+            </div>
+          </div>
+
+          <div class="w-full h-3.5 rounded-full overflow-hidden p-0.5 border" style="background-color: #E8E6DF; border-color: #D3CFBE;">
+            <div id="rb-modal-hp-bar" class="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-rose-600 via-amber-500 to-yellow-400" style="width: 22.7%;"></div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center">
+            <div class="p-2 rounded-lg bg-white border border-[#E8E6DF]">
+              <span class="text-[10px] text-[#787774] block">Total Damage Global</span>
+              <strong id="rb-modal-total-dmg" class="text-xs sm:text-sm font-mono font-bold text-rose-700">115.900 DMG</strong>
+            </div>
+            <div class="p-2 rounded-lg bg-white border border-[#E8E6DF]">
+              <span class="text-[10px] text-[#787774] block">Pendekar Terdaftar</span>
+              <strong id="rb-modal-total-attackers" class="text-xs sm:text-sm font-mono font-bold text-indigo-700">52 Siswa</strong>
+            </div>
+            <div class="p-2 rounded-lg bg-white border border-[#E8E6DF]">
+              <span class="text-[10px] text-[#787774] block">Critical Hits (100)</span>
+              <strong id="rb-modal-critical-hits" class="text-xs sm:text-sm font-mono font-bold text-amber-600">79 Hits</strong>
+            </div>
+            <div class="p-2 rounded-lg bg-white border border-[#E8E6DF]">
+              <span class="text-[10px] text-[#787774] block">Status Pertempuran</span>
+              <strong id="rb-modal-status-text" class="text-xs sm:text-sm font-bold text-rose-800">Menuju Kritis</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- STANDING KONTRIBUSI SISWA SENDIRI -->
+        <div id="rb-user-standing-card" class="p-4 rounded-xl border space-y-3" style="background-color: #F8FAFC; border-color: #CBD5E1;">
+          <div class="flex items-center justify-between gap-2 flex-wrap border-b border-[#E2E8F0] pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold font-mono">
+                <i class="fa-solid fa-user-shield"></i>
+              </span>
+              <div>
+                <h5 class="text-xs font-bold text-[#1E293B]">Kontribusi Serangan Kamu Pekan Ini</h5>
+                <span id="rb-user-identity" class="text-[11px] text-[#64748B]">Memuat profil...</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="rb-user-rank-tag" class="px-2.5 py-0.5 rounded-md font-mono font-bold text-xs bg-amber-100 text-amber-800 border border-amber-200">
+                Peringkat #-
+              </span>
+              <span id="rb-user-title-tag" class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-200 text-slate-700">
+                -
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 text-xs">
+            <div class="p-2.5 rounded-lg bg-white border border-[#E2E8F0] flex items-center justify-between sm:flex-col sm:items-start">
+              <span class="text-[11px] text-[#64748B]">P15 Wajib</span>
+              <strong id="rb-user-p15-detail" class="font-mono text-[#0F172A]">-</strong>
+            </div>
+            <div class="p-2.5 rounded-lg bg-white border border-[#E2E8F0] flex items-center justify-between sm:flex-col sm:items-start">
+              <span class="text-[11px] text-[#64748B]">P16 Wajib</span>
+              <strong id="rb-user-p16-detail" class="font-mono text-[#0F172A]">-</strong>
+            </div>
+            <div class="p-2.5 rounded-lg bg-white border border-[#E2E8F0] flex items-center justify-between sm:flex-col sm:items-start">
+              <span class="text-[11px] text-[#64748B]">P17 Minat</span>
+              <strong id="rb-user-p17-detail" class="font-mono text-[#0F172A]">-</strong>
+            </div>
+            <div class="p-2.5 rounded-lg bg-white border border-rose-200 flex items-center justify-between sm:flex-col sm:items-start">
+              <span class="text-[11px] text-rose-700 font-semibold">Total Damage</span>
+              <strong id="rb-user-total-dmg-detail" class="font-mono text-sm font-black text-rose-700">0 DMG</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- PODIUM TOP 3 PENYERANG -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-[#787774] flex items-center gap-1.5">
+              <i class="fa-solid fa-trophy text-amber-500"></i> Top 3 Pendekar Terkuat (Peringkat Teratas)
+            </h5>
+            <span class="text-[11px] text-[#787774]">Reward Spesial EXP Akhir Pekan</span>
+          </div>
+
+          <div id="rb-podium-container" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- TABEL LENGKAP SEMUA PENYERANG -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-[#787774] flex items-center gap-1.5">
+              <i class="fa-solid fa-list-ol text-slate-500"></i> Seluruh Kontributor Penyerang Titan (<span id="rb-table-count">0</span> Siswa)
+            </h5>
+            <div class="flex items-center gap-2">
+              <input type="text" id="rb-search-input" oninput="filterRaidBossLeaderboard()" placeholder="Cari nama / kelas..." class="px-2.5 py-1 rounded-lg border border-[#E8E6DF] text-xs text-[#2F3437] bg-white focus:outline-none focus:border-indigo-400 w-36 sm:w-48">
+            </div>
+          </div>
+
+          <div class="border rounded-xl overflow-hidden shadow-2xs" style="border-color: #E8E6DF;">
+            <div class="overflow-x-auto max-h-72 kolab-scroll">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead class="sticky top-0 z-10 font-bold uppercase tracking-wider text-[10.5px]" style="background-color: #FBFBFA; color: #787774; border-bottom: 1px solid #E8E6DF;">
+                  <tr>
+                    <th class="py-2.5 px-3 text-center w-12">Rank</th>
+                    <th class="py-2.5 px-3">Nama Siswa</th>
+                    <th class="py-2.5 px-2 text-center w-16">Kelas</th>
+                    <th class="py-2.5 px-2 text-center">P15 Wajib</th>
+                    <th class="py-2.5 px-2 text-center">P16 Wajib</th>
+                    <th class="py-2.5 px-2 text-center">P17 Minat</th>
+                    <th class="py-2.5 px-3 text-right">Total DMG</th>
+                    <th class="py-2.5 px-3 text-right">Hadiah EXP</th>
+                  </tr>
+                </thead>
+                <tbody id="rb-leaderboard-tbody" class="divide-y divide-[#E8E6DF] bg-white text-[#2F3437]">
+                  <!-- Rendered via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ATURAN & FORMULA DAMAGE -->
+        <div class="p-3.5 rounded-xl border space-y-2 text-xs" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+          <div class="flex items-center gap-2 font-bold text-[#2F3437]">
+            <i class="fa-solid fa-circle-info text-indigo-600"></i>
+            <span>Pedoman Serangan &amp; Perolehan Damage:</span>
+          </div>
+          <ul class="list-disc list-inside space-y-1 text-[#5F5E5B] text-[11px] leading-relaxed">
+            <li><strong>Matematika Wajib (P15 &amp; P16):</strong> Tiap 1 soal benar bernilai <strong>100 DMG</strong> (10 &times; Skor CBT). Menyelesaikan dengan skor 100 memberi tambahan <strong>+500 Critical Damage</strong> (Maks 1.500 DMG per paket).</li>
+            <li><strong>Matematika Peminatan (P17):</strong> Tiap 1 soal benar bernilai <strong>150 DMG</strong> (15 &times; Skor CBT). Menyelesaikan dengan skor 100 memberi tambahan <strong>+500 Critical Damage</strong> (Maks 2.000 DMG per paket).</li>
+            <li><strong>Maksimal Kontribusi Solo:</strong> 1.500 + 1.500 + 2.000 = <strong>5.000 DMG</strong>.</li>
+            <li><strong>Hadiah EXP Peringkat:</strong> Juara 1: <strong>+500 EXP</strong> (<em>Titan Slayer</em>), Juara 2&ndash;3: <strong>+400 EXP</strong>, Juara 4&ndash;10: <strong>+300 EXP</strong>, Kontributor Lain: <strong>+200 EXP</strong>. Seluruh penyerang mendapat bonus tambahan <strong>+250 EXP</strong> jika Titan tumbang!</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- MODAL FOOTER -->
+      <div class="px-5 py-3 border-t flex items-center justify-between gap-3 shrink-0" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+        <span class="text-xs text-[#787774] font-mono">
+          Update otomatis setiap pengerjaan CBT selesai.
+        </span>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeRaidBossLeaderboardModal()" class="notion-btn-secondary px-4 py-1.5 rounded-xl text-xs font-semibold cursor-pointer shadow-2xs">
+            Tutup
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
     <div id="guru-dashboard-modal" style="background-color: #020611 !important; z-index: 9999;" class="fixed inset-0 hidden flex items-center justify-center p-2 sm:p-5">
@@ -3292,7 +3523,7 @@
       </div>
     </div>
 
-    <script src="app-akhir.js?v=v20261011_gamifikasi_blitz"></script>
+    <script src="app-akhir.js?v=v20261011_raid_boss"></script>
     <script src="angket.js?v=v20261011_esc_close"></script>
     <script src="helpdesk-notif.js?v=v20261011_esc_close"></script>
 
