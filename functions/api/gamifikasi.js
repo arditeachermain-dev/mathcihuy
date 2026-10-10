@@ -304,28 +304,48 @@ export async function getRaidBossData(db, nis) {
   }
 
   try {
+    // Waktu reset mingguan (Senin 00:00 s.d. Minggu 23:59 WIB)
+    const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
+    const dayOfWeek = nowWib.getUTCDay();
+    const diffToMonday = (dayOfWeek === 0 ? -6 : 1 - dayOfWeek);
+    const mondayWib = new Date(nowWib);
+    mondayWib.setUTCDate(nowWib.getUTCDate() + diffToMonday);
+    mondayWib.setUTCHours(0, 0, 0, 0);
+    const mondayStr = mondayWib.toISOString().slice(0, 10);
+    const todayStr = nowWib.toISOString().slice(0, 10);
+
     const rows = (await db.prepare(`
       SELECT n.nis, s.nama, s.kelas,
         MAX(CASE WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','p15')) THEN n.skor ELSE 0 END) as p15_wajib_skor,
         MAX(CASE WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P16','p16')) THEN n.skor ELSE 0 END) as p16_wajib_skor,
         MAX(CASE WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor ELSE 0 END) as p17_minat_skor,
+        SUM(
+          CASE 
+            WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%') AND DATE(n.waktu_submit) >= ?) 
+            THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
+            ELSE 0 
+          END
+        ) as daily_damage,
         SUM(CASE WHEN n.skor = 100 THEN 1 ELSE 0 END) as critical_hits,
         SUM(
           CASE 
             WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','p15')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
             WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P16','p16')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
             WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor * 15 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
+            WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%') AND DATE(n.waktu_submit) >= ?) 
+            THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
             ELSE 0
           END
         ) as total_damage
       FROM nilai_cbt n
       JOIN siswa s ON n.nis = s.nis
       WHERE ((n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','P16','p15','p16')) 
-         OR (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')))
+         OR (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17'))
+         OR ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%') AND DATE(n.waktu_submit) >= ?))
         AND (n.is_flagged IS NULL OR n.is_flagged = 0)
       GROUP BY n.nis
       ORDER BY total_damage DESC, critical_hits DESC, n.nis ASC
-    `).all()).results || [];
+    `).bind(mondayStr, mondayStr, mondayStr).all()).results || [];
 
     let totalGlobalDamage = 0;
     const leaderboard = rows.map((r, idx) => {
@@ -347,6 +367,7 @@ export async function getRaidBossData(db, nis) {
         p15_wajib_skor: Number(r.p15_wajib_skor) || 0,
         p16_wajib_skor: Number(r.p16_wajib_skor) || 0,
         p17_minat_skor: Number(r.p17_minat_skor) || 0,
+        daily_damage: Number(r.daily_damage) || 0,
         critical_hits: Number(r.critical_hits) || 0,
         reward_xp: rewardXp,
         title: title
@@ -366,13 +387,22 @@ export async function getRaidBossData(db, nis) {
       phase = 'FASE 2: WEAKENED';
     }
 
-    // Cari user stats jika nis disediakan
+    // Status Serangan Harian untuk NIS aktif
+    let todayDailyRaid = {
+      completed: false,
+      skor: 0,
+      jumlah_benar: 0,
+      jumlah_soal: 10,
+      damage_earned: 0,
+      waktu_submit: null
+    };
+
     let userStats = null;
     if (nis) {
       const cleanNis = String(nis).trim();
       const found = leaderboard.find(l => String(l.nis) === cleanNis);
       if (found) {
-        userStats = found;
+        userStats = { ...found };
       } else {
         userStats = {
           rank: leaderboard.length + 1,
@@ -383,16 +413,34 @@ export async function getRaidBossData(db, nis) {
           p15_wajib_skor: 0,
           p16_wajib_skor: 0,
           p17_minat_skor: 0,
+          daily_damage: 0,
           critical_hits: 0,
           reward_xp: 0,
           title: 'Belum Menyerang'
         };
       }
+
+      try {
+        const todayRow = await db.prepare(
+          "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, waktu_submit FROM nilai_cbt WHERE nis = ? AND (mapel = 'raid' OR kode_pertemuan LIKE 'DAILY%' OR kode_pertemuan LIKE 'RAID_DAILY%') AND DATE(waktu_submit) = ? ORDER BY id DESC LIMIT 1"
+        ).bind(cleanNis, todayStr).first();
+        if (todayRow) {
+          todayDailyRaid = {
+            completed: true,
+            skor: Number(todayRow.skor) || 0,
+            jumlah_benar: Number(todayRow.jumlah_benar) || 0,
+            jumlah_soal: Number(todayRow.jumlah_soal) || 10,
+            damage_earned: (Number(todayRow.jumlah_benar) || 0) * 100 + (Number(todayRow.skor) === 100 ? 500 : 0),
+            waktu_submit: todayRow.waktu_submit
+          };
+        }
+      } catch (e) {
+        console.warn('Check todayDailyRaid error:', e);
+      }
+      userStats.today_daily_raid = todayDailyRaid;
     }
 
     // Waktu reset mingguan (Minggu 23:59 WIB)
-    const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
-    const dayOfWeek = nowWib.getUTCDay();
     const diffToSunday = (7 - dayOfWeek) % 7;
     const sundayWib = new Date(nowWib);
     sundayWib.setUTCDate(nowWib.getUTCDate() + (dayOfWeek === 0 ? 0 : diffToSunday));
@@ -415,7 +463,17 @@ export async function getRaidBossData(db, nis) {
       total_attackers: leaderboard.length,
       days_remaining: daysRemaining,
       hours_remaining: hoursRemaining,
+      today_daily_raid: todayDailyRaid,
       target_packages: [
+        {
+          mapel: 'raid',
+          kode: 'DAILY',
+          title: 'Misi Serangan Harian Titan',
+          subtitle: '10 Soal Acak (Wajib P15, P16 & Minat P17)',
+          dmg_formula: '100 DMG / soal + 500 Bonus Critical (Maks 1.500 DMG / hari)',
+          max_dmg: 1500,
+          is_daily: true
+        },
         {
           mapel: 'wajib',
           kode: 'P15',
@@ -717,11 +775,13 @@ export async function onRequestGet(context) {
     const offset = Math.max(0, parseInt(url.searchParams.get('offset') || '0', 10));
 
     // A.0. JIKA REQUEST RAID BOSS LEADERBOARD & DATA
-    if (url.searchParams.has('raid_boss') || url.searchParams.get('type') === 'raid_boss') {
+    if (url.searchParams.has('raid_boss') || url.searchParams.get('type') === 'raid_boss' || url.searchParams.has('daily_raid')) {
       const targetNis = url.searchParams.get('nis') || '';
       const raidBoss = await getRaidBossData(db, targetNis);
       return jsonResponse({
         success: true,
+        today_daily_raid: raidBoss.today_daily_raid || null,
+        user_stats: raidBoss.user_stats || null,
         raid_boss: raidBoss
       });
     }

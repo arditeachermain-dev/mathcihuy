@@ -185,7 +185,19 @@
         return true;
       }
 
-      // 4. Feature modals (Raid Boss, Skill Tree, Share Card, Leaderboard, Rapor, CBT Scorecard, Guru Dashboard, Search, Jadwal, Analytics, Lab, Rumus, dll.)
+      // 4. Feature modals (Daily Raid, Raid Boss, Skill Tree, Share Card, Leaderboard, Rapor, CBT Scorecard, Guru Dashboard, Search, Jadwal, Analytics, Lab, Rumus, dll.)
+      const dailyRaidModal = document.getElementById('daily-raid-modal');
+      if (dailyRaidModal && !dailyRaidModal.classList.contains('hidden') && dailyRaidModal.style.display !== 'none') {
+        if (typeof window.closeDailyRaidModal === 'function') window.closeDailyRaidModal();
+        else {
+          dailyRaidModal.classList.add('hidden');
+          dailyRaidModal.classList.remove('flex');
+        }
+        document.body.classList.remove('overflow-hidden');
+        document.body.style.overflow = '';
+        return true;
+      }
+
       const raidBossModal = document.getElementById('raid-boss-modal');
       if (raidBossModal && !raidBossModal.classList.contains('hidden') && raidBossModal.style.display !== 'none') {
         if (typeof window.closeRaidBossLeaderboardModal === 'function') window.closeRaidBossLeaderboardModal();
@@ -9821,3 +9833,7 @@ function paksaPerbaruiAplikasi() {
   }, 250);
 }
 window.paksaPerbaruiAplikasi = paksaPerbaruiAplikasi;
+window.openTkaForCurrentMeeting = openTkaForCurrentMeeting;
+window.switchSubject = switchSubject;
+window.parseHashRoute = parseHashRoute;
+if (typeof db !== 'undefined') window.db = db;

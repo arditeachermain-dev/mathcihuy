@@ -2735,6 +2735,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
             vicBanner.classList.add('hidden');
           }
         }
+
+        // Misi Serangan Harian Titan
+        if (typeof renderDailyRaidCardStatus === 'function') {
+          renderDailyRaidCardStatus(data);
+        }
       }
     }
 
@@ -2757,6 +2762,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (!modal) return;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
       const scrollBody = modal.querySelector('.kolab-scroll');
       if (scrollBody) scrollBody.scrollTop = 0;
 
@@ -2796,6 +2802,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
       }
+      document.body.style.overflow = '';
     }
 
     function renderRaidBossLeaderboard(data) {
@@ -2875,6 +2882,12 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           p17Det.textContent = u.p17_minat_skor > 0 ? `Skor ${u.p17_minat_skor} (${dmg17} DMG)` : 'Belum Serang';
         }
 
+        const dailyDet = document.getElementById('rb-user-daily-detail');
+        if (dailyDet) {
+          const dDmg = Number(u.daily_damage) || 0;
+          dailyDet.textContent = dDmg > 0 ? `${dDmg.toLocaleString('id-ID')} DMG` : 'Belum Serang';
+        }
+
         const uTotalDmg = document.getElementById('rb-user-total-dmg-detail');
         if (uTotalDmg) uTotalDmg.textContent = `${(u.total_damage || 0).toLocaleString('id-ID')} DMG`;
       }
@@ -2935,7 +2948,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       if (!list || list.length === 0) {
         if (countEl) countEl.textContent = 0;
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-6 text-xs text-[#787774]">Tidak ada data penyerang yang cocok.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center py-6 text-xs text-[#787774]">Tidak ada data penyerang yang cocok.</td></tr>';
         return;
       }
 
@@ -2970,6 +2983,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const p17Val = item.p17_minat_skor > 0 
           ? `<span class="font-mono font-bold text-amber-800">${item.p17_minat_skor}</span>` 
           : `<span class="text-[#A8A29E] font-mono">-</span>`;
+        const dailyVal = (Number(item.daily_damage) || 0) > 0 
+          ? `<span class="font-mono font-bold text-amber-800">${Number(item.daily_damage).toLocaleString('id-ID')}</span>` 
+          : `<span class="text-[#A8A29E] font-mono">-</span>`;
 
         return `
           <tr class="hover:bg-[#F5F4F0] transition-colors" style="${rowBg}">
@@ -2984,6 +3000,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
             <td class="py-2 px-2 text-center text-xs">${p15Val}</td>
             <td class="py-2 px-2 text-center text-xs">${p16Val}</td>
             <td class="py-2 px-2 text-center text-xs">${p17Val}</td>
+            <td class="py-2 px-2 text-center text-xs">${dailyVal}</td>
             <td class="py-2 px-3 text-right font-mono font-bold text-rose-700 text-xs">
               ${Number(item.total_damage || 0).toLocaleString('id-ID')}
             </td>
@@ -2999,7 +3016,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (userItem) {
         html += `
           <tr class="bg-[#F7F6F3]/60">
-            <td colspan="8" class="py-2 px-3 text-center text-[10.5px] font-semibold text-[#787774] border-y border-dashed border-[#E8E6DF]">
+            <td colspan="9" class="py-2 px-3 text-center text-[10.5px] font-semibold text-[#787774] border-y border-dashed border-[#E8E6DF]">
               ••• Posisi Kontribusi Anda •••
             </td>
           </tr>
@@ -3025,6 +3042,983 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         });
       }
       renderRaidBossTable(_filteredRaidBossLeaderboard);
+    }
+
+    // =========================================================================
+    // MODUL 1.5: DAILY RAID ATTACK ENGINE (10 SOAL ACAK PER SISWA PER HARI)
+    // =========================================================================
+    let _dailyRaidQuestions = [];
+    let _dailyRaidCurrentIdx = 0;
+    let _dailyRaidAnswers = {};
+    let _dailyRaidTimer = null;
+    let _dailyRaidSeconds = 0;
+
+    function getActiveStudentNis() {
+      try {
+        const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        if (sess && sess.data && sess.data.nis) return String(sess.data.nis).trim();
+      } catch(e) {}
+      if (typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) {
+        return String(currentSiswa.nis).trim();
+      }
+      return '24400083';
+    }
+
+    function getWibDateString() {
+      const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
+      return nowWib.toISOString().slice(0, 10);
+    }
+
+    function formatWibDateIndo(dateStr) {
+      try {
+        const parts = String(dateStr).split('-');
+        if (parts.length === 3) {
+          const year = parseInt(parts[0], 10);
+          const month = parseInt(parts[1], 10) - 1;
+          const day = parseInt(parts[2], 10);
+          const d = new Date(Date.UTC(year, month, day));
+          const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+          return `${days[d.getUTCDay()]}, ${day} ${months[month]} ${year}`;
+        }
+      } catch(e) {}
+      return dateStr;
+    }
+
+    function renderDailyRaidMath(element) {
+      if (!element) return;
+      if (typeof renderMath === 'function') {
+        renderMath(element);
+      } else if (window.renderMathInElement) {
+        try {
+          window.renderMathInElement(element, {
+            delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "\\(", right: "\\)", display: false}
+            ],
+            throwOnError: false
+          });
+        } catch(e) {}
+      }
+    }
+
+    function getDailyRaidSeededRng(seedStr) {
+      let h = 1779033703 ^ seedStr.length;
+      for (let i = 0; i < seedStr.length; i++) {
+        h = Math.imul(h ^ seedStr.charCodeAt(i), 3432918353);
+        h = (h << 13) | (h >>> 19);
+      }
+      return function() {
+        h = Math.imul(h ^ (h >>> 16), 2246822507);
+        h = Math.imul(h ^ (h >>> 13), 3266489909);
+        return ((h ^= h >>> 16) >>> 0) / 4294967296;
+      };
+    }
+
+    function shuffleArrayWithRng(arr, rng) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function getDailyRaidQuestionPool() {
+      const database = window.db || (typeof db !== 'undefined' ? db : null);
+      if (!database) return { p15: [], p16: [], p17: [] };
+
+      const p15Questions = (database.tka_wajib?.P15?.questions || []).map((q, idx) => ({
+        ...q,
+        _sourceSubject: 'Matematika Wajib',
+        _sourceKode: 'P15',
+        _sourceTitle: 'Statistika: Histogram & Ogive',
+        _origIdx: idx
+      }));
+
+      const p16Questions = (database.tka_wajib?.P16?.questions || []).map((q, idx) => ({
+        ...q,
+        _sourceSubject: 'Matematika Wajib',
+        _sourceKode: 'P16',
+        _sourceTitle: 'Statistika: Mean Data Berkelompok',
+        _origIdx: idx
+      }));
+
+      const p17Questions = (database.tka_minat?.P17?.questions || []).map((q, idx) => ({
+        ...q,
+        _sourceSubject: 'Matematika Peminatan',
+        _sourceKode: 'P17',
+        _sourceTitle: 'Turunan Trigonometri Dasar',
+        _origIdx: idx
+      }));
+
+      return { p15: p15Questions, p16: p16Questions, p17: p17Questions };
+    }
+
+    function generateDailyRaidQuestions(nis, dateStr) {
+      const pool = getDailyRaidQuestionPool();
+      const rng = getDailyRaidSeededRng(`${nis}_${dateStr}`);
+
+      const sel15 = shuffleArrayWithRng(pool.p15, rng).slice(0, 4);
+      const sel16 = shuffleArrayWithRng(pool.p16, rng).slice(0, 3);
+      const sel17 = shuffleArrayWithRng(pool.p17, rng).slice(0, 3);
+
+      const combined = [...sel15, ...sel16, ...sel17];
+      return shuffleArrayWithRng(combined, rng);
+    }
+
+    async function openDailyRaidModal() {
+      const modal = document.getElementById('daily-raid-modal');
+      if (!modal) return;
+
+      const nis = getActiveStudentNis();
+      const dateStr = getWibDateString();
+      const storageKey = `daily_raid_${nis}_${dateStr}`;
+
+      const dateDisplay = formatWibDateIndo(dateStr);
+      const mDateTag = document.getElementById('dr-modal-date-tag');
+      if (mDateTag) mDateTag.textContent = dateDisplay;
+      const dDateTag = document.getElementById('daily-raid-date-tag');
+      if (dDateTag) dDateTag.textContent = dateDisplay;
+
+      _dailyRaidQuestions = generateDailyRaidQuestions(nis, dateStr);
+
+      let savedState = null;
+      try {
+        savedState = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      } catch(e) {}
+
+      const isRemoteCompleted = Boolean(_cachedRaidBossData?.user_stats?.today_daily_raid?.completed);
+      const isLocalCompleted = Boolean(savedState && savedState.is_completed);
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      if (isRemoteCompleted || isLocalCompleted) {
+        showDailyRaidResultView(savedState?.results || _cachedRaidBossData?.user_stats?.today_daily_raid);
+      } else {
+        showDailyRaidExamView(savedState);
+      }
+    }
+
+    function closeDailyRaidModal() {
+      const modal = document.getElementById('daily-raid-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      document.body.style.overflow = '';
+      stopDailyRaidTimer();
+    }
+
+    function showDailyRaidExamView(savedState) {
+      const examView = document.getElementById('dr-exam-view');
+      const resultView = document.getElementById('dr-result-view');
+      const navStrip = document.getElementById('dr-navigator-strip');
+      const footerEl = document.getElementById('dr-modal-footer');
+
+      if (examView) examView.classList.remove('hidden');
+      if (resultView) resultView.classList.add('hidden');
+      if (navStrip) navStrip.classList.remove('hidden');
+
+      if (footerEl) {
+        footerEl.innerHTML = `
+          <button type="button" id="btn-dr-prev" onclick="prevDailyRaidQuestion()" class="notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-semibold cursor-pointer shadow-2xs flex items-center gap-1">
+            <i class="fa-solid fa-arrow-left text-[10px]"></i> <span>Sebelumnya</span>
+          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" id="btn-dr-next" onclick="nextDailyRaidQuestion()" class="notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-semibold cursor-pointer shadow-2xs flex items-center gap-1">
+              <span>Selanjutnya</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+            <button type="button" id="btn-dr-submit" onclick="submitDailyRaidAttack()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]">
+              <i class="fa-solid fa-khanda text-amber-300 text-xs"></i> <span>Kirim Serangan Titan</span>
+            </button>
+          </div>
+        `;
+      }
+
+      _dailyRaidCurrentIdx = 0;
+      _dailyRaidAnswers = (savedState && savedState.answers) ? { ...savedState.answers } : {};
+      _dailyRaidSeconds = (savedState && savedState.seconds) ? Number(savedState.seconds) || 0 : 0;
+
+      startDailyRaidTimer();
+      renderDailyRaidBubbles();
+      renderDailyRaidQuestion(0);
+    }
+
+    function isDailyRaidNumeric(q) {
+      return (!q.opsi || q.opsi.length === 0 || q.tipe === 'Isian Singkat Numerik');
+    }
+
+    function isDailyRaidTF(q) {
+      if (isDailyRaidNumeric(q)) return false;
+      return (q.tipe === 'Pilihan Benar / Salah' || (q.kunci && /^[BS]\s*-\s*[BS]/i.test(q.kunci)));
+    }
+
+    function isDailyRaidMulti(q) {
+      if (isDailyRaidNumeric(q) || isDailyRaidTF(q)) return false;
+      return (q.tipe === 'Pilihan Ganda Kompleks' || (q.kunci && String(q.kunci).includes(',')));
+    }
+
+    function formatDailyRaidAnswerDisplay(val) {
+      if (val === null || val === undefined || val === '') return 'Tidak dijawab';
+      if (Array.isArray(val)) return val.length > 0 ? val.join(', ') : 'Tidak dijawab';
+      if (typeof val === 'object') {
+        const keys = Object.keys(val).sort((a,b)=>Number(a)-Number(b));
+        return keys.length > 0 ? keys.map(k => val[k]).join(' - ') : 'Tidak dijawab';
+      }
+      return String(val);
+    }
+
+    function isDailyRaidAnswerCorrect(q, chosen) {
+      if (chosen === null || chosen === undefined || chosen === '') return false;
+      const kunci = String(q.kunci || '').trim();
+
+      if (isDailyRaidNumeric(q)) {
+        const cVal = String(chosen).replace(',', '.').trim();
+        const kVal = String(kunci).replace(',', '.').trim();
+        if (cVal === kVal) return true;
+        const cNum = parseFloat(cVal);
+        const kNum = parseFloat(kVal);
+        return !isNaN(cNum) && !isNaN(kNum) && Math.abs(cNum - kNum) < 0.01;
+      }
+
+      if (isDailyRaidTF(q)) {
+        const kParts = kunci.split('-').map(s => s.trim().toUpperCase()[0]);
+        if (typeof chosen === 'object' && !Array.isArray(chosen)) {
+          return kParts.every((k, i) => (chosen[i] || '').toUpperCase()[0] === k);
+        }
+        const cParts = String(chosen).split('-').map(s => s.trim().toUpperCase()[0]);
+        return kParts.length === cParts.length && kParts.every((k, i) => k === cParts[i]);
+      }
+
+      if (isDailyRaidMulti(q)) {
+        const kArr = kunci.split(',').map(s => s.trim().toUpperCase()).sort().join(',');
+        const cArr = (Array.isArray(chosen) ? chosen : String(chosen).split(',')).map(s => s.trim().toUpperCase()).sort().join(',');
+        return kArr === cArr;
+      }
+
+      return String(chosen).trim().toUpperCase() === kunci.toUpperCase();
+    }
+
+    function isDailyRaidQuestionAnswered(idx) {
+      const q = _dailyRaidQuestions[idx];
+      if (!q) return false;
+      const val = _dailyRaidAnswers[idx];
+      if (val === undefined || val === null || val === '') return false;
+      if (isDailyRaidTF(q)) {
+        const stmtsLen = (Array.isArray(q.opsi) && q.opsi.length > 0) ? q.opsi.length : 1;
+        return typeof val === 'object' && Object.keys(val).length >= stmtsLen;
+      }
+      if (isDailyRaidMulti(q)) {
+        return Array.isArray(val) && val.length > 0;
+      }
+      return true;
+    }
+
+    function renderDailyRaidQuestion(idx) {
+      if (idx < 0 || idx >= _dailyRaidQuestions.length) return;
+      _dailyRaidCurrentIdx = idx;
+
+      const q = _dailyRaidQuestions[idx];
+
+      const numBadge = document.getElementById('dr-question-num-badge');
+      if (numBadge) numBadge.textContent = idx + 1;
+
+      const srcTag = document.getElementById('dr-question-source-tag');
+      if (srcTag) {
+        srcTag.textContent = `${q._sourceSubject} • ${q._sourceKode} ${q._sourceTitle}`;
+      }
+
+      const promptEl = document.getElementById('dr-question-prompt');
+      if (promptEl) {
+        promptEl.innerHTML = `<div class="font-medium text-xs sm:text-sm leading-relaxed">${q.tanya || ''}</div>`;
+        renderDailyRaidMath(promptEl);
+      }
+
+      const optsContainer = document.getElementById('dr-options-container');
+      if (!optsContainer) return;
+
+      const isNumeric = isDailyRaidNumeric(q);
+      const isTF = isDailyRaidTF(q);
+      const isMulti = isDailyRaidMulti(q);
+
+      if (isNumeric) {
+        const userVal = _dailyRaidAnswers[idx] || '';
+        optsContainer.innerHTML = `
+          <div class="p-4 sm:p-5 rounded-xl border space-y-2.5 max-w-md mx-auto text-center" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-[#787774] block">Isian Singkat Numerik</span>
+            <input type="text" id="dr-numeric-input" oninput="selectDailyRaidAnswer(${idx}, this.value)" value="${escapeHtml(userVal)}" placeholder="Ketik angka jawaban..." class="w-full px-4 py-2.5 rounded-xl border border-[#E8E6DF] text-center font-mono text-base font-bold text-[#2F3437] bg-white focus:outline-none focus:border-indigo-500 shadow-2xs">
+            <p class="text-[11px] text-[#787774]">Masukkan angka pasti (contoh: 90 atau 72,5).</p>
+          </div>
+        `;
+      } else if (isTF) {
+        const statements = (Array.isArray(q.opsi) && q.opsi.length > 0) ? q.opsi.map(opt => opt.replace(/^[A-E]\.\s*/, '')) : [q.tanya];
+        const tfObj = (typeof _dailyRaidAnswers[idx] === 'object' && _dailyRaidAnswers[idx] !== null) ? _dailyRaidAnswers[idx] : {};
+
+        optsContainer.innerHTML = `
+          <div class="space-y-2.5">
+            <div class="p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2" style="background-color: #FBFBFA; border-color: #E8E6DF; color: #5F5E5B;">
+              <i class="fa-solid fa-table-list text-indigo-600"></i> Tentukan nilai BENAR atau SALAH untuk setiap baris pernyataan:
+            </div>
+            ${statements.map((stmt, sIdx) => {
+              const currentChoice = tfObj[sIdx] || null;
+              const isB = currentChoice === 'B';
+              const isS = currentChoice === 'S';
+
+              const bCls = isB
+                ? 'bg-blue-600 text-white font-bold border-blue-600 shadow-xs'
+                : 'bg-white text-[#2F3437] border-[#E8E6DF] hover:bg-[#F5F4F0]';
+              const sCls = isS
+                ? 'bg-rose-600 text-white font-bold border-rose-600 shadow-xs'
+                : 'bg-white text-[#2F3437] border-[#E8E6DF] hover:bg-[#F5F4F0]';
+
+              return `
+                <div class="p-3 sm:p-3.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+                  <div class="flex items-start gap-2.5 flex-1">
+                    <span class="w-6 h-6 rounded-md bg-[#F0EFEA] text-[#5F5E5B] border border-[#E8E6DF] font-mono font-bold text-xs flex items-center justify-center shrink-0">
+                      ${sIdx + 1}
+                    </span>
+                    <div class="text-xs sm:text-sm text-[#2F3437] leading-relaxed flex-1">${stmt}</div>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                    <button type="button" onclick="selectDailyRaidTfAnswer(${idx}, ${sIdx}, 'B')" class="px-3 py-1.5 rounded-lg border text-xs font-mono font-bold cursor-pointer transition ${bCls}">
+                      BENAR
+                    </button>
+                    <button type="button" onclick="selectDailyRaidTfAnswer(${idx}, ${sIdx}, 'S')" class="px-3 py-1.5 rounded-lg border text-xs font-mono font-bold cursor-pointer transition ${sCls}">
+                      SALAH
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+        renderDailyRaidMath(optsContainer);
+      } else if (isMulti) {
+        const userPicks = Array.isArray(_dailyRaidAnswers[idx]) ? _dailyRaidAnswers[idx] : [];
+        optsContainer.innerHTML = `
+          <div class="space-y-2.5">
+            <div class="p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2" style="background-color: #FBFBFA; border-color: #E8E6DF; color: #5F5E5B;">
+              <i class="fa-solid fa-square-check text-indigo-600"></i> Pilihan Ganda Kompleks: Centang semua pernyataan yang bernilai BENAR!
+            </div>
+            ${(q.opsi || []).map((optText, optIdx) => {
+              const letter = String.fromCharCode(65 + optIdx);
+              const isChecked = userPicks.includes(letter);
+              const cleanText = optText.replace(/^[A-E]\.\s*/, '');
+
+              const cardStyle = isChecked
+                ? 'background-color: #EFF6FF; border-color: #3B82F6; color: #1E3A8A;'
+                : 'background-color: #FFFFFF; border-color: #E8E6DF; color: #2F3437;';
+              const chkStyle = isChecked
+                ? 'bg-blue-600 text-white border-blue-600'
+                : 'bg-white text-transparent border-[#CBD5E1]';
+
+              return `
+                <div onclick="toggleDailyRaidMultiAnswer(${idx}, '${letter}')"
+                     class="p-3 sm:p-3.5 rounded-xl border flex items-center gap-3 cursor-pointer transition shadow-2xs hover:border-[#CBD5E1]"
+                     style="${cardStyle}">
+                  <span class="w-6 h-6 rounded-md border flex items-center justify-center shrink-0 text-xs transition ${chkStyle}">
+                    <i class="fa-solid fa-check"></i>
+                  </span>
+                  <span class="w-6 h-6 rounded-md bg-[#F0EFEA] text-[#5F5E5B] border border-[#E8E6DF] font-mono font-bold text-xs flex items-center justify-center shrink-0">
+                    ${letter}
+                  </span>
+                  <div class="text-xs sm:text-sm leading-normal flex-1">
+                    ${cleanText}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+        renderDailyRaidMath(optsContainer);
+      } else {
+        const chosen = _dailyRaidAnswers[idx];
+        optsContainer.innerHTML = (q.opsi || []).map((optText, optIdx) => {
+          const letter = String.fromCharCode(65 + optIdx);
+          const isSelected = (chosen === letter);
+          const cleanText = optText.replace(/^[A-E]\.\s*/, '');
+
+          const cardStyle = isSelected
+            ? 'background-color: #EFF6FF; border-color: #3B82F6; color: #1E3A8A;'
+            : 'background-color: #FFFFFF; border-color: #E8E6DF; color: #2F3437;';
+          const badgeStyle = isSelected
+            ? 'background-color: #2563EB; color: #FFFFFF;'
+            : 'background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;';
+
+          return `
+            <div onclick="selectDailyRaidAnswer(${idx}, '${letter}')"
+                 class="p-3 sm:p-3.5 rounded-xl border flex items-center gap-3 cursor-pointer transition shadow-2xs hover:border-[#CBD5E1]"
+                 style="${cardStyle}">
+              <span class="w-7 h-7 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs"
+                    style="${badgeStyle}">
+                ${letter}
+              </span>
+              <div class="text-xs sm:text-sm leading-normal flex-1">
+                ${cleanText}
+              </div>
+            </div>
+          `;
+        }).join('');
+        renderDailyRaidMath(optsContainer);
+      }
+
+      const btnPrev = document.getElementById('btn-dr-prev');
+      if (btnPrev) {
+        btnPrev.disabled = (idx === 0);
+        btnPrev.style.opacity = (idx === 0) ? '0.5' : '1';
+        btnPrev.style.pointerEvents = (idx === 0) ? 'none' : 'auto';
+      }
+
+      const btnNext = document.getElementById('btn-dr-next');
+      if (btnNext) {
+        btnNext.disabled = (idx === _dailyRaidQuestions.length - 1);
+        btnNext.style.opacity = (idx === _dailyRaidQuestions.length - 1) ? '0.5' : '1';
+        btnNext.style.pointerEvents = (idx === _dailyRaidQuestions.length - 1) ? 'none' : 'auto';
+      }
+
+      renderDailyRaidBubbles();
+    }
+
+    function selectDailyRaidAnswer(idx, val) {
+      _dailyRaidAnswers[idx] = val;
+      persistDailyRaidDraft();
+      if (!isDailyRaidNumeric(_dailyRaidQuestions[idx])) {
+        renderDailyRaidQuestion(idx);
+      } else {
+        renderDailyRaidBubbles();
+      }
+    }
+
+    function selectDailyRaidTfAnswer(idx, stmtIdx, choice) {
+      if (typeof _dailyRaidAnswers[idx] !== 'object' || _dailyRaidAnswers[idx] === null || Array.isArray(_dailyRaidAnswers[idx])) {
+        _dailyRaidAnswers[idx] = {};
+      }
+      _dailyRaidAnswers[idx][stmtIdx] = choice;
+      persistDailyRaidDraft();
+      renderDailyRaidQuestion(idx);
+    }
+
+    function toggleDailyRaidMultiAnswer(idx, letter) {
+      if (!Array.isArray(_dailyRaidAnswers[idx])) {
+        _dailyRaidAnswers[idx] = [];
+      }
+      const arr = _dailyRaidAnswers[idx];
+      const pos = arr.indexOf(letter);
+      if (pos > -1) {
+        arr.splice(pos, 1);
+      } else {
+        arr.push(letter);
+      }
+      persistDailyRaidDraft();
+      renderDailyRaidQuestion(idx);
+    }
+
+    function persistDailyRaidDraft() {
+      const nis = getActiveStudentNis();
+      const dateStr = getWibDateString();
+      const storageKey = `daily_raid_${nis}_${dateStr}`;
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          answers: _dailyRaidAnswers,
+          seconds: _dailyRaidSeconds,
+          is_completed: false
+        }));
+      } catch(e) {}
+    }
+
+    function renderDailyRaidBubbles() {
+      const container = document.getElementById('dr-bubbles-container');
+      if (!container) return;
+
+      container.innerHTML = _dailyRaidQuestions.map((_, i) => {
+        const isCurrent = (i === _dailyRaidCurrentIdx);
+        const isAnswered = isDailyRaidQuestionAnswered(i);
+
+        let cls = 'w-7 h-7 rounded-lg font-mono font-bold text-xs flex items-center justify-center cursor-pointer transition shadow-2xs ';
+        if (isCurrent) {
+          cls += 'bg-[#2E384D] text-white ring-2 ring-indigo-400';
+        } else if (isAnswered) {
+          cls += 'bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100';
+        } else {
+          cls += 'bg-white text-[#787774] border border-[#E8E6DF] hover:bg-[#F7F6F3]';
+        }
+
+        return `<button type="button" onclick="goToDailyRaidQuestion(${i})" class="${cls}">${i + 1}</button>`;
+      }).join('');
+    }
+
+    function prevDailyRaidQuestion() {
+      if (_dailyRaidCurrentIdx > 0) renderDailyRaidQuestion(_dailyRaidCurrentIdx - 1);
+    }
+
+    function nextDailyRaidQuestion() {
+      if (_dailyRaidCurrentIdx < _dailyRaidQuestions.length - 1) renderDailyRaidQuestion(_dailyRaidCurrentIdx + 1);
+    }
+
+    function goToDailyRaidQuestion(idx) {
+      renderDailyRaidQuestion(idx);
+    }
+
+    function startDailyRaidTimer() {
+      stopDailyRaidTimer();
+      updateDailyRaidTimerDisplay();
+      _dailyRaidTimer = setInterval(() => {
+        _dailyRaidSeconds++;
+        updateDailyRaidTimerDisplay();
+      }, 1000);
+    }
+
+    function stopDailyRaidTimer() {
+      if (_dailyRaidTimer) {
+        clearInterval(_dailyRaidTimer);
+        _dailyRaidTimer = null;
+      }
+    }
+
+    function updateDailyRaidTimerDisplay() {
+      const textEl = document.getElementById('dr-timer-text');
+      if (textEl) {
+        const mins = String(Math.floor(_dailyRaidSeconds / 60)).padStart(2, '0');
+        const secs = String(_dailyRaidSeconds % 60).padStart(2, '0');
+        textEl.textContent = `${mins}:${secs}`;
+      }
+    }
+
+    async function submitDailyRaidAttack() {
+      const totalQ = _dailyRaidQuestions.length;
+      let answeredCount = 0;
+      for (let i = 0; i < totalQ; i++) {
+        if (isDailyRaidQuestionAnswered(i)) answeredCount++;
+      }
+
+      if (answeredCount < totalQ) {
+        const confirmSubmit = window.confirm(`Kamu baru menjawab ${answeredCount} dari ${totalQ} soal.\n\nSoal yang belum dijawab akan dihitung SALAH. Yakin ingin mengirim serangan sekarang?`);
+        if (!confirmSubmit) return;
+      }
+
+      const submitBtn = document.getElementById('btn-dr-submit');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Mengirim Serangan...';
+      }
+
+      stopDailyRaidTimer();
+
+      let jumlahBenar = 0;
+      const reviewItems = _dailyRaidQuestions.map((q, i) => {
+        const chosen = _dailyRaidAnswers[i] !== undefined ? _dailyRaidAnswers[i] : null;
+        const isCorrect = isDailyRaidAnswerCorrect(q, chosen);
+        if (isCorrect) jumlahBenar++;
+        return {
+          no: i + 1,
+          q: q,
+          chosen: chosen,
+          kunci: q.kunci,
+          isCorrect: isCorrect
+        };
+      });
+
+      const jumlahSalah = totalQ - jumlahBenar;
+      const skor = Math.round((jumlahBenar / totalQ) * 100);
+      const isPerfect = (skor === 100);
+      const damage = (jumlahBenar * 100) + (isPerfect ? 500 : 0);
+      const xpEarned = (jumlahBenar * 10) + (isPerfect ? 50 : 0);
+
+      const nis = getActiveStudentNis();
+      const dateStr = getWibDateString();
+      const kodePertemuan = 'DAILY_' + dateStr.replace(/-/g, '');
+
+      const payload = {
+        nis: nis,
+        mapel: 'raid',
+        kode_pertemuan: kodePertemuan,
+        skor: skor,
+        jumlah_soal: totalQ,
+        jumlah_benar: jumlahBenar,
+        jumlah_salah: jumlahSalah,
+        durasi_detik: Math.max(15, _dailyRaidSeconds),
+        jumlah_percobaan: 1,
+        tingkat: '12',
+        answers: Object.keys(_dailyRaidAnswers).map(idx => ({
+          q_idx: Number(idx),
+          chosen: formatDailyRaidAnswerDisplay(_dailyRaidAnswers[idx])
+        }))
+      };
+
+      const resultsData = {
+        completed: true,
+        skor: skor,
+        jumlah_benar: jumlahBenar,
+        jumlah_soal: totalQ,
+        damage_earned: damage,
+        xp_earned: xpEarned,
+        is_perfect: isPerfect,
+        seconds: _dailyRaidSeconds,
+        waktu_submit: new Date().toISOString(),
+        reviewItems: reviewItems
+      };
+
+      const storageKey = `daily_raid_${nis}_${dateStr}`;
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          answers: _dailyRaidAnswers,
+          seconds: _dailyRaidSeconds,
+          is_completed: true,
+          results: resultsData
+        }));
+      } catch(e) {}
+
+      try {
+        await fetch('/api/nilai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch(e) {
+        console.warn('Daily Raid submit offline fallback:', e);
+      }
+
+      if (_cachedRaidBossData) {
+        if (!_cachedRaidBossData.user_stats) {
+          _cachedRaidBossData.user_stats = {};
+        }
+        _cachedRaidBossData.user_stats.daily_damage = (_cachedRaidBossData.user_stats.daily_damage || 0) + damage;
+        _cachedRaidBossData.user_stats.total_damage = (_cachedRaidBossData.user_stats.total_damage || 0) + damage;
+        _cachedRaidBossData.user_stats.today_daily_raid = resultsData;
+
+        _cachedRaidBossData.current_hp = Math.max(0, (_cachedRaidBossData.current_hp || 150000) - damage);
+        _cachedRaidBossData.total_damage_dealt = (_cachedRaidBossData.total_damage_dealt || 0) + damage;
+
+        renderWeeklyEventWidget(_cachedRaidBossData);
+        renderRaidBossLeaderboard(_cachedRaidBossData);
+      }
+
+      try {
+        fetch(`/api/gamifikasi?raid_boss=1&nis=${encodeURIComponent(nis)}`)
+          .then(r => r.json())
+          .then(json => {
+            if (json.raid_boss) {
+              _cachedRaidBossData = json.raid_boss;
+              renderWeeklyEventWidget(_cachedRaidBossData);
+            }
+          })
+          .catch(() => {});
+      } catch(e) {}
+
+      showDailyRaidResultView(resultsData);
+    }
+
+    function showDailyRaidResultView(resultsData) {
+      const examView = document.getElementById('dr-exam-view');
+      const resultView = document.getElementById('dr-result-view');
+      const navStrip = document.getElementById('dr-navigator-strip');
+      const footerEl = document.getElementById('dr-modal-footer');
+
+      if (examView) examView.classList.add('hidden');
+      if (resultView) resultView.classList.remove('hidden');
+      if (navStrip) navStrip.classList.add('hidden');
+
+      const skor = resultsData?.skor || 0;
+      const benar = resultsData?.jumlah_benar || 0;
+      const soal = resultsData?.jumlah_soal || 10;
+      const dmg = resultsData?.damage_earned || (benar * 100 + (skor === 100 ? 500 : 0));
+      const xp = resultsData?.xp_earned || (benar * 10 + (skor === 100 ? 50 : 0));
+      const isPerfect = (skor === 100);
+
+      const critTag = document.getElementById('dr-result-critical-tag');
+      if (critTag) {
+        if (isPerfect) {
+          critTag.classList.remove('hidden');
+          critTag.textContent = 'CRITICAL HIT BONUS (+500 DMG)!';
+        } else {
+          critTag.classList.add('hidden');
+        }
+      }
+
+      const resTitle = document.getElementById('dr-result-title');
+      if (resTitle) {
+        resTitle.textContent = `Serangan Berhasil! +${dmg.toLocaleString('id-ID')} DMG`;
+      }
+
+      const resSubtitle = document.getElementById('dr-result-subtitle');
+      if (resSubtitle) {
+        resSubtitle.textContent = isPerfect
+          ? 'Sempurna! 10 dari 10 soal benar. Critical Hit Bonus +500 DMG berhasil dihantamkan ke Titan Statigo!'
+          : `Kamu berhasil menjawab ${benar} dari ${soal} soal dengan benar. Terus pertajam pemahamanmu untuk serangan besok!`;
+      }
+
+      const elScore = document.getElementById('dr-result-score');
+      if (elScore) elScore.textContent = skor;
+
+      const elAcc = document.getElementById('dr-result-accuracy');
+      if (elAcc) elAcc.textContent = `${benar} / ${soal - benar}`;
+
+      const elDmg = document.getElementById('dr-result-dmg');
+      if (elDmg) elDmg.textContent = `+${dmg.toLocaleString('id-ID')} DMG`;
+
+      const elXp = document.getElementById('dr-result-xp');
+      if (elXp) elXp.textContent = `+${xp} EXP`;
+
+      const reviewContainer = document.getElementById('dr-review-list-container');
+      if (reviewContainer) {
+        const items = resultsData?.reviewItems || _dailyRaidQuestions.map((q, i) => {
+          const chosen = _dailyRaidAnswers[i] !== undefined ? _dailyRaidAnswers[i] : null;
+          return {
+            no: i + 1,
+            q: q,
+            chosen: chosen,
+            kunci: q.kunci,
+            isCorrect: isDailyRaidAnswerCorrect(q, chosen)
+          };
+        });
+
+        reviewContainer.innerHTML = items.map(item => {
+          const q = item.q;
+          const isCorrect = item.isCorrect;
+          const statusBadge = isCorrect
+            ? '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">BENAR (+100 DMG)</span>'
+            : '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300">SALAH (0 DMG)</span>';
+
+          const chosenDisplay = formatDailyRaidAnswerDisplay(item.chosen);
+          const kunciDisplay = formatDailyRaidAnswerDisplay(item.kunci);
+
+          return `
+            <div class="p-3.5 sm:p-4 rounded-xl border space-y-2.5" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-md bg-[#2E384D] text-white font-mono font-bold text-xs flex items-center justify-center">
+                    ${item.no}
+                  </span>
+                  <span class="text-[11px] font-semibold text-[#787774]">
+                    ${q._sourceSubject} • ${q._sourceKode}
+                  </span>
+                </div>
+                ${statusBadge}
+              </div>
+
+              <div class="text-xs sm:text-sm text-[#2F3437] leading-relaxed pt-1">
+                ${q.tanya || ''}
+              </div>
+
+              <div class="flex items-center gap-3 text-xs pt-1 border-t border-[#F0EFEA] flex-wrap">
+                <span class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-rose-700 font-bold'}">
+                  Jawabanmu: <strong class="font-mono text-sm">${escapeHtml(chosenDisplay)}</strong>
+                </span>
+                <span class="text-[#787774]">•</span>
+                <span class="text-[#2F3437]">
+                  Kunci Jawaban: <strong class="font-mono text-emerald-700 text-sm font-bold">${escapeHtml(kunciDisplay)}</strong>
+                </span>
+              </div>
+
+              ${q.bahas ? `
+                <div class="p-3 rounded-lg bg-[#FBFBFA] border border-[#E8E6DF] text-xs text-[#5F5E5B] space-y-1 mt-2">
+                  <div class="font-bold text-[#2F3437] text-[11px] flex items-center gap-1.5">
+                    <i class="fa-solid fa-lightbulb text-amber-500"></i> Pembahasan Langkah demi Langkah:
+                  </div>
+                  <div class="review-math-content whitespace-pre-line leading-relaxed">
+                    ${q.bahas}
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+
+        renderDailyRaidMath(reviewContainer);
+      }
+
+      if (footerEl) {
+        footerEl.innerHTML = `
+          <div class="text-[11px] text-[#787774]">
+            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Misi harian selesai. Reset otomatis besok pukul 00:00 WIB.
+          </div>
+          <button type="button" onclick="closeDailyRaidModal()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold text-white cursor-pointer shadow-sm hover:bg-[#1E2533]">
+            Tutup Misi
+          </button>
+        `;
+      }
+    }
+
+    function showDailyRaidResultView(resultsData) {
+      const examView = document.getElementById('dr-exam-view');
+      const resultView = document.getElementById('dr-result-view');
+      const navStrip = document.getElementById('dr-navigator-strip');
+      const footerEl = document.getElementById('dr-modal-footer');
+
+      if (examView) examView.classList.add('hidden');
+      if (resultView) resultView.classList.remove('hidden');
+      if (navStrip) navStrip.classList.add('hidden');
+
+      const skor = resultsData?.skor || 0;
+      const benar = resultsData?.jumlah_benar || 0;
+      const soal = resultsData?.jumlah_soal || 10;
+      const dmg = resultsData?.damage_earned || (benar * 100 + (skor === 100 ? 500 : 0));
+      const xp = resultsData?.xp_earned || (benar * 10 + (skor === 100 ? 50 : 0));
+      const isPerfect = (skor === 100);
+
+      const critTag = document.getElementById('dr-result-critical-tag');
+      if (critTag) {
+        if (isPerfect) {
+          critTag.classList.remove('hidden');
+          critTag.textContent = 'CRITICAL HIT BONUS (+500 DMG)!';
+        } else {
+          critTag.classList.add('hidden');
+        }
+      }
+
+      const resTitle = document.getElementById('dr-result-title');
+      if (resTitle) {
+        resTitle.textContent = `Serangan Berhasil! +${dmg.toLocaleString('id-ID')} DMG`;
+      }
+
+      const resSubtitle = document.getElementById('dr-result-subtitle');
+      if (resSubtitle) {
+        resSubtitle.textContent = isPerfect
+          ? 'Sempurna! 10 dari 10 soal benar. Critical Hit Bonus +500 DMG berhasil dihantamkan ke Titan Statigo!'
+          : `Kamu berhasil menjawab ${benar} dari ${soal} soal dengan benar. Terus pertajam pemahamanmu untuk serangan besok!`;
+      }
+
+      const elScore = document.getElementById('dr-result-score');
+      if (elScore) elScore.textContent = skor;
+
+      const elAcc = document.getElementById('dr-result-accuracy');
+      if (elAcc) elAcc.textContent = `${benar} / ${soal - benar}`;
+
+      const elDmg = document.getElementById('dr-result-dmg');
+      if (elDmg) elDmg.textContent = `+${dmg.toLocaleString('id-ID')} DMG`;
+
+      const elXp = document.getElementById('dr-result-xp');
+      if (elXp) elXp.textContent = `+${xp} EXP`;
+
+      const reviewContainer = document.getElementById('dr-review-list-container');
+      if (reviewContainer) {
+        const items = resultsData?.reviewItems || _dailyRaidQuestions.map((q, i) => {
+          const chosen = _dailyRaidAnswers[i] || null;
+          const kunci = String(q.kunci || '').trim().toUpperCase();
+          return {
+            no: i + 1,
+            q: q,
+            chosen: chosen,
+            kunci: kunci,
+            isCorrect: (chosen && chosen.toUpperCase() === kunci)
+          };
+        });
+
+        reviewContainer.innerHTML = items.map(item => {
+          const q = item.q;
+          const isCorrect = item.isCorrect;
+          const statusBadge = isCorrect
+            ? '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">BENAR (+100 DMG)</span>'
+            : '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300">SALAH (0 DMG)</span>';
+
+          return `
+            <div class="p-3.5 sm:p-4 rounded-xl border space-y-2.5" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-md bg-[#2E384D] text-white font-mono font-bold text-xs flex items-center justify-center">
+                    ${item.no}
+                  </span>
+                  <span class="text-[11px] font-semibold text-[#787774]">
+                    ${q._sourceSubject} • ${q._sourceKode}
+                  </span>
+                </div>
+                ${statusBadge}
+              </div>
+
+              <div class="text-xs sm:text-sm text-[#2F3437] leading-relaxed pt-1">
+                ${q.tanya || ''}
+              </div>
+
+              <div class="flex items-center gap-3 text-xs pt-1 border-t border-[#F0EFEA]">
+                <span class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-rose-700 font-bold'}">
+                  Jawabanmu: <strong class="font-mono text-sm">${item.chosen || 'Tidak dijawab'}</strong>
+                </span>
+                <span class="text-[#787774]">•</span>
+                <span class="text-[#2F3437]">
+                  Kunci Jawaban: <strong class="font-mono text-emerald-700 text-sm font-bold">${item.kunci}</strong>
+                </span>
+              </div>
+
+              ${q.bahas ? `
+                <div class="p-3 rounded-lg bg-[#FBFBFA] border border-[#E8E6DF] text-xs text-[#5F5E5B] space-y-1 mt-2">
+                  <div class="font-bold text-[#2F3437] text-[11px] flex items-center gap-1.5">
+                    <i class="fa-solid fa-lightbulb text-amber-500"></i> Pembahasan Langkah demi Langkah:
+                  </div>
+                  <div class="review-math-content whitespace-pre-line leading-relaxed">
+                    ${q.bahas}
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+
+        renderDailyRaidMath(reviewContainer);
+      }
+
+      if (footerEl) {
+        footerEl.innerHTML = `
+          <div class="text-[11px] text-[#787774]">
+            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Misi harian selesai. Reset otomatis besok pukul 00:00 WIB.
+          </div>
+          <button type="button" onclick="closeDailyRaidModal()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold text-white cursor-pointer shadow-sm hover:bg-[#1E2533]">
+            Tutup Misi
+          </button>
+        `;
+      }
+    }
+
+    function renderDailyRaidCardStatus(raidData) {
+      const nis = getActiveStudentNis();
+      const dateStr = getWibDateString();
+      const storageKey = `daily_raid_${nis}_${dateStr}`;
+
+      let saved = null;
+      try {
+        saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      } catch(e) {}
+
+      const isRemoteCompleted = Boolean(raidData?.user_stats?.today_daily_raid?.completed);
+      const isLocalCompleted = Boolean(saved && saved.is_completed);
+      const isCompleted = isRemoteCompleted || isLocalCompleted;
+
+      const dateDisplay = formatWibDateIndo(dateStr);
+      const dateTag = document.getElementById('daily-raid-date-tag');
+      if (dateTag) dateTag.textContent = dateDisplay;
+
+      const badge = document.getElementById('daily-raid-status-badge');
+      const btnAction = document.getElementById('btn-daily-raid-action');
+      const btnText = document.getElementById('btn-daily-raid-text');
+
+      if (isCompleted) {
+        const earnedDmg = raidData?.user_stats?.today_daily_raid?.damage_earned || saved?.results?.damage_earned || 0;
+        if (badge) {
+          badge.textContent = `Selesai (+${earnedDmg.toLocaleString('id-ID')} DMG)`;
+          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300';
+        }
+        if (btnAction) {
+          btnAction.className = 'notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]';
+        }
+        if (btnText) {
+          btnText.textContent = 'Review Solusi & Nilai';
+        }
+      } else {
+        if (badge) {
+          badge.textContent = 'Tersedia (+1.500 DMG)';
+          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
+        }
+        if (btnAction) {
+          btnAction.className = 'notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]';
+        }
+        if (btnText) {
+          btnText.textContent = 'Serang Titan (10 Soal)';
+        }
+      }
     }
 
     // =========================================================================
@@ -3175,6 +4169,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (!modal) return;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
 
       let nis = null;
       try {
@@ -3210,6 +4205,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (!modal) return;
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      document.body.style.overflow = '';
     }
 
     function switchSkillTreeTab(mapel) {
@@ -3401,6 +4397,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (!modal) return;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
 
       renderShareCardPreview();
       switchShareCardTheme(_currentShareCardTheme || 'paper');
@@ -3411,6 +4408,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (!modal) return;
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      document.body.style.overflow = '';
     }
 
     function switchShareCardTheme(theme) {
@@ -3957,6 +4955,19 @@ Guru Pengampu: Mr. Ardi
     window.renderRaidBossLeaderboard = renderRaidBossLeaderboard;
     window.filterRaidBossLeaderboard = filterRaidBossLeaderboard;
     window.serangRaidBoss = serangRaidBoss;
+    window.openDailyRaidModal = openDailyRaidModal;
+    window.closeDailyRaidModal = closeDailyRaidModal;
+    window.renderDailyRaidQuestion = renderDailyRaidQuestion;
+    window.selectDailyRaidAnswer = selectDailyRaidAnswer;
+    window.selectDailyRaidTfAnswer = selectDailyRaidTfAnswer;
+    window.toggleDailyRaidMultiAnswer = toggleDailyRaidMultiAnswer;
+    window.prevDailyRaidQuestion = prevDailyRaidQuestion;
+    window.nextDailyRaidQuestion = nextDailyRaidQuestion;
+    window.goToDailyRaidQuestion = goToDailyRaidQuestion;
+    window.submitDailyRaidAttack = submitDailyRaidAttack;
+    window.renderDailyRaidCardStatus = renderDailyRaidCardStatus;
+    window.generateDailyRaidQuestions = generateDailyRaidQuestions;
+    window.getDailyRaidQuestionPool = getDailyRaidQuestionPool;
     window.openSkillTreeModal = openSkillTreeModal;
     window.closeSkillTreeModal = closeSkillTreeModal;
     window.switchSkillTreeTab = switchSkillTreeTab;
