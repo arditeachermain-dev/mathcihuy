@@ -1859,6 +1859,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const modal = document.getElementById('leaderboard-modal');
       if (!modal) return;
       modal.classList.remove('hidden');
+      const scrollBody = modal.querySelector('.overflow-y-auto');
+      if (scrollBody) scrollBody.scrollTop = 0;
 
       if (view === 'catalog') {
         switchLeaderboardView('catalog');
