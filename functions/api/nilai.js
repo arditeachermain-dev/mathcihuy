@@ -127,13 +127,14 @@ export async function onRequestPost(context) {
                              data.source === 'visibility-sync' ||
                              data.source === 'pagehide-sync';
     const isGuru = Boolean(session && session.role === 'guru');
+    let lastSubmitDiffSec = null;
     if (!isGuru && !isSyncSubmission) {
       // Jika durasi < 3 detik karena timer browser ter-reset / antrean offline outbox, berikan default aman 15 detik alih-alih menolak nilai siswa
       if (cleanDurasi < 3) {
         cleanDurasi = 15;
       }
 
-      // Deteksi Rapid-Fire Bot antar paket (< 4 detik antar paket berbeda)
+      // Deteksi Rapid-Fire Bot antar paket (< 30 detik antar pengumpulan paket matematika)
       try {
         const lastSub = await context.env.DB.prepare(
           "SELECT waktu_submit FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit DESC LIMIT 1"
@@ -142,10 +143,10 @@ export async function onRequestPost(context) {
         if (lastSub && lastSub.waktu_submit) {
           const lastTime = new Date(lastSub.waktu_submit).getTime();
           const nowTime = Date.now();
-          const diffSec = (nowTime - lastTime) / 1000;
-          if (diffSec >= 0 && diffSec < 2) {
+          lastSubmitDiffSec = (nowTime - lastTime) / 1000;
+          if (lastSubmitDiffSec >= 0 && lastSubmitDiffSec < 30) {
             return jsonResponse({
-              error: `Pengumpulan ditolak (Proteksi Anti-Bot): Terdeteksi jeda submit antar paket (${Math.round(diffSec)} detik) terlalu cepat. Harap luangkan jeda minimal 2 detik.`,
+              error: `Pengumpulan ditolak (Proteksi Cooldown): Terdeteksi jeda submit antar paket (${Math.round(lastSubmitDiffSec)} detik) terlalu cepat. Harap luangkan jeda minimal 30 detik untuk membaca dan meninjau paket ujian berikutnya.`,
               error_code: 'RATE_LIMIT'
             }, 429);
           }
@@ -211,9 +212,24 @@ export async function onRequestPost(context) {
     const finalDurasi = isNewRecordBest ? cleanDurasi : (Number(existing.durasi_detik) || cleanDurasi);
     const finalWaktu = isNewRecordBest ? now : (existing.waktu_submit || now);
 
-    // Deteksi Anomali Kognitif & Rapid-Fire Solving:
-    // Pengerjaan 10 butir soal matematika dalam durasi < 120 detik dengan skor 100 diindikasi bot / copy-paste / instant key
-    const isAnomali = (cleanDurasi < 120 && cleanSkor === 100);
+    // Deteksi Anomali Kognitif & Rapid-Fire / Injected Duration Solving:
+    // 1. Pengerjaan 10 butir matematika dalam durasi tercatat < 60 detik dengan skor >= 80 (mustahil untuk perhitungan analitik)
+    // 2. Selisih waktu riil server dengan submit sebelumnya < 60 detik dengan skor >= 80 (script burst / loop bot)
+    // 3. Durasi yang diklaim < 120 detik dengan skor 100
+    // 4. Durasi palsu (selisih server < 60s dari submit paket sebelumnya tapi durasi yang diklaim >= 120s dan skor >= 80)
+    let isAnomali = false;
+    if (cleanDurasi < 60 && cleanSkor >= 80) {
+      isAnomali = true;
+    }
+    if (lastSubmitDiffSec !== null && lastSubmitDiffSec < 60 && cleanSkor >= 80) {
+      isAnomali = true;
+    }
+    if (cleanDurasi < 120 && cleanSkor === 100) {
+      isAnomali = true;
+    }
+    if (lastSubmitDiffSec !== null && lastSubmitDiffSec < 60 && cleanDurasi >= 120 && cleanSkor >= 80) {
+      isAnomali = true;
+    }
     const isFlagged = isAnomali ? 1 : 0;
 
     await context.env.DB.prepare(`

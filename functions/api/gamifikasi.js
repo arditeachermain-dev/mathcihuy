@@ -182,12 +182,12 @@ export async function updateStudentGamification(db, nis) {
   }
 
   // 4. Hitung XP & Badges (Gabungkan tanggal aktif CBT dan Kuis Discord untuk Streak)
-  const examDates = (exams || []).map(e => e.tgl);
+  const examDates = (exams || []).filter(e => Number(e.is_flagged) !== 1).map(e => e.tgl);
   const allActiveDates = [...examDates, ...discordQuizStats.dates];
   const streakInfo = calculateStreaks(allActiveDates);
 
   let totalXp = 0;
-  let totalUjian = (exams || []).length;
+  let totalUjian = (exams || []).filter(e => Number(e.is_flagged) !== 1).length;
   let totalSempurna = 0;
   let totalKkm = 0;
   const badges = [];
@@ -208,59 +208,63 @@ export async function updateStudentGamification(db, nis) {
     const isFlagged = Number(e.is_flagged) === 1;
     const mapel = String(e.mapel || 'wajib').toLowerCase();
 
-    let packetXp = 50 + rawSkor;
+    // Prinsip Keadilan & Integritas: Rekaman ter-flag (bot/burst/instant cheat) tidak memperoleh XP dan tidak dihitung ke ujian valid
+    let packetXp = 0;
+    if (!isFlagged) {
+      packetXp = 50 + rawSkor;
 
-    // Validasi Integritas Kognitif:
-    // Lencana 100 ("Gacor No Counter") HANYA diakui jika diraih pada:
-    // 1. Percobaan Pertama (Attempt === 1)
-    // 2. Durasi wajar manusia (>= 120 detik / 2 menit untuk 10 butir soal matematika)
-    // 3. Bebas dari flag anomali bot / instan key
-    const isPureFirstPerfect = (rawSkor >= 100 && rawAttempt === 1 && rawDurasi >= 120 && !isFlagged);
+      // Validasi Integritas Kognitif:
+      // Lencana 100 ("Gacor No Counter") HANYA diakui jika diraih pada:
+      // 1. Percobaan Pertama (Attempt === 1)
+      // 2. Durasi wajar manusia (>= 120 detik / 2 menit untuk 10 butir soal matematika)
+      // 3. Bebas dari flag anomali bot / instan key
+      const isPureFirstPerfect = (rawSkor >= 100 && rawAttempt === 1 && rawDurasi >= 120);
 
-    if (isPureFirstPerfect) {
-      totalSempurna++;
-      packetXp += 50; // Bonus skor 100 murni
-    } else if (rawSkor >= 100 && rawAttempt > 1) {
-      packetXp += 25; // Bonus apresiasi usaha remedial tuntas sempurna
-    }
+      if (isPureFirstPerfect) {
+        totalSempurna++;
+        packetXp += 50; // Bonus skor 100 murni
+      } else if (rawSkor >= 100 && rawAttempt > 1) {
+        packetXp += 25; // Bonus apresiasi usaha remedial tuntas sempurna
+      }
 
-    if (rawSkor >= 75) {
-      totalKkm++;
-      packetXp += 25; // Bonus KKM
+      if (rawSkor >= 75) {
+        totalKkm++;
+        packetXp += 25; // Bonus KKM
+      }
+
+      if (mapel === 'minat') {
+        xpMinat += packetXp;
+        ujianMinat++;
+        if (isPureFirstPerfect) sempurnaMinat++;
+      } else {
+        // Matematika Wajib (atau default)
+        xpWajib += packetXp;
+        ujianWajib++;
+        if (isPureFirstPerfect) sempurnaWajib++;
+      }
+
+      // Validasi Speedrun Mode On (fast_thinker):
+      // Memerlukan durasi manusia yang realistis (3 menit s.d. 20 menit) tuntas skor >= 80 pada attempt pertama
+      if (rawDurasi >= 180 && rawDurasi <= 1200 && rawSkor >= 80 && rawAttempt === 1) {
+        hasFast = true;
+      }
+
+      const kode = String(e.kode_pertemuan || '').toUpperCase();
+      if (['P01','P02','P03','P04','P05','P06','P07','P08'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
+        hasPencacahan = true;
+      }
+      if (['P09','P10','P11','P12','P13','P14'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
+        hasDimensiTiga = true;
+      }
+      if (['P15','P16','P17','P18','P19','P20','P21'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
+        hasStatistika = true;
+      }
+      if (['P01','P02','P03','P04','P05','P06','P07','P08','P09'].includes(kode) && mapel === 'minat') {
+        hasLingkaran = true;
+      }
     }
 
     totalXp += packetXp;
-
-    if (mapel === 'minat') {
-      xpMinat += packetXp;
-      ujianMinat++;
-      if (isPureFirstPerfect) sempurnaMinat++;
-    } else {
-      // Matematika Wajib (atau default)
-      xpWajib += packetXp;
-      ujianWajib++;
-      if (isPureFirstPerfect) sempurnaWajib++;
-    }
-
-    // Validasi Speedrun Mode On (fast_thinker):
-    // Memerlukan durasi manusia yang realistis (3 menit s.d. 20 menit) tuntas skor >= 80 pada attempt pertama
-    if (rawDurasi >= 180 && rawDurasi <= 1200 && rawSkor >= 80 && rawAttempt === 1 && !isFlagged) {
-      hasFast = true;
-    }
-
-    const kode = String(e.kode_pertemuan || '').toUpperCase();
-    if (['P01','P02','P03','P04','P05','P06','P07','P08'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
-      hasPencacahan = true;
-    }
-    if (['P09','P10','P11','P12','P13','P14'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
-      hasDimensiTiga = true;
-    }
-    if (['P15','P16','P17','P18','P19','P20','P21'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
-      hasStatistika = true;
-    }
-    if (['P01','P02','P03','P04','P05','P06','P07','P08','P09'].includes(kode) && mapel === 'minat') {
-      hasLingkaran = true;
-    }
   });
 
   // Tambahkan akumulasi XP dari Kuis Harian Discord
