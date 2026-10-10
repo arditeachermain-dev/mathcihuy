@@ -4915,8 +4915,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const idx = (sol.no !== undefined ? sol.no - 1 : -1);
         const q = (idx >= 0 && pkg.questions[idx]) ? pkg.questions[idx] : pkg.questions.find(item => item.no === sol.no);
         if (q) {
-          q.kunci = sol.kunci;
-          q.bahas = sol.bahas;
+          if (sol.kunci !== undefined && sol.kunci !== null) {
+            q.kunci = sol.kunci;
+          } else if (sol.is_locked) {
+            q.kunci = null;
+          }
+          if (sol.bahas) q.bahas = sol.bahas;
+          if (sol.hint) q.hint = sol.hint;
+          if (sol.is_locked !== undefined) q.is_locked = sol.is_locked;
           if (sol.tipe && !q.tipe) q.tipe = sol.tipe;
         }
       });
@@ -5885,12 +5891,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <span class="text-xs font-black text-amber-400 flex items-center gap-2 uppercase tracking-wide">
                 <i class="fa-solid fa-lightbulb text-amber-400"></i> ${tkaSubj === 'clil' ? 'Step-by-Step Structured Solution:' : 'Langkah Pembahasan Terstruktur & Kunci Jawaban:'}
               </span>
+              ${q.is_locked || !q.kunci ? `
+              <span class="text-xs font-mono font-bold text-rose-300 bg-rose-950/80 px-3 py-1 rounded-xl border border-rose-500/40 shadow-inner" id="tka-correct-key-label">
+                <i class="fa-solid fa-lock text-rose-400"></i> ${tkaSubj === 'clil' ? 'Key Hidden (Score < 75)' : 'Kunci Dirahasiakan (Skor < 75)'}
+              </span>
+              ` : `
               <span class="text-xs font-mono font-black text-amber-300 bg-slate-950 px-3 py-1 rounded-xl border border-amber-500/40 shadow-inner" id="tka-correct-key-label">
                 ${tkaSubj === 'clil' ? 'Key Answer' : 'Kunci Jawaban'}: <span class="text-amber-400 text-sm font-black">${q.kunci}</span>
               </span>
+              `}
             </div>
             <div class="text-xs md:text-sm text-slate-100 leading-relaxed space-y-2 pt-1 font-sans" id="tka-solution-content">
-              ${formatSolutionHtml(q.bahas || q.pembahasan || q.solusi || 'Pembahasan terstruktur sedang disiapkan.')}
+              ${formatSolutionHtml(q.hint || q.bahas || q.pembahasan || q.solusi || 'Pembahasan terstruktur sedang disiapkan.')}
             </div>
           </div>
           ` : ''}

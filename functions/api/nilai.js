@@ -31,7 +31,7 @@ export async function onRequestGet(context) {
       }
 
       const { results } = await context.env.DB.prepare(
-        "SELECT nis, nama, kelas, mapel, kode_pertemuan, skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt ORDER BY waktu_submit DESC"
+        "SELECT nis, nama, kelas, mapel, kode_pertemuan, skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit, is_flagged FROM nilai_cbt ORDER BY waktu_submit DESC"
       ).all();
       return jsonResponse(results || []);
     }
@@ -211,12 +211,17 @@ export async function onRequestPost(context) {
     const finalDurasi = isNewRecordBest ? cleanDurasi : (Number(existing.durasi_detik) || cleanDurasi);
     const finalWaktu = isNewRecordBest ? now : (existing.waktu_submit || now);
 
+    // Deteksi Anomali Kognitif & Rapid-Fire Solving:
+    // Pengerjaan 10 butir soal matematika dalam durasi < 120 detik dengan skor 100 diindikasi bot / copy-paste / instant key
+    const isAnomali = (cleanDurasi < 120 && cleanSkor === 100);
+    const isFlagged = isAnomali ? 1 : 0;
+
     await context.env.DB.prepare(`
       INSERT INTO nilai_cbt (
         nis, nama, kelas, mapel, kode_pertemuan,
         skor, jumlah_soal, jumlah_benar, jumlah_salah,
-        durasi_detik, jumlah_percobaan, waktu_submit
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        durasi_detik, jumlah_percobaan, waktu_submit, is_flagged
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(nis, mapel, kode_pertemuan) DO UPDATE SET
         skor = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.skor ELSE nilai_cbt.skor END,
         jumlah_soal = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.jumlah_soal ELSE nilai_cbt.jumlah_soal END,
@@ -224,11 +229,12 @@ export async function onRequestPost(context) {
         jumlah_salah = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.jumlah_salah ELSE nilai_cbt.jumlah_salah END,
         durasi_detik = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.durasi_detik ELSE nilai_cbt.durasi_detik END,
         waktu_submit = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.waktu_submit ELSE nilai_cbt.waktu_submit END,
-        jumlah_percobaan = MAX(nilai_cbt.jumlah_percobaan, excluded.jumlah_percobaan)
+        jumlah_percobaan = MAX(nilai_cbt.jumlah_percobaan, excluded.jumlah_percobaan),
+        is_flagged = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.is_flagged ELSE nilai_cbt.is_flagged END
     `).bind(
       canonicalNis, verifiedNama, verifiedKelas, cleanMapel, cleanKode,
       cleanSkor, cleanSoal, cleanBenar, cleanSalah,
-      cleanDurasi, finalAttempt, now
+      cleanDurasi, finalAttempt, now, isFlagged
     ).run();
 
     // Otomatis bersihkan draf live answers dari D1 pasca submit
@@ -246,7 +252,33 @@ export async function onRequestPost(context) {
       console.warn('Gamifikasi update error:', gamErr);
     }
 
-    const solutions = getSolutionsForPackage(studentTingkat, cleanMapel, cleanKode) || [];
+    const rawSolutions = getSolutionsForPackage(studentTingkat, cleanMapel, cleanKode) || [];
+    let solutions = [];
+
+    // Proteksi Integritas Ujian (Anti-Key Harvesting / Intip Kunci):
+    // Jika skor siswa belum mencapai KKM (cleanSkor < 75):
+    // Kunci opsi mentah (A-E) disembunyikan agar siswa tidak dapat mengumpulkan kosong/cepat untuk mencuri kunci lalu mengulang.
+    // Diberikan petunjuk konsep (hint) agar siswa belajar dan mencoba kembali secara mandiri.
+    if (cleanSkor < 75) {
+      solutions = rawSolutions.map(sol => {
+        let safeHint = (sol.bahas || '')
+          .replace(/(kunci\s*(jawaban)?\s*(adalah|:)?\s*\(?[A-E]\)?)/gi, '💡 Konsep & Petunjuk:')
+          .replace(/\(?(Opsi|Pilihan)\s*[A-E]\)?/gi, '(Opsi Jawaban)')
+          .replace(/Kesimpulan:\s*Kunci\s*[A-E]/gi, 'Kesimpulan: Selesaikan dengan konsep di atas');
+        return {
+          q_idx: sol.q_idx,
+          kunci: null, // SENSOR HURUF KUNCI
+          is_locked: true,
+          hint: safeHint,
+          bahas: "🔒 Kunci huruf A-E dirahasiakan karena skor kamu belum mencapai KKM (75). Pelajari petunjuk konsep berikut dan silakan coba kerjakan kembali!"
+        };
+      });
+    } else {
+      solutions = rawSolutions.map(sol => ({
+        ...sol,
+        is_locked: false
+      }));
+    }
 
     return jsonResponse({
       success: true,
@@ -261,6 +293,9 @@ export async function onRequestPost(context) {
       attempt_salah: cleanSalah,
       is_best_score: isNewRecordBest,
       jumlah_percobaan: finalAttempt,
+      is_first_attempt: (finalAttempt === 1),
+      is_flagged: Boolean(isFlagged),
+      kkm_tuntas: (cleanSkor >= 75),
       server_graded: Boolean(officialGrade),
       evaluations: officialGrade ? officialGrade.evaluations : null,
       details: officialGrade ? officialGrade.details : null,

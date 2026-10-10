@@ -211,6 +211,7 @@
                 durasi_detik: Number(p.durasi_detik) || 0,
                 durasi_menit: Math.round((Number(p.durasi_detik) || 0) / 60),
                 jumlah_percobaan: Number(p.jumlah_percobaan) || 1,
+                is_flagged: Number(p.is_flagged) || 0,
                 status: 'sudah'
               });
             });
@@ -621,13 +622,16 @@
           statusBadge = `<span style="${kktpStyle}" class="px-2 py-0.5 rounded-full text-[9px] font-black whitespace-nowrap">${kktpText}</span>`;
           skorDisplay = `<div class="flex items-center justify-center gap-1.5 whitespace-nowrap"><span class="font-mono text-sm font-black ${isTuntas ? 'text-emerald-400' : 'text-rose-400'}">${r.skor}/100</span> ${statusBadge}</div>`;
           const dDetik = Number(r.durasi_detik) || 0;
-          const isAnomaliCepat = dDetik > 0 && dDetik < 45 && Number(r.skor) >= 80;
+          const isFlagged = Number(r.is_flagged) === 1 || (dDetik < 120 && Number(r.skor) === 100);
+          const isAnomaliCepat = dDetik > 0 && dDetik < 120 && Number(r.skor) >= 80;
           let anomaliTag = '';
-          if (isAnomaliCepat) {
+          if (isFlagged) {
+            anomaliTag = ` <span title="⚠️ Terdeteksi Anomali Kognitif: Selesai < 120 detik (${dDetik}s) dengan skor 100. Indikasi bot / instant answer key." class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/50 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-triangle-exclamation"></i> Flagged (${dDetik}s)</span>`;
+          } else if (isAnomaliCepat) {
             if (nAttempt > 1) {
-              anomaliTag = ` <span title="Wajar cepat (< 45 detik) karena ini adalah pengerjaan ulang / remedial setelah membaca kunci dan pembahasan." class="px-1.5 py-0.5 rounded bg-blue-500/20 text-cyan-300 border border-blue-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-rotate-right"></i> Ulang (${nAttempt}x)</span>`;
+              anomaliTag = ` <span title="Pengerjaan ulang / remedial (percobaan ke-${nAttempt}) durasi ${dDetik}s." class="px-1.5 py-0.5 rounded bg-blue-500/20 text-cyan-300 border border-blue-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-rotate-right"></i> Ulang (${nAttempt}x)</span>`;
             } else {
-              anomaliTag = ` <span title="Perhatian: Selesai sangat cepat (< 45 detik) pada percobaan pertama dengan skor tinggi." class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-bolt"></i> Cepat?</span>`;
+              anomaliTag = ` <span title="Perhatian: Selesai sangat cepat (< 120 detik) pada percobaan pertama dengan skor tinggi." class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-bolt"></i> Cepat?</span>`;
             }
           }
           durasiDisplay = `<span class="text-xs text-slate-300 font-mono whitespace-nowrap">${r.durasi_menit || 0} Menit</span>${anomaliTag}`;

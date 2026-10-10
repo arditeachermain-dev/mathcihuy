@@ -156,9 +156,9 @@ export async function updateStudentGamification(db, nis) {
   const siswa = await db.prepare("SELECT nis, nama, kelas FROM siswa WHERE nis = ?").bind(cleanNis).first();
   if (!siswa) return null;
 
-  // 2. Ambil seluruh riwayat ujian
+  // 2. Ambil seluruh riwayat ujian (termasuk jumlah percobaan, durasi, dan status flag anomali)
   const { results: exams } = await db.prepare(
-    "SELECT skor, durasi_detik, mapel, kode_pertemuan, DATE(waktu_submit) as tgl FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit ASC"
+    "SELECT skor, durasi_detik, jumlah_percobaan, is_flagged, mapel, kode_pertemuan, DATE(waktu_submit) as tgl FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit ASC"
   ).bind(cleanNis).all();
 
   // 3. Cek angket refleksi
@@ -199,19 +199,39 @@ export async function updateStudentGamification(db, nis) {
   let hasLingkaran = false;
 
   (exams || []).forEach(e => {
-    totalXp += 50; // Base XP
-    totalXp += Math.round(Number(e.skor) || 0); // Skor murni
-    if (e.skor >= 100) {
+    const rawSkor = Math.round(Number(e.skor) || 0);
+    const rawDurasi = Number(e.durasi_detik) || 0;
+    const rawAttempt = Number(e.jumlah_percobaan) || 1;
+    const isFlagged = Number(e.is_flagged) === 1;
+
+    totalXp += 50; // Base XP pengerjaan
+    totalXp += rawSkor; // Skor murni
+
+    // Validasi Integritas Kognitif:
+    // Lencana 100 ("Gacor No Counter") HANYA diakui jika diraih pada:
+    // 1. Percobaan Pertama (Attempt === 1)
+    // 2. Durasi wajar manusia (>= 120 detik / 2 menit untuk 10 butir soal matematika)
+    // 3. Bebas dari flag anomali bot / instan key
+    const isPureFirstPerfect = (rawSkor >= 100 && rawAttempt === 1 && rawDurasi >= 120 && !isFlagged);
+
+    if (isPureFirstPerfect) {
       totalSempurna++;
-      totalXp += 50; // Bonus skor 100
+      totalXp += 50; // Bonus skor 100 murni
+    } else if (rawSkor >= 100 && rawAttempt > 1) {
+      totalXp += 25; // Bonus apresiasi usaha remedial tuntas sempurna
     }
-    if (e.skor >= 75) {
+
+    if (rawSkor >= 75) {
       totalKkm++;
       totalXp += 25; // Bonus KKM
     }
-    if (e.durasi_detik > 0 && e.durasi_detik <= 1200 && e.skor >= 80) {
+
+    // Validasi Speedrun Mode On (fast_thinker):
+    // Memerlukan durasi manusia yang realistis (3 menit s.d. 20 menit) tuntas skor >= 80 pada attempt pertama
+    if (rawDurasi >= 180 && rawDurasi <= 1200 && rawSkor >= 80 && rawAttempt === 1 && !isFlagged) {
       hasFast = true;
     }
+
     const kode = String(e.kode_pertemuan || '').toUpperCase();
     const mapel = String(e.mapel || '').toLowerCase();
     if (['P01','P02','P03','P04','P05','P06','P07','P08'].includes(kode) && (mapel === 'wajib' || mapel === '')) {

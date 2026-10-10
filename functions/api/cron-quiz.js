@@ -142,7 +142,8 @@ async function handleCronQuiz(context) {
       `**A.** ${question.options.A}\n` +
       `**B.** ${question.options.B}\n` +
       `**C.** ${question.options.C}\n` +
-      `**D.** ${question.options.D}\n\n` +
+      `**D.** ${question.options.D}\n` +
+      (question.options.E ? `**E.** ${question.options.E}\n\n` : `\n`) +
       `*(Klik salah satu tombol di bawah untuk menjawab secara privat!)*`;
   } else if (question.type === "ISIAN_SINGKAT") {
     descText += `*(Klik tombol '✍️ Ketik Jawaban Angka' di bawah untuk memasukkan hasil perhitunganmu secara privat!)*`;
@@ -164,7 +165,7 @@ async function handleCronQuiz(context) {
     timestamp: new Date().toISOString()
   };
 
-  // Komponen Tombol Interaktif
+  // Komponen Tombol Interaktif (Standar 5 Opsi A s.d. E)
   const components = [];
   if (question.type === "ISIAN_SINGKAT") {
     components.push({
@@ -187,34 +188,45 @@ async function handleCronQuiz(context) {
       ]
     });
   } else {
+    const optButtons = [
+      {
+        type: 2,
+        custom_id: `quiz_ans_${question.id}_A`,
+        style: 1,
+        label: "Opsi A"
+      },
+      {
+        type: 2,
+        custom_id: `quiz_ans_${question.id}_B`,
+        style: 3,
+        label: "Opsi B"
+      },
+      {
+        type: 2,
+        custom_id: `quiz_ans_${question.id}_C`,
+        style: 2,
+        label: "Opsi C"
+      },
+      {
+        type: 2,
+        custom_id: `quiz_ans_${question.id}_D`,
+        style: 4,
+        label: "Opsi D"
+      }
+    ];
+
+    if (question.options && question.options.E) {
+      optButtons.push({
+        type: 2,
+        custom_id: `quiz_ans_${question.id}_E`,
+        style: 1,
+        label: "Opsi E"
+      });
+    }
+
     components.push({
       type: 1,
-      components: [
-        {
-          type: 2,
-          custom_id: `quiz_ans_${question.id}_A`,
-          style: 1,
-          label: "Opsi A"
-        },
-        {
-          type: 2,
-          custom_id: `quiz_ans_${question.id}_B`,
-          style: 3,
-          label: "Opsi B"
-        },
-        {
-          type: 2,
-          custom_id: `quiz_ans_${question.id}_C`,
-          style: 2,
-          label: "Opsi C"
-        },
-        {
-          type: 2,
-          custom_id: `quiz_ans_${question.id}_D`,
-          style: 4,
-          label: "Opsi D"
-        }
-      ]
+      components: optButtons
     });
     components.push({
       type: 1,

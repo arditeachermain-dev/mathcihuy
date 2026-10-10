@@ -62,9 +62,33 @@ export async function onRequestGet(context) {
         }, 403);
       }
 
-      const solutions = getSolutionsForPackage(tingkat, mapel, kode_pertemuan);
-      if (!solutions) {
+      const rawSolutions = getSolutionsForPackage(tingkat, mapel, kode_pertemuan);
+      if (!rawSolutions) {
         return jsonResponse({ error: 'Pembahasan untuk paket ini sedang disiapkan.' }, 404);
+      }
+
+      let solutions = [];
+      const isUnderKkm = Number(submission.skor || 0) < 75;
+
+      if (isUnderKkm) {
+        solutions = rawSolutions.map(sol => {
+          let safeHint = (sol.bahas || '')
+            .replace(/(kunci\s*(jawaban)?\s*(adalah|:)?\s*\(?[A-E]\)?)/gi, '💡 Konsep & Petunjuk:')
+            .replace(/\(?(Opsi|Pilihan)\s*[A-E]\)?/gi, '(Opsi Jawaban)')
+            .replace(/Kesimpulan:\s*Kunci\s*[A-E]/gi, 'Kesimpulan: Selesaikan dengan konsep di atas');
+          return {
+            q_idx: sol.q_idx,
+            kunci: null,
+            is_locked: true,
+            hint: safeHint,
+            bahas: "🔒 Kunci huruf A-E dirahasiakan karena skor kamu belum mencapai KKM (75). Pelajari petunjuk konsep berikut dan silakan coba kerjakan kembali!"
+          };
+        });
+      } else {
+        solutions = rawSolutions.map(sol => ({
+          ...sol,
+          is_locked: false
+        }));
       }
 
       return jsonResponse({
@@ -74,6 +98,7 @@ export async function onRequestGet(context) {
         kode_pertemuan,
         skor: submission.skor,
         waktu_submit: submission.waktu_submit,
+        is_locked: isUnderKkm,
         solutions
       });
     }
