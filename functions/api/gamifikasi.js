@@ -108,7 +108,7 @@ export const BADGE_CATALOG = {
     icon: 'fa-solid fa-trophy-star',
     color: '#D97706',
     bg: '#FFFBEB',
-    desc: 'Menuntaskan seluruh Misi Event Mingguan Matematika SMA GIS 2 Serpong.'
+    desc: 'Menuntaskan seluruh Misi Event Mingguan Matematika Mr. Ardi.'
   },
   titan_slayer: {
     id: 'titan_slayer',

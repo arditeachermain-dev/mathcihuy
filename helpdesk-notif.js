@@ -1,7 +1,7 @@
 // helpdesk-notif.js
 // Sistem Helpdesk Siswa, Pusat Notifikasi, dan Peringatan Integritas Terintegrasi
 // Zero-Bug • Zero-Dependency • Notion Warm Paper Aesthetic • Anti-Spam & Anti-Bot Protection
-// SMA Global Islamic School 2 Serpong (TP 2026/2027)
+// Portal Pembelajaran Matematika • Mr. Ardi (TP 2026/2027)
 
 (function () {
   'use strict';

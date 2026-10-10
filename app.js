@@ -3929,8 +3929,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         '<div class="lk-kop">' +
           '<span class="lk-logo"></span>' +
           '<div class="lk-kop-t">' +
-            '<div class="lk-sekolah">' + (isClil ? 'GIS 2 SERPONG SENIOR HIGH SCHOOL' : 'SMA GLOBAL ISLAMIC SCHOOL 2 SERPONG') + '</div>' +
-            '<div class="lk-alamat">' + (isClil ? 'Jalan Raya Serpong &middot; South Tangerang, Banten &middot; Academic Year 2026/2027' : 'Jalan Raya Serpong &middot; Tangerang Selatan, Banten &middot; Tahun Pelajaran 2026/2027') + '</div>' +
+            '<div class="lk-sekolah">' + (isClil ? 'MATHEMATICS LEARNING PORTAL &middot; MR. ARDI' : 'PORTAL PEMBELAJARAN MATEMATIKA &middot; MR. ARDI') + '</div>' +
+            '<div class="lk-alamat">' + (isClil ? 'Academic Year 2026/2027 &middot; Instructor: Mr. Ardi, S.Pd.Gr.' : 'Tahun Pelajaran 2026/2027 &middot; Guru Pengampu: Mr. Ardi, S.Pd.Gr.') + '</div>' +
             '<div class="lk-judul">' + (isClil ? 'STUDENT ACTIVITY WORKSHEET (LKPD)' : 'LEMBAR KERJA PESERTA DIDIK (LKPD)') + '</div>' +
           '</div>' +
         '</div>' +
@@ -3983,12 +3983,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
         '<div class="lk-ttd">' +
           '<div><div class="lk-ttd-l">' + (isClil ? 'Grade / Score' : 'Nilai') + '</div><div class="lk-kotak"></div></div>' +
-          '<div><div class="lk-ttd-l">' + (isClil ? 'South Tangerang, ' : 'Tangerang Selatan, ') + lkpdTanggal() + '</div>' +
+          '<div><div class="lk-ttd-l">' + (isClil ? 'Date: ' : 'Tanggal: ') + lkpdTanggal() + '</div>' +
             '<div class="lk-ttd-r">' + (isClil ? 'Mathematics Instructor' : 'Guru Pengampu') + '</div><div class="lk-ttd-sp"></div>' +
-            '<div class="lk-ttd-n">Muhammad Ardiansyah, S.Pd.Gr.</div></div>' +
+            '<div class="lk-ttd-n">Mr. Ardi, S.Pd.Gr.</div></div>' +
         '</div>' +
         '<div class="lk-kaki">' + (isClil ? 'Worksheet' : 'LKPD') + ' ' + lkpdEsc(m.id) + ' &middot; ' + lkpdEsc(streamNama) +
-          ' &middot; ' + (isClil ? 'GIS 2 Serpong Senior High School' : 'SMA Global Islamic School 2 Serpong') + '</div>';
+          ' &middot; ' + (isClil ? 'Instructor: Mr. Ardi' : 'Guru Pengampu: Mr. Ardi') + '</div>';
 
       if (window.renderMathInElement) {
         try {
@@ -4890,12 +4890,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                     <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
                   </div>
                   <div>
-                    <strong class="text-white block font-bold text-xs md:text-sm">Muhammad Ardiansyah, S.Pd.Gr.</strong>
+                    <strong class="text-white block font-bold text-xs md:text-sm">Mr. Ardi (Muhammad Ardiansyah, S.Pd.Gr.)</strong>
                     <span class="text-[11px] text-slate-400">${isClil ? 'Mathematics Instructor' : 'Guru Pengampu Matematika'}</span>
                   </div>
                 </div>
                 <div class="text-right border-l border-blue-900/60 pl-4">
-                  <span class="text-xs text-slate-200 font-bold block">${isClil ? 'GIS 2 Serpong Senior High School' : 'SMA Global Islamic School 2 Serpong'}</span>
+                  <span class="text-xs text-slate-200 font-bold block">${isClil ? 'Mathematics Learning Portal' : 'Portal Pembelajaran Matematika'}</span>
                   <span class="text-[10px] text-amber-400/90 font-mono">${isClil ? 'Academic Year 2026/2027' : 'Tahun Pelajaran 2026/2027'}</span>
                 </div>
               </div>

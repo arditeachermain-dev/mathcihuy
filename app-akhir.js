@@ -1739,7 +1739,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     // =========================================================================
     // MODUL GAMIFIKASI, DAILY STREAK & PAPAN PERINGKAT (LEADERBOARD) SISWA
-    // Standar Guru & IT Profesional SMA GIS 2 Serpong • Notion Warm Paper Style
+    // Standar Guru & IT Profesional • Mr. Ardi • Notion Warm Paper Style
     // =========================================================================
 
     let _currentLbMapel = 'wajib';
@@ -1813,7 +1813,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       if (avatarInitialsEl) avatarInitialsEl.textContent = getStudentInitials(profile.nama);
       if (levelPillEl) levelPillEl.textContent = 'Lvl ' + (profile.level || 1);
-      if (namaEl) namaEl.textContent = profile.nama || 'Siswa GIS 2';
+      if (namaEl) namaEl.textContent = profile.nama || 'Siswa';
       if (kelasEl) kelasEl.textContent = profile.kelas || 'XII';
       if (gelarTextEl) gelarTextEl.textContent = profile.gelar || 'Novice Explorer';
       if (totalXpEl) totalXpEl.textContent = (profile.total_xp || 0).toLocaleString('id-ID');
@@ -3387,7 +3387,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         } catch(e) {}
       }
 
-      const nama = (profile && profile.nama) || 'Siswa GIS 2';
+      const nama = (profile && profile.nama) || 'Siswa';
       const kelas = (profile && profile.kelas) || 'Kelas XII';
       const rankVal = (profile && (profile.rank_wajib_class || profile.rank_class)) || 1;
       const gelar = (profile && profile.gelar) || 'Novice Explorer';
@@ -3480,7 +3480,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         } catch(e) {}
       }
 
-      const nama = (profile && profile.nama) || 'Siswa GIS 2';
+      const nama = (profile && profile.nama) || 'Siswa';
       const kelas = (profile && profile.kelas) || 'Kelas XII';
       const rankVal = (profile && (profile.rank_wajib_class || profile.rank_class)) || 1;
       const gelar = (profile && profile.gelar) || 'Novice Explorer';
@@ -3527,28 +3527,25 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       ctx.fill();
       ctx.restore();
 
-      // 3. Load Logo GIS
-      const logoImg = new Image();
-      logoImg.crossOrigin = 'anonymous';
-      logoImg.src = 'assets/gis_official_logo.png';
-      await new Promise(resolve => {
-        if (logoImg.complete) return resolve();
-        logoImg.onload = resolve;
-        logoImg.onerror = resolve;
-      });
+      // 3. Header Brand (Math Cihuy • Mr. Ardi)
+      // Aesthetic Math Icon Badge
+      ctx.beginPath();
+      canvasDrawRoundedRect(ctx, 100, 105, 90, 90, 24);
+      ctx.fillStyle = isDark ? '#1E293B' : '#2E384D';
+      ctx.fill();
+      ctx.fillStyle = '#F59E0B';
+      ctx.font = '900 44px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('∑', 145, 166);
 
-      // 4. Header Brand
-      if (logoImg.naturalWidth > 0) {
-        ctx.drawImage(logoImg, 100, 105, 95, 95);
-      }
       ctx.textAlign = 'left';
-      ctx.fillStyle = isDark ? '#94A3B8' : '#5F5E5B';
-      ctx.font = 'bold 22px monospace';
-      ctx.fillText('GLOBAL ISLAMIC SCHOOL 2 SERPONG', 215, 142);
-
       ctx.fillStyle = isDark ? '#38BDF8' : '#2E384D';
-      ctx.font = '900 30px sans-serif';
-      ctx.fillText('PORTAL MATEMATIKA XII • 2026/2027', 215, 182);
+      ctx.font = '900 34px sans-serif';
+      ctx.fillText('MATH CIHUY', 215, 142);
+
+      ctx.fillStyle = isDark ? '#94A3B8' : '#5F5E5B';
+      ctx.font = 'bold 21px monospace';
+      ctx.fillText('PORTAL MATEMATIKA XII • MR. ARDI', 215, 180);
 
       // Official Badge
       ctx.beginPath();
@@ -3746,7 +3743,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       ctx.font = 'bold 18px monospace';
       ctx.fillStyle = '#D97706';
-      ctx.fillText('— GENERASI JUARA SMA GIS 2 SERPONG —', 540, 1485);
+      ctx.fillText('— GENERASI JUARA MATEMATIKA —', 540, 1485);
 
       // 10. Footer Section (y=1640)
       ctx.beginPath();
@@ -3758,28 +3755,26 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       ctx.textAlign = 'left';
       ctx.fillStyle = isDark ? '#94A3B8' : '#5F5E5B';
-      ctx.font = 'bold 20px monospace';
-      ctx.fillText('Guru Pengampu: Mr. Ardi, S.Pd.Gr.', 100, 1690);
-      ctx.font = '17px monospace';
-      ctx.fillText('Koordinator Kurikulum: Frsty Ristiana, M.Pd., Gr.', 100, 1720);
-      ctx.fillText('Mengetahui: Kepala Sekolah, Dwi Kurniawati, S.Pd., Gr.', 100, 1750);
+      ctx.font = 'bold 24px monospace';
+      ctx.fillText('Guru Pengampu: Mr. Ardi, S.Pd.Gr.', 100, 1710);
+      ctx.font = '18px monospace';
+      ctx.fillText('Bimbingan & Evaluasi Prestasi Matematika', 100, 1745);
 
       ctx.textAlign = 'right';
       ctx.fillStyle = isDark ? '#38BDF8' : '#2E384D';
       ctx.font = 'bold 24px monospace';
-      ctx.fillText('mathcihuy.pages.dev', 980, 1690);
+      ctx.fillText('mathcihuy.pages.dev', 980, 1710);
 
       ctx.fillStyle = isDark ? '#64748B' : '#787774';
       ctx.font = '16px monospace';
       const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-      ctx.fillText(`Diterbitkan: ${todayStr}`, 980, 1725);
-      ctx.fillText('Status: Terverifikasi Sistem D1', 980, 1750);
+      ctx.fillText(`Diterbitkan: ${todayStr}`, 980, 1745);
 
       // 11. Download Output
       try {
         const link = document.createElement('a');
         const cleanName = nama.replace(/[^a-zA-Z0-9]/g, '_');
-        link.download = `Prestasi_Matematika_GIS2_${cleanName}.png`;
+        link.download = `Prestasi_Matematika_${cleanName}.png`;
         link.href = canvas.toDataURL('image/png');
         document.body.appendChild(link);
         link.click();
@@ -3803,7 +3798,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         } catch(e) {}
       }
 
-      const nama = (profile && profile.nama) || 'Siswa GIS 2';
+      const nama = (profile && profile.nama) || 'Siswa';
       const kelas = (profile && profile.kelas) || 'Kelas XII';
       const gelar = (profile && profile.gelar) || 'Novice Explorer';
       const totalXp = ((profile && profile.total_xp) || 0).toLocaleString('id-ID');
@@ -3813,7 +3808,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const rank = (profile && (profile.rank_wajib_class || profile.rank_class)) || 1;
 
       const caption = `✨ MATH CIHUY PRESTASI BELAJAR XII ✨
-🏫 SMA Global Islamic School 2 Serpong
+👨‍🏫 Guru Pengampu: Mr. Ardi
 👤 Nama: ${nama} (${kelas})
 👑 Gelar: ${gelar} (Peringkat #${rank} Kelas)
 ⚡ Total EXP: ${totalXp} XP
