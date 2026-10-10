@@ -2245,7 +2245,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }).join('');
     }
 
-    // Render Tabel Leaderboard Lengkap (Peringkat 1 s/d 50)
+    // Render Tabel Leaderboard Top 10
     function renderLeaderboardTable(list, currentNis) {
       const tbody = document.getElementById('lb-table-tbody');
       if (!tbody) return;
@@ -2255,7 +2255,12 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         return;
       }
 
-      tbody.innerHTML = list.map(item => {
+      // Tampilkan 10 teratas sesuai instruksi
+      const top10 = list.slice(0, 10);
+      const isUserInTop10 = currentNis ? top10.some(item => String(item.nis) === String(currentNis)) : false;
+      const userItem = (!isUserInTop10 && currentNis) ? list.find(item => String(item.nis) === String(currentNis)) : null;
+
+      function renderRow(item) {
         const isMe = String(item.nis) === String(currentNis);
         const initials = getStudentInitials(item.nama);
         const badgesList = item.badges || [];
@@ -2316,7 +2321,22 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
               </div>
             </td>
           </tr>`;
-      }).join('');
+      }
+
+      let html = top10.map(renderRow).join('');
+
+      if (userItem) {
+        html += `
+          <tr class="bg-[#F7F6F3]/60">
+            <td colspan="8" class="py-2 px-3 text-center text-[10.5px] font-semibold text-[#787774] border-y border-dashed border-[#E8E6DF]">
+              ••• Peringkat Kamu di Luar 10 Besar •••
+            </td>
+          </tr>
+          ${renderRow(userItem)}
+        `;
+      }
+
+      tbody.innerHTML = html;
     }
 
     // Render Katalog Lencana & Tingkatan Gelar Akademik
@@ -2898,17 +2918,25 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function renderRaidBossTable(list) {
       const tbody = document.getElementById('rb-leaderboard-tbody');
       const countEl = document.getElementById('rb-table-count');
-      if (countEl) countEl.textContent = (list || []).length;
       if (!tbody) return;
 
       if (!list || list.length === 0) {
+        if (countEl) countEl.textContent = 0;
         tbody.innerHTML = '<tr><td colspan="8" class="text-center py-6 text-xs text-[#787774]">Tidak ada data penyerang yang cocok.</td></tr>';
         return;
       }
 
       const currentNis = (typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) ? String(currentSiswa.nis).trim() : '';
+      const isSearching = !!(document.getElementById('rb-search-input')?.value || '').trim();
 
-      tbody.innerHTML = list.map(item => {
+      // Batasi 10 teratas sesuai instruksi
+      const displayList = isSearching ? list.slice(0, 10) : list.slice(0, 10);
+      if (countEl) countEl.textContent = displayList.length;
+
+      const isUserInTop10 = currentNis ? displayList.some(item => String(item.nis).trim() === currentNis) : false;
+      const userItem = (!isSearching && !isUserInTop10 && currentNis) ? list.find(item => String(item.nis).trim() === currentNis) : null;
+
+      function renderRbRow(item) {
         const isSelf = currentNis && String(item.nis).trim() === currentNis;
         const rowBg = isSelf ? 'background-color: #FEF9C3;' : '';
         const rankBadge = item.rank === 1 ? '🥇 1' : (item.rank === 2 ? '🥈 2' : (item.rank === 3 ? '🥉 3' : `#${item.rank}`));
@@ -2944,7 +2972,22 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
             </td>
           </tr>
         `;
-      }).join('');
+      }
+
+      let html = displayList.map(renderRbRow).join('');
+
+      if (userItem) {
+        html += `
+          <tr class="bg-[#F7F6F3]/60">
+            <td colspan="8" class="py-2 px-3 text-center text-[10.5px] font-semibold text-[#787774] border-y border-dashed border-[#E8E6DF]">
+              ••• Posisi Kontribusi Anda •••
+            </td>
+          </tr>
+          ${renderRbRow(userItem)}
+        `;
+      }
+
+      tbody.innerHTML = html;
     }
 
     function filterRaidBossLeaderboard() {

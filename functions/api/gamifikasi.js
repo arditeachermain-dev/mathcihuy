@@ -713,7 +713,7 @@ export async function onRequestGet(context) {
     const url = new URL(context.request.url);
     const nis = url.searchParams.get('nis');
     const kelasFilter = url.searchParams.get('kelas');
-    const limit = Math.min(100, Math.max(1, parseInt(url.searchParams.get('limit') || '25', 10)));
+    const limit = Math.min(100, Math.max(1, parseInt(url.searchParams.get('limit') || '10', 10)));
     const offset = Math.max(0, parseInt(url.searchParams.get('offset') || '0', 10));
 
     // A.0. JIKA REQUEST RAID BOSS LEADERBOARD & DATA
@@ -799,6 +799,7 @@ export async function onRequestGet(context) {
       let streakShields = 1;
       let isShieldActive = false;
       let weeklyEvent = null;
+      let raidBoss = null;
 
       try {
         const linkedDiscord = await db.prepare("SELECT user_id, username FROM discord_users WHERE nis = ?").bind(cleanNis).first();
@@ -834,10 +835,9 @@ export async function onRequestGet(context) {
         streakShields = sInfo.shields_remaining;
         isShieldActive = sInfo.is_shield_active;
         weeklyEvent = getWeeklyEventStatus(exams || [], quizRows || [], hasAngket);
-        let raidBoss = null;
         try {
           raidBoss = await getRaidBossData(db, cleanNis);
-        } catch (e) {}
+        } catch (eRaid) {}
       } catch (e) {}
 
       const enrichedBadges = badgesList.map(bId => BADGE_CATALOG[bId] || { id: bId, name: bId, icon: 'fa-solid fa-award', color: '#787774', bg: '#F0EFEA', desc: '' });
