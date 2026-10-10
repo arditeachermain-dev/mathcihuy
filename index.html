@@ -588,7 +588,7 @@
               </div>
             </div>
 
-            <!-- SISI KANAN: STATS KOTAK (STREAK, AKURASI SEMPURNA, PERINGKAT) -->
+            <!-- SISI KANAN: STATS KOTAK (STREAK, SHIELD, AKURASI SEMPURNA, PERINGKAT) -->
             <div class="flex flex-wrap sm:flex-nowrap items-center gap-2.5 shrink-0">
               <!-- Kotak Daily Streak -->
               <div class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs" style="background-color: #FEF2F2; border-color: #FEE2E2;">
@@ -599,6 +599,19 @@
                   <div class="text-[10px] font-semibold uppercase tracking-wider text-rose-700">Daily Streak</div>
                   <div class="text-sm font-extrabold text-rose-900 font-mono flex items-center gap-1">
                     <span id="gamifikasi-streak-count">1</span> <span class="text-xs font-normal">Hari</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kotak Streak Shield (Perisai Pelindung Streak) -->
+              <div id="gamifikasi-shield-box" class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs cursor-help transition hover:scale-[1.02]" style="background-color: #ECFDF5; border-color: #D1FAE5;" title="Streak Shield: Melindungi api streak agar tidak padam jika kamu berhalangan aktif 1 hari!">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-base text-emerald-600 bg-white shadow-xs">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                  <div class="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">Streak Shield</div>
+                  <div class="text-sm font-extrabold text-emerald-900 font-mono flex items-center gap-1">
+                    <span id="gamifikasi-shield-count">0</span> <span class="text-xs font-normal">Perisai</span>
                   </div>
                 </div>
               </div>
@@ -631,7 +644,7 @@
             </div>
           </div>
 
-          <!-- BARIS BAWAH: KOLEKSI LENCANA & TOMBOL LEADERBOARD -->
+          <!-- BARIS BAWAH: KOLEKSI LENCANA & TOMBOL NAVIGASI GAMIFIKASI -->
           <div class="pt-3 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3" style="border-color: #E8E6DF;">
             <div class="flex items-center gap-2 overflow-x-auto py-0.5 custom-scroll">
               <span class="text-[11px] font-semibold shrink-0 mr-1" style="color: #787774;">
@@ -643,13 +656,126 @@
               </div>
             </div>
 
-            <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
-              <button onclick="openLeaderboardModal('all', 'catalog')" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
+            <div class="flex flex-wrap items-center gap-2 shrink-0 self-end sm:self-center">
+              <button type="button" onclick="openSkillTreeModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition" title="Buka Peta Rasi Bintang Penguasaan Materi (Skill Tree)">
+                <i class="fa-solid fa-diagram-project text-indigo-600"></i> <span>Skill Tree</span>
+              </button>
+              <button type="button" onclick="openShareCardModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition" title="Bagikan Kartu Pencapaian Estetik ke IG Story / Discord">
+                <i class="fa-solid fa-camera-retro text-rose-600"></i> <span>Kartu Prestasi</span>
+              </button>
+              <button type="button" onclick="openLeaderboardModal('all', 'catalog')" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
                 <i class="fa-solid fa-award text-amber-600"></i> <span>Katalog Lencana</span>
               </button>
-              <button onclick="openLeaderboardModal()" class="notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm">
+              <button type="button" onclick="openLeaderboardModal()" class="notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm">
                 <i class="fa-solid fa-trophy text-amber-400"></i> <span>Papan Peringkat</span>
               </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1.2 WEEKLY EXP EVENT & QUESTS (TANTANGAN MINGGUAN MATEMATIKA) -->
+        <div id="weekly-event-card" class="p-4 sm:p-5 rounded-2xl border shadow-sm transition space-y-3 relative overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3" style="border-color: #E8E6DF;">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base text-amber-600 shadow-xs" style="background-color: #FFFBEB; border: 1px solid #FDE68A;">
+                <i class="fa-solid fa-trophy-star"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="text-sm font-bold text-[#2F3437]">Tantangan Mingguan • Weekly EXP Blitz</h4>
+                  <span id="weekly-week-badge" class="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">Pekan Berjalan</span>
+                </div>
+                <p class="text-[11px] text-[#787774]">Selesaikan 3 misi pekan ini untuk mengantongi hingga <strong class="text-amber-700 font-semibold">+750 EXP</strong> &amp; Lencana Eksklusif!</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 self-start sm:self-center">
+              <span id="weekly-timer-pill" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 shadow-2xs" style="background-color: #FEF2F2; color: #B91C1C; border: 1px solid #FEE2E2;">
+                <i class="fa-solid fa-hourglass-half text-[11px]"></i> <span id="weekly-timer-text">Reset Minggu 23:59 WIB</span>
+              </span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
+                <i class="fa-solid fa-bolt text-amber-500"></i> <span id="weekly-total-earned">0</span> / 750 EXP
+              </span>
+            </div>
+          </div>
+
+          <!-- DAFTAR 3 WEEKLY QUESTS -->
+          <div id="weekly-quests-grid" class="grid grid-cols-1 md:grid-cols-3 gap-2.5 pt-1">
+            <!-- Quest 1: CBT Target -->
+            <div id="quest-card-cbt" class="p-3 rounded-xl border flex flex-col justify-between gap-2 shadow-2xs transition" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-lg flex items-center justify-center text-xs bg-white text-blue-700 border border-blue-200">
+                    <i class="fa-solid fa-file-pen"></i>
+                  </div>
+                  <span class="text-xs font-bold text-[#2F3437]">Tuntaskan 2 Paket CBT</span>
+                </div>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200">+200 XP</span>
+              </div>
+              <p class="text-[10.5px] text-[#787774]">Kerjakan minimal 2 paket dengan skor &ge; 80.</p>
+              <div class="space-y-1">
+                <div class="flex justify-between text-[10px] font-mono text-[#5F5E5B]">
+                  <span id="quest-cbt-status">0 / 2 Selesai</span>
+                  <span id="quest-cbt-pct">0%</span>
+                </div>
+                <div class="w-full h-1.5 rounded-full overflow-hidden bg-[#E8E6DF]">
+                  <div id="quest-cbt-bar" class="h-full rounded-full bg-blue-600 transition-all duration-500" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quest 2: Discord Quiz -->
+            <div id="quest-card-discord" class="p-3 rounded-xl border flex flex-col justify-between gap-2 shadow-2xs transition" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-lg flex items-center justify-center text-xs bg-white text-indigo-700 border border-indigo-200">
+                    <i class="fa-solid fa-comments"></i>
+                  </div>
+                  <span class="text-xs font-bold text-[#2F3437]">3 Kuis Sore Discord</span>
+                </div>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200">+150 XP</span>
+              </div>
+              <p class="text-[10.5px] text-[#787774]">Jawab kuis harian Discord jam 16:00 WIB.</p>
+              <div class="space-y-1">
+                <div class="flex justify-between text-[10px] font-mono text-[#5F5E5B]">
+                  <span id="quest-discord-status">0 / 3 Selesai</span>
+                  <span id="quest-discord-pct">0%</span>
+                </div>
+                <div class="w-full h-1.5 rounded-full overflow-hidden bg-[#E8E6DF]">
+                  <div id="quest-discord-bar" class="h-full rounded-full bg-indigo-600 transition-all duration-500" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quest 3: Angket Refleksi -->
+            <div id="quest-card-angket" class="p-3 rounded-xl border flex flex-col justify-between gap-2 shadow-2xs transition" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-lg flex items-center justify-center text-xs bg-white text-emerald-700 border border-emerald-200">
+                    <i class="fa-solid fa-brain"></i>
+                  </div>
+                  <span class="text-xs font-bold text-[#2F3437]">Refleksi Metakognitif</span>
+                </div>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200">+100 XP</span>
+              </div>
+              <p class="text-[10.5px] text-[#787774]">Isi evaluasi pemahaman diri secara jujur.</p>
+              <div class="space-y-1">
+                <div class="flex justify-between text-[10px] font-mono text-[#5F5E5B]">
+                  <span id="quest-angket-status">Belum Diisi</span>
+                  <span id="quest-angket-pct">0%</span>
+                </div>
+                <div class="w-full h-1.5 rounded-full overflow-hidden bg-[#E8E6DF]">
+                  <div id="quest-angket-bar" class="h-full rounded-full bg-emerald-600 transition-all duration-500" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ALL-CLEAR BANNER -->
+          <div id="weekly-all-clear-banner" class="hidden p-2.5 rounded-xl border flex items-center justify-between gap-3 text-xs" style="background-color: #FEF9C3; border-color: #FDE047; color: #854D0E;">
+            <div class="flex items-center gap-2 font-semibold">
+              <i class="fa-solid fa-crown text-amber-600 text-sm"></i>
+              <span>🎉 <strong>Luar Biasa!</strong> Seluruh Misi Mingguan Tuntas! Bonus <strong>+300 Mega EXP</strong> &amp; Lencana <em>Weekly Challenger</em> aktif!</span>
             </div>
           </div>
         </div>
@@ -2451,6 +2577,234 @@
     </div>
   </div>
 
+  <!-- MODAL MASTERY SKILL TREE (PETA RASI BINTANG PENGUASAAN MATERI) -->
+  <div id="skill-tree-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-start justify-center p-2 sm:p-4 overflow-y-auto">
+    <div style="background-color: #FBFBFA !important; max-height: 92vh; height: 92vh; margin-top: 16px;" class="border border-[#E8E6DF] rounded-2xl max-w-5xl flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans mb-4">
+      
+      <!-- TOP BAR -->
+      <div class="px-4 sm:px-6 py-3 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-[#FFFFFF]">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base shrink-0 shadow-sm text-indigo-700 bg-indigo-50 border border-indigo-200">
+            <i class="fa-solid fa-diagram-project"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm sm:text-base font-bold text-[#2F3437] leading-tight">Mastery Skill Tree • Peta Rasi Bintang Materi</h3>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">Kurikulum Fase F</span>
+            </div>
+            <p class="text-[11px] text-[#787774] hidden sm:block">Petualangan visual menaklukkan setiap topik pembelajaran menuju Asesmen Nasional &amp; UTBK-SNBT 2027.</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- MAPEL TABS SWITCHER -->
+          <div class="flex items-center p-0.5 bg-[#F0EFEA] rounded-xl border border-[#E8E6DF] text-xs font-semibold">
+            <button type="button" id="btn-st-tab-wajib" onclick="switchSkillTreeTab('wajib')" class="px-3 py-1 rounded-lg transition font-bold bg-white text-[#2F3437] shadow-xs cursor-pointer">
+              Wajib (21 Node)
+            </button>
+            <button type="button" id="btn-st-tab-minat" onclick="switchSkillTreeTab('minat')" class="px-3 py-1 rounded-lg transition text-[#787774] hover:text-[#2F3437] cursor-pointer">
+              Peminatan (30 Node)
+            </button>
+          </div>
+          <button type="button" onclick="closeSkillTreeModal()" aria-label="Tutup Skill Tree" class="notion-btn-secondary w-8 h-8 rounded-lg flex items-center justify-center shrink-0 cursor-pointer text-[#787774] hover:text-[#2F3437]">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- METRIC STRIP -->
+      <div class="px-4 sm:px-6 py-2.5 bg-[#F7F6F3] border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="font-bold text-[#2F3437] flex items-center gap-1.5">
+            <i class="fa-solid fa-sparkles text-amber-500"></i> Penguasaan: <span id="st-total-nodes" class="font-mono text-indigo-700 font-extrabold">0 / 21 Bintang (0%)</span>
+          </span>
+          <div class="hidden md:flex items-center gap-2">
+            <div class="w-32 h-2 rounded-full overflow-hidden bg-[#E8E6DF]">
+              <div id="st-progress-bar" class="h-full rounded-full bg-indigo-600 transition-all duration-700" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEGENDA STATUS -->
+        <div class="flex items-center gap-3 text-[11px] font-mono text-[#5F5E5B]">
+          <span class="flex items-center gap-1" title="Belum pernah dikerjakan"><span class="w-2.5 h-2.5 rounded-full bg-stone-300 border border-stone-400"></span> Belum (<strong id="st-count-locked">0</strong>)</span>
+          <span class="flex items-center gap-1" title="Skor di bawah 75 (Perlu Remedial)"><span class="w-2.5 h-2.5 rounded-full bg-amber-400 border border-amber-500"></span> Remedial (<strong id="st-count-remedial">0</strong>)</span>
+          <span class="flex items-center gap-1" title="Skor 75 - 99 (Tuntas KKM)"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 border border-emerald-600"></span> Tuntas (<strong id="st-count-passed">0</strong>)</span>
+          <span class="flex items-center gap-1" title="Skor 100 Sempurna"><span class="w-2.5 h-2.5 rounded-full bg-yellow-400 border border-yellow-500"></span> Sempurna (<strong id="st-count-perfect">0</strong>)</span>
+        </div>
+      </div>
+
+      <!-- SCROLLABLE TREE CANVAS -->
+      <div id="skill-tree-body" class="p-4 sm:p-6 overflow-y-auto flex-1 custom-scroll space-y-6">
+        <!-- SKILL TREE WAJIB CLUSTERS -->
+        <div id="st-tree-wajib" class="space-y-6">
+          <!-- Clustered nodes rendered via JavaScript -->
+        </div>
+
+        <!-- SKILL TREE MINAT CLUSTERS -->
+        <div id="st-tree-minat" class="hidden space-y-6">
+          <!-- Clustered nodes rendered via JavaScript -->
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="px-4 sm:px-6 py-2.5 border-t border-[#E8E6DF] flex items-center justify-between shrink-0 bg-[#FFFFFF]">
+        <div class="text-[11px] text-[#787774] flex items-center gap-1.5">
+          <i class="fa-solid fa-lightbulb text-amber-500"></i>
+          <span>Klik salah satu node rasi bintang untuk langsung membuka Ujian CBT atau meninjau Slide Pembelajaran.</span>
+        </div>
+        <button type="button" onclick="closeSkillTreeModal()" class="notion-btn-secondary px-4 py-1.5 rounded-lg text-xs font-semibold cursor-pointer">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL AESTHETIC ACHIEVEMENT CARD GENERATOR ("SPOTIFY WRAPPED" MATEMATIKA) -->
+  <div id="share-card-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/50 backdrop-blur-sm flex items-start justify-center p-2 sm:p-4 overflow-y-auto">
+    <div style="background-color: #FBFBFA !important; max-height: 94vh; margin-top: 12px;" class="border border-[#E8E6DF] rounded-2xl max-w-xl flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans mb-4">
+      
+      <!-- TOP BAR -->
+      <div class="px-4 sm:px-6 py-3 border-b border-[#E8E6DF] flex items-center justify-between gap-2 shrink-0 bg-[#FFFFFF]">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base shrink-0 shadow-sm text-rose-600 bg-rose-50 border border-rose-200">
+            <i class="fa-solid fa-camera-retro"></i>
+          </div>
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-[#2F3437] leading-tight">Kartu Prestasi Belajar • Story Card</h3>
+            <p class="text-[11px] text-[#787774]">Bagikan rekaman kebanggaan belajarmu ke Instagram Story, WA, atau Discord.</p>
+          </div>
+        </div>
+
+        <button type="button" onclick="closeShareCardModal()" aria-label="Tutup Kartu Prestasi" class="notion-btn-secondary w-8 h-8 rounded-lg flex items-center justify-center shrink-0 cursor-pointer text-[#787774] hover:text-[#2F3437]">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <!-- CARD PREVIEW AREA -->
+      <div class="p-4 sm:p-6 overflow-y-auto flex-1 flex flex-col items-center justify-center bg-[#F7F6F3]">
+        
+        <!-- THE AESTHETIC CARD (9:16 VERTICAL RATIO PREVIEW) -->
+        <div id="achievement-card-preview" class="w-full max-w-[340px] rounded-2xl border-2 border-[#2E384D] shadow-xl p-5 space-y-4 relative overflow-hidden transition-all duration-300" style="background-color: #FFFFFF;">
+          
+          <!-- WATERMARK / DECORATIVE ACCENT -->
+          <div class="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-amber-400/10 pointer-events-none"></div>
+          <div class="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-blue-600/10 pointer-events-none"></div>
+
+          <!-- CARD HEADER -->
+          <div class="flex items-center justify-between border-b pb-3" style="border-color: #E8E6DF;">
+            <div class="flex items-center gap-2.5">
+              <img src="assets/gis_official_logo.png" alt="GIS Logo" class="w-7 h-7 object-contain rounded-md" onerror="this.style.display='none'">
+              <div>
+                <div class="text-[9px] font-mono uppercase tracking-wider font-bold text-[#5F5E5B]">Global Islamic School 2 Serpong</div>
+                <div class="text-[11px] font-black text-[#2E384D] tracking-tight">PORTAL MATEMATIKA XII • 2026/2027</div>
+              </div>
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">OFFICIAL</span>
+          </div>
+
+          <!-- STUDENT IDENTITY -->
+          <div class="flex items-center gap-3 pt-1">
+            <div id="sc-avatar" class="w-13 h-13 rounded-2xl flex items-center justify-center font-bold text-lg text-white shadow-sm shrink-0" style="background-color: #2E384D;">
+              <span id="sc-avatar-initials">--</span>
+            </div>
+            <div class="min-w-0 flex-1">
+              <h4 id="sc-nama" class="text-sm font-black text-[#2F3437] truncate">Siswa GIS 2</h4>
+              <div class="flex items-center gap-1.5 text-[11px] font-mono">
+                <span id="sc-kelas" class="font-bold text-[#2E384D]">Kelas XII</span>
+                <span class="text-[#A8A29E]">•</span>
+                <span id="sc-rank" class="text-amber-700 font-bold">Wajib #1</span>
+              </div>
+              <div class="inline-flex items-center gap-1 px-2 py-0.5 mt-1 rounded-md text-[10px] font-bold bg-[#FFF7E6] text-[#B26B00] border border-[#FFE7BA]">
+                <i class="fa-solid fa-crown text-[9px]"></i> <span id="sc-gelar">Novice Explorer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 METRIC GOLD GRID -->
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <!-- Metric 1: Total XP -->
+            <div class="p-2.5 rounded-xl border bg-[#FBFBFA] border-[#E8E6DF] flex flex-col justify-between">
+              <span class="text-[9.5px] font-semibold text-[#787774] flex items-center gap-1">
+                <i class="fa-solid fa-bolt text-amber-500"></i> TOTAL EXP
+              </span>
+              <span id="sc-xp" class="text-base font-black font-mono text-[#2F3437]">0 XP</span>
+            </div>
+            <!-- Metric 2: Streak -->
+            <div class="p-2.5 rounded-xl border bg-[#FEF2F2] border-[#FEE2E2] flex flex-col justify-between">
+              <span class="text-[9.5px] font-semibold text-rose-700 flex items-center gap-1">
+                <i class="fa-solid fa-fire-flame-curved text-rose-600"></i> DAILY STREAK
+              </span>
+              <span id="sc-streak" class="text-base font-black font-mono text-rose-900">1 Hari</span>
+            </div>
+            <!-- Metric 3: Nilai 100 -->
+            <div class="p-2.5 rounded-xl border bg-[#FFFDF5] border-[#FEF3C7] flex flex-col justify-between">
+              <span class="text-[9.5px] font-semibold text-amber-700 flex items-center gap-1">
+                <i class="fa-solid fa-bullseye text-amber-600"></i> SKOR 100 MURNI
+              </span>
+              <span id="sc-perfect" class="text-base font-black font-mono text-amber-900">0 Kali</span>
+            </div>
+            <!-- Metric 4: Shield -->
+            <div class="p-2.5 rounded-xl border bg-[#ECFDF5] border-[#D1FAE5] flex flex-col justify-between">
+              <span class="text-[9.5px] font-semibold text-emerald-700 flex items-center gap-1">
+                <i class="fa-solid fa-shield-halved text-emerald-600"></i> STREAK SHIELD
+              </span>
+              <span id="sc-shield" class="text-base font-black font-mono text-emerald-900">0 Perisai</span>
+            </div>
+          </div>
+
+          <!-- TOP BADGES SHOWCASE -->
+          <div class="space-y-1.5 pt-1">
+            <span class="text-[9.5px] font-bold uppercase tracking-wider text-[#787774]">Lencana Unggulan:</span>
+            <div id="sc-badges-container" class="flex flex-wrap items-center gap-1.5">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- MOTTO -->
+          <div class="p-2.5 rounded-xl bg-[#F0EFEA] border border-[#E8E6DF] text-center">
+            <p class="text-[10px] font-medium text-[#5F5E5B] italic leading-tight">
+              &ldquo;Konsistensi mengalahkan bakat. Siap taklukkan Asesmen Nasional &amp; UTBK 2027!&rdquo;
+            </p>
+          </div>
+
+          <!-- CARD FOOTER -->
+          <div class="flex items-center justify-between pt-2 border-t text-[9px] text-[#787774] font-mono" style="border-color: #E8E6DF;">
+            <div>Guru Pengampu: <strong>Mr. Ardi</strong></div>
+            <div class="text-indigo-800 font-bold">mathcihuy.pages.dev</div>
+          </div>
+        </div>
+
+        <!-- HIDDEN CANVAS FOR HIGH-RES EXPORT -->
+        <canvas id="share-card-canvas" width="1080" height="1920" class="hidden"></canvas>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="px-4 sm:px-6 py-3 border-t border-[#E8E6DF] flex flex-wrap items-center justify-between gap-3 shrink-0 bg-[#FFFFFF]">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-[#787774]">Tema Kartu:</span>
+          <button type="button" onclick="switchShareCardTheme('paper')" id="btn-theme-paper" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-[#2E384D] text-white cursor-pointer shadow-2xs">
+            Notion Paper
+          </button>
+          <button type="button" onclick="switchShareCardTheme('dark')" id="btn-theme-dark" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white border border-[#E8E6DF] text-[#787774] hover:text-[#2F3437] cursor-pointer">
+            Midnight Navy
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="copyShareCardCaption()" class="notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
+            <i class="fa-solid fa-copy text-slate-600"></i> <span>Salin Teks Status</span>
+          </button>
+          <button type="button" onclick="downloadShareCardAsPng()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm text-white">
+            <i class="fa-solid fa-download text-amber-400"></i> <span>Unduh Gambar Story (PNG)</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 
     <!-- GURU DASHBOARD PANEL (Hidden by default, shown only for guru login) -->
     <div id="guru-dashboard-modal" style="background-color: #020611 !important; z-index: 9999;" class="fixed inset-0 hidden flex items-center justify-center p-2 sm:p-5">
@@ -2938,7 +3292,7 @@
       </div>
     </div>
 
-    <script src="app-akhir.js?v=v20261011_esc_close"></script>
+    <script src="app-akhir.js?v=v20261011_gamifikasi_blitz"></script>
     <script src="angket.js?v=v20261011_esc_close"></script>
     <script src="helpdesk-notif.js?v=v20261011_esc_close"></script>
 

@@ -93,6 +93,22 @@ export const BADGE_CATALOG = {
     color: '#0D9488',
     bg: '#F0FDFA',
     desc: 'Bantai geometri analitik lingkaran, garis singgung bagi adil, & uji kuasa P01-P09!'
+  },
+  streak_guardian: {
+    id: 'streak_guardian',
+    name: 'Penjaga Api',
+    icon: 'fa-solid fa-shield-halved',
+    color: '#059669',
+    bg: '#ECFDF5',
+    desc: 'Memiliki Perisai Streak aktif untuk melindungi api konsistensi belajar dari hari bolong.'
+  },
+  weekly_challenger: {
+    id: 'weekly_challenger',
+    name: 'Weekly Challenger',
+    icon: 'fa-solid fa-trophy-star',
+    color: '#D97706',
+    bg: '#FFFBEB',
+    desc: 'Menuntaskan seluruh Misi Event Mingguan Matematika SMA GIS 2 Serpong.'
   }
 };
 
@@ -125,11 +141,13 @@ export function getLevelAndTitle(xp) {
   };
 }
 
-export function calculateStreaks(dates) {
-  if (!dates || dates.length === 0) return { current: 1, max: 1, last: null };
+export function calculateStreaks(dates, availableShields = 0) {
+  if (!dates || dates.length === 0) return { current: 1, max: 1, last: null, shields_used: 0, shields_remaining: availableShields, is_shield_active: false };
   const uniqueDates = Array.from(new Set(dates)).sort();
   let maxStreak = 1;
   let currStreak = 1;
+  let shieldsUsed = 0;
+  let shieldsLeft = availableShields;
 
   for (let i = 1; i < uniqueDates.length; i++) {
     const prev = new Date(uniqueDates[i - 1]);
@@ -138,13 +156,114 @@ export function calculateStreaks(dates) {
     if (diffDays === 1) {
       currStreak++;
       if (currStreak > maxStreak) maxStreak = currStreak;
+    } else if (diffDays === 2 && shieldsLeft > 0) {
+      // Perisai Streak menyelamatkan jeda 1 hari!
+      currStreak += 2;
+      shieldsLeft--;
+      shieldsUsed++;
+      if (currStreak > maxStreak) maxStreak = currStreak;
     } else if (diffDays > 1) {
       currStreak = 1;
     }
   }
 
   const lastDate = uniqueDates[uniqueDates.length - 1];
-  return { current: currStreak, max: maxStreak, last: lastDate };
+
+  // Evaluasi hari ini (WIB): Jika kemarin terlewat (diffDays === 2 dari hari ini) dan ada perisai tersisa
+  const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
+  const todayStr = nowWib.toISOString().slice(0, 10);
+  let isShieldActive = false;
+  if (lastDate) {
+    const diffFromToday = Math.round((new Date(todayStr) - new Date(lastDate)) / (1000 * 3600 * 24));
+    if (diffFromToday === 2 && shieldsLeft > 0) {
+      isShieldActive = true;
+    }
+  }
+
+  return {
+    current: currStreak,
+    max: maxStreak,
+    last: lastDate,
+    shields_used: shieldsUsed,
+    shields_remaining: shieldsLeft,
+    is_shield_active: isShieldActive
+  };
+}
+
+export function getWeeklyEventStatus(exams, discordQuizRows, hasAngket) {
+  const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
+  const dayOfWeek = nowWib.getUTCDay(); // 0 is Sunday, 1 is Monday...
+  const diffToMonday = (dayOfWeek === 0 ? -6 : 1 - dayOfWeek);
+  const mondayWib = new Date(nowWib);
+  mondayWib.setUTCDate(nowWib.getUTCDate() + diffToMonday);
+  mondayWib.setUTCHours(0, 0, 0, 0);
+  const mondayStr = mondayWib.toISOString().slice(0, 10);
+
+  const sundayWib = new Date(mondayWib);
+  sundayWib.setUTCDate(mondayWib.getUTCDate() + 6);
+  sundayWib.setUTCHours(23, 59, 59, 999);
+  const sundayStr = sundayWib.toISOString().slice(0, 10);
+
+  const msRemaining = Math.max(0, sundayWib.getTime() - nowWib.getTime());
+  const hoursRemaining = Math.floor(msRemaining / (1000 * 3600));
+  const daysRemaining = Math.floor(hoursRemaining / 24);
+
+  const weeklyCbt = (exams || []).filter(e => {
+    const tgl = e.tgl || '';
+    const skor = Number(e.skor) || 0;
+    return tgl >= mondayStr && tgl <= sundayStr && skor >= 80 && Number(e.is_flagged) !== 1;
+  }).length;
+
+  const weeklyDiscord = (discordQuizRows || []).filter(q => {
+    const d = q.quiz_date || '';
+    return d >= mondayStr && d <= sundayStr;
+  }).length;
+
+  const quest1 = {
+    id: 'cbt_quest',
+    title: 'Tuntaskan 2 Paket CBT (Skor ≥ 80)',
+    target: 2,
+    progress: Math.min(2, weeklyCbt),
+    xp: 200,
+    is_done: weeklyCbt >= 2
+  };
+
+  const quest2 = {
+    id: 'discord_quest',
+    title: 'Jawab 3 Kuis Sore Discord jam 16:00',
+    target: 3,
+    progress: Math.min(3, weeklyDiscord),
+    xp: 150,
+    is_done: weeklyDiscord >= 3
+  };
+
+  const quest3 = {
+    id: 'angket_quest',
+    title: 'Isi / Evaluasi Angket Refleksi Belajar',
+    target: 1,
+    progress: hasAngket ? 1 : 0,
+    xp: 100,
+    is_done: !!hasAngket
+  };
+
+  const allDone = quest1.is_done && quest2.is_done && quest3.is_done;
+  let earnedBonusXp = 0;
+  if (quest1.is_done) earnedBonusXp += quest1.xp;
+  if (quest2.is_done) earnedBonusXp += quest2.xp;
+  if (quest3.is_done) earnedBonusXp += quest3.xp;
+  if (allDone) earnedBonusXp += 300; // Mega bonus All-Clear
+
+  return {
+    week_label: `Pekan ${mondayStr.slice(8,10)} - ${sundayStr.slice(8,10)} Okt 2026`,
+    monday_str: mondayStr,
+    sunday_str: sundayStr,
+    days_remaining: daysRemaining,
+    hours_remaining: hoursRemaining,
+    quests: [quest1, quest2, quest3],
+    all_done: allDone,
+    earned_bonus_xp: earnedBonusXp,
+    potential_max_xp: 750
+  };
 }
 
 // Rekalkulasi profil gamifikasi satu siswa secara transaksional
@@ -180,11 +299,6 @@ export async function updateStudentGamification(db, nis) {
   } catch (e) {
     // Graceful fallback
   }
-
-  // 4. Hitung XP & Badges (Gabungkan tanggal aktif CBT dan Kuis Discord untuk Streak)
-  const examDates = (exams || []).filter(e => Number(e.is_flagged) !== 1).map(e => e.tgl);
-  const allActiveDates = [...examDates, ...discordQuizStats.dates];
-  const streakInfo = calculateStreaks(allActiveDates);
 
   let totalXp = 0;
   let totalUjian = (exams || []).filter(e => Number(e.is_flagged) !== 1).length;
@@ -264,13 +378,29 @@ export async function updateStudentGamification(db, nis) {
     totalXp += packetXp;
   });
 
+  // 4. Hitung Perisai Streak & Integrasi Streak Cerdas
+  const maxShields = Math.min(3, (hasAngket ? 1 : 0) + Math.floor(totalKkm / 2));
+  const examDates = (exams || []).filter(e => Number(e.is_flagged) !== 1).map(e => e.tgl);
+  const allActiveDates = [...examDates, ...discordQuizStats.dates];
+  const streakInfo = calculateStreaks(allActiveDates, maxShields);
+
   // Tambahkan akumulasi XP dari Kuis Harian Discord
   totalXp += discordQuizStats.total_quiz_xp;
 
-  // Lencana Karakter Reflektif
+  // 4.5. Hitung Event Mingguan EXP (Weekly Quests)
+  const weeklyEvent = getWeeklyEventStatus(exams || [], quizRows || [], hasAngket);
+  totalXp += weeklyEvent.earned_bonus_xp;
+
+  // Lencana Karakter Reflektif & Perisai Streak
   if (hasAngket) {
     totalXp += 100;
     badges.push('reflective_mind');
+  }
+  if (streakInfo.shields_remaining > 0) {
+    badges.push('streak_guardian');
+  }
+  if (weeklyEvent.all_done) {
+    badges.push('weekly_challenger');
   }
 
   // Lencana Performa & Chapter
@@ -347,6 +477,9 @@ export async function updateStudentGamification(db, nis) {
     ...lvlInfo,
     current_streak: streakInfo.current || 1,
     max_streak: streakInfo.max || 1,
+    streak_shields: streakInfo.shields_remaining,
+    is_shield_active: streakInfo.is_shield_active,
+    weekly_event: weeklyEvent,
     total_ujian: totalUjian,
     total_sempurna: totalSempurna,
     xp_wajib: xpWajib,
@@ -443,6 +576,10 @@ export async function onRequestGet(context) {
       }
 
       let discordStats = { total_quiz: 0, total_correct: 0, total_quiz_xp: 0, is_linked: false };
+      let streakShields = 1;
+      let isShieldActive = false;
+      let weeklyEvent = null;
+
       try {
         const linkedDiscord = await db.prepare("SELECT user_id, username FROM discord_users WHERE nis = ?").bind(cleanNis).first();
         if (linkedDiscord) {
@@ -457,6 +594,26 @@ export async function onRequestGet(context) {
           discordStats.total_correct = qStats.correct || 0;
           discordStats.total_quiz_xp = qStats.xp || 0;
         }
+
+        const { results: exams } = await db.prepare(
+          "SELECT skor, durasi_detik, jumlah_percobaan, is_flagged, mapel, kode_pertemuan, DATE(waktu_submit) as tgl FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit ASC"
+        ).bind(cleanNis).all();
+        const { results: quizRows } = await db.prepare(
+          "SELECT quiz_date, is_correct, xp_awarded FROM discord_quiz_answers WHERE nis = ? ORDER BY quiz_date ASC"
+        ).bind(cleanNis).all();
+        const hasAngket = !!(await db.prepare("SELECT id FROM angket_refleksi WHERE nis = ?").bind(cleanNis).first());
+
+        const totalKkmCount = (exams || []).filter(e => Number(e.skor) >= 75 && Number(e.is_flagged) !== 1).length;
+        const maxShields = Math.min(3, (hasAngket ? 1 : 0) + Math.floor(totalKkmCount / 2));
+
+        const examDates = (exams || []).filter(e => Number(e.is_flagged) !== 1).map(e => e.tgl);
+        const quizDates = (quizRows || []).map(q => q.quiz_date);
+        const allDates = [...examDates, ...quizDates];
+        const sInfo = calculateStreaks(allDates, maxShields);
+
+        streakShields = sInfo.shields_remaining;
+        isShieldActive = sInfo.is_shield_active;
+        weeklyEvent = getWeeklyEventStatus(exams || [], quizRows || [], hasAngket);
       } catch (e) {}
 
       const enrichedBadges = badgesList.map(bId => BADGE_CATALOG[bId] || { id: bId, name: bId, icon: 'fa-solid fa-award', color: '#787774', bg: '#F0EFEA', desc: '' });
@@ -481,6 +638,9 @@ export async function onRequestGet(context) {
           progress_pct: lvlDetails.progress_pct,
           current_streak: profile.current_streak,
           max_streak: profile.max_streak,
+          streak_shields: streakShields,
+          is_shield_active: isShieldActive,
+          weekly_event: weeklyEvent,
           last_active_date: profile.last_active_date,
           total_ujian: profile.total_ujian,
           total_sempurna: profile.total_sempurna,

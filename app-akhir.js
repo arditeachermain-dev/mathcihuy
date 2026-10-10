@@ -1835,6 +1835,14 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (streakCountEl) streakCountEl.textContent = profile.current_streak || 1;
       if (sempurnaCountEl) sempurnaCountEl.textContent = profile.total_sempurna || 0;
 
+      const shieldCountEl = document.getElementById('gamifikasi-shield-count');
+      if (shieldCountEl) shieldCountEl.textContent = profile.streak_shields !== undefined ? profile.streak_shields : 1;
+      const shieldBox = document.getElementById('gamifikasi-shield-box');
+      if (shieldBox && profile.is_shield_active) {
+        shieldBox.title = "🛡️ Perisai Streak AKTIF! Melindungi api streakmu hari ini dari reset.";
+        shieldBox.classList.add('ring-2', 'ring-emerald-400');
+      }
+
       if (rankTextEl) {
         const rWajibCls = profile.rank_wajib_class || profile.rank_class || 1;
         const rWajibGbl = profile.rank_wajib_global || profile.rank_global || 1;
@@ -1866,6 +1874,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
             </span>
           `).join('');
         }
+      }
+
+      // Render Widget Event Mingguan
+      if (typeof renderWeeklyEventWidget === 'function') {
+        renderWeeklyEventWidget(profile.weekly_event);
       }
     }
 
@@ -2571,6 +2584,1006 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
     }
 
+    // =========================================================================
+    // MODUL 1: WEEKLY EXP BLITZ & QUESTS (TANTANGAN MINGGUAN MATEMATIKA)
+    // =========================================================================
+    function renderWeeklyEventWidget(eventData) {
+      if (!eventData) return;
+      const card = document.getElementById('weekly-event-card');
+      if (!card) return;
+
+      const weekBadgeEl = document.getElementById('weekly-week-badge');
+      if (weekBadgeEl && eventData.week_label) {
+        weekBadgeEl.textContent = eventData.week_label;
+      }
+
+      const timerTextEl = document.getElementById('weekly-timer-text');
+      if (timerTextEl) {
+        if (eventData.days_remaining > 0) {
+          timerTextEl.textContent = `Tersisa ${eventData.days_remaining} hari (Reset Minggu 23:59 WIB)`;
+        } else {
+          timerTextEl.textContent = `Tersisa ${eventData.hours_remaining || 0} jam (Reset Malam Ini!)`;
+        }
+      }
+
+      const totalEarnedEl = document.getElementById('weekly-total-earned');
+      if (totalEarnedEl) {
+        totalEarnedEl.textContent = eventData.earned_bonus_xp || 0;
+      }
+
+      const quests = Array.isArray(eventData.quests) ? eventData.quests : [];
+      const qCbt = quests[0] || { progress: 0, target: 2, is_done: false };
+      const qDiscord = quests[1] || { progress: 0, target: 3, is_done: false };
+      const qAngket = quests[2] || { progress: 0, target: 1, is_done: false };
+
+      // Quest 1: CBT
+      const cbtStatusEl = document.getElementById('quest-cbt-status');
+      const cbtPctEl = document.getElementById('quest-cbt-pct');
+      const cbtBarEl = document.getElementById('quest-cbt-bar');
+      const cbtCardEl = document.getElementById('quest-card-cbt');
+      const cbtPct = Math.min(100, Math.round(((qCbt.progress || 0) / (qCbt.target || 2)) * 100));
+      if (cbtStatusEl) cbtStatusEl.textContent = `${qCbt.progress || 0} / ${qCbt.target || 2} Selesai`;
+      if (cbtPctEl) cbtPctEl.textContent = `${cbtPct}%`;
+      if (cbtBarEl) {
+        cbtBarEl.style.width = `${cbtPct}%`;
+        if (qCbt.is_done) cbtBarEl.className = 'h-full rounded-full bg-emerald-600 transition-all duration-500';
+      }
+      if (cbtCardEl && qCbt.is_done) {
+        cbtCardEl.style.borderColor = '#A7F3D0';
+        cbtCardEl.style.backgroundColor = '#F0FDF4';
+      }
+
+      // Quest 2: Discord
+      const discordStatusEl = document.getElementById('quest-discord-status');
+      const discordPctEl = document.getElementById('quest-discord-pct');
+      const discordBarEl = document.getElementById('quest-discord-bar');
+      const discordCardEl = document.getElementById('quest-card-discord');
+      const discordPct = Math.min(100, Math.round(((qDiscord.progress || 0) / (qDiscord.target || 3)) * 100));
+      if (discordStatusEl) discordStatusEl.textContent = `${qDiscord.progress || 0} / ${qDiscord.target || 3} Selesai`;
+      if (discordPctEl) discordPctEl.textContent = `${discordPct}%`;
+      if (discordBarEl) {
+        discordBarEl.style.width = `${discordPct}%`;
+        if (qDiscord.is_done) discordBarEl.className = 'h-full rounded-full bg-emerald-600 transition-all duration-500';
+      }
+      if (discordCardEl && qDiscord.is_done) {
+        discordCardEl.style.borderColor = '#A7F3D0';
+        discordCardEl.style.backgroundColor = '#F0FDF4';
+      }
+
+      // Quest 3: Angket
+      const angketStatusEl = document.getElementById('quest-angket-status');
+      const angketPctEl = document.getElementById('quest-angket-pct');
+      const angketBarEl = document.getElementById('quest-angket-bar');
+      const angketCardEl = document.getElementById('quest-card-angket');
+      const angketPct = qAngket.is_done ? 100 : 0;
+      if (angketStatusEl) angketStatusEl.textContent = qAngket.is_done ? 'Sudah Diisi' : 'Belum Diisi';
+      if (angketPctEl) angketPctEl.textContent = `${angketPct}%`;
+      if (angketBarEl) {
+        angketBarEl.style.width = `${angketPct}%`;
+        if (qAngket.is_done) angketBarEl.className = 'h-full rounded-full bg-emerald-600 transition-all duration-500';
+      }
+      if (angketCardEl && qAngket.is_done) {
+        angketCardEl.style.borderColor = '#A7F3D0';
+        angketCardEl.style.backgroundColor = '#F0FDF4';
+      }
+
+      // All-Clear Banner
+      const allClearBanner = document.getElementById('weekly-all-clear-banner');
+      if (allClearBanner) {
+        if (eventData.all_done) {
+          allClearBanner.classList.remove('hidden');
+        } else {
+          allClearBanner.classList.add('hidden');
+        }
+      }
+    }
+
+    // =========================================================================
+    // MODUL 2: MASTERY SKILL TREE (PETA RASI BINTANG PENGUASAAN MATERI)
+    // =========================================================================
+    let _currentSkillTreeTab = 'wajib';
+
+    const SKILL_TREE_DATA = {
+      wajib: [
+        {
+          clusterId: 'wajib_bab1',
+          clusterTitle: 'BAB 1 • Kaidah Pencacahan & Peluang',
+          clusterSub: 'Fondasi Kombinatorika & Probabilitas (8 Pertemuan)',
+          nodes: [
+            { id: 'P01', title: 'Aturan Penjumlahan & Perkalian (Filling Slots)', tag: 'Pencacahan' },
+            { id: 'P02', title: 'Notasi Faktorial & Permutasi Unsur Berbeda', tag: 'Permutasi' },
+            { id: 'P03', title: 'Permutasi Unsur Sama & Permutasi Siklis', tag: 'Permutasi' },
+            { id: 'P04', title: 'Kombinasi & Pemilihan Delegasi', tag: 'Kombinasi' },
+            { id: 'P05', title: 'Peluang Kejadian Tunggal & Frekuensi Harapan', tag: 'Peluang' },
+            { id: 'P06', title: 'Asesmen Sumatif 1: Pencacahan & Peluang', tag: 'Evaluasi' },
+            { id: 'P07', title: 'Peluang Kejadian Saling Lepas & Tidak Saling Lepas', tag: 'Peluang' },
+            { id: 'P08', title: 'Peluang Saling Bebas & Peluang Bersyarat', tag: 'Peluang' }
+          ]
+        },
+        {
+          clusterId: 'wajib_bab2',
+          clusterTitle: 'BAB 2 • Geometri Dimensi Tiga',
+          clusterSub: 'Jarak Ruang & Sudut Dihedral (6 Pertemuan)',
+          nodes: [
+            { id: 'P09', title: 'Kedudukan Titik, Garis, dan Bidang dalam Ruang 3D', tag: 'Geometri 3D' },
+            { id: 'P10', title: 'Jarak Titik ke Titik (Diagonal Sisi & Ruang)', tag: 'Jarak 3D' },
+            { id: 'P11', title: 'Jarak Titik ke Garis (Proyeksi Tegak Lurus)', tag: 'Jarak 3D' },
+            { id: 'P12', title: 'Jarak Titik ke Bidang (Teorema Diagonal Ruang)', tag: 'Jarak 3D' },
+            { id: 'P13', title: 'Sudut Garis-Bidang & Dua Bidang (Dihedral Angle)', tag: 'Sudut 3D' },
+            { id: 'P14', title: 'Asesmen Sumatif Terpadu Dimensi Tiga & ASTS CBT', tag: 'Evaluasi' }
+          ]
+        },
+        {
+          clusterId: 'wajib_bab3',
+          clusterTitle: 'BAB 3 • Statistika & Analisis Data Bivariat',
+          clusterSub: 'Pemusatan, Penyebaran & Regresi Linier (7 Pertemuan)',
+          nodes: [
+            { id: 'P15', title: 'Penyajian Data Berkelompok (Histogram & Ogive)', tag: 'Statistika' },
+            { id: 'P16', title: 'Rata-rata Hitung (Mean) Data Berkelompok', tag: 'Pemusatan' },
+            { id: 'P17', title: 'Median dan Modus Data Berkelompok', tag: 'Pemusatan' },
+            { id: 'P18', title: 'Ukuran Letak Data (Kuartil Q1-Q3 & Outlier)', tag: 'Letak Data' },
+            { id: 'P19', title: 'Ukuran Penyebaran (Varians, Deviasi Baku, Z-Score)', tag: 'Penyebaran' },
+            { id: 'P20', title: 'Analisis Data Bivariat (Scatter Plot & Regresi)', tag: 'Bivariat' },
+            { id: 'P21', title: 'Asesmen Sumatif Terpadu Statistika & Simulasi ASAS', tag: 'Evaluasi' }
+          ]
+        }
+      ],
+      minat: [
+        {
+          clusterId: 'minat_bab1',
+          clusterTitle: 'BAB 1 • Geometri Analitik Lingkaran',
+          clusterSub: 'Persamaan & Garis Singgung Lingkaran (9 Pertemuan)',
+          nodes: [
+            { id: 'P01', title: 'Persamaan Lingkaran Pusat O(0,0) & Jari-jari r', tag: 'Lingkaran' },
+            { id: 'P02', title: 'Persamaan Lingkaran Pusat P(a,b) & Jari-jari r', tag: 'Lingkaran' },
+            { id: 'P03', title: 'Bentuk Umum Persamaan Lingkaran Kuadrat Sempurna', tag: 'Lingkaran' },
+            { id: 'P04', title: 'Kedudukan Titik Terhadap Lingkaran (Uji Kuasa K)', tag: 'Kedudukan' },
+            { id: 'P05', title: 'Kedudukan Garis Terhadap Lingkaran (Diskriminan D)', tag: 'Kedudukan' },
+            { id: 'P06', title: 'PGSL Rumus Bagi Adil (Titik Singgung Pada Kurva)', tag: 'PGSL' },
+            { id: 'P07', title: 'PGSL dengan Gradien m Tertentu', tag: 'PGSL' },
+            { id: 'P08', title: 'PGSL Melalui Titik di Luar Lingkaran (Garis Polar)', tag: 'PGSL' },
+            { id: 'P09', title: 'Asesmen Sumatif Geometri Analitik Lingkaran', tag: 'Evaluasi' }
+          ]
+        },
+        {
+          clusterId: 'minat_bab2',
+          clusterTitle: 'BAB 2 • Limit Aljabar & Trigonometri',
+          clusterSub: 'Teorema Dasar & Limit Ketakhinggaan (7 Pertemuan)',
+          nodes: [
+            { id: 'P10', title: 'Teorema Dasar Limit Fungsi Trigonometri', tag: 'Limit' },
+            { id: 'P11', title: 'Bentuk Tak Tentu 0/0 Limit Fungsi Trigonometri', tag: 'Limit' },
+            { id: 'P12', title: 'Identitas Cosinus Sudut Ganda 1-cos(2x)', tag: 'Limit' },
+            { id: 'P13', title: 'Limit Menuju Nilai Tertentu x→c', tag: 'Limit' },
+            { id: 'P14', title: 'Limit di Ketakhinggaan Fungsi Aljabar (∞/∞)', tag: 'Tak Hingga' },
+            { id: 'P15', title: 'Limit di Ketakhinggaan Bentuk Akar (∞ - ∞)', tag: 'Tak Hingga' },
+            { id: 'P16', title: 'Asesmen Sumatif Bab 2: Limit Aljabar & Trigonometri', tag: 'Evaluasi' }
+          ]
+        },
+        {
+          clusterId: 'minat_bab3',
+          clusterTitle: 'BAB 3 • Turunan Fungsi Trigonometri',
+          clusterSub: 'Diferensiasi, Rantai & Garis Singgung (8 Pertemuan)',
+          nodes: [
+            { id: 'P17', title: 'Rumus Dasar Turunan Fungsi Trigonometri', tag: 'Turunan' },
+            { id: 'P18', title: 'Aturan Rantai Komposisi Turunan Trigonometri', tag: 'Aturan Rantai' },
+            { id: 'P19', title: 'Turunan Trigonometri Berpangkat u(x)^n', tag: 'Turunan' },
+            { id: 'P20', title: 'Turunan Perkalian u·v dan Pembagian u/v', tag: 'Turunan' },
+            { id: 'P21', title: 'Persamaan Garis Singgung & Normal Kurva', tag: 'Aplikasi' },
+            { id: 'P22', title: 'Selang Kemonotonan (Fungsi Naik & Turun)', tag: 'Kemonotonan' },
+            { id: 'P23', title: 'Titik Stasioner, Titik Belok & Kecekungan Kurva', tag: 'Stasioner' },
+            { id: 'P24', title: 'Optimasi Kontekstual & Asesmen Sumatif Bab 3', tag: 'Evaluasi' }
+          ]
+        },
+        {
+          clusterId: 'minat_bab4',
+          clusterTitle: 'BAB 4 • Integral dan Penerapannya',
+          clusterSub: 'Kalkulus Integral & Aplikasi Luas-Volume (6 Pertemuan)',
+          nodes: [
+            { id: 'P25', title: 'Konsep Dasar Integral Tak Tentu Fungsi Aljabar', tag: 'Integral' },
+            { id: 'P26', title: 'Teknik Pengintegralan: Substitusi Aljabar', tag: 'Substitusi' },
+            { id: 'P27', title: 'Teknik Pengintegralan: Integral Parsial (Tanzalin)', tag: 'Parsial' },
+            { id: 'P28', title: 'Integral Tentu & Teorema Dasar Kalkulus', tag: 'Integral Tentu' },
+            { id: 'P29', title: 'Aplikasi Integral: Perhitungan Luas Daerah', tag: 'Luas Daerah' },
+            { id: 'P30', title: 'Aplikasi Integral: Volume Benda Putar & Review ASAS', tag: 'Volume' }
+          ]
+        }
+      ]
+    };
+
+    function getStudentSubmissionsForSkillTree() {
+      const map = {};
+      if (window._cbtCompletedSubmissions && typeof window._cbtCompletedSubmissions === 'object') {
+        Object.assign(map, window._cbtCompletedSubmissions);
+      }
+      let nis = null;
+      try {
+        const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        if (sess && sess.data && sess.data.nis) nis = sess.data.nis;
+      } catch(e) {}
+      if (!nis) nis = '24400083';
+
+      try {
+        const cacheKey = typeof kunciTingkat === 'function' ? kunciTingkat('cbt_completed_' + nis) : ('cbt_completed_' + nis);
+        const cached = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+        if (cached && typeof cached === 'object') {
+          Object.keys(cached).forEach(k => {
+            const item = cached[k];
+            if (item && item.kode_pertemuan && (item.skor !== undefined && item.skor !== null)) {
+              const m = (item.mapel || 'wajib').toLowerCase();
+              const p = String(item.kode_pertemuan).toUpperCase();
+              map[`${m}_${p}`] = item;
+              map[`${m}_${p.toLowerCase()}`] = item;
+            }
+          });
+        }
+      } catch(e) {}
+
+      return map;
+    }
+
+    function openSkillTreeModal() {
+      const modal = document.getElementById('skill-tree-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      let nis = null;
+      try {
+        const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        if (sess && sess.data && sess.data.nis) nis = sess.data.nis;
+      } catch(e) {}
+      if (!nis) nis = '24400083';
+
+      // Sinkronisasi latar belakang nilai D1 jika belum termuat
+      if (!window._cbtCompletedSubmissions || Object.keys(window._cbtCompletedSubmissions).length === 0) {
+        fetch(`/api/nilai?nis=${encodeURIComponent(nis)}&_t=${Date.now()}`)
+          .then(res => res.json())
+          .then(data => {
+            if (Array.isArray(data)) {
+              window._cbtCompletedSubmissions = window._cbtCompletedSubmissions || {};
+              data.forEach(r => {
+                const k1 = `${(r.mapel || 'wajib').toLowerCase()}_${String(r.kode_pertemuan || '').toUpperCase()}`;
+                const k2 = `${(r.mapel || 'wajib').toLowerCase()}_${String(r.kode_pertemuan || '').toLowerCase()}`;
+                window._cbtCompletedSubmissions[k1] = r;
+                window._cbtCompletedSubmissions[k2] = r;
+              });
+              renderSkillTree(_currentSkillTreeTab || 'wajib');
+            }
+          })
+          .catch(e => console.warn('Fetch skill tree D1:', e));
+      }
+
+      renderSkillTree(_currentSkillTreeTab || 'wajib');
+    }
+
+    function closeSkillTreeModal() {
+      const modal = document.getElementById('skill-tree-modal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function switchSkillTreeTab(mapel) {
+      _currentSkillTreeTab = mapel;
+      const btnWajib = document.getElementById('btn-st-tab-wajib');
+      const btnMinat = document.getElementById('btn-st-tab-minat');
+      const treeWajib = document.getElementById('st-tree-wajib');
+      const treeMinat = document.getElementById('st-tree-minat');
+
+      if (mapel === 'minat') {
+        if (btnMinat) btnMinat.className = 'px-3 py-1 rounded-lg transition font-bold bg-white text-[#2F3437] shadow-xs cursor-pointer';
+        if (btnWajib) btnWajib.className = 'px-3 py-1 rounded-lg transition text-[#787774] hover:text-[#2F3437] cursor-pointer';
+        if (treeWajib) treeWajib.classList.add('hidden');
+        if (treeMinat) treeMinat.classList.remove('hidden');
+      } else {
+        if (btnWajib) btnWajib.className = 'px-3 py-1 rounded-lg transition font-bold bg-white text-[#2F3437] shadow-xs cursor-pointer';
+        if (btnMinat) btnMinat.className = 'px-3 py-1 rounded-lg transition text-[#787774] hover:text-[#2F3437] cursor-pointer';
+        if (treeMinat) treeMinat.classList.add('hidden');
+        if (treeWajib) treeWajib.classList.remove('hidden');
+      }
+
+      renderSkillTree(mapel);
+    }
+
+    function renderSkillTree(mapel) {
+      const clusters = SKILL_TREE_DATA[mapel] || SKILL_TREE_DATA.wajib;
+      const targetContainer = document.getElementById(mapel === 'minat' ? 'st-tree-minat' : 'st-tree-wajib');
+      if (!targetContainer) return;
+
+      const subMap = getStudentSubmissionsForSkillTree();
+
+      let totalNodes = 0;
+      let countLocked = 0;
+      let countRemedial = 0;
+      let countPassed = 0;
+      let countPerfect = 0;
+
+      const clustersHtml = clusters.map(cluster => {
+        let clusterMastered = 0;
+        const totalClusterNodes = cluster.nodes.length;
+
+        const nodesHtml = cluster.nodes.map(node => {
+          totalNodes++;
+          const sub = subMap[`${mapel}_${node.id.toUpperCase()}`] || subMap[`${mapel}_${node.id.toLowerCase()}`];
+
+          let status = 'locked';
+          let skorVal = null;
+          if (sub && sub.skor !== undefined && sub.skor !== null) {
+            skorVal = Number(sub.skor);
+            if (skorVal === 100) {
+              status = 'perfect';
+              countPerfect++;
+              clusterMastered++;
+            } else if (skorVal >= 75) {
+              status = 'passed';
+              countPassed++;
+              clusterMastered++;
+            } else {
+              status = 'remedial';
+              countRemedial++;
+            }
+          } else {
+            countLocked++;
+          }
+
+          let cardBorder = 'border-[#E8E6DF] bg-[#FFFFFF]';
+          let starIcon = '<i class="fa-solid fa-lock text-[#A8A29E] text-xs"></i>';
+          let badgeHtml = '<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium text-[#787774] bg-[#F0EFEA] border border-[#E8E6DF]">Belum</span>';
+
+          if (status === 'perfect') {
+            cardBorder = 'border-amber-400 bg-[#FFFDF5] shadow-xs ring-1 ring-amber-300';
+            starIcon = '<i class="fa-solid fa-crown text-amber-500 text-xs"></i>';
+            badgeHtml = '<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-900 bg-amber-100 border border-amber-300">100 👑</span>';
+          } else if (status === 'passed') {
+            cardBorder = 'border-emerald-400 bg-[#F0FDF4] shadow-xs';
+            starIcon = '<i class="fa-solid fa-circle-check text-emerald-600 text-xs"></i>';
+            badgeHtml = `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100 border border-emerald-300">${skorVal} ✓</span>`;
+          } else if (status === 'remedial') {
+            cardBorder = 'border-rose-300 bg-[#FFF1F0] shadow-xs';
+            starIcon = '<i class="fa-solid fa-triangle-exclamation text-rose-600 text-xs"></i>';
+            badgeHtml = `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-rose-800 bg-rose-100 border border-rose-300">${skorVal} ⚠️</span>`;
+          }
+
+          return `
+            <div class="rounded-xl border p-3 flex flex-col justify-between gap-2.5 transition hover:shadow-sm ${cardBorder}">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-white border border-[#E8E6DF] text-[#2E384D] shadow-2xs">${node.id}</span>
+                  <span class="text-[10px] font-semibold text-[#787774] uppercase tracking-wider">${node.tag}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  ${starIcon}
+                  ${badgeHtml}
+                </div>
+              </div>
+
+              <div>
+                <h5 class="text-xs font-bold text-[#2F3437] line-clamp-2 leading-snug" title="${escapeHtml(node.title)}">${escapeHtml(node.title)}</h5>
+              </div>
+
+              <div class="flex items-center gap-1.5 pt-1.5 mt-auto border-t border-[#E8E6DF]/70">
+                <button type="button" onclick="bukaCbtDariSkillTree('${mapel}', '${node.id}')" class="notion-btn-primary flex-1 py-1 rounded-lg text-[10.5px] font-bold flex items-center justify-center gap-1 text-white cursor-pointer shadow-2xs" title="Kerjakan CBT ${node.id}">
+                  <i class="fa-solid fa-play text-[9px]"></i> <span>CBT</span>
+                </button>
+                <button type="button" onclick="bukaSlideDariSkillTree('${mapel}', '${node.id}')" class="notion-btn-secondary px-2.5 py-1 rounded-lg text-[10.5px] font-semibold flex items-center justify-center gap-1 cursor-pointer text-[#5F5E5B] hover:text-[#2F3437] border border-[#E8E6DF] bg-white" title="Buka Slide Materi ${node.id}">
+                  <i class="fa-solid fa-book-open text-[10px] text-indigo-600"></i> <span>Slide</span>
+                </button>
+              </div>
+            </div>`;
+        }).join('');
+
+        const clusterPct = Math.round((clusterMastered / totalClusterNodes) * 100);
+
+        return `
+          <div class="rounded-2xl border p-4 sm:p-5 space-y-3.5" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-2.5" style="border-color: #E8E6DF;">
+              <div>
+                <h4 class="text-sm font-bold text-[#2F3437]">${escapeHtml(cluster.clusterTitle)}</h4>
+                <p class="text-[11px] text-[#787774]">${escapeHtml(cluster.clusterSub)}</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-md text-xs font-mono font-bold ${clusterPct >= 80 ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-[#F0EFEA] text-[#5F5E5B] border border-[#E8E6DF]'}">
+                  ${clusterMastered} / ${totalClusterNodes} Tuntas (${clusterPct}%)
+                </span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              ${nodesHtml}
+            </div>
+          </div>`;
+      }).join('');
+
+      targetContainer.innerHTML = clustersHtml;
+
+      // Update KPI Strip
+      const masteredTotal = countPassed + countPerfect;
+      const pctTotal = totalNodes > 0 ? Math.round((masteredTotal / totalNodes) * 100) : 0;
+
+      const totalNodesEl = document.getElementById('st-total-nodes');
+      if (totalNodesEl) totalNodesEl.textContent = `${masteredTotal} / ${totalNodes} Bintang (${pctTotal}%)`;
+
+      const progressBarEl = document.getElementById('st-progress-bar');
+      if (progressBarEl) progressBarEl.style.width = `${pctTotal}%`;
+
+      const countLockedEl = document.getElementById('st-count-locked');
+      if (countLockedEl) countLockedEl.textContent = countLocked;
+
+      const countRemedialEl = document.getElementById('st-count-remedial');
+      if (countRemedialEl) countRemedialEl.textContent = countRemedial;
+
+      const countPassedEl = document.getElementById('st-count-passed');
+      if (countPassedEl) countPassedEl.textContent = countPassed;
+
+      const countPerfectEl = document.getElementById('st-count-perfect');
+      if (countPerfectEl) countPerfectEl.textContent = countPerfect;
+    }
+
+    function bukaCbtDariSkillTree(mapel, kode) {
+      closeSkillTreeModal();
+      if (typeof openTkaForCurrentMeeting === 'function') {
+        openTkaForCurrentMeeting(kode, 0, mapel);
+      } else if (typeof bukaPaketCbtDariRapor === 'function') {
+        bukaPaketCbtDariRapor(mapel, kode);
+      } else {
+        if (typeof switchSubject === 'function') switchSubject('tka');
+      }
+    }
+
+    function bukaSlideDariSkillTree(mapel, kode) {
+      closeSkillTreeModal();
+      if (typeof switchSubject === 'function') {
+        switchSubject(mapel);
+      }
+      window.location.hash = `#/${mapel}/${kode}/slide/1`;
+    }
+
+    // =========================================================================
+    // MODUL 3: AESTHETIC ACHIEVEMENT CARD GENERATOR ("SPOTIFY WRAPPED")
+    // =========================================================================
+    let _currentShareCardTheme = 'paper';
+
+    function openShareCardModal() {
+      const modal = document.getElementById('share-card-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      renderShareCardPreview();
+      switchShareCardTheme(_currentShareCardTheme || 'paper');
+    }
+
+    function closeShareCardModal() {
+      const modal = document.getElementById('share-card-modal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function switchShareCardTheme(theme) {
+      _currentShareCardTheme = theme;
+      const btnPaper = document.getElementById('btn-theme-paper');
+      const btnDark = document.getElementById('btn-theme-dark');
+      const preview = document.getElementById('achievement-card-preview');
+
+      if (theme === 'dark') {
+        if (btnDark) btnDark.className = 'px-2.5 py-1 rounded-md text-xs font-semibold bg-[#2E384D] text-white cursor-pointer shadow-2xs';
+        if (btnPaper) btnPaper.className = 'px-2.5 py-1 rounded-md text-xs font-semibold bg-white border border-[#E8E6DF] text-[#787774] hover:text-[#2F3437] cursor-pointer';
+        if (preview) {
+          preview.style.backgroundColor = '#0F172A';
+          preview.style.borderColor = '#38BDF8';
+          preview.style.color = '#F8FAFC';
+          const h4 = preview.querySelector('#sc-nama');
+          if (h4) h4.style.color = '#FFFFFF';
+        }
+      } else {
+        if (btnPaper) btnPaper.className = 'px-2.5 py-1 rounded-md text-xs font-semibold bg-[#2E384D] text-white cursor-pointer shadow-2xs';
+        if (btnDark) btnDark.className = 'px-2.5 py-1 rounded-md text-xs font-semibold bg-white border border-[#E8E6DF] text-[#787774] hover:text-[#2F3437] cursor-pointer';
+        if (preview) {
+          preview.style.backgroundColor = '#FFFFFF';
+          preview.style.borderColor = '#2E384D';
+          preview.style.color = '#2F3437';
+          const h4 = preview.querySelector('#sc-nama');
+          if (h4) h4.style.color = '#2F3437';
+        }
+      }
+    }
+
+    function renderShareCardPreview() {
+      let profile = _cachedGamifikasiProfile;
+      if (!profile) {
+        let sess = null;
+        try { sess = JSON.parse(localStorage.getItem('portal_session') || 'null'); } catch(e) {}
+        const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : '24400083';
+        try {
+          const cached = localStorage.getItem('mathcihuy_gamifikasi_' + nis);
+          if (cached) profile = JSON.parse(cached);
+        } catch(e) {}
+      }
+
+      const nama = (profile && profile.nama) || 'Siswa GIS 2';
+      const kelas = (profile && profile.kelas) || 'Kelas XII';
+      const rankVal = (profile && (profile.rank_wajib_class || profile.rank_class)) || 1;
+      const gelar = (profile && profile.gelar) || 'Novice Explorer';
+      const totalXp = (profile && profile.total_xp) || 0;
+      const streak = (profile && profile.current_streak) || 1;
+      const perfect = (profile && profile.total_sempurna) || 0;
+      const shield = (profile && profile.streak_shields !== undefined) ? profile.streak_shields : 1;
+
+      const namaEl = document.getElementById('sc-nama');
+      if (namaEl) namaEl.textContent = nama;
+      const initialsEl = document.getElementById('sc-avatar-initials');
+      if (initialsEl) initialsEl.textContent = getStudentInitials(nama);
+      const kelasEl = document.getElementById('sc-kelas');
+      if (kelasEl) kelasEl.textContent = kelas;
+      const rankEl = document.getElementById('sc-rank');
+      if (rankEl) rankEl.textContent = `Wajib #${rankVal}`;
+      const gelarEl = document.getElementById('sc-gelar');
+      if (gelarEl) gelarEl.textContent = gelar;
+
+      const xpEl = document.getElementById('sc-xp');
+      if (xpEl) xpEl.textContent = `${totalXp.toLocaleString('id-ID')} XP`;
+      const streakEl = document.getElementById('sc-streak');
+      if (streakEl) streakEl.textContent = `${streak} Hari`;
+      const perfectEl = document.getElementById('sc-perfect');
+      if (perfectEl) perfectEl.textContent = `${perfect} Kali`;
+      const shieldEl = document.getElementById('sc-shield');
+      if (shieldEl) shieldEl.textContent = `${shield} Perisai`;
+
+      // Badges
+      const badgesContainer = document.getElementById('sc-badges-container');
+      if (badgesContainer) {
+        const badges = (profile && Array.isArray(profile.badges)) ? profile.badges.filter(b => b.unlocked) : [];
+        if (badges.length > 0) {
+          badgesContainer.innerHTML = badges.slice(0, 4).map(b => `
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[9.5px] font-semibold border shadow-2xs" style="background-color: #FBFBFA; border-color: #E8E6DF; color: #2F3437;">
+              <i class="${b.icon || 'fa-solid fa-award'}" style="color: ${b.color || '#D97706'};"></i>
+              <span>${escapeHtml(b.name)}</span>
+            </span>
+          `).join('');
+        } else {
+          badgesContainer.innerHTML = `
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[9.5px] font-semibold border shadow-2xs bg-stone-50 border-stone-200 text-stone-700">
+              <i class="fa-solid fa-flag-checkered text-blue-600"></i>
+              <span>Langkah Pertama</span>
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[9.5px] font-semibold border shadow-2xs bg-stone-50 border-stone-200 text-stone-700">
+              <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+              <span>Penjaga Api</span>
+            </span>
+          `;
+        }
+      }
+    }
+
+    // Helper Canvas Rounded Rectangle Cross-Browser
+    function canvasDrawRoundedRect(ctx, x, y, width, height, radius) {
+      if (typeof ctx.roundRect === 'function') {
+        ctx.roundRect(x, y, width, height, radius);
+      } else {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+      }
+    }
+
+    async function downloadShareCardAsPng() {
+      const canvas = document.getElementById('share-card-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const isDark = _currentShareCardTheme === 'dark';
+
+      let profile = _cachedGamifikasiProfile;
+      if (!profile) {
+        let sess = null;
+        try { sess = JSON.parse(localStorage.getItem('portal_session') || 'null'); } catch(e) {}
+        const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : '24400083';
+        try {
+          const cached = localStorage.getItem('mathcihuy_gamifikasi_' + nis);
+          if (cached) profile = JSON.parse(cached);
+        } catch(e) {}
+      }
+
+      const nama = (profile && profile.nama) || 'Siswa GIS 2';
+      const kelas = (profile && profile.kelas) || 'Kelas XII';
+      const rankVal = (profile && (profile.rank_wajib_class || profile.rank_class)) || 1;
+      const gelar = (profile && profile.gelar) || 'Novice Explorer';
+      const totalXp = (profile && profile.total_xp) || 0;
+      const streak = (profile && profile.current_streak) || 1;
+      const perfect = (profile && profile.total_sempurna) || 0;
+      const shield = (profile && profile.streak_shields !== undefined) ? profile.streak_shields : 1;
+      const weeklyBonusXp = (profile && profile.weekly_event && profile.weekly_event.earned_bonus_xp) || 0;
+
+      // 1. Clear & Background Canvas 1080 x 1920
+      ctx.clearRect(0, 0, 1080, 1920);
+
+      const bgGrad = ctx.createLinearGradient(0, 0, 1080, 1920);
+      if (isDark) {
+        bgGrad.addColorStop(0, '#0B0F19');
+        bgGrad.addColorStop(1, '#0F172A');
+      } else {
+        bgGrad.addColorStop(0, '#F7F6F3');
+        bgGrad.addColorStop(1, '#ECEBE6');
+      }
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // 2. Card Frame Container
+      ctx.save();
+      ctx.beginPath();
+      canvasDrawRoundedRect(ctx, 50, 50, 980, 1820, 48);
+      ctx.fillStyle = isDark ? '#131B2E' : '#FFFFFF';
+      ctx.fill();
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = isDark ? '#38BDF8' : '#2E384D';
+      ctx.stroke();
+      ctx.clip();
+
+      // Decorative Watermark circles
+      ctx.beginPath();
+      ctx.arc(950, 120, 200, 0, Math.PI * 2);
+      ctx.fillStyle = isDark ? 'rgba(56, 189, 248, 0.05)' : 'rgba(245, 158, 11, 0.06)';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(80, 1750, 240, 0, Math.PI * 2);
+      ctx.fillStyle = isDark ? 'rgba(99, 102, 241, 0.05)' : 'rgba(37, 99, 235, 0.05)';
+      ctx.fill();
+      ctx.restore();
+
+      // 3. Load Logo GIS
+      const logoImg = new Image();
+      logoImg.crossOrigin = 'anonymous';
+      logoImg.src = 'assets/gis_official_logo.png';
+      await new Promise(resolve => {
+        if (logoImg.complete) return resolve();
+        logoImg.onload = resolve;
+        logoImg.onerror = resolve;
+      });
+
+      // 4. Header Brand
+      if (logoImg.naturalWidth > 0) {
+        ctx.drawImage(logoImg, 100, 105, 95, 95);
+      }
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isDark ? '#94A3B8' : '#5F5E5B';
+      ctx.font = 'bold 22px monospace';
+      ctx.fillText('GLOBAL ISLAMIC SCHOOL 2 SERPONG', 215, 142);
+
+      ctx.fillStyle = isDark ? '#38BDF8' : '#2E384D';
+      ctx.font = '900 30px sans-serif';
+      ctx.fillText('PORTAL MATEMATIKA XII • 2026/2027', 215, 182);
+
+      // Official Badge
+      ctx.beginPath();
+      canvasDrawRoundedRect(ctx, 830, 120, 150, 45, 12);
+      ctx.fillStyle = '#FEF3C7';
+      ctx.fill();
+      ctx.strokeStyle = '#FDE68A';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = '#92400E';
+      ctx.font = 'bold 18px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('★ OFFICIAL', 905, 149);
+
+      // Header Divider Line
+      ctx.beginPath();
+      ctx.moveTo(100, 235);
+      ctx.lineTo(980, 235);
+      ctx.strokeStyle = isDark ? '#2D3748' : '#E8E6DF';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // 5. Student Identity Box
+      ctx.beginPath();
+      ctx.arc(170, 330, 65, 0, Math.PI * 2);
+      ctx.fillStyle = isDark ? '#38BDF8' : '#2E384D';
+      ctx.fill();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = isDark ? '#0F172A' : '#FFFFFF';
+      ctx.font = 'bold 46px sans-serif';
+      ctx.fillText(getStudentInitials(nama), 170, 346);
+
+      // Name & Class
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isDark ? '#FFFFFF' : '#2F3437';
+      ctx.font = '900 42px sans-serif';
+      const cleanNamaShort = nama.length > 24 ? (nama.substring(0, 22) + '...') : nama;
+      ctx.fillText(cleanNamaShort, 260, 315);
+
+      ctx.font = 'bold 24px monospace';
+      ctx.fillStyle = isDark ? '#94A3B8' : '#5F5E5B';
+      ctx.fillText(`${kelas} • Peringkat Wajib #${rankVal}`, 260, 355);
+
+      // Gelar Pill
+      ctx.beginPath();
+      canvasDrawRoundedRect(ctx, 260, 375, 270, 42, 10);
+      ctx.fillStyle = isDark ? '#1E293B' : '#FFF7E6';
+      ctx.fill();
+      ctx.strokeStyle = isDark ? '#475569' : '#FFE7BA';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = isDark ? '#FDE047' : '#B26B00';
+      ctx.font = 'bold 20px sans-serif';
+      ctx.fillText(`👑 ${gelar}`, 275, 404);
+
+      // 6. 4 Metric Gold Grid (Cards at y=460 & y=650)
+      const renderMetricBox = (x, y, w, h, icon, label, val, bg, border, iconColor, valColor) => {
+        ctx.beginPath();
+        canvasDrawRoundedRect(ctx, x, y, w, h, 24);
+        ctx.fillStyle = bg;
+        ctx.fill();
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = iconColor;
+        ctx.font = 'bold 22px sans-serif';
+        ctx.fillText(`${icon} ${label}`, x + 30, y + 52);
+
+        ctx.fillStyle = valColor;
+        ctx.font = '900 46px monospace';
+        ctx.fillText(val, x + 30, y + 120);
+      };
+
+      // Box 1: Total XP
+      renderMetricBox(
+        100, 460, 420, 160, '⚡', 'TOTAL EXP',
+        `${totalXp.toLocaleString('id-ID')} XP`,
+        isDark ? '#1E293B' : '#FBFBFA',
+        isDark ? '#334155' : '#E8E6DF',
+        '#D97706', isDark ? '#F8FAFC' : '#2F3437'
+      );
+
+      // Box 2: Daily Streak
+      renderMetricBox(
+        560, 460, 420, 160, '🔥', 'DAILY STREAK',
+        `${streak} Hari`,
+        isDark ? '#2D1E22' : '#FEF2F2',
+        isDark ? '#581C26' : '#FEE2E2',
+        '#DC2626', isDark ? '#FCA5A5' : '#991B1B'
+      );
+
+      // Box 3: Skor 100
+      renderMetricBox(
+        100, 650, 420, 160, '🎯', 'SKOR 100 MURNI',
+        `${perfect} Paket`,
+        isDark ? '#2C2518' : '#FFFDF5',
+        isDark ? '#533F17' : '#FEF3C7',
+        '#D97706', isDark ? '#FDE68A' : '#92400E'
+      );
+
+      // Box 4: Streak Shield
+      renderMetricBox(
+        560, 650, 420, 160, '🛡️', 'STREAK SHIELD',
+        `${shield} Perisai`,
+        isDark ? '#132E27' : '#ECFDF5',
+        isDark ? '#14532D' : '#D1FAE5',
+        '#059669', isDark ? '#6EE7B7' : '#065F46'
+      );
+
+      // 7. Showcase Badges Section (y=850)
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isDark ? '#94A3B8' : '#787774';
+      ctx.font = 'bold 22px monospace';
+      ctx.fillText('LENCANA PRESTASI & PENGHARGAAN TERBUKA', 100, 860);
+
+      const badges = (profile && Array.isArray(profile.badges)) ? profile.badges.filter(b => b.unlocked) : [];
+      const defaultBadges = [
+        { name: 'Langkah Pertama', icon: '★', desc: 'Menyelesaikan CBT perdana' },
+        { name: 'Penjaga Api', icon: '🛡️', desc: 'Perisai konsistensi aktif' },
+        { name: 'Weekly Challenger', icon: '🏆', desc: 'Misi mingguan tuntas' },
+        { name: 'Pejuang Tangguh', icon: '⛰️', desc: 'Drilling soal konsisten' }
+      ];
+      const displayBadges = badges.length >= 2 ? badges.slice(0, 4) : defaultBadges;
+
+      displayBadges.forEach((b, idx) => {
+        const col = idx % 2;
+        const row = Math.floor(idx / 2);
+        const bx = 100 + col * 460;
+        const by = 890 + row * 115;
+
+        ctx.beginPath();
+        canvasDrawRoundedRect(ctx, bx, by, 420, 95, 20);
+        ctx.fillStyle = isDark ? '#1E293B' : '#FBFBFA';
+        ctx.fill();
+        ctx.strokeStyle = isDark ? '#334155' : '#E8E6DF';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(bx + 48, by + 48, 28, 0, Math.PI * 2);
+        ctx.fillStyle = isDark ? '#334155' : '#F0EFEA';
+        ctx.fill();
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#D97706';
+        ctx.font = '24px sans-serif';
+        ctx.fillText('★', bx + 48, by + 56);
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = isDark ? '#FFFFFF' : '#2F3437';
+        ctx.font = 'bold 22px sans-serif';
+        ctx.fillText(b.name, bx + 90, by + 44);
+
+        ctx.fillStyle = isDark ? '#94A3B8' : '#787774';
+        ctx.font = '16px sans-serif';
+        ctx.fillText(b.desc || 'Pencapaian kurikulum resmi', bx + 90, by + 72);
+      });
+
+      // 8. Weekly Challenge Highlight (y=1160)
+      ctx.beginPath();
+      canvasDrawRoundedRect(ctx, 100, 1160, 880, 130, 24);
+      ctx.fillStyle = isDark ? '#1C2538' : '#FFFBEB';
+      ctx.fill();
+      ctx.strokeStyle = isDark ? '#F59E0B' : '#FDE68A';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#D97706';
+      ctx.font = 'bold 22px sans-serif';
+      ctx.fillText('🏆 TANTANGAN MINGGUAN • WEEKLY EXP BLITZ', 135, 1210);
+
+      ctx.fillStyle = isDark ? '#E2E8F0' : '#451A03';
+      ctx.font = '20px sans-serif';
+      ctx.fillText(`Bonus Terkumpul: +${weeklyBonusXp} / 750 EXP • Konsisten menjawab kuis Discord & CBT!`, 135, 1250);
+
+      // 9. Motto Card (y=1330)
+      ctx.beginPath();
+      canvasDrawRoundedRect(ctx, 100, 1330, 880, 180, 24);
+      ctx.fillStyle = isDark ? '#1E293B' : '#F0EFEA';
+      ctx.fill();
+      ctx.strokeStyle = isDark ? '#334155' : '#E8E6DF';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = isDark ? '#E2E8F0' : '#5F5E5B';
+      ctx.font = 'italic 26px sans-serif';
+      ctx.fillText('“Konsistensi mengalahkan bakat.', 540, 1400);
+      ctx.fillText('Siap taklukkan Asesmen Nasional & UTBK-SNBT 2027!”', 540, 1445);
+
+      ctx.font = 'bold 18px monospace';
+      ctx.fillStyle = '#D97706';
+      ctx.fillText('— GENERASI JUARA SMA GIS 2 SERPONG —', 540, 1485);
+
+      // 10. Footer Section (y=1640)
+      ctx.beginPath();
+      ctx.moveTo(100, 1640);
+      ctx.lineTo(980, 1640);
+      ctx.strokeStyle = isDark ? '#2D3748' : '#E8E6DF';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isDark ? '#94A3B8' : '#5F5E5B';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText('Guru Pengampu: Mr. Ardi, S.Pd.Gr.', 100, 1690);
+      ctx.font = '17px monospace';
+      ctx.fillText('Koordinator Kurikulum: Frsty Ristiana, M.Pd., Gr.', 100, 1720);
+      ctx.fillText('Mengetahui: Kepala Sekolah, Dwi Kurniawati, S.Pd., Gr.', 100, 1750);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = isDark ? '#38BDF8' : '#2E384D';
+      ctx.font = 'bold 24px monospace';
+      ctx.fillText('mathcihuy.pages.dev', 980, 1690);
+
+      ctx.fillStyle = isDark ? '#64748B' : '#787774';
+      ctx.font = '16px monospace';
+      const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      ctx.fillText(`Diterbitkan: ${todayStr}`, 980, 1725);
+      ctx.fillText('Status: Terverifikasi Sistem D1', 980, 1750);
+
+      // 11. Download Output
+      try {
+        const link = document.createElement('a');
+        const cleanName = nama.replace(/[^a-zA-Z0-9]/g, '_');
+        link.download = `Prestasi_Matematika_GIS2_${cleanName}.png`;
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showNotionToast('🎉 Kartu Prestasi HD (1080x1920) berhasil diunduh! Siap diposting ke IG Story & Discord.');
+      } catch (err) {
+        console.error('Gagal export canvas:', err);
+        alert('Gagal mengunduh kartu prestasi: ' + err.message);
+      }
+    }
+
+    function copyShareCardCaption() {
+      let profile = _cachedGamifikasiProfile;
+      if (!profile) {
+        let sess = null;
+        try { sess = JSON.parse(localStorage.getItem('portal_session') || 'null'); } catch(e) {}
+        const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : '24400083';
+        try {
+          const cached = localStorage.getItem('mathcihuy_gamifikasi_' + nis);
+          if (cached) profile = JSON.parse(cached);
+        } catch(e) {}
+      }
+
+      const nama = (profile && profile.nama) || 'Siswa GIS 2';
+      const kelas = (profile && profile.kelas) || 'Kelas XII';
+      const gelar = (profile && profile.gelar) || 'Novice Explorer';
+      const totalXp = ((profile && profile.total_xp) || 0).toLocaleString('id-ID');
+      const streak = (profile && profile.current_streak) || 1;
+      const perfect = (profile && profile.total_sempurna) || 0;
+      const shield = (profile && profile.streak_shields !== undefined) ? profile.streak_shields : 1;
+      const rank = (profile && (profile.rank_wajib_class || profile.rank_class)) || 1;
+
+      const caption = `✨ MATH CIHUY PRESTASI BELAJAR XII ✨
+🏫 SMA Global Islamic School 2 Serpong
+👤 Nama: ${nama} (${kelas})
+👑 Gelar: ${gelar} (Peringkat #${rank} Kelas)
+⚡ Total EXP: ${totalXp} XP
+🔥 Daily Streak: ${streak} Hari Berturut-turut
+🎯 Skor 100 Murni: ${perfect} Paket
+🛡️ Streak Shield: ${shield} Perisai Aktif
+
+"Konsistensi mengalahkan bakat. Siap taklukkan Asesmen Nasional & UTBK 2027!"
+Guru Pengampu: Mr. Ardi
+🔗 https://mathcihuy.pages.dev`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(caption)
+          .then(() => showNotionToast('📋 Teks caption berhasil disalin ke clipboard!'))
+          .catch(() => fallbackCopyCaption(caption));
+      } else {
+        fallbackCopyCaption(caption);
+      }
+    }
+
+    function fallbackCopyCaption(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showNotionToast('📋 Teks caption berhasil disalin!');
+      } catch(e) {
+        prompt('Salin manual teks caption:', text);
+      }
+      ta.remove();
+    }
+
+    function showNotionToast(message) {
+      const existing = document.getElementById('notion-toast-floating');
+      if (existing) existing.remove();
+
+      const toast = document.createElement('div');
+      toast.id = 'notion-toast-floating';
+      toast.className = 'fixed bottom-6 right-6 z-[10000] px-4 py-3 rounded-xl border shadow-2xl flex items-center gap-2.5 transition-all duration-300 font-sans text-xs font-semibold';
+      toast.style.backgroundColor = '#2E384D';
+      toast.style.borderColor = '#1E2533';
+      toast.style.color = '#FFFFFF';
+      toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span>${escapeHtml(message)}</span>`;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        setTimeout(() => toast.remove(), 350);
+      }, 3500);
+    }
+
     // Jalankan initGamificationOnLoad saat dokumen siap
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initGamificationOnLoad);
@@ -2588,5 +3601,21 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     window.switchLeaderboardView = switchLeaderboardView;
     window.loadLeaderboardData = loadLeaderboardData;
     window.loadRombelLeaderboardData = loadRombelLeaderboardData;
+
+    // EXPOSE FUNGSI FITUR BARU: WEEKLY EVENT, SKILL TREE & SHARE CARD
+    window.renderWeeklyEventWidget = renderWeeklyEventWidget;
+    window.openSkillTreeModal = openSkillTreeModal;
+    window.closeSkillTreeModal = closeSkillTreeModal;
+    window.switchSkillTreeTab = switchSkillTreeTab;
+    window.renderSkillTree = renderSkillTree;
+    window.bukaCbtDariSkillTree = bukaCbtDariSkillTree;
+    window.bukaSlideDariSkillTree = bukaSlideDariSkillTree;
+    window.openShareCardModal = openShareCardModal;
+    window.closeShareCardModal = closeShareCardModal;
+    window.switchShareCardTheme = switchShareCardTheme;
+    window.renderShareCardPreview = renderShareCardPreview;
+    window.downloadShareCardAsPng = downloadShareCardAsPng;
+    window.copyShareCardCaption = copyShareCardCaption;
+    window.showNotionToast = showNotionToast;
 
 
