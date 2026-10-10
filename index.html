@@ -1555,6 +1555,7 @@
         <div id="scorecard-attempt-badge" class="text-[11px] text-cyan-300 font-mono text-center font-bold px-3 py-1 rounded-xl bg-slate-950/80 border border-cyan-500/30 flex items-center justify-center gap-1.5 shadow-sm">
           <i class="fa-solid fa-arrows-rotate text-cyan-400"></i> <span id="scorecard-attempt-text">Percobaan ke-1</span>
         </div>
+        <div id="scorecard-boss-container" class="w-full pt-1"></div>
       </div>
 
       <div class="grid grid-cols-3 gap-2 text-center">
@@ -1594,7 +1595,7 @@
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
   <script src="data-xii.js?v=v20260930_zero_desync"></script>
-  <script src="app.js?v=v20261010_anticheat_quiz5opt"></script>
+  <script src="app.js?v=v20261011_bossfight_rombelclash"></script>
 
 
     <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
@@ -1951,6 +1952,9 @@
           </button>
           <button type="button" onclick="switchLeaderboardView('roadmap')" id="btn-lb-tab-roadmap" class="notion-btn-tab ml-1">
             <i class="fa-solid fa-diagram-project mr-1 text-blue-600"></i>Roadmap Capaian &amp; EXP
+          </button>
+          <button type="button" onclick="switchLeaderboardView('rombel')" id="btn-lb-tab-rombel" class="notion-btn-tab ml-1">
+            <i class="fa-solid fa-flag-checkered mr-1 text-purple-600"></i>🏆 Antar-Rombel (Clash)
           </button>
         </div>
 
@@ -2373,6 +2377,60 @@
                   </span>
                 </div>
               </div>
+          </div>
+        </div>
+
+        <!-- VIEW 4: TAMPILAN KOMPETISI SEHAT ANTAR-ROMBEL (12 F.1 vs 12 F.2 vs 12 F.3 vs 12 F.4) -->
+        <div id="lb-view-rombel" class="hidden space-y-6">
+          <!-- HERO BANNER KOMPETISI ROMBEL -->
+          <div class="p-4 sm:p-5 rounded-xl border border-[#E8E6DF] bg-[#FFFFFF] shadow-2xs space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-purple-50 text-purple-700 border border-purple-200 shrink-0">
+                  <i class="fa-solid fa-flag-checkered"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="text-sm sm:text-base font-bold text-[#2F3437]">Weekly Class Championship: Kompetisi Sehat Antar-Rombel</h4>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-200">Fair Play 101 Siswa</span>
+                  </div>
+                  <p class="text-[11px] text-[#787774]">Apresiasi kekompakan belajar, ketuntasan CBT bersama, dan produktivitas matematika kelas XII F.1 s.d. XII F.4.</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#2E384D] text-white flex items-center gap-1.5">
+                  <i class="fa-solid fa-scale-balanced text-amber-400"></i> Standar Adil: Rata-rata XP / Siswa
+                </span>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-[#F0EFEA] flex flex-wrap items-center justify-between gap-2 text-xs text-[#5F5E5B]">
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1 font-semibold text-purple-800"><i class="fa-solid fa-circle-info"></i> Mengapa Rata-rata XP?</span>
+                <span>Mengeliminasi perbedaan jumlah siswa per rombel agar kompetisi 100% adil dan objektif.</span>
+              </div>
+              <div class="flex items-center gap-2 font-mono text-[11px] text-[#787774]">
+                <i class="fa-solid fa-clock-rotate-left"></i> Diperbarui otomatis dari Cloudflare D1
+              </div>
+            </div>
+          </div>
+
+          <!-- PODIUM ROMBEL TOP 3 -->
+          <div id="lb-rombel-podium-container" class="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-1">
+            <!-- Injected via JS -->
+          </div>
+
+          <!-- DETAIL 4 KARTU ROMBEL -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-purple-600"></span>
+                Matriks Kinerja &amp; MVP Rombel Kelas XII
+              </h4>
+              <span class="text-xs font-mono text-[#787774]">4 Rombel • 101 Siswa</span>
+            </div>
+
+            <div id="lb-rombel-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
+              <!-- Injected via JS -->
             </div>
           </div>
         </div>
@@ -2880,7 +2938,7 @@
       </div>
     </div>
 
-    <script src="app-akhir.js?v=v20261011_helpdesk_notif"></script>
+    <script src="app-akhir.js?v=v20261011_bossfight_rombelclash"></script>
     <script src="angket.js?v=20261009_v3_fixed"></script>
     <script src="helpdesk-notif.js?v=20261011_v1"></script>
 

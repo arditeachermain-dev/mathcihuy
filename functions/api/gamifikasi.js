@@ -502,7 +502,114 @@ export async function onRequestGet(context) {
       });
     }
 
-    // B. JIKA REQUEST LEADERBOARD
+    // B. JIKA REQUEST LEADERBOARD ANTAR-ROMBEL (KOMPETISI SEHAT 12 F.1 vs 12 F.2 vs 12 F.3 vs 12 F.4)
+    if (url.searchParams.has('rombel') || kelasFilter === 'rombel') {
+      const mapelMode = (url.searchParams.get('mapel') || 'wajib').toLowerCase();
+      
+      // 1. Ambil agregat kelas dari siswa_gamifikasi
+      const rombelRows = (await db.prepare(`
+        SELECT 
+          kelas,
+          COUNT(*) as total_siswa,
+          SUM(xp_wajib) as total_xp_wajib,
+          ROUND(AVG(xp_wajib), 1) as avg_xp_wajib,
+          SUM(total_xp) as total_xp_all,
+          ROUND(AVG(total_xp), 1) as avg_xp_all,
+          SUM(total_ujian) as total_ujian,
+          SUM(total_sempurna) as total_sempurna,
+          ROUND(AVG(current_streak), 1) as avg_streak
+        FROM siswa_gamifikasi
+        WHERE kelas LIKE 'XII F%'
+        GROUP BY kelas
+      `).all()).results || [];
+
+      // 2. Ambil data aktivitas CBT mingguan (7 hari terakhir)
+      let weeklyCbtMap = {};
+      try {
+        const weeklyRows = (await db.prepare(`
+          SELECT 
+            kelas,
+            COUNT(*) as weekly_ujian,
+            SUM(CASE WHEN skor >= 75 THEN 1 ELSE 0 END) as weekly_tuntas,
+            SUM(CASE WHEN skor = 100 THEN 1 ELSE 0 END) as weekly_sempurna,
+            ROUND(AVG(skor), 1) as weekly_avg_skor
+          FROM nilai_cbt
+          WHERE datetime(waktu_submit) >= datetime('now', '-7 days')
+            AND kelas LIKE 'XII F%'
+          GROUP BY kelas
+        `).all()).results || [];
+
+        weeklyRows.forEach(w => {
+          weeklyCbtMap[w.kelas] = w;
+        });
+      } catch (e) {
+        console.warn('Gagal memuat weekly cbt stats:', e);
+      }
+
+      // 3. Ambil MVP Siswa per Rombel
+      let mvpMap = {};
+      try {
+        const mvpRows = (await db.prepare(`
+          SELECT nis, nama, kelas, xp_wajib, total_xp, current_streak
+          FROM siswa_gamifikasi
+          WHERE kelas LIKE 'XII F%'
+          ORDER BY (CASE WHEN ? = 'all' THEN total_xp ELSE xp_wajib END) DESC
+        `).bind(mapelMode).all()).results || [];
+
+        mvpRows.forEach(m => {
+          if (!mvpMap[m.kelas]) {
+            mvpMap[m.kelas] = {
+              nis: m.nis,
+              nama: m.nama,
+              xp_wajib: m.xp_wajib,
+              total_xp: m.total_xp,
+              streak: m.current_streak
+            };
+          }
+        });
+      } catch (e) {
+        console.warn('Gagal memuat MVP rombel:', e);
+      }
+
+      // 4. Susun & Urutkan Peringkat Rombel
+      const sortKey = (mapelMode === 'all') ? 'avg_xp_all' : 'avg_xp_wajib';
+      rombelRows.sort((a, b) => (b[sortKey] || 0) - (a[sortKey] || 0));
+
+      const rankedRombels = rombelRows.map((r, idx) => {
+        const weekly = weeklyCbtMap[r.kelas] || { weekly_ujian: 0, weekly_tuntas: 0, weekly_sempurna: 0, weekly_avg_skor: 0 };
+        const mvp = mvpMap[r.kelas] || null;
+        const ketuntasanPct = r.total_siswa > 0 ? Math.min(100, Math.round(((r.total_ujian || 0) / (r.total_siswa * 21)) * 100)) : 0;
+
+        return {
+          rank: idx + 1,
+          kelas: r.kelas,
+          total_siswa: r.total_siswa,
+          total_xp_wajib: r.total_xp_wajib || 0,
+          avg_xp_wajib: r.avg_xp_wajib || 0,
+          total_xp_all: r.total_xp_all || 0,
+          avg_xp_all: r.avg_xp_all || 0,
+          total_ujian: r.total_ujian || 0,
+          total_sempurna: r.total_sempurna || 0,
+          avg_streak: r.avg_streak || 1.0,
+          ketuntasan_pct: ketuntasanPct,
+          weekly_ujian: weekly.weekly_ujian || 0,
+          weekly_tuntas: weekly.weekly_tuntas || 0,
+          weekly_sempurna: weekly.weekly_sempurna || 0,
+          weekly_avg_skor: weekly.weekly_avg_skor || 0,
+          mvp: mvp
+        };
+      });
+
+      return jsonResponse({
+        success: true,
+        mode: 'rombel',
+        mapel: mapelMode,
+        leaderboard: rankedRombels,
+        generated_at: new Date().toISOString()
+      });
+    }
+
+    // C. JIKA REQUEST LEADERBOARD INDIVIDU
     const mapelFilter = (url.searchParams.get('mapel') || 'wajib').toLowerCase();
     const selectFields = "nis, nama, kelas, total_xp, level, gelar, current_streak, max_streak, total_ujian, total_sempurna, badges, xp_wajib, ujian_wajib, sempurna_wajib, xp_minat, ujian_minat, sempurna_minat";
     const whereClauses = [];

@@ -5300,6 +5300,52 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         }
       }
 
+      // Render Boss Fight Conquered / Defeated Card
+      const bossContainer = document.getElementById('scorecard-boss-container');
+      if (bossContainer) {
+        // Ambil evaluasi Soal 9 (idx 8) dan Soal 10 (idx 9)
+        const q8Val = (Array.isArray(evaluations) && evaluations[8] !== undefined)
+          ? evaluations[8]
+          : (userSessionScores ? userSessionScores[`${subj}_${pkgId}_8`] : undefined);
+        const q9Val = (Array.isArray(evaluations) && evaluations[9] !== undefined)
+          ? evaluations[9]
+          : (userSessionScores ? userSessionScores[`${subj}_${pkgId}_9`] : undefined);
+
+        const isBossDefeated = (q8Val === true || q9Val === true);
+        const isBossBoth = (q8Val === true && q9Val === true);
+
+        if (isBossDefeated) {
+          bossContainer.innerHTML = `
+            <div class="p-3 md:p-3.5 rounded-2xl border-2 border-amber-400 bg-gradient-to-r from-amber-950/90 via-slate-900 to-amber-950/90 shadow-2xl flex items-center gap-3 animate-pulse">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center text-xl font-black shrink-0 shadow-lg border border-amber-200">
+                👑
+              </div>
+              <div class="min-w-0 flex-1 text-left">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="text-xs md:text-sm font-black text-amber-300 uppercase tracking-wide">
+                    ${isClil ? '👑 THE BOSS DEFEATED!' : '👑 THE BOSS DEFEATED! SANG PENAKLUK SOAL HOTS!'}
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-400 text-slate-950">
+                    ${isBossBoth ? (isClil ? '2/2 Boss Defeated' : '2/2 Boss Tumbang Mutlak') : (isClil ? '1/2 Boss Defeated' : '1/2 Boss Tertaklukkan')}
+                  </span>
+                </div>
+                <p class="text-[11px] text-slate-200 mt-0.5 leading-snug">
+                  ${isClil ? 'Outstanding analytical reasoning! You successfully conquered the highest-tier HOTS AKM boss challenges in this assessment!' : 'Luar biasa! Kamu membuktikan daya nalar analitis tingkat tinggi dengan menaklukkan butir The Boss di paket ini!'}
+                </p>
+              </div>
+            </div>
+          `;
+          if (typeof confettiCelebration === 'function') confettiCelebration();
+        } else {
+          bossContainer.innerHTML = `
+            <div class="p-2.5 rounded-xl border border-slate-800 bg-slate-950/80 flex items-center gap-2.5 text-xs text-slate-400">
+              <span class="text-sm text-amber-500">⚔️</span>
+              <span class="text-[11px]">${isClil ? 'The Boss (Questions 9 & 10) was not defeated yet. Study the worked solutions below to conquer them next time!' : 'The Boss (Soal 9 & 10) belum tertaklukkan. Pelajari langkah pembahasannya untuk membalas di sesi berikutnya!'}</span>
+            </div>
+          `;
+        }
+      }
+
       // Matriks status butir soal Q1 s.d. Q10
       const matrixEl = document.getElementById('scorecard-q-matrix');
       if (matrixEl) {
@@ -5485,6 +5531,103 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       } catch (e) {}
     }
 
+    // Helper Tahapan Petualangan CBT (Minion -> Elite Guardian -> The Boss)
+    function getCbtStageInfo(qIdx, totalQ, subj) {
+      const isClil = subj === 'clil';
+      if (totalQ === 10) {
+        if (qIdx < 4) {
+          return {
+            key: 'minion',
+            badge: isClil ? '🛡️ STAGE 1: MINION LEVEL' : '🛡️ TAHAP 1: MINION LEVEL',
+            desc: isClil ? 'Conceptual Foundations' : 'Fondasi Konseptual • Pemahaman Langsung',
+            bg: 'bg-emerald-950/70 border-emerald-500/40 text-emerald-300',
+            pillLabel: 'Minion (1-4)',
+            isBoss: false
+          };
+        } else if (qIdx < 8) {
+          return {
+            key: 'elite',
+            badge: isClil ? '⚔️ STAGE 2: ELITE GUARDIAN' : '⚔️ TAHAP 2: ELITE GUARDIAN',
+            desc: isClil ? 'Two-Step Applied Analysis' : 'Analisis 2 Tahap • Hubungkan Model & Rumus',
+            bg: 'bg-blue-950/70 border-blue-500/40 text-blue-300',
+            pillLabel: 'Elite (5-8)',
+            isBoss: false
+          };
+        } else {
+          return {
+            key: 'boss',
+            badge: isClil ? '👑 STAGE 3: THE BOSS BATTLE' : '👑 TAHAP 3: THE BOSS BATTLE',
+            desc: isClil ? 'HOTS Complex Assessment & Critical Reasoning' : 'HOTS AKM Kompleks & Penalaran Kritis • Uji Nalar Puncak!',
+            bg: 'bg-gradient-to-r from-amber-950/90 via-slate-900 to-amber-950/90 border-2 border-amber-400 text-amber-300 shadow-lg shadow-amber-950/50',
+            pillLabel: 'THE BOSS (9-10)',
+            isBoss: true
+          };
+        }
+      } else {
+        const ratio = (qIdx + 1) / totalQ;
+        if (ratio <= 0.4) {
+          return {
+            key: 'minion',
+            badge: isClil ? '🛡️ STAGE 1: MINION LEVEL' : '🛡️ TAHAP 1: MINION LEVEL',
+            desc: isClil ? 'Conceptual Foundations' : 'Fondasi Konseptual',
+            bg: 'bg-emerald-950/70 border-emerald-500/40 text-emerald-300',
+            pillLabel: 'Minion',
+            isBoss: false
+          };
+        } else if (ratio <= 0.8) {
+          return {
+            key: 'elite',
+            badge: isClil ? '⚔️ STAGE 2: ELITE GUARDIAN' : '⚔️ TAHAP 2: ELITE GUARDIAN',
+            desc: isClil ? 'Two-Step Analysis' : 'Analisis 2 Tahap',
+            bg: 'bg-blue-950/70 border-blue-500/40 text-blue-300',
+            pillLabel: 'Elite',
+            isBoss: false
+          };
+        } else {
+          return {
+            key: 'boss',
+            badge: isClil ? '👑 STAGE 3: THE BOSS BATTLE' : '👑 TAHAP 3: THE BOSS BATTLE',
+            desc: isClil ? 'HOTS & Critical Reasoning' : 'HOTS AKM & Penalaran Kritis',
+            bg: 'bg-gradient-to-r from-amber-950/90 via-slate-900 to-amber-950/90 border-2 border-amber-400 text-amber-300 shadow-lg shadow-amber-950/50',
+            pillLabel: 'THE BOSS',
+            isBoss: true
+          };
+        }
+      }
+    }
+
+    function tampilkanToastBossBattle(subj) {
+      try {
+        const isClil = subj === 'clil';
+        const existing = document.getElementById('cbt-boss-toast');
+        if (existing) existing.remove();
+
+        const toast = document.createElement('div');
+        toast.id = 'cbt-boss-toast';
+        toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 z-50 p-3.5 px-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-r from-amber-950/95 via-slate-900/95 to-amber-950/95 text-white shadow-2xl flex items-center gap-3.5 animate-bounce max-w-md';
+        toast.style.boxShadow = '0 20px 40px rgba(0,0,0,0.85), 0 0 25px rgba(245, 158, 11, 0.4)';
+        toast.innerHTML = `
+          <span class="text-3xl shrink-0">👑</span>
+          <div class="text-left min-w-0">
+            <div class="text-xs font-black text-amber-300 uppercase tracking-wider font-mono flex items-center gap-1.5">
+              <span>${isClil ? 'ENTERING THE BOSS BATTLE!' : 'MEMASUKI THE BOSS BATTLE!'}</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-400 text-slate-950 text-[10px]">SOAL 9-10</span>
+            </div>
+            <p class="text-[11px] text-slate-200 mt-0.5 leading-snug">
+              ${isClil ? 'Stage 3 HOTS AKM Assessment. Unleash your highest reasoning!' : 'Tahap 3 Soal HOTS AKM Kompleks. Kerahkan daya nalar tertinggimu untuk menaklukkan Boss!'}
+            </p>
+          </div>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+          toast.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          toast.style.opacity = '0';
+          toast.style.transform = 'translate(-50%, -20px)';
+          setTimeout(() => toast.remove(), 600);
+        }, 3600);
+      } catch (e) {}
+    }
+
     function renderTkaQuestion() {
       autoHealPackageKeys(tkaSubj, tkaPkgId);
       pulihkanDraftJawaban(tkaSubj, tkaPkgId);
@@ -5557,29 +5700,60 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const nextSpan = document.querySelector('button[onclick="nextTkaQ()"] span');
       if (nextSpan) nextSpan.innerText = tkaSubj === 'clil' ? 'Next' : 'Berikutnya';
 
-      // Render Question Nav Pills
+      // Render Question Nav Pills with Boss Fight Grouping
       const pillsContainer = document.getElementById('tka-q-pills');
       if (pillsContainer) {
         pillsContainer.innerHTML = '';
+        const totalQuestions = pkg.questions.length;
         pkg.questions.forEach((item, idx) => {
           const scoreVal = userSessionScores[`${tkaSubj}_${tkaPkgId}_${idx}`];
           const isAnswered = scoreVal !== undefined;
+          const stage = getCbtStageInfo(idx, totalQuestions, tkaSubj);
+
+          // Divider pemisah visual antar-tahap petualangan (Minion -> Elite -> Boss)
+          if (totalQuestions === 10) {
+            if (idx === 4) {
+              const divEl = document.createElement('div');
+              divEl.className = 'h-5 w-px bg-slate-700/80 mx-1 shrink-0';
+              divEl.title = 'Batas Minion Level -> Elite Guardian';
+              pillsContainer.appendChild(divEl);
+            } else if (idx === 8) {
+              const divEl = document.createElement('div');
+              divEl.className = 'h-5 w-px bg-amber-500/60 mx-1 shrink-0';
+              divEl.title = 'Batas Elite Guardian -> The Boss Battle';
+              pillsContainer.appendChild(divEl);
+            }
+          }
+
           const pBtn = document.createElement('button');
           let pillClass = `w-7 h-7 md:w-8 md:h-8 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center active:scale-95 cursor-pointer `;
           
           if (idx === tkaQIdx) {
-            pillClass += 'bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+            if (stage.isBoss) {
+              pillClass += 'bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-black shadow-lg scale-110 border-2 border-amber-200 ring-2 ring-amber-400/50';
+            } else {
+              pillClass += 'bg-amber-500 text-slate-950 font-black shadow-lg scale-105 border-2 border-amber-300';
+            }
           } else if (isReviewMode) {
             if (scoreVal === true) pillClass += 'bg-emerald-950 text-emerald-300 border border-blue-500';
             else if (scoreVal === false) pillClass += 'bg-rose-950 text-rose-300 border border-rose-500';
             else pillClass += 'bg-slate-800 text-slate-400';
           } else if (isAnswered) {
-            pillClass += 'bg-blue-900/80 text-blue-200 border border-blue-500/40';
+            if (stage.isBoss) {
+              pillClass += 'bg-amber-950/70 text-amber-200 border border-amber-400/60 shadow-xs';
+            } else {
+              pillClass += 'bg-blue-900/80 text-blue-200 border border-blue-500/40';
+            }
           } else {
-            pillClass += 'bg-slate-800 text-slate-300 hover:bg-slate-700';
+            if (stage.isBoss) {
+              pillClass += 'bg-slate-900 text-amber-300 border border-amber-500/50 hover:bg-amber-950/60';
+            } else {
+              pillClass += 'bg-slate-800 text-slate-300 hover:bg-slate-700';
+            }
           }
           pBtn.className = pillClass;
-          pBtn.innerText = idx + 1;
+          pBtn.title = `Soal ${idx + 1} • ${stage.badge} (${stage.desc})`;
+          pBtn.innerHTML = (stage.isBoss && !isReviewMode && idx === tkaQIdx) ? `<i class="fa-solid fa-crown text-[9px] mr-0.5"></i>${idx + 1}` : (idx + 1);
           pBtn.onclick = () => {
             if (typeof periksaKecepatanKlik === 'function' && !periksaKecepatanKlik(null, false)) return;
             tkaQIdx = idx;
@@ -5868,10 +6042,39 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         </div>
       ` : '';
 
+      // Stage Progression Info (Minion -> Elite -> Boss)
+      const stageInfo = getCbtStageInfo(tkaQIdx, pkg.questions.length, tkaSubj);
+
+      // Check Boss battle first-time arrival toast
+      if (!window._bossToastShown) window._bossToastShown = {};
+      const bossToastKey = `${tkaSubj}_${tkaPkgId}`;
+      if (stageInfo.isBoss && !window._bossToastShown[bossToastKey] && !isReviewMode) {
+        window._bossToastShown[bossToastKey] = true;
+        tampilkanToastBossBattle(tkaSubj);
+      }
+
+      const stageBannerHtml = `
+        <div class="p-2.5 px-3.5 rounded-xl border flex flex-wrap items-center justify-between gap-2 shadow-sm ${stageInfo.bg}">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="font-black text-xs uppercase tracking-wider font-mono">${stageInfo.badge}</span>
+            <span class="text-slate-400 text-xs hidden sm:inline">&bull;</span>
+            <span class="text-[11px] font-medium opacity-90 hidden sm:inline">${stageInfo.desc}</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-mono text-[10px] shrink-0">
+            <span class="px-2 py-0.5 rounded ${stageInfo.key === 'minion' ? 'bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/40' : 'text-slate-500'}">Minion (1-4)</span>
+            <i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i>
+            <span class="px-2 py-0.5 rounded ${stageInfo.key === 'elite' ? 'bg-blue-500/20 text-blue-300 font-bold border border-blue-500/40' : 'text-slate-500'}">Elite (5-8)</span>
+            <i class="fa-solid fa-chevron-right text-[8px] text-slate-600"></i>
+            <span class="px-2 py-0.5 rounded ${stageInfo.key === 'boss' ? 'bg-amber-500/30 text-amber-300 font-black border border-amber-400/50' : 'text-slate-500'}">The Boss (9-10)</span>
+          </div>
+        </div>
+      `;
+
       body.innerHTML = `
         <div class="space-y-4">
           ${completedBannerHtml}
           ${reviewHeaderBanner}
+          ${stageBannerHtml}
 
           <div class="p-4 md:p-6 bg-slate-900/90 rounded-2xl border border-amber-500/40 shadow-xl space-y-3${!isReviewMode ? ' select-none' : ''}" ${!isReviewMode ? 'oncopy="return false;" oncontextmenu="return false;"' : ''}>
             <div class="flex flex-wrap items-center gap-x-2 gap-y-1 justify-between border-b border-slate-800 pb-2">
@@ -9217,6 +9420,72 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     }
 
     function confettiCelebration() {
+      try {
+        const existing = document.getElementById('mathcihuy-confetti-canvas');
+        if (existing) existing.remove();
+
+        const canvas = document.createElement('canvas');
+        canvas.id = 'mathcihuy-confetti-canvas';
+        canvas.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:99999;';
+        document.body.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        const w = (canvas.width = window.innerWidth);
+        const h = (canvas.height = window.innerHeight);
+
+        const colors = ['#F59E0B', '#10B981', '#3B82F6', '#EC4899', '#8B5CF6', '#FBBF24', '#34D399', '#F97316'];
+        const particles = [];
+        const count = 100;
+
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: w * (0.25 + Math.random() * 0.5),
+            y: h * (0.35 + Math.random() * 0.2),
+            vx: (Math.random() - 0.5) * 14,
+            vy: -Math.random() * 15 - 4,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            rSpeed: (Math.random() - 0.5) * 12,
+            opacity: 1
+          });
+        }
+
+        let frame = 0;
+        function renderConfetti() {
+          ctx.clearRect(0, 0, w, h);
+          let alive = false;
+          particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.38; // gravity
+            p.vx *= 0.98; // air drag
+            p.rotation += p.rSpeed;
+            if (frame > 40) p.opacity -= 0.015;
+
+            if (p.opacity > 0 && p.y < h + 20) {
+              alive = true;
+              ctx.save();
+              ctx.globalAlpha = Math.max(0, p.opacity);
+              ctx.translate(p.x, p.y);
+              ctx.rotate((p.rotation * Math.PI) / 180);
+              ctx.fillStyle = p.color;
+              ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+              ctx.restore();
+            }
+          });
+
+          frame++;
+          if (alive && frame < 160) {
+            requestAnimationFrame(renderConfetti);
+          } else {
+            canvas.remove();
+          }
+        }
+        requestAnimationFrame(renderConfetti);
+      } catch (e) {
+        console.warn('Confetti error:', e);
+      }
     }
 
     // BOOTSTRAP INITIALIZATION

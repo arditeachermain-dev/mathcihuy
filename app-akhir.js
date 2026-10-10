@@ -1885,6 +1885,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         switchLeaderboardView('catalog');
       } else if (view === 'roadmap') {
         switchLeaderboardView('roadmap');
+      } else if (view === 'rombel') {
+        switchLeaderboardView('rombel');
       } else {
         switchLeaderboardView('table');
         switchLeaderboardMapel(_currentLbMapel, false);
@@ -1898,19 +1900,22 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (modal) modal.classList.add('hidden');
     }
 
-    // Ganti Tampilan Antara Tabel Leaderboard, Katalog Lencana, dan Roadmap Capaian
+    // Ganti Tampilan Antara Tabel Leaderboard, Katalog Lencana, Roadmap, dan Kompetisi Rombel
     function switchLeaderboardView(view) {
       _currentLbView = view;
       const tableView = document.getElementById('lb-view-table');
       const catalogView = document.getElementById('lb-view-catalog');
       const roadmapView = document.getElementById('lb-view-roadmap');
+      const rombelView = document.getElementById('lb-view-rombel');
       const catalogTabBtn = document.getElementById('btn-lb-tab-catalog');
       const roadmapTabBtn = document.getElementById('btn-lb-tab-roadmap');
+      const rombelTabBtn = document.getElementById('btn-lb-tab-rombel');
 
       // Sembunyikan semua kontainer tampilan
       if (tableView) tableView.classList.add('hidden');
       if (catalogView) catalogView.classList.add('hidden');
       if (roadmapView) roadmapView.classList.add('hidden');
+      if (rombelView) rombelView.classList.add('hidden');
 
       // Reset tombol filter & tab
       ['all', '12f1', '12f2', '12f3', '12f4'].forEach(k => {
@@ -1919,6 +1924,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       });
       if (catalogTabBtn) catalogTabBtn.classList.remove('active');
       if (roadmapTabBtn) roadmapTabBtn.classList.remove('active');
+      if (rombelTabBtn) rombelTabBtn.classList.remove('active');
 
       if (view === 'catalog') {
         if (catalogView) catalogView.classList.remove('hidden');
@@ -1933,6 +1939,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       } else if (view === 'roadmap') {
         if (roadmapView) roadmapView.classList.remove('hidden');
         if (roadmapTabBtn) roadmapTabBtn.classList.add('active');
+      } else if (view === 'rombel') {
+        if (rombelView) rombelView.classList.remove('hidden');
+        if (rombelTabBtn) rombelTabBtn.classList.add('active');
+        loadRombelLeaderboardData(_currentLbMapel);
       } else {
         if (tableView) tableView.classList.remove('hidden');
         updateLeaderboardFilterUi();
@@ -1992,7 +2002,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       updateLeaderboardFilterUi();
 
       if (reload) {
-        loadLeaderboardData(_currentLbFilter, _currentLbMapel);
+        if (_currentLbView === 'rombel') {
+          loadRombelLeaderboardData(_currentLbMapel);
+        } else {
+          loadLeaderboardData(_currentLbFilter, _currentLbMapel);
+        }
       }
     }
 
@@ -2339,6 +2353,193 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
     }
 
+    // =========================================================================
+    // MODUL KOMPETISI SEHAT ANTAR-ROMBEL (12 F.1 vs 12 F.2 vs 12 F.3 vs 12 F.4)
+    // =========================================================================
+
+    async function loadRombelLeaderboardData(mapel) {
+      const targetMapel = mapel || _currentLbMapel || 'wajib';
+      const podiumContainer = document.getElementById('lb-rombel-podium-container');
+      const cardsGrid = document.getElementById('lb-rombel-cards-grid');
+
+      if (podiumContainer) {
+        podiumContainer.innerHTML = `
+          <div class="col-span-3 text-center py-8 text-[#787774]">
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengalkulasi klasemen kompetisi rombel dari Cloudflare D1...
+          </div>`;
+      }
+
+      try {
+        const resp = await fetch(`/api/gamifikasi?rombel=1&mapel=${encodeURIComponent(targetMapel)}&_t=${Date.now()}`);
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+        if (!data || !data.success || !Array.isArray(data.leaderboard)) throw new Error('Data rombel tidak valid');
+
+        const list = data.leaderboard;
+        renderRombelPodium(list);
+        renderRombelCards(list, targetMapel);
+      } catch (err) {
+        console.error('Error load rombel leaderboard:', err);
+        if (podiumContainer) {
+          podiumContainer.innerHTML = `
+            <div class="col-span-3 text-center py-6 text-rose-600 font-medium">
+              <i class="fa-solid fa-triangle-exclamation mr-1"></i> Gagal memuat data kompetisi rombel: ${escapeHtml(err.message)}
+            </div>`;
+        }
+      }
+    }
+
+    function renderRombelPodium(list) {
+      const container = document.getElementById('lb-rombel-podium-container');
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<div class="col-span-3 text-center py-6 text-xs text-[#787774]">Belum ada data pengerjaan CBT rombel.</div>';
+        return;
+      }
+
+      const r1 = list[0] || null;
+      const r2 = list[1] || null;
+      const r3 = list[2] || null;
+
+      const orderedPodium = [
+        { rank: 2, item: r2, bg: '#F8FAFC', border: '#E2E8F0', medal: '🥈', medalColor: '#64748B', title: 'Peringkat 2 Rombel' },
+        { rank: 1, item: r1, bg: '#FFFDF5', border: '#FDE68A', medal: '🏆', medalColor: '#D97706', title: 'Puncak Klasemen Rombel', highlight: true },
+        { rank: 3, item: r3, bg: '#FFF7ED', border: '#FED7AA', medal: '🥉', medalColor: '#C2410C', title: 'Peringkat 3 Rombel' }
+      ];
+
+      container.innerHTML = orderedPodium.map(slot => {
+        const item = slot.item;
+        if (!item) {
+          return `
+            <div class="p-4 rounded-xl border border-dashed flex flex-col items-center justify-center text-center opacity-40 min-h-[170px]" style="background-color: ${slot.bg}; border-color: ${slot.border};">
+              <span class="text-2xl mb-1">${slot.medal}</span>
+              <span class="text-xs font-bold text-[#787774]">${slot.title}</span>
+            </div>`;
+        }
+
+        const avgXp = _currentLbMapel === 'all' ? item.avg_xp_all : item.avg_xp_wajib;
+        const totalXp = _currentLbMapel === 'all' ? item.total_xp_all : item.total_xp_wajib;
+        const mvpName = item.mvp ? item.mvp.nama : 'Belum ada MVP';
+
+        return `
+          <div class="p-4 rounded-xl border shadow-xs relative flex flex-col justify-between transition-transform hover:-translate-y-0.5 ${slot.highlight ? 'ring-2 ring-amber-300 md:-translate-y-1' : ''}"
+               style="background-color: ${slot.bg}; border-color: ${slot.border};">
+            
+            <!-- HEADER MEDALI ROMBEL -->
+            <div class="flex items-center justify-between mb-2.5">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xl">${slot.medal}</span>
+                <span class="text-[11px] font-bold uppercase tracking-wider" style="color: ${slot.medalColor};">
+                  ${slot.title}
+                </span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#2E384D] text-white">
+                ${item.total_siswa} Siswa
+              </span>
+            </div>
+
+            <!-- NAMA KELAS & RERATA XP -->
+            <div class="mb-3">
+              <div class="flex items-baseline justify-between">
+                <h4 class="text-lg font-black text-[#2F3437] font-mono tracking-tight">${escapeHtml(item.kelas)}</h4>
+                <div class="text-right">
+                  <span class="text-xs font-extrabold text-[#2F3437] font-mono">${(avgXp || 0).toLocaleString('id-ID')}</span>
+                  <span class="text-[10px] text-[#787774] block">Rerata XP/Siswa</span>
+                </div>
+              </div>
+              <div class="w-full bg-black/5 rounded-full h-1.5 mt-1.5 overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 h-1.5 rounded-full" style="width: ${Math.min(100, Math.round((avgXp / 3000) * 100))}%;"></div>
+              </div>
+            </div>
+
+            <!-- MVP KELAS & STATS -->
+            <div class="pt-2 border-t border-black/5 text-xs space-y-1.5">
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-[#787774] flex items-center gap-1"><i class="fa-solid fa-crown text-amber-500 text-[10px]"></i> MVP Kelas:</span>
+                <span class="font-bold text-[#2F3437] truncate max-w-[150px]" title="${escapeHtml(mvpName)}">${escapeHtml(mvpName)}</span>
+              </div>
+              <div class="flex items-center justify-between text-[10.5px] text-[#5F5E5B]">
+                <span>Total XP Rombel: <strong class="font-mono text-[#2F3437]">${(totalXp || 0).toLocaleString('id-ID')}</strong></span>
+                <span>🔥 ${(item.avg_streak || 1.0)} Hari Streak</span>
+              </div>
+            </div>
+
+          </div>`;
+      }).join('');
+    }
+
+    function renderRombelCards(list, mapel) {
+      const container = document.getElementById('lb-rombel-cards-grid');
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<div class="col-span-4 text-center py-6 text-xs text-[#787774]">Belum ada data.</div>';
+        return;
+      }
+
+      container.innerHTML = list.map(item => {
+        const avgXp = mapel === 'all' ? item.avg_xp_all : item.avg_xp_wajib;
+        const totalXp = mapel === 'all' ? item.total_xp_all : item.total_xp_wajib;
+        const mvpName = item.mvp ? item.mvp.nama : 'Belum ada MVP';
+        const mvpXp = item.mvp ? (mapel === 'all' ? item.mvp.total_xp : item.mvp.xp_wajib) : 0;
+        const rankMedal = item.rank === 1 ? '🥇' : (item.rank === 2 ? '🥈' : (item.rank === 3 ? '🥉' : '🛡️'));
+        const rankColor = item.rank === 1 ? 'border-amber-300 bg-[#FFFDF5]' : 'border-[#E8E6DF] bg-white';
+
+        return `
+          <div class="p-4 rounded-xl border shadow-2xs space-y-3 flex flex-col justify-between ${rankColor}">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold flex items-center gap-1.5 text-[#2F3437]">
+                  <span class="text-base">${rankMedal}</span> ${escapeHtml(item.kelas)}
+                </span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#F0EFEA] text-[#5F5E5B] border border-[#E8E6DF]">
+                  Peringkat #${item.rank}
+                </span>
+              </div>
+
+              <!-- STATS METRIC -->
+              <div class="p-2.5 rounded-lg bg-[#F7F6F3] border border-[#E8E6DF] space-y-1">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-[#787774]">Rata-rata XP:</span>
+                  <span class="font-extrabold text-[#2F3437] font-mono text-sm">${(avgXp || 0).toLocaleString('id-ID')}</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-[#5F5E5B]">
+                  <span>Total XP Kelas:</span>
+                  <span class="font-mono font-bold text-[#2F3437]">${(totalXp || 0).toLocaleString('id-ID')}</span>
+                </div>
+              </div>
+
+              <!-- MVP SISWA -->
+              <div class="text-xs space-y-0.5 pt-1">
+                <span class="text-[10px] text-[#787774] flex items-center gap-1">
+                  <i class="fa-solid fa-star text-amber-500 text-[9px]"></i> MVP Penyumbang XP Tertinggi:
+                </span>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-[#2F3437] text-[11.5px] truncate max-w-[140px]" title="${escapeHtml(mvpName)}">
+                    ${escapeHtml(mvpName)}
+                  </span>
+                  <span class="text-[11px] font-mono font-semibold text-purple-700">
+                    ${(mvpXp || 0).toLocaleString('id-ID')} XP
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- AKTIVITAS SPRINT 7 HARI TERAKHIR -->
+            <div class="pt-2.5 border-t border-[#F0EFEA] text-[11px] text-[#5F5E5B] space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[#787774]"><i class="fa-solid fa-clock-rotate-left mr-1"></i>7 Hari Terakhir:</span>
+                <span class="font-mono font-bold text-[#2F3437]">${item.weekly_ujian || 0} Ujian Selesai</span>
+              </div>
+              <div class="flex items-center justify-between text-[10px] text-[#787774]">
+                <span>Tuntas KKM: <strong class="text-emerald-700 font-mono">${item.weekly_tuntas || 0}</strong></span>
+                <span>Nilai 100: <strong class="text-amber-700 font-mono">${item.weekly_sempurna || 0}</strong></span>
+                <span>Rerata Skor: <strong class="text-[#2F3437] font-mono">${item.weekly_avg_skor || 0}</strong></span>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
     // Auto-Init Gamifikasi saat aplikasi dimuat
     function initGamificationOnLoad() {
       try {
@@ -2386,5 +2587,6 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     window.switchLeaderboardMapel = switchLeaderboardMapel;
     window.switchLeaderboardView = switchLeaderboardView;
     window.loadLeaderboardData = loadLeaderboardData;
+    window.loadRombelLeaderboardData = loadRombelLeaderboardData;
 
 
