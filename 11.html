@@ -120,6 +120,12 @@
         <span id="notif-badge-count" class="hidden absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full min-w-[16px] text-center shadow-sm">0</span>
       </button>
 
+      <!-- HELPDESK & LAPOR KENDALA (PUSAT BANTUAN SISWA) -->
+      <button onclick="openLaporModal()" id="top-helpdesk-btn" class="p-2 md:px-2.5 md:py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer transition" title="Pusat Bantuan &amp; Lapor Kendala (Mr. Ardi)">
+        <i class="fa-solid fa-headset text-sm text-amber-400"></i>
+        <span class="hidden xl:inline text-xs">Bantuan</span>
+      </button>
+
       <!-- USER PROFILE DROPDOWN MENU -->
       <div class="relative" id="user-menu-container">
         <button id="user-profile-btn" onclick="toggleUserDropdownMenu(event)" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs font-mono font-bold text-slate-200 transition flex items-center gap-2 cursor-pointer shadow-sm">
@@ -158,6 +164,10 @@
             <button onclick="openAnalyticsModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-white transition flex items-center gap-2 cursor-pointer">
               <i class="fa-solid fa-chart-pie text-blue-400 w-4 text-center"></i>
               <span>Statistik & Progres Belajar</span>
+            </button>
+            <button onclick="openLaporModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-amber-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-headset text-amber-400 w-4 text-center"></i>
+              <span>Pusat Bantuan &amp; Lapor Kendala</span>
             </button>
             <button onclick="pasangAplikasi(); toggleUserDropdownMenu();" id="pwa-btn" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-emerald-300 transition flex items-center gap-2 cursor-pointer">
               <i class="fa-solid fa-download text-amber-400 w-4 text-center"></i>
@@ -1431,14 +1441,6 @@
             </div>
 
         </div>
-    </div>
-
-    <!-- FLOATING HELPDESK & LAPOR KENDALA BUTTON -->
-    <div id="floating-helpdesk-container" class="fixed bottom-5 right-5 z-40">
-      <button id="floating-helpdesk-btn" onclick="openLaporModal()" class="flex items-center gap-2 px-3.5 py-2.5 rounded-full shadow-lg border text-xs font-bold cursor-pointer transition-all hover:scale-105 active:scale-95" style="background-color: #2E384D; color: #FFFFFF; border-color: #1E2533; box-shadow: 0 4px 14px rgba(46, 56, 77, 0.25);">
-        <i class="fa-solid fa-headset text-amber-400 text-sm"></i>
-        <span class="hidden sm:inline">Lapor Bug / Tanya Guru</span>
-      </button>
     </div>
 
     <!-- MODAL LAPOR KENDALA SISWA (NOTION WARM PAPER STYLE) -->
