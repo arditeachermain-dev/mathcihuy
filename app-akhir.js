@@ -709,7 +709,7 @@
         const namaSiswa = std ? std.nama : ('Siswa ' + nis);
         const infoPaket = kodePertemuan ? ` paket ${kodePertemuan} (${mapel || 'wajib'})` : '';
         
-        if (!confirm(`Apakah Bapak yakin ingin mereset nilai untuk ${namaSiswa} (${nis})${infoPaket}?\n\nData nilai di Cloud SQL dan riwayat pengerjaan siswa akan dihapus, sehingga siswa dapat mengerjakan ulang dari awal.`)) {
+        if (!confirm(`Apakah Mr. Ardi yakin ingin mereset nilai untuk ${namaSiswa} (${nis})${infoPaket}?\n\nData nilai di Cloud SQL dan riwayat pengerjaan siswa akan dihapus, sehingga siswa dapat mengerjakan ulang dari awal.`)) {
             return;
         }
 
@@ -794,7 +794,7 @@
       const namaSiswa = std ? std.nama : ('Siswa ' + nis);
       const kelas = std ? std.kelas : 'XII';
 
-      if (!confirm(`Apakah Bapak yakin ingin mengumpulkan paksa ujian untuk ${namaSiswa} (${nis}) paket ${kodePertemuan}?
+      if (!confirm(`Apakah Mr. Ardi yakin ingin mengumpulkan paksa ujian untuk ${namaSiswa} (${nis}) paket ${kodePertemuan}?
 
 - Skor Terhitung: ${skor}/100
 - Butir Terjawab: ${jumlahBenar + jumlahSalah}/${jumlahSoal}
@@ -2756,13 +2756,23 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const modal = document.getElementById('raid-boss-modal');
       if (!modal) return;
       modal.classList.remove('hidden');
+      modal.classList.add('flex');
       const scrollBody = modal.querySelector('.kolab-scroll');
       if (scrollBody) scrollBody.scrollTop = 0;
+
+      // Ambil NIS aktif dari portal_session
+      let nisParam = '';
+      try {
+        const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        if (sess && sess.data && sess.data.nis) nisParam = String(sess.data.nis).trim();
+      } catch(e) {}
+      if (!nisParam && typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) {
+        nisParam = String(currentSiswa.nis).trim();
+      }
 
       // Jika data belum lengkap di cache, fetch langsung dari API
       if (!_cachedRaidBossData || !_cachedRaidBossData.leaderboard || _cachedRaidBossData.leaderboard.length === 0) {
         try {
-          const nisParam = (typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) ? currentSiswa.nis : '';
           const res = await fetch(`/api/gamifikasi?raid_boss=1&nis=${encodeURIComponent(nisParam)}`);
           if (res.ok) {
             const json = await res.json();
@@ -2782,7 +2792,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function closeRaidBossLeaderboardModal() {
       const modal = document.getElementById('raid-boss-modal');
-      if (modal) modal.classList.add('hidden');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
     }
 
     function renderRaidBossLeaderboard(data) {
@@ -2926,7 +2939,14 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         return;
       }
 
-      const currentNis = (typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) ? String(currentSiswa.nis).trim() : '';
+      let currentNis = '';
+      try {
+        const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        if (sess && sess.data && sess.data.nis) currentNis = String(sess.data.nis).trim();
+      } catch(e) {}
+      if (!currentNis && typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) {
+        currentNis = String(currentSiswa.nis).trim();
+      }
       const isSearching = !!(document.getElementById('rb-search-input')?.value || '').trim();
 
       // Batasi 10 teratas sesuai instruksi
@@ -3361,10 +3381,14 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function bukaSlideDariSkillTree(mapel, kode) {
       closeSkillTreeModal();
-      if (typeof switchSubject === 'function') {
-        switchSubject(mapel);
+      const targetHash = `#/${mapel}/${kode}/slide/1`;
+      window.location.hash = targetHash;
+      if (typeof parseHashRoute === 'function') {
+        parseHashRoute(targetHash);
+      } else {
+        if (typeof switchSubject === 'function') switchSubject(mapel);
+        if (typeof renderAppView === 'function') renderAppView();
       }
-      window.location.hash = `#/${mapel}/${kode}/slide/1`;
     }
 
     // =========================================================================
@@ -3462,7 +3486,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       // Badges
       const badgesContainer = document.getElementById('sc-badges-container');
       if (badgesContainer) {
-        const badges = (profile && Array.isArray(profile.badges)) ? profile.badges.filter(b => b.unlocked) : [];
+        const badges = (profile && Array.isArray(profile.badges)) ? profile.badges.filter(b => b && b.unlocked !== false) : [];
         if (badges.length > 0) {
           badgesContainer.innerHTML = badges.slice(0, 4).map(b => `
             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[9.5px] font-semibold border shadow-2xs" style="background-color: #FBFBFA; border-color: #E8E6DF; color: #2F3437;">
@@ -3708,7 +3732,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       ctx.font = 'bold 22px monospace';
       ctx.fillText('LENCANA PRESTASI & PENGHARGAAN TERBUKA', 100, 860);
 
-      const badges = (profile && Array.isArray(profile.badges)) ? profile.badges.filter(b => b.unlocked) : [];
+      const badges = (profile && Array.isArray(profile.badges)) ? profile.badges.filter(b => b && b.unlocked !== false) : [];
       const defaultBadges = [
         { name: 'Langkah Pertama', icon: '★', desc: 'Menyelesaikan CBT perdana' },
         { name: 'Penjaga Api', icon: '🛡️', desc: 'Perisai konsistensi aktif' },

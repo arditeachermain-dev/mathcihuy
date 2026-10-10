@@ -185,7 +185,37 @@
         return true;
       }
 
-      // 4. Feature modals (Leaderboard, Rapor, CBT Scorecard, Guru Dashboard, Search, Jadwal, Analytics, Lab, Rumus, dll.)
+      // 4. Feature modals (Raid Boss, Skill Tree, Share Card, Leaderboard, Rapor, CBT Scorecard, Guru Dashboard, Search, Jadwal, Analytics, Lab, Rumus, dll.)
+      const raidBossModal = document.getElementById('raid-boss-modal');
+      if (raidBossModal && !raidBossModal.classList.contains('hidden') && raidBossModal.style.display !== 'none') {
+        if (typeof window.closeRaidBossLeaderboardModal === 'function') window.closeRaidBossLeaderboardModal();
+        else {
+          raidBossModal.classList.add('hidden');
+          raidBossModal.classList.remove('flex');
+        }
+        return true;
+      }
+
+      const skillTreeModal = document.getElementById('skill-tree-modal');
+      if (skillTreeModal && !skillTreeModal.classList.contains('hidden') && skillTreeModal.style.display !== 'none') {
+        if (typeof window.closeSkillTreeModal === 'function') window.closeSkillTreeModal();
+        else {
+          skillTreeModal.classList.add('hidden');
+          skillTreeModal.classList.remove('flex');
+        }
+        return true;
+      }
+
+      const shareCardModal = document.getElementById('share-card-modal');
+      if (shareCardModal && !shareCardModal.classList.contains('hidden') && shareCardModal.style.display !== 'none') {
+        if (typeof window.closeShareCardModal === 'function') window.closeShareCardModal();
+        else {
+          shareCardModal.classList.add('hidden');
+          shareCardModal.classList.remove('flex');
+        }
+        return true;
+      }
+
       const lbModal = document.getElementById('leaderboard-modal');
       if (lbModal && !lbModal.classList.contains('hidden') && lbModal.style.display !== 'none') {
         if (typeof window.closeLeaderboardModal === 'function') window.closeLeaderboardModal();
