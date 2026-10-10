@@ -62,6 +62,9 @@
         isiPilihanKelas();
         loadGuruDashboardData();
         tarikNilaiDariCloud(false);
+        if (typeof window.loadGuruLaporanList === 'function') {
+            window.loadGuruLaporanList('pending');
+        }
     }
 
     function closeGuruDashboard() {

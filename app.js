@@ -2964,6 +2964,9 @@
             <button id="btn-scorecard-retry-action" class="flex-1 py-2 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow transition active:scale-95 cursor-pointer">
               <i class="fa-solid fa-arrows-rotate"></i> Coba Kirim Ulang Sekarang
             </button>
+            <button type="button" onclick="if(typeof openLaporModal==='function') openLaporModal('reload_hp', 'Kendala saat mengirimkan nilai paket: ' + (typeof '${errMsg}' !== 'undefined' ? '${errMsg}' : ''))" class="py-2 px-3 bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 border border-amber-500/40 shadow transition cursor-pointer" title="Lapor langsung ke guru jika mengalami kendala sistem">
+              <i class="fa-solid fa-headset text-xs"></i> Lapor Guru
+            </button>
           </div>
         `;
 
@@ -3194,6 +3197,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           }).catch((err) => {
             console.warn('⚠️ Gagal terhubung ke Cloudflare D1, lembar jawaban aman di Outbox:', err);
             // JANGAN panggil onSubmissionComplete() di sini!
+            // Jika terkena batas jeda cooldown antarpaket (< 30s), munculkan dialog edukatif ramah:
+            if (err && (err.error_code === 'RATE_LIMIT' || (typeof err.error === 'string' && (err.error.includes('Rate Limit') || err.error.includes('Cooldown'))))) {
+              if (typeof window.showIntegrityWarningDialog === 'function') {
+                window.showIntegrityWarningDialog(err.error, { mapel: subj, kode_pertemuan: pkgId });
+              }
+            }
             // Berikan notifikasi UI tegas & tombol Coba Kirim Ulang:
             tampilkanPeringatanGagalSubmit(subj, pkgId, payload, err, onSubmissionComplete);
           });

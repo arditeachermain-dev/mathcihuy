@@ -114,6 +114,12 @@
         <span id="top-theme-label" class="hidden md:inline text-xs font-mono text-slate-300">Terang</span>
       </button>
 
+      <!-- NOTIFICATION BELL (PUSAT NOTIFIKASI & PESAN GURU) -->
+      <button onclick="toggleNotifikasiModal()" id="top-notif-btn" class="relative p-2 md:px-2.5 md:py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer transition" title="Pusat Notifikasi &amp; Pesan Guru">
+        <i class="fa-solid fa-bell text-sm text-slate-400"></i>
+        <span id="notif-badge-count" class="hidden absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full min-w-[16px] text-center shadow-sm">0</span>
+      </button>
+
       <!-- USER PROFILE DROPDOWN MENU -->
       <div class="relative" id="user-menu-container">
         <button id="user-profile-btn" onclick="toggleUserDropdownMenu(event)" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs font-mono font-bold text-slate-200 transition flex items-center gap-2 cursor-pointer shadow-sm">
@@ -1345,6 +1351,9 @@
                     <button type="button" id="btn-status-belum" onclick="setGuruStatusFilter('belum')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0D1B2E] text-rose-300 hover:text-white transition-all border border-rose-500/30 cursor-pointer">🔴 Belum (<span id="count-belum">0</span>)</button>
                 </div>
                 <div class="flex items-center gap-2">
+                    <button type="button" id="btn-guru-helpdesk-tab" onclick="toggleGuruHelpdeskView()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition-all cursor-pointer">
+                        <i class="fa-solid fa-headset"></i> Helpdesk Siswa (<span id="guru-pending-laporan-badge">0</span>)
+                    </button>
                     <span id="cloud-sync-status" class="text-xs"></span>
                     <button type="button" onclick="tarikNilaiDariCloud(true)" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition-all cursor-pointer">
                         <i class="fa-solid fa-rotate"></i> Tarik Data D1
@@ -1353,7 +1362,7 @@
             </div>
 
             <!-- TABLE CONTAINER (SOLID OPAQUE & STICKY HEADER) -->
-            <div class="overflow-x-auto overflow-y-auto max-h-[55vh] rounded-2xl border border-blue-900/90 bg-[#071120] shadow-inner relative">
+            <div id="guru-cbt-table-wrapper" class="overflow-x-auto overflow-y-auto max-h-[55vh] rounded-2xl border border-blue-900/90 bg-[#071120] shadow-inner relative">
                 <table id="guru-results-table" class="w-full text-xs text-left border-collapse bg-[#071120]">
                     <thead style="background-color: #0E1E38 !important;" class="sticky top-0 z-20 shadow-lg border-b-2 border-blue-600">
                         <tr class="text-slate-300 font-black text-[11px] uppercase tracking-wider">
@@ -1379,10 +1388,270 @@
                 </table>
             </div>
 
+            <!-- GURU HELPDESK TICKET CONTAINER (TOGGLED BY toggleGuruHelpdeskView) -->
+            <div id="guru-helpdesk-view-container" class="hidden flex-col gap-3 overflow-hidden">
+                <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#060D1A] rounded-2xl border border-blue-900/80 shrink-0">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                            <i class="fa-solid fa-ticket text-amber-400"></i> Antrean Tiket Kendala &amp; Bug Siswa
+                        </span>
+                        <select id="guru-helpdesk-filter-status" onchange="window.loadGuruLaporanList(this.value)" class="px-2.5 py-1 bg-[#0D1B2E] border border-blue-800 text-white text-xs rounded-lg cursor-pointer font-semibold">
+                            <option value="semua">Semua Status</option>
+                            <option value="pending" selected>Khusus Menunggu (Pending)</option>
+                            <option value="selesai">Sudah Selesai</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="openBroadcastModalGuru()" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow cursor-pointer transition">
+                            <i class="fa-solid fa-bullhorn text-xs"></i> Buat Broadcast Pengumuman
+                        </button>
+                        <button type="button" onclick="window.loadGuruLaporanList()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold cursor-pointer transition">
+                            <i class="fa-solid fa-arrows-rotate"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto overflow-y-auto max-h-[50vh] rounded-2xl border border-blue-900/90 bg-[#071120] shadow-inner">
+                    <table class="w-full text-xs text-left border-collapse bg-[#071120]">
+                        <thead style="background-color: #0E1E38 !important;" class="sticky top-0 z-20 shadow-lg border-b-2 border-blue-600">
+                            <tr class="text-slate-300 font-black text-[11px] uppercase tracking-wider">
+                                <th class="p-2.5 text-center w-12 border-r border-blue-900/60">No</th>
+                                <th class="p-2.5 w-24 border-r border-blue-900/60">NIS</th>
+                                <th class="p-2.5 min-w-[150px] border-r border-blue-900/60">Nama Siswa</th>
+                                <th class="p-2.5 w-32 border-r border-blue-900/60">Paket &amp; Kategori</th>
+                                <th class="p-2.5 min-w-[280px] border-r border-blue-900/60">Pesan &amp; Telemetri</th>
+                                <th class="p-2.5 text-center w-28">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guru-laporan-table-body" class="divide-y divide-blue-950/60">
+                            <tr><td colspan="6" class="p-4 text-center text-slate-400">Memuat laporan...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 
-        <script src="app-akhir.js?v=v20261010_anticheat_quiz5opt"></script>
+    <!-- FLOATING HELPDESK & LAPOR KENDALA BUTTON -->
+    <div id="floating-helpdesk-container" class="fixed bottom-5 right-5 z-40">
+      <button id="floating-helpdesk-btn" onclick="openLaporModal()" class="flex items-center gap-2 px-3.5 py-2.5 rounded-full shadow-lg border text-xs font-bold cursor-pointer transition-all hover:scale-105 active:scale-95" style="background-color: #2E384D; color: #FFFFFF; border-color: #1E2533; box-shadow: 0 4px 14px rgba(46, 56, 77, 0.25);">
+        <i class="fa-solid fa-headset text-amber-400 text-sm"></i>
+        <span class="hidden sm:inline">Lapor Bug / Tanya Guru</span>
+      </button>
+    </div>
+
+    <!-- MODAL LAPOR KENDALA SISWA (NOTION WARM PAPER STYLE) -->
+    <div id="modal-lapor-kendala" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5" style="background-color: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px);">
+      <div class="w-full max-w-lg rounded-2xl border shadow-2xl flex flex-col overflow-hidden max-h-[92vh]" style="background-color: #FFFFFF; border-color: #D3CFBE; color: #2F3437;">
+        <!-- HEADER -->
+        <div class="px-5 py-4 border-b flex items-center justify-between shrink-0" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE0B2;">
+              <i class="fa-solid fa-headset text-sm"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold leading-tight" style="color: #2F3437;">Pusat Bantuan &amp; Lapor Kendala</h3>
+              <p class="text-[11px] font-medium" style="color: #787774;">Kirim laporan langsung ke Pak Ardi jika mengalami kendala sistem</p>
+            </div>
+          </div>
+          <button onclick="closeLaporModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer text-base">&times;</button>
+        </div>
+
+        <!-- BODY -->
+        <form id="form-lapor-kendala" onsubmit="submitLaporKendala(event)" class="p-5 overflow-y-auto space-y-4 custom-scroll">
+          <!-- HONEYPOT TRAP (HIDDEN FOR BOTS) -->
+          <input type="text" name="hp_whatsapp" id="lapor-honeypot" style="display:none !important;" tabindex="-1" autocomplete="off">
+          <input type="hidden" id="lapor-input-mapel" value="">
+          <input type="hidden" id="lapor-input-kode" value="">
+
+          <!-- CONTEXT BADGES -->
+          <div class="p-3 rounded-xl border flex flex-wrap items-center justify-between gap-2" style="background-color: #F7F6F3; border-color: #E8E6DF;">
+            <div>
+              <span class="text-[10px] uppercase font-bold tracking-wider block" style="color: #787774;">Konteks Pengerjaan:</span>
+              <span id="lapor-badge-paket-aktif" class="text-xs font-bold" style="color: #1B4F8B;">Mendeteksi paket aktif...</span>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] uppercase font-bold tracking-wider block" style="color: #787774;">Perangkat Anda:</span>
+              <span id="lapor-telemetri-badge" class="text-[11px] font-mono font-medium" style="color: #5F5E5B;">Mendeteksi...</span>
+            </div>
+          </div>
+
+          <!-- KATEGORI KENDALA -->
+          <div>
+            <label class="block text-xs font-bold mb-1.5" style="color: #2F3437;">Pilih Kategori Kendala: <span class="text-rose-600">*</span></label>
+            <select id="lapor-select-kategori" class="w-full px-3 py-2 rounded-xl text-xs font-semibold border focus:outline-none transition" style="background-color: #FFFFFF; border-color: #D3CFBE; color: #2F3437;">
+              <option value="reload_hp">📱 Layar HP Ter-reload / Mati (Waktu / Jawaban Reset)</option>
+              <option value="koneksi_putus">📶 Koneksi Terputus / Nilai Belum Masuk ke Rapor</option>
+              <option value="koreksi_soal">❓ Koreksi Butir Soal / Kunci Jawaban / Pengetikan</option>
+              <option value="lainnya">📝 Kendala Teknis Lainnya</option>
+            </select>
+          </div>
+
+          <!-- PENJELASAN SISWA -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-xs font-bold" style="color: #2F3437;">Penjelasan Singkat: <span class="text-rose-600">*</span></label>
+              <span id="lapor-char-counter" class="text-[10px] font-mono" style="color: #787774;">0/500</span>
+            </div>
+            <textarea id="lapor-textarea-pesan" oninput="handleLaporTextareaInput()" rows="4" maxlength="500" placeholder="Contoh: Pak, tadi pas nomor 8 layar HP mati lalu saat reload waktunya jadi 0 detik lagi..." class="w-full px-3 py-2.5 rounded-xl text-xs border focus:outline-none transition" style="background-color: #FFFFFF; border-color: #D3CFBE; color: #2F3437;"></textarea>
+          </div>
+
+          <!-- PRIVACY & SECURITY NOTE -->
+          <div class="p-2.5 rounded-xl border flex items-center gap-2" style="background-color: #EDF7ED; border-color: #C8E6C9; color: #2E7D32;">
+            <i class="fa-solid fa-shield-halved text-sm shrink-0"></i>
+            <p class="text-[10px] leading-tight">Data akun (NIS, Nama, Kelas) dan diagnostik perangkat otomatis terlampir aman. Sistem terlindungi dari spam &amp; bot.</p>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="pt-2 flex items-center justify-end gap-2.5 border-t" style="border-color: #E8E6DF;">
+            <button type="button" onclick="closeLaporModal()" class="px-4 py-2 rounded-xl text-xs font-semibold hover:bg-slate-100 transition cursor-pointer" style="color: #5F5E5B;">Batal</button>
+            <button type="submit" id="lapor-btn-submit" class="px-5 py-2 rounded-xl text-xs font-bold transition shadow-sm cursor-pointer flex items-center gap-1.5" style="background-color: #2E384D; color: #FFFFFF;">
+              <i class="fa-solid fa-paper-plane text-xs"></i> Kirim Laporan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL PUSAT NOTIFIKASI SISWA (NOTION WARM PAPER STYLE) -->
+    <div id="modal-notifikasi" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5" style="background-color: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px);">
+      <div class="w-full max-w-lg rounded-2xl border shadow-2xl flex flex-col overflow-hidden max-h-[92vh]" style="background-color: #FFFFFF; border-color: #D3CFBE; color: #2F3437;">
+        <!-- HEADER -->
+        <div class="px-5 py-4 border-b flex items-center justify-between shrink-0" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">
+              <i class="fa-solid fa-bell text-sm"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold leading-tight" style="color: #2F3437;">Pusat Notifikasi &amp; Pesan Guru</h3>
+              <p class="text-[11px] font-medium" style="color: #787774;">Pemberitahuan resmi, tanggapan kendala, dan info pembaruan</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="markAllNotifikasiRead()" class="text-[11px] font-semibold px-2.5 py-1 rounded-lg border hover:bg-slate-100 transition cursor-pointer flex items-center gap-1" style="color: #5F5E5B; border-color: #E8E6DF;" title="Tandai semua pesan telah dibaca">
+              <i class="fa-solid fa-check-double text-[10px]"></i> Tandai Dibaca
+            </button>
+            <button onclick="closeNotifikasiModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer text-base">&times;</button>
+          </div>
+        </div>
+
+        <!-- BODY LIST -->
+        <div id="notifikasi-list-container" class="p-4 overflow-y-auto space-y-3 custom-scroll flex-1 min-h-[250px]" style="background-color: #F7F6F3;">
+          <div class="p-8 text-center" style="color: #787774;">
+            <i class="fa-solid fa-spinner fa-spin text-2xl mb-2 text-slate-400"></i>
+            <p class="text-xs font-semibold">Memuat notifikasi...</p>
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="px-5 py-3 border-t flex items-center justify-between shrink-0 text-[11px]" style="background-color: #FFFFFF; border-color: #E8E6DF; color: #787774;">
+          <span>MathCihuy 24/7 Notification Engine</span>
+          <button onclick="openLaporModal()" class="font-bold hover:underline cursor-pointer" style="color: #1B4F8B;">
+            <i class="fa-solid fa-headset mr-1"></i> Butuh bantuan lain?
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL PERINGATAN INTEGRITAS & COOLDOWN GENTLE GUARD -->
+    <div id="modal-integrity-warning" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5" style="background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);">
+      <div class="w-full max-w-md rounded-2xl border shadow-2xl flex flex-col overflow-hidden p-6 text-center" style="background-color: #FFFFFF; border-color: #D3CFBE; color: #2F3437;">
+        <div class="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center mb-4" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE0B2;">
+          <i class="fa-solid fa-hourglass-half text-2xl"></i>
+        </div>
+        <h3 class="text-base font-bold mb-2" style="color: #2F3437;">Mari Istirahat Sejenak &amp; Tinjau Pembahasan</h3>
+        <p id="integrity-warning-desc" class="text-xs leading-relaxed mb-5" style="color: #5F5E5B;">
+          Sistem mendeteksi jeda pengumpulan paket berikutnya terlalu cepat (&lt; 30 detik). Demi kematangan nalar TKA &amp; SNBT Anda, luangkan waktu minimal 30 detik untuk membaca pembahasan sebelum lanjut ke paket berikutnya.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5">
+          <button onclick="closeIntegrityWarningDialog()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold shadow-sm cursor-pointer transition" style="background-color: #2E384D; color: #FFFFFF;">
+            <i class="fa-solid fa-book-open mr-1.5"></i> Saya Mengerti, Tinjau Pembahasan
+          </button>
+          <button id="integrity-btn-lapor" class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold border hover:bg-slate-50 transition cursor-pointer" style="background-color: #FFFFFF; border-color: #D3CFBE; color: #B26B00;">
+            <i class="fa-solid fa-headset mr-1"></i> HP Saya Tadi Reload (Lapor)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL BALAS LAPORAN GURU -->
+    <div id="modal-balas-laporan-guru" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5" style="background-color: rgba(2, 6, 17, 0.85); backdrop-filter: blur(4px);">
+      <div class="w-full max-w-lg rounded-2xl border border-blue-900 bg-[#0A1526] text-white shadow-2xl p-6 flex flex-col">
+        <div class="flex items-center justify-between pb-3 border-b border-blue-900/80 mb-4">
+          <h3 class="text-sm font-bold flex items-center gap-2 text-white">
+            <i class="fa-solid fa-reply text-emerald-400"></i> Tanggapi Laporan Siswa
+          </h3>
+          <button onclick="closeBalasLaporanGuruModal()" class="text-slate-400 hover:text-white text-lg cursor-pointer">&times;</button>
+        </div>
+        <input type="hidden" id="balas-laporan-id" value="">
+        <div class="mb-3">
+          <span class="text-[10px] text-slate-400 uppercase font-mono block">Siswa:</span>
+          <div id="balas-laporan-target-nama" class="text-xs font-bold text-amber-300">Nama Siswa</div>
+        </div>
+        <div class="mb-3">
+          <label class="text-xs font-bold text-slate-300 block mb-1">Status Tiket:</label>
+          <select id="balas-laporan-status" class="w-full px-3 py-2 rounded-xl bg-[#060D1A] border border-blue-900 text-xs text-white">
+            <option value="selesai">🟢 Selesai (Masalah terselesaikan &amp; nilai aman)</option>
+            <option value="diproses">🟡 Diproses (Sedang ditinjau guru)</option>
+            <option value="ditolak">🔴 Ditolak (Laporan tidak valid)</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="text-xs font-bold text-slate-300 block mb-1">Catatan / Pesan untuk Siswa (Akan Muncul di Notifikasi Portal Siswa):</label>
+          <textarea id="balas-laporan-catatan" rows="3" class="w-full px-3 py-2 rounded-xl bg-[#060D1A] border border-blue-900 text-xs text-slate-200" placeholder="Tuliskan pesan konfirmasi untuk siswa..."></textarea>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button onclick="closeBalasLaporanGuruModal()" class="px-4 py-2 rounded-xl text-xs text-slate-400 hover:text-white cursor-pointer">Batal</button>
+          <button onclick="submitBalasanGuru()" class="px-5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white cursor-pointer shadow">
+            <i class="fa-solid fa-check mr-1"></i> Simpan &amp; Kirim Notifikasi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL BROADCAST PENGUMUMAN GURU -->
+    <div id="modal-broadcast-guru" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5" style="background-color: rgba(2, 6, 17, 0.85); backdrop-filter: blur(4px);">
+      <div class="w-full max-w-lg rounded-2xl border border-blue-900 bg-[#0A1526] text-white shadow-2xl p-6 flex flex-col">
+        <div class="flex items-center justify-between pb-3 border-b border-blue-900/80 mb-4">
+          <h3 class="text-sm font-bold flex items-center gap-2 text-white">
+            <i class="fa-solid fa-bullhorn text-sky-400"></i> Kirim Broadcast Pengumuman / Himbauan
+          </h3>
+          <button onclick="closeBroadcastModalGuru()" class="text-slate-400 hover:text-white text-lg cursor-pointer">&times;</button>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Target Siswa:</label>
+            <input type="text" id="broadcast-guru-nis" placeholder="Kosongkan untuk kirim ke SEMUA siswa, atau isi NIS spesifik" class="w-full px-3 py-2 rounded-xl bg-[#060D1A] border border-blue-900 text-xs text-white">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Tipe Pesan:</label>
+            <select id="broadcast-guru-tipe" class="w-full px-3 py-2 rounded-xl bg-[#060D1A] border border-blue-900 text-xs text-white">
+              <option value="info">📢 Pengumuman Umum (Biru / Info)</option>
+              <option value="warning">⚠️ Himbauan / Peringatan Penting (Kuning)</option>
+              <option value="success">🎉 Apresiasi / Kabar Baik (Hijau)</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Judul Pengumuman: <span class="text-rose-400">*</span></label>
+            <input type="text" id="broadcast-guru-judul" placeholder="Contoh: Gladi Bersih ANBK / Update Paket Soal" class="w-full px-3 py-2 rounded-xl bg-[#060D1A] border border-blue-900 text-xs text-white font-bold">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Isi Pesan: <span class="text-rose-400">*</span></label>
+            <textarea id="broadcast-guru-pesan" rows="4" placeholder="Tuliskan isi pesan pengumuman..." class="w-full px-3 py-2 rounded-xl bg-[#060D1A] border border-blue-900 text-xs text-slate-200"></textarea>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4 pt-3 border-t border-blue-900/60">
+          <button onclick="closeBroadcastModalGuru()" class="px-4 py-2 rounded-xl text-xs text-slate-400 hover:text-white cursor-pointer">Batal</button>
+          <button onclick="kirimBroadcastGuru()" class="px-5 py-2 rounded-xl text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white cursor-pointer shadow flex items-center gap-1.5">
+            <i class="fa-solid fa-paper-plane text-xs"></i> Kirim Broadcast
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app-akhir.js?v=v20261011_helpdesk_notif"></script>
+    <script src="helpdesk-notif.js?v=20261011_v1"></script>
 
 </body>
 </html>
