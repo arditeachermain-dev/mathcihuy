@@ -212,22 +212,11 @@ export async function onRequestPost(context) {
     const finalDurasi = isNewRecordBest ? cleanDurasi : (Number(existing.durasi_detik) || cleanDurasi);
     const finalWaktu = isNewRecordBest ? now : (existing.waktu_submit || now);
 
-    // Deteksi Anomali Kognitif & Rapid-Fire / Injected Duration Solving:
-    // 1. Pengerjaan 10 butir matematika dalam durasi tercatat < 60 detik dengan skor >= 80 (mustahil untuk perhitungan analitik)
-    // 2. Selisih waktu riil server dengan submit sebelumnya < 60 detik dengan skor >= 80 (script burst / loop bot)
-    // 3. Durasi yang diklaim < 120 detik dengan skor 100
-    // 4. Durasi palsu (selisih server < 60s dari submit paket sebelumnya tapi durasi yang diklaim >= 120s dan skor >= 80)
+    // Deteksi Anomali Bot / Rapid-Fire Burst:
+    // Menghindari false positive pada siswa HP yang timer browsernya ter-reload menjadi 0 detik
+    // Flagging HANYA diterapkan jika terbukti burst submit antar paket (< 30 detik pada jam server riil)
     let isAnomali = false;
-    if (cleanDurasi < 60 && cleanSkor >= 80) {
-      isAnomali = true;
-    }
-    if (lastSubmitDiffSec !== null && lastSubmitDiffSec < 60 && cleanSkor >= 80) {
-      isAnomali = true;
-    }
-    if (cleanDurasi < 120 && cleanSkor === 100) {
-      isAnomali = true;
-    }
-    if (lastSubmitDiffSec !== null && lastSubmitDiffSec < 60 && cleanDurasi >= 120 && cleanSkor >= 80) {
+    if (lastSubmitDiffSec !== null && lastSubmitDiffSec < 30 && cleanSkor >= 80) {
       isAnomali = true;
     }
     const isFlagged = isAnomali ? 1 : 0;

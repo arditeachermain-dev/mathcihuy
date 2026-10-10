@@ -214,11 +214,8 @@ export async function updateStudentGamification(db, nis) {
       packetXp = 50 + rawSkor;
 
       // Validasi Integritas Kognitif:
-      // Lencana 100 ("Gacor No Counter") HANYA diakui jika diraih pada:
-      // 1. Percobaan Pertama (Attempt === 1)
-      // 2. Durasi wajar manusia (>= 120 detik / 2 menit untuk 10 butir soal matematika)
-      // 3. Bebas dari flag anomali bot / instan key
-      const isPureFirstPerfect = (rawSkor >= 100 && rawAttempt === 1 && rawDurasi >= 120);
+      // Lencana 100 ("Gacor No Counter") diakui jika diraih pada Percobaan Pertama (Attempt === 1) bebas dari bot
+      const isPureFirstPerfect = (rawSkor >= 100 && rawAttempt === 1);
 
       if (isPureFirstPerfect) {
         totalSempurna++;
