@@ -1886,6 +1886,31 @@
         </div>
       </div>
 
+      <!-- MAPEL SELECTOR BAR (PERINGKAT MATEMATIKA WAJIB VS PEMINATAN VS GABUNGAN) -->
+      <div class="px-4 sm:px-6 py-2.5 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-3 shrink-0 bg-[#FFFFFF]">
+        <div class="flex items-center gap-1.5 p-1 rounded-xl border border-[#E8E6DF] bg-[#F7F6F3]" id="lb-mapel-selector">
+          <button type="button" onclick="switchLeaderboardMapel('wajib')" id="btn-lb-mapel-wajib" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#2E384D] text-white">
+            <i class="fa-solid fa-book-bookmark text-blue-300"></i>
+            <span>Matematika Wajib</span>
+            <span class="px-1.5 py-0.2 rounded text-[10px] bg-white/20 font-mono">101 Siswa</span>
+          </button>
+          <button type="button" onclick="switchLeaderboardMapel('minat')" id="btn-lb-mapel-minat" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer text-[#5F5E5B] hover:text-[#2F3437] hover:bg-black/5">
+            <i class="fa-solid fa-compass-drafting text-amber-600"></i>
+            <span>Matematika Peminatan</span>
+            <span class="px-1.5 py-0.2 rounded text-[10px] bg-[#E8E6DF] text-[#5F5E5B] font-mono">F3 &amp; F4</span>
+          </button>
+          <button type="button" onclick="switchLeaderboardMapel('all')" id="btn-lb-mapel-all" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer text-[#5F5E5B] hover:text-[#2F3437] hover:bg-black/5">
+            <i class="fa-solid fa-trophy text-amber-500"></i>
+            <span>Gabungan XP (All-Round)</span>
+          </button>
+        </div>
+
+        <div class="text-[11px] text-[#787774] flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-info text-blue-600"></i>
+          <span id="lb-mapel-desc"><strong class="text-[#2F3437]">Peringkat Matematika Wajib:</strong> Kompetisi adil 101 siswa seluruh rombel XII F1 s.d. F4</span>
+        </div>
+      </div>
+
       <!-- FILTER TABS & STATS BAR -->
       <div class="px-4 sm:px-6 py-2.5 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-[#F7F6F3]">
         <!-- FILTER KELAS / TAB -->
@@ -1946,7 +1971,7 @@
               <span class="text-xs font-bold text-[#2F3437] flex items-center gap-1.5">
                 <i class="fa-solid fa-list-ol text-[#787774]"></i> Daftar Peringkat Belajar
               </span>
-              <span id="lb-filter-label" class="text-[11px] font-mono text-[#787774]">Menampilkan Semua Kelas XII</span>
+              <span id="lb-filter-label" class="text-[11px] font-mono text-[#787774]">Matematika Wajib • Semua Angkatan XII</span>
             </div>
 
             <div class="overflow-x-auto">
@@ -1957,10 +1982,10 @@
                     <th class="py-2.5 px-3">Siswa</th>
                     <th class="py-2.5 px-3 text-center" style="width: 80px;">Kelas</th>
                     <th class="py-2.5 px-3">Gelar Akademik</th>
-                    <th class="py-2.5 px-3 text-center" style="width: 88px;">Streak</th>
-                    <th class="py-2.5 px-3 text-center" style="width: 88px;">Skor 100</th>
-                    <th class="py-2.5 px-3 text-right" style="width: 100px;">Total XP</th>
-                    <th class="py-2.5 px-3 text-center" style="width: 130px;">Lencana</th>
+                    <th class="py-2.5 px-3 text-center" style="width: 88px;" id="lb-th-streak">Streak</th>
+                    <th class="py-2.5 px-3 text-center" style="width: 88px;" id="lb-th-sempurna">Skor 100</th>
+                    <th class="py-2.5 px-3 text-right" style="width: 105px;" id="lb-th-xp">XP Wajib</th>
+                    <th class="py-2.5 px-3 text-center" style="width: 125px;">Lencana</th>
                   </tr>
                 </thead>
                 <tbody id="lb-table-tbody" class="divide-y divide-[#E8E6DF] text-[#2F3437]">
@@ -2585,7 +2610,7 @@
         </div>
     </div>
 
-    <script src="app-akhir.js?v=v20261010_anticheat_quiz5opt"></script>
+    <script src="app-akhir.js?v=v20261010_split_leaderboard_wajib_minat"></script>
     <script src="angket.js?v=20261009_v3_fixed"></script>
 
 </body>

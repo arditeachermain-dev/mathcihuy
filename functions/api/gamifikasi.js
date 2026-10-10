@@ -198,14 +198,17 @@ export async function updateStudentGamification(db, nis) {
   let hasStatistika = false;
   let hasLingkaran = false;
 
+  let xpWajib = 0, ujianWajib = 0, sempurnaWajib = 0;
+  let xpMinat = 0, ujianMinat = 0, sempurnaMinat = 0;
+
   (exams || []).forEach(e => {
     const rawSkor = Math.round(Number(e.skor) || 0);
     const rawDurasi = Number(e.durasi_detik) || 0;
     const rawAttempt = Number(e.jumlah_percobaan) || 1;
     const isFlagged = Number(e.is_flagged) === 1;
+    const mapel = String(e.mapel || 'wajib').toLowerCase();
 
-    totalXp += 50; // Base XP pengerjaan
-    totalXp += rawSkor; // Skor murni
+    let packetXp = 50 + rawSkor;
 
     // Validasi Integritas Kognitif:
     // Lencana 100 ("Gacor No Counter") HANYA diakui jika diraih pada:
@@ -216,14 +219,27 @@ export async function updateStudentGamification(db, nis) {
 
     if (isPureFirstPerfect) {
       totalSempurna++;
-      totalXp += 50; // Bonus skor 100 murni
+      packetXp += 50; // Bonus skor 100 murni
     } else if (rawSkor >= 100 && rawAttempt > 1) {
-      totalXp += 25; // Bonus apresiasi usaha remedial tuntas sempurna
+      packetXp += 25; // Bonus apresiasi usaha remedial tuntas sempurna
     }
 
     if (rawSkor >= 75) {
       totalKkm++;
-      totalXp += 25; // Bonus KKM
+      packetXp += 25; // Bonus KKM
+    }
+
+    totalXp += packetXp;
+
+    if (mapel === 'minat') {
+      xpMinat += packetXp;
+      ujianMinat++;
+      if (isPureFirstPerfect) sempurnaMinat++;
+    } else {
+      // Matematika Wajib (atau default)
+      xpWajib += packetXp;
+      ujianWajib++;
+      if (isPureFirstPerfect) sempurnaWajib++;
     }
 
     // Validasi Speedrun Mode On (fast_thinker):
@@ -233,7 +249,6 @@ export async function updateStudentGamification(db, nis) {
     }
 
     const kode = String(e.kode_pertemuan || '').toUpperCase();
-    const mapel = String(e.mapel || '').toLowerCase();
     if (['P01','P02','P03','P04','P05','P06','P07','P08'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
       hasPencacahan = true;
     }
@@ -277,8 +292,14 @@ export async function updateStudentGamification(db, nis) {
 
   // 5. Simpan / Perbarui ke database siswa_gamifikasi
   await db.prepare(`
-    INSERT INTO siswa_gamifikasi (nis, nama, kelas, total_xp, level, gelar, current_streak, max_streak, last_active_date, total_ujian, total_sempurna, badges, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+    INSERT INTO siswa_gamifikasi (
+      nis, nama, kelas, total_xp, level, gelar, current_streak, max_streak,
+      last_active_date, total_ujian, total_sempurna, badges,
+      xp_wajib, ujian_wajib, sempurna_wajib,
+      xp_minat, ujian_minat, sempurna_minat,
+      updated_at
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
     ON CONFLICT(nis) DO UPDATE SET
       total_xp = excluded.total_xp,
       level = excluded.level,
@@ -289,6 +310,12 @@ export async function updateStudentGamification(db, nis) {
       total_ujian = excluded.total_ujian,
       total_sempurna = excluded.total_sempurna,
       badges = excluded.badges,
+      xp_wajib = excluded.xp_wajib,
+      ujian_wajib = excluded.ujian_wajib,
+      sempurna_wajib = excluded.sempurna_wajib,
+      xp_minat = excluded.xp_minat,
+      ujian_minat = excluded.ujian_minat,
+      sempurna_minat = excluded.sempurna_minat,
       updated_at = datetime('now')
   `).bind(
     cleanNis,
@@ -302,7 +329,13 @@ export async function updateStudentGamification(db, nis) {
     streakInfo.last || new Date().toISOString().slice(0, 10),
     totalUjian,
     totalSempurna,
-    badgesJson
+    badgesJson,
+    xpWajib,
+    ujianWajib,
+    sempurnaWajib,
+    xpMinat,
+    ujianMinat,
+    sempurnaMinat
   ).run();
 
   return {
@@ -315,6 +348,12 @@ export async function updateStudentGamification(db, nis) {
     max_streak: streakInfo.max || 1,
     total_ujian: totalUjian,
     total_sempurna: totalSempurna,
+    xp_wajib: xpWajib,
+    ujian_wajib: ujianWajib,
+    sempurna_wajib: sempurnaWajib,
+    xp_minat: xpMinat,
+    ujian_minat: ujianMinat,
+    sempurna_minat: sempurnaMinat,
     badges,
     discord_stats: discordQuizStats
   };
@@ -347,7 +386,7 @@ export async function onRequestGet(context) {
         return jsonResponse({ error: 'Siswa tidak ditemukan' }, 404);
       }
 
-      // Hitung Peringkat Global & Peringkat Kelas
+      // Hitung Peringkat Global & Peringkat Kelas (All-Round / Gabungan)
       const rankGlobalRow = await db.prepare(
         "SELECT COUNT(*) as rank FROM siswa_gamifikasi WHERE total_xp > ?"
       ).bind(profile.total_xp).first();
@@ -358,7 +397,40 @@ export async function onRequestGet(context) {
       ).bind(profile.kelas, profile.total_xp).first();
       const rankClass = (rankClassRow ? rankClassRow.rank : 0) + 1;
 
-      const totalSiswaGlobal = (await db.prepare("SELECT COUNT(*) as total FROM siswa_gamifikasi").first())?.total || 100;
+      // Hitung Peringkat Murni Matematika Wajib (Seluruh Siswa Angkatan XII)
+      const rankWajibGlobalRow = await db.prepare(
+        "SELECT COUNT(*) as rank FROM siswa_gamifikasi WHERE xp_wajib > ?"
+      ).bind(profile.xp_wajib || 0).first();
+      const rankWajibGlobal = (rankWajibGlobalRow ? rankWajibGlobalRow.rank : 0) + 1;
+
+      const rankWajibClassRow = await db.prepare(
+        "SELECT COUNT(*) as rank FROM siswa_gamifikasi WHERE kelas = ? AND xp_wajib > ?"
+      ).bind(profile.kelas, profile.xp_wajib || 0).first();
+      const rankWajibClass = (rankWajibClassRow ? rankWajibClassRow.rank : 0) + 1;
+
+      // Hitung Peringkat Murni Matematika Peminatan (Khusus Siswa yang Mengambil Minat)
+      const isMinatEligible = (profile.kelas.includes('F3') || profile.kelas.includes('F4') || (profile.ujian_minat || 0) > 0);
+      let rankMinatGlobal = null;
+      let rankMinatClass = null;
+      let totalMinatStudents = 0;
+
+      if (isMinatEligible) {
+        const rankMinatGRow = await db.prepare(
+          "SELECT COUNT(*) as rank FROM siswa_gamifikasi WHERE (kelas LIKE '%F3%' OR kelas LIKE '%F4%' OR ujian_minat > 0) AND xp_minat > ?"
+        ).bind(profile.xp_minat || 0).first();
+        rankMinatGlobal = (rankMinatGRow ? rankMinatGRow.rank : 0) + 1;
+
+        const rankMinatCRow = await db.prepare(
+          "SELECT COUNT(*) as rank FROM siswa_gamifikasi WHERE kelas = ? AND xp_minat > ?"
+        ).bind(profile.kelas, profile.xp_minat || 0).first();
+        rankMinatClass = (rankMinatCRow ? rankMinatCRow.rank : 0) + 1;
+
+        totalMinatStudents = (await db.prepare(
+          "SELECT COUNT(*) as total FROM siswa_gamifikasi WHERE (kelas LIKE '%F3%' OR kelas LIKE '%F4%' OR ujian_minat > 0)"
+        ).first())?.total || 50;
+      }
+
+      const totalSiswaGlobal = (await db.prepare("SELECT COUNT(*) as total FROM siswa_gamifikasi").first())?.total || 101;
       const totalSiswaClass = (await db.prepare("SELECT COUNT(*) as total FROM siswa_gamifikasi WHERE kelas = ?").bind(profile.kelas).first())?.total || 25;
 
       const lvlDetails = getLevelAndTitle(profile.total_xp);
@@ -395,6 +467,12 @@ export async function onRequestGet(context) {
           nama: profile.nama,
           kelas: profile.kelas,
           total_xp: profile.total_xp,
+          xp_wajib: profile.xp_wajib || 0,
+          ujian_wajib: profile.ujian_wajib || 0,
+          sempurna_wajib: profile.sempurna_wajib || 0,
+          xp_minat: profile.xp_minat || 0,
+          ujian_minat: profile.ujian_minat || 0,
+          sempurna_minat: profile.sempurna_minat || 0,
           level: lvlDetails.level,
           gelar: lvlDetails.gelar,
           current_xp: lvlDetails.current_xp,
@@ -409,6 +487,12 @@ export async function onRequestGet(context) {
           total_global: totalSiswaGlobal,
           rank_class: rankClass,
           total_class: totalSiswaClass,
+          rank_wajib_global: rankWajibGlobal,
+          rank_wajib_class: rankWajibClass,
+          rank_minat_global: rankMinatGlobal,
+          rank_minat_class: rankMinatClass,
+          is_minat_eligible: isMinatEligible,
+          total_minat_students: totalMinatStudents,
           badges: enrichedBadges,
           discord_stats: discordStats
         },
@@ -418,27 +502,57 @@ export async function onRequestGet(context) {
     }
 
     // B. JIKA REQUEST LEADERBOARD
-    let query = "SELECT nis, nama, kelas, total_xp, level, gelar, current_streak, max_streak, total_ujian, total_sempurna, badges FROM siswa_gamifikasi";
-    let countQuery = "SELECT COUNT(*) as total, SUM(total_xp) as total_xp_sum, AVG(current_streak) as avg_streak, MAX(current_streak) as top_streak FROM siswa_gamifikasi";
+    const mapelFilter = (url.searchParams.get('mapel') || 'wajib').toLowerCase();
+    const selectFields = "nis, nama, kelas, total_xp, level, gelar, current_streak, max_streak, total_ujian, total_sempurna, badges, xp_wajib, ujian_wajib, sempurna_wajib, xp_minat, ujian_minat, sempurna_minat";
+    const whereClauses = [];
     const bindings = [];
     const countBindings = [];
 
+    // Filter Mapel & Urutan Peringkat
+    let sortColumn = "xp_wajib";
+    let sortSecondary = "sempurna_wajib";
+    let sortTertiary = "ujian_wajib";
+    let countSumExpr = "SUM(xp_wajib)";
+
+    if (mapelFilter === 'minat') {
+      whereClauses.push("(kelas LIKE '%F3%' OR kelas LIKE '%F4%' OR ujian_minat > 0)");
+      sortColumn = "xp_minat";
+      sortSecondary = "sempurna_minat";
+      sortTertiary = "ujian_minat";
+      countSumExpr = "SUM(xp_minat)";
+    } else if (mapelFilter === 'all') {
+      sortColumn = "total_xp";
+      sortSecondary = "total_sempurna";
+      sortTertiary = "total_ujian";
+      countSumExpr = "SUM(total_xp)";
+    } else {
+      // Default 'wajib'
+      sortColumn = "xp_wajib";
+      sortSecondary = "sempurna_wajib";
+      sortTertiary = "ujian_wajib";
+      countSumExpr = "SUM(xp_wajib)";
+    }
+
+    // Filter Kelas
     if (kelasFilter && kelasFilter.toLowerCase() !== 'all') {
       let normalizedKelas = kelasFilter.replace(/_/g, ' ').toUpperCase();
       if (!normalizedKelas.startsWith('XII') && normalizedKelas.startsWith('12')) {
         normalizedKelas = 'XII ' + normalizedKelas.slice(2).trim();
       }
-      query += " WHERE kelas LIKE ?";
-      countQuery += " WHERE kelas LIKE ?";
+      whereClauses.push("kelas LIKE ?");
       bindings.push(`%${normalizedKelas}%`);
       countBindings.push(`%${normalizedKelas}%`);
     }
 
-    query += " ORDER BY total_xp DESC, total_sempurna DESC, total_ujian DESC LIMIT ? OFFSET ?";
+    const whereSql = whereClauses.length > 0 ? " WHERE " + whereClauses.join(" AND ") : "";
+
+    const query = `SELECT ${selectFields} FROM siswa_gamifikasi ${whereSql} ORDER BY ${sortColumn} DESC, ${sortSecondary} DESC, ${sortTertiary} DESC LIMIT ? OFFSET ?`;
+    const countQuery = `SELECT COUNT(*) as total, ${countSumExpr} as total_xp_sum, AVG(current_streak) as avg_streak, MAX(current_streak) as top_streak FROM siswa_gamifikasi ${whereSql}`;
+
     bindings.push(limit, offset);
     const { results } = await db.prepare(query).bind(...bindings).all();
 
-    let countStmt = db.prepare(countQuery);
+    const countStmt = db.prepare(countQuery);
     const countStats = countBindings.length > 0 
       ? await countStmt.bind(...countBindings).first() 
       : await countStmt.first();
@@ -446,12 +560,37 @@ export async function onRequestGet(context) {
     const rankedLeaderboard = (results || []).map((row, idx) => {
       let bList = [];
       try { bList = JSON.parse(row.badges || '[]'); } catch (e) { bList = []; }
+
+      let xpDisplay = row.xp_wajib || 0;
+      let ujianDisplay = row.ujian_wajib || 0;
+      let sempurnaDisplay = row.sempurna_wajib || 0;
+
+      if (mapelFilter === 'minat') {
+        xpDisplay = row.xp_minat || 0;
+        ujianDisplay = row.ujian_minat || 0;
+        sempurnaDisplay = row.sempurna_minat || 0;
+      } else if (mapelFilter === 'all') {
+        xpDisplay = row.total_xp || 0;
+        ujianDisplay = row.total_ujian || 0;
+        sempurnaDisplay = row.total_sempurna || 0;
+      }
+
       return {
         rank: offset + idx + 1,
         nis: row.nis,
         nama: row.nama,
         kelas: row.kelas,
+        mapel: mapelFilter,
+        xp_display: xpDisplay,
+        ujian_display: ujianDisplay,
+        sempurna_display: sempurnaDisplay,
         total_xp: row.total_xp,
+        xp_wajib: row.xp_wajib || 0,
+        ujian_wajib: row.ujian_wajib || 0,
+        sempurna_wajib: row.sempurna_wajib || 0,
+        xp_minat: row.xp_minat || 0,
+        ujian_minat: row.ujian_minat || 0,
+        sempurna_minat: row.sempurna_minat || 0,
         level: row.level,
         gelar: row.gelar,
         current_streak: row.current_streak,
@@ -464,6 +603,7 @@ export async function onRequestGet(context) {
 
     return jsonResponse({
       success: true,
+      mapel: mapelFilter,
       leaderboard: rankedLeaderboard,
       stats: {
         total_students: countStats?.total || 0,

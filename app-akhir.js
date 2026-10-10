@@ -1739,6 +1739,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     // Standar Guru & IT Profesional SMA GIS 2 Serpong • Notion Warm Paper Style
     // =========================================================================
 
+    let _currentLbMapel = 'wajib';
     let _currentLbFilter = 'all';
     let _currentLbView = 'table';
     let _cachedGamifikasiProfile = null;
@@ -1832,12 +1833,19 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (sempurnaCountEl) sempurnaCountEl.textContent = profile.total_sempurna || 0;
 
       if (rankTextEl) {
-        const rCls = profile.rank_class || 1;
-        rankTextEl.textContent = '#' + rCls;
-      }
-      if (rankSubEl) {
-        const rGbl = profile.rank_global || 1;
-        rankSubEl.textContent = `(Angkatan: #${rGbl})`;
+        const rWajibCls = profile.rank_wajib_class || profile.rank_class || 1;
+        const rWajibGbl = profile.rank_wajib_global || profile.rank_global || 1;
+        if (profile.is_minat_eligible && profile.rank_minat_class) {
+          rankTextEl.innerHTML = `<span title="Peringkat Matematika Wajib Kelas">Wajib #${rWajibCls}</span> <span class="text-xs font-normal text-[#A8A29E]">|</span> <span class="text-amber-700" title="Peringkat Matematika Peminatan Kelas">Minat #${profile.rank_minat_class}</span>`;
+          if (rankSubEl) {
+            rankSubEl.textContent = `(Angkatan: Wajib #${rWajibGbl} • Minat #${profile.rank_minat_global})`;
+          }
+        } else {
+          rankTextEl.textContent = `Wajib #${rWajibCls}`;
+          if (rankSubEl) {
+            rankSubEl.textContent = `(Angkatan XII: #${rWajibGbl} dari ${profile.total_global || 101})`;
+          }
+        }
       }
 
       // Render Lencana Koleksi
@@ -1859,12 +1867,16 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     // Buka Modal Leaderboard
-    function openLeaderboardModal(kelasFilter, view) {
+    function openLeaderboardModal(kelasFilter, view, mapel) {
       const modal = document.getElementById('leaderboard-modal');
       if (!modal) return;
       modal.classList.remove('hidden');
       const scrollBody = modal.querySelector('.overflow-y-auto');
       if (scrollBody) scrollBody.scrollTop = 0;
+
+      if (mapel) {
+        _currentLbMapel = mapel;
+      }
 
       if (view === 'catalog') {
         switchLeaderboardView('catalog');
@@ -1872,6 +1884,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         switchLeaderboardView('roadmap');
       } else {
         switchLeaderboardView('table');
+        switchLeaderboardMapel(_currentLbMapel, false);
         switchLeaderboardFilter(kelasFilter || _currentLbFilter || 'all');
       }
     }
@@ -1912,22 +1925,76 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         if (_cachedLeaderboardData) {
           renderBadgeCatalog(_cachedLeaderboardData.catalog, _cachedLeaderboardData.levels);
         } else {
-          loadLeaderboardData(_currentLbFilter);
+          loadLeaderboardData(_currentLbFilter, _currentLbMapel);
         }
       } else if (view === 'roadmap') {
         if (roadmapView) roadmapView.classList.remove('hidden');
         if (roadmapTabBtn) roadmapTabBtn.classList.add('active');
       } else {
         if (tableView) tableView.classList.remove('hidden');
+        updateLeaderboardFilterUi();
       }
     }
 
-    // Ganti Filter Kelas Leaderboard
-    function switchLeaderboardFilter(kelas) {
-      _currentLbFilter = kelas || 'all';
-      switchLeaderboardView('table');
+    // Ganti Pilihan Mapel (Matematika Wajib vs Matematika Peminatan vs All-Round)
+    function switchLeaderboardMapel(mapel, reload = true) {
+      _currentLbMapel = mapel || 'wajib';
 
-      // Update Tab Styles
+      const btnWajib = document.getElementById('btn-lb-mapel-wajib');
+      const btnMinat = document.getElementById('btn-lb-mapel-minat');
+      const btnAll = document.getElementById('btn-lb-mapel-all');
+      const descEl = document.getElementById('lb-mapel-desc');
+      const thXp = document.getElementById('lb-th-xp');
+
+      const activeClasses = ['bg-[#2E384D]', 'text-white', 'shadow-xs', 'font-bold'];
+      const inactiveClasses = ['text-[#5F5E5B]', 'hover:text-[#2F3437]', 'hover:bg-black/5', 'font-semibold'];
+
+      [
+        { btn: btnWajib, key: 'wajib' },
+        { btn: btnMinat, key: 'minat' },
+        { btn: btnAll, key: 'all' }
+      ].forEach(item => {
+        if (!item.btn) return;
+        if (item.key === _currentLbMapel) {
+          item.btn.classList.add(...activeClasses);
+          item.btn.classList.remove(...inactiveClasses);
+          const bSpan = item.btn.querySelector('span:last-child');
+          if (bSpan) {
+            bSpan.className = 'px-1.5 py-0.2 rounded text-[10px] bg-white/20 font-mono';
+          }
+        } else {
+          item.btn.classList.remove(...activeClasses);
+          item.btn.classList.add(...inactiveClasses);
+          const bSpan = item.btn.querySelector('span:last-child');
+          if (bSpan) {
+            bSpan.className = 'px-1.5 py-0.2 rounded text-[10px] bg-[#E8E6DF] text-[#5F5E5B] font-mono';
+          }
+        }
+      });
+
+      if (_currentLbMapel === 'minat') {
+        if (descEl) descEl.innerHTML = '<span class="text-amber-800 font-bold"><i class="fa-solid fa-compass-drafting mr-1"></i>Peringkat Matematika Peminatan:</span> Khusus rombel XII F3 &amp; XII F4 (50 Siswa)';
+        if (thXp) thXp.textContent = 'XP Minat';
+        if (_currentLbFilter === 'XII_F1' || _currentLbFilter === 'XII_F2') {
+          _currentLbFilter = 'all';
+        }
+      } else if (_currentLbMapel === 'all') {
+        if (descEl) descEl.innerHTML = '<span class="text-indigo-800 font-bold"><i class="fa-solid fa-trophy mr-1 text-amber-500"></i>Peringkat All-Round:</span> Akumulasi seluruh XP (Wajib + Minat + Kuis Discord + Angket)';
+        if (thXp) thXp.textContent = 'Total XP';
+      } else {
+        if (descEl) descEl.innerHTML = '<span class="text-blue-800 font-bold"><i class="fa-solid fa-book-bookmark mr-1"></i>Peringkat Matematika Wajib:</span> Kompetisi adil 101 siswa seluruh rombel XII F1 s.d. F4';
+        if (thXp) thXp.textContent = 'XP Wajib';
+      }
+
+      updateLeaderboardFilterUi();
+
+      if (reload) {
+        loadLeaderboardData(_currentLbFilter, _currentLbMapel);
+      }
+    }
+
+    // Update Tampilan Tab Filter Kelas & Label Header
+    function updateLeaderboardFilterUi() {
       const tabMap = {
         'all': 'btn-lb-filter-all',
         'XII_F1': 'btn-lb-filter-12f1',
@@ -1944,24 +2011,47 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           } else {
             btn.classList.remove('active');
           }
+
+          if (_currentLbMapel === 'minat' && (k === 'XII_F1' || k === 'XII_F2')) {
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
+            btn.title = 'Rombel ini tidak memiliki mapel Matematika Peminatan';
+          } else {
+            btn.classList.remove('opacity-40', 'cursor-not-allowed');
+            btn.removeAttribute('title');
+          }
         }
       });
 
       const labelEl = document.getElementById('lb-filter-label');
       if (labelEl) {
+        let mapelName = 'Matematika Wajib';
+        if (_currentLbMapel === 'minat') mapelName = 'Matematika Peminatan';
+        else if (_currentLbMapel === 'all') mapelName = 'All-Round (Gabungan)';
+
         if (_currentLbFilter === 'all') {
-          labelEl.textContent = 'Menampilkan Semua Angkatan XII';
+          labelEl.textContent = `${mapelName} • Semua Angkatan XII`;
         } else {
-          labelEl.textContent = 'Menampilkan Kelas ' + _currentLbFilter.replace('_', ' ');
+          labelEl.textContent = `${mapelName} • Kelas ${_currentLbFilter.replace('_', ' ')}`;
         }
       }
+    }
 
-      loadLeaderboardData(_currentLbFilter);
+    // Ganti Filter Kelas Leaderboard
+    function switchLeaderboardFilter(kelas) {
+      if (_currentLbMapel === 'minat' && (kelas === 'XII_F1' || kelas === 'XII_F2')) {
+        // Otomatis arahkan ke Matematika Wajib jika memilih F1 atau F2 saat di mode Minat
+        switchLeaderboardMapel('wajib', false);
+      }
+      _currentLbFilter = kelas || 'all';
+      switchLeaderboardView('table');
+      updateLeaderboardFilterUi();
+      loadLeaderboardData(_currentLbFilter, _currentLbMapel);
     }
 
     // Fetch & Render Leaderboard Data dari D1
-    async function loadLeaderboardData(kelasFilter) {
+    async function loadLeaderboardData(kelasFilter, mapelFilter) {
       const targetFilter = kelasFilter || _currentLbFilter || 'all';
+      const targetMapel = mapelFilter || _currentLbMapel || 'wajib';
       const podiumContainer = document.getElementById('lb-podium-container');
       const tableTbody = document.getElementById('lb-table-tbody');
 
@@ -1975,7 +2065,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
 
       try {
-        const resp = await fetch(`/api/gamifikasi?leaderboard=1&kelas=${encodeURIComponent(targetFilter)}&limit=50&_t=${Date.now()}`);
+        const resp = await fetch(`/api/gamifikasi?leaderboard=1&mapel=${encodeURIComponent(targetMapel)}&kelas=${encodeURIComponent(targetFilter)}&limit=50&_t=${Date.now()}`);
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         const data = await resp.json();
         if (!data || !data.success) throw new Error('Data tidak valid');
@@ -2057,6 +2147,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const isMe = String(item.nis) === String(currentNis);
         const initials = getStudentInitials(item.nama);
         const badgesList = item.badges || [];
+        const xpVal = item.xp_display !== undefined ? item.xp_display : item.total_xp;
+        const sempurnaVal = item.sempurna_display !== undefined ? item.sempurna_display : item.total_sempurna;
+        const xpLabel = _currentLbMapel === 'minat' ? 'XP Minat' : (_currentLbMapel === 'all' ? 'Total XP' : 'XP Wajib');
 
         return `
           <div class="p-4 rounded-xl border shadow-xs relative flex flex-col justify-between transition-transform hover:-translate-y-0.5 ${slot.highlight ? 'ring-1 ring-amber-300 md:-translate-y-1' : ''}"
@@ -2093,8 +2186,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
             <!-- STATS PRESTASI PODIUM -->
             <div class="pt-2.5 border-t border-black/5 grid grid-cols-3 gap-1 text-center text-xs">
               <div>
-                <div class="text-[10px] text-[#787774]">Total XP</div>
-                <div class="font-extrabold text-[#2F3437] font-mono">${(item.total_xp || 0).toLocaleString('id-ID')}</div>
+                <div class="text-[10px] text-[#787774]">${xpLabel}</div>
+                <div class="font-extrabold text-[#2F3437] font-mono">${(xpVal || 0).toLocaleString('id-ID')}</div>
               </div>
               <div>
                 <div class="text-[10px] text-[#787774]">Streak 🔥</div>
@@ -2102,7 +2195,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
               </div>
               <div>
                 <div class="text-[10px] text-[#787774]">Skor 100</div>
-                <div class="font-bold text-amber-700 font-mono">${item.total_sempurna || 0}x</div>
+                <div class="font-bold text-amber-700 font-mono">${sempurnaVal || 0}x</div>
               </div>
             </div>
 
@@ -2136,6 +2229,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const isMe = String(item.nis) === String(currentNis);
         const initials = getStudentInitials(item.nama);
         const badgesList = item.badges || [];
+        const xpVal = item.xp_display !== undefined ? item.xp_display : item.total_xp;
+        const sempurnaVal = item.sempurna_display !== undefined ? item.sempurna_display : item.total_sempurna;
 
         let rankBadge = `<span class="font-mono font-bold text-xs text-[#5F5E5B]">${item.rank}</span>`;
         if (item.rank === 1) rankBadge = `<span class="text-base" title="Juara 1">🥇</span>`;
@@ -2173,11 +2268,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
             </td>
             <td class="py-2.5 px-3 text-center">
               <span class="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-amber-800">
-                <i class="fa-solid fa-bullseye text-[10px] text-amber-600"></i> ${item.total_sempurna || 0}
+                <i class="fa-solid fa-bullseye text-[10px] text-amber-600"></i> ${sempurnaVal || 0}
               </span>
             </td>
             <td class="py-2.5 px-3 text-right font-mono font-bold text-xs text-[#2F3437]">
-              ${(item.total_xp || 0).toLocaleString('id-ID')}
+              ${(xpVal || 0).toLocaleString('id-ID')}
             </td>
             <td class="py-2.5 px-3 text-center">
               <div class="flex items-center justify-center gap-1 flex-wrap">
@@ -2285,6 +2380,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     window.openLeaderboardModal = openLeaderboardModal;
     window.closeLeaderboardModal = closeLeaderboardModal;
     window.switchLeaderboardFilter = switchLeaderboardFilter;
+    window.switchLeaderboardMapel = switchLeaderboardMapel;
     window.switchLeaderboardView = switchLeaderboardView;
     window.loadLeaderboardData = loadLeaderboardData;
 
