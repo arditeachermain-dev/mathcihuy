@@ -1666,6 +1666,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const modal = document.getElementById('rapor-siswa-modal');
       if (!modal) return;
       modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      const scrollBody = modal.querySelector('.overflow-y-auto');
+      if (scrollBody) scrollBody.scrollTop = 0;
 
       _raporSelectedBab = 'all';
       _raporExpandedBabs.clear();
@@ -1721,7 +1725,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function closeRaporModal() {
       const modal = document.getElementById('rapor-siswa-modal');
-      if (modal) modal.classList.add('hidden');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      document.body.style.overflow = '';
     }
 
     // EXPOSE RAPOR MODULE TO GLOBAL WINDOW

@@ -1113,8 +1113,8 @@
 
 
     <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
-  <div id="rapor-siswa-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-start md:items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div style="background-color: #FBFBFA !important;" class="border border-[#E8E6DF] rounded-2xl max-w-5xl max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans">
+  <div id="rapor-siswa-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div style="background-color: #FBFBFA !important; max-height: 90vh; height: 90vh;" class="border border-[#E8E6DF] rounded-2xl max-w-5xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
       
       <!-- MODAL TOP BAR (COMPACT) -->
       <div class="px-4 sm:px-6 py-2.5 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-[#FFFFFF]">
@@ -1153,7 +1153,7 @@
       </div>
 
       <!-- SCROLLABLE BODY (COMPACT) -->
-      <div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-4 sm:px-6 py-3 space-y-2.5 custom-scroll" style="background-color: #F7F6F3;">
+      <div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-4 sm:px-6 py-3 space-y-2.5 custom-scroll overscroll-contain" style="background-color: #F7F6F3; -webkit-overflow-scrolling: touch;">
         
         <!-- COMPACT PROFILE & KPI SUMMARY BAR -->
         <div class="p-3 sm:px-4 sm:py-2.5 rounded-xl border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-2.5" style="background-color: #FFFFFF; border-color: #E8E6DF;">
@@ -1657,7 +1657,7 @@
       </div>
     </div>
 
-    <script src="app-akhir.js?v=v20261011_top10_fix"></script>
+    <script src="app-akhir.js?v=v20261011_scroll_fix_v1"></script>
     <script src="helpdesk-notif.js?v=v20261011_top10_fix"></script>
 
 </body>
