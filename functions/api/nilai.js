@@ -121,7 +121,10 @@ export async function onRequestPost(context) {
 
     // 1. Deteksi Anomali Durasi & Anti-Rapid-Fire Bot (Smart & Lenient Protection)
     const isSyncSubmission = data.is_sync === true || 
+                             data.mapel === 'raid' ||
+                             cleanMapel === 'raid' ||
                              data.source === 'outbox' || 
+                             data.source === 'raid' ||
                              data.source === 'auto-heal' || 
                              data.source === 'rapor-auto-heal' ||
                              data.source === 'visibility-sync' ||

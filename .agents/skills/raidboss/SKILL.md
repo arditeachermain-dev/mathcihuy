@@ -66,20 +66,26 @@ Setiap paket 50 butir wajib memenuhi sebaran tingkat kesukaran dan 5 model baku:
 ---
 
 ## 4. SISTEM KEAMANAN IT: ANTI-CHEAT & 15-MINUTE BOT LOCKOUT
-Untuk menjaga integritas dan keadilan kompetisi antarsains kelas XII, diterapkan protokol pendeteksian otomatis:
+Untuk menjaga integritas dan keadilan kompetisi antarsains kelas XII, diterapkan protokol pendeteksian otomatis berstandar IT profesional:
 
-1. **Deteksi Anomali Kognitif & Skrip Bot:**
-   - **Inhuman Speed Anomaly:** Waktu submit $< 3$ detik sejak soal dimuat pada soal hitungan kompleks tanpa aktivitas kursor/touch alami.
-   - **Synthetic Event Tamper:** Event click memiliki properti `event.isTrusted === false` (disimulasikan oleh bot script console).
-   - **Rapid-Fire Burst Attack:** Percobaan pengiriman attack ganda dalam selang waktu $< 1$ detik.
-   - **DOM Variable Tamper:** Percobaan membaca atau mengubah kunci jawaban langsung melalui console global.
-2. **Penalti Pembekuan 15 Menit (Lockout Penalty):**
-   - Jika anomali terdeteksi:
-     - Sistem langsung menampilkan modal peringatan darurat:
-       `⚠️ SISTEM ANTI-CHEAT AKTIF: Aktivitas Skrip / Bot Otomatis Terdeteksi!`
+1. **Prinsip Dasar: Cognitive Fluency Bukanlah Bot (Zero False-Positive Policy):**
+   - **Kecepatan Analisis Manusia yang Tajam adalah Keunggulan Kognitif:** Siswa cerdas atau guru yang menguasai konsep dapat melakukan *mental math* dan mengenali pola soal hitungan dalam hitungan detik (misalnya langsung mengenali tepi bawah $Tb = 59{,}5$ atau titik puncak limit). **DILARANG KERAS** menggunakan heuristik durasi/waktu pengerjaan (misal $< 3$ detik atau $< 3$ menit) sebagai indikator bot!
+   - **Deteksi Murni Skrip Teknis & Automasi Mesin (Script-Only Detection):**
+     - **Synthetic Event Injection:** Penyerangan dieksekusi tanpa event interaksi nyata (`!event` atau `event.isTrusted === false`), yang menandakan manipulasi via konsol developer atau skrip inject `.click()`.
+     - **Headless Browser & WebDriver Automation:** Terdeteksinya runtime otomasi browser mesin (`window.navigator.webdriver === true`, Puppeteer, Playwright, Selenium, Nightmare, PhantomJS).
+     - **Console Injection Tamper:** Pemanggilan fungsi serangan langsung dari konsol global tanpa interaksi tombol UI yang sah.
+
+2. **Penalti Pembekuan 15 Menit (Lockout Penalty) & Self-Healing:**
+   - Jika automasi skrip teknis terverifikasi:
+     - Sistem menampilkan modal peringatan darurat:
+       `⚠️ SISTEM INTEGRITAS & ANTI-CHEAT AKTIF: Proteksi Skrip & Automasi Terdeteksi`
      - Akses penyerangan Raid Boss Titan Statigo **DIBEKUKAN SELAMA TEPAT 15 MENIT** (900 detik).
-     - Timestamp kedaluwarsa disimpan di `localStorage` (`raid_bot_penalty_${nis}`) dan dicatat pada server `/api/lapor`.
+     - Timestamp kedaluwarsa dicatat di `localStorage` (`raid_bot_penalty_${nis}`) beserta log alasan teknis (`raid_bot_penalty_reason_${nis}`).
      - Tampilkan hitung mundur real-time (`15:00` $\to$ `00:00`). Selama timer aktif, tombol serang dinonaktifkan sepenuhnya.
+   - **Mekanisme Self-Healing:**
+     - Sistem secara otomatis membersihkan (*sweep & delete*) penalti lama yang disebabkan oleh false-positive heuristik durasi/kecepatan lama pada saat inisialisasi aplikasi, sehingga pengguna yang terkena false positive sebelumnya langsung pulih seketika tanpa harus menunggu 15 menit.
+   - **Pengecualian Rate-Limit Backend (`/api/nilai`):**
+     - Pengiriman per-soal dari event Raid Boss diberikan flag eksplisit (`is_sync: true`, `source: 'raid'`) sehingga tidak terkena cooldown 30 detik antar-paket ujian CBT standar.
 
 ---
 

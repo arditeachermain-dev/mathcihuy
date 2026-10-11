@@ -3137,11 +3137,37 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       return 'raid_bot_penalty_reason_' + (nis || getActiveStudentNis() || 'ANON');
     }
 
+    // Self-Heal: Bersihkan sisa penalti durasi false positive dari LocalStorage siswa
+    try {
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith('raid_bot_penalty_')) {
+          const rKey = k.startsWith('raid_bot_penalty_reason_') ? k : k.replace('raid_bot_penalty_', 'raid_bot_penalty_reason_');
+          const pKey = k.startsWith('raid_bot_penalty_reason_') ? k.replace('raid_bot_penalty_reason_', 'raid_bot_penalty_') : k;
+          const rVal = localStorage.getItem(rKey) || '';
+          if (!rVal || rVal.includes('terlalu cepat') || rVal.includes('beruntun instan') || rVal.includes('3.0s') || rVal.includes('1.5s') || rVal.includes('detik') || rVal.includes('Waktu analisis') || rVal.includes('Pola penyerangan')) {
+            localStorage.removeItem(pKey);
+            localStorage.removeItem(rKey);
+          }
+        }
+      }
+    } catch(e) {}
+
     function checkAntiCheatLockout(nis) {
       const activeNis = nis || getActiveStudentNis() || 'ANON';
       const key = getBotLockoutKey(activeNis);
       const raw = localStorage.getItem(key);
       if (!raw) return { locked: false, remainingSecs: 0 };
+
+      const reason = localStorage.getItem(getBotLockoutReasonKey(activeNis)) || '';
+
+      // Auto-heal: jika penalti berasal dari alasan durasi / kecepatan lama, langsung hapus dan buka blokir
+      if (!reason || reason.includes('terlalu cepat') || reason.includes('beruntun instan') || reason.includes('3.0s') || reason.includes('1.5s') || reason.includes('detik') || reason.includes('Waktu analisis') || reason.includes('Pola penyerangan')) {
+        localStorage.removeItem(key);
+        localStorage.removeItem(getBotLockoutReasonKey(activeNis));
+        return { locked: false, remainingSecs: 0 };
+      }
+
       const expiry = parseInt(raw, 10);
       const now = Date.now();
       if (isNaN(expiry) || now >= expiry) {
@@ -3150,7 +3176,6 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         return { locked: false, remainingSecs: 0 };
       }
       const remainingSecs = Math.max(1, Math.ceil((expiry - now) / 1000));
-      const reason = localStorage.getItem(getBotLockoutReasonKey(activeNis)) || 'Aktivitas tidak wajar terdeteksi.';
       return { locked: true, remainingSecs, reason };
     }
 
@@ -3214,34 +3239,25 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     function checkBotActivityAnomaly(event, questionIdx) {
-      // Anomaly 1: Untrusted synthetic event (simulated script dispatch)
-      if (event && event.isTrusted === false) {
+      // 1. Deteksi eksekusi tanpa event user nyata atau lewat skrip sintesis
+      if (!event || event.isTrusted === false) {
         return {
           anomaly: true,
-          reason: 'Sistem mendeteksi klik sintetis/skrip (Untrusted Event). Penyerangan ditangguhkan 15 menit.'
+          reason: 'Sistem mendeteksi eksekusi skrip konsol otomatis / sintesis (Untrusted Event). Penyerangan ditangguhkan 15 menit.'
         };
       }
 
-      // Anomaly 2: Inhuman answer speed (< 3.0 detik sejak soal dibuka)
-      const elapsedSinceView = (Date.now() - _questionViewTimestamp) / 1000;
-      if (elapsedSinceView < 3.0) {
+      // 2. Deteksi browser otomasi / WebDriver driver
+      if (typeof window !== 'undefined' && (window.navigator?.webdriver === true || window.document?.__nightmare || window._phantom || window.callPhantom)) {
         return {
           anomaly: true,
-          reason: `Waktu analisis pengerjaan terlalu cepat (${elapsedSinceView.toFixed(1)}s < 3.0s). Indikasi skrip otomatis terdeteksi.`
+          reason: 'Sistem mendeteksi driver browser automasi (WebDriver). Penyerangan ditangguhkan 15 menit.'
         };
       }
 
-      // Anomaly 3: Rapid burst attacks (< 1.5 detik sejak attack sebelumnya)
-      if (_lastAttackTimestamp > 0) {
-        const elapsedSinceLastAttack = (Date.now() - _lastAttackTimestamp) / 1000;
-        if (elapsedSinceLastAttack < 1.5) {
-          return {
-            anomaly: true,
-            reason: `Pola penyerangan beruntun instan (${elapsedSinceLastAttack.toFixed(1)}s < 1.5s). Indikasi bot automasi terdeteksi.`
-          };
-        }
-      }
-
+      // CATATAN PENTING:
+      // Kecepatan analisis berpikir dan berhitung cepat manusia (mental math) adalah keunggulan kognitif murni,
+      // BUKAN bot. Ambang batas waktu durasi dihapus total agar tidak ada false positive.
       return { anomaly: false };
     }
 
@@ -4040,6 +4056,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const payload = {
         nis: nis,
         mapel: 'raid',
+        is_sync: true,
+        source: 'raid',
         kode_pertemuan: kodePertemuan,
         skor: skor,
         jumlah_soal: totalQ,
