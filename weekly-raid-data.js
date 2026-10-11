@@ -3,12 +3,17 @@
  * SMA Global Islamic School 2 Serpong - Tahun Pelajaran 2026/2027
  * Guru Pengampu: Mr. Ardi
  *
- * Spesifikasi Psikometri TKA Pusmendik & Game Design:
- * - 50 Butir Soal per Skuad (Bisa Ditunda & Submit Attack Tiap Soal)
- * - Skuad F1 - F2: 50 Butir Matematika Wajib (P15 & P16)
- * - Skuad F3 - F4: 50 Butir Terpadu (25 Wajib P15/P16 + 25 Minat P17)
+ * Standar Profesional Pembuatan Soal TKA (Pusmendik BSKAP Kemendikbudristek):
+ * - 5 Model Baku Asesmen Nasional:
+ *   1. Pilihan Ganda Biasa (Single MC dengan sebaran kunci A-E berimbang & distractor miskonsepsi)
+ *   2. Pilihan Ganda Kompleks (True/False Table - Benar/Salah B-S)
+ *   3. Pilihan Ganda Kompleks (Checkbox Multi-Select)
+ *   4. Isian Singkat Numerik (Paragraf Rumpang / Direct Numeric)
+ *   5. Kausatif Sebab-Akibat (Pernyataan & Alasan analitis)
  * - Kalibrasi Kesukaran: 24% Level 1 (Mudah), 52% Level 2 (Sedang), 24% Level 3 (HOTS)
- * - Zero CBT Overlap & KaTeX Step-by-Step Guidance
+ * - Skuad F1 - F2: 50 Butir Wajib (P15 Distribusi Frekuensi + P16 Mean Berkelompok)
+ * - Skuad F3 - F4: 50 Butir Terpadu (25 Wajib P15/P16 + 25 Minat P17 Turunan Trigonometri)
+ * - Zero False-Positive Anti-Cheat & KaTeX Step-by-Step Guidance
  */
 
 (function() {
@@ -19,322 +24,301 @@
     "mapel": "Matematika Wajib",
     "materi": "P15 • Tepi Kelas & Titik Tengah",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Data hasil uji kuat tekan balok beton proyek IKN disajikan dalam interval kelas $60 - 74\\text{ MPa}$. Tentukan tepi bawah ($Tb$), tepi atas ($Ta$), dan titik tengah ($x_i$) untuk kelas tersebut!",
+    "tanya": "Data hasil uji kuat tekan balok beton proyek infrastruktur nasional disajikan dalam interval kelas $60 - 74\\text{ MPa}$. Tentukan tepi bawah ($Tb$), tepi atas ($Ta$), dan titik tengah ($x_i$) untuk kelas tersebut!",
     "opsi": [
-      "A. $Tb = 59{,}5$; $Ta = 74{,}5$; dan $x_i = 67$",
-      "B. $Tb = 60{,}0$; $Ta = 74{,}0$; dan $x_i = 67$",
+      "A. $Tb = 60{,}0$; $Ta = 74{,}0$; dan $x_i = 67$",
+      "B. $Tb = 59{,}5$; $Ta = 74{,}5$; dan $x_i = 67$",
       "C. $Tb = 59{,}5$; $Ta = 75{,}5$; dan $x_i = 67{,}5$",
       "D. $Tb = 60{,}5$; $Ta = 73{,}5$; dan $x_i = 66$",
       "E. $Tb = 59{,}0$; $Ta = 75{,}0$; dan $x_i = 68$"
     ],
-    "kunci": "A",
-    "bahas": "Langkah 1: Tepi bawah $Tb = 60 - 0{,}5 = 59{,}5$.\nLangkah 2: Tepi atas $Ta = 74 + 0{,}5 = 74{,}5$.\nLangkah 3: Titik tengah $x_i = \\frac{60 + 74}{2} = \\frac{134}{2} = 67$.\nKesimpulan: Opsi A benar.",
+    "kunci": "B",
+    "bahas": "Langkah 1: Tepi bawah $Tb = 60 - 0{,}5 = 59{,}5$.\nLangkah 2: Tepi atas $Ta = 74 + 0{,}5 = 74{,}5$.\nLangkah 3: Titik tengah $x_i = \\frac{60 + 74}{2} = \\frac{134}{2} = 67$.\nKesimpulan: Kunci B benar ($Tb = 59{,}5$; $Ta = 74{,}5$; $x_i = 67$).",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W02",
     "mapel": "Matematika Wajib",
     "materi": "P15 • Analisis Frekuensi Histogram",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Sebuah histogram menampilkan 5 batang kelas berat kontainer logistik dengan tepi kelas $10{,}5; 20{,}5; 30{,}5; 40{,}5; 50{,}5; 60{,}5$. Frekuensi berturut-turut adalah $6, 12, 18, 10, 4$. Berapa persentase kontainer yang beratnya lebih dari $30{,}5\\text{ ton}$?",
-    "opsi": [
-      "A. $64\\%$",
-      "B. $36\\%$",
-      "C. $50\\%$",
-      "D. $68\\%$",
-      "E. $72\\%$"
-    ],
-    "kunci": "A",
-    "bahas": "Langkah 1: Total kontainer $N = 6 + 12 + 18 + 10 + 4 = 50$.\nLangkah 2: Kontainer dengan berat $> 30{,}5\\text{ ton}$ adalah kelas ke-3, 4, dan 5: $18 + 10 + 4 = 32$.\nLangkah 3: Persentase = $\\frac{32}{50} \\times 100\\% = 64\\%$.\nKesimpulan: Kunci A.",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Sebuah histogram menampilkan 5 batang kelas berat kontainer logistik pelabuhan dengan tepi kelas berturut-turut $10{,}5; 20{,}5; 30{,}5; 40{,}5; 50{,}5; 60{,}5$. Frekuensi masing-masing kelas adalah $6, 12, 18, 10, 4$.\n\nBerapa persen (%) kontainer yang memiliki berat lebih dari $30{,}5\\text{ ton}$? (Ketik angka saja tanpa tanda persen)",
+    "opsi": [],
+    "kunci": "64",
+    "bahas": "Langkah 1: Total kontainer $N = 6 + 12 + 18 + 10 + 4 = 50$.\nLangkah 2: Kontainer dengan berat $> 30{,}5\\text{ ton}$ berada pada kelas 3, 4, dan 5: $18 + 10 + 4 = 32$.\nLangkah 3: Persentase $= \\frac{32}{50} \\times 100\\% = 64\\%$.\nKesimpulan: Jawaban numerik pasti adalah 64.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W03",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Ogive Positif Kurang Dari",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Diberikan tabel frekuensi nilai uji data: $21-30$ ($4$), $31-40$ ($8$), $41-50$ ($15$), $51-60$ ($10$), $61-70$ ($3$). Nilai frekuensi kumulatif pada kurva Ogive Positif untuk nilai kurang dari atau sama dengan $50{,}5$ adalah ...",
+    "materi": "P15 • Analisis Ogive Distribusi Kumulatif",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Diberikan tabel distribusi frekuensi skor asesmen: $21-30$ ($4$), $31-40$ ($8$), $41-50$ ($15$), $51-60$ ($10$), $61-70$ ($3$). Total responden adalah $40$ siswa. Analisis kebenaran setiap pernyataan berikut terkait kurva Ogive:",
     "opsi": [
-      "A. $27$",
-      "B. $15$",
-      "C. $37$",
-      "D. $12$",
-      "E. $40$"
+      "Frekuensi kumulatif kurang dari atau sama dengan $50{,}5$ pada Ogive Positif adalah 27.",
+      "Frekuensi kumulatif lebih dari atau sama dengan $40{,}5$ pada Ogive Negatif adalah 15.",
+      "Titik potong kurva Ogive Positif dan Ogive Negatif terjadi pada frekuensi kumulatif 20 (setara Median).",
+      "Panjang interval kelas ($c$) pada tabel distribusi tersebut adalah 9."
     ],
-    "kunci": "A",
-    "bahas": "Langkah 1: Tepi atas kelas ke-3 adalah $Ta = 50{,}5$.\nLangkah 2: Frekuensi kumulatif $\\le 50{,}5$ menjumlahkan frekuensi dari kelas 1 s.d. 3: $4 + 8 + 15 = 27$.\nKesimpulan: Kunci A.",
-    "level": "Level 1 (Mudah)"
+    "kunci": "B - S - B - S",
+    "bahas": "Analisis Pernyataan:\n1. Baris 1: $F_k \\le 50{,}5$ menjumlahkan kelas 1 s.d. 3: $4 + 8 + 15 = 27$. (BENAR)\n2. Baris 2: $F_k \\ge 40{,}5$ adalah kelas 3, 4, dan 5: $15 + 10 + 3 = 28$, bukan 15. (SALAH)\n3. Baris 3: Titik potong Ogive Positif dan Negatif selalu pada $N/2 = 40/2 = 20$ (Median). (BENAR)\n4. Baris 4: Panjang kelas $c = 30 - 21 + 1 = 10$, bukan 9. (SALAH)\nKesimpulan: Kunci adalah B - S - B - S.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W04",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Titik Potong Ogive",
+    "materi": "P15 • Titik Potong Ogive & Ukuran Pemusatan",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Pada diagram distribusi frekuensi kumulatif, titik perpotongan antara kurva Ogive Positif ($F_k$ kurang dari) dan Ogive Negatif ($F_k$ lebih dari) secara teoritis menunjukkan nilai ukuran pemusatan ...",
+    "tanya": "Pada diagram distribusi frekuensi kumulatif, perpotongan antara kurva Ogive Positif ($F_k$ kurang dari) dan Ogive Negatif ($F_k$ lebih dari) secara teoritis merepresentasikan nilai ukuran pemusatan ...",
     "opsi": [
-      "A. Median ($Me$)",
-      "B. Modus ($Mo$)",
-      "C. Rata-rata Hitung (Mean)",
+      "A. Modus ($Mo$)",
+      "B. Rata-rata Hitung (Mean $\\bar{x}$)",
+      "C. Median ($Me$)",
       "D. Kuartil Bawah ($Q_1$)",
       "E. Jangkauan Interkuartil ($QR$)"
     ],
-    "kunci": "A",
-    "bahas": "Titik perpotongan antara Ogive Positif dan Ogive Negatif terjadi pada frekuensi kumulatif $50\\%$ dari total data ($n/2$), yang merupakan definisi dari nilai Median ($Me$). Kunci A.",
+    "kunci": "C",
+    "bahas": "Langkah 1: Ogive Positif bergerak naik dari $0$ ke $N$, sedangkan Ogive Negatif bergerak turun dari $N$ ke $0$.\nLangkah 2: Titik potong keduanya berada pada ordinat frekuensi kumulatif $50\\%$ dari seluruh data ($N/2$).\nLangkah 3: Nilai data pada absis perpotongan tersebut adalah Median ($Me$).\nKesimpulan: Kunci C benar.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W05",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Rekonstruksi Interval Data",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Tiga titik tengah kelas interval pertama berturut-turut adalah $25{,}5; 35{,}5;$ dan $45{,}5$. Jika data berupa bilangan bulat, maka interval kelas untuk kelas kedua adalah ...",
+    "materi": "P15 • Rekonstruksi Interval & Karakteristik Data",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Tiga titik tengah kelas interval pertama berturut-turut adalah $x_1 = 25{,}5; x_2 = 35{,}5;$ dan $x_3 = 45{,}5$. Jika data berupa bilangan bulat, centang SEMUA pernyataan yang bernilai BENAR!",
     "opsi": [
-      "A. $31 - 40$",
-      "B. $30 - 39$",
-      "C. $31 - 41$",
-      "D. $30 - 40$",
-      "E. $32 - 41$"
+      "A. Panjang kelas interval ($c$) data tersebut adalah 10 satuan.",
+      "B. Interval kelas kedua adalah $30 - 40$.",
+      "C. Tepi bawah kelas kedua adalah $Tb_2 = 30{,}5$ dan tepi atasnya adalah $Ta_2 = 40{,}5$.",
+      "D. Batas bawah kelas pertama adalah 20.",
+      "E. Jarak antar titik tengah tidak sama sehingga lebar balok histogram bervariasi."
     ],
-    "kunci": "A",
-    "bahas": "Langkah 1: Panjang kelas $c = 35{,}5 - 25{,}5 = 10$.\nLangkah 2: Untuk kelas ke-2 dengan titik tengah $35{,}5$ dan panjang $10$, tepi bawahnya adalah $35{,}5 - 5 = 30{,}5$ dan tepi atasnya $35{,}5 + 5 = 40{,}5$.\nLangkah 3: Batas bawah bulat $= 31$, batas atas bulat $= 40$. Interval $= 31 - 40$.\nKesimpulan: Kunci A.",
-    "level": "Level 1 (Mudah)"
+    "kunci": "A, C",
+    "bahas": "Evaluasi Opsi:\n- Opsi A: $c = 35{,}5 - 25{,}5 = 10$. (BENAR)\n- Opsi B: Karena $c = 10$, interval kelas kedua adalah $31 - 40$ (bukan $30 - 40$). (SALAH)\n- Opsi C: Tepi bawah $Tb_2 = 35{,}5 - 5 = 30{,}5$ dan $Ta_2 = 35{,}5 + 5 = 40{,}5$. (BENAR)\n- Opsi D: Interval kelas pertama adalah $21 - 30$, batas bawahnya adalah 21. (SALAH)\n- Opsi E: Jarak antar titik tengah konstan ($10$), lebar balok histogram seragam. (SALAH)\nKesimpulan: Opsi yang benar adalah A dan C.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W06",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Panjang Kelas & Tepi",
+    "materi": "P15 • Luas Balok Histogram",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Data waktu tempuh komuter disajikan dalam kelas $15 - 24, 25 - 34, 35 - 44, 45 - 54\\text{ menit}$. Tentukan panjang kelas ($p$) dan tepi bawah kelas ke-3!",
+    "tanya": "Pada histogram frekuensi standar dengan skala absis menyatakan nilai data dan skala ordinat menyatakan frekuensi per satuan lebar, jika total frekuensi pengamatan adalah $N = 80$ dan setiap kelas memiliki panjang interval konstan $c = 6$, maka luas total seluruh persegi panjang batang histogram adalah ...",
     "opsi": [
-      "A. $p = 10$ dan $Tb = 34{,}5$",
-      "B. $p = 9$ dan $Tb = 35{,}0$",
-      "C. $p = 10$ dan $Tb = 35{,}5$",
-      "D. $p = 11$ dan $Tb = 34{,}5$",
-      "E. $p = 9$ dan $Tb = 34{,}5$"
+      "A. $80\\text{ satuan luas}$",
+      "B. $13{,}33\\text{ satuan luas}$",
+      "C. $240\\text{ satuan luas}$",
+      "D. $480\\text{ satuan luas}$",
+      "E. $960\\text{ satuan luas}$"
     ],
-    "kunci": "A",
-    "bahas": "Panjang kelas $p = 24 - 15 + 1 = 10$. Kelas ke-3 adalah $35 - 44$, sehingga $Tb = 35 - 0{,}5 = 34{,}5$. Kunci A.",
-    "level": "Level 1 (Mudah)"
+    "kunci": "D",
+    "bahas": "Langkah 1: Setiap batang histogram memiliki lebar alas $= c$ dan tinggi $= f_i$.\nLangkah 2: Luas satu batang $= c \\times f_i$.\nLangkah 3: Luas total $= \\sum (c \\times f_i) = c \\sum f_i = 6 \\times 80 = 480\\text{ satuan luas}$.\nKesimpulan: Kunci D benar.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W07",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Titik Tengah Interval",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Nilai titik tengah ($x_i$) untuk kelas interval $45 - 55$ pada data efisiensi panel surya adalah ...",
+    "materi": "P15 • Poligon Frekuensi & Kurva Mulus",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Titik puncak dari poligon frekuensi suatu data berkelompok selalu berkoordinat pada absis yang merupakan titik tengah ($x_i$) dari kelas interval yang memiliki frekuensi terbesar.\nSEBAB\nAlasan: Poligon frekuensi dibentuk dengan menghubungkan koordinat titik tengah sisi atas setiap balok histogram dengan garis lurus berurutan.",
     "opsi": [
-      "A. $50$",
-      "B. $49{,}5$",
-      "C. $50{,}5$",
-      "D. $51$",
-      "E. $49$"
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
     ],
     "kunci": "A",
-    "bahas": "$x_i = \\frac{45 + 55}{2} = \\frac{100}{2} = 50$. Kunci A.",
+    "bahas": "Analisis:\n1. Pernyataan: BENAR. Puncak tertinggi poligon berada pada batang tertinggi (frekuensi terbesar), absisnya adalah titik tengah kelas tersebut.\n2. Alasan: BENAR. Definisi poligon frekuensi adalah kurva garis yang menghubungkan titik-titik $(x_i, f_i)$ di mana $x_i$ adalah titik tengah balok histogram.\n3. Hubungan: Alasan menerangkan secara kausal mengapa koordinat absis puncak poligon selalu berupa titik tengah kelas frekuensi maksimum.\nKesimpulan: Kunci A benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W08",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Modus Visual Histogram",
+    "materi": "P15 • Frekuensi Kumulatif Lebih Dari",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Data kapasitas baterai kendaraan listrik: $40-49\\text{ kWh}$ ($5$), $50-59$ ($12$), $60-69$ ($20$), $70-79$ ($8$), $80-89$ ($5$). Balok histogram tertinggi berada pada interval kelas dengan tepi bawah dan tepi atas berturut-turut ...",
+    "tanya": "Data hasil panen padi organik di suatu sentra lumbung pangan disajikan dalam tabel frekuensi: $30-39\\text{ ton}$ ($5$), $40-49\\text{ ton}$ ($12$), $50-59\\text{ ton}$ ($20$), $60-69\\text{ ton}$ ($15$), $70-79\\text{ ton}$ ($8$). Banyak sentra yang memproduksi gabah sekurang-kurangnya $49{,}5\\text{ ton}$ adalah ...",
     "opsi": [
-      "A. $59{,}5$ dan $69{,}5$",
-      "B. $60{,}0$ dan $69{,}0$",
-      "C. $49{,}5$ dan $59{,}5$",
-      "D. $69{,}5$ dan $79{,}5$",
-      "E. $59{,}0$ dan $70{,}0$"
+      "A. $17\\text{ sentra}$",
+      "B. $25\\text{ sentra}$",
+      "C. $35\\text{ sentra}$",
+      "D. $38\\text{ sentra}$",
+      "E. $43\\text{ sentra}$"
     ],
-    "kunci": "A",
-    "bahas": "Frekuensi tertinggi adalah $20$ pada kelas $60 - 69$. $Tb = 59{,}5$ dan $Ta = 69{,}5$. Kunci A.",
+    "kunci": "E",
+    "bahas": "Langkah 1: Nilai $49{,}5\\text{ ton}$ merupakan tepi bawah kelas ke-3 ($50-59$).\nLangkah 2: Sekurang-kurangnya $49{,}5\\text{ ton}$ berarti frekuensi kumulatif $\\ge 49{,}5\\text{ ton}$ (kelas 3, 4, dan 5).\nLangkah 3: Jumlah sentra $= 20 + 15 + 8 = 43\\text{ sentra}$.\nKesimpulan: Kunci E benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W09",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Ogive Negatif Lebih Dari",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Pada data kapasitas baterai EV di atas (total $50$ unit), banyak baterai yang kapasitasnya lebih dari atau sama dengan $59{,}5\\text{ kWh}$ adalah ...",
+    "materi": "P15 • Rekonstruksi Tepi Kelas & Poligon",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Dua titik tengah berurutan pada poligon frekuensi adalah $x_k = 64$ dan $x_{k+1} = 73$. Data merupakan variabel kontinu. Tentukan status kebenaran pernyataan berikut:",
     "opsi": [
-      "A. $33\\text{ unit}$",
-      "B. $20\\text{ unit}$",
-      "C. $17\\text{ unit}$",
-      "D. $28\\text{ unit}$",
-      "E. $35\\text{ unit}$"
+      "Panjang kelas interval data tersebut adalah 10 satuan.",
+      "Tepi atas kelas ke-$k$ berimpit dengan tepi bawah kelas ke-$(k+1)$ pada nilai 68,5.",
+      "Selisih antara tepi atas dan tepi bawah setiap kelas adalah 9 satuan.",
+      "Titik tengah kelas berikutnya ($x_{k+2}$) adalah 81."
     ],
-    "kunci": "A",
-    "bahas": "Nilai $\\ge 59{,}5\\text{ kWh}$ mencakup kelas 3, 4, dan 5: $20 + 8 + 5 = 33\\text{ unit}$. Kunci A.",
+    "kunci": "S - B - B - S",
+    "bahas": "Analisis Pernyataan:\n1. Baris 1: Panjang kelas $c = x_{k+1} - x_k = 73 - 64 = 9$ satuan, bukan 10. (SALAH)\n2. Baris 2: Tepi perbatasan antarkelas $= \\frac{x_k + x_{k+1}}{2} = \\frac{64 + 73}{2} = 68{,}5$. (BENAR)\n3. Baris 3: Selisih tepi atas dan tepi bawah adalah panjang kelas $c = 9$. (BENAR)\n4. Baris 4: Titik tengah berikutnya $x_{k+2} = 73 + 9 = 82$, bukan 81. (SALAH)\nKesimpulan: Kunci adalah S - B - B - S.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W10",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Koordinat Puncak Poligon",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Poligon frekuensi dibentuk dengan menghubungkan titik $(x_i, f_i)$. Titik puncak tertinggi dari poligon frekuensi data baterai EV tersebut berada pada koordinat ...",
-    "opsi": [
-      "A. $(64{,}5; 20)$",
-      "B. $(65{,}0; 20)$",
-      "C. $(59{,}5; 20)$",
-      "D. $(64{,}5; 12)$",
-      "E. $(60{,}0; 20)$"
-    ],
-    "kunci": "A",
-    "bahas": "Titik tengah kelas tertinggi ($60-69$) adalah $x_3 = \\frac{60+69}{2} = 64{,}5$, dengan frekuensi $20$. Koordinat puncak: $(64{,}5; 20)$. Kunci A.",
-    "level": "Level 2 (Sedang)"
+    "materi": "P15 • Rekonstruksi Frekuensi Total dari Poligon",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Poligon frekuensi memiliki 5 titik koordinat: $(12, 15), (17, 30), (22, 45), (27, 20),$ dan $(32, 10)$. Berapakah jumlah total sampel ($N$) yang diobservasi dalam penelitian tersebut?",
+    "opsi": [],
+    "kunci": "120",
+    "bahas": "Langkah 1: Ordinat ($y$) dari titik-titik poligon mewakili frekuensi masing-masing kelas.\nLangkah 2: $N = \\sum f_i = 15 + 30 + 45 + 20 + 10$.\nLangkah 3: $N = 120$.\nKesimpulan: Jawaban numerik pasti adalah 120.",
+    "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W11",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Tepi Kelas Konsumsi Energi",
+    "materi": "P15 • Ogive Relatif & Persentase",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Data konsumsi listrik: $31-45, 46-60, 61-75, 76-90\\text{ kWh}$. Panjang kelas ($p$) dan tepi bawah kelas ke-2 berturut-turut adalah ...",
+    "tanya": "Pada Ogive Relatif Negatif ($F_k\\%$ lebih dari), titik pada tepi bawah kelas pertama selalu memiliki persentase frekuensi sebesar ...",
     "opsi": [
-      "A. $15$ dan $45{,}5$",
-      "B. $14$ dan $46{,}0$",
-      "C. $15$ dan $46{,}5$",
-      "D. $16$ dan $45{,}5$",
-      "E. $14$ dan $45{,}5$"
+      "A. $100\\%$",
+      "B. $0\\%$",
+      "C. $50\\%$",
+      "D. Tergantung nilai frekuensi kelas pertama",
+      "E. $1\\%$"
     ],
     "kunci": "A",
-    "bahas": "$p = 45 - 31 + 1 = 15$. Tepi bawah kelas ke-2 ($46-60$) adalah $46 - 0{,}5 = 45{,}5$. Kunci A.",
-    "level": "Level 2 (Sedang)"
+    "bahas": "Langkah 1: Ogive Negatif merepresentasikan data yang nilainya 'lebih dari atau sama dengan' tepi bawah.\nLangkah 2: Karena seluruh data pasti bernilai $\\ge$ tepi bawah kelas paling awal, frekuensi kumulatifnya mencakup $100\\%$ dari seluruh sampel.\nKesimpulan: Kunci A benar ($100\\%$).",
+    "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W12",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Titik Tengah Desimal",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Titik tengah dari kelas interval $120 - 139$ adalah ...",
+    "materi": "P15 • Analisis Histogram Simetris",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Sebuah histogram menampilkan 5 kelas frekuensi yang tersusun simetris sempurna: $f = [8, 18, 28, 18, 8]$ dengan interval kelas pertama $20 - 29$. Centang SEMUA pernyataan yang bernilai BENAR!",
     "opsi": [
-      "A. $129{,}5$",
-      "B. $130{,}0$",
-      "C. $129{,}0$",
-      "D. $128{,}5$",
-      "E. $130{,}5$"
+      "A. Total sampel data adalah 70.",
+      "B. Nilai modus data terletak tepat di dalam kelas interval ke-3 ($40 - 49$).",
+      "C. Persentase frekuensi kelas yang nilainya kurang dari $39{,}5$ adalah $50\\%$.",
+      "D. Frekuensi kumulatif kurang dari $49{,}5$ adalah 54.",
+      "E. Ogive positif data tersebut berbentuk garis lurus linear sempurna."
     ],
-    "kunci": "A",
-    "bahas": "$x_i = \\frac{120 + 139}{2} = \\frac{259}{2} = 129{,}5$. Kunci A.",
+    "kunci": "B, D",
+    "bahas": "Evaluasi Opsi:\n- Opsi A: Total data $N = 8 + 18 + 28 + 18 + 8 = 80$ (bukan 70). (SALAH)\n- Opsi B: Frekuensi terbesar adalah $28$ pada kelas ke-3 ($40 - 49$). (BENAR)\n- Opsi C: Nilai $< 39{,}5$ mencakup kelas 1 & 2 ($8 + 18 = 26$). Persentase $= 26/80 = 32{,}5\\%$ (bukan $50\\%$). (SALAH)\n- Opsi D: Nilai $< 49{,}5$ mencakup kelas 1, 2, 3: $8 + 18 + 28 = 54$. (BENAR)\n- Opsi E: Ogive data simetris berbentuk huruf S (sigmoidal), bukan garis lurus. (SALAH)\nKesimpulan: Opsi B dan D benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W13",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Persentase Kumulatif",
+    "materi": "P15 • Batas Kelas vs Tepi Kelas",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Tabel frekuensi ($n = 50$): $10-19$ ($5$), $20-29$ ($15$), $30-39$ ($20$), $40-49$ ($10$). Persentase kumulatif data yang bernilai kurang dari $29{,}5$ adalah ...",
+    "tanya": "Diberikan kelas interval $45{,}0 - 54{,}9$ untuk data hasil panen yang dicatat dalam ketelitian persepuluhan (satu angka di belakang koma). Nilai tepi bawah ($Tb$) dan tepi atas ($Ta$) kelas tersebut adalah ...",
     "opsi": [
-      "A. $40\\%$",
-      "B. $30\\%$",
-      "C. $50\\%$",
-      "D. $45\\%$",
-      "E. $35\\%$"
+      "A. $Tb = 44{,}5$ dan $Ta = 54{,}5$",
+      "B. $Tb = 44{,}95$ dan $Ta = 54{,}95$",
+      "C. $Tb = 44{,}0$ dan $Ta = 55{,}0$",
+      "D. $Tb = 45{,}0$ dan $Ta = 54{,}9$",
+      "E. $Tb = 44{,}9$ dan $Ta = 55{,}0$"
     ],
-    "kunci": "A",
-    "bahas": "Data $< 29{,}5$ adalah kelas 1 dan 2: $5 + 15 = 20$.\nPersentase $= \\frac{20}{50} \\times 100\\% = 40\\%$. Kunci A.",
+    "kunci": "B",
+    "bahas": "Langkah 1: Untuk data dengan ketelitian 1 desimal ($0{,}1$), setengah satuan unit adalah $\\frac{0{,}1}{2} = 0{,}05$.\nLangkah 2: Tepi bawah $Tb = 45{,}0 - 0{,}05 = 44{,}95$.\nLangkah 3: Tepi atas $Ta = 54{,}9 + 0{,}05 = 54{,}95$.\nKesimpulan: Kunci B benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W14",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Perpotongan Ogive",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Ogive Positif dan Ogive Negatif berpotongan pada absis $x = 42{,}3$ dengan ordinat frekuensi kumulatif $25$ pada sampel berukuran $N = 50$. Nilai median data tersebut adalah ...",
+    "materi": "P15 • Distribusi Frekuensi Bimodal",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Pada histogram distribusi frekuensi yang memiliki dua puncak batang terpisah sama tinggi (distribusi bimodal), kurva poligon frekuensinya akan memiliki dua titik balik maksimum lokal.\nSEBAB\nAlasan: Setiap distribusi frekuensi berkelompok yang memiliki dua kelas puncak pasti memiliki nilai rata-rata hitung (mean) yang sama persis dengan nilai kedua modusnya.",
     "opsi": [
-      "A. $42{,}3$",
-      "B. $25{,}0$",
-      "C. $50{,}0$",
-      "D. $40{,}0$",
-      "E. $45{,}0$"
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
     ],
-    "kunci": "A",
-    "bahas": "Sumbu horizontal menunjukkan nilai data, dan perpotongan kedua ogive terjadi pada nilai median. Maka Median $= 42{,}3$. Kunci A.",
-    "level": "Level 2 (Sedang)"
+    "kunci": "C",
+    "bahas": "Analisis:\n1. Pernyataan: BENAR. Pada distribusi bimodal, terdapat dua puncak terpisah sehingga poligon frekuensi memiliki dua titik balik maksimum lokal.\n2. Alasan: SALAH. Pada distribusi bimodal, nilai mean berada di antara kedua puncak tersebut dan umumnya berbeda dengan kedua nilai modusnya.\nKesimpulan: Pernyataan benar dan alasan salah (Kunci C).",
+    "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-W15",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Total Frekuensi Histogram",
+    "materi": "P15 • Menentukan Banyak Kelas (Aturan Sturgess)",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Sebuah histogram terdiri dari 5 balok berurutan dengan frekuensi $4, 8, 16, 8, 4$. Berapakah total frekuensi sampel data tersebut?",
+    "tanya": "Dalam riset emisi karbon kendaraan dengan ukuran sampel $n = 100$ data, peneliti menyusun tabel distribusi frekuensi menggunakan Aturan Sturgess $k = 1 + 3{,}322 \\log(n)$. Banyak kelas ($k$) yang direkomendasikan adalah ...",
     "opsi": [
-      "A. $40$",
-      "B. $36$",
-      "C. $44$",
-      "D. $48$",
-      "E. $50$"
+      "A. 6 kelas",
+      "B. 7 kelas",
+      "C. 8 kelas",
+      "D. 9 kelas",
+      "E. 10 kelas"
     ],
-    "kunci": "A",
-    "bahas": "Total $N = 4 + 8 + 16 + 8 + 4 = 40$. Kunci A.",
+    "kunci": "C",
+    "bahas": "Langkah 1: $\\log(100) = 2$.\nLangkah 2: $k = 1 + 3{,}322(2) = 1 + 6{,}644 = 7{,}644$.\nLangkah 3: Pembulatan ke atas pada aturan pengelompokan data menghasilkan $k = 8$ kelas.\nKesimpulan: Kunci C benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W16",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Rekonstruksi Interval Kelas",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Suatu kelas interval data bilangan bulat memiliki tepi bawah $19{,}5$ dan panjang kelas $10$. Interval kelas tersebut adalah ...",
+    "materi": "P15 • Rekonstruksi Interval Kelas Terbuka",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Suatu data pendapatan memiliki kelas interval terbuka pada batas atas: '$\\ge 100\\text{ juta rupiah}$' dengan frekuensi $5$. Analisis implikasi matematis dari kelas terbuka tersebut:",
     "opsi": [
-      "A. $20 - 29$",
-      "B. $19 - 28$",
-      "C. $20 - 30$",
-      "D. $19 - 29$",
-      "E. $21 - 30$"
+      "Kelas terbuka tersebut tidak memiliki batas atas definitif.",
+      "Titik tengah ($x_i$) untuk kelas terbuka tersebut tidak dapat dihitung secara eksak tanpa informasi datum maksimum.",
+      "Kurva Ogive Positif tidak dapat digambarkan sama sekali jika ada kelas terbuka.",
+      "Luas balok histogram kelas terbuka tidak dapat didefinisikan secara geometri berhingga."
     ],
-    "kunci": "A",
-    "bahas": "Batas bawah $= 19{,}5 + 0{,}5 = 20$. Batas atas $= 20 + 10 - 1 = 29$. Interval: $20 - 29$. Kunci A.",
-    "level": "Level 2 (Sedang)"
+    "kunci": "B - B - S - B",
+    "bahas": "Analisis:\n1. Baris 1: BENAR. Tidak ada batas atas tertulis pada interval terbuka '$\\ge 100$'.\n2. Baris 2: BENAR. Tanpa batas atas, nilai tengah $(Tb + Ta)/2$ tidak terdefinisi eksak.\n3. Baris 3: SALAH. Ogive Positif tetap dapat memetakan titik kumulatif pada tepi bawah kelas terbuka.\n4. Baris 4: BENAR. Balok histogram memerlukan alas $c$ berhingga; jika tanpa batas atas, lebar balok tak terhingga.\nKesimpulan: Kunci adalah B - B - S - B.",
+    "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-W17",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Titik Tengah dari Tepi",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Jika tepi bawah suatu kelas adalah $71{,}5$ dan tepi atasnya adalah $80{,}5$, nilai titik tengah kelas tersebut adalah ...",
-    "opsi": [
-      "A. $76$",
-      "B. $75{,}5$",
-      "C. $76{,}5$",
-      "D. $75$",
-      "E. $77$"
-    ],
-    "kunci": "A",
-    "bahas": "$x_i = \\frac{71{,}5 + 80{,}5}{2} = \\frac{152}{2} = 76$. Kunci A.",
-    "level": "Level 2 (Sedang)"
+    "materi": "P15 • Titik Tengah dari Tepi Kelas",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Suatu kelas interval memiliki tepi bawah $Tb = 71{,}5$ dan tepi atas $Ta = 80{,}5$. Berapakah nilai titik tengah ($x_i$) kelas tersebut?",
+    "opsi": [],
+    "kunci": "76",
+    "bahas": "Langkah 1: Titik tengah $x_i = \\frac{Tb + Ta}{2}$.\nLangkah 2: $x_i = \\frac{71{,}5 + 80{,}5}{2} = \\frac{152}{2} = 76$.\nKesimpulan: Jawaban numerik pasti adalah 76.",
+    "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W18",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Frekuensi Kumulatif",
+    "materi": "P15 • Frekuensi Relatif Kelas Tertentu",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Tabel distribusi frekuensi: $1-5$ ($3$), $6-10$ ($7$), $11-15$ ($12$), $16-20$ ($8$). Banyak data yang bernilai kurang dari $15{,}5$ adalah ...",
+    "tanya": "Diberikan distribusi frekuensi: $1-5$ ($3$), $6-10$ ($7$), $11-15$ ($12$), $16-20$ ($10$), $21-25$ ($8$). Frekuensi relatif kelas ke-3 dalam bentuk persen adalah ...",
     "opsi": [
-      "A. $22$",
-      "B. $10$",
-      "C. $12$",
-      "D. $20$",
-      "E. $30$"
+      "A. $12\\%$",
+      "B. $20\\%$",
+      "C. $25\\%$",
+      "D. $30\\%$",
+      "E. $35\\%$"
     ],
-    "kunci": "A",
-    "bahas": "$< 15{,}5$ mencakup kelas 1, 2, dan 3: $3 + 7 + 12 = 22$. Kunci A.",
-    "level": "Level 2 (Sedang)"
+    "kunci": "D",
+    "bahas": "Langkah 1: Total frekuensi $N = 3 + 7 + 12 + 10 + 8 = 40$.\nLangkah 2: Frekuensi kelas ke-3 adalah $f_3 = 12$.\nLangkah 3: Frekuensi relatif $= \\frac{12}{40} \\times 100\\% = 30\\%$.\nKesimpulan: Kunci D benar.",
+    "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W19",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Luas Total Persegi Panjang Histogram",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Jika lebar setiap balok histogram adalah $c = 5$ satuan, dan total frekuensi sampel data adalah $N = 60$, total luas daerah seluruh balok histogram adalah ...",
+    "materi": "P15 • Transformasi Histogram ke Poligon",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Ketika mengonversi histogram frekuensi menjadi kurva poligon frekuensi, centang SEMUA kaidah metodologis yang BENAR!",
     "opsi": [
-      "A. $300\\text{ satuan luas}$",
-      "B. $120\\text{ satuan luas}$",
-      "C. $600\\text{ satuan luas}$",
-      "D. $150\\text{ satuan luas}$",
-      "E. $240\\text{ satuan luas}$"
+      "A. Titik koordinat poligon diambil dari titik tengah sisi atas setiap batang balok histogram.",
+      "B. Sumbu horizontal poligon wajib menggunakan tepi kelas.",
+      "C. Ujung kiri dan kanan poligon dibiarkan melayang di udara tanpa menyentuh sumbu absis.",
+      "D. Ujung kurva poligon ditutup ke sumbu horizontal pada titik tengah kelas imajiner sebelum kelas pertama dan sesudah kelas terakhir dengan frekuensi 0.",
+      "E. Luas daerah di bawah kurva poligon tertutup setara dengan luas total seluruh balok histogram."
     ],
-    "kunci": "A",
-    "bahas": "Total luas $= \\sum (c \\times f_i) = c \\times \\sum f_i = 5 \\times 60 = 300\\text{ satuan luas}$. Kunci A.",
+    "kunci": "A, D, E",
+    "bahas": "Evaluasi Kaidah:\n- Opsi A: BENAR, titik puncak poligon adalah $(x_i, f_i)$.\n- Opsi B: SALAH, sumbu horizontal menggunakan titik tengah ($x_i$).\n- Opsi C: SALAH, poligon tidak boleh dibiarkan mengambang.\n- Opsi D: BENAR, kurva ditutup ke titik tengah kelas semu sebelum dan sesudahnya dengan frekuensi $0$.\n- Opsi E: BENAR, luas poligon tertutup sama persis dengan luas total balok histogram.\nKesimpulan: Opsi A, D, dan E benar.",
     "level": "Level 2 (Sedang)"
   },
   {
@@ -342,254 +326,240 @@
     "mapel": "Matematika Wajib",
     "materi": "P15 • Karakteristik Ogive Relatif",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Pada kurva Ogive Relatif (persentase frekuensi kumulatif kurang dari), titik koordinat pada tepi atas kelas terakhir selalu bernilai ...",
+    "tanya": "Pada kurva Ogive Relatif (persentase frekuensi kumulatif kurang dari), nilai ordinat pada tepi atas kelas terakhir selalu bernilai tepat ...",
     "opsi": [
-      "A. $100\\%$",
+      "A. $0\\%$",
       "B. $50\\%$",
-      "C. $0\\%$",
-      "D. $95\\%$",
-      "E. $N$"
+      "C. Tergantung banyaknya kelas",
+      "D. $90\\%$",
+      "E. $100\\%$"
     ],
-    "kunci": "A",
-    "bahas": "Ogive persentase menjumlahkan seluruh frekuensi relatif hingga kelas terakhir, sehingga selalu mencapai $100\\%$. Kunci A.",
-    "level": "Level 3 (HOTS)"
+    "kunci": "E",
+    "bahas": "Langkah 1: Ogive Positif menjumlahkan seluruh frekuensi dari kelas pertama sampai kelas terakhir.\nLangkah 2: Pada tepi atas kelas paling akhir, seluruh $N$ datum telah terhitung.\nLangkah 3: Dalam skala relatif, $\\frac{N}{N} \\times 100\\% = 100\\%$.\nKesimpulan: Kunci E benar.",
+    "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W21",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Interval dari Tepi",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Tepi bawah suatu kelas adalah $49{,}5$ dan tepi atasnya adalah $59{,}5$. Jika data berupa bilangan bulat, interval kelas tersebut adalah ...",
+    "materi": "P15 • Interval dari Tepi Kelas",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Jika tepi bawah suatu kelas data bilangan bulat adalah $49{,}5$ dan tepi atasnya adalah $59{,}5$, maka interval kelas aslinya adalah $50 - 59$.\nSEBAB\nAlasan: Panjang interval kelas data tersebut diperoleh dari selisih tepi atas dikurangi tepi bawah, yaitu $59{,}5 - 49{,}5 = 10$.",
     "opsi": [
-      "A. $50 - 59$",
-      "B. $49 - 59$",
-      "C. $50 - 60$",
-      "D. $49 - 60$",
-      "E. $51 - 60$"
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
     ],
-    "kunci": "A",
-    "bahas": "Batas bawah $= 49{,}5 + 0{,}5 = 50$, batas atas $= 59{,}5 - 0{,}5 = 59$. Interval: $50 - 59$. Kunci A.",
-    "level": "Level 3 (HOTS)"
+    "kunci": "B",
+    "bahas": "Analisis:\n1. Pernyataan: BENAR. Batas bawah bulat $= 49{,}5 + 0{,}5 = 50$, batas atas bulat $= 59{,}5 - 0{,}5 = 59$. Interval $= 50 - 59$.\n2. Alasan: BENAR. Panjang kelas $c = Ta - Tb = 59{,}5 - 49{,}5 = 10$.\n3. Hubungan: Keduanya benar, namun alasan menghitung panjang kelas bukan merupakan hukum kausal yang mendefinisikan pembentukan batas bulat $50-59$ dari tepi desimal.\nKesimpulan: Kunci B benar.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W22",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Titik Tengah Interval Lebar Genap",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Titik tengah dari kelas interval $100 - 110$ adalah ...",
+    "materi": "P15 • Analisis Titik Tengah & Lebar Kelas",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Diberikan kelas interval $100 - 110$ untuk data bilangan bulat. Evaluasi kebenaran pernyataan-pernyataan berikut:",
     "opsi": [
-      "A. $105$",
-      "B. $104{,}5$",
-      "C. $105{,}5$",
-      "D. $106$",
-      "E. $104$"
+      "Panjang kelas interval tersebut adalah 10 satuan.",
+      "Titik tengah kelas interval tersebut adalah 105.",
+      "Tepi bawah kelas tersebut adalah 99,5 dan tepi atasnya adalah 110,5.",
+      "Banyak bilangan bulat yang tercakup dalam interval tersebut adalah 11 bilangan."
     ],
-    "kunci": "A",
-    "bahas": "$x_i = \\frac{100 + 110}{2} = \\frac{210}{2} = 105$. Kunci A.",
-    "level": "Level 3 (HOTS)"
+    "kunci": "S - B - B - B",
+    "bahas": "Analisis:\n1. Baris 1: Panjang kelas bilangan bulat adalah $c = 110 - 100 + 1 = 11$, bukan 10. (SALAH)\n2. Baris 2: Titik tengah $x_i = \\frac{100 + 110}{2} = 105$. (BENAR)\n3. Baris 3: Tepi bawah $Tb = 100 - 0{,}5 = 99{,}5$; Tepi atas $Ta = 110{,}5$. (BENAR)\n4. Baris 4: Bilangan dari 100 s.d. 110 berjumlah $110 - 100 + 1 = 11$ bilangan. (BENAR)\nKesimpulan: Kunci adalah S - B - B - B.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W23",
     "mapel": "Matematika Wajib",
     "materi": "P15 • Modus Visual Histogram",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Balok-balok histogram memiliki tepi bawah $9{,}5; 19{,}5; 29{,}5; 39{,}5$ dengan frekuensi $8, 14, 25, 13$. Batang tertinggi berada pada kelas interval ...",
+    "tanya": "Tiga balok berturut-turut pada histogram memiliki tepi kelas $[9{,}5; 19{,}5]$, $[19{,}5; 29{,}5]$, dan $[29{,}5; 39{,}5]$ dengan frekuensi berturut-turut $8, 20,$ dan $12$. Kelas modus data tersebut adalah ...",
     "opsi": [
-      "A. $30 - 39$",
-      "B. $20 - 29$",
-      "C. $40 - 49$",
-      "D. $10 - 19$",
-      "E. $29 - 39$"
+      "A. $20 - 29$",
+      "B. $10 - 19$",
+      "C. $30 - 39$",
+      "D. $19{,}5 - 29{,}5$",
+      "E. $20 - 30$"
     ],
     "kunci": "A",
-    "bahas": "Frekuensi terbesar adalah $25$ pada interval dengan tepi $29{,}5 - 39{,}5$, yaitu kelas $30 - 39$. Kunci A.",
-    "level": "Level 3 (HOTS)"
+    "bahas": "Langkah 1: Kelas dengan frekuensi tertinggi adalah balok tengah dengan frekuensi $20$.\nLangkah 2: Tepi kelas balok tersebut adalah $[19{,}5; 29{,}5]$.\nLangkah 3: Interval kelas bulat aslinya adalah $(19{,}5 + 0{,}5) - (29{,}5 - 0{,}5) = 20 - 29$.\nKesimpulan: Kunci A benar.",
+    "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W24",
     "mapel": "Matematika Wajib",
-    "materi": "P15 • Persentase Kumulatif Ogive",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Total sampel data adalah $N = 80$. Jika frekuensi kumulatif kelas ke-3 adalah $56$, persentase nilai pada kurva Ogive kelas tersebut adalah ...",
+    "materi": "P15 • Persentase Kumulatif & Ogive",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Total sampel data adalah $N = 80$. Frekuensi kumulatif kurang dari $Ta_3 = 60{,}5$ adalah 60 datum. Centang SEMUA pernyataan yang BENAR!",
     "opsi": [
-      "A. $70\\%$",
-      "B. $65\\%$",
-      "C. $75\\%$",
-      "D. $60\\%$",
-      "E. $80\\%$"
+      "A. Persentase data yang bernilai $\\le 60{,}5$ adalah $60\\%$.",
+      "B. Persentase data yang bernilai $\\le 60{,}5$ adalah $75\\%$.",
+      "C. Banyak datum yang nilainya $> 60{,}5$ adalah 20 datum.",
+      "D. Titik pada Ogive Negatif di absis $60{,}5$ bernilai 60 datum.",
+      "E. Titik pada Ogive Negatif di absis $60{,}5$ bernilai 20 datum."
     ],
-    "kunci": "A",
-    "bahas": "Persentase $= \\frac{56}{80} \\times 100\\% = 70\\%$. Kunci A.",
-    "level": "Level 3 (HOTS)"
+    "kunci": "B, C, E",
+    "bahas": "Evaluasi:\n- Opsi A & B: Persentase $\\le 60{,}5 = \\frac{60}{80} \\times 100\\% = 75\\%$. Jadi B benar, A salah.\n- Opsi C: Sisanya $= 80 - 60 = 20$ datum. (BENAR)\n- Opsi D & E: Pada Ogive Negatif ($F_k$ lebih dari), frekuensinya adalah datum yang $> 60{,}5$, yaitu $20$ datum. Jadi E benar, D salah.\nKesimpulan: Opsi B, C, dan E benar.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W25",
     "mapel": "Matematika Wajib",
     "materi": "P15 • Rekonstruksi Tepi dari Puncak Poligon",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Puncak tertinggi poligon frekuensi berada di koordinat $(27, 18)$. Jika panjang kelas $p = 6$, tepi bawah dan tepi atas kelas tersebut adalah ...",
+    "tanya": "Puncak tertinggi poligon frekuensi berada di koordinat $(27, 24)$. Jika panjang kelas interval data tersebut konstan $c = 6$ dan data merupakan bilangan bulat dengan batas teratur, interval kelas modus aslinya adalah ...",
     "opsi": [
-      "A. $24{,}0$ dan $30{,}0$",
-      "B. $23{,}5$ dan $29{,}5$",
-      "C. $24{,}5$ dan $30{,}5$",
-      "D. $21{,}0$ dan $27{,}0$",
-      "E. $25{,}0$ dan $31{,}0$"
+      "A. $23 - 29$",
+      "B. $25 - 30$",
+      "C. $24 - 30$",
+      "D. $24 - 29$",
+      "E. $25 - 29$"
     ],
-    "kunci": "A",
-    "bahas": "$Tb = 27 - \\frac{6}{2} = 24{,}0$; $Ta = 27 + \\frac{6}{2} = 30{,}0$. Kunci A.",
+    "kunci": "D",
+    "bahas": "Langkah 1: Panjang kelas $c = 6$. Untuk interval bulat $24 - 29$, banyaknya data adalah $29 - 24 + 1 = 6$.\nLangkah 2: Tepi bawah $Tb = 23{,}5$, tepi atas $Ta = 29{,}5$.\nLangkah 3: Titik tengah interval tersebut adalah $\\frac{24 + 29}{2} = 26{,}5 \\approx 27$.\nKesimpulan: Kunci D ($24 - 29$) benar.",
     "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-W26",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Mean Titik Tengah",
+    "materi": "P16 • Rata-rata Hitung Metode Titik Tengah",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Tabel nilai matematika: $40-49$ ($4$), $50-59$ ($6$), $60-69$ ($10$), $70-79$ ($14$), $80-89$ ($6$). Nilai rata-rata hitung (mean) data tersebut adalah ...",
+    "tanya": "Diberikan tabel distribusi frekuensi nilai ujian matematika: $40-49$ ($4$), $50-59$ ($6$), $60-69$ ($10$), $70-79$ ($14$), $80-89$ ($6$). Nilai rata-rata hitung (mean $\\bar{x}$) data tersebut adalah ...",
     "opsi": [
-      "A. $67{,}5$",
-      "B. $66{,}8$",
-      "C. $68{,}2$",
-      "D. $69{,}0$",
-      "E. $65{,}5$"
+      "A. $65{,}5$",
+      "B. $66{,}0$",
+      "C. $67{,}5$",
+      "D. $68{,}0$",
+      "E. $69{,}5$"
     ],
-    "kunci": "A",
-    "bahas": "Langkah 1: Titik tengah $x_i$: $44{,}5; 54{,}5; 64{,}5; 74{,}5; 84{,}5$.\nLangkah 2: $\\sum f_i x_i = 4(44{,}5) + 6(54{,}5) + 10(64{,}5) + 14(74{,}5) + 6(84{,}5) = 178 + 327 + 645 + 1.043 + 507 = 2.700$.\nLangkah 3: $\\bar{x} = \\frac{2.700}{40} = 67{,}5$.\nKesimpulan: Kunci A.",
+    "kunci": "C",
+    "bahas": "Langkah 1: Tentukan titik tengah ($x_i$): $44{,}5; 54{,}5; 64{,}5; 74{,}5; 84{,}5$.\nLangkah 2: Hitung $f_i \\times x_i$:\n- $4 \\times 44{,}5 = 178$\n- $6 \\times 54{,}5 = 327$\n- $10 \\times 64{,}5 = 645$\n- $14 \\times 74{,}5 = 1043$\n- $6 \\times 84{,}5 = 507$\nLangkah 3: $\\sum f_i x_i = 178 + 327 + 645 + 1043 + 507 = 2700$.\nLangkah 4: $N = 40 \\implies \\bar{x} = \\frac{2700}{40} = 67{,}5$.\nKesimpulan: Kunci C benar.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W27",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Mean Metode Coding",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Pada tabel soal sebelumnya, jika digunakan rataan sementara $x_s = 64{,}5$ (titik tengah kelas ke-3 dengan kode $u_3 = 0$) dan panjang kelas $c = 10$, berapakah nilai $\\sum f_i u_i$?",
-    "opsi": [
-      "A. $12$",
-      "B. $8$",
-      "C. $10$",
-      "D. $14$",
-      "E. $16$"
-    ],
-    "kunci": "A",
-    "bahas": "Kode $u_i$: $-2, -1, 0, 1, 2$.\n$\\sum f_i u_i = 4(-2) + 6(-1) + 10(0) + 14(1) + 6(2) = -8 - 6 + 0 + 14 + 12 = 12$.\nPerhitungan mean: $\\bar{x} = 64{,}5 + \\frac{12}{40} \\times 10 = 64{,}5 + 3 = 67{,}5$. Kunci A.",
+    "materi": "P16 • Mean Metode Pengkodean (Coding)",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Pada tabel soal sebelumnya ($N = 40, c = 10$), jika digunakan metode pengkodean dengan rataan sementara pada kelas ke-3 ($x_s = 64{,}5$) sehingga kode kelasnya berturut-turut adalah $u_i = -2, -1, 0, 1, 2$ dengan frekuensi $4, 6, 10, 14, 6$.\n\nBerapakah nilai total dari $\\sum f_i u_i$?",
+    "opsi": [],
+    "kunci": "12",
+    "bahas": "Langkah 1: Hitung masing-masing perkalian $f_i u_i$:\n- $4 \\times (-2) = -8$\n- $6 \\times (-1) = -6$\n- $10 \\times 0 = 0$\n- $14 \\times 1 = 14$\n- $6 \\times 2 = 12$\nLangkah 2: $\\sum f_i u_i = -8 - 6 + 0 + 14 + 12 = 12$.\nKesimpulan: Jawaban numerik pasti adalah 12.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W28",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rata-Rata Gabungan Rombel",
+    "materi": "P16 • Rata-rata Gabungan Dua Rombel",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Nilai rata-rata tes matematika kelas XII F.1 ($25$ siswa) adalah $78$, sedangkan kelas XII F.2 ($25$ siswa) adalah $84$. Rata-rata gabungan kedua kelas adalah ...",
+    "tanya": "Nilai rata-rata tes matematika kelas XII F.1 ($25$ siswa) adalah $82$, dan kelas XII F.2 ($25$ siswa) adalah $78$. Nilai rata-rata gabungan dari kedua rombongan belajar tersebut adalah ...",
     "opsi": [
-      "A. $81{,}0$",
-      "B. $80{,}5$",
-      "C. $81{,}5$",
-      "D. $82{,}0$",
-      "E. $79{,}5$"
+      "A. $79{,}0$",
+      "B. $79{,}5$",
+      "C. $80{,}5$",
+      "D. $80{,}0$",
+      "E. $81{,}0$"
     ],
-    "kunci": "A",
-    "bahas": "$\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2}{n_1 + n_2} = \\frac{25(78) + 25(84)}{50} = \\frac{78 + 84}{2} = 81{,}0$. Kunci A.",
+    "kunci": "D",
+    "bahas": "Langkah 1: Karena jumlah siswa kedua rombel sama banyak ($n_1 = n_2 = 25$), rata-rata gabungan merupakan rata-rata sederhana dari kedua mean.\nLangkah 2: $\\bar{x}_{gab} = \\frac{82 + 78}{2} = \\frac{160}{2} = 80{,}0$.\nKesimpulan: Kunci D benar.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W29",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rekonstruksi Frekuensi Tak Diketahui",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Distribusi frekuensi: $10-14$ ($4$), $15-19$ ($6$), $20-24$ ($k$), $25-29$ ($4$). Jika rata-rata hitung data adalah $\\bar{x} = 20$, tentukan nilai frekuensi $k$!",
+    "materi": "P16 • Rekonstruksi Frekuensi Hilang",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Distribusi frekuensi: $10-14$ ($4$), $15-19$ ($6$), $20-24$ ($k$), $25-29$ ($4$). Diketahui titik tengah kelas adalah $12, 17, 22, 27$ dan nilai mean data adalah $\\bar{x} = 19{,}5$. Tentukan kebenaran setiap pernyataan berikut:",
     "opsi": [
-      "A. $11$",
-      "B. $10$",
-      "C. $12$",
-      "D. $9$",
-      "E. $8$"
+      "Nilai frekuensi tak diketahui $k$ adalah tepat 6.",
+      "Total seluruh data pengamatan ($N$) adalah 18.",
+      "Jumlah hasil kali frekuensi dan titik tengah seluruhnya adalah 390.",
+      "Nilai rata-rata hitung berada tepat di dalam kelas interval ke-2 ($15-19$)."
     ],
-    "kunci": "A",
-    "bahas": "Titik tengah: $x_1=12, x_2=17, x_3=22, x_4=27$.\nTotal frekuensi $= 4 + 6 + k + 4 = 14 + k$.\n$\\sum f_i x_i = 4(12) + 6(17) + 22k + 4(27) = 48 + 102 + 22k + 108 = 258 + 22k$.\n$\\bar{x} = \\frac{258 + 22k}{14 + k} = 20 \\implies 258 + 22k = 280 + 20k \\implies 2k = 22 \\implies k = 11$. Kunci A.",
-    "level": "Level 1 (Mudah)"
+    "kunci": "B - S - B - B",
+    "bahas": "Analisis:\n1. Persamaan mean: $\\bar{x} = \\frac{4(12) + 6(17) + 22k + 4(27)}{4 + 6 + k + 4} = \\frac{48 + 102 + 22k + 108}{14 + k} = \\frac{258 + 22k}{14 + k} = 19{,}5$.\n2. $258 + 22k = 19{,}5(14 + k) = 273 + 19{,}5k$.\n3. $22k - 19{,}5k = 273 - 258 \\implies 2{,}5k = 15 \\implies k = 6$. (Baris 1: BENAR)\n4. Total data $N = 14 + k = 14 + 6 = 20$ (bukan 18). (Baris 2: SALAH)\n5. $\\sum f x = 258 + 22(6) = 258 + 132 = 390$. (Baris 3: BENAR)\n6. Mean $= 19{,}5$ berada di perbatasan kelas ke-2 ($Ta = 19{,}5$). (Baris 4: BENAR)\nKesimpulan: Kunci adalah B - S - B - B.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W30",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Transformasi Linier Mean",
+    "materi": "P16 • Transformasi Linier Nilai Mean",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata nilai ulangan 40 siswa adalah $68$. Guru melakukan kalibrasi linier dengan formula $y_i = 1{,}2 x_i - 5$. Nilai rata-rata baru siswa adalah ...",
+    "tanya": "Rata-rata nilai ulangan matematika 40 siswa adalah $65$. Guru melakukan konversi penskalaan standar: setiap nilai siswa dikalikan $1{,}2$ kemudian ditambah $5$. Rata-rata nilai baru kelas tersebut adalah ...",
     "opsi": [
-      "A. $76{,}6$",
-      "B. $75{,}8$",
-      "C. $77{,}2$",
-      "D. $78{,}0$",
-      "E. $74{,}4$"
+      "A. $75$",
+      "B. $78$",
+      "C. $80$",
+      "D. $82$",
+      "E. $83$"
     ],
-    "kunci": "A",
-    "bahas": "Sifat linearitas rata-rata: $\\bar{y} = 1{,}2 \\bar{x} - 5 = 1{,}2(68) - 5 = 81{,}6 - 5 = 76{,}6$. Kunci A.",
+    "kunci": "E",
+    "bahas": "Langkah 1: Sifat transformasi linier mean: jika $y_i = a x_i + b$, maka $\\bar{y} = a \\bar{x} + b$.\nLangkah 2: Di sini $a = 1{,}2$ dan $b = 5$.\nLangkah 3: $\\bar{y} = 1{,}2(65) + 5 = 78 + 5 = 83$.\nKesimpulan: Kunci E benar.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W31",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rata-Rata Hitung Emisi Karbon",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Data emisi karbon (ton): $10-19$ ($6$), $20-29$ ($10$), $30-39$ ($14$), $40-49$ ($12$), $50-59$ ($8$). Rata-rata hitung data emisi tersebut adalah ...",
+    "materi": "P16 • Analisis Rataan Sementara Emisi Karbon",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Data emisi karbon industri (ton): $10-19$ ($6$), $20-29$ ($10$), $30-39$ ($14$), $40-49$ ($10$). Titik tengah kelas berturut-turut $14{,}5; 24{,}5; 34{,}5; 44{,}5$. Jika ditetapkan rataan sementara $x_s = 34{,}5$, centang SEMUA pernyataan yang BENAR!",
     "opsi": [
-      "A. $35{,}7\\text{ ton}$",
-      "B. $34{,}5\\text{ ton}$",
-      "C. $36{,}2\\text{ ton}$",
-      "D. $35{,}0\\text{ ton}$",
-      "E. $37{,}1\\text{ ton}$"
+      "A. Deviasi titik tengah ($d_i = x_i - x_s$) untuk kelas pertama adalah $-20$.",
+      "B. Jumlah seluruh frekuensi ($N$) adalah 40 industri.",
+      "C. Nilai total deviasi berbobot $\\sum f_i d_i$ bernilai positif.",
+      "D. Nilai rata-rata hitung asli (mean) emisi karbon adalah $29{,}5\\text{ ton}$.",
+      "E. Karena nilai rataan sementara diambil $34{,}5$, maka mean pasti lebih besar dari $34{,}5$."
     ],
-    "kunci": "A",
-    "bahas": "Titik tengah: $14{,}5; 24{,}5; 34{,}5; 44{,}5; 54{,}5$.\n$\\sum f_i x_i = 6(14{,}5) + 10(24{,}5) + 14(34{,}5) + 12(44{,}5) + 8(54{,}5) = 87 + 245 + 483 + 534 + 436 = 1.785$.\n$\\bar{x} = \\frac{1.785}{50} = 35{,}7\\text{ ton}$. Kunci A.",
-    "level": "Level 1 (Mudah)"
+    "kunci": "A, B, D",
+    "bahas": "Evaluasi:\n- Deviasi $d_i = [-20, -10, 0, 10]$. Kelas 1: $14{,}5 - 34{,}5 = -20$. (Opsi A: BENAR)\n- $N = 6 + 10 + 14 + 10 = 40$. (Opsi B: BENAR)\n- $\\sum f_i d_i = 6(-20) + 10(-10) + 14(0) + 10(10) = -120 - 100 + 0 + 100 = -120$ (negatif). (Opsi C: SALAH)\n- $\\bar{x} = 34{,}5 + \\frac{-120}{40} = 34{,}5 - 3 = 29{,}5\\text{ ton}$. (Opsi D: BENAR)\n- Mean $29{,}5 < 34{,}5$. (Opsi E: SALAH)\nKesimpulan: Opsi A, B, dan D benar.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W32",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Metode Coding Emisi Karbon",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Jika data emisi karbon dihitung dengan metode pengkodean $u_i$ dengan acuan $x_s = 34{,}5$ dan panjang kelas $c = 10$, nilai $\\sum f_i u_i$ adalah ...",
+    "materi": "P16 • Efektivitas Metode Coding",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Perhitungan rata-rata data berkelompok dengan metode pengkodean ($u_i = \\frac{x_i - x_s}{c}$) selalu menghasilkan nilai mean yang identik dengan metode titik tengah konvensional ($\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i}$).\nSEBAB\nAlasan: Rumus metode pengkodean diturunkan secara aljabar eksak dari sifat distributif penjumlahan rata-rata tertimbang.",
     "opsi": [
-      "A. $6$",
-      "B. $8$",
-      "C. $10$",
-      "D. $4$",
-      "E. $12$"
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
     ],
     "kunci": "A",
-    "bahas": "Kode $u_i$: $-2, -1, 0, 1, 2$.\n$\\sum f_i u_i = 6(-2) + 10(-1) + 14(0) + 12(1) + 8(2) = -12 - 10 + 0 + 12 + 16 = 6$.\n$\\bar{x} = 34{,}5 + \\frac{6}{50}(10) = 34{,}5 + 1{,}2 = 35{,}7$. Kunci A.",
+    "bahas": "Analisis:\n1. Pernyataan: BENAR. Nilai mean dari kedua metode selalu sama persis secara matematis.\n2. Alasan: BENAR. Formula $\\bar{x} = x_s + c \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right)$ merupakan bentuk aljabar ekuivalen dari $\\frac{\\sum f_i x_i}{\\sum f_i}$.\n3. Hubungan: Penurunan aljabar yang sah menjadi penyebab mengapa hasil akhirnya selalu bernilai identik.\nKesimpulan: Kunci A benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W33",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rata-Rata Gabungan Tiga Kelompok",
+    "materi": "P16 • Rata-rata Tiga Kelompok",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Tiga kelompok riset beranggotakan $10, 15,$ dan $25$ siswa memiliki rata-rata skor berturut-turut $80, 76,$ dan $72$. Nilai rata-rata gabungan seluruh siswa adalah ...",
+    "tanya": "Tiga kelompok riset sains beranggotakan $10, 15,$ dan $25$ siswa memiliki nilai rata-rata berturut-turut $70, 80,$ dan $90$. Nilai rata-rata gabungan seluruh 50 siswa tersebut adalah ...",
     "opsi": [
-      "A. $74{,}8$",
-      "B. $75{,}2$",
-      "C. $76{,}0$",
-      "D. $73{,}6$",
-      "E. $74{,}0$"
+      "A. $83$",
+      "B. $80$",
+      "C. $82$",
+      "D. $85$",
+      "E. $84$"
     ],
     "kunci": "A",
-    "bahas": "$\\bar{x}_{\\text{gab}} = \\frac{10(80) + 15(76) + 25(72)}{50} = \\frac{800 + 1.140 + 1.800}{50} = \\frac{3.740}{50} = 74{,}8$. Kunci A.",
+    "bahas": "Langkah 1: Hitung total nilai masing-masing kelompok:\n- Kelompok 1: $10 \\times 70 = 700$\n- Kelompok 2: $15 \\times 80 = 1200$\n- Kelompok 3: $25 \\times 90 = 2250$\nLangkah 2: Total nilai $= 700 + 1200 + 2250 = 4150$.\nLangkah 3: Total siswa $= 10 + 15 + 25 = 50$.\nLangkah 4: $\\bar{x}_{gab} = \\frac{4150}{50} = 83$.\nKesimpulan: Kunci A benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W34",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rekonstruksi Siswa Baru",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata nilai 29 siswa adalah $75$. Jika nilai seorang siswa baru bernama Farhan digabungkan, rata-rata kelas naik menjadi $75{,}5$. Nilai Farhan adalah ...",
-    "opsi": [
-      "A. $90$",
-      "B. $88$",
-      "C. $92$",
-      "D. $85$",
-      "E. $95$"
-    ],
-    "kunci": "A",
-    "bahas": "Total nilai awal $= 29 \\times 75 = 2.175$.\nTotal nilai baru $= 30 \\times 75{,}5 = 2.265$.\nNilai Farhan $= 2.265 - 2.175 = 90$. Kunci A.",
+    "materi": "P16 • Rekonstruksi Siswa Baru Masuk",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Rata-rata nilai ulangan harian 29 siswa adalah $75$. Jika nilai seorang siswa pindahan yang baru masuk digabungkan, nilai rata-rata kelas naik menjadi $75{,}5$.\n\nBerapakah nilai ulangan siswa baru tersebut?",
+    "opsi": [],
+    "kunci": "90",
+    "bahas": "Langkah 1: Total nilai awal 29 siswa $= 29 \\times 75 = 2175$.\nLangkah 2: Setelah 1 siswa masuk, banyak siswa $= 30$ orang dengan rata-rata $75{,}5$.\nLangkah 3: Total nilai baru $= 30 \\times 75{,}5 = 2265$.\nLangkah 4: Nilai siswa baru $= 2265 - 2175 = 90$.\nKesimpulan: Jawaban numerik pasti adalah 90.",
     "level": "Level 2 (Sedang)"
   },
   {
@@ -597,449 +567,426 @@
     "mapel": "Matematika Wajib",
     "materi": "P16 • Koreksi Salah Catat Data",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Pada pengukuran 30 sampel, seorang asisten salah mencatat nilai salah satu sampel dari seharusnya $85$ tertulis $55$. Jika rata-rata terhitung adalah $71$, rata-rata sebenarnya adalah ...",
+    "tanya": "Pada pengukuran 30 sampel, seorang asisten salah mencatat nilai suatu sampel: terbaca $55$, padahal nilai sebenarnya adalah $85$. Jika rata-rata awal sebelum dikoreksi adalah $60$, maka rata-rata yang benar setelah dikoreksi adalah ...",
     "opsi": [
-      "A. $72$",
-      "B. $73$",
-      "C. $71{,}5$",
-      "D. $74$",
-      "E. $70$"
+      "A. $60{,}5$",
+      "B. $61{,}0$",
+      "C. $61{,}5$",
+      "D. $62{,}0$",
+      "E. $63{,}0$"
     ],
-    "kunci": "A",
-    "bahas": "Selisih penambahan $= 85 - 55 = +30$.\nKenaikan rata-rata $= \\frac{+30}{30} = +1$.\nRata-rata sebenarnya $= 71 + 1 = 72$. Kunci A.",
+    "kunci": "B",
+    "bahas": "Langkah 1: Selisih data $= 85 - 55 = +30$.\nLangkah 2: Efek penambahan terhadap rata-rata $= \\frac{+30}{30} = +1{,}0$.\nLangkah 3: Mean terkoreksi $= 60 + 1{,}0 = 61{,}0$.\nKesimpulan: Kunci B benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W36",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rataan Sementara Simetris",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Tinggi bibit mangrove (cm): $11-15$ ($4$), $16-20$ ($8$), $21-25$ ($16$), $26-30$ ($8$), $31-35$ ($4$). Nilai rata-rata tinggi bibit mangrove adalah ...",
+    "materi": "P16 • Rataan Sementara Data Simetris",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Diberikan tabel tinggi bibit mangrove: $11-15\\text{ cm}$ ($4$), $16-20\\text{ cm}$ ($8$), $21-25\\text{ cm}$ ($14$), $26-30\\text{ cm}$ ($8$), $31-35\\text{ cm}$ ($4$). Titik tengah kelas berturut-turut $13, 18, 23, 28, 33$. Analisis sifat rataan data simetris ini:",
     "opsi": [
-      "A. $23\\text{ cm}$",
-      "B. $22\\text{ cm}$",
-      "C. $24\\text{ cm}$",
-      "D. $23{,}5\\text{ cm}$",
-      "E. $22{,}5\\text{ cm}$"
+      "Jika dipilih rataan sementara $x_s = 23$, maka jumlah deviasi berbobot $\\sum f_i d_i$ bernilai 40.",
+      "Karena distribusi frekuensi simetris sempurna terhadap kelas tengah ($21-25$), maka nilai mean data adalah tepat 23 cm.",
+      "Jika seluruh frekuensi dikalikan dua, nilai mean data akan bertambah menjadi 46 cm.",
+      "Jika setiap bibit bertumbuh 5 cm, maka rata-rata baru menjadi 28 cm."
     ],
-    "kunci": "A",
-    "bahas": "Karena data dan frekuensinya simetris sempurna terhadap kelas tengah ($21-25$), maka rata-rata tepat sama dengan titik tengah kelas tengah: $x_3 = \\frac{21+25}{2} = 23\\text{ cm}$. Kunci A.",
+    "kunci": "S - B - S - B",
+    "bahas": "Analisis:\n1. Baris 1: Karena simetris terhadap $23$, deviasi negatif dan positif saling menghilangkan: $\\sum f_i d_i = 4(-10) + 8(-5) + 14(0) + 8(5) + 4(10) = 0$ (bukan 40). (SALAH)\n2. Baris 2: Karena $\\sum f_i d_i = 0$, $\\bar{x} = x_s = 23\\text{ cm}$. (BENAR)\n3. Baris 3: Mengalikan frekuensi dengan konstanta tidak mengubah bobot proporsional, mean tetap $23\\text{ cm}$ (bukan 46). (SALAH)\n4. Baris 4: Menambah setiap nilai dengan $5$ menaikkan mean sebesar $5$: $23 + 5 = 28\\text{ cm}$. (BENAR)\nKesimpulan: Kunci adalah S - B - S - B.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W37",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Pembuktian Deviasi Simetris",
+    "materi": "P16 • Pembuktian Sifat Deviasi Rataan",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Pada tabel mangrove di atas, jika diambil rataan sementara $x_s = 23$ (titik tengah kelas ke-3), berapakah nilai total deviasi $\\sum f_i d_i$?",
+    "tanya": "Untuk setiap kumpulan data kuantitatif dengan rata-rata hitung $\\bar{x}$, jumlah seluruh deviasi datum terhadap mean-nya, yaitu $\\sum_{i=1}^n (x_i - \\bar{x})$, selalu bernilai ...",
     "opsi": [
-      "A. $0$",
-      "B. $10$",
-      "C. $-10$",
-      "D. $20$",
-      "E. $5$"
+      "A. Lebih besar dari nol",
+      "B. Tergantung nilai varians",
+      "C. Tepat sama dengan nol",
+      "D. Sama dengan ukuran sampel $n$",
+      "E. Sama dengan nilai median"
     ],
-    "kunci": "A",
-    "bahas": "$d_i = x_i - 23$: $-10, -5, 0, 5, 10$.\n$\\sum f_i d_i = 4(-10) + 8(-5) + 16(0) + 8(5) + 4(10) = -40 - 40 + 0 + 40 + 40 = 0$. Kunci A.",
-    "level": "Level 2 (Sedang)"
+    "kunci": "C",
+    "bahas": "Langkah 1: $\\sum_{i=1}^n (x_i - \\bar{x}) = \\sum x_i - \\sum \\bar{x}$.\nLangkah 2: Karena $\\sum x_i = n \\bar{x}$ dan $\\sum \\bar{x} = n \\bar{x}$, maka:\nLangkah 3: $\\sum (x_i - \\bar{x}) = n \\bar{x} - n \\bar{x} = 0$.\nKesimpulan: Kunci C benar.",
+    "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W38",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rasio Frekuensi dari Mean Gabungan",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata nilai matematika siswa putra adalah $74$, dan siswa putri $82$. Jika rata-rata seluruh siswa adalah $79$, perbandingan jumlah siswa putra dan putri adalah ...",
+    "materi": "P16 • Rasio Frekuensi dari Rata-rata Gabungan",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Rata-rata nilai matematika siswa putra adalah $74$, dan siswa putri adalah $84$. Rata-rata gabungan seluruh siswa di kelas tersebut adalah $80$. Centang SEMUA pernyataan yang BENAR!",
     "opsi": [
-      "A. $3 : 5$",
-      "B. $5 : 3$",
-      "C. $2 : 3$",
-      "D. $3 : 4$",
-      "E. $1 : 2$"
+      "A. Jumlah siswa putra lebih banyak daripada jumlah siswa putri.",
+      "B. Perbandingan banyak siswa putra dan siswa putri adalah $2 : 3$.",
+      "C. Persentase siswa putra di kelas tersebut adalah $50\\%$.",
+      "D. Persentase siswa putri di kelas tersebut adalah $60\\%$.",
+      "E. Jika jumlah siswa putri 20 orang, maka jumlah siswa putra adalah 15 orang."
     ],
-    "kunci": "A",
-    "bahas": "$74 n_L + 82 n_P = 79(n_L + n_P) \\implies 3 n_P = 5 n_L \\implies \\frac{n_L}{n_P} = \\frac{3}{5}$. Kunci A.",
+    "kunci": "B, D",
+    "bahas": "Evaluasi:\n- Rumus gabungan: $74 n_a + 84 n_i = 80 (n_a + n_i) \\implies 84 n_i - 80 n_i = 80 n_a - 74 n_a \\implies 4 n_i = 6 n_a \\implies \\frac{n_a}{n_i} = \\frac{4}{6} = \\frac{2}{3}$.\n- Jadi rasio putra : putri $= 2 : 3$. Siswa putri lebih banyak. (Opsi A salah, B BENAR)\n- Persentase putri $= \\frac{3}{2+3} \\times 100\\% = 60\\%$. (Opsi C salah, D BENAR)\n- Jika putri 20, putra $= \\frac{2}{3} \\times 20 = 13{,}3$ (tidak bulat). (Opsi E salah)\nKesimpulan: Opsi B dan D benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W39",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rekonstruksi Data Ekstrem Dikeluarkan",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata 5 datum adalah $20$. Jika datum terbesar dikeluarkan, rata-rata 4 datum tersisa menjadi $18$. Nilai datum terbesar yang dikeluarkan tersebut adalah ...",
+    "materi": "P16 • Rata-rata Datum Dikeluarkan",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Nilai rata-rata dari 5 datum adalah 20. Jika datum terbesar bernilai 32 dikeluarkan, maka rata-rata dari 4 datum yang tersisa menurun menjadi 17.\nSEBAB\nAlasan: Mengeluarkan datum yang nilainya lebih besar daripada rata-rata kelompok akan selalu menurunkan nilai rata-rata dari datum yang tersisa.",
     "opsi": [
-      "A. $28$",
-      "B. $26$",
-      "C. $30$",
-      "D. $24$",
-      "E. $32$"
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
     ],
     "kunci": "A",
-    "bahas": "Total 5 data $= 5 \\times 20 = 100$.\nTotal 4 data tersisa $= 4 \\times 18 = 72$.\nDatum terbesar $= 100 - 72 = 28$. Kunci A.",
+    "bahas": "Analisis:\n1. Pernyataan: Total awal $= 5 \\times 20 = 100$. Setelah 32 dikeluarkan, total $= 100 - 32 = 68$. Mean baru $= 68 / 4 = 17$. (BENAR)\n2. Alasan: Jika $x_{keluar} > \\bar{x}$, maka $\\bar{x}_{baru} < \\bar{x}$ (selalu menurunkan rata-rata). (BENAR)\n3. Hubungan: Alasan menerangkan prinsip matematis universal mengapa rata-rata datum tersisa menurun menjadi 17. (BENAR & KAUSAL)\nKesimpulan: Kunci A benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W40",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Transformasi Pengurangan dan Pembagian",
+    "materi": "P16 • Efek Pengurangan dan Pembagian Mean",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata data awal adalah $\\bar{x} = 50$. Jika setiap data dikurangi $10$ lalu hasilnya dibagi $2$, rata-rata data yang baru adalah ...",
+    "tanya": "Rata-rata sekelompok data awal adalah $\\bar{x} = 50$. Jika setiap data dikurangi $10$, kemudian hasilnya dibagi $2$, maka nilai rata-rata kelompok data yang baru adalah ...",
     "opsi": [
-      "A. $20$",
-      "B. $25$",
-      "C. $15$",
-      "D. $30$",
-      "E. $18$"
+      "A. $15$",
+      "B. $30$",
+      "C. $25$",
+      "D. $20$",
+      "E. $40$"
     ],
-    "kunci": "A",
-    "bahas": "$\\bar{x}_{\\text{baru}} = \\frac{50 - 10}{2} = \\frac{40}{2} = 20$. Kunci A.",
-    "level": "Level 2 (Sedang)"
+    "kunci": "D",
+    "bahas": "Langkah 1: Transformasi setiap nilai: $y_i = \\frac{x_i - 10}{2}$.\nLangkah 2: Sifat mean: $\\bar{y} = \\frac{\\bar{x} - 10}{2}$.\nLangkah 3: $\\bar{y} = \\frac{50 - 10}{2} = \\frac{40}{2} = 20$.\nKesimpulan: Kunci D benar.",
+    "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-W41",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rata-Rata Kadar Hemoglobin",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Kadar hemoglobin ($n = 40$ pasien): $10-12$ ($5$), $13-15$ ($15$), $16-18$ ($12$), $19-21$ ($8$). Rata-rata kadar hemoglobin pasien adalah ...",
+    "materi": "P16 • Rata-rata Kadar Hemoglobin Pasien",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Data kadar hemoglobin ($40$ pasien): $10-12$ ($5$), $13-15$ ($15$), $16-18$ ($10$), $19-21$ ($10$). Titik tengah kelas berturut-turut $11, 14, 17, 20$. Evaluasi kebenaran pernyataan-pernyataan berikut:",
     "opsi": [
-      "A. $15{,}725\\text{ g/dL}$",
-      "B. $15{,}500\\text{ g/dL}$",
-      "C. $16{,}125\\text{ g/dL}$",
-      "D. $15{,}250\\text{ g/dL}$",
-      "E. $16{,}000\\text{ g/dL}$"
+      "Jumlah hasil kali $f_i x_i$ seluruhnya adalah 635.",
+      "Rata-rata kadar hemoglobin pasien adalah 15,875 g/dL.",
+      "Kelas yang memuat nilai rata-rata adalah kelas pertama ($10-12$).",
+      "Jika dipilih rataan sementara $x_s = 14$, nilai total deviasi $\\sum f_i d_i$ bernilai negatif."
     ],
-    "kunci": "A",
-    "bahas": "Titik tengah: $11, 14, 17, 20$.\n$\\sum f_i x_i = 5(11) + 15(14) + 12(17) + 8(20) = 55 + 210 + 204 + 160 = 629$.\n$\\bar{x} = \\frac{629}{40} = 15{,}725\\text{ g/dL}$. Kunci A.",
+    "kunci": "B - B - S - S",
+    "bahas": "Analisis:\n1. $\\sum f x = 5(11) + 15(14) + 10(17) + 10(20) = 55 + 210 + 170 + 200 = 635$. (Baris 1: BENAR)\n2. Mean $= 635 / 40 = 15{,}875\\text{ g/dL}$. (Baris 2: BENAR)\n3. Nilai $15{,}875$ berada di kelas ke-3 ($16-18$), bukan kelas pertama. (Baris 3: SALAH)\n4. Deviasi terhadap $14$: $5(-3) + 15(0) + 10(3) + 10(6) = -15 + 0 + 30 + 60 = +75$ (positif, bukan negatif). (Baris 4: SALAH)\nKesimpulan: Kunci adalah B - B - S - S.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W42",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Metode Coding Hemoglobin",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Pada data hemoglobin di atas, jika digunakan rataan sementara $x_s = 14$ dan panjang kelas $c = 3$, nilai $\\sum f_i u_i$ adalah ...",
-    "opsi": [
-      "A. $23$",
-      "B. $20$",
-      "C. $25$",
-      "D. $18$",
-      "E. $21$"
-    ],
-    "kunci": "A",
-    "bahas": "Kode $u_i$: $-1, 0, 1, 2$.\n$\\sum f_i u_i = 5(-1) + 15(0) + 12(1) + 8(2) = -5 + 0 + 12 + 16 = 23$.\n$\\bar{x} = 14 + \\frac{23}{40}(3) = 14 + 1{,}725 = 15{,}725$. Kunci A.",
+    "materi": "P16 • Deviasi Rataan Sementara Hemoglobin",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Pada data hemoglobin di atas ($N = 40$), jika digunakan rataan sementara $x_s = 14$ dengan deviasi titik tengah $d_i = x_i - x_s$, berapakah nilai dari $\\sum f_i d_i$?",
+    "opsi": [],
+    "kunci": "75",
+    "bahas": "Langkah 1: Hitung $d_i = x_i - 14$:\n- Kelas 1: $11 - 14 = -3$\n- Kelas 2: $14 - 14 = 0$\n- Kelas 3: $17 - 14 = 3$\n- Kelas 4: $20 - 14 = 6$\nLangkah 2: $\\sum f_i d_i = 5(-3) + 15(0) + 10(3) + 10(6) = -15 + 0 + 30 + 60 = 75$.\nKesimpulan: Jawaban numerik pasti adalah 75.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W43",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rata-Rata Gabungan dengan Proporsi",
+    "materi": "P16 • Rata-rata Gabungan dengan Proporsi",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata ujian kelas A adalah $85$ dan kelas B adalah $75$. Jika jumlah siswa kelas A dua kali jumlah siswa kelas B ($n_A = 2n_B$), rata-rata gabungan kedua kelas adalah ...",
+    "tanya": "Rata-rata ujian matematika kelas A adalah $85$ dan kelas B adalah $75$. Jika jumlah siswa kelas A adalah $40\\%$ dari seluruh siswa gabungan, maka nilai rata-rata gabungan kedua kelas adalah ...",
     "opsi": [
-      "A. $81{,}67$",
-      "B. $80{,}00$",
-      "C. $82{,}50$",
-      "D. $78{,}33$",
-      "E. $83{,}00$"
+      "A. $77$",
+      "B. $78$",
+      "C. $81$",
+      "D. $80$",
+      "E. $79$"
     ],
-    "kunci": "A",
-    "bahas": "$\\bar{x}_{\\text{gab}} = \\frac{2n_B(85) + n_B(75)}{3n_B} = \\frac{170 + 75}{3} = \\frac{245}{3} \\approx 81{,}67$. Kunci A.",
+    "kunci": "E",
+    "bahas": "Langkah 1: Proporsi siswa: $w_A = 0{,}4$ dan $w_B = 0{,}6$.\nLangkah 2: $\\bar{x}_{gab} = 0{,}4(85) + 0{,}6(75)$.\nLangkah 3: $0{,}4(85) = 34$ dan $0{,}6(75) = 45$.\nLangkah 4: $\\bar{x}_{gab} = 34 + 45 = 79$.\nKesimpulan: Kunci E benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W44",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Penambahan Siswa Baru",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Nilai rata-rata ulangan 9 siswa adalah $78$. Jika nilai Andi digabungkan, nilai rata-rata menjadi $80$. Nilai ulangan Andi adalah ...",
+    "materi": "P16 • Penambahan Siswa & Evaluasi Nilai",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Nilai rata-rata ulangan 9 siswa adalah $78$. Andi mengikuti tes susulan dan nilainya digabungkan sehingga nilai rata-rata 10 siswa menjadi $80$. Centang SEMUA pernyataan yang BENAR!",
     "opsi": [
-      "A. $98$",
-      "B. $96$",
-      "C. $95$",
-      "D. $92$",
-      "E. $100$"
+      "A. Jumlah total nilai 9 siswa sebelum Andi bergabung adalah 702.",
+      "B. Nilai ulangan Andi adalah 92.",
+      "C. Nilai ulangan Andi adalah 98.",
+      "D. Jumlah total nilai 10 siswa setelah Andi bergabung adalah 800.",
+      "E. Nilai Andi lebih rendah daripada rata-rata awal."
     ],
-    "kunci": "A",
-    "bahas": "$10(80) - 9(78) = 800 - 702 = 98$. Kunci A.",
+    "kunci": "A, C, D",
+    "bahas": "Evaluasi:\n- Total 9 siswa $= 9 \\times 78 = 702$. (Opsi A: BENAR)\n- Total 10 siswa $= 10 \\times 80 = 800$. (Opsi D: BENAR)\n- Nilai Andi $= 800 - 702 = 98$. (Opsi C: BENAR, Opsi B: SALAH)\n- Nilai Andi ($98$) jauh lebih tinggi dari $78$. (Opsi E: SALAH)\nKesimpulan: Opsi A, C, dan D benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-W45",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Pengurangan Dua Data Ekstrem",
+    "materi": "P16 • Dua Data Ekstrem Dikeluarkan",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata tinggi badan 10 pemain basket adalah $185\\text{ cm}$. Dua pemain dengan tinggi $190\\text{ cm}$ dan $182\\text{ cm}$ keluar tim. Rata-rata tinggi 8 pemain tersisa adalah ...",
+    "tanya": "Rata-rata tinggi badan 10 pemain basket adalah $185\\text{ cm}$. Jika pemain tertinggi ($198\\text{ cm}$) dan pemain terpendek ($172\\text{ cm}$) dikeluarkan dari skuad, maka rata-rata tinggi badan 8 pemain yang tersisa adalah ...",
     "opsi": [
-      "A. $184{,}75\\text{ cm}$",
-      "B. $185{,}25\\text{ cm}$",
-      "C. $183{,}50\\text{ cm}$",
-      "D. $184{,}00\\text{ cm}$",
-      "E. $185{,}00\\text{ cm}$"
+      "A. $185\\text{ cm}$",
+      "B. $184\\text{ cm}$",
+      "C. $186\\text{ cm}$",
+      "D. $183{,}5\\text{ cm}$",
+      "E. $185{,}5\\text{ cm}$"
     ],
     "kunci": "A",
-    "bahas": "Total awal $= 10 \\times 185 = 1.850$.\nTotal tersisa $= 1.850 - (190 + 182) = 1.850 - 372 = 1.478$.\nRata-rata baru $= \\frac{1.478}{8} = 184{,}75\\text{ cm}$. Kunci A.",
+    "bahas": "Langkah 1: Total tinggi 10 pemain $= 10 \\times 185 = 1850\\text{ cm}$.\nLangkah 2: Jumlah tinggi 2 pemain yang dikeluarkan $= 198 + 172 = 370\\text{ cm}$.\nLangkah 3: Rata-rata 2 pemain tersebut $= 370 / 2 = 185\\text{ cm}$ (sama persis dengan mean awal!).\nLangkah 4: Total sisa $= 1850 - 370 = 1480\\text{ cm}$. Rata-rata 8 pemain $= 1480 / 8 = 185\\text{ cm}$.\nKesimpulan: Kunci A benar.",
     "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-W46",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rata-Rata Kuis Matematika",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Tabel nilai kuis: $60-64$ ($3$), $65-69$ ($7$), $70-74$ ($10$), $75-79$ ($8$), $80-84$ ($2$). Rata-rata hitung data tersebut adalah ...",
+    "materi": "P16 • Rata-rata Kuis Statistika",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Pada data berkelompok dengan interval teratur, nilai rata-rata hitung (mean) selalu berada di antara batas bawah kelas pertama dan batas atas kelas terakhir.\nSEBAB\nAlasan: Rata-rata hitung merupakan ukuran pemusatan data yang dipengaruhi oleh setiap nilai datum dan frekuensi bobotnya.",
     "opsi": [
-      "A. $71{,}83$",
-      "B. $72{,}50$",
-      "C. $70{,}67$",
-      "D. $73{,}00$",
-      "E. $71{,}25$"
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
     ],
-    "kunci": "A",
-    "bahas": "Titik tengah: $62, 67, 72, 77, 82$.\n$\\sum f_i x_i = 3(62) + 7(67) + 10(72) + 8(77) + 2(82) = 186 + 469 + 720 + 616 + 164 = 2.155$.\n$\\bar{x} = \\frac{2.155}{30} \\approx 71{,}83$. Kunci A.",
+    "kunci": "B",
+    "bahas": "Analisis:\n1. Pernyataan: BENAR. Secara matematis, $\\min(x_i) \\le \\bar{x} \\le \\max(x_i)$, sehingga mean selalu terletak di dalam bentang interval data.\n2. Alasan: BENAR. Mean adalah ukuran pemusatan yang memperhitungkan seluruh nilai dan frekuensi.\n3. Hubungan: Keduanya benar, namun alasan adalah definisi umum sifat mean, bukan bukti khusus keterikatan batas interval.\nKesimpulan: Kunci B benar.",
     "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-W47",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Coding Rataan Kuis",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Pada tabel kuis di atas, jika digunakan rataan sementara $x_s = 72$ dan panjang kelas $c = 5$, berapakah nilai $\\sum f_i u_i$?",
+    "materi": "P16 • Coding Rataan Kuis Berkelompok",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Data nilai kuis ($N = 40$): $60-64$ ($3$), $65-69$ ($7$), $70-74$ ($10$), $75-79$ ($12$), $80-84$ ($8$). Titik tengah: $62, 67, 72, 77, 82$. Ditetapkan $x_s = 72$ dengan panjang kelas $c = 5$. Evaluasi pernyataan berikut:",
     "opsi": [
-      "A. $-1$",
-      "B. $0$",
-      "C. $1$",
-      "D. $-2$",
-      "E. $2$"
+      "Kode kelas berturut-turut adalah $u_i = -2, -1, 0, 1, 2$.",
+      "Total hasil kali kode dan frekuensi $\\sum f_i u_i$ bernilai 25.",
+      "Nilai rata-rata hitung data kuis tersebut adalah 73,875.",
+      "Jika rataan sementara diganti menjadi $x_s = 77$, nilai akhir rata-rata hitung akan berubah."
     ],
-    "kunci": "A",
-    "bahas": "Kode $u_i$: $-2, -1, 0, 1, 2$.\n$\\sum f_i u_i = 3(-2) + 7(-1) + 10(0) + 8(1) + 2(2) = -6 - 7 + 0 + 8 + 4 = -1$.\n$\\bar{x} = 72 + \\frac{-1}{30}(5) = 72 - 0{,}167 = 71{,}83$. Kunci A.",
+    "kunci": "B - S - B - S",
+    "bahas": "Analisis:\n1. Kode kelas: $u_i = (x_i - 72)/5 = [-2, -1, 0, 1, 2]$. (Baris 1: BENAR)\n2. $\\sum f_i u_i = 3(-2) + 7(-1) + 10(0) + 12(1) + 8(2) = -6 - 7 + 0 + 12 + 16 = 15$ (bukan 25). (Baris 2: SALAH)\n3. $\\bar{x} = 72 + 5 \\left(\\frac{15}{40}\\right) = 72 + \\frac{75}{40} = 72 + 1{,}875 = 73{,}875$. (Baris 3: BENAR)\n4. Pemilihan $x_s$ yang berbeda tidak akan mengubah nilai akhir mean. (Baris 4: SALAH)\nKesimpulan: Kunci adalah B - S - B - S.",
     "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-W48",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Rata-Rata Gabungan Rombel F3 & F4",
+    "materi": "P16 • Rata-rata Gabungan Rombel F3 & F4",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Nilai rata-rata kelas XII F.3 ($26$ siswa) adalah $80$, dan kelas XII F.4 ($24$ siswa) adalah $85$. Rata-rata gabungan kedua rombel adalah ...",
+    "tanya": "Nilai rata-rata kelas XII F.3 ($26$ siswa) adalah $80$, dan kelas XII F.4 ($24$ siswa) adalah $75$. Nilai rata-rata gabungan kedua rombel tersebut adalah ...",
     "opsi": [
-      "A. $82{,}4$",
-      "B. $82{,}5$",
-      "C. $82{,}0$",
-      "D. $83{,}0$",
-      "E. $81{,}8$"
+      "A. $77{,}0$",
+      "B. $77{,}6$",
+      "C. $78{,}2$",
+      "D. $78{,}5$",
+      "E. $79{,}0$"
     ],
-    "kunci": "A",
-    "bahas": "$\\bar{x}_{\\text{gab}} = \\frac{26(80) + 24(85)}{50} = \\frac{2.080 + 2.040}{50} = \\frac{4.120}{50} = 82{,}4$. Kunci A.",
+    "kunci": "B",
+    "bahas": "Langkah 1: Total nilai F.3 $= 26 \\times 80 = 2080$.\nLangkah 2: Total nilai F.4 $= 24 \\times 75 = 1800$.\nLangkah 3: Total nilai gabungan $= 2080 + 1800 = 3880$.\nLangkah 4: Total siswa $= 26 + 24 = 50$.\nLangkah 5: $\\bar{x}_{gab} = \\frac{3880}{50} = 77{,}6$.\nKesimpulan: Kunci B benar.",
     "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-W49",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Kenaikan Nilai Remedial",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata ulangan 32 siswa adalah $65$. Setelah 2 siswa mengikuti remedial, nilai mereka naik masing-masing dari $40$ menjadi $70$ dan dari $45$ menjadi $75$. Rata-rata kelas yang baru adalah ...",
+    "materi": "P16 • Kenaikan Nilai Setelah Remedial",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Rata-rata ulangan 32 siswa adalah $65$. Setelah remedial, 2 siswa yang awalnya memperoleh nilai $40$ dan $45$ berhasil menaikkan nilainya masing-masing menjadi $70$ dan $75$. Centang SEMUA pernyataan yang BENAR!",
     "opsi": [
-      "A. $66{,}875$",
-      "B. $66{,}500$",
-      "C. $67{,}000$",
-      "D. $66{,}250$",
-      "E. $67{,}500$"
+      "A. Total pertambahan nilai dari kedua siswa tersebut adalah 60 poin.",
+      "B. Rata-rata nilai baru kelas naik sebesar 2,5 poin.",
+      "C. Rata-rata nilai baru kelas menjadi 68,75.",
+      "D. Total nilai seluruh kelas sekarang adalah 2.100.",
+      "E. Rata-rata nilai baru kelas adalah tepat 66,875."
     ],
-    "kunci": "A",
-    "bahas": "Total kenaikan nilai $= (70 - 40) + (75 - 45) = 30 + 30 = 60$.\nKenaikan rata-rata $= \\frac{60}{32} = 1{,}875$.\nRata-rata baru $= 65 + 1{,}875 = 66{,}875$. Kunci A.",
+    "kunci": "A, E",
+    "bahas": "Evaluasi:\n- Tambahan nilai siswa 1 $= 70 - 40 = 30$.\n- Tambahan nilai siswa 2 $= 75 - 45 = 30$.\n- Total pertambahan nilai $= 30 + 30 = 60$ poin. (Opsi A: BENAR)\n- Kenaikan rata-rata $= \\frac{60}{32} = 1{,}875$ poin (bukan 2,5). (Opsi B: SALAH)\n- Rata-rata baru $= 65 + 1{,}875 = 66{,}875$. (Opsi E: BENAR, C: SALAH)\n- Total nilai baru $= 32 \\times 65 + 60 = 2080 + 60 = 2140$ (bukan 2100). (Opsi D: SALAH)\nKesimpulan: Opsi A dan E benar.",
     "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-W50",
     "mapel": "Matematika Wajib",
-    "materi": "P16 • Sifat Linearitas Transformasi",
+    "materi": "P16 • Sifat Linearitas Skala Transformasi",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Rata-rata nilai awal adalah $\\bar{x} = 45$. Jika dilakukan penyesuaian nilai $y_i = 2x_i + 15$, rata-rata nilai baru adalah ...",
+    "tanya": "Rata-rata nilai awal suatu angkatan adalah $\\bar{x} = 45$. Kurikulum melakukan penyesuaian formula $y = \\frac{2x + 30}{3}$. Nilai rata-rata baru setelah penyesuaian formula tersebut adalah ...",
     "opsi": [
-      "A. $105$",
-      "B. $95$",
-      "C. $100$",
-      "D. $110$",
-      "E. $90$"
+      "A. $38$",
+      "B. $39$",
+      "C. $40$",
+      "D. $42$",
+      "E. $45$"
     ],
-    "kunci": "A",
-    "bahas": "$\\bar{y} = 2\\bar{x} + 15 = 2(45) + 15 = 90 + 15 = 105$. Kunci A.",
+    "kunci": "C",
+    "bahas": "Langkah 1: Formula transformasi: $y = \\frac{2}{3}x + 10$.\nLangkah 2: Sifat rata-rata: $\\bar{y} = \\frac{2}{3}\\bar{x} + 10$.\nLangkah 3: $\\bar{y} = \\frac{2}{3}(45) + 10 = 30 + 10 = 40$.\nKesimpulan: Kunci C benar.",
     "level": "Level 3 (HOTS)"
   }
 ],
     matmin: [
   {
     "id": "WR-M01",
-    "mapel": "Matematika Peminatan",
+    "mapel": "Additional Mathematics",
     "materi": "P17 • Turunan Dasar Sinus & Cosinus",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $f(x) = 5\\sin(x) + 3\\cos(x)$ adalah $f'(x) = ...$",
+    "tanya": "Turunan pertama dari fungsi trigonometri $f(x) = 5\\sin(x) + 3\\cos(x)$ adalah ...",
     "opsi": [
-      "A. $5\\cos(x) - 3\\sin(x)$",
-      "B. $5\\cos(x) + 3\\sin(x)$",
-      "C. $-5\\cos(x) - 3\\sin(x)$",
-      "D. $-5\\cos(x) + 3\\sin(x)$",
-      "E. $3\\cos(x) - 5\\sin(x)$"
+      "A. $5\\sin(x) - 3\\cos(x)$",
+      "B. $5\\cos(x) - 3\\sin(x)$",
+      "C. $-5\\cos(x) + 3\\sin(x)$",
+      "D. $5\\cos(x) + 3\\sin(x)$",
+      "E. $-5\\sin(x) - 3\\cos(x)$"
     ],
-    "kunci": "A",
-    "bahas": "$f'(x) = 5 \\cdot \\frac{d}{dx}(\\sin x) + 3 \\cdot \\frac{d}{dx}(\\cos x) = 5\\cos(x) + 3(-\\sin x) = 5\\cos(x) - 3\\sin(x)$. Kunci A.",
+    "kunci": "B",
+    "bahas": "Langkah 1: Aturan dasar: $\\frac{d}{dx}[\\sin(x)] = \\cos(x)$ dan $\\frac{d}{dx}[\\cos(x)] = -\\sin(x)$.\nLangkah 2: $f'(x) = 5\\cos(x) + 3(-\\sin(x)) = 5\\cos(x) - 3\\sin(x)$.\nKesimpulan: Kunci B benar.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-M02",
-    "mapel": "Matematika Peminatan",
+    "mapel": "Additional Mathematics",
     "materi": "P17 • Aturan Rantai Koefisien Sudut",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Diberikan $g(x) = 4\\cos(3x) - 2\\sin(5x)$. Turunan pertama $g'(x)$ adalah ...",
-    "opsi": [
-      "A. $-12\\sin(3x) - 10\\cos(5x)$",
-      "B. $-12\\sin(3x) + 10\\cos(5x)$",
-      "C. $12\\sin(3x) - 10\\cos(5x)$",
-      "D. $-4\\sin(3x) - 2\\cos(5x)$",
-      "E. $-12\\cos(3x) - 10\\sin(5x)$"
-    ],
-    "kunci": "A",
-    "bahas": "$g'(x) = 4(-3\\sin(3x)) - 2(5\\cos(5x)) = -12\\sin(3x) - 10\\cos(5x)$. Kunci A.",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Diberikan fungsi trigonometri $g(x) = 4\\cos(3x) - 2\\sin(5x)$. Berapakah nilai dari turunan pertama pada titik $x = 0$, yaitu $g'(0)$?",
+    "opsi": [],
+    "kunci": "-10",
+    "bahas": "Langkah 1: Aturan rantai linier:\n- $\\frac{d}{dx}[4\\cos(3x)] = 4 \\times 3(-\\sin(3x)) = -12\\sin(3x)$\n- $\\frac{d}{dx}[-2\\sin(5x)] = -2 \\times 5(\\cos(5x)) = -10\\cos(5x)$\nLangkah 2: $g'(x) = -12\\sin(3x) - 10\\cos(5x)$.\nLangkah 3: Substitusi $x = 0$:\n$g'(0) = -12\\sin(0) - 10\\cos(0) = -12(0) - 10(1) = -10$.\nKesimpulan: Jawaban numerik pasti adalah -10.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-M03",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Evaluasi Nilai Turunan di Titik",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Evaluasi Nilai Turunan di Titik Tertentu",
     "tipe": "Pilihan Ganda Tunggal",
     "tanya": "Jika $h(x) = 6\\sin(2x) + 4\\cos(x)$, maka nilai dari $h'\\left(\\frac{\\pi}{6}\\right)$ adalah ...",
     "opsi": [
-      "A. $4$",
-      "B. $6$",
-      "C. $2$",
-      "D. $8$",
-      "E. $0$"
+      "A. $2$",
+      "B. $3$",
+      "C. $4$",
+      "D. $6$",
+      "E. $8$"
     ],
-    "kunci": "A",
-    "bahas": "Langkah 1: $h'(x) = 12\\cos(2x) - 4\\sin(x)$.\nLangkah 2: $h'\\left(\\frac{\\pi}{6}\\right) = 12\\cos\\left(\\frac{\\pi}{3}\\right) - 4\\sin\\left(\\frac{\\pi}{6}\\right) = 12\\left(\\frac{1}{2}\\right) - 4\\left(\\frac{1}{2}\\right) = 6 - 2 = 4$. Kunci A.",
+    "kunci": "C",
+    "bahas": "Langkah 1: Turunkan fungsi $h(x)$:\n$h'(x) = 6(2\\cos(2x)) + 4(-\\sin(x)) = 12\\cos(2x) - 4\\sin(x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{6}$:\n$h'\\left(\\frac{\\pi}{6}\\right) = 12\\cos\\left(\\frac{\\pi}{3}\\right) - 4\\sin\\left(\\frac{\\pi}{6}\\right)$.\nLangkah 3: Karena $\\cos\\left(\\frac{\\pi}{3}\\right) = \\frac{1}{2}$ dan $\\sin\\left(\\frac{\\pi}{6}\\right) = \\frac{1}{2}$, maka:\n$h'\\left(\\frac{\\pi}{6}\\right) = 12\\left(\\frac{1}{2}\\right) - 4\\left(\\frac{1}{2}\\right) = 6 - 2 = 4$.\nKesimpulan: Kunci C benar.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-M04",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Aturan Perkalian Aljabar-Trigonometri",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $f(x) = x^2 \\sin(x)$ adalah ...",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Teorema Dasar Turunan Trigonometri",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Analisis kebenaran setiap pernyataan mengenai teorema dasar kalkulus diferensial trigonometri berikut:",
     "opsi": [
-      "A. $2x\\sin(x) + x^2\\cos(x)$",
-      "B. $2x\\cos(x)$",
-      "C. $2x\\sin(x) - x^2\\cos(x)$",
-      "D. $x^2\\cos(x)$",
-      "E. $2x\\cos(x) + x^2\\sin(x)$"
+      "Turunan pertama dari fungsi tangen adalah $\\frac{d}{dx}[\\tan(x)] = \\sec^2(x)$.",
+      "Turunan pertama dari fungsi sekan adalah $\\frac{d}{dx}[\\sec(x)] = \\sec(x)\\tan(x)$.",
+      "Turunan pertama dari fungsi kotangen adalah $\\frac{d}{dx}[\\cot(x)] = \\csc^2(x)$.",
+      "Turunan pertama dari fungsi kuadrat sinus $y = \\sin^2(x)$ setara dengan $\\sin(2x)$."
     ],
-    "kunci": "A",
-    "bahas": "Aturan perkalian $(uv)' = u'v + uv'$:\n$u = x^2 \\implies u' = 2x$; $v = \\sin(x) \\implies v' = \\cos(x)$.\n$f'(x) = 2x\\sin(x) + x^2\\cos(x)$. Kunci A.",
+    "kunci": "B - B - S - B",
+    "bahas": "Analisis Teorema:\n1. Baris 1: $\\frac{d}{dx}[\\tan(x)] = \\sec^2(x)$. (BENAR)\n2. Baris 2: $\\frac{d}{dx}[\\sec(x)] = \\sec(x)\\tan(x)$. (BENAR)\n3. Baris 3: $\\frac{d}{dx}[\\cot(x)] = -\\csc^2(x)$ (ada tanda negatif, jadi pernyataan tanpa minus adalah SALAH).\n4. Baris 4: Aturan rantai $\\frac{d}{dx}[\\sin^2(x)] = 2\\sin(x)\\cos(x) = \\sin(2x)$. (BENAR)\nKesimpulan: Kunci adalah B - B - S - B.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-M05",
-    "mapel": "Matematika Peminatan",
+    "mapel": "Additional Mathematics",
     "materi": "P17 • Gradien Garis Singgung Trigonometri",
     "tipe": "Pilihan Ganda Tunggal",
     "tanya": "Gradien garis singgung kurva $y = 2\\tan(x)$ pada titik berabsis $x = \\frac{\\pi}{4}$ adalah ...",
     "opsi": [
-      "A. $4$",
+      "A. $1$",
       "B. $2$",
-      "C. $1$",
-      "D. $2\\sqrt{2}$",
+      "C. $2\\sqrt{2}$",
+      "D. $4$",
       "E. $8$"
     ],
-    "kunci": "A",
-    "bahas": "Langkah 1: $y' = 2\\sec^2(x) = \\frac{2}{\\cos^2(x)}$.\nLangkah 2: Pada $x = \\frac{\\pi}{4}$, $\\cos\\left(\\frac{\\pi}{4}\\right) = \\frac{1}{\\sqrt{2}} \\implies \\cos^2\\left(\\frac{\\pi}{4}\\right) = \\frac{1}{2}$.\nLangkah 3: $m = y'\\left(\\frac{\\pi}{4}\\right) = \\frac{2}{1/2} = 4$. Kunci A.",
+    "kunci": "D",
+    "bahas": "Langkah 1: Turunan pertama $y' = 2\\sec^2(x) = \\frac{2}{\\cos^2(x)}$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{4}$:\n$\\cos\\left(\\frac{\\pi}{4}\\right) = \\frac{1}{2}\\sqrt{2} \\implies \\cos^2\\left(\\frac{\\pi}{4}\\right) = \\frac{1}{2}$.\nLangkah 3: $m = \\frac{2}{1/2} = 4$.\nKesimpulan: Kunci D benar.",
     "level": "Level 1 (Mudah)"
   },
   {
     "id": "WR-M06",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Tangen dan Cosinus",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $f(x) = 3\\tan(x) - 4\\cos(x)$ adalah ...",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Turunan Kombinasi Tangen & Cosinus",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Diberikan $f(x) = 3\\tan(x) - 4\\cos(x)$. Centang SEMUA pernyataan yang bernilai BENAR mengenai fungsi turunan $f'(x)$!",
     "opsi": [
-      "A. $3\\sec^2(x) + 4\\sin(x)$",
-      "B. $3\\sec^2(x) - 4\\sin(x)$",
-      "C. $3\\tan^2(x) + 4\\sin(x)$",
-      "D. $-3\\sec^2(x) + 4\\sin(x)$",
-      "E. $3\\csc^2(x) - 4\\cos(x)$"
+      "A. Turunan pertama fungsi adalah $f'(x) = 3\\sec^2(x) + 4\\sin(x)$.",
+      "B. Nilai dari $f'(0)$ adalah 0.",
+      "C. Nilai dari $f'(0)$ adalah 3.",
+      "D. Nilai dari $f'\\left(\\frac{\\pi}{6}\\right)$ adalah 4.",
+      "E. Garis singgung kurva di $x = 0$ membentuk sudut tumpul terhadap sumbu-X positif."
     ],
-    "kunci": "A",
-    "bahas": "$f'(x) = 3\\sec^2(x) - 4(-\\sin x) = 3\\sec^2(x) + 4\\sin(x)$. Kunci A.",
-    "level": "Level 1 (Mudah)"
+    "kunci": "A, C",
+    "bahas": "Evaluasi:\n- Turunan: $f'(x) = 3\\sec^2(x) - 4(-\\sin(x)) = 3\\sec^2(x) + 4\\sin(x)$. (Opsi A: BENAR)\n- Di $x = 0$: $f'(0) = 3(1)^2 + 4(0) = 3$. (Opsi C: BENAR, Opsi B: SALAH)\n- Di $x = \\pi/6$: $f'(\\pi/6) = 3(2/\\sqrt{3})^2 + 4(1/2) = 3(4/3) + 2 = 6$ (bukan 4). (Opsi D: SALAH)\n- Gradien di $x=0$ adalah $m = 3 > 0$, jadi sudut lancip, bukan tumpul. (Opsi E: SALAH)\nKesimpulan: Opsi A dan C benar.",
+    "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M07",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Sudut Majemuk",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $y = 2\\sin(4x - \\pi)$ adalah ...",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Aturan Rantai Sudut Majemuk",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Turunan pertama dari fungsi $y = 2\\sin(4x - \\pi)$ adalah $y' = 8\\cos(4x - \\pi)$.\nSEBAB\nAlasan: Berdasarkan aturan rantai kalkulus diferensial, jika $y = k\\sin(u)$ dengan $u = ax + b$, maka turunan pertamanya adalah $y' = k \\cdot a \\cdot \\cos(ax + b)$.",
     "opsi": [
-      "A. $8\\cos(4x - \\pi)$",
-      "B. $-8\\cos(4x - \\pi)$",
-      "C. $2\\cos(4x - \\pi)$",
-      "D. $8\\sin(4x - \\pi)$",
-      "E. $-2\\cos(4x - \\pi)$"
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
     ],
     "kunci": "A",
-    "bahas": "Gunakan aturan rantai: $y' = 2 \\cdot 4 \\cos(4x - \\pi) = 8\\cos(4x - \\pi)$. Kunci A.",
+    "bahas": "Analisis:\n1. Pernyataan: BENAR. $y' = 2 \\times 4\\cos(4x - \\pi) = 8\\cos(4x - \\pi)$.\n2. Alasan: BENAR. Rumus turunan komposit linier $y = k\\sin(ax+b) \\implies y' = ka\\cos(ax+b)$.\n3. Hubungan: Alasan adalah dalil aturan rantai yang mendasari kebenaran pernyataan tersebut secara kausal.\nKesimpulan: Kunci A benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M08",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Evaluasi Sudut Istimewa",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Evaluasi Sudut Istimewa Cosinus",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Jika $f(x) = 4\\cos(2x)$, maka nilai dari $f'\\left(\\frac{\\pi}{3}\\right)$ adalah ...",
+    "tanya": "Jika $f(x) = 4\\cos(2x)$, maka nilai dari $f'\\left(\\frac{\\pi}{4}\\right)$ adalah ...",
     "opsi": [
-      "A. $-4\\sqrt{3}$",
-      "B. $4\\sqrt{3}$",
-      "C. $-4$",
-      "D. $-8$",
-      "E. $4$"
+      "A. $8$",
+      "B. $4$",
+      "C. $0$",
+      "D. $-4$",
+      "E. $-8$"
     ],
-    "kunci": "A",
-    "bahas": "Langkah 1: $f'(x) = -8\\sin(2x)$.\nLangkah 2: $f'\\left(\\frac{\\pi}{3}\\right) = -8\\sin\\left(\\frac{2\\pi}{3}\\right) = -8\\left(\\frac{1}{2}\\sqrt{3}\\right) = -4\\sqrt{3}$. Kunci A.",
+    "kunci": "E",
+    "bahas": "Langkah 1: $f'(x) = 4 \\times 2(-\\sin(2x)) = -8\\sin(2x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{4}$:\n$f'\\left(\\frac{\\pi}{4}\\right) = -8\\sin\\left(2 \\times \\frac{\\pi}{4}\\right) = -8\\sin\\left(\\frac{\\pi}{2}\\right)$.\nLangkah 3: Karena $\\sin\\left(\\frac{\\pi}{2}\\right) = 1$, maka $f'\\left(\\frac{\\pi}{4}\\right) = -8(1) = -8$.\nKesimpulan: Kunci E benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M09",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Aturan Pembagian Turunan",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $f(x) = \\frac{\\sin(x)}{x}$ untuk $x \\ne 0$ adalah ...",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Aturan Hasil Bagi Aljabar-Trigonometri",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Diberikan fungsi rasional trigonometri $f(x) = \\frac{\\sin(x)}{x}$ untuk $x \\neq 0$. Evaluasi kebenaran pernyataan-pernyataan berikut:",
     "opsi": [
-      "A. $\\frac{x\\cos(x) - \\sin(x)}{x^2}$",
-      "B. $\\frac{\\cos(x)}{1}$",
-      "C. $\\frac{\\sin(x) - x\\cos(x)}{x^2}$",
-      "D. $\\frac{x\\cos(x) + \\sin(x)}{x^2}$",
-      "E. $\\frac{\\cos(x) - x\\sin(x)}{x^2}$"
+      "Turunan pertama fungsi adalah $f'(x) = \\frac{\\cos(x)}{1} = \\cos(x)$.",
+      "Menurut aturan pembagian $\\frac{u'v - uv'}{v^2}$, diperoleh $f'(x) = \\frac{x\\cos(x) - \\sin(x)}{x^2}$.",
+      "Nilai limit fungsi di titik asal adalah $\\lim_{x \\to 0} \\frac{\\sin(x)}{x} = 1$.",
+      "Fungsi $f(x)$ tidak memiliki turunan di seluruh selang bilangan real positif $(0, \\infty)$."
     ],
-    "kunci": "A",
-    "bahas": "Aturan kuosien $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$:\n$u = \\sin x \\implies u' = \\cos x$; $v = x \\implies v' = 1$.\n$f'(x) = \\frac{x\\cos(x) - \\sin(x)}{x^2}$. Kunci A.",
+    "kunci": "S - B - B - S",
+    "bahas": "Analisis:\n1. Baris 1: Menurunkan pembilang dan penyebut secara terpisah adalah kesalahan fatal aturan hasil bagi. (SALAH)\n2. Baris 2: $u = \\sin x \\implies u' = \\cos x$; $v = x \\implies v' = 1$. $f'(x) = \\frac{x\\cos x - \\sin x}{x^2}$. (BENAR)\n3. Baris 3: Teorema limit dasar trigonometri $\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$. (BENAR)\n4. Baris 4: Untuk $x > 0$, penyebut $x^2 \\neq 0$ sehingga fungsi diferensiabel di seluruh $(0, \\infty)$. (SALAH)\nKesimpulan: Kunci adalah S - B - B - S.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M10",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Gradien Garis Normal",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Gradien garis normal pada kurva $y = \\sin(x)$ di titik dengan absis $x = 0$ adalah ...",
-    "opsi": [
-      "A. $-1$",
-      "B. $1$",
-      "C. $0$",
-      "D. $2$",
-      "E. Tidak terdefinisi"
-    ],
-    "kunci": "A",
-    "bahas": "Gradien singgung $m_s = y'(0) = \\cos(0) = 1$.\nGradien garis normal tegak lurus $m_n = -\\frac{1}{m_s} = -\\frac{1}{1} = -1$. Kunci A.",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Gradien Garis Normal Kurva Sinus",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Garis normal adalah garis yang tegak lurus dengan garis singgung di titik singgung yang sama. Berapakah gradien garis normal pada kurva $y = \\sin(x)$ di titik asal $(0, 0)$?",
+    "opsi": [],
+    "kunci": "-1",
+    "bahas": "Langkah 1: Turunan kurva $y' = \\cos(x)$.\nLangkah 2: Gradien garis singgung di $x = 0$: $m_s = \\cos(0) = 1$.\nLangkah 3: Garis normal tegak lurus garis singgung: $m_n \\times m_s = -1 \\implies m_n = -\\frac{1}{1} = -1$.\nKesimpulan: Jawaban numerik pasti adalah -1.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M11",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Kombinasi Sin-Cos",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Turunan Kombinasi Sinus & Cosinus Majemuk",
     "tipe": "Pilihan Ganda Tunggal",
     "tanya": "Turunan pertama dari fungsi $f(x) = 2\\sin(3x) - 3\\cos(2x)$ adalah ...",
     "opsi": [
@@ -1047,100 +994,194 @@
       "B. $6\\cos(3x) - 6\\sin(2x)$",
       "C. $-6\\cos(3x) + 6\\sin(2x)$",
       "D. $2\\cos(3x) + 3\\sin(2x)$",
-      "E. $6\\sin(3x) + 6\\cos(2x)$"
+      "E. $6\\cos(3x) - 3\\sin(2x)$"
     ],
     "kunci": "A",
-    "bahas": "$f'(x) = 2(3\\cos(3x)) - 3(-2\\sin(2x)) = 6\\cos(3x) + 6\\sin(2x)$. Kunci A.",
+    "bahas": "Langkah 1: Turunan suku pertama: $\\frac{d}{dx}[2\\sin(3x)] = 2 \\times 3\\cos(3x) = 6\\cos(3x)$.\nLangkah 2: Turunan suku kedua: $\\frac{d}{dx}[-3\\cos(2x)] = -3 \\times 2(-\\sin(2x)) = +6\\sin(2x)$.\nLangkah 3: Gabungkan: $f'(x) = 6\\cos(3x) + 6\\sin(2x)$.\nKesimpulan: Kunci A benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M12",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Kuadrat Sinus",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $y = \\sin^2(x)$ setara dengan bentuk identitas ...",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Analisis Kurva Kuadrat Sinus",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Diberikan fungsi $y = \\sin^2(x)$. Centang SEMUA pernyataan yang bernilai BENAR!",
     "opsi": [
-      "A. $\\sin(2x)$",
-      "B. $2\\sin(x)$",
-      "C. $\\cos(2x)$",
-      "D. $2\\cos(x)$",
-      "E. $-\\sin(2x)$"
+      "A. Turunan pertama fungsi adalah $y' = 2\\cos(x)$.",
+      "B. Turunan pertama fungsi adalah $y' = 2\\sin(x)\\cos(x) = \\sin(2x)$.",
+      "C. Nilai dari $y'\\left(\\frac{\\pi}{4}\\right)$ adalah 1.",
+      "D. Nilai dari $y'(0)$ dan $y'\\left(\\frac{\\pi}{2}\\right)$ keduanya bernilai 0.",
+      "E. Gradien garis singgung kurva di $x = \\frac{\\pi}{4}$ adalah 0."
     ],
-    "kunci": "A",
-    "bahas": "$y' = 2\\sin(x) \\cdot \\cos(x) = \\sin(2x)$. Kunci A.",
+    "kunci": "B, C, D",
+    "bahas": "Evaluasi:\n- $y' = 2\\sin x \\cos x = \\sin(2x)$. (Opsi B: BENAR, Opsi A: SALAH)\n- Di $x = \\pi/4$: $y' = \\sin(2 \\times \\pi/4) = \\sin(\\pi/2) = 1$. (Opsi C: BENAR, Opsi E: SALAH)\n- Di $x = 0$: $\\sin(0) = 0$. Di $x = \\pi/2$: $\\sin(\\pi) = 0$. Keduanya bernilai 0. (Opsi D: BENAR)\nKesimpulan: Opsi B, C, dan D benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M13",
-    "mapel": "Matematika Peminatan",
+    "mapel": "Additional Mathematics",
     "materi": "P17 • Evaluasi Turunan Identitas Cosinus Ganda",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Diberikan $g(x) = \\cos^2(x) - \\sin^2(x)$. Nilai dari $g'\\left(\\frac{\\pi}{4}\\right)$ adalah ...",
+    "tanya": "Diberikan $g(x) = \\cos^2(x) - \\sin^2(x)$. Nilai dari $g'\\left(\\frac{\\pi}{6}\\right)$ adalah ...",
     "opsi": [
-      "A. $-2$",
-      "B. $0$",
-      "C. $2$",
-      "D. $-1$",
-      "E. $1$"
+      "A. $-\\sqrt{2}$",
+      "B. $-\\sqrt{3}$",
+      "C. $-1$",
+      "D. $\\sqrt{3}$",
+      "E. $2$"
     ],
-    "kunci": "A",
-    "bahas": "Identitas: $g(x) = \\cos(2x)$.\n$g'(x) = -2\\sin(2x)$.\n$g'\\left(\\frac{\\pi}{4}\\right) = -2\\sin\\left(\\frac{\\pi}{2}\\right) = -2(1) = -2$. Kunci A.",
+    "kunci": "B",
+    "bahas": "Langkah 1: Gunakan identitas sudut ganda: $g(x) = \\cos(2x)$.\nLangkah 2: Turunan pertama: $g'(x) = -2\\sin(2x)$.\nLangkah 3: Evaluasi pada $x = \\frac{\\pi}{6}$:\n$g'\\left(\\frac{\\pi}{6}\\right) = -2\\sin\\left(2 \\times \\frac{\\pi}{6}\\right) = -2\\sin\\left(\\frac{\\pi}{3}\\right)$.\nLangkah 4: Karena $\\sin\\left(\\frac{\\pi}{3}\\right) = \\frac{1}{2}\\sqrt{3}$, maka:\n$g'\\left(\\frac{\\pi}{6}\\right) = -2\\left(\\frac{1}{2}\\sqrt{3}\\right) = -\\sqrt{3}$.\nKesimpulan: Kunci B benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M14",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Bentuk Perkalian $x \\cos x$",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $h(x) = x\\cos(x)$ adalah ...",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Aturan Perkalian $x \\cos x$",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Turunan pertama dari fungsi $h(x) = x\\cos(x)$ adalah $h'(x) = \\cos(x) - x\\sin(x)$.\nSEBAB\nAlasan: Turunan dari perkalian dua fungsi sembarang $f(x) = u(x) \\cdot v(x)$ selalu sama dengan hasil kali dari masing-masing turunannya, yaitu $u'(x) \\cdot v'(x)$.",
     "opsi": [
-      "A. $\\cos(x) - x\\sin(x)$",
-      "B. $-\\sin(x)$",
-      "C. $\\cos(x) + x\\sin(x)$",
-      "D. $-x\\sin(x)$",
-      "E. $x\\cos(x) - \\sin(x)$"
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
     ],
-    "kunci": "A",
-    "bahas": "$h'(x) = (1)\\cos(x) + x(-\\sin(x)) = \\cos(x) - x\\sin(x)$. Kunci A.",
+    "kunci": "C",
+    "bahas": "Analisis:\n1. Pernyataan: BENAR. $u = x \\implies u' = 1$; $v = \\cos x \\implies v' = -\\sin x$. $h'(x) = 1 \\cdot \\cos x + x(-\\sin x) = \\cos x - x\\sin x$.\n2. Alasan: SALAH. Aturan hasil kali yang benar adalah $(uv)' = u'v + uv'$, BUKAN $u' \\cdot v'$.\nKesimpulan: Pernyataan benar dan alasan salah (Kunci C).",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M15",
-    "mapel": "Matematika Peminatan",
+    "mapel": "Additional Mathematics",
     "materi": "P17 • Kecepatan Sesaat Gerak Harmonik",
     "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Posisi benda dinyatakan oleh $s(t) = 4\\sin(2t) + 3\\cos(2t)$ (dalam meter). Kecepatan benda pada saat awal $t = 0\\text{ detik}$ adalah ...",
+    "tanya": "Posisi partikel dinyatakan oleh persamaan simpangan $s(t) = 4\\sin(2t) + 3\\cos(2t)$ dalam meter. Kecepatan awal partikel pada saat $t = 0$ detik adalah ...",
     "opsi": [
-      "A. $8\\text{ m/s}$",
+      "A. $4\\text{ m/s}$",
       "B. $6\\text{ m/s}$",
-      "C. $10\\text{ m/s}$",
-      "D. $0\\text{ m/s}$",
-      "E. $-6\\text{ m/s}$"
+      "C. $8\\text{ m/s}$",
+      "D. $10\\text{ m/s}$",
+      "E. $14\\text{ m/s}$"
     ],
-    "kunci": "A",
-    "bahas": "$v(t) = s'(t) = 8\\cos(2t) - 6\\sin(2t)$.\nPada $t = 0$: $v(0) = 8\\cos(0) - 6\\sin(0) = 8(1) - 0 = 8\\text{ m/s}$. Kunci A.",
+    "kunci": "C",
+    "bahas": "Langkah 1: Kecepatan adalah turunan pertama posisi: $v(t) = s'(t)$.\nLangkah 2: $v(t) = 4(2\\cos(2t)) + 3(-2\\sin(2t)) = 8\\cos(2t) - 6\\sin(2t)$.\nLangkah 3: Evaluasi pada $t = 0$:\n$v(0) = 8\\cos(0) - 6\\sin(0) = 8(1) - 6(0) = 8\\text{ m/s}$.\nKesimpulan: Kunci C benar.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M16",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Tangen Komposit",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari $f(x) = \\tan(2x)$ adalah ...",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Sifat Turunan Tangen Komposit",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Diberikan kurva $f(x) = \\tan(2x)$. Analisis kebenaran setiap pernyataan berikut:",
     "opsi": [
-      "A. $2\\sec^2(2x)$",
-      "B. $\\sec^2(2x)$",
-      "C. $2\\tan(2x)\\sec(2x)$",
-      "D. $-2\\sec^2(2x)$",
-      "E. $4\\sec^2(2x)$"
+      "Turunan pertama kurva adalah $f'(x) = 2\\sec^2(2x)$.",
+      "Gradien garis singgung kurva di titik asal $(0,0)$ adalah 0.",
+      "Persamaan garis singgung di titik asal $(0,0)$ adalah $y = 2x$.",
+      "Nilai dari $f'(x)$ dapat bernilai negatif pada interval domain terdefinisi."
     ],
-    "kunci": "A",
-    "bahas": "Turunan $\\tan(u)$ adalah $u' \\sec^2(u)$. Dengan $u = 2x$, diperoleh $f'(x) = 2\\sec^2(2x)$. Kunci A.",
+    "kunci": "B - S - B - S",
+    "bahas": "Analisis:\n1. Baris 1: $f'(x) = 2\\sec^2(2x)$. (BENAR)\n2. Baris 2: $m = f'(0) = 2\\sec^2(0) = 2(1) = 2$ (bukan 0). (SALAH)\n3. Baris 3: Melalui $(0,0)$ dengan gradien $m = 2$: $y - 0 = 2(x - 0) \\implies y = 2x$. (BENAR)\n4. Baris 4: Karena $\\sec^2(2x) \\ge 1$, nilai $f'(x) = 2\\sec^2(2x) \\ge 2$ selalu positif, tidak pernah negatif. (SALAH)\nKesimpulan: Kunci adalah B - S - B - S.",
     "level": "Level 2 (Sedang)"
   },
   {
     "id": "WR-M17",
-    "mapel": "Matematika Peminatan",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Nilai Turunan Kombinasi di Titik Nol",
+    "tipe": "Isian Singkat Numerik",
+    "tanya": "Jika $g(x) = \\sin(3x) + 2\\cos(x)$, berapakah nilai pasti dari turunan pertama pada titik $x = 0$, yaitu $g'(0)$?",
+    "opsi": [],
+    "kunci": "3",
+    "bahas": "Langkah 1: $g'(x) = 3\\cos(3x) - 2\\sin(x)$.\nLangkah 2: Evaluasi pada $x = 0$:\n$g'(0) = 3\\cos(0) - 2\\sin(0) = 3(1) - 2(0) = 3$.\nKesimpulan: Jawaban numerik pasti adalah 3.",
+    "level": "Level 1 (Mudah)"
+  },
+  {
+    "id": "WR-M18",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Evaluasi Turunan di $x = \\pi/2$",
+    "tipe": "Pilihan Ganda Tunggal",
+    "tanya": "Diberikan $h(x) = 3\\sin(x) - 2\\cos(2x)$. Nilai dari $h'\\left(\\frac{\\pi}{2}\\right)$ adalah ...",
+    "opsi": [
+      "A. $-3$",
+      "B. $-1$",
+      "C. $3$",
+      "D. $0$",
+      "E. $4$"
+    ],
+    "kunci": "D",
+    "bahas": "Langkah 1: $h'(x) = 3\\cos(x) - 2(-2\\sin(2x)) = 3\\cos(x) + 4\\sin(2x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{2}$:\n$h'\\left(\\frac{\\pi}{2}\\right) = 3\\cos\\left(\\frac{\\pi}{2}\\right) + 4\\sin(\\pi)$.\nLangkah 3: Karena $\\cos\\left(\\frac{\\pi}{2}\\right) = 0$ dan $\\sin(\\pi) = 0$, maka:\n$h'\\left(\\frac{\\pi}{2}\\right) = 3(0) + 4(0) = 0$.\nKesimpulan: Kunci D benar.",
+    "level": "Level 2 (Sedang)"
+  },
+  {
+    "id": "WR-M19",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Turunan Identitas Sinus Ganda",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Diberikan fungsi $f(x) = \\sin(x)\\cos(x)$. Centang SEMUA pernyataan yang bernilai BENAR mengenai turunan pertamanya!",
+    "opsi": [
+      "A. Turunan pertama dapat dituliskan dalam bentuk $f'(x) = \\cos(2x)$.",
+      "B. Nilai dari $f'(0)$ adalah 0.",
+      "C. Nilai dari $f'\\left(\\frac{\\pi}{4}\\right)$ adalah 1.",
+      "D. Nilai maksimum dari turunan pertama $f'(x)$ adalah 1.",
+      "E. Fungsi $f'(x)$ identik dengan $\\sin^2(x) - \\cos^2(x)$."
+    ],
+    "kunci": "A, D",
+    "bahas": "Evaluasi:\n- $f(x) = \\frac{1}{2}\\sin(2x) \\implies f'(x) = \\cos(2x) = \\cos^2(x) - \\sin^2(x)$. (Opsi A: BENAR, Opsi E: SALAH)\n- Di $x = 0$: $f'(0) = \\cos(0) = 1$ (bukan 0). (Opsi B: SALAH)\n- Di $x = \\pi/4$: $f'(\\pi/4) = \\cos(\\pi/2) = 0$ (bukan 1). (Opsi C: SALAH)\n- Nilai maksimum fungsi cosinus adalah 1. (Opsi D: BENAR)\nKesimpulan: Opsi A dan D benar.",
+    "level": "Level 2 (Sedang)"
+  },
+  {
+    "id": "WR-M20",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Gradien Garis Singgung Cosinus",
+    "tipe": "Pilihan Ganda Tunggal",
+    "tanya": "Gradien garis singgung kurva $y = 3\\cos(x)$ pada titik berabsis $x = \\frac{\\pi}{6}$ adalah ...",
+    "opsi": [
+      "A. $1{,}5$",
+      "B. $3$",
+      "C. $-3$",
+      "D. $-\\frac{3}{2}\\sqrt{3}$",
+      "E. $-1{,}5$"
+    ],
+    "kunci": "E",
+    "bahas": "Langkah 1: Turunan kurva: $y' = -3\\sin(x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{6}$:\n$m = -3\\sin\\left(\\frac{\\pi}{6}\\right) = -3\\left(\\frac{1}{2}\\right) = -1{,}5$.\nKesimpulan: Kunci E benar.",
+    "level": "Level 3 (HOTS)"
+  },
+  {
+    "id": "WR-M21",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Turunan Kombinasi Sinus & Tangen",
+    "tipe": "Kausatif Sebab-Akibat",
+    "tanya": "Pernyataan: Turunan pertama dari fungsi $f(x) = 4\\sin(x) - 2\\tan(x)$ pada absis $x = 0$ memiliki nilai gradien sebesar 2.\nSEBAB\nAlasan: Gradien garis singgung kurva di setiap titik pada bidang Kartesius ditentukan oleh nilai turunan pertama fungsi di titik tersebut.",
+    "opsi": [
+      "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab-akibat.",
+      "B. Pernyataan benar, alasan benar, tetapi keduanya tidak menunjukkan hubungan sebab-akibat.",
+      "C. Pernyataan benar dan alasan salah.",
+      "D. Pernyataan salah dan alasan benar.",
+      "E. Pernyataan dan alasan keduanya salah."
+    ],
+    "kunci": "B",
+    "bahas": "Analisis:\n1. Pernyataan: $f'(x) = 4\\cos(x) - 2\\sec^2(x)$. Di $x=0$: $f'(0) = 4(1) - 2(1) = 2$. (BENAR)\n2. Alasan: BENAR. Definisi geometri turunan pertama adalah gradien garis singgung kurva di titik tersebut.\n3. Hubungan: Alasan menyatakan definisi umum gradien geometri, bukan kalkulasi khusus koefisien $4-2=2$.\nKesimpulan: Kunci B benar.",
+    "level": "Level 3 (HOTS)"
+  },
+  {
+    "id": "WR-M22",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Ekstremum Turunan Cosinus Koefisien Negatif",
+    "tipe": "Pilihan Benar / Salah",
+    "tanya": "Diberikan fungsi $y = -3\\cos(5x)$. Analisis kebenaran pernyataan-pernyataan berikut mengenai turunan pertamanya:",
+    "opsi": [
+      "Turunan pertama fungsi adalah $y' = 15\\sin(5x)$.",
+      "Nilai turunan pertama di titik asal $x = 0$ bernilai 0.",
+      "Nilai maksimum dari turunan pertama $y'$ adalah 15.",
+      "Nilai dari $y'$ selalu bernilai positif untuk semua bilangan real $x$."
+    ],
+    "kunci": "B - B - B - S",
+    "bahas": "Analisis:\n1. Baris 1: $y' = -3 \\times 5(-\\sin(5x)) = 15\\sin(5x)$. (BENAR)\n2. Baris 2: $y'(0) = 15\\sin(0) = 0$. (BENAR)\n3. Baris 3: Karena rentang nilai sinus adalah $[-1, 1]$, nilai maksimum $y'$ adalah $15(1) = 15$. (BENAR)\n4. Baris 4: Fungsi sinus periodik berosilasi antara $-15$ dan $+15$, jadi tidak selalu positif. (SALAH)\nKesimpulan: Kunci adalah B - B - B - S.",
+    "level": "Level 3 (HOTS)"
+  },
+  {
+    "id": "WR-M23",
+    "mapel": "Additional Mathematics",
     "materi": "P17 • Sifat Sudut Negatif Cosinus",
     "tipe": "Pilihan Ganda Tunggal",
     "tanya": "Turunan pertama dari fungsi $g(x) = \\cos(-3x)$ adalah ...",
@@ -1149,159 +1190,71 @@
       "B. $3\\sin(3x)$",
       "C. $-3\\sin(-3x)$",
       "D. $3\\cos(3x)$",
-      "E. $-3\\cos(3x)$"
+      "E. $-3\\cos(-3x)$"
     ],
     "kunci": "A",
-    "bahas": "Identitas genap: $\\cos(-3x) = \\cos(3x)$. Turunannya $g'(x) = -3\\sin(3x)$. Kunci A.",
-    "level": "Level 2 (Sedang)"
-  },
-  {
-    "id": "WR-M18",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Evaluasi Turunan di $x = \\pi/2$",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Diberikan $h(x) = 3\\sin(x) - 2\\cos(2x)$. Nilai dari $h'\\left(\\frac{\\pi}{2}\\right)$ adalah ...",
-    "opsi": [
-      "A. $0$",
-      "B. $3$",
-      "C. $-3$",
-      "D. $4$",
-      "E. $-4$"
-    ],
-    "kunci": "A",
-    "bahas": "$h'(x) = 3\\cos(x) + 4\\sin(2x)$.\n$h'\\left(\\frac{\\pi}{2}\\right) = 3\\cos\\left(\\frac{\\pi}{2}\\right) + 4\\sin(\\pi) = 3(0) + 4(0) = 0$. Kunci A.",
-    "level": "Level 2 (Sedang)"
-  },
-  {
-    "id": "WR-M19",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Identitas Sinus Ganda",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari $f(x) = \\sin(x)\\cos(x)$ adalah ...",
-    "opsi": [
-      "A. $\\cos(2x)$",
-      "B. $\\sin(2x)$",
-      "C. $2\\cos(2x)$",
-      "D. $-\\cos(2x)$",
-      "E. $\\cos^2(x)$"
-    ],
-    "kunci": "A",
-    "bahas": "Bentuk ekuivalen: $f(x) = \\frac{1}{2}\\sin(2x)$.\n$f'(x) = \\frac{1}{2} \\cdot 2\\cos(2x) = \\cos(2x)$. Kunci A.",
-    "level": "Level 2 (Sedang)"
-  },
-  {
-    "id": "WR-M20",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Gradien Garis Singgung Cosinus",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Gradien garis singgung kurva $y = 3\\cos(x)$ pada titik berabsis $x = \\frac{\\pi}{6}$ adalah ...",
-    "opsi": [
-      "A. $-\\frac{3}{2}$",
-      "B. $\\frac{3}{2}$",
-      "C. $-\\frac{3}{2}\\sqrt{3}$",
-      "D. $\\frac{3}{2}\\sqrt{3}$",
-      "E. $-3$"
-    ],
-    "kunci": "A",
-    "bahas": "$y' = -3\\sin(x)$. Pada $x = \\frac{\\pi}{6}$: $m = -3\\sin\\left(\\frac{\\pi}{6}\\right) = -3\\left(\\frac{1}{2}\\right) = -\\frac{3}{2}$. Kunci A.",
-    "level": "Level 3 (HOTS)"
-  },
-  {
-    "id": "WR-M21",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Kombinasi Sin-Tan",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $f(x) = 4\\sin(x) - 2\\tan(x)$ adalah ...",
-    "opsi": [
-      "A. $4\\cos(x) - 2\\sec^2(x)$",
-      "B. $4\\cos(x) + 2\\sec^2(x)$",
-      "C. $-4\\cos(x) - 2\\sec^2(x)$",
-      "D. $4\\cos(x) - 2\\tan^2(x)$",
-      "E. $4\\sin(x) - 2\\sec^2(x)$"
-    ],
-    "kunci": "A",
-    "bahas": "$f'(x) = 4\\cos(x) - 2\\sec^2(x)$. Kunci A.",
-    "level": "Level 3 (HOTS)"
-  },
-  {
-    "id": "WR-M22",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Turunan Cosinus Koefisien Negatif",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari fungsi $y = -3\\cos(5x)$ adalah ...",
-    "opsi": [
-      "A. $15\\sin(5x)$",
-      "B. $-15\\sin(5x)$",
-      "C. $15\\cos(5x)$",
-      "D. $-3\\sin(5x)$",
-      "E. $3\\sin(5x)$"
-    ],
-    "kunci": "A",
-    "bahas": "$y' = -3(-5\\sin(5x)) = 15\\sin(5x)$. Kunci A.",
-    "level": "Level 3 (HOTS)"
-  },
-  {
-    "id": "WR-M23",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Evaluasi Turunan di $x = 0$",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Jika $g(x) = \\sin(3x) + 2\\cos(x)$, nilai dari $g'(0)$ adalah ...",
-    "opsi": [
-      "A. $3$",
-      "B. $2$",
-      "C. $1$",
-      "D. $5$",
-      "E. $0$"
-    ],
-    "kunci": "A",
-    "bahas": "$g'(x) = 3\\cos(3x) - 2\\sin(x)$.\n$g'(0) = 3\\cos(0) - 2\\sin(0) = 3(1) - 0 = 3$. Kunci A.",
+    "bahas": "Langkah 1: Gunakan sifat fungsi genap cosinus: $\\cos(-\\theta) = \\cos(\\theta)$, sehingga $g(x) = \\cos(3x)$.\nLangkah 2: Turunan dari $\\cos(3x)$ adalah $g'(x) = -3\\sin(3x)$.\nLangkah 3: Alternatif via aturan rantai: $g'(x) = -\\sin(-3x) \\cdot (-3) = 3\\sin(-3x) = -3\\sin(3x)$ (hasil identik).\nKesimpulan: Kunci A benar.",
     "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-M24",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Aturan Perkalian Pangkat Aljabar",
-    "tipe": "Pilihan Ganda Tunggal",
-    "tanya": "Turunan pertama dari $f(x) = x^3 \\cos(x)$ adalah ...",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Aturan Perkalian Polinomial Kubik-Cosinus",
+    "tipe": "Pilihan Ganda Kompleks",
+    "tanya": "Diberikan $f(x) = x^3 \\cos(x)$. Centang SEMUA pernyataan yang bernilai BENAR mengenai turunan pertamanya!",
     "opsi": [
-      "A. $3x^2\\cos(x) - x^3\\sin(x)$",
-      "B. $3x^2\\cos(x) + x^3\\sin(x)$",
-      "C. $-3x^2\\sin(x)$",
-      "D. $3x^2\\sin(x) - x^3\\cos(x)$",
-      "E. $x^2(3\\cos(x) + \\sin(x))$"
+      "A. Turunan pertamanya adalah $f'(x) = 3x^2 \\cos(x) + x^3 \\sin(x)$.",
+      "B. Turunan pertamanya adalah $f'(x) = 3x^2 \\cos(x) - x^3 \\sin(x)$.",
+      "C. Nilai dari $f'(0)$ adalah 3.",
+      "D. Garis singgung kurva di titik asal $(0,0)$ memiliki gradien $m = 1$.",
+      "E. Garis singgung kurva di titik asal $(0,0)$ sejajar dengan sumbu-X (horizontal)."
     ],
-    "kunci": "A",
-    "bahas": "$f'(x) = 3x^2 \\cos(x) + x^3(-\\sin x) = 3x^2\\cos(x) - x^3\\sin(x)$. Kunci A.",
+    "kunci": "B, E",
+    "bahas": "Evaluasi:\n- Aturan hasil kali: $u = x^3 \\implies u' = 3x^2$; $v = \\cos x \\implies v' = -\\sin x$.\n- $f'(x) = 3x^2\\cos x - x^3\\sin x$. (Opsi B: BENAR, Opsi A: SALAH)\n- Di $x = 0$: $f'(0) = 3(0)^2\\cos(0) - 0^3\\sin(0) = 0$. (Opsi C: SALAH, Opsi D: SALAH)\n- Karena gradien di $(0,0)$ adalah $m = 0$, garis singgung berbentuk horizontal (sejajar sumbu-X). (Opsi E: BENAR)\nKesimpulan: Opsi B dan E benar.",
     "level": "Level 3 (HOTS)"
   },
   {
     "id": "WR-M25",
-    "mapel": "Matematika Peminatan",
-    "materi": "P17 • Gradien Kurva Tangen di Titik Asal",
+    "mapel": "Additional Mathematics",
+    "materi": "P17 • Gradien Kurva Tangen Komposit di Asal",
     "tipe": "Pilihan Ganda Tunggal",
     "tanya": "Gradien garis singgung kurva $y = \\tan(2x)$ di titik asal $(0, 0)$ adalah ...",
     "opsi": [
-      "A. $2$",
-      "B. $1$",
-      "C. $0$",
-      "D. $4$",
-      "E. Tidak terdefinisi"
+      "A. $1$",
+      "B. $2$",
+      "C. $4$",
+      "D. $0$",
+      "E. Tak terdefinisi"
     ],
-    "kunci": "A",
-    "bahas": "$y' = 2\\sec^2(2x)$. Pada $x = 0$, $m = 2\\sec^2(0) = 2(1) = 2$. Kunci A.",
+    "kunci": "B",
+    "bahas": "Langkah 1: Turunan kurva $y' = 2\\sec^2(2x) = \\frac{2}{\\cos^2(2x)}$.\nLangkah 2: Evaluasi pada $x = 0$:\n$m = \\frac{2}{\\cos^2(0)} = \\frac{2}{1^2} = 2$.\nKesimpulan: Kunci B benar.",
     "level": "Level 3 (HOTS)"
   }
 ]
   };
 
-  function getWeeklyCampaignId(date) {
-    const now = date ? new Date(date) : new Date();
-    const utc = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    const dayNum = utc.getUTCDay() || 7;
-    utc.setUTCDate(utc.getUTCDate() + 4 - dayNum);
-    const yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1));
-    const weekNo = Math.ceil((((utc - yearStart) / 86400000) + 1) / 7);
-    return utc.getUTCFullYear() + '_W' + String(weekNo).padStart(2, '0');
+  function getWeeklyCampaignId() {
+    const now = new Date();
+    // Gunakan zona waktu WIB (UTC+7)
+    const wibNow = new Date(now.getTime() + (7 * 60 * 60 * 1000));
+    const year = wibNow.getUTCFullYear();
+    
+    // Hitung week number (dimulai hari Senin)
+    const d = new Date(Date.UTC(wibNow.getUTCFullYear(), wibNow.getUTCMonth(), wibNow.getUTCDate()));
+    const dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    return `${year}-W${String(weekNo).padStart(2, '0')}`;
+  }
+
+  function stringToSeed(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = ((hash << 5) - hash) + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash);
   }
 
   function mulberry32(a) {
@@ -1313,17 +1266,8 @@
     };
   }
 
-  function stringToSeed(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = ((hash << 5) - hash) + str.charCodeAt(i);
-      hash |= 0;
-    }
-    return Math.abs(hash) + 1;
-  }
-
-  function shuffleWithRng(arr, rng) {
-    const a = [...arr];
+  function shuffleWithRng(array, rng) {
+    const a = [...array];
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(rng() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
