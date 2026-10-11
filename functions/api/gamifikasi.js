@@ -279,7 +279,7 @@ export function getWeeklyEventStatus(exams, discordQuizRows, hasAngket) {
 // Menghitung akumulasi penyelesaian soal & papan peringkat damage per siswa
 // =============================================================================
 export async function getRaidBossData(db, nis) {
-  const MAX_BOSS_HP = 150000;
+  const MAX_BOSS_HP = 300000;
   
   if (!db) {
     return {
@@ -288,12 +288,12 @@ export async function getRaidBossData(db, nis) {
       boss_subtitle: 'Event Pertemuan: Wajib P15 & P16 • Minat P17',
       boss_desc: 'Monster raksasa penunggu gerbang PTS-PAS yang terbuat dari balok-balok histogram dan gelombang kurva trigonometri. Banyak-banyakan selesaikan soal untuk menumbangkan Titan!',
       max_hp: MAX_BOSS_HP,
-      current_hp: 34100,
-      total_damage_dealt: 115900,
-      pct_hp_remaining: 23,
+      current_hp: 300000,
+      total_damage_dealt: 0,
+      pct_hp_remaining: 100,
       is_defeated: false,
-      phase: 'FASE 2: WEAKENED',
-      total_attackers: 52,
+      phase: 'FASE 1: BATTLE COMMENCED',
+      total_attackers: 0,
       days_remaining: 1,
       hours_remaining: 20,
       target_packages: [],
@@ -510,12 +510,12 @@ export async function getRaidBossData(db, nis) {
       boss_name: 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF',
       boss_subtitle: 'Event Pertemuan: Wajib P15 & P16 • Minat P17',
       max_hp: MAX_BOSS_HP,
-      current_hp: 34100,
-      total_damage_dealt: 115900,
-      pct_hp_remaining: 23,
+      current_hp: 300000,
+      total_damage_dealt: 0,
+      pct_hp_remaining: 100,
       is_defeated: false,
-      phase: 'FASE 2: WEAKENED',
-      total_attackers: 52,
+      phase: 'FASE 1: BATTLE COMMENCED',
+      total_attackers: 0,
       days_remaining: 1,
       hours_remaining: 20,
       target_packages: [],

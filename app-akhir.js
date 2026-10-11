@@ -2635,7 +2635,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         _cachedRaidBossData = data;
         const bossName = data.boss_name || 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF';
         const phase = data.phase || 'FASE 2 • WEAKENED';
-        const maxHp = Number(data.max_hp) || 150000;
+        const maxHp = Number(data.max_hp) || 300000;
         const curHp = Math.max(0, Number(data.current_hp) || 0);
         const totalDmg = Number(data.total_damage_dealt) || 0;
         const pctHp = Math.max(0, Math.min(100, Number(data.pct_hp_remaining) || Math.round((curHp / maxHp) * 100)));
@@ -2825,7 +2825,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       _filteredRaidBossLeaderboard = Array.isArray(data.leaderboard) ? [...data.leaderboard] : [];
 
       const curHp = Math.max(0, Number(data.current_hp) || 0);
-      const maxHp = Number(data.max_hp) || 150000;
+      const maxHp = Number(data.max_hp) || 300000;
       const pctHp = Math.max(0, Math.min(100, Number(data.pct_hp_remaining) || Math.round((curHp / maxHp) * 100)));
       const isDefeated = Boolean(data.is_defeated || curHp <= 0);
 
@@ -3275,20 +3275,37 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       return { anomaly: false };
     }
 
+    function isCurrentTeacher() {
+      try {
+        const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        if (sess && (sess.type === 'guru' || sess.role === 'guru')) return true;
+        if (typeof isGuruLoggedIn === 'function' && isGuruLoggedIn()) return true;
+      } catch(e) {}
+      return false;
+    }
+
     function getStudentDefaultSquad(nis) {
       const activeNis = nis || getActiveStudentNis();
       try {
         const studentInfo = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[activeNis]) ? STUDENTS_DATA[activeNis] : null;
         if (studentInfo) {
           if (studentInfo.access_level === 'wajib_only') return 'F1_F2';
-          if (studentInfo.kelas && (studentInfo.kelas.includes('F1') || studentInfo.kelas.includes('F2'))) return 'F1_F2';
-          if (studentInfo.kelas && (studentInfo.kelas.includes('F3') || studentInfo.kelas.includes('F4'))) return 'F3_F4';
+          if (studentInfo.kelas) {
+            const k = String(studentInfo.kelas).toUpperCase();
+            if (k.includes('F1') || k.includes('F2') || k.includes('F.1') || k.includes('F.2')) return 'F1_F2';
+            if (k.includes('F3') || k.includes('F4') || k.includes('F.3') || k.includes('F.4')) return 'F3_F4';
+          }
         }
         const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
         if (sess && sess.data && sess.data.kelas) {
-          const k = String(sess.data.kelas);
-          if (k.includes('F1') || k.includes('F2')) return 'F1_F2';
-          if (k.includes('F3') || k.includes('F4')) return 'F3_F4';
+          const k = String(sess.data.kelas).toUpperCase();
+          if (k.includes('F1') || k.includes('F2') || k.includes('F.1') || k.includes('F.2')) return 'F1_F2';
+          if (k.includes('F3') || k.includes('F4') || k.includes('F.3') || k.includes('F.4')) return 'F3_F4';
+        }
+        if (typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.kelas) {
+          const k = String(currentSiswa.kelas).toUpperCase();
+          if (k.includes('F1') || k.includes('F2') || k.includes('F.1') || k.includes('F.2')) return 'F1_F2';
+          if (k.includes('F3') || k.includes('F4') || k.includes('F.3') || k.includes('F.4')) return 'F3_F4';
         }
       } catch(e) {}
       return 'F1_F2';
@@ -3297,7 +3314,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function getWeeklyRaidStorageKey(nis, weekId, squad) {
       const activeNis = nis || getActiveStudentNis() || 'ANON';
       const wId = weekId || getWeeklyCampaignIdFallback();
-      const sq = squad || _dailyRaidCurrentSquad || getStudentDefaultSquad(activeNis);
+      const isGuru = isCurrentTeacher();
+      const allowedSquad = getStudentDefaultSquad(activeNis);
+      const sq = (!isGuru) ? allowedSquad : (squad || _dailyRaidCurrentSquad || allowedSquad);
       return `weekly_raid_${activeNis}_${wId}_${sq}`;
     }
 
@@ -3307,13 +3326,40 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const btnF34 = document.getElementById('dr-squad-btn-f34');
       const bSquadTag = document.getElementById('daily-raid-squad-badge');
 
+      const nis = getActiveStudentNis();
+      const allowedSquad = getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+
       if (btnF12 && btnF34) {
         if (squad === 'F1_F2') {
           btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
-          btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+          btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa)</span>';
+          btnF12.title = 'Skuad Aktif: 50 Butir Matematika Wajib';
+
+          if (!isGuru && allowedSquad === 'F1_F2') {
+            btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 opacity-40 cursor-not-allowed text-[#787774] border border-transparent';
+            btnF34.innerHTML = '<i class="fa-solid fa-lock text-[11px] text-stone-400"></i> <span>Skuad F3-F4 (Terkunci)</span>';
+            btnF34.title = 'Akses Terkunci: Khusus Siswa Kelas XII F.3 & F.4';
+          } else {
+            btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+            btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Matwa + 25 Minat)</span>';
+            btnF34.title = 'Pindah ke Skuad F3-F4';
+          }
         } else {
+          // squad === 'F3_F4'
           btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
-          btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+          btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Matwa + 25 Minat)</span>';
+          btnF34.title = 'Skuad Aktif: 25 Matwa + 25 Minat';
+
+          if (!isGuru && allowedSquad === 'F3_F4') {
+            btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 opacity-40 cursor-not-allowed text-[#787774] border border-transparent';
+            btnF12.innerHTML = '<i class="fa-solid fa-lock text-[11px] text-stone-400"></i> <span>Skuad F1-F2 (Terkunci)</span>';
+            btnF12.title = 'Akses Terkunci: Khusus Siswa Kelas XII F.1 & F.2';
+          } else {
+            btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+            btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa)</span>';
+            btnF12.title = 'Pindah ke Skuad F1-F2';
+          }
         }
       }
 
@@ -3329,8 +3375,23 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     function setDailyRaidSquadMode(squad) {
-      updateDailyRaidSquadButtonsUI(squad);
       const nis = getActiveStudentNis();
+      const allowedSquad = getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+
+      if (!isGuru && squad !== allowedSquad) {
+        const deniedMsg = allowedSquad === 'F1_F2'
+          ? '🔒 Akses Terkunci: Siswa Kelas XII F.1 & F.2 hanya diperbolehkan mengerjakan Skuad Wajib F1-F2 (50 Soal Matematika Wajib).'
+          : '🔒 Akses Terkunci: Siswa Kelas XII F.3 & F.4 hanya diperbolehkan mengerjakan Skuad Terpadu F3-F4 (25 Matwa + 25 Minat).';
+        if (typeof showNotionToast === 'function') {
+          showNotionToast(deniedMsg);
+        } else {
+          alert(deniedMsg);
+        }
+        return;
+      }
+
+      updateDailyRaidSquadButtonsUI(squad);
       const weekId = getWeeklyCampaignIdFallback();
       const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
 
@@ -3361,7 +3422,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function getDailyRaidQuestionPool() {
       const nis = getActiveStudentNis();
       const weekId = getWeeklyCampaignIdFallback();
-      const squad = _dailyRaidCurrentSquad || 'F1_F2';
+      const isGuru = isCurrentTeacher();
+      const allowedSquad = getStudentDefaultSquad(nis);
+      const squad = (!isGuru) ? allowedSquad : (_dailyRaidCurrentSquad || allowedSquad);
       if (typeof window.getWeeklyRaid50Questions === 'function') {
         return window.getWeeklyRaid50Questions(nis, weekId, squad);
       }
@@ -3371,7 +3434,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function generateDailyRaidQuestions(nis, dateStr, squadType) {
       const activeNis = nis || getActiveStudentNis();
       const weekId = getWeeklyCampaignIdFallback();
-      const squad = squadType || _dailyRaidCurrentSquad || getStudentDefaultSquad(activeNis);
+      const isGuru = isCurrentTeacher();
+      const allowedSquad = getStudentDefaultSquad(activeNis);
+      const squad = (!isGuru) ? allowedSquad : (squadType || _dailyRaidCurrentSquad || allowedSquad);
 
       if (typeof window.getWeeklyRaid50Questions === 'function') {
         return window.getWeeklyRaid50Questions(activeNis, weekId, squad);
@@ -3419,7 +3484,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       const weekId = getWeeklyCampaignIdFallback();
       const defaultSquad = getStudentDefaultSquad(nis);
-      _dailyRaidCurrentSquad = _dailyRaidCurrentSquad || defaultSquad;
+      const isGuru = isCurrentTeacher();
+      _dailyRaidCurrentSquad = (!isGuru) ? defaultSquad : (_dailyRaidCurrentSquad || defaultSquad);
       updateDailyRaidSquadButtonsUI(_dailyRaidCurrentSquad);
 
       const storageKey = getWeeklyRaidStorageKey(nis, weekId, _dailyRaidCurrentSquad);
@@ -3958,7 +4024,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       // 7. Update Real-Time Boss HP Bar di Memori & Widget jika tersedia
       if (_cachedRaidBossData) {
-        _cachedRaidBossData.current_hp = Math.max(0, (_cachedRaidBossData.current_hp || 150000) - dmg);
+        _cachedRaidBossData.current_hp = Math.max(0, (_cachedRaidBossData.current_hp || 300000) - dmg);
         _cachedRaidBossData.total_damage_dealt = (_cachedRaidBossData.total_damage_dealt || 0) + dmg;
         renderWeeklyEventWidget(_cachedRaidBossData);
       }
@@ -4031,7 +4097,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       const nis = getActiveStudentNis();
       const weekId = getWeeklyCampaignIdFallback();
-      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+      const squad = (!isGuru) ? getStudentDefaultSquad(nis) : (_dailyRaidCurrentSquad || getStudentDefaultSquad(nis));
       const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
       try {
         const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
@@ -4046,7 +4113,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function persistWeeklyRaidState(isCompleted = false) {
       const nis = getActiveStudentNis();
       const weekId = getWeeklyCampaignIdFallback();
-      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+      const squad = (!isGuru) ? getStudentDefaultSquad(nis) : (_dailyRaidCurrentSquad || getStudentDefaultSquad(nis));
       const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
 
       const payload = {
@@ -4071,7 +4139,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     async function syncWeeklyRaidToBackend() {
       const nis = getActiveStudentNis();
       const weekId = getWeeklyCampaignIdFallback();
-      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+      const squad = (!isGuru) ? getStudentDefaultSquad(nis) : (_dailyRaidCurrentSquad || getStudentDefaultSquad(nis));
       const kodePertemuan = 'WEEKLY_' + weekId;
 
       let correctCount = 0;
@@ -4424,7 +4493,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function resumeWeeklyRaidBattle() {
       const nis = getActiveStudentNis();
       const weekId = getWeeklyCampaignIdFallback();
-      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+      const squad = (!isGuru) ? getStudentDefaultSquad(nis) : (_dailyRaidCurrentSquad || getStudentDefaultSquad(nis));
       const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
       try {
         const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
@@ -4450,7 +4520,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
       const nis = getActiveStudentNis();
       const weekId = getWeeklyCampaignIdFallback();
-      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+      const squad = (!isGuru) ? getStudentDefaultSquad(nis) : (_dailyRaidCurrentSquad || getStudentDefaultSquad(nis));
       const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
       try {
         localStorage.removeItem(storageKey);
