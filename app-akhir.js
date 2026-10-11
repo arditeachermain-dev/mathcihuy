@@ -3099,12 +3099,23 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         return window.getWeeklyCampaignId(date);
       }
       const now = date ? new Date(date) : new Date();
-      const utc = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-      const dayNum = utc.getUTCDay() || 7;
-      utc.setUTCDate(utc.getUTCDate() + 4 - dayNum);
-      const yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1));
-      const weekNo = Math.ceil((((utc - yearStart) / 86400000) + 1) / 7);
-      return utc.getUTCFullYear() + '_W' + String(weekNo).padStart(2, '0');
+      const w42LaunchTime = new Date('2026-10-11T22:00:00.000Z').getTime();
+      if (now.getTime() < w42LaunchTime) {
+        return '2026-W41';
+      }
+      const wibNow = new Date(now.getTime() + (7 * 60 * 60 * 1000));
+      const dayOfWeek = wibNow.getUTCDay();
+      const hours = wibNow.getUTCHours();
+      if (dayOfWeek === 1 && hours < 5) {
+        wibNow.setUTCDate(wibNow.getUTCDate() - 1);
+      }
+      const year = wibNow.getUTCFullYear();
+      const d = new Date(Date.UTC(wibNow.getUTCFullYear(), wibNow.getUTCMonth(), wibNow.getUTCDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+      return `${year}-W${String(weekNo).padStart(2, '0')}`;
     }
 
     function formatWibDateIndo(dateStr) {
@@ -3499,7 +3510,16 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       const themeDesc = document.getElementById('dr-modal-theme-desc');
       if (themeDesc) {
-        const sqText = _dailyRaidCurrentSquad === 'F1_F2' ? '50 Butir Matematika Wajib P15/P16' : '25 Butir Wajib + 25 Butir Minat P17';
+        let sqText = '';
+        if (weekId === '2026-W42') {
+          sqText = _dailyRaidCurrentSquad === 'F1_F2'
+            ? '50 Butir Matematika Wajib P17 (Median/Modus) & P18 (Ukuran Letak Data)'
+            : '25 Butir Wajib (P17/P18) + 25 Butir Minat (P18/P19 Turunan Lanjut)';
+        } else {
+          sqText = _dailyRaidCurrentSquad === 'F1_F2'
+            ? '50 Butir Matematika Wajib P15/P16'
+            : '25 Butir Wajib + 25 Butir Minat P17';
+        }
         themeDesc.textContent = `50 soal acak TKA per siswa (${sqText}). Pengerjaan bisa ditunda & serang Titan tiap soal dengan Real-Time Combo!`;
       }
 
@@ -4567,11 +4587,12 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const squadBadge = document.getElementById('daily-raid-squad-badge');
 
       if (squadBadge) {
+        const isW42 = (weekId === '2026-W42');
         if (squad === 'F1_F2') {
-          squadBadge.textContent = '🛡️ Skuad F1 - F2 (50 Matwa)';
+          squadBadge.textContent = isW42 ? '🛡️ Skuad F1 - F2 (50 Matwa P17-P18)' : '🛡️ Skuad F1 - F2 (50 Matwa)';
           squadBadge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200';
         } else {
-          squadBadge.textContent = '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)';
+          squadBadge.textContent = isW42 ? '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat P18-P19)' : '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)';
           squadBadge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200';
         }
       }
