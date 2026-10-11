@@ -1480,6 +1480,10 @@
     }
 
     /* ---- Notion Warm Paper Aesthetic Component Styles ---- */
+    .custom-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: #D3CFBE transparent;
+    }
     .custom-scroll::-webkit-scrollbar {
       width: 6px;
       height: 6px;

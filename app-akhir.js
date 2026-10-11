@@ -1887,6 +1887,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const modal = document.getElementById('leaderboard-modal');
       if (!modal) return;
       modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
       const scrollBody = modal.querySelector('.overflow-y-auto');
       if (scrollBody) scrollBody.scrollTop = 0;
 
@@ -1910,7 +1912,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     // Tutup Modal Leaderboard
     function closeLeaderboardModal() {
       const modal = document.getElementById('leaderboard-modal');
-      if (modal) modal.classList.add('hidden');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      document.body.style.overflow = '';
     }
 
     // Ganti Tampilan Antara Tabel Leaderboard, Katalog Lencana, Roadmap, dan Kompetisi Rombel
@@ -4534,6 +4540,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
+      const scrollBody = document.getElementById('skill-tree-body');
+      if (scrollBody) scrollBody.scrollTop = 0;
 
       let nis = null;
       try {
