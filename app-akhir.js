@@ -3045,13 +3045,24 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     // =========================================================================
-    // MODUL 1.5: DAILY RAID ATTACK ENGINE (10 SOAL ACAK PER SISWA PER HARI)
+    // MODUL 1.5: WEEKLY RAID BOSS CAMPAIGN (50 SOAL TKA • PER-QUESTION ATTACK)
+    // Skuad F1-F2: 50 Matwa | Skuad F3-F4: 25 Matwa + 25 Minat
+    // Fitur: Pause & Resume, Real-Time Combo Multiplier, Anti-Cheat 15m Lockout
     // =========================================================================
     let _dailyRaidQuestions = [];
     let _dailyRaidCurrentIdx = 0;
-    let _dailyRaidAnswers = {};
+    let _dailyRaidAnswers = {}; // Draft picks per question: { 0: 'A', ... }
+    let _dailyRaidAttacks = {}; // Attacked records: { 0: { chosen: 'A', isCorrect: true, dmg: 100, combo: 1, timestamp: ... } }
+    let _dailyRaidCurrentCombo = 0;
+    let _dailyRaidMaxCombo = 0;
+    let _dailyRaidTotalDamage = 0;
+    let _dailyRaidCompletedCount = 0;
     let _dailyRaidTimer = null;
     let _dailyRaidSeconds = 0;
+    let _dailyRaidCurrentSquad = 'F1_F2';
+    let _questionViewTimestamp = Date.now();
+    let _lastAttackTimestamp = 0;
+    let _botLockoutInterval = null;
 
     function getActiveStudentNis() {
       try {
@@ -3067,6 +3078,19 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function getWibDateString() {
       const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
       return nowWib.toISOString().slice(0, 10);
+    }
+
+    function getWeeklyCampaignIdFallback(date) {
+      if (typeof window.getWeeklyCampaignId === 'function') {
+        return window.getWeeklyCampaignId(date);
+      }
+      const now = date ? new Date(date) : new Date();
+      const utc = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      const dayNum = utc.getUTCDay() || 7;
+      utc.setUTCDate(utc.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1));
+      const weekNo = Math.ceil((((utc - yearStart) / 86400000) + 1) / 7);
+      return utc.getUTCFullYear() + '_W' + String(weekNo).padStart(2, '0');
     }
 
     function formatWibDateIndo(dateStr) {
@@ -3104,29 +3128,122 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
     }
 
-    function getDailyRaidSeededRng(seedStr) {
-      let h = 1779033703 ^ seedStr.length;
-      for (let i = 0; i < seedStr.length; i++) {
-        h = Math.imul(h ^ seedStr.charCodeAt(i), 3432918353);
-        h = (h << 13) | (h >>> 19);
+    // --- ANTI-CHEAT & BOT DETECTION SUBSYSTEM ---
+    function getBotLockoutKey(nis) {
+      return 'raid_bot_penalty_' + (nis || getActiveStudentNis() || 'ANON');
+    }
+
+    function getBotLockoutReasonKey(nis) {
+      return 'raid_bot_penalty_reason_' + (nis || getActiveStudentNis() || 'ANON');
+    }
+
+    function checkAntiCheatLockout(nis) {
+      const activeNis = nis || getActiveStudentNis() || 'ANON';
+      const key = getBotLockoutKey(activeNis);
+      const raw = localStorage.getItem(key);
+      if (!raw) return { locked: false, remainingSecs: 0 };
+      const expiry = parseInt(raw, 10);
+      const now = Date.now();
+      if (isNaN(expiry) || now >= expiry) {
+        localStorage.removeItem(key);
+        localStorage.removeItem(getBotLockoutReasonKey(activeNis));
+        return { locked: false, remainingSecs: 0 };
       }
-      return function() {
-        h = Math.imul(h ^ (h >>> 16), 2246822507);
-        h = Math.imul(h ^ (h >>> 13), 3266489909);
-        return ((h ^= h >>> 16) >>> 0) / 4294967296;
+      const remainingSecs = Math.max(1, Math.ceil((expiry - now) / 1000));
+      const reason = localStorage.getItem(getBotLockoutReasonKey(activeNis)) || 'Aktivitas tidak wajar terdeteksi.';
+      return { locked: true, remainingSecs, reason };
+    }
+
+    function triggerAntiCheatLockout(nis, reason) {
+      const activeNis = nis || getActiveStudentNis() || 'ANON';
+      const key = getBotLockoutKey(activeNis);
+      const reasonKey = getBotLockoutReasonKey(activeNis);
+      const penaltyDurationMs = 15 * 60 * 1000; // 15 Menit = 900 detik
+      const expiry = Date.now() + penaltyDurationMs;
+      localStorage.setItem(key, String(expiry));
+      localStorage.setItem(reasonKey, reason);
+
+      stopDailyRaidTimer();
+      closeDailyRaidModal();
+      showBotLockoutModal(900, reason);
+    }
+
+    function showBotLockoutModal(remainingSecs, reason) {
+      const modal = document.getElementById('dr-bot-lockout-modal');
+      if (!modal) return;
+      const reasonEl = document.getElementById('dr-bot-lockout-reason');
+      const timerEl = document.getElementById('dr-bot-lockout-timer');
+
+      if (reasonEl && reason) {
+        reasonEl.textContent = reason;
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      if (_botLockoutInterval) {
+        clearInterval(_botLockoutInterval);
+      }
+
+      let secLeft = remainingSecs;
+      const updateTimer = () => {
+        const mm = String(Math.floor(secLeft / 60)).padStart(2, '0');
+        const ss = String(secLeft % 60).padStart(2, '0');
+        if (timerEl) timerEl.textContent = `${mm}:${ss}`;
+        if (secLeft <= 0) {
+          clearInterval(_botLockoutInterval);
+          _botLockoutInterval = null;
+          closeBotLockoutModal();
+        }
+        secLeft--;
       };
+      updateTimer();
+      _botLockoutInterval = setInterval(updateTimer, 1000);
     }
 
-    function shuffleArrayWithRng(arr, rng) {
-      const a = [...arr];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(rng() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+    function closeBotLockoutModal() {
+      const modal = document.getElementById('dr-bot-lockout-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
       }
-      return a;
+      if (_botLockoutInterval) {
+        clearInterval(_botLockoutInterval);
+        _botLockoutInterval = null;
+      }
     }
 
-    let _dailyRaidCurrentSquad = 'F1_F2';
+    function checkBotActivityAnomaly(event, questionIdx) {
+      // Anomaly 1: Untrusted synthetic event (simulated script dispatch)
+      if (event && event.isTrusted === false) {
+        return {
+          anomaly: true,
+          reason: 'Sistem mendeteksi klik sintetis/skrip (Untrusted Event). Penyerangan ditangguhkan 15 menit.'
+        };
+      }
+
+      // Anomaly 2: Inhuman answer speed (< 3.0 detik sejak soal dibuka)
+      const elapsedSinceView = (Date.now() - _questionViewTimestamp) / 1000;
+      if (elapsedSinceView < 3.0) {
+        return {
+          anomaly: true,
+          reason: `Waktu analisis pengerjaan terlalu cepat (${elapsedSinceView.toFixed(1)}s < 3.0s). Indikasi skrip otomatis terdeteksi.`
+        };
+      }
+
+      // Anomaly 3: Rapid burst attacks (< 1.5 detik sejak attack sebelumnya)
+      if (_lastAttackTimestamp > 0) {
+        const elapsedSinceLastAttack = (Date.now() - _lastAttackTimestamp) / 1000;
+        if (elapsedSinceLastAttack < 1.5) {
+          return {
+            anomaly: true,
+            reason: `Pola penyerangan beruntun instan (${elapsedSinceLastAttack.toFixed(1)}s < 1.5s). Indikasi bot automasi terdeteksi.`
+          };
+        }
+      }
+
+      return { anomaly: false };
+    }
 
     function getStudentDefaultSquad(nis) {
       const activeNis = nis || getActiveStudentNis();
@@ -3147,6 +3264,13 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       return 'F1_F2';
     }
 
+    function getWeeklyRaidStorageKey(nis, weekId, squad) {
+      const activeNis = nis || getActiveStudentNis() || 'ANON';
+      const wId = weekId || getWeeklyCampaignIdFallback();
+      const sq = squad || _dailyRaidCurrentSquad || getStudentDefaultSquad(activeNis);
+      return `weekly_raid_${activeNis}_${wId}_${sq}`;
+    }
+
     function updateDailyRaidSquadButtonsUI(squad) {
       _dailyRaidCurrentSquad = squad;
       const btnF12 = document.getElementById('dr-squad-btn-f12');
@@ -3165,10 +3289,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       if (bSquadTag) {
         if (squad === 'F1_F2') {
-          bSquadTag.textContent = '🛡️ Skuad F1 - F2 (10 Matwa)';
+          bSquadTag.textContent = '🛡️ Skuad F1 - F2 (50 Matwa)';
           bSquadTag.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200';
         } else {
-          bSquadTag.textContent = '⚔️ Skuad F3 - F4 (Matwa + Minat)';
+          bSquadTag.textContent = '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)';
           bSquadTag.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200';
         }
       }
@@ -3177,22 +3301,17 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function setDailyRaidSquadMode(squad) {
       updateDailyRaidSquadButtonsUI(squad);
       const nis = getActiveStudentNis();
-      const dateStr = getWibDateString();
-      const storageKey = `daily_raid_${nis}_${dateStr}_${squad}`;
+      const weekId = getWeeklyCampaignIdFallback();
+      const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
 
-      _dailyRaidQuestions = generateDailyRaidQuestions(nis, dateStr, squad);
-
-      const themeDesc = document.getElementById('dr-modal-theme-desc');
-      const themeTag = document.getElementById('dr-theme-day-tag');
-      if (_dailyRaidQuestions.length > 0 && _dailyRaidQuestions[0]._dayName) {
-        if (themeTag) themeTag.textContent = _dailyRaidQuestions[0]._dayName.split('•')[0]?.trim() || 'ROTASI HARIAN';
-        if (themeDesc) themeDesc.textContent = _dailyRaidQuestions[0]._dayName + ' • 10 butir soal baru eksklusif harian. +100 DMG/soal + 500 Critical!';
-      }
+      _dailyRaidQuestions = generateDailyRaidQuestions(nis, null, squad);
 
       let savedState = null;
       try {
         savedState = JSON.parse(localStorage.getItem(storageKey) || 'null');
       } catch(e) {}
+
+      loadWeeklyRaidCampaignState(savedState);
 
       if (savedState && savedState.is_completed) {
         showDailyRaidResultView(savedState.results);
@@ -3202,84 +3321,93 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     function getDailyRaidQuestionPool() {
-      const dateStr = getWibDateString();
+      const nis = getActiveStudentNis();
+      const weekId = getWeeklyCampaignIdFallback();
       const squad = _dailyRaidCurrentSquad || 'F1_F2';
-      if (typeof window.getDailyRaidQuestionsForDate === 'function') {
-        return window.getDailyRaidQuestionsForDate(dateStr, squad);
+      if (typeof window.getWeeklyRaid50Questions === 'function') {
+        return window.getWeeklyRaid50Questions(nis, weekId, squad);
       }
       return [];
     }
 
     function generateDailyRaidQuestions(nis, dateStr, squadType) {
-      const squad = squadType || _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
-      let rawList = [];
+      const activeNis = nis || getActiveStudentNis();
+      const weekId = getWeeklyCampaignIdFallback();
+      const squad = squadType || _dailyRaidCurrentSquad || getStudentDefaultSquad(activeNis);
 
-      if (typeof window.getDailyRaidQuestionsForDate === 'function') {
-        rawList = window.getDailyRaidQuestionsForDate(dateStr, squad);
-      } else if (typeof DAILY_RAID_BANK !== 'undefined') {
-        let dayIdx = 0;
-        try {
-          const parts = String(dateStr).split('-');
-          if (parts.length === 3) {
-            dayIdx = new Date(Date.UTC(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10))).getUTCDay();
-          }
-        } catch(e) { dayIdx = new Date().getDay(); }
-        const dData = DAILY_RAID_BANK['day_' + dayIdx] || DAILY_RAID_BANK['day_0'];
-        if (squad === 'F1_F2') {
-          rawList = (dData.matwa || []).slice(0, 10);
-        } else {
-          rawList = [...(dData.matwa || []).slice(0, 5), ...(dData.matmin || []).slice(0, 5)];
-        }
+      if (typeof window.getWeeklyRaid50Questions === 'function') {
+        return window.getWeeklyRaid50Questions(activeNis, weekId, squad);
       }
 
-      const mapped = rawList.map((q, idx) => ({
-        ...q,
-        _sourceSubject: q.mapel || (squad === 'F1_F2' || idx < 5 ? 'Matematika Wajib' : 'Matematika Peminatan'),
-        _sourceKode: (q.materi || '').split('•')[0]?.trim() || (squad === 'F1_F2' || idx < 5 ? 'P15/P16' : 'P17'),
-        _sourceTitle: (q.materi || '').split('•')[1]?.trim() || q.materi || '',
-        _origIdx: idx,
-        _squadType: squad
-      }));
+      // Fallback if weekly-raid-data hasn't loaded
+      if (typeof window.getDailyRaidQuestionsForDate === 'function') {
+        return window.getDailyRaidQuestionsForDate(dateStr || getWibDateString(), squad);
+      }
+      return [];
+    }
 
-      const rng = getDailyRaidSeededRng(`${nis}_${dateStr}_${squad}`);
-      return shuffleArrayWithRng(mapped, rng);
+    function loadWeeklyRaidCampaignState(savedState) {
+      if (savedState && typeof savedState === 'object') {
+        _dailyRaidAnswers = savedState.drafts ? { ...savedState.drafts } : (savedState.answers ? { ...savedState.answers } : {});
+        _dailyRaidAttacks = savedState.attacks ? { ...savedState.attacks } : {};
+        _dailyRaidCurrentCombo = Number(savedState.currentCombo) || 0;
+        _dailyRaidMaxCombo = Number(savedState.maxCombo) || 0;
+        _dailyRaidTotalDamage = Number(savedState.totalDamage) || 0;
+        _dailyRaidCompletedCount = Object.keys(_dailyRaidAttacks).length;
+        _dailyRaidSeconds = Number(savedState.seconds) || 0;
+      } else {
+        _dailyRaidAnswers = {};
+        _dailyRaidAttacks = {};
+        _dailyRaidCurrentCombo = 0;
+        _dailyRaidMaxCombo = 0;
+        _dailyRaidTotalDamage = 0;
+        _dailyRaidCompletedCount = 0;
+        _dailyRaidSeconds = 0;
+      }
     }
 
     async function openDailyRaidModal() {
+      const nis = getActiveStudentNis();
+
+      // 1. Validasi Anti-Cheat Bot Lockout Penalty
+      const lockout = checkAntiCheatLockout(nis);
+      if (lockout.locked) {
+        showBotLockoutModal(lockout.remainingSecs, lockout.reason);
+        return;
+      }
+
       const modal = document.getElementById('daily-raid-modal');
       if (!modal) return;
 
-      const nis = getActiveStudentNis();
-      const dateStr = getWibDateString();
+      const weekId = getWeeklyCampaignIdFallback();
       const defaultSquad = getStudentDefaultSquad(nis);
       _dailyRaidCurrentSquad = _dailyRaidCurrentSquad || defaultSquad;
       updateDailyRaidSquadButtonsUI(_dailyRaidCurrentSquad);
 
-      const storageKey = `daily_raid_${nis}_${dateStr}_${_dailyRaidCurrentSquad}`;
-      const legacyStorageKey = `daily_raid_${nis}_${dateStr}`;
+      const storageKey = getWeeklyRaidStorageKey(nis, weekId, _dailyRaidCurrentSquad);
 
-      const dateDisplay = formatWibDateIndo(dateStr);
       const mDateTag = document.getElementById('dr-modal-date-tag');
-      if (mDateTag) mDateTag.textContent = dateDisplay;
+      if (mDateTag) mDateTag.textContent = `Minggu Ini (${weekId})`;
       const dDateTag = document.getElementById('daily-raid-date-tag');
-      if (dDateTag) dDateTag.textContent = dateDisplay;
+      if (dDateTag) dDateTag.textContent = `Minggu Ini (${weekId})`;
 
-      _dailyRaidQuestions = generateDailyRaidQuestions(nis, dateStr, _dailyRaidCurrentSquad);
+      _dailyRaidQuestions = generateDailyRaidQuestions(nis, null, _dailyRaidCurrentSquad);
 
       const themeDesc = document.getElementById('dr-modal-theme-desc');
-      const themeTag = document.getElementById('dr-theme-day-tag');
-      if (_dailyRaidQuestions.length > 0 && _dailyRaidQuestions[0]._dayName) {
-        if (themeTag) themeTag.textContent = _dailyRaidQuestions[0]._dayName.split('•')[0]?.trim() || 'ROTASI HARIAN';
-        if (themeDesc) themeDesc.textContent = _dailyRaidQuestions[0]._dayName + ' • 10 butir soal baru eksklusif harian. +100 DMG/soal + 500 Critical!';
+      if (themeDesc) {
+        const sqText = _dailyRaidCurrentSquad === 'F1_F2' ? '50 Butir Matematika Wajib P15/P16' : '25 Butir Wajib + 25 Butir Minat P17';
+        themeDesc.textContent = `50 soal acak TKA per siswa (${sqText}). Pengerjaan bisa ditunda & serang Titan tiap soal dengan Real-Time Combo!`;
       }
 
       let savedState = null;
       try {
-        savedState = JSON.parse(localStorage.getItem(storageKey) || localStorage.getItem(legacyStorageKey) || 'null');
+        savedState = JSON.parse(localStorage.getItem(storageKey) || 'null');
       } catch(e) {}
 
+      loadWeeklyRaidCampaignState(savedState);
+
       const isRemoteCompleted = Boolean(_cachedRaidBossData?.user_stats?.today_daily_raid?.completed);
-      const isLocalCompleted = Boolean(savedState && savedState.is_completed);
+      const isLocalCompleted = Boolean(savedState && savedState.is_completed) || (_dailyRaidCompletedCount >= _dailyRaidQuestions.length && _dailyRaidQuestions.length > 0);
 
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -3288,6 +3416,15 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (isRemoteCompleted || isLocalCompleted) {
         showDailyRaidResultView(savedState?.results || _cachedRaidBossData?.user_stats?.today_daily_raid);
       } else {
+        // Navigasi otomatis ke soal pertama yang belum diserang
+        let firstUnattacked = 0;
+        for (let i = 0; i < _dailyRaidQuestions.length; i++) {
+          if (!_dailyRaidAttacks[i]) {
+            firstUnattacked = i;
+            break;
+          }
+        }
+        _dailyRaidCurrentIdx = firstUnattacked;
         showDailyRaidExamView(savedState);
       }
     }
@@ -3300,41 +3437,21 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
       document.body.style.overflow = '';
       stopDailyRaidTimer();
+      renderDailyRaidCardStatus(_cachedRaidBossData);
     }
 
     function showDailyRaidExamView(savedState) {
       const examView = document.getElementById('dr-exam-view');
       const resultView = document.getElementById('dr-result-view');
       const navStrip = document.getElementById('dr-navigator-strip');
-      const footerEl = document.getElementById('dr-modal-footer');
 
       if (examView) examView.classList.remove('hidden');
       if (resultView) resultView.classList.add('hidden');
       if (navStrip) navStrip.classList.remove('hidden');
 
-      if (footerEl) {
-        footerEl.innerHTML = `
-          <button type="button" id="btn-dr-prev" onclick="prevDailyRaidQuestion()" class="notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-semibold cursor-pointer shadow-2xs flex items-center gap-1">
-            <i class="fa-solid fa-arrow-left text-[10px]"></i> <span>Sebelumnya</span>
-          </button>
-          <div class="flex items-center gap-2">
-            <button type="button" id="btn-dr-next" onclick="nextDailyRaidQuestion()" class="notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-semibold cursor-pointer shadow-2xs flex items-center gap-1">
-              <span>Selanjutnya</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-            <button type="button" id="btn-dr-submit" onclick="submitDailyRaidAttack()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]">
-              <i class="fa-solid fa-khanda text-amber-300 text-xs"></i> <span>Kirim Serangan Titan</span>
-            </button>
-          </div>
-        `;
-      }
-
-      _dailyRaidCurrentIdx = 0;
-      _dailyRaidAnswers = (savedState && savedState.answers) ? { ...savedState.answers } : {};
-      _dailyRaidSeconds = (savedState && savedState.seconds) ? Number(savedState.seconds) || 0 : 0;
-
       startDailyRaidTimer();
       renderDailyRaidBubbles();
-      renderDailyRaidQuestion(0);
+      renderDailyRaidQuestion(_dailyRaidCurrentIdx);
     }
 
     function isDailyRaidNumeric(q) {
@@ -3410,15 +3527,46 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function renderDailyRaidQuestion(idx) {
       if (idx < 0 || idx >= _dailyRaidQuestions.length) return;
       _dailyRaidCurrentIdx = idx;
+      _questionViewTimestamp = Date.now(); // Catat timestamp untuk pengujian anti-cheat
 
       const q = _dailyRaidQuestions[idx];
+      const isAttacked = Boolean(_dailyRaidAttacks[idx]);
+      const attackRecord = _dailyRaidAttacks[idx];
 
       const numBadge = document.getElementById('dr-question-num-badge');
       if (numBadge) numBadge.textContent = idx + 1;
 
       const srcTag = document.getElementById('dr-question-source-tag');
       if (srcTag) {
-        srcTag.textContent = `${q._sourceSubject} • ${q._sourceKode} ${q._sourceTitle}`;
+        srcTag.textContent = `${q._sourceSubject || q.mapel || 'Matematika'} • ${q.materi || q._sourceKode || ''}`;
+      }
+
+      const lvlTag = document.getElementById('dr-question-level-tag');
+      if (lvlTag) {
+        lvlTag.textContent = q.level || 'Level 2 (Sedang)';
+        if ((q.level || '').includes('HOTS') || (q.level || '').includes('3')) {
+          lvlTag.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200';
+        } else if ((q.level || '').includes('Mudah') || (q.level || '').includes('1')) {
+          lvlTag.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
+        } else {
+          lvlTag.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-200';
+        }
+      }
+
+      const statusBadge = document.getElementById('dr-question-status-badge');
+      if (statusBadge) {
+        if (isAttacked) {
+          if (attackRecord.isCorrect) {
+            statusBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300';
+            statusBadge.textContent = `✓ Berhasil Diserang (+${attackRecord.dmg} DMG)`;
+          } else {
+            statusBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300';
+            statusBadge.textContent = '✗ Serangan Meleset (0 DMG)';
+          }
+        } else {
+          statusBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-stone-100 text-[#787774] border border-[#E8E6DF]';
+          statusBadge.textContent = 'Belum Diserang';
+        }
       }
 
       const promptEl = document.getElementById('dr-question-prompt');
@@ -3435,17 +3583,18 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const isMulti = isDailyRaidMulti(q);
 
       if (isNumeric) {
-        const userVal = _dailyRaidAnswers[idx] || '';
+        const userVal = isAttacked ? attackRecord.chosen : (_dailyRaidAnswers[idx] || '');
+        const disabledAttr = isAttacked ? 'disabled readonly' : '';
         optsContainer.innerHTML = `
           <div class="p-4 sm:p-5 rounded-xl border space-y-2.5 max-w-md mx-auto text-center" style="background-color: #FBFBFA; border-color: #E8E6DF;">
             <span class="text-[11px] font-bold uppercase tracking-wider text-[#787774] block">Isian Singkat Numerik</span>
-            <input type="text" id="dr-numeric-input" oninput="selectDailyRaidAnswer(${idx}, this.value)" value="${escapeHtml(userVal)}" placeholder="Ketik angka jawaban..." class="w-full px-4 py-2.5 rounded-xl border border-[#E8E6DF] text-center font-mono text-base font-bold text-[#2F3437] bg-white focus:outline-none focus:border-indigo-500 shadow-2xs">
-            <p class="text-[11px] text-[#787774]">Masukkan angka pasti (contoh: 90 atau 72,5).</p>
+            <input type="text" id="dr-numeric-input" oninput="selectDailyRaidAnswer(${idx}, this.value)" value="${escapeHtml(userVal)}" placeholder="Ketik angka jawaban..." ${disabledAttr} class="w-full px-4 py-2.5 rounded-xl border border-[#E8E6DF] text-center font-mono text-base font-bold text-[#2F3437] bg-white focus:outline-none focus:border-indigo-500 shadow-2xs ${isAttacked ? 'opacity-80 bg-stone-100' : ''}">
+            <p class="text-[11px] text-[#787774]">${isAttacked ? 'Jawaban telah dikunci.' : 'Masukkan angka pasti (contoh: 90 atau 72,5).'}</p>
           </div>
         `;
       } else if (isTF) {
         const statements = (Array.isArray(q.opsi) && q.opsi.length > 0) ? q.opsi.map(opt => opt.replace(/^[A-E]\.\s*/, '')) : [q.tanya];
-        const tfObj = (typeof _dailyRaidAnswers[idx] === 'object' && _dailyRaidAnswers[idx] !== null) ? _dailyRaidAnswers[idx] : {};
+        const tfObj = isAttacked ? (typeof attackRecord.chosen === 'object' ? attackRecord.chosen : {}) : ((typeof _dailyRaidAnswers[idx] === 'object' && _dailyRaidAnswers[idx] !== null) ? _dailyRaidAnswers[idx] : {});
 
         optsContainer.innerHTML = `
           <div class="space-y-2.5">
@@ -3472,7 +3621,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
                     </span>
                     <div class="text-xs sm:text-sm text-[#2F3437] leading-relaxed flex-1">${stmt}</div>
                   </div>
-                  <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                  <div class="flex items-center gap-2 shrink-0 self-end sm:self-center ${isAttacked ? 'pointer-events-none opacity-80' : ''}">
                     <button type="button" onclick="selectDailyRaidTfAnswer(${idx}, ${sIdx}, 'B')" class="px-3 py-1.5 rounded-lg border text-xs font-mono font-bold cursor-pointer transition ${bCls}">
                       BENAR
                     </button>
@@ -3487,7 +3636,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         `;
         renderDailyRaidMath(optsContainer);
       } else if (isMulti) {
-        const userPicks = Array.isArray(_dailyRaidAnswers[idx]) ? _dailyRaidAnswers[idx] : [];
+        const userPicks = isAttacked ? (Array.isArray(attackRecord.chosen) ? attackRecord.chosen : [attackRecord.chosen]) : (Array.isArray(_dailyRaidAnswers[idx]) ? _dailyRaidAnswers[idx] : []);
         optsContainer.innerHTML = `
           <div class="space-y-2.5">
             <div class="p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2" style="background-color: #FBFBFA; border-color: #E8E6DF; color: #5F5E5B;">
@@ -3506,8 +3655,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
                 : 'bg-white text-transparent border-[#CBD5E1]';
 
               return `
-                <div onclick="toggleDailyRaidMultiAnswer(${idx}, '${letter}')"
-                     class="p-3 sm:p-3.5 rounded-xl border flex items-center gap-3 cursor-pointer transition shadow-2xs hover:border-[#CBD5E1]"
+                <div onclick="${isAttacked ? '' : `toggleDailyRaidMultiAnswer(${idx}, '${letter}')`}"
+                     class="p-3 sm:p-3.5 rounded-xl border flex items-center gap-3 transition shadow-2xs ${isAttacked ? 'cursor-default opacity-85' : 'cursor-pointer hover:border-[#CBD5E1]'}"
                      style="${cardStyle}">
                   <span class="w-6 h-6 rounded-md border flex items-center justify-center shrink-0 text-xs transition ${chkStyle}">
                     <i class="fa-solid fa-check"></i>
@@ -3525,22 +3674,37 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         `;
         renderDailyRaidMath(optsContainer);
       } else {
-        const chosen = _dailyRaidAnswers[idx];
+        const chosen = isAttacked ? attackRecord.chosen : _dailyRaidAnswers[idx];
+        const kunci = String(q.kunci || '').trim().toUpperCase();
+
         optsContainer.innerHTML = (q.opsi || []).map((optText, optIdx) => {
           const letter = String.fromCharCode(65 + optIdx);
           const isSelected = (chosen === letter);
+          const isKeyOption = (letter === kunci);
           const cleanText = optText.replace(/^[A-E]\.\s*/, '');
 
-          const cardStyle = isSelected
-            ? 'background-color: #EFF6FF; border-color: #3B82F6; color: #1E3A8A;'
-            : 'background-color: #FFFFFF; border-color: #E8E6DF; color: #2F3437;';
-          const badgeStyle = isSelected
-            ? 'background-color: #2563EB; color: #FFFFFF;'
-            : 'background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;';
+          let cardStyle = 'background-color: #FFFFFF; border-color: #E8E6DF; color: #2F3437;';
+          let badgeStyle = 'background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;';
+
+          if (isAttacked) {
+            if (isSelected && attackRecord.isCorrect) {
+              cardStyle = 'background-color: #ECFDF5; border-color: #10B981; color: #065F46;';
+              badgeStyle = 'background-color: #10B981; color: #FFFFFF;';
+            } else if (isSelected && !attackRecord.isCorrect) {
+              cardStyle = 'background-color: #FEF2F2; border-color: #EF4444; color: #991B1B;';
+              badgeStyle = 'background-color: #EF4444; color: #FFFFFF;';
+            } else if (isKeyOption && !attackRecord.isCorrect) {
+              cardStyle = 'background-color: #F0FDF4; border-color: #34D399; color: #047857;';
+              badgeStyle = 'background-color: #059669; color: #FFFFFF;';
+            }
+          } else if (isSelected) {
+            cardStyle = 'background-color: #EFF6FF; border-color: #3B82F6; color: #1E3A8A;';
+            badgeStyle = 'background-color: #2563EB; color: #FFFFFF;';
+          }
 
           return `
-            <div onclick="selectDailyRaidAnswer(${idx}, '${letter}')"
-                 class="p-3 sm:p-3.5 rounded-xl border flex items-center gap-3 cursor-pointer transition shadow-2xs hover:border-[#CBD5E1]"
+            <div onclick="${isAttacked ? '' : `selectDailyRaidAnswer(${idx}, '${letter}')`}"
+                 class="p-3 sm:p-3.5 rounded-xl border flex items-center gap-3 transition shadow-2xs ${isAttacked ? 'cursor-default' : 'cursor-pointer hover:border-[#CBD5E1]'}"
                  style="${cardStyle}">
               <span class="w-7 h-7 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs"
                     style="${badgeStyle}">
@@ -3549,12 +3713,70 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
               <div class="text-xs sm:text-sm leading-normal flex-1">
                 ${cleanText}
               </div>
+              ${isAttacked && isSelected ? (attackRecord.isCorrect ? '<i class="fa-solid fa-check text-emerald-600 text-sm"></i>' : '<i class="fa-solid fa-xmark text-rose-600 text-sm"></i>') : ''}
+              ${isAttacked && !attackRecord.isCorrect && isKeyOption ? '<span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">Kunci</span>' : ''}
             </div>
           `;
         }).join('');
         renderDailyRaidMath(optsContainer);
       }
 
+      // PER-QUESTION ATTACK & SOLUTION PANEL
+      const actionWrap = document.getElementById('dr-attack-action-wrap');
+      const feedbackWrap = document.getElementById('dr-attack-feedback-wrap');
+      const feedbackBanner = document.getElementById('dr-attack-feedback-banner');
+      const solContent = document.getElementById('dr-attack-solution-content');
+
+      if (isAttacked) {
+        if (actionWrap) actionWrap.classList.add('hidden');
+        if (feedbackWrap) feedbackWrap.classList.remove('hidden');
+
+        if (feedbackBanner) {
+          if (attackRecord.isCorrect) {
+            feedbackBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between gap-3 bg-emerald-50 border-emerald-300 text-emerald-900 shadow-2xs';
+            feedbackBanner.innerHTML = `
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div>
+                  <strong class="text-xs sm:text-sm font-bold block">💥 HIT! Serangan Berhasil Tembus!</strong>
+                  <span class="text-[11px] text-emerald-700">Mencetak +${attackRecord.dmg} DMG ke Titan Statigo (Combo x${attackRecord.combo || 1})</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono font-black bg-emerald-200 text-emerald-950">+${attackRecord.dmg} DMG</span>
+              </div>
+            `;
+          } else {
+            feedbackBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between gap-3 bg-rose-50 border-rose-300 text-rose-900 shadow-2xs';
+            feedbackBanner.innerHTML = `
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-rose-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
+                  <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div>
+                  <strong class="text-xs sm:text-sm font-bold block">💔 SERANGAN MELESET! Titan Bertahan.</strong>
+                  <span class="text-[11px] text-rose-700">Jawabanmu belum tepat. Combo ter-reset kembali ke 0.</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-rose-200 text-rose-950">0 DMG</span>
+              </div>
+            `;
+          }
+        }
+
+        if (solContent) {
+          solContent.innerHTML = `<div class="whitespace-pre-line leading-relaxed">${q.bahas || 'Pembahasan langkah demi langkah belum tersedia.'}</div>`;
+          renderDailyRaidMath(solContent);
+        }
+      } else {
+        if (actionWrap) actionWrap.classList.remove('hidden');
+        if (feedbackWrap) feedbackWrap.classList.add('hidden');
+      }
+
+      // FOOTER CONTROLS UPDATE
       const btnPrev = document.getElementById('btn-dr-prev');
       if (btnPrev) {
         btnPrev.disabled = (idx === 0);
@@ -3569,12 +3791,24 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         btnNext.style.pointerEvents = (idx === _dailyRaidQuestions.length - 1) ? 'none' : 'auto';
       }
 
+      const btnFinish = document.getElementById('btn-dr-finish');
+      if (btnFinish) {
+        if (_dailyRaidCompletedCount >= _dailyRaidQuestions.length && _dailyRaidQuestions.length > 0) {
+          btnFinish.classList.remove('hidden');
+          btnFinish.classList.add('flex');
+        } else {
+          btnFinish.classList.add('hidden');
+          btnFinish.classList.remove('flex');
+        }
+      }
+
       renderDailyRaidBubbles();
     }
 
     function selectDailyRaidAnswer(idx, val) {
+      if (_dailyRaidAttacks[idx]) return; // Jika sudah diserang, abaikan perubahan
       _dailyRaidAnswers[idx] = val;
-      persistDailyRaidDraft();
+      persistWeeklyRaidState();
       if (!isDailyRaidNumeric(_dailyRaidQuestions[idx])) {
         renderDailyRaidQuestion(idx);
       } else {
@@ -3583,15 +3817,17 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     }
 
     function selectDailyRaidTfAnswer(idx, stmtIdx, choice) {
+      if (_dailyRaidAttacks[idx]) return;
       if (typeof _dailyRaidAnswers[idx] !== 'object' || _dailyRaidAnswers[idx] === null || Array.isArray(_dailyRaidAnswers[idx])) {
         _dailyRaidAnswers[idx] = {};
       }
       _dailyRaidAnswers[idx][stmtIdx] = choice;
-      persistDailyRaidDraft();
+      persistWeeklyRaidState();
       renderDailyRaidQuestion(idx);
     }
 
     function toggleDailyRaidMultiAnswer(idx, letter) {
+      if (_dailyRaidAttacks[idx]) return;
       if (!Array.isArray(_dailyRaidAnswers[idx])) {
         _dailyRaidAnswers[idx] = [];
       }
@@ -3602,60 +3838,286 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       } else {
         arr.push(letter);
       }
-      persistDailyRaidDraft();
+      persistWeeklyRaidState();
       renderDailyRaidQuestion(idx);
     }
 
-    function persistDailyRaidDraft() {
+    // --- SUBMIT SERANGAN TIAP SOAL DENGAN COMBO REAL-TIME & ANTI-CHEAT ---
+    async function attackSingleQuestion(event) {
+      const idx = _dailyRaidCurrentIdx;
+      if (idx < 0 || idx >= _dailyRaidQuestions.length) return;
+
       const nis = getActiveStudentNis();
-      const dateStr = getWibDateString();
-      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
-      const storageKey = `daily_raid_${nis}_${dateStr}_${squad}`;
-      const legacyKey = `daily_raid_${nis}_${dateStr}`;
-      const draftData = {
-        answers: _dailyRaidAnswers,
-        seconds: _dailyRaidSeconds,
-        squad: squad,
-        is_completed: false
+
+      // 1. Uji Integritas Anti-Cheat (Bot / Skrip Deteksi)
+      const anomalyCheck = checkBotActivityAnomaly(event, idx);
+      if (anomalyCheck.anomaly) {
+        triggerAntiCheatLockout(nis, anomalyCheck.reason);
+        return;
+      }
+
+      // 2. Cegah penyerangan ganda pada butir yang sama
+      if (_dailyRaidAttacks[idx]) return;
+
+      // 3. Pastikan siswa telah memilih opsi / mengisi jawaban
+      const chosen = _dailyRaidAnswers[idx];
+      if (chosen === undefined || chosen === null || chosen === '') {
+        alert('Silakan pilih opsi jawaban atau ketik nilai sebelum menghantam Titan Statigo!');
+        return;
+      }
+
+      const q = _dailyRaidQuestions[idx];
+      const isCorrect = isDailyRaidAnswerCorrect(q, chosen);
+
+      // 4. Kalkulasi Real-Time Combo Multiplier
+      let dmg = 0;
+      if (isCorrect) {
+        _dailyRaidCurrentCombo++;
+        if (_dailyRaidCurrentCombo > _dailyRaidMaxCombo) {
+          _dailyRaidMaxCombo = _dailyRaidCurrentCombo;
+        }
+
+        let multiplier = 1.0;
+        if (_dailyRaidCurrentCombo >= 20) multiplier = 2.0;
+        else if (_dailyRaidCurrentCombo >= 10) multiplier = 1.5;
+        else if (_dailyRaidCurrentCombo >= 5) multiplier = 1.2;
+
+        dmg = Math.round(100 * multiplier);
+        _dailyRaidTotalDamage += dmg;
+      } else {
+        _dailyRaidCurrentCombo = 0; // Combo Pecah!
+        dmg = 0;
+      }
+
+      _lastAttackTimestamp = Date.now();
+      _dailyRaidAttacks[idx] = {
+        chosen: chosen,
+        isCorrect: isCorrect,
+        dmg: dmg,
+        combo: _dailyRaidCurrentCombo,
+        timestamp: _lastAttackTimestamp
       };
+
+      _dailyRaidCompletedCount = Object.keys(_dailyRaidAttacks).length;
+
+      // 5. Simpan progres ke LocalStorage
+      persistWeeklyRaidState();
+
+      // 6. Combat Juice & Animasi Guncangan Layar
+      const modalEl = document.getElementById('daily-raid-modal');
+      if (modalEl) {
+        modalEl.classList.add('combat-shake');
+        setTimeout(() => modalEl.classList.remove('combat-shake'), 300);
+      }
+
+      // 7. Update Real-Time Boss HP Bar di Memori & Widget jika tersedia
+      if (_cachedRaidBossData) {
+        _cachedRaidBossData.current_hp = Math.max(0, (_cachedRaidBossData.current_hp || 150000) - dmg);
+        _cachedRaidBossData.total_damage_dealt = (_cachedRaidBossData.total_damage_dealt || 0) + dmg;
+        renderWeeklyEventWidget(_cachedRaidBossData);
+      }
+
+      // 8. Re-render UI Soal ini & Navigator Strip
+      renderDailyRaidQuestion(idx);
+      renderDailyRaidBubbles();
+
+      // 9. Asynchronous Micro-Sync ke Backend D1
+      syncWeeklyRaidToBackend();
+
+      // 10. Jika seluruh 50 butir telah tuntas diserang, buka Victory View
+      if (_dailyRaidCompletedCount >= _dailyRaidQuestions.length) {
+        setTimeout(() => {
+          finishWeeklyCampaign();
+        }, 1200);
+      }
+    }
+
+    function pauseWeeklyCampaign() {
+      persistWeeklyRaidState();
+      stopDailyRaidTimer();
+      closeDailyRaidModal();
+
+      const toastMsg = `💾 Kampanye disimpan! Progres: ${_dailyRaidCompletedCount}/50 butir soal (${_dailyRaidTotalDamage.toLocaleString('id-ID')} DMG). Kamu dapat melanjutkannya kapan saja minggu ini.`;
+      if (typeof showNotionToast === 'function') {
+        showNotionToast(toastMsg);
+      } else {
+        alert(toastMsg);
+      }
+    }
+
+    async function finishWeeklyCampaign() {
+      stopDailyRaidTimer();
+      persistWeeklyRaidState(true);
+      await syncWeeklyRaidToBackend();
+
+      const totalQ = _dailyRaidQuestions.length || 50;
+      let jumlahBenar = 0;
+      const reviewItems = _dailyRaidQuestions.map((q, i) => {
+        const attack = _dailyRaidAttacks[i];
+        const isCorrect = attack ? attack.isCorrect : false;
+        if (isCorrect) jumlahBenar++;
+        return {
+          no: i + 1,
+          q: q,
+          chosen: attack ? attack.chosen : null,
+          kunci: q.kunci,
+          isCorrect: isCorrect,
+          dmg: attack ? attack.dmg : 0
+        };
+      });
+
+      const skor = Math.round((jumlahBenar / totalQ) * 100);
+      const isPerfect = (skor === 100);
+      const xpEarned = Math.round(_dailyRaidTotalDamage / 10) + (isPerfect ? 500 : 0);
+
+      const resultsData = {
+        completed: true,
+        skor: skor,
+        jumlah_benar: jumlahBenar,
+        jumlah_soal: totalQ,
+        damage_earned: _dailyRaidTotalDamage,
+        max_combo: _dailyRaidMaxCombo,
+        xp_earned: xpEarned,
+        is_perfect: isPerfect,
+        seconds: _dailyRaidSeconds,
+        waktu_submit: new Date().toISOString(),
+        reviewItems: reviewItems
+      };
+
+      const nis = getActiveStudentNis();
+      const weekId = getWeeklyCampaignIdFallback();
+      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
       try {
-        localStorage.setItem(storageKey, JSON.stringify(draftData));
-        localStorage.setItem(legacyKey, JSON.stringify(draftData));
+        const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+        saved.is_completed = true;
+        saved.results = resultsData;
+        localStorage.setItem(storageKey, JSON.stringify(saved));
       } catch(e) {}
+
+      showDailyRaidResultView(resultsData);
+    }
+
+    function persistWeeklyRaidState(isCompleted = false) {
+      const nis = getActiveStudentNis();
+      const weekId = getWeeklyCampaignIdFallback();
+      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
+
+      const payload = {
+        nis: nis,
+        weekId: weekId,
+        squad: squad,
+        attacks: _dailyRaidAttacks,
+        drafts: _dailyRaidAnswers,
+        currentCombo: _dailyRaidCurrentCombo,
+        maxCombo: _dailyRaidMaxCombo,
+        totalDamage: _dailyRaidTotalDamage,
+        completedCount: _dailyRaidCompletedCount,
+        seconds: _dailyRaidSeconds,
+        is_completed: isCompleted || (_dailyRaidCompletedCount >= _dailyRaidQuestions.length && _dailyRaidQuestions.length > 0)
+      };
+
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(payload));
+      } catch(e) {}
+    }
+
+    async function syncWeeklyRaidToBackend() {
+      const nis = getActiveStudentNis();
+      const weekId = getWeeklyCampaignIdFallback();
+      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const kodePertemuan = 'WEEKLY_' + weekId;
+
+      let correctCount = 0;
+      Object.values(_dailyRaidAttacks).forEach(atk => {
+        if (atk && atk.isCorrect) correctCount++;
+      });
+
+      const totalQ = _dailyRaidQuestions.length || 50;
+      const skor = Math.round((correctCount / totalQ) * 100);
+
+      const payload = {
+        nis: nis,
+        mapel: 'raid',
+        kode_pertemuan: kodePertemuan,
+        skor: skor,
+        jumlah_soal: totalQ,
+        jumlah_benar: correctCount,
+        jumlah_salah: _dailyRaidCompletedCount - correctCount,
+        durasi_detik: Math.max(30, _dailyRaidSeconds),
+        jumlah_percobaan: 1,
+        tingkat: '12',
+        answers: Object.keys(_dailyRaidAttacks).map(idx => ({
+          q_idx: Number(idx),
+          chosen: formatDailyRaidAnswerDisplay(_dailyRaidAttacks[idx].chosen)
+        }))
+      };
+
+      try {
+        await fetch('/api/nilai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch(e) {
+        console.warn('Weekly Raid sync offline fallback:', e);
+      }
     }
 
     function renderDailyRaidBubbles() {
       const container = document.getElementById('dr-bubbles-container');
       if (!container) return;
 
-      let answeredCount = 0;
       container.innerHTML = _dailyRaidQuestions.map((_, i) => {
         const isCurrent = (i === _dailyRaidCurrentIdx);
-        const isAnswered = isDailyRaidQuestionAnswered(i);
-        if (isAnswered) answeredCount++;
+        const attack = _dailyRaidAttacks[i];
+        const isAttacked = Boolean(attack);
+        const hasDraft = !isAttacked && isDailyRaidQuestionAnswered(i);
 
-        let cls = 'w-7 h-7 rounded-lg font-mono font-bold text-xs flex items-center justify-center cursor-pointer transition shadow-2xs ';
+        let cls = 'w-7 h-7 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 cursor-pointer transition shadow-2xs ';
+        let label = String(i + 1);
+
         if (isCurrent) {
-          cls += 'bg-[#2E384D] text-white ring-2 ring-indigo-400';
-        } else if (isAnswered) {
-          cls += 'bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100';
+          cls += 'bg-[#2E384D] text-white ring-2 ring-indigo-400 font-black ';
+          if (isAttacked) {
+            label = attack.isCorrect ? `${i + 1}✓` : `${i + 1}✗`;
+          }
+        } else if (isAttacked) {
+          if (attack.isCorrect) {
+            cls += 'bg-emerald-100 text-emerald-900 border border-emerald-400 hover:bg-emerald-200 ';
+            label = `${i + 1}✓`;
+          } else {
+            cls += 'bg-rose-100 text-rose-900 border border-rose-400 hover:bg-rose-200 ';
+            label = `${i + 1}✗`;
+          }
+        } else if (hasDraft) {
+          cls += 'bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200 ';
         } else {
-          cls += 'bg-white text-[#787774] border border-[#E8E6DF] hover:bg-[#F7F6F3]';
+          cls += 'bg-white text-[#787774] border border-[#E8E6DF] hover:bg-[#F7F6F3] ';
         }
 
-        return `<button type="button" onclick="goToDailyRaidQuestion(${i})" class="${cls}">${i + 1}</button>`;
+        return `<button type="button" onclick="goToDailyRaidQuestion(${i})" class="${cls}" title="Soal No. ${i + 1}">${label}</button>`;
       }).join('');
+
+      // Update Progress Counter
+      const completedCountEl = document.getElementById('dr-completed-count');
+      if (completedCountEl) {
+        completedCountEl.textContent = _dailyRaidCompletedCount;
+      }
 
       // Update Combo Counter & Micro-Indicator
       const comboText = document.getElementById('dr-combo-text');
       const comboBadge = document.getElementById('dr-combo-badge');
       if (comboText) {
-        comboText.textContent = `Combo ${answeredCount}x`;
+        comboText.textContent = `Combo ${_dailyRaidCurrentCombo}x`;
       }
       if (comboBadge) {
-        if (answeredCount >= 10) {
-          comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-500 text-white border border-amber-600 shadow-sm flex items-center gap-1 transition combo-pulse';
-        } else if (answeredCount >= 5) {
+        if (_dailyRaidCurrentCombo >= 20) {
+          comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-rose-600 text-white border border-rose-700 shadow-md flex items-center gap-1 transition animate-pulse';
+        } else if (_dailyRaidCurrentCombo >= 10) {
+          comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-500 text-white border border-amber-600 shadow-sm flex items-center gap-1 transition';
+        } else if (_dailyRaidCurrentCombo >= 5) {
           comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300 shadow-2xs flex items-center gap-1 transition';
         } else {
           comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-50 border border-amber-200 text-amber-900 shadow-2xs flex items-center gap-1 transition';
@@ -3700,142 +4162,13 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
     }
 
+    // Kompatibilitas tombol submit lama jika dipanggil
     async function submitDailyRaidAttack() {
-      const totalQ = _dailyRaidQuestions.length;
-      let answeredCount = 0;
-      for (let i = 0; i < totalQ; i++) {
-        if (isDailyRaidQuestionAnswered(i)) answeredCount++;
+      if (_dailyRaidCompletedCount < _dailyRaidQuestions.length) {
+        attackSingleQuestion();
+      } else {
+        finishWeeklyCampaign();
       }
-
-      if (answeredCount < totalQ) {
-        const confirmSubmit = window.confirm(`Kamu baru menjawab ${answeredCount} dari ${totalQ} soal.\n\nSoal yang belum dijawab akan dihitung SALAH. Yakin ingin mengirim serangan sekarang?`);
-        if (!confirmSubmit) return;
-      }
-
-      const submitBtn = document.getElementById('btn-dr-submit');
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Mengirim Serangan...';
-      }
-
-      stopDailyRaidTimer();
-
-      let jumlahBenar = 0;
-      const reviewItems = _dailyRaidQuestions.map((q, i) => {
-        const chosen = _dailyRaidAnswers[i] !== undefined ? _dailyRaidAnswers[i] : null;
-        const isCorrect = isDailyRaidAnswerCorrect(q, chosen);
-        if (isCorrect) jumlahBenar++;
-        return {
-          no: i + 1,
-          q: q,
-          chosen: chosen,
-          kunci: q.kunci,
-          isCorrect: isCorrect
-        };
-      });
-
-      const jumlahSalah = totalQ - jumlahBenar;
-      const skor = Math.round((jumlahBenar / totalQ) * 100);
-      const isPerfect = (skor === 100);
-      const damage = (jumlahBenar * 100) + (isPerfect ? 500 : 0);
-      const xpEarned = (jumlahBenar * 10) + (isPerfect ? 50 : 0);
-
-      const nis = getActiveStudentNis();
-      const dateStr = getWibDateString();
-      const kodePertemuan = 'DAILY_' + dateStr.replace(/-/g, '');
-
-      const payload = {
-        nis: nis,
-        mapel: 'raid',
-        kode_pertemuan: kodePertemuan,
-        skor: skor,
-        jumlah_soal: totalQ,
-        jumlah_benar: jumlahBenar,
-        jumlah_salah: jumlahSalah,
-        durasi_detik: Math.max(15, _dailyRaidSeconds),
-        jumlah_percobaan: 1,
-        tingkat: '12',
-        answers: Object.keys(_dailyRaidAnswers).map(idx => ({
-          q_idx: Number(idx),
-          chosen: formatDailyRaidAnswerDisplay(_dailyRaidAnswers[idx])
-        }))
-      };
-
-      const resultsData = {
-        completed: true,
-        skor: skor,
-        jumlah_benar: jumlahBenar,
-        jumlah_soal: totalQ,
-        damage_earned: damage,
-        xp_earned: xpEarned,
-        is_perfect: isPerfect,
-        seconds: _dailyRaidSeconds,
-        waktu_submit: new Date().toISOString(),
-        reviewItems: reviewItems
-      };
-
-      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
-      const storageKey = `daily_raid_${nis}_${dateStr}_${squad}`;
-      const legacyKey = `daily_raid_${nis}_${dateStr}`;
-      try {
-        const payloadSave = JSON.stringify({
-          answers: _dailyRaidAnswers,
-          seconds: _dailyRaidSeconds,
-          squad: squad,
-          is_completed: true,
-          results: resultsData
-        });
-        localStorage.setItem(storageKey, payloadSave);
-        localStorage.setItem(legacyKey, payloadSave);
-      } catch(e) {}
-
-      try {
-        await fetch('/api/nilai', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      } catch(e) {
-        console.warn('Daily Raid submit offline fallback:', e);
-      }
-
-      if (_cachedRaidBossData) {
-        if (!_cachedRaidBossData.user_stats) {
-          _cachedRaidBossData.user_stats = {};
-        }
-        _cachedRaidBossData.user_stats.daily_damage = (_cachedRaidBossData.user_stats.daily_damage || 0) + damage;
-        _cachedRaidBossData.user_stats.total_damage = (_cachedRaidBossData.user_stats.total_damage || 0) + damage;
-        _cachedRaidBossData.user_stats.today_daily_raid = resultsData;
-
-        _cachedRaidBossData.current_hp = Math.max(0, (_cachedRaidBossData.current_hp || 150000) - damage);
-        _cachedRaidBossData.total_damage_dealt = (_cachedRaidBossData.total_damage_dealt || 0) + damage;
-
-        renderWeeklyEventWidget(_cachedRaidBossData);
-        renderRaidBossLeaderboard(_cachedRaidBossData);
-      }
-
-      try {
-        fetch(`/api/gamifikasi?raid_boss=1&nis=${encodeURIComponent(nis)}`)
-          .then(r => r.json())
-          .then(json => {
-            if (json.raid_boss) {
-              _cachedRaidBossData = json.raid_boss;
-              renderWeeklyEventWidget(_cachedRaidBossData);
-            }
-          })
-          .catch(() => {});
-      } catch(e) {}
-
-      // Game-Dev Juice: Combat Shake on Critical Hit
-      if (isPerfect) {
-        const modalEl = document.getElementById('daily-raid-modal');
-        if (modalEl) {
-          modalEl.classList.add('combat-shake');
-          setTimeout(() => modalEl.classList.remove('combat-shake'), 400);
-        }
-      }
-
-      showDailyRaidResultView(resultsData);
     }
 
     function showDailyRaidResultView(resultsData) {
@@ -3848,33 +4181,26 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (resultView) resultView.classList.remove('hidden');
       if (navStrip) navStrip.classList.add('hidden');
 
-      const skor = resultsData?.skor || 0;
-      const benar = resultsData?.jumlah_benar || 0;
-      const soal = resultsData?.jumlah_soal || 10;
-      const dmg = resultsData?.damage_earned || (benar * 100 + (skor === 100 ? 500 : 0));
-      const xp = resultsData?.xp_earned || (benar * 10 + (skor === 100 ? 50 : 0));
+      const skor = resultsData?.skor || Math.round((_dailyRaidCompletedCount / (_dailyRaidQuestions.length || 50)) * 100);
+      const benar = resultsData?.jumlah_benar || Object.values(_dailyRaidAttacks).filter(a => a.isCorrect).length;
+      const soal = resultsData?.jumlah_soal || _dailyRaidQuestions.length || 50;
+      const dmg = resultsData?.damage_earned || _dailyRaidTotalDamage;
+      const maxCombo = resultsData?.max_combo || _dailyRaidMaxCombo;
       const isPerfect = (skor === 100);
 
       const critTag = document.getElementById('dr-result-critical-tag');
       if (critTag) {
-        if (isPerfect) {
-          critTag.classList.remove('hidden');
-          critTag.textContent = 'CRITICAL HIT BONUS (+500 DMG)!';
-        } else {
-          critTag.classList.add('hidden');
-        }
+        critTag.textContent = isPerfect ? 'PERFECT 100! CRITICAL TITAN SLAYER (+500 EXP)' : 'KAMPANYE MINGGUAN SELESAI';
       }
 
       const resTitle = document.getElementById('dr-result-title');
       if (resTitle) {
-        resTitle.textContent = `Serangan Berhasil! +${dmg.toLocaleString('id-ID')} DMG`;
+        resTitle.textContent = `Serangan Tuntas! +${dmg.toLocaleString('id-ID')} DMG`;
       }
 
       const resSubtitle = document.getElementById('dr-result-subtitle');
       if (resSubtitle) {
-        resSubtitle.textContent = isPerfect
-          ? 'Sempurna! 10 dari 10 soal benar. Critical Hit Bonus +500 DMG berhasil dihantamkan ke Titan Statigo!'
-          : `Kamu berhasil menjawab ${benar} dari ${soal} soal dengan benar. Terus pertajam pemahamanmu untuk serangan besok!`;
+        resSubtitle.textContent = `Kamu berhasil menghantam Titan Statigo dengan akurasi ${benar}/${soal} butir soal dan mencetak rekor Max Combo ${maxCombo}x!`;
       }
 
       const elScore = document.getElementById('dr-result-score');
@@ -3887,18 +4213,20 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (elDmg) elDmg.textContent = `+${dmg.toLocaleString('id-ID')} DMG`;
 
       const elXp = document.getElementById('dr-result-xp');
-      if (elXp) elXp.textContent = `+${xp} EXP`;
+      if (elXp) elXp.textContent = `Combo ${maxCombo}x`;
 
       const reviewContainer = document.getElementById('dr-review-list-container');
       if (reviewContainer) {
         const items = resultsData?.reviewItems || _dailyRaidQuestions.map((q, i) => {
-          const chosen = _dailyRaidAnswers[i] !== undefined ? _dailyRaidAnswers[i] : null;
+          const attack = _dailyRaidAttacks[i];
+          const isCorrect = attack ? attack.isCorrect : false;
           return {
             no: i + 1,
             q: q,
-            chosen: chosen,
+            chosen: attack ? attack.chosen : null,
             kunci: q.kunci,
-            isCorrect: isDailyRaidAnswerCorrect(q, chosen)
+            isCorrect: isCorrect,
+            dmg: attack ? attack.dmg : 0
           };
         });
 
@@ -3906,7 +4234,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           const q = item.q;
           const isCorrect = item.isCorrect;
           const statusBadge = isCorrect
-            ? '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">BENAR (+100 DMG)</span>'
+            ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">BENAR (+${item.dmg || 100} DMG)</span>`
             : '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300">SALAH (0 DMG)</span>';
 
           const chosenDisplay = formatDailyRaidAnswerDisplay(item.chosen);
@@ -3920,7 +4248,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
                     ${item.no}
                   </span>
                   <span class="text-[11px] font-semibold text-[#787774]">
-                    ${q._sourceSubject} • ${q._sourceKode}
+                    ${q._sourceSubject || q.mapel || 'Matematika'} • ${q.materi || q._sourceKode || ''}
                   </span>
                 </div>
                 ${statusBadge}
@@ -3960,10 +4288,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (footerEl) {
         footerEl.innerHTML = `
           <div class="text-[11px] text-[#787774]">
-            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Misi harian selesai. Reset otomatis besok pukul 00:00 WIB.
+            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Kampanye mingguan telah dituntaskan.
           </div>
           <button type="button" onclick="closeDailyRaidModal()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold text-white cursor-pointer shadow-sm hover:bg-[#1E2533]">
-            Tutup Misi
+            Tutup Rapor
           </button>
         `;
       }
@@ -3971,24 +4299,22 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function renderDailyRaidCardStatus(raidData) {
       const nis = getActiveStudentNis();
-      const dateStr = getWibDateString();
+      const weekId = getWeeklyCampaignIdFallback();
       const defaultSquad = getStudentDefaultSquad(nis);
       const squad = _dailyRaidCurrentSquad || defaultSquad;
-      const storageKey = `daily_raid_${nis}_${dateStr}_${squad}`;
-      const legacyStorageKey = `daily_raid_${nis}_${dateStr}`;
+      const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
 
       let saved = null;
       try {
-        saved = JSON.parse(localStorage.getItem(storageKey) || localStorage.getItem(legacyStorageKey) || 'null');
+        saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
       } catch(e) {}
 
-      const isRemoteCompleted = Boolean(raidData?.user_stats?.today_daily_raid?.completed);
-      const isLocalCompleted = Boolean(saved && saved.is_completed);
-      const isCompleted = isRemoteCompleted || isLocalCompleted;
+      const completedCount = saved ? (saved.completedCount || Object.keys(saved.attacks || {}).length) : 0;
+      const totalDamage = saved ? (saved.totalDamage || 0) : 0;
+      const isCompleted = saved ? Boolean(saved.is_completed || completedCount >= 50) : false;
 
-      const dateDisplay = formatWibDateIndo(dateStr);
       const dateTag = document.getElementById('daily-raid-date-tag');
-      if (dateTag) dateTag.textContent = dateDisplay;
+      if (dateTag) dateTag.textContent = `Minggu Ini (${weekId})`;
 
       const badge = document.getElementById('daily-raid-status-badge');
       const btnAction = document.getElementById('btn-daily-raid-action');
@@ -3997,36 +4323,46 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       if (squadBadge) {
         if (squad === 'F1_F2') {
-          squadBadge.textContent = '🛡️ Skuad F1 - F2 (10 Matwa)';
+          squadBadge.textContent = '🛡️ Skuad F1 - F2 (50 Matwa)';
           squadBadge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200';
         } else {
-          squadBadge.textContent = '⚔️ Skuad F3 - F4 (Matwa + Minat)';
+          squadBadge.textContent = '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)';
           squadBadge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200';
         }
       }
 
       if (isCompleted) {
-        const earnedDmg = raidData?.user_stats?.today_daily_raid?.damage_earned || saved?.results?.damage_earned || 0;
         if (badge) {
-          badge.textContent = `Selesai (+${earnedDmg.toLocaleString('id-ID')} DMG)`;
+          badge.textContent = `Selesai (+${totalDamage.toLocaleString('id-ID')} DMG)`;
           badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300';
         }
         if (btnAction) {
           btnAction.className = 'notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]';
         }
         if (btnText) {
-          btnText.textContent = 'Review Solusi & Nilai';
+          btnText.textContent = 'Review Solusi & Rapor (50 Soal)';
+        }
+      } else if (completedCount > 0) {
+        if (badge) {
+          badge.textContent = `Sedang Berjalan (${completedCount}/50 Soal)`;
+          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-indigo-100 text-indigo-900 border border-indigo-300';
+        }
+        if (btnAction) {
+          btnAction.className = 'notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]';
+        }
+        if (btnText) {
+          btnText.textContent = `Lanjutkan Serangan (${50 - completedCount} Tersisa)`;
         }
       } else {
         if (badge) {
-          badge.textContent = 'Tersedia (+1.500 DMG)';
+          badge.textContent = 'Tersedia (50 Soal TKA)';
           badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
         }
         if (btnAction) {
           btnAction.className = 'notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]';
         }
         if (btnText) {
-          btnText.textContent = 'Serang Titan (10 Soal)';
+          btnText.textContent = 'Serang Titan (50 Soal)';
         }
       }
     }
@@ -4975,6 +5311,11 @@ Guru Pengampu: Mr. Ardi
     window.nextDailyRaidQuestion = nextDailyRaidQuestion;
     window.goToDailyRaidQuestion = goToDailyRaidQuestion;
     window.submitDailyRaidAttack = submitDailyRaidAttack;
+    window.attackSingleQuestion = attackSingleQuestion;
+    window.pauseWeeklyCampaign = pauseWeeklyCampaign;
+    window.finishWeeklyCampaign = finishWeeklyCampaign;
+    window.closeBotLockoutModal = closeBotLockoutModal;
+    window.checkAntiCheatLockout = checkAntiCheatLockout;
     window.renderDailyRaidCardStatus = renderDailyRaidCardStatus;
     window.generateDailyRaidQuestions = generateDailyRaidQuestions;
     window.getDailyRaidQuestionPool = getDailyRaidQuestionPool;

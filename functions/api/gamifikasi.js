@@ -321,7 +321,7 @@ export async function getRaidBossData(db, nis) {
         MAX(CASE WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor ELSE 0 END) as p17_minat_skor,
         SUM(
           CASE 
-            WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%') AND DATE(n.waktu_submit) >= ?) 
+            WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY%') AND DATE(n.waktu_submit) >= ?) 
             THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
             ELSE 0 
           END
@@ -332,7 +332,7 @@ export async function getRaidBossData(db, nis) {
             WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','p15')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
             WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P16','p16')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
             WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor * 15 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-            WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%') AND DATE(n.waktu_submit) >= ?) 
+            WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY%') AND DATE(n.waktu_submit) >= ?) 
             THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
             ELSE 0
           END
@@ -341,7 +341,7 @@ export async function getRaidBossData(db, nis) {
       JOIN siswa s ON n.nis = s.nis
       WHERE ((n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','P16','p15','p16')) 
          OR (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17'))
-         OR ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%') AND DATE(n.waktu_submit) >= ?))
+         OR ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY%') AND DATE(n.waktu_submit) >= ?))
         AND (n.is_flagged IS NULL OR n.is_flagged = 0)
       GROUP BY n.nis
       ORDER BY total_damage DESC, critical_hits DESC, n.nis ASC
@@ -422,7 +422,7 @@ export async function getRaidBossData(db, nis) {
 
       try {
         const todayRow = await db.prepare(
-          "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, waktu_submit FROM nilai_cbt WHERE nis = ? AND (mapel = 'raid' OR kode_pertemuan LIKE 'DAILY%' OR kode_pertemuan LIKE 'RAID_DAILY%') AND DATE(waktu_submit) = ? ORDER BY id DESC LIMIT 1"
+          "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, waktu_submit FROM nilai_cbt WHERE nis = ? AND (mapel = 'raid' OR kode_pertemuan LIKE 'DAILY%' OR kode_pertemuan LIKE 'RAID_DAILY%' OR kode_pertemuan LIKE 'WEEKLY%') AND DATE(waktu_submit) = ? ORDER BY id DESC LIMIT 1"
         ).bind(cleanNis, todayStr).first();
         if (todayRow) {
           todayDailyRaid = {
