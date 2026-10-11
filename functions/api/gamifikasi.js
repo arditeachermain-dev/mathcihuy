@@ -425,11 +425,14 @@ export async function getRaidBossData(db, nis) {
           "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, waktu_submit FROM nilai_cbt WHERE nis = ? AND (mapel = 'raid' OR kode_pertemuan LIKE 'DAILY%' OR kode_pertemuan LIKE 'RAID_DAILY%' OR kode_pertemuan LIKE 'WEEKLY%') AND DATE(waktu_submit) = ? ORDER BY id DESC LIMIT 1"
         ).bind(cleanNis, todayStr).first();
         if (todayRow) {
+          const isWeekly = String(todayRow.kode_pertemuan || '').toUpperCase().includes('WEEKLY');
+          const totalJawab = (Number(todayRow.jumlah_benar) || 0) + (Number(todayRow.jumlah_salah) || 0);
+          const isFinished = isWeekly ? (totalJawab >= 50) : true;
           todayDailyRaid = {
-            completed: true,
+            completed: isFinished,
             skor: Number(todayRow.skor) || 0,
             jumlah_benar: Number(todayRow.jumlah_benar) || 0,
-            jumlah_soal: Number(todayRow.jumlah_soal) || 10,
+            jumlah_soal: Number(todayRow.jumlah_soal) || (isWeekly ? 50 : 10),
             damage_earned: (Number(todayRow.jumlah_benar) || 0) * 100 + (Number(todayRow.skor) === 100 ? 500 : 0),
             waktu_submit: todayRow.waktu_submit
           };

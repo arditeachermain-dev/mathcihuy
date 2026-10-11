@@ -3343,9 +3343,17 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       loadWeeklyRaidCampaignState(savedState);
 
-      if (savedState && savedState.is_completed) {
-        showDailyRaidResultView(savedState.results);
+      const totalQ = _dailyRaidQuestions.length || 50;
+      const isFullyCompleted = (_dailyRaidCompletedCount >= totalQ && totalQ > 0);
+
+      if (isFullyCompleted) {
+        showDailyRaidResultView(savedState?.results);
       } else {
+        if (savedState && savedState.is_completed) {
+          savedState.is_completed = false;
+          delete savedState.results;
+          try { localStorage.setItem(storageKey, JSON.stringify(savedState)); } catch(e) {}
+        }
         showDailyRaidExamView(savedState);
       }
     }
@@ -3436,16 +3444,24 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       loadWeeklyRaidCampaignState(savedState);
 
-      const isRemoteCompleted = Boolean(_cachedRaidBossData?.user_stats?.today_daily_raid?.completed);
-      const isLocalCompleted = Boolean(savedState && savedState.is_completed) || (_dailyRaidCompletedCount >= _dailyRaidQuestions.length && _dailyRaidQuestions.length > 0);
+      const totalQ = _dailyRaidQuestions.length || 50;
+      const isFullyCompleted = (_dailyRaidCompletedCount >= totalQ && totalQ > 0);
 
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
 
-      if (isRemoteCompleted || isLocalCompleted) {
-        showDailyRaidResultView(savedState?.results || _cachedRaidBossData?.user_stats?.today_daily_raid);
+      if (isFullyCompleted) {
+        showDailyRaidResultView(savedState?.results);
       } else {
+        // Self-healing jika ada status is_completed prematur di localStorage
+        if (savedState && savedState.is_completed) {
+          savedState.is_completed = false;
+          delete savedState.results;
+          try {
+            localStorage.setItem(storageKey, JSON.stringify(savedState));
+          } catch(e) {}
+        }
         // Navigasi otomatis ke soal pertama yang belum diserang
         let firstUnattacked = 0;
         for (let i = 0; i < _dailyRaidQuestions.length; i++) {
@@ -3951,8 +3967,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       renderDailyRaidQuestion(idx);
       renderDailyRaidBubbles();
 
-      // 9. Asynchronous Micro-Sync ke Backend D1
-      syncWeeklyRaidToBackend();
+      // 9. Progres per butir disimpan aman di LocalStorage (sinkronisasi nilai resmi ke D1 hanya saat kampanye tuntas 50 butir di finishWeeklyCampaign)
 
       // 10. Jika seluruh 50 butir telah tuntas diserang, buka Victory View
       if (_dailyRaidCompletedCount >= _dailyRaidQuestions.length) {
@@ -4213,26 +4228,43 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (resultView) resultView.classList.remove('hidden');
       if (navStrip) navStrip.classList.add('hidden');
 
-      const skor = resultsData?.skor || Math.round((_dailyRaidCompletedCount / (_dailyRaidQuestions.length || 50)) * 100);
-      const benar = resultsData?.jumlah_benar || Object.values(_dailyRaidAttacks).filter(a => a.isCorrect).length;
-      const soal = resultsData?.jumlah_soal || _dailyRaidQuestions.length || 50;
-      const dmg = resultsData?.damage_earned || _dailyRaidTotalDamage;
-      const maxCombo = resultsData?.max_combo || _dailyRaidMaxCombo;
-      const isPerfect = (skor === 100);
+      const totalQ = _dailyRaidQuestions.length || 50;
+      const completedCount = resultsData?.completedCount || _dailyRaidCompletedCount || Object.keys(_dailyRaidAttacks).length;
+      const isFullyFinished = (completedCount >= totalQ && totalQ > 0);
+
+      const skor = resultsData?.skor !== undefined ? resultsData.skor : Math.round((completedCount / totalQ) * 100);
+      const benar = resultsData?.jumlah_benar !== undefined ? resultsData.jumlah_benar : Object.values(_dailyRaidAttacks).filter(a => a && a.isCorrect).length;
+      const soal = resultsData?.jumlah_soal || totalQ;
+      const dmg = resultsData?.damage_earned !== undefined ? resultsData.damage_earned : _dailyRaidTotalDamage;
+      const maxCombo = resultsData?.max_combo !== undefined ? resultsData.max_combo : _dailyRaidMaxCombo;
+      const isPerfect = (skor === 100 && isFullyFinished);
 
       const critTag = document.getElementById('dr-result-critical-tag');
       if (critTag) {
-        critTag.textContent = isPerfect ? 'PERFECT 100! CRITICAL TITAN SLAYER (+500 EXP)' : 'KAMPANYE MINGGUAN SELESAI';
+        if (!isFullyFinished) {
+          critTag.textContent = `KAMPANYE SEDANG BERJALAN (${completedCount}/${soal} SOAL)`;
+          critTag.className = 'px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-200';
+        } else if (isPerfect) {
+          critTag.textContent = 'PERFECT 100! CRITICAL TITAN SLAYER (+500 EXP)';
+          critTag.className = 'px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200';
+        } else {
+          critTag.textContent = 'KAMPANYE MINGGUAN SELESAI';
+          critTag.className = 'px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-stone-100 text-[#2F3437] border border-[#E8E6DF]';
+        }
       }
 
       const resTitle = document.getElementById('dr-result-title');
       if (resTitle) {
-        resTitle.textContent = `Serangan Tuntas! +${dmg.toLocaleString('id-ID')} DMG`;
+        resTitle.textContent = isFullyFinished
+          ? `Serangan Tuntas! +${dmg.toLocaleString('id-ID')} DMG`
+          : `Sesi Jeda Pertempuran • +${dmg.toLocaleString('id-ID')} DMG`;
       }
 
       const resSubtitle = document.getElementById('dr-result-subtitle');
       if (resSubtitle) {
-        resSubtitle.textContent = `Kamu berhasil menghantam Titan Statigo dengan akurasi ${benar}/${soal} butir soal dan mencetak rekor Max Combo ${maxCombo}x!`;
+        resSubtitle.textContent = isFullyFinished
+          ? `Kamu berhasil menghantam Titan Statigo dengan akurasi ${benar}/${soal} butir soal dan mencetak rekor Max Combo ${maxCombo}x!`
+          : `Kamu telah menyerang ${completedCount} dari ${soal} butir soal. Pertempuran belum selesai, lanjutkan serangan untuk membuka kunci jawaban dan pembahasan butir yang tersisa!`;
       }
 
       const elScore = document.getElementById('dr-result-score');
@@ -4264,7 +4296,46 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
         reviewContainer.innerHTML = items.map(item => {
           const q = item.q;
+          const hasAttacked = (item.chosen !== null && item.chosen !== undefined && item.chosen !== '');
           const isCorrect = item.isCorrect;
+
+          if (!hasAttacked) {
+            return `
+              <div class="p-3.5 sm:p-4 rounded-xl border space-y-2.5 opacity-90" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-md bg-[#787774] text-white font-mono font-bold text-xs flex items-center justify-center">
+                      ${item.no}
+                    </span>
+                    <span class="text-[11px] font-semibold text-[#787774]">
+                      ${q._sourceSubject || q.mapel || 'Matematika'} • ${q.materi || q._sourceKode || ''}
+                    </span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#F0EFEA] text-[#787774] border border-[#E8E6DF]">BELUM DISERANG (TERKUNCI)</span>
+                </div>
+
+                <div class="text-xs sm:text-sm text-[#2F3437] leading-relaxed pt-1">
+                  ${q.tanya || ''}
+                </div>
+
+                <div class="flex items-center gap-3 text-xs pt-1 border-t border-[#F0EFEA] flex-wrap">
+                  <span class="text-[#787774]">
+                    Jawabanmu: <strong class="font-mono text-xs text-[#5F5E5B] italic">Belum Diserang</strong>
+                  </span>
+                  <span class="text-[#787774]">•</span>
+                  <span class="text-[#787774]">
+                    Kunci Jawaban: <strong class="font-mono text-[#787774] text-xs">🔒 Terkunci (Selesaikan butir ini di arena tempur)</strong>
+                  </span>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-[#FBFBFA] border border-[#E8E6DF] text-xs text-[#787774] flex items-center gap-2 mt-2">
+                  <i class="fa-solid fa-lock text-stone-400"></i>
+                  <span>Kunci jawaban dan pembahasan analitis butir ini dilindungi sampai kamu menyerang butir ini di arena tempur.</span>
+                </div>
+              </div>
+            `;
+          }
+
           const statusBadge = isCorrect
             ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">BENAR (+${item.dmg || 100} DMG)</span>`
             : '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300">SALAH (0 DMG)</span>';
@@ -4318,14 +4389,85 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
 
       if (footerEl) {
-        footerEl.innerHTML = `
-          <div class="text-[11px] text-[#787774]">
-            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Kampanye mingguan telah dituntaskan.
-          </div>
-          <button type="button" onclick="closeDailyRaidModal()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold text-white cursor-pointer shadow-sm hover:bg-[#1E2533]">
-            Tutup Rapor
-          </button>
-        `;
+        if (!isFullyFinished) {
+          footerEl.innerHTML = `
+            <div class="text-[11px] text-amber-700 font-medium">
+              <i class="fa-solid fa-triangle-exclamation mr-1 text-amber-600"></i> Progres pertempuran: ${completedCount}/${soal} butir diserang.
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="resumeWeeklyRaidBattle()" class="px-4 py-1.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer shadow-sm flex items-center gap-1.5">
+                <i class="fa-solid fa-play"></i> Lanjutkan Serangan Titan
+              </button>
+              <button type="button" onclick="closeDailyRaidModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-[#5F5E5B] bg-white border border-[#E8E6DF] hover:bg-[#F7F6F3] cursor-pointer">
+                Tutup
+              </button>
+            </div>
+          `;
+        } else {
+          footerEl.innerHTML = `
+            <div class="text-[11px] text-[#787774]">
+              <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Kampanye mingguan telah dituntaskan (50/50 Butir).
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="resetWeeklyRaidCampaign()" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-rose-700 bg-rose-50 border border-rose-200 hover:bg-rose-100 cursor-pointer" title="Ulangi pertempuran dari awal untuk latihan ulang">
+                <i class="fa-solid fa-rotate-right mr-1"></i> Ulangi Sesi
+              </button>
+              <button type="button" onclick="closeDailyRaidModal()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold text-white cursor-pointer shadow-sm hover:bg-[#1E2533]">
+                Tutup Rapor
+              </button>
+            </div>
+          `;
+        }
+      }
+    }
+
+    function resumeWeeklyRaidBattle() {
+      const nis = getActiveStudentNis();
+      const weekId = getWeeklyCampaignIdFallback();
+      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+        saved.is_completed = false;
+        delete saved.results;
+        localStorage.setItem(storageKey, JSON.stringify(saved));
+      } catch(e) {}
+
+      let firstUnattacked = 0;
+      for (let i = 0; i < _dailyRaidQuestions.length; i++) {
+        if (!_dailyRaidAttacks[i]) {
+          firstUnattacked = i;
+          break;
+        }
+      }
+      _dailyRaidCurrentIdx = firstUnattacked;
+      showDailyRaidExamView();
+    }
+
+    function resetWeeklyRaidCampaign() {
+      if (!confirm('Apakah kamu yakin ingin mengulang pertempuran Raid Boss dari awal? Seluruh progres saat ini akan direset.')) {
+        return;
+      }
+      const nis = getActiveStudentNis();
+      const weekId = getWeeklyCampaignIdFallback();
+      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
+      try {
+        localStorage.removeItem(storageKey);
+      } catch(e) {}
+
+      _dailyRaidAttacks = {};
+      _dailyRaidAnswers = {};
+      _dailyRaidCurrentCombo = 0;
+      _dailyRaidMaxCombo = 0;
+      _dailyRaidTotalDamage = 0;
+      _dailyRaidCompletedCount = 0;
+      _dailyRaidSeconds = 0;
+      _dailyRaidCurrentIdx = 0;
+
+      showDailyRaidExamView();
+      if (typeof showNotionToast === 'function') {
+        showNotionToast('Pertempuran Raid Boss berhasil direset. Silakan mulai kembali!');
       }
     }
 
@@ -5348,6 +5490,8 @@ Guru Pengampu: Mr. Ardi
     window.attackSingleQuestion = attackSingleQuestion;
     window.pauseWeeklyCampaign = pauseWeeklyCampaign;
     window.finishWeeklyCampaign = finishWeeklyCampaign;
+    window.resumeWeeklyRaidBattle = resumeWeeklyRaidBattle;
+    window.resetWeeklyRaidCampaign = resetWeeklyRaidCampaign;
     window.closeBotLockoutModal = closeBotLockoutModal;
     window.checkAntiCheatLockout = checkAntiCheatLockout;
     window.renderDailyRaidCardStatus = renderDailyRaidCardStatus;
