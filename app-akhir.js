@@ -3126,47 +3126,123 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       return a;
     }
 
-    function getDailyRaidQuestionPool() {
-      const database = window.db || (typeof db !== 'undefined' ? db : null);
-      if (!database) return { p15: [], p16: [], p17: [] };
+    let _dailyRaidCurrentSquad = 'F1_F2';
 
-      const p15Questions = (database.tka_wajib?.P15?.questions || []).map((q, idx) => ({
-        ...q,
-        _sourceSubject: 'Matematika Wajib',
-        _sourceKode: 'P15',
-        _sourceTitle: 'Statistika: Histogram & Ogive',
-        _origIdx: idx
-      }));
-
-      const p16Questions = (database.tka_wajib?.P16?.questions || []).map((q, idx) => ({
-        ...q,
-        _sourceSubject: 'Matematika Wajib',
-        _sourceKode: 'P16',
-        _sourceTitle: 'Statistika: Mean Data Berkelompok',
-        _origIdx: idx
-      }));
-
-      const p17Questions = (database.tka_minat?.P17?.questions || []).map((q, idx) => ({
-        ...q,
-        _sourceSubject: 'Matematika Peminatan',
-        _sourceKode: 'P17',
-        _sourceTitle: 'Turunan Trigonometri Dasar',
-        _origIdx: idx
-      }));
-
-      return { p15: p15Questions, p16: p16Questions, p17: p17Questions };
+    function getStudentDefaultSquad(nis) {
+      const activeNis = nis || getActiveStudentNis();
+      try {
+        const studentInfo = (typeof STUDENTS_DATA !== 'undefined' && STUDENTS_DATA[activeNis]) ? STUDENTS_DATA[activeNis] : null;
+        if (studentInfo) {
+          if (studentInfo.access_level === 'wajib_only') return 'F1_F2';
+          if (studentInfo.kelas && (studentInfo.kelas.includes('F1') || studentInfo.kelas.includes('F2'))) return 'F1_F2';
+          if (studentInfo.kelas && (studentInfo.kelas.includes('F3') || studentInfo.kelas.includes('F4'))) return 'F3_F4';
+        }
+        const sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        if (sess && sess.data && sess.data.kelas) {
+          const k = String(sess.data.kelas);
+          if (k.includes('F1') || k.includes('F2')) return 'F1_F2';
+          if (k.includes('F3') || k.includes('F4')) return 'F3_F4';
+        }
+      } catch(e) {}
+      return 'F1_F2';
     }
 
-    function generateDailyRaidQuestions(nis, dateStr) {
-      const pool = getDailyRaidQuestionPool();
-      const rng = getDailyRaidSeededRng(`${nis}_${dateStr}`);
+    function updateDailyRaidSquadButtonsUI(squad) {
+      _dailyRaidCurrentSquad = squad;
+      const btnF12 = document.getElementById('dr-squad-btn-f12');
+      const btnF34 = document.getElementById('dr-squad-btn-f34');
+      const bSquadTag = document.getElementById('daily-raid-squad-badge');
 
-      const sel15 = shuffleArrayWithRng(pool.p15, rng).slice(0, 4);
-      const sel16 = shuffleArrayWithRng(pool.p16, rng).slice(0, 3);
-      const sel17 = shuffleArrayWithRng(pool.p17, rng).slice(0, 3);
+      if (btnF12 && btnF34) {
+        if (squad === 'F1_F2') {
+          btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
+          btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+        } else {
+          btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
+          btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+        }
+      }
 
-      const combined = [...sel15, ...sel16, ...sel17];
-      return shuffleArrayWithRng(combined, rng);
+      if (bSquadTag) {
+        if (squad === 'F1_F2') {
+          bSquadTag.textContent = '🛡️ Skuad F1 - F2 (10 Matwa)';
+          bSquadTag.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200';
+        } else {
+          bSquadTag.textContent = '⚔️ Skuad F3 - F4 (Matwa + Minat)';
+          bSquadTag.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200';
+        }
+      }
+    }
+
+    function setDailyRaidSquadMode(squad) {
+      updateDailyRaidSquadButtonsUI(squad);
+      const nis = getActiveStudentNis();
+      const dateStr = getWibDateString();
+      const storageKey = `daily_raid_${nis}_${dateStr}_${squad}`;
+
+      _dailyRaidQuestions = generateDailyRaidQuestions(nis, dateStr, squad);
+
+      const themeDesc = document.getElementById('dr-modal-theme-desc');
+      const themeTag = document.getElementById('dr-theme-day-tag');
+      if (_dailyRaidQuestions.length > 0 && _dailyRaidQuestions[0]._dayName) {
+        if (themeTag) themeTag.textContent = _dailyRaidQuestions[0]._dayName.split('•')[0]?.trim() || 'ROTASI HARIAN';
+        if (themeDesc) themeDesc.textContent = _dailyRaidQuestions[0]._dayName + ' • 10 butir soal baru eksklusif harian. +100 DMG/soal + 500 Critical!';
+      }
+
+      let savedState = null;
+      try {
+        savedState = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      } catch(e) {}
+
+      if (savedState && savedState.is_completed) {
+        showDailyRaidResultView(savedState.results);
+      } else {
+        showDailyRaidExamView(savedState);
+      }
+    }
+
+    function getDailyRaidQuestionPool() {
+      const dateStr = getWibDateString();
+      const squad = _dailyRaidCurrentSquad || 'F1_F2';
+      if (typeof window.getDailyRaidQuestionsForDate === 'function') {
+        return window.getDailyRaidQuestionsForDate(dateStr, squad);
+      }
+      return [];
+    }
+
+    function generateDailyRaidQuestions(nis, dateStr, squadType) {
+      const squad = squadType || _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      let rawList = [];
+
+      if (typeof window.getDailyRaidQuestionsForDate === 'function') {
+        rawList = window.getDailyRaidQuestionsForDate(dateStr, squad);
+      } else if (typeof DAILY_RAID_BANK !== 'undefined') {
+        let dayIdx = 0;
+        try {
+          const parts = String(dateStr).split('-');
+          if (parts.length === 3) {
+            dayIdx = new Date(Date.UTC(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10))).getUTCDay();
+          }
+        } catch(e) { dayIdx = new Date().getDay(); }
+        const dData = DAILY_RAID_BANK['day_' + dayIdx] || DAILY_RAID_BANK['day_0'];
+        if (squad === 'F1_F2') {
+          rawList = (dData.matwa || []).slice(0, 10);
+        } else {
+          rawList = [...(dData.matwa || []).slice(0, 5), ...(dData.matmin || []).slice(0, 5)];
+        }
+      }
+
+      const mapped = rawList.map((q, idx) => ({
+        ...q,
+        _sourceSubject: q.mapel || (squad === 'F1_F2' || idx < 5 ? 'Matematika Wajib' : 'Matematika Peminatan'),
+        _sourceKode: (q.materi || '').split('•')[0]?.trim() || (squad === 'F1_F2' || idx < 5 ? 'P15/P16' : 'P17'),
+        _sourceTitle: (q.materi || '').split('•')[1]?.trim() || q.materi || '',
+        _origIdx: idx,
+        _squadType: squad
+      }));
+
+      const rng = getDailyRaidSeededRng(`${nis}_${dateStr}_${squad}`);
+      return shuffleArrayWithRng(mapped, rng);
     }
 
     async function openDailyRaidModal() {
@@ -3175,7 +3251,12 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       const nis = getActiveStudentNis();
       const dateStr = getWibDateString();
-      const storageKey = `daily_raid_${nis}_${dateStr}`;
+      const defaultSquad = getStudentDefaultSquad(nis);
+      _dailyRaidCurrentSquad = _dailyRaidCurrentSquad || defaultSquad;
+      updateDailyRaidSquadButtonsUI(_dailyRaidCurrentSquad);
+
+      const storageKey = `daily_raid_${nis}_${dateStr}_${_dailyRaidCurrentSquad}`;
+      const legacyStorageKey = `daily_raid_${nis}_${dateStr}`;
 
       const dateDisplay = formatWibDateIndo(dateStr);
       const mDateTag = document.getElementById('dr-modal-date-tag');
@@ -3183,11 +3264,18 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const dDateTag = document.getElementById('daily-raid-date-tag');
       if (dDateTag) dDateTag.textContent = dateDisplay;
 
-      _dailyRaidQuestions = generateDailyRaidQuestions(nis, dateStr);
+      _dailyRaidQuestions = generateDailyRaidQuestions(nis, dateStr, _dailyRaidCurrentSquad);
+
+      const themeDesc = document.getElementById('dr-modal-theme-desc');
+      const themeTag = document.getElementById('dr-theme-day-tag');
+      if (_dailyRaidQuestions.length > 0 && _dailyRaidQuestions[0]._dayName) {
+        if (themeTag) themeTag.textContent = _dailyRaidQuestions[0]._dayName.split('•')[0]?.trim() || 'ROTASI HARIAN';
+        if (themeDesc) themeDesc.textContent = _dailyRaidQuestions[0]._dayName + ' • 10 butir soal baru eksklusif harian. +100 DMG/soal + 500 Critical!';
+      }
 
       let savedState = null;
       try {
-        savedState = JSON.parse(localStorage.getItem(storageKey) || 'null');
+        savedState = JSON.parse(localStorage.getItem(storageKey) || localStorage.getItem(legacyStorageKey) || 'null');
       } catch(e) {}
 
       const isRemoteCompleted = Boolean(_cachedRaidBossData?.user_stats?.today_daily_raid?.completed);
@@ -3521,13 +3609,18 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     function persistDailyRaidDraft() {
       const nis = getActiveStudentNis();
       const dateStr = getWibDateString();
-      const storageKey = `daily_raid_${nis}_${dateStr}`;
+      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const storageKey = `daily_raid_${nis}_${dateStr}_${squad}`;
+      const legacyKey = `daily_raid_${nis}_${dateStr}`;
+      const draftData = {
+        answers: _dailyRaidAnswers,
+        seconds: _dailyRaidSeconds,
+        squad: squad,
+        is_completed: false
+      };
       try {
-        localStorage.setItem(storageKey, JSON.stringify({
-          answers: _dailyRaidAnswers,
-          seconds: _dailyRaidSeconds,
-          is_completed: false
-        }));
+        localStorage.setItem(storageKey, JSON.stringify(draftData));
+        localStorage.setItem(legacyKey, JSON.stringify(draftData));
       } catch(e) {}
     }
 
@@ -3535,9 +3628,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const container = document.getElementById('dr-bubbles-container');
       if (!container) return;
 
+      let answeredCount = 0;
       container.innerHTML = _dailyRaidQuestions.map((_, i) => {
         const isCurrent = (i === _dailyRaidCurrentIdx);
         const isAnswered = isDailyRaidQuestionAnswered(i);
+        if (isAnswered) answeredCount++;
 
         let cls = 'w-7 h-7 rounded-lg font-mono font-bold text-xs flex items-center justify-center cursor-pointer transition shadow-2xs ';
         if (isCurrent) {
@@ -3550,6 +3645,22 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
         return `<button type="button" onclick="goToDailyRaidQuestion(${i})" class="${cls}">${i + 1}</button>`;
       }).join('');
+
+      // Update Combo Counter & Micro-Indicator
+      const comboText = document.getElementById('dr-combo-text');
+      const comboBadge = document.getElementById('dr-combo-badge');
+      if (comboText) {
+        comboText.textContent = `Combo ${answeredCount}x`;
+      }
+      if (comboBadge) {
+        if (answeredCount >= 10) {
+          comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-500 text-white border border-amber-600 shadow-sm flex items-center gap-1 transition combo-pulse';
+        } else if (answeredCount >= 5) {
+          comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300 shadow-2xs flex items-center gap-1 transition';
+        } else {
+          comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-50 border border-amber-200 text-amber-900 shadow-2xs flex items-center gap-1 transition';
+        }
+      }
     }
 
     function prevDailyRaidQuestion() {
@@ -3663,14 +3774,19 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         reviewItems: reviewItems
       };
 
-      const storageKey = `daily_raid_${nis}_${dateStr}`;
+      const squad = _dailyRaidCurrentSquad || getStudentDefaultSquad(nis);
+      const storageKey = `daily_raid_${nis}_${dateStr}_${squad}`;
+      const legacyKey = `daily_raid_${nis}_${dateStr}`;
       try {
-        localStorage.setItem(storageKey, JSON.stringify({
+        const payloadSave = JSON.stringify({
           answers: _dailyRaidAnswers,
           seconds: _dailyRaidSeconds,
+          squad: squad,
           is_completed: true,
           results: resultsData
-        }));
+        });
+        localStorage.setItem(storageKey, payloadSave);
+        localStorage.setItem(legacyKey, payloadSave);
       } catch(e) {}
 
       try {
@@ -3709,6 +3825,15 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           })
           .catch(() => {});
       } catch(e) {}
+
+      // Game-Dev Juice: Combat Shake on Critical Hit
+      if (isPerfect) {
+        const modalEl = document.getElementById('daily-raid-modal');
+        if (modalEl) {
+          modalEl.classList.add('combat-shake');
+          setTimeout(() => modalEl.classList.remove('combat-shake'), 400);
+        }
+      }
 
       showDailyRaidResultView(resultsData);
     }
@@ -3844,143 +3969,17 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
     }
 
-    function showDailyRaidResultView(resultsData) {
-      const examView = document.getElementById('dr-exam-view');
-      const resultView = document.getElementById('dr-result-view');
-      const navStrip = document.getElementById('dr-navigator-strip');
-      const footerEl = document.getElementById('dr-modal-footer');
-
-      if (examView) examView.classList.add('hidden');
-      if (resultView) resultView.classList.remove('hidden');
-      if (navStrip) navStrip.classList.add('hidden');
-
-      const skor = resultsData?.skor || 0;
-      const benar = resultsData?.jumlah_benar || 0;
-      const soal = resultsData?.jumlah_soal || 10;
-      const dmg = resultsData?.damage_earned || (benar * 100 + (skor === 100 ? 500 : 0));
-      const xp = resultsData?.xp_earned || (benar * 10 + (skor === 100 ? 50 : 0));
-      const isPerfect = (skor === 100);
-
-      const critTag = document.getElementById('dr-result-critical-tag');
-      if (critTag) {
-        if (isPerfect) {
-          critTag.classList.remove('hidden');
-          critTag.textContent = 'CRITICAL HIT BONUS (+500 DMG)!';
-        } else {
-          critTag.classList.add('hidden');
-        }
-      }
-
-      const resTitle = document.getElementById('dr-result-title');
-      if (resTitle) {
-        resTitle.textContent = `Serangan Berhasil! +${dmg.toLocaleString('id-ID')} DMG`;
-      }
-
-      const resSubtitle = document.getElementById('dr-result-subtitle');
-      if (resSubtitle) {
-        resSubtitle.textContent = isPerfect
-          ? 'Sempurna! 10 dari 10 soal benar. Critical Hit Bonus +500 DMG berhasil dihantamkan ke Titan Statigo!'
-          : `Kamu berhasil menjawab ${benar} dari ${soal} soal dengan benar. Terus pertajam pemahamanmu untuk serangan besok!`;
-      }
-
-      const elScore = document.getElementById('dr-result-score');
-      if (elScore) elScore.textContent = skor;
-
-      const elAcc = document.getElementById('dr-result-accuracy');
-      if (elAcc) elAcc.textContent = `${benar} / ${soal - benar}`;
-
-      const elDmg = document.getElementById('dr-result-dmg');
-      if (elDmg) elDmg.textContent = `+${dmg.toLocaleString('id-ID')} DMG`;
-
-      const elXp = document.getElementById('dr-result-xp');
-      if (elXp) elXp.textContent = `+${xp} EXP`;
-
-      const reviewContainer = document.getElementById('dr-review-list-container');
-      if (reviewContainer) {
-        const items = resultsData?.reviewItems || _dailyRaidQuestions.map((q, i) => {
-          const chosen = _dailyRaidAnswers[i] || null;
-          const kunci = String(q.kunci || '').trim().toUpperCase();
-          return {
-            no: i + 1,
-            q: q,
-            chosen: chosen,
-            kunci: kunci,
-            isCorrect: (chosen && chosen.toUpperCase() === kunci)
-          };
-        });
-
-        reviewContainer.innerHTML = items.map(item => {
-          const q = item.q;
-          const isCorrect = item.isCorrect;
-          const statusBadge = isCorrect
-            ? '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">BENAR (+100 DMG)</span>'
-            : '<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300">SALAH (0 DMG)</span>';
-
-          return `
-            <div class="p-3.5 sm:p-4 rounded-xl border space-y-2.5" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-              <div class="flex items-center justify-between gap-2 flex-wrap">
-                <div class="flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-md bg-[#2E384D] text-white font-mono font-bold text-xs flex items-center justify-center">
-                    ${item.no}
-                  </span>
-                  <span class="text-[11px] font-semibold text-[#787774]">
-                    ${q._sourceSubject} • ${q._sourceKode}
-                  </span>
-                </div>
-                ${statusBadge}
-              </div>
-
-              <div class="text-xs sm:text-sm text-[#2F3437] leading-relaxed pt-1">
-                ${q.tanya || ''}
-              </div>
-
-              <div class="flex items-center gap-3 text-xs pt-1 border-t border-[#F0EFEA]">
-                <span class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-rose-700 font-bold'}">
-                  Jawabanmu: <strong class="font-mono text-sm">${item.chosen || 'Tidak dijawab'}</strong>
-                </span>
-                <span class="text-[#787774]">•</span>
-                <span class="text-[#2F3437]">
-                  Kunci Jawaban: <strong class="font-mono text-emerald-700 text-sm font-bold">${item.kunci}</strong>
-                </span>
-              </div>
-
-              ${q.bahas ? `
-                <div class="p-3 rounded-lg bg-[#FBFBFA] border border-[#E8E6DF] text-xs text-[#5F5E5B] space-y-1 mt-2">
-                  <div class="font-bold text-[#2F3437] text-[11px] flex items-center gap-1.5">
-                    <i class="fa-solid fa-lightbulb text-amber-500"></i> Pembahasan Langkah demi Langkah:
-                  </div>
-                  <div class="review-math-content whitespace-pre-line leading-relaxed">
-                    ${q.bahas}
-                  </div>
-                </div>
-              ` : ''}
-            </div>
-          `;
-        }).join('');
-
-        renderDailyRaidMath(reviewContainer);
-      }
-
-      if (footerEl) {
-        footerEl.innerHTML = `
-          <div class="text-[11px] text-[#787774]">
-            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Misi harian selesai. Reset otomatis besok pukul 00:00 WIB.
-          </div>
-          <button type="button" onclick="closeDailyRaidModal()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold text-white cursor-pointer shadow-sm hover:bg-[#1E2533]">
-            Tutup Misi
-          </button>
-        `;
-      }
-    }
-
     function renderDailyRaidCardStatus(raidData) {
       const nis = getActiveStudentNis();
       const dateStr = getWibDateString();
-      const storageKey = `daily_raid_${nis}_${dateStr}`;
+      const defaultSquad = getStudentDefaultSquad(nis);
+      const squad = _dailyRaidCurrentSquad || defaultSquad;
+      const storageKey = `daily_raid_${nis}_${dateStr}_${squad}`;
+      const legacyStorageKey = `daily_raid_${nis}_${dateStr}`;
 
       let saved = null;
       try {
-        saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+        saved = JSON.parse(localStorage.getItem(storageKey) || localStorage.getItem(legacyStorageKey) || 'null');
       } catch(e) {}
 
       const isRemoteCompleted = Boolean(raidData?.user_stats?.today_daily_raid?.completed);
@@ -3994,6 +3993,17 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const badge = document.getElementById('daily-raid-status-badge');
       const btnAction = document.getElementById('btn-daily-raid-action');
       const btnText = document.getElementById('btn-daily-raid-text');
+      const squadBadge = document.getElementById('daily-raid-squad-badge');
+
+      if (squadBadge) {
+        if (squad === 'F1_F2') {
+          squadBadge.textContent = '🛡️ Skuad F1 - F2 (10 Matwa)';
+          squadBadge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200';
+        } else {
+          squadBadge.textContent = '⚔️ Skuad F3 - F4 (Matwa + Minat)';
+          squadBadge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200';
+        }
+      }
 
       if (isCompleted) {
         const earnedDmg = raidData?.user_stats?.today_daily_raid?.damage_earned || saved?.results?.damage_earned || 0;
@@ -4968,6 +4978,8 @@ Guru Pengampu: Mr. Ardi
     window.renderDailyRaidCardStatus = renderDailyRaidCardStatus;
     window.generateDailyRaidQuestions = generateDailyRaidQuestions;
     window.getDailyRaidQuestionPool = getDailyRaidQuestionPool;
+    window.setDailyRaidSquadMode = setDailyRaidSquadMode;
+    window.getStudentDefaultSquad = getStudentDefaultSquad;
     window.openSkillTreeModal = openSkillTreeModal;
     window.closeSkillTreeModal = closeSkillTreeModal;
     window.switchSkillTreeTab = switchSkillTreeTab;

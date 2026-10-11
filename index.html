@@ -291,6 +291,32 @@
     .angket-feedback-pill.low { background: #FFE4E6; color: #9F1239; }
     .angket-feedback-pill.mid { background: #E0F2FE; color: #075985; }
     .angket-feedback-pill.high { background: #DCFCE7; color: #166534; }
+
+    /* Game-Dev Micro Feedback: Combat Shake, Floating Damage, Combo Pulse */
+    @keyframes combat-shake {
+      0%, 100% { transform: translate(0, 0); }
+      20%, 60% { transform: translate(-3px, 2px); }
+      40%, 80% { transform: translate(3px, -2px); }
+    }
+    .combat-shake {
+      animation: combat-shake 0.35s ease-in-out;
+    }
+    @keyframes float-dmg-anim {
+      0% { opacity: 0; transform: translateY(12px) scale(0.8); }
+      25% { opacity: 1; transform: translateY(-6px) scale(1.12); }
+      75% { opacity: 1; transform: translateY(-16px) scale(1); }
+      100% { opacity: 0; transform: translateY(-26px) scale(0.9); }
+    }
+    .float-dmg-popup {
+      animation: float-dmg-anim 1.4s ease-out forwards;
+    }
+    @keyframes combo-pulse-anim {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    .combo-pulse {
+      animation: combo-pulse-anim 0.4s ease;
+    }
   </style>
 </head>
 <body class="h-full min-h-full flex flex-col overflow-x-hidden font-sans" style="background-color: #F7F6F3; color: #2F3437;">
@@ -733,12 +759,13 @@
               </div>
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">MISI HARIAN • 10 SOAL ACAK</span>
+                  <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">MISI HARIAN • 10 SOAL TERBARU</span>
+                  <span id="daily-raid-squad-badge" class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200">🛡️ Skuad F1 - F2 (10 Matwa)</span>
                   <span id="daily-raid-date-tag" class="text-[11px] font-mono text-[#787774]">Hari Ini</span>
                 </div>
-                <h5 class="text-xs sm:text-sm font-bold text-[#2F3437] leading-tight">Serangan Harian Titan Statigo (Acak Wajib P15, P16 &amp; Minat P17)</h5>
-                <p class="text-[10.5px] text-[#787774] leading-snug">
-                  100 DMG per soal benar + 500 DMG Critical Bonus (Skor 100). Dapatkan hingga <strong class="text-rose-700 font-bold">+1.500 DMG &amp; EXP</strong> setiap hari!
+                <h5 id="daily-raid-banner-title" class="text-xs sm:text-sm font-bold text-[#2F3437] leading-tight">Serangan Harian Titan Statigo • Rotasi Tematik Eksklusif</h5>
+                <p id="daily-raid-banner-desc" class="text-[10.5px] text-[#787774] leading-snug">
+                  10 butir soal baru setiap hari (F1-F2: 10 Matwa P15/P16 • F3-F4: 5 Matwa + 5 Matmin P17). +100 DMG/soal + 500 Critical (Maks <strong class="text-rose-700 font-bold">+1.500 DMG &amp; EXP</strong>/hari)!
                 </p>
               </div>
             </div>
@@ -3077,30 +3104,42 @@
     <div style="background-color: #FFFFFF; border-color: #E8E6DF;" class="w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl shadow-2xl border overflow-hidden relative font-sans">
       
       <!-- MODAL HEADER -->
-      <div class="px-5 py-3.5 border-b flex items-center justify-between gap-3 shrink-0" style="background-color: #FBFBFA; border-color: #E8E6DF;">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-xs" style="background-color: #FFF1F0; border: 1px solid #FFA39E; color: #CF1322;">
+      <div class="px-5 py-3.5 border-b flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+        <div class="flex items-start sm:items-center gap-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-xs shrink-0" style="background-color: #FFF1F0; border: 1px solid #FFA39E; color: #CF1322;">
             <i class="fa-solid fa-khanda"></i>
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
               <h3 class="text-sm sm:text-base font-bold text-[#2F3437] tracking-tight">Misi Serangan Harian Titan Statigo</h3>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                10 SOAL ACAK
+              <span id="dr-theme-day-tag" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200">
+                ROTASI HARIAN EKSKLUSIF
               </span>
               <span id="dr-modal-date-tag" class="px-2 py-0.5 rounded text-[10px] font-mono text-[#787774] bg-[#F0EFEA] border border-[#E8E6DF]">
                 Hari Ini
               </span>
             </div>
-            <p class="text-xs text-[#787774]">
-              Soal acak harian dari materi aktif (Wajib P15 &amp; P16, Minat P17). +100 DMG per soal benar + 500 Critical (Maks 1.500 DMG &amp; EXP per hari).
+            <p id="dr-modal-theme-desc" class="text-xs text-[#787774] pt-0.5">
+              10 soal baru per hari sesuai jadwal pertemuan. +100 DMG per soal benar + 500 Critical Bonus (Maks 1.500 DMG &amp; EXP per hari).
             </p>
           </div>
         </div>
 
-        <button type="button" onclick="closeDailyRaidModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] border border-transparent hover:border-[#E8E6DF] transition cursor-pointer text-base" aria-label="Tutup Modal Serangan Harian">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <div class="flex items-center gap-2 self-end sm:self-center">
+          <!-- SQUAD ARCHETYPE SWITCHER PILLS -->
+          <div id="dr-squad-selector-wrap" class="flex items-center gap-1 p-0.5 rounded-xl bg-[#F0EFEA] border border-[#E8E6DF]">
+            <button type="button" id="dr-squad-btn-f12" onclick="setDailyRaidSquadMode('F1_F2')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]">
+              <i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (10 Matwa)</span>
+            </button>
+            <button type="button" id="dr-squad-btn-f34" onclick="setDailyRaidSquadMode('F3_F4')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent">
+              <i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (Matwa + Minat)</span>
+            </button>
+          </div>
+
+          <button type="button" onclick="closeDailyRaidModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-[#787774] hover:text-[#2F3437] hover:bg-[#F0EFEA] border border-transparent hover:border-[#E8E6DF] transition cursor-pointer text-base" aria-label="Tutup Modal Serangan Harian">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
       </div>
 
       <!-- QUESTION NAVIGATOR / BUBBLE STRIP -->
@@ -3112,6 +3151,9 @@
           </div>
         </div>
         <div class="flex items-center gap-2 shrink-0">
+          <span id="dr-combo-badge" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-50 border border-amber-200 text-amber-900 shadow-2xs flex items-center gap-1 transition">
+            <i class="fa-solid fa-fire text-amber-500 text-xs"></i> <span id="dr-combo-text">Combo 0x</span>
+          </span>
           <span id="dr-timer-badge" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-white border border-[#E8E6DF] text-[#2F3437] shadow-2xs">
             <i class="fa-regular fa-clock text-indigo-600 mr-1"></i> <span id="dr-timer-text">00:00</span>
           </span>
@@ -3714,9 +3756,10 @@
       </div>
     </div>
 
-    <script src="app-akhir.js?v=v20261011_daily_raid_titan"></script>
-    <script src="angket.js?v=v20261011_modal_perfect"></script>
-    <script src="helpdesk-notif.js?v=v20261011_modal_perfect"></script>
+    <script src="daily-raid-data.js?v=v20261011_daily_raid_v2"></script>
+    <script src="app-akhir.js?v=v20261011_daily_raid_v2"></script>
+    <script src="angket.js?v=v20261011_daily_raid_v2"></script>
+    <script src="helpdesk-notif.js?v=v20261011_daily_raid_v2"></script>
 
 </body>
 </html>
