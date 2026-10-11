@@ -2698,26 +2698,53 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const userRewardEl = document.getElementById('boss-user-reward');
 
         if (uStats) {
+          const isW42 = (data.campaign_week === '2026-W42' || (typeof getWeeklyCampaignIdFallback === 'function' && getWeeklyCampaignIdFallback() === '2026-W42'));
+
+          // Adaptasi Kartu Portal Dinamis jika Masuk Pekan W42
+          if (isW42) {
+            const c1 = document.getElementById('portal-card-p15');
+            if (c1) {
+              const b = c1.querySelector('.font-mono.font-bold'); if (b) b.textContent = 'P17';
+              const t = c1.querySelector('h5'); if (t) t.textContent = 'Median & Modus Berkelompok';
+              const btn = c1.querySelector('button'); if (btn) { btn.setAttribute('onclick', "serangRaidBoss('wajib', 'P17')"); btn.innerHTML = '<i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P17</span>'; }
+            }
+            const c2 = document.getElementById('portal-card-p16');
+            if (c2) {
+              const b = c2.querySelector('.font-mono.font-bold'); if (b) b.textContent = 'P18';
+              const t = c2.querySelector('h5'); if (t) t.textContent = 'Ukuran Letak: Kuartil & Desil';
+              const btn = c2.querySelector('button'); if (btn) { btn.setAttribute('onclick', "serangRaidBoss('wajib', 'P18')"); btn.innerHTML = '<i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P18</span>'; }
+            }
+            const c3 = document.getElementById('portal-card-p17');
+            if (c3) {
+              const b = c3.querySelector('.font-mono.font-bold'); if (b) b.textContent = 'P18';
+              const t = c3.querySelector('h5'); if (t) t.textContent = 'Turunan Trigonometri (PGSL)';
+              const btn = c3.querySelector('button'); if (btn) { btn.setAttribute('onclick', "serangRaidBoss('minat', 'P18')"); btn.innerHTML = '<i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P18</span>'; }
+            }
+          }
+
           if (p15Status) {
-            if (uStats.p15_wajib_skor > 0) {
-              const dmg15 = uStats.p15_wajib_skor * 10 + (uStats.p15_wajib_skor === 100 ? 500 : 0);
-              p15Status.innerHTML = `<span class="text-emerald-700 font-bold">${uStats.p15_wajib_skor}</span> <span class="text-[10px] text-slate-500">(${dmg15} DMG)</span>`;
+            const s15 = isW42 ? (uStats.p17_wajib_skor || 0) : (uStats.p15_wajib_skor || 0);
+            if (s15 > 0) {
+              const dmg15 = s15 * 10 + (s15 === 100 ? 500 : 0);
+              p15Status.innerHTML = `<span class="text-emerald-700 font-bold">${s15}</span> <span class="text-[10px] text-slate-500">(${dmg15} DMG)</span>`;
             } else {
               p15Status.textContent = 'Belum Serang';
             }
           }
           if (p16Status) {
-            if (uStats.p16_wajib_skor > 0) {
-              const dmg16 = uStats.p16_wajib_skor * 10 + (uStats.p16_wajib_skor === 100 ? 500 : 0);
-              p16Status.innerHTML = `<span class="text-emerald-700 font-bold">${uStats.p16_wajib_skor}</span> <span class="text-[10px] text-slate-500">(${dmg16} DMG)</span>`;
+            const s16 = isW42 ? (uStats.p18_wajib_skor || 0) : (uStats.p16_wajib_skor || 0);
+            if (s16 > 0) {
+              const dmg16 = s16 * 10 + (s16 === 100 ? 500 : 0);
+              p16Status.innerHTML = `<span class="text-emerald-700 font-bold">${s16}</span> <span class="text-[10px] text-slate-500">(${dmg16} DMG)</span>`;
             } else {
               p16Status.textContent = 'Belum Serang';
             }
           }
           if (p17Status) {
-            if (uStats.p17_minat_skor > 0) {
-              const dmg17 = uStats.p17_minat_skor * 15 + (uStats.p17_minat_skor === 100 ? 500 : 0);
-              p17Status.innerHTML = `<span class="text-amber-800 font-bold">${uStats.p17_minat_skor}</span> <span class="text-[10px] text-slate-500">(${dmg17} DMG)</span>`;
+            const s17 = isW42 ? (uStats.p18_minat_skor || uStats.p19_minat_skor || 0) : (uStats.p17_minat_skor || 0);
+            if (s17 > 0) {
+              const dmg17 = s17 * 15 + (s17 === 100 ? 500 : 0);
+              p17Status.innerHTML = `<span class="text-amber-800 font-bold">${s17}</span> <span class="text-[10px] text-slate-500">(${dmg17} DMG)</span>`;
             } else {
               p17Status.textContent = 'Belum Serang';
             }
@@ -3513,14 +3540,14 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         let sqText = '';
         if (weekId === '2026-W42') {
           sqText = _dailyRaidCurrentSquad === 'F1_F2'
-            ? '50 Butir Matematika Wajib P17 (Median/Modus) & P18 (Ukuran Letak Data)'
+            ? '50 Butir Wajib P17 (Median/Modus) & P18 (Ukuran Letak Data)'
             : '25 Butir Wajib (P17/P18) + 25 Butir Minat (P18/P19 Turunan Lanjut)';
         } else {
           sqText = _dailyRaidCurrentSquad === 'F1_F2'
             ? '50 Butir Matematika Wajib P15/P16'
             : '25 Butir Wajib + 25 Butir Minat P17';
         }
-        themeDesc.textContent = `50 soal acak TKA per siswa (${sqText}). Pengerjaan bisa ditunda & serang Titan tiap soal dengan Real-Time Combo!`;
+        themeDesc.textContent = `⚔️ Ekspedisi 1 Pekan Penuh (Senin s.d. Minggu) • 50 Butir TKA (${sqText}). Bebas dicicil santai kapan saja, progres tersimpan per butir soal & combo multiplier hingga 2.0x DMG! Berpengaruh ke Nilai Rapor Semester 5.`;
       }
 
       let savedState = null;
@@ -4599,36 +4626,36 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       if (isCompleted) {
         if (badge) {
-          badge.textContent = `Selesai (+${totalDamage.toLocaleString('id-ID')} DMG)`;
-          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300';
+          badge.textContent = `👑 50/50 Tuntas • Conquered! (+${totalDamage.toLocaleString('id-ID')} DMG)`;
+          badge.className = 'px-3 py-1 rounded-lg text-[11px] font-mono font-black bg-emerald-100 text-emerald-950 border border-emerald-300 shadow-2xs';
         }
         if (btnAction) {
-          btnAction.className = 'notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]';
+          btnAction.className = 'notion-btn-secondary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0] shadow-xs';
         }
         if (btnText) {
-          btnText.textContent = 'Review Solusi & Rapor (50 Soal)';
+          btnText.textContent = '🏆 Review Solusi & Rapor Akhir';
         }
       } else if (completedCount > 0) {
         if (badge) {
-          badge.textContent = `Sedang Berjalan (${completedCount}/50 Soal)`;
-          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-indigo-100 text-indigo-900 border border-indigo-300';
+          badge.textContent = `🔥 On-Fire (${completedCount}/50 Butir Dicicil)`;
+          badge.className = 'px-3 py-1 rounded-lg text-[11px] font-mono font-black bg-indigo-100 text-indigo-950 border border-indigo-300 shadow-2xs';
         }
         if (btnAction) {
-          btnAction.className = 'notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]';
+          btnAction.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white flex items-center gap-2 cursor-pointer shadow-md bg-gradient-to-r from-amber-500 via-rose-600 to-red-600 hover:from-amber-600 hover:to-red-700 hover:scale-[1.03] active:scale-95 transition transform';
         }
         if (btnText) {
-          btnText.textContent = `Lanjutkan Serangan (${50 - completedCount} Tersisa)`;
+          btnText.textContent = `🔥 Lanjutkan Tempur (${50 - completedCount} Soal Lagi!)`;
         }
       } else {
         if (badge) {
-          badge.textContent = 'Tersedia (50 Soal / Pekan)';
-          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
+          badge.textContent = '⚡ Siap Tempur • Kuota 1 Pekan';
+          badge.className = 'px-3 py-1 rounded-lg text-[11px] font-mono font-black bg-amber-200 text-amber-950 border border-amber-400 shadow-2xs';
         }
         if (btnAction) {
-          btnAction.className = 'notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]';
+          btnAction.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white flex items-center gap-2 cursor-pointer shadow-md bg-gradient-to-r from-amber-500 via-rose-600 to-red-600 hover:from-amber-600 hover:to-red-700 hover:scale-[1.03] active:scale-95 transition transform';
         }
         if (btnText) {
-          btnText.textContent = 'Serang Titan (50 Soal / Pekan)';
+          btnText.textContent = '⚔️ Ganyang Titan (50 Soal / Pekan)';
         }
       }
     }
