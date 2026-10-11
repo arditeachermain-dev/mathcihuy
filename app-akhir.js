@@ -4621,14 +4621,14 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         }
       } else {
         if (badge) {
-          badge.textContent = 'Tersedia (50 Soal TKA)';
+          badge.textContent = 'Tersedia (50 Soal / Pekan)';
           badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
         }
         if (btnAction) {
           btnAction.className = 'notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]';
         }
         if (btnText) {
-          btnText.textContent = 'Serang Titan (50 Soal)';
+          btnText.textContent = 'Serang Titan (50 Soal / Pekan)';
         }
       }
     }

@@ -765,7 +765,7 @@
                 </div>
                 <h5 id="daily-raid-banner-title" class="text-xs sm:text-sm font-bold text-[#2F3437] leading-tight">Kampanye Mingguan Titan Statigo • 50 Soal TKA Terstandarisasi</h5>
                 <p id="daily-raid-banner-desc" class="text-[10.5px] text-[#787774] leading-snug">
-                  50 soal acak per siswa (F1-F2: 50 Matwa P15/P16 • F3-F4: 25 Matwa + 25 Minat P17). <strong class="text-rose-700 font-bold">Bisa ditunda pengerjaannya &amp; serang titan tiap butir soal</strong> dengan bonus Real-Time Combo!
+                  50 butir soal untuk <strong>1 pekan penuh</strong> (Senin s.d. Minggu). <strong class="text-emerald-700 font-bold">Bebas dicicil &amp; dijeda kapan saja</strong> dengan serangan instan per butir soal &amp; bonus Real-Time Combo!
                 </p>
               </div>
             </div>
@@ -773,11 +773,11 @@
             <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
               <div id="daily-raid-status-wrap" class="text-right">
                 <span id="daily-raid-status-badge" class="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">
-                  Tersedia (50 Soal)
+                  Tersedia (50 Soal / Pekan)
                 </span>
               </div>
               <button type="button" id="btn-daily-raid-action" onclick="openDailyRaidModal()" class="notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533]">
-                <i class="fa-solid fa-bolt text-amber-300 text-xs"></i> <span id="btn-daily-raid-text">Serang Titan (50 Soal)</span>
+                <i class="fa-solid fa-bolt text-amber-300 text-xs"></i> <span id="btn-daily-raid-text">Serang Titan (50 Soal / Pekan)</span>
               </button>
             </div>
           </div>
@@ -2923,7 +2923,7 @@
               </span>
             </div>
             <p class="text-xs text-[#787774]">
-              Akumulasi damage penyerang Titan Statigo (Wajib P15 &amp; P16 • Minat P17 &amp; Misi Harian). Reset Minggu 23:59 WIB.
+              Akumulasi damage penyerang Titan Statigo (Kampanye Mingguan 50 Soal + Paket Pembelajaran). Dikerjakan bebas dicicil selama 1 pekan penuh (Reset Minggu 23:59 WIB).
             </p>
           </div>
         </div>
@@ -3009,7 +3009,7 @@
               <strong id="rb-user-p17-detail" class="font-mono text-[#2F3437]">-</strong>
             </div>
             <div class="p-2.5 rounded-lg bg-white border border-amber-200 flex items-center justify-between sm:flex-col sm:items-start">
-              <span class="text-[11px] text-amber-800 font-semibold">Misi Harian</span>
+              <span class="text-[11px] text-amber-800 font-semibold">Kampanye Mingguan</span>
               <strong id="rb-user-daily-detail" class="font-mono text-amber-900 font-bold">-</strong>
             </div>
             <div class="p-2.5 rounded-lg bg-white border border-rose-200 flex items-center justify-between sm:flex-col sm:items-start">
@@ -3055,7 +3055,7 @@
                     <th class="py-2.5 px-2 text-center">P15 Wajib</th>
                     <th class="py-2.5 px-2 text-center">P16 Wajib</th>
                     <th class="py-2.5 px-2 text-center">P17 Minat</th>
-                    <th class="py-2.5 px-2 text-center text-amber-800">Misi Harian</th>
+                    <th class="py-2.5 px-2 text-center text-amber-800">Kampanye (50 Soal)</th>
                     <th class="py-2.5 px-3 text-right">Total DMG</th>
                     <th class="py-2.5 px-3 text-right">Hadiah EXP</th>
                   </tr>
@@ -3075,7 +3075,7 @@
             <span>Pedoman Serangan &amp; Perolehan Damage:</span>
           </div>
           <ul class="list-disc list-inside space-y-1 text-[#5F5E5B] text-[11px] leading-relaxed">
-            <li><strong>Serangan Harian (10 Soal Acak):</strong> Tiap 1 soal benar bernilai <strong>100 DMG</strong>. Menyelesaikan dengan skor 100 memberi tambahan <strong>+500 Critical Damage</strong> (Maks 1.500 DMG &amp; EXP per hari).</li>
+            <li><strong>Kampanye Mingguan (50 Soal TKA):</strong> Disediakan 50 butir soal untuk dikerjakan dan dicicil selama <strong>1 pekan penuh (Senin s.d. Minggu)</strong>. Pengerjaan bebas dijeda &amp; dilanjutkan kapan saja. Tiap 1 soal benar bernilai <strong>100 DMG</strong> ditambah bonus <strong>Real-Time Combo Multiplier (hingga 2.0x DMG)</strong>!</li>
             <li><strong>Matematika Wajib (P15 &amp; P16):</strong> Tiap 1 soal benar bernilai <strong>100 DMG</strong> (10 &times; Skor CBT). Menyelesaikan dengan skor 100 memberi tambahan <strong>+500 Critical Damage</strong> (Maks 1.500 DMG per paket).</li>
             <li><strong>Matematika Peminatan (P17):</strong> Tiap 1 soal benar bernilai <strong>150 DMG</strong> (15 &times; Skor CBT). Menyelesaikan dengan skor 100 memberi tambahan <strong>+500 Critical Damage</strong> (Maks 2.000 DMG per paket).</li>
             <li><strong>Hadiah EXP Peringkat:</strong> Juara 1: <strong>+500 EXP</strong> (<em>Titan Slayer</em>), Juara 2&ndash;3: <strong>+400 EXP</strong>, Juara 4&ndash;10: <strong>+300 EXP</strong>, Kontributor Lain: <strong>+200 EXP</strong>. Seluruh penyerang mendapat bonus tambahan <strong>+250 EXP</strong> jika Titan tumbang!</li>
@@ -3120,7 +3120,7 @@
               </span>
             </div>
             <p id="dr-modal-theme-desc" class="text-xs text-[#787774] pt-0.5">
-              50 butir soal acak TKA per siswa per minggu. Pengerjaan bisa ditunda &amp; disimpan kapan saja. Serang Titan tiap butir soal dengan sistem Real-Time Combo!
+              50 butir soal acak TKA per siswa untuk 1 pekan penuh (Senin s.d. Minggu). Bebas dicicil &amp; dijeda kapan saja tanpa takut progres hilang!
             </p>
           </div>
         </div>
@@ -3826,8 +3826,8 @@
     </div>
 
     <script src="daily-raid-data.js?v=v20261011_tka_models_v2"></script>
-    <script src="weekly-raid-data.js?v=v20261012_w42_launch_0500wib"></script>
-    <script src="app-akhir.js?v=v20261012_w42_launch_0500wib"></script>
+    <script src="weekly-raid-data.js?v=v20261012_w42_weekly_clarity"></script>
+    <script src="app-akhir.js?v=v20261012_w42_weekly_clarity"></script>
     <script src="angket.js?v=v20261011_scroll_fix_v1"></script>
     <script src="helpdesk-notif.js?v=v20261011_scroll_fix_v1"></script>
 
