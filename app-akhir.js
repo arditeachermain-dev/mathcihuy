@@ -2649,7 +2649,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           if (isDefeated) {
             phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
           } else if (pctHp <= 25) {
-            phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300 animate-pulse';
+            phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300';
           } else {
             phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200';
           }
@@ -2661,7 +2661,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           if (data.days_remaining > 0) {
             timerText.innerHTML = `<i class="fa-solid fa-hourglass-half text-[11px]"></i> <span>Tersisa ${data.days_remaining} hari (Reset Minggu 23:59 WIB)</span>`;
           } else {
-            timerText.innerHTML = `<i class="fa-solid fa-hourglass-end text-[11px] animate-bounce"></i> <span>Tersisa ${data.hours_remaining || 0} jam (Reset Malam Ini!)</span>`;
+            timerText.innerHTML = `<i class="fa-solid fa-hourglass-end text-[11px]"></i> <span>Tersisa ${data.hours_remaining || 0} jam (Reset Malam Ini!)</span>`;
           }
         }
 
@@ -2674,7 +2674,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         if (hpBar) {
           hpBar.style.width = `${pctHp}%`;
           if (pctHp <= 25) {
-            hpBar.className = 'h-full rounded-full transition-all duration-700 bg-gradient-to-r from-red-600 to-rose-500 animate-pulse';
+            hpBar.className = 'h-full rounded-full transition-all duration-700 bg-gradient-to-r from-red-600 to-rose-500';
           } else if (pctHp <= 60) {
             hpBar.className = 'h-full rounded-full transition-all duration-700 bg-gradient-to-r from-rose-600 via-amber-500 to-yellow-400';
           } else {
@@ -4277,7 +4277,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       }
       if (comboBadge) {
         if (_dailyRaidCurrentCombo >= 20) {
-          comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-rose-600 text-white border border-rose-700 shadow-md flex items-center gap-1 transition animate-pulse';
+          comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-rose-600 text-white border border-rose-700 shadow-sm flex items-center gap-1 transition';
         } else if (_dailyRaidCurrentCombo >= 10) {
           comboBadge.className = 'px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-amber-500 text-white border border-amber-600 shadow-sm flex items-center gap-1 transition';
         } else if (_dailyRaidCurrentCombo >= 5) {
@@ -4626,36 +4626,36 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       if (isCompleted) {
         if (badge) {
-          badge.textContent = `👑 50/50 Tuntas • Conquered! (+${totalDamage.toLocaleString('id-ID')} DMG)`;
-          badge.className = 'px-3 py-1 rounded-lg text-[11px] font-mono font-black bg-emerald-100 text-emerald-950 border border-emerald-300 shadow-2xs';
+          badge.textContent = `👑 Selesai (+${totalDamage.toLocaleString('id-ID')} DMG)`;
+          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300';
         }
         if (btnAction) {
-          btnAction.className = 'notion-btn-secondary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0] shadow-xs';
+          btnAction.className = 'notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]';
         }
         if (btnText) {
-          btnText.textContent = '🏆 Review Solusi & Rapor Akhir';
+          btnText.textContent = 'Review Solusi & Rapor (50 Soal)';
         }
       } else if (completedCount > 0) {
         if (badge) {
-          badge.textContent = `🔥 On-Fire (${completedCount}/50 Butir Dicicil)`;
-          badge.className = 'px-3 py-1 rounded-lg text-[11px] font-mono font-black bg-indigo-100 text-indigo-950 border border-indigo-300 shadow-2xs';
+          badge.textContent = `⚡ Sedang Berjalan (${completedCount}/50 Butir)`;
+          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-indigo-100 text-indigo-900 border border-indigo-300';
         }
         if (btnAction) {
-          btnAction.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white flex items-center gap-2 cursor-pointer shadow-md bg-gradient-to-r from-amber-500 via-rose-600 to-red-600 hover:from-amber-600 hover:to-red-700 hover:scale-[1.03] active:scale-95 transition transform';
+          btnAction.className = 'notion-btn-primary px-4 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533] transition';
         }
         if (btnText) {
-          btnText.textContent = `🔥 Lanjutkan Tempur (${50 - completedCount} Soal Lagi!)`;
+          btnText.textContent = `Lanjutkan Tempur (${50 - completedCount} Butir Lagi)`;
         }
       } else {
         if (badge) {
           badge.textContent = '⚡ Siap Tempur • Kuota 1 Pekan';
-          badge.className = 'px-3 py-1 rounded-lg text-[11px] font-mono font-black bg-amber-200 text-amber-950 border border-amber-400 shadow-2xs';
+          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
         }
         if (btnAction) {
-          btnAction.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white flex items-center gap-2 cursor-pointer shadow-md bg-gradient-to-r from-amber-500 via-rose-600 to-red-600 hover:from-amber-600 hover:to-red-700 hover:scale-[1.03] active:scale-95 transition transform';
+          btnAction.className = 'notion-btn-primary px-4 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533] transition';
         }
         if (btnText) {
-          btnText.textContent = '⚔️ Ganyang Titan (50 Soal / Pekan)';
+          btnText.textContent = 'Ganyang Titan (50 Soal / Pekan)';
         }
       }
     }
