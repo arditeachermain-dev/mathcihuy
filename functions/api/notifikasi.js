@@ -98,11 +98,11 @@ export async function onRequestPost(context) {
         return jsonResponse({ error: "Akses dilarang (403): Hanya guru yang dapat mengirim broadcast." }, 403);
       }
 
-      const judul = String(body.judul || '').replace(/<[^>]*>/g, '').trim().slice(0, 100);
-      const pesan = String(body.pesan || '').replace(/<[^>]*>/g, '').trim().slice(0, 1000);
-      const tipe = ['info', 'success', 'warning', 'balasan_guru'].includes(body.tipe) ? body.tipe : 'info';
+      const judul = String(body.judul || '').replace(/<[^>]*>/g, '').trim().slice(0, 255);
+      const pesan = String(body.pesan || '').replace(/<[^>]*>/g, '').trim().slice(0, 5000);
+      const tipe = ['info', 'success', 'warning', 'balasan_guru', 'event', 'prestasi'].includes(body.tipe) ? body.tipe : 'info';
       const targetNis = body.target_nis ? String(body.target_nis).trim() : null; // null = broadcast semua
-      const tautan = String(body.tautan || '').trim().slice(0, 100);
+      const tautan = String(body.tautan || '').trim().slice(0, 255);
 
       if (!judul || !pesan) {
         return jsonResponse({ error: "Judul dan pesan notifikasi wajib diisi." }, 400);

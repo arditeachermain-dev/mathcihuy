@@ -205,10 +205,12 @@
     if (isHidden) {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
       window.fetchNotifikasi();
     } else {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
     }
   };
 
@@ -217,6 +219,7 @@
     if (!modal) return;
     modal.classList.add('hidden');
     modal.classList.remove('flex');
+    document.body.classList.remove('overflow-hidden');
   };
 
   window.fetchNotifikasi = async function () {
@@ -248,10 +251,55 @@
     if (count > 0) {
       badge.textContent = count > 9 ? '9+' : String(count);
       badge.classList.remove('hidden');
+      badge.classList.add('flex');
     } else {
       badge.classList.add('hidden');
+      badge.classList.remove('flex');
     }
   }
+
+  function formatNotifBody(text) {
+    if (!text) return '';
+    let safe = escapeHtml(text);
+    // Parse markdown bold: **text** -> <strong>text</strong>
+    safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    return safe;
+  }
+
+  window.handleNotifLinkClick = function (target) {
+    window.closeNotifikasiModal();
+    if (!target) return;
+    const t = String(target).trim();
+    if (t === '#raid-boss' || t === '#boss' || t === '#weekly-event-card') {
+      const el = document.getElementById('weekly-event-card') || document.getElementById('raid-boss') || document.getElementById('boss-daily-raid-banner');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.classList.add('ring-2', 'ring-amber-500', 'transition-all');
+        setTimeout(() => el.classList.remove('ring-2', 'ring-amber-500'), 2500);
+      }
+      return;
+    }
+    if (t === '#rapor') {
+      if (typeof window.openRaporSiswaModal === 'function') {
+        window.openRaporSiswaModal();
+      }
+      return;
+    }
+    if (t === '#leaderboard') {
+      if (typeof window.openLeaderboardModal === 'function') {
+        window.openLeaderboardModal();
+      }
+      return;
+    }
+    if (t.startsWith('#')) {
+      const el = document.querySelector(t);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      window.open(t, '_blank');
+    }
+  };
 
   function renderNotifikasiList(list) {
     const container = document.getElementById('notifikasi-list-container');
@@ -262,7 +310,7 @@
         <div class="p-8 text-center" style="color: #787774;">
           <i class="fa-regular fa-bell-slash text-3xl mb-2.5 opacity-60"></i>
           <p class="text-xs font-semibold">Belum ada notifikasi baru</p>
-          <p class="text-[11px] mt-1 opacity-80">Pemberitahuan guru & pembaruan nilai akan muncul di sini.</p>
+          <p class="text-[11px] mt-1 opacity-80">Pemberitahuan guru, pengumuman event &amp; pembaruan nilai akan muncul di sini.</p>
         </div>
       `;
       return;
@@ -272,7 +320,9 @@
       balasan_guru: { icon: 'fa-solid fa-comment-dots', color: '#10B981', bg: '#ECFDF5', label: 'Balasan Pak Ardi' },
       info: { icon: 'fa-solid fa-bullhorn', color: '#0284C7', bg: '#F0F9FF', label: 'Pengumuman Resmi' },
       warning: { icon: 'fa-solid fa-triangle-exclamation', color: '#F59E0B', bg: '#FFFBEB', label: 'Pemberitahuan Sistem' },
-      success: { icon: 'fa-solid fa-circle-check', color: '#059669', bg: '#ECFDF5', label: 'Verifikasi Berhasil' }
+      success: { icon: 'fa-solid fa-circle-check', color: '#059669', bg: '#ECFDF5', label: 'Verifikasi Berhasil' },
+      event: { icon: 'fa-solid fa-shield-halved', color: '#8B5CF6', bg: '#FAF5FF', label: 'Raid Boss Event' },
+      prestasi: { icon: 'fa-solid fa-trophy', color: '#D97706', bg: '#FFFBEB', label: 'Prestasi &amp; Rapor' }
     };
 
     let html = '';
@@ -283,33 +333,51 @@
         day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
       }) : '';
 
+      const hasLink = Boolean(n.tautan && n.tautan.trim());
+
       html += `
-        <div class="p-3.5 rounded-xl border transition-all ${isUnread ? 'shadow-sm' : 'opacity-85'}" 
+        <div class="p-4 sm:p-4.5 rounded-xl border transition-all ${isUnread ? 'shadow-xs' : 'opacity-90'}" 
              style="background-color: ${isUnread ? '#FFFFFF' : '#FBFBFA'}; border-color: ${isUnread ? '#D3CFBE' : '#E8E6DF'};">
-          <div class="flex items-start gap-2.5">
-            <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" 
-                 style="background-color: ${tInfo.bg}; color: ${tInfo.color};">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5 shadow-2xs" 
+                 style="background-color: ${tInfo.bg}; color: ${tInfo.color}; border: 1px solid ${tInfo.color}30;">
               <i class="${tInfo.icon} text-xs"></i>
             </div>
             <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-2 mb-1">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded" 
-                      style="background-color: ${tInfo.bg}; color: ${tInfo.color};">
+              <div class="flex items-center justify-between gap-2 mb-1.5 flex-wrap">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md" 
+                      style="background-color: ${tInfo.bg}; color: ${tInfo.color}; border: 1px solid ${tInfo.color}25;">
                   ${tInfo.label}
                 </span>
                 <span class="text-[10px] font-mono shrink-0" style="color: #787774;">${tgl}</span>
               </div>
-              <h4 class="text-xs font-bold leading-snug mb-1" style="color: #2F3437;">${escapeHtml(n.judul)}</h4>
-              <p class="text-[11px] leading-relaxed whitespace-pre-line" style="color: #5F5E5B;">${escapeHtml(n.pesan)}</p>
-              ${isUnread ? `
-                <div class="mt-2.5 flex justify-end">
-                  <button onclick="window.markNotifikasiSingle(${n.id})" 
-                          class="text-[10px] font-semibold px-2 py-1 rounded hover:underline cursor-pointer flex items-center gap-1" 
-                          style="color: #1B4F8B;">
-                    <i class="fa-solid fa-check text-[9px]"></i> Tandai sudah dibaca
-                  </button>
+              <h4 class="text-xs sm:text-sm font-bold leading-snug mb-2 break-words" style="color: #2F3437; overflow-wrap: anywhere; word-break: break-word;">${escapeHtml(n.judul)}</h4>
+              <div class="text-xs leading-relaxed whitespace-pre-line break-words select-text font-normal space-y-1.5" style="color: #444746; overflow-wrap: anywhere; word-break: break-word;">${formatNotifBody(n.pesan)}</div>
+              
+              <div class="mt-3.5 pt-2.5 border-t flex flex-wrap items-center justify-between gap-2" style="border-color: #F0EFEA;">
+                <div>
+                  ${hasLink ? `
+                    <button type="button" onclick="window.handleNotifLinkClick('${escapeHtml(n.tautan)}')" 
+                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-2xs cursor-pointer hover:opacity-90"
+                            style="background-color: #2E384D; color: #FFFFFF;">
+                      <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> <span>Buka / Kerjakan Sekarang</span>
+                    </button>
+                  ` : ''}
                 </div>
-              ` : ''}
+                <div>
+                  ${isUnread ? `
+                    <button type="button" onclick="window.markNotifikasiSingle(${n.id})" 
+                            class="text-[11px] font-semibold px-2.5 py-1 rounded-lg hover:bg-slate-100 cursor-pointer flex items-center gap-1 transition" 
+                            style="color: #1B4F8B;">
+                      <i class="fa-solid fa-check text-[10px]"></i> Tandai sudah dibaca
+                    </button>
+                  ` : `
+                    <span class="text-[10px] font-medium text-slate-400 flex items-center gap-1">
+                      <i class="fa-solid fa-circle-check text-[9px] text-emerald-500"></i> Sudah dibaca
+                    </span>
+                  `}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -526,6 +594,7 @@
     const pesan = document.getElementById('broadcast-guru-pesan')?.value || '';
     const tipe = document.getElementById('broadcast-guru-tipe')?.value || 'info';
     const targetNis = document.getElementById('broadcast-guru-nis')?.value || '';
+    const tautan = document.getElementById('broadcast-guru-tautan')?.value || '';
 
     if (!judul || !pesan) {
       alert('Judul dan pesan broadcast wajib diisi!');
@@ -541,16 +610,20 @@
           judul,
           pesan,
           tipe,
-          target_nis: targetNis.trim() || null
+          target_nis: targetNis.trim() || null,
+          tautan: tautan.trim() || null
         })
       });
 
       const data = await res.json();
       if (res.ok && data.success) {
         alert('✅ ' + data.message);
-        document.getElementById('broadcast-guru-judul').value = '';
-        document.getElementById('broadcast-guru-pesan').value = '';
-        document.getElementById('broadcast-guru-nis').value = '';
+        if (document.getElementById('broadcast-guru-judul')) document.getElementById('broadcast-guru-judul').value = '';
+        if (document.getElementById('broadcast-guru-pesan')) document.getElementById('broadcast-guru-pesan').value = '';
+        if (document.getElementById('broadcast-guru-nis')) document.getElementById('broadcast-guru-nis').value = '';
+        if (document.getElementById('broadcast-guru-tautan')) document.getElementById('broadcast-guru-tautan').value = '';
+        window.closeBroadcastModalGuru();
+        window.fetchNotifikasi();
       } else {
         alert('⚠️ ' + (data.error || 'Gagal mengirim broadcast.'));
       }
@@ -617,6 +690,19 @@
   // =========================================================================
   function initHelpdesk() {
     window.fetchNotifikasi();
+
+    // Listener klik di luar modal (backdrop click) untuk menutup modal
+    ['modal-notifikasi', 'modal-broadcast-guru'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('click', (e) => {
+          if (e.target === el) {
+            if (id === 'modal-notifikasi') window.closeNotifikasiModal();
+            if (id === 'modal-broadcast-guru') window.closeBroadcastModalGuru();
+          }
+        });
+      }
+    });
 
     // Polling notifikasi setiap 60 detik jika tab aktif
     if (!_notifPollingTimer) {

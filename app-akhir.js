@@ -5542,11 +5542,13 @@ Guru Pengampu: Mr. Ardi
 
       const toast = document.createElement('div');
       toast.id = 'notion-toast-floating';
-      toast.className = 'fixed bottom-6 right-6 z-[10000] px-4 py-3 rounded-xl border shadow-2xl flex items-center gap-2.5 transition-all duration-300 font-sans text-xs font-semibold';
+      toast.className = 'fixed bottom-5 right-4 left-4 sm:left-auto sm:right-6 sm:max-w-md z-[10000] px-4 py-3 rounded-xl border shadow-2xl flex items-center gap-2.5 transition-all duration-300 font-sans text-xs font-semibold break-words';
       toast.style.backgroundColor = '#2E384D';
       toast.style.borderColor = '#1E2533';
       toast.style.color = '#FFFFFF';
-      toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span>${escapeHtml(message)}</span>`;
+      toast.style.overflowWrap = 'anywhere';
+      toast.style.wordBreak = 'break-word';
+      toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-sm shrink-0"></i> <span class="flex-1 min-w-0">${escapeHtml(message)}</span>`;
       document.body.appendChild(toast);
 
       setTimeout(() => {
