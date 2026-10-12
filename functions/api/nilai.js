@@ -11,6 +11,19 @@ function extractTingkat(kelasStr) {
   return '12';
 }
 
+function isW42LockedPackage(mapel, kode_pertemuan) {
+  const cleanMapel = String(mapel || '').trim().toLowerCase();
+  const cleanKode = String(kode_pertemuan || '').trim().toUpperCase();
+  // W42 Active Lockdown Period: Sampai Minggu, 18 Oktober 2026 pukul 23:59:59 WIB (2026-10-18T16:59:59.000Z)
+  const now = new Date();
+  const lockdownEnd = new Date('2026-10-18T16:59:59.000Z');
+  if (now > lockdownEnd) return false;
+
+  if (cleanMapel === 'wajib' && ['P17', 'P18'].includes(cleanKode)) return true;
+  if (cleanMapel === 'minat' && ['P18', 'P19'].includes(cleanKode)) return true;
+  return false;
+}
+
 export async function onRequestGet(context) {
   try {
     if (!context.env || !context.env.DB) {
@@ -263,11 +276,22 @@ export async function onRequestPost(context) {
     const rawSolutions = getSolutionsForPackage(studentTingkat, cleanMapel, cleanKode) || [];
     let solutions = [];
 
-    // Proteksi Integritas Ujian (Anti-Key Harvesting / Intip Kunci):
-    // Jika skor siswa belum mencapai KKM (cleanSkor < 75):
-    // Kunci opsi mentah (A-E) disembunyikan agar siswa tidak dapat mengumpulkan kosong/cepat untuk mencuri kunci lalu mengulang.
-    // Diberikan petunjuk konsep (hint) agar siswa belajar dan mencoba kembali secara mandiri.
-    if (cleanSkor < 75) {
+    // Proteksi Masa Uji Aktif Pekan W42 (Wajib P17-P18 & Minat P18-P19)
+    const isW42ExamLock = !isGuru && isW42LockedPackage(cleanMapel, cleanKode);
+
+    if (isW42ExamLock) {
+      solutions = rawSolutions.map(sol => ({
+        q_idx: sol.q_idx,
+        kunci: null,
+        is_locked: true,
+        hint: null,
+        bahas: "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII."
+      }));
+    } else if (cleanSkor < 75) {
+      // Proteksi Integritas Ujian (Anti-Key Harvesting / Intip Kunci):
+      // Jika skor siswa belum mencapai KKM (cleanSkor < 75):
+      // Kunci opsi mentah (A-E) disembunyikan agar siswa tidak dapat mengumpulkan kosong/cepat untuk mencuri kunci lalu mengulang.
+      // Diberikan petunjuk konsep (hint) agar siswa belajar dan mencoba kembali secara mandiri.
       solutions = rawSolutions.map(sol => {
         let safeHint = (sol.bahas || '')
           .replace(/(kunci\s*(jawaban)?\s*(adalah|:)?\s*\(?[A-E]\)?)/gi, '💡 Konsep & Petunjuk:')
@@ -288,6 +312,20 @@ export async function onRequestPost(context) {
       }));
     }
 
+    let safeDetails = null;
+    if (officialGrade && officialGrade.details) {
+      if (isW42ExamLock || cleanSkor < 75) {
+        safeDetails = officialGrade.details.map(d => ({
+          q_idx: d.q_idx,
+          is_right: d.is_right,
+          kunci: null, // SENSOR KUNCI
+          chosen: d.chosen
+        }));
+      } else {
+        safeDetails = officialGrade.details;
+      }
+    }
+
     return jsonResponse({
       success: true,
       skor: finalSkor,
@@ -306,7 +344,7 @@ export async function onRequestPost(context) {
       kkm_tuntas: (cleanSkor >= 75),
       server_graded: Boolean(officialGrade),
       evaluations: officialGrade ? officialGrade.evaluations : null,
-      details: officialGrade ? officialGrade.details : null,
+      details: safeDetails,
       gamifikasi: gamifikasiUpdate,
       solutions: solutions
     });

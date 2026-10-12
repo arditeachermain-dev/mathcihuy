@@ -2688,11 +2688,12 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         const attackersText = document.getElementById('boss-attackers-count');
         if (attackersText) attackersText.textContent = totalAttackers;
 
-        // User Attack Stats
+        // User Attack Stats (4 Portal Serangan W42)
         const uStats = data.user_stats;
-        const p15Status = document.getElementById('boss-p15-status');
-        const p16Status = document.getElementById('boss-p16-status');
-        const p17Status = document.getElementById('boss-p17-status');
+        const p17Status = document.getElementById('boss-p17-status') || document.getElementById('boss-p15-status');
+        const p18Status = document.getElementById('boss-p18-status') || document.getElementById('boss-p16-status');
+        const m18Status = document.getElementById('boss-m18-status');
+        const m19Status = document.getElementById('boss-m19-status') || document.getElementById('boss-p17-status');
         const userDmgEl = document.getElementById('boss-user-dmg');
         const userRankBadge = document.getElementById('boss-user-rank-badge');
         const userRewardEl = document.getElementById('boss-user-reward');
@@ -2700,53 +2701,47 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         if (uStats) {
           const isW42 = (data.campaign_week === '2026-W42' || (typeof getWeeklyCampaignIdFallback === 'function' && getWeeklyCampaignIdFallback() === '2026-W42'));
 
-          // Adaptasi Kartu Portal Dinamis jika Masuk Pekan W42
-          if (isW42) {
-            const c1 = document.getElementById('portal-card-p15');
-            if (c1) {
-              const b = c1.querySelector('.font-mono.font-bold'); if (b) b.textContent = 'P17';
-              const t = c1.querySelector('h5'); if (t) t.textContent = 'Median & Modus Berkelompok';
-              const btn = c1.querySelector('button'); if (btn) { btn.setAttribute('onclick', "serangRaidBoss('wajib', 'P17')"); btn.innerHTML = '<i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P17</span>'; }
-            }
-            const c2 = document.getElementById('portal-card-p16');
-            if (c2) {
-              const b = c2.querySelector('.font-mono.font-bold'); if (b) b.textContent = 'P18';
-              const t = c2.querySelector('h5'); if (t) t.textContent = 'Ukuran Letak: Kuartil & Desil';
-              const btn = c2.querySelector('button'); if (btn) { btn.setAttribute('onclick', "serangRaidBoss('wajib', 'P18')"); btn.innerHTML = '<i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P18</span>'; }
-            }
-            const c3 = document.getElementById('portal-card-p17');
-            if (c3) {
-              const b = c3.querySelector('.font-mono.font-bold'); if (b) b.textContent = 'P18';
-              const t = c3.querySelector('h5'); if (t) t.textContent = 'Turunan Trigonometri (PGSL)';
-              const btn = c3.querySelector('button'); if (btn) { btn.setAttribute('onclick', "serangRaidBoss('minat', 'P18')"); btn.innerHTML = '<i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P18</span>'; }
+          // 1. Portal 1: Matematika Wajib P17 (Median & Modus)
+          if (p17Status) {
+            const s17 = isW42 ? (uStats.p17_wajib_skor || 0) : (uStats.p15_wajib_skor || 0);
+            if (s17 > 0) {
+              const dmg17 = s17 * 10 + (s17 === 100 ? 500 : 0);
+              p17Status.innerHTML = `<span class="text-emerald-700 font-bold">${s17}</span> <span class="text-[10px] text-slate-500">(${dmg17} DMG)</span>`;
+            } else {
+              p17Status.textContent = 'Belum Serang';
             }
           }
 
-          if (p15Status) {
-            const s15 = isW42 ? (uStats.p17_wajib_skor || 0) : (uStats.p15_wajib_skor || 0);
-            if (s15 > 0) {
-              const dmg15 = s15 * 10 + (s15 === 100 ? 500 : 0);
-              p15Status.innerHTML = `<span class="text-emerald-700 font-bold">${s15}</span> <span class="text-[10px] text-slate-500">(${dmg15} DMG)</span>`;
+          // 2. Portal 2: Matematika Wajib P18 (Kuartil & Desil)
+          if (p18Status) {
+            const s18 = isW42 ? (uStats.p18_wajib_skor || 0) : (uStats.p16_wajib_skor || 0);
+            if (s18 > 0) {
+              const dmg18 = s18 * 10 + (s18 === 100 ? 500 : 0);
+              p18Status.innerHTML = `<span class="text-emerald-700 font-bold">${s18}</span> <span class="text-[10px] text-slate-500">(${dmg18} DMG)</span>`;
             } else {
-              p15Status.textContent = 'Belum Serang';
+              p18Status.textContent = 'Belum Serang';
             }
           }
-          if (p16Status) {
-            const s16 = isW42 ? (uStats.p18_wajib_skor || 0) : (uStats.p16_wajib_skor || 0);
-            if (s16 > 0) {
-              const dmg16 = s16 * 10 + (s16 === 100 ? 500 : 0);
-              p16Status.innerHTML = `<span class="text-emerald-700 font-bold">${s16}</span> <span class="text-[10px] text-slate-500">(${dmg16} DMG)</span>`;
+
+          // 3. Portal 3: Additional Mathematics P18 (Turunan Rantai Trigonometri)
+          if (m18Status) {
+            const sm18 = isW42 ? (uStats.p18_minat_skor || 0) : 0;
+            if (sm18 > 0) {
+              const dmgM18 = sm18 * 15 + (sm18 === 100 ? 500 : 0);
+              m18Status.innerHTML = `<span class="text-amber-800 font-bold">${sm18}</span> <span class="text-[10px] text-slate-500">(${dmgM18} DMG)</span>`;
             } else {
-              p16Status.textContent = 'Belum Serang';
+              m18Status.textContent = 'Belum Serang';
             }
           }
-          if (p17Status) {
-            const s17 = isW42 ? (uStats.p18_minat_skor || uStats.p19_minat_skor || 0) : (uStats.p17_minat_skor || 0);
-            if (s17 > 0) {
-              const dmg17 = s17 * 15 + (s17 === 100 ? 500 : 0);
-              p17Status.innerHTML = `<span class="text-amber-800 font-bold">${s17}</span> <span class="text-[10px] text-slate-500">(${dmg17} DMG)</span>`;
+
+          // 4. Portal 4: Additional Mathematics P19 (Turunan Perkalian & Pembagian Trigonometri)
+          if (m19Status) {
+            const sm19 = isW42 ? (uStats.p19_minat_skor || 0) : (uStats.p17_minat_skor || 0);
+            if (sm19 > 0) {
+              const dmgM19 = sm19 * 15 + (sm19 === 100 ? 500 : 0);
+              m19Status.innerHTML = `<span class="text-amber-800 font-bold">${sm19}</span> <span class="text-[10px] text-slate-500">(${dmgM19} DMG)</span>`;
             } else {
-              p17Status.textContent = 'Belum Serang';
+              m19Status.textContent = 'Belum Serang';
             }
           }
 
@@ -3371,33 +3366,21 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       if (btnF12 && btnF34) {
         if (squad === 'F1_F2') {
           btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
-          btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa)</span>';
-          btnF12.title = 'Skuad Aktif: 50 Butir Matematika Wajib';
+          btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa: P17/P18)</span>';
+          btnF12.title = 'Skuad Aktif: 50 Butir Matematika Wajib (P17 & P18)';
 
-          if (!isGuru && allowedSquad === 'F1_F2') {
-            btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 opacity-40 cursor-not-allowed text-[#787774] border border-transparent';
-            btnF34.innerHTML = '<i class="fa-solid fa-lock text-[11px] text-stone-400"></i> <span>Skuad F3-F4 (Terkunci)</span>';
-            btnF34.title = 'Akses Terkunci: Khusus Siswa Kelas XII F.3 & F.4';
-          } else {
-            btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
-            btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Matwa + 25 Minat)</span>';
-            btnF34.title = 'Pindah ke Skuad F3-F4';
-          }
+          btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+          btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Matwa + 25 Minat P18/P19)</span>';
+          btnF34.title = 'Pindah ke Skuad F3-F4 (Termasuk Additional Math P18 & P19)';
         } else {
           // squad === 'F3_F4'
           btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
-          btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Matwa + 25 Minat)</span>';
-          btnF34.title = 'Skuad Aktif: 25 Matwa + 25 Minat';
+          btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Matwa + 25 Minat P18/P19)</span>';
+          btnF34.title = 'Skuad Aktif: 25 Matwa + 25 Additional Math (P18 & P19)';
 
-          if (!isGuru && allowedSquad === 'F3_F4') {
-            btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 opacity-40 cursor-not-allowed text-[#787774] border border-transparent';
-            btnF12.innerHTML = '<i class="fa-solid fa-lock text-[11px] text-stone-400"></i> <span>Skuad F1-F2 (Terkunci)</span>';
-            btnF12.title = 'Akses Terkunci: Khusus Siswa Kelas XII F.1 & F.2';
-          } else {
-            btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
-            btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa)</span>';
-            btnF12.title = 'Pindah ke Skuad F1-F2';
-          }
+          btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+          btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa: P17/P18)</span>';
+          btnF12.title = 'Pindah ke Skuad F1-F2';
         }
       }
 
@@ -3406,7 +3389,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           bSquadTag.textContent = '🛡️ Skuad F1 - F2 (50 Matwa)';
           bSquadTag.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200';
         } else {
-          bSquadTag.textContent = '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)';
+          bSquadTag.textContent = '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat P18/P19)';
           bSquadTag.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200';
         }
       }
@@ -3414,21 +3397,6 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
     function setDailyRaidSquadMode(squad) {
       const nis = getActiveStudentNis();
-      const allowedSquad = getStudentDefaultSquad(nis);
-      const isGuru = isCurrentTeacher();
-
-      if (!isGuru && squad !== allowedSquad) {
-        const deniedMsg = allowedSquad === 'F1_F2'
-          ? '🔒 Akses Terkunci: Siswa Kelas XII F.1 & F.2 hanya diperbolehkan mengerjakan Skuad Wajib F1-F2 (50 Soal Matematika Wajib).'
-          : '🔒 Akses Terkunci: Siswa Kelas XII F.3 & F.4 hanya diperbolehkan mengerjakan Skuad Terpadu F3-F4 (25 Matwa + 25 Minat).';
-        if (typeof showNotionToast === 'function') {
-          showNotionToast(deniedMsg);
-        } else {
-          alert(deniedMsg);
-        }
-        return;
-      }
-
       updateDailyRaidSquadButtonsUI(squad);
       const weekId = getWeeklyCampaignIdFallback();
       const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
@@ -3845,6 +3813,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           let cardStyle = 'background-color: #FFFFFF; border-color: #E8E6DF; color: #2F3437;';
           let badgeStyle = 'background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;';
 
+          const isW42LockdownActive = (_dailyRaidWeekId === '2026-W42' && new Date() <= new Date('2026-10-18T16:59:59.000Z') && !isCurrentTeacher());
+
           if (isAttacked) {
             if (isSelected && attackRecord.isCorrect) {
               cardStyle = 'background-color: #ECFDF5; border-color: #10B981; color: #065F46;';
@@ -3852,7 +3822,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
             } else if (isSelected && !attackRecord.isCorrect) {
               cardStyle = 'background-color: #FEF2F2; border-color: #EF4444; color: #991B1B;';
               badgeStyle = 'background-color: #EF4444; color: #FFFFFF;';
-            } else if (isKeyOption && !attackRecord.isCorrect) {
+            } else if (isKeyOption && !attackRecord.isCorrect && !isW42LockdownActive) {
               cardStyle = 'background-color: #F0FDF4; border-color: #34D399; color: #047857;';
               badgeStyle = 'background-color: #059669; color: #FFFFFF;';
             }
@@ -3873,7 +3843,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
                 ${cleanText}
               </div>
               ${isAttacked && isSelected ? (attackRecord.isCorrect ? '<i class="fa-solid fa-check text-emerald-600 text-sm"></i>' : '<i class="fa-solid fa-xmark text-rose-600 text-sm"></i>') : ''}
-              ${isAttacked && !attackRecord.isCorrect && isKeyOption ? '<span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">Kunci</span>' : ''}
+              ${isAttacked && !attackRecord.isCorrect && isKeyOption && !isW42LockdownActive ? '<span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">Kunci</span>' : ''}
             </div>
           `;
         }).join('');
@@ -3885,6 +3855,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const feedbackWrap = document.getElementById('dr-attack-feedback-wrap');
       const feedbackBanner = document.getElementById('dr-attack-feedback-banner');
       const solContent = document.getElementById('dr-attack-solution-content');
+      const isW42LockdownActive = (_dailyRaidWeekId === '2026-W42' && new Date() <= new Date('2026-10-18T16:59:59.000Z') && !isCurrentTeacher());
 
       if (isAttacked) {
         if (actionWrap) actionWrap.classList.add('hidden');
@@ -3927,8 +3898,22 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         }
 
         if (solContent) {
-          solContent.innerHTML = `<div class="whitespace-pre-line leading-relaxed">${q.bahas || 'Pembahasan langkah demi langkah belum tersedia.'}</div>`;
-          renderDailyRaidMath(solContent);
+          if (isW42LockdownActive) {
+            solContent.innerHTML = `
+              <div class="p-3.5 rounded-xl border flex items-start gap-3 bg-amber-50 border-amber-300 text-amber-950 shadow-2xs">
+                <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
+                  <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="text-xs leading-relaxed">
+                  <strong class="block text-amber-900 font-bold mb-0.5">🔒 Pembahasan Langkah Demi Langkah Dikunci Sementara</strong>
+                  <span class="text-amber-800">Seluruh teks pembahasan dan kunci jawaban resmi untuk materi uji TKA pekan ini (W42: Wajib P17-P18 &amp; Add Math P18-P19) dikunci sementara oleh guru hingga <strong>Minggu, 18 Oktober 2026 pukul 23:59 WIB</strong> demi menjaga integritas kompetisi angkatan XII. Pembahasan lengkap otomatis terbuka setelah batas waktu event berakhir.</span>
+                </div>
+              </div>
+            `;
+          } else {
+            solContent.innerHTML = `<div class="whitespace-pre-line leading-relaxed">${q.bahas || 'Pembahasan langkah demi langkah belum tersedia.'}</div>`;
+            renderDailyRaidMath(solContent);
+          }
         }
       } else {
         if (actionWrap) actionWrap.classList.remove('hidden');

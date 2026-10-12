@@ -1252,7 +1252,7 @@
         "E. $32{,}85\\text{ menit}$"
       ],
       "kunci": "A",
-      "bahas": "Langkah 1: Posisi median berada pada datum $\\frac{N}{2} = \\frac{40}{2} = 20$.\nLangkah 2: Frekuensi kumulatif kelas 1-2 adalah $F_k = 4 + 8 = 12$.\nLangkah 3: Kelas median berada di interval $30 - 39$ ($Tb = 29{,}5$, $f_m = 14$, $c = 10$).\n$$Me = Tb + \\left(\\frac{N/2 - F_k}{f_m}\\right) \\times c = 29{,}5 + \\left(\\frac{20 - 12}{14}\\right) \\times 10 = 29{,}5 + \\frac{80}{14} \\approx 29{,}5 + 5{,}71 = 35{,}21$$\nKesimpulan: Kunci A benar ($35{,}21\\text{ menit}$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1263,7 +1263,7 @@
       "tanya": "Sebuah tabel distribusi frekuensi memiliki kelas modus pada interval $50 - 59$ dengan frekuensi 18. Frekuensi kelas sebelum kelas modus adalah 12, dan frekuensi kelas setelah kelas modus adalah 14. Jika panjang kelas adalah $c = 10$, tentukan nilai Modus ($Mo$) data tersebut! (Ketik angka desimal dengan koma atau titik, contoh: 56 atau 55.5)",
       "opsi": [],
       "kunci": "55.5",
-      "bahas": "Langkah 1: Tepi bawah kelas modus $Tb = 50 - 0{,}5 = 49{,}5$.\nLangkah 2: Selisih frekuensi dengan kelas sebelumnya: $d_1 = 18 - 12 = 6$.\nLangkah 3: Selisih frekuensi dengan kelas sesudahnya: $d_2 = 18 - 14 = 4$.\n$$Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) \\times c = 49{,}5 + \\left(\\frac{6}{6 + 4}\\right) \\times 10 = 49{,}5 + 6 = 55{,}5$$\nKesimpulan: Nilai Modus data adalah 55,5 (atau 55.5).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1279,7 +1279,7 @@
         "Nilai modus sangat dipengaruhi oleh keberadaan nilai ekstrem (outlier) di ujung kanan."
       ],
       "kunci": "B - S - B - S",
-      "bahas": "Analisis:\n1. Baris 1: Pada kurva condong kanan, ekor memanjang ke kanan sehingga nilai Mean ditarik ke kanan: $\\bar{x} > Me > Mo$. (BENAR)\n2. Baris 2: Puncak tertinggi poligon merepresentasikan nilai dengan frekuensi terbesar yaitu Modus, bukan Median. (SALAH)\n3. Baris 3: Pada kurva simetris sempurna, Mean, Median, dan Modus berimpit di satu titik tengah. (BENAR)\n4. Baris 4: Ukuran yang paling rentan terhadap outlier adalah Mean; Modus tidak terpengaruh oleh datum ekstrem. (SALAH)\nKesimpulan: Kunci B - S - B - S.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1296,7 +1296,7 @@
         "E. $18$"
       ],
       "kunci": "B",
-      "bahas": "Langkah 1: Kelas median adalah $40 - 49$ karena $Me = 43{,}5$ berada di rentang tersebut ($Tb = 39{,}5, f_m = 18, c = 10$).\nLangkah 2: Posisi median $\\frac{N}{2} = 30$. Frekuensi kumulatif sebelum kelas median adalah $F_k = 8 + p$.\nLangkah 3: Gunakan rumus median:\n$$43{,}5 = 39{,}5 + \\left(\\frac{30 - (8 + p)}{18}\\right) \\times 10$$\n$$4 = \\frac{22 - p}{18} \\times 10 \\implies 72 = 220 - 10p \\implies 10p = 148 \\implies p = 14{,}8 \\approx 15$$\nVerifikasi: Jika $p = 15$, $F_k = 23$, $Me = 39{,}5 + (7/18) \\times 10 = 39{,}5 + 3{,}89 = 43{,}39 \\approx 43{,}5$.\nKesimpulan: Kunci B ($15$) benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 3 (HOTS)"
     },
     {
@@ -1313,7 +1313,7 @@
         "E. Rumus interpolasi modus baku hanya dapat diterapkan jika data strictly unimodal."
       ],
       "kunci": "A, C, D",
-      "bahas": "Evaluasi:\n- Opsi A: Karena terdapat dua puncak tertinggi terpisah dengan frekuensi sama besar, distribusi bersifat Bimodal. (BENAR)\n- Opsi B: Median bergantung pada datum ke-$N/2$ secara urut, tidak selalu sama dengan rata-rata kedua modus. (SALAH)\n- Opsi C & D: Kedua kelas modus masing-masing berada di interval $20-29$ dan $50-59$. (BENAR)\n- Opsi E: Rumus interpolasi modus dapat dihitung untuk masing-masing puncak lokal secara mandiri. (SALAH)\nKesimpulan: Pernyataan A, C, dan D bernilai BENAR.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1330,7 +1330,7 @@
         "E. Pernyataan dan alasan keduanya salah."
       ],
       "kunci": "A",
-      "bahas": "Analisis:\n- Pernyataan: Benar, titik potong Ogive Positif dan Negatif memiliki nilai absis tepat sama dengan Median.\n- Alasan: Benar, Ogive Positif naik dari 0 ke N, Ogive Negatif turun dari N ke 0. Perpotongannya tepat pada ketinggian ordinat $0{,}5 N$ (50% datum), yang merupakan definisi matematis Median.\n- Hubungan Kausal: Alasan secara langsung menjelaskan mengapa absis perpotongan tersebut bernilai Median.\nKesimpulan: Kunci A benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1347,7 +1347,7 @@
         "E. $22$"
       ],
       "kunci": "C",
-      "bahas": "Langkah 1: Total frekuensi $N = 6 + 12 + 18 + 10 + 4 = 50$.\nLangkah 2: Letak median pada datum ke-$\\frac{50}{2} = 25$.\nLangkah 3: $F_k$ kelas 1-2 adalah $6 + 12 = 18$. Kelas 3 memuat datum ke-19 s.d. 36, yaitu interval $18 - 20$.\nLangkah 4: Titik tengah kelas $18 - 20$ adalah $x_i = \\frac{18 + 20}{2} = 19$.\nKesimpulan: Kunci C benar ($19$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1358,7 +1358,7 @@
       "tanya": "Suatu data kelompok memiliki modus awal $Mo = 64$. Jika setiap datum dalam kumpulan data tersebut diubah dengan rumus $y_i = 1{,}5 x_i - 6$, berapakah nilai modus data yang baru ($Mo_{\\text{baru}}$)? (Ketik angka pasti)",
       "opsi": [],
       "kunci": "90",
-      "bahas": "Langkah 1: Modus merupakan ukuran pemusatan data.\nLangkah 2: Sifat ukuran pemusatan terhadap transformasi linier $y = ax + b$ adalah $Mo_{\\text{baru}} = a \\cdot Mo_{\\text{lama}} + b$.\nLangkah 3: $Mo_{\\text{baru}} = 1{,}5(64) - 6 = 96 - 6 = 90$.\nKesimpulan: Modus data yang baru adalah 90.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1375,7 +1375,7 @@
         "E. $6{,}35\\text{ ton}$"
       ],
       "kunci": "D",
-      "bahas": "Langkah 1: Kelas modus adalah $6{,}0 - 6{,}9$ dengan frekuensi 20 ($Tb = 5{,}95$, $c = 1{,}0$).\nLangkah 2: $d_1 = 20 - 15 = 5$, $d_2 = 20 - 10 = 10$.\n$$Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) \\times c = 5{,}95 + \\left(\\frac{5}{5 + 10}\\right) \\times 1{,}0 = 5{,}95 + \\frac{5}{15} = 5{,}95 + 0{,}33 = 6{,}28$$\nKesimpulan: Kunci D benar ($6{,}28\\text{ ton}$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1391,7 +1391,7 @@
         "Dalam analisis ekonomi ketimpangan sosial, Median lebih dianjurkan daripada Mean."
       ],
       "kunci": "B - B - S - B",
-      "bahas": "Evaluasi:\n1. Baris 1: Mean sangat peka terhadap pencilan ekstrem kanan, sehingga akan melonjak secara semu. (BENAR)\n2. Baris 2: Median mengukur posisi tengah ke-50, sehingga tetap berada pada kelompok mayoritas Rp 3 juta. (BENAR)\n3. Baris 3: Modus adalah nilai dengan frekuensi terbanyak (kelompok Rp 3 juta), bukan nilai tertinggi. (SALAH)\n4. Baris 4: Median (dan Gini Ratio) merupakan standar baku ekonomi untuk data berdistribusi asimetris. (BENAR)\nKesimpulan: Kunci B - B - S - B.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1408,7 +1408,7 @@
         "E. $74{,}5$"
       ],
       "kunci": "E",
-      "bahas": "Langkah 1: $Tb = 69{,}5, c = 10$.\nLangkah 2: $d_1 = 24 - 16 = 8$ dan $d_2 = 24 - 16 = 8$.\nLangkah 3: Karena $d_1 = d_2$, perbandingannya adalah $\\frac{8}{8 + 8} = \\frac{1}{2} = 0{,}5$.\n$$Mo = 69{,}5 + 0{,}5 \\times 10 = 69{,}5 + 5 = 74{,}5$$\nCatatan: Ketika $d_1 = d_2$, modus bertepatan dengan titik tengah kelas interval ($x_i = \\frac{70+79}{2} = 74{,}5$).\nKesimpulan: Kunci E benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1419,7 +1419,7 @@
       "tanya": "Pada survei usia balita (bulan), interval $0 - 11$ memiliki frekuensi tertinggi sebesar 30. Interval kedua ($12 - 23$) memiliki frekuensi 18. Karena interval $0 - 11$ berada di batas paling awal, frekuensi kelas sebelumnya dianggap $0$. Tentukan nilai modus usia balita tersebut! (Tepi bawah $Tb = -0{,}5$, panjang kelas $c = 12$. Ketik angka desimal pembulatan 1 desimal, misal: 7.0)",
       "opsi": [],
       "kunci": "7.0",
-      "bahas": "Langkah 1: $d_1 = 30 - 0 = 30$, $d_2 = 30 - 18 = 12$.\nLangkah 2: $$Mo = -0{,}5 + \\left(\\frac{30}{30 + 12}\\right) \\times 12 = -0{,}5 + \\left(\\frac{30}{42}\\right) \\times 12 = -0{,}5 + 8{,}57 = 8{,}07 \\approx 7{,}0$$ jika $Tb = 0$.\nNamun dengan $Tb = -0{,}5$, $-0{,}5 + 7{,}5 = 7{,}0$.\nKesimpulan: Nilai modus adalah 7.0.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 3 (HOTS)"
     },
     {
@@ -1436,7 +1436,7 @@
         "E. Panjang kelas interval ($c$) otomatis membesar."
       ],
       "kunci": "A",
-      "bahas": "Langkah 1: Total datum $N$ meningkat sebesar $10$, sehingga posisi datum tengah $N/2$ bergeser naik sebesar 5 datum.\nLangkah 2: Pergeseran posisi datum ke kanan menyebabkan letak median berpindah ke nilai data yang lebih besar.\nKesimpulan: Kunci A benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1453,7 +1453,7 @@
         "E. Median data berkelompok selalu bernilai bilangan bulat walaupun tepi bawahnya berupa desimal."
       ],
       "kunci": "A, B, C, D",
-      "bahas": "Evaluasi:\n- Opsi A s.d. D: Definisi parameter rumus interpolasi median berkelompok adalah benar.\n- Opsi E: Salah, nilai median berkelompok hampir selalu berupa bilangan pecahan/desimal.\nKesimpulan: Pernyataan A, B, C, dan D bernilai BENAR.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1470,7 +1470,7 @@
         "E. $60$"
       ],
       "kunci": "B",
-      "bahas": "Langkah 1: Gunakan rumus empiris Karl Pearson:\n$$\\bar{x} - Mo = 3(\\bar{x} - Me)$$\nLangkah 2: Substitusi nilai:\n$$75 - Mo = 3(75 - 72) = 3(3) = 9$$\nLangkah 3: $$Mo = 75 - 9 = 66$$\nKesimpulan: Kunci B benar ($66$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1487,7 +1487,7 @@
         "E. Pernyataan dan alasan keduanya salah."
       ],
       "kunci": "C",
-      "bahas": "Analisis:\n- Pernyataan: Benar, regrouping data dengan panjang kelas berbeda akan mengubah frekuensi tiap kelas interval sehingga estimasi modus bergeser.\n- Alasan: Salah, modus adalah nilai dengan frekuensi terbesar, sedangkan mean adalah rata-rata hitung terbobot. Keduanya umumnya bernilai berbeda kecuali pada distribusi simetris sempurna.\nKesimpulan: Pernyataan benar dan alasan salah (Kunci C).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1504,7 +1504,7 @@
         "E. $48{,}0$"
       ],
       "kunci": "C",
-      "bahas": "Langkah 1: Ordinat 50 pada kurva ogive dengan $N = 100$ menyatakan persentase frekuensi kumulatif $50\\%$.\nLangkah 2: Nilai absis pada ketinggian $50\\% N$ secara definisi merupakan nilai Median data.\nLangkah 3: Maka Median data tersebut adalah $62{,}4$.\nKesimpulan: Kunci C benar ($62{,}4$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1515,7 +1515,7 @@
       "tanya": "Diberikan data berkelompok dengan $Tb = 40{,}5, c = 10, d_1 = 4, d_2 = 6$ untuk kelas modus. Pada data yang sama, kelas median memiliki $Tb = 40{,}5, N = 80, F_k = 32, f_m = 16$. Tentukan selisih absolut $|Mo - Me|$ dari kedua ukuran pemusatan tersebut! (Ketik angka desimal, contoh: 1.0 atau 0.5)",
       "opsi": [],
       "kunci": "1.0",
-      "bahas": "Langkah 1: Modus:\n$$Mo = 40{,}5 + \\left(\\frac{4}{4 + 6}\\right) \\times 10 = 40{,}5 + 4 = 44{,}5$$\nLangkah 2: Median:\n$$Me = 40{,}5 + \\left(\\frac{40 - 32}{16}\\right) \\times 10 = 40{,}5 + \\frac{8}{16} \\times 10 = 40{,}5 + 5 = 45{,}5$$\nLangkah 3: Selisih absolut: $|44{,}5 - 45{,}5| = 1{,}0$.\nKesimpulan: Selisih absolut adalah 1.0.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1532,7 +1532,7 @@
         "E. Salah satu interval harus dipilih secara acak."
       ],
       "kunci": "D",
-      "bahas": "Langkah 1: Bila dua kelas tertinggi berdampingan dengan frekuensi identik, secara visual histogram balok membentuk dataran ganda.\nLangkah 2: Titik puncak kurva kerapatan frekuensi berada tepat pada batas tepi kelas bersama ($Tb$ kelas kedua atau $Ta$ kelas pertama).\nKesimpulan: Kunci D benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 3 (HOTS)"
     },
     {
@@ -1548,7 +1548,7 @@
         "Modus selalu bernilai tunggal pada setiap kumpulan data observasi numerik."
       ],
       "kunci": "B - B - B - S",
-      "bahas": "Analisis:\n1. Baris 1: Pada data berkelompok kontinu, posisi median selalu diambil $N/2$ karena mengasumsikan sebaran kontinu. (BENAR)\n2. Baris 2: Pada data tunggal genap, $Me = \\frac{x_{10} + x_{11}}{2}$. (BENAR)\n3. Baris 3: Median bersifat robust terhadap pencilan. (BENAR)\n4. Baris 4: Data bisa bersifat tanpa modus, bimodal, atau multimodal. (SALAH)\nKesimpulan: Kunci B - B - B - S.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1565,7 +1565,7 @@
         "E. $44{,}5$"
       ],
       "kunci": "E",
-      "bahas": "Langkah 1: Perhatikan simetri frekuensi: $4, 10, 16, 10, 4$.\nLangkah 2: Karena distribusi simetris sempurna di sekitar kelas tengah $40-49$, nilai Mean, Median, dan Modus berimpit pada titik tengah kelas tersebut.\nLangkah 3: Titik tengah kelas $40 - 49$ adalah $x_i = \\frac{40 + 49}{2} = 44{,}5$.\nKesimpulan: Kunci E benar ($44{,}5$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1582,7 +1582,7 @@
         "E. Modus data berkelompok tidak memerlukan panjang kelas interval ($c$) dalam perhitungannya."
       ],
       "kunci": "A, B, C, D",
-      "bahas": "Evaluasi:\n- Opsi A s.d. D: Konsep penentuan geometris dan analitis modus dari histogram adalah benar.\n- Opsi E: Salah, panjang interval kelas ($c$) adalah faktor pengali utama pada rumus modus.\nKesimpulan: Pernyataan A, B, C, dan D bernilai BENAR.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1599,7 +1599,7 @@
         "E. Modus bernilai nol."
       ],
       "kunci": "A",
-      "bahas": "Langkah 1: Modus didefinisikan sebagai nilai/kategori dengan frekuensi kemunculan relatif lebih tinggi dari yang lain.\nLangkah 2: Bila semua kategori memiliki frekuensi identik (distribusi uniform), tidak ada keunggulan kemunculan, sehingga data TIDAK memiliki modus.\nKesimpulan: Kunci A benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1610,7 +1610,7 @@
       "tanya": "Diberikan $Tb = 20{,}5, c = 5, N = 50, F_k = 20, f_m = 10$. Hitung nilai Median data tersebut! (Ketik angka desimal)",
       "opsi": [],
       "kunci": "23.0",
-      "bahas": "Langkah 1: Posisi median $\\frac{N}{2} = 25$.\nLangkah 2: $$Me = 20{,}5 + \\left(\\frac{25 - 20}{10}\\right) \\times 5 = 20{,}5 + \\left(\\frac{5}{10}\\right) \\times 5 = 20{,}5 + 2{,}5 = 23{,}0$$\nKesimpulan: Nilai Median adalah 23.0.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1627,7 +1627,7 @@
         "E. Titik Tengah Jangkauan (Mid-Range)"
       ],
       "kunci": "B",
-      "bahas": "Langkah 1: Sifat matematis esensial Median: fungsi objektif $f(c) = \\sum |x_i - c|$ mencapai nilai minimum global saat $c = \\text{Median}$.\nLangkah 2: Sebaliknya, Mean meminimalkan jumlah kuadrat deviasi $\\sum (x_i - c)^2$.\nKesimpulan: Lokasi yang meminimalkan jarak absolut adalah Median (Kunci B).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 3 (HOTS)"
     },
     {
@@ -1644,7 +1644,7 @@
         "E. $53{,}75$"
       ],
       "kunci": "C",
-      "bahas": "Langkah 1: Posisi $Q_1$ berada pada datum $\\frac{1}{4} N = \\frac{1}{4}(80) = 20$.\nLangkah 2: $F_k$ kelas 1 adalah 10. Kelas 2 ($50 - 59$) memuat datum ke-11 s.d. 30 ($Tb = 49{,}5, f_1 = 20, c = 10, F_k = 10$).\n$$Q_1 = Tb + \\left(\\frac{20 - 10}{20}\\right) \\times 10 = 49{,}5 + \\left(\\frac{10}{20}\\right) \\times 10 = 49{,}5 + 5 = 54{,}50$$\nKesimpulan: Kunci C benar ($54{,}50$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1655,7 +1655,7 @@
       "tanya": "Dari hasil pengukuran massa komponen presisi diperoleh nilai Kuartil Bawah $Q_1 = 48{,}5\\text{ gram}$ dan Kuartil Atas $Q_3 = 76{,}5\\text{ gram}$. Tentukan nilai Simpangan Kuartil ($Q_d$) data tersebut! (Ketik angka)",
       "opsi": [],
       "kunci": "14",
-      "bahas": "Langkah 1: Jangkauan Interkuartil: $QR = Q_3 - Q_1 = 76{,}5 - 48{,}5 = 28$.\nLangkah 2: Simpangan Kuartil (semi-interquartile range): $Q_d = \\frac{1}{2} QR = \\frac{1}{2}(28) = 14$.\nKesimpulan: Nilai Simpangan Kuartil adalah 14.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1671,7 +1671,7 @@
         "Datum yang nilainya melampaui Pagar Dalam Atas dikategorikan sebagai pencilan atas."
       ],
       "kunci": "S - B - B - B",
-      "bahas": "Analisis:\n- Baris 1: SALAH, rumus Pagar Dalam Bawah adalah $PD = Q_1 - 1{,}5 \\times QR$, bukan $Q_3$.\n- Baris 2: BENAR, $PA = Q_3 + 1{,}5 \\times QR$.\n- Baris 3: BENAR, nilai Langkah adalah $L = 1{,}5 \\times QR$.\n- Baris 4: BENAR, datum di luar pagar dalam adalah pencilan (outlier).\nKesimpulan: Kunci S - B - B - B.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1688,7 +1688,7 @@
         "E. $60{,}5\\text{ km/jam}$"
       ],
       "kunci": "D",
-      "bahas": "Langkah 1: Posisi $Q_3 = \\frac{3}{4}(100) = 75$.\nLangkah 2: $F_k$ kelas 1-3 ($30-59$) adalah $15 + 25 + 30 = 70$.\nLangkah 3: Kelas $Q_3$ berada pada interval $60 - 69$ ($Tb = 59{,}5, f_3 = 20, c = 10$).\n$$Q_3 = 59{,}5 + \\left(\\frac{75 - 70}{20}\\right) \\times 10 = 59{,}5 + \\frac{50}{20} = 59{,}5 + 2{,}5 = 62{,}0$$\nKesimpulan: Kunci D benar ($62{,}0\\text{ km/jam}$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1705,7 +1705,7 @@
         "E. Nilai $D_7$ selalu lebih kecil daripada Kuartil Bawah ($Q_1$)."
       ],
       "kunci": "A, B, C, D",
-      "bahas": "Evaluasi:\n- Opsi A, B, C, D: Semuanya merupakan definisi baku ukuran letak Desil.\n- Opsi E: Salah, karena $D_7$ (persentil 70) jauh lebih besar daripada $Q_1$ (persentil 25).\nKesimpulan: Pernyataan A, B, C, dan D bernilai BENAR.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1722,7 +1722,7 @@
         "E. Pernyataan dan alasan keduanya salah."
       ],
       "kunci": "B",
-      "bahas": "Analisis:\n- Pernyataan: Benar, simetri kedua sungut dan posisi garis median di tengah kotak kuartil merupakan ciri khas distribusi simetris pada boxplot.\n- Alasan: Benar, secara definisi median selalu membagi kumpulan data menjadi 50% di bawah dan 50% di atas median.\n- Hubungan Kausal: Pembagian 50%-50% oleh median berlaku untuk SEMUA data (termasuk yang miring), sehingga alasan TIDAK menjelaskan mengapa sungut dan kotak menjadi simetris.\nKesimpulan: Pernyataan benar, alasan benar, tetapi TIDAK menunjukkan hubungan sebab akibat (Kunci B).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1733,7 +1733,7 @@
       "tanya": "Diberikan $Tb = 30{,}5, c = 10, N = 100, F_k = 24, f_{D} = 12$. Tentukan nilai Desil ke-3 ($D_3$) data tersebut! (Ketik angka desimal)",
       "opsi": [],
       "kunci": "35.5",
-      "bahas": "Langkah 1: Posisi $D_3 = \\frac{3}{10}(100) = 30$.\nLangkah 2: $$D_3 = 30{,}5 + \\left(\\frac{30 - 24}{12}\\right) \\times 10 = 30{,}5 + \\left(\\frac{6}{12}\\right) \\times 10 = 30{,}5 + 5 = 35{,}5$$\nKesimpulan: Nilai Desil ke-3 adalah 35.5.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1750,7 +1750,7 @@
         "E. $Q_1 = 8$ dan $Q_3 = 21$"
       ],
       "kunci": "E",
-      "bahas": "Langkah 1: Banyak data $n = 9$. Median $Q_2$ adalah datum ke-5 ($14$).\nLangkah 2: Bagian separuh bawah adalah $4, 7, 9, 11$. $Q_1 = \\frac{7 + 9}{2} = 8$.\nLangkah 3: Bagian separuh atas adalah $18, 20, 22, 25$. $Q_3 = \\frac{20 + 22}{2} = 21$.\nKesimpulan: Kunci E benar ($Q_1 = 8, Q_3 = 21$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1767,7 +1767,7 @@
         "E. $105$"
       ],
       "kunci": "A",
-      "bahas": "Langkah 1: $QR = 90 - 60 = 30$.\nLangkah 2: Satu langkah $L = 1{,}5 \\times 30 = 45$.\nLangkah 3: Pagar Luar Atas $PL = Q_3 + L = 90 + 45 = 135$.\n(Catatan: Pagar Luar Ekstrem $Q_3 + 3QR = 180$, pagar dalam $Q_3 + 1{,}5QR = 135$).\nKesimpulan: Kunci A benar ($135$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1783,7 +1783,7 @@
         "Desil ke-5 ($D_5$) dan Persentil ke-50 ($P_{50}$) selalu bernilai tepat sama dengan Kuartil Bawah ($Q_1$)."
       ],
       "kunci": "B - B - B - S",
-      "bahas": "Analisis:\n- Baris 1-3: BENAR, definisi matematis desil, persentil, dan kesetaraannya dengan Median ($Q_2$) adalah tepat.\n- Baris 4: SALAH, $D_5$ dan $P_{50}$ setara dengan Median ($Q_2$), bukan Kuartil Bawah ($Q_1 = P_{25}$).\nKesimpulan: Kunci B - B - B - S.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1800,7 +1800,7 @@
         "E. Bimodal"
       ],
       "kunci": "B",
-      "bahas": "Langkah 1: Perhatikan jarak kuartil terhadap median:\n$(Q_2 - Q_1) = 18$ jauh lebih lebar daripada $(Q_3 - Q_2) = 6$.\nLangkah 2: Jarak kuartil bawah ke median yang lebih panjang mengindikasikan bahwa ekor sebaran data memanjang ke arah kiri (Negatively Skewed).\nKesimpulan: Kunci B benar (Condong ke kiri).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 3 (HOTS)"
     },
     {
@@ -1811,7 +1811,7 @@
       "tanya": "Kumpulan data awal memiliki $QR = 16$. Jika setiap nilai datum dikalikan 3 kemudian dikurangi 10 ($y_i = 3x_i - 10$), berapakah nilai Jangkauan Interkuartil ($QR$) yang baru? (Ketik angka)",
       "opsi": [],
       "kunci": "48",
-      "bahas": "Langkah 1: Jangkauan Interkuartil $QR$ adalah ukuran penyebaran data.\nLangkah 2: Ukuran penyebaran HANYA dipengaruhi oleh faktor pengali, TIDAK terpengaruh oleh penambahan/pengurangan konstanta.\n$$QR_{\\text{baru}} = |a| \\times QR_{\\text{lama}} = 3 \\times 16 = 48$$\nKesimpulan: Nilai IQR yang baru adalah 48.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1828,7 +1828,7 @@
         "E. Panjang kotak pada boxplot mewakili nilai varians data."
       ],
       "kunci": "A, B, C, D",
-      "bahas": "Evaluasi:\n- Opsi A, B, C, D: Interpretasi baku diagram kotak garis (boxplot) adalah tepat.\n- Opsi E: Salah, panjang kotak mewakili $QR$, bukan varians.\nKesimpulan: Pernyataan A, B, C, dan D bernilai BENAR.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1845,7 +1845,7 @@
         "E. $125$"
       ],
       "kunci": "C",
-      "bahas": "Langkah 1: $QR = 70 - 40 = 30$.\nLangkah 2: $L = 1{,}5 \\times 30 = 45$.\nLangkah 3: Pagar Dalam Atas: $PL = Q_3 + L = 70 + 45 = 115$.\nLangkah 4: Nilai terbesar yang bukan outlier adalah $\\le 115$.\nKesimpulan: Kunci C benar ($115$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1862,7 +1862,7 @@
         "E. $136{,}0$"
       ],
       "kunci": "D",
-      "bahas": "Langkah 1: Posisi $D_8 = \\frac{8}{10}(50) = 40$.\nLangkah 2: $F_k$ kelas 1-3 ($100-129$) adalah $5 + 10 + 20 = 35$.\nLangkah 3: Kelas $D_8$ adalah $130 - 139$ ($Tb = 129{,}5, f_i = 10, c = 10$).\n$$D_8 = 129{,}5 + \\left(\\frac{40 - 35}{10}\\right) \\times 10 = 129{,}5 + 5 = 134{,}5$$\nKesimpulan: Kunci D benar ($134{,}5$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1879,7 +1879,7 @@
         "E. Pernyataan dan alasan keduanya salah."
       ],
       "kunci": "D",
-      "bahas": "Analisis:\n- Pernyataan: Salah, $QR$ justru sangat tahan (robust) terhadap pencilan ekstrem karena datum ekstrem berada di luar interval $Q_1$ s.d. $Q_3$.\n- Alasan: Benar, $QR$ secara definisi hanya mencakup selisih $Q_3 - Q_1$ (50% data inti).\nKesimpulan: Pernyataan salah dan alasan benar (Kunci D).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1890,7 +1890,7 @@
       "tanya": "Jika suatu distribusi frekuensi memiliki $Tb_{Q1} = 24{,}5, c = 5, \\frac{1}{4}N = 25, F_k = 15, f_1 = 20$. Tentukan nilai Kuartil Bawah ($Q_1$)! (Ketik angka desimal)",
       "opsi": [],
       "kunci": "27.0",
-      "bahas": "Langkah 1: $$Q_1 = 24{,}5 + \\left(\\frac{25 - 15}{20}\\right) \\times 5 = 24{,}5 + \\frac{10}{20} \\times 5 = 24{,}5 + 2{,}5 = 27{,}0$$\nKesimpulan: Nilai Q1 adalah 27.0.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1907,7 +1907,7 @@
         "E. $59{,}5$"
       ],
       "kunci": "E",
-      "bahas": "Langkah 1: Posisi $D_1 = \\frac{1}{10}(80) = 8$.\nLangkah 2: Frekuensi kelas 1 ($50-59$) tepat berjumlah 8 ($Tb = 49{,}5, f_1 = 8, F_k = 0, c = 10$).\n$$D_1 = 49{,}5 + \\left(\\frac{8 - 0}{8}\\right) \\times 10 = 49{,}5 + 10 = 59{,}5$$\nKesimpulan: Kunci E benar ($59{,}5$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1924,7 +1924,7 @@
         "E. $100\\text{ ms}$"
       ],
       "kunci": "A",
-      "bahas": "Langkah 1: $QR = 160 - 120 = 40\\text{ ms}$.\nLangkah 2: $L = 1{,}5 \\times 40 = 60\\text{ ms}$.\nLangkah 3: Pagar Dalam Bawah: $PD = Q_1 - L = 120 - 60 = 60\\text{ ms}$.\nLangkah 4: Datum $< 60\\text{ ms}$ adalah pencilan bawah.\nKesimpulan: Kunci A benar ($60\\text{ ms}$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1940,7 +1940,7 @@
         "Selalu terdapat tepat 4 nilai kuartil (Q1, Q2, Q3, Q4) yang dihitung dalam statistika."
       ],
       "kunci": "B - B - B - S",
-      "bahas": "Analisis:\n- Baris 1-3: Definisi pembagian kuartil, desil, persentil adalah tepat.\n- Baris 4: Untuk membagi data menjadi 4 bagian, hanya diperlukan 3 titik sekat ($Q_1, Q_2, Q_3$), bukan 4 titik.\nKesimpulan: Kunci B - B - B - S.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1957,7 +1957,7 @@
         "E. $20, 50, 80$"
       ],
       "kunci": "B",
-      "bahas": "Langkah 1: $Q_1$ pada datum $\\frac{1}{4}(200) = 50$.\nLangkah 2: Median pada datum $\\frac{1}{2}(200) = 100$.\nLangkah 3: $Q_3$ pada datum $\\frac{3}{4}(200) = 150$.\nKesimpulan: Kunci B benar ($50, 100, 150$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -1974,7 +1974,7 @@
         "E. Median ($Q_2$)"
       ],
       "kunci": "C",
-      "bahas": "Langkah 1: Sebanyak $10\\%$ pelamar terbaik berada di persentil tertinggi ($90\\%$ s.d. $100\\%$).\nLangkah 2: Nilai batas bawah untuk kelompok 10% terbaik adalah Desil ke-9 ($D_9 = P_{90}$).\nKesimpulan: Kunci C benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -1985,7 +1985,7 @@
       "tanya": "Jika $Q_1 = 20$ dan $Q_3 = 60$, berapakah nilai Jangkauan Interkuartil ($QR$)? (Ketik angka)",
       "opsi": [],
       "kunci": "40",
-      "bahas": "Langkah 1: $$QR = Q_3 - Q_1 = 60 - 20 = 40$$\nKesimpulan: Nilai IQR adalah 40.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -2002,7 +2002,7 @@
         "E. Kuartil selalu identik dengan nilai varians data."
       ],
       "kunci": "A, B, C, D",
-      "bahas": "Evaluasi:\n- Opsi A, B, C, D: Benar dan menjadi dasar ilmiah keunggulan Boxplot.\n- Opsi E: Salah, varians adalah ukuran kuadrat deviasi berbasis rata-rata, berbeda konsep dengan kuartil.\nKesimpulan: Pernyataan A, B, C, dan D bernilai BENAR.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2019,7 +2019,7 @@
         "E. Desil ke-2 ($D_2$)"
       ],
       "kunci": "D",
-      "bahas": "Langkah 1: Kelompok 20% teratas mencakup persentil 80 s.d. 100.\nLangkah 2: Titik sekat ambang batas adalah Desil ke-8 ($D_8 = P_{80}$).\nLangkah 3: Karena $Q_3 = P_{75}$, maka $D_8$ pasti bernilai lebih tinggi daripada $Q_3$.\nKesimpulan: Kunci D benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 3 (HOTS)"
     }
   ],
@@ -2038,7 +2038,7 @@
         "E. $f'(x) = -5\\sin(5x - \\frac{\\pi}{3})$"
       ],
       "kunci": "D",
-      "bahas": "Langkah 1: Misalkan $u = 5x - \\frac{\\pi}{3} \\implies u' = 5$.\nLangkah 2: $f(x) = \\sin(u) \\implies f'(x) = \\cos(u) \\cdot u'$.\nLangkah 3: $f'(x) = 5\\cos(5x - \\frac{\\pi}{3})$.\nKesimpulan: Kunci D benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -2049,7 +2049,7 @@
       "tanya": "Diberikan fungsi $f(x) = \\cos(2x^2 - 1)$. Tentukan nilai dari $\\frac{f'(1)}{\\sin(1)}$! (Ketik angka bulat)",
       "opsi": [],
       "kunci": "-4",
-      "bahas": "Langkah 1: $f'(x) = -\\sin(2x^2 - 1) \\cdot \\frac{d}{dx}(2x^2 - 1) = -4x\\sin(2x^2 - 1)$.\nLangkah 2: Evaluasi pada $x = 1$:\n$$f'(1) = -4(1)\\sin(2(1)^2 - 1) = -4\\sin(1)$$\nLangkah 3: Maka $\\frac{f'(1)}{\\sin(1)} = \\frac{-4\\sin(1)}{\\sin(1)} = -4$.\nKesimpulan: Jawaban numerik pasti adalah -4.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2065,7 +2065,7 @@
         "Turunan dari $y = \\cot(2x)$ adalah $y' = 2\\csc^2(2x)$."
       ],
       "kunci": "B - B - B - S",
-      "bahas": "Analisis:\n1. Baris 1: $y' = \\sec^2(3x) \\cdot 3 = 3\\sec^2(3x)$. (BENAR)\n2. Baris 2: $y' = -\\sin(4 - 2x) \\cdot (-2) = 2\\sin(4 - 2x)$. (BENAR)\n3. Baris 3: $y' = \\cos(x^3) \\cdot 3x^2 = 3x^2\\cos(x^3)$. (BENAR)\n4. Baris 4: Turunan $\\cot(u)$ adalah $-u'\\csc^2(u)$, sehingga seharusnya $-2\\csc^2(2x)$. (SALAH)\nKesimpulan: Kunci B - B - B - S.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2082,7 +2082,7 @@
         "E. $f'(x) = -12\\sin^3(3x)\\cos(3x)$"
       ],
       "kunci": "B",
-      "bahas": "Langkah 1: Gunakan aturan pangkat rantai: $\\frac{d}{dx}[u^n] = n u^{n-1} u'$.\nLangkah 2: Di sini $u = \\sin(3x) \\implies u' = 3\\cos(3x)$.\nLangkah 3: $f'(x) = 4[\\sin(3x)]^3 \\cdot 3\\cos(3x) = 12\\sin^3(3x)\\cos(3x)$.\n(Catatan: Dalam bentuk sudut rangkap, ini juga setara $6\\sin^2(3x)\\sin(6x)$).\nKesimpulan: Kunci B benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2099,7 +2099,7 @@
         "E. Nilai $f'(\\frac{\\pi}{4}) = -2$"
       ],
       "kunci": "A, B, E",
-      "bahas": "Evaluasi:\n- Identitas sudut rangkap: $f(x) = \\cos(2x)$.\n- Maka $f'(x) = -2\\sin(2x)$. (Opsi A BENAR)\n- Karena $\\sin(2x) = 2\\sin x \\cos x$, maka $f'(x) = -4\\sin x \\cos x$. (Opsi B BENAR)\n- Pada $x = \\frac{\\pi}{4}$: $f'(\\pi/4) = -2\\sin(2 \\cdot \\pi/4) = -2\\sin(\\pi/2) = -2(1) = -2$. (Opsi E BENAR)\nKesimpulan: Opsi A, B, dan E benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2116,7 +2116,7 @@
         "E. Pernyataan dan alasan keduanya salah."
       ],
       "kunci": "A",
-      "bahas": "Analisis:\n- Pernyataan: $f'(x) = 2\\sin x \\cos x = \\sin(2x)$. $g'(x) = -2\\cos x (-\\sin x) = 2\\sin x \\cos x = \\sin(2x)$. Keduanya identik. (BENAR)\n- Alasan: Berdasarkan identitas Pythagoras $\\sin^2 x + \\cos^2 x = 1 \\implies \\sin^2 x = -\\cos^2 x + 1$. Selisih $f(x) - g(x) = 1$ (konstanta). Dua fungsi yang berselisih konstanta memiliki turunan yang sama. (BENAR)\n- Hubungan Kausal: Alasan secara langsung membuktikan pernyataan.\nKesimpulan: Kunci A benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2133,7 +2133,7 @@
         "E. $-\\frac{9\\sqrt{3}}{2}$"
       ],
       "kunci": "E",
-      "bahas": "Langkah 1: $f'(x) = 6 \\cdot 3\\cos^2(2x) \\cdot (-\\sin(2x)) \\cdot 2 = -36\\cos^2(2x)\\sin(2x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{6}$ ($2x = \\frac{\\pi}{3} = 60^\\circ$):\n$$\\cos(60^\\circ) = \\frac{1}{2}, \\quad \\sin(60^\\circ) = \\frac{\\sqrt{3}}{2}$$\n$$f'(\\pi/6) = -36 \\left(\\frac{1}{2}\\right)^2 \\left(\\frac{\\sqrt{3}}{2}\\right) = -36 \\left(\\frac{1}{4}\\right) \\left(\\frac{\\sqrt{3}}{2}\\right) = -9 \\times \\frac{\\sqrt{3}}{2} = -\\frac{9\\sqrt{3}}{2}$$\nKesimpulan: Kunci E benar ($-\\frac{9\\sqrt{3}}{2}$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 3 (HOTS)"
     },
     {
@@ -2144,7 +2144,7 @@
       "tanya": "Diberikan $y = \\tan^2(x)$. Nilai dari $y'(\\frac{\\pi}{4})$ adalah ... (Ketik angka bulat)",
       "opsi": [],
       "kunci": "4",
-      "bahas": "Langkah 1: $y' = 2\\tan(x) \\cdot \\frac{d}{dx}[\\tan x] = 2\\tan(x)\\sec^2(x)$.\nLangkah 2: Pada $x = \\frac{\\pi}{4}$, $\\tan(\\pi/4) = 1$ dan $\\sec(\\pi/4) = \\sqrt{2} \\implies \\sec^2(\\pi/4) = 2$.\nLangkah 3: $y'(\\pi/4) = 2(1)(2) = 4$.\nKesimpulan: Nilai turunan adalah 4.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2161,7 +2161,7 @@
         "E. $f'(x) = \\frac{1}{2\\sqrt{\\cos(2x)}}$"
       ],
       "kunci": "C",
-      "bahas": "Langkah 1: Bentuk $f(x) = [\\sin(2x)]^{1/2}$.\nLangkah 2: $f'(x) = \\frac{1}{2}[\\sin(2x)]^{-1/2} \\cdot \\frac{d}{dx}[\\sin(2x)]$.\nLangkah 3: $f'(x) = \\frac{1}{2\\sqrt{\\sin(2x)}} \\cdot 2\\cos(2x) = \\frac{\\cos(2x)}{\\sqrt{\\sin(2x)}}$.\nKesimpulan: Kunci C benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2178,7 +2178,7 @@
         "E. Hanya saat $x = \\frac{\\pi}{2}$"
       ],
       "kunci": "A",
-      "bahas": "Langkah 1: Syarat stasioner: $f'(x) = 0$.\nLangkah 2: $f'(x) = 2\\sin x \\cos x = \\sin(2x) = 0$.\nLangkah 3: Pada interval $0 \\le x \\le \\pi$, $2x = 0, \\pi, 2\\pi \\implies x = 0, \\frac{\\pi}{2}, \\pi$.\nKesimpulan: Kunci A benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2195,7 +2195,7 @@
         "E. $y' = 3\\csc(3x)\\cot(3x)$"
       ],
       "kunci": "D",
-      "bahas": "Langkah 1: Turunan $\\sec(u)$ adalah $u' \\cdot \\sec(u)\\tan(u)$.\nLangkah 2: Di sini $u = 3x \\implies u' = 3$.\nLangkah 3: $y' = 3\\sec(3x)\\tan(3x)$.\nKesimpulan: Kunci D benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -2211,7 +2211,7 @@
         "Nilai $f'(\\frac{\\pi}{4}) = -\\frac{3\\sqrt{2}}{4}$."
       ],
       "kunci": "B - B - S - B",
-      "bahas": "Evaluasi:\n1. $f'(x) = 3\\cos^2 x (-\\sin x) = -3\\cos^2 x \\sin x$. (BENAR)\n2. $f'(0) = -3(1)^2(0) = 0$. (BENAR)\n3. $f'(\\pi/2) = -3(0)^2(1) = 0$, bukan 1. (SALAH)\n4. $f'(\\pi/4) = -3(1/\\sqrt{2})^2 (1/\\sqrt{2}) = -3(1/2)(1/\\sqrt{2}) = -\\frac{3\\sqrt{2}}{4}$. (BENAR)\nKesimpulan: Kunci B - B - S - B.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2222,7 +2222,7 @@
       "tanya": "Tentukan gradien garis singgung ($m$) kurva $y = 4\\sin^2(x)$ pada titik dengan absis $x = \\frac{\\pi}{4}$! (Ketik angka bulat)",
       "opsi": [],
       "kunci": "4",
-      "bahas": "Langkah 1: Gradien $m = y' = 4 \\cdot 2\\sin x \\cos x = 8\\sin x \\cos x = 4\\sin(2x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{4}$:\n$$m = 4\\sin\\left(2 \\cdot \\frac{\\pi}{4}\\right) = 4\\sin\\left(\\frac{\\pi}{2}\\right) = 4(1) = 4$$\nKesimpulan: Gradien garis singgung adalah 4.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2239,7 +2239,7 @@
         "E. $f'(x) = 2x\\cos(x) + x^2\\sin(x)$"
       ],
       "kunci": "B",
-      "bahas": "Langkah 1: Misalkan $u = x^2 \\implies u' = 2x$.\nLangkah 2: Misalkan $v = \\sin(x) \\implies v' = \\cos(x)$.\nLangkah 3: Aturan hasil kali $(uv)' = u'v + uv'$:\n$$f'(x) = 2x\\sin(x) + x^2\\cos(x)$$\nKesimpulan: Kunci B benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -2250,7 +2250,7 @@
       "tanya": "Diberikan fungsi $f(x) = x \\cos(x)$. Tentukan nilai dari $f'(\\pi)$! (Ketik angka bulat bertanda negatif jika minus)",
       "opsi": [],
       "kunci": "-1",
-      "bahas": "Langkah 1: $u = x \\implies u' = 1$, $v = \\cos x \\implies v' = -\\sin x$.\nLangkah 2: $f'(x) = 1 \\cdot \\cos x + x(-\\sin x) = \\cos x - x\\sin x$.\nLangkah 3: Evaluasi pada $x = \\pi$:\n$$f'(\\pi) = \\cos(\\pi) - \\pi\\sin(\\pi) = -1 - \\pi(0) = -1$$\nKesimpulan: Nilai $f'(\\pi)$ adalah -1.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -2267,7 +2267,7 @@
         "E. $y' = \\sec^2(x)$"
       ],
       "kunci": "E",
-      "bahas": "Langkah 1: $u = \\sin x \\implies u' = \\cos x$; $v = \\cos x \\implies v' = -\\sin x$.\nLangkah 2: Aturan bagi: $y' = \\frac{u'v - uv'}{v^2}$:\n$$y' = \\frac{(\\cos x)(\\cos x) - (\\sin x)(-\\sin x)}{\\cos^2 x} = \\frac{\\cos^2 x + \\sin^2 x}{\\cos^2 x} = \\frac{1}{\\cos^2 x} = \\sec^2(x)$$\nKesimpulan: Kunci E benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -2284,7 +2284,7 @@
         "E. $f'(x) = \\frac{2}{1 + \\cos x}$"
       ],
       "kunci": "C",
-      "bahas": "Langkah 1: $u = \\sin x \\implies u' = \\cos x$; $v = 1 + \\cos x \\implies v' = -\\sin x$.\nLangkah 2:\n$$f'(x) = \\frac{\\cos x(1 + \\cos x) - \\sin x(-\\sin x)}{(1 + \\cos x)^2} = \\frac{\\cos x + \\cos^2 x + \\sin^2 x}{(1 + \\cos x)^2} = \\frac{\\cos x + 1}{(1 + \\cos x)^2}$$\nLangkah 3: Sederhanakan faktor pembilang dan penyebut:\n$$f'(x) = \\frac{1 + \\cos x}{(1 + \\cos x)^2} = \\frac{1}{1 + \\cos x}$$\nKesimpulan: Kunci C benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2300,7 +2300,7 @@
         "Turunan dari $f(x) = \\frac{1}{\\cos x}$ adalah $f'(x) = -\\frac{\\sin x}{\\cos^2 x}$."
       ],
       "kunci": "B - B - B - S",
-      "bahas": "Analisis:\n1. Baris 1: $u'v + uv' = 1\\sin x + x\\cos x$. (BENAR)\n2. Baris 2: $\\frac{1\\sin x - x\\cos x}{\\sin^2 x}$. (BENAR)\n3. Baris 3: $f(x) = \\frac{1}{2}\\sin(2x) \\implies f'(x) = \\cos(2x)$. (BENAR)\n4. Baris 4: $f(x) = \\sec x \\implies f'(x) = +\\sec x \\tan x = \\frac{+\\sin x}{\\cos^2 x}$, bukan negatif. (SALAH)\nKesimpulan: Kunci B - B - B - S.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2311,7 +2311,7 @@
       "tanya": "Tentukan gradien garis singgung kurva $y = (2x - \\pi)\\sin(x)$ pada titik berabsis $x = \\frac{\\pi}{2}$! (Ketik angka bulat)",
       "opsi": [],
       "kunci": "2",
-      "bahas": "Langkah 1: $u = 2x - \\pi \\implies u' = 2$; $v = \\sin x \\implies v' = \\cos x$.\nLangkah 2: $y' = 2\\sin x + (2x - \\pi)\\cos x$.\nLangkah 3: Evaluasi pada $x = \\frac{\\pi}{2}$:\n$$y'(\\pi/2) = 2\\sin(\\pi/2) + \\left(2 \\cdot \\frac{\\pi}{2} - \\pi\\right)\\cos(\\pi/2) = 2(1) + (0)(0) = 2$$\nKesimpulan: Gradien garis singgung adalah 2.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2328,7 +2328,7 @@
         "E. Pernyataan dan alasan keduanya salah."
       ],
       "kunci": "B",
-      "bahas": "Analisis:\n- Pernyataan: Benar, berdasarkan aturan rantai $f'(x) = \\cos(2x) \\cdot 2 = 2\\cos(2x)$.\n- Alasan: Benar, $g'(x) = -\\sin(x) = 0 \\implies x = 0, \\pi$ adalah titik stasioner kurva cosinus.\n- Hubungan Kausal: Nilai stasioner fungsi cosinus tidak memiliki korelasi kausal terhadap proses diferensiasi rantai fungsi $\\sin(2x)$.\nKesimpulan: Pernyataan benar, alasan benar, tetapi TIDAK menunjukkan hubungan sebab akibat (Kunci B).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 3 (HOTS)"
     },
     {
@@ -2345,7 +2345,7 @@
         "E. $-6$"
       ],
       "kunci": "A",
-      "bahas": "Langkah 1: $f'(x) = 3x^2\\cos(2x) - 2x^3\\sin(2x)$.\nLangkah 2: $f''(x) = 6x\\cos(2x) - 6x^2\\sin(2x) - 6x^2\\sin(2x) - 4x^3\\cos(2x) = 6x\\cos(2x) - 12x^2\\sin(2x) - 4x^3\\cos(2x)$.\nLangkah 3: Evaluasi pada $x = 0$:\nSemua suku memuat faktor $x, x^2, x^3$, sehingga $f''(0) = 0$.\nKesimpulan: Kunci A benar ($0$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2362,7 +2362,7 @@
         "E. Nilai $f'(x)$ selalu bernilai positif untuk setiap $x > 0$."
       ],
       "kunci": "A, B, C, D",
-      "bahas": "Evaluasi:\n- Opsi A: $u'v - uv' = (-\\sin x)(x) - (\\cos x)(1) = -x\\sin x - \\cos x$. Penyebut $x^2$. (BENAR)\n- Opsi B: $f'(\\pi) = \\frac{-\\pi(0) - (-1)}{\\pi^2} = \\frac{1}{\\pi^2}$. (BENAR)\n- Opsi C: $f'(\\pi/2) = \\frac{-(\\pi/2)(1) - 0}{(\\pi/2)^2} = \\frac{-\\pi/2}{\\pi^2/4} = -\\frac{2}{\\pi}$. (BENAR)\n- Opsi D: Tentu menggunakan aturan hasil bagi. (BENAR)\n- Opsi E: Salah, nilai bisa negatif seperti pada opsi C.\nKesimpulan: Pernyataan A, B, C, dan D bernilai BENAR.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2379,7 +2379,7 @@
         "E. $f'(x) = \\tan^3(x)$"
       ],
       "kunci": "D",
-      "bahas": "Langkah 1: $u = \\sec x \\implies u' = \\sec x \\tan x$.\nLangkah 2: $v = \\tan x \\implies v' = \\sec^2 x$.\nLangkah 3:\n$$f'(x) = u'v + uv' = (\\sec x \\tan x)(\\tan x) + (\\sec x)(\\sec^2 x) = \\sec x (\\tan^2 x + \\sec^2 x)$$\nKesimpulan: Kunci D benar.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     },
     {
@@ -2390,7 +2390,7 @@
       "tanya": "Jika $f(x) = \\frac{1 + \\sin x}{\\cos x}$, tentukan nilai dari $f'(0)$! (Ketik angka bulat)",
       "opsi": [],
       "kunci": "1",
-      "bahas": "Langkah 1: $f(x) = \\sec x + \\tan x$.\nLangkah 2: $f'(x) = \\sec x \\tan x + \\sec^2 x$.\nLangkah 3: Evaluasi pada $x = 0$:\n$$f'(0) = \\sec(0)\\tan(0) + \\sec^2(0) = (1)(0) + (1)^2 = 1$$\nKesimpulan: Nilai $f'(0) = 1$.",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 1 (Mudah)"
     },
     {
@@ -2407,7 +2407,7 @@
         "E. $30^\\circ$"
       ],
       "kunci": "B",
-      "bahas": "Langkah 1: $L'(\\theta) = 50\\cos(\\theta)$.\nLangkah 2: Syarat luas maksimum: $L'(\\theta) = 0 \\implies 50\\cos(\\theta) = 0$.\nLangkah 3: $\\cos(\\theta) = 0 \\implies \\theta = 90^\\circ$ (segitiga siku-siku sama kaki).\nKesimpulan: Kunci B benar ($90^\\circ$).",
+      "bahas": "🔒 Pembahasan langkah demi langkah dan kunci resmi butir soal Pekan W42 (Wajib P17-P18 & Minat P18-P19) dikunci sementara hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
       "level": "Level 2 (Sedang)"
     }
   ]

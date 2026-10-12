@@ -987,6 +987,7 @@
       tkaPkgId = targetPkgId;
       tkaQIdx = (qIndex !== undefined) ? qIndex : 0;
       currentMode = 'tka';
+      if (typeof enforceW42ExamLockdown === 'function') enforceW42ExamLockdown();
       closeCurriculumDrawer();
       renderAppView();
     }
@@ -2147,6 +2148,7 @@
         checkSessionOnLoad();
         enforceAccessControl();
         showGuruButtonIfNeeded();
+        if (typeof enforceW42ExamLockdown === 'function') enforceW42ExamLockdown();
     });
     
     // Hanya kelas yang ada di mathcihuy.css hasil kompilasi yang boleh dipakai.
@@ -5213,23 +5215,76 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     // =========================================================================
     window._cbtLoadedSolutions = window._cbtLoadedSolutions || {};
 
+    function isW42LockdownActive(subj, pkgId) {
+      const cleanSubj = String(subj || '').trim().toLowerCase();
+      const cleanPkg = String(pkgId || '').trim().toUpperCase();
+      const now = new Date();
+      const lockdownEnd = new Date('2026-10-18T16:59:59.000Z');
+      if (now > lockdownEnd) return false;
+
+      try {
+        const sess = getSession();
+        if (sess && (sess.type === 'guru' || sess.role === 'guru')) return false;
+      } catch(e) {}
+
+      if (cleanSubj === 'wajib' && ['P17', 'P18'].includes(cleanPkg)) return true;
+      if (cleanSubj === 'minat' && ['P18', 'P19'].includes(cleanPkg)) return true;
+      return false;
+    }
+
+    function enforceW42ExamLockdown() {
+      try {
+        const sess = getSession();
+        if (sess && (sess.type === 'guru' || sess.role === 'guru')) return;
+      } catch(e) {}
+      const now = new Date();
+      const lockdownEnd = new Date('2026-10-18T16:59:59.000Z');
+      if (now > lockdownEnd) return;
+
+      const lockNotice = "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.";
+
+      ['wajib', 'minat'].forEach(subj => {
+        const pkgs = subj === 'wajib' ? ['P17', 'P18'] : ['P18', 'P19'];
+        pkgs.forEach(pid => {
+          const srcDb = tkaSrc(subj);
+          const pkg = srcDb && srcDb[pid];
+          if (pkg && Array.isArray(pkg.questions)) {
+            pkg.questions.forEach(q => {
+              q.kunci = null;
+              q.is_locked = true;
+              q.hint = null;
+              q.bahas = lockNotice;
+            });
+          }
+        });
+      });
+    }
+
     function terapkanPembahasanPaket(subj, pkgId, solutions) {
       if (!solutions || !Array.isArray(solutions)) return;
       const srcDb = tkaSrc(subj);
       const pkg = srcDb && srcDb[pkgId];
       if (!pkg || !pkg.questions) return;
+      const isLockW42 = isW42LockdownActive(subj, pkgId);
       solutions.forEach(sol => {
         const idx = (sol.no !== undefined ? sol.no - 1 : -1);
         const q = (idx >= 0 && pkg.questions[idx]) ? pkg.questions[idx] : pkg.questions.find(item => item.no === sol.no);
         if (q) {
-          if (sol.kunci !== undefined && sol.kunci !== null) {
-            q.kunci = sol.kunci;
-          } else if (sol.is_locked) {
+          if (isLockW42) {
             q.kunci = null;
+            q.is_locked = true;
+            q.hint = null;
+            q.bahas = "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.";
+          } else {
+            if (sol.kunci !== undefined && sol.kunci !== null) {
+              q.kunci = sol.kunci;
+            } else if (sol.is_locked) {
+              q.kunci = null;
+            }
+            if (sol.bahas) q.bahas = sol.bahas;
+            if (sol.hint) q.hint = sol.hint;
+            if (sol.is_locked !== undefined) q.is_locked = sol.is_locked;
           }
-          if (sol.bahas) q.bahas = sol.bahas;
-          if (sol.hint) q.hint = sol.hint;
-          if (sol.is_locked !== undefined) q.is_locked = sol.is_locked;
           if (sol.tipe && !q.tipe) q.tipe = sol.tipe;
         }
       });
@@ -5240,6 +5295,16 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const srcDb = tkaSrc(subj);
       const pkg = srcDb && srcDb[pkgId];
       if (!pkg || !pkg.questions) return;
+
+      if (isW42LockdownActive(subj, pkgId)) {
+        pkg.questions.forEach(q => {
+          q.kunci = null;
+          q.is_locked = true;
+          q.hint = null;
+          q.bahas = "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.";
+        });
+        return;
+      }
 
       const sudahAdaKunci = pkg.questions.some(q => q.kunci && String(q.kunci).trim() !== '');
       if (sudahAdaKunci) return;
@@ -5800,7 +5865,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     async function autoHealPackageKeys(subj, pkgId) {
       try {
-        const sourceDb = tkaSrc();
+        if (typeof isW42LockdownActive === 'function' && isW42LockdownActive(subj, pkgId)) return;
+        const sourceDb = tkaSrc(subj);
         const pkg = sourceDb[pkgId];
         if (!pkg || !pkg.questions || pkg.questions.length === 0) return;
         const hasMissingKey = pkg.questions.some(q => !q.kunci || q.kunci.trim() === '');
@@ -5927,6 +5993,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     }
 
     function renderTkaQuestion() {
+      if (typeof enforceW42ExamLockdown === 'function') enforceW42ExamLockdown();
       autoHealPackageKeys(tkaSubj, tkaPkgId);
       pulihkanDraftJawaban(tkaSubj, tkaPkgId);
       if (!window._cloudRestoreAttempted || !window._cloudRestoreAttempted[`${tkaSubj}_${tkaPkgId}`]) {
@@ -5934,7 +6001,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         window._cloudRestoreAttempted[`${tkaSubj}_${tkaPkgId}`] = true;
         pulihkanDraftDariCloud(tkaSubj, tkaPkgId);
       }
-      const sourceDb = tkaSrc();
+      const sourceDb = tkaSrc(tkaSubj);
       const pkg = sourceDb[tkaPkgId];
       if (!pkg || !pkg.questions || pkg.questions.length === 0) {
         document.getElementById('tka-body').innerHTML = '<div class="p-8 text-center text-slate-400">Paket soal sedang dipersiapkan.</div>';
@@ -6106,29 +6173,43 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               let statusBadge = "";
 
               if (isReviewMode) {
-                if (isRowCorrect) {
-                  statusBadge = `<span class="px-2.5 py-1 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-circle-check text-emerald-400"></i> ${tkaSubj === 'clil' ? 'Correct!' : 'Jawaban Anda Tepat!'}</span>`;
-                } else if (normUser) {
-                  statusBadge = `<span class="px-2.5 py-1 rounded-xl bg-rose-950/80 border border-rose-500/50 text-rose-300 text-[11px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-circle-xmark text-rose-400"></i> ${tkaSubj === 'clil' ? 'Incorrect' : 'Kurang Tepat'}</span>`;
-                }
-
-                if (normKey === 'B') {
-                  bClass = 'border-2 border-emerald-400 bg-emerald-600 text-white font-black shadow-lg';
-                  bLabel = `<i class="fa-solid fa-circle-check text-white mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE (KEY)' : 'BENAR (KUNCI)'}`;
-                  if (normUser === 'S') {
-                    sClass = 'border-2 border-rose-500 bg-rose-950/90 text-rose-200 font-bold';
-                    sLabel = `<i class="fa-solid fa-xmark text-rose-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE (YOUR CHOICE)' : 'SALAH (PILIHAN ANDA)'}`;
-                  } else {
-                    sClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
-                  }
-                } else {
-                  sClass = 'border-2 border-emerald-400 bg-emerald-600 text-white font-black shadow-lg';
-                  sLabel = `<i class="fa-solid fa-circle-check text-white mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE (KEY)' : 'SALAH (KUNCI)'}`;
+                if (q.is_locked) {
+                  // MASA PENGUNCIAN UJIAN (W42): Rahasiakan Kunci Resmi
                   if (normUser === 'B') {
-                    bClass = 'border-2 border-rose-500 bg-rose-950/90 text-rose-200 font-bold';
-                    bLabel = `<i class="fa-solid fa-xmark text-rose-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE (YOUR CHOICE)' : 'BENAR (PILIHAN ANDA)'}`;
-                  } else {
+                    bClass = 'border-2 border-blue-400 bg-blue-600 text-white font-bold shadow';
+                    bLabel = `<i class="fa-solid fa-check text-white mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE (YOUR CHOICE)' : 'BENAR (PILIHAN ANDA)'}`;
+                    sClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+                  } else if (normUser === 'S') {
+                    sClass = 'border-2 border-blue-400 bg-blue-600 text-white font-bold shadow';
+                    sLabel = `<i class="fa-solid fa-check text-white mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE (YOUR CHOICE)' : 'SALAH (PILIHAN ANDA)'}`;
                     bClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+                  }
+                  statusBadge = `<span class="px-2.5 py-1 rounded-xl bg-blue-950/80 border border-blue-500/50 text-blue-300 text-[11px] font-bold"><i class="fa-solid fa-shield text-blue-400 mr-1"></i>Jawaban Tersimpan</span>`;
+                } else {
+                  if (isRowCorrect) {
+                    statusBadge = `<span class="px-2.5 py-1 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-circle-check text-emerald-400"></i> ${tkaSubj === 'clil' ? 'Correct!' : 'Jawaban Anda Tepat!'}</span>`;
+                  } else if (normUser) {
+                    statusBadge = `<span class="px-2.5 py-1 rounded-xl bg-rose-950/80 border border-rose-500/50 text-rose-300 text-[11px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-circle-xmark text-rose-400"></i> ${tkaSubj === 'clil' ? 'Incorrect' : 'Kurang Tepat'}</span>`;
+                  }
+
+                  if (normKey === 'B') {
+                    bClass = 'border-2 border-emerald-400 bg-emerald-600 text-white font-black shadow-lg';
+                    bLabel = `<i class="fa-solid fa-circle-check text-white mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE (KEY)' : 'BENAR (KUNCI)'}`;
+                    if (normUser === 'S') {
+                      sClass = 'border-2 border-rose-500 bg-rose-950/90 text-rose-200 font-bold';
+                      sLabel = `<i class="fa-solid fa-xmark text-rose-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE (YOUR CHOICE)' : 'SALAH (PILIHAN ANDA)'}`;
+                    } else {
+                      sClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+                    }
+                  } else {
+                    sClass = 'border-2 border-emerald-400 bg-emerald-600 text-white font-black shadow-lg';
+                    sLabel = `<i class="fa-solid fa-circle-check text-white mr-1.5"></i> ${tkaSubj === 'clil' ? 'FALSE (KEY)' : 'SALAH (KUNCI)'}`;
+                    if (normUser === 'B') {
+                      bClass = 'border-2 border-rose-500 bg-rose-950/90 text-rose-200 font-bold';
+                      bLabel = `<i class="fa-solid fa-xmark text-rose-400 mr-1.5"></i> ${tkaSubj === 'clil' ? 'TRUE (YOUR CHOICE)' : 'BENAR (PILIHAN ANDA)'}`;
+                    } else {
+                      bClass = 'border-slate-700 bg-slate-900 text-slate-400 opacity-60';
+                    }
                   }
                 }
               } else if (userChoice === 'B') {
@@ -6187,10 +6268,18 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 let markBadge = "";
                 
                 if (isReviewMode) {
-                  if (isCorrectLetter) {
-                    btnStyle = "bg-emerald-950/90 border-2 border-emerald-400 text-white font-semibold";
-                    chkStyle = "bg-emerald-600 border-emerald-400 text-white font-black";
-                    markBadge = `<span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black"><i class="fa-solid fa-check mr-1"></i>${tkaSubj === 'clil' ? 'TRUE' : 'BENAR'}</span>`;
+                  if (q.is_locked) {
+                    if (isPicked) {
+                      btnStyle = "bg-blue-900/60 border-2 border-blue-400 text-white shadow-lg shadow-blue-900/40";
+                      chkStyle = "bg-blue-600 border border-blue-400 text-white font-bold";
+                      markBadge = `<span class="px-2.5 py-0.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold flex items-center gap-1.5 shadow"><i class="fa-solid fa-square-check text-amber-300"></i> ${tkaSubj === 'clil' ? 'Selected' : 'Terpilih'}</span>`;
+                    }
+                  } else {
+                    if (isCorrectLetter) {
+                      btnStyle = "bg-emerald-950/90 border-2 border-emerald-400 text-white font-semibold";
+                      chkStyle = "bg-emerald-600 border-emerald-400 text-white font-black";
+                      markBadge = `<span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black"><i class="fa-solid fa-check mr-1"></i>${tkaSubj === 'clil' ? 'TRUE' : 'BENAR'}</span>`;
+                    }
                   }
                 } else if (isPicked) {
                   btnStyle = "bg-blue-900/60 border-2 border-blue-400 text-white shadow-lg shadow-blue-900/40";
@@ -6221,9 +6310,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         optionsHtml = `
           <div class="p-6 bg-slate-800/90 border border-slate-700 rounded-2xl space-y-3 text-center max-w-md mx-auto shadow-xl">
             <span class="text-xs font-bold text-amber-300 uppercase block">${tkaSubj === 'clil' ? 'Numeric Entry:' : 'Isian Singkat Numerik:'}</span>
-            <input type="text" id="numeric-input" oninput="saveNumericDraft(this.value)" value="${isReviewMode ? String(q.kunci) : (userChosen || '')}" ${isReviewMode ? 'readonly' : ''} class="w-full ${isReviewMode ? 'bg-emerald-950 border-2 border-emerald-400 text-white' : 'bg-slate-950 border-slate-700 text-white'} border rounded-2xl py-3 px-4 text-center text-lg font-mono font-bold focus:outline-none focus:border-amber-400 shadow-inner">
+            <input type="text" id="numeric-input" oninput="saveNumericDraft(this.value)" value="${isReviewMode ? (q.is_locked ? (userChosen || '') : String(q.kunci)) : (userChosen || '')}" ${isReviewMode ? 'readonly' : ''} class="w-full ${isReviewMode ? (q.is_locked ? 'bg-blue-950/80 border-2 border-blue-400 text-white' : 'bg-emerald-950 border-2 border-emerald-400 text-white') : 'bg-slate-950 border-slate-700 text-white'} border rounded-2xl py-3 px-4 text-center text-lg font-mono font-bold focus:outline-none focus:border-amber-400 shadow-inner">
             ${isReviewMode ? `
-              <p class="text-xs text-emerald-300 font-bold">${tkaSubj === 'clil' ? 'Exact Answer Key:' : 'Kunci Jawaban Tepat:'} <span class="font-mono text-white text-sm">${q.kunci}</span></p>
+              ${q.is_locked || !q.kunci ? `
+                <p class="text-xs text-amber-300 font-bold"><i class="fa-solid fa-lock text-amber-400 mr-1"></i> ${tkaSubj === 'clil' ? 'Key Answer Locked (W42 Exam Period)' : 'Kunci Jawaban Dirahasiakan (Pekan Uji W42)'}</p>
+              ` : `
+                <p class="text-xs text-emerald-300 font-bold">${tkaSubj === 'clil' ? 'Exact Answer Key:' : 'Kunci Jawaban Tepat:'} <span class="font-mono text-white text-sm">${q.kunci}</span></p>
+              `}
             ` : `
               <p class="text-[11px] text-slate-400 leading-relaxed">${tkaSubj === 'clil' ? 'Decimals or fractions allowed (e.g. 0.75 or 3/4).' : 'Boleh desimal maupun pecahan (contoh: <span class="font-mono text-slate-300">0.75</span> atau <span class="font-mono text-slate-300">3/4</span>).'}</p>
               <button id="numeric-submit" onclick="submitNumericAnswer(event)" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs md:text-sm shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
@@ -6250,14 +6343,17 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               let badgeHtml = "";
 
               if (isReviewMode) {
-                if (letter === correctLetter) {
+                if (!q.is_locked && letter === correctLetter) {
                   btnClass = "p-3.5 md:p-4 bg-emerald-950/90 border-2 border-emerald-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-emerald-950/50";
                   if (userChosen === correctLetter) {
                     badgeHtml = `<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> ${tkaSubj === 'clil' ? 'YOUR ANSWER IS CORRECT (+10)' : 'JAWABAN ANDA TEPAT (+10)'}</span>`;
                   } else {
                     badgeHtml = `<span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-check"></i> ${tkaSubj === 'clil' ? 'CORRECT ANSWER KEY' : 'KUNCI JAWABAN BENAR'}</span>`;
                   }
-                } else if (userChosen === letter) {
+                } else if (q.is_locked && userChosen === letter) {
+                  btnClass = "p-3.5 md:p-4 bg-blue-900/60 border-2 border-blue-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-blue-900/40";
+                  badgeHtml = `<span class="px-2.5 py-1 rounded-lg bg-blue-600 text-white text-[10px] font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check text-amber-300"></i> ${tkaSubj === 'clil' ? 'YOUR ANSWER' : 'JAWABAN ANDA'}</span>`;
+                } else if (!q.is_locked && userChosen === letter) {
                   btnClass = "p-3.5 md:p-4 bg-rose-950/90 border-2 border-rose-400 rounded-2xl text-left text-sm text-white flex items-start gap-3 shadow-lg shadow-rose-950/50";
                   badgeHtml = `<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-xmark"></i> ${tkaSubj === 'clil' ? 'YOUR ANSWER' : 'JAWABAN ANDA'}</span>`;
                 } else {
@@ -6270,7 +6366,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
               return `
                 <button id="opt-btn-${letter}" data-letter="${letter}" onclick="${isReviewMode ? '' : `selectAnswer('${letter}', event)`}" class="opt-btn${span} ${btnClass}">
-                  <span class="w-6 h-6 rounded-lg ${isReviewMode && letter === correctLetter ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 border border-slate-700 text-amber-400 font-black'} flex items-center justify-center shrink-0 text-xs">
+                  <span class="w-6 h-6 rounded-lg ${isReviewMode && !q.is_locked && letter === correctLetter ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 border border-slate-700 text-amber-400 font-black'} flex items-center justify-center shrink-0 text-xs">
                     ${letter}
                   </span>
                   <span class="flex-1 pt-0.5 text-slate-100 font-medium leading-relaxed">${cleanText}</span>

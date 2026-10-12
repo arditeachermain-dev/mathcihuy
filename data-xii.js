@@ -7419,8 +7419,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 68,25",
             "E. 66,50"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Perhitungan Formal Interpolasi Median:\n- Letak Median: $\\frac{1}{2} n = \\frac{1}{2}(40) = 20$.\n- Frekuensi kumulatif sebelum kelas median ($40-59$): $F_k = 4 + 6 = 10$.\n- Kelas median berada pada interval $60 - 69$ ($Tb = 59{,}5, f_m = 12, c = 10$).\n$$Me = Tb + \\left(\\frac{\\frac{n}{2} - F_k}{f_m}\\right) \\times c = 59{,}5 + \\left(\\frac{20 - 10}{12}\\right) \\times 10 = 59{,}5 + \\frac{100}{12} = 59{,}5 + 8{,}33 = 67{,}83$$\n\nLangkah 2: TRIK ESTIMASI & ELIMINASI CEPAT SNBT (Tanpa Bagi Kurung Manual!):\nPerhatikan pecahan selisih: $\\frac{20 - 10}{12} = \\frac{10}{12} = \\frac{5}{6} \\approx 0{,}83$.\nKarena panjang kelas $c = 10$, pertambahan nilai dari tepi bawah adalah $0{,}83 \\times 10 = 8{,}33$.\nTitik tengah kelas $60-69$ adalah $64{,}5$. Karena posisi median berada di $\\frac{5}{6}$ (bagian atas) kelas, nilainya pasti mendekati $68$.\nOpsi A ($67{,}83$) langsung terpilih dalam 10 detik; opsi B ($65{,}75$), C ($69{,}00$), D ($68{,}25$), dan E ($66{,}50$) tereliminasi seketika.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nTotal frekuensi $n = 40$. Nilai median ($Me$) data tersebut adalah ..."
@@ -7439,8 +7440,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 67,00",
             "E. 68,00"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan kelas Modus (frekuensi tertinggi $f = 12$ pada kelas 60 - 69):\n- $Tb = 59{,}5$\n- $d_1 = 12 - 6 = 6$\n- $d_2 = 12 - 10 = 2$\n- $p = 10$\n\nLangkah 2: Menghitung Modus ($Mo$):\n$$Mo = 59{,}5 + \\left(\\frac{6}{6 + 2}\\right) \\times 10 = 59{,}5 + 7{,}5 = 67{,}00$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "histogram",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nNilai modus ($Mo$) data tersebut adalah ..."
@@ -7459,8 +7461,9 @@ const NAMA_TINGKAT = 'XII';
             "D. Tiga bagian",
             "E. Sepuluh bagian sama besar"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Definisi median membagi data terurut menjadi 2 bagian sama besar (50% dan 50%).\nKesimpulan: Kunci Jawaban A."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 4,
@@ -7475,8 +7478,9 @@ const NAMA_TINGKAT = 'XII';
             "D. Kuartil atas",
             "E. Nilai data dengan frekuensi kemunculan tertinggi"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Modus adalah nilai data yang memiliki frekuensi kemunculan tertinggi.\nKesimpulan: Kunci Jawaban E."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 5,
@@ -7489,8 +7493,9 @@ const NAMA_TINGKAT = 'XII';
             "Letak median berada pada frekuensi kumulatif ke- 1/2 n",
             "Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus"
           ],
-          "kunci": "B - B - S",
-          "bahas": "Langkah 1: Analisis:\n(1) Rumus modus berkelompok $\\implies$ BENAR.\n(2) Letak median pada $\\frac{1}{2}n$ $\\implies$ BENAR.\n(3) Modus tidak selalu tepat sama dengan titik tengah kelas modus $\\implies$ SALAH.\nKesimpulan: Kunci Jawaban B - B - S.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran median dan modus data berkelompok:\n(1) Rumus modus data berkelompok adalah Mo = Tb + [d1 / (d1 + d2)] x p.\n(2) Letak median berada pada frekuensi kumulatif ke- 1/2 n.\n(3) Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus."
@@ -7509,8 +7514,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 7,5",
             "E. 8,5"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Menentukan median dari data tunggal: 3, 5, 7, 8, 9, 11, 12 ($n = 7$):\n$$Me = x_4 = 8$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Berapakah median dari data tunggal: 3, 5, 7, 8, 9, 11, 12?"
@@ -7529,8 +7535,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 6 dan 8",
             "E. 8"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menentukan modus dari data: 4, 6, 6, 7, 8, 8, 8, 9:\nNilai 8 muncul 3 kali (frekuensi terbanyak) $\\implies Mo = 8$.\nKesimpulan: Kunci Jawaban E."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 8,
@@ -7545,8 +7552,9 @@ const NAMA_TINGKAT = 'XII';
             "D. Nilai d2 (selisih frekuensi dengan kelas sesudahnya) adalah 6.",
             "E. Nilai modus data berkelompok adalah 74,5."
           ],
-          "kunci": "A, C, D, E",
-          "bahas": "Langkah 1: Evaluasi parameter modus:\n- $d_1 = 12 - 8 = 4$ (Opsi C BENAR).\n- $d_2 = 12 - 6 = 6$ (Opsi D BENAR).\n- $d_1 + d_2 = 4 + 6 = 10$ (Opsi A BENAR).\n- $Mo = 70{,}5 + \\left(\\frac{4}{10}\\right) \\times 10 = 74{,}5$ (Opsi E BENAR).\n- Opsi B SALAH (tertulis 78,5).\nKesimpulan: Kunci Jawaban A, C, D, E."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 9,
@@ -7561,8 +7569,9 @@ const NAMA_TINGKAT = 'XII';
             "D. Modus > Median > Mean",
             "E. Median > Mean > Modus"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Konsep Karakteristik Kemiringan Kurva (Skewness Pearson):\n- Kurva Condong ke Kanan (Positively Skewed / Ekor Memanjang ke Kanan):\n  Terdapat beberapa nilai pencilan ekstrem tinggi yang menarik nilai rata-rata ke kanan, sehingga berlaku:\n  $$\\mathbf{\\text{Mean} > \\text{Median} > \\text{Modus}}$$\n  *(Contoh nyata: Distribusi pendapatan penduduk di mana segelintir konglomerat berpendapatan sangat tinggi menarik rata-rata ke atas)*.\n- Kurva Simetris (Kurva Normal): $\\text{Mean} = \\text{Median} = \\text{Modus}$.\n- Kurva Condong ke Kiri (Negatively Skewed): $\\text{Modus} > \\text{Median} > \\text{Mean}$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "lonceng",
             "src": "Pada kurva distribusi yang condong ke kanan (positively skewed), hubungan ukuran pemusatan yang berlaku adalah ..."
@@ -7575,8 +7584,9 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P17-Q10] Median dari kumpulan data terurut: 10, 20, 30, 40, 50, 60 adalah ...",
           "opsi": [],
-          "kunci": "35",
-          "bahas": "Langkah 1: Menghitung median data genap 10, 20, 30, 40, 50, 60:\n$$Me = \\frac{30 + 40}{2} = 35$$\nKesimpulan: Kunci Jawaban 35."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         }
       ]
     },
@@ -7598,8 +7608,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 56,00",
             "E. 57,25"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan letak $Q_1$ ($n = 50 \\implies \\frac{1}{4}(50) = 12{,}5$):\nKelas $Q_1$ berada pada 50 - 59 ($Tb = 49{,}5, F_k = 6, f_{q1} = 10, p = 10$).\n\nLangkah 2: Menghitung $Q_1$:\n$$Q_1 = 49{,}5 + \\left(\\frac{12{,}5 - 6}{10}\\right) \\times 10 = 49{,}5 + 6{,}5 = 56{,}00$$\nKesimpulan: Kunci Jawaban D.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Bawah ($Q_1$) data tersebut adalah ..."
@@ -7618,8 +7629,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 75,50",
             "E. 77,25"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menentukan letak $Q_3$ ($n = 50 \\implies \\frac{3}{4}(50) = 37{,}5$):\nKelas $Q_3$ berada pada 70 - 79 ($Tb = 69{,}5, F_k = 30, f_{q3} = 12, p = 10$).\n\nLangkah 2: Menghitung $Q_3$:\n$$Q_3 = 69{,}5 + \\left(\\frac{37{,}5 - 30}{12}\\right) \\times 10 = 69{,}5 + 6{,}25 = 75{,}75$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Atas ($Q_3$) data tersebut adalah ..."
@@ -7638,8 +7650,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 10,29",
             "E. 15,25"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Menghitung Jangkauan Interkuartil ($QR$):\n$$QR = Q_3 - Q_1 = 76{,}58 - 56{,}00 = 20{,}58$$\nKesimpulan: Kunci Jawaban B.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Jika $Q_1 = 56{,}00$ dan $Q_3 = 76{,}58$, maka nilai Jangkauan Interkuartil ($QR$) adalah ..."
@@ -7658,8 +7671,9 @@ const NAMA_TINGKAT = 'XII';
             "D. Q3 + Q1",
             "E. (Q3 - Q1) / n"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Rumus simpangan kuartil:\n$$Q_d = \\frac{1}{2}(Q_3 - Q_1)$$\nKesimpulan: Kunci Jawaban C.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Simpangan kuartil ($Q_d$) dirumuskan sebagai ..."
@@ -7676,8 +7690,9 @@ const NAMA_TINGKAT = 'XII';
             "Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1",
             "Kuartil kedua (Q2) bernilai sama dengan Median (Me)"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nRumus simpangan kuartil yang benar adalah $Q_d = \\frac{1}{2}(Q_3 - Q_1)$, bukan $Q_d = Q_3 + Q_1$.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nJangkauan interkuartil $QR = Q_3 - Q_1$ adalah benar.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\nKuartil kedua $Q_2$ memang bernilai sama dengan median $Me$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Tentukan kebenaran ukuran letak data:\n(1) Simpangan Kuartil dirumuskan sebagai Qd = Q3 + Q1.\n(2) Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1.\n(3) Kuartil kedua (Q2) bernilai sama dengan Median (Me)."
@@ -7696,8 +7711,9 @@ const NAMA_TINGKAT = 'XII';
             "D. Q1 - 1,5 * QR",
             "E. Q1 - QR"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Menentukan Batas Pencilan Bawah (Pagar Dalam Bawah):\nBerdasarkan aturan Tukey pada Diagram Kotak-Garis (Boxplot):\n$$PD_{\\text{bawah}} = Q_1 - 1{,}5 \\times QR \\quad (\\text{dengan } QR = Q_3 - Q_1)$$\n\nLangkah 2: Makna Geometris pada Diagram Kotak-Garis (Box-and-Whisker Plot):\n- Sayap (whisker) bawah menjulur maksimal sejauh $Q_1 - 1{,}5(QR)$.\n- Setiap amatan data yang nilainya jatuh lebih rendah dari batas pagar ini otomatis diklasifikasikan sebagai **pencilan bawah (outlier)**.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Batas pencilan bawah (Pagar Dalam Bawah) pada diagram kotak garis dirumuskan sebagai ..."
@@ -7716,8 +7732,9 @@ const NAMA_TINGKAT = 'XII';
             "D. Rata-rata Hitung",
             "E. Kuartil Atas (Q3)"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Desil ke-5 membagi data menjadi 50% $\\implies$ bernilai sama dengan Median ($Q_2$).\nKesimpulan: Kunci Jawaban A."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 8,
@@ -7732,8 +7749,9 @@ const NAMA_TINGKAT = 'XII';
             "D. Jangkauan interkuartil (QR) bernilai 30.",
             "E. Simpangan kuartil (Qd) bernilai 15."
           ],
-          "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Evaluasi Parameter Ukuran Letak Data ($Q_1 = 40$ dan $Q_3 = 70$):\n- Jangkauan Interkuartil ($QR$): $QR = Q_3 - Q_1 = 70 - 40 = 30$ (Opsi D BENAR).\n- Simpangan Kuartil ($Q_d$): $Q_d = \\frac{1}{2} QR = \\frac{1}{2}(30) = 15$ (Opsi E BENAR).\n- Pagar Dalam Bawah ($PB$): $PB = Q_1 - 1{,}5(QR) = 40 - 1{,}5(30) = 40 - 45 = -5$ (Opsi A BENAR).\n- Pagar Dalam Atas ($PA$): $PA = Q_3 + 1{,}5(QR) = 70 + 1{,}5(30) = 70 + 45 = 115$ (Opsi B BENAR).\n- Uji Data Pencilan: Nilai amatan $120 > 115$ terletak di luar batas Pagar Atas, sehingga valid sebagai data pencilan (outlier) (Opsi C BENAR).\n\nTrik Visual Boxplot: Pada diagram kotak-garis, kotak utama memiliki lebar 30 satuan (rentang 40 sampai 70) dan data 120 ditandai dengan tanda bintang (*) terpisah di luar garis sayap.\nKesimpulan: Kunci Jawaban A, B, C, D, E."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 9,
@@ -7748,8 +7766,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 5",
             "E. 4"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Menentukan $Q_1$ dari data 2, 4, 6, 8, 10, 12, 14:\n$$Q_1 = x_2 = 4$$\nKesimpulan: Kunci Jawaban E.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Dari data tunggal: 2, 4, 6, 8, 10, 12, 14, nilai Kuartil Bawah ($Q_1$) adalah ..."
@@ -7762,8 +7781,9 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P18-Q10] Jika $Q_1 = 30$ dan $Q_3 = 50$, maka nilai simpangan kuartil ($Q_d$) adalah ...",
           "opsi": [],
-          "kunci": "10",
-          "bahas": "Langkah 1: Menghitung simpangan kuartil jika $Q_1 = 30$ dan $Q_3 = 50$:\n$$Q_d = \\frac{1}{2}(50 - 30) = \\frac{1}{2}(20) = 10$$\nKesimpulan: Kunci Jawaban 10.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "boxplot",
             "src": "Jika $Q_1 = 30$ dan $Q_3 = 50$, maka nilai simpangan kuartil ($Q_d$) adalah ..."
@@ -12190,8 +12210,9 @@ const NAMA_TINGKAT = 'XII';
             "D. $-6x \\cos(3x^2 - 5)$",
             "E. $\\cos(6x)$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Fungsi berbentuk $\\sin(u)$ dengan $u = 3x^2 - 5$, sehingga dipakai aturan rantai $\\frac{d}{dx}\\sin(u) = \\cos(u) \\cdot u'$.\n\nLangkah 2: Turunkan bagian dalamnya: $u' = \\frac{d}{dx}(3x^2-5) = 6x$.\n\nLangkah 3: Gabungkan: $f'(x) = \\cos(3x^2-5) \\cdot 6x = 6x\\cos(3x^2-5)$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "Math.sin(3*Math.pow(x, 2) - 5)",
@@ -12216,8 +12237,9 @@ const NAMA_TINGKAT = 'XII';
             "D. -4",
             "E. 2√3"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Fungsi berbentuk $\\cos(u)$ dengan $u = 4x + \\frac{\\pi}{3}$, sehingga berlaku $\\frac{d}{dx}\\cos(u) = -\\sin(u) \\cdot u'$.\n\nLangkah 2: Karena $u' = 4$, diperoleh $f'(x) = -4\\sin\\!\\left(4x+\\frac{\\pi}{3}\\right)$.\n\nLangkah 3: Substitusikan $x = \\frac{\\pi}{6}$: sudutnya menjadi $\\frac{4\\pi}{6} + \\frac{\\pi}{3} = \\frac{2\\pi}{3} + \\frac{\\pi}{3} = \\pi$. Karena $\\sin\\pi = 0$, hasilnya $-4(0) = 0$.\nKesimpulan: Kunci Jawaban B."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 3,
@@ -12232,8 +12254,9 @@ const NAMA_TINGKAT = 'XII';
             "D. $\\sec^2(5x - 2)$",
             "E. $5\\sec^2(5x - 2)$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Fungsi berbentuk $\\tan(u)$ dengan $u = 5x - 2$, sehingga berlaku $\\frac{d}{dx}\\tan(u) = \\sec^2(u) \\cdot u'$.\n\nLangkah 2: Turunkan bagian dalamnya: $u' = 5$.\n\nLangkah 3: Gabungkan: $y' = 5\\sec^2(5x-2)$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "Math.tan(5*x - 2)",
@@ -12258,8 +12281,9 @@ const NAMA_TINGKAT = 'XII';
             "D. $2\\cos(2 - 3x)$",
             "E. $-2\\cos(2 - 3x)$"
           ],
-          "kunci": "A",
-          "bahas": "Langkah 1: Fungsi berbentuk $\\sin(u)$ dengan $u = 2 - 3x$, sehingga berlaku $\\frac{d}{dx}\\sin(u) = \\cos(u) \\cdot u'$.\n\nLangkah 2: Turunkan bagian dalamnya. Perhatikan tandanya: $u' = \\frac{d}{dx}(2-3x) = -3$.\n\nLangkah 3: Gabungkan: $f'(x) = -3\\cos(2-3x)$.\nKesimpulan: Kunci Jawaban A.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "-Math.sin(3*x - 2)",
@@ -12282,8 +12306,9 @@ const NAMA_TINGKAT = 'XII';
             "Rumus aturan rantai dirumuskan [f(g(x))]' = f'(g(x)) . g'(x)",
             "Turunan dari f(x) = sin(3x^2 + 5) adalah f'(x) = 6x cos(3x^2 + 5)"
           ],
-          "kunci": "S - B - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\n$\\frac{d}{dx}[\\cos 5x] = -5\\sin 5x$, bertanda negatif, bukan positif.\n$\\implies$ Pernyataan (1) bernilai SALAH.\n\nLangkah 2: Analisis Pernyataan (2):\nTeorema aturan rantai: $\\frac{df}{dx} = \\frac{df}{dg} \\cdot \\frac{dg}{dx} = f'(g(x)) \\cdot g'(x)$.\n$\\implies$ Pernyataan (2) bernilai BENAR.\n\nLangkah 3: Analisis Pernyataan (3):\n$g(x) = 3x^2+5 \\implies g'(x) = 6x \\implies f'(x) = 6x\\cos(3x^2+5)$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban S - B - B."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 6,
@@ -12298,8 +12323,9 @@ const NAMA_TINGKAT = 'XII';
             "D. -2",
             "E. 2"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Fungsi berbentuk $\\cos(u)$ dengan $u = 2x$, sehingga $f'(x) = -\\sin(2x) \\cdot 2 = -2\\sin(2x)$.\n\nLangkah 2: Substitusikan $x = \\frac{\\pi}{4}$, sehingga sudutnya menjadi $2 \\cdot \\frac{\\pi}{4} = \\frac{\\pi}{2}$.\n\nLangkah 3: Karena $\\sin\\frac{\\pi}{2} = 1$, hasilnya $-2(1) = -2$.\nKesimpulan: Kunci Jawaban D."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 7,
@@ -12314,8 +12340,9 @@ const NAMA_TINGKAT = 'XII';
             "D. $x^3 \\cos(x^2)$",
             "E. $3x^2 \\cos(x^3)$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Fungsi berbentuk $\\sin(u)$ dengan $u = x^3$, sehingga berlaku $\\frac{d}{dx}\\sin(u) = \\cos(u) \\cdot u'$.\n\nLangkah 2: Turunkan bagian dalamnya: $u' = 3x^2$.\n\nLangkah 3: Gabungkan: $f'(x) = 3x^2\\cos(x^3)$. Perhatikan pangkat tetap berada di dalam kurung kosinus, bukan berpindah keluar.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "Math.sin(Math.pow(x, 3))",
@@ -12340,8 +12367,9 @@ const NAMA_TINGKAT = 'XII';
             "D. f(x) = cos(x^3 - 2x)  ->  f'(x) = -(3x^2 - 2) sin(x^3 - 2x).",
             "E. f(x) = cos(2x + pi/2)  ->  f'(0) = -2."
           ],
-          "kunci": "A, B, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$5\\sec^2(5x + 1)$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$4\\cos(4x - \\pi/3)$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\nTurunan sinus adalah kosinus: $2x\\cos(x^2)$, bukan $2x\\sin(x^2)$.\n$\\implies$ Pernyataan C SALAH.\n\nLangkah 4: Analisis Opsi D:\n$u = x^3 - 2x, u' = 3x^2 - 2 \\implies -(3x^2-2)\\sin(x^3-2x)$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$f'(x) = -2\\sin(2x+\\pi/2) \\implies f'(0) = -2\\sin(\\pi/2) = -2(1) = -2$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, D, E."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 9,
@@ -12356,8 +12384,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 4",
             "E. -4"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Fungsi berbentuk $\\sin(u)$ dengan $u = 4x$, sehingga $f'(x) = 4\\cos(4x)$.\n\nLangkah 2: Substitusikan $x = \\frac{\\pi}{8}$, sehingga sudutnya menjadi $4 \\cdot \\frac{\\pi}{8} = \\frac{\\pi}{2}$.\n\nLangkah 3: Karena $\\cos\\frac{\\pi}{2} = 0$, hasilnya $4(0) = 0$.\nKesimpulan: Kunci Jawaban C."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 10,
@@ -12366,8 +12395,9 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P18-Q10] Nilai turunan $f(x) = 2\\sin(3x)$ saat $x = 0$ adalah ...",
           "opsi": [],
-          "kunci": "6",
-          "bahas": "Langkah 1: Fungsi berbentuk $\\sin(u)$ dengan $u = 3x$, sehingga $f'(x) = 2 \\cdot 3\\cos(3x) = 6\\cos(3x)$.\n\nLangkah 2: Substitusikan $x = 0$, sehingga sudutnya $0$.\n\nLangkah 3: Karena $\\cos 0 = 1$, hasilnya $6(1) = 6$.\nKesimpulan: Kunci Jawaban 6."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         }
       ]
     },
@@ -12389,8 +12419,9 @@ const NAMA_TINGKAT = 'XII';
             "D. $4\\sin^2(4x) \\cos(4x)$",
             "E. $12\\sin^2(4x)$"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Tulis ulang sebagai $f(x) = \\left[\\sin(4x)\\right]^3$, yaitu bentuk pangkat sehingga dipakai aturan rantai $\\frac{d}{dx}u^n = n\\,u^{n-1} \\cdot u'$.\n\nLangkah 2: Ambil $u = \\sin(4x)$ dan $n = 3$. Turunan bagian dalamnya sendiri memerlukan rantai lagi: $u' = 4\\cos(4x)$.\n\nLangkah 3: Gabungkan: $f'(x) = 3\\sin^2(4x) \\cdot 4\\cos(4x) = 12\\sin^2(4x)\\cos(4x)$.\nKesimpulan: Kunci Jawaban B.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "Math.pow(Math.sin(4*x), 3)",
@@ -12415,8 +12446,9 @@ const NAMA_TINGKAT = 'XII';
             "D. $8\\cos^3(2x) \\sin(2x)$",
             "E. $4\\sin^3(2x)$"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Tulis ulang sebagai $f(x) = \\left[\\cos(2x)\\right]^4$, sehingga dipakai aturan rantai $\\frac{d}{dx}u^n = n\\,u^{n-1} \\cdot u'$.\n\nLangkah 2: Ambil $u = \\cos(2x)$ dan $n = 4$. Turunan bagian dalamnya: $u' = -2\\sin(2x)$.\n\nLangkah 3: Gabungkan: $f'(x) = 4\\cos^3(2x) \\cdot \\left(-2\\sin(2x)\\right) = -8\\cos^3(2x)\\sin(2x)$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "Math.pow(Math.cos(2*x), 4)",
@@ -12441,8 +12473,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 1/2",
             "E. 1"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Tulis ulang sebagai $f(x) = \\left[\\sin x\\right]^2$, lalu terapkan aturan rantai: $f'(x) = 2\\sin x \\cdot \\cos x$.\n\nLangkah 2: Sederhanakan dengan identitas sudut rangkap $2\\sin x\\cos x = \\sin(2x)$, sehingga $f'(x) = \\sin(2x)$.\n\nLangkah 3: Substitusikan $x = \\frac{\\pi}{4}$: $\\sin\\frac{\\pi}{2} = 1$.\nKesimpulan: Kunci Jawaban E."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 4,
@@ -12457,8 +12490,9 @@ const NAMA_TINGKAT = 'XII';
             "D. $6\\tan^2(2x) \\sec^2(2x)$",
             "E. $3\\tan^2(2x) \\sec^2(2x)$"
           ],
-          "kunci": "D",
-          "bahas": "Langkah 1: Tulis ulang sebagai $y = \\left[\\tan(2x)\\right]^3$, sehingga dipakai aturan rantai $\\frac{d}{dx}u^n = n\\,u^{n-1} \\cdot u'$.\n\nLangkah 2: Ambil $u = \\tan(2x)$ dan $n = 3$. Turunan bagian dalamnya: $u' = 2\\sec^2(2x)$.\n\nLangkah 3: Gabungkan: $y' = 3\\tan^2(2x) \\cdot 2\\sec^2(2x) = 6\\tan^2(2x)\\sec^2(2x)$.\nKesimpulan: Kunci Jawaban D.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "Math.pow(Math.tan(2*x), 3)",
@@ -12481,8 +12515,9 @@ const NAMA_TINGKAT = 'XII';
             "Turunan dari f(x) = cos^3(x) adalah f'(x) = 3 cos^2(x)",
             "Turunan dari f(x) = sin^2(x) adalah f'(x) = sin(2x)"
           ],
-          "kunci": "B - S - B",
-          "bahas": "Langkah 1: Analisis Pernyataan (1):\nAturan pangkat rantai: $\\frac{d}{dx}[u^n] = n u^{n-1} u'$.\n$\\implies$ Pernyataan (1) bernilai BENAR.\n\nLangkah 2: Analisis Pernyataan (2):\n$f'(x) = 3\\cos^2 x (-\\sin x) = -3\\sin x \\cos^2 x$, bukan $3\\cos^2 x$.\n$\\implies$ Pernyataan (2) bernilai SALAH.\n\nLangkah 3: Analisis Pernyataan (3):\n$f'(x) = 2\\sin x \\cos x = \\sin 2x$.\n$\\implies$ Pernyataan (3) bernilai BENAR.\nKesimpulan: Kunci Jawaban B - S - B."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 6,
@@ -12497,8 +12532,9 @@ const NAMA_TINGKAT = 'XII';
             "D. 1",
             "E. -1/2"
           ],
-          "kunci": "C",
-          "bahas": "Langkah 1: Tulis ulang sebagai $f(x) = \\left[\\cos x\\right]^2$, lalu terapkan aturan rantai: $f'(x) = 2\\cos x \\cdot (-\\sin x)$.\n\nLangkah 2: Sederhanakan dengan identitas sudut rangkap: $-2\\sin x\\cos x = -\\sin(2x)$.\n\nLangkah 3: Substitusikan $x = \\frac{\\pi}{4}$: $-\\sin\\frac{\\pi}{2} = -1$.\nKesimpulan: Kunci Jawaban C.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "Math.pow(Math.cos(x), 2)",
@@ -12523,8 +12559,9 @@ const NAMA_TINGKAT = 'XII';
             "D. $\\frac{1}{2\\sqrt{\\sin x}}$",
             "E. $\\frac{\\cos x}{2\\sqrt{\\sin x}}$"
           ],
-          "kunci": "E",
-          "bahas": "Langkah 1: Tulis ulang bentuk akar sebagai pangkat: $f(x) = \\left(\\sin x\\right)^{1/2}$.\n\nLangkah 2: Terapkan aturan rantai $\\frac{d}{dx}u^n = n\\,u^{n-1} \\cdot u'$ dengan $u = \\sin x$ dan $n = \\frac{1}{2}$: $f'(x) = \\frac{1}{2}\\left(\\sin x\\right)^{-1/2} \\cdot \\cos x$.\n\nLangkah 3: Kembalikan ke bentuk akar: $f'(x) = \\frac{\\cos x}{2\\sqrt{\\sin x}}$.\nKesimpulan: Kunci Jawaban E.",
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
           "viz": {
             "t": "plot",
             "f": "Math.sqrt(Math.sin(x))",
@@ -12549,8 +12586,9 @@ const NAMA_TINGKAT = 'XII';
             "D. f(x) = tan^2(x)  ->  f'(x) = 2 tan(x) sec^2(x).",
             "E. f(x) = sin^2(3x)  ->  f'(x) = 3 sin(6x)."
           ],
-          "kunci": "A, B, C, D, E",
-          "bahas": "Langkah 1: Analisis Opsi A:\n$f'(x) = 4\\cos^3 x(-\\sin x) = -4(1/\\sqrt{2})^3(1/\\sqrt{2}) = -4(1/4) = -1$.\n$\\implies$ Pernyataan A BENAR.\n\nLangkah 2: Analisis Opsi B:\n$2\\cos x(-\\sin x) = -\\sin 2x$.\n$\\implies$ Pernyataan B BENAR.\n\nLangkah 3: Analisis Opsi C:\n$3\\sin^2(2x) \\cdot (2\\cos 2x) = 6\\sin^2(2x)\\cos(2x)$.\n$\\implies$ Pernyataan C BENAR.\n\nLangkah 4: Analisis Opsi D:\n$2\\tan x \\sec^2 x$.\n$\\implies$ Pernyataan D BENAR.\n\nLangkah 5: Analisis Opsi E:\n$2\\sin 3x (3\\cos 3x) = 3(2\\sin 3x \\cos 3x) = 3\\sin 6x$.\n$\\implies$ Pernyataan E BENAR.\nKesimpulan: Kunci Jawaban A, B, C, D, E."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 9,
@@ -12565,8 +12603,9 @@ const NAMA_TINGKAT = 'XII';
             "D. -3",
             "E. 3/2"
           ],
-          "kunci": "B",
-          "bahas": "Langkah 1: Tulis ulang sebagai $f(x) = \\left[\\sin x\\right]^3$, lalu terapkan aturan rantai: $f'(x) = 3\\sin^2 x \\cdot \\cos x$.\n\nLangkah 2: Substitusikan $x = \\frac{\\pi}{2}$, dengan $\\sin\\frac{\\pi}{2} = 1$ dan $\\cos\\frac{\\pi}{2} = 0$.\n\nLangkah 3: Hitung hasilnya: $3(1)^2 \\cdot 0 = 0$.\nKesimpulan: Kunci Jawaban B."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         },
         {
           "no": 10,
@@ -12575,8 +12614,9 @@ const NAMA_TINGKAT = 'XII';
           "bobot": 10,
           "tanya": "[P19-Q10] Nilai turunan $f(x) = 4\\sin^2(2x)$ saat $x = \\pi/8$ adalah ...",
           "opsi": [],
-          "kunci": "8",
-          "bahas": "Langkah 1: Tulis ulang sebagai $f(x) = 4\\left[\\sin(2x)\\right]^2$, lalu terapkan aturan rantai: $f'(x) = 8\\sin(2x) \\cdot 2\\cos(2x) = 16\\sin(2x)\\cos(2x)$.\n\nLangkah 2: Sederhanakan dengan identitas sudut rangkap: $f'(x) = 8\\sin(4x)$.\n\nLangkah 3: Substitusikan $x = \\frac{\\pi}{8}$: $8\\sin\\frac{\\pi}{2} = 8(1) = 8$.\nKesimpulan: Kunci Jawaban 8."
+          "kunci": null,
+          "is_locked": true,
+          "bahas": "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.",
         }
       ]
     },
