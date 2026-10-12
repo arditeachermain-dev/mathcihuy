@@ -4203,9 +4203,10 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       };
 
       try {
+        const raidHeaders = typeof getAuthHeaders === 'function' ? getAuthHeaders({ 'Content-Type': 'application/json' }) : (typeof getTeacherAuthHeaders === 'function' ? getTeacherAuthHeaders({ 'Content-Type': 'application/json' }) : { 'Content-Type': 'application/json' });
         await fetch('/api/nilai', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: raidHeaders,
           body: JSON.stringify(payload)
         });
       } catch(e) {
@@ -4806,7 +4807,8 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
 
       // Sinkronisasi latar belakang nilai D1 jika belum termuat
       if (!window._cbtCompletedSubmissions || Object.keys(window._cbtCompletedSubmissions).length === 0) {
-        fetch(`/api/nilai?nis=${encodeURIComponent(nis)}&_t=${Date.now()}`)
+        const stHeaders = typeof getAuthHeaders === 'function' ? getAuthHeaders() : (typeof getTeacherAuthHeaders === 'function' ? getTeacherAuthHeaders() : {});
+        fetch(`/api/nilai?nis=${encodeURIComponent(nis)}&_t=${Date.now()}`, { headers: stHeaders })
           .then(res => res.json())
           .then(data => {
             if (Array.isArray(data)) {

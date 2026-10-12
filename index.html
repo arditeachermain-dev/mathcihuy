@@ -3568,10 +3568,10 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <a href="/api/angket?export=csv" target="_blank" download="Data_Refleksi_Matematika_Kelas_XII.csv" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+                    <button id="btn-unduh-angket-csv" onclick="downloadAngketCsv()" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
                         <i class="fa-solid fa-file-excel"></i>
                         <span>Unduh CSV (Excel)</span>
-                    </a>
+                    </button>
                     <button onclick="closeTeacherAngketModal()" class="w-8 h-8 rounded-xl bg-[#F0EFEA] hover:bg-[#E8E6DF] text-[#787774] hover:text-[#2F3437] text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
                 </div>
             </div>
@@ -3880,8 +3880,8 @@
 
     <script src="daily-raid-data.js?v=v20261011_tka_models_v2"></script>
     <script src="weekly-raid-data.js?v=v20261012_w42_lockdown_v1"></script>
-    <script src="app-akhir.js?v=v20261012_notif_anticlip_v2"></script>
-    <script src="angket.js?v=v20261011_scroll_fix_v1"></script>
+    <script src="app-akhir.js?v=v20261012_security_lockdown_v1"></script>
+    <script src="angket.js?v=v20261012_security_lockdown_v1"></script>
     <script src="helpdesk-notif.js?v=v20261012_notif_anticlip_v2"></script>
 
 </body>

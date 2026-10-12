@@ -49,12 +49,31 @@ export async function onRequestGet(context) {
       return jsonResponse(results || []);
     }
 
-    // 2. REKAP NILAI SISWA TERTENTU (GURU, SISWA BERSANGKUTAN, ATAU RAPOR PRATINJAU SISWA)
+    // 2. REKAP NILAI SISWA TERTENTU (GURU ATAU SISWA BERSANGKUTAN)
     if (nis) {
+      if (!session) {
+        return jsonResponse({
+          error: 'Akses ditolak (401): Sesi autentikasi diperlukan untuk mengakses nilai siswa.'
+        }, 401);
+      }
+
       const cleanNis = String(nis).trim();
+      const canonicalNis = cleanNis.toLowerCase() === 'aunillah' ? '23400016' : cleanNis;
+      const isAuthorized = session.role === 'guru' ||
+        String(session.nis) === cleanNis ||
+        String(session.nis) === canonicalNis ||
+        (String(session.nis) === '23400016' && cleanNis.toLowerCase() === 'aunillah') ||
+        (String(session.nis).toLowerCase() === 'aunillah' && cleanNis === '23400016');
+
+      if (!isAuthorized) {
+        return jsonResponse({
+          error: 'Akses dilarang (403): Anda tidak berhak melihat data nilai siswa lain.'
+        }, 403);
+      }
+
       const { results } = await context.env.DB.prepare(
         "SELECT mapel, kode_pertemuan, skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt WHERE nis = ? ORDER BY id ASC"
-      ).bind(cleanNis).all();
+      ).bind(canonicalNis).all();
       return jsonResponse(results || []);
     }
 
@@ -103,27 +122,23 @@ export async function onRequestPost(context) {
     ).bind(canonicalNis).first();
 
     const session = await authenticateRequest(context.request, context.env);
-    if (session) {
-      // Anti-Spoofing: Jika ada token sesi, pastikan pengirim sesuai dengan token
-      const isSelf = session.role === 'guru' ||
-        String(session.nis) === cleanNis ||
-        String(session.nis) === canonicalNis ||
-        (String(session.nis) === '23400016' && cleanNis.toLowerCase() === 'aunillah') ||
-        (String(session.nis).toLowerCase() === 'aunillah' && cleanNis === '23400016');
+    if (!session) {
+      return jsonResponse({
+        error: 'Akses ditolak (401): Sesi autentikasi diperlukan untuk mengumpulkan nilai ujian.'
+      }, 401);
+    }
 
-      if (!isSelf) {
-        return jsonResponse({
-          error: 'Akses dilarang (403): Identitas pengirim tidak sesuai dengan token sesi aktif.'
-        }, 403);
-      }
-    } else {
-      // Jika token sesi tidak terkirim (misal: sinkronisasi antrean outbox offline atau cookie browser dibersihkan),
-      // izinkan pengumpulan jika NIS terdaftar resmi di basis data sekolah
-      if (!studentInfo) {
-        return jsonResponse({
-          error: 'Akses ditolak (401): Silakan login dengan akun siswa resmi untuk mengumpulkan nilai ujian.'
-        }, 401);
-      }
+    // Anti-Spoofing: Pastikan pengirim sesuai dengan token sesi aktif
+    const isSelf = session.role === 'guru' ||
+      String(session.nis) === cleanNis ||
+      String(session.nis) === canonicalNis ||
+      (String(session.nis) === '23400016' && cleanNis.toLowerCase() === 'aunillah') ||
+      (String(session.nis).toLowerCase() === 'aunillah' && cleanNis === '23400016');
+
+    if (!isSelf) {
+      return jsonResponse({
+        error: 'Akses dilarang (403): Identitas pengirim tidak sesuai dengan token sesi aktif.'
+      }, 403);
     }
 
     // Nama & kelas resmi selalu diambil dari database D1 (Anti-Tamper & Anti-XSS)

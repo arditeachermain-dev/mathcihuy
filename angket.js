@@ -119,6 +119,23 @@ function normalizeKelas(k) {
   return '12 F1';
 }
 
+// Helper Authorization Header Guru / Siswa untuk Angket
+function getAngketAuthHeaders(extraHeaders) {
+  if (typeof getAuthHeaders === 'function') {
+    return getAuthHeaders(extraHeaders);
+  }
+  var headers = Object.assign({}, extraHeaders || {});
+  var sess = null;
+  try {
+    sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+  } catch(e) {}
+  var token = (sess && (sess.token || (sess.data && sess.data.token))) || '';
+  if (token) {
+    headers['Authorization'] = 'Bearer ' + token;
+  }
+  return headers;
+}
+
 // Ambil info sesi siswa yang sedang aktif
 function getActiveStudentInfo() {
   let sess = null;
@@ -424,7 +441,9 @@ function updateAngketSummaryPreview() {
 // Muat data angket sebelumnya (jika ada)
 async function fetchExistingAngket(nis) {
   try {
-    const res = await fetch(`/api/angket?nis=${encodeURIComponent(nis)}`);
+    const res = await fetch(`/api/angket?nis=${encodeURIComponent(nis)}`, {
+      headers: getAngketAuthHeaders()
+    });
     if (!res.ok) return;
     const data = await res.json();
     if (data && data.nis) {
@@ -498,7 +517,7 @@ async function submitAngketRefleksi() {
 
     const res = await fetch('/api/angket', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getAngketAuthHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(payload)
     });
 
@@ -555,7 +574,9 @@ async function openTeacherAngketModal() {
   if (content) content.classList.add('hidden');
 
   try {
-    const res = await fetch('/api/angket?all=1');
+    const res = await fetch('/api/angket?all=1', {
+      headers: getAngketAuthHeaders()
+    });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Gagal memuat rekap');
 
@@ -585,6 +606,50 @@ function closeTeacherAngketModal() {
   document.body.style.overflow = '';
 }
 window.closeTeacherAngketModal = closeTeacherAngketModal;
+
+// Unduh CSV Refleksi Siswa Terotentikasi (Guru Only)
+async function downloadAngketCsv() {
+  const btn = document.getElementById('btn-unduh-angket-csv');
+  const originalHtml = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Mengunduh...';
+  }
+
+  try {
+    const res = await fetch('/api/angket?export=csv', {
+      headers: getAngketAuthHeaders()
+    });
+
+    if (!res.ok) {
+      let errMsg = 'Akses ditolak (401): Anda harus login sebagai guru untuk mengunduh CSV.';
+      try {
+        const errJson = await res.json();
+        if (errJson && errJson.error) errMsg = errJson.error;
+      } catch(_) {}
+      alert(errMsg);
+      return;
+    }
+
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Data_Refleksi_Matematika_Kelas_XII.csv';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
+  } catch (e) {
+    alert('Gagal mengunduh file CSV: ' + e.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalHtml;
+    }
+  }
+}
+window.downloadAngketCsv = downloadAngketCsv;
 
 function renderTeacherAngketStats(data) {
   const totalRespondenEl = document.getElementById('guru-angket-total-count');
@@ -715,4 +780,5 @@ window.openTeacherAngketModal = openTeacherAngketModal;
 window.closeTeacherAngketModal = closeTeacherAngketModal;
 window.filterTeacherAngketTable = filterTeacherAngketTable;
 window.searchTeacherAngketTable = searchTeacherAngketTable;
+window.downloadAngketCsv = downloadAngketCsv;
 window.normalizeKelas = normalizeKelas;

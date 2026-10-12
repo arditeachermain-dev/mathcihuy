@@ -140,6 +140,17 @@ export async function authenticateRequest(request, env) {
     }
   }
 
+  // Cek URL query param: ?token=... (untuk direct link / file download browser)
+  if (!token) {
+    try {
+      const url = new URL(request.url);
+      const qToken = url.searchParams.get('token');
+      if (qToken) {
+        token = qToken.trim();
+      }
+    } catch (_) {}
+  }
+
   if (!token) return null;
 
   const secret = await getJwtSecret(env);

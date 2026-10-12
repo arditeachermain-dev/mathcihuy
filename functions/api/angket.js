@@ -16,8 +16,14 @@ export async function onRequestGet(context) {
     const isAll = url.searchParams.get('all') === '1';
     const isCsv = url.searchParams.get('export') === 'csv';
 
-    // 1. EXPORT CSV UNTUK PRAKTIKUM STATISTIKA (GURU ATAU SISWA KELAS)
+    // 1. EXPORT CSV UNTUK PRAKTIKUM STATISTIKA (GURU ONLY)
     if (isCsv) {
+      if (!session || session.role !== 'guru') {
+        return jsonResponse({
+          error: 'Akses ditolak (401): Ekspor CSV angket hanya dapat diunduh oleh akun guru resmi yang terautentikasi.'
+        }, 401);
+      }
+
       const { results } = await context.env.DB.prepare(
         "SELECT nis, nama, kelas, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, total_poin, skor_d3, skor_peluang, skor_total, catatan, created_at, updated_at FROM angket_refleksi ORDER BY kelas ASC, nama ASC"
       ).all();
@@ -60,13 +66,19 @@ export async function onRequestGet(context) {
         headers: {
           'Content-Type': 'text/csv; charset=utf-8',
           'Content-Disposition': 'attachment; filename="Data_Refleksi_Matematika_Kelas_XII.csv"',
-          'Cache-Control': 'no-cache'
+          'Cache-Control': 'no-store, no-cache, must-revalidate'
         }
       });
     }
 
-    // 2. REKAP SELURUH ANGKET (ALL DATA & AGGREGATE STATS)
+    // 2. REKAP SELURUH ANGKET (ALL DATA & AGGREGATE STATS - GURU ONLY)
     if (isAll) {
+      if (!session || session.role !== 'guru') {
+        return jsonResponse({
+          error: 'Akses ditolak (401): Rekap seluruh data angket hanya dapat diakses oleh akun guru resmi yang terautentikasi.'
+        }, 401);
+      }
+
       const { results } = await context.env.DB.prepare(
         "SELECT nis, nama, kelas, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, total_poin, skor_d3, skor_peluang, skor_total, catatan, created_at, updated_at FROM angket_refleksi ORDER BY kelas ASC, nama ASC"
       ).all();
@@ -145,9 +157,22 @@ export async function onRequestGet(context) {
       });
     }
 
-    // 3. AMBIL DATA SISWA SPESIFIK BERDASARKAN NIS
+    // 3. AMBIL DATA SISWA SPESIFIK BERDASARKAN NIS (SISWA BERSANGKUTAN ATAU GURU)
     if (nis) {
+      if (!session) {
+        return jsonResponse({
+          error: 'Akses ditolak (401): Sesi autentikasi diperlukan untuk melihat data angket.'
+        }, 401);
+      }
+
       const cleanNis = String(nis).trim();
+      const isAuthorized = session.role === 'guru' || String(session.nis) === cleanNis;
+      if (!isAuthorized) {
+        return jsonResponse({
+          error: 'Akses dilarang (403): Anda tidak berhak melihat data angket siswa lain.'
+        }, 403);
+      }
+
       const row = await context.env.DB.prepare(
         "SELECT * FROM angket_refleksi WHERE nis = ?"
       ).bind(cleanNis).first();
@@ -155,7 +180,7 @@ export async function onRequestGet(context) {
       return jsonResponse(row || null);
     }
 
-    return jsonResponse({ error: 'Parameter NIS atau all=1 diperlukan' }, 400);
+    return jsonResponse({ error: 'Parameter NIS, all=1, atau export=csv diperlukan' }, 400);
   } catch (err) {
     return jsonResponse({ error: err.message }, 500);
   }
@@ -165,6 +190,13 @@ export async function onRequestPost(context) {
   try {
     if (!context.env || !context.env.DB) {
       return jsonResponse({ error: 'Database D1 belum terhubung' }, 503);
+    }
+
+    const session = await authenticateRequest(context.request, context.env);
+    if (!session) {
+      return jsonResponse({
+        error: 'Akses ditolak (401): Silakan login terlebih dahulu untuk mengisi angket refleksi.'
+      }, 401);
     }
 
     let body;
@@ -179,6 +211,29 @@ export async function onRequestPost(context) {
     if (!nis || !nama || !kelas) {
       return jsonResponse({ error: 'NIS, Nama, dan Kelas wajib diisi' }, 400);
     }
+
+    const cleanNis = String(nis).trim();
+
+    // Anti-Spoofing: Siswa hanya dapat mengisi angket untuk dirinya sendiri
+    if (session.role !== 'guru' && String(session.nis) !== cleanNis) {
+      return jsonResponse({
+        error: 'Akses dilarang (403): Identitas pengisi tidak sesuai dengan akun login Anda.'
+      }, 403);
+    }
+
+    // Verifikasi siswa resmi ada di database sekolah
+    const student = await context.env.DB.prepare(
+      "SELECT nis, nama, kelas FROM siswa WHERE nis = ?"
+    ).bind(cleanNis).first();
+
+    if (!student) {
+      return jsonResponse({
+        error: 'NIS siswa tidak terdaftar dalam database resmi sekolah.'
+      }, 400);
+    }
+
+    const verifiedNama = student.nama || String(nama).trim();
+    const verifiedKelas = student.kelas || String(kelas).trim();
 
     // Validasi 10 Pertanyaan Skor (1 s.d. 10)
     const questions = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
@@ -220,9 +275,9 @@ export async function onRequestPost(context) {
         skor_total = excluded.skor_total,
         updated_at = CURRENT_TIMESTAMP
     `).bind(
-      String(nis).trim(),
-      String(nama).trim(),
-      String(kelas).trim(),
+      cleanNis,
+      verifiedNama,
+      verifiedKelas,
       cleanQ[0], cleanQ[1], cleanQ[2], cleanQ[3], cleanQ[4],
       cleanQ[5], cleanQ[6], cleanQ[7], cleanQ[8], cleanQ[9],
       catatan ? String(catatan).trim() : '',
