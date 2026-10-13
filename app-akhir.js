@@ -219,9 +219,23 @@
               });
             });
             sinkSimpan(CBT_LOKAL_KEY, log);
+
+            // 2. Tarik seluruh aktivitas draf live yang sedang dikerjakan siswa
+            try {
+              const liveRes = await fetch('/api/live?all=1', {
+                headers: getTeacherAuthHeaders()
+              });
+              if (liveRes.ok) {
+                const liveData = await liveRes.json();
+                window._guruLiveAnswersCache = Array.isArray(liveData) ? liveData : [];
+              }
+            } catch(eLive) {
+              console.warn("Live answers sync notice:", eLive);
+            }
+
             if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400 font-mono text-xs font-bold"><i class="fa-solid fa-bolt"></i> Cloudflare D1 Aktif (${log.length} nilai disubmit • Unlimited)</span>`;
             loadGuruDashboardData();
-            if (manual) alert(`✅ Berhasil menyinkronkan data dari Cloudflare D1 SQLite!\n- Nilai Disubmit: ${log.length} paket\n- Status: 100% Aktif & Bebas Biaya Egress`);
+            if (manual) alert(`✅ Berhasil menyinkronkan data dari Cloudflare D1 SQLite!\n- Nilai Disubmit: ${log.length} paket\n- Sedang Dikerjakan: ${window._guruLiveAnswersCache.length} sesi\n- Status: 100% Aktif & Bebas Biaya Egress`);
             return;
           }
         }
