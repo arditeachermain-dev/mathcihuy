@@ -5621,4 +5621,273 @@ Guru Pengampu: Mr. Ardi
     window.copyShareCardCaption = copyShareCardCaption;
     window.showNotionToast = showNotionToast;
 
+    // =========================================================================
+    // MODUL KONTROL KUNCI JAWABAN & PEMBAHASAN CBT (GURU ONLY - ZERO-LEAK)
+    // =========================================================================
+    window._cbtLockActiveTab = 'wajib';
+    window._cbtLocksData = null;
+
+    async function openGuruCbtLocksModal() {
+        let sess = null;
+        try {
+            sess = JSON.parse(localStorage.getItem('portal_session') || 'null');
+        } catch(e) {}
+
+        if (!sess || sess.type !== 'guru') {
+            alert('Akses ditolak: Hanya Guru yang berwenang membuka Kontrol Kunci CBT.');
+            return;
+        }
+
+        const modal = document.getElementById('modal-guru-cbt-locks');
+        if (modal) modal.classList.remove('hidden');
+
+        await loadGuruCbtLocksData();
+    }
+
+    function closeGuruCbtLocksModal() {
+        const modal = document.getElementById('modal-guru-cbt-locks');
+        if (modal) modal.classList.add('hidden');
+    }
+
+    function setGuruCbtLockTab(mapel) {
+        window._cbtLockActiveTab = mapel;
+
+        // Update tabs styling
+        const tabs = ['wajib', 'minat', 'clil'];
+        tabs.forEach(m => {
+            const btn = document.getElementById('tab-lock-' + m);
+            if (btn) {
+                if (m === mapel) {
+                    btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#2E384D] text-white shadow-sm transition cursor-pointer';
+                } else {
+                    btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#F0EFEA] text-[#5F5E5B] hover:bg-[#E8E6DF] transition cursor-pointer';
+                }
+            }
+        });
+
+        renderGuruCbtLocksList();
+    }
+
+    async function loadGuruCbtLocksData(forceRefresh) {
+        const container = document.getElementById('cbt-locks-list-container');
+        if (!container) return;
+
+        if (forceRefresh || !window._cbtLocksData) {
+            container.innerHTML = `
+                <div class="text-center py-12 text-[#787774] text-xs font-medium">
+                    <i class="fa-solid fa-spinner fa-spin text-xl text-amber-600 mb-2"></i>
+                    <p>Memuat konfigurasi kunci paket CBT dari Cloudflare D1...</p>
+                </div>
+            `;
+        }
+
+        try {
+            const res = await fetch('/api/cbt-locks', {
+                headers: getTeacherAuthHeaders()
+            });
+            if (res.ok) {
+                const data = await res.json();
+                window._cbtLocksData = data;
+                window._cbtPackageLocks = data.locks || {};
+                renderGuruCbtLocksList();
+            } else {
+                container.innerHTML = `<div class="p-6 text-center text-rose-600 text-xs font-bold">Gagal memuat status kunci CBT dari server (${res.status}).</div>`;
+            }
+        } catch (e) {
+            container.innerHTML = `<div class="p-6 text-center text-rose-600 text-xs font-bold">Terjadi kesalahan koneksi saat memuat status kunci CBT.</div>`;
+        }
+    }
+
+    function renderGuruCbtLocksList() {
+        const container = document.getElementById('cbt-locks-list-container');
+        if (!container || !window._cbtLocksData) return;
+
+        const currentTingkat = typeof TINGKAT_HALAMAN !== 'undefined' ? String(TINGKAT_HALAMAN) : '12';
+        const mapel = window._cbtLockActiveTab || 'wajib';
+        const locks = window._cbtLocksData.locks || {};
+
+        // Ambil daftar paket
+        let pkgList = [];
+        if (window._cbtLocksData.known_packages && window._cbtLocksData.known_packages[currentTingkat] && window._cbtLocksData.known_packages[currentTingkat][mapel]) {
+            pkgList = window._cbtLocksData.known_packages[currentTingkat][mapel];
+        } else {
+            // Fallback list
+            if (mapel === 'wajib') pkgList = Array.from({ length: 21 }, (_, i) => 'P' + String(i + 1).padStart(2, '0'));
+            else if (mapel === 'minat') pkgList = Array.from({ length: 30 }, (_, i) => 'P' + String(i + 1).padStart(2, '0'));
+            else if (mapel === 'clil') pkgList = ['P25', 'P26', 'P27', 'P28', 'P29', 'P30'];
+        }
+
+        // Ambil judul paket dari db
+        const srcDb = (typeof window.db !== 'undefined' && window.db[mapel]) ? window.db[mapel] : [];
+        const titleMap = {};
+        if (Array.isArray(srcDb)) {
+            srcDb.forEach(item => {
+                if (item.id) titleMap[item.id] = item.title || item.bab || '';
+            });
+        }
+
+        let html = '<div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">';
+
+        pkgList.forEach(pid => {
+            const pkgKey = `${currentTingkat}_${mapel}_${pid}`;
+            let isLocked = false;
+            if (locks[pkgKey] !== undefined) {
+                isLocked = Number(locks[pkgKey]) === 1;
+            } else {
+                // Default fallback: W42 active packages (Wajib P17, P18, Minat P18, P19)
+                if (mapel === 'wajib' && ['P17', 'P18'].includes(pid)) isLocked = true;
+                else if (mapel === 'minat' && ['P18', 'P19'].includes(pid)) isLocked = true;
+                else isLocked = false;
+            }
+
+            const title = titleMap[pid] || `Paket Asesmen Pertemuan ${pid}`;
+            const isW42Exam = (mapel === 'wajib' && ['P17', 'P18'].includes(pid)) || (mapel === 'minat' && ['P18', 'P19'].includes(pid));
+
+            html += `
+                <div class="p-3.5 bg-white border ${isLocked ? 'border-amber-300 shadow-sm' : 'border-[#E8E6DF]'} rounded-2xl flex items-center justify-between gap-3 transition hover:border-[#D3CFBE]">
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-black ${isLocked ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-emerald-100 text-emerald-900 border border-emerald-300'}">
+                                ${pid}
+                            </span>
+                            ${isW42Exam ? '<span class="px-2 py-0.5 rounded-md text-[9px] font-bold bg-purple-100 text-purple-900 border border-purple-200">Ujian W42</span>' : ''}
+                            <span class="text-xs font-bold text-[#2F3437] truncate block" title="${escapeHtml(title)}">
+                                ${escapeHtml(title)}
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-2 text-[11px]">
+                            ${isLocked 
+                                ? '<span class="text-amber-800 font-semibold flex items-center gap-1"><i class="fa-solid fa-lock text-[10px]"></i> Kunci & Pembahasan Terkunci</span>' 
+                                : '<span class="text-emerald-700 font-semibold flex items-center gap-1"><i class="fa-solid fa-lock-open text-[10px]"></i> Pembahasan Terbuka untuk Siswa</span>'}
+                        </div>
+                    </div>
+                    <div class="shrink-0">
+                        ${isLocked ? `
+                            <button onclick="toggleGuruPackageLock('${pkgKey}', 0)" class="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer">
+                                <i class="fa-solid fa-lock-open"></i> Buka Kunci
+                            </button>
+                        ` : `
+                            <button onclick="toggleGuruPackageLock('${pkgKey}', 1)" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer">
+                                <i class="fa-solid fa-lock"></i> Kunci Akses
+                            </button>
+                        `}
+                    </div>
+                </div>
+            `;
+        });
+
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    async function toggleGuruPackageLock(pkgKey, newLockState) {
+        try {
+            const btn = window.event && window.event.currentTarget;
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...`;
+            }
+
+            const res = await fetch('/api/cbt-locks', {
+                method: 'POST',
+                headers: getTeacherAuthHeaders({ 'Content-Type': 'application/json' }),
+                body: JSON.stringify({
+                    package_key: pkgKey,
+                    is_locked: newLockState,
+                    reason: newLockState === 1 ? 'Dikunci oleh guru' : 'Dibuka oleh guru'
+                })
+            });
+
+            if (res.ok) {
+                if (!window._cbtLocksData) window._cbtLocksData = { locks: {} };
+                if (!window._cbtLocksData.locks) window._cbtLocksData.locks = {};
+                window._cbtLocksData.locks[pkgKey] = newLockState;
+                if (!window._cbtPackageLocks) window._cbtPackageLocks = {};
+                window._cbtPackageLocks[pkgKey] = newLockState;
+
+                // Hapus cache solusi klien agar segera merefleksikan perubahan kunci
+                const parts = pkgKey.split('_');
+                if (parts.length >= 3 && window._cbtLoadedSolutions) {
+                    delete window._cbtLoadedSolutions[`${parts[1]}_${parts[2]}`];
+                }
+
+                renderGuruCbtLocksList();
+                if (typeof showNotionToast === 'function') {
+                    showNotionToast(newLockState === 1 ? `🔒 Paket ${pkgKey} berhasil dikunci!` : `🔓 Paket ${pkgKey} berhasil dibuka!`, 'success');
+                }
+            } else {
+                const errData = await res.json().catch(() => ({}));
+                alert(`Gagal mengubah status: ${errData.error || res.statusText}`);
+                renderGuruCbtLocksList();
+            }
+        } catch (e) {
+            alert(`Terjadi kesalahan jaringan: ${e.message}`);
+            renderGuruCbtLocksList();
+        }
+    }
+
+    async function bulkToggleGuruPackageLocks(action) {
+        const mapel = window._cbtLockActiveTab || 'wajib';
+        const labelMapel = mapel === 'wajib' ? 'Matematika Wajib' : (mapel === 'minat' ? 'Additional Math' : 'English CLIL');
+        let confirmMsg = '';
+
+        if (action === 'lock_exam_week') {
+            confirmMsg = 'Kunci semua paket materi uji aktif Pekan W42 (Wajib P17-P18 & Minat P18-P19)? Siswa tidak akan dapat melihat kunci jawaban.';
+        } else if (action === 'lock_all') {
+            confirmMsg = `Kunci SEMUA pembahasan paket ${labelMapel}? Siswa tidak akan dapat melihat pembahasan.`;
+        } else {
+            confirmMsg = `Buka SEMUA pembahasan paket ${labelMapel}? Siswa yang sudah tuntas dapat melihat pembahasan.`;
+        }
+
+        if (!confirm(confirmMsg)) return;
+
+        const container = document.getElementById('cbt-locks-list-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="text-center py-12 text-[#787774] text-xs font-medium">
+                    <i class="fa-solid fa-spinner fa-spin text-xl text-amber-600 mb-2"></i>
+                    <p>Mengeksekusi aksi massal di Cloudflare D1...</p>
+                </div>
+            `;
+        }
+
+        try {
+            const res = await fetch('/api/cbt-locks', {
+                method: 'POST',
+                headers: getTeacherAuthHeaders({ 'Content-Type': 'application/json' }),
+                body: JSON.stringify({
+                    action: action,
+                    tingkat: typeof TINGKAT_HALAMAN !== 'undefined' ? String(TINGKAT_HALAMAN) : '12',
+                    mapel: mapel
+                })
+            });
+
+            if (res.ok) {
+                // Clear client solutions cache
+                window._cbtLoadedSolutions = {};
+                await loadGuruCbtLocksData(true);
+                if (typeof showNotionToast === 'function') {
+                    showNotionToast(`✨ Aksi massal berhasil diterapkan ke Cloudflare D1!`, 'success');
+                }
+            } else {
+                const errData = await res.json().catch(() => ({}));
+                alert(`Gagal mengeksekusi aksi massal: ${errData.error || res.statusText}`);
+                await loadGuruCbtLocksData(true);
+            }
+        } catch (e) {
+            alert(`Terjadi kesalahan: ${e.message}`);
+            await loadGuruCbtLocksData(true);
+        }
+    }
+
+    // EXPOSE CBT LOCKS
+    window.openGuruCbtLocksModal = openGuruCbtLocksModal;
+    window.closeGuruCbtLocksModal = closeGuruCbtLocksModal;
+    window.setGuruCbtLockTab = setGuruCbtLockTab;
+    window.loadGuruCbtLocksData = loadGuruCbtLocksData;
+    window.renderGuruCbtLocksList = renderGuruCbtLocksList;
+    window.toggleGuruPackageLock = toggleGuruPackageLock;
+    window.bulkToggleGuruPackageLocks = bulkToggleGuruPackageLocks;
+
+
 

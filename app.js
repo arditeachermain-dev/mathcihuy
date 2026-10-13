@@ -2148,6 +2148,7 @@
         checkSessionOnLoad();
         enforceAccessControl();
         showGuruButtonIfNeeded();
+        if (typeof muatStatusKunciCbt === 'function') muatStatusKunciCbt();
         if (typeof enforceW42ExamLockdown === 'function') enforceW42ExamLockdown();
     });
     
@@ -5213,19 +5214,44 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     // =========================================================================
     // CBT ON-DEMAND SOLUTIONS & REVIEW ENGINE (ANTI-BOT SECURE DELIVERY)
     // =========================================================================
+    // ON-DEMAND SOLUTION & CBT LOCK SYSTEM (ZERO-LEAK FRONTEND ARCHITECTURE)
+    // =========================================================================
     window._cbtLoadedSolutions = window._cbtLoadedSolutions || {};
+    window._cbtPackageLocks = window._cbtPackageLocks || {};
+
+    window.muatStatusKunciCbt = async function() {
+      try {
+        const res = await fetch('/api/cbt-locks');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.locks) {
+            window._cbtPackageLocks = data.locks;
+          }
+        }
+      } catch (e) {
+        console.warn('Gagal memuat status kunci CBT:', e);
+      }
+    };
 
     function isW42LockdownActive(subj, pkgId) {
       const cleanSubj = String(subj || '').trim().toLowerCase();
       const cleanPkg = String(pkgId || '').trim().toUpperCase();
-      const now = new Date();
-      const lockdownEnd = new Date('2026-10-18T16:59:59.000Z');
-      if (now > lockdownEnd) return false;
 
       try {
         const sess = getSession();
         if (sess && (sess.type === 'guru' || sess.role === 'guru')) return false;
       } catch(e) {}
+
+      const currentTingkat = typeof TINGKAT_HALAMAN !== 'undefined' ? String(TINGKAT_HALAMAN) : '12';
+      const lockKey = `${currentTingkat}_${cleanSubj}_${cleanPkg}`;
+      if (window._cbtPackageLocks && window._cbtPackageLocks[lockKey] !== undefined) {
+        return Number(window._cbtPackageLocks[lockKey]) === 1;
+      }
+
+      // Default fallback: Pekan Uji Aktif W42
+      const now = new Date();
+      const lockdownEnd = new Date('2026-10-18T16:59:59.000Z');
+      if (now > lockdownEnd) return false;
 
       if (cleanSubj === 'wajib' && ['P17', 'P18'].includes(cleanPkg)) return true;
       if (cleanSubj === 'minat' && ['P18', 'P19'].includes(cleanPkg)) return true;
@@ -5237,24 +5263,23 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const sess = getSession();
         if (sess && (sess.type === 'guru' || sess.role === 'guru')) return;
       } catch(e) {}
-      const now = new Date();
-      const lockdownEnd = new Date('2026-10-18T16:59:59.000Z');
-      if (now > lockdownEnd) return;
 
-      const lockNotice = "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.";
+      const lockNotice = "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk paket ini sedang dikunci oleh guru (Mr. Ardi) demi menjaga integritas asesmen.";
 
-      ['wajib', 'minat'].forEach(subj => {
-        const pkgs = subj === 'wajib' ? ['P17', 'P18'] : ['P18', 'P19'];
-        pkgs.forEach(pid => {
-          const srcDb = tkaSrc(subj);
-          const pkg = srcDb && srcDb[pid];
-          if (pkg && Array.isArray(pkg.questions)) {
-            pkg.questions.forEach(q => {
-              q.kunci = null;
-              q.is_locked = true;
-              q.hint = null;
-              q.bahas = lockNotice;
-            });
+      ['wajib', 'minat', 'clil'].forEach(subj => {
+        const srcDb = tkaSrc(subj);
+        if (!srcDb) return;
+        Object.keys(srcDb).forEach(pid => {
+          if (isW42LockdownActive(subj, pid)) {
+            const pkg = srcDb[pid];
+            if (pkg && Array.isArray(pkg.questions)) {
+              pkg.questions.forEach(q => {
+                q.kunci = null;
+                q.is_locked = true;
+                q.hint = null;
+                q.bahas = lockNotice;
+              });
+            }
           }
         });
       });
@@ -5265,25 +5290,25 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const srcDb = tkaSrc(subj);
       const pkg = srcDb && srcDb[pkgId];
       if (!pkg || !pkg.questions) return;
-      const isLockW42 = isW42LockdownActive(subj, pkgId);
+
       solutions.forEach(sol => {
-        const idx = (sol.no !== undefined ? sol.no - 1 : -1);
-        const q = (idx >= 0 && pkg.questions[idx]) ? pkg.questions[idx] : pkg.questions.find(item => item.no === sol.no);
+        const idx = (sol.no !== undefined ? sol.no - 1 : (sol.q_idx !== undefined ? sol.q_idx : -1));
+        const q = (idx >= 0 && pkg.questions[idx]) ? pkg.questions[idx] : pkg.questions.find(item => item.no === (sol.no || (sol.q_idx !== undefined ? sol.q_idx + 1 : null)));
         if (q) {
-          if (isLockW42) {
+          if (sol.is_locked) {
             q.kunci = null;
             q.is_locked = true;
-            q.hint = null;
-            q.bahas = "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.";
+            q.hint = sol.hint || null;
+            q.bahas = sol.bahas || "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk paket ini sedang dikunci oleh guru (Mr. Ardi). Silakan ikuti pembahasan bersama di kelas!";
           } else {
             if (sol.kunci !== undefined && sol.kunci !== null) {
               q.kunci = sol.kunci;
-            } else if (sol.is_locked) {
+            } else {
               q.kunci = null;
             }
             if (sol.bahas) q.bahas = sol.bahas;
             if (sol.hint) q.hint = sol.hint;
-            if (sol.is_locked !== undefined) q.is_locked = sol.is_locked;
+            q.is_locked = Boolean(sol.is_locked);
           }
           if (sol.tipe && !q.tipe) q.tipe = sol.tipe;
         }
@@ -5301,7 +5326,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           q.kunci = null;
           q.is_locked = true;
           q.hint = null;
-          q.bahas = "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII.";
+          q.bahas = "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk paket ini sedang dikunci oleh guru (Mr. Ardi). Silakan ikuti pembahasan bersama di kelas!";
         });
         return;
       }

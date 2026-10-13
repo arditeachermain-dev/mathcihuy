@@ -7403,9 +7403,7 @@ const db = {
             "C. $\\{(1,4),(2,5),(1,6),(3,7)\\}$",
             "D. $\\{(0,0),(1,1),(2,4),(3,9)\\}$",
             "E. $\\{(-1,3),(0,3),(1,5),(2,7)\\}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -7419,9 +7417,7 @@ const db = {
             "C. $\\{5,7,9\\}$",
             "D. $\\{3,5,7\\}$",
             "E. $\\{1,3,5,7\\}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -7435,9 +7431,7 @@ const db = {
             "C. $\\{1, 5, 9, 13\\}$",
             "D. $\\{-4, -3, 1, 5\\}$",
             "E. $\\{-7, -3, 1, 5\\}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -7451,9 +7445,7 @@ const db = {
             "C. $\\{x \\mid x \\ge 4\\}$",
             "D. $\\{x \\mid x \\neq 8\\}$",
             "E. $\\{x \\mid x \\neq -4\\}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -7465,9 +7457,7 @@ const db = {
             "Dua masukan berbeda yang menghasilkan keluaran sama membuat sebuah relasi gagal menjadi fungsi",
             "Daerah hasil selalu termuat di dalam daerah kawan",
             "Nilai $x$ yang membuat pembilang sebuah pecahan bernilai nol harus dibuang dari daerah asal"
-          ],
-          "kunci": "S - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -7481,9 +7471,7 @@ const db = {
             "C. $x \\neq -4$",
             "D. $x \\ge -4$",
             "E. $x \\ge -20$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -7497,9 +7485,7 @@ const db = {
             "C. parabola $y = x^2 - 4$",
             "D. lingkaran $x^2 + y^2 = 25$",
             "E. garis mendatar $y = 7$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -7513,9 +7499,7 @@ const db = {
             "C. Daerah hasilnya sama dengan daerah kawannya.",
             "D. Daerah hasilnya $\\{6,8,10\\}$.",
             "E. Nilai $f(3) = 6$."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -7529,9 +7513,7 @@ const db = {
             "C. $\\{x \\mid x \\neq 4\\}$",
             "D. $\\{x \\mid x > 4\\}$",
             "E. $\\{x \\mid x \\neq 0\\}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -7539,9 +7521,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P01-Q10] Diketahui $f(x) = 2x + 5$ dengan daerah asal $\\{-2, -1, 0, 1, 2\\}$. Jumlah seluruh anggota daerah hasil $f$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "25",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -7562,9 +7542,7 @@ const db = {
             "C. $0$",
             "D. $-30$",
             "E. $-12$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -7578,9 +7556,7 @@ const db = {
             "C. $5a - 8$",
             "D. $2a - 5$",
             "E. $6a - 5$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -7594,9 +7570,7 @@ const db = {
             "C. $-7$",
             "D. $1$",
             "E. $-11$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -7610,9 +7584,7 @@ const db = {
             "C. $20$",
             "D. $14$",
             "E. $27$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -7624,9 +7596,7 @@ const db = {
             "Notasi $f(x)$ berarti $f$ dikalikan dengan $x$",
             "Untuk $f(x) = x^2$, berlaku $f(2a) = 4f(a)$",
             "Pada fungsi bercabang, cabang yang dipakai ditentukan oleh nilai masukannya"
-          ],
-          "kunci": "S - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -7640,9 +7610,7 @@ const db = {
             "C. $9$",
             "D. $6x + 10$",
             "E. $2x + 9$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -7656,9 +7624,7 @@ const db = {
             "C. $1$",
             "D. $-1$",
             "E. $4$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -7672,9 +7638,7 @@ const db = {
             "C. $f(3a) = 3f(a)$",
             "D. $f(-2) = -5$",
             "E. $f(x) = 0$ ketika $x = \\frac{1}{2}$."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -7688,9 +7652,7 @@ const db = {
             "C. $11$",
             "D. $\\frac{9}{2}$",
             "E. $-\\frac{11}{2}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -7698,9 +7660,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P02-Q10] Diketahui $f(x) = 3x^2 - 2x + 4$. Nilai $f(2) + f(-1)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "21",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -7721,9 +7681,7 @@ const db = {
             "C. $4x - 3$",
             "D. $4x + 5$",
             "E. $3x - 4$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -7737,9 +7695,7 @@ const db = {
             "C. $x^2 - x - 2$",
             "D. $x^2 - x + 6$",
             "E. $x^2 - 6$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -7753,9 +7709,7 @@ const db = {
             "C. $2x - 2$",
             "D. $x^2 - 2x - 15$",
             "E. $x^2 - 8x + 15$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -7769,9 +7723,7 @@ const db = {
             "C. $x - 3$ dengan $x \\neq 3$",
             "D. $x^2 - 9$ dengan $x \\neq -3$",
             "E. $x - 3$ dengan $x \\neq -3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -7783,9 +7735,7 @@ const db = {
             "Daerah asal $(f + g)$ adalah irisan daerah asal $f$ dan daerah asal $g$",
             "Daerah asal $\\left(\\frac{f}{g}\\right)$ selalu sama dengan daerah asal $\\left(\\frac{g}{f}\\right)$",
             "$(f - g)(x)$ selalu sama dengan $(g - f)(x)$"
-          ],
-          "kunci": "B - S - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -7799,9 +7749,7 @@ const db = {
             "C. $\\{x \\mid x \\neq 4\\}$",
             "D. $\\{x \\mid x \\neq 2\\}$",
             "E. seluruh bilangan real"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -7815,9 +7763,7 @@ const db = {
             "C. $21$",
             "D. $3$",
             "E. $12$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -7831,9 +7777,7 @@ const db = {
             "C. Daerah asal $\\left(\\frac{f}{g}\\right)$ membuang $x = -4$.",
             "D. Daerah asal $\\left(\\frac{g}{f}\\right)$ membuang $x = -2$.",
             "E. $(g - f)(x) = 6$"
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -7847,9 +7791,7 @@ const db = {
             "C. $x \\le 7$",
             "D. $x \\ge 7$",
             "E. $-1 \\le x \\le 7$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -7857,9 +7799,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P03-Q10] Diketahui $f(x) = x^2 + 2x$ dan $g(x) = 3x - 4$. Nilai $(f - g)(3)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "10",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -7880,9 +7820,7 @@ const db = {
             "C. $2x^2 + 5$",
             "D. $2x^2 + 2$",
             "E. $2x^2 + 1$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -7896,9 +7834,7 @@ const db = {
             "C. $4x^2 + 9$",
             "D. $4x^2 + 12x + 10$",
             "E. $2x^2 + 12x + 8$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -7912,9 +7848,7 @@ const db = {
             "C. $3x - 3$",
             "D. $x - 3$",
             "E. $3x - 12$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -7928,9 +7862,7 @@ const db = {
             "C. $10$",
             "D. $17$",
             "E. $5$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -7942,9 +7874,7 @@ const db = {
             "Pada $(f \\circ g)(x)$, fungsi $g$ dikerjakan lebih dahulu",
             "Untuk setiap pasangan fungsi berlaku $(f \\circ g)(x) = (g \\circ f)(x)$",
             "Nilai $(f \\circ g)(a)$ dapat dihitung sebagai $f\\bigl(g(a)\\bigr)$ tanpa menyusun rumus umumnya"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -7958,9 +7888,7 @@ const db = {
             "C. $\\frac{1}{x + 3}$ dengan $x \\neq 3$",
             "D. $\\frac{1}{x + 5} - 2$ dengan $x \\neq -5$",
             "E. $\\frac{1}{x - 2} + 5$ dengan $x \\neq 2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -7974,9 +7902,7 @@ const db = {
             "C. $6$",
             "D. $-3$",
             "E. $12$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -7990,9 +7916,7 @@ const db = {
             "C. $(f \\circ g)(x) = (g \\circ f)(x)$ untuk setiap $x$.",
             "D. $(f \\circ g)(1) = 5$",
             "E. $(g \\circ f)(1) = 9$"
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -8006,9 +7930,7 @@ const db = {
             "C. $x \\ge 6$",
             "D. $x \\neq 6$",
             "E. seluruh bilangan real"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -8016,9 +7938,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P04-Q10] Diketahui $f(x) = 3x - 1$ dan $g(x) = x^2 + 2$. Nilai $(f \\circ g)(2)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "17",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -8039,9 +7959,7 @@ const db = {
             "C. $4x^2 + 3$",
             "D. $x^2 + 6$",
             "E. $(2x+6)^2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -8055,9 +7973,7 @@ const db = {
             "C. $f(x) \\cdot x$",
             "D. $f(x)$",
             "E. $f\\bigl(f(x)\\bigr)$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -8071,9 +7987,7 @@ const db = {
             "C. $6x - 8$",
             "D. $9x - 12$",
             "E. $3x - 8$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -8087,9 +8001,7 @@ const db = {
             "C. $12$",
             "D. $49$",
             "E. $19$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -8101,9 +8013,7 @@ const db = {
             "Komposisi fungsi bersifat asosiatif, yaitu $(f \\circ g) \\circ h = f \\circ (g \\circ h)$",
             "Karena asosiatif, urutan $f \\circ g \\circ h$ boleh diubah menjadi $h \\circ g \\circ f$ tanpa mengubah hasil",
             "Berlaku $f \\circ I = I \\circ f = f$ untuk fungsi $f$ mana pun, dengan $I(x) = x$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -8117,9 +8027,7 @@ const db = {
             "C. $2x^2 + 6$",
             "D. $x^2 + 6$",
             "E. $2x^4 + 6$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -8133,9 +8041,7 @@ const db = {
             "C. $-2$",
             "D. $\\frac{8}{5}$",
             "E. $4$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -8149,9 +8055,7 @@ const db = {
             "C. $(f \\circ g)(x) = 2x + 4$",
             "D. $(g \\circ f)(x) = 2x + 4$",
             "E. $(f \\circ f)(x) = x + 8$"
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -8165,9 +8069,7 @@ const db = {
             "C. $13$",
             "D. $-1$",
             "E. $4$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -8175,9 +8077,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P05-Q10] Diketahui $f(x) = 2x + 1$, $g(x) = x - 3$, dan $h(x) = x^2$. Nilai $(f \\circ g \\circ h)(4)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "27",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -8198,9 +8098,7 @@ const db = {
             "C. $12x + 13$",
             "D. $3x + 3$",
             "E. $3x + 4$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -8214,9 +8112,7 @@ const db = {
             "C. $2x - 3$",
             "D. $2x + 3$",
             "E. $8x - 9$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -8230,9 +8126,7 @@ const db = {
             "C. $x^2 + 11$",
             "D. $x^2 - 2$",
             "E. $x^2 + 3x + 2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -8246,9 +8140,7 @@ const db = {
             "C. $2x - 1$",
             "D. $x - 5$",
             "E. $2x + 5$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -8260,9 +8152,7 @@ const db = {
             "Untuk mencari fungsi DALAM, cukup perlakukan $g(x)$ sebagai satu benda lalu selesaikan persamaannya",
             "Pada $(g \\circ f)(x)$ dengan $f$ diketahui, yang dicari adalah fungsi dalam",
             "Nama peubah boleh diganti, sehingga $f(u) = 3u + 4$ sama artinya dengan $f(x) = 3x + 4$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -8276,9 +8166,7 @@ const db = {
             "C. $3x - 5$",
             "D. $3x + 5$",
             "E. $27x - 7$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -8292,9 +8180,7 @@ const db = {
             "C. $x^2 - 3$",
             "D. $x^2 - 4x + 11$",
             "E. $x^2 + 3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -8308,9 +8194,7 @@ const db = {
             "C. $f(x) = x + 1$ dan $g(x) = 6x$",
             "D. $f(x) = 3x$ dan $g(x) = 2x + 1$",
             "E. $f(x) = 6x$ dan $g(x) = x + 1$"
-          ],
-          "kunci": "A, B, C",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -8324,9 +8208,7 @@ const db = {
             "C. $3$",
             "D. $27$",
             "E. $6$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -8334,9 +8216,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P06-Q10] Diketahui $(f \\circ g)(x) = 3x + 8$ dan $g(x) = x - 2$. Nilai $f(2)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "20",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -8357,9 +8237,7 @@ const db = {
             "C. $f(x) = x^3$",
             "D. $f(x) = 5 - x$",
             "E. $f(x) = 2x + 7$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -8373,9 +8251,7 @@ const db = {
             "C. $g(2) = 4$ dan $g(3) = 9$",
             "D. $g(-4) = g(4) = 16$",
             "E. $g(-4) = -16$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -8389,9 +8265,7 @@ const db = {
             "C. karena rumusnya memuat pangkat genap",
             "D. karena daerah asalnya bilangan real",
             "E. karena hasil pembalikannya memasangkan satu masukan dengan dua keluaran"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -8405,9 +8279,7 @@ const db = {
             "C. $-1 \\le x \\le 5$",
             "D. seluruh bilangan real",
             "E. $x \\neq 0$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -8419,9 +8291,7 @@ const db = {
             "Setiap fungsi mempunyai invers",
             "Fungsi $f(x) = x^3$ bersifat satu-satu pada bilangan real",
             "Mempersempit daerah asal dapat mengubah fungsi yang tidak satu-satu menjadi satu-satu"
-          ],
-          "kunci": "S - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -8435,9 +8305,7 @@ const db = {
             "C. $f$ fungsi tetapi tidak satu-satu, sehingga tidak mempunyai invers",
             "D. $f$ tidak satu-satu tetapi tetap mempunyai invers",
             "E. $f$ satu-satu tetapi tidak mempunyai invers"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -8451,9 +8319,7 @@ const db = {
             "C. karena koefisiennya bilangan bulat",
             "D. karena $f(0) = -6$ dan $f(1) = -3$ berbeda",
             "E. karena daerah hasilnya seluruh bilangan real"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -8467,9 +8333,7 @@ const db = {
             "C. $f(x) = x^3 - 2$",
             "D. $f(x) = |x|$",
             "E. $f(x) = 7 - 3x$"
-          ],
-          "kunci": "A, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -8483,9 +8347,7 @@ const db = {
             "C. daerah asalnya kosong",
             "D. fungsi itu tidak satu-satu, sehingga inversnya tidak ada",
             "E. fungsi itu mempunyai invers"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -8493,9 +8355,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P07-Q10] Diketahui $g(x) = x^2 - 9$. Banyaknya nilai $x$ yang memenuhi $g(x) = 7$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "2",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -8516,9 +8376,7 @@ const db = {
             "C. $\\frac{1}{3x - 6}$",
             "D. $3x + 6$",
             "E. $\\frac{x}{3} - 6$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -8532,9 +8390,7 @@ const db = {
             "C. $\\frac{1}{2x + 7}$",
             "D. $\\frac{x}{2} + 7$",
             "E. $\\frac{x - 7}{2}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -8548,9 +8404,7 @@ const db = {
             "C. $5x + 4$",
             "D. $\\frac{5}{x - 4}$",
             "E. $\\frac{x}{5} + 4$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -8564,9 +8418,7 @@ const db = {
             "C. $\\frac{2x + 1}{x + 3}$",
             "D. $\\frac{3x + 1}{x - 2}$",
             "E. $\\frac{x + 3}{2x - 1}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -8578,9 +8430,7 @@ const db = {
             "Lambang $f^{-1}(x)$ sama artinya dengan $\\frac{1}{f(x)}$",
             "Jika $f(a) = b$, maka $f^{-1}(b) = a$",
             "Invers dapat diperiksa dengan menghitung $f\\bigl(f^{-1}(x)\\bigr)$ dan memastikan hasilnya $x$"
-          ],
-          "kunci": "S - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -8594,9 +8444,7 @@ const db = {
             "C. $\\frac{1}{21}$",
             "D. $3$",
             "E. $15$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -8610,9 +8458,7 @@ const db = {
             "C. $\\sqrt[3]{x} - 1$",
             "D. $\\frac{1}{x^3 + 1}$",
             "E. $\\sqrt[3]{x + 1}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -8626,9 +8472,7 @@ const db = {
             "C. $f^{-1}(x) = \\frac{1}{4x - 12}$",
             "D. $f\\bigl(f^{-1}(x)\\bigr) = x$",
             "E. $f^{-1}(4) = 4$"
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -8642,9 +8486,7 @@ const db = {
             "C. $4$",
             "D. $-4$",
             "E. $-3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -8652,9 +8494,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P08-Q10] Diketahui $f(x) = \\frac{x + 5}{2}$. Nilai $f^{-1}(7)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "9",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -8675,9 +8515,7 @@ const db = {
             "C. $\\frac{x + 3}{2} + 5$",
             "D. $\\frac{x + 7}{2}$",
             "E. $\\frac{1}{2x - 7}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -8691,9 +8529,7 @@ const db = {
             "C. $(f \\circ g)^{-1} = f^{-1} \\cdot g^{-1}$",
             "D. $(f \\circ g)^{-1} = \\frac{1}{f \\circ g}$",
             "E. $(f \\circ g)^{-1} = (g \\circ f)^{-1}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -8707,9 +8543,7 @@ const db = {
             "C. $\\frac{x + 2}{6}$",
             "D. $6x + 11$",
             "E. $\\frac{x + 11}{5}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -8723,9 +8557,7 @@ const db = {
             "C. $4$",
             "D. $\\frac{1}{13}$",
             "E. $2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -8737,9 +8569,7 @@ const db = {
             "Berlaku $(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}$",
             "Berlaku $(g \\circ f)^{-1} = g^{-1} \\circ f^{-1}$",
             "Nilai $(f \\circ g)^{-1}(b)$ dapat dicari dengan menyelesaikan $(f \\circ g)(x) = b$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -8753,9 +8583,7 @@ const db = {
             "C. $\\frac{x - 2}{3} + 2$",
             "D. $3(x-2)$",
             "E. $\\frac{x - 2}{3}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -8769,9 +8597,7 @@ const db = {
             "C. $\\frac{1}{g \\circ f}$",
             "D. $f^{-1} \\circ g^{-1}$",
             "E. $f \\circ g$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -8785,9 +8611,7 @@ const db = {
             "C. $g^{-1}\\bigl(f^{-1}(x)\\bigr) = \\frac{x}{2} - 6$",
             "D. $f^{-1}\\bigl(g^{-1}(x)\\bigr) = \\frac{x - 12}{2}$",
             "E. $(f \\circ g)^{-1}(20) = 4$"
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -8801,9 +8625,7 @@ const db = {
             "C. $9$",
             "D. $18$",
             "E. $6$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -8811,9 +8633,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P09-Q10] Diketahui $f(x) = 3x$ dan $g(x) = x - 2$. Nilai $(f \\circ g)^{-1}(12)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "6",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -8834,9 +8654,7 @@ const db = {
             "C. $36^\\circ$F",
             "D. $93^\\circ$F",
             "E. $-6{,}7^\\circ$F"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -8850,9 +8668,7 @@ const db = {
             "C. $C = \\frac{5(F - 32)}{9}$",
             "D. $C = \\frac{5}{9F + 32}$",
             "E. $C = \\frac{9F}{5} - 32$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -8866,9 +8682,7 @@ const db = {
             "C. $4.000$",
             "D. $300.000$",
             "E. $6.000$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -8882,9 +8696,7 @@ const db = {
             "C. $Rp180.000$",
             "D. $Rp216.000$",
             "E. $Rp195.000$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -8896,9 +8708,7 @@ const db = {
             "Diskon $25\\%$ lalu pajak $10\\%$ sama hasilnya dengan potongan bersih $15\\%$",
             "Pertanyaan yang keluarannya diketahui dan masukannya dicari diselesaikan dengan invers",
             "Fungsi $h(x) = x^2 + 4$ mempunyai invers pada daerah asal bilangan real"
-          ],
-          "kunci": "S - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -8912,9 +8722,7 @@ const db = {
             "C. $2x^2 - 2$",
             "D. $2x^2 - 5$",
             "E. $2x^2 + 1$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -8928,9 +8736,7 @@ const db = {
             "C. $50$",
             "D. $51$",
             "E. $79$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -8944,9 +8750,7 @@ const db = {
             "C. $g$ mempunyai invers pada daerah asal bilangan real.",
             "D. $(g \\circ f)(x) = 4x^2 + 4x - 2$",
             "E. $f^{-1}(7) = 3$"
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -8960,9 +8764,7 @@ const db = {
             "C. $57$",
             "D. $3$",
             "E. $\\frac{13}{5}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -8970,9 +8772,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P10-Q10] Suhu udara tercatat $95^\\circ$F. Dengan $C = \\frac{5(F - 32)}{9}$, suhu itu dalam derajat Celsius adalah $\\dots$",
-          "opsi": [],
-          "kunci": "35",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -8993,9 +8793,7 @@ const db = {
             "C. apotema",
             "D. diameter",
             "E. busur"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -9009,9 +8807,7 @@ const db = {
             "C. $44$ cm",
             "D. $88$ cm",
             "E. $49$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -9025,9 +8821,7 @@ const db = {
             "C. $1.232$ cm$^2$",
             "D. $196$ cm$^2$",
             "E. $616$ cm$^2$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -9041,9 +8835,7 @@ const db = {
             "C. $49$ cm",
             "D. $28$ cm",
             "E. $22$ cm"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -9055,9 +8847,7 @@ const db = {
             "Diameter merupakan tali busur yang terpanjang",
             "Juring dibatasi oleh sebuah tali busur dan sebuah busur",
             "Apotema selalu tegak lurus terhadap tali busur yang bersangkutan"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -9071,9 +8861,7 @@ const db = {
             "C. $7$ cm",
             "D. $5$ cm",
             "E. $\\sqrt{313}$ cm"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -9087,9 +8875,7 @@ const db = {
             "C. $44$ m",
             "D. $4.400$ m",
             "E. $140$ m"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -9103,9 +8889,7 @@ const db = {
             "C. Luasnya $616$ cm$^2$.",
             "D. Luasnya $196$ cm$^2$.",
             "E. Setengah kelilingnya $44$ cm."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -9119,9 +8903,7 @@ const db = {
             "C. $6$ cm",
             "D. $\\sqrt{164}$ cm",
             "E. $12$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -9129,9 +8911,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P11-Q10] Luas sebuah lingkaran $616$ cm$^2$. Dengan $\\pi = \\frac{22}{7}$, kelilingnya adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "88",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -9152,9 +8932,7 @@ const db = {
             "C. $100^\\circ$",
             "D. $20^\\circ$",
             "E. $40^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -9168,9 +8946,7 @@ const db = {
             "C. $35^\\circ$",
             "D. $145^\\circ$",
             "E. $105^\\circ$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -9184,9 +8960,7 @@ const db = {
             "C. $110^\\circ$",
             "D. $55^\\circ$",
             "E. $70^\\circ$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -9200,9 +8974,7 @@ const db = {
             "C. $298^\\circ$",
             "D. $118^\\circ$",
             "E. $180^\\circ$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -9214,9 +8986,7 @@ const db = {
             "Sudut keliling selalu setengah dari sudut pusat yang menghadap busur yang sama",
             "Dua sudut keliling yang menghadap busur yang sama pasti berbeda besarnya bila titik sudutnya berbeda",
             "Sudut refleks selalu lebih besar dari $180^\\circ$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -9230,9 +9000,7 @@ const db = {
             "C. $47^\\circ$",
             "D. $133^\\circ$",
             "E. tidak dapat ditentukan"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -9246,9 +9014,7 @@ const db = {
             "C. $150^\\circ$",
             "D. $105^\\circ$",
             "E. $75^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -9262,9 +9028,7 @@ const db = {
             "C. $\\angle ACB = 176^\\circ$",
             "D. Segitiga $AOB$ merupakan segitiga sama kaki.",
             "E. Jika titik $C$ digeser di sepanjang busur besar, besar $\\angle ACB$ tetap."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -9278,9 +9042,7 @@ const db = {
             "C. $100^\\circ$",
             "D. $260^\\circ$",
             "E. $80^\\circ$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -9288,9 +9050,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P12-Q10] Sudut keliling sebuah lingkaran besarnya $48^\\circ$. Besar sudut pusat yang menghadap busur yang sama adalah $\\dots$ derajat.",
-          "opsi": [],
-          "kunci": "96",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -9311,9 +9071,7 @@ const db = {
             "C. $60^\\circ$",
             "D. $90^\\circ$",
             "E. bergantung letak titik sudutnya"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -9327,9 +9085,7 @@ const db = {
             "C. $\\sqrt{776}$ cm",
             "D. $36$ cm",
             "E. $6$ cm"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -9343,9 +9099,7 @@ const db = {
             "C. $75^\\circ$",
             "D. $52{,}5^\\circ$",
             "E. $95^\\circ$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -9359,9 +9113,7 @@ const db = {
             "C. $292^\\circ$",
             "D. $34^\\circ$",
             "E. $112^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -9373,9 +9125,7 @@ const db = {
             "Setiap segitiga yang salah satu sisinya diameter pasti siku-siku",
             "Pada segi empat tali busur, sudut yang bersebelahan berjumlah $180^\\circ$",
             "Setiap persegi panjang dapat digambar dengan keempat titik sudutnya pada satu lingkaran"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -9389,9 +9139,7 @@ const db = {
             "C. $30^\\circ$",
             "D. $60^\\circ$",
             "E. $108^\\circ$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -9405,9 +9153,7 @@ const db = {
             "C. $16$ cm",
             "D. $8$ cm",
             "E. $5$ cm"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -9421,9 +9167,7 @@ const db = {
             "C. $\\angle C = 80^\\circ$",
             "D. Jumlah keempat sudutnya $360^\\circ$.",
             "E. $\\angle A + \\angle C = \\angle B + \\angle D$"
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -9437,9 +9181,7 @@ const db = {
             "C. karena diagonalnya saling tegak lurus",
             "D. karena luasnya tidak dapat dihitung",
             "E. karena jumlah seluruh sudutnya bukan $360^\\circ$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -9447,9 +9189,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P13-Q10] Segi empat $ABCD$ terletak pada sebuah lingkaran dengan $\\angle B = 95^\\circ$. Besar $\\angle D$ adalah $\\dots$ derajat.",
-          "opsi": [],
-          "kunci": "85",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -9470,9 +9210,7 @@ const db = {
             "C. $44$ cm",
             "D. $66$ cm",
             "E. $88$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -9486,9 +9224,7 @@ const db = {
             "C. $60^\\circ$",
             "D. $180^\\circ$",
             "E. $90^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -9502,9 +9238,7 @@ const db = {
             "C. $42$ cm",
             "D. $14$ cm",
             "E. $63$ cm"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -9518,9 +9252,7 @@ const db = {
             "C. $24$ cm",
             "D. $30$ cm",
             "E. $48$ cm"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -9532,9 +9264,7 @@ const db = {
             "Panjang busur bersudut pusat $90^\\circ$ sama dengan seperempat keliling lingkarannya",
             "Pada dua lingkaran yang BERBEDA jari-jarinya, sudut pusat yang sama menghasilkan busur yang sama panjang",
             "Keliling sebuah juring sama dengan panjang busurnya ditambah dua jari-jari"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -9548,9 +9278,7 @@ const db = {
             "C. $88$ cm",
             "D. $22$ cm",
             "E. $66$ cm"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -9564,9 +9292,7 @@ const db = {
             "C. $128$ m",
             "D. $264$ m",
             "E. $170$ m"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -9580,9 +9306,7 @@ const db = {
             "C. Busur bersudut $180^\\circ$ panjangnya $44$ cm.",
             "D. Busur bersudut $45^\\circ$ panjangnya $22$ cm.",
             "E. Busur bersudut $270^\\circ$ panjangnya $66$ cm."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -9596,9 +9320,7 @@ const db = {
             "C. $45^\\circ$",
             "D. $120^\\circ$",
             "E. $60^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -9606,9 +9328,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P14-Q10] Panjang busur bersudut pusat $240^\\circ$ adalah $88$ cm. Dengan $\\pi = \\frac{22}{7}$, jari-jari lingkarannya adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "21",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -9629,9 +9349,7 @@ const db = {
             "C. $308$ cm$^2$",
             "D. $22$ cm$^2$",
             "E. $49$ cm$^2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -9645,9 +9363,7 @@ const db = {
             "C. $180^\\circ$",
             "D. $90^\\circ$",
             "E. $120^\\circ$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -9661,9 +9377,7 @@ const db = {
             "C. $42$ cm",
             "D. $7$ cm",
             "E. $63$ cm"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -9677,9 +9391,7 @@ const db = {
             "C. $154$ cm$^2$",
             "D. $77$ cm$^2$",
             "E. $616$ cm$^2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -9691,9 +9403,7 @@ const db = {
             "Perbandingan luas juring terhadap luas lingkaran sama dengan perbandingan busurnya terhadap keliling",
             "Luas juring dapat dihitung sebagai $s \\times r$ dengan $s$ panjang busurnya",
             "Pada lingkaran yang sama, luas juring sebanding dengan sudut pusatnya"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -9707,9 +9417,7 @@ const db = {
             "C. $44$ cm$^2$",
             "D. $693$ cm$^2$",
             "E. $462$ cm$^2$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -9723,9 +9431,7 @@ const db = {
             "C. $150$ cm$^2$",
             "D. $105$ cm$^2$",
             "E. $240$ cm$^2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -9739,9 +9445,7 @@ const db = {
             "C. Keliling juringnya $50$ cm.",
             "D. Luas juringnya $308$ cm$^2$.",
             "E. Luasnya seperempat luas lingkaran."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -9755,9 +9459,7 @@ const db = {
             "C. $60^\\circ$",
             "D. $45^\\circ$",
             "E. $120^\\circ$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -9765,9 +9467,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P15-Q10] Luas sebuah juring $231$ cm$^2$ dengan sudut pusat $60^\\circ$. Dengan $\\pi = \\frac{22}{7}$, jari-jari lingkarannya adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "21",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -9788,9 +9488,7 @@ const db = {
             "C. $98$ cm$^2$",
             "D. $252$ cm$^2$",
             "E. $560$ cm$^2$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -9804,9 +9502,7 @@ const db = {
             "C. $36\\sqrt{3}$ cm$^2$",
             "D. $144$ cm$^2$",
             "E. $18\\sqrt{3}$ cm$^2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -9820,9 +9516,7 @@ const db = {
             "C. $144\\pi - 36\\sqrt{3}$ cm$^2$",
             "D. $24\\pi - 72$ cm$^2$",
             "E. $24\\pi - 36\\sqrt{3}$ cm$^2$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -9836,9 +9530,7 @@ const db = {
             "C. $462$ cm$^2$",
             "D. $616$ cm$^2$",
             "E. $154$ cm$^2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -9850,9 +9542,7 @@ const db = {
             "Luas tembereng selalu lebih kecil daripada luas juring yang bersudut sama",
             "Luas segitiga yang dibentuk dua jari-jari dengan sudut apit $90^\\circ$ adalah $\\frac{1}{2}r^2$",
             "Tembereng bersudut pusat $180^\\circ$ luasnya tepat setengah lingkaran"
-          ],
-          "kunci": "B - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -9866,9 +9556,7 @@ const db = {
             "C. $49$ cm",
             "D. $7$ cm",
             "E. $3{,}5$ cm"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -9882,9 +9570,7 @@ const db = {
             "C. $24{,}5$ cm$^2$",
             "D. $63$ cm$^2$",
             "E. $49$ cm$^2$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -9898,9 +9584,7 @@ const db = {
             "C. Luas temberengnya $25\\pi - 50$ cm$^2$.",
             "D. Luas temberengnya $50 - 25\\pi$ cm$^2$.",
             "E. Panjang tali busurnya $10\\sqrt{2}$ cm."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -9914,9 +9598,7 @@ const db = {
             "C. $140$ cm$^2$",
             "D. $115{,}5$ cm$^2$",
             "E. $38{,}5$ cm$^2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -9924,9 +9606,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P16-Q10] Sebuah tembereng bersudut pusat $90^\\circ$ luasnya $56$ cm$^2$. Dengan $\\pi = \\frac{22}{7}$, jari-jari lingkarannya adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "14",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -9947,9 +9627,7 @@ const db = {
             "C. $9.000$ km",
             "D. $500$ km",
             "E. $1.000$ km"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -9963,9 +9641,7 @@ const db = {
             "C. $1.000$ km",
             "D. $200$ km",
             "E. $8.000$ km"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -9979,9 +9655,7 @@ const db = {
             "C. $5^\\circ$",
             "D. $4{,}5^\\circ$",
             "E. $0{,}45^\\circ$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -9995,9 +9669,7 @@ const db = {
             "C. $1$ jam",
             "D. $3$ jam",
             "E. $15$ jam"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -10009,9 +9681,7 @@ const db = {
             "Selisih satu derajat lintang selalu bersesuaian dengan jarak yang kira-kira sama di mana pun diukur",
             "Selisih satu derajat bujur selalu bersesuaian dengan jarak yang sama di mana pun diukur",
             "Setiap $15^\\circ$ selisih bujur bersesuaian dengan selisih waktu satu jam"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -10025,9 +9695,7 @@ const db = {
             "C. $27^\\circ$",
             "D. $75^\\circ$",
             "E. $2{,}7^\\circ$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -10041,9 +9709,7 @@ const db = {
             "C. $1.600$ km",
             "D. $12.800$ km",
             "E. $3.200$ km"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -10057,9 +9723,7 @@ const db = {
             "C. Selisih lintangnya $3^\\circ$.",
             "D. Kedua kota berada di belahan bumi yang berbeda.",
             "E. Perjalanan dari $M$ ke $N$ melewati khatulistiwa."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -10073,9 +9737,7 @@ const db = {
             "C. $2$ jam",
             "D. $4$ jam",
             "E. $15$ jam"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -10083,9 +9745,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P17-Q10] Kota $A$ pada $3^\\circ$ LU dan kota $B$ pada $12^\\circ$ LU, keduanya pada satu meridian. Dengan keliling bumi $40.000$ km, jarak keduanya adalah $\\dots$ km.",
-          "opsi": [],
-          "kunci": "1000",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -10106,9 +9766,7 @@ const db = {
             "C. tak hingga",
             "D. satu",
             "E. tiga"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -10122,9 +9780,7 @@ const db = {
             "C. $60^\\circ$",
             "D. $180^\\circ$",
             "E. bergantung letak titik singgungnya"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -10138,9 +9794,7 @@ const db = {
             "C. menyinggung lingkaran",
             "D. melalui pusat lingkaran",
             "E. berimpit dengan diameter"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -10154,9 +9808,7 @@ const db = {
             "C. $\\sqrt{136}$ cm",
             "D. $20$ cm",
             "E. $16$ cm"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -10168,9 +9820,7 @@ const db = {
             "Garis singgung selalu tegak lurus terhadap jari-jari di titik singgungnya",
             "Sebuah garis yang berjarak lebih besar dari jari-jari akan memotong lingkaran di dua titik",
             "Dua garis singgung dari satu titik di luar lingkaran selalu sama panjang"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -10184,9 +9834,7 @@ const db = {
             "C. memotong di dua titik",
             "D. melalui pusat lingkaran",
             "E. memotong di tiga titik"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -10200,9 +9848,7 @@ const db = {
             "C. karena $P$ berada di luar lingkaran",
             "D. karena lingkaran mempunyai sumbu simetri",
             "E. karena $\\angle APB$ selalu siku-siku"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -10216,9 +9862,7 @@ const db = {
             "C. Garis berjarak $9$ cm dari $O$ tidak memotong lingkaran.",
             "D. Garis berjarak $4$ cm dari $O$ menyinggung lingkaran.",
             "E. Tali busur yang terbentuk oleh garis berjarak $4$ cm panjangnya $4\\sqrt{5}$ cm."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -10232,9 +9876,7 @@ const db = {
             "C. $8$ cm",
             "D. $26$ cm",
             "E. $18$ cm"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -10242,9 +9884,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P18-Q10] Sebuah lingkaran berjari-jari $17$ cm dan sebuah garis berjarak $8$ cm dari pusatnya. Panjang tali busur yang terbentuk adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "30",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -10265,9 +9905,7 @@ const db = {
             "C. $12$ cm",
             "D. $18$ cm",
             "E. $14$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -10281,9 +9919,7 @@ const db = {
             "C. $49$ cm",
             "D. $12$ cm",
             "E. $7$ cm"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -10297,9 +9933,7 @@ const db = {
             "C. $\\sqrt{28}$ cm",
             "D. $14$ cm",
             "E. $48$ cm"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -10313,9 +9947,7 @@ const db = {
             "C. $136$ cm$^2$",
             "D. $120$ cm$^2$",
             "E. $68$ cm$^2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -10327,9 +9959,7 @@ const db = {
             "Pada rumus $\\ell = \\sqrt{d^2 - r^2}$, yang berperan sebagai sisi miring adalah $d$",
             "Garis singgung dapat ditarik dari titik yang berada di dalam lingkaran",
             "Luas layang-layang garis singgung sama dengan hasil kali panjang garis singgung dan jari-jari"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -10343,9 +9973,7 @@ const db = {
             "C. $\\sqrt{136}$ cm",
             "D. $16$ cm",
             "E. $\\sqrt{60}$ cm"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -10359,9 +9987,7 @@ const db = {
             "C. karena setiap garis lewat titik itu pasti memotong lingkaran di dua tempat",
             "D. karena luas layang-layangnya menjadi nol",
             "E. karena jaraknya ke pusat sama dengan nol"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -10375,9 +10001,7 @@ const db = {
             "C. Luas layang-layang $OAPB$ adalah $60$ cm$^2$.",
             "D. Segitiga $OAP$ siku-siku di $A$.",
             "E. Luas layang-layang $OAPB$ adalah $30$ cm$^2$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -10391,9 +10015,7 @@ const db = {
             "C. $64$ cm",
             "D. $32$ cm",
             "E. $8$ cm"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -10401,9 +10023,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P19-Q10] Panjang garis singgung dari sebuah titik ke lingkaran berjari-jari $12$ cm adalah $16$ cm. Jarak titik itu ke pusat lingkaran adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "20",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -10424,9 +10044,7 @@ const db = {
             "C. $\\sqrt{290}$ cm",
             "D. $11$ cm",
             "E. $\\sqrt{48}$ cm"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -10440,9 +10058,7 @@ const db = {
             "C. $16$ cm",
             "D. $15$ cm",
             "E. $13$ cm"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -10456,9 +10072,7 @@ const db = {
             "C. $17$ cm",
             "D. $7$ cm",
             "E. $15$ cm"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -10472,9 +10086,7 @@ const db = {
             "C. $3$ cm",
             "D. $5$ cm",
             "E. $1$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -10486,9 +10098,7 @@ const db = {
             "Pada garis singgung persekutuan luar, kedua jari-jarinya dikurangkan",
             "Bila kedua lingkaran berjari-jari sama, panjang garis singgung persekutuan luarnya sama dengan jarak kedua pusatnya",
             "Rumus garis singgung persekutuan luar berasal dari teorema Pythagoras"
-          ],
-          "kunci": "B - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -10502,9 +10112,7 @@ const db = {
             "C. $12$ cm",
             "D. $14$ cm",
             "E. $20$ cm"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -10518,9 +10126,7 @@ const db = {
             "C. $14$ cm",
             "D. $10$ cm",
             "E. $18$ cm"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -10534,9 +10140,7 @@ const db = {
             "C. Jumlah jari-jarinya $13$ cm.",
             "D. Panjang garis singgung persekutuan luarnya $\\sqrt{194}$ cm.",
             "E. Kedua lingkaran itu bersinggungan dari luar."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -10550,9 +10154,7 @@ const db = {
             "C. $19$ cm",
             "D. $5$ cm",
             "E. $3$ cm"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -10560,9 +10162,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P20-Q10] Dua lingkaran berjari-jari $10$ cm dan $3$ cm dengan jarak kedua pusatnya $25$ cm. Panjang garis singgung persekutuan luarnya adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "24",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -10583,9 +10183,7 @@ const db = {
             "C. $\\sqrt{280}$ cm",
             "D. $\\sqrt{514}$ cm",
             "E. $11$ cm"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -10599,9 +10197,7 @@ const db = {
             "C. $15$ cm",
             "D. $5$ cm",
             "E. $\\sqrt{417}$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -10615,9 +10211,7 @@ const db = {
             "C. $17$ cm",
             "D. $7$ cm",
             "E. $13$ cm"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -10631,9 +10225,7 @@ const db = {
             "C. $21$ cm",
             "D. $3$ cm",
             "E. $11$ cm"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -10645,9 +10237,7 @@ const db = {
             "Pada garis singgung persekutuan dalam, kedua jari-jarinya dijumlahkan",
             "Untuk dua lingkaran yang sama, persekutuan dalam selalu lebih panjang daripada persekutuan luar",
             "Bila jarak kedua pusat sama dengan jumlah jari-jarinya, panjang garis singgung persekutuan dalamnya nol"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -10661,9 +10251,7 @@ const db = {
             "C. bersinggungan dari dalam",
             "D. bersinggungan dari luar",
             "E. lingkaran kecil berada di dalam lingkaran besar"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -10677,9 +10265,7 @@ const db = {
             "C. karena kedua lingkaran berjari-jari berbeda",
             "D. karena garis singgungnya lebih pendek",
             "E. karena rumusnya memang begitu"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -10693,9 +10279,7 @@ const db = {
             "C. Persekutuan dalamnya lebih pendek daripada persekutuan luarnya.",
             "D. Persekutuan dalamnya $24$ cm.",
             "E. Kedua lingkaran itu terpisah."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -10709,9 +10293,7 @@ const db = {
             "C. $6$ cm",
             "D. $2$ cm",
             "E. $22$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -10719,9 +10301,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P21-Q10] Panjang garis singgung persekutuan dalam dua lingkaran adalah $16$ cm, dengan jari-jari $9$ cm dan $3$ cm. Jarak kedua pusatnya adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "20",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -10742,9 +10322,7 @@ const db = {
             "C. $1$ cm",
             "D. $\\sqrt{1249}$ cm",
             "E. $14$ cm"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -10758,9 +10336,7 @@ const db = {
             "C. $4$ cm",
             "D. $16$ cm",
             "E. $2$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -10774,9 +10350,7 @@ const db = {
             "C. $8$ cm",
             "D. $3$ cm",
             "E. $12$ cm"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -10790,9 +10364,7 @@ const db = {
             "C. $14$ cm",
             "D. $34$ cm",
             "E. $5$ cm"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -10804,9 +10376,7 @@ const db = {
             "Garis dari pusat yang tegak lurus tali busur membagi tali busur menjadi dua sama panjang",
             "Tali busur yang lebih panjang letaknya lebih jauh dari pusat",
             "Pada dua tali busur yang berpotongan berlaku $AP \\times PB = CP \\times PD$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -10820,9 +10390,7 @@ const db = {
             "C. $2$ cm",
             "D. $4$ cm",
             "E. $-6$ cm"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -10836,9 +10404,7 @@ const db = {
             "C. $2$ cm",
             "D. $200$ cm",
             "E. $12$ cm"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -10852,9 +10418,7 @@ const db = {
             "C. Jaraknya ke pusat $12$ cm.",
             "D. Tali busur sepanjang $26$ cm pada lingkaran itu pasti melewati pusat.",
             "E. Tali busur yang lebih pendek dari $24$ cm letaknya lebih jauh dari pusat."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -10868,9 +10432,7 @@ const db = {
             "C. $7$ cm",
             "D. $5$ cm",
             "E. $14$ cm"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -10878,9 +10440,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P22-Q10] Dua tali busur berpotongan di $P$ dengan $AP = y$, $PB = y + 3$, $CP = 2$ cm, dan $PD = 14$ cm. Nilai $y$ adalah $\\dots$ cm.",
-          "opsi": [],
-          "kunci": "4",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -10901,9 +10461,7 @@ const db = {
             "C. $350$ cm$^2$",
             "D. $42$ cm$^2$",
             "E. $616$ cm$^2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -10917,9 +10475,7 @@ const db = {
             "C. $70^\\circ$",
             "D. $145^\\circ$",
             "E. $90^\\circ$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -10933,9 +10489,7 @@ const db = {
             "C. $96$ cm$^2$",
             "D. $48$ cm$^2$",
             "E. $16$ cm$^2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -10949,9 +10503,7 @@ const db = {
             "C. $0$ cm",
             "D. $\\sqrt{194}$ cm",
             "E. $12$ cm"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -10963,9 +10515,7 @@ const db = {
             "Luas juring dikurangi luas temberengnya selalu sama dengan luas segitiga yang dibentuk kedua jari-jari",
             "Dua lingkaran yang bersinggungan dari luar mempunyai garis singgung persekutuan dalam sepanjang nol",
             "Lingkaran terbesar yang muat dalam sebuah persegi mempunyai jari-jari sama dengan sisi persegi itu"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -10979,9 +10529,7 @@ const db = {
             "C. $56$ m$^2$",
             "D. $210$ m$^2$",
             "E. $49$ m$^2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -10995,9 +10543,7 @@ const db = {
             "C. $90^\\circ$",
             "D. $110^\\circ$",
             "E. $145^\\circ$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -11011,9 +10557,7 @@ const db = {
             "C. Panjang busur bersudut $120^\\circ$ adalah $44$ cm.",
             "D. Luas juring bersudut $120^\\circ$ adalah $462$ cm$^2$.",
             "E. Luas juring bersudut $120^\\circ$ adalah $44$ cm$^2$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -11027,9 +10571,7 @@ const db = {
             "C. $784$ cm$^2$",
             "D. $1.400$ cm$^2$",
             "E. $42$ cm$^2$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -11037,9 +10579,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P23-Q10] Dari titik berjarak $17$ cm dari pusat lingkaran berjari-jari $15$ cm ditarik garis singgung. Luas segitiga yang dibentuk oleh jari-jari, garis singgung, dan jarak ke pusat adalah $\\dots$ cm$^2$.",
-          "opsi": [],
-          "kunci": "60",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -11060,9 +10600,7 @@ const db = {
             "C. kualitatif",
             "D. berkelompok",
             "E. tunggal"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -11076,9 +10614,7 @@ const db = {
             "C. jam belajar",
             "D. rata-rata nilai",
             "E. banyaknya siswa"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -11092,9 +10628,7 @@ const db = {
             "C. $40$",
             "D. $30$",
             "E. $8$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -11108,9 +10642,7 @@ const db = {
             "C. merupakan data bivariat asalkan jumlah siswanya sama",
             "D. merupakan data univariat dengan dua satuan",
             "E. tidak dapat dihitung rata-ratanya"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -11122,9 +10654,7 @@ const db = {
             "Pada diagram pencar, titik-titiknya dihubungkan dengan garis agar polanya terlihat",
             "Peubah bebas diletakkan pada sumbu mendatar",
             "Skala pada satu sumbu harus tetap agar jarak pada gambar mewakili selisih pada data"
-          ],
-          "kunci": "S - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -11138,9 +10668,7 @@ const db = {
             "C. $9$",
             "D. $5$",
             "E. $60$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -11154,9 +10682,7 @@ const db = {
             "C. karena perbedaan yang kecil akan tampak jauh lebih besar daripada yang sebenarnya",
             "D. karena rata-ratanya berubah",
             "E. karena peubah bebasnya menjadi tertukar"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -11170,9 +10696,7 @@ const db = {
             "C. $\\bar{y} = 8$",
             "D. Titik $(\\bar{x}, \\bar{y})$ merupakan salah satu data yang tercatat.",
             "E. $\\bar{y} = 40$"
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -11186,9 +10710,7 @@ const db = {
             "C. hasil panen",
             "D. jenis tanaman",
             "E. lama penyimpanan"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -11196,9 +10718,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P24-Q10] Diberikan data bivariat $(2,5)$, $(4,6)$, $(6,10)$, $(8,11)$, $(10,13)$. Nilai $\\bar{y}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "9",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -11219,9 +10739,7 @@ const db = {
             "C. tidak ada",
             "D. sempurna",
             "E. negatif"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -11235,9 +10753,7 @@ const db = {
             "C. positif tetapi melengkung",
             "D. tidak ada hubungan",
             "E. negatif dan kuat"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -11251,9 +10767,7 @@ const db = {
             "C. positif dan lemah",
             "D. negatif dan kuat",
             "E. negatif dan lemah"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -11267,9 +10781,7 @@ const db = {
             "C. negatif dan kuat",
             "D. linear sempurna",
             "E. melengkung dan kuat"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -11281,9 +10793,7 @@ const db = {
             "Hubungan yang berarah negatif pasti lebih lemah daripada yang berarah positif",
             "Selisih $y$ yang terus membesar untuk kenaikan $x$ yang sama menandakan pola melengkung",
             "Arah dan kekuatan hubungan adalah dua hal yang berbeda"
-          ],
-          "kunci": "S - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -11297,9 +10807,7 @@ const db = {
             "C. melengkung",
             "D. linear lemah",
             "E. negatif"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -11313,9 +10821,7 @@ const db = {
             "C. $(1,3),(2,6),(3,8),(4,12),(5,14)$",
             "D. $(1,12),(2,10),(3,5),(4,2),(5,1)$",
             "E. $(1,7),(2,2),(3,8),(4,3),(5,7)$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -11329,9 +10835,7 @@ const db = {
             "C. Bentuknya mendekati linear.",
             "D. Arah hubungannya positif.",
             "E. Semakin besar $x$, semakin kecil $y$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -11345,9 +10849,7 @@ const db = {
             "C. karena rata-ratanya belum tentu ada",
             "D. karena banyaknya data harus genap",
             "E. karena peubah bebasnya bisa tertukar"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -11355,9 +10857,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P25-Q10] Pada data $(1,3)$, $(2,5)$, $(3,7)$, $(4,9)$, $(5,11)$, selisih nilai $y$ untuk setiap kenaikan satu satuan $x$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "2",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -11378,9 +10878,7 @@ const db = {
             "C. peubah bebas",
             "D. pencilan",
             "E. koefisien arah"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -11394,9 +10892,7 @@ const db = {
             "C. $-2$",
             "D. $4$",
             "E. $1$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -11410,9 +10906,7 @@ const db = {
             "C. nilai $x$-nya",
             "D. banyaknya data",
             "E. satuan pengukurannya"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -11426,9 +10920,7 @@ const db = {
             "C. mengabaikannya dan tetap menghitung seperti biasa",
             "D. menambah data baru sampai pencilannya tidak kelihatan",
             "E. menyelidiki asalnya lebih dahulu, baru memutuskan"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -11440,9 +10932,7 @@ const db = {
             "Satu pencilan dapat mengubah koefisien arah garis regresi secara mencolok",
             "Pengaruh satu pencilan lebih besar pada data yang banyak daripada pada data yang sedikit",
             "Pencilan yang searah dengan pola tidak mengubah garis regresi sama sekali"
-          ],
-          "kunci": "B - S - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -11456,9 +10946,7 @@ const db = {
             "C. $\\hat{y} = -3 + 2x$",
             "D. $\\hat{y} = -3 + 4x$",
             "E. $\\hat{y} = 4 - 3x$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -11472,9 +10960,7 @@ const db = {
             "C. karena rumusnya berbeda untuk data yang sedikit",
             "D. karena diagram pencarnya lebih kecil",
             "E. karena rata-ratanya tidak dapat dihitung"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -11488,9 +10974,7 @@ const db = {
             "C. Kekuatan hubungannya runtuh menjadi sekitar $0{,}09$.",
             "D. Koefisien arahnya tetap $2$.",
             "E. Garis regresinya menjadi nyaris mendatar."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -11504,9 +10988,7 @@ const db = {
             "C. $-2$",
             "D. $1$",
             "E. $5$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -11514,9 +10996,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P26-Q10] Pada data $(1,2)$, $(2,6)$, $(3,7)$, $(4,10)$, $(5,1)$, nilai $\\sum xy$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "80",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -11537,9 +11017,7 @@ const db = {
             "C. $y_i - \\hat{y}_i$",
             "D. $x_i - \\bar{x}$",
             "E. $\\left(y_i - \\bar{y}\\right)^2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -11553,9 +11031,7 @@ const db = {
             "C. $2$",
             "D. $59$",
             "E. $4$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -11569,9 +11045,7 @@ const db = {
             "C. agar satuannya sama dengan satuan $x$",
             "D. agar banyaknya data tidak berpengaruh",
             "E. agar garisnya melalui titik asal"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -11585,9 +11059,7 @@ const db = {
             "C. $5$",
             "D. $9$",
             "E. $59$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -11599,9 +11071,7 @@ const db = {
             "Jumlah galat pada garis regresi selalu bernilai nol",
             "Garis regresi selalu melalui titik $(\\bar{x}, \\bar{y})$",
             "Jarak yang dikecilkan pada metode kuadrat terkecil adalah jarak tegak lurus ke garis"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -11615,9 +11085,7 @@ const db = {
             "C. $12$",
             "D. $-1$",
             "E. $13$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -11631,9 +11099,7 @@ const db = {
             "C. jumlah kuadrat galatnya paling kecil di antara semua garis yang mungkin",
             "D. jarak antartitiknya paling kecil",
             "E. nilai $x$ yang dipakai selalu dikuadratkan"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -11647,9 +11113,7 @@ const db = {
             "C. $JKG = 4$",
             "D. Garisnya melalui titik $(3, 7)$.",
             "E. $JKG = 0$"
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -11663,9 +11127,7 @@ const db = {
             "C. karena jarak tegak lurus selalu lebih panjang",
             "D. karena satuan $x$ dan $y$ selalu sama",
             "E. karena nilai $x$ dianggap pasti dan hanya $y$ yang ditaksir"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -11673,9 +11135,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P27-Q10] Untuk data $(1,3)$, $(2,5)$, $(3,7)$, $(4,9)$, $(5,11)$ dan garis $\\hat{y} = 1 + 2x$, jumlah kuadrat galatnya adalah $\\dots$",
-          "opsi": [],
-          "kunci": "0",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -11696,9 +11156,7 @@ const db = {
             "C. $b = \\dfrac{\\sum x \\sum y - n\\sum xy}{n\\sum x^2 - \\left(\\sum x\\right)^2}$",
             "D. $b = \\dfrac{n\\sum xy - \\sum x \\sum y}{n\\sum y^2 - \\left(\\sum y\\right)^2}$",
             "E. $b = \\dfrac{\\sum y}{\\sum x}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -11712,9 +11170,7 @@ const db = {
             "C. $100$",
             "D. $2$",
             "E. $-2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -11728,9 +11184,7 @@ const db = {
             "C. $-150$",
             "D. $36$",
             "E. $-\\dfrac{1}{3}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -11744,9 +11198,7 @@ const db = {
             "C. $125$ dan $525$",
             "D. $525$ dan $525$",
             "E. $160$ dan $525$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -11758,9 +11210,7 @@ const db = {
             "Nilai $\\sum xy$ diperoleh dengan mengalikan setiap pasangan lebih dahulu, baru dijumlahkan",
             "Nilai $\\sum x^2$ selalu sama dengan $\\left(\\sum x\\right)^2$",
             "Koefisien arah yang bernilai negatif menunjukkan hubungan yang menurun"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -11774,9 +11224,7 @@ const db = {
             "C. $\\dfrac{1}{9}$",
             "D. $-9$",
             "E. $9$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -11790,9 +11238,7 @@ const db = {
             "C. $3$",
             "D. $2{,}8$",
             "E. $\\dfrac{1}{2}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -11806,9 +11252,7 @@ const db = {
             "C. $\\sum x^2 = 225$",
             "D. Pembilang rumus $b$ bernilai $100$.",
             "E. $b = 2$"
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -11822,9 +11266,7 @@ const db = {
             "C. Siswa yang belajar satu jam memperoleh nilai $9$.",
             "D. Setiap tambahan satu jam belajar disertai kenaikan nilai rata-rata $9$ angka.",
             "E. Jam belajar bertambah $9$ jam setiap kali nilai bertambah satu angka."
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -11832,9 +11274,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P28-Q10] Untuk data $(1,4)$, $(2,10)$, $(3,13)$, $(4,18)$, $(5,20)$, koefisien arah garis regresinya adalah $\\dots$",
-          "opsi": [],
-          "kunci": "4",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -11855,9 +11295,7 @@ const db = {
             "C. $a = \\bar{y} + b\\bar{x}$",
             "D. $a = b\\bar{x} - \\bar{y}$",
             "E. $a = \\dfrac{\\bar{y}}{b\\bar{x}}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -11871,9 +11309,7 @@ const db = {
             "C. $5$",
             "D. $15$",
             "E. $\\dfrac{4}{3}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -11887,9 +11323,7 @@ const db = {
             "C. $\\hat{y} = 3 + 2x$",
             "D. $\\hat{y} = -1 + 2x$",
             "E. $\\hat{y} = 1 + 2x$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -11903,9 +11337,7 @@ const db = {
             "C. $12$",
             "D. $-4$",
             "E. $8$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -11917,9 +11349,7 @@ const db = {
             "Garis regresi selalu melewati titik $\\left(\\bar{x}, \\bar{y}\\right)$",
             "Konstanta $a$ adalah taksiran nilai $y$ ketika $x = 0$",
             "Konstanta $a$ tidak mungkin bernilai negatif"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -11933,9 +11363,7 @@ const db = {
             "C. $-15$",
             "D. $15$",
             "E. $3$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -11949,9 +11377,7 @@ const db = {
             "C. $5$",
             "D. $7$",
             "E. $3{,}5$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -11965,9 +11391,7 @@ const db = {
             "C. Garis regresinya melalui titik $(3, 76)$.",
             "D. Persamaan regresinya $\\hat{y} = 49 + 9x$.",
             "E. Taksiran nilai untuk $x = 2$ adalah $85$."
-          ],
-          "kunci": "A, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -11981,9 +11405,7 @@ const db = {
             "C. Konstanta itu hanya menempatkan letak garis dan tidak boleh ditafsirkan sebagai keadaan nyata.",
             "D. Persamaannya pasti keliru sebab konstantanya negatif.",
             "E. Banyaknya barang selalu berkurang $2$ buah setiap waktu."
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -11991,9 +11413,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P29-Q10] Untuk data $(1,4)$, $(2,10)$, $(3,13)$, $(4,18)$, $(5,20)$ dengan $b = 4$, nilai konstantanya adalah $\\dots$",
-          "opsi": [],
-          "kunci": "1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -12014,9 +11434,7 @@ const db = {
             "C. menghitung ulang koefisien arahnya untuk $x_0$",
             "D. mengalikan $x_0$ dengan $\\bar{y}$",
             "E. memasukkan $x_0$ ke persamaan $\\hat{y} = a + bx$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -12030,9 +11448,7 @@ const db = {
             "C. $4$",
             "D. $3$",
             "E. $2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -12046,9 +11462,7 @@ const db = {
             "C. $65$",
             "D. $-2$",
             "E. $0$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -12062,9 +11476,7 @@ const db = {
             "C. $27$",
             "D. $2$",
             "E. $12$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -12076,9 +11488,7 @@ const db = {
             "Menaksir dilakukan dengan memasukkan nilai $x$ ke persamaan $\\hat{y} = a + bx$",
             "Hasil taksiran selalu sama persis dengan data yang sebenarnya",
             "Persamaan regresi dapat juga dipakai untuk mencari $x$ apabila taksirannya sudah ditentukan"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -12092,9 +11502,7 @@ const db = {
             "C. $5$",
             "D. $7$",
             "E. $2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -12108,9 +11516,7 @@ const db = {
             "C. $54$ jam",
             "D. $\\dfrac{103}{9}$ jam",
             "E. $4$ jam"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -12124,9 +11530,7 @@ const db = {
             "C. Galat pada $x = 4$ bernilai nol.",
             "D. Taksiran pada $x = 2$ sama persis dengan data sebenarnya.",
             "E. Taksiran pada $x = 3$ sama dengan $\\bar{y}$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -12140,9 +11544,7 @@ const db = {
             "C. keliru, sebab persamaannya seharusnya memakai $\\bar{y}$",
             "D. benar, sebab $3$ jam berada di dalam jangkauan datanya",
             "E. keliru, sebab garis regresi tidak boleh dipakai untuk menaksir"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -12150,9 +11552,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P30-Q10] Diketahui garis regresi $\\hat{y} = 1 + 4x$. Taksiran nilai $y$ pada $x = 6$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "25",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -12173,9 +11573,7 @@ const db = {
             "C. korelasi",
             "D. ekstrapolasi",
             "E. determinasi"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -12189,9 +11587,7 @@ const db = {
             "C. ekstrapolasi, sebab $2{,}5$ bukan bilangan bulat",
             "D. interpolasi, sebab $2{,}5$ lebih kecil daripada $\\bar{x}$",
             "E. bukan keduanya, sebab taksirannya tidak sah"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -12205,9 +11601,7 @@ const db = {
             "C. $103$",
             "D. $54$",
             "E. $58$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -12221,9 +11615,7 @@ const db = {
             "C. karena koefisien arahnya terlalu besar",
             "D. karena konstantanya bernilai positif",
             "E. karena nilai ulangan tidak mungkin melebihi $100$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -12235,9 +11627,7 @@ const db = {
             "Interpolasi umumnya lebih dapat dipercaya daripada ekstrapolasi",
             "Hasil ekstrapolasi selalu berupa angka yang mustahil",
             "Konstanta $a$ adalah taksiran pada $x = 0$, sehingga ia pun ekstrapolasi apabila $0$ jauh dari data"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -12251,9 +11641,7 @@ const db = {
             "C. $3$",
             "D. $33$",
             "E. $18$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -12267,9 +11655,7 @@ const db = {
             "C. $x = 2$",
             "D. $x = 11$",
             "E. $x = 7{,}5$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -12283,9 +11669,7 @@ const db = {
             "C. Taksiran pada $x = 10$ termasuk ekstrapolasi.",
             "D. Taksiran pada $x = 10$ harus ditolak karena hitungannya keliru.",
             "E. Taksiran pada $x = 0$ bernilai $1$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -12299,9 +11683,7 @@ const db = {
             "C. keliru, sebab umur seharusnya menjadi peubah $y$",
             "D. benar, asalkan hitungannya teliti",
             "E. keliru, sebab garis regresi hanya boleh dipakai pada data yang sama persis"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -12309,9 +11691,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P31-Q10] Garis regresi banyaknya barang adalah $\\hat{y} = 24 - 4x$, dan banyaknya barang tidak mungkin negatif. Nilai $x$ terbesar yang masih memberi taksiran masuk akal adalah $\\dots$",
-          "opsi": [],
-          "kunci": "6",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -12332,9 +11712,7 @@ const db = {
             "C. $-1 \\le r \\le 1$",
             "D. $-100 \\le r \\le 100$",
             "E. $r$ dapat bernilai berapa pun"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -12348,9 +11726,7 @@ const db = {
             "C. $0{,}2$",
             "D. $-0{,}8$",
             "E. $0{,}8$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -12364,9 +11740,7 @@ const db = {
             "C. koefisien arah garisnya bernilai $1$",
             "D. banyaknya data hanya satu",
             "E. seluruh nilai $y$ sama besar"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -12380,9 +11754,7 @@ const db = {
             "C. $-0{,}8$",
             "D. $-1$",
             "E. $-100$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -12394,9 +11766,7 @@ const db = {
             "Koefisien korelasi $r$ selalu setanda dengan koefisien arah $b$",
             "Nilai $r = 0$ berarti sama sekali tidak ada hubungan antara $x$ dan $y$",
             "Penyebut pada rumus $r$ tidak pernah bernilai negatif"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -12410,9 +11780,7 @@ const db = {
             "C. tidak ada hubungan apa pun antara $x$ dan $y$",
             "D. seluruh nilai $y$ pasti sama besar",
             "E. hitungannya pasti keliru sebab $r$ tidak boleh nol"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -12426,9 +11794,7 @@ const db = {
             "C. $-0{,}8$",
             "D. $-1$",
             "E. $-\\dfrac{4}{50}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -12442,9 +11808,7 @@ const db = {
             "C. $r = 1$",
             "D. $b = 1$",
             "E. Seluruh titiknya terletak pada satu garis."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -12458,9 +11822,7 @@ const db = {
             "C. hasilnya sah asalkan tandanya positif",
             "D. hubungannya berlawanan arah",
             "E. hitungannya pasti keliru, sebab $r$ tidak mungkin melebihi $1$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -12468,9 +11830,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P32-Q10] Koefisien korelasi untuk data $(1,2)$, $(2,4)$, $(3,6)$, $(4,8)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -12491,9 +11851,7 @@ const db = {
             "C. sedang",
             "D. kuat",
             "E. tidak ada hubungan"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -12507,9 +11865,7 @@ const db = {
             "C. $0{,}50$",
             "D. $0{,}95$",
             "E. $-0{,}95$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -12523,9 +11879,7 @@ const db = {
             "C. hubungan positif yang sangat kuat",
             "D. tidak ada hubungan, sebab $r$ negatif",
             "E. hubungan negatif yang sedang"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -12539,9 +11893,7 @@ const db = {
             "C. kuat",
             "D. lemah",
             "E. sempurna"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -12553,9 +11905,7 @@ const db = {
             "Yang digolongkan kekuatannya adalah nilai mutlak $r$, bukan $r$ sendiri",
             "Nilai $r = -0{,}9$ menunjukkan hubungan yang lebih lemah daripada $r = 0{,}5$",
             "Satu pencilan dapat mengubah nilai $r$ secara besar-besaran"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -12569,9 +11919,7 @@ const db = {
             "C. nilai $r$ tidak berubah oleh perubahan satu titik",
             "D. perubahan itu tidak berarti apa-apa sebab hanya satu titik",
             "E. nilai $r$ sangat peka terhadap pencilan, sehingga diagram pencarnya harus selalu diperiksa"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -12585,9 +11933,7 @@ const db = {
             "C. $0{,}11$",
             "D. $-0{,}99$",
             "E. $0{,}45$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -12601,9 +11947,7 @@ const db = {
             "C. Tanda $r$ dan tanda $b$ memang harus sama.",
             "D. Nilai $r$ yang negatif menunjukkan hubungan yang lemah.",
             "E. Setiap kenaikan satu satuan $x$ disertai penurunan rata-rata $3$ satuan pada $y$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -12617,9 +11961,7 @@ const db = {
             "C. data kedua hubungannya lebih lemah sebab $r$-nya negatif",
             "D. data kedua hubungannya lebih kuat, dan arahnya berlawanan",
             "E. keduanya tidak dapat dibandingkan sebab tandanya berbeda"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -12627,9 +11969,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P33-Q10] Data $(1,2)$, $(2,6)$, $(3,7)$, $(4,10)$, $(5,10)$ ternyata salah catat pada titik terakhir, yang seharusnya $(5,1)$. Untuk data yang sudah diperbaiki itu, nilai pembilang rumus $r$, yaitu $n\\sum xy - \\sum x \\sum y$, adalah $\\dots$",
-          "opsi": [],
-          "kunci": "10",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -12650,9 +11990,7 @@ const db = {
             "C. $|r|$",
             "D. $1 - r$",
             "E. $\\dfrac{r}{2}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -12666,9 +12004,7 @@ const db = {
             "C. $64\\%$",
             "D. $36\\%$",
             "E. $160\\%$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -12682,9 +12018,7 @@ const db = {
             "C. $19\\%$",
             "D. $90\\%$",
             "E. $81\\%$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -12698,9 +12032,7 @@ const db = {
             "C. $8$",
             "D. $0{,}5$",
             "E. $0{,}08$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -12712,9 +12044,7 @@ const db = {
             "Koefisien determinasi tidak pernah bernilai negatif",
             "Dari $r^2$ saja arah hubungan dapat diketahui",
             "Nilai $r^2 = 0{,}64$ berarti $36\\%$ keragaman $y$ dijelaskan oleh hal lain"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -12728,9 +12058,7 @@ const db = {
             "C. koefisien korelasinya bernilai $64$",
             "D. $64\\%$ dari keragaman skor dapat dijelaskan oleh jam berlatih",
             "E. jam berlatih menyebabkan $64\\%$ kemenangan"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -12744,9 +12072,7 @@ const db = {
             "C. $0{,}8$ saja",
             "D. $0{,}4$ atau $-0{,}4$",
             "E. $0{,}32$ saja"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -12760,9 +12086,7 @@ const db = {
             "C. Nilai $r$ bertanda positif.",
             "D. $r^2 = \\dfrac{1}{11}$",
             "E. Koefisien determinasinya kira-kira $90{,}9\\%$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -12776,9 +12100,7 @@ const db = {
             "C. keliru, sebab $r^2$ tidak mungkin melebihi $1$",
             "D. keliru, sebab $r^2$ harus selalu berupa pecahan",
             "E. sah, tetapi harus ditulis dalam persen"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -12786,9 +12108,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P34-Q10] Sebuah data memiliki $JKG = 12$ dan $JKT = 48$. Koefisien determinasinya, dinyatakan dalam persen, adalah $\\dots$",
-          "opsi": [],
-          "kunci": "75",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -12809,9 +12129,7 @@ const db = {
             "C. hubungan sebabnya berarah dari $x$ ke $y$",
             "D. datanya pasti dikumpulkan dengan benar",
             "E. keduanya bergerak bersama-sama secara rapat, tanpa keterangan tentang sebabnya"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -12825,9 +12143,7 @@ const db = {
             "C. orang tenggelam membuat penjualan es krim naik",
             "D. hitungan korelasinya pasti keliru",
             "E. keduanya sama sekali tidak berhubungan angkanya"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -12841,9 +12157,7 @@ const db = {
             "C. datanya pasti salah catat",
             "D. arah sebabnya terbalik — besarnya kebakaran yang menentukan banyaknya petugas",
             "E. korelasinya seharusnya bertanda negatif"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -12857,9 +12171,7 @@ const db = {
             "C. banyaknya buku di sekolah",
             "D. jarak rumah ke sekolah",
             "E. warna sepatu"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -12871,9 +12183,7 @@ const db = {
             "Korelasi yang kuat dapat muncul tanpa hubungan sebab-akibat sama sekali",
             "Menukar peran $x$ dan $y$ mengubah nilai $r$",
             "Peubah tersembunyi adalah peubah ketiga yang memengaruhi $x$ dan $y$ sekaligus"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -12887,9 +12197,7 @@ const db = {
             "C. $9$",
             "D. $11$",
             "E. $7$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -12903,9 +12211,7 @@ const db = {
             "C. $95{,}3\\%$",
             "D. $11\\%$",
             "E. $90{,}9\\%$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -12919,9 +12225,7 @@ const db = {
             "C. Angka-angka itu membuktikan bahwa $x$ menyebabkan $y$.",
             "D. Jumlah seluruh galatnya bernilai nol.",
             "E. Setiap kenaikan satu satuan $x$ disertai kenaikan rata-rata $2$ satuan pada $y$."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -12935,9 +12239,7 @@ const db = {
             "C. kesimpulannya keliru sebab $r = 0{,}7$ tergolong lemah",
             "D. kesimpulannya sah asalkan $r^2$ juga dihitung",
             "E. kesimpulannya keliru sebab $r$ tidak boleh dipakai pada data manusia"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -12945,9 +12247,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P35-Q10] Tinjauan bab: untuk data $(1,3)$, $(2,5)$, $(3,7)$, $(4,9)$, $(5,11)$, nilai konstanta $a$ pada persamaan regresinya adalah $\\dots$",
-          "opsi": [],
-          "kunci": "1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -12968,9 +12268,7 @@ const db = {
             "C. modal awal, sehingga besarnya selalu tetap",
             "D. rata-rata saldo selama periode itu",
             "E. modal akhir yang ditargetkan"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -12984,9 +12282,7 @@ const db = {
             "C. $Rp48.000$",
             "D. $Rp480.000$",
             "E. $Rp4.800.000$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -13000,9 +12296,7 @@ const db = {
             "C. $Rp6.000.000$",
             "D. $Rp5.000.000$",
             "E. $Rp6.200.000$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -13016,9 +12310,7 @@ const db = {
             "C. $60\\%$",
             "D. $6\\%$",
             "E. $0{,}6\\%$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -13030,9 +12322,7 @@ const db = {
             "Pada bunga tunggal, besar bunga setiap tahun selalu sama",
             "Modal akhir pada bunga tunggal dihitung dengan $M(1+i)^n$",
             "Suku bunga $8\\%$ harus ditulis $0{,}08$ ketika dimasukkan ke rumus"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -13046,9 +12336,7 @@ const db = {
             "C. $20$ tahun",
             "D. $25$ tahun",
             "E. $2$ tahun"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -13062,9 +12350,7 @@ const db = {
             "C. $Rp192.000$",
             "D. $Rp2.304.000$",
             "E. $Rp96.000$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -13078,9 +12364,7 @@ const db = {
             "C. Modal akhirnya adalah $Rp2.480.000$.",
             "D. Bunga tahun keempat lebih besar daripada bunga tahun pertama.",
             "E. Seluruh bunganya sama dengan $24\\%$ dari modal awal."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -13094,9 +12378,7 @@ const db = {
             "C. rumus yang dipakai seharusnya $M(1+i)^n$",
             "D. lamanya waktu dipakai $6$ padahal seharusnya $\\frac{6}{12}$ tahun",
             "E. bunga tunggal memang tidak dapat dihitung untuk waktu kurang dari satu tahun"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -13104,9 +12386,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P36-Q10] Modal $Rp1.200.000$ menghasilkan bunga tunggal $Rp180.000$ dalam $3$ tahun. Suku bunganya per tahun adalah $\\dots \\%$ (tuliskan angkanya saja)",
-          "opsi": [],
-          "kunci": "5",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -13127,9 +12407,7 @@ const db = {
             "C. rata-rata modal awal dan modal akhir",
             "D. selisih modal akhir dan modal awal",
             "E. saldo pada akhir periode sebelumnya, sehingga bunga ikut berbunga"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -13143,9 +12421,7 @@ const db = {
             "C. $Rp1.331.000$",
             "D. $Rp1.210.000$",
             "E. $Rp1.220.000$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -13159,9 +12435,7 @@ const db = {
             "C. $Rp110.000$",
             "D. $Rp331.000$",
             "E. $Rp133.100$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -13175,9 +12449,7 @@ const db = {
             "C. $Rp1.200.000$",
             "D. $Rp728.000$",
             "E. $Rp1.728.000$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -13189,9 +12461,7 @@ const db = {
             "Pada bunga majemuk, besar bunga setiap tahun terus bertambah",
             "Rumus $M(1+i)^n$ berarti modalnya dikalikan $(1+i)$ sebanyak $n$ kali",
             "Untuk $n \\ge 2$ dan $i > 0$, bunga tunggal memberi hasil lebih besar daripada bunga majemuk"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -13205,9 +12475,7 @@ const db = {
             "C. $Rp0$",
             "D. $Rp331.000$",
             "E. $Rp110.510$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -13221,9 +12489,7 @@ const db = {
             "C. $n = 0$ atau $n = 1$",
             "D. $n$ bernilai genap",
             "E. $n$ sangat besar"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -13237,9 +12503,7 @@ const db = {
             "C. Saldo pada akhir tahun ketiga adalah $Rp1.331.000$.",
             "D. Seluruh bunga selama tiga tahun adalah $Rp331.000$.",
             "E. Hasilnya $Rp31.000$ lebih besar daripada bunga tunggal."
-          ],
-          "kunci": "A, C, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -13253,9 +12517,7 @@ const db = {
             "C. modalnya seharusnya ikut dikalikan tiga",
             "D. ia memakai rumus $M(1+ni)$ yang berlaku untuk bunga tunggal",
             "E. tiga tahun terlalu singkat sehingga rumusnya belum berlaku"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -13263,9 +12525,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P37-Q10] Modal $Rp1.000.000$ dibungakan majemuk $10\\%$ per tahun menjadi $Rp1.331.000$. Lamanya penyimpanan adalah $\\dots$ tahun",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -13286,9 +12546,7 @@ const db = {
             "C. $B = M(1+i)^n$",
             "D. $B = (1+i)^n - M$",
             "E. $B = M + M(1+i)^n$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -13302,9 +12560,7 @@ const db = {
             "C. $Rp15.625.000$",
             "D. $Rp10.000.000$",
             "E. $Rp7.625.000$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -13318,9 +12574,7 @@ const db = {
             "C. $Rp1.600.000$",
             "D. $Rp1.464.100$",
             "E. $Rp400.000$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -13334,9 +12588,7 @@ const db = {
             "C. $Rp1.488.320$",
             "D. $Rp2.488.320$",
             "E. $Rp1.728.000$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -13348,9 +12600,7 @@ const db = {
             "Nilai $(1+i)^4$ dapat diperoleh dengan mengkuadratkan $(1+i)^2$",
             "Besar bunga majemuk sama dengan $M(1+i)^n$",
             "Untuk $n \\ge 2$, modal akhir bunga majemuk selalu melampaui modal akhir bunga tunggal"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -13364,9 +12614,7 @@ const db = {
             "C. $Rp5.200.000$",
             "D. $Rp4.600.000$",
             "E. $Rp5.290.000$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -13380,9 +12628,7 @@ const db = {
             "C. $6{,}6$",
             "D. $2{,}662$",
             "E. $1{,}4641$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -13396,9 +12642,7 @@ const db = {
             "C. Modal akhirnya adalah $Rp5.856.400$.",
             "D. Besar bunganya adalah $Rp1.856.400$.",
             "E. Nilai $(1{,}1)^4$ dapat diperoleh dengan mengkuadratkan $1{,}21$."
-          ],
-          "kunci": "B, C, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -13412,9 +12656,7 @@ const db = {
             "C. membandingkannya dengan hasil bunga tunggal yang sudah $Rp2.600.000$",
             "D. memeriksa apakah $10\\%$ sudah diubah menjadi $0{,}1$",
             "E. menghitung ulang seluruhnya dari awal"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -13422,9 +12664,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P38-Q10] Modal $Rp2.000.000$ dibungakan majemuk $10\\%$ per tahun selama $2$ tahun. Besar bunganya adalah $Rp \\dots$ ribu (tuliskan angkanya saja)",
-          "opsi": [],
-          "kunci": "420",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -13445,9 +12685,7 @@ const db = {
             "C. $M = \\dfrac{(1+i)^n}{M_n}$",
             "D. $M = \\dfrac{M_n}{(1+i)^n}$",
             "E. $M = M_n - (1+i)^n$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -13461,9 +12699,7 @@ const db = {
             "C. $Rp1.210.000$",
             "D. $Rp1.100.000$",
             "E. $Rp1.000.000$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -13477,9 +12713,7 @@ const db = {
             "C. $Rp14.641.000$",
             "D. $Rp12.100.000$",
             "E. $Rp9.900.000$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -13493,9 +12727,7 @@ const db = {
             "C. $Rp6.000.000$",
             "D. $Rp9.375.000$",
             "E. $Rp4.800.000$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -13507,9 +12739,7 @@ const db = {
             "Mencari nilai tunai berarti MEMBAGI dengan $(1+i)^n$",
             "Nilai tunai dapat lebih besar daripada nilai jatuh temponya apabila $n$ cukup besar",
             "Dua tawaran yang waktunya berbeda baru dapat dibandingkan setelah keduanya ditarik ke waktu yang sama"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -13523,9 +12753,7 @@ const db = {
             "C. tidak dapat dibandingkan karena waktunya berbeda",
             "D. yang hari ini, sebab nilai tunai tawaran kedua hanya $Rp4.000.000$",
             "E. yang dua tahun lagi, sebab suku bunganya tinggi"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -13539,9 +12767,7 @@ const db = {
             "C. ia lupa mengubah $5\\%$ menjadi $0{,}05$",
             "D. ia lupa mengurangkan modalnya lebih dahulu",
             "E. ia memakai rumus bunga tunggal $M(1+ni)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -13555,9 +12781,7 @@ const db = {
             "C. Nilai tunainya lebih besar daripada $Rp1.331.000$.",
             "D. Menghitung nilai tunai itu maju $3$ tahun mengembalikan $Rp1.331.000$.",
             "E. Dengan bunga $20\\%$, nilai tunainya akan lebih kecil daripada $Rp1.000.000$."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -13571,9 +12795,7 @@ const db = {
             "C. karena uang di masa depan tidak dapat dibungakan",
             "D. karena banyaknya periode selalu bernilai nol",
             "E. karena pembaginya $(1+i)^n$ lebih besar daripada $1$ untuk $i > 0$ dan $n \\ge 1$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -13581,9 +12803,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P39-Q10] Nilai tunai dari $Rp3.630.000$ yang jatuh tempo $2$ tahun lagi dengan bunga majemuk $10\\%$ per tahun adalah $Rp \\dots$ juta (tuliskan angkanya saja)",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -13604,9 +12824,7 @@ const db = {
             "C. $i = \\sqrt[n]{\\dfrac{M_n}{M}} - 1$",
             "D. $i = \\dfrac{M_n - M}{n}$",
             "E. $i = \\log \\dfrac{M_n}{M}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -13620,9 +12838,7 @@ const db = {
             "C. $17{,}28\\%$",
             "D. $20\\%$",
             "E. $24{,}27\\%$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -13636,9 +12852,7 @@ const db = {
             "C. $115\\%$",
             "D. $16{,}125\\%$",
             "E. $13{,}225\\%$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -13652,9 +12866,7 @@ const db = {
             "C. $6$ tahun",
             "D. $3$ tahun",
             "E. $10$ tahun"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -13666,9 +12878,7 @@ const db = {
             "Setelah menarik akar, hasilnya adalah $1+i$ sehingga masih harus dikurangi satu",
             "Lamanya waktu dicari dengan $n = \\frac{\\log\\left(\\frac{M_n}{M}\\right)}{\\log(1+i)}$",
             "Bila diperoleh $n = 7{,}27$, jawabannya dibulatkan menjadi $7$ periode penuh"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -13682,9 +12892,7 @@ const db = {
             "C. $5$ tahun",
             "D. $8$ tahun",
             "E. $20$ tahun"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -13698,9 +12906,7 @@ const db = {
             "C. modal awal dan modal akhirnya tertukar",
             "D. ia memakai rumus bunga tunggal",
             "E. ia lupa mengurangi satu setelah menarik akar"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -13714,9 +12920,7 @@ const db = {
             "C. $1 + i = 1{,}2$",
             "D. $i = 20\\%$",
             "E. Dengan bunga tunggal, modal akhirnya akan kurang dari $Rp1.728.000$."
-          ],
-          "kunci": "A, C, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -13730,9 +12934,7 @@ const db = {
             "C. karena logaritma menghapus seluruh bilangan",
             "D. karena suku bunganya selalu $10\\%$",
             "E. karena $n$ pasti bilangan bulat"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -13740,9 +12942,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P40-Q10] Modal $Rp5.000.000$ menjadi $Rp7.200.000$ setelah $2$ tahun dengan bunga majemuk. Suku bunganya adalah $\\dots \\%$ per tahun (tuliskan angkanya saja)",
-          "opsi": [],
-          "kunci": "20",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -13763,9 +12963,7 @@ const db = {
             "C. $M_n = M(1+im)^{t/m}$",
             "D. $M_n = M\\left(1+\\dfrac{i}{t}\\right)^{mt}$",
             "E. $M_n = M\\left(1+\\dfrac{i}{m}\\right)^{mt}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -13779,9 +12977,7 @@ const db = {
             "C. $Rp1.464.100$",
             "D. $Rp2.073.600$",
             "E. $Rp1.210.000$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -13795,9 +12991,7 @@ const db = {
             "C. $Rp3.075.200$",
             "D. $Rp2.480.000$",
             "E. $Rp2.247.200$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -13811,9 +13005,7 @@ const db = {
             "C. $i_p = 4{,}5\\%$ dan $n = 2$",
             "D. $i_p = 9\\%$ dan $n = 4$",
             "E. $i_p = 72\\%$ dan $n = 8$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -13825,9 +13017,7 @@ const db = {
             "Bila bunga diberikan tiap semester, suku bunga tahunannya dibagi dua dan banyaknya periodenya dikalikan dua",
             "Pemajemukan yang lebih sering memberi modal akhir yang lebih kecil",
             "Rumus yang dipakai tetap $M(1+i_p)^n$; hanya kedua nilainya yang disesuaikan"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -13841,9 +13031,7 @@ const db = {
             "C. $Rp14.000.000$",
             "D. $Rp15.625.000$",
             "E. $Rp27.000.000$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -13857,9 +13045,7 @@ const db = {
             "C. $Rp100.000$",
             "D. $Rp24.100$",
             "E. $Rp210.000$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -13873,9 +13059,7 @@ const db = {
             "C. Modal akhirnya $Rp1.464.100$.",
             "D. Hasilnya sama dengan pemajemukan tahunan.",
             "E. Hasilnya $Rp24.100$ lebih besar daripada pemajemukan tahunan."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -13889,9 +13073,7 @@ const db = {
             "C. rumus yang dipakai seharusnya rumus bunga tunggal",
             "D. pangkatnya seharusnya $8$, bukan $4$",
             "E. suku bunganya seharusnya dibagi dua menjadi $10\\%$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -13899,9 +13081,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P41-Q10] Bunga $24\\%$ per tahun dimajemukkan tiap kuartal selama $2$ tahun. Banyaknya periode bunganya adalah $\\dots$",
-          "opsi": [],
-          "kunci": "8",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -13922,9 +13102,7 @@ const db = {
             "C. $A_n = A_0(1-nr)$",
             "D. $A_n = A_0 - r^n$",
             "E. $A_n = A_0(r-1)^n$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -13938,9 +13116,7 @@ const db = {
             "C. $11.000$ jiwa",
             "D. $13.310$ jiwa",
             "E. $12.100$ jiwa"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -13954,9 +13130,7 @@ const db = {
             "C. $Rp64.000.000$",
             "D. $Rp80.000.000$",
             "E. $Rp172.800.000$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -13970,9 +13144,7 @@ const db = {
             "C. $20$ gram",
             "D. $5$ gram",
             "E. $40$ gram"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -13984,9 +13156,7 @@ const db = {
             "Peluruhan dan bunga majemuk memakai bentuk rumus yang sama, hanya tandanya yang berbeda",
             "Penyusutan $20\\%$ selama $3$ tahun sama dengan kehilangan $60\\%$ dari nilai awalnya",
             "Pada masalah waktu paruh, $n$ adalah banyaknya periode paruh, bukan banyaknya hari"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -14000,9 +13170,7 @@ const db = {
             "C. $640$",
             "D. $800$",
             "E. $512$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -14016,9 +13184,7 @@ const db = {
             "C. $Rp150.000.000$",
             "D. $Rp312.500.000$",
             "E. $Rp50.000.000$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -14032,9 +13198,7 @@ const db = {
             "C. Nilainya setelah $2$ tahun adalah $Rp64.000.000$.",
             "D. Nilainya setelah $3$ tahun adalah $Rp51.200.000$.",
             "E. Nilainya tidak pernah menjadi tepat nol."
-          ],
-          "kunci": "A, C, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -14048,9 +13212,7 @@ const db = {
             "C. keliru, sebab setiap tahun $20\\%$ dihitung dari nilai yang sudah mengecil, sehingga masih tersisa sekitar $32{,}8\\%$",
             "D. keliru, sebab seharusnya sudah nol setelah $4$ tahun",
             "E. keliru, sebab persennya seharusnya dikalikan, bukan dijumlahkan"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -14058,9 +13220,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P42-Q10] Sejumlah $80$ gram zat tinggal separuh setiap $3$ hari. Sisanya setelah $12$ hari adalah $\\dots$ gram",
-          "opsi": [],
-          "kunci": "5",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -14081,9 +13241,7 @@ const db = {
             "C. bunga yang seluruhnya dibayar pada akhir masa pinjaman",
             "D. besar utang dibagi banyaknya periode",
             "E. selisih antara utang dan bunganya"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -14097,9 +13255,7 @@ const db = {
             "C. $Rp1.155.000$",
             "D. $Rp550.000$",
             "E. $Rp605.000$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -14113,9 +13269,7 @@ const db = {
             "C. $Rp55.000$ dan $Rp550.000$",
             "D. $Rp105.000$ dan $Rp605.000$",
             "E. $Rp210.000$ dan $Rp395.000$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -14129,9 +13283,7 @@ const db = {
             "C. $Rp1.331.000$",
             "D. $Rp1.000.000$",
             "E. $Rp3.310.000$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -14143,9 +13295,7 @@ const db = {
             "Besar anuitas sama setiap periode, tetapi isinya bergeser",
             "Bunga tiap periode selalu dihitung dari utang semula",
             "Jumlah seluruh angsuran pokok sama dengan utang semula"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -14159,9 +13309,7 @@ const db = {
             "C. $Rp60.500$",
             "D. $Rp50.000$",
             "E. $Rp0$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -14175,9 +13323,7 @@ const db = {
             "C. $Rp330.000$",
             "D. $Rp360.000$",
             "E. $Rp250.000$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -14191,9 +13337,7 @@ const db = {
             "C. Bunga tahun kedua juga $Rp331.000$.",
             "D. Sisa utang setelah tahun kedua adalah $Rp1.210.000$.",
             "E. Jumlah seluruh angsuran pokoknya adalah $Rp3.310.000$."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -14207,9 +13351,7 @@ const db = {
             "C. karena angsuran pokoknya selalu sama besar tiap periode",
             "D. karena seluruh bunganya dibayar sekaligus pada periode terakhir",
             "E. karena banyaknya periode selalu bilangan genap"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -14217,9 +13359,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P43-Q10] Utang $Rp2.100.000$ dilunasi dengan $2$ anuitas tahunan dan bunga $10\\%$ per tahun. Besar anuitasnya adalah $Rp \\dots$ ribu (tuliskan angkanya saja)",
-          "opsi": [],
-          "kunci": "1210",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -14240,9 +13380,7 @@ const db = {
             "C. $a_k = a_1(1-i)^{k-1}$",
             "D. $a_k = a_1(1+i)^{k-1}$",
             "E. $a_k = \\dfrac{M}{n}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -14256,9 +13394,7 @@ const db = {
             "C. $Rp1.103.333$",
             "D. $Rp1.210.000$",
             "E. $Rp1.000.000$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -14272,9 +13408,7 @@ const db = {
             "C. $Rp1.000.000$",
             "D. $Rp1.331.000$",
             "E. $Rp3.000.000$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -14288,9 +13422,7 @@ const db = {
             "C. jumlah seluruh bunganya harus sama dengan utang semula",
             "D. sisa utangnya harus berkurang dengan jumlah yang tetap setiap periode",
             "E. sisa utang terakhir harus NOL dan jumlah angsuran pokok harus sama dengan utang semula"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -14302,9 +13434,7 @@ const db = {
             "Angsuran pokok pada anuitas membentuk barisan geometri dengan rasio $1+i$",
             "Bunga pada tabel rencana angsuran membesar dari periode ke periode",
             "Total bunga yang dibayar sama dengan $nA - M$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -14318,9 +13448,7 @@ const db = {
             "C. $Rp3.312.400$",
             "D. $Rp1.930.000$",
             "E. $Rp2.730.000$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -14334,9 +13462,7 @@ const db = {
             "C. $Rp432.000$",
             "D. $Rp360.000$",
             "E. $Rp1.500.000$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -14350,9 +13476,7 @@ const db = {
             "C. Angsuran pokok tahun ketiga adalah $Rp1.800.000$.",
             "D. Bunga tahun ketiga adalah $Rp910.000$.",
             "E. Sisa utang setelah tahun kedua adalah $Rp1.800.000$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -14366,9 +13490,7 @@ const db = {
             "C. $\\dfrac{M_n}{(1+i)^n}$",
             "D. $\\dfrac{M i}{1-(1+i)^{-n}}$",
             "E. $A_0(1-r)^n$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -14376,9 +13498,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P44-Q10] Utang $Rp2.100.000$ dilunasi dengan $2$ anuitas $Rp1.210.000$. Total bunga yang dibayar adalah $Rp \\dots$ ribu (tuliskan angkanya saja)",
-          "opsi": [],
-          "kunci": "320",
-          "bahas": ""
+          "opsi": []
         }
       ]
     }
@@ -14402,9 +13522,7 @@ const db = {
             "C. $5$",
             "D. $7$",
             "E. $8$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -14418,9 +13536,7 @@ const db = {
             "C. $-7$",
             "D. $9$",
             "E. $25$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -14434,9 +13550,7 @@ const db = {
             "C. $8$",
             "D. $5$",
             "E. $16$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -14450,9 +13564,7 @@ const db = {
             "C. $4x^3 - x + 7$",
             "D. $-9$",
             "E. $\\dfrac{1}{2}x^4 + \\dfrac{2}{3}x$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -14464,9 +13576,7 @@ const db = {
             "Derajat polinomial tersebut adalah 4",
             "Koefisien dari $x^3$ adalah 0",
             "Nilai $P(-1) = -8$"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -14480,9 +13590,7 @@ const db = {
             "C. $0$",
             "D. $1$",
             "E. $2$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -14496,9 +13604,7 @@ const db = {
             "C. $0$",
             "D. $7$",
             "E. $8$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -14512,9 +13618,7 @@ const db = {
             "C. Nilai $P(-1) = 0$.",
             "D. Suku tetapnya adalah $-3$.",
             "E. Koefisien dari $x^3$ adalah 0."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -14528,9 +13632,7 @@ const db = {
             "C. $1$",
             "D. $6$",
             "E. $13$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -14538,9 +13640,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P01-Q10] Jika $P(x) = 3x^3 - 2x^2 + x - 5$, maka nilai $P(2)$ adalah ...",
-          "opsi": [],
-          "kunci": "13",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -14561,9 +13661,7 @@ const db = {
             "C. $3x^3 - 4x^2 + 2x + 4$",
             "D. $x^3 + 2x^2 - 2x + 4$",
             "E. $-x^3 + 2x^2 - 2x + 4$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -14577,9 +13675,7 @@ const db = {
             "C. $3x^3 - 4x^2 - 2x + 4$",
             "D. $3x^3 + 4x^2 + 2x + 4$",
             "E. $x^3 - 4x^2 + 2x + 4$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -14593,9 +13689,7 @@ const db = {
             "C. $3x^3 + x^2 - 14x + 8$",
             "D. $3x^3 - x^2 - 14x + 8$",
             "E. $3x^3 + x^2 - 14x - 8$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -14609,9 +13703,7 @@ const db = {
             "C. $12$",
             "D. $7$",
             "E. $16$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -14623,9 +13715,7 @@ const db = {
             "Derajat $P(x) \\cdot Q(x)$ pasti 8",
             "Derajat $P(x) + Q(x)$ pasti 4",
             "Derajat $P(x) + Q(x)$ mungkin kurang dari 4"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -14639,9 +13729,7 @@ const db = {
             "C. $0$",
             "D. $2$",
             "E. $5$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -14655,9 +13743,7 @@ const db = {
             "C. $2x^2 - 1$ dan $x^2 + 1$",
             "D. $x^4 + x$ dan $x^3 - x$",
             "E. $3x^2 + x$ dan $x^2 - x$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -14671,9 +13757,7 @@ const db = {
             "C. Koefisien $x^2$ pada $R(x)$ adalah 0.",
             "D. Suku tetap $R(x)$ adalah 1.",
             "E. $R(1) = 0$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -14687,9 +13771,7 @@ const db = {
             "C. $0$",
             "D. $1$",
             "E. $3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -14697,9 +13779,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P02-Q10] Suku tetap dari hasil kali $(2x - 3)(x^2 + x - 5)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "15",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -14720,9 +13800,7 @@ const db = {
             "C. $7$",
             "D. $5$",
             "E. $3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -14736,9 +13814,7 @@ const db = {
             "C. $-1$ dan $12$",
             "D. $7$ dan $-12$",
             "E. $-7$ dan $12$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -14752,9 +13828,7 @@ const db = {
             "C. $5$",
             "D. $4$",
             "E. $3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -14768,9 +13842,7 @@ const db = {
             "C. $1$",
             "D. $3$",
             "E. $6$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -14782,9 +13854,7 @@ const db = {
             "$x^2 - 9 \\equiv (x-3)(x+3)$ adalah kesamaan",
             "$x^2 - 9 = 0$ adalah kesamaan",
             "Jika $ax^2 + bx + c \\equiv 0$ untuk setiap $x$, maka $a = b = c = 0$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -14798,9 +13868,7 @@ const db = {
             "C. $1$",
             "D. $9$",
             "E. $13$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -14814,9 +13882,7 @@ const db = {
             "C. $x^2 + x = 6$",
             "D. $\\dfrac{x^2-4}{x-2} = x + 2$ untuk setiap $x$",
             "E. $2x + 1 = 2x + 3$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -14830,9 +13896,7 @@ const db = {
             "C. Nilai minimum ruas kanan adalah 5.",
             "D. $a + b = -35$.",
             "E. Ruas kiri bernilai 5 saat $x = 3$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -14846,9 +13910,7 @@ const db = {
             "C. $3$",
             "D. $4$",
             "E. $9$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -14856,9 +13918,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P03-Q10] Jika $\\dfrac{7x-1}{(x-3)(x+1)} \\equiv \\dfrac{A}{x-3} + \\dfrac{B}{x+1}$, maka nilai $A + B$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "7",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -14879,9 +13939,7 @@ const db = {
             "C. $x^2 + 5x - 6$",
             "D. $x^2 - x + 6$",
             "E. $x^2 + 3x - 4$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -14895,9 +13953,7 @@ const db = {
             "C. $6$",
             "D. $17$",
             "E. $20$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -14911,9 +13967,7 @@ const db = {
             "C. $2x^2 - 3x - 7$",
             "D. $2x^2 + x - 13$",
             "E. $2x^2 - 5x + 3$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -14927,9 +13981,7 @@ const db = {
             "C. $-24$",
             "D. $24$",
             "E. $36$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -14941,9 +13993,7 @@ const db = {
             "Hasil baginya berderajat 3",
             "Sisanya berupa polinomial berderajat 1",
             "Jika sisanya nol, maka $(x-k)$ adalah faktor dari $P(x)$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -14957,9 +14007,7 @@ const db = {
             "C. 6 bilangan, 6 koefisien",
             "D. 5 bilangan, 5 koefisien",
             "E. 6 bilangan, 5 koefisien"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -14973,9 +14021,7 @@ const db = {
             "C. $x^3 - 5x^2 + 7x - 14$",
             "D. $x^3 - 5x^2 + 7x + 10$",
             "E. $x^3 - 3x^2 - x - 14$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -14989,9 +14035,7 @@ const db = {
             "C. $(x+1)$ adalah faktor dari $P(x)$.",
             "D. $P(x) = (x+1)(x-2)(x-3)$.",
             "E. Hasil baginya berderajat 3."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -15005,9 +14049,7 @@ const db = {
             "C. $0$",
             "D. $1$",
             "E. $3$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -15015,9 +14057,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P04-Q10] Sisa pembagian $3x^3 + x^2 - 4$ oleh $(x+2)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-24",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -15038,9 +14078,7 @@ const db = {
             "C. $x^2 - 2x$",
             "D. $2x^2 - x$",
             "E. $x^2 - x$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -15054,9 +14092,7 @@ const db = {
             "C. $-\\dfrac{5}{2}$",
             "D. $0$",
             "E. $5$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -15070,9 +14106,7 @@ const db = {
             "C. $2x^2 - 4x + 1$",
             "D. $2x^2 - 3x + 1$",
             "E. $2x^2 - 3x - 1$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -15086,9 +14120,7 @@ const db = {
             "C. $0$",
             "D. $1$",
             "E. $2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -15100,9 +14132,7 @@ const db = {
             "Sisanya paling tinggi berderajat 1",
             "Sisanya tidak mungkin berupa konstanta",
             "Skema Horner biasa tidak dapat langsung dipakai untuk pembagi ini"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -15116,9 +14146,7 @@ const db = {
             "C. $-x - 3$",
             "D. $3$",
             "E. $2x - 1$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -15132,9 +14160,7 @@ const db = {
             "C. $ax^2 + bx + c$",
             "D. $ax^3 + bx^2 + cx + d$",
             "E. selalu nol"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -15148,9 +14174,7 @@ const db = {
             "C. Sisanya adalah $-x$.",
             "D. Sisanya berupa konstanta.",
             "E. $(x^2-x-2)$ adalah faktor dari $P(x)$."
-          ],
-          "kunci": "A, B, C",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -15164,9 +14188,7 @@ const db = {
             "C. $0$",
             "D. $-3$",
             "E. $3$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -15174,9 +14196,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P05-Q10] Sisa pembagian $4x^3 - 8x^2 + x + 3$ oleh $(2x - 1)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "2",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -15197,9 +14217,7 @@ const db = {
             "C. $1$",
             "D. $-1$",
             "E. $11$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -15213,9 +14231,7 @@ const db = {
             "C. $-11$",
             "D. $7$",
             "E. $11$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -15229,9 +14245,7 @@ const db = {
             "C. $19$",
             "D. $23$",
             "E. $27$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -15245,9 +14259,7 @@ const db = {
             "C. $\\dfrac{3}{4}$",
             "D. $3$",
             "E. $\\dfrac{3}{2}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -15259,9 +14271,7 @@ const db = {
             "Sisa pembagian $P(x)$ oleh $(x+k)$ adalah $P(-k)$",
             "Teorema sisa hanya berlaku untuk polinomial berderajat 3",
             "Jika $P(k) = 0$, maka $P(x)$ habis dibagi $(x-k)$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -15275,9 +14285,7 @@ const db = {
             "C. $-4x + 7$",
             "D. $x + 2$",
             "E. $3x - 9$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -15291,9 +14299,7 @@ const db = {
             "C. Karena sisa selalu sama dengan suku tetap $P(x)$.",
             "D. Karena derajat $P(x)$ selalu lebih besar daripada derajat pembagi.",
             "E. Karena skema Horner lebih cepat daripada cara bersusun."
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -15307,9 +14313,7 @@ const db = {
             "C. Sisa pembagian oleh $(x+2)$ adalah 0.",
             "D. Sisa pembagian oleh $(x-2)$ adalah 0.",
             "E. $P(0) = 6$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -15323,9 +14327,7 @@ const db = {
             "C. $1$",
             "D. $2$",
             "E. $4$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -15333,9 +14335,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P06-Q10] Sisa pembagian $x^4 - 2x^3 + x - 5$ oleh $(x+1)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -15356,9 +14356,7 @@ const db = {
             "C. $(x+2)$",
             "D. $(x+1)$",
             "E. $(x+6)$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -15372,9 +14370,7 @@ const db = {
             "C. $1, 3, -2$",
             "D. $1, -3, 2$",
             "E. $-1, 3, -2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -15388,9 +14384,7 @@ const db = {
             "C. $0$",
             "D. $1$",
             "E. $2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -15404,9 +14398,7 @@ const db = {
             "C. $\\pm\\dfrac{1}{2}$ dan $\\pm\\dfrac{3}{2}$",
             "D. $\\pm\\dfrac{2}{3}$ saja",
             "E. tidak ada"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -15418,9 +14410,7 @@ const db = {
             "Jika $P(3) = 0$, maka $(x-3)$ adalah faktor dari $P(x)$",
             "Setiap polinomial berderajat 3 dengan koefisien real pasti mempunyai tiga akar real",
             "Jika $(x+2)$ faktor dari $P(x)$, maka $P(-2) = 0$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -15434,9 +14424,7 @@ const db = {
             "C. $(x-3)(x-1)(2x+2)$",
             "D. $(2x-3)(x-1)(x+2)$",
             "E. $(x-3)(2x+1)(x-2)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -15450,9 +14438,7 @@ const db = {
             "C. $1$ dan $4$",
             "D. $-1$ dan $2$",
             "E. $2$ dan $-2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -15466,9 +14452,7 @@ const db = {
             "C. $(x+2)$ adalah faktor.",
             "D. $(x-3)$ adalah faktor.",
             "E. $P(x) = (x-2)(x+3)(x+2)$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -15482,9 +14466,7 @@ const db = {
             "C. $3$",
             "D. $5$",
             "E. $7$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -15492,9 +14474,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P07-Q10] Diketahui $x^3 - 7x + 6 = 0$. Akar terbesarnya adalah $\\dots$",
-          "opsi": [],
-          "kunci": "2",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -15515,9 +14495,7 @@ const db = {
             "C. $6$",
             "D. $11$",
             "E. $18$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -15531,9 +14509,7 @@ const db = {
             "C. $1$",
             "D. $-6$",
             "E. $11$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -15547,9 +14523,7 @@ const db = {
             "C. $\\dfrac{1}{2}$",
             "D. $\\dfrac{5}{2}$",
             "E. $5$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -15563,9 +14537,7 @@ const db = {
             "C. $22$",
             "D. $36$",
             "E. $58$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -15577,9 +14549,7 @@ const db = {
             "$x_1+x_2+x_3 = -\\dfrac{b}{a}$",
             "$x_1x_2x_3 = \\dfrac{d}{a}$",
             "Hubungan Vieta tetap berlaku meskipun akarnya tidak bilangan bulat"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -15593,9 +14563,7 @@ const db = {
             "C. $\\dfrac{1}{7}$",
             "D. $\\dfrac{7}{3}$",
             "E. $7$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -15609,9 +14577,7 @@ const db = {
             "C. $x^3 - 3x^2 + 4x - 12 = 0$",
             "D. $x^3 - 4x^2 - 3x + 12 = 0$",
             "E. $x^3 + 3x^2 + 4x + 12 = 0$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -15625,9 +14591,7 @@ const db = {
             "C. $x_1x_2+x_1x_3+x_2x_3 = -5$.",
             "D. $x_1^2+x_2^2+x_3^2 = 14$.",
             "E. Ketiga akarnya adalah $1$, $2$, dan $-3$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -15641,9 +14605,7 @@ const db = {
             "C. $3$",
             "D. $5$",
             "E. $-3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -15651,9 +14613,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P08-Q10] Hasil kali akar-akar persamaan $2x^3 - 5x^2 + x + 2 = 0$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -15674,9 +14634,7 @@ const db = {
             "C. $0$",
             "D. $4$",
             "E. $5$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -15690,9 +14648,7 @@ const db = {
             "C. $\\{1, 2, 3\\}$",
             "D. $\\{-1, 2, 3\\}$",
             "E. $\\{2, 3, 6\\}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -15706,9 +14662,7 @@ const db = {
             "C. $\\dfrac{1}{2}$",
             "D. $\\dfrac{1}{3}$",
             "E. $-1$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -15722,9 +14676,7 @@ const db = {
             "C. $2$",
             "D. $3$",
             "E. $4$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -15736,9 +14688,7 @@ const db = {
             "$x = 1$ adalah salah satu akarnya",
             "Jumlah semua akarnya sama dengan $1$",
             "Persamaan itu mempunyai tepat dua akar real"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -15752,9 +14702,7 @@ const db = {
             "C. $\\dfrac{1}{2}$",
             "D. $\\dfrac{3}{2}$",
             "E. $-\\dfrac{1}{2}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -15768,9 +14716,7 @@ const db = {
             "C. $-1$ dan $-6$",
             "D. $1$ dan $6$",
             "E. $-2$ dan $3$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -15784,9 +14730,7 @@ const db = {
             "C. Persamaan itu mempunyai empat akar real.",
             "D. $x = 0$ termasuk salah satu akarnya.",
             "E. Jumlah semua akarnya sama dengan $0$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -15800,9 +14744,7 @@ const db = {
             "C. $7$",
             "D. $8$",
             "E. $6$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -15810,9 +14752,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P09-Q10] Jumlah semua akar real dari $x^3 - 2x^2 - 5x + 6 = 0$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "2",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -15833,9 +14773,7 @@ const db = {
             "C. $\\{x \\mid -1 < x < 4\\}$",
             "D. $\\{x \\mid x < -1 \\text{ atau } x > 4\\}$",
             "E. $\\{x \\mid x < -1 \\text{ atau } 2 < x < 4\\}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -15849,9 +14787,7 @@ const db = {
             "C. $\\{x \\mid x \\le -1\\}$",
             "D. $\\{x \\mid 2 \\le x \\le 3\\}$",
             "E. $\\{x \\mid -1 \\le x \\le 3\\}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -15865,9 +14801,7 @@ const db = {
             "C. $\\{x \\mid x > 2\\}$",
             "D. $\\{x \\mid x > -1 \\text{ dan } x \\ne 2\\}$",
             "E. $\\{x \\mid x \\in \\mathbb{R}\\}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -15881,9 +14815,7 @@ const db = {
             "C. $\\{x \\mid x < -2 \\text{ atau } x > 2\\}$",
             "D. $\\{x \\mid -1 < x < 1\\}$",
             "E. $\\{x \\mid -2 \\le x \\le -1 \\text{ atau } 1 \\le x \\le 2\\}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -15895,9 +14827,7 @@ const db = {
             "$x = 1$ adalah salah satu pembuat nol $P(x)$",
             "Tanda $P(x)$ berubah ketika $x$ melewati $x = 1$",
             "Himpunan penyelesaian dari $P(x) \\ge 0$ adalah $\\{x \\mid x \\ge -3\\}$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -15911,9 +14841,7 @@ const db = {
             "C. $3$ dan $-2$",
             "D. $0$, $-3$, dan $2$",
             "E. $0$, $3$, dan $-2$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -15927,9 +14855,7 @@ const db = {
             "C. $3 < x < 5$ saja",
             "D. $0 \\le x < 1$ atau $3 < x < 5$",
             "E. $0 \\le x < 3$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -15943,9 +14869,7 @@ const db = {
             "C. $x = 3$ memenuhi pertidaksamaan itu.",
             "D. Himpunan penyelesaiannya $\\{x \\mid -1 \\le x \\le 2 \\text{ atau } x \\ge 5\\}$.",
             "E. Setiap bilangan real yang lebih dari $5$ memenuhi pertidaksamaan itu."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -15959,9 +14883,7 @@ const db = {
             "C. $2$",
             "D. $3$",
             "E. $4$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -15969,9 +14891,7 @@ const db = {
           "level": "C5 Evaluasi",
           "bobot": 10,
           "tanya": "[P10-Q10] Bilangan BULAT terkecil yang memenuhi $x^3 - 7x + 6 > 0$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-2",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -15992,9 +14912,7 @@ const db = {
             "C. $7$",
             "D. $7i$",
             "E. $49i$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -16008,9 +14926,7 @@ const db = {
             "C. $3$",
             "D. $5$",
             "E. $5 - 3i$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -16024,9 +14940,7 @@ const db = {
             "C. $\\{3i, -3i\\}$",
             "D. $\\{9i, -9i\\}$",
             "E. tidak ada penyelesaian"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -16040,9 +14954,7 @@ const db = {
             "C. $5$ dan $3$",
             "D. $2$ dan $5$",
             "E. $3$ dan $5$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -16054,9 +14966,7 @@ const db = {
             "Setiap bilangan real merupakan bilangan kompleks",
             "Bagian imajiner dari $z = 2 + 7i$ adalah $7i$",
             "Persamaan $x^2 - 2x + 5 = 0$ mempunyai dua akar kompleks yang berpasangan"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -16070,9 +14980,7 @@ const db = {
             "C. $3 \\pm 16i$",
             "D. $6 \\pm 4i$",
             "E. $4 \\pm 3i$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -16086,9 +14994,7 @@ const db = {
             "C. $4i\\sqrt{2}$",
             "D. $2i\\sqrt{3}$",
             "E. $i\\sqrt{8}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -16102,9 +15008,7 @@ const db = {
             "C. $\\operatorname{Im}(v) = -3$.",
             "D. $\\operatorname{Re}(w) = 5$.",
             "E. Ketiganya termasuk bilangan kompleks."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -16118,9 +15022,7 @@ const db = {
             "C. $3$",
             "D. $3$ atau $-3$",
             "E. tidak ada nilai $m$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -16128,9 +15030,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P11-Q10] Jika $(2p - 3) + (q + 4)i = 7 - i$, maka nilai $p + q$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "0",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -16151,9 +15051,7 @@ const db = {
             "C. $-1 + 3i$",
             "D. $5 - 3i$",
             "E. $6 - 10i$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -16167,9 +15065,7 @@ const db = {
             "C. $6 + 2i$",
             "D. $2 + 4i$",
             "E. $-2 - 4i$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -16183,9 +15079,7 @@ const db = {
             "C. $5 - i$",
             "D. $5 + i$",
             "E. $3 - 2i$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -16199,9 +15093,7 @@ const db = {
             "C. $0$",
             "D. $-1$",
             "E. $i$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -16213,9 +15105,7 @@ const db = {
             "$i^4 = 1$",
             "Hasil kali dua bilangan kompleks selalu berupa bilangan kompleks yang bagian imajinernya tidak nol",
             "$(a+bi)(a-bi) = a^2 + b^2$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -16229,9 +15119,7 @@ const db = {
             "C. $2i$",
             "D. $1 + i$",
             "E. $1 + 2i$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -16245,9 +15133,7 @@ const db = {
             "C. $4 + 9i$",
             "D. $13$",
             "E. $13i$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -16261,9 +15147,7 @@ const db = {
             "C. $z \\cdot (2 - i) = 5$.",
             "D. $z^2 = 4 + i$.",
             "E. $\\operatorname{Im}(z^2) = 4$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -16277,9 +15161,7 @@ const db = {
             "C. $1$",
             "D. $i$",
             "E. $-i$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -16287,9 +15169,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P12-Q10] Bagian real dari hasil kali $(1 + 2i)(3 - i)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "5",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -16310,9 +15190,7 @@ const db = {
             "C. $5 + 2i$",
             "D. $-2 + 5i$",
             "E. $-5 - 2i$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -16326,9 +15204,7 @@ const db = {
             "C. penyebut itu sendiri",
             "D. $i$",
             "E. modulus penyebut"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -16342,9 +15218,7 @@ const db = {
             "C. $-1 - 2i$",
             "D. $\\dfrac{3}{1} + \\dfrac{4}{2}i$",
             "E. $11 - 2i$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -16358,9 +15232,7 @@ const db = {
             "C. $5 - 10i$",
             "D. $-1 + 2i$",
             "E. $1 - 2i$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -16372,9 +15244,7 @@ const db = {
             "Konjugat dari bilangan real adalah bilangan itu sendiri",
             "$z \\cdot \\bar{z}$ selalu berupa bilangan real tak negatif",
             "$z + \\bar{z}$ selalu berupa bilangan imajiner murni"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -16388,9 +15258,7 @@ const db = {
             "C. $1 - 2i$",
             "D. $2 + i$",
             "E. $\\dfrac{11}{5} - \\dfrac{2}{5}i$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -16404,9 +15272,7 @@ const db = {
             "C. $21$",
             "D. $29$",
             "E. $-4 + 25i$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -16420,9 +15286,7 @@ const db = {
             "C. $z + \\bar{z} = 2$.",
             "D. $z - \\bar{z} = 2i$.",
             "E. $\\dfrac{1}{z} = \\dfrac{1}{2} + \\dfrac{1}{2}i$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -16436,9 +15300,7 @@ const db = {
             "C. $1$",
             "D. $-1$",
             "E. $0$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -16446,9 +15308,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P13-Q10] Bagian imajiner dari $\\dfrac{6 + 2i}{1 - i}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "4",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -16469,9 +15329,7 @@ const db = {
             "C. $12$",
             "D. $17$",
             "E. $169$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -16485,9 +15343,7 @@ const db = {
             "C. $(3, 5)$",
             "D. $(-3, 5i)$",
             "E. $(-3, -5)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -16501,9 +15357,7 @@ const db = {
             "C. $2$",
             "D. $\\sqrt{3}$",
             "E. $0$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -16517,9 +15371,7 @@ const db = {
             "C. $8$",
             "D. $12$",
             "E. tidak dapat ditentukan"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -16531,9 +15383,7 @@ const db = {
             "Modulus sebuah bilangan kompleks tidak pernah negatif",
             "Jika $|z_1| = |z_2|$ maka $z_1 = z_2$",
             "$|z| = |\\bar{z}|$ untuk sembarang bilangan kompleks $z$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -16547,9 +15397,7 @@ const db = {
             "C. $5$",
             "D. $7$",
             "E. $\\sqrt{17}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -16563,9 +15411,7 @@ const db = {
             "C. daerah di dalam lingkaran berjari-jari 4",
             "D. lingkaran berpusat di $(4,0)$ dengan jari-jari 1",
             "E. lingkaran berpusat di titik asal dengan jari-jari 4"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -16579,9 +15425,7 @@ const db = {
             "C. $|\\bar{z}| = 10$.",
             "D. $z \\cdot \\bar{z} = 100$.",
             "E. $|z| = -10$ juga memenuhi karena bagian realnya negatif."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -16595,9 +15439,7 @@ const db = {
             "C. $5\\sqrt{5}$",
             "D. $25$",
             "E. $125$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -16605,9 +15447,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P14-Q10] Jarak antara $-2 + 3i$ dan $4 - 5i$ pada bidang Argand adalah $\\dots$",
-          "opsi": [],
-          "kunci": "10",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -16628,9 +15468,7 @@ const db = {
             "C. $1$",
             "D. $4$",
             "E. $1 + \\sqrt{3}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -16644,9 +15482,7 @@ const db = {
             "C. $240^\\circ$",
             "D. $120^\\circ$",
             "E. $60^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -16660,9 +15496,7 @@ const db = {
             "C. $\\sqrt{2}(\\cos 225^\\circ + i\\sin 225^\\circ)$",
             "D. $\\sqrt{2}(\\cos 135^\\circ + i\\sin 135^\\circ)$",
             "E. $\\sqrt{2}(\\cos(-45^\\circ) + i\\sin(-45^\\circ))$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -16676,9 +15510,7 @@ const db = {
             "C. $4 + 4i$",
             "D. $2\\sqrt{3} - 2i$",
             "E. $2\\sqrt{3} + 2i$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -16690,9 +15522,7 @@ const db = {
             "Nilai $\\tan\\theta$ saja sudah cukup untuk menentukan argumen secara tunggal",
             "Argumen dari bilangan real positif adalah $0^\\circ$",
             "Dua bilangan kompleks dengan modulus dan argumen yang sama pasti bilangan yang sama"
-          ],
-          "kunci": "S - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -16706,9 +15536,7 @@ const db = {
             "C. $90^\\circ$",
             "D. $180^\\circ$",
             "E. tidak terdefinisi"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -16722,9 +15550,7 @@ const db = {
             "C. $210^\\circ$",
             "D. $330^\\circ$",
             "E. $60^\\circ$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -16738,9 +15564,7 @@ const db = {
             "C. Titiknya berada di kuadran I.",
             "D. $z = 2\\sqrt{2}(\\cos 45^\\circ + i\\sin 45^\\circ)$.",
             "E. $|z| = 4$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -16754,9 +15578,7 @@ const db = {
             "C. $-3\\sqrt{3} + 3i$",
             "D. $3\\sqrt{3} - 3i$",
             "E. $-6 + 6i$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -16764,9 +15586,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P15-Q10] Argumen dari $z = -2$, dinyatakan dalam derajat pada selang $0^\\circ \\le \\theta < 360^\\circ$, adalah $\\dots$",
-          "opsi": [],
-          "kunci": "180",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -16787,9 +15607,7 @@ const db = {
             "C. $6(\\cos 10^\\circ + i\\sin 10^\\circ)$",
             "D. $6(\\cos 45^\\circ + i\\sin 45^\\circ)$",
             "E. $1{,}5(\\cos 90^\\circ + i\\sin 90^\\circ)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -16803,9 +15621,7 @@ const db = {
             "C. $8(\\cos 120^\\circ + i\\sin 120^\\circ)$",
             "D. $48(\\cos 180^\\circ + i\\sin 180^\\circ)$",
             "E. $3(\\cos 5^\\circ + i\\sin 5^\\circ)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -16819,9 +15635,7 @@ const db = {
             "C. $-8$",
             "D. $4\\sqrt{3} + 4i$",
             "E. $8 + 8i$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -16835,9 +15649,7 @@ const db = {
             "C. $\\dfrac{2}{5}$",
             "D. $2{,}5$",
             "E. $10$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -16849,9 +15661,7 @@ const db = {
             "Modulus hasil kali dua bilangan kompleks sama dengan hasil kali modulus keduanya",
             "Argumen hasil bagi dua bilangan kompleks adalah selisih argumen keduanya",
             "Mengalikan sebuah bilangan kompleks dengan $i$ mengubah modulusnya"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -16865,9 +15675,7 @@ const db = {
             "C. $(2 + \\sqrt{2})(\\cos 195^\\circ + i\\sin 195^\\circ)$",
             "D. $2\\sqrt{2}(\\cos 195^\\circ + i\\sin 195^\\circ)$",
             "E. $2\\sqrt{2}(\\cos 165^\\circ + i\\sin 165^\\circ)$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -16881,9 +15689,7 @@ const db = {
             "C. $5(\\cos 75^\\circ + i\\sin 75^\\circ)$",
             "D. $80(\\cos 125^\\circ + i\\sin 125^\\circ)$",
             "E. $5(\\cos 4^\\circ + i\\sin 4^\\circ)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -16897,9 +15703,7 @@ const db = {
             "C. $\\dfrac{z_1}{z_2} = \\sqrt{3} + i$.",
             "D. $|z_1 z_2| = 9$.",
             "E. Argumen dari $\\dfrac{z_1}{z_2}$ adalah $130^\\circ$."
-          ],
-          "kunci": "A, B, C",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -16913,9 +15717,7 @@ const db = {
             "C. $-1 - i\\sqrt{3}$",
             "D. $2 + 2i\\sqrt{3}$",
             "E. $-\\sqrt{3} + i$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -16923,9 +15725,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P16-Q10] Diketahui $z_1 = 3(\\cos 25^\\circ + i\\sin 25^\\circ)$ dan $z_2 = 4(\\cos 35^\\circ + i\\sin 35^\\circ)$. Argumen dari $z_1 z_2$, dalam derajat, adalah $\\dots$",
-          "opsi": [],
-          "kunci": "60",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -16946,9 +15746,7 @@ const db = {
             "C. $16$",
             "D. $-16i$",
             "E. $256$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -16962,9 +15760,7 @@ const db = {
             "C. $12i$",
             "D. $-64i$",
             "E. $64(\\cos 21^\\circ + i\\sin 21^\\circ)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -16978,9 +15774,7 @@ const db = {
             "C. $64i$",
             "D. $-64$",
             "E. $8$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -16994,9 +15788,7 @@ const db = {
             "C. $32$",
             "D. $1024$",
             "E. $2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -17008,9 +15800,7 @@ const db = {
             "$\\left[r(\\cos\\theta + i\\sin\\theta)\\right]^n = r^n(\\cos n\\theta + i\\sin n\\theta)$",
             "Teorema De Moivre hanya berlaku untuk $n$ bilangan asli",
             "$(\\cos\\theta + i\\sin\\theta)^n$ selalu bermodulus $1$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -17024,9 +15814,7 @@ const db = {
             "C. $-16 - 16\\sqrt{3}\\,i$",
             "D. $-16 + 16\\sqrt{3}\\,i$",
             "E. $16 - 16\\sqrt{3}\\,i$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -17040,9 +15828,7 @@ const db = {
             "C. $6$",
             "D. $8$",
             "E. $12$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -17056,9 +15842,7 @@ const db = {
             "C. $|z^3| = 8$.",
             "D. Argumen $z^3$ adalah $135^\\circ$.",
             "E. $z^8 = 256i$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -17072,9 +15856,7 @@ const db = {
             "C. $i$",
             "D. $-i$",
             "E. $9(\\cos 20^\\circ + i\\sin 20^\\circ)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -17082,9 +15864,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P17-Q10] Modulus dari $(1 + i\\sqrt{3})^7$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "128",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -17105,9 +15885,7 @@ const db = {
             "C. $4$",
             "D. $5$",
             "E. tak hingga"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -17121,9 +15899,7 @@ const db = {
             "C. $-2 \\pm 2i$",
             "D. $\\pm 2i$",
             "E. $-2$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -17137,9 +15913,7 @@ const db = {
             "C. $\\{4, -4, 4i, -4i\\}$",
             "D. $\\{2, 2i\\}$",
             "E. $\\{2, -2, 4i, -4i\\}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -17153,9 +15927,7 @@ const db = {
             "C. $27$",
             "D. $1$",
             "E. $3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -17167,9 +15939,7 @@ const db = {
             "Semua akar pangkat $n$ sebuah bilangan terletak pada satu lingkaran berpusat di titik asal",
             "Selisih argumen dua akar yang berdekatan adalah $\\frac{360^\\circ}{n}$",
             "Sebuah bilangan kompleks tak nol mempunyai tepat satu akar pangkat tiga"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -17183,9 +15953,7 @@ const db = {
             "C. $\\dfrac{\\sqrt{2}}{2}(1+i)$",
             "D. $\\dfrac{1}{2}(1+i)$",
             "E. $i$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -17199,9 +15967,7 @@ const db = {
             "C. $\\dfrac{3\\sqrt{3}}{2} - \\dfrac{3}{2}i$",
             "D. $-\\dfrac{3\\sqrt{3}}{2} - \\dfrac{3}{2}i$",
             "E. $3$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -17215,9 +15981,7 @@ const db = {
             "C. Salah satu akarnya adalah $2i$.",
             "D. Jumlah keempat akarnya adalah $0$.",
             "E. Semua akarnya merupakan bilangan real."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -17231,9 +15995,7 @@ const db = {
             "C. $90^\\circ$",
             "D. $120^\\circ$",
             "E. $60^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -17241,9 +16003,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P18-Q10] Modulus setiap akar pangkat empat dari $81$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -17264,9 +16024,7 @@ const db = {
             "C. $6$",
             "D. $2 \\times 3$",
             "E. $2 \\times 2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -17280,9 +16038,7 @@ const db = {
             "C. $5$",
             "D. $0$",
             "E. $-2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -17296,9 +16052,7 @@ const db = {
             "C. $45$",
             "D. $4$",
             "E. $20$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -17312,9 +16066,7 @@ const db = {
             "C. diagonal",
             "D. baris",
             "E. kolom"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -17326,9 +16078,7 @@ const db = {
             "Setiap matriks identitas berbentuk matriks persegi",
             "Matriks berordo $1 \\times 4$ disebut matriks kolom",
             "Matriks nol berordo $2 \\times 3$ memiliki enam elemen yang seluruhnya bernilai nol"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -17342,9 +16092,7 @@ const db = {
             "C. jarak terjauh",
             "D. jarak terdekat",
             "E. tidak dapat ditentukan"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -17358,9 +16106,7 @@ const db = {
             "C. $1$",
             "D. $2$",
             "E. $3$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -17374,9 +16120,7 @@ const db = {
             "C. $a_{22} = 4$.",
             "D. $A$ merupakan matriks persegi.",
             "E. $A$ memiliki enam elemen."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -17390,9 +16134,7 @@ const db = {
             "C. $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -17400,9 +16142,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P19-Q10] Matriks $A$ berordo $3 \\times 4$ dengan $a_{ij} = 2i + j$. Nilai $a_{34}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "10",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -17423,9 +16163,7 @@ const db = {
             "C. $\\begin{pmatrix} 3 & 2 & 1 \\\\ 6 & 5 & 4 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -17439,9 +16177,7 @@ const db = {
             "C. $3 \\times 3$",
             "D. $5 \\times 5$",
             "E. $15$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -17455,9 +16191,7 @@ const db = {
             "C. $6$",
             "D. $5$",
             "E. $7$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -17471,9 +16205,7 @@ const db = {
             "C. $16$",
             "D. $12$",
             "E. $32$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -17485,9 +16217,7 @@ const db = {
             "Transpose sebuah matriks berordo $2 \\times 5$ berordo $5 \\times 2$",
             "$\\left(A^T\\right)^T = A$ berlaku untuk setiap matriks $A$",
             "Dua matriks yang banyak elemennya sama pasti merupakan matriks yang sama"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -17501,9 +16231,7 @@ const db = {
             "C. $\\begin{pmatrix} 0 & -3 \\\\ 3 & 0 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 6 & 0 \\\\ 0 & 10 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 6 & -1 \\\\ -1 & 10 \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -17517,9 +16245,7 @@ const db = {
             "C. $9$",
             "D. $7$",
             "E. $12$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -17533,9 +16259,7 @@ const db = {
             "C. $A$ merupakan matriks simetris.",
             "D. $\\left(A^T\\right)^T = A$.",
             "E. Jumlah elemen diagonal utama $A$ adalah $1$."
-          ],
-          "kunci": "A, B, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -17549,9 +16273,7 @@ const db = {
             "C. $\\begin{pmatrix} 0 & 3 \\\\ -3 & 0 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -17559,9 +16281,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P20-Q10] Diketahui $\\begin{pmatrix} x+2 & 4 \\\\ 1 & 6 \\end{pmatrix} = \\begin{pmatrix} 9 & 4 \\\\ 1 & 6 \\end{pmatrix}$. Nilai $x$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "7",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -17582,9 +16302,7 @@ const db = {
             "C. $\\begin{pmatrix} -2 & -3 \\\\ 3 & 4 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 15 & -2 \\\\ -2 & 0 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 8 & 3 \\\\ 1 & 4 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -17598,9 +16316,7 @@ const db = {
             "C. $\\begin{pmatrix} -2 & -3 \\\\ 1 & 4 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 8 & 1 \\\\ 1 & 4 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} -2 & 1 \\\\ 3 & 4 \\end{pmatrix}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -17614,9 +16330,7 @@ const db = {
             "C. $\\begin{pmatrix} 6 & 2 \\\\ 5 & 7 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 9 & -3 \\\\ 2 & 4 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 9 & -3 \\\\ 6 & 12 \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -17630,9 +16344,7 @@ const db = {
             "C. $\\begin{pmatrix} 21 & 4 \\\\ 1 & 8 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} -4 & -5 \\\\ 5 & 4 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 9 & 8 \\\\ -7 & -8 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -17644,9 +16356,7 @@ const db = {
             "Dua matriks hanya dapat dijumlahkan apabila ordonya sama",
             "$A + B = B + A$ berlaku untuk setiap dua matriks berordo sama",
             "$A - B = B - A$ berlaku untuk setiap dua matriks berordo sama"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -17660,9 +16370,7 @@ const db = {
             "C. $\\begin{pmatrix} 8 & 1 \\\\ 1 & 4 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 2 & -3 \\\\ 3 & -4 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 15 & -2 \\\\ -2 & 0 \\end{pmatrix}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -17676,9 +16384,7 @@ const db = {
             "C. $9$",
             "D. $11$",
             "E. $14$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -17692,9 +16398,7 @@ const db = {
             "C. $-2A = \\begin{pmatrix} -4 & 0 \\\\ 2 & -6 \\end{pmatrix}$.",
             "D. Jumlah elemen diagonal utama $A + B$ adalah $7$.",
             "E. $A + B$ berordo $2 \\times 2$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -17708,9 +16412,7 @@ const db = {
             "C. $5 \\begin{pmatrix} 1 & 2 & 3 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} + \\begin{pmatrix} 5 & 6 & 7 \\\\ 8 & 9 & 0 \\end{pmatrix}$",
             "E. $-3 \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\end{pmatrix}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -17718,9 +16420,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P21-Q10] Diketahui $P = \\begin{pmatrix} 2 & -3 \\\\ 1 & 5 \\end{pmatrix}$ dan $Q = \\begin{pmatrix} 1 & -2 \\\\ 0 & 4 \\end{pmatrix}$. Elemen baris ke-$2$ kolom ke-$2$ dari $4P - 3Q$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "8",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -17741,9 +16441,7 @@ const db = {
             "C. $2 \\times 3$",
             "D. $3 \\times 2$",
             "E. tidak terdefinisi"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -17757,9 +16455,7 @@ const db = {
             "C. $\\begin{pmatrix} 10 & 5 \\\\ 10 & -5 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 6 & 1 \\\\ 5 & 4 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 10 & 10 \\\\ 5 & -5 \\end{pmatrix}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -17773,9 +16469,7 @@ const db = {
             "C. $\\begin{pmatrix} 8 & 4 \\\\ 4 & -3 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 8 & 19 \\\\ 4 & -3 \\end{pmatrix}$",
             "E. sama dengan $CD$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -17789,9 +16483,7 @@ const db = {
             "C. $\\begin{pmatrix} 1 & 0 & 9 \\\\ 8 & -5 & 18 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 5 & 7 & 0 \\\\ 14 & 13 & 0 \\end{pmatrix}$",
             "E. tidak terdefinisi"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -17803,9 +16495,7 @@ const db = {
             "$AB$ terdefinisi apabila banyak kolom $A$ sama dengan banyak baris $B$",
             "$AB = BA$ berlaku untuk setiap dua matriks persegi $A$ dan $B$",
             "$AI = IA = A$ untuk setiap matriks persegi $A$ dengan $I$ matriks identitas seordo"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -17819,9 +16509,7 @@ const db = {
             "C. $\\begin{pmatrix} 8 & 0 & -6 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 8 \\\\ 0 \\\\ -6 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 2 \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -17835,9 +16523,7 @@ const db = {
             "C. Rp$161.000$",
             "D. Rp$277.000$",
             "E. Rp$32.000$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -17851,9 +16537,7 @@ const db = {
             "C. $AB$ dan $BA$ pasti bernilai sama.",
             "D. $A + B$ terdefinisi.",
             "E. $AB$ dan $BA$ berordo berbeda."
-          ],
-          "kunci": "A, B, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -17867,9 +16551,7 @@ const db = {
             "C. $\\begin{pmatrix} 2 & -8 \\\\ -3 & 0 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 4 & -6 \\\\ 6 & 12 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 0 & -6 \\\\ 6 & 12 \\end{pmatrix}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -17877,9 +16559,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P22-Q10] Diketahui $A = \\begin{pmatrix} 2 & 1 \\\\ 3 & -1 \\end{pmatrix}$ dan $B = \\begin{pmatrix} 4 & 0 \\\\ 2 & 5 \\end{pmatrix}$. Elemen baris ke-$2$ kolom ke-$1$ dari $AB$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "10",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -17900,9 +16580,7 @@ const db = {
             "C. $-14$",
             "D. $14$",
             "E. $6$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -17916,9 +16594,7 @@ const db = {
             "C. $-6$",
             "D. $10$",
             "E. $-10$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -17932,9 +16608,7 @@ const db = {
             "C. $\\begin{pmatrix} 5 & 3 \\\\ 2 & 4 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 2 & -3 \\\\ 4 & 1 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 7 & 2 \\\\ 5 & 1 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -17948,9 +16622,7 @@ const db = {
             "C. $100$",
             "D. $-4$",
             "E. tidak dapat ditentukan"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -17962,9 +16634,7 @@ const db = {
             "$\\det\\left(A^T\\right) = \\det A$ untuk setiap matriks persegi $A$",
             "Matriks singular adalah matriks yang determinannya nol",
             "Untuk matriks berordo $2 \\times 2$ berlaku $\\det(2A) = 2 \\det A$"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -17978,9 +16648,7 @@ const db = {
             "C. $k = 6$ atau $k = -1$",
             "D. $k = 2$ saja",
             "E. $k = 0$ saja"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -17994,9 +16662,7 @@ const db = {
             "C. $\\dfrac{11}{2}$",
             "D. $12$",
             "E. $11$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -18010,9 +16676,7 @@ const db = {
             "C. $\\det\\left(A^T\\right) = -2$.",
             "D. $\\det(3A) = -6$.",
             "E. $A$ memiliki invers."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -18026,9 +16690,7 @@ const db = {
             "C. $14$",
             "D. $-14$",
             "E. $2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -18036,9 +16698,7 @@ const db = {
           "level": "C2 Pemahaman",
           "bobot": 10,
           "tanya": "[P23-Q10] Determinan dari $\\begin{pmatrix} 7 & 2 \\\\ 5 & 1 \\end{pmatrix}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -18059,9 +16719,7 @@ const db = {
             "C. $\\begin{pmatrix} 1 & -1 \\\\ -3 & 4 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} -1 & 1 \\\\ 3 & -4 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 1 & 1 \\\\ 3 & 4 \\end{pmatrix}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -18075,9 +16733,7 @@ const db = {
             "C. $\\begin{pmatrix} 2 & -5 \\\\ -1 & 3 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} -3 & 5 \\\\ 1 & -2 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -18091,9 +16747,7 @@ const db = {
             "C. $\\begin{pmatrix} 4 & 1 \\\\ 3 & 1 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 3 & 5 \\\\ 2 & 4 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -18107,9 +16761,7 @@ const db = {
             "C. $\\begin{pmatrix} \\frac{3}{2} & -\\frac{5}{2} \\\\ -1 & 2 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 2 & \\frac{5}{2} \\\\ 1 & \\frac{3}{2} \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 2 & -\\frac{5}{2} \\\\ -1 & \\frac{3}{2} \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -18121,9 +16773,7 @@ const db = {
             "Sebuah matriks persegi memiliki invers apabila determinannya tidak nol",
             "$AA^{-1} = I$ untuk setiap matriks $A$ yang memiliki invers",
             "$(AB)^{-1} = A^{-1}B^{-1}$ untuk setiap $A$ dan $B$ yang memiliki invers"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -18137,9 +16787,7 @@ const db = {
             "C. $4$",
             "D. $6$",
             "E. $12$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -18153,9 +16801,7 @@ const db = {
             "C. $-4$",
             "D. $16$",
             "E. $1$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -18169,9 +16815,7 @@ const db = {
             "C. $A^{-1} = \\begin{pmatrix} \\frac{1}{5} & \\frac{1}{5} \\\\ \\frac{3}{5} & -\\frac{2}{5} \\end{pmatrix}$.",
             "D. $A A^{-1} = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$.",
             "E. $\\det\\left(A^{-1}\\right) = 5$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -18185,9 +16829,7 @@ const db = {
             "C. $\\begin{pmatrix} 2 & 5 \\\\ 1 & 3 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} -2 & -1 \\\\ -5 & -3 \\end{pmatrix}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -18195,9 +16837,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P24-Q10] Diketahui $A = \\begin{pmatrix} 2 & 5 \\\\ 1 & 3 \\end{pmatrix}$. Elemen baris ke-$2$ kolom ke-$1$ dari $A^{-1}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -18218,9 +16858,7 @@ const db = {
             "C. $0$",
             "D. $230$",
             "E. $-3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -18234,9 +16872,7 @@ const db = {
             "C. $8$",
             "D. $-8$",
             "E. $0$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -18250,9 +16886,7 @@ const db = {
             "C. $\\begin{pmatrix} 2 & 0 & 1 \\\\ 3 & -1 & 2 \\\\ 1 & 0 & 4 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 4 & 6 \\\\ 5 & 1 & 7 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 2 & -1 & 0 \\\\ 1 & 3 & 2 \\\\ 4 & 0 & 1 \\end{pmatrix}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -18266,9 +16900,7 @@ const db = {
             "C. $2$",
             "D. $3$",
             "E. $40$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -18280,9 +16912,7 @@ const db = {
             "Aturan Sarrus berlaku untuk matriks persegi berordo berapa pun",
             "Ekspansi kofaktor boleh dilakukan sepanjang baris maupun kolom mana pun",
             "Determinan matriks segitiga atas sama dengan hasil kali elemen diagonal utamanya"
-          ],
-          "kunci": "S - B - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -18296,9 +16926,7 @@ const db = {
             "C. $26$",
             "D. $5$",
             "E. $0$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -18312,9 +16940,7 @@ const db = {
             "C. baris ke-$3$",
             "D. kolom ke-$1$",
             "E. kolom ke-$2$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -18328,9 +16954,7 @@ const db = {
             "C. $M_{22} = 7$.",
             "D. Kolom ke-$2$ adalah pilihan ekspansi yang paling hemat.",
             "E. $\\det\\left(A^T\\right) = 7$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -18344,9 +16968,7 @@ const db = {
             "C. $8$",
             "D. $16$",
             "E. $24$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -18354,9 +16976,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P25-Q10] Determinan dari $\\begin{pmatrix} 2 & -1 & 0 \\\\ 1 & 3 & 2 \\\\ 4 & 0 & 1 \\end{pmatrix}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -18377,9 +16997,7 @@ const db = {
             "C. transpose dari matriks itu sendiri",
             "D. matriks minornya",
             "E. invers dari matriks itu"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -18393,9 +17011,7 @@ const db = {
             "C. $20$",
             "D. $-20$",
             "E. $1$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -18409,9 +17025,7 @@ const db = {
             "C. $\\begin{pmatrix} -24 & 18 & 5 \\\\ 20 & -15 & -4 \\\\ -5 & 4 & 1 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 1 & 0 & 5 \\\\ 2 & 1 & 6 \\\\ 3 & 4 & 0 \\end{pmatrix}$",
             "E. tidak memiliki invers"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -18425,9 +17039,7 @@ const db = {
             "C. $\\begin{pmatrix} 2 & -1 & 0 \\\\ 1 & 3 & 2 \\\\ 4 & 0 & 1 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 4 & 6 \\\\ 5 & 1 & 7 \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -18439,9 +17051,7 @@ const db = {
             "Adjoin sebuah matriks adalah transpose dari matriks kofaktornya",
             "Setiap matriks persegi memiliki invers",
             "$\\det\\left(A^{-1}\\right) = \\frac{1}{\\det A}$ untuk setiap matriks $A$ yang memiliki invers"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -18455,9 +17065,7 @@ const db = {
             "C. $\\dfrac{1}{5}$",
             "D. $-\\dfrac{1}{5}$",
             "E. $-25$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -18471,9 +17079,7 @@ const db = {
             "C. $-1$",
             "D. $2$",
             "E. $-7$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -18487,9 +17093,7 @@ const db = {
             "C. $\\text{adj}(A)$ adalah transpose dari matriks kofaktor $A$.",
             "D. $A^{-1}$ sama dengan matriks kofaktor $A$.",
             "E. Semua elemen $A^{-1}$ merupakan bilangan bulat."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -18503,9 +17107,7 @@ const db = {
             "C. $2$",
             "D. $-7$",
             "E. $4$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -18513,9 +17115,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P26-Q10] Diketahui $A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & 1 & 4 \\\\ 5 & 6 & 0 \\end{pmatrix}$ dengan $\\det A = 1$. Elemen baris ke-$1$ kolom ke-$1$ dari $A^{-1}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-24",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -18536,9 +17136,7 @@ const db = {
             "C. $X = A^{-1}B$",
             "D. $X = B^{-1}A$",
             "E. $X = AB$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -18552,9 +17150,7 @@ const db = {
             "C. $X = AB^{-1}$",
             "D. $X = B^{-1}A$",
             "E. $X = BA$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -18568,9 +17164,7 @@ const db = {
             "C. $\\begin{pmatrix} -1 \\\\ 2 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 1 & 2 \\end{pmatrix}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -18584,9 +17178,7 @@ const db = {
             "C. $\\begin{pmatrix} 0 & 1 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} -4 \\\\ 3 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} -4 & 3 \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -18598,9 +17190,7 @@ const db = {
             "Pada $AX = B$, invers dikalikan dari sebelah kiri",
             "$A^{-1}B$ dan $BA^{-1}$ selalu memberi hasil yang sama",
             "Persamaan $AX = B$ dapat diselesaikan dengan cara invers hanya jika $\\det A \\ne 0$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -18614,9 +17204,7 @@ const db = {
             "C. $\\begin{pmatrix} 3 \\\\ 2 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 53 \\\\ 19 \\end{pmatrix}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -18630,9 +17218,7 @@ const db = {
             "C. $2 \\times 3$",
             "D. $3 \\times 3$",
             "E. tidak dapat ditentukan"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -18646,9 +17232,7 @@ const db = {
             "C. $A^{-1}B = \\begin{pmatrix} -1 & 0 \\\\ 3 & 2 \\end{pmatrix}$.",
             "D. $A^{-1}B = BA^{-1}$.",
             "E. Penyelesaian $XA = B$ adalah $X = BA^{-1}$."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -18662,9 +17246,7 @@ const db = {
             "C. $\\begin{pmatrix} 2 & 1 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 29 & 8 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} -4 \\\\ 7 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -18672,9 +17254,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P27-Q10] Diketahui $\\begin{pmatrix} 1 & 2 \\\\ 2 & 5 \\end{pmatrix} X = \\begin{pmatrix} 7 \\\\ 16 \\end{pmatrix}$. Elemen baris ke-$1$ dari $X$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -18695,9 +17275,7 @@ const db = {
             "C. $\\begin{pmatrix} 2 & 1 \\\\ 3 & 2 \\end{pmatrix}\\begin{pmatrix} 8 \\\\ 13 \\end{pmatrix} = \\begin{pmatrix} x \\\\ y \\end{pmatrix}$",
             "D. $\\begin{pmatrix} x \\\\ y \\end{pmatrix}\\begin{pmatrix} 2 & 1 \\\\ 3 & 2 \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ 13 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 8 & 13 \\end{pmatrix}\\begin{pmatrix} 2 & 1 \\\\ 3 & 2 \\end{pmatrix} = \\begin{pmatrix} x & y \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -18711,9 +17289,7 @@ const db = {
             "C. $6$",
             "D. $3$",
             "E. $5$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -18727,9 +17303,7 @@ const db = {
             "C. $3$",
             "D. $8$",
             "E. $13$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -18743,9 +17317,7 @@ const db = {
             "C. tepat dua penyelesaian",
             "D. tidak ada penyelesaian",
             "E. penyelesaian $x = 5$, $y = 3$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -18757,9 +17329,7 @@ const db = {
             "Sistem persamaan linear dengan $\\det A \\ne 0$ mempunyai tepat satu penyelesaian",
             "Jika $\\det A = 0$, sistemnya pasti tidak mempunyai penyelesaian",
             "Variabel yang tidak muncul pada sebuah persamaan ditulis dengan koefisien nol pada matriks koefisiennya"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -18773,9 +17343,7 @@ const db = {
             "C. $x = 1$, $y = 6$",
             "D. $x = 2$, $y = -3$",
             "E. $x = 2$, $y = 3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -18789,9 +17357,7 @@ const db = {
             "C. Rp$4.500$",
             "D. Rp$7.000$",
             "E. Rp$9.000$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -18805,9 +17371,7 @@ const db = {
             "C. Sistem itu mempunyai tak hingga banyak penyelesaian.",
             "D. Pasangan $x = 1$, $y = 2$ memenuhi kedua persamaan.",
             "E. Sistem itu mempunyai tepat satu penyelesaian."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -18821,9 +17385,7 @@ const db = {
             "C. $\\begin{pmatrix} 2 & 1 & 0 \\\\ 1 & 1 & -1 \\\\ 3 & 2 & 0 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 2 & 0 & 1 \\\\ 1 & 1 & 1 \\\\ 0 & 3 & 2 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 5 \\\\ 0 \\\\ 7 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -18831,9 +17393,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P28-Q10] Nilai $y$ pada penyelesaian sistem $\\begin{cases} 3x + 2y = 12 \\\\ x + y = 5 \\end{cases}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -18854,9 +17414,7 @@ const db = {
             "C. $(5, 9)$",
             "D. $(1, 1)$",
             "E. $(6, -20)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -18870,9 +17428,7 @@ const db = {
             "C. $(-5, 4)$",
             "D. $(-5, 10)$",
             "E. $(3, 4)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -18886,9 +17442,7 @@ const db = {
             "C. $\\begin{pmatrix} 4 \\\\ -2 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 8 \\\\ -2 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -18902,9 +17456,7 @@ const db = {
             "C. $y = 2x + 5$",
             "D. $y = 2x - 7$",
             "E. $y = 5x + 1$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -18916,9 +17468,7 @@ const db = {
             "Translasi tidak mengubah panjang maupun luas sebuah bangun",
             "Dua translasi berurutan setara dengan satu translasi yang merupakan jumlah keduanya",
             "Translasi mengubah gradien sebuah garis"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -18932,9 +17482,7 @@ const db = {
             "C. $\\begin{pmatrix} 3 \\\\ -4 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} -10 \\\\ 3 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} -3 \\\\ 2 \\end{pmatrix}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -18948,9 +17496,7 @@ const db = {
             "C. $3$",
             "D. $12$",
             "E. bergantung pada arah geserannya"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -18964,9 +17510,7 @@ const db = {
             "C. Titik itu bergeser $1$ satuan ke bawah.",
             "D. Bayangannya berada di kuadran I.",
             "E. Jarak $P$ ke titik asal tidak berubah oleh translasi ini."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -18980,9 +17524,7 @@ const db = {
             "C. $3x - y = 6$",
             "D. $3x - y = 1$",
             "E. $3x - y = 5$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -18990,9 +17532,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P29-Q10] Bayangan titik $Q$ oleh translasi $T = \\begin{pmatrix} -3 \\\\ 2 \\end{pmatrix}$ adalah $Q'(4, -5)$. Absis titik $Q$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "7",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -19013,9 +17553,7 @@ const db = {
             "C. $(3, -5)$",
             "D. $(5, 3)$",
             "E. $(3, 5)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -19029,9 +17567,7 @@ const db = {
             "C. $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -19045,9 +17581,7 @@ const db = {
             "C. $(4, 7)$",
             "D. $(4, -7)$",
             "E. $(-7, 4)$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -19061,9 +17595,7 @@ const db = {
             "C. $-2x - 3y = 6$",
             "D. $2x - 3y = 6$",
             "E. $3x - 2y = 6$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -19075,9 +17607,7 @@ const db = {
             "Titik yang terletak pada sumbu-$x$ tidak berpindah oleh refleksi terhadap sumbu-$x$",
             "Refleksi terhadap titik asal setara dengan refleksi terhadap sumbu-$x$ dilanjutkan refleksi terhadap sumbu-$y$",
             "Mencerminkan sebuah titik terhadap sumbu-$y$ sebanyak dua kali menghasilkan titik yang berbeda dari semula"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -19091,9 +17621,7 @@ const db = {
             "C. $y = -x^2 + 4x - 3$",
             "D. $y = x^2 - 4x + 3$",
             "E. $y = x^2 + 4x + 3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -19107,9 +17635,7 @@ const db = {
             "C. $-x^2 - y^2 = 25$",
             "D. $x^2 - y^2 = 25$",
             "E. $x^2 + y^2 = 5$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -19123,9 +17649,7 @@ const db = {
             "C. Bayangan $Q$ terhadap titik asal adalah $(-5, 2)$.",
             "D. Determinan matriks refleksi terhadap sumbu-$x$ adalah $1$.",
             "E. Jarak $Q$ ke titik asal sama dengan jarak bayangannya ke titik asal, untuk ketiga refleksi itu."
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -19139,9 +17663,7 @@ const db = {
             "C. $y = 3x - 4$",
             "D. $y = 3x + 4$",
             "E. $y = \\dfrac{1}{3}x + 4$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -19149,9 +17671,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P30-Q10] Determinan matriks refleksi terhadap sumbu-$y$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -19172,9 +17692,7 @@ const db = {
             "C. $(3, -5)$",
             "D. $(-3, 5)$",
             "E. $(-3, -5)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -19188,9 +17706,7 @@ const db = {
             "C. $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -19204,9 +17720,7 @@ const db = {
             "C. $(1, 5)$",
             "D. $(3, -1)$",
             "E. $(1, -5)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -19220,9 +17734,7 @@ const db = {
             "C. $(3, 9)$",
             "D. $(5, 4)$",
             "E. $(-3, 3)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -19234,9 +17746,7 @@ const db = {
             "Refleksi terhadap garis $y = x$ menukar absis dan ordinat sebuah titik",
             "Refleksi terhadap garis $x = 3$ dapat dinyatakan sebagai perkalian sebuah matriks $2 \\times 2$ dengan matriks koordinatnya",
             "Titik yang terletak pada garis $y = -x$ tidak berpindah oleh refleksi terhadap garis itu"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -19250,9 +17760,7 @@ const db = {
             "C. $y = 2x - 3$",
             "D. $y = -2x - 3$",
             "E. $y = \\dfrac{1}{2}x - \\dfrac{3}{2}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -19266,9 +17774,7 @@ const db = {
             "C. $(x+1)^2 + (y+2)^2 = 9$",
             "D. $(x-1)^2 + (y-2)^2 = 9$",
             "E. $(x+2)^2 + (y+1)^2 = 9$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -19282,9 +17788,7 @@ const db = {
             "C. Bayangan $Q$ terhadap garis $x = -1$ adalah $(-7, -3)$.",
             "D. Bayangan $Q$ terhadap garis $y = 1$ adalah $(5, 5)$.",
             "E. Determinan matriks refleksi terhadap $y = x$ adalah $1$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -19298,9 +17802,7 @@ const db = {
             "C. $y = -3x - 11$",
             "D. $y = 3x - 1$",
             "E. $y = -3x + 1$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -19308,9 +17810,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P31-Q10] Ordinat bayangan titik $A(3, 5)$ oleh refleksi terhadap garis $y = -3$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "-11",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -19331,9 +17831,7 @@ const db = {
             "C. $(-5, 3)$",
             "D. $(5, 3)$",
             "E. $(3, -5)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -19347,9 +17845,7 @@ const db = {
             "C. $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -19363,9 +17859,7 @@ const db = {
             "C. $(3, 4)$",
             "D. $(3, -4)$",
             "E. $(-4, 3)$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -19379,9 +17873,7 @@ const db = {
             "C. $(0, -4)$",
             "D. $(0, 4)$",
             "E. $(-4, -4)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -19393,9 +17885,7 @@ const db = {
             "Determinan matriks rotasi selalu bernilai $1$",
             "Rotasi $180^\\circ$ berpusat di titik asal setara dengan refleksi terhadap titik asal",
             "Rotasi mengubah jarak sebuah titik ke pusat putarannya"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -19409,9 +17899,7 @@ const db = {
             "C. $y = 2x - 1$",
             "D. $y = -\\dfrac{1}{2}x - \\dfrac{1}{2}$",
             "E. $y = -\\dfrac{1}{2}x + \\dfrac{1}{2}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -19425,9 +17913,7 @@ const db = {
             "C. $(1, -2)$",
             "D. $(-1, 2)$",
             "E. $(2, 1)$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -19441,9 +17927,7 @@ const db = {
             "C. Jarak $P$ ke titik asal adalah $5$, dan tidak berubah oleh rotasi.",
             "D. Determinan matriks rotasi $90^\\circ$ adalah $1$.",
             "E. Rotasi $90^\\circ$ membalik arah putaran sebuah bangun."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -19457,9 +17941,7 @@ const db = {
             "C. $(-6, 0)$",
             "D. $(0, -6)$",
             "E. $(-6, -6)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -19467,9 +17949,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P32-Q10] Determinan matriks rotasi $90^\\circ$ berpusat di titik asal adalah $\\dots$",
-          "opsi": [],
-          "kunci": "1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -19490,9 +17970,7 @@ const db = {
             "C. $(4, -2)$",
             "D. $(-3, 2)$",
             "E. $(2, 4)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -19506,9 +17984,7 @@ const db = {
             "C. $(1, 3)$",
             "D. $(1, -7)$",
             "E. $(7, 3)$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -19522,9 +17998,7 @@ const db = {
             "C. $(-1, 1)$",
             "D. $(2, -4)$",
             "E. $(1, -1)$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -19538,9 +18012,7 @@ const db = {
             "C. $x' = -y$ dan $y' = x$",
             "D. $x' = 2a - x$ dan $y' = 2b - y$",
             "E. $x' = a - y$ dan $y' = b + x$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -19552,9 +18024,7 @@ const db = {
             "Pusat putaran tidak berpindah oleh rotasi yang berpusat padanya",
             "Rotasi berpusat di $(2,3)$ dapat dinyatakan sebagai perkalian sebuah matriks $2 \\times 2$ dengan matriks koordinatnya",
             "Pada rotasi $180^\\circ$, pusat putaran terletak tepat di tengah antara sebuah titik dan bayangannya"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -19568,9 +18038,7 @@ const db = {
             "C. $(5, -3)$",
             "D. $(-4, 3)$",
             "E. $(-3, 5)$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -19584,9 +18052,7 @@ const db = {
             "C. $(6, 5)$",
             "D. $(-1, 1)$",
             "E. $(6, 1)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -19600,9 +18066,7 @@ const db = {
             "C. Jarak $Q$ ke pusat sama dengan jarak bayangannya ke pusat.",
             "D. Rotasi ini setara dengan refleksi terhadap titik $(1,1)$.",
             "E. Bayangannya sama dengan bayangan $Q$ oleh rotasi $180^\\circ$ berpusat di titik asal."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -19616,9 +18080,7 @@ const db = {
             "C. $(8, 2)$",
             "D. $(7, 3)$",
             "E. $(2, 8)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -19626,9 +18088,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P33-Q10] Absis bayangan titik $A(3, 5)$ oleh rotasi $180^\\circ$ berpusat di $(2, -1)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -19649,9 +18109,7 @@ const db = {
             "C. $(9, 15)$",
             "D. $(9, 5)$",
             "E. $(-9, -15)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -19665,9 +18123,7 @@ const db = {
             "C. $(6, 18)$",
             "D. $(-6, -18)$",
             "E. $\\left(\\tfrac{2}{3}, -2\\right)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -19681,9 +18137,7 @@ const db = {
             "C. $(4, 8)$",
             "D. $(7, 11)$",
             "E. $(2, 4)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -19697,9 +18151,7 @@ const db = {
             "C. $6$",
             "D. $24$",
             "E. $8$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -19711,9 +18163,7 @@ const db = {
             "Determinan matriks dilatasi berpusat di titik asal adalah $k^2$",
             "Dilatasi dengan $k = -1$ memberi hasil yang sama dengan rotasi $180^\\circ$ berpusat sama",
             "Dilatasi dengan $k = \\frac{1}{2}$ membuat luas bangun menjadi setengahnya"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -19727,9 +18177,7 @@ const db = {
             "C. $\\dfrac{45}{2}$",
             "D. $\\dfrac{4}{3}$",
             "E. $\\dfrac{10}{3}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -19743,9 +18191,7 @@ const db = {
             "C. $\\dfrac{1}{2}$ km$^2$",
             "D. $0{,}2$ km$^2$",
             "E. $20$ km$^2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -19759,9 +18205,7 @@ const db = {
             "C. Luas bangun menjadi $4$ kali semula.",
             "D. Determinan matriksnya adalah $4$.",
             "E. Determinan matriksnya bernilai negatif karena $k$ negatif."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -19775,9 +18219,7 @@ const db = {
             "C. $(12, 9)$",
             "D. $(8, 11)$",
             "E. $(11, 11)$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -19785,9 +18227,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P34-Q10] Determinan matriks dilatasi berpusat di titik asal dengan faktor skala $k = -5$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "25",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -19808,9 +18248,7 @@ const db = {
             "C. $M_2 \\cdot M_1$",
             "D. $M_2 - M_1$",
             "E. $M_1 \\cdot M_2^{-1}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -19824,9 +18262,7 @@ const db = {
             "C. $(-3, -5)$",
             "D. $(3, -5)$",
             "E. $(5, 3)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -19840,9 +18276,7 @@ const db = {
             "C. $(3, -5)$",
             "D. $(5, -3)$",
             "E. $(5, 3)$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -19856,9 +18290,7 @@ const db = {
             "C. $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -19870,9 +18302,7 @@ const db = {
             "Pada komposisi, transformasi yang dikerjakan belakangan ditulis di sebelah kiri",
             "Urutan komposisi dua transformasi tidak pernah memengaruhi hasilnya",
             "$\\det(M_2 M_1) = \\det M_2 \\cdot \\det M_1$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -19886,9 +18316,7 @@ const db = {
             "C. $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$",
             "D. $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
             "E. $\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -19902,9 +18330,7 @@ const db = {
             "C. $-3$",
             "D. $3$",
             "E. $-1$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -19918,9 +18344,7 @@ const db = {
             "C. Bayangan $(3,5)$ olehnya adalah $(5,-3)$.",
             "D. Determinan matriksnya adalah $1$.",
             "E. Membalik urutan kedua rotasi itu mengubah hasilnya."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -19934,9 +18358,7 @@ const db = {
             "C. $(2, -4)$",
             "D. $(-4, 2)$",
             "E. $(4, -2)$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -19944,9 +18366,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P35-Q10] Determinan matriks komposisi \"refleksi terhadap sumbu-$x$ dilanjutkan refleksi terhadap garis $y=x$\" adalah $\\dots$",
-          "opsi": [],
-          "kunci": "1",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -19967,9 +18387,7 @@ const db = {
             "C. rotasi $90^\\circ$ berpusat titik asal",
             "D. refleksi terhadap sumbu-$y$",
             "E. rotasi $45^\\circ$ berpusat titik asal"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -19983,9 +18401,7 @@ const db = {
             "C. translasi $\\begin{pmatrix} -3 \\\\ 0 \\end{pmatrix}$",
             "D. rotasi $180^\\circ$",
             "E. refleksi terhadap garis $x = 2{,}5$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -19999,9 +18415,7 @@ const db = {
             "C. identitas",
             "D. refleksi terhadap sumbu-$x$",
             "E. rotasi $180^\\circ$ berpusat titik asal"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -20015,9 +18429,7 @@ const db = {
             "C. refleksi terhadap sumbu-$x$",
             "D. rotasi $180^\\circ$ berpusat titik asal",
             "E. dilatasi dengan $k = -1$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -20029,9 +18441,7 @@ const db = {
             "Dua refleksi terhadap garis sejajar setara dengan sebuah translasi",
             "Setiap refleksi merupakan invers bagi dirinya sendiri",
             "Gabungan dua refleksi selalu berupa refleksi"
-          ],
-          "kunci": "B - B - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -20045,9 +18455,7 @@ const db = {
             "C. rotasi $180^\\circ$ berpusat titik asal",
             "D. rotasi $90^\\circ$ berpusat titik asal",
             "E. identitas"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -20061,9 +18469,7 @@ const db = {
             "C. refleksi terhadap garis $y = -x$",
             "D. rotasi $180^\\circ$ berpusat titik asal",
             "E. identitas"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -20077,9 +18483,7 @@ const db = {
             "C. Membalik urutan cerminnya memberi translasi $\\begin{pmatrix} -8 \\\\ 0 \\end{pmatrix}$.",
             "D. Besar geserannya dua kali jarak antar-cermin.",
             "E. Komposisi itu setara dengan sebuah refleksi."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -20093,9 +18497,7 @@ const db = {
             "C. $(-3, 12)$",
             "D. $(3, 0)$",
             "E. $(-3, 6)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -20103,9 +18505,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P36-Q10] Besar geseran mendatar pada komposisi \"refleksi terhadap garis $x = 1$ dilanjutkan refleksi terhadap garis $x = 5$\" adalah $\\dots$",
-          "opsi": [],
-          "kunci": "8",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -20126,9 +18526,7 @@ const db = {
             "C. $\\dfrac{L}{|\\det M|}$",
             "D. $L$",
             "E. $\\left(\\det M\\right)^2 \\cdot L$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -20142,9 +18540,7 @@ const db = {
             "C. $30$",
             "D. $60$",
             "E. $150$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -20158,9 +18554,7 @@ const db = {
             "C. $25$",
             "D. $400$",
             "E. $625$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -20174,9 +18568,7 @@ const db = {
             "C. $54$",
             "D. $2$",
             "E. $6$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -20188,9 +18580,7 @@ const db = {
             "Rotasi dan refleksi tidak mengubah luas sebuah bangun",
             "Translasi mengubah luas sebuah bangun",
             "Transformasi yang matriksnya berdeterminan nol menghasilkan bayangan berluas nol"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -20204,9 +18594,7 @@ const db = {
             "C. $-108$",
             "D. $12$",
             "E. $4$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -20220,9 +18608,7 @@ const db = {
             "C. $54\\pi$",
             "D. $18\\pi$",
             "E. $36\\pi$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -20236,9 +18622,7 @@ const db = {
             "C. Bayangan setiap titik oleh $M$ terletak pada satu garis lurus.",
             "D. $M$ tidak memiliki invers.",
             "E. $M$ memperbesar luas sebuah bangun menjadi $2$ kali lipat."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -20252,9 +18636,7 @@ const db = {
             "C. $-60$",
             "D. $60$",
             "E. $24$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -20262,9 +18644,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P37-Q10] Sebuah persegi panjang berluas $30$ satuan luas dikenai \"refleksi terhadap garis $y=x$ dilanjutkan dilatasi $k=2$ berpusat titik asal\". Luas bayangannya adalah $\\dots$ satuan luas.",
-          "opsi": [],
-          "kunci": "120",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -20285,9 +18665,7 @@ const db = {
             "C. $(12,0)$, $(18,0)$, $(12,4)$",
             "D. $(6,0)$, $(9,0)$, $(6,2)$",
             "E. $(7,1)$, $(9,1)$, $(7,5)$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -20301,9 +18679,7 @@ const db = {
             "C. $12$",
             "D. $24$",
             "E. $9$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -20317,9 +18693,7 @@ const db = {
             "C. $(1, 2)$",
             "D. $(2, 4)$",
             "E. $(1, 5)$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -20333,9 +18707,7 @@ const db = {
             "C. $60$",
             "D. $3$",
             "E. tak terhingga"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -20347,9 +18719,7 @@ const db = {
             "Pada rotasi, pusat putarannya adalah titik yang tidak berpindah",
             "Komposisi yang memuat translasi tetap dapat dinyatakan sebagai satu matriks $2 \\times 2$",
             "Determinan negatif pada sebuah transformasi menandakan gambar hasilnya terbaca terbalik"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -20363,9 +18733,7 @@ const db = {
             "C. $(1, 3)$",
             "D. $(6, 8)$",
             "E. $(6, 3)$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -20379,9 +18747,7 @@ const db = {
             "C. $-72$ cm$^2$",
             "D. $72$ cm$^2$",
             "E. $144$ cm$^2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -20395,9 +18761,7 @@ const db = {
             "C. Luas logo barunya adalah $18$ satuan luas.",
             "D. Bentuknya tetap segitiga siku-siku.",
             "E. Luas logo barunya adalah $6$ satuan luas."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -20411,9 +18775,7 @@ const db = {
             "C. $(3, 4)$",
             "D. $(-1, 0)$",
             "E. $(0, 7)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -20421,9 +18783,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P38-Q10] Sebuah motif dibuat dengan memutar sebuah bentuk berpusat titik asal sebesar $45^\\circ$ berulang kali. Banyaknya kedudukan berbeda sebelum polanya berulang adalah $\\dots$",
-          "opsi": [],
-          "kunci": "8",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -20444,9 +18804,7 @@ const db = {
             "C. $\\frac{3}{4}$",
             "D. $\\frac{5}{4}$",
             "E. $\\frac{16}{25}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -20460,9 +18818,7 @@ const db = {
             "C. $\\sin x$",
             "D. $\\frac{1}{\\sin x}$",
             "E. $\\sin^2 x$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -20476,9 +18832,7 @@ const db = {
             "C. $-1$",
             "D. $\\sec x$",
             "E. bergantung pada $x$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -20492,9 +18846,7 @@ const db = {
             "C. $-\\frac{8}{15}$",
             "D. $\\frac{15}{17}$",
             "E. $-\\frac{15}{8}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -20506,9 +18858,7 @@ const db = {
             "Untuk setiap sudut $x$ berlaku $\\sin^2 x + \\cos^2 x = 1$",
             "Identitas $1 + \\tan^2 x = \\sec^2 x$ berlaku untuk semua sudut $x$ tanpa kecuali",
             "Nilai $\\cot x$ sama dengan $\\cos x$ dibagi $\\sin x$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -20522,9 +18872,7 @@ const db = {
             "C. $-\\frac{12}{13}$",
             "D. $\\frac{5}{13}$",
             "E. $-\\frac{13}{12}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -20538,9 +18886,7 @@ const db = {
             "C. $1$",
             "D. $\\cot x$",
             "E. $\\sin x \\cos x$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -20554,9 +18900,7 @@ const db = {
             "C. $\\sec A = -\\frac{13}{12}$",
             "D. $\\csc A = \\frac{13}{5}$",
             "E. $\\cot A = -\\frac{12}{5}$"
-          ],
-          "kunci": "A, C, D, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -20570,9 +18914,7 @@ const db = {
             "C. $0$",
             "D. $2$",
             "E. $\\frac{1}{2}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -20580,9 +18922,7 @@ const db = {
           "level": "C3 Penerapan",
           "bobot": 10,
           "tanya": "[P39-Q10] Nilai dari $5\\sin^2 A + 5\\cos^2 A + 3$ untuk sembarang sudut $A$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "8",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -20603,9 +18943,7 @@ const db = {
             "C. $\\frac{1}{2}\\left(\\sqrt{6} + \\sqrt{2}\\right)$",
             "D. $\\frac{1}{4}\\left(\\sqrt{6} + \\sqrt{2}\\right)$",
             "E. $\\frac{1}{2}\\sqrt{3} + \\frac{1}{2}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -20619,9 +18957,7 @@ const db = {
             "C. $-\\frac{1}{4}\\left(\\sqrt{6} - \\sqrt{2}\\right)$",
             "D. $\\frac{1}{2}\\left(\\sqrt{6} - \\sqrt{2}\\right)$",
             "E. $\\frac{1}{4}\\sqrt{2}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -20635,9 +18971,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{3}$",
             "D. $1$",
             "E. $\\frac{1}{4}\\sqrt{6}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -20651,9 +18985,7 @@ const db = {
             "C. $\\frac{33}{65}$",
             "D. $\\frac{56}{65}$",
             "E. $\\frac{63}{65}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -20665,9 +18997,7 @@ const db = {
             "$\\sin(A+B) = \\sin A \\cos B + \\cos A \\sin B$",
             "$\\cos(A+B) = \\cos A \\cos B + \\sin A \\sin B$",
             "$\\sin(A-B) = \\sin A \\cos B - \\cos A \\sin B$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -20681,9 +19011,7 @@ const db = {
             "C. $\\frac{56}{65}$",
             "D. $\\frac{63}{65}$",
             "E. $\\frac{20}{65}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -20697,9 +19025,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{2}$",
             "D. $-\\frac{1}{2}$",
             "E. $\\frac{1}{2}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -20713,9 +19039,7 @@ const db = {
             "C. $\\sin(A+B) = \\frac{63}{65}$",
             "D. $\\cos(A+B) = \\frac{16}{65}$",
             "E. $\\sin(A-B) = -\\frac{33}{65}$"
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -20729,9 +19053,7 @@ const db = {
             "C. $\\frac{7}{25}$",
             "D. $\\frac{24}{25}$",
             "E. $0$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -20739,9 +19061,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P40-Q10] Nilai dari $8\\left(\\sin 80^\\circ \\cos 50^\\circ - \\cos 80^\\circ \\sin 50^\\circ\\right)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "4",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -20762,9 +19082,7 @@ const db = {
             "C. $\\sqrt{3}$",
             "D. $1 + \\frac{1}{3}\\sqrt{3}$",
             "E. $-2 - \\sqrt{3}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -20778,9 +19096,7 @@ const db = {
             "C. $\\sqrt{3} - 1$",
             "D. $2 - \\sqrt{3}$",
             "E. $\\sqrt{3} - 2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -20794,9 +19110,7 @@ const db = {
             "C. $\\frac{1}{3}\\sqrt{3}$",
             "D. $2 + \\sqrt{3}$",
             "E. $\\frac{1}{2}\\sqrt{3}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -20810,9 +19124,7 @@ const db = {
             "C. $\\frac{3}{28}$",
             "D. $\\frac{17}{31}$",
             "E. $\\frac{25}{31}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -20824,9 +19136,7 @@ const db = {
             "$\\tan(A+B) = \\dfrac{\\tan A + \\tan B}{1 - \\tan A \\tan B}$",
             "$\\tan(A-B) = \\dfrac{\\tan A - \\tan B}{1 - \\tan A \\tan B}$",
             "Rumus $\\tan(A+B)$ tidak dapat dipakai apabila $\\tan A \\cdot \\tan B = 1$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -20840,9 +19150,7 @@ const db = {
             "C. $-\\frac{33}{56}$",
             "D. $\\frac{63}{20}$",
             "E. $-\\frac{63}{16}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -20856,9 +19164,7 @@ const db = {
             "C. $\\frac{1}{3}\\sqrt{3}$",
             "D. $-\\sqrt{3}$",
             "E. $2 - \\sqrt{3}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -20872,9 +19178,7 @@ const db = {
             "C. $\\tan(A-B) = \\frac{17}{31}$",
             "D. $\\tan(A+B)$ sama dengan $\\tan A + \\tan B$.",
             "E. $\\tan A \\cdot \\tan B = \\frac{3}{28}$"
-          ],
-          "kunci": "A, B, C, E",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -20888,9 +19192,7 @@ const db = {
             "C. $-2 - \\sqrt{3}$",
             "D. $-2 + \\sqrt{3}$",
             "E. $-\\sqrt{3}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -20898,9 +19200,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P41-Q10] Nilai dari $9\\left(\\dfrac{\\tan 65^\\circ - \\tan 20^\\circ}{1 + \\tan 65^\\circ \\tan 20^\\circ}\\right)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "9",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -20921,9 +19221,7 @@ const db = {
             "C. $\\frac{24}{25}$",
             "D. $\\frac{12}{25}$",
             "E. $-\\frac{24}{25}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -20937,9 +19235,7 @@ const db = {
             "C. $\\frac{24}{25}$",
             "D. $\\frac{1}{25}$",
             "E. $\\frac{18}{25}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -20953,9 +19249,7 @@ const db = {
             "C. $\\frac{1}{2}$",
             "D. $1$",
             "E. $\\frac{1}{4}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -20969,9 +19263,7 @@ const db = {
             "C. $-\\frac{1}{2}\\sqrt{3}$",
             "D. $\\frac{1}{2}\\sqrt{3}$",
             "E. $0$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -20983,9 +19275,7 @@ const db = {
             "$\\sin 2A = 2\\sin A \\cos A$",
             "$\\cos 2A$ hanya dapat ditulis sebagai $\\cos^2 A - \\sin^2 A$",
             "Jika $A$ berada di kuadran II, maka $2A$ pasti berada di kuadran II juga"
-          ],
-          "kunci": "B - S - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -20999,9 +19289,7 @@ const db = {
             "C. $\\frac{24}{25}$",
             "D. $-\\frac{24}{25}$",
             "E. $\\frac{18}{25}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -21015,9 +19303,7 @@ const db = {
             "C. $-\\frac{1}{2}$",
             "D. $-\\frac{1}{2}\\sqrt{3}$",
             "E. $0$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -21031,9 +19317,7 @@ const db = {
             "C. $\\cos 2A = \\frac{119}{169}$",
             "D. $\\tan 2A = \\frac{120}{119}$",
             "E. $\\sin 2A = 2\\sin A = \\frac{10}{13}$"
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -21047,9 +19331,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{3}$",
             "D. $1$",
             "E. $\\frac{1}{2}\\sqrt{2}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -21057,9 +19339,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P42-Q10] Nilai dari $10\\left(2\\sin 15^\\circ \\cos 15^\\circ\\right)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "5",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -21080,9 +19360,7 @@ const db = {
             "C. $\\frac{1}{4}\\sqrt{2 - \\sqrt{2}}$",
             "D. $\\frac{1}{2}\\sqrt{2 - \\sqrt{3}}$",
             "E. $\\sqrt{2} - 1$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -21096,9 +19374,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{2 + \\sqrt{3}}$",
             "D. $\\frac{1}{4}\\sqrt{2 + \\sqrt{2}}$",
             "E. $\\frac{1}{2}\\sqrt{2 + \\sqrt{2}}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -21112,9 +19388,7 @@ const db = {
             "C. $2 - \\sqrt{3}$",
             "D. $\\sqrt{2} - 1$",
             "E. $1 - \\sqrt{2}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -21128,9 +19402,7 @@ const db = {
             "C. $\\frac{3}{4}$",
             "D. $-\\frac{3}{5}$",
             "E. $\\frac{9}{25}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -21142,9 +19414,7 @@ const db = {
             "Tanda akar pada rumus $\\sin \\frac{A}{2}$ ditentukan oleh kuadran tempat $\\frac{A}{2}$ berada",
             "Rumus $\\cos \\frac{A}{2} = \\pm\\sqrt{\\frac{1 - \\cos A}{2}}$",
             "Bentuk $\\tan \\frac{A}{2} = \\frac{\\sin A}{1 + \\cos A}$ tidak memerlukan penentuan tanda akar"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -21158,9 +19428,7 @@ const db = {
             "C. $-\\frac{1}{5}\\sqrt{5}$",
             "D. $\\frac{1}{5}\\sqrt{5}$",
             "E. $-\\frac{2}{5}\\sqrt{5}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -21174,9 +19442,7 @@ const db = {
             "C. $\\frac{3}{4}$",
             "D. $3$",
             "E. $\\frac{1}{9}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -21190,9 +19456,7 @@ const db = {
             "C. $\\cos \\frac{A}{2} = \\frac{3}{5}$",
             "D. $\\tan \\frac{A}{2} = \\frac{4}{3}$",
             "E. $\\cos \\frac{A}{2}$ bernilai negatif karena $A$ berada di kuadran II."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -21206,9 +19470,7 @@ const db = {
             "C. $2 - \\sqrt{3}$",
             "D. $\\frac{1}{3}\\sqrt{3}$",
             "E. $\\sqrt{3} - 2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -21216,9 +19478,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P43-Q10] Nilai dari $20\\sqrt{\\dfrac{1 - \\cos 60^\\circ}{2}}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "10",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -21239,9 +19499,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{3}$",
             "D. $1$",
             "E. $0$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -21255,9 +19513,7 @@ const db = {
             "C. $\\frac{1}{2}$",
             "D. $\\frac{1}{2}\\sqrt{3}$",
             "E. $0$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -21271,9 +19527,7 @@ const db = {
             "C. $\\frac{1}{2}\\left(\\sin 8x - \\sin 2x\\right)$",
             "D. $\\frac{1}{2}\\left(\\cos 8x + \\cos 2x\\right)$",
             "E. $\\frac{1}{2}\\left(\\sin 15x\\right)$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -21287,9 +19541,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{3} + 1$",
             "D. $\\frac{1}{2}\\sqrt{3} - 1$",
             "E. $-\\frac{1}{2}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -21301,9 +19553,7 @@ const db = {
             "$2\\sin A \\cos B = \\sin(A+B) + \\sin(A-B)$",
             "$2\\sin A \\sin B = \\cos(A+B) - \\cos(A-B)$",
             "Susunan $2\\cos A \\cos B$ menghasilkan penjumlahan dua kosinus"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -21317,9 +19567,7 @@ const db = {
             "C. $\\frac{1}{2}\\left(\\sin 6x - \\sin 2x\\right)$",
             "D. $\\frac{1}{2}\\left(\\cos 6x + \\cos 2x\\right)$",
             "E. $\\frac{1}{2}\\sin 8x$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -21333,9 +19581,7 @@ const db = {
             "C. $1 + \\frac{1}{2}\\sqrt{3}$",
             "D. $\\frac{1}{2}$",
             "E. $\\frac{1}{2}\\sqrt{3} - 1$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -21349,9 +19595,7 @@ const db = {
             "C. $2\\sin 6x \\sin 2x = \\cos 4x - \\cos 8x$",
             "D. $2\\sin 6x \\cos 2x = \\sin 8x + \\sin 4x$",
             "E. $2\\cos 7x \\cos 3x = \\cos 21x$"
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -21365,9 +19609,7 @@ const db = {
             "C. $\\cos 60^\\circ + \\cos 40^\\circ$",
             "D. $\\sin 40^\\circ - \\sin 60^\\circ$",
             "E. $\\sin 60^\\circ + \\sin 40^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -21375,9 +19617,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P44-Q10] Nilai dari $12\\cos 75^\\circ \\cos 15^\\circ$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -21398,9 +19638,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{3}$",
             "D. $\\sqrt{6}$",
             "E. $1$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -21414,9 +19652,7 @@ const db = {
             "C. $-\\frac{1}{2}\\sqrt{6}$",
             "D. $-\\frac{1}{2}\\sqrt{2}$",
             "E. $-\\frac{1}{2}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -21430,9 +19666,7 @@ const db = {
             "C. $2\\sin 4x \\sin x$",
             "D. $2\\cos 4x \\cos x$",
             "E. $2\\sin 4x \\cos x$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -21446,9 +19680,7 @@ const db = {
             "C. $1$",
             "D. $\\frac{1}{3}\\sqrt{3}$",
             "E. $\\frac{1}{2}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -21460,9 +19692,7 @@ const db = {
             "$\\sin A + \\sin B = 2\\sin \\frac{A+B}{2} \\cos \\frac{A-B}{2}$",
             "$\\cos A - \\cos B = 2\\sin \\frac{A+B}{2} \\sin \\frac{A-B}{2}$",
             "Mengubah jumlah menjadi perkalian berguna untuk menyelesaikan persamaan, sebab hasil kali bernilai nol bila salah satu faktornya nol"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -21476,9 +19706,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{6}$",
             "D. $\\frac{1}{2}\\sqrt{3}$",
             "E. $\\sqrt{6}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -21492,9 +19720,7 @@ const db = {
             "C. $x = 0^\\circ, 90^\\circ$",
             "D. $x = 22{,}5^\\circ, 67{,}5^\\circ$",
             "E. tidak ada penyelesaian"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -21508,9 +19734,7 @@ const db = {
             "C. $\\cos 3x - \\cos x = -2\\sin 2x \\sin x$",
             "D. $\\sin 75^\\circ - \\sin 15^\\circ = \\frac{1}{2}\\sqrt{2}$",
             "E. $\\cos A - \\cos B = 2\\sin \\frac{A+B}{2} \\sin \\frac{A-B}{2}$"
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -21524,9 +19748,7 @@ const db = {
             "C. $\\cos 30^\\circ$",
             "D. $\\sin 60^\\circ$",
             "E. $\\cos 20^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -21534,9 +19756,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P45-Q10] Nilai dari $\\sqrt{6}\\left(\\sin 75^\\circ + \\sin 15^\\circ\\right)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -21557,9 +19777,7 @@ const db = {
             "C. $x = 30^\\circ$ dan $x = 330^\\circ$",
             "D. $x = 30^\\circ$ dan $x = 150^\\circ$",
             "E. $x = 150^\\circ$ dan $x = 210^\\circ$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -21573,9 +19791,7 @@ const db = {
             "C. $x = 30^\\circ$ dan $x = 330^\\circ$",
             "D. $x = 60^\\circ$ saja",
             "E. $x = 120^\\circ$ dan $x = 240^\\circ$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -21589,9 +19805,7 @@ const db = {
             "C. $x = 30^\\circ, 150^\\circ$",
             "D. $x = 15^\\circ, 165^\\circ$",
             "E. $x = 60^\\circ, 120^\\circ, 240^\\circ, 300^\\circ$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -21605,9 +19819,7 @@ const db = {
             "C. $x = 180^\\circ$ saja",
             "D. $x = 60^\\circ, 120^\\circ, 180^\\circ$",
             "E. $x = 120^\\circ, 240^\\circ$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -21619,9 +19831,7 @@ const db = {
             "Persamaan $\\sin x = \\sin \\alpha$ memberi $x = \\alpha$ atau $x = 180^\\circ - \\alpha$",
             "Persamaan $\\sin 2x = \\frac{1}{2}$ pada $0^\\circ \\le x \\le 360^\\circ$ mempunyai penyelesaian sebanyak dua buah",
             "Persamaan $a\\cos x + b\\sin x = c$ mempunyai penyelesaian hanya apabila $|c| \\le \\sqrt{a^2 + b^2}$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -21635,9 +19845,7 @@ const db = {
             "C. $x = 210^\\circ, 330^\\circ$",
             "D. $x = 30^\\circ, 150^\\circ, 270^\\circ$",
             "E. $x = 90^\\circ, 210^\\circ, 330^\\circ$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -21651,9 +19859,7 @@ const db = {
             "C. $k = 4$ dan $\\theta = 60^\\circ$",
             "D. $k = \\sqrt{2}$ dan $\\theta = 45^\\circ$",
             "E. $k = 2$ dan $\\theta = 120^\\circ$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -21667,9 +19873,7 @@ const db = {
             "C. Penyelesaiannya adalah $x = 15^\\circ$ dan $x = 105^\\circ$.",
             "D. Nilai terbesar yang dapat dicapai ruas kirinya adalah $2$.",
             "E. Persamaan $\\sqrt{3}\\sin x + \\cos x = 3$ juga mempunyai penyelesaian."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -21683,9 +19887,7 @@ const db = {
             "C. $5$",
             "D. $4$",
             "E. $12$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -21693,9 +19895,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P46-Q10] Banyaknya penyelesaian persamaan $\\sin 3x = \\frac{1}{2}\\sqrt{2}$ pada selang $0^\\circ \\le x \\le 180^\\circ$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "4",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -21716,9 +19916,7 @@ const db = {
             "C. $\\frac{1}{2}\\sqrt{2}$",
             "D. $\\frac{1}{2}\\sqrt{3}$",
             "E. $0$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -21732,9 +19930,7 @@ const db = {
             "C. $-\\frac{1}{2}\\sqrt{3}$",
             "D. $\\frac{1}{2}\\sqrt{2}$",
             "E. $1$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -21748,9 +19944,7 @@ const db = {
             "C. $\\frac{1}{4}$",
             "D. $\\frac{1}{2}\\sqrt{6}$",
             "E. $0$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -21764,9 +19958,7 @@ const db = {
             "C. $\\sqrt{3}$",
             "D. $\\frac{1}{2}\\sqrt{3}$",
             "E. $\\frac{1}{2}\\sqrt{6}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -21778,9 +19970,7 @@ const db = {
             "Bentuk $2\\sin 20^\\circ \\cos 20^\\circ$ diselesaikan dengan rumus sudut rangkap",
             "Bentuk $2\\sin 50^\\circ \\cos 10^\\circ$ juga diselesaikan dengan rumus sudut rangkap",
             "Untuk menyelesaikan persamaan $\\sin 3x + \\sin x = 0$, bentuk penjumlahan itu lebih baik diubah menjadi perkalian"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -21794,9 +19984,7 @@ const db = {
             "C. $-\\frac{7}{25}$",
             "D. $\\frac{4}{5}$",
             "E. $\\frac{7}{25}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -21810,9 +19998,7 @@ const db = {
             "C. $1$",
             "D. $\\frac{1}{2}\\sqrt{2}$",
             "E. $0$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -21826,9 +20012,7 @@ const db = {
             "C. $\\sin 75^\\circ + \\sin 15^\\circ = \\frac{1}{2}\\sqrt{6}$",
             "D. $\\tan 22{,}5^\\circ = \\sqrt{2} - 1$",
             "E. Nilai terbesar dari $5\\cos x + 12\\sin x$ adalah $17$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -21842,9 +20026,7 @@ const db = {
             "C. $x = 0^\\circ, 360^\\circ$",
             "D. $x = 0^\\circ, 120^\\circ, 240^\\circ, 360^\\circ$",
             "E. $x = 0^\\circ, 60^\\circ, 300^\\circ, 360^\\circ$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -21852,9 +20034,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P47-Q10] Nilai dari $20\\sin 15^\\circ \\cos 15^\\circ$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "5",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -21875,9 +20055,7 @@ const db = {
             "C. surjektif tetapi tidak injektif",
             "D. bukan fungsi",
             "E. tidak injektif dan tidak surjektif"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -21891,9 +20069,7 @@ const db = {
             "C. $f(2) = 4$ dan $f(3) = 9$",
             "D. $f(1) = 1$",
             "E. $f(-2) = f(2) = 4$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -21907,9 +20083,7 @@ const db = {
             "C. $\\{y \\mid y \\ge 3\\}$",
             "D. $\\{y \\mid y \\le 2\\}$",
             "E. seluruh bilangan real"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -21923,9 +20097,7 @@ const db = {
             "C. surjektif tetapi tidak injektif",
             "D. bijektif",
             "E. tidak injektif dan tidak surjektif"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -21937,9 +20109,7 @@ const db = {
             "Fungsi $f$ bersifat injektif apabila $f(a) = f(b)$ mengakibatkan $a = b$",
             "Setiap fungsi kuadrat dengan daerah asal bilangan real bersifat injektif",
             "Mempersempit daerah asal dapat mengubah fungsi yang tidak injektif menjadi injektif"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -21953,9 +20123,7 @@ const db = {
             "C. $f(x) = x^4$",
             "D. $f(x) = x^3$",
             "E. $f(x) = x^2 + 1$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -21969,9 +20137,7 @@ const db = {
             "C. fungsi itu tidak injektif",
             "D. fungsi itu bijektif",
             "E. fungsi itu injektif tetapi tidak surjektif"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -21985,9 +20151,7 @@ const db = {
             "C. Daerah hasilnya adalah $\\{y \\mid y \\ge 2\\}$.",
             "D. $f$ tidak bersifat injektif.",
             "E. $f$ bersifat surjektif terhadap daerah kawan bilangan real."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -22001,9 +20165,7 @@ const db = {
             "C. $\\{x \\mid -2 \\le x \\le 2\\}$",
             "D. $\\{x \\mid x \\ge -4\\}$",
             "E. $\\{x \\mid x \\ne 0\\}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -22011,9 +20173,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P48-Q10] Banyaknya fungsi bijektif yang mungkin dari himpunan $\\{1, 2, 3, 4\\}$ ke himpunan $\\{a, b, c, d\\}$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "24",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -22034,9 +20194,7 @@ const db = {
             "C. $x^2 + 2x - 3$",
             "D. $x^2 - 2x - 3$",
             "E. $2x^3 + x^2 - 8x - 4$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -22050,9 +20208,7 @@ const db = {
             "C. $x^2 - 2x - 5$",
             "D. $-x^2 + 2x - 3$",
             "E. $-x^2 + 2x + 5$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -22066,9 +20222,7 @@ const db = {
             "C. $25$",
             "D. $4$",
             "E. $16$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -22082,9 +20236,7 @@ const db = {
             "C. $x = -5$",
             "D. $x = 9$",
             "E. $x = -3$, $x = 3$, dan $x = -5$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -22096,9 +20248,7 @@ const db = {
             "Daerah asal $(f+g)$ adalah irisan daerah asal $f$ dan daerah asal $g$",
             "Daerah asal $\\left(\\frac{f}{g}\\right)$ sama persis dengan daerah asal $\\left(\\frac{g}{f}\\right)$",
             "Nilai $x$ yang membuat pembilang bernilai nol harus dibuang dari daerah asal sebuah pecahan"
-          ],
-          "kunci": "B - S - S",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -22112,9 +20262,7 @@ const db = {
             "C. $\\{x \\mid x > 3\\}$",
             "D. $\\{x \\mid x \\ge 3\\}$",
             "E. $\\{x \\mid x \\ne 3\\}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -22128,9 +20276,7 @@ const db = {
             "C. $2$",
             "D. $11$",
             "E. $7$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -22144,9 +20290,7 @@ const db = {
             "C. Daerah asal $\\left(\\frac{f}{g}\\right)$ membuang $x = 3$.",
             "D. Daerah asal $\\left(\\frac{g}{f}\\right)$ membuang $x = -2$.",
             "E. Daerah asal $\\left(\\frac{f}{g}\\right)$ dan $\\left(\\frac{g}{f}\\right)$ sama persis."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -22160,9 +20304,7 @@ const db = {
             "C. $x + 2$",
             "D. $x^2 - 3$",
             "E. $x - 6$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -22170,9 +20312,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P49-Q10] Diketahui $f(x) = \\sqrt{x + 2}$ dan $g(x) = 3x$. Nilai $(f+g)(7)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "24",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -22193,9 +20333,7 @@ const db = {
             "C. $4x^2 + 12x + 8$",
             "D. $2x^2 + 1$",
             "E. $x^2 + 2x + 2$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -22209,9 +20347,7 @@ const db = {
             "C. $4x^2 + 9$",
             "D. $4x^2 + 12x + 10$",
             "E. $4x^2 + 12x + 8$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -22225,9 +20361,7 @@ const db = {
             "C. $-1$",
             "D. $8$",
             "E. $11$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -22241,9 +20375,7 @@ const db = {
             "C. seluruh bilangan real",
             "D. $\\{x \\mid x \\ge -5\\}$",
             "E. $\\{x \\mid x \\ge 5\\}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -22255,9 +20387,7 @@ const db = {
             "Pada $(f \\circ g)(x)$, fungsi yang dikerjakan lebih dahulu adalah $g$",
             "Untuk setiap fungsi $f$ dan $g$ berlaku $f \\circ g = g \\circ f$",
             "Daerah asal $(f \\circ g)$ menuntut keluaran $g(x)$ berada dalam daerah asal $f$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -22271,9 +20401,7 @@ const db = {
             "C. $2x + 7$",
             "D. $x + 4$",
             "E. $2x - 4$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -22287,9 +20415,7 @@ const db = {
             "C. $6x + 14$",
             "D. $8$",
             "E. $2x + 8$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -22303,9 +20429,7 @@ const db = {
             "C. $(f \\circ g)(2) = 15$",
             "D. $(g \\circ f)(2) = 49$",
             "E. $(f \\circ g)(x) = (g \\circ f)(x)$ untuk setiap $x$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -22319,9 +20443,7 @@ const db = {
             "C. $3x + 3$",
             "D. $3x + 6$",
             "E. $12x + 9$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -22329,9 +20451,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P50-Q10] Diketahui $f(x) = \\sqrt{x}$ dan $g(x) = x - 7$. Nilai $(f \\circ g)(16)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -22352,9 +20472,7 @@ const db = {
             "C. $4x^2 - 5$",
             "D. $2x^2 + 1$",
             "E. $\\left(2x - 5\\right)^2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -22368,9 +20486,7 @@ const db = {
             "C. $5x$",
             "D. $5x^2 - 2x$",
             "E. $\\frac{x+2}{5}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -22384,9 +20500,7 @@ const db = {
             "C. $6x - 6$",
             "D. $2x + 2$",
             "E. $18x - 10$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -22400,9 +20514,7 @@ const db = {
             "C. $2x + 5$",
             "D. $2x + 9$",
             "E. $x + 5$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -22414,9 +20526,7 @@ const db = {
             "Komposisi fungsi bersifat asosiatif, yaitu $(f \\circ g) \\circ h = f \\circ (g \\circ h)$",
             "Karena bersifat asosiatif, urutan ketiga fungsi pada $f \\circ g \\circ h$ boleh ditukar sesuka hati",
             "Fungsi identitas $I(x) = x$ memenuhi $f \\circ I = I \\circ f = f$ untuk setiap fungsi $f$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -22430,9 +20540,7 @@ const db = {
             "C. $8x + 8$",
             "D. $2x + 2$",
             "E. $32x + 17$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -22446,9 +20554,7 @@ const db = {
             "C. $196$",
             "D. $14$",
             "E. $42$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -22462,9 +20568,7 @@ const db = {
             "C. $(f \\circ I)(x) = 2x + 1$ dengan $I(x) = x$.",
             "D. $(f \\circ g)(4) = 3$",
             "E. $(f \\circ g)(x) = (g \\circ f)(x)$ untuk setiap $x$."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -22478,9 +20582,7 @@ const db = {
             "C. $x^2 + 4x + 3$",
             "D. $x^2 - 2x$",
             "E. $x^2 + 2x + 1$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -22488,9 +20590,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P51-Q10] Diketahui $f(x) = x + 1$, $g(x) = 2x$, dan $h(x) = x - 3$. Nilai $(f \\circ g \\circ h)(5)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "5",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -22511,9 +20611,7 @@ const db = {
             "C. $f^{-1}(x) = \\frac{1}{2x + 3}$",
             "D. $f^{-1}(x) = \\frac{x - 3}{2}$",
             "E. $f^{-1}(x) = \\frac{x}{2} - 3$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -22527,9 +20625,7 @@ const db = {
             "C. $f^{-1}(x) = \\frac{3x - 1}{x + 2}$",
             "D. $f^{-1}(x) = \\frac{2x + 1}{x + 3}$",
             "E. $f^{-1}(x) = \\frac{3x + 1}{x - 2}$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -22543,9 +20639,7 @@ const db = {
             "C. $1$",
             "D. $3$",
             "E. $\\frac{1}{21}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -22559,9 +20653,7 @@ const db = {
             "C. $f(x) = x^2$",
             "D. $f(x) = 3 - x$",
             "E. $f(x) = \\frac{x}{4}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -22573,9 +20665,7 @@ const db = {
             "Hanya fungsi bijektif yang mempunyai fungsi invers",
             "Untuk setiap fungsi berlaku $f^{-1}(x) = \\dfrac{1}{f(x)}$",
             "Invers yang benar memenuhi $f\\left(f^{-1}(x)\\right) = x$ dan $f^{-1}\\left(f(x)\\right) = x$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -22589,9 +20679,7 @@ const db = {
             "C. $f^{-1}(x) = 4x - 8$",
             "D. $f^{-1}(x) = \\frac{x - 8}{4}$",
             "E. $f^{-1}(x) = \\frac{1}{4x + 8}$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -22605,9 +20693,7 @@ const db = {
             "C. $x = 3$",
             "D. $x = -\\frac{1}{3}$",
             "E. $x = 0$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -22621,9 +20707,7 @@ const db = {
             "C. $f\\left(f^{-1}(x)\\right) = x$",
             "D. Titik $(5, 3)$ terletak pada grafik $f^{-1}$.",
             "E. $f^{-1}(x) = \\frac{1}{2x - 1}$"
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -22637,9 +20721,7 @@ const db = {
             "C. $f^{-1}(x) = x^2$",
             "D. $f^{-1}(x) = \\frac{1}{x^2}$",
             "E. $f^{-1}(x) = \\pm\\sqrt{x}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -22647,9 +20729,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P52-Q10] Diketahui $f(x) = 5x - 3$. Nilai $f^{-1}(12)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "3",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -22670,9 +20750,7 @@ const db = {
             "C. $f^{-1} \\circ g$",
             "D. $g^{-1} \\circ f^{-1}$",
             "E. $g \\circ f$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -22686,9 +20764,7 @@ const db = {
             "C. $\\frac{x - 3}{2}$",
             "D. $2x + 1$",
             "E. $\\frac{x + 1}{2}$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -22702,9 +20778,7 @@ const db = {
             "C. $5$",
             "D. $-5$",
             "E. $0$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -22718,9 +20792,7 @@ const db = {
             "C. $\\frac{x - 8}{2}$",
             "D. $2x - 8$",
             "E. $\\frac{x + 8}{2}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -22732,9 +20804,7 @@ const db = {
             "Berlaku $\\left(f \\circ g\\right)^{-1} = g^{-1} \\circ f^{-1}$",
             "Berlaku $\\left(f \\circ g\\right)^{-1} = f^{-1} \\circ g^{-1}$",
             "Invers sebuah komposisi dapat dicari dengan menyusun komposisinya lebih dahulu, lalu menginverskan hasilnya"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -22748,9 +20818,7 @@ const db = {
             "C. $\\frac{x - 5}{2}$",
             "D. $\\frac{x + 5}{2}$",
             "E. $2x - 1$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -22764,9 +20832,7 @@ const db = {
             "C. $2x - 1$",
             "D. $\\frac{x+1}{2}$",
             "E. $2x + 3$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -22780,9 +20846,7 @@ const db = {
             "C. $f^{-1}(x) = \\frac{x}{4}$ dan $g^{-1}(x) = x - 2$.",
             "D. $g^{-1}\\left(f^{-1}(x)\\right) = \\frac{x - 8}{4}$",
             "E. $\\left(f \\circ g\\right)^{-1}(x) = f^{-1}\\left(g^{-1}(x)\\right)$"
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -22796,9 +20860,7 @@ const db = {
             "C. $23$",
             "D. $12$",
             "E. $\\frac{23}{3}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -22806,9 +20868,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P53-Q10] Diketahui $f(x) = 2x + 3$ dan $g(x) = x - 1$. Nilai $\\left(f \\circ g\\right)^{-1}(11)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "5",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -22829,9 +20889,7 @@ const db = {
             "C. $x = 2$",
             "D. $x = -\\frac{1}{2}$",
             "E. $y = 3$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -22845,9 +20903,7 @@ const db = {
             "C. $y = 2$",
             "D. $y = -\\frac{1}{3}$",
             "E. $x = 2$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -22861,9 +20917,7 @@ const db = {
             "C. $y = 2$",
             "D. $y = -\\frac{5}{2}$",
             "E. tidak ada"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -22877,9 +20931,7 @@ const db = {
             "C. $(2, 0)$",
             "D. $(0, 3)$",
             "E. $(6, 0)$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -22891,9 +20943,7 @@ const db = {
             "Asimtot tegak berada pada nilai $x$ yang membuat penyebutnya bernilai nol",
             "Asimtot datar sebuah fungsi rasional selalu $y = 0$",
             "Nilai yang dibuang dari daerah asal fungsi rasional sama dengan letak asimtot tegaknya"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -22907,9 +20957,7 @@ const db = {
             "C. $y = 0$",
             "D. $y = -\\frac{3}{4}$",
             "E. $y = -2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -22923,9 +20971,7 @@ const db = {
             "C. $y = 0$",
             "D. $y = 4$",
             "E. $y = 1$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -22939,9 +20985,7 @@ const db = {
             "C. Grafiknya memotong sumbu-$x$ di $(2, 0)$.",
             "D. Grafiknya memotong sumbu-$y$ di $(0, -3)$.",
             "E. Daerah asalnya seluruh bilangan real."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -22955,9 +20999,7 @@ const db = {
             "C. $3$",
             "D. $9$",
             "E. tidak terdefinisi"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -22965,9 +21007,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P54-Q10] Asimtot datar dari $f(x) = \\dfrac{4x - 8}{x - 1}$ adalah $y = \\dots$",
-          "opsi": [],
-          "kunci": "4",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -22988,9 +21028,7 @@ const db = {
             "C. $U(x) = 100x + 1200$",
             "D. $U(x) = 40x - 1200$",
             "E. $U(x) = 40x$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -23004,9 +21042,7 @@ const db = {
             "C. $30$",
             "D. $12$",
             "E. $70$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -23020,9 +21056,7 @@ const db = {
             "C. $203^\\circ$C",
             "D. $53^\\circ$C",
             "E. $35^\\circ$C"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -23036,9 +21070,7 @@ const db = {
             "C. $400$ ribu",
             "D. $350$ ribu",
             "E. $340$ ribu"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -23050,9 +21082,7 @@ const db = {
             "Dua proses yang berurutan dapat dimodelkan sebagai komposisi fungsi",
             "Diskon persentase lalu potongan tetap memberi harga akhir yang sama dengan urutan sebaliknya",
             "Pertanyaan yang arahnya terbalik dari sebuah fungsi dijawab dengan fungsi inversnya"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -23066,9 +21096,7 @@ const db = {
             "C. $220$",
             "D. $60$",
             "E. $100$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -23082,9 +21110,7 @@ const db = {
             "C. $L(K) = 16K^2$",
             "D. $L(K) = \\frac{K}{16}$",
             "E. $L(K) = 4K^2$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -23098,9 +21124,7 @@ const db = {
             "C. Toko A lebih murah daripada Toko B.",
             "D. Selisih keduanya tetap $6$ ribu berapa pun harga barangnya.",
             "E. Kedua toko memberi harga akhir yang sama."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -23114,9 +21138,7 @@ const db = {
             "C. $16$ jam",
             "D. $11$ jam",
             "E. $12$ jam"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -23124,9 +21146,7 @@ const db = {
           "level": "C4 Analisis",
           "bobot": 10,
           "tanya": "[P55-Q10] Dengan $B(x) = 30x + 1200$ ribu rupiah dan $P(x) = 70x$ ribu rupiah, untung pada penjualan $80$ unit adalah $\\dots$ ribu rupiah.",
-          "opsi": [],
-          "kunci": "2000",
-          "bahas": ""
+          "opsi": []
         }
       ]
     },
@@ -23147,9 +21167,7 @@ const db = {
             "C. $48$",
             "D. $21$",
             "E. $8$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 2,
@@ -23163,9 +21181,7 @@ const db = {
             "C. $21$",
             "D. $48$",
             "E. $10$"
-          ],
-          "kunci": "E",
-          "bahas": ""
+          ]
         },
         {
           "no": 3,
@@ -23179,9 +21195,7 @@ const db = {
             "C. $\\frac{x + 1}{2}$",
             "D. $\\frac{x + 5}{2}$",
             "E. $\\frac{x - 3}{2} - 4$"
-          ],
-          "kunci": "D",
-          "bahas": ""
+          ]
         },
         {
           "no": 4,
@@ -23195,9 +21209,7 @@ const db = {
             "C. $x = -1$",
             "D. $x = 4$",
             "E. $x = -2$, $x = 2$, dan $x = -1$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 5,
@@ -23209,9 +21221,7 @@ const db = {
             "Berlaku $f^{-1}\\left(f(x)\\right) = x$ untuk setiap $x$ pada daerah asal $f$",
             "Berlaku $(f \\circ g)(x) = (f \\cdot g)(x)$ untuk setiap fungsi $f$ dan $g$",
             "Daerah asal $(f \\circ g)$ menuntut keluaran $g(x)$ berada dalam daerah asal $f$"
-          ],
-          "kunci": "B - S - B",
-          "bahas": ""
+          ]
         },
         {
           "no": 6,
@@ -23225,9 +21235,7 @@ const db = {
             "C. $7$",
             "D. $21$",
             "E. $\\frac{7}{3}$"
-          ],
-          "kunci": "C",
-          "bahas": ""
+          ]
         },
         {
           "no": 7,
@@ -23241,9 +21249,7 @@ const db = {
             "C. $\\{x \\mid x \\ge -6\\}$",
             "D. seluruh bilangan real",
             "E. $\\{x \\mid x \\ge 4\\}$"
-          ],
-          "kunci": "B",
-          "bahas": ""
+          ]
         },
         {
           "no": 8,
@@ -23257,9 +21263,7 @@ const db = {
             "C. $f^{-1}(3) = 1$",
             "D. $\\left(f \\circ g\\right)^{-1}(3) = 3$",
             "E. $f$ tidak mempunyai invers karena tidak injektif."
-          ],
-          "kunci": "A, B, C, D",
-          "bahas": ""
+          ]
         },
         {
           "no": 9,
@@ -23273,9 +21277,7 @@ const db = {
             "C. $y = -2$",
             "D. $y = -\\frac{1}{2}$",
             "E. $x = -2$"
-          ],
-          "kunci": "A",
-          "bahas": ""
+          ]
         },
         {
           "no": 10,
@@ -23283,9 +21285,7 @@ const db = {
           "level": "C5 Evaluasi",
           "bobot": 10,
           "tanya": "[P56-Q10] Diketahui $f(x) = 5x + 2$. Nilai $f\\left(f^{-1}(11)\\right)$ adalah $\\dots$",
-          "opsi": [],
-          "kunci": "11",
-          "bahas": ""
+          "opsi": []
         }
       ]
     }

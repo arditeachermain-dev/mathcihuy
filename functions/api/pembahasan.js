@@ -80,15 +80,35 @@ export async function onRequestGet(context) {
         return jsonResponse({ error: 'Pembahasan untuk paket ini sedang disiapkan.' }, 404);
       }
 
-      // Proteksi Masa Uji Aktif Pekan W42 (Wajib P17-P18, Minat P18-P19)
-      const isW42ExamLock = isW42LockedPackage(mapel, kode_pertemuan);
-      if (isW42ExamLock) {
+      // Proteksi Kunci Paket Dinamis (D1 cbt_package_locks)
+      const packageKey = `${tingkat}_${String(mapel).toLowerCase()}_${String(kode_pertemuan).toUpperCase()}`;
+      let isPackageLocked = false;
+      let lockReason = '';
+
+      try {
+        const lockRow = await context.env.DB.prepare(
+          "SELECT is_locked, locked_reason FROM cbt_package_locks WHERE package_key = ?"
+        ).bind(packageKey).first();
+
+        if (lockRow) {
+          isPackageLocked = Number(lockRow.is_locked) === 1;
+          lockReason = lockRow.locked_reason || 'Dikunci oleh guru';
+        } else {
+          // Fallback default: W42 active lock
+          isPackageLocked = isW42LockedPackage(mapel, kode_pertemuan);
+          if (isPackageLocked) lockReason = 'Materi Uji Aktif Pekan W42';
+        }
+      } catch (_) {
+        isPackageLocked = isW42LockedPackage(mapel, kode_pertemuan);
+      }
+
+      if (isPackageLocked) {
         const solutions = rawSolutions.map(sol => ({
           q_idx: sol.q_idx,
           kunci: null,
           is_locked: true,
           hint: null,
-          bahas: "🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk materi uji TKA Pekan Ini (W42: Wajib P17-P18 & Minat P18-P19) dikunci sementara oleh guru hingga Minggu, 18 Oktober 2026 pukul 23:59 WIB demi menjaga integritas asesmen angkatan XII."
+          bahas: `🔒 Pembahasan langkah demi langkah dan kunci jawaban resmi untuk paket ini sedang dikunci oleh guru (Mr. Ardi). ${lockReason ? '(' + lockReason + ') ' : ''}Silakan ikuti pembahasan bersama di kelas!`
         }));
 
         return jsonResponse({
@@ -99,7 +119,7 @@ export async function onRequestGet(context) {
           skor: submission.skor,
           waktu_submit: submission.waktu_submit,
           is_locked: true,
-          lock_reason: 'W42_EXAM_LOCKDOWN',
+          lock_reason: lockReason || 'LOCKED_BY_TEACHER',
           solutions
         });
       }

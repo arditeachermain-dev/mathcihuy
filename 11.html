@@ -149,6 +149,10 @@
               <i class="fa-solid fa-chart-line text-amber-400 w-4 text-center"></i>
               <span>Dashboard Monitoring Guru</span>
             </button>
+            <button onclick="openGuruCbtLocksModal(); toggleUserDropdownMenu();" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-left text-slate-300 hover:text-amber-300 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-lock text-amber-400 w-4 text-center"></i>
+              <span>Kontrol Kunci & Pembahasan CBT</span>
+            </button>
           </div>
 
           <!-- ACADEMIC & TEACHING TOOLS -->
@@ -1108,8 +1112,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xi.js?v=v20260930_zero_desync"></script>
-  <script src="app.js?v=v20261011_mrardi"></script>
+  <script src="data-xi.js?v=v20261013_cbt_dynamic_locks_v1"></script>
+  <script src="app.js?v=v20261013_cbt_dynamic_locks_v1"></script>
 
 
     <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
@@ -1657,9 +1661,79 @@
           </button>
         </div>
       </div>
+    <!-- MODAL KONTROL KUNCI & PEMBAHASAN CBT (GURU ONLY - NOTION WARM PAPER) -->
+    <div id="modal-guru-cbt-locks" style="z-index: 10001;" class="fixed inset-0 hidden flex items-center justify-center p-3 sm:p-5 bg-stone-900/60 backdrop-blur-sm">
+        <div class="bg-[#F7F6F3] border border-[#D3CFBE] rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl text-[#2F3437] overflow-hidden">
+            <!-- HEADER MODAL -->
+            <div class="px-6 py-4 bg-white border-b border-[#E8E6DF] flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shadow-sm">
+                        <i class="fa-solid fa-lock text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base sm:text-lg font-bold text-[#2F3437] flex items-center gap-2">
+                            Kontrol Kunci Jawaban &amp; Pembahasan CBT
+                        </h2>
+                        <p class="text-xs text-[#787774] font-medium">Buka atau kunci akses pembahasan per pertemuan secara real-time demi integritas asesmen</p>
+                    </div>
+                </div>
+                <button onclick="closeGuruCbtLocksModal()" class="w-9 h-9 rounded-xl bg-[#F0EFEA] hover:bg-[#E8E6DF] text-[#5F5E5B] hover:text-[#2F3437] text-lg flex items-center justify-center transition cursor-pointer">&times;</button>
+            </div>
+
+            <!-- TABS & BULK ACTIONS TOOLBAR -->
+            <div class="p-4 bg-white/70 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-3 shrink-0">
+                <!-- TABS MAPEL -->
+                <div class="flex flex-wrap items-center gap-1.5" id="cbt-lock-mapel-tabs">
+                    <button type="button" onclick="setGuruCbtLockTab('wajib')" id="tab-lock-wajib" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#2E384D] text-white shadow-sm transition cursor-pointer">
+                        📘 Mat. Wajib
+                    </button>
+                    <button type="button" onclick="setGuruCbtLockTab('minat')" id="tab-lock-minat" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#F0EFEA] text-[#5F5E5B] hover:bg-[#E8E6DF] transition cursor-pointer">
+                        📙 Additional Math
+                    </button>
+                    <button type="button" onclick="setGuruCbtLockTab('clil')" id="tab-lock-clil" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#F0EFEA] text-[#5F5E5B] hover:bg-[#E8E6DF] transition cursor-pointer">
+                        🌐 English CLIL
+                    </button>
+                </div>
+
+                <!-- AKSI MASSAL (BULK TOGGLES) -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" onclick="bulkToggleGuruPackageLocks('lock_exam_week')" class="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
+                        <i class="fa-solid fa-shield-halved"></i> Kunci Pekan W42
+                    </button>
+                    <button type="button" onclick="bulkToggleGuruPackageLocks('lock_all')" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-300 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
+                        <i class="fa-solid fa-lock"></i> Kunci Semua
+                    </button>
+                    <button type="button" onclick="bulkToggleGuruPackageLocks('unlock_all')" class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
+                        <i class="fa-solid fa-lock-open"></i> Buka Semua
+                    </button>
+                    <button type="button" onclick="loadGuruCbtLocksData(true)" class="p-2 bg-[#F0EFEA] hover:bg-[#E8E6DF] text-[#5F5E5B] rounded-xl text-xs font-bold transition cursor-pointer" title="Perbarui Status">
+                        <i class="fa-solid fa-rotate"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTAINER DAFTAR PAKET (RESPONSIVE SCROLL) -->
+            <div class="p-4 overflow-y-auto flex-1 space-y-2.5 custom-scroll" id="cbt-locks-list-container">
+                <div class="text-center py-12 text-[#787774] text-xs font-medium">
+                    <i class="fa-solid fa-spinner fa-spin text-xl text-amber-600 mb-2"></i>
+                    <p>Memuat konfigurasi kunci paket CBT dari Cloudflare D1...</p>
+                </div>
+            </div>
+
+            <!-- FOOTER NOTICE -->
+            <div class="px-6 py-3 bg-white border-t border-[#E8E6DF] flex flex-wrap items-center justify-between gap-3 text-xs text-[#787774] shrink-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-cat text-amber-600"></i>
+                    <span><b>Zero-Leak Frontend:</b> Butir `kunci` &amp; `bahas` tidak ada di Console/Network selama paket terkunci.</span>
+                </div>
+                <button onclick="closeGuruCbtLocksModal()" class="px-4 py-1.5 bg-[#2E384D] hover:bg-[#1E2533] text-white font-bold rounded-xl transition cursor-pointer">
+                    Selesai &amp; Tutup
+                </button>
+            </div>
+        </div>
     </div>
 
-    <script src="app-akhir.js?v=v20261012_security_lockdown_v1"></script>
+    <script src="app-akhir.js?v=v20261013_cbt_dynamic_locks_v1"></script>
     <script src="helpdesk-notif.js?v=v20261012_notif_anticlip_v2"></script>
 
 </body>
