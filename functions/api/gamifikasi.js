@@ -427,6 +427,113 @@ export const LEVEL_CONFIG = PROFILE_CATALOG.map((t, idx, arr) => {
   };
 });
 
+export const BADGE_CATALOG = {
+  perfect_100: {
+    id: 'perfect_100',
+    name: 'Gacor No Counter',
+    icon: 'fa-solid fa-bullseye',
+    color: '#B26B00',
+    bg: '#FFF7E6',
+    desc: 'Meraih skor 100 mutlak di ujian CBT. Definisi sepuh matematika tanpa ampun!'
+  },
+  fast_thinker: {
+    id: 'fast_thinker',
+    name: 'Speedrun Mode On',
+    icon: 'fa-solid fa-bolt',
+    color: '#0284C7',
+    bg: '#EBF3FB',
+    desc: 'Selesai CBT under 20 menit dan tuntas KKM. Ngerjainnya sat-set tanpa overthinking!'
+  },
+  streak_hero: {
+    id: 'streak_hero',
+    name: 'Anti-Skip Club',
+    icon: 'fa-solid fa-fire-flame-curved',
+    color: '#DC2626',
+    bg: '#FEF2F2',
+    desc: 'Konsisten belajar & submit ujian minimal 3 hari berturut-turut. Pantang fomo!'
+  },
+  dimensi_tiga: {
+    id: 'dimensi_tiga',
+    name: 'Sepuh Dimensi Tiga',
+    icon: 'fa-solid fa-cube',
+    color: '#2E7D32',
+    bg: '#EDF7ED',
+    desc: 'Bantai tuntas kubus, balok, dan limas P09-P14. Otak spasial 3D no debat!'
+  },
+  statistika_pioneer: {
+    id: 'statistika_pioneer',
+    name: 'Dukun Data',
+    icon: 'fa-solid fa-chart-column',
+    color: '#7C3AED',
+    bg: '#F5F3FF',
+    desc: 'Kuasai data berkelompok sampai regresi bivariat P15-P21. Angka langsung tunduk!'
+  },
+  reflective_mind: {
+    id: 'reflective_mind',
+    name: 'Jujurly Reflektif',
+    icon: 'fa-solid fa-brain',
+    color: '#2E384D',
+    bg: '#F0EFEA',
+    desc: 'Tuntaskan angket refleksi pemahaman diri matematika apa adanya tanpa jaim.'
+  },
+  skena_discord: {
+    id: 'skena_discord',
+    name: 'Jam Kritis 16:00',
+    icon: 'fa-solid fa-comments',
+    color: '#5865F2',
+    bg: '#EEF0FD',
+    desc: 'Nongkrong produktif di Discord tiap jam 4 sore & submit kuis harian. Vibes anak rajin!'
+  },
+  quiz_master_discord: {
+    id: 'quiz_master_discord',
+    name: 'Sniper Kuis Sore',
+    icon: 'fa-solid fa-crosshairs',
+    color: '#059669',
+    bg: '#ECFDF5',
+    desc: 'Jawab benar kuis harian Discord minimal 5 kali. Nembak jawaban selalu on point!'
+  },
+  pencacahan_pro: {
+    id: 'pencacahan_pro',
+    name: 'Master Kombinatorika',
+    icon: 'fa-solid fa-dice',
+    color: '#D97706',
+    bg: '#FEF3C7',
+    desc: 'Taklukkan permutasi, kombinasi, & filling slots P01-P08 tanpa ketuker rumus!'
+  },
+  lingkaran_lord: {
+    id: 'lingkaran_lord',
+    name: 'Penguasa Sirkular',
+    icon: 'fa-solid fa-bullseye',
+    color: '#0D9488',
+    bg: '#F0FDFA',
+    desc: 'Bantai geometri analitik lingkaran, garis singgung bagi adil, & uji kuasa P01-P09!'
+  },
+  streak_guardian: {
+    id: 'streak_guardian',
+    name: 'Penjaga Api',
+    icon: 'fa-solid fa-shield-halved',
+    color: '#059669',
+    bg: '#ECFDF5',
+    desc: 'Memiliki Perisai Streak aktif untuk melindungi api konsistensi belajar dari hari bolong.'
+  },
+  weekly_challenger: {
+    id: 'weekly_challenger',
+    name: 'Weekly Challenger',
+    icon: 'fa-solid fa-trophy-star',
+    color: '#D97706',
+    bg: '#FFFBEB',
+    desc: 'Menuntaskan seluruh Misi Event Mingguan Matematika Mr. Ardi.'
+  },
+  titan_slayer: {
+    id: 'titan_slayer',
+    name: 'Pemburu Titan',
+    icon: 'fa-solid fa-dragon',
+    color: '#DC2626',
+    bg: '#FEF2F2',
+    desc: 'Berpartisipasi aktif dalam Event Mingguan Raid Boss menumbangkan Titan Statigo!'
+  }
+};
+
 export function getDefaultAvatarForLevel(level) {
   for (let i = PROFILE_CATALOG.length - 1; i >= 0; i--) {
     if (level >= PROFILE_CATALOG[i].requiredLevel) {
