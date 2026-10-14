@@ -1770,6 +1770,419 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     let _cachedGamifikasiProfile = null;
     let _cachedLeaderboardData = null;
 
+
+    // -------------------------------------------------------------------------
+    // KATALOG PROFIL, AVATAR KARAKTER & BINGKAI KELIPATAN 10 LEVEL
+    // -------------------------------------------------------------------------
+    const PROFILE_CATALOG = [
+  {
+    "tier": 1,
+    "requiredLevel": 1,
+    "tierName": "Tier 1: Novice Initiate",
+    "minXp": 0,
+    "title": "Novice Explorer",
+    "frame": {
+      "id": "frame_stone",
+      "name": "Stone Novice Ring",
+      "border": "#CBD5E1",
+      "bgGlow": "rgba(203, 213, 225, 0.2)"
+    },
+    "avatars": [
+      {
+        "id": "novice_compass",
+        "name": "Aether Explorer",
+        "icon": "fa-solid fa-compass",
+        "color": "#0D9488",
+        "bg": "#F0FDFA",
+        "desc": "Penjelajah muda yang selalu memegang kompas kebenaran matematika."
+      },
+      {
+        "id": "novice_book",
+        "name": "Murid Rajin",
+        "icon": "fa-solid fa-book-open",
+        "color": "#2E384D",
+        "bg": "#F0EFEA",
+        "desc": "Pembelajar tekun yang membaca dan memahami setiap konsep dasar."
+      },
+      {
+        "id": "novice_seed",
+        "name": "Tunas Aljabar",
+        "icon": "fa-solid fa-seedling",
+        "color": "#16A34A",
+        "bg": "#F0FDF4",
+        "desc": "Benih kecerdasan yang siap tumbuh menjadi pohon ilmu yang kokoh."
+      }
+    ]
+  },
+  {
+    "tier": 2,
+    "requiredLevel": 10,
+    "tierName": "Tier 2: Probability Scout",
+    "minXp": 1440,
+    "title": "Probability Scout",
+    "frame": {
+      "id": "frame_bronze",
+      "name": "Bronze Knight Ring",
+      "border": "#B45309",
+      "bgGlow": "rgba(180, 83, 9, 0.25)"
+    },
+    "avatars": [
+      {
+        "id": "prob_dice",
+        "name": "Ahli Peluang",
+        "icon": "fa-solid fa-dice",
+        "color": "#D97706",
+        "bg": "#FEF3C7",
+        "desc": "Menghitung probabilitas ruang sampel dan kaidah pencacahan tanpa keliru."
+      },
+      {
+        "id": "prob_plane",
+        "name": "Pilot Vektor",
+        "icon": "fa-solid fa-paper-plane",
+        "color": "#0284C7",
+        "bg": "#E0F2FE",
+        "desc": "Meluncur lincah melintasi koordinat Cartesius dan garis singgung."
+      },
+      {
+        "id": "prob_cipher",
+        "name": "Pemecah Sandi",
+        "icon": "fa-solid fa-key",
+        "color": "#6366F1",
+        "bg": "#EEF2FF",
+        "desc": "Membongkar rahasia pola bilangan dan relasi fungsi tersembunyi."
+      }
+    ]
+  },
+  {
+    "tier": 3,
+    "requiredLevel": 20,
+    "tierName": "Tier 3: Spatial Navigator",
+    "minXp": 4465,
+    "title": "Spatial Navigator",
+    "frame": {
+      "id": "frame_silver",
+      "name": "Silver Aegis Ring",
+      "border": "#64748B",
+      "bgGlow": "rgba(100, 116, 139, 0.3)"
+    },
+    "avatars": [
+      {
+        "id": "spatial_cube",
+        "name": "Arsitek 3D",
+        "icon": "fa-solid fa-cube",
+        "color": "#059669",
+        "bg": "#ECFDF5",
+        "desc": "Menguasai jarak titik ke garis dan bidang dalam bangun ruang tiga dimensi."
+      },
+      {
+        "id": "spatial_poly",
+        "name": "Visioner Geometri",
+        "icon": "fa-solid fa-draw-polygon",
+        "color": "#2563EB",
+        "bg": "#EFF6FF",
+        "desc": "Memvisualisasikan proyeksi orthogonal dan sudut dihedral secara presisi."
+      },
+      {
+        "id": "spatial_gem",
+        "name": "Kristal Poligon",
+        "icon": "fa-solid fa-gem",
+        "color": "#E11D48",
+        "bg": "#FFE4E6",
+        "desc": "Memiliki struktur berpikir yang kokoh dan jernih bak kristal permata."
+      }
+    ]
+  },
+  {
+    "tier": 4,
+    "requiredLevel": 30,
+    "tierName": "Tier 4: Data Alchemist",
+    "minXp": 8990,
+    "title": "Data Alchemist",
+    "frame": {
+      "id": "frame_gold",
+      "name": "Auric Gold Ring",
+      "border": "#EAB308",
+      "bgGlow": "rgba(234, 179, 8, 0.35)"
+    },
+    "avatars": [
+      {
+        "id": "data_alchemist",
+        "name": "Dukun Data",
+        "icon": "fa-solid fa-chart-line",
+        "color": "#7C3AED",
+        "bg": "#F5F3FF",
+        "desc": "Mampu menyihir tabel distribusi acak menjadi kesimpulan statistik mutlak."
+      },
+      {
+        "id": "data_oracle",
+        "name": "Gaussian Oracle",
+        "icon": "fa-solid fa-wand-magic-sparkles",
+        "color": "#F59E0B",
+        "bg": "#FEF3C7",
+        "desc": "Membaca kurva lonceng normal dan memprediksi sebaran data bivariat."
+      },
+      {
+        "id": "data_matrix",
+        "name": "Matrix Strategist",
+        "icon": "fa-solid fa-table-cells",
+        "color": "#0891B2",
+        "bg": "#ECFEFF",
+        "desc": "Menata persamaan linier dan matriks transformasi dengan ketelitian tinggi."
+      }
+    ]
+  },
+  {
+    "tier": 5,
+    "requiredLevel": 40,
+    "tierName": "Tier 5: Calculus Grandmaster",
+    "minXp": 15015,
+    "title": "Calculus Grandmaster",
+    "frame": {
+      "id": "frame_jade",
+      "name": "Jade Crystal Ring",
+      "border": "#10B981",
+      "bgGlow": "rgba(16, 185, 129, 0.4)"
+    },
+    "avatars": [
+      {
+        "id": "calc_infinity",
+        "name": "Master Limit & Kontinu",
+        "icon": "fa-solid fa-infinity",
+        "color": "#1E3A8A",
+        "bg": "#EFF6FF",
+        "desc": "Mendekati ketakhinggaan tanpa pernah tergelincir bentuk tak tentu."
+      },
+      {
+        "id": "calc_bolt",
+        "name": "Ksatria Turunan",
+        "icon": "fa-solid fa-bolt",
+        "color": "#D97706",
+        "bg": "#FFFBEB",
+        "desc": "Menghitung laju perubahan sesaat dan optimasi fungsi secepat kilat."
+      },
+      {
+        "id": "calc_wave",
+        "name": "Penguasa Integral",
+        "icon": "fa-solid fa-wave-square",
+        "color": "#0D9488",
+        "bg": "#F0FDFA",
+        "desc": "Menghitung luas daerah dan volume benda putar dengan metode tanzalin."
+      }
+    ]
+  },
+  {
+    "tier": 6,
+    "requiredLevel": 50,
+    "tierName": "Tier 6: Titan Slayer",
+    "minXp": 22540,
+    "title": "Titan Slayer",
+    "frame": {
+      "id": "frame_ruby",
+      "name": "Radiant Ruby Ring",
+      "border": "#EF4444",
+      "bgGlow": "rgba(239, 68, 68, 0.45)"
+    },
+    "avatars": [
+      {
+        "id": "titan_slayer",
+        "name": "Pemburu Titan",
+        "icon": "fa-solid fa-dragon",
+        "color": "#DC2626",
+        "bg": "#FEF2F2",
+        "desc": "Pahlawan legendaris yang menumbangkan Titan Statigo dalam Raid Boss mingguan."
+      },
+      {
+        "id": "raid_commander",
+        "name": "Panglima Raid",
+        "icon": "fa-solid fa-shield-halved",
+        "color": "#EA580C",
+        "bg": "#FFF7ED",
+        "desc": "Memimpin serangan serentak angkatan dan menjaga streak tanpa ampun."
+      },
+      {
+        "id": "apex_champ",
+        "name": "Kampiun Tak Terkalahkan",
+        "icon": "fa-solid fa-trophy",
+        "color": "#D97706",
+        "bg": "#FFFBEB",
+        "desc": "Pencetak critical hit sempurna 100x tanpa celah."
+      }
+    ]
+  },
+  {
+    "tier": 7,
+    "requiredLevel": 60,
+    "tierName": "Tier 7: Transcendent Sovereign",
+    "minXp": 31565,
+    "title": "Transcendent Sovereign",
+    "frame": {
+      "id": "frame_diamond",
+      "name": "Starlight Diamond Ring",
+      "border": "#0284C7",
+      "bgGlow": "rgba(2, 132, 199, 0.45)"
+    },
+    "avatars": [
+      {
+        "id": "sovereign_sun",
+        "name": "Sovereign of Light",
+        "icon": "fa-solid fa-sun",
+        "color": "#D97706",
+        "bg": "#FFFBEB",
+        "desc": "Menerangi ruang kelas dengan ide-ide matematika yang menginspirasi."
+      },
+      {
+        "id": "sovereign_atom",
+        "name": "Inti Singularity",
+        "icon": "fa-solid fa-atom",
+        "color": "#4F46E5",
+        "bg": "#EEF2FF",
+        "desc": "Memadatkan seluruh rumus kalkulus dan geometri menjadi satu pemahaman intuitif."
+      }
+    ]
+  },
+  {
+    "tier": 8,
+    "requiredLevel": 70,
+    "tierName": "Tier 8: Chrono Oracle",
+    "minXp": 42090,
+    "title": "Chrono Oracle",
+    "frame": {
+      "id": "frame_platinum",
+      "name": "Chrono Platinum Ring",
+      "border": "#64748B",
+      "bgGlow": "rgba(100, 116, 139, 0.5)"
+    },
+    "avatars": [
+      {
+        "id": "chrono_weaver",
+        "name": "Penenun Waktu",
+        "icon": "fa-solid fa-hourglass-half",
+        "color": "#0F766E",
+        "bg": "#F0FDFA",
+        "desc": "Menyelesaikan ujian 90 menit hanya dalam 15 menit dengan akurasi 100%."
+      },
+      {
+        "id": "dimension_walker",
+        "name": "Penjelajah Multi-Dimensi",
+        "icon": "fa-solid fa-ring",
+        "color": "#6D28D9",
+        "bg": "#F5F3FF",
+        "desc": "Melompat antar dimensi aljabar, kalkulus, dan statistika dengan mudah."
+      }
+    ]
+  },
+  {
+    "tier": 9,
+    "requiredLevel": 80,
+    "tierName": "Tier 9: Apex Luminary",
+    "minXp": 54115,
+    "title": "Apex Luminary",
+    "frame": {
+      "id": "frame_mythic",
+      "name": "Mythic Gold Ring",
+      "border": "#FACC15",
+      "bgGlow": "rgba(250, 204, 21, 0.5)"
+    },
+    "avatars": [
+      {
+        "id": "luminary_star",
+        "name": "Bintang Kejora",
+        "icon": "fa-solid fa-star",
+        "color": "#CA8A04",
+        "bg": "#FEF9C3",
+        "desc": "Bintang paling terang di langit akademik SMA GIS 2 Serpong."
+      },
+      {
+        "id": "quantum_master",
+        "name": "Master Kuantum",
+        "icon": "fa-solid fa-microchip",
+        "color": "#0284C7",
+        "bg": "#E0F2FE",
+        "desc": "Komputasi logika super cepat bagaikan prosesor kuantum."
+      }
+    ]
+  },
+  {
+    "tier": 10,
+    "requiredLevel": 90,
+    "tierName": "Tier 10: Grand Luminary Sovereign",
+    "minXp": 67640,
+    "title": "Grand Luminary Sovereign",
+    "frame": {
+      "id": "frame_aurora",
+      "name": "Prismatic Aurora Ring",
+      "border": "#EC4899",
+      "bgGlow": "rgba(236, 72, 153, 0.5)"
+    },
+    "avatars": [
+      {
+        "id": "cosmic_sage",
+        "name": "Resi Kosmik",
+        "icon": "fa-solid fa-moon",
+        "color": "#4338CA",
+        "bg": "#EEF2FF",
+        "desc": "Kebijaksanaan matematika yang tenang dan mendalam melampaui angkasa."
+      },
+      {
+        "id": "equation_lord",
+        "name": "Penguasa Persamaan",
+        "icon": "fa-solid fa-scale-balanced",
+        "color": "#059669",
+        "bg": "#ECFDF5",
+        "desc": "Setiap persamaan dan pertidaksamaan selalu tunduk dalam keseimbangan."
+      }
+    ]
+  },
+  {
+    "tier": 11,
+    "requiredLevel": 100,
+    "tierName": "Tier 11: Omniscient Deity",
+    "minXp": 82665,
+    "title": "Omniscient Deity",
+    "frame": {
+      "id": "frame_celestial",
+      "name": "Celestial Crown Ring",
+      "border": "#F59E0B",
+      "bgGlow": "rgba(245, 158, 11, 0.6)"
+    },
+    "avatars": [
+      {
+        "id": "deity_crown",
+        "name": "Mahadewa Matematika",
+        "icon": "fa-solid fa-crown",
+        "color": "#D97706",
+        "bg": "#FFFBEB",
+        "desc": "Pencapaian mutlak dan tertinggi dalam sejarah peradaban Math Cihuy."
+      },
+      {
+        "id": "living_axiom",
+        "name": "Aksioma Abadi",
+        "icon": "fa-solid fa-fire",
+        "color": "#B91C1C",
+        "bg": "#FEF2F2",
+        "desc": "Kebenaran matematika murni yang tak terbantahkan oleh ruang dan waktu."
+      }
+    ]
+  }
+];
+
+    function getAvatarObj(avatarId) {
+      if (!avatarId) return PROFILE_CATALOG[0].avatars[0];
+      for (const tier of PROFILE_CATALOG) {
+        const found = tier.avatars.find(a => a.id === avatarId);
+        if (found) return found;
+      }
+      return PROFILE_CATALOG[0].avatars[0];
+    }
+
+    function getFrameObj(frameId) {
+      if (!frameId) return PROFILE_CATALOG[0].frame;
+      for (const tier of PROFILE_CATALOG) {
+        if (tier.frame && tier.frame.id === frameId) return tier.frame;
+      }
+      return PROFILE_CATALOG[0].frame;
+    }
+
     // Helper Initials Siswa
     function getStudentInitials(name) {
       if (!name) return '??';
@@ -1815,9 +2228,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
     // Render Kartu Hero Gamifikasi di Home Stage
     function renderGamificationHeroCard(profile) {
       if (!profile) return;
+      _cachedGamifikasiProfile = profile;
       const card = document.getElementById('gamifikasi-hero-card');
       if (!card) return;
 
+      const avatarBoxEl = document.getElementById('gamifikasi-avatar');
       const avatarInitialsEl = document.getElementById('gamifikasi-avatar-initials');
       const levelPillEl = document.getElementById('gamifikasi-level-pill');
       const namaEl = document.getElementById('gamifikasi-nama');
@@ -1833,19 +2248,33 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
       const rankSubEl = document.getElementById('gamifikasi-rank-sub');
       const badgesContainer = document.getElementById('gamifikasi-badges-pills');
 
-      if (avatarInitialsEl) avatarInitialsEl.textContent = getStudentInitials(profile.nama);
+      // Terapkan Avatar Karakter & Bingkai Peringkat
+      const avatarObj = getAvatarObj(profile.selected_avatar);
+      const frameObj = getFrameObj(profile.selected_frame);
+
+      if (avatarBoxEl) {
+        avatarBoxEl.style.border = `2.5px solid ${frameObj.border || '#CBD5E1'}`;
+        avatarBoxEl.style.boxShadow = frameObj.bgGlow ? `0 0 12px ${frameObj.bgGlow}` : 'none';
+        if (avatarObj) {
+          avatarBoxEl.style.backgroundColor = avatarObj.bg || '#2E384D';
+          avatarBoxEl.innerHTML = `<i class="${avatarObj.icon || 'fa-solid fa-compass'} text-xl sm:text-2xl" style="color: ${avatarObj.color || '#FFFFFF'};"></i>`;
+        } else if (avatarInitialsEl) {
+          avatarInitialsEl.textContent = getStudentInitials(profile.nama);
+        }
+      }
+
       if (levelPillEl) levelPillEl.textContent = 'Lvl ' + (profile.level || 1);
       if (namaEl) namaEl.textContent = profile.nama || 'Siswa';
       if (kelasEl) kelasEl.textContent = profile.kelas || 'XII';
-      if (gelarTextEl) gelarTextEl.textContent = profile.gelar || 'Novice Explorer';
+      if (gelarTextEl) gelarTextEl.textContent = profile.selected_title || profile.gelar || 'Novice Explorer';
       if (totalXpEl) totalXpEl.textContent = (profile.total_xp || 0).toLocaleString('id-ID');
 
       if (nextXpEl) {
-        if (profile.level >= 6) {
-          nextXpEl.textContent = 'Level Maksimal (Grandmaster)';
+        if (profile.level >= 100) {
+          nextXpEl.textContent = 'Puncak Tertinggi: Level 100 (Omniscient Deity)';
         } else {
           const sisaXp = Math.max(0, (profile.next_level_xp || 200) - (profile.current_xp || 0));
-          nextXpEl.textContent = `${profile.progress_pct || 0}% • Butuh ${sisaXp.toLocaleString('id-ID')} XP lagi`;
+          nextXpEl.textContent = `${profile.progress_pct || 0}% • Butuh ${sisaXp.toLocaleString('id-ID')} XP menuju Level ${(profile.level || 1) + 1}`;
         }
       }
 
@@ -2224,10 +2653,11 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
               ${isMe ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-white shadow-2xs">KAMU</span>' : ''}
             </div>
 
-            <!-- PROFIL SISWA -->
+            <!-- PROFIL SISWA DENGAN BINGKAI & AVATAR KARAKTER -->
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-11 h-11 rounded-xl flex items-center justify-center text-sm font-bold text-white shadow-xs shrink-0" style="background-color: #2E384D;">
-                ${escapeHtml(initials)}
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center text-base shadow-xs shrink-0" 
+                   style="background-color: ${getAvatarObj(item.selected_avatar).bg || '#2E384D'}; border: 2.5px solid ${getFrameObj(item.selected_frame).border || '#CBD5E1'}; box-shadow: 0 0 8px ${getFrameObj(item.selected_frame).bgGlow || 'transparent'};">
+                <i class="${getAvatarObj(item.selected_avatar).icon || 'fa-solid fa-user'}" style="color: ${getAvatarObj(item.selected_avatar).color || '#FFFFFF'};"></i>
               </div>
               <div class="min-w-0 flex-1">
                 <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] truncate" title="${escapeHtml(item.nama)}">
@@ -2236,7 +2666,7 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
                 <div class="flex items-center gap-1.5 text-[11px] text-[#5F5E5B]">
                   <span class="font-mono font-semibold">${escapeHtml(item.kelas)}</span>
                   <span>•</span>
-                  <span class="truncate" style="color: #787774;">${escapeHtml(item.gelar)}</span>
+                  <span class="truncate font-medium text-amber-700">${escapeHtml(item.selected_title || item.gelar)}</span>
                 </div>
               </div>
             </div>
@@ -2305,8 +2735,9 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
             <td class="py-2.5 px-3 text-center">${rankBadge}</td>
             <td class="py-2.5 px-3">
               <div class="flex items-center gap-2.5">
-                <div class="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold text-white shrink-0 shadow-2xs" style="background-color: #2E384D;">
-                  ${escapeHtml(initials)}
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs shrink-0 shadow-2xs" 
+                     style="background-color: ${getAvatarObj(item.selected_avatar).bg || '#2E384D'}; border: 2px solid ${getFrameObj(item.selected_frame).border || '#CBD5E1'};">
+                  <i class="${getAvatarObj(item.selected_avatar).icon || 'fa-solid fa-user'}" style="color: ${getAvatarObj(item.selected_avatar).color || '#FFFFFF'};"></i>
                 </div>
                 <div class="min-w-0">
                   <div class="text-xs font-bold text-[#2F3437] truncate max-w-[200px] flex items-center gap-1.5" title="${escapeHtml(item.nama)}">
@@ -5581,6 +6012,289 @@ Guru Pengampu: Mr. Ardi
       setTimeout(initGamificationOnLoad, 100);
     }
 
+
+    // =========================================================================
+    // MODUL PEMILIHAN PROFIL / AVATAR & BINGKAI (KELIPATAN 10 LEVEL)
+    // =========================================================================
+
+    let _currentProfileFilter = 'all';
+
+    function openProfileSelectorModal() {
+      const modal = document.getElementById('profile-selector-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      const prof = _cachedGamifikasiProfile;
+      if (prof) {
+        renderProfileSelector(prof);
+      } else {
+        fetchGamificationProfile().then(p => {
+          if (p) renderProfileSelector(p);
+        });
+      }
+    }
+
+    function closeProfileSelectorModal() {
+      const modal = document.getElementById('profile-selector-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      document.body.style.overflow = '';
+    }
+
+    function filterProfileCatalog(filterType) {
+      _currentProfileFilter = filterType;
+
+      const btnAll = document.getElementById('ps-filter-all');
+      const btnUnlocked = document.getElementById('ps-filter-unlocked');
+      const btnLocked = document.getElementById('ps-filter-locked');
+
+      const activeClasses = ['bg-[#2E384D]', 'text-white', 'shadow-xs', 'font-bold'];
+      const inactiveClasses = ['bg-white', 'text-[#5F5E5B]', 'border', 'border-[#E8E6DF]', 'hover:bg-black/5', 'font-semibold'];
+
+      [
+        { btn: btnAll, key: 'all' },
+        { btn: btnUnlocked, key: 'unlocked' },
+        { btn: btnLocked, key: 'locked' }
+      ].forEach(item => {
+        if (!item.btn) return;
+        if (item.key === filterType) {
+          item.btn.classList.add(...activeClasses);
+          item.btn.classList.remove(...inactiveClasses);
+        } else {
+          item.btn.classList.remove(...activeClasses);
+          item.btn.classList.add(...inactiveClasses);
+        }
+      });
+
+      if (_cachedGamifikasiProfile) {
+        renderProfileSelector(_cachedGamifikasiProfile);
+      }
+    }
+
+    function renderProfileSelector(profile) {
+      if (!profile) return;
+      const studentLvl = profile.level || 1;
+      const curAvatar = profile.selected_avatar || 'novice_compass';
+      const curFrame = profile.selected_frame || 'frame_stone';
+      const curTitle = profile.selected_title || profile.gelar || 'Novice Explorer';
+
+      const avatarObj = getAvatarObj(curAvatar);
+      const frameObj = getFrameObj(curFrame);
+
+      // 1. Render Active Profile Preview Card
+      const boxEl = document.getElementById('ps-preview-avatar-box');
+      const lvlBadgeEl = document.getElementById('ps-preview-level-badge');
+      const namaEl = document.getElementById('ps-preview-nama');
+      const kelasEl = document.getElementById('ps-preview-kelas');
+      const titleTextEl = document.getElementById('ps-preview-title-text');
+      const nextMilestoneEl = document.getElementById('ps-preview-next-milestone');
+      const milestoneBarEl = document.getElementById('ps-preview-milestone-bar');
+
+      if (boxEl) {
+        boxEl.style.backgroundColor = avatarObj.bg || '#2E384D';
+        boxEl.style.border = `3px solid ${frameObj.border || '#CBD5E1'}`;
+        boxEl.style.boxShadow = frameObj.bgGlow ? `0 0 16px ${frameObj.bgGlow}` : 'none';
+        boxEl.innerHTML = `<i class="${avatarObj.icon || 'fa-solid fa-compass'} text-3xl" style="color: ${avatarObj.color || '#FFFFFF'};"></i>`;
+      }
+
+      if (lvlBadgeEl) lvlBadgeEl.textContent = 'Lvl ' + studentLvl;
+      if (namaEl) namaEl.textContent = profile.nama || 'Siswa';
+      if (kelasEl) kelasEl.textContent = profile.kelas || 'XII';
+      if (titleTextEl) titleTextEl.textContent = curTitle;
+
+      // Cari milestone tier berikutnya (kelipatan 10)
+      let nextTier = null;
+      for (const t of PROFILE_CATALOG) {
+        if (t.requiredLevel > studentLvl) {
+          nextTier = t;
+          break;
+        }
+      }
+
+      if (nextMilestoneEl && milestoneBarEl) {
+        if (!nextTier) {
+          nextMilestoneEl.innerHTML = '<span class="text-amber-600 font-extrabold">👑 MAKSIMAL (Tier 11 Omniscient Deity)</span>';
+          milestoneBarEl.style.width = '100%';
+        } else {
+          const prevMinXp = (PROFILE_CATALOG.slice().reverse().find(t => t.requiredLevel <= studentLvl) || {}).minXp || 0;
+          const targetMinXp = nextTier.minXp;
+          const currentXp = profile.total_xp || 0;
+          const neededXp = Math.max(0, targetMinXp - currentXp);
+          const range = Math.max(1, targetMinXp - prevMinXp);
+          const pct = Math.min(100, Math.max(0, Math.round(((currentXp - prevMinXp) / range) * 100)));
+
+          nextMilestoneEl.innerHTML = `<span>Target: Level ${nextTier.requiredLevel} • <strong>${escapeHtml(nextTier.title)}</strong> (Kurang ${neededXp.toLocaleString('id-ID')} XP)</span>`;
+          milestoneBarEl.style.width = pct + '%';
+        }
+      }
+
+      // 2. Render Tiers & Avatars List
+      const container = document.getElementById('profile-catalog-container');
+      if (!container) return;
+
+      let catalogList = PROFILE_CATALOG;
+      if (_currentProfileFilter === 'unlocked') {
+        catalogList = catalogList.filter(t => studentLvl >= t.requiredLevel);
+      } else if (_currentProfileFilter === 'locked') {
+        catalogList = catalogList.filter(t => studentLvl < t.requiredLevel);
+      }
+
+      if (catalogList.length === 0) {
+        container.innerHTML = `
+          <div class="py-12 text-center text-[#787774] space-y-2">
+            <i class="fa-solid fa-filter text-2xl text-stone-400"></i>
+            <p class="text-xs">Tidak ada tier yang cocok dengan filter saat ini.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = catalogList.map(tier => {
+        const isUnlocked = studentLvl >= tier.requiredLevel;
+        const isCurrentTier = (studentLvl >= tier.requiredLevel) && (
+          tier.requiredLevel === 100 || studentLvl < (tier.requiredLevel + 10)
+        );
+
+        return `
+          <div class="p-4 sm:p-5 rounded-2xl border transition shadow-xs ${isUnlocked ? 'bg-white' : 'bg-[#F7F6F3]/80 opacity-80'}" style="border-color: #E8E6DF;">
+            
+            <!-- TIER HEADER -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b" style="border-color: #E8E6DF;">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shadow-xs shrink-0"
+                     style="background-color: #FFFFFF; border: 2.5px solid ${tier.frame.border}; box-shadow: 0 0 10px ${tier.frame.bgGlow};">
+                  <span class="font-mono text-xs font-black text-[#2F3437]">L${tier.requiredLevel}</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 class="text-sm font-bold text-[#2F3437]">${escapeHtml(tier.tierName)}</h4>
+                    ${isCurrentTier ? '<span class="px-2 py-0.2 rounded-full text-[10px] font-bold bg-teal-100 text-teal-800 border border-teal-200">Tier Aktifmu</span>' : ''}
+                  </div>
+                  <div class="flex items-center gap-2 text-[11px] text-[#787774] font-medium mt-0.5">
+                    <span>Gelar Default: <strong class="text-[#2F3437]">${escapeHtml(tier.title)}</strong></span>
+                    <span>•</span>
+                    <span>Bingkai: <span class="font-semibold text-slate-700">${escapeHtml(tier.frame.name)}</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STATUS BADGE TIER -->
+              <div class="shrink-0">
+                ${isUnlocked ? `
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
+                    <i class="fa-solid fa-circle-check text-[11px]"></i> Terbuka (Level ${tier.requiredLevel})
+                  </span>
+                ` : `
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-stone-100 text-stone-600 border border-stone-200">
+                    <i class="fa-solid fa-lock text-[11px]"></i> Terkunci (Butuh Level ${tier.requiredLevel})
+                  </span>
+                `}
+              </div>
+            </div>
+
+            <!-- AVATAR CARDS GRID (3 KARAKTER PER TIER) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3.5">
+              ${tier.avatars.map(avatar => {
+                const isSelected = (curAvatar === avatar.id);
+
+                return `
+                  <div class="p-3.5 rounded-xl border flex flex-col justify-between transition-all ${
+                    isSelected 
+                      ? 'bg-amber-50/80 border-amber-300 ring-2 ring-amber-400 shadow-xs' 
+                      : (isUnlocked ? 'bg-[#FBFBFA] border-[#E8E6DF] hover:bg-white hover:border-slate-300' : 'bg-[#F0EFEA]/60 border-[#E8E6DF]')
+                  }">
+                    <div>
+                      <!-- AVATAR ICON & FRAME PREVIEW -->
+                      <div class="flex items-center gap-3 mb-2.5">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 shadow-xs transition-transform ${isUnlocked ? 'hover:scale-105' : 'grayscale opacity-60'}"
+                             style="background-color: ${avatar.bg}; border: 2.5px solid ${tier.frame.border}; ${isUnlocked ? `box-shadow: 0 0 8px ${tier.frame.bgGlow};` : ''}">
+                          <i class="${avatar.icon}" style="color: ${avatar.color};"></i>
+                        </div>
+                        <div class="min-w-0">
+                          <h5 class="text-xs font-bold text-[#2F3437] truncate" title="${escapeHtml(avatar.name)}">
+                            ${escapeHtml(avatar.name)}
+                          </h5>
+                          <span class="text-[10px] font-mono text-[#787774]">${escapeHtml(avatar.id)}</span>
+                        </div>
+                      </div>
+
+                      <!-- LORE / DESKRIPSI KARAKTER -->
+                      <p class="text-[11px] text-[#5F5E5B] leading-relaxed line-clamp-2 mb-3">
+                        ${escapeHtml(avatar.desc)}
+                      </p>
+                    </div>
+
+                    <!-- ACTION BUTTON -->
+                    <div>
+                      ${isSelected ? `
+                        <button type="button" disabled class="w-full py-1.5 px-3 rounded-lg text-xs font-bold bg-amber-500 text-white shadow-2xs flex items-center justify-center gap-1.5 cursor-default">
+                          <i class="fa-solid fa-check text-[11px]"></i> Sedang Digunakan
+                        </button>
+                      ` : (isUnlocked ? `
+                        <button type="button" onclick="selectStudentProfile('${avatar.id}', '${tier.frame.id}', '${escapeHtml(avatar.name)}')" class="w-full py-1.5 px-3 rounded-lg text-xs font-bold bg-[#2E384D] hover:bg-[#1E2533] text-white shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5">
+                          <i class="fa-solid fa-user-check text-[11px]"></i> Gunakan Karakter
+                        </button>
+                      ` : `
+                        <button type="button" disabled class="w-full py-1.5 px-3 rounded-lg text-xs font-semibold bg-stone-200 text-stone-500 cursor-not-allowed flex items-center justify-center gap-1.5">
+                          <i class="fa-solid fa-lock text-[10px]"></i> Buka di Lvl ${tier.requiredLevel}
+                        </button>
+                      `)}
+                    </div>
+
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function selectStudentProfile(avatarId, frameId, title) {
+      if (!avatarId) return;
+
+      try {
+        const resp = await fetch('/api/gamifikasi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'select_profile',
+            avatar_id: avatarId,
+            frame_id: frameId,
+            title: title
+          })
+        });
+
+        const data = await resp.json();
+        if (!resp.ok || !data.success) {
+          throw new Error(data.error || 'Gagal mengubah karakter profil');
+        }
+
+        if (typeof showNotionToast === 'function') {
+          showNotionToast(`Karakter profil berhasil diubah menjadi ${title}!`);
+        }
+
+        // Perbarui cache profil lokal
+        if (_cachedGamifikasiProfile) {
+          _cachedGamifikasiProfile.selected_avatar = avatarId;
+          _cachedGamifikasiProfile.selected_frame = frameId;
+          _cachedGamifikasiProfile.selected_title = title;
+          _cachedGamifikasiProfile.gelar = title;
+          renderGamificationHeroCard(_cachedGamifikasiProfile);
+          renderProfileSelector(_cachedGamifikasiProfile);
+        } else {
+          fetchGamificationProfile();
+        }
+
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
     // EXPOSE FUNGSI GAMIFIKASI & LEADERBOARD KE WINDOW
     window.fetchGamificationProfile = fetchGamificationProfile;
     window.renderGamificationHeroCard = renderGamificationHeroCard;
@@ -5591,6 +6305,12 @@ Guru Pengampu: Mr. Ardi
     window.switchLeaderboardView = switchLeaderboardView;
     window.loadLeaderboardData = loadLeaderboardData;
     window.loadRombelLeaderboardData = loadRombelLeaderboardData;
+    window.openProfileSelectorModal = openProfileSelectorModal;
+    window.closeProfileSelectorModal = closeProfileSelectorModal;
+    window.filterProfileCatalog = filterProfileCatalog;
+    window.renderProfileSelector = renderProfileSelector;
+    window.selectStudentProfile = selectStudentProfile;
+    window.PROFILE_CATALOG = PROFILE_CATALOG;
 
     // EXPOSE FUNGSI FITUR BARU: WEEKLY EVENT (RAID BOSS), SKILL TREE & SHARE CARD
     window.renderWeeklyEventWidget = renderWeeklyEventWidget;

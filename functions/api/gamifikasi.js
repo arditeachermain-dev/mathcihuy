@@ -4,148 +4,473 @@
 
 import { authenticateRequest, jsonResponse } from './_auth.js';
 
-export const LEVEL_CONFIG = [
-  { level: 1, minXp: 0, maxXp: 199, gelar: 'Novice Explorer' },
-  { level: 2, minXp: 200, maxXp: 499, gelar: 'Probability Scout' },
-  { level: 3, minXp: 500, maxXp: 999, gelar: 'Spatial Navigator' },
-  { level: 4, minXp: 1000, maxXp: 1999, gelar: 'Matrix Strategist' },
-  { level: 5, minXp: 2000, maxXp: 3499, gelar: 'Data Analyst Prodigy' },
-  { level: 6, minXp: 3500, maxXp: 999999, gelar: 'Calculus Grandmaster' }
+export function getMinXpForLevel(level) {
+  if (level <= 1) return 0;
+  const n = level - 1;
+  return n * 100 + 15 * Math.floor((n * (n - 1)) / 2);
+}
+
+export function getTierDefaultTitle(level) {
+  if (level >= 100) return 'Omniscient Deity';
+  if (level >= 90) return 'Grand Luminary Sovereign';
+  if (level >= 80) return 'Apex Luminary';
+  if (level >= 70) return 'Chrono Oracle';
+  if (level >= 60) return 'Transcendent Sovereign';
+  if (level >= 50) return 'Titan Slayer';
+  if (level >= 40) return 'Calculus Grandmaster';
+  if (level >= 30) return 'Data Alchemist';
+  if (level >= 20) return 'Spatial Navigator';
+  if (level >= 10) return 'Probability Scout';
+  return 'Novice Explorer';
+}
+
+export const PROFILE_CATALOG = [
+  {
+    tier: 1,
+    requiredLevel: 1,
+    tierName: 'Tier 1: Novice Initiate',
+    minXp: 0,
+    title: 'Novice Explorer',
+    frame: {
+      id: 'frame_stone',
+      name: 'Stone Novice Ring',
+      border: '#CBD5E1',
+      bgGlow: 'rgba(203, 213, 225, 0.2)'
+    },
+    avatars: [
+      {
+        id: 'novice_compass',
+        name: 'Aether Explorer',
+        icon: 'fa-solid fa-compass',
+        color: '#0D9488',
+        bg: '#F0FDFA',
+        desc: 'Penjelajah muda yang selalu memegang kompas kebenaran matematika.'
+      },
+      {
+        id: 'novice_book',
+        name: 'Murid Rajin',
+        icon: 'fa-solid fa-book-open',
+        color: '#2E384D',
+        bg: '#F0EFEA',
+        desc: 'Pembelajar tekun yang membaca dan memahami setiap konsep dasar.'
+      },
+      {
+        id: 'novice_seed',
+        name: 'Tunas Aljabar',
+        icon: 'fa-solid fa-seedling',
+        color: '#16A34A',
+        bg: '#F0FDF4',
+        desc: 'Benih kecerdasan yang siap tumbuh menjadi pohon ilmu yang kokoh.'
+      }
+    ]
+  },
+  {
+    tier: 2,
+    requiredLevel: 10,
+    tierName: 'Tier 2: Probability Scout',
+    minXp: 1440,
+    title: 'Probability Scout',
+    frame: {
+      id: 'frame_bronze',
+      name: 'Bronze Knight Ring',
+      border: '#B45309',
+      bgGlow: 'rgba(180, 83, 9, 0.25)'
+    },
+    avatars: [
+      {
+        id: 'prob_dice',
+        name: 'Ahli Peluang',
+        icon: 'fa-solid fa-dice',
+        color: '#D97706',
+        bg: '#FEF3C7',
+        desc: 'Menghitung probabilitas ruang sampel dan kaidah pencacahan tanpa keliru.'
+      },
+      {
+        id: 'prob_plane',
+        name: 'Pilot Vektor',
+        icon: 'fa-solid fa-paper-plane',
+        color: '#0284C7',
+        bg: '#E0F2FE',
+        desc: 'Meluncur lincah melintasi koordinat Cartesius dan garis singgung.'
+      },
+      {
+        id: 'prob_cipher',
+        name: 'Pemecah Sandi',
+        icon: 'fa-solid fa-key',
+        color: '#6366F1',
+        bg: '#EEF2FF',
+        desc: 'Membongkar rahasia pola bilangan dan relasi fungsi tersembunyi.'
+      }
+    ]
+  },
+  {
+    tier: 3,
+    requiredLevel: 20,
+    tierName: 'Tier 3: Spatial Navigator',
+    minXp: 4465,
+    title: 'Spatial Navigator',
+    frame: {
+      id: 'frame_silver',
+      name: 'Silver Aegis Ring',
+      border: '#64748B',
+      bgGlow: 'rgba(100, 116, 139, 0.3)'
+    },
+    avatars: [
+      {
+        id: 'spatial_cube',
+        name: 'Arsitek 3D',
+        icon: 'fa-solid fa-cube',
+        color: '#059669',
+        bg: '#ECFDF5',
+        desc: 'Menguasai jarak titik ke garis dan bidang dalam bangun ruang tiga dimensi.'
+      },
+      {
+        id: 'spatial_poly',
+        name: 'Visioner Geometri',
+        icon: 'fa-solid fa-draw-polygon',
+        color: '#2563EB',
+        bg: '#EFF6FF',
+        desc: 'Memvisualisasikan proyeksi orthogonal dan sudut dihedral secara presisi.'
+      },
+      {
+        id: 'spatial_gem',
+        name: 'Kristal Poligon',
+        icon: 'fa-solid fa-gem',
+        color: '#E11D48',
+        bg: '#FFE4E6',
+        desc: 'Memiliki struktur berpikir yang kokoh dan jernih bak kristal permata.'
+      }
+    ]
+  },
+  {
+    tier: 4,
+    requiredLevel: 30,
+    tierName: 'Tier 4: Data Alchemist',
+    minXp: 8990,
+    title: 'Data Alchemist',
+    frame: {
+      id: 'frame_gold',
+      name: 'Auric Gold Ring',
+      border: '#EAB308',
+      bgGlow: 'rgba(234, 179, 8, 0.35)'
+    },
+    avatars: [
+      {
+        id: 'data_alchemist',
+        name: 'Dukun Data',
+        icon: 'fa-solid fa-chart-line',
+        color: '#7C3AED',
+        bg: '#F5F3FF',
+        desc: 'Mampu menyihir tabel distribusi acak menjadi kesimpulan statistik mutlak.'
+      },
+      {
+        id: 'data_oracle',
+        name: 'Gaussian Oracle',
+        icon: 'fa-solid fa-wand-magic-sparkles',
+        color: '#F59E0B',
+        bg: '#FEF3C7',
+        desc: 'Membaca kurva lonceng normal dan memprediksi sebaran data bivariat.'
+      },
+      {
+        id: 'data_matrix',
+        name: 'Matrix Strategist',
+        icon: 'fa-solid fa-table-cells',
+        color: '#0891B2',
+        bg: '#ECFEFF',
+        desc: 'Menata persamaan linier dan matriks transformasi dengan ketelitian tinggi.'
+      }
+    ]
+  },
+  {
+    tier: 5,
+    requiredLevel: 40,
+    tierName: 'Tier 5: Calculus Grandmaster',
+    minXp: 15015,
+    title: 'Calculus Grandmaster',
+    frame: {
+      id: 'frame_jade',
+      name: 'Jade Crystal Ring',
+      border: '#10B981',
+      bgGlow: 'rgba(16, 185, 129, 0.4)'
+    },
+    avatars: [
+      {
+        id: 'calc_infinity',
+        name: 'Master Limit & Kontinu',
+        icon: 'fa-solid fa-infinity',
+        color: '#1E3A8A',
+        bg: '#EFF6FF',
+        desc: 'Mendekati ketakhinggaan tanpa pernah tergelincir bentuk tak tentu.'
+      },
+      {
+        id: 'calc_bolt',
+        name: 'Ksatria Turunan',
+        icon: 'fa-solid fa-bolt',
+        color: '#D97706',
+        bg: '#FFFBEB',
+        desc: 'Menghitung laju perubahan sesaat dan optimasi fungsi secepat kilat.'
+      },
+      {
+        id: 'calc_wave',
+        name: 'Penguasa Integral',
+        icon: 'fa-solid fa-wave-square',
+        color: '#0D9488',
+        bg: '#F0FDFA',
+        desc: 'Menghitung luas daerah dan volume benda putar dengan metode tanzalin.'
+      }
+    ]
+  },
+  {
+    tier: 6,
+    requiredLevel: 50,
+    tierName: 'Tier 6: Titan Slayer',
+    minXp: 22540,
+    title: 'Titan Slayer',
+    frame: {
+      id: 'frame_ruby',
+      name: 'Radiant Ruby Ring',
+      border: '#EF4444',
+      bgGlow: 'rgba(239, 68, 68, 0.45)'
+    },
+    avatars: [
+      {
+        id: 'titan_slayer',
+        name: 'Pemburu Titan',
+        icon: 'fa-solid fa-dragon',
+        color: '#DC2626',
+        bg: '#FEF2F2',
+        desc: 'Pahlawan legendaris yang menumbangkan Titan Statigo dalam Raid Boss mingguan.'
+      },
+      {
+        id: 'raid_commander',
+        name: 'Panglima Raid',
+        icon: 'fa-solid fa-shield-halved',
+        color: '#EA580C',
+        bg: '#FFF7ED',
+        desc: 'Memimpin serangan serentak angkatan dan menjaga streak tanpa ampun.'
+      },
+      {
+        id: 'apex_champ',
+        name: 'Kampiun Tak Terkalahkan',
+        icon: 'fa-solid fa-trophy',
+        color: '#D97706',
+        bg: '#FFFBEB',
+        desc: 'Pencetak critical hit sempurna 100x tanpa celah.'
+      }
+    ]
+  },
+  {
+    tier: 7,
+    requiredLevel: 60,
+    tierName: 'Tier 7: Transcendent Sovereign',
+    minXp: 31565,
+    title: 'Transcendent Sovereign',
+    frame: {
+      id: 'frame_diamond',
+      name: 'Starlight Diamond Ring',
+      border: '#0284C7',
+      bgGlow: 'rgba(2, 132, 199, 0.45)'
+    },
+    avatars: [
+      {
+        id: 'sovereign_sun',
+        name: 'Sovereign of Light',
+        icon: 'fa-solid fa-sun',
+        color: '#D97706',
+        bg: '#FFFBEB',
+        desc: 'Menerangi ruang kelas dengan ide-ide matematika yang menginspirasi.'
+      },
+      {
+        id: 'sovereign_atom',
+        name: 'Inti Singularity',
+        icon: 'fa-solid fa-atom',
+        color: '#4F46E5',
+        bg: '#EEF2FF',
+        desc: 'Memadatkan seluruh rumus kalkulus dan geometri menjadi satu pemahaman intuitif.'
+      }
+    ]
+  },
+  {
+    tier: 8,
+    requiredLevel: 70,
+    tierName: 'Tier 8: Chrono Oracle',
+    minXp: 42090,
+    title: 'Chrono Oracle',
+    frame: {
+      id: 'frame_platinum',
+      name: 'Chrono Platinum Ring',
+      border: '#64748B',
+      bgGlow: 'rgba(100, 116, 139, 0.5)'
+    },
+    avatars: [
+      {
+        id: 'chrono_weaver',
+        name: 'Penenun Waktu',
+        icon: 'fa-solid fa-hourglass-half',
+        color: '#0F766E',
+        bg: '#F0FDFA',
+        desc: 'Menyelesaikan ujian 90 menit hanya dalam 15 menit dengan akurasi 100%.'
+      },
+      {
+        id: 'dimension_walker',
+        name: 'Penjelajah Multi-Dimensi',
+        icon: 'fa-solid fa-ring',
+        color: '#6D28D9',
+        bg: '#F5F3FF',
+        desc: 'Melompat antar dimensi aljabar, kalkulus, dan statistika dengan mudah.'
+      }
+    ]
+  },
+  {
+    tier: 9,
+    requiredLevel: 80,
+    tierName: 'Tier 9: Apex Luminary',
+    minXp: 54115,
+    title: 'Apex Luminary',
+    frame: {
+      id: 'frame_mythic',
+      name: 'Mythic Gold Ring',
+      border: '#FACC15',
+      bgGlow: 'rgba(250, 204, 21, 0.5)'
+    },
+    avatars: [
+      {
+        id: 'luminary_star',
+        name: 'Bintang Kejora',
+        icon: 'fa-solid fa-star',
+        color: '#CA8A04',
+        bg: '#FEF9C3',
+        desc: 'Bintang paling terang di langit akademik SMA GIS 2 Serpong.'
+      },
+      {
+        id: 'quantum_master',
+        name: 'Master Kuantum',
+        icon: 'fa-solid fa-microchip',
+        color: '#0284C7',
+        bg: '#E0F2FE',
+        desc: 'Komputasi logika super cepat bagaikan prosesor kuantum.'
+      }
+    ]
+  },
+  {
+    tier: 10,
+    requiredLevel: 90,
+    tierName: 'Tier 10: Grand Luminary Sovereign',
+    minXp: 67640,
+    title: 'Grand Luminary Sovereign',
+    frame: {
+      id: 'frame_aurora',
+      name: 'Prismatic Aurora Ring',
+      border: '#EC4899',
+      bgGlow: 'rgba(236, 72, 153, 0.5)'
+    },
+    avatars: [
+      {
+        id: 'cosmic_sage',
+        name: 'Resi Kosmik',
+        icon: 'fa-solid fa-moon',
+        color: '#4338CA',
+        bg: '#EEF2FF',
+        desc: 'Kebijaksanaan matematika yang tenang dan mendalam melampaui angkasa.'
+      },
+      {
+        id: 'equation_lord',
+        name: 'Penguasa Persamaan',
+        icon: 'fa-solid fa-scale-balanced',
+        color: '#059669',
+        bg: '#ECFDF5',
+        desc: 'Setiap persamaan dan pertidaksamaan selalu tunduk dalam keseimbangan.'
+      }
+    ]
+  },
+  {
+    tier: 11,
+    requiredLevel: 100,
+    tierName: 'Tier 11: Omniscient Deity',
+    minXp: 82665,
+    title: 'Omniscient Deity',
+    frame: {
+      id: 'frame_celestial',
+      name: 'Celestial Crown Ring',
+      border: '#F59E0B',
+      bgGlow: 'rgba(245, 158, 11, 0.6)'
+    },
+    avatars: [
+      {
+        id: 'deity_crown',
+        name: 'Mahadewa Matematika',
+        icon: 'fa-solid fa-crown',
+        color: '#D97706',
+        bg: '#FFFBEB',
+        desc: 'Pencapaian mutlak dan tertinggi dalam sejarah peradaban Math Cihuy.'
+      },
+      {
+        id: 'living_axiom',
+        name: 'Aksioma Abadi',
+        icon: 'fa-solid fa-fire',
+        color: '#B91C1C',
+        bg: '#FEF2F2',
+        desc: 'Kebenaran matematika murni yang tak terbantahkan oleh ruang dan waktu.'
+      }
+    ]
+  }
 ];
 
-export const BADGE_CATALOG = {
-  perfect_100: {
-    id: 'perfect_100',
-    name: 'Gacor No Counter',
-    icon: 'fa-solid fa-bullseye',
-    color: '#B26B00',
-    bg: '#FFF7E6',
-    desc: 'Meraih skor 100 mutlak di ujian CBT. Definisi sepuh matematika tanpa ampun!'
-  },
-  fast_thinker: {
-    id: 'fast_thinker',
-    name: 'Speedrun Mode On',
-    icon: 'fa-solid fa-bolt',
-    color: '#0284C7',
-    bg: '#EBF3FB',
-    desc: 'Selesai CBT under 20 menit dan tuntas KKM. Ngerjainnya sat-set tanpa overthinking!'
-  },
-  streak_hero: {
-    id: 'streak_hero',
-    name: 'Anti-Skip Club',
-    icon: 'fa-solid fa-fire-flame-curved',
-    color: '#DC2626',
-    bg: '#FEF2F2',
-    desc: 'Konsisten belajar & submit ujian minimal 3 hari berturut-turut. Pantang fomo!'
-  },
-  dimensi_tiga: {
-    id: 'dimensi_tiga',
-    name: 'Sepuh Dimensi Tiga',
-    icon: 'fa-solid fa-cube',
-    color: '#2E7D32',
-    bg: '#EDF7ED',
-    desc: 'Bantai tuntas kubus, balok, dan limas P09-P14. Otak spasial 3D no debat!'
-  },
-  statistika_pioneer: {
-    id: 'statistika_pioneer',
-    name: 'Dukun Data',
-    icon: 'fa-solid fa-chart-column',
-    color: '#7C3AED',
-    bg: '#F5F3FF',
-    desc: 'Kuasai data berkelompok sampai regresi bivariat P15-P21. Angka langsung tunduk!'
-  },
-  reflective_mind: {
-    id: 'reflective_mind',
-    name: 'Jujurly Reflektif',
-    icon: 'fa-solid fa-brain',
-    color: '#2E384D',
-    bg: '#F0EFEA',
-    desc: 'Tuntaskan angket refleksi pemahaman diri matematika apa adanya tanpa jaim.'
-  },
-  skena_discord: {
-    id: 'skena_discord',
-    name: 'Jam Kritis 16:00',
-    icon: 'fa-solid fa-comments',
-    color: '#5865F2',
-    bg: '#EEF0FD',
-    desc: 'Nongkrong produktif di Discord tiap jam 4 sore & submit kuis harian. Vibes anak rajin!'
-  },
-  quiz_master_discord: {
-    id: 'quiz_master_discord',
-    name: 'Sniper Kuis Sore',
-    icon: 'fa-solid fa-crosshairs',
-    color: '#059669',
-    bg: '#ECFDF5',
-    desc: 'Jawab benar kuis harian Discord minimal 5 kali. Nembak jawaban selalu on point!'
-  },
-  pencacahan_pro: {
-    id: 'pencacahan_pro',
-    name: 'Master Kombinatorika',
-    icon: 'fa-solid fa-dice',
-    color: '#D97706',
-    bg: '#FEF3C7',
-    desc: 'Taklukkan permutasi, kombinasi, & filling slots P01-P08 tanpa ketuker rumus!'
-  },
-  lingkaran_lord: {
-    id: 'lingkaran_lord',
-    name: 'Penguasa Sirkular',
-    icon: 'fa-solid fa-bullseye',
-    color: '#0D9488',
-    bg: '#F0FDFA',
-    desc: 'Bantai geometri analitik lingkaran, garis singgung bagi adil, & uji kuasa P01-P09!'
-  },
-  streak_guardian: {
-    id: 'streak_guardian',
-    name: 'Penjaga Api',
-    icon: 'fa-solid fa-shield-halved',
-    color: '#059669',
-    bg: '#ECFDF5',
-    desc: 'Memiliki Perisai Streak aktif untuk melindungi api konsistensi belajar dari hari bolong.'
-  },
-  weekly_challenger: {
-    id: 'weekly_challenger',
-    name: 'Weekly Challenger',
-    icon: 'fa-solid fa-trophy-star',
-    color: '#D97706',
-    bg: '#FFFBEB',
-    desc: 'Menuntaskan seluruh Misi Event Mingguan Matematika Mr. Ardi.'
-  },
-  titan_slayer: {
-    id: 'titan_slayer',
-    name: 'Pemburu Titan',
-    icon: 'fa-solid fa-dragon',
-    color: '#DC2626',
-    bg: '#FEF2F2',
-    desc: 'Berpartisipasi aktif dalam Event Mingguan Raid Boss menumbangkan Titan Statigo!'
-  }
-};
+export const LEVEL_CONFIG = PROFILE_CATALOG.map((t, idx, arr) => {
+  const nextTier = arr[idx + 1] || null;
+  return {
+    level: t.requiredLevel,
+    minXp: t.minXp,
+    maxXp: nextTier ? (nextTier.minXp - 1) : 999999,
+    gelar: t.title,
+    frame: t.frame
+  };
+});
 
-export function getLevelAndTitle(xp) {
-  for (let i = LEVEL_CONFIG.length - 1; i >= 0; i--) {
-    if (xp >= LEVEL_CONFIG[i].minXp) {
-      const cfg = LEVEL_CONFIG[i];
-      const nextCfg = LEVEL_CONFIG[i + 1] || null;
-      const isMaxLevel = !nextCfg;
-      let nextXp = nextCfg ? nextCfg.minXp : cfg.minXp;
-      let currentLevelBase = cfg.minXp;
-      let range = nextCfg ? (nextCfg.minXp - currentLevelBase) : 0;
-      let progress = isMaxLevel ? 100 : (range > 0 ? Math.min(100, Math.round(((xp - currentLevelBase) / range) * 100)) : 100);
-
-      return {
-        level: cfg.level,
-        gelar: cfg.gelar,
-        current_xp: xp,
-        next_level_xp: nextXp,
-        progress_pct: progress
-      };
+export function getDefaultAvatarForLevel(level) {
+  for (let i = PROFILE_CATALOG.length - 1; i >= 0; i--) {
+    if (level >= PROFILE_CATALOG[i].requiredLevel) {
+      return PROFILE_CATALOG[i].avatars[0].id;
     }
   }
+  return 'novice_compass';
+}
+
+export function getDefaultFrameForLevel(level) {
+  for (let i = PROFILE_CATALOG.length - 1; i >= 0; i--) {
+    if (level >= PROFILE_CATALOG[i].requiredLevel) {
+      return PROFILE_CATALOG[i].frame.id;
+    }
+  }
+  return 'frame_stone';
+}
+
+export function getLevelAndTitle(xp, customTitle = null) {
+  const safeXp = Math.max(0, Number(xp) || 0);
+  let lvl = 1;
+  while (true) {
+    const nextReq = getMinXpForLevel(lvl + 1);
+    if (safeXp < nextReq) break;
+    lvl++;
+    if (lvl >= 1000) break;
+  }
+
+  const curMin = getMinXpForLevel(lvl);
+  const nextMin = getMinXpForLevel(lvl + 1);
+  const range = nextMin - curMin;
+  const progressPct = range > 0 ? Math.min(100, Math.max(0, Math.round(((safeXp - curMin) / range) * 100))) : 100;
+  const defaultGelar = getTierDefaultTitle(lvl);
+  const gelar = customTitle || defaultGelar;
+
   return {
-    level: 1,
-    gelar: 'Novice Explorer',
-    current_xp: xp,
-    next_level_xp: 200,
-    progress_pct: 0
+    level: lvl,
+    gelar: gelar,
+    default_gelar: defaultGelar,
+    current_xp: safeXp,
+    current_level_min_xp: curMin,
+    next_level_xp: nextMin,
+    progress_pct: progressPct,
+    sisa_xp: Math.max(0, nextMin - safeXp)
   };
 }
 
@@ -801,10 +1126,24 @@ export async function updateStudentGamification(db, nis) {
   if (discordQuizStats.total_quiz >= 1) badges.push('skena_discord');
   if (discordQuizStats.total_correct >= 5) badges.push('quiz_master_discord');
 
+  // 4.5 Ambil preferensi profil/avatar yang sudah dipilih siswa jika ada
+  let existingGamifikasi = null;
+  try {
+    existingGamifikasi = await db.prepare("SELECT selected_avatar, selected_frame, selected_title FROM siswa_gamifikasi WHERE nis = ?").bind(cleanNis).first();
+  } catch(e) {}
+
+  const currentAvatar = existingGamifikasi?.selected_avatar || null;
+  const currentFrame = existingGamifikasi?.selected_frame || null;
+  const currentTitle = existingGamifikasi?.selected_title || null;
+
   totalXp += (streakInfo.current || 1) * 10;
 
-  const lvlInfo = getLevelAndTitle(totalXp);
+  const lvlInfo = getLevelAndTitle(totalXp, currentTitle);
   const badgesJson = JSON.stringify(badges);
+
+  const finalAvatar = currentAvatar || getDefaultAvatarForLevel(lvlInfo.level);
+  const finalFrame = currentFrame || getDefaultFrameForLevel(lvlInfo.level);
+  const finalTitle = currentTitle || lvlInfo.gelar;
 
   // 5. Simpan / Perbarui ke database siswa_gamifikasi
   await db.prepare(`
@@ -813,9 +1152,10 @@ export async function updateStudentGamification(db, nis) {
       last_active_date, total_ujian, total_sempurna, badges,
       xp_wajib, ujian_wajib, sempurna_wajib,
       xp_minat, ujian_minat, sempurna_minat,
+      selected_avatar, selected_frame, selected_title,
       updated_at
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
     ON CONFLICT(nis) DO UPDATE SET
       total_xp = excluded.total_xp,
       level = excluded.level,
@@ -832,6 +1172,9 @@ export async function updateStudentGamification(db, nis) {
       xp_minat = excluded.xp_minat,
       ujian_minat = excluded.ujian_minat,
       sempurna_minat = excluded.sempurna_minat,
+      selected_avatar = COALESCE(siswa_gamifikasi.selected_avatar, excluded.selected_avatar),
+      selected_frame = COALESCE(siswa_gamifikasi.selected_frame, excluded.selected_frame),
+      selected_title = COALESCE(siswa_gamifikasi.selected_title, excluded.selected_title),
       updated_at = datetime('now')
   `).bind(
     cleanNis,
@@ -839,7 +1182,7 @@ export async function updateStudentGamification(db, nis) {
     siswa.kelas,
     totalXp,
     lvlInfo.level,
-    lvlInfo.gelar,
+    finalTitle,
     streakInfo.current || 1,
     streakInfo.max || 1,
     streakInfo.last || new Date().toISOString().slice(0, 10),
@@ -851,7 +1194,10 @@ export async function updateStudentGamification(db, nis) {
     sempurnaWajib,
     xpMinat,
     ujianMinat,
-    sempurnaMinat
+    sempurnaMinat,
+    finalAvatar,
+    finalFrame,
+    finalTitle
   ).run();
 
   return {
@@ -859,6 +1205,9 @@ export async function updateStudentGamification(db, nis) {
     nama: siswa.nama,
     kelas: siswa.kelas,
     total_xp: totalXp,
+    selected_avatar: finalAvatar,
+    selected_frame: finalFrame,
+    selected_title: finalTitle,
     ...lvlInfo,
     current_streak: streakInfo.current || 1,
     max_streak: streakInfo.max || 1,
@@ -1034,10 +1383,14 @@ export async function onRequestGet(context) {
           ujian_minat: profile.ujian_minat || 0,
           sempurna_minat: profile.sempurna_minat || 0,
           level: lvlDetails.level,
-          gelar: lvlDetails.gelar,
+          gelar: profile.selected_title || lvlDetails.gelar,
+          selected_avatar: profile.selected_avatar || getDefaultAvatarForLevel(lvlDetails.level),
+          selected_frame: profile.selected_frame || getDefaultFrameForLevel(lvlDetails.level),
+          selected_title: profile.selected_title || lvlDetails.gelar,
           current_xp: lvlDetails.current_xp,
           next_level_xp: lvlDetails.next_level_xp,
           progress_pct: lvlDetails.progress_pct,
+          sisa_xp: lvlDetails.sisa_xp,
           current_streak: profile.current_streak,
           max_streak: profile.max_streak,
           streak_shields: streakShields,
@@ -1061,7 +1414,8 @@ export async function onRequestGet(context) {
           discord_stats: discordStats
         },
         catalog: BADGE_CATALOG,
-        levels: LEVEL_CONFIG
+        levels: LEVEL_CONFIG,
+        profile_catalog: PROFILE_CATALOG
       });
     }
 
@@ -1174,7 +1528,7 @@ export async function onRequestGet(context) {
 
     // C. JIKA REQUEST LEADERBOARD INDIVIDU
     const mapelFilter = (url.searchParams.get('mapel') || 'wajib').toLowerCase();
-    const selectFields = "nis, nama, kelas, total_xp, level, gelar, current_streak, max_streak, total_ujian, total_sempurna, badges, xp_wajib, ujian_wajib, sempurna_wajib, xp_minat, ujian_minat, sempurna_minat";
+    const selectFields = "nis, nama, kelas, total_xp, level, gelar, current_streak, max_streak, total_ujian, total_sempurna, badges, xp_wajib, ujian_wajib, sempurna_wajib, xp_minat, ujian_minat, sempurna_minat, selected_avatar, selected_frame, selected_title";
     const whereClauses = [];
     const bindings = [];
     const countBindings = [];
@@ -1263,7 +1617,10 @@ export async function onRequestGet(context) {
         ujian_minat: row.ujian_minat || 0,
         sempurna_minat: row.sempurna_minat || 0,
         level: row.level,
-        gelar: row.gelar,
+        gelar: row.selected_title || row.gelar,
+        selected_avatar: row.selected_avatar || getDefaultAvatarForLevel(row.level),
+        selected_frame: row.selected_frame || getDefaultFrameForLevel(row.level),
+        selected_title: row.selected_title || row.gelar,
         current_streak: row.current_streak,
         max_streak: row.max_streak,
         total_ujian: row.total_ujian,
@@ -1283,7 +1640,8 @@ export async function onRequestGet(context) {
         top_streak: countStats?.top_streak || 1
       },
       catalog: BADGE_CATALOG,
-      levels: LEVEL_CONFIG
+      levels: LEVEL_CONFIG,
+      profile_catalog: PROFILE_CATALOG
     });
 
   } catch (err) {
@@ -1299,13 +1657,82 @@ export async function onRequestPost(context) {
     }
     const session = await authenticateRequest(context.request, context.env);
     if (!session) {
-      return jsonResponse({ error: 'Autentikasi diperlukan' }, 401);
+      return jsonResponse({ error: 'Autentikasi diperlukan (401)' }, 401);
     }
 
     const db = context.env.DB;
     let body = {};
     try { body = await context.request.json(); } catch(e) {}
 
+    // A. ACTION: PEMILIHAN PROFIL / AVATAR BERDASARKAN LEVEL MILESTONE (KELIPATAN 10)
+    if (body.action === 'select_profile' || body.action === 'update_profile') {
+      const avatarId = String(body.avatar_id || '').trim();
+      const frameId = String(body.frame_id || '').trim();
+      const customTitle = body.title ? String(body.title).trim() : null;
+
+      if (!avatarId) {
+        return jsonResponse({ error: 'ID Avatar wajib diberikan' }, 400);
+      }
+
+      const cleanNis = String(session.nis).trim();
+
+      // Ambil data profil siswa untuk verifikasi level server-side
+      let currentProfile = await db.prepare("SELECT total_xp, level, selected_avatar, selected_frame, selected_title FROM siswa_gamifikasi WHERE nis = ?").bind(cleanNis).first();
+      if (!currentProfile) {
+        currentProfile = await updateStudentGamification(db, cleanNis);
+      }
+      if (!currentProfile) {
+        return jsonResponse({ error: 'Data profil siswa tidak ditemukan' }, 404);
+      }
+
+      const lvlInfo = getLevelAndTitle(currentProfile.total_xp);
+      const studentLevel = lvlInfo.level;
+
+      // Cari avatar di PROFILE_CATALOG
+      let targetTier = null;
+      let targetAvatar = null;
+      for (const tier of PROFILE_CATALOG) {
+        const found = tier.avatars.find(a => a.id === avatarId);
+        if (found) {
+          targetTier = tier;
+          targetAvatar = found;
+          break;
+        }
+      }
+
+      if (!targetTier || !targetAvatar) {
+        return jsonResponse({ error: 'Avatar karakter tidak ditemukan dalam katalog' }, 404);
+      }
+
+      // Verifikasi Level Milestone (Kelipatan 10)
+      if (studentLevel < targetTier.requiredLevel) {
+        return jsonResponse({ 
+          error: `Level Anda (${studentLevel}) belum mencukupi untuk membuka profil ini. Butuh Level ${targetTier.requiredLevel}!` 
+        }, 403);
+      }
+
+      const newAvatar = targetAvatar.id;
+      const newFrame = frameId || targetTier.frame.id;
+      const newTitle = customTitle || targetAvatar.name;
+
+      // Update ke database D1 secara atomic
+      await db.prepare(`
+        UPDATE siswa_gamifikasi 
+        SET selected_avatar = ?, selected_frame = ?, selected_title = ?, gelar = ?, updated_at = datetime('now')
+        WHERE nis = ?
+      `).bind(newAvatar, newFrame, newTitle, newTitle, cleanNis).run();
+
+      return jsonResponse({
+        success: true,
+        message: `Karakter profil berhasil diubah menjadi ${targetAvatar.name}!`,
+        selected_avatar: newAvatar,
+        selected_frame: newFrame,
+        selected_title: newTitle,
+        gelar: newTitle
+      });
+    }
+
+    // B. ACTION: REFRESH / SYNC GAMIFIKASI
     const targetNis = body.nis || session.nis;
     if (targetNis) {
       const updated = await updateStudentGamification(db, targetNis);

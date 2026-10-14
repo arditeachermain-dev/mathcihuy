@@ -579,12 +579,15 @@
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
             <!-- SISI KIRI: PROFIL SISWA, LEVEL & GELAR AKADEMIK -->
             <div class="flex items-start sm:items-center gap-4 flex-1">
-              <div class="relative shrink-0">
-                <div id="gamifikasi-avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-bold text-base sm:text-lg text-white shadow-sm" style="background-color: #2E384D;">
+              <div class="relative shrink-0 group cursor-pointer" onclick="openProfileSelectorModal()" title="Klik untuk memilih Karakter Avatar & Bingkai Profil">
+                <div id="gamifikasi-avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-bold text-base sm:text-lg text-white shadow-sm transition-all duration-200 group-hover:scale-105 group-hover:shadow-md" style="background-color: #2E384D; border: 2.5px solid #CBD5E1;">
                   <span id="gamifikasi-avatar-initials">--</span>
                 </div>
                 <span id="gamifikasi-level-pill" class="absolute -bottom-1 -right-1 px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold text-white shadow-xs" style="background-color: #D97706;">
                   Lvl 1
+                </span>
+                <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-teal-600 text-white text-[9px] flex items-center justify-center shadow-xs opacity-0 group-hover:opacity-100 transition-opacity" title="Pilih Avatar">
+                  <i class="fa-solid fa-pen text-[7px]"></i>
                 </span>
               </div>
 
@@ -596,7 +599,7 @@
                   <span id="gamifikasi-kelas" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-semibold" style="background-color: #F0EFEA; color: #5F5E5B; border: 1px solid #E8E6DF;">
                     XII
                   </span>
-                  <span id="gamifikasi-gelar-badge" class="px-2 py-0.5 rounded-md text-[11px] font-semibold flex items-center gap-1" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
+                  <span id="gamifikasi-gelar-badge" onclick="openProfileSelectorModal()" class="px-2 py-0.5 rounded-md text-[11px] font-semibold flex items-center gap-1 cursor-pointer transition hover:scale-105" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;" title="Klik untuk melihat katalog gelar & karakter profil">
                     <i class="fa-solid fa-crown text-[10px]"></i> <span id="gamifikasi-gelar-text">Novice Explorer</span>
                   </span>
                 </div>
@@ -687,6 +690,9 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-2 shrink-0 self-end sm:self-center">
+              <button type="button" onclick="openProfileSelectorModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition" title="Pilih Karakter & Bingkai Profil (Dibuka per 10 Level)">
+                <i class="fa-solid fa-user-astronaut text-teal-600"></i> <span>Ganti Profil</span>
+              </button>
               <button type="button" onclick="openSkillTreeModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition" title="Buka Peta Rasi Bintang Penguasaan Materi (Skill Tree)">
                 <i class="fa-solid fa-diagram-project text-indigo-600"></i> <span>Skill Tree</span>
               </button>
@@ -2953,6 +2959,120 @@
         </div>
       </div>
 
+  <!-- MODAL PEMILIHAN PROFIL / AVATAR & BINGKAI BERDASARKAN LEVEL MILESTONE (KELIPATAN 10) -->
+  <div id="profile-selector-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div style="background-color: #FFFFFF; border-color: #E8E6DF; max-height: 92vh; height: 92vh;" class="w-full max-w-4xl flex flex-col rounded-2xl shadow-2xl border overflow-hidden relative font-sans my-auto">
+      
+      <!-- MODAL HEADER -->
+      <div class="px-5 py-4 border-b flex items-center justify-between gap-3 shrink-0" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-teal-700 bg-teal-50 border border-teal-200 shadow-2xs">
+            <i class="fa-solid fa-id-badge text-lg"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold flex items-center gap-2" style="color: #2F3437;">
+              <span>Koleksi Karakter &amp; Bingkai Profil</span>
+              <span class="px-2 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-teal-100 text-teal-800 border border-teal-200">
+                Tiap 10 Level
+              </span>
+            </h3>
+            <p class="text-xs text-[#787774] mt-0.5">
+              Pilih identitas avatar dan bingkai yang telah kamu raih dari perjuangan belajarmu di Math Cihuy.
+            </p>
+          </div>
+        </div>
+
+        <button type="button" onclick="closeProfileSelectorModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-[#787774] hover:text-[#2F3437] hover:bg-black/5 transition cursor-pointer" title="Tutup Modal">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <!-- MODAL BODY (SCROLLABLE) -->
+      <div class="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6 custom-scroll bg-[#FBFBFA]">
+        
+        <!-- KARTU PREVIEW PROFIL AKTIF SISWA -->
+        <div id="ps-preview-card" class="p-4 sm:p-5 rounded-2xl border shadow-xs bg-white space-y-3" style="border-color: #E8E6DF;">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <!-- Avatar Preview dengan Frame Glow Dinamis -->
+              <div class="relative shrink-0">
+                <div id="ps-preview-avatar-box" class="w-16 h-16 rounded-2xl flex items-center justify-center font-bold text-2xl text-white shadow-sm transition-all" style="background-color: #2E384D; border: 3px solid #CBD5E1;">
+                  <span id="ps-preview-avatar-icon"><i class="fa-solid fa-compass"></i></span>
+                </div>
+                <span id="ps-preview-level-badge" class="absolute -bottom-1 -right-1 px-2 py-0.5 rounded-md text-[11px] font-mono font-bold text-white shadow-xs" style="background-color: #D97706;">
+                  Lvl 1
+                </span>
+              </div>
+
+              <!-- Identitas Siswa & Gelar Aktif -->
+              <div class="space-y-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 id="ps-preview-nama" class="text-base font-bold text-[#2F3437]">Nama Siswa</h4>
+                  <span id="ps-preview-kelas" class="px-2 py-0.2 rounded text-[11px] font-mono font-semibold bg-[#F0EFEA] text-[#5F5E5B] border border-[#E8E6DF]">XII</span>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="text-xs text-[#787774]">Karakter &amp; Bingkai Aktif:</span>
+                  <span id="ps-preview-title" class="px-2.5 py-0.5 rounded-md text-xs font-bold flex items-center gap-1.5 shadow-2xs" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
+                    <i class="fa-solid fa-crown text-[10px]"></i> <span id="ps-preview-title-text">Novice Explorer</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Box XP & Target Milestone Berikutnya -->
+            <div class="sm:text-right shrink-0 p-3 rounded-xl bg-[#F7F6F3] border border-[#E8E6DF] sm:min-w-[200px]">
+              <div class="text-[10.5px] font-semibold text-[#787774]">Progress Menuju Tier Berikutnya</div>
+              <div id="ps-preview-next-milestone" class="text-xs font-bold text-[#2F3437] mt-0.5 font-mono">
+                Menghitung milestone...
+              </div>
+              <div class="w-full bg-[#E8E6DF] h-1.5 rounded-full overflow-hidden mt-1.5">
+                <div id="ps-preview-milestone-bar" class="h-full rounded-full bg-teal-600 transition-all duration-500" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABS FILTER TIER -->
+        <div class="flex items-center justify-between gap-3 flex-wrap pt-1">
+          <div class="flex items-center gap-2 overflow-x-auto py-1 custom-scroll">
+            <button type="button" id="ps-filter-all" onclick="filterProfileCatalog('all')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer bg-[#2E384D] text-white shadow-xs">
+              Semua Tier (1 - 100)
+            </button>
+            <button type="button" id="ps-filter-unlocked" onclick="filterProfileCatalog('unlocked')" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer bg-white text-[#5F5E5B] border border-[#E8E6DF] hover:bg-black/5">
+              <i class="fa-solid fa-unlock-keyhole text-emerald-600 mr-1"></i>Hanya yang Terbuka
+            </button>
+            <button type="button" id="ps-filter-locked" onclick="filterProfileCatalog('locked')" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer bg-white text-[#5F5E5B] border border-[#E8E6DF] hover:bg-black/5">
+              <i class="fa-solid fa-lock text-stone-400 mr-1"></i>Terkunci (Target Belajar)
+            </button>
+          </div>
+
+          <div class="text-xs text-[#787774] flex items-center gap-1.5 font-medium">
+            <i class="fa-solid fa-circle-info text-indigo-500"></i>
+            <span>Pilih salah satu karakter di bawah untuk menerapkannya:</span>
+          </div>
+        </div>
+
+        <!-- CONTAINER DAFTAR TIER & AVATAR (DI-RENDER OLEH JAVASCRIPT) -->
+        <div id="profile-catalog-container" class="space-y-6">
+          <div class="py-12 text-center text-[#787774]">
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat katalog karakter &amp; bingkai profil...
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MODAL FOOTER -->
+      <div class="px-5 py-3 border-t flex flex-wrap items-center justify-between gap-3 shrink-0 bg-white" style="border-color: #E8E6DF;">
+        <div class="text-xs text-[#787774] flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Setiap kenaikan 10 level otomatis membuka bingkai &amp; varian karakter baru secara permanen.</span>
+        </div>
+
+        <button type="button" onclick="closeProfileSelectorModal()" class="notion-btn-primary px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm text-white">
+          <span>Tutup</span>
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -3959,7 +4079,7 @@
 
     <script src="daily-raid-data.js?v=v20261011_tka_models_v2"></script>
     <script src="weekly-raid-data.js?v=v20261012_w42_lockdown_v1"></script>
-    <script src="app-akhir.js?v=v20261013_live_monitoring_fix_v2"></script>
+    <script src="app-akhir.js?v=v20261014_avatar_profiles_v1"></script>
     <script src="angket.js?v=v20261012_security_lockdown_v1"></script>
     <script src="helpdesk-notif.js?v=v20261012_notif_anticlip_v2"></script>
 
