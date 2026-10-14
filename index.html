@@ -678,18 +678,18 @@
           </div>
 
           <!-- BARIS BAWAH: KOLEKSI LENCANA & TOMBOL NAVIGASI GAMIFIKASI -->
-          <div class="pt-3 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3" style="border-color: #E8E6DF;">
-            <div class="flex items-center gap-2 overflow-x-auto py-0.5 custom-scroll">
+          <div class="pt-3 border-t flex flex-col lg:flex-row lg:items-center justify-between gap-3" style="border-color: #E8E6DF;">
+            <div class="flex items-center gap-2 overflow-x-auto py-1 custom-scroll min-w-0 flex-1">
               <span class="text-[11px] font-semibold shrink-0 mr-1" style="color: #787774;">
                 <i class="fa-solid fa-award text-amber-500 mr-1"></i>Lencana:
               </span>
-              <div id="gamifikasi-badges-pills" class="flex items-center gap-1.5 flex-wrap">
+              <div id="gamifikasi-badges-pills" class="flex items-center gap-1.5 flex-nowrap shrink-0">
                 <!-- Badges rendered via JavaScript -->
                 <span class="text-[11px] italic" style="color: #787774;">Menghubungkan lencana...</span>
               </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2 shrink-0 self-end sm:self-center">
+            <div class="flex flex-wrap items-center gap-2 shrink-0 self-end lg:self-center">
               <button type="button" onclick="openProfileSelectorModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition" title="Pilih Karakter & Bingkai Profil (Dibuka per 10 Level)">
                 <i class="fa-solid fa-user-astronaut text-teal-600"></i> <span>Ganti Profil</span>
               </button>

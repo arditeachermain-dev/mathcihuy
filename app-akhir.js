@@ -6196,7 +6196,7 @@ Guru Pengampu: Mr. Ardi
             </div>
 
             <!-- AVATAR CARDS GRID (3 KARAKTER PER TIER) -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3.5">
+            <div class="gap-3 pt-3.5" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));">
               ${tier.avatars.map(avatar => {
                 const isSelected = (curAvatar === avatar.id);
 
