@@ -3002,24 +3002,86 @@ html.terang #peta-modal > div {
   .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
 }
 
-/* Notion Warm Paper Data Table & Slide Utilities */
+/* Notion Warm Paper Data Table (High-Definition Classroom Standards) */
 html.terang .math-data-table {
   background-color: #FFFFFF !important;
-  border-color: #E8E6DF !important;
+  border: 1.5px solid #D3CFBE !important;
   color: #2F3437 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 html.terang .math-data-table .table-hdr {
   background-color: #F0EFEA !important;
+  border-bottom: 2px solid #D3CFBE !important;
+  color: #2E384D !important;
+}
+html.terang .math-data-table th {
+  color: #2E384D !important;
+  font-weight: 800 !important;
+  border-color: #E8E6DF !important;
+  font-size: 0.8rem !important;
+  padding: 0.25rem 0.65rem !important;
+}
+html.terang .math-data-table td {
   border-color: #E8E6DF !important;
   color: #2F3437 !important;
+  font-size: 0.84rem !important;
+  padding: 0.18rem 0.65rem !important;
 }
-html.terang .math-data-table td,
-html.terang .math-data-table th {
-  border-color: #E8E6DF !important;
+html.terang .math-data-table .table-row-item:nth-child(even) {
+  background-color: #FAFAF9 !important;
 }
 html.terang .math-data-table .table-row-item:hover {
+  background-color: #F0EFEA !important;
+}
+html.terang .math-data-table .table-total-row {
   background-color: #F7F6F3 !important;
+  border-top: 2px solid #D3CFBE !important;
+}
+html.terang .math-data-table .table-total-row td {
+  color: #2E384D !important;
+  font-weight: 800 !important;
+  font-size: 0.84rem !important;
+  padding: 0.25rem 0.65rem !important;
+}
+
+/* Dark Luxury Navy Mode Data Table */
+html:not(.terang) .math-data-table {
+  background-color: #0B132B !important;
+  border: 1.5px solid #1E293B !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+}
+html:not(.terang) .math-data-table .table-hdr {
+  background-color: #111D3E !important;
+  border-bottom: 2px solid #1E293B !important;
+}
+html:not(.terang) .math-data-table th {
+  color: #F59E0B !important;
+  border-color: #1E293B !important;
+  font-size: 0.8rem !important;
+  padding: 0.35rem 0.75rem !important;
+}
+html:not(.terang) .math-data-table td {
+  border-color: #1E293B !important;
+  color: #E2E8F0 !important;
+  font-size: 0.84rem !important;
+  padding: 0.28rem 0.75rem !important;
+}
+html:not(.terang) .math-data-table .table-row-item:nth-child(even) {
+  background-color: #0E1A38 !important;
+}
+html:not(.terang) .math-data-table .table-row-item:hover {
+  background-color: #16254E !important;
+}
+html:not(.terang) .math-data-table .table-total-row {
+  background-color: #111D3E !important;
+  border-top: 2px solid #1E293B !important;
+}
+html:not(.terang) .math-data-table .table-total-row td {
+  color: #F59E0B !important;
+  font-weight: 800 !important;
+  font-size: 0.84rem !important;
+  padding: 0.35rem 0.75rem !important;
 }
 html.terang #slide-body .formula-box {
   background: #FFFFFF !important;

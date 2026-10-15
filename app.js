@@ -5197,13 +5197,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const formattedSolHtml = formatSolutionHtml(sol, true);
 
         body.innerHTML = `
-          <div class="w-full h-full flex flex-col min-h-0 overflow-y-auto custom-scroll p-1">
+          <div class="w-full flex-1 flex flex-col min-h-0 justify-center p-1">
             <!-- DYNAMIC SPACE-EFFICIENT WORKSPACE (ZERO CUTOFF) -->
             <div id="example-workspace-grid" class="flex flex-col items-center justify-start w-full min-h-0 py-1">
               
               <!-- PROBLEM COLUMN (EXPANDS TO FULL-WIDTH WHEN CLOSED, SPLITS 5/12 ON MD+) -->
               <div id="example-prob-col" class="w-full max-w-3xl mx-auto flex flex-col gap-2.5 transition-all duration-300">
-                <div class="p-3.5 md:p-4 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-lg flex flex-col justify-between space-y-2">
+                <div class="p-3 md:p-3.5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-lg flex flex-col justify-between space-y-1.5">
                   <div class="space-y-1.5">
                     <div class="flex flex-col gap-1 border-b pb-1.5 mb-2 border-slate-200 dark:border-blue-900/80">
                       <div class="flex items-center justify-between gap-2">
@@ -5226,8 +5226,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   </div>
 
                   <!-- ACTION BUTTON BAR (COMPACT & CENTERED) -->
-                  <div class="flex items-center justify-center pt-1.5 shrink-0">
-                    <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-md active:scale-95 transition inline-flex items-center gap-2 cursor-pointer border border-blue-400/30">
+                  <div class="flex items-center justify-center pt-1 shrink-0">
+                    <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-md active:scale-95 transition inline-flex items-center gap-2 cursor-pointer border border-blue-400/30">
                       <i class="fa-solid fa-eye text-amber-300 text-xs" id="toggle-sol-icon"></i>
                       <span id="toggle-sol-text">${isClil ? 'Show Solution' : 'Buka Pembahasan Lengkap'}</span>
                     </button>
@@ -7794,7 +7794,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }
       const activeQIdx = window._collabActiveLevel;
       const rawQ = questionsList[activeQIdx] || questionsList[0] || (isClil ? 'Discuss the solution strategy with your group.' : 'Diskusikan strategi penyelesaian bersama kelompok.');
-      const cleanActiveQ = rawQ.replace(/^\[[A-Za-z0-9_.-]+\]\s*/, '').replace(/^(?:Kelompok\s+[A-Za-z0-9_]+|Tantangan\s+\d+|Soal\s+[A-Z0-9]+|Kasus\s+[A-Z0-9]+|Level\s+\d+|Babak\s+\d+|Meja\s+Ahli\s+[A-Z]|Pos\s+\d+|Stasiun\s+\d+)\s*:\s*/i, '');
+      const cleanActiveQ = rawQ.replace(/^\[[A-Za-z0-9_.-]+\]\s*/, '').replace(/^(?:Kelompok\s+[A-Za-z0-9_]+|Tantangan\s+\d+(?:\s*\([^)]*\))?|Soal\s+[A-Z0-9]+|Kasus\s+[A-Z0-9]+|Level\s+\d+|Babak\s+\d+|Meja\s+Ahli\s+[A-Z]|Pos\s+\d+|Stasiun\s+\d+)\s*:\s*/i, '');
       const activeLabel = taskCfg.labels[activeQIdx] || (isClil ? `Challenge ${activeQIdx + 1}` : `Tantangan ${activeQIdx + 1}`);
       const collabSvg = getTopicSvgDiagram(m.id, currentMode, 'collab');
 
@@ -7922,7 +7922,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }).join('');
 
       return `
-        <div class="h-full min-h-0 flex flex-col justify-between gap-3 p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl overflow-hidden">
+        <div class="h-full min-h-0 flex flex-col justify-between gap-2.5 p-3.5 md:p-4 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl overflow-hidden">
           
           <!-- TOP HEADER BAR: BADGE + TITLE + PANDUAN GURU BUTTON + METHOD DROPDOWN -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-blue-900/80 pb-2.5 shrink-0">
@@ -7975,9 +7975,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 flex-1 min-h-0 overflow-y-auto">
             
             <!-- LEFT COLUMN: PROBLEM ARENA (7/12) — 100% CLEAN FOR PROJECTOR -->
-            <div class="md:col-span-7 p-3.5 md:p-4 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between gap-2.5 overflow-hidden">
+            <div class="md:col-span-7 p-3 md:p-3.5 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between gap-2 overflow-hidden">
               
-              <div class="space-y-2.5 overflow-y-auto max-h-[60vh] custom-scroll pr-1">
+              <div class="space-y-1.5 flex-1 min-h-0 overflow-y-auto custom-scroll pr-1">
                 <div class="flex items-center justify-between border-b border-blue-900/60 pb-1.5 shrink-0">
                   <span class="text-xs md:text-sm font-bold text-amber-300 font-mono flex items-center gap-1.5">
                     <i class="fa-solid fa-pen-to-square text-amber-400"></i> ${activeLabel}
@@ -8098,47 +8098,42 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           });
         }
 
-        if (items.length >= 3 && items.length <= 6) {
-          return `
-            <div class="my-2 overflow-x-auto flex justify-center">
-              <table class="math-data-table border-collapse border border-slate-200 dark:border-slate-700/60 rounded-xl overflow-hidden shadow-sm text-center text-xs bg-white dark:bg-[#0B132B]">
-                <thead>
-                  <tr class="table-hdr font-bold border-b border-slate-200 dark:border-slate-700/60 text-[11px] font-mono bg-slate-100 dark:bg-[#111D3E] text-slate-700 dark:text-amber-300">
-                    <th class="py-1 px-3 border-r border-slate-200 dark:border-slate-700/60 text-center tracking-wider"><i class="fa-solid fa-layer-group text-blue-500 dark:text-blue-400 mr-1"></i> Kelas</th>
-                    ${items.map(it => `<th class="py-1 px-2.5 border-r border-slate-200 dark:border-slate-700/60 font-mono text-center">${it.interval}</th>`).join('')}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="table-row-item border-b border-slate-200 dark:border-slate-800/60 font-mono">
-                    <td class="py-1 px-3 border-r border-slate-200 dark:border-slate-800 font-bold text-slate-700 dark:text-slate-200 text-center"><i class="fa-solid fa-chart-column text-amber-500 dark:text-amber-400 mr-1"></i> $f_i$</td>
-                    ${items.map(it => `<td class="py-1 px-2.5 border-r border-slate-200 dark:border-slate-800 font-black text-amber-600 dark:text-amber-300 text-center">${it.freq}</td>`).join('')}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          `;
-        }
+        const totalFreq = items.reduce((sum, it) => sum + (parseFloat(it.freq) || 0), 0);
 
-        let rowsHtml = '';
-        items.forEach(it => {
-          rowsHtml += `
-            <tr class="table-row-item hover:bg-slate-500/10 transition border-b border-slate-200 dark:border-slate-800 last:border-0">
-              <td class="py-1 px-3.5 border-r border-slate-200 dark:border-slate-800 font-mono font-bold text-slate-700 dark:text-slate-200 text-center">${it.interval}</td>
-              <td class="py-1 px-3.5 font-mono font-black text-amber-600 dark:text-amber-300 text-center">${it.freq}</td>
-            </tr>
-          `;
-        });
+        const rowsHtml = items.map(it => `
+          <tr class="table-row-item transition border-b border-slate-200 dark:border-slate-800/80">
+            <td class="py-1 px-3.5 font-mono font-bold text-center text-xs md:text-sm tracking-wide text-slate-800 dark:text-slate-100 border-r border-slate-200 dark:border-slate-800">${it.interval}</td>
+            <td class="py-1 px-3.5 font-mono font-bold text-center text-xs md:text-sm text-slate-900 dark:text-amber-300">${it.freq}</td>
+          </tr>
+        `).join('');
+
+        const totalRowHtml = totalFreq > 0 ? `
+          <tr class="table-total-row font-bold border-t-2 border-slate-300 dark:border-slate-700 bg-slate-100/70 dark:bg-[#111D3E]/80">
+            <td class="py-1 px-3.5 font-mono font-bold text-center text-xs md:text-sm tracking-wide text-slate-800 dark:text-amber-300 border-r border-slate-200 dark:border-slate-800">
+              <i class="fa-solid fa-calculator text-[11px] mr-1 text-blue-600 dark:text-blue-400"></i> Total ($\\sum f_i$)
+            </td>
+            <td class="py-1 px-3.5 font-mono font-black text-center text-xs md:text-sm text-blue-700 dark:text-amber-400">
+              ${totalFreq}
+            </td>
+          </tr>
+        ` : '';
+
         return `
           <div class="my-1.5 overflow-x-auto flex justify-center">
-            <table class="math-data-table w-full max-w-xs border-collapse border border-slate-200 dark:border-slate-700/60 rounded-xl overflow-hidden shadow-sm text-center text-xs bg-white dark:bg-[#0B132B]">
+            <table class="math-data-table w-full max-w-xs sm:max-w-sm border-collapse rounded-xl overflow-hidden shadow-sm text-center">
               <thead>
-                <tr class="table-hdr font-bold border-b border-slate-200 dark:border-slate-700/60 text-[11px] font-mono bg-slate-100 dark:bg-[#111D3E] text-slate-700 dark:text-amber-300">
-                  <th class="py-1 px-3 border-r border-slate-200 dark:border-slate-700/60 text-center tracking-wider"><i class="fa-solid fa-layer-group text-blue-500 dark:text-blue-400 mr-1.5"></i> Interval Nilai / Kelas</th>
-                  <th class="py-1 px-3 text-center tracking-wider"><i class="fa-solid fa-chart-column text-amber-500 dark:text-amber-400 mr-1.5"></i> Frekuensi ($f_i$)</th>
+                <tr class="table-hdr font-bold border-b border-slate-300 dark:border-slate-700 text-xs md:text-sm font-mono tracking-wider">
+                  <th class="py-1.5 px-3.5 border-r border-slate-200 dark:border-slate-700 text-center">
+                    <i class="fa-solid fa-layer-group text-blue-600 dark:text-blue-400 mr-1.5"></i> Interval Nilai / Kelas
+                  </th>
+                  <th class="py-1.5 px-3.5 text-center">
+                    <i class="fa-solid fa-chart-column text-amber-600 dark:text-amber-400 mr-1.5"></i> Frekuensi ($f_i$)
+                  </th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60">
                 ${rowsHtml}
+                ${totalRowHtml}
               </tbody>
             </table>
           </div>
