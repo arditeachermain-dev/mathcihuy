@@ -7286,166 +7286,132 @@ const NAMA_TINGKAT = 'XII';
         {
           "no": 1,
           "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
+          "level": "Level 1 (Mudah)",
           "bobot": 10,
-          "tanya": "[P18-Q1] Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Bawah ($Q_1$) data tersebut adalah ...",
+          "tanya": "[P18-Q1] Berikut adalah data hasil Try Out TKA Matematika 100 siswa SMA GIS 2 Serpong:\n\n| Interval Skor | Frekuensi ($f_i$) |\n| :---: | :---: |\n| $51 - 60$ | 15 |\n| $61 - 70$ | 25 |\n| $71 - 80$ | 30 |\n| $81 - 90$ | 20 |\n| $91 - 100$ | 10 |\n\nTotal frekuensi $N = 100$. Nilai Kuartil Bawah ($Q_1$) dari sebaran skor tersebut adalah ...",
           "opsi": [
-            "A. 55,50",
-            "B. 54,75",
-            "C. 58,00",
-            "D. 56,00",
-            "E. 57,25"
-          ],
-          "viz": {
-            "t": "boxplot",
-            "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Bawah ($Q_1$) data tersebut adalah ..."
-          }
+            "A. 62,50",
+            "B. 63,50",
+            "C. 64,50",
+            "D. 65,00",
+            "E. 66,50"
+          ]
         },
         {
           "no": 2,
           "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
+          "level": "Level 1 (Mudah)",
           "bobot": 10,
-          "tanya": "[P18-Q2] Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Atas ($Q_3$) data tersebut adalah ...",
+          "tanya": "[P18-Q2] Berdasarkan tabel distribusi frekuensi skor Try Out TKA 100 siswa SMA GIS 2 Serpong pada soal sebelumnya (interval $51-60$: 15, $61-70$: 25, $71-80$: 30, $81-90$: 20, $91-100$: 10), nilai Kuartil Atas ($Q_3$) distribusi skor tersebut adalah ...",
           "opsi": [
-            "A. 76,58",
-            "B. 75,75",
-            "C. 74,80",
-            "D. 75,50",
-            "E. 77,25"
-          ],
-          "viz": {
-            "t": "boxplot",
-            "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14], [70-79: 12], [80-89: 8]\nTotal frekuensi $n = 50$. Nilai Kuartil Atas ($Q_3$) data tersebut adalah ..."
-          }
+            "A. 82,00",
+            "B. 82,50",
+            "C. 83,00",
+            "D. 83,50",
+            "E. 84,50"
+          ]
         },
         {
           "no": 3,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
+          "tipe": "Isian Singkat Numerik",
+          "level": "Level 2 (Sedang)",
           "bobot": 10,
-          "tanya": "[P18-Q3] Jika $Q_1 = 56{,}00$ dan $Q_3 = 76{,}58$, maka nilai Jangkauan Interkuartil ($QR$) adalah ...",
-          "opsi": [
-            "A. 30,58",
-            "B. 20,58",
-            "C. 25,00",
-            "D. 10,29",
-            "E. 15,25"
-          ],
-          "viz": {
-            "t": "boxplot",
-            "src": "Jika $Q_1 = 56{,}00$ dan $Q_3 = 76{,}58$, maka nilai Jangkauan Interkuartil ($QR$) adalah ..."
-          }
+          "tanya": "[P18-Q3] Laboratorium Pengujian Material IKN Nusantara menguji ketahanan tekan 80 sampel beton geopolimer presisi. Dari kurva frekuensi kumulatif diperoleh nilai Kuartil Bawah $Q_1 = 46{,}40\\text{ MPa}$ dan Kuartil Atas $Q_3 = 78{,}80\\text{ MPa}$. Berdasarkan data tersebut, hitunglah nilai Simpangan Kuartil ($Q_d$) dalam satuan MPa! (Tuliskan bilangan desimal, contoh: 16.2)",
+          "opsi": []
         },
         {
           "no": 4,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
+          "tipe": "Pilihan Benar / Salah",
+          "level": "Level 2 (Sedang)",
           "bobot": 10,
-          "tanya": "[P18-Q4] Simpangan kuartil ($Q_d$) dirumuskan sebagai ...",
+          "tanya": "[P18-Q4] Dalam analisis statistik distribusi waktu dwelling time peti kemas di pelabuhan logistik, seorang analis menggunakan metode Pagar Tukey (Tukey's Fences) berbasis lima angka ringkasan. Evaluasi kebenaran setiap pernyataan berikut:",
           "opsi": [
-            "A. Q3 - Q1",
-            "B. 1/4 (Q3 - Q1)",
-            "C. 1/2 (Q3 - Q1)",
-            "D. Q3 + Q1",
-            "E. (Q3 - Q1) / n"
-          ],
-          "viz": {
-            "t": "boxplot",
-            "src": "Simpangan kuartil ($Q_d$) dirumuskan sebagai ..."
-          }
+            "Langkah (Step, L) didefinisikan secara matematis sebesar 1,5 kali Jangkauan Interkuartil, yaitu L = 1,5 * QR.",
+            "Batas Pagar Dalam Bawah (Lower Inner Fence) dirumuskan sebagai Q3 - 1,5 * QR.",
+            "Data amatan yang nilainya lebih kecil dari Pagar Dalam Bawah atau lebih besar dari Pagar Dalam Atas diklasifikasikan sebagai data pencilan (outlier).",
+            "Pagar Luar Atas (Upper Outer Fence) untuk mendeteksi pencilan ekstrem dirumuskan sebesar Q3 + 3 * QR."
+          ]
         },
         {
           "no": 5,
-          "tipe": "Pilihan Benar / Salah",
-          "level": "C4 Analisis",
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "Level 2 (Sedang)",
           "bobot": 10,
-          "tanya": "[P18-Q5] Tentukan kebenaran ukuran letak data:\n(1) Simpangan Kuartil dirumuskan sebagai Qd = Q3 + Q1.\n(2) Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1.\n(3) Kuartil kedua (Q2) bernilai sama dengan Median (Me).",
+          "tanya": "[P18-Q5] Diagram kotak-garis (Boxplot) rekaman kecepatan 120 perjalanan Kereta Cepat Whoosh Jakarta-Bandung menghasilkan ringkasan lima angka:\nNilai Minimum = 220 km/jam, Kuartil Bawah (Q1) = 280 km/jam, Median (Q2) = 310 km/jam, Kuartil Atas (Q3) = 340 km/jam, dan Nilai Maksimum = 355 km/jam.\n\nManakah pernyataan berikut yang BENAR? (Centang semua yang benar!)",
           "opsi": [
-            "Simpangan Kuartil dirumuskan sebagai Qd = Q3 + Q1",
-            "Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1",
-            "Kuartil kedua (Q2) bernilai sama dengan Median (Me)"
+            "A. Panjang kotak interkuartil (IQR) pada diagram tersebut adalah sebesar 60 km/jam.",
+            "B. Nilai Simpangan Kuartil (Qd) kecepatan perjalanan kereta adalah sebesar 30 km/jam.",
+            "C. Tepat 50% perjalanan kereta berkecepatan antara 280 km/jam sampai 340 km/jam.",
+            "D. Jika tercatat satu uji coba berkecepatan 440 km/jam, data tersebut akan digolongkan sebagai pencilan atas (outlier).",
+            "E. Jangkauan total (Range) data kecepatan tersebut adalah sebesar 120 km/jam."
           ],
           "viz": {
-            "t": "boxplot",
-            "src": "Tentukan kebenaran ukuran letak data:\n(1) Simpangan Kuartil dirumuskan sebagai Qd = Q3 + Q1.\n(2) Jangkauan Interkuartil dirumuskan sebagai QR = Q3 - Q1.\n(3) Kuartil kedua (Q2) bernilai sama dengan Median (Me)."
+            "t": "boxplot"
           }
         },
         {
           "no": 6,
-          "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
+          "tipe": "Kecukupan Data",
+          "level": "Level 2 (Sedang)",
           "bobot": 10,
-          "tanya": "[P18-Q6] Batas pencilan bawah (Pagar Dalam Bawah) pada diagram kotak garis dirumuskan sebagai ...",
+          "tanya": "[P18-Q6] Suatu kumpulan data terdiri atas 7 bilangan bulat berurutan: $x_1 \\le x_2 \\le x_3 \\le x_4 \\le x_5 \\le x_6 \\le x_7$.\nApakah nilai Kuartil Bawah ($Q_1 = x_2$) kumpulan data tersebut dapat ditentukan secara pasti?\n\n(1) Nilai Kuartil Atas adalah $Q_3 = 45$ dan Jangkauan Interkuartil $QR = 18$.\n(2) Nilai datum terkecil $x_1 = 15$ dan $x_3 = 32$.",
           "opsi": [
-            "A. Q3 - 1,5 * QR",
-            "B. Q3 + 1,5 * QR",
-            "C. Q1 - 0,5 * QR",
-            "D. Q1 - 1,5 * QR",
-            "E. Q1 - QR"
-          ],
-          "viz": {
-            "t": "boxplot",
-            "src": "Batas pencilan bawah (Pagar Dalam Bawah) pada diagram kotak garis dirumuskan sebagai ..."
-          }
+            "A. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.",
+            "B. Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.",
+            "C. DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.",
+            "D. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.",
+            "E. Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan."
+          ]
         },
         {
           "no": 7,
           "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
+          "level": "Level 2 (Sedang)",
           "bobot": 10,
-          "tanya": "[P18-Q7] Nilai Desil ke-5 ($D_5$) selalu memiliki nilai yang sama dengan ...",
+          "tanya": "[P18-Q7] Sekumpulan data memiliki Kuartil Bawah $Q_1 = 24$ dan Kuartil Atas $Q_3 = 40$. Seluruh nilai datum pada kumpulan data tersebut ditransformasikan secara linier dengan rumus $y_i = 3x_i - 15$.\n\nBerdasarkan informasi tersebut, manakah hubungan antara kuantitas P dan Q berikut yang benar?\n\n| Kuantitas P | Kuantitas Q |\n| :---: | :---: |\n| Nilai Jangkauan Interkuartil ($QR$) data baru | 45 |",
           "opsi": [
-            "A. Median (Q2)",
-            "B. Kuartil Bawah (Q1)",
-            "C. Modus",
-            "D. Rata-rata Hitung",
-            "E. Kuartil Atas (Q3)"
+            "A. Kuantitas P lebih besar daripada kuantitas Q",
+            "B. Kuantitas Q lebih besar daripada kuantitas P",
+            "C. Kuantitas P sama dengan kuantitas Q",
+            "D. Informasi yang diberikan tidak cukup untuk memutuskan",
+            "E. Hubungan P dan Q tidak dapat ditentukan karena ukuran sampel tidak diketahui"
           ]
         },
         {
           "no": 8,
-          "tipe": "Pilihan Ganda Kompleks",
-          "level": "C5 Evaluasi",
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "Level 3 (HOTS)",
           "bobot": 10,
-          "tanya": "[P18-Q8] Dari kumpulan data diperoleh Q1 = 40 dan Q3 = 70. Manakah pernyataan ukuran letak data berikut yang BENAR? (Pilih semua yang benar)",
+          "tanya": "[P18-Q8] Perhatikan pernyataan dan alasan mengenai analisis ketahanan ukuran statistik berikut:\n\nPernyataan:\nDalam menganalisis distribusi kesenjangan pendapatan yang memuat sejumlah pencilan ekstrem di ujung atas data (super-kaya), Jangkauan Interkuartil (QR) jauh lebih andal dan tahan (robust) digunakan dibandingkan Jangkauan Total (Range).\n\nSEBAB\n\nAlasan:\nJangkauan Interkuartil hanya mengukur rentang penyebaran 50% data di posisi tengah (Q3 - Q1), sehingga tidak terpengaruh oleh keberadaan 25% data terendah maupun 25% data teratas.",
           "opsi": [
-            "A. Pagar dalam bawah bernilai -5.",
-            "B. Pagar dalam atas bernilai 115.",
-            "C. Nilai data 120 dikategorikan sebagai data pencilan (outlier).",
-            "D. Jangkauan interkuartil (QR) bernilai 30.",
-            "E. Simpangan kuartil (Qd) bernilai 15."
+            "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab akibat.",
+            "B. Pernyataan benar, alasan benar, tetapi keduanya TIDAK menunjukkan hubungan sebab akibat.",
+            "C. Pernyataan benar dan alasan salah.",
+            "D. Pernyataan salah dan alasan benar.",
+            "E. Pernyataan dan alasan keduanya salah."
           ]
         },
         {
           "no": 9,
           "tipe": "Pilihan Ganda Tunggal",
-          "level": "C4 Analisis",
+          "level": "Level 3 (HOTS)",
           "bobot": 10,
-          "tanya": "[P18-Q9] Dari data tunggal: 2, 4, 6, 8, 10, 12, 14, nilai Kuartil Bawah ($Q_1$) adalah ...",
+          "tanya": "[P18-Q9] Panitia seleksi nasional menetapkan kuota beasiswa riset unggulan hanya dialokasikan untuk 20% peserta terbaik dengan skor tertinggi (ambang Desil ke-8, $D_8$). Berikut distribusi skor 200 pendaftar:\n\n| Interval Skor | Frekuensi ($f_i$) |\n| :---: | :---: |\n| $50 - 59$ | 20 |\n| $60 - 69$ | 40 |\n| $70 - 79$ | 60 |\n| $80 - 89$ | 50 |\n| $90 - 99$ | 30 |\n\nBerapakah skor minimal ($D_8$) yang harus diraih agar berhak mendapatkan beasiswa riset tersebut?",
           "opsi": [
-            "A. 6",
-            "B. 8",
-            "C. 2",
-            "D. 5",
-            "E. 4"
-          ],
-          "viz": {
-            "t": "boxplot",
-            "src": "Dari data tunggal: 2, 4, 6, 8, 10, 12, 14, nilai Kuartil Bawah ($Q_1$) adalah ..."
-          }
+            "A. 85,50",
+            "B. 86,50",
+            "C. 87,00",
+            "D. 87,50",
+            "E. 88,00"
+          ]
         },
         {
           "no": 10,
           "tipe": "Isian Singkat Numerik",
-          "level": "C4 Analisis",
+          "level": "Level 3 (HOTS)",
           "bobot": 10,
-          "tanya": "[P18-Q10] Jika $Q_1 = 30$ dan $Q_3 = 50$, maka nilai simpangan kuartil ($Q_d$) adalah ...",
-          "opsi": [],
-          "viz": {
-            "t": "boxplot",
-            "src": "Jika $Q_1 = 30$ dan $Q_3 = 50$, maka nilai simpangan kuartil ($Q_d$) adalah ..."
-          }
+          "tanya": "[P18-Q10] Stasiun telemetri seismik memantau getaran struktur pilar jembatan IKN Nusantara. Dari 1.000 titik sampel terurut diperoleh nilai Kuartil Bawah $Q_1 = 38\\text{ mm/s}^2$ dan Kuartil Atas $Q_3 = 54\\text{ mm/s}^2$. Menurut kriteria Tukey, getaran anomali dikategorikan sebagai \"pencilan ekstrem bawah\" jika nilainya jatuh lebih kecil dari batas Pagar Luar Bawah (Lower Outer Fence). Berapakah nilai batas Pagar Luar Bawah tersebut? (Ketikkan angka bilangan bulat)",
+          "opsi": []
         }
       ]
     },

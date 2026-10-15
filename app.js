@@ -4753,7 +4753,17 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono font-bold text-xs mr-2 shadow-sm">${tag}</span>`;
       });
 
+      // Highlight SEBAB block prominently for Kausatif questions
+      text = text.replace(/(?:\r?\n)+\s*SEBAB\s*(?:\r?\n)+/gi, '\n\n<div class="text-center font-black text-amber-500 dark:text-amber-400 py-2 tracking-widest text-xs md:text-sm uppercase select-none my-1">— SEBAB —</div>\n\n');
+
       text = formatMathTables(text);
+
+      // Convert newlines to clean line breaks outside HTML div containers
+      text = text.split(/(<div[\s\S]*?<\/div>)/gi).map((part) => {
+        if (part.startsWith('<div')) return part;
+        return part.replace(/\r?\n\r?\n+/g, '<br><br>').replace(/\r?\n/g, '<br>');
+      }).join('');
+
       return text;
     }
 
@@ -8095,11 +8105,43 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       `;
     }
 
-        // UNIVERSAL MATHEMATICAL TABLE FORMATTER (CONVERTS BRACKETED DATA TO MODERN HTML TABLES)
+        // UNIVERSAL MATHEMATICAL TABLE FORMATTER (CONVERTS MARKDOWN & BRACKETED DATA TO MODERN HTML TABLES)
     function formatMathTables(rawText) {
       if (!rawText) return '';
       let text = rawText;
+
+      // 1. Markdown Table Parser (| Header 1 | Header 2 | ...)
+      const mdTableRegex = /(?:^|\n)(\|[^\n]+\|\r?\n\|[-:\s|]+\|\r?\n(?:\|[^\n]+\|\r?\n?)+)/g;
+      text = text.replace(mdTableRegex, (match, tableBlock) => {
+        const lines = tableBlock.trim().split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+        if (lines.length < 3) return match;
+        const parseRow = (line) => line.split('|').slice(1, -1).map(c => c.trim());
+        const headers = parseRow(lines[0]);
+        const rows = lines.slice(2).map(parseRow);
+
+        const ths = headers.map(h => `<th class="py-1.5 px-3.5 border-r last:border-r-0 border-slate-200 dark:border-slate-700 text-center text-xs md:text-sm font-bold font-mono tracking-wider">${h}</th>`).join('');
+        const trs = rows.map(r => {
+          const tds = r.map(c => `<td class="py-1.5 px-3.5 border-r last:border-r-0 border-slate-200 dark:border-slate-800 text-center text-xs md:text-sm font-mono">${c}</td>`).join('');
+          return `<tr class="table-row-item transition border-b border-slate-200 dark:border-slate-800/80">${tds}</tr>`;
+        }).join('');
+
+        return `
+          <div class="my-2.5 overflow-x-auto flex justify-center">
+            <table class="math-data-table w-full max-w-sm border-collapse rounded-xl overflow-hidden shadow-sm text-center">
+              <thead>
+                <tr class="table-hdr font-bold border-b border-slate-300 dark:border-slate-700 text-xs md:text-sm font-mono tracking-wider">
+                  ${ths}
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60">
+                ${trs}
+              </tbody>
+            </table>
+          </div>
+        `;
+      });
       
+      // 2. Bracket Table Parser ([51-60: 15], ...)
       const tableRegex = /(?:\[\s*(\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?)\s*:\s*(\d+(?:\.\d+)?)\s*\](?:\s*,\s*|\s+)?)+/g;
       
       text = text.replace(tableRegex, (match) => {
