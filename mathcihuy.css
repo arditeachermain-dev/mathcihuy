@@ -464,17 +464,12 @@
     /* Gradasi tepi kanan + label kecil, muncul hanya saat rumus memang lebih
        lebar daripada kartunya, dan hilang setelah digeser sampai ujung. */
     .fb-math.rumus-lebar::after {
-      content: 'geser \\2192';
-      position: absolute; right: 0; bottom: 0.05rem;
-      padding: 0 0.3rem 0 1.6rem;
-      font-size: 0.58rem; font-weight: 800; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--lux-gold);
-      background: linear-gradient(to right, rgba(11,22,40,0) 0%, rgba(11,22,40,.92) 42%);
-      pointer-events: none; border-radius: 0 0.5rem 0.5rem 0;
+      display: none !important;
+      content: none !important;
     }
     html.terang .fb-math.rumus-lebar::after {
-      color: #B45309;
-      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.95) 42%);
+      display: none !important;
+      content: none !important;
     }
     .fb-math .katex-display::-webkit-scrollbar { height: 6px; }
     .fb-math .katex-display::-webkit-scrollbar-track {
@@ -513,18 +508,18 @@
     /* Ukuran dikunci supaya kesebelas tahap muat sekaligus di layar 1366 px —
        laptop guru yang paling umum — tanpa ada yang tersembunyi di balik Next. */
     .slide-pill {
-      display: inline-flex; align-items: center; gap: 0.3rem; flex-shrink: 0;
-      padding: 0.4rem 0.4rem; border-radius: 0.8rem;
-      font-size: 0.67rem; font-weight: 700; white-space: nowrap; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.25rem; flex-shrink: 0;
+      padding: 0.32rem 0.42rem; border-radius: 0.75rem;
+      font-size: 0.65rem; font-weight: 700; white-space: nowrap; cursor: pointer;
       color: #CBD5E1; background: var(--lux-raise); border: 1px solid var(--lux-line-2);
       transition: color .16s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease;
     }
     .slide-pill:hover { color: #fff; background: rgba(37,99,235,0.22); border-color: rgba(37,99,235,0.5); }
     .slide-pill .sp-no {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 1.02rem; height: 1.02rem; border-radius: 999px; flex-shrink: 0;
+      width: 0.98rem; height: 0.98rem; border-radius: 999px; flex-shrink: 0;
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.58rem; font-weight: 900;
+      font-size: 0.56rem; font-weight: 900;
       background: rgba(148,163,184,0.16); color: #E2E8F0;
     }
     .slide-pill .sp-ic { display: none; font-size: 0.7rem; }
@@ -549,8 +544,8 @@
     }
 
     /* Prev/Next dirampingkan sedikit: ruang yang dihemat diberikan ke stepper. */
-    #slide-pills-container { gap: 0.25rem; }
-    @media (min-width: 768px) { #slide-pills-container { gap: 0.3rem; } }
+    #slide-pills-container { gap: 0.22rem; padding-left: 0.25rem; padding-right: 0.85rem; scroll-behavior: smooth; }
+    @media (min-width: 768px) { #slide-pills-container { gap: 0.25rem; } }
 
     /* --- tombol aksi cepat --- */
     .quick-act {
@@ -1673,33 +1668,8 @@
     #pres-remote.minimized > *:not(.pres-toggle-min) {
       display: none !important;
     }
-    /* Pastikan seluruh isi slide memiliki ruang kosong yang cukup di bawah agar tidak tertutup toolbar */
     #slide-body {
-      padding-bottom: 7.5rem !important;
       scroll-behavior: smooth;
-    }
-    html.cinema #slide-body {
-      padding-bottom: 7.5rem !important;
-    }
-    #pres-remote:hover, #pres-remote:active, #pres-remote.is-dragging {
-      opacity: 1 !important;
-      background: rgba(6, 15, 30, 0.95);
-      box-shadow: 0 18px 44px -12px rgba(0,0,0,.95), 0 0 20px rgba(37,99,235,0.25);
-    }
-    #pres-remote.minimized {
-      padding: .3rem .6rem;
-      opacity: 0.45;
-    }
-    #pres-remote.minimized > *:not(.pres-toggle-min) {
-      display: none !important;
-    }
-    /* Pastikan seluruh isi slide memiliki ruang kosong yang cukup di bawah agar tidak tertutup toolbar */
-    #slide-body {
-      padding-bottom: 7.5rem !important;
-      scroll-behavior: smooth;
-    }
-    html.cinema #slide-body {
-      padding-bottom: 7.5rem !important;
     }
     #pres-remote button {
       display: inline-flex; align-items: center; justify-content: center;
@@ -2947,12 +2917,18 @@ html.terang .formula-box {
   border: 1px solid #E8E6DF !important;
   border-left: 4px solid #B26B00 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  padding: 0.55rem 0.75rem !important;
+  margin-bottom: 0.45rem !important;
 }
 html.terang .formula-box .fb-name {
   color: #B26B00 !important;
+  margin-bottom: 0.2rem !important;
+  font-size: 0.68rem !important;
 }
 html.terang .formula-box .fb-math {
   color: #2F3437 !important;
+  line-height: 1.35 !important;
+  font-size: 0.88rem !important;
 }
 
 /* Modal Dialogs in Warm Paper Mode */
@@ -2997,3 +2973,183 @@ html.terang #peta-modal > div {
     max-width: none !important;
   }
 }
+
+/* ==========================================================================
+   SLIDE & COLLABORATION RESPONSIVE GRID UTILITIES (NOTION WARM PAPER & HIGH-DEF)
+   ========================================================================== */
+.border-l-4 { border-left-width: 4px !important; }
+.shadow-2xs { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+
+@media (min-width: 768px) {
+  .md\:grid-cols-12 {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  }
+  .md\:col-span-12 { grid-column: span 12 / span 12 !important; }
+  .md\:col-span-7  { grid-column: span 7 / span 7 !important; }
+  .md\:col-span-5  { grid-column: span 5 / span 5 !important; }
+  .md\:col-span-6  { grid-column: span 6 / span 6 !important; }
+  .md\:col-span-4  { grid-column: span 4 / span 4 !important; }
+  .md\:col-span-8  { grid-column: span 8 / span 8 !important; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-12 {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  }
+  .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
+  .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
+}
+
+/* Notion Warm Paper Data Table & Slide Utilities */
+html.terang .math-data-table {
+  background-color: #FFFFFF !important;
+  border-color: #E8E6DF !important;
+  color: #2F3437 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+html.terang .math-data-table .table-hdr {
+  background-color: #F0EFEA !important;
+  border-color: #E8E6DF !important;
+  color: #2F3437 !important;
+}
+html.terang .math-data-table td,
+html.terang .math-data-table th {
+  border-color: #E8E6DF !important;
+}
+html.terang .math-data-table .table-row-item:hover {
+  background-color: #F7F6F3 !important;
+}
+html.terang #slide-body .formula-box {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E6DF !important;
+  border-left: 3px solid #B26B00 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  padding: 0.55rem 0.75rem !important;
+  margin-bottom: 0.45rem !important;
+}
+html.terang #slide-body .formula-box .fb-name {
+  color: #B26B00 !important;
+  font-size: 0.68rem !important;
+  margin-bottom: 0.2rem !important;
+}
+html.terang #slide-body .formula-box .fb-math {
+  color: #2F3437 !important;
+  font-size: 0.88rem !important;
+  line-height: 1.35 !important;
+}
+
+/* Formula scrollbars cleanup inside slides */
+#slide-body .formula-box .fb-math,
+#slide-body .formula-box .fb-math * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+#slide-body .formula-box .fb-math::-webkit-scrollbar,
+#slide-body .formula-box .fb-math *::-webkit-scrollbar,
+#slide-body .fb-math .katex-display::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+#slide-body .fb-math.rumus-lebar::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Notion Warm Paper Slide Stage Chrome (Top & Bottom Bars) */
+html.terang #slide-stage {
+  background-color: #F7F6F3 !important;
+  border-color: #E8E6DF !important;
+}
+html.terang #slide-stage .slide-top-bar,
+html.terang #slide-stage > div:first-child {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #E8E6DF !important;
+}
+html.terang #slide-stage .slide-bottom-bar,
+html.terang #slide-stage > div:last-child {
+  background-color: #FFFFFF !important;
+  border-top: 1px solid #E8E6DF !important;
+}
+html.terang #slide-title-header {
+  color: #2F3437 !important;
+}
+html.terang .picker-trigger {
+  background-color: #F0EFEA !important;
+  border-color: #E8E6DF !important;
+  color: #B26B00 !important;
+}
+html.terang #slide-counter {
+  color: #5F5E5B !important;
+}
+html.terang #slide-prev-btn {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E8E6DF !important;
+  color: #2F3437 !important;
+}
+html.terang #slide-next-btn {
+  background-color: #2E384D !important;
+  color: #FFFFFF !important;
+  border: none !important;
+}
+html.terang .slide-pill {
+  background-color: #F0EFEA !important;
+  border: 1px solid #E8E6DF !important;
+  color: #5F5E5B !important;
+}
+html.terang .slide-pill.is-on {
+  background-color: #2E384D !important;
+  border-color: #2E384D !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(46, 56, 77, 0.25) !important;
+}
+html.terang .slide-pill.is-done {
+  background-color: #EDF7ED !important;
+  border-color: #C8E6C9 !important;
+  color: #2E7D32 !important;
+}
+
+/* Theme-Aware SVG Diagram Card */
+html.terang .svg-diagram-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E8E6DF !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+html:not(.terang) .svg-diagram-card {
+  background-color: #0B132B !important;
+  border: 1px solid #1E293B !important;
+}
+
+/* Slide Cards in Notion Warm Paper Mode */
+html.terang #slide-body .bg-\[\#0D1B2E\] {
+  background-color: #FFFFFF !important;
+  border-color: #E8E6DF !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+  color: #2F3437 !important;
+}
+html.terang #slide-body .bg-\[\#081324\],
+html.terang #slide-body .bg-\[\#060D1A\],
+html.terang #slide-body .bg-\[\#050B14\] {
+  background-color: #F7F6F3 !important;
+  border-color: #E8E6DF !important;
+  color: #2F3437 !important;
+}
+html.terang #slide-body .text-white {
+  color: #2F3437 !important;
+}
+html.terang #slide-body .text-slate-200,
+html.terang #slide-body .text-slate-300 {
+  color: #37352F !important;
+}
+html.terang #slide-body .text-slate-400 {
+  color: #787774 !important;
+}
+html.terang #slide-body [class*="border-blue-900"],
+html.terang #slide-body [class*="border-blue-800"] {
+  border-color: #E8E6DF !important;
+}
+
+
+

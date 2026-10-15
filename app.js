@@ -929,7 +929,10 @@
         const meetings = db[currentMode] || [];
         const mIdx = meetings.findIndex(m => m.id === pkgId);
         currentMeetingIdx = (mIdx !== -1) ? mIdx : 0;
-        currentSlideIdx = Math.max(0, Math.min(12, slideNum - 1));
+        const targetM = meetings[currentMeetingIdx];
+        const exCount = (targetM && targetM.examples && targetM.examples.length) ? targetM.examples.length : 5;
+        const totalSlides = exCount + 7;
+        currentSlideIdx = Math.max(0, Math.min(totalSlides - 1, slideNum - 1));
         
         renderAppView();
         return true;
@@ -4800,16 +4803,16 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       // 5..(4 + exCount): Worked Examples
       for (let k = 0; k < exCount; k++) {
         const exItem = m.examples ? m.examples[k] : null;
-        const shortPill = exItem?.pill || `Level ${k + 1}`;
+        const shortPill = exItem?.pill || (totalSlides > 12 ? `Lv ${k + 1}` : `Level ${k + 1}`);
         pillTitles.push(shortPill);
         pillIcons.push(exIconsList[k % exIconsList.length]);
       }
 
       // Ending Slides: Collab, Summary, Closing
-      pillTitles.push(isClil ? "Collab" : "Kolaborasi");
+      pillTitles.push(isClil ? "Collab" : (totalSlides > 12 ? "Collab" : "Kolaborasi"));
       pillIcons.push("fa-solid fa-users");
 
-      pillTitles.push(isClil ? "Summary" : "Rangkuman");
+      pillTitles.push(isClil ? "Summary" : (totalSlides > 12 ? "Ringkas" : "Rangkuman"));
       pillIcons.push("fa-solid fa-flag-checkered");
 
       pillTitles.push(isClil ? "Closing" : "Penutup");
@@ -4833,14 +4836,34 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }
       if (m.title.indexOf('$') !== -1) renderMath(judulEl);
       const pctProgress = Math.round(((sIdx + 1) / totalSlides) * 100);
-      document.getElementById('slide-counter').innerHTML = `
-        <div class="flex items-center gap-1.5 md:gap-2">
-          <div class="w-12 md:w-20 h-1.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600 hidden sm:block">
-            <div class="h-full bg-gradient-to-r from-blue-500 to-amber-500 transition-all duration-300" style="width: ${pctProgress}%"></div>
+      const counterEl = document.getElementById('slide-counter');
+      if (counterEl) {
+        counterEl.innerHTML = `
+          <div class="flex items-center gap-2">
+            <div class="w-12 md:w-20 h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full overflow-hidden hidden sm:block">
+              <div class="h-full bg-gradient-to-r from-blue-600 to-amber-500 transition-all duration-300" style="width: ${pctProgress}%"></div>
+            </div>
+            <span class="text-[11px] font-mono font-bold text-slate-700 dark:text-slate-300 shrink-0">${sIdx + 1} / ${totalSlides}</span>
           </div>
-          <span class="text-[10px] md:text-xs font-mono text-slate-300 font-extrabold">${sIdx + 1} / ${totalSlides}</span>
-        </div>
-      `;
+        `;
+      }
+
+      const prevBtn = document.getElementById('slide-prev-btn');
+      const nextBtn = document.getElementById('slide-next-btn');
+      if (prevBtn) {
+        if (sIdx === 0 && currentMeetingIdx === 0) {
+          prevBtn.classList.add('opacity-40', 'cursor-not-allowed');
+        } else {
+          prevBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+        }
+      }
+      if (nextBtn) {
+        if (sIdx === totalSlides - 1) {
+          nextBtn.innerHTML = `<span class="hidden sm:inline">${isClil ? 'Start CBT' : 'Mulai CBT'}</span> <i class="fa-solid fa-bolt text-xs"></i>`;
+        } else {
+          nextBtn.innerHTML = `<span class="hidden sm:inline">Next</span> <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-chevron-right"></use></svg>`;
+        }
+      }
 
       const pillsContainer = document.getElementById('slide-pills-container');
       pillsContainer.innerHTML = '';
@@ -4915,12 +4938,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         }
 
         body.innerHTML = `
-          <div class="h-full min-h-0 p-5 md:p-8 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col justify-between items-center text-center relative overflow-hidden">
+          <div class="w-full max-w-4xl mx-auto my-auto p-5 md:p-7 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-xl flex flex-col justify-between items-center text-center relative overflow-hidden">
             
-            <!-- GLOWING BACKGROUND LIGHT -->
-            <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-600/15 blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
-
             <!-- 1. TOP METADATA PILLS -->
             <div class="flex flex-wrap items-center justify-center gap-2 relative z-10 shrink-0">
               <span class="px-3 py-1 rounded-full bg-blue-600/20 text-blue-300 border border-blue-500/40 text-[11px] font-mono font-black flex items-center gap-1.5 shadow-sm">
@@ -4930,23 +4949,23 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 ${babLabel} &middot; ${m.id}
               </span>
               <span class="px-3 py-1 rounded-full bg-[#081324] text-slate-300 border border-blue-900 text-[11px] font-mono font-semibold">
-                ${isClil ? '12-Slide Instructional Sequence' : '12 Slide Alur KBM'}
+                ${isClil ? `${totalSlides}-Slide Instructional Sequence` : `${totalSlides} Slide Alur KBM`}
               </span>
             </div>
 
             <!-- 2. CENTER HERO: GRAND TITLE, DYNAMIC TOPIC TAGLINE, & 3 COMPETENCY PILL BADGES -->
-            <div class="space-y-3.5 max-w-3xl relative z-10 my-auto py-3">
-              <h1 class="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight drop-shadow-md">
+            <div class="space-y-3 max-w-3xl relative z-10 my-auto py-2.5">
+              <h1 class="text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight tracking-tight drop-shadow-sm">
                 ${m.title}
               </h1>
               
               <!-- DYNAMIC CATEGORY TAGLINE -->
-              <p class="text-xs md:text-sm font-semibold text-amber-300/90 tracking-wide">
+              <p class="text-xs md:text-sm font-semibold text-amber-300/90 tracking-wide max-w-2xl mx-auto">
                 ${topicTagline}
               </p>
 
               <!-- 3 PILL HIGHLIGHTS -->
-              <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <div class="flex flex-wrap items-center justify-center gap-2 pt-1.5">
                 <span class="px-3 py-1 rounded-xl bg-[#081324] border border-blue-800/80 text-blue-300 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
                   <i class="${badgePill1.icon} text-amber-400 text-xs"></i> ${badgePill1.text}
                 </span>
@@ -4959,19 +4978,19 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               </div>
             </div>
 
-            <!-- 3. BOTTOM SECTION: TEACHER & SCHOOL SIGNATURE ONLY -->
-            <div class="w-full max-w-2xl relative z-10 shrink-0 border-t border-blue-900/60 pt-3.5">
-              <div class="flex items-center justify-between px-5 py-3 bg-[#081324] rounded-2xl border border-blue-900/80 text-xs shadow-inner">
-                <div class="flex items-center gap-3 text-left">
-                  <div class="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-sm shrink-0">
+            <!-- 3. BOTTOM SECTION: TEACHER & SCHOOL SIGNATURE -->
+            <div class="w-full max-w-2xl relative z-10 shrink-0 border-t border-blue-900/60 pt-3">
+              <div class="flex items-center justify-between px-4 py-2.5 bg-[#081324] rounded-2xl border border-blue-900/80 text-xs shadow-inner">
+                <div class="flex items-center gap-2.5 text-left">
+                  <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-sm shrink-0">
                     <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
                   </div>
                   <div>
-                    <strong class="text-white block font-bold text-xs md:text-sm">Mr. Ardi (Muhammad Ardiansyah, S.Pd.Gr.)</strong>
-                    <span class="text-[11px] text-slate-400">${isClil ? 'Mathematics Instructor' : 'Guru Pengampu Matematika'}</span>
+                    <strong class="text-white block font-bold text-xs">Mr. Ardi (Muhammad Ardiansyah, S.Pd.Gr.)</strong>
+                    <span class="text-[10px] text-slate-400">${isClil ? 'Mathematics Instructor' : 'Guru Pengampu Matematika'}</span>
                   </div>
                 </div>
-                <div class="text-right border-l border-blue-900/60 pl-4">
+                <div class="text-right border-l border-blue-900/60 pl-3.5">
                   <span class="text-xs text-slate-200 font-bold block">${isClil ? 'Mathematics Learning Portal' : 'Portal Pembelajaran Matematika'}</span>
                   <span class="text-[10px] text-amber-400/90 font-mono">${isClil ? 'Academic Year 2026/2027' : 'Tahun Pelajaran 2026/2027'}</span>
                 </div>
@@ -4982,79 +5001,158 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         `;
       } else if (sIdx === 1) {
         body.innerHTML = `
-          <div class="space-y-3 w-full my-auto shrink-0">
-            <div class="bg-slate-900 p-4 md:p-6 rounded-2xl border border-blue-500/40 shadow-xl">
-              <h3 class="text-xs md:text-sm font-extrabold text-blue-400 mb-3 flex items-center gap-1.5">
-                <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-slide1"></use></svg> ${isClil ? 'LEARNING OBJECTIVES & INDICATORS' : 'TUJUAN PEMBELAJARAN & INDIKATOR'}
-              </h3>
-              <ul class="space-y-2 text-xs md:text-sm text-slate-200">
-                ${(m.obj || []).map(o => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1"></i> <div>${o}</div></li>`).join('')}
-              </ul>
+          <div class="w-full max-w-4xl mx-auto my-auto p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-xl flex flex-col gap-3.5">
+            <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-blue-600/20 text-blue-400 border border-blue-500/40 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-bullseye"></i>
+                </span>
+                <div>
+                  <h3 class="text-xs md:text-sm font-bold text-blue-400 tracking-wide uppercase">
+                    ${isClil ? 'LEARNING OBJECTIVES & PERFORMANCE INDICATORS' : 'TUJUAN PEMBELAJARAN & INDIKATOR PENCAPAIAN'}
+                  </h3>
+                  <p class="text-[10px] text-slate-400 font-mono">${m.id} • ${isClil ? 'Grade XII Mathematics Competencies' : 'Target Kompetensi Matematika Kelas XII'}</p>
+                </div>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full bg-blue-600/15 text-blue-300 border border-blue-500/30 text-[10px] font-mono font-bold">
+                ${(m.obj || []).length} Capaian
+              </span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+              ${(m.obj || []).map((o, idx) => {
+                const cleanO = o.replace(/\(\*([^*]+)\*\)/g, '($1)').replace(/\*([^*]+)\*/g, '$1');
+                return `
+                  <div class="p-2.5 md:p-3 bg-[#081324] rounded-xl border border-blue-900/60 flex items-start gap-2.5 shadow-sm hover:border-blue-700/80 transition">
+                    <span class="w-5 h-5 rounded-full bg-blue-600/20 text-blue-400 border border-blue-500/40 flex items-center justify-center text-[10px] font-mono font-bold shrink-0 mt-0.5">
+                      ${idx + 1}
+                    </span>
+                    <div class="text-xs text-slate-200 leading-relaxed font-medium">
+                      ${cleanO}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
             </div>
           </div>
         `;
       } else if (sIdx === 2) {
         body.innerHTML = `
-          <div class="space-y-3 w-full my-auto shrink-0">
-            <div class="bg-slate-900 p-4 md:p-6 rounded-2xl border border-amber-500/40 shadow-xl space-y-3">
-              <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 text-[10px] font-bold rounded-full">${isClil ? 'REAL-WORLD CONTEXT & MOTIVATION' : 'REAL-WORLD APERSEPSI'}</span>
-              <h3 class="text-sm md:text-lg font-extrabold text-white">${isClil ? 'Engineering / Physical Context' : 'Kasus Kontekstual'}</h3>
-              <p class="text-xs md:text-sm text-slate-300 leading-relaxed">${m.hook || ''}</p>
+          <div class="w-full max-w-4xl mx-auto my-auto p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-amber-500/40 shadow-xl flex flex-col gap-3.5">
+            <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-lightbulb"></i>
+                </span>
+                <div>
+                  <h3 class="text-xs md:text-sm font-bold text-amber-400 tracking-wide uppercase">
+                    ${isClil ? 'REAL-WORLD CONTEXT & APERCEPTION' : 'APERSEPSI & MOTIVASI KONTEKSTUAL RIIL'}
+                  </h3>
+                  <p class="text-[10px] text-slate-400 font-mono">${m.id} • ${isClil ? 'Why Location Matters More Than Mean' : 'Mengapa Ukuran Letak Lebih Kuat Dibanding Rata-Rata'}</p>
+                </div>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-mono font-bold">
+                Kasus Nyata
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-stretch">
+              <div class="md:col-span-7 p-3.5 bg-[#081324] rounded-2xl border border-blue-900/60 flex flex-col justify-between gap-2.5">
+                <div>
+                  <span class="text-[11px] font-mono font-bold text-amber-300 uppercase tracking-wide block mb-1">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Problem Riil: Jebakan Rata-Rata (Mean Distortion)
+                  </span>
+                  <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
+                    ${m.hook || ''}
+                  </p>
+                </div>
+                <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200">
+                  <i class="fa-solid fa-quote-left mr-1 opacity-70"></i> <em>Statistik letak (Kuartil & Persentil) bersifat <strong>resisten</strong> terhadap pencilan ekstrem, menjadikannya fondasi utama dalam seleksi UTBK dan jaminan SLA sistem.</em>
+                </div>
+              </div>
+
+              <div class="md:col-span-5 p-3.5 bg-[#081324] rounded-2xl border border-blue-900/60 flex flex-col justify-between gap-2">
+                <span class="text-[11px] font-mono font-bold text-blue-300 uppercase tracking-wide block border-b border-blue-900/60 pb-1">
+                  <i class="fa-solid fa-compass mr-1"></i> 3 Pilar Analisis Letak Data
+                </span>
+                <div class="space-y-1.5 text-xs text-slate-300">
+                  <div class="p-2 rounded-lg bg-[#050B14] border border-blue-900/40 flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-blue-400 text-xs"></i>
+                    <div><strong class="text-white">Kuartil ($Q_1, Q_2, Q_3$)</strong>: Membagi data 4 bagian setara.</div>
+                  </div>
+                  <div class="p-2 rounded-lg bg-[#050B14] border border-blue-900/40 flex items-center gap-2">
+                    <i class="fa-solid fa-percent text-emerald-400 text-xs"></i>
+                    <div><strong class="text-white">Desil & Persentil</strong>: Ambang batas spesifik ($D_i, P_{90}$).</div>
+                  </div>
+                  <div class="p-2 rounded-lg bg-[#050B14] border border-blue-900/40 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-amber-400 text-xs"></i>
+                    <div><strong class="text-white">Pagar Pencilan ($PD, PL$)</strong>: Mendeteksi anomali sistem.</div>
+                  </div>
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono pt-1 text-center border-t border-blue-900/40">
+                  Standar Uji: <strong>TKA Nasional &amp; UTBK-SNBT 2027</strong>
+                </div>
+              </div>
             </div>
           </div>
         `;
       } else if (sIdx === 3) {
-        // SLIDE 4: THE MATHEMATICAL TOOLKIT (OPTIMIZED BALANCED 7:5 WORKSPACE)
+        // SLIDE 4: THE MATHEMATICAL TOOLKIT (BALANCED 2-COL FORMULAS + MODEL VISUALIZER)
         const formulas = m.toolkit || [];
         const toolkitSvg = getTopicSvgDiagram(m.id, currentMode, 'toolkit');
         window._labSlide4 = labUntukBab(m.bab, currentMode);
         body.innerHTML = `
-          <div class="space-y-3 w-full my-auto shrink-0">
-            <div class="p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl space-y-4">
-              <!-- TOOLKIT HEADER -->
-              <div class="flex items-center justify-between border-b border-blue-900/80 pb-3">
-                <div class="flex items-center gap-2.5 min-w-0">
-                  <span class="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-500/40 text-amber-400 flex items-center justify-center text-sm shadow-sm shrink-0">
-                    <i class="fa-solid fa-toolbox"></i>
-                  </span>
-                  <div class="truncate min-w-0">
-                    <h3 class="text-xs md:text-sm font-black text-white tracking-wide truncate">
-                      ${isClil ? 'THE MATHEMATICAL TOOLKIT (CORE FORMULAS)' : 'THE MATHEMATICAL TOOLKIT (RUMUS & KAIDAH UTAMA)'}
-                    </h3>
-                    <p class="text-[10px] text-slate-400 font-mono truncate">${m.id} • ${isClil ? 'Essential Theorems & Rules' : 'Teorema & Kaidah Penting'}</p>
-                  </div>
-                </div>
-                <span class="px-2.5 py-1 rounded-lg bg-[#060D1A] border border-amber-500/30 text-amber-300 text-xs font-mono font-bold shrink-0">
-                  ${formulas.length} ${isClil ? (formulas.length === 1 ? 'Rule' : 'Rules') : 'Kaidah'}
+          <div class="w-full max-w-5xl mx-auto my-auto p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-xl space-y-3">
+            <!-- TOOLKIT HEADER -->
+            <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="w-7 h-7 rounded-lg bg-blue-600/30 border border-blue-500/40 text-amber-400 flex items-center justify-center text-xs shadow-sm shrink-0">
+                  <i class="fa-solid fa-toolbox"></i>
                 </span>
-              </div>
-              
-              <!-- 2-COLUMN BALANCED WORKSPACE: FORMULAS (LEFT 7/12) + LAB (RIGHT 5/12) -->
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-                <!-- FORMULAS LIST (LEFT 7/12) -->
-                <div class="lg:col-span-7 space-y-2.5 max-h-[380px] overflow-y-auto pr-1.5 custom-scroll">
-                  ${formulas.map(f => `
-                    <div class="formula-box">
-                      <span class="fb-name">${f.name}</span>
-                      <div class="fb-math">${f.math}</div>
-                    </div>
-                  `).join('')}
+                <div class="truncate min-w-0">
+                  <h3 class="text-xs md:text-sm font-black text-white tracking-wide truncate">
+                    ${isClil ? 'THE MATHEMATICAL TOOLKIT (CORE FORMULAS)' : 'THE MATHEMATICAL TOOLKIT (RUMUS & KAIDAH UTAMA)'}
+                  </h3>
+                  <p class="text-[10px] text-slate-400 font-mono truncate">${m.id} • ${isClil ? 'Essential Theorems & Rules' : 'Teorema & Kaidah Penting'}</p>
                 </div>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-lg bg-[#060D1A] border border-amber-500/30 text-amber-300 text-xs font-mono font-bold shrink-0">
+                ${formulas.length} ${isClil ? (formulas.length === 1 ? 'Rule' : 'Rules') : 'Kaidah'}
+              </span>
+            </div>
+            
+            <!-- 2-COLUMN BALANCED WORKSPACE: 2-COL FORMULAS (LEFT 7/12) + DIAGRAM (RIGHT 5/12) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-stretch">
+              <!-- FORMULAS 2-COL COMPACT GRID (LEFT 7/12) -->
+              <div class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                ${formulas.map(f => `
+                  <div class="formula-box p-2.5 mb-0 rounded-xl flex flex-col justify-between">
+                    <span class="fb-name text-[10px] font-bold font-mono text-amber-500 dark:text-amber-400 uppercase tracking-wide leading-tight">${f.name}</span>
+                    <div class="fb-math text-xs md:text-sm mt-1 leading-snug">${f.math}</div>
+                  </div>
+                `).join('')}
+              </div>
 
-                <!-- 3D INTERACTIVE LAB / DIAGRAM (RIGHT 5/12) -->
-                <div class="lg:col-span-5 p-4 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between space-y-3">
-                  <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
-                    <span class="text-xs font-bold text-amber-300 font-mono uppercase tracking-wider flex items-center gap-1.5">
-                      <i class="fa-solid fa-cube"></i> ${isClil ? 'Interactive Visualizer' : 'Visualisasi Geometri 3D'}
-                    </span>
-                    ${toolkitSvg ? `<button type="button" onclick="toggleToolkitSvg()" class="text-[10px] text-slate-400 hover:text-white font-mono underline cursor-pointer">${isClil ? 'static diagram' : 'gambar diam'}</button>` : ''}
+              <!-- 3D INTERACTIVE LAB / DIAGRAM (RIGHT 5/12) -->
+              <div class="md:col-span-5 p-3.5 bg-[#060D1A] rounded-2xl border border-blue-900/80 shadow-inner flex flex-col justify-between gap-2.5">
+                <div class="flex items-center justify-between border-b border-blue-900/60 pb-1.5 shrink-0">
+                  <span class="text-xs font-bold text-amber-300 font-mono uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-solid fa-chart-column"></i> ${toolkitSvg ? (isClil ? 'Conceptual Visualizer' : 'Visualisasi Konseptual & Model') : (isClil ? 'Interactive Visualizer' : 'Visualisasi Geometri 3D')}
+                  </span>
+                  <span class="text-[10px] text-slate-400 font-mono font-bold">${m.id}</span>
+                </div>
+                ${toolkitSvg ? `
+                  <div id="toolkit-svg-box" class="svg-diagram-card flex-1 p-2 rounded-xl flex flex-col items-center justify-center shadow-inner overflow-hidden max-h-[220px]">
+                    <div class="w-full flex items-center justify-center" style="max-width: 320px;">
+                      ${toolkitSvg}
+                    </div>
                   </div>
+                ` : `
                   <div id="lab-inline-host" class="flex-1 min-h-[180px] flex items-center justify-center"></div>
-                  ${toolkitSvg ? `<div id="toolkit-svg-box" class="hidden bg-[#081324] p-2 rounded-xl border border-blue-900/60 flex items-center justify-center">${toolkitSvg}</div>` : ''}
-                  <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-blue-900/40">
-                    <span>${isClil ? 'Rotation' : 'Rotasi'}: <b>360°</b></span>
-                    <span class="text-amber-300">${isClil ? 'Touch/drag 3D model' : 'Sentuh/geser bangun'}</span>
-                  </div>
+                `}
+                <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1.5 border-t border-blue-900/40 shrink-0">
+                  <span>Standar: <b>TKA &amp; UTBK-SNBT</b></span>
+                  <span class="text-amber-500 dark:text-amber-300 font-bold">Model Boxplot &amp; Pencilan</span>
                 </div>
               </div>
             </div>
@@ -5099,36 +5197,39 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const formattedSolHtml = formatSolutionHtml(sol, true);
 
         body.innerHTML = `
-          <div class="w-full h-full flex flex-col justify-center my-auto min-h-0 overflow-y-auto">
+          <div class="w-full h-full flex flex-col min-h-0 overflow-y-auto custom-scroll p-1">
             <!-- DYNAMIC SPACE-EFFICIENT WORKSPACE (ZERO CUTOFF) -->
-            <div id="example-workspace-grid" class="flex flex-col items-center justify-center w-full min-h-0">
+            <div id="example-workspace-grid" class="flex flex-col items-center justify-start w-full min-h-0 py-1">
               
               <!-- PROBLEM COLUMN (EXPANDS TO FULL-WIDTH WHEN CLOSED, SPLITS 5/12 ON MD+) -->
-              <div id="example-prob-col" class="w-full max-w-3xl mx-auto flex flex-col gap-3 transition-all duration-300">
-                <div class="p-4 md:p-5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-2xl flex flex-col justify-between space-y-3">
-                  <div class="space-y-2.5">
-                    <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
-                      <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-lg font-mono flex items-center gap-1.5 border border-amber-500/30">
-                        <i class="fa-solid fa-graduation-cap"></i> Contoh Soal ${exIdx + 1} (${customLevelTitle})
-                      </span>
-                      <span class="text-[10px] font-mono font-bold text-amber-400">C4-C5 HOTS</span>
+              <div id="example-prob-col" class="w-full max-w-3xl mx-auto flex flex-col gap-2.5 transition-all duration-300">
+                <div class="p-3.5 md:p-4 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-lg flex flex-col justify-between space-y-2">
+                  <div class="space-y-1.5">
+                    <div class="flex flex-col gap-1 border-b pb-1.5 mb-2 border-slate-200 dark:border-blue-900/80">
+                      <div class="flex items-center justify-between gap-2">
+                        <span class="px-2.5 py-0.5 bg-amber-500/15 text-amber-700 dark:text-amber-300 font-bold text-xs rounded-lg font-mono flex items-center gap-1.5 border border-amber-500/30">
+                          <i class="fa-solid fa-graduation-cap text-amber-500"></i> Contoh Soal ${exIdx + 1} &bull; ${m.examples[exIdx]?.level || `Level ${exIdx + 1}`}
+                        </span>
+                        <span class="text-[10px] font-mono font-bold text-blue-700 dark:text-blue-300 bg-blue-600/10 px-2 py-0.5 rounded border border-blue-500/20 shrink-0">
+                          ${exIdx >= 5 ? 'Standar UTBK HOTS' : 'C4-C5 HOTS'}
+                        </span>
+                      </div>
+                      ${m.examples && m.examples[exIdx] && m.examples[exIdx].title ? `
+                      <div class="text-xs md:text-sm font-bold text-slate-800 dark:text-amber-200">
+                        ${m.examples[exIdx].title}
+                      </div>
+                      ` : ''}
                     </div>
                     <div class="text-xs md:text-sm font-semibold text-white leading-relaxed">
                       ${formatMathTables(prob)}
                     </div>
                   </div>
 
-                  ${exampleSvg ? `
-                  <div class="mt-2 p-2 bg-[#050B14] rounded-xl border border-blue-900/60 flex items-center justify-center shadow-inner shrink-0">
-                    ${exampleSvg}
-                  </div>
-                  ` : ''}
-
                   <!-- ACTION BUTTON BAR (COMPACT & CENTERED) -->
-                  <div class="flex items-center justify-center pt-1 shrink-0">
-                    <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="px-5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-md active:scale-95 transition inline-flex items-center gap-2 cursor-pointer border border-blue-400/30">
+                  <div class="flex items-center justify-center pt-1.5 shrink-0">
+                    <button id="toggle-sol-btn" onclick="toggleExampleSolution()" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-md active:scale-95 transition inline-flex items-center gap-2 cursor-pointer border border-blue-400/30">
                       <i class="fa-solid fa-eye text-amber-300 text-xs" id="toggle-sol-icon"></i>
-                      <span id="toggle-sol-text">${isClil ? 'Show Solution' : 'Buka Pembahasan'}</span>
+                      <span id="toggle-sol-text">${isClil ? 'Show Solution' : 'Buka Pembahasan Lengkap'}</span>
                     </button>
                   </div>
                 </div>
@@ -5136,8 +5237,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
               <!-- RIGHT COLUMN: STEP-BY-STEP SOLUTION (SCROLLABLE & HIGH CLARITY) -->
               <div id="example-sol-col" class="hidden w-full flex-col min-h-0 transition-all duration-300">
-                <div id="example-sol-box" class="h-full p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl flex flex-col min-h-0 justify-between space-y-2 overflow-hidden">
-                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-2 mb-1 shrink-0">
+                <div id="example-sol-box" class="h-full p-3.5 md:p-4 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-lg flex flex-col min-h-0 justify-between space-y-2 overflow-hidden">
+                  <div class="flex items-center justify-between border-b border-blue-900/80 pb-1.5 mb-1 shrink-0">
                     <span class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5 font-mono">
                       <i class="fa-solid fa-square-check text-amber-400"></i> ${isClil ? 'Structured Mathematical Solution:' : 'Langkah Solusi Terstruktur:'}
                     </span>
@@ -5145,7 +5246,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                       <i class="fa-solid fa-chevron-up text-amber-400"></i> <span>${isClil ? 'Hide' : 'Tutup Solusi'}</span>
                     </button>
                   </div>
-                  <div class="flex-1 space-y-2 overflow-y-auto custom-scroll pr-1 min-h-0 text-xs md:text-sm">
+
+                  ${exampleSvg ? `
+                  <div class="svg-diagram-card p-1.5 rounded-xl flex items-center justify-center shadow-inner shrink-0 overflow-hidden max-h-[140px] mb-1">
+                    ${exampleSvg}
+                  </div>
+                  ` : ''}
+
+                  <div class="flex-1 space-y-2 overflow-y-auto max-h-[52vh] custom-scroll pr-1 min-h-0 text-xs md:text-sm">
                     ${formattedSolHtml}
                   </div>
                 </div>
@@ -5171,32 +5279,32 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         };
 
         body.innerHTML = `
-          <div class="space-y-3 w-full my-auto shrink-0">
-            <div class="p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl space-y-2.5">
-              <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
+          <div class="w-full max-w-4xl mx-auto my-auto space-y-2 shrink-0">
+            <div class="p-3 md:p-3.5 bg-[#0D1B2E] rounded-2xl border border-blue-800/80 shadow-lg space-y-1.5">
+              <div class="flex items-center justify-between border-b border-blue-900/80 pb-1">
                 <h3 class="text-xs md:text-sm font-extrabold text-blue-400 flex items-center gap-2">
                   <i class="fa-solid fa-list-check text-amber-400"></i> ${isClil ? 'KEY TAKEAWAYS & LESSON SUMMARY' : 'KESIMPULAN PEMBELAJARAN HARI INI'}
                 </h3>
                 <span class="text-[10px] text-amber-400 font-mono font-bold">${m.id} • ${isClil ? 'Core Summary' : 'Ringkasan Materi'}</span>
               </div>
-              <ul class="space-y-1.5 text-xs md:text-sm text-slate-200">
+              <ul class="space-y-1 text-xs md:text-xs lg:text-sm text-slate-200">
                 ${(summaryData.summary || []).map(s => `
-                  <li class="flex items-start gap-2.5 p-2.5 bg-[#081324] rounded-2xl border border-blue-900/60">
-                    <i class="fa-solid fa-circle-check text-amber-400 mt-1 shrink-0 text-xs"></i>
-                    <span class="leading-relaxed font-medium">${s}</span>
+                  <li class="flex items-start gap-2 p-1.5 md:p-2 bg-[#081324] rounded-xl border border-blue-900/60">
+                    <i class="fa-solid fa-circle-check text-amber-400 mt-0.5 shrink-0 text-xs"></i>
+                    <span class="leading-snug font-medium">${s}</span>
                   </li>
                 `).join('')}
               </ul>
             </div>
 
-            <div class="p-4 md:p-5 bg-[#0D1B2E] rounded-3xl border border-amber-500/40 shadow-2xl space-y-2">
-              <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
+            <div class="p-3 md:p-3.5 bg-[#0D1B2E] rounded-2xl border border-amber-500/40 shadow-lg space-y-1">
+              <div class="flex items-center justify-between border-b border-blue-900/80 pb-1">
                 <h3 class="text-xs md:text-sm font-extrabold text-amber-400 flex items-center gap-2">
                   <i class="fa-solid fa-moon text-amber-400"></i> ${isClil ? 'SPIRITUAL REFLECTION & ISLAMIC VALUES' : 'REFLEKSI INTEGRASI KEISLAMAN'}
                 </h3>
                 <span class="text-[10px] text-amber-300/70 font-mono font-bold">${isClil ? 'Character & Divine Order' : 'Nilai Karakter & Spiritual'}</span>
               </div>
-              <p class="text-xs md:text-sm text-slate-200 leading-relaxed p-3 bg-[#081324] rounded-2xl border border-blue-900/60">
+              <p class="text-xs md:text-xs lg:text-sm text-slate-200 leading-relaxed p-2 md:p-2.5 bg-[#081324] rounded-xl border border-blue-900/60">
                 ${summaryData.islamic}
               </p>
             </div>
@@ -5205,23 +5313,23 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       } else if (sIdx === 4 + exCount + 2) {
         // SLIDE: CLOSING & EVALUATION
         body.innerHTML = `
-          <div class="h-full flex flex-col items-center justify-center text-center space-y-4 p-5 md:p-8 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl">
-            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl shadow-lg">
+          <div class="w-full max-w-2xl mx-auto my-auto flex flex-col items-center justify-center text-center space-y-3.5 p-5 md:p-7 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl shadow-md">
               <i class="fa-solid fa-flag-checkered"></i>
             </div>
-            <div class="space-y-2">
-              <h3 class="text-lg md:text-2xl font-black text-white">${isClil ? 'LESSON COMPLETE! ALHAMDULILLAH' : 'PENUTUP, EVALUASI & TUGAS MANDIRI'}</h3>
-              <p class="text-xs md:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
+            <div class="space-y-1.5">
+              <h3 class="text-base md:text-xl font-black text-white">${isClil ? 'LESSON COMPLETE! ALHAMDULILLAH' : 'PENUTUP, EVALUASI & TUGAS MANDIRI'}</h3>
+              <p class="text-xs md:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
                 ${isClil ? ('Alhamdulillah, the session on <strong>' + m.title + '</strong> has concluded. Test your mastery through the 10-question CBT assessment!') : ('Alhamdulillah KBM <strong>' + m.title + '</strong> telah selesai. Uji pemahaman mandiri Anda melalui 10 butir soal asesmen standar TKA Nasional & UTBK CBT!')}
               </p>
             </div>
             
-            <div class="flex flex-wrap items-center justify-center gap-3 mt-3">
-              <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl text-xs md:text-sm shadow-xl shadow-blue-600/30 active:scale-95 transition flex items-center gap-2 cursor-pointer border border-blue-400/40">
-                <i class="fa-solid fa-crosshairs text-amber-300 text-base"></i>
-                <span>${isClil ? ('LAUNCH CBT DRILLING (' + m.id + ')') : ('BUKA DRILLING TKA (' + m.id + ')')}</span>
+            <div class="flex flex-wrap items-center justify-center gap-2.5 mt-2">
+              <button onclick="openTkaForCurrentMeeting('${m.id}')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs md:text-sm shadow-xl shadow-blue-600/30 active:scale-95 transition flex items-center gap-2 cursor-pointer border border-blue-400/40">
+                <i class="fa-solid fa-bolt text-amber-300"></i>
+                <span>${isClil ? ('START CBT (' + m.id + ')') : ('BUKA DRILLING TKA (' + m.id + ')')}</span>
               </button>
-              <button onclick="switchSubject('home')" class="px-5 py-3.5 bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-amber-300 hover:text-white font-bold rounded-2xl text-xs shadow transition flex items-center gap-2 cursor-pointer">
+              <button onclick="switchSubject('home')" class="px-4 py-2.5 bg-[#081324] hover:bg-[#0D1E36] border border-blue-900 text-amber-300 hover:text-white font-bold rounded-xl text-xs shadow transition flex items-center gap-2 cursor-pointer">
                 <i class="fa-solid fa-house text-xs"></i>
                 <span>${isClil ? 'Back to Dashboard' : 'Kembali ke Beranda'}</span>
               </button>
@@ -7195,19 +7303,19 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
       if (isHidden) {
         // Side-by-side 5:7 split starting at md (768px+)
-        grid.className = "grid grid-cols-1 md:grid-cols-12 gap-3.5 w-full h-full min-h-0 items-stretch overflow-y-auto";
-        probCol.className = "md:col-span-5 flex flex-col justify-between min-h-0";
-        solCol.className = "md:col-span-7 flex flex-col justify-between min-h-0";
+        grid.className = "grid grid-cols-1 md:grid-cols-12 gap-3.5 w-full items-start";
+        probCol.className = "md:col-span-5 flex flex-col gap-2.5 min-h-0";
+        solCol.className = "md:col-span-7 flex flex-col gap-2.5 min-h-0";
         if (icon) icon.className = "fa-solid fa-eye-slash";
         if (text) text.innerText = isClil ? "Hide Solution" : "Tutup Pembahasan";
         if (solBox) renderMath(solBox);
       } else {
         // Collapse back to centered full-width card
-        grid.className = "flex flex-col items-center justify-center w-full min-h-0";
-        probCol.className = "w-full max-w-3xl mx-auto flex flex-col gap-3";
+        grid.className = "flex flex-col items-center justify-start w-full min-h-0 py-1";
+        probCol.className = "w-full max-w-3xl mx-auto flex flex-col gap-2.5";
         solCol.className = "hidden w-full flex-col min-h-0";
         if (icon) icon.className = "fa-solid fa-eye";
-        if (text) text.innerText = isClil ? "Show Solution" : "Buka Pembahasan";
+        if (text) text.innerText = isClil ? "Show Solution" : "Buka Pembahasan Lengkap";
       }
     }
 
@@ -7867,10 +7975,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 flex-1 min-h-0 overflow-y-auto">
             
             <!-- LEFT COLUMN: PROBLEM ARENA (7/12) — 100% CLEAN FOR PROJECTOR -->
-            <div class="md:col-span-7 p-4 md:p-5 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between gap-3">
+            <div class="md:col-span-7 p-3.5 md:p-4 bg-[#081324] rounded-2xl border border-blue-900/70 border-l-4 border-l-amber-500 shadow-xl flex flex-col justify-between gap-2.5 overflow-hidden">
               
-              <div class="space-y-3">
-                <div class="flex items-center justify-between border-b border-blue-900/60 pb-2">
+              <div class="space-y-2.5 overflow-y-auto max-h-[60vh] custom-scroll pr-1">
+                <div class="flex items-center justify-between border-b border-blue-900/60 pb-1.5 shrink-0">
                   <span class="text-xs md:text-sm font-bold text-amber-300 font-mono flex items-center gap-1.5">
                     <i class="fa-solid fa-pen-to-square text-amber-400"></i> ${activeLabel}
                   </span>
@@ -7878,11 +7986,12 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   <div class="flex items-center bg-[#050B14] p-0.5 rounded-lg border border-blue-900/60">
                     ${levelTabsHtml}
                   </div>
+                </div>
                 <div class="text-xs md:text-sm lg:text-base font-semibold text-white leading-relaxed">
                   ${formatMathTables(cleanActiveQ)}
                 </div>
-                ${collabSvg ? `
-                <div class="mt-2.5 p-2 bg-[#050B14] rounded-xl border border-blue-900/60 flex items-center justify-center shadow-inner shrink-0 overflow-x-auto">
+                ${(collabSvg && (cleanActiveQ.toLowerCase().includes('box') || cleanActiveQ.toLowerCase().includes('diagram') || cleanActiveQ.toLowerCase().includes('grafik') || cleanActiveQ.toLowerCase().includes('plot') || activeQIdx === 3)) ? `
+                <div class="svg-diagram-card mt-2 p-1.5 rounded-xl flex items-center justify-center shadow-inner shrink-0 overflow-hidden max-h-[130px]">
                   ${collabSvg}
                 </div>
                 ` : ''}
@@ -7980,28 +8089,55 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       
       text = text.replace(tableRegex, (match) => {
         const itemRegex = /\[\s*(\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?)\s*:\s*(\d+(?:\.\d+)?)\s*\]/g;
-        let rowsHtml = '';
+        const items = [];
         let itemMatch;
         while ((itemMatch = itemRegex.exec(match)) !== null) {
-          const interval = itemMatch[1].replace('-', ' – ').trim();
-          const freq = itemMatch[2].trim();
-          rowsHtml += `
-            <tr class="hover:bg-slate-800/60 transition border-b border-slate-800 last:border-0">
-              <td class="py-2 px-5 border-r border-slate-800 font-mono font-bold text-slate-200 text-center">${interval}</td>
-              <td class="py-2 px-5 font-mono font-black text-amber-300 text-center">${freq}</td>
-            </tr>
+          items.push({
+            interval: itemMatch[1].replace('-', ' – ').trim(),
+            freq: itemMatch[2].trim()
+          });
+        }
+
+        if (items.length >= 3 && items.length <= 6) {
+          return `
+            <div class="my-2 overflow-x-auto flex justify-center">
+              <table class="math-data-table border-collapse border border-slate-200 dark:border-slate-700/60 rounded-xl overflow-hidden shadow-sm text-center text-xs bg-white dark:bg-[#0B132B]">
+                <thead>
+                  <tr class="table-hdr font-bold border-b border-slate-200 dark:border-slate-700/60 text-[11px] font-mono bg-slate-100 dark:bg-[#111D3E] text-slate-700 dark:text-amber-300">
+                    <th class="py-1 px-3 border-r border-slate-200 dark:border-slate-700/60 text-center tracking-wider"><i class="fa-solid fa-layer-group text-blue-500 dark:text-blue-400 mr-1"></i> Kelas</th>
+                    ${items.map(it => `<th class="py-1 px-2.5 border-r border-slate-200 dark:border-slate-700/60 font-mono text-center">${it.interval}</th>`).join('')}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-row-item border-b border-slate-200 dark:border-slate-800/60 font-mono">
+                    <td class="py-1 px-3 border-r border-slate-200 dark:border-slate-800 font-bold text-slate-700 dark:text-slate-200 text-center"><i class="fa-solid fa-chart-column text-amber-500 dark:text-amber-400 mr-1"></i> $f_i$</td>
+                    ${items.map(it => `<td class="py-1 px-2.5 border-r border-slate-200 dark:border-slate-800 font-black text-amber-600 dark:text-amber-300 text-center">${it.freq}</td>`).join('')}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           `;
         }
+
+        let rowsHtml = '';
+        items.forEach(it => {
+          rowsHtml += `
+            <tr class="table-row-item hover:bg-slate-500/10 transition border-b border-slate-200 dark:border-slate-800 last:border-0">
+              <td class="py-1 px-3.5 border-r border-slate-200 dark:border-slate-800 font-mono font-bold text-slate-700 dark:text-slate-200 text-center">${it.interval}</td>
+              <td class="py-1 px-3.5 font-mono font-black text-amber-600 dark:text-amber-300 text-center">${it.freq}</td>
+            </tr>
+          `;
+        });
         return `
-          <div class="my-3 overflow-x-auto flex justify-center">
-            <table class="w-full max-w-sm border-collapse border border-slate-700/80 bg-slate-950 rounded-2xl overflow-hidden shadow-xl text-center text-xs">
+          <div class="my-1.5 overflow-x-auto flex justify-center">
+            <table class="math-data-table w-full max-w-xs border-collapse border border-slate-200 dark:border-slate-700/60 rounded-xl overflow-hidden shadow-sm text-center text-xs bg-white dark:bg-[#0B132B]">
               <thead>
-                <tr class="bg-gradient-to-r from-slate-900 via-[#0B2545] to-slate-900 text-amber-400 font-bold border-b border-slate-700">
-                  <th class="py-2.5 px-5 border-r border-slate-700 text-center"><i class="fa-solid fa-layer-group text-blue-400 mr-1.5"></i> Interval Nilai / Kelas</th>
-                  <th class="py-2.5 px-5 text-center"><i class="fa-solid fa-chart-column text-amber-400 mr-1.5"></i> Frekuensi ($f_i$)</th>
+                <tr class="table-hdr font-bold border-b border-slate-200 dark:border-slate-700/60 text-[11px] font-mono bg-slate-100 dark:bg-[#111D3E] text-slate-700 dark:text-amber-300">
+                  <th class="py-1 px-3 border-r border-slate-200 dark:border-slate-700/60 text-center tracking-wider"><i class="fa-solid fa-layer-group text-blue-500 dark:text-blue-400 mr-1.5"></i> Interval Nilai / Kelas</th>
+                  <th class="py-1 px-3 text-center tracking-wider"><i class="fa-solid fa-chart-column text-amber-500 dark:text-amber-400 mr-1.5"></i> Frekuensi ($f_i$)</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-800">
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60">
                 ${rowsHtml}
               </tbody>
             </table>
@@ -8016,25 +8152,39 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const pNum = parseInt(mId.replace(/\D/g, '')) || 1;
       const w = 220, h = 140;
       const uid = `${mode}_${mId}_${context}_${Math.floor(Math.random()*1000)}`;
-      const baseAttrs = `width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"`;
+      const baseAttrs = `viewBox="0 0 ${w} ${h}" class="w-full h-auto" style="max-width: 380px; max-height: 240px; display: block; margin: 0 auto;" xmlns="http://www.w3.org/2000/svg"`;
       
+      const isLight = typeof document !== 'undefined' ? (document.documentElement.classList.contains('terang') || !document.documentElement.classList.contains('dark')) : true;
+      const themeBg = isLight ? '#FFFFFF' : '#080E1E';
+      const themeGrid = isLight ? '#F1F5F9' : '#1E293B';
+      const themeText = isLight ? '#2F3437' : '#F8FAFC';
+      const themeSubtext = isLight ? '#64748B' : '#94A3B8';
+      const themeTitle = isLight ? '#B26B00' : '#F59E0B';
+      const themeBoxBg = isLight ? 'rgba(37, 99, 235, 0.08)' : '#1E293B';
+      const themeBoxBorder = isLight ? '#2563EB' : '#3B82F6';
+      const themeAccentAmber = isLight ? '#D97706' : '#F59E0B';
+      const themeAccentEmerald = isLight ? '#059669' : '#10B981';
+      const themeAccentBlue = isLight ? '#2563EB' : '#60A5FA';
+      const themeAxis = isLight ? '#94A3B8' : '#475569';
+
       const drawGrid = () => `
         <defs>
           <pattern id="grid_${uid}" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1E293B" stroke-width="0.8"/>
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="${themeGrid}" stroke-width="0.8"/>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#grid_${uid})" opacity="0.6"/>
+        <rect width="100%" height="100%" fill="${themeBg}" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#grid_${uid})" opacity="0.8" rx="8"/>
       `;
 
       const drawAxes = (cx = 110, cy = 70) => `
-        <line x1="15" y1="${cy}" x2="205" y2="${cy}" stroke="#475569" stroke-width="1.2"/>
-        <polygon points="205,${cy} 199,${cy-3} 199,${cy+3}" fill="#475569"/>
-        <line x1="${cx}" y1="125" x2="${cx}" y2="15" stroke="#475569" stroke-width="1.2"/>
-        <polygon points="${cx},15 ${cx-3},21 ${cx+3},21" fill="#475569"/>
-        <text x="202" y="${cy-5}" fill="#94A3B8" font-size="8" font-family="monospace">x</text>
-        <text x="${cx+6}" y="18" fill="#94A3B8" font-size="8" font-family="monospace">y</text>
-        <circle cx="${cx}" cy="${cy}" r="2" fill="#64748B"/>
+        <line x1="15" y1="${cy}" x2="205" y2="${cy}" stroke="${themeAxis}" stroke-width="1.2"/>
+        <polygon points="205,${cy} 199,${cy-3} 199,${cy+3}" fill="${themeAxis}"/>
+        <line x1="${cx}" y1="125" x2="${cx}" y2="15" stroke="${themeAxis}" stroke-width="1.2"/>
+        <polygon points="${cx},15 ${cx-3},21 ${cx+3},21" fill="${themeAxis}"/>
+        <text x="202" y="${cy-5}" fill="${themeSubtext}" font-size="8" font-family="monospace">x</text>
+        <text x="${cx+6}" y="18" fill="${themeSubtext}" font-size="8" font-family="monospace">y</text>
+        <circle cx="${cx}" cy="${cy}" r="2" fill="${themeAxis}"/>
       `;
 
       // -------------------------------------------------------------
@@ -8133,151 +8283,151 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           // P18: UKURAN LETAK DATA & BOXPLOT / OUTLIER
           if (context === 'toolkit') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Diagram Kotak-Garis (Boxplot) & Batas Pencilan</text>
-              <line x1="45" y1="70" x2="175" y2="70" stroke="#94A3B8" stroke-width="1.5"/>
-              <line x1="45" y1="58" x2="45" y2="82" stroke="#94A3B8" stroke-width="1.8"/>
-              <text x="45" y="53" text-anchor="middle" fill="#94A3B8" font-size="7" font-family="monospace">x_min</text>
-              <line x1="175" y1="58" x2="175" y2="82" stroke="#94A3B8" stroke-width="1.8"/>
-              <text x="175" y="53" text-anchor="middle" fill="#94A3B8" font-size="7" font-family="monospace">x_max</text>
-              <rect x="75" y="48" width="65" height="44" fill="#1E293B" stroke="#3B82F6" stroke-width="1.8" rx="3" opacity="0.85"/>
-              <line x1="105" y1="48" x2="105" y2="92" stroke="#F59E0B" stroke-width="2.2"/>
-              <text x="75" y="104" text-anchor="middle" fill="#60A5FA" font-size="7.5" font-weight="bold">Q₁</text>
-              <text x="105" y="104" text-anchor="middle" fill="#F59E0B" font-size="7.5" font-weight="bold">Q₂ (Me)</text>
-              <text x="140" y="104" text-anchor="middle" fill="#60A5FA" font-size="7.5" font-weight="bold">Q₃</text>
-              <line x1="75" y1="114" x2="140" y2="114" stroke="#38BDF8" stroke-width="1.2"/>
-              <polygon points="75,114 79,112 79,116" fill="#38BDF8"/>
-              <polygon points="140,114 136,112 136,116" fill="#38BDF8"/>
-              <text x="107" y="124" text-anchor="middle" fill="#38BDF8" font-size="7" font-family="monospace">Panjang Kotak = QR (Q₃ - Q₁)</text>
-              <line x1="28" y1="45" x2="28" y2="95" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,2"/>
-              <text x="28" y="40" text-anchor="middle" fill="#F87171" font-size="6.5" font-weight="bold">PD</text>
-              <line x1="192" y1="45" x2="192" y2="95" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,2"/>
-              <text x="192" y="40" text-anchor="middle" fill="#F87171" font-size="6.5" font-weight="bold">PL</text>
-              <circle cx="15" cy="70" r="2.8" fill="#EF4444" stroke="#FEE2E2" stroke-width="1"/>
-              <text x="15" y="83" text-anchor="middle" fill="#EF4444" font-size="6" font-weight="bold">* Pencilan</text>
-              <circle cx="205" cy="70" r="2.8" fill="#EF4444" stroke="#FEE2E2" stroke-width="1"/>
-              <text x="205" y="83" text-anchor="middle" fill="#EF4444" font-size="6" font-weight="bold">* Pencilan</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Diagram Kotak-Garis (Boxplot) &amp; Batas Pencilan</text>
+              <line x1="45" y1="70" x2="175" y2="70" stroke="${themeAxis}" stroke-width="1.5"/>
+              <line x1="45" y1="58" x2="45" y2="82" stroke="${themeAxis}" stroke-width="1.8"/>
+              <text x="45" y="53" text-anchor="middle" fill="${themeSubtext}" font-size="7" font-family="monospace">x_min</text>
+              <line x1="175" y1="58" x2="175" y2="82" stroke="${themeAxis}" stroke-width="1.8"/>
+              <text x="175" y="53" text-anchor="middle" fill="${themeSubtext}" font-size="7" font-family="monospace">x_max</text>
+              <rect x="75" y="48" width="65" height="44" fill="${themeBoxBg}" stroke="${themeBoxBorder}" stroke-width="1.8" rx="3"/>
+              <line x1="105" y1="48" x2="105" y2="92" stroke="${themeAccentAmber}" stroke-width="2.2"/>
+              <text x="75" y="104" text-anchor="middle" fill="${themeAccentBlue}" font-size="7.5" font-weight="bold">Q₁</text>
+              <text x="105" y="104" text-anchor="middle" fill="${themeAccentAmber}" font-size="7.5" font-weight="bold">Q₂ (Me)</text>
+              <text x="140" y="104" text-anchor="middle" fill="${themeAccentBlue}" font-size="7.5" font-weight="bold">Q₃</text>
+              <line x1="75" y1="114" x2="140" y2="114" stroke="${themeBoxBorder}" stroke-width="1.2"/>
+              <polygon points="75,114 79,112 79,116" fill="${themeBoxBorder}"/>
+              <polygon points="140,114 136,112 136,116" fill="${themeBoxBorder}"/>
+              <text x="107" y="124" text-anchor="middle" fill="${themeBoxBorder}" font-size="7" font-family="monospace">Panjang Kotak = QR (Q₃ - Q₁)</text>
+              <line x1="28" y1="45" x2="28" y2="95" stroke="#DC2626" stroke-width="1.2" stroke-dasharray="2,2"/>
+              <text x="28" y="40" text-anchor="middle" fill="#DC2626" font-size="6.5" font-weight="bold">PD</text>
+              <line x1="192" y1="45" x2="192" y2="95" stroke="#DC2626" stroke-width="1.2" stroke-dasharray="2,2"/>
+              <text x="192" y="40" text-anchor="middle" fill="#DC2626" font-size="6.5" font-weight="bold">PL</text>
+              <circle cx="15" cy="70" r="2.8" fill="#DC2626" stroke="#FFFFFF" stroke-width="1"/>
+              <text x="15" y="83" text-anchor="middle" fill="#DC2626" font-size="6" font-weight="bold">* Pencilan</text>
+              <circle cx="205" cy="70" r="2.8" fill="#DC2626" stroke="#FFFFFF" stroke-width="1"/>
+              <text x="205" y="83" text-anchor="middle" fill="#DC2626" font-size="6" font-weight="bold">* Pencilan</text>
             </svg>`;
           } else if (context === 'ex1') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 1: Letak Kuartil Bawah Q₁ & Median Q₂</text>
-              <line x1="25" y1="110" x2="195" y2="110" stroke="#475569" stroke-width="1.2"/>
-              <path d="M 30,110 L 60,95 L 95,75 L 135,45 L 165,28 L 190,20" fill="none" stroke="#3B82F6" stroke-width="1.8"/>
-              <line x1="25" y1="85" x2="80" y2="85" stroke="#F59E0B" stroke-width="1" stroke-dasharray="2,2"/>
-              <line x1="80" y1="85" x2="80" y2="110" stroke="#F59E0B" stroke-width="1.2" stroke-dasharray="2,2"/>
-              <circle cx="80" cy="85" r="3" fill="#F59E0B"/>
-              <text x="80" y="122" text-anchor="middle" fill="#FCD34D" font-size="7.5" font-weight="bold">Q₁ = 34,5</text>
-              <line x1="25" y1="55" x2="120" y2="55" stroke="#10B981" stroke-width="1" stroke-dasharray="2,2"/>
-              <line x1="120" y1="55" x2="120" y2="110" stroke="#10B981" stroke-width="1.2" stroke-dasharray="2,2"/>
-              <circle cx="120" cy="55" r="3" fill="#10B981"/>
-              <text x="120" y="122" text-anchor="middle" fill="#34D399" font-size="7.5" font-weight="bold">Q₂ = 44,5</text>
-              <text x="25" y="82" fill="#94A3B8" font-size="6.5">N=15</text>
-              <text x="25" y="52" fill="#94A3B8" font-size="6.5">N=30</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Level 1: Letak Kuartil Bawah Q₁ &amp; Median Q₂</text>
+              <line x1="25" y1="110" x2="195" y2="110" stroke="${themeAxis}" stroke-width="1.2"/>
+              <path d="M 30,110 L 60,95 L 95,75 L 135,45 L 165,28 L 190,20" fill="none" stroke="${themeBoxBorder}" stroke-width="2"/>
+              <line x1="25" y1="85" x2="80" y2="85" stroke="${themeAccentAmber}" stroke-width="1" stroke-dasharray="2,2"/>
+              <line x1="80" y1="85" x2="80" y2="110" stroke="${themeAccentAmber}" stroke-width="1.2" stroke-dasharray="2,2"/>
+              <circle cx="80" cy="85" r="3" fill="${themeAccentAmber}"/>
+              <text x="80" y="122" text-anchor="middle" fill="${themeAccentAmber}" font-size="7.5" font-weight="bold">Q₁ = 34,5</text>
+              <line x1="25" y1="55" x2="120" y2="55" stroke="${themeAccentEmerald}" stroke-width="1" stroke-dasharray="2,2"/>
+              <line x1="120" y1="55" x2="120" y2="110" stroke="${themeAccentEmerald}" stroke-width="1.2" stroke-dasharray="2,2"/>
+              <circle cx="120" cy="55" r="3" fill="${themeAccentEmerald}"/>
+              <text x="120" y="122" text-anchor="middle" fill="${themeAccentEmerald}" font-size="7.5" font-weight="bold">Q₂ = 44,5</text>
+              <text x="25" y="82" fill="${themeSubtext}" font-size="6.5">N=15</text>
+              <text x="25" y="52" fill="${themeSubtext}" font-size="6.5">N=30</text>
             </svg>`;
           } else if (context === 'ex2') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 2: Partisi Desil D₇ (70%) & Kuartil Q₃ (75%)</text>
-              <rect x="25" y="55" width="170" height="25" fill="#1E293B" stroke="#475569" stroke-width="1" rx="4"/>
-              <rect x="144" y="55" width="51" height="25" fill="#3B82F6" opacity="0.3"/>
-              <rect x="152" y="55" width="43" height="25" fill="#10B981" opacity="0.4"/>
-              <line x1="144" y1="45" x2="144" y2="85" stroke="#60A5FA" stroke-width="2"/>
-              <text x="144" y="40" text-anchor="middle" fill="#93C5FD" font-size="7" font-weight="bold">D₇ = 84,5</text>
-              <text x="144" y="98" text-anchor="middle" fill="#94A3B8" font-size="6.5">(Datum ke-56)</text>
-              <line x1="152" y1="45" x2="152" y2="85" stroke="#34D399" stroke-width="2"/>
-              <text x="175" y="40" text-anchor="middle" fill="#34D399" font-size="7" font-weight="bold">Q₃ = 86,5</text>
-              <text x="175" y="98" text-anchor="middle" fill="#94A3B8" font-size="6.5">(Datum ke-60)</text>
-              <text x="75" y="71" text-anchor="middle" fill="#64748B" font-size="7">70% Siswa (Skor &lt; 84,5)</text>
-              <text x="110" y="125" text-anchor="middle" fill="#FCD34D" font-size="7.5">Top 25% Berprestasi memiliki Skor ≥ 86,5</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Level 2: Partisi Desil D₇ (70%) &amp; Kuartil Q₃ (75%)</text>
+              <rect x="25" y="55" width="170" height="25" fill="${themeBoxBg}" stroke="${themeAxis}" stroke-width="1" rx="4"/>
+              <rect x="144" y="55" width="51" height="25" fill="${themeAccentBlue}" opacity="0.2"/>
+              <rect x="152" y="55" width="43" height="25" fill="${themeAccentEmerald}" opacity="0.25"/>
+              <line x1="144" y1="45" x2="144" y2="85" stroke="${themeAccentBlue}" stroke-width="2"/>
+              <text x="144" y="40" text-anchor="middle" fill="${themeAccentBlue}" font-size="7" font-weight="bold">D₇ = 84,5</text>
+              <text x="144" y="98" text-anchor="middle" fill="${themeSubtext}" font-size="6.5">(Datum ke-56)</text>
+              <line x1="152" y1="45" x2="152" y2="85" stroke="${themeAccentEmerald}" stroke-width="2"/>
+              <text x="175" y="40" text-anchor="middle" fill="${themeAccentEmerald}" font-size="7" font-weight="bold">Q₃ = 86,5</text>
+              <text x="175" y="98" text-anchor="middle" fill="${themeSubtext}" font-size="6.5">(Datum ke-60)</text>
+              <text x="75" y="71" text-anchor="middle" fill="${themeSubtext}" font-size="7">70% Siswa (Skor &lt; 84,5)</text>
+              <text x="110" y="125" text-anchor="middle" fill="${themeAccentAmber}" font-size="7.5">Top 25% Berprestasi memiliki Skor ≥ 86,5</text>
             </svg>`;
           } else if (context === 'ex3') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 3: Persentil P₈₅ (Ambang Waktu 85% Armada)</text>
-              <line x1="25" y1="110" x2="195" y2="110" stroke="#475569" stroke-width="1.2"/>
-              <path d="M 30,110 Q 70,105 100,80 T 150,40 T 190,20" fill="none" stroke="#10B981" stroke-width="2"/>
-              <line x1="150" y1="35" x2="150" y2="110" stroke="#F59E0B" stroke-width="1.8" stroke-dasharray="2,2"/>
-              <line x1="25" y1="35" x2="150" y2="35" stroke="#F59E0B" stroke-width="1" stroke-dasharray="2,2"/>
-              <circle cx="150" cy="35" r="3.5" fill="#F59E0B"/>
-              <text x="150" y="122" text-anchor="middle" fill="#FCD34D" font-size="7.5" font-weight="bold">P₈₅ = 52,0 Menit</text>
-              <text x="25" y="32" fill="#FCD34D" font-size="7" font-weight="bold">85% (N=85)</text>
-              <text x="90" y="70" fill="#34D399" font-size="7">85% Tiba Tepat Waktu</text>
-              <text x="175" y="70" fill="#EF4444" font-size="7">15% Terlambat</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Level 3: Persentil P₈₅ (Ambang Waktu 85% Armada)</text>
+              <line x1="25" y1="110" x2="195" y2="110" stroke="${themeAxis}" stroke-width="1.2"/>
+              <path d="M 30,110 Q 70,105 100,80 T 150,40 T 190,20" fill="none" stroke="${themeAccentEmerald}" stroke-width="2"/>
+              <line x1="150" y1="35" x2="150" y2="110" stroke="${themeAccentAmber}" stroke-width="1.8" stroke-dasharray="2,2"/>
+              <line x1="25" y1="35" x2="150" y2="35" stroke="${themeAccentAmber}" stroke-width="1" stroke-dasharray="2,2"/>
+              <circle cx="150" cy="35" r="3.5" fill="${themeAccentAmber}"/>
+              <text x="150" y="122" text-anchor="middle" fill="${themeAccentAmber}" font-size="7.5" font-weight="bold">P₈₅ = 52,0 Menit</text>
+              <text x="25" y="32" fill="${themeAccentAmber}" font-size="7" font-weight="bold">85% (N=85)</text>
+              <text x="90" y="70" fill="${themeAccentEmerald}" font-size="7">85% Tiba Tepat Waktu</text>
+              <text x="175" y="70" fill="#DC2626" font-size="7">15% Terlambat</text>
             </svg>`;
           } else if (context === 'ex4') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 4: Jangkauan Interkuartil QR & Simpangan Qd</text>
-              <line x1="30" y1="65" x2="190" y2="65" stroke="#64748B" stroke-width="1.5"/>
-              <rect x="65" y="45" width="80" height="40" fill="#1E293B" stroke="#3B82F6" stroke-width="1.8" rx="3"/>
-              <line x1="105" y1="45" x2="105" y2="85" stroke="#F59E0B" stroke-width="2"/>
-              <text x="65" y="40" text-anchor="middle" fill="#60A5FA" font-size="7.5" font-weight="bold">Q₁ = 46,5</text>
-              <text x="145" y="40" text-anchor="middle" fill="#60A5FA" font-size="7.5" font-weight="bold">Q₃ = 65,5</text>
-              <line x1="65" y1="98" x2="145" y2="98" stroke="#F59E0B" stroke-width="1.5"/>
-              <polygon points="65,98 70,96 70,100" fill="#F59E0B"/>
-              <polygon points="145,98 140,96 140,100" fill="#F59E0B"/>
-              <text x="105" y="110" text-anchor="middle" fill="#FCD34D" font-size="8" font-weight="bold">QR = Q₃ - Q₁ = 19,0</text>
-              <text x="105" y="124" text-anchor="middle" fill="#38BDF8" font-size="7.5">Simpangan Kuartil: Qd = ½(19) = 9,5 | L = 28,5</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Level 4: Jangkauan Interkuartil QR &amp; Simpangan Qd</text>
+              <line x1="30" y1="65" x2="190" y2="65" stroke="${themeAxis}" stroke-width="1.5"/>
+              <rect x="65" y="45" width="80" height="40" fill="${themeBoxBg}" stroke="${themeBoxBorder}" stroke-width="1.8" rx="3"/>
+              <line x1="105" y1="45" x2="105" y2="85" stroke="${themeAccentAmber}" stroke-width="2"/>
+              <text x="65" y="40" text-anchor="middle" fill="${themeAccentBlue}" font-size="7.5" font-weight="bold">Q₁ = 46,5</text>
+              <text x="145" y="40" text-anchor="middle" fill="${themeAccentBlue}" font-size="7.5" font-weight="bold">Q₃ = 65,5</text>
+              <line x1="65" y1="98" x2="145" y2="98" stroke="${themeAccentAmber}" stroke-width="1.5"/>
+              <polygon points="65,98 70,96 70,100" fill="${themeAccentAmber}"/>
+              <polygon points="145,98 140,96 140,100" fill="${themeAccentAmber}"/>
+              <text x="105" y="110" text-anchor="middle" fill="${themeAccentAmber}" font-size="8" font-weight="bold">QR = Q₃ - Q₁ = 19,0</text>
+              <text x="105" y="124" text-anchor="middle" fill="${themeBoxBorder}" font-size="7.5">Simpangan Kuartil: Qd = ½(19) = 9,5 | L = 28,5</text>
             </svg>`;
           } else if (context === 'ex5') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 5: Pagar Dalam (PD), Pagar Luar (PL), & Outlier</text>
-              <rect x="50" y="50" width="120" height="30" fill="#10B981" opacity="0.15" stroke="#10B981" stroke-dasharray="2,2"/>
-              <text x="110" y="68" text-anchor="middle" fill="#34D399" font-size="7.5" font-weight="bold">Zona Data Normal [16,0 ; 112,0]</text>
-              <line x1="50" y1="40" x2="50" y2="90" stroke="#EF4444" stroke-width="2"/>
-              <text x="50" y="35" text-anchor="middle" fill="#F87171" font-size="7" font-weight="bold">PD = 16,0</text>
-              <line x1="170" y1="40" x2="170" y2="90" stroke="#EF4444" stroke-width="2"/>
-              <text x="170" y="35" text-anchor="middle" fill="#F87171" font-size="7" font-weight="bold">PL = 112,0</text>
-              <circle cx="30" cy="65" r="4" fill="#EF4444"/>
-              <text x="30" y="80" text-anchor="middle" fill="#FCA5A5" font-size="6.5" font-weight="bold">xA = 14,0</text>
-              <text x="30" y="90" text-anchor="middle" fill="#EF4444" font-size="6">(Outlier Bawah)</text>
-              <circle cx="195" cy="65" r="4" fill="#EF4444"/>
-              <text x="195" y="80" text-anchor="middle" fill="#FCA5A5" font-size="6.5" font-weight="bold">xB = 115,0</text>
-              <text x="195" y="90" text-anchor="middle" fill="#EF4444" font-size="6">(Outlier Atas)</text>
-              <text x="110" y="125" text-anchor="middle" fill="#FCD34D" font-size="7.5">Kriteria: Data di luar [PD, PL] = Pencilan Ekstrem</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Level 5: Pagar Dalam (PD), Pagar Luar (PL), &amp; Outlier</text>
+              <rect x="50" y="50" width="120" height="30" fill="${themeAccentEmerald}" opacity="0.12" stroke="${themeAccentEmerald}" stroke-dasharray="2,2"/>
+              <text x="110" y="68" text-anchor="middle" fill="${themeAccentEmerald}" font-size="7.5" font-weight="bold">Zona Data Normal [16,0 ; 112,0]</text>
+              <line x1="50" y1="40" x2="50" y2="90" stroke="#DC2626" stroke-width="2"/>
+              <text x="50" y="35" text-anchor="middle" fill="#DC2626" font-size="7" font-weight="bold">PD = 16,0</text>
+              <line x1="170" y1="40" x2="170" y2="90" stroke="#DC2626" stroke-width="2"/>
+              <text x="170" y="35" text-anchor="middle" fill="#DC2626" font-size="7" font-weight="bold">PL = 112,0</text>
+              <circle cx="30" cy="65" r="4" fill="#DC2626"/>
+              <text x="30" y="80" text-anchor="middle" fill="#DC2626" font-size="6.5" font-weight="bold">xA = 14,0</text>
+              <text x="30" y="90" text-anchor="middle" fill="#DC2626" font-size="6">(Outlier Bawah)</text>
+              <circle cx="195" cy="65" r="4" fill="#DC2626"/>
+              <text x="195" y="80" text-anchor="middle" fill="#DC2626" font-size="6.5" font-weight="bold">xB = 115,0</text>
+              <text x="195" y="90" text-anchor="middle" fill="#DC2626" font-size="6">(Outlier Atas)</text>
+              <text x="110" y="125" text-anchor="middle" fill="${themeAccentAmber}" font-size="7.5">Kriteria: Data di luar [PD, PL] = Pencilan Ekstrem</text>
             </svg>`;
           } else if (context === 'ex6') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 6: Distribusi Miring Positif (Kanan)</text>
-              <line x1="40" y1="65" x2="70" y2="65" stroke="#94A3B8" stroke-width="1.5"/>
-              <line x1="40" y1="55" x2="40" y2="75" stroke="#94A3B8" stroke-width="1.8"/>
-              <text x="40" y="50" text-anchor="middle" fill="#94A3B8" font-size="6.5">Min=10</text>
-              <rect x="70" y="45" width="60" height="40" fill="#1E293B" stroke="#3B82F6" stroke-width="1.8" rx="2"/>
-              <line x1="90" y1="45" x2="90" y2="85" stroke="#F59E0B" stroke-width="2.2"/>
-              <text x="70" y="98" text-anchor="middle" fill="#60A5FA" font-size="7">Q₁=20</text>
-              <text x="90" y="98" text-anchor="middle" fill="#F59E0B" font-size="7">Q₂=25</text>
-              <text x="130" y="98" text-anchor="middle" fill="#60A5FA" font-size="7">Q₃=35</text>
-              <line x1="130" y1="65" x2="185" y2="65" stroke="#94A3B8" stroke-width="1.5"/>
-              <line x1="185" y1="55" x2="185" y2="75" stroke="#94A3B8" stroke-width="1.8"/>
-              <text x="185" y="50" text-anchor="middle" fill="#94A3B8" font-size="6.5">Max=52</text>
-              <text x="80" y="38" text-anchor="middle" fill="#64748B" font-size="6.5">5</text>
-              <text x="110" y="38" text-anchor="middle" fill="#F59E0B" font-size="6.5">10 (Lebih Renggang)</text>
-              <text x="110" y="122" text-anchor="middle" fill="#FCD34D" font-size="7.5">Kanan > Kiri ⇒ Miring Kanan (Mean > Median)</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Level 6: Distribusi Miring Positif (Kanan)</text>
+              <line x1="40" y1="65" x2="70" y2="65" stroke="${themeAxis}" stroke-width="1.5"/>
+              <line x1="40" y1="55" x2="40" y2="75" stroke="${themeAxis}" stroke-width="1.8"/>
+              <text x="40" y="50" text-anchor="middle" fill="${themeSubtext}" font-size="6.5">Min=10</text>
+              <rect x="70" y="45" width="60" height="40" fill="${themeBoxBg}" stroke="${themeBoxBorder}" stroke-width="1.8" rx="2"/>
+              <line x1="90" y1="45" x2="90" y2="85" stroke="${themeAccentAmber}" stroke-width="2.2"/>
+              <text x="70" y="98" text-anchor="middle" fill="${themeAccentBlue}" font-size="7">Q₁=20</text>
+              <text x="90" y="98" text-anchor="middle" fill="${themeAccentAmber}" font-size="7">Q₂=25</text>
+              <text x="130" y="98" text-anchor="middle" fill="${themeAccentBlue}" font-size="7">Q₃=35</text>
+              <line x1="130" y1="65" x2="185" y2="65" stroke="${themeAxis}" stroke-width="1.5"/>
+              <line x1="185" y1="55" x2="185" y2="75" stroke="${themeAxis}" stroke-width="1.8"/>
+              <text x="185" y="50" text-anchor="middle" fill="${themeSubtext}" font-size="6.5">Max=52</text>
+              <text x="80" y="38" text-anchor="middle" fill="${themeSubtext}" font-size="6.5">5</text>
+              <text x="110" y="38" text-anchor="middle" fill="${themeAccentAmber}" font-size="6.5">10 (Lebih Renggang)</text>
+              <text x="110" y="122" text-anchor="middle" fill="${themeAccentAmber}" font-size="7.5">Kanan > Kiri ⇒ Miring Kanan (Mean > Median)</text>
             </svg>`;
           } else if (context === 'ex7') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 7: Transformasi Linear Y = 1,25X + 50</text>
-              <text x="25" y="46" fill="#94A3B8" font-size="7" font-weight="bold">Data X:</text>
-              <line x1="45" y1="45" x2="145" y2="45" stroke="#64748B" stroke-width="1.2"/>
-              <rect x="65" y="35" width="55" height="20" fill="#1E293B" stroke="#64748B" stroke-width="1.2" rx="2"/>
-              <line x1="90" y1="35" x2="90" y2="55" stroke="#94A3B8" stroke-width="1.5"/>
-              <text x="65" y="30" text-anchor="middle" fill="#94A3B8" font-size="6">Q₁=400</text>
-              <text x="120" y="30" text-anchor="middle" fill="#94A3B8" font-size="6">Q₃=640</text>
-              <text x="155" y="48" fill="#94A3B8" font-size="6.5">QR = 240</text>
-              <text x="25" y="86" fill="#F59E0B" font-size="7" font-weight="bold">Data Y:</text>
-              <line x1="60" y1="85" x2="185" y2="85" stroke="#3B82F6" stroke-width="1.5"/>
-              <rect x="85" y="72" width="75" height="26" fill="#1E293B" stroke="#3B82F6" stroke-width="1.8" rx="2"/>
-              <line x1="120" y1="72" x2="120" y2="98" stroke="#F59E0B" stroke-width="2"/>
-              <text x="85" y="110" text-anchor="middle" fill="#60A5FA" font-size="6.5" font-weight="bold">Q₁*=550</text>
-              <text x="120" y="110" text-anchor="middle" fill="#F59E0B" font-size="6.5" font-weight="bold">Q₂*=700</text>
-              <text x="160" y="110" text-anchor="middle" fill="#60A5FA" font-size="6.5" font-weight="bold">Q₃*=850</text>
-              <text x="190" y="88" fill="#FCD34D" font-size="6.5" font-weight="bold">QR* = 300</text>
-              <text x="110" y="127" text-anchor="middle" fill="#38BDF8" font-size="7">Kuartil Geser (+50 &amp; x1,25), QR Hanya Mengembang (x1,25)</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Level 7: Transformasi Linear Y = 1,25X + 50</text>
+              <text x="25" y="46" fill="${themeSubtext}" font-size="7" font-weight="bold">Data X:</text>
+              <line x1="45" y1="45" x2="145" y2="45" stroke="${themeAxis}" stroke-width="1.2"/>
+              <rect x="65" y="35" width="55" height="20" fill="${themeBoxBg}" stroke="${themeAxis}" stroke-width="1.2" rx="2"/>
+              <line x1="90" y1="35" x2="90" y2="55" stroke="${themeSubtext}" stroke-width="1.5"/>
+              <text x="65" y="30" text-anchor="middle" fill="${themeSubtext}" font-size="6">Q₁=400</text>
+              <text x="120" y="30" text-anchor="middle" fill="${themeSubtext}" font-size="6">Q₃=640</text>
+              <text x="155" y="48" fill="${themeSubtext}" font-size="6.5">QR = 240</text>
+              <text x="25" y="86" fill="${themeAccentAmber}" font-size="7" font-weight="bold">Data Y:</text>
+              <line x1="60" y1="85" x2="185" y2="85" stroke="${themeBoxBorder}" stroke-width="1.5"/>
+              <rect x="85" y="72" width="75" height="26" fill="${themeBoxBg}" stroke="${themeBoxBorder}" stroke-width="1.8" rx="2"/>
+              <line x1="120" y1="72" x2="120" y2="98" stroke="${themeAccentAmber}" stroke-width="2"/>
+              <text x="85" y="110" text-anchor="middle" fill="${themeAccentBlue}" font-size="6.5" font-weight="bold">Q₁*=550</text>
+              <text x="120" y="110" text-anchor="middle" fill="${themeAccentAmber}" font-size="6.5" font-weight="bold">Q₂*=700</text>
+              <text x="160" y="110" text-anchor="middle" fill="${themeAccentBlue}" font-size="6.5" font-weight="bold">Q₃*=850</text>
+              <text x="190" y="88" fill="${themeAccentAmber}" font-size="6.5" font-weight="bold">QR* = 300</text>
+              <text x="110" y="127" text-anchor="middle" fill="${themeBoxBorder}" font-size="7">Kuartil Geser (+50 &amp; x1,25), QR Hanya Mengembang (x1,25)</text>
             </svg>`;
           } else if (context === 'collab') {
             return `<svg ${baseAttrs}>${drawGrid()}
-              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Stasiun Kolaborasi: Komparasi Boxplot Dua Tim</text>
-              <text x="25" y="46" fill="#60A5FA" font-size="7" font-weight="bold">Tim A (Simetris):</text>
-              <line x1="50" y1="43" x2="170" y2="43" stroke="#60A5FA" stroke-width="1.2"/>
-              <rect x="75" y="33" width="70" height="20" fill="#1E293B" stroke="#60A5FA" stroke-width="1.5" rx="2"/>
-              <line x1="110" y1="33" x2="110" y2="53" stroke="#F59E0B" stroke-width="2"/>
-              <text x="180" y="46" fill="#93C5FD" font-size="6.5">QR = 20</text>
+              <text x="110" y="14" text-anchor="middle" fill="${themeTitle}" font-size="8.5" font-weight="bold">Stasiun Kolaborasi: Komparasi Boxplot Dua Tim</text>
+              <text x="25" y="46" fill="${themeAccentBlue}" font-size="7" font-weight="bold">Tim A (Simetris):</text>
+              <line x1="50" y1="43" x2="170" y2="43" stroke="${themeAccentBlue}" stroke-width="1.2"/>
+              <rect x="75" y="33" width="70" height="20" fill="${themeBoxBg}" stroke="${themeAccentBlue}" stroke-width="1.5" rx="2"/>
+              <line x1="110" y1="33" x2="110" y2="53" stroke="${themeAccentAmber}" stroke-width="2"/>
+              <text x="180" y="46" fill="${themeAccentBlue}" font-size="6.5">QR = 20</text>
               <text x="25" y="86" fill="#34D399" font-size="7" font-weight="bold">Tim B (Pencilan):</text>
               <line x1="60" y1="83" x2="155" y2="83" stroke="#34D399" stroke-width="1.2"/>
               <rect x="80" y="73" width="50" height="20" fill="#1E293B" stroke="#34D399" stroke-width="1.5" rx="2"/>

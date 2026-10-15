@@ -1306,28 +1306,28 @@ const NAMA_TINGKAT = 'XII';
       "hook": "Dalam seleksi masuk perguruan tinggi bergengsi (UTBK-SNBT) dan penetapan Service Level Agreement (SLA) infrastruktur cloud computing, nilai rata-rata (mean) sering kali menyesatkan karena mudah terdistorsi oleh satu atau dua data ekstrem. Lembaga penguji nasional dan praktisi IT mengandalkan ukuran letak: Kuartil ($Q_1, Q_2, Q_3$), Desil ($D_i$), dan Persentil ($P_{90}/P_{99}$) untuk menentukan passing grade serta mendeteksi anomali kegagalan sistem (outlier) secara akurat.",
       "toolkit": [
         {
-          "name": "Kuartil ke-i Data Berkelompok (i = 1, 2, 3)",
-          "math": "$$Q_i = Tb + \\left( \\frac{\\frac{i}{4}N - F_k}{f_{Q_i}} \\right) c \\quad (\\text{Letak pada datum ke-}\\frac{i}{4}N)$$"
+          "name": "Kuartil ke-i (Letak: $\\frac{i}{4}N$)",
+          "math": "$$Q_i = Tb + \\left( \\frac{\\frac{i}{4}N - F_k}{f_{Q_i}} \\right) c$$"
         },
         {
-          "name": "Desil ke-i Data Berkelompok (i = 1, 2, ..., 9)",
-          "math": "$$D_i = Tb + \\left( \\frac{\\frac{i}{10}N - F_k}{f_{D_i}} \\right) c \\quad (\\text{Letak pada datum ke-}\\frac{i}{10}N)$$"
+          "name": "Desil ke-i (Letak: $\\frac{i}{10}N$)",
+          "math": "$$D_i = Tb + \\left( \\frac{\\frac{i}{10}N - F_k}{f_{D_i}} \\right) c$$"
         },
         {
-          "name": "Persentil ke-i Data Berkelompok (i = 1, 2, ..., 99)",
-          "math": "$$P_i = Tb + \\left( \\frac{\\frac{i}{100}N - F_k}{f_{P_i}} \\right) c \\quad (\\text{Letak pada datum ke-}\\frac{i}{100}N)$$"
+          "name": "Persentil ke-i (Letak: $\\frac{i}{100}N$)",
+          "math": "$$P_i = Tb + \\left( \\frac{\\frac{i}{100}N - F_k}{f_{P_i}} \\right) c$$"
         },
         {
-          "name": "Jangkauan Interkuartil (QR), Simpangan Kuartil (Qd), & Langkah (L)",
-          "math": "$$QR = Q_3 - Q_1, \\quad Q_d = \\frac{1}{2} QR = \\frac{1}{2}(Q_3 - Q_1), \\quad L = \\frac{3}{2} QR = 1{,}5(QR)$$"
+          "name": "Dispersi Letak: $QR, Q_d$, & Langkah",
+          "math": "$$\\begin{aligned} QR &= Q_3 - Q_1, \\quad Q_d = \\tfrac{1}{2}QR \\\\[-2pt] L &= 1{,}5(QR) \\end{aligned}$$"
         },
         {
-          "name": "Pagar Dalam (PD), Pagar Luar (PL), & Kriteria Pencilan (Outlier)",
-          "math": "$$PD = Q_1 - L = Q_1 - 1{,}5(QR), \\quad PL = Q_3 + L = Q_3 + 1{,}5(QR) \\quad (\\text{Pencilan jika } x < PD \\text{ atau } x > PL)$$"
+          "name": "Pagar & Pencilan ($x < PD \\text{ / } x > PL$)",
+          "math": "$$\\begin{aligned} PD &= Q_1 - L \\\\[-2pt] PL &= Q_3 + L \\end{aligned}$$"
         },
         {
-          "name": "Five-Number Summary & Sifat Transformasi Linear Data",
-          "math": "$$[x_{min}, Q_1, Q_2, Q_3, x_{max}] \\quad \\implies \\quad Y = aX + b \\implies Q_{i,baru} = a \\cdot Q_{i,lama} + b, \\quad QR_{baru} = |a| \\cdot QR_{lama}$$"
+          "name": "Transformasi Linear $Y = aX + b$",
+          "math": "$$\\begin{aligned} Q_{i,baru} &= a \\cdot Q_{i,lama} + b \\\\[-2pt] QR_{baru} &= |a| \\cdot QR_{lama} \\end{aligned}$$"
         }
       ],
       "examples": [

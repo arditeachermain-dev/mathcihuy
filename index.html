@@ -37,7 +37,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v20261011_scroll_fix_v1">
+  <link rel="stylesheet" href="mathcihuy.css?v=v20261016_p18_supervisi_pristine_v3">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -1226,21 +1226,21 @@
           </div>
 
           <!-- SLIDE COUNTER -->
-          <div class="pl-1.5 border-l border-slate-800">
-            <span class="text-xs font-mono font-bold text-slate-200 bg-slate-950 px-2 py-0.5 rounded-md border border-slate-800 shrink-0" id="slide-counter">1 / 13</span>
+          <div class="pl-2 border-l border-slate-700/60 dark:border-slate-800 flex items-center">
+            <div id="slide-counter" class="flex items-center">1 / 14</div>
           </div>
         </div>
 
       </div>
 
       <!-- SLIDE CONTENT BODY -->
-      <div id="slide-body" class="flex-1 min-h-0 p-3 md:p-8 overflow-y-auto flex flex-col relative z-20">
+      <div id="slide-body" class="flex-1 min-h-0 p-2 sm:p-3 md:px-6 md:py-3.5 overflow-y-auto custom-scroll flex flex-col relative z-20">
         <!-- Rendered via JS -->
       </div>
 
       <!-- SLIDE BOTTOM VISUAL GRID (13 CLICKABLE SLIDE BUTTONS) -->
       <div class="h-16 md:h-[4.5rem] bg-[#071527] border-t border-slate-800 px-2 md:px-3 flex items-center justify-between shrink-0 gap-1.5">
-        <button onclick="prevSlide()" class="px-2.5 py-1.5 md:px-3 md:py-2 bg-slate-800 hover:bg-slate-700 active:scale-95 text-white rounded-xl text-xs font-extrabold flex items-center gap-1.5 border border-slate-700 transition shrink-0">
+        <button id="slide-prev-btn" onclick="prevSlide()" class="px-2.5 py-1.5 md:px-3 md:py-2 bg-slate-800 hover:bg-slate-700 active:scale-95 text-white rounded-xl text-xs font-extrabold flex items-center gap-1.5 border border-slate-700 transition shrink-0 cursor-pointer">
           <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-chevron-left"></use></svg> <span class="hidden sm:inline">Prev</span>
         </button>
 
@@ -1249,7 +1249,7 @@
           <!-- Generated dynamically -->
         </div>
 
-        <button onclick="nextSlide()" class="px-2.5 py-1.5 md:px-3 md:py-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-lg transition shrink-0">
+        <button id="slide-next-btn" onclick="nextSlide()" class="px-2.5 py-1.5 md:px-3 md:py-2 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-lg transition shrink-0 cursor-pointer">
           <span class="hidden sm:inline">Next</span> <svg class="icon-base icon-hover:glow"><use xlink:href="#icon-chevron-right"></use></svg>
         </button>
       </div>
@@ -1884,8 +1884,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v20261016_p18_supervisi_v1"></script>
-  <script src="app.js?v=v20261016_p18_supervisi_v1"></script>
+  <script src="data-xii.js?v=v20261016_p18_supervisi_pristine_v3"></script>
+  <script src="app.js?v=v20261016_p18_supervisi_pristine_v3"></script>
 
 
     <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
