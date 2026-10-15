@@ -1293,81 +1293,119 @@ const NAMA_TINGKAT = 'XII';
     },
     {
       "id": "P18",
-      "bab": "Bab 3: Statistika & Analisis Data",
-      "title": "Ukuran Letak Data (Kuartil Q1-Q3, Desil, Jangkauan Interkuartil)",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
+      "title": "Ukuran Letak Data: Kuartil, Desil, Persentil, & Deteksi Pencilan (Outlier)",
       "obj": [
-        "Menghitung Kuartil Bawah ($Q_1$), Kuartil Tengah ($Q_2$), dan Kuartil Atas ($Q_3$) data berkelompok.",
-        "Menghitung Jangkauan Interkuartil ($QR = Q_3 - Q_1$) dan Simpangan Kuartil ($Q_d = \\frac{1}{2}QR$).",
-        "Mendeteksi adanya nilai pencilan ekstrim (Outlier) menggunakan batas Pagar Bawah dan Pagar Atas."
+        "Menghitung Kuartil Bawah ($Q_1$), Kuartil Tengah ($Q_2$ / Median), dan Kuartil Atas ($Q_3$) data berkelompok menggunakan teknik interpolasi tepi kelas secara presisi.",
+        "Menentukan letak dan menghitung nilai Desil ke-$i$ ($D_i$) serta Persentil ke-$i$ ($P_i$) data berkelompok dari tabel distribusi frekuensi.",
+        "Menganalisis ukuran penyebaran posisi: Jangkauan Interkuartil ($QR = Q_3 - Q_1$), Simpangan Kuartil ($Q_d = \\frac{1}{2}QR$), dan Langkah ($L = 1{,}5 \\cdot QR$).",
+        "Menetapkan batas Pagar Dalam ($PD = Q_1 - L$) dan Pagar Luar ($PL = Q_3 + L$) untuk mengidentifikasi keberadaan nilai pencilan ekstrem (*outlier*).",
+        "Mengonstruksi ringkasan lima data (*Five-Number Summary*) dan menginterpretasikan bentuk kemiringan sebaran (*skewness*) melalui Diagram Kotak-Garis (*Box-and-Whisker Plot*).",
+        "Memecahkan masalah kontekstual terapan pemodelan data (analisis passing grade UTBK-SNBT, Service Level Agreement SLA IT, dan efek transformasi linear $Y = aX + b$ pada ukuran letak)."
       ],
-      "hook": "Perguruan Tinggi Negeri menggunakan persentil dan kuartil atas ($Q_3$) untuk menentukan passing grade kelulusan program studi favorit.",
+      "hook": "Dalam seleksi masuk perguruan tinggi bergengsi (UTBK-SNBT) dan penetapan Service Level Agreement (SLA) infrastruktur cloud computing, nilai rata-rata (mean) sering kali menyesatkan karena mudah terdistorsi oleh satu atau dua data ekstrem. Lembaga penguji nasional dan praktisi IT mengandalkan ukuran letak: Kuartil ($Q_1, Q_2, Q_3$), Desil ($D_i$), dan Persentil ($P_{90}/P_{99}$) untuk menentukan passing grade serta mendeteksi anomali kegagalan sistem (outlier) secara akurat.",
       "toolkit": [
         {
-          "name": "Kuartil ke-i Data Berkelompok",
-          "math": "$$Q_i = Tb + \\left( \\frac{\\frac{i}{4}N - F_k}{f_{Q_i}} \\right) c \\quad (i = 1, 2, 3)$$"
+          "name": "Kuartil ke-i Data Berkelompok (i = 1, 2, 3)",
+          "math": "$$Q_i = Tb + \\left( \\frac{\\frac{i}{4}N - F_k}{f_{Q_i}} \\right) c \\quad (\\text{Letak pada datum ke-}\\frac{i}{4}N)$$"
         },
         {
-          "name": "Jangkauan Interkuartil & Simpangan Kuartil",
-          "math": "$$QR = Q_3 - Q_1, \\quad Q_d = \\frac{1}{2} QR$$"
+          "name": "Desil ke-i Data Berkelompok (i = 1, 2, ..., 9)",
+          "math": "$$D_i = Tb + \\left( \\frac{\\frac{i}{10}N - F_k}{f_{D_i}} \\right) c \\quad (\\text{Letak pada datum ke-}\\frac{i}{10}N)$$"
         },
         {
-          "name": "Diagram Kotak-Garis (Boxplot) & Batas Pencilan",
-          "math": "$$\\text{Panjang Kotak} = QR = Q_3 - Q_1, \\quad PB = Q_1 - 1{,}5(QR), \\quad PA = Q_3 + 1{,}5(QR)$$"
+          "name": "Persentil ke-i Data Berkelompok (i = 1, 2, ..., 99)",
+          "math": "$$P_i = Tb + \\left( \\frac{\\frac{i}{100}N - F_k}{f_{P_i}} \\right) c \\quad (\\text{Letak pada datum ke-}\\frac{i}{100}N)$$"
         },
         {
-          "name": "Desil ke-i Data Berkelompok",
-          "math": "$$D_i = Tb + \\left( \\frac{\\frac{i}{10}N - F_k}{f_{D_i}} \\right) c \\quad (i = 1, 2, \\dots, 9)$$"
+          "name": "Jangkauan Interkuartil (QR), Simpangan Kuartil (Qd), & Langkah (L)",
+          "math": "$$QR = Q_3 - Q_1, \\quad Q_d = \\frac{1}{2} QR = \\frac{1}{2}(Q_3 - Q_1), \\quad L = \\frac{3}{2} QR = 1{,}5(QR)$$"
         },
         {
-          "name": "Persentil ke-i Data Berkelompok",
-          "math": "$$P_i = Tb + \\left( \\frac{\\frac{i}{100}N - F_k}{f_{P_i}} \\right) c \\quad (i = 1, 2, \\dots, 99)$$"
+          "name": "Pagar Dalam (PD), Pagar Luar (PL), & Kriteria Pencilan (Outlier)",
+          "math": "$$PD = Q_1 - L = Q_1 - 1{,}5(QR), \\quad PL = Q_3 + L = Q_3 + 1{,}5(QR) \\quad (\\text{Pencilan jika } x < PD \\text{ atau } x > PL)$$"
+        },
+        {
+          "name": "Five-Number Summary & Sifat Transformasi Linear Data",
+          "math": "$$[x_{min}, Q_1, Q_2, Q_3, x_{max}] \\quad \\implies \\quad Y = aX + b \\implies Q_{i,baru} = a \\cdot Q_{i,lama} + b, \\quad QR_{baru} = |a| \\cdot QR_{lama}$$"
         }
       ],
       "examples": [
         {
-          "problem": "Tentukan Kuartil Bawah ($Q_1$) dari tabel distribusi: [40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]!",
-          "solution": "Langkah 1: Total frekuensi $N = 40$. Letak $Q_1 = \\frac{1}{4} N = 10$.\nLangkah 2: Frekuensi kumulatif: $F_{k1}=4, F_{k2}=10$. Data ke-10 tepat di akhir interval $50-59$.\nLangkah 3: Tepi atas kelas ke-2 $= 59{,}5$. Atau gunakan rumus: $T_b = 49{,}5, F_k = 4, f_{Q1} = 6, c = 10$.\nLangkah 4: $Q_1 = 49{,}5 + \\left( \\frac{10 - 4}{6} \\right) 10 = 49{,}5 + 10 = 59{,}5$.\nKesimpulan: Nilai Kuartil Bawah ($Q_1$) adalah $59{,}5$."
+          "pill": "Level 1",
+          "level": "Level 1: Fondasi Konsep",
+          "title": "Kuartil Bawah (Q1) & Kuartil Tengah (Q2)",
+          "problem": "Uji latensi respon 60 node server cloud computing (dalam milidetik) menghasilkan tabel distribusi frekuensi berikut:\n[20-29: 9], [30-39: 12], [40-49: 18], [50-59: 11], [60-69: 10]\nTotal frekuensi $N = 60$. Tentukan nilai Kuartil Bawah ($Q_1$) dan Kuartil Tengah ($Q_2$ / Median) dari waktu respon server tersebut!",
+          "solution": "Langkah 1: Identifikasi parameter dasar: total data $N = 60$, panjang interval kelas $c = 10$.\n\nLangkah 2: Menghitung Kuartil Bawah ($Q_1$):\n- Letak $Q_1$ pada datum ke-$\\frac{1}{4}(60) = 15$.\n- Frekuensi kumulatif: Kelas 1 ($20-29$) = $9$, Kelas 2 ($30-39$) = $9 + 12 = 21$.\n- Datum ke-15 berada pada kelas ke-2 ($30 - 39$).\n- Parameter: Tepi bawah $Tb = 29{,}5$, $F_k = 9$, frekuensi kuartil $f_{Q_1} = 12$, $c = 10$.\n- $Q_1 = 29{,}5 + \\left(\\frac{15 - 9}{12}\\right) \\cdot 10 = 29{,}5 + \\left(\\frac{6}{12}\\right) \\cdot 10 = 29{,}5 + 5{,}0 = 34{,}5\\text{ ms}$.\n\nLangkah 3: Menghitung Kuartil Tengah / Median ($Q_2$):\n- Letak $Q_2$ pada datum ke-$\\frac{2}{4}(60) = 30$.\n- Frekuensi kumulatif: Kelas 2 = $21$, Kelas 3 ($40-49$) = $21 + 18 = 39$.\n- Datum ke-30 berada pada kelas ke-3 ($40 - 49$).\n- Parameter: $Tb = 39{,}5$, $F_k = 21$, $f_{Q_2} = 18$, $c = 10$.\n- $Q_2 = 39{,}5 + \\left(\\frac{30 - 21}{18}\\right) \\cdot 10 = 39{,}5 + \\left(\\frac{9}{18}\\right) \\cdot 10 = 39{,}5 + 5{,}0 = 44{,}5\\text{ ms}$.\n\nKesimpulan: Nilai Kuartil Bawah adalah $Q_1 = 34{,}5\\text{ ms}$ dan Median adalah $Q_2 = 44{,}5\\text{ ms}$."
         },
         {
-          "problem": "Tentukan Kuartil Atas ($Q_3$) dari tabel data: [40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]!",
-          "solution": "Langkah 1: Letak $Q_3 = \\frac{3}{4} N = \\frac{3}{4}(40) = 30$.\nLangkah 2: Frekuensi kumulatif: $F_{k1}=4, F_{k2}=10, F_{k3}=22, F_{k4}=32$. Kelas $Q_3$ adalah $70 - 79$.\nLangkah 3: $T_b = 69{,}5, F_k = 22, f_{Q3} = 10, c = 10$.\nLangkah 4: $Q_3 = 69{,}5 + \\left( \\frac{30 - 22}{10} \\right) 10 = 69{,}5 + 8 = 77{,}5$.\nKesimpulan: Nilai Kuartil Atas ($Q_3$) adalah $77{,}5$."
+          "pill": "Level 2",
+          "level": "Level 2: Karakteristik & Analitis",
+          "title": "Kuartil Atas (Q3) & Desil ke-7 (D7)",
+          "problem": "Distribusi skor simulasi Tes Kemampuan Akademik (TKA) 80 siswa Kelas XII disajikan pada tabel berikut:\n[51-60: 8], [61-70: 16], [71-80: 24], [81-90: 20], [91-100: 12]\nTotal frekuensi $N = 80$. Tentukan nilai Kuartil Atas ($Q_3$) dan Desil ke-7 ($D_7$), serta jelaskan interpretasi persentase capaian siswa!",
+          "solution": "Langkah 1: Total frekuensi $N = 80$, panjang interval kelas $c = 10$.\n\nLangkah 2: Menghitung Kuartil Atas ($Q_3$):\n- Letak $Q_3$ pada datum ke-$\\frac{3}{4}(80) = 60$.\n- Frekuensi kumulatif: Kelas 1 = $8$, Kelas 2 = $24$, Kelas 3 = $48$, Kelas 4 ($81-90$) = $68$.\n- Datum ke-60 berada pada kelas ke-4 ($81 - 90$).\n- Parameter: $Tb = 80{,}5$, $F_k = 48$, $f_{Q_3} = 20$, $c = 10$.\n- $Q_3 = 80{,}5 + \\left(\\frac{60 - 48}{20}\\right) \\cdot 10 = 80{,}5 + \\left(\\frac{12}{20}\\right) \\cdot 10 = 80{,}5 + 6{,}0 = 86{,}5$.\n\nLangkah 3: Menghitung Desil ke-7 ($D_7$):\n- Letak $D_7$ pada datum ke-$\\frac{7}{10}(80) = 56$.\n- Datum ke-56 juga berada pada kelas ke-4 ($81 - 90$).\n- Parameter: $Tb = 80{,}5$, $F_k = 48$, $f_{D_7} = 20$, $c = 10$.\n- $D_7 = 80{,}5 + \\left(\\frac{56 - 48}{20}\\right) \\cdot 10 = 80{,}5 + \\left(\\frac{8}{20}\\right) \\cdot 10 = 80{,}5 + 4{,}0 = 84{,}5$.\n\nLangkah 4: Interpretasi Capaian Persentil:\n- Tepat $25\\%$ siswa teratas memperoleh skor TKA $\\ge 86{,}5$ ($Q_3$).\n- Tepat $30\\%$ siswa teratas memperoleh skor TKA $\\ge 84{,}5$ ($D_7$).\n\nKesimpulan: Nilai $Q_3 = 86{,}5$ dan $D_7 = 84{,}5$, memetakan ambang prestasi kuartil dan desil kelas secara terukur."
         },
         {
-          "problem": "Jika dari suatu data berkelompok diperoleh $Q_1 = 59{,}5$ dan $Q_3 = 77{,}5$, hitunglah Jangkauan Interkuartil ($QR$), Simpangan Kuartil ($Q_d$), dan batas pencilan bawah/atas!",
-          "solution": "Langkah 1: Jangkauan Interkuartil $QR = Q_3 - Q_1 = 77{,}5 - 59{,}5 = 18$.\nLangkah 2: Simpangan Kuartil $Q_d = \\frac{1}{2} QR = \\frac{1}{2}(18) = 9$.\nLangkah 3: Pagar Bawah $PB = Q_1 - 1{,}5(QR) = 59{,}5 - 1{,}5(18) = 59{,}5 - 27 = 32{,}5$.\nLangkah 4: Pagar Atas $PA = Q_3 + 1{,}5(QR) = 77{,}5 + 27 = 104{,}5$.\nKesimpulan: $QR = 18$, $Q_d = 9$, batas pencilan di luar rentang $[32{,}5; 104{,}5]$."
+          "pill": "Level 3",
+          "level": "Level 3: Konstruksi & Sintesis",
+          "title": "Persentil ke-85 (P85) & Standar Waktu SLA",
+          "problem": "Waktu tempuh (dalam menit) pengiriman 100 paket obat farmasi suhu dingin dicatat dalam tabel distribusi berikut:\n[15-24: 12], [25-34: 28], [35-44: 30], [45-54: 20], [55-64: 10]\nManajemen menetapkan Service Level Agreement (SLA) bahwa $85\\%$ armada pengiriman harus tiba tepat waktu sebelum ambang kritis. Tentukan nilai Persentil ke-85 ($P_{85}$) waktu pengiriman tersebut!",
+          "solution": "Langkah 1: Identifikasi parameter: $N = 100$, panjang interval kelas $c = 10$.\n\nLangkah 2: Menentukan letak Persentil ke-85 ($P_{85}$):\n- Letak datum ke-$\\frac{85}{100}(100) = 85$.\n- Frekuensi kumulatif: Kelas 1 = $12$, Kelas 2 = $40$, Kelas 3 = $70$, Kelas 4 ($45-54$) = $90$.\n- Karena $70 < 85 \\le 90$, kelas $P_{85}$ berada pada interval $45 - 54$.\n\nLangkah 3: Komputasi interpolasi Persentil:\n- Tepi bawah kelas $Tb = 44{,}5$.\n- Frekuensi kumulatif sebelum kelas $F_k = 70$.\n- Frekuensi kelas persentil $f_{P_{85}} = 20$.\n- $P_{85} = 44{,}5 + \\left(\\frac{85 - 70}{20}\\right) \\cdot 10 = 44{,}5 + \\left(\\frac{15}{20}\\right) \\cdot 10 = 44{,}5 + 7{,}5 = 52{,}0\\text{ menit}$.\n\nLangkah 4: Evaluasi Kontekstual Operasional:\n- Manajemen dapat menjamin garansi bahwa $85\\%$ pengiriman paket obat tiba dalam waktu maksimal $52{,}0$ menit, memastikan kualitas rantai dingin vaksin tetap steril.\n\nKesimpulan: Ambang batas waktu Persentil ke-85 adalah $P_{85} = 52{,}0\\text{ menit}$."
         },
         {
-          "problem": "Tentukan nilai Desil ke-7 ($D_7$) dari tabel distribusi: [20-29: 8], [30-39: 12], [40-49: 20], [50-59: 10] ($N = 50$, $c = 10$)!",
-          "solution": "Langkah 1: Letak $D_7 = \\frac{7}{10} N = \\frac{7}{10}(50) = 35$.\nLangkah 2: Frekuensi kumulatif: $F_{k1}=8, F_{k2}=20, F_{k3}=40$. Kelas $D_7$ pada $40 - 49$.\nLangkah 3: $T_b = 39{,}5, F_k = 20, f_D = 20, c = 10$.\nLangkah 4: $D_7 = 39{,}5 + \\left( \\frac{35 - 20}{20} \\right) 10 = 39{,}5 + \\left( \\frac{15}{20} \\right) 10 = 39{,}5 + 7{,}5 = 47{,}0$.\nKesimpulan: Nilai Desil ke-7 ($D_7$) adalah $47{,}0$."
+          "pill": "Level 4",
+          "level": "Level 4: Ukuran Penyebaran Posisi",
+          "title": "Jangkauan Interkuartil (QR), Qd, & Langkah (L)",
+          "problem": "Data skor asesmen literasi numerasi 120 peserta disajikan dalam tabel distribusi frekuensi berikut:\n[31-40: 15], [41-50: 25], [51-60: 40], [61-70: 20], [71-80: 20]\nHitunglah:\na) Nilai Kuartil Bawah ($Q_1$) dan Kuartil Atas ($Q_3$).\nb) Jangkauan Interkuartil ($QR$), Simpangan Kuartil ($Q_d$), dan nilai Langkah ($L$)!",
+          "solution": "Langkah 1: Total frekuensi $N = 120$, panjang interval kelas $c = 10$.\n\nLangkah 2: Menghitung $Q_1$ dan $Q_3$:\n- Letak $Q_1 = \\frac{1}{4}(120) = 30 \\implies$ kelas $41 - 50$ ($F_k = 15, f_{Q_1} = 25, Tb = 40{,}5$).\n  $$Q_1 = 40{,}5 + \\left(\\frac{30 - 15}{25}\\right) \\cdot 10 = 40{,}5 + \\frac{15}{25} \\cdot 10 = 40{,}5 + 6{,}0 = 46{,}5$$\n- Letak $Q_3 = \\frac{3}{4}(120) = 90 \\implies$ kelas $61 - 70$ ($F_k = 80, f_{Q_3} = 20, Tb = 60{,}5$).\n  $$Q_3 = 60{,}5 + \\left(\\frac{90 - 80}{20}\\right) \\cdot 10 = 60{,}5 + \\frac{10}{20} \\cdot 10 = 60{,}5 + 5{,}0 = 65{,}5$$\n\nLangkah 3: Menghitung Ukuran Penyebaran Interkuartil:\n- Jangkauan Interkuartil: $QR = Q_3 - Q_1 = 65{,}5 - 46{,}5 = 19{,}0$.\n- Simpangan Kuartil (Jangkauan Semi-Interkuartil): $Q_d = \\frac{1}{2}QR = \\frac{1}{2}(19{,}0) = 9{,}5$.\n- Nilai Langkah: $L = 1{,}5 \\cdot QR = 1{,}5(19{,}0) = 28{,}5$.\n\nKesimpulan: Diperoleh $Q_1 = 46{,}5$, $Q_3 = 65{,}5$, Jangkauan Interkuartil $QR = 19{,}0$, Simpangan Kuartil $Q_d = 9{,}5$, dan Langkah $L = 28{,}5$."
         },
         {
-          "problem": "Pada seleksi beasiswa, hanya $25\\%$ siswa dengan nilai tertinggi yang berhak lolos wawancara. Jika nilai berdistribusi dengan $Q_1 = 62$ dan $Q_3 = 84$, tentukan batas nilai minimum untuk dapat lolos beasiswa!",
-          "solution": "Langkah 1: Siswa pada $25\\%$ teratas berada di atas Kuartil ke-3 ($Q_3$).\nLangkah 2: Nilai batas pemisah kuartil atas adalah $Q_3 = 84$.\nKesimpulan: Batas nilai minimum agar siswa lolos beasiswa adalah $84$."
+          "pill": "Level 5",
+          "level": "Level 5: Deteksi Nilai Pencilan (Outlier)",
+          "title": "Pagar Dalam (PD), Pagar Luar (PL), & Uji Pencilan",
+          "problem": "Pada audit emisi gas karbon monoksida 50 cerobong pabrik di kawasan industri, diperoleh Kuartil Bawah $Q_1 = 52{,}0\\text{ ppm}$ dan Kuartil Atas $Q_3 = 76{,}0\\text{ ppm}$. Petugas inspeksi mencatat dua cerobong dengan emisi ekstrem: $x_A = 14{,}0\\text{ ppm}$ dan $x_B = 115{,}0\\text{ ppm}$.\na) Tentukan Jangkauan Interkuartil ($QR$) dan nilai Langkah ($L$).\nb) Hitung batas Pagar Dalam ($PD$) dan Pagar Luar ($PL$).\nc) Selidiki apakah cerobong $A$ atau cerobong $B$ termasuk pencilan ekstrem (*outlier*)!",
+          "solution": "Langkah 1: Menghitung $QR$ dan Langkah ($L$):\n- $QR = Q_3 - Q_1 = 76{,}0 - 52{,}0 = 24{,}0\\text{ ppm}$.\n- $L = 1{,}5 \\times QR = 1{,}5 \\times 24{,}0 = 36{,}0\\text{ ppm}$.\n\nLangkah 2: Menghitung Batas Pagar Dalam dan Pagar Luar:\n- Pagar Dalam (Pagar Bawah): $PD = Q_1 - L = 52{,}0 - 36{,}0 = 16{,}0\\text{ ppm}$.\n- Pagar Luar (Pagar Atas): $PL = Q_3 + L = 76{,}0 + 36{,}0 = 112{,}0\\text{ ppm}$.\n\nLangkah 3: Uji Pencilan Ekstrem (*Outlier*):\n- Kriteria: Data normal berada pada rentang $[PD, PL] = [16{,}0; 112{,}0]$. Data di luar interval tersebut dinyatakan sebagai pencilan.\n- Cerobong A: Nilai $x_A = 14{,}0 < 16{,}0$ ($x_A < PD$) $\\implies$ Cerobong A adalah **pencilan bawah (outlier)**.\n- Cerobong B: Nilai $x_B = 115{,}0 > 112{,}0$ ($x_B > PL$) $\\implies$ Cerobong B adalah **pencilan atas (outlier)**.\n\nKesimpulan: Batas normal emisi adalah $[16{,}0; 112{,}0]\\text{ ppm}$. Kedua cerobong ($x_A$ dan $x_B$) terbukti sah sebagai pencilan ekstrem yang memerlukan investigasi khusus."
+        },
+        {
+          "pill": "Level 6",
+          "level": "Level 6: Diagram Kotak-Garis (Boxplot)",
+          "title": "Five-Number Summary & Analisis Kemiringan (Skewness)",
+          "problem": "Survei durasi belajar mandiri mingguan (jam) dari 150 siswa menghasilkan ringkasan lima data (*Five-Number Summary*):\n$x_{min} = 10\\text{ jam}$, $Q_1 = 20\\text{ jam}$, $Q_2 = 25\\text{ jam}$, $Q_3 = 35\\text{ jam}$, $x_{max} = 52\\text{ jam}$.\na) Tentukan panjang kotak ($QR$) serta panjang kumis kiri dan kumis kanan.\nb) Bandingkan jarak antarkuartil $(Q_2 - Q_1)$ terhadap $(Q_3 - Q_2)$.\nc) Analisis bentuk kemiringan sebaran (*skewness*) dan perbandingan nilai Mean terhadap Median!",
+          "solution": "Langkah 1: Menghitung Panjang Komponen Box-Plot:\n- Panjang Kotak: $QR = Q_3 - Q_1 = 35 - 20 = 15\\text{ jam}$.\n- Kumis Kiri: $Q_1 - x_{min} = 20 - 10 = 10\\text{ jam}$.\n- Kumis Kanan: $x_{max} - Q_3 = 52 - 35 = 17\\text{ jam}$.\n\nLangkah 2: Membandingkan Jarak Median terhadap Kuartil:\n- Jarak kuartil kiri: $Q_2 - Q_1 = 25 - 20 = 5\\text{ jam}$.\n- Jarak kuartil kanan: $Q_3 - Q_2 = 35 - 25 = 10\\text{ jam}$.\n\nLangkah 3: Analisis Kemiringan (*Skewness*) Distribusi:\n- Karena $(Q_3 - Q_2) = 10 > (Q_2 - Q_1) = 5$ dan kumis kanan ($17$) lebih panjang daripada kumis kiri ($10$), separuh data di sisi kanan lebih tersebar renggang.\n- Distribusi data memiliki **kemiringan positif (positively skewed / condong ke kanan / tail to the right)**.\n- Pada distribusi miring positif, nilai rata-rata hitung ditarik oleh nilai-nilai tinggi, sehingga berlaku relasi: $\\text{Mean} > \\text{Median} > \\text{Modus}$.\n\nKesimpulan: Boxplot menunjukkan $QR = 15$, kumis kiri $10$, kumis kanan $17$. Distribusi miring ke kanan dengan $\\text{Mean} > \\text{Median}$."
+        },
+        {
+          "pill": "Level 7",
+          "level": "Level 7: Standar UTBK-SNBT HOTS",
+          "title": "Dampak Transformasi Linear Y = aX + b terhadap Ukuran Letak",
+          "problem": "Hasil try out UTBK Penalaran Matematika memiliki statistik: Kuartil Bawah $Q_1 = 400$, Median $Q_2 = 520$, Kuartil Atas $Q_3 = 640$, Jangkauan Interkuartil $QR = 240$, dan Simpangan Kuartil $Q_d = 120$.\nPanitia memberlakukan standarisasi penskoran baru melalui transformasi linear: $Y = 1{,}25 X + 50$.\na) Tentukan nilai Kuartil Bawah ($Q_1^*$), Median ($Q_2^*$), dan Kuartil Atas ($Q_3^*$) yang baru!\nb) Tentukan Jangkauan Interkuartil ($QR^*$) dan Simpangan Kuartil ($Q_d^*$) yang baru!\nc) Jelaskan mengapa nilai kuartil terpengaruh penambahan $+50$, sedangkan $QR$ tidak terpengaruh!",
+          "solution": "Langkah 1: Sifat Ukuran Letak pada Transformasi Linear $Y = aX + b$:\n- Ukuran letak (posisi data) terpengaruh oleh perkalian skala $a$ dan penambahan translasi $b$:\n  - $Q_1^* = 1{,}25(Q_1) + 50 = 1{,}25(400) + 50 = 500 + 50 = 550$.\n  - $Q_2^* = 1{,}25(Q_2) + 50 = 1{,}25(520) + 50 = 650 + 50 = 700$.\n  - $Q_3^* = 1{,}25(Q_3) + 50 = 1{,}25(640) + 50 = 800 + 50 = 850$.\n\nLangkah 2: Sifat Ukuran Penyebaran Posisi ($QR$ dan $Q_d$):\n- Ukuran jarak/dispersi hanya terpengaruh oleh faktor pengali $|a| = 1{,}25$, dan kebal terhadap penambahan $+b$:\n  - $QR^* = |1{,}25| \\times QR = 1{,}25 \\times 240 = 300$.\n    (Verifikasi: $Q_3^* - Q_1^* = 850 - 550 = 300$. Terbukti konsisten!)\n  - $Q_d^* = \\frac{1}{2} QR^* = 1{,}25 \\times Q_d = 1{,}25 \\times 120 = 150$.\n\nLangkah 3: Alasan Konseptual:\n- $QR = Q_3 - Q_1$. Ketika ditransformasi, $QR^* = (1{,}25 Q_3 + 50) - (1{,}25 Q_1 + 50) = 1{,}25(Q_3 - Q_1) + (50 - 50) = 1{,}25 QR$. Konstanta pergeseran $+50$ saling meniadakan secara aljabar.\n\nKesimpulan: Skor baru adalah $Q_1^* = 550$, $Q_2^* = 700$, $Q_3^* = 850$, $QR^* = 300$, dan $Q_d^* = 150$."
         }
       ],
-      "btc": "Kelompok VNPS: Hitung nilai $Q_1$ dan $Q_3$ dari tabel distribusi frekuensi nilai matematika 60 siswa dan tentukan apakah ada nilai siswa yang termasuk pencilan!",
+      "btc": "Kelompok VNPS: Diberikan tabel frekuensi distribusi nilai dan diagram Box-Plot komparatif, setiap tim wajib menghitung Kuartil Bawah, Kuartil Atas, menentukan batas Pagar Dalam/Luar, dan membuktikan apakah data ekstrem yang ditemukan merupakan pencilan!",
       "summary_data": {
         "summary": [
-          "Kuartil $Q_i = Tb + \\left(\\frac{\\frac{i}{4}n - f_k}{f_{Q_i}}\\right) \\cdot c$ untuk $i = 1, 2, 3$.",
-          "Jangkauan Interkuartil $QR = Q_3 - Q_1$ dan Simpangan Kuartil $Q_d = \\frac{1}{2}QR$.",
-          "Pagar Luar dan Pagar Dalam untuk mendeteksi data pencilan (outlier)."
+          "Kuartil ke-i ($Q_i$), Desil ke-i ($D_i$), dan Persentil ke-i ($P_i$) dihitung dengan interpolasi tepi bawah kelas interval: $L_i = Tb + \\left(\\frac{\\text{fraksi} \\cdot N - F_k}{f}\\right) c$.",
+          "Jangkauan Interkuartil $QR = Q_3 - Q_1$, Simpangan Kuartil $Q_d = \\frac{1}{2}QR$, dan Langkah $L = 1{,}5(QR)$ mengukur dispersi letak 50% data di tengah.",
+          "Nilai Pencilan (Outlier) dideteksi secara objektif menggunakan Pagar Dalam $PD = Q_1 - 1{,}5(QR)$ dan Pagar Luar $PL = Q_3 + 1{,}5(QR)$. Data di luar $[PD, PL]$ adalah pencilan.",
+          "Diagram Kotak-Garis (Boxplot) memvisualisasikan ringkasan lima data (Five-Number Summary) serta mengindikasikan simetri atau kemiringan (skewness) sebaran data.",
+          "Transformasi linear $Y = aX + b$ menggeser seluruh ukuran letak ($Q_{new} = aQ_{old} + b$), namun ukuran penyebaran posisi hanya dipengaruhi faktor skala ($QR_{new} = |a|QR_{old}$)."
         ],
-        "islamic": "Membedakan strata dan posisi data secara tepat mengingatkan pentingnya menempatkan manusia sesuai porsi dan keahliannya dengan adil."
+        "islamic": "Keteraturan pembagian ukuran letak (kuartil, desil, persentil) dan penetapan batas pagar yang adil merefleksikan prinsip Al-Mizan (keseimbangan) dan ketetapan ukuran dalam ciptaan Allah SWT: 'Dan segala sesuatu pada sisi-Nya ada ukuran tertentu' (QS. Ar-Ra'd: 8) serta 'Sesungguhnya Kami menciptakan segala sesuatu menurut ukuran' (QS. Al-Qamar: 49)."
       },
       "collab_cases": [
-        "Tentukan nilai Kuartil Atas ($Q_3$) dan Jangkauan Semi-Interkuartil ($Q_d = \\frac{1}{2}(Q_3 - Q_1)$) dari tabel nilai 100 siswa!",
-        "Hitunglah nilai Desil ke-7 ($D_7$) dan Persentil ke-85 ($P_{85}$) dari data waktu tunggu layanan nasabah bank!",
-        "Bandingkan akurasi Box-and-Whisker Plot dibandingkan Kurva Ogive dalam mendeteksi kesenjangan nilai kelas!",
-        "Jika seluruh nilai ujian dinaikkan $10\\%$ kemudian ditambah $5$, tentukan kuartil atas ($Q_3$) yang baru jika $Q_3$ awal adalah $70$!",
-        "Tentukan persentil ke-90 ($P_{90}$) dari data waktu respon server dan interpretasikan maknanya dalam Service Level Agreement (SLA) IT!"
+        "Tantangan 1 (Meja A • Analisis Kuartil & Desil Lengkap):\nDiberikan tabel distribusi frekuensi nilai ujian 100 siswa:\n[30-39: 10], [40-49: 15], [50-59: 25], [60-69: 30], [70-79: 20]\nTotal $N = 100$. Hitunglah Kuartil Bawah ($Q_1$), Kuartil Atas ($Q_3$), serta Desil ke-4 ($D_4$) dan Desil ke-8 ($D_8$)!",
+        "Tantangan 2 (Meja B • Persentil & Ambang Batas SLA Logistik):\nWaktu pengiriman paket kilat e-commerce (jam) dicatat dalam tabel:\n[10-19: 14], [20-29: 26], [30-39: 35], [40-49: 15], [50-59: 10] ($N = 100$)\nManajemen menjamin 90% pesanan terkirim sebelum batas SLA. Hitunglah nilai Persentil ke-90 ($P_{90}$) waktu pengiriman!",
+        "Tantangan 3 (Meja C • Quality Control & Deteksi Outlier Baterai EV):\nKapasitas daya baterai mobil listrik (kWh) menghasilkan $Q_1 = 82{,}0\\text{ kWh}$ dan $Q_3 = 98{,}0\\text{ kWh}$. Tim QC menguji dua unit baterai dengan kapasitas $x_1 = 54{,}0\\text{ kWh}$ dan $x_2 = 125{,}0\\text{ kWh}$. Hitung batas Pagar Dalam ($PD$) dan Pagar Luar ($PL$), lalu buktikan apakah unit tersebut termasuk produk cacat/outlier!",
+        "Tantangan 4 (Meja D • Rekonstruksi Box-and-Whisker Plot Komparatif):\nDiketahui Five-Number Summary dua kelas paralel:\n- Kelas XII F1: $[x_{min}=40, Q_1=55, Q_2=65, Q_3=75, x_{max}=90]$\n- Kelas XII F2: $[x_{min}=35, Q_1=50, Q_2=60, Q_3=80, x_{max}=98]$\nBandingkan keragaman interkuartil ($QR$), simetri distribusi, dan selidiki apakah nilai 98 pada Kelas XII F2 merupakan outlier!",
+        "Tantangan 5 (Meja E • HOTS Transformasi Linear & Kebijakan Standarisasi):\nHasil tes penalaran numerik memiliki $Q_1 = 48$, $Q_2 = 60$, $Q_3 = 76$, dan $QR = 28$. Jika seluruh nilai ditransformasikan dengan rumus $Y = 1{,}5 X - 10$, tentukan nilai baru $Q_1^*, Q_2^*, Q_3^*$, serta $QR^*$ dan $Q_d^*$!"
       ],
-      "tagline": "Memetakan Posisi Data: Menentukan Kuartil, Desil, dan Mendeteksi Nilai Pencilan",
+      "tagline": "Pemetaan Posisi Data: Menentukan Kuartil, Desil, Persentil, Five-Number Summary, & Deteksi Pencilan Ekstrem (Outlier)",
       "collab_solutions": [
-        "Langkah 1: N = 100. Letak Q1 = 1/4(100) = 25 => Q1 = Tb1 + [(25 - fk1)/f1]*p = 58,2.\nLangkah 2: Letak Q3 = 3/4(100) = 75 => Q3 = Tb3 + [(75 - fk3)/f3]*p = 78,6.\nLangkah 3: Jangkauan Semi-Interkuartil: Qd = 1/2(Q3 - Q1) = 1/2(78,6 - 58,2) = 1/2(20,4) = 10,2.\nKesimpulan: Nilai Kuartil Atas Q3 = 78,6 dan Jangkauan Semi-Interkuartil Qd = 10,2.",
-        "Langkah 1: Letak Desil ke-7: D7 = 7/10 N. Terapkan rumus D7 = Tb + [(0,7 N - fk)/f]*p.\nLangkah 2: Letak Persentil ke-85: P85 = 85/100 N. Terapkan rumus P85 = Tb + [(0,85 N - fk)/f]*p.\nLangkah 3: Evaluasi interpolasi menghasilkan estimasi waktu tunggu D7 dan P85 secara presisi.\nKesimpulan: Nilai D7 dan P85 berhasil dihitung sebagai batas persentil layanan nasabah.",
-        "Langkah 1: Box-and-Whisker Plot menyajikan 5 ringkasan statistik (Min, Q1, Q2, Q3, Max) serta panjang rentang antar kuartil secara visual langsung.\nLangkah 2: Ogive unggul dalam membaca persentil kontinu sembarang nilai ujian.\nKesimpulan: Box Plot lebih cepat dalam mendeteksi kesenjangan antarkuartil dan simetri penyebaran nilai kelas.",
-        "Langkah 1: Transformasi linear data: Y = 1,1 X + 5.\nLangkah 2: Kuartil merupakan ukuran letak yang terpengaruh oleh operasi perkalian skala dan penambahan translasi.\nLangkah 3: Q3_baru = 1,1 * (Q3_awal) + 5 = 1,1(70) + 5 = 77 + 5 = 82.\nKesimpulan: Nilai kuartil atas yang baru adalah 82.",
-        "Langkah 1: Persentil P90 adalah batas waktu di mana 90% permintaan server berhasil dilayani lebih cepat dari nilai tersebut.\nLangkah 2: Dalam SLA IT, P90 menjamin bahwa hanya maksimal 10% transaksi yang mengalami latensi lebih lama dari ambang batas toleransi.\nKesimpulan: Nilai P90 menjadi tolok ukur standar performa dan keandalan infrastruktur server cloud."
+        "Langkah 1: Identifikasi parameter data: total $N = 100$, panjang kelas $c = 10$.\nLangkah 2: Letak $Q_1 = \\frac{1}{4}(100) = 25 \\implies$ kelas $40 - 49$ ($F_k = 10, f = 15, Tb = 39{,}5$). $Q_1 = 39{,}5 + \\left(\\frac{25 - 10}{15}\\right)10 = 39{,}5 + 10 = 49{,}5$.\nLangkah 3: Letak $Q_3 = \\frac{3}{4}(100) = 75 \\implies$ kelas $60 - 69$ ($F_k = 50, f = 30, Tb = 59{,}5$). $Q_3 = 59{,}5 + \\left(\\frac{75 - 50}{30}\\right)10 = 59{,}5 + 8{,}33 = 67{,}83$.\nLangkah 4: Letak $D_4 = 40 \\implies$ kelas $50 - 59$ ($F_k = 25, f = 25, Tb = 49{,}5$). $D_4 = 49{,}5 + \\left(\\frac{40 - 25}{25}\\right)10 = 49{,}5 + 6 = 55{,}5$. Letak $D_8 = 80 \\implies$ kelas $70 - 79$ ($F_k = 80, f = 20, Tb = 69{,}5$). Tepat di tepi batas $D_8 = 69{,}5$.\nKesimpulan: Diperoleh $Q_1 = 49{,}5$, $Q_3 = 67{,}83$, $D_4 = 55{,}5$, dan $D_8 = 69{,}5$.",
+        "Langkah 1: Total pengiriman $N = 100$, panjang interval kelas $c = 10$.\nLangkah 2: Letak $P_{90} = \\frac{90}{100}(100) = 90$.\nLangkah 3: Frekuensi kumulatif: Kelas 1 ($10-19$) = 14, Kelas 2 ($20-29$) = 40, Kelas 3 ($30-39$) = 75, Kelas 4 ($40-49$) = 90. Datum ke-90 tepat pada tepi atas kelas ke-4 ($Tb = 39{,}5, F_k = 75, f = 15$).\nLangkah 4: $P_{90} = 39{,}5 + \\left(\\frac{90 - 75}{15}\\right)10 = 39{,}5 + 10 = 49{,}5\\text{ jam}$.\nKesimpulan: Batas waktu Persentil ke-90 adalah $P_{90} = 49{,}5\\text{ jam}$, memenuhi standar toleransi operasional SLA.",
+        "Langkah 1: $QR = Q_3 - Q_1 = 98{,}0 - 82{,}0 = 16{,}0\\text{ kWh}$. Langkah $L = 1{,}5 \\times 16{,}0 = 24{,}0\\text{ kWh}$.\nLangkah 2: Pagar Dalam: $PD = Q_1 - L = 82{,}0 - 24{,}0 = 58{,}0\\text{ kWh}$.\nLangkah 3: Pagar Luar: $PL = Q_3 + L = 98{,}0 + 24{,}0 = 122{,}0\\text{ kWh}$. Rentang normal baterai adalah $[58{,}0; 122{,}0]\\text{ kWh}$.\nLangkah 4: Evaluasi sampel: $x_1 = 54{,}0 < 58{,}0$ ($x_1 < PD$) $\\implies$ $x_1$ adalah outlier bawah (cacat kapasitas rendah). $x_2 = 125{,}0 > 122{,}0$ ($x_2 > PL$) $\\implies$ $x_2$ adalah outlier atas (anomali tegangan lebih).\nKesimpulan: Kedua unit ($x_1$ dan $x_2$) terbukti merupakan pencilan ekstrem yang harus ditarik dari lini produksi.",
+        "Langkah 1: Kelas XII F1: $QR_1 = 75 - 55 = 20$. Jarak $Q_2 - Q_1 = 10$ dan $Q_3 - Q_2 = 10$ $\\implies$ Simetris sempurna tanpa skewness.\nLangkah 2: Kelas XII F2: $QR_2 = 80 - 50 = 30$. Jarak $Q_2 - Q_1 = 10$ dan $Q_3 - Q_2 = 20$ $\\implies$ Miring positif (condong ke kanan) dengan sebaran lebih heterogen.\nLangkah 3: Uji outlier Kelas XII F2: $L = 1{,}5(30) = 45$. Pagar Luar $PL = Q_3 + L = 80 + 45 = 125$. Karena $x_{max} = 98 \\le 125$, nilai 98 BUKAN outlier.\nKesimpulan: Kelas XII F1 memiliki sebaran simetris homogen ($QR=20$), sedangkan Kelas XII F2 lebih bervariasi ($QR=30$) dan miring ke kanan tanpa ada pencilan.",
+        "Langkah 1: Sifat ukuran letak pada $Y = 1{,}5X - 10$:\n$Q_1^* = 1{,}5(48) - 10 = 72 - 10 = 62$.\n$Q_2^* = 1{,}5(60) - 10 = 90 - 10 = 80$.\n$Q_3^* = 1{,}5(76) - 10 = 114 - 10 = 104$.\nLangkah 2: Sifat ukuran penyebaran posisi:\n$QR^* = |1{,}5| \\times QR = 1{,}5 \\times 28 = 42$.\n(Verifikasi: $Q_3^* - Q_1^* = 104 - 62 = 42$. Tepat!)\n$Q_d^* = \\frac{1}{2} QR^* = 1{,}5 \\times 14 = 21$.\nKesimpulan: Nilai baru setelah transformasi adalah $Q_1^* = 62$, $Q_2^* = 80$, $Q_3^* = 104$, $QR^* = 42$, dan $Q_d^* = 21$."
       ]
     },
     {

@@ -3310,6 +3310,40 @@ function calculateStudentRpgStats(profile) {
         const userRankBadge = document.getElementById('boss-user-rank-badge');
         const userRewardEl = document.getElementById('boss-user-reward');
 
+        // Isolasi Kurikulum Skuad F1-F2 vs F3-F4 pada Portal Serangan
+        const activeStudentNis = getActiveStudentNis();
+        const activeSquad = getStudentDefaultSquad(activeStudentNis);
+        const isGuruUser = isCurrentTeacher();
+        const portalM18 = document.getElementById('portal-card-m18');
+        const portalM19 = document.getElementById('portal-card-m19');
+        const portalsGrid = document.getElementById('boss-portals-grid');
+
+        if (!isGuruUser && activeSquad === 'F1_F2') {
+          if (portalM18) {
+            portalM18.style.display = 'none';
+            portalM18.classList.add('hidden');
+          }
+          if (portalM19) {
+            portalM19.style.display = 'none';
+            portalM19.classList.add('hidden');
+          }
+          if (portalsGrid) {
+            portalsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-0.5';
+          }
+        } else {
+          if (portalM18) {
+            portalM18.style.display = '';
+            portalM18.classList.remove('hidden');
+          }
+          if (portalM19) {
+            portalM19.style.display = '';
+            portalM19.classList.remove('hidden');
+          }
+          if (portalsGrid) {
+            portalsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-0.5';
+          }
+        }
+
         if (uStats) {
           const isW42 = (data.campaign_week === '2026-W42' || (typeof getWeeklyCampaignIdFallback === 'function' && getWeeklyCampaignIdFallback() === '2026-W42'));
 
@@ -3335,8 +3369,8 @@ function calculateStudentRpgStats(profile) {
             }
           }
 
-          // 3. Portal 3: Additional Mathematics P18 (Turunan Rantai Trigonometri)
-          if (m18Status) {
+          // 3. Portal 3: Additional Mathematics P18 (Turunan Rantai Trigonometri) - Hanya jika berhak
+          if (m18Status && (isGuruUser || activeSquad !== 'F1_F2')) {
             const sm18 = isW42 ? (uStats.p18_minat_skor || 0) : 0;
             if (sm18 > 0) {
               const dmgM18 = sm18 * 15 + (sm18 === 100 ? 500 : 0);
@@ -3346,8 +3380,8 @@ function calculateStudentRpgStats(profile) {
             }
           }
 
-          // 4. Portal 4: Additional Mathematics P19 (Turunan Perkalian & Pembagian Trigonometri)
-          if (m19Status) {
+          // 4. Portal 4: Additional Mathematics P19 (Perkalian & Pembagian Trig) - Hanya jika berhak
+          if (m19Status && (isGuruUser || activeSquad !== 'F1_F2')) {
             const sm19 = isW42 ? (uStats.p19_minat_skor || 0) : (uStats.p17_minat_skor || 0);
             if (sm19 > 0) {
               const dmgM19 = sm19 * 15 + (sm19 === 100 ? 500 : 0);
@@ -3392,6 +3426,13 @@ function calculateStudentRpgStats(profile) {
     }
 
     function serangRaidBoss(mapel, kode) {
+      const nis = getActiveStudentNis();
+      const allowedSquad = getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+      if (!isGuru && allowedSquad === 'F1_F2' && (mapel === 'minat' || (kode && String(kode).toUpperCase().startsWith('M')))) {
+        alert('Perhatian: Rombel XII F1 & XII F2 terdaftar dalam kurikulum Matematika Wajib (Skuad F1-F2). Materi Additional Mathematics (Peminatan) dikhususkan untuk rombel XII F3 & XII F4.');
+        return;
+      }
       closeRaidBossLeaderboardModal();
       if (typeof bukaPaketCbtDariRapor === 'function') {
         bukaPaketCbtDariRapor(mapel, kode);
@@ -3528,6 +3569,24 @@ function calculateStudentRpgStats(profile) {
         if (p17Det) {
           const dmg17 = u.p17_minat_skor > 0 ? (u.p17_minat_skor * 15 + (u.p17_minat_skor === 100 ? 500 : 0)) : 0;
           p17Det.textContent = u.p17_minat_skor > 0 ? `Skor ${u.p17_minat_skor} (${dmg17} DMG)` : 'Belum Serang';
+        }
+
+        // Sembunyikan kotak P17 Minat jika siswa adalah Skuad F1-F2
+        const activeNis = getActiveStudentNis();
+        const allowedSquad = getStudentDefaultSquad(activeNis);
+        const isGuruUser = isCurrentTeacher();
+        const minatBox = document.getElementById('rb-user-minat-box');
+        const statsGrid = document.getElementById('rb-user-stats-grid');
+        if (minatBox) {
+          if (!isGuruUser && allowedSquad === 'F1_F2') {
+            minatBox.style.display = 'none';
+            minatBox.classList.add('hidden');
+            if (statsGrid) statsGrid.className = 'grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs';
+          } else {
+            minatBox.style.display = '';
+            minatBox.classList.remove('hidden');
+            if (statsGrid) statsGrid.className = 'grid grid-cols-1 sm:grid-cols-5 gap-2 text-xs';
+          }
         }
 
         const dailyDet = document.getElementById('rb-user-daily-detail');
@@ -3708,6 +3767,7 @@ function calculateStudentRpgStats(profile) {
     let _dailyRaidTimer = null;
     let _dailyRaidSeconds = 0;
     let _dailyRaidCurrentSquad = 'F1_F2';
+    let _dailyRaidWeekId = '2026-W42';
     let _questionViewTimestamp = Date.now();
     let _lastAttackTimestamp = 0;
     let _botLockoutInterval = null;
@@ -3720,7 +3780,15 @@ function calculateStudentRpgStats(profile) {
       if (typeof currentSiswa !== 'undefined' && currentSiswa && currentSiswa.nis) {
         return String(currentSiswa.nis).trim();
       }
-      return '24400083';
+      if (typeof _raporActiveStudentNis !== 'undefined' && _raporActiveStudentNis) {
+        return String(_raporActiveStudentNis).trim();
+      }
+      try {
+        const storedNis = localStorage.getItem('mathcihuy_active_nis');
+        if (storedNis) return String(storedNis).trim();
+      } catch(e) {}
+      // Siswa Wajib Murni Default: 24400004 (Aisyah Rachma Ufaira - XII F1)
+      return '24400004';
     }
 
     function getWibDateString() {
@@ -3966,38 +4034,81 @@ function calculateStudentRpgStats(profile) {
     }
 
     function updateDailyRaidSquadButtonsUI(squad) {
-      _dailyRaidCurrentSquad = squad;
+      const nis = getActiveStudentNis();
+      const allowedSquad = getStudentDefaultSquad(nis);
+      const isGuru = isCurrentTeacher();
+      const activeSquad = (!isGuru) ? allowedSquad : (squad || allowedSquad);
+      _dailyRaidCurrentSquad = activeSquad;
+
       const btnF12 = document.getElementById('dr-squad-btn-f12');
       const btnF34 = document.getElementById('dr-squad-btn-f34');
       const bSquadTag = document.getElementById('daily-raid-squad-badge');
 
-      const nis = getActiveStudentNis();
-      const allowedSquad = getStudentDefaultSquad(nis);
-      const isGuru = isCurrentTeacher();
-
-      if (btnF12 && btnF34) {
-        if (squad === 'F1_F2') {
-          btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
-          btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa: P17/P18)</span>';
-          btnF12.title = 'Skuad Aktif: 50 Butir Matematika Wajib (P17 & P18)';
-
-          btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
-          btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Matwa + 25 Minat P18/P19)</span>';
-          btnF34.title = 'Pindah ke Skuad F3-F4 (Termasuk Additional Math P18 & P19)';
+      if (!isGuru) {
+        // SISWA: Sembunyikan skuad yang bukan haknya!
+        if (allowedSquad === 'F1_F2') {
+          if (btnF12) {
+            btnF12.style.display = 'inline-flex';
+            btnF12.classList.remove('hidden');
+            btnF12.className = 'px-3 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 cursor-default bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
+            btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Soal Wajib)</span>';
+            btnF12.title = 'Skuad Resmi Kamu: 50 Butir Matematika Wajib (P17 & P18)';
+          }
+          if (btnF34) {
+            btnF34.style.display = 'none';
+            btnF34.classList.add('hidden');
+          }
         } else {
-          // squad === 'F3_F4'
-          btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
-          btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Matwa + 25 Minat P18/P19)</span>';
-          btnF34.title = 'Skuad Aktif: 25 Matwa + 25 Additional Math (P18 & P19)';
-
-          btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
-          btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa: P17/P18)</span>';
-          btnF12.title = 'Pindah ke Skuad F1-F2';
+          // allowedSquad === 'F3_F4'
+          if (btnF34) {
+            btnF34.style.display = 'inline-flex';
+            btnF34.classList.remove('hidden');
+            btnF34.className = 'px-3 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 cursor-default bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
+            btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25 Wajib + 25 Minat)</span>';
+            btnF34.title = 'Skuad Resmi Kamu: 25 Matematika Wajib + 25 Additional Math';
+          }
+          if (btnF12) {
+            btnF12.style.display = 'none';
+            btnF12.classList.add('hidden');
+          }
+        }
+      } else {
+        // GURU: Tampilkan toggle dua arah untuk memantau kedua skuad
+        if (btnF12) {
+          btnF12.style.display = 'inline-flex';
+          btnF12.classList.remove('hidden');
+        }
+        if (btnF34) {
+          btnF34.style.display = 'inline-flex';
+          btnF34.classList.remove('hidden');
+        }
+        if (activeSquad === 'F1_F2') {
+          if (btnF12) {
+            btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
+            btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa)</span>';
+            btnF12.title = 'Mode Guru: Skuad Aktif F1-F2';
+          }
+          if (btnF34) {
+            btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+            btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25+25)</span>';
+            btnF34.title = 'Alihkan Tinjauan ke Skuad F3-F4';
+          }
+        } else {
+          if (btnF34) {
+            btnF34.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer bg-white text-[#2F3437] shadow-2xs border border-[#E8E6DF]';
+            btnF34.innerHTML = '<i class="fa-solid fa-khanda text-xs text-rose-600"></i> <span>Skuad F3-F4 (25+25)</span>';
+            btnF34.title = 'Mode Guru: Skuad Aktif F3-F4';
+          }
+          if (btnF12) {
+            btnF12.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer text-[#787774] hover:text-[#2F3437] border border-transparent';
+            btnF12.innerHTML = '<i class="fa-solid fa-shield-halved text-xs text-indigo-600"></i> <span>Skuad F1-F2 (50 Matwa)</span>';
+            btnF12.title = 'Alihkan Tinjauan ke Skuad F1-F2';
+          }
         }
       }
 
       if (bSquadTag) {
-        if (squad === 'F1_F2') {
+        if (activeSquad === 'F1_F2') {
           bSquadTag.textContent = '🛡️ Skuad F1 - F2 (50 Matwa)';
           bSquadTag.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200';
         } else {
@@ -4009,11 +4120,16 @@ function calculateStudentRpgStats(profile) {
 
     function setDailyRaidSquadMode(squad) {
       const nis = getActiveStudentNis();
-      updateDailyRaidSquadButtonsUI(squad);
-      const weekId = getWeeklyCampaignIdFallback();
-      const storageKey = getWeeklyRaidStorageKey(nis, weekId, squad);
+      const isGuru = isCurrentTeacher();
+      const allowedSquad = getStudentDefaultSquad(nis);
+      const targetSquad = (!isGuru) ? allowedSquad : (squad || allowedSquad);
 
-      _dailyRaidQuestions = generateDailyRaidQuestions(nis, null, squad);
+      _dailyRaidCurrentSquad = targetSquad;
+      updateDailyRaidSquadButtonsUI(targetSquad);
+      const weekId = getWeeklyCampaignIdFallback();
+      const storageKey = getWeeklyRaidStorageKey(nis, weekId, targetSquad);
+
+      _dailyRaidQuestions = generateDailyRaidQuestions(nis, null, targetSquad);
 
       let savedState = null;
       try {
@@ -4106,6 +4222,13 @@ function calculateStudentRpgStats(profile) {
       _dailyRaidCurrentSquad = (!isGuru) ? defaultSquad : (_dailyRaidCurrentSquad || defaultSquad);
       updateDailyRaidSquadButtonsUI(_dailyRaidCurrentSquad);
 
+      // Self-Healing Cache: Jika siswa F1/F2 memiliki cache usang F3_F4 di browsernya, bersihkan!
+      if (!isGuru && defaultSquad === 'F1_F2') {
+        try {
+          localStorage.removeItem(`weekly_raid_${nis}_${weekId}_F3_F4`);
+        } catch(e) {}
+      }
+
       const storageKey = getWeeklyRaidStorageKey(nis, weekId, _dailyRaidCurrentSquad);
 
       const mDateTag = document.getElementById('dr-modal-date-tag');
@@ -4114,6 +4237,17 @@ function calculateStudentRpgStats(profile) {
       if (dDateTag) dDateTag.textContent = `Minggu Ini (${weekId})`;
 
       _dailyRaidQuestions = generateDailyRaidQuestions(nis, null, _dailyRaidCurrentSquad);
+
+      // Guard Integritas: Skuad F1_F2 tidak boleh memiliki 1 butir pun soal Minat!
+      if (!isGuru && defaultSquad === 'F1_F2') {
+        const hasMinat = (_dailyRaidQuestions || []).some(q => (q.mapel && q.mapel.toLowerCase().includes('minat')) || (q.mapel && q.mapel.toLowerCase().includes('additional')));
+        if (hasMinat) {
+          console.warn('[Integrity] Memperbaiki bank soal Skuad F1_F2 agar murni Matematika Wajib...');
+          if (typeof window.getWeeklyRaid50Questions === 'function') {
+            _dailyRaidQuestions = window.getWeeklyRaid50Questions(nis, weekId, 'F1_F2');
+          }
+        }
+      }
 
       const themeDesc = document.getElementById('dr-modal-theme-desc');
       if (themeDesc) {
@@ -6326,7 +6460,7 @@ Guru Pengampu: Mr. Ardi
                   [TIER ${studentTier.tier}] ${escapeHtml(studentTier.title.toUpperCase())}
                 </div>
                 <div class="text-xs text-[#787774] font-medium mt-0.5">
-                  Guild: <strong class="text-slate-700 font-mono">${escapeHtml(profile.kelas || 'XII')}</strong> • SMA GIS 2
+                  Guild: <strong class="text-slate-700 font-mono">${escapeHtml(profile.kelas || 'XII')}</strong> • Math Cihuy Realm
                 </div>
               </div>
 
@@ -6738,6 +6872,7 @@ Guru Pengampu: Mr. Ardi
     window.generateDailyRaidQuestions = generateDailyRaidQuestions;
     window.getDailyRaidQuestionPool = getDailyRaidQuestionPool;
     window.setDailyRaidSquadMode = setDailyRaidSquadMode;
+    window.updateDailyRaidSquadButtonsUI = updateDailyRaidSquadButtonsUI;
     window.getStudentDefaultSquad = getStudentDefaultSquad;
     window.openSkillTreeModal = openSkillTreeModal;
     window.closeSkillTreeModal = closeSkillTreeModal;

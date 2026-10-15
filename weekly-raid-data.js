@@ -2470,7 +2470,7 @@
     let raw = [];
 
     if (squad === 'F1_F2') {
-      raw = [...(activePool.matwa || [])];
+      raw = (activePool.matwa || []).filter(q => (q.mapel || '').toLowerCase() !== 'additional mathematics');
     } else {
       if (wId === '2026-W41') {
         // 25 Matwa (13 P15 + 12 P16) + 25 Matmin (P17)
@@ -2505,8 +2505,8 @@
       _squadType: squad,
       _weekId: wId,
       _sourceSubject: q.mapel,
-      _sourceKode: (q.materi || '').split('�')[0]?.trim() || '',
-      _sourceTitle: (q.materi || '').split('�')[1]?.trim() || q.materi || ''
+      _sourceKode: (q.materi || '').split(/[•\u2022\uFFFD]/)[0]?.trim() || '',
+      _sourceTitle: (q.materi || '').split(/[•\u2022\uFFFD]/)[1]?.trim() || q.materi || ''
     }));
   }
 

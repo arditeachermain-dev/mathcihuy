@@ -4771,19 +4771,50 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (currentMeetingIdx >= meetings.length) currentMeetingIdx = 0;
       const m = meetings[currentMeetingIdx];
       const sIdx = currentSlideIdx;
-      if (sIdx < 4 || sIdx > 6) { window._activeExampleLevel = null; }
+      const exCount = (m.examples && m.examples.length) ? m.examples.length : 5;
+      const totalSlides = exCount + 7;
+      if (sIdx < 4 || sIdx > 4 + exCount - 1) { window._activeExampleLevel = null; }
       
       const isClil = currentMode === 'clil';
-      // Nama tiap tahap, bukan sekadar "Contoh 1/2/3": guru dan siswa
-      // langsung tahu slide 5 membangun fondasi, 6 melatih analisis, 7 HOTS.
-      const pillTitles = isClil
-        ? ["Cover", "Goals", "Hook", "Toolkit", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Collab", "Summary", "Closing"]
-        : ["Cover", "Tujuan", "Hook", "Toolkit", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Kolaborasi", "Rangkuman", "Penutup"];
-      const pillIcons = [
-        "fa-solid fa-bookmark", "fa-solid fa-bullseye", "fa-solid fa-lightbulb", "fa-solid fa-toolbox",
-        "fa-solid fa-cube", "fa-solid fa-chart-line", "fa-solid fa-brain", "fa-solid fa-graduation-cap", "fa-solid fa-fire",
-        "fa-solid fa-users", "fa-solid fa-flag-checkered", "fa-solid fa-bell"
+      
+      const baseTitlesId = ["Cover", "Tujuan", "Hook", "Toolkit"];
+      const baseTitlesEn = ["Cover", "Goals", "Hook", "Toolkit"];
+      const baseIcons = [
+        "fa-solid fa-bookmark", "fa-solid fa-bullseye", "fa-solid fa-lightbulb", "fa-solid fa-toolbox"
       ];
+      
+      const exIconsList = [
+        "fa-solid fa-cube", "fa-solid fa-chart-line", "fa-solid fa-brain", "fa-solid fa-graduation-cap",
+        "fa-solid fa-fire", "fa-solid fa-sliders", "fa-solid fa-star", "fa-solid fa-medal", "fa-solid fa-award"
+      ];
+      
+      const pillTitles = [];
+      const pillIcons = [];
+
+      // 1-4: Cover, Goals, Hook, Toolkit
+      for (let i = 0; i < 4; i++) {
+        pillTitles.push(isClil ? baseTitlesEn[i] : baseTitlesId[i]);
+        pillIcons.push(baseIcons[i]);
+      }
+
+      // 5..(4 + exCount): Worked Examples
+      for (let k = 0; k < exCount; k++) {
+        const exItem = m.examples ? m.examples[k] : null;
+        const shortPill = exItem?.pill || `Level ${k + 1}`;
+        pillTitles.push(shortPill);
+        pillIcons.push(exIconsList[k % exIconsList.length]);
+      }
+
+      // Ending Slides: Collab, Summary, Closing
+      pillTitles.push(isClil ? "Collab" : "Kolaborasi");
+      pillIcons.push("fa-solid fa-users");
+
+      pillTitles.push(isClil ? "Summary" : "Rangkuman");
+      pillIcons.push("fa-solid fa-flag-checkered");
+
+      pillTitles.push(isClil ? "Closing" : "Penutup");
+      pillIcons.push("fa-solid fa-bell");
+
       const slideTitles = pillTitles;
       if (window._lastRenderedMeetingId !== m.id) {
         window._lastRenderedMeetingId = m.id;
@@ -4798,21 +4829,22 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       
       const judulEl = document.getElementById('slide-title-header');
       if (judulEl) {
-        judulEl.innerText = `${m.title} • ${slideTitles[sIdx]}`;
+        judulEl.innerText = `${m.title} • ${slideTitles[sIdx] || 'Slide'}`;
       }
       if (m.title.indexOf('$') !== -1) renderMath(judulEl);
+      const pctProgress = Math.round(((sIdx + 1) / totalSlides) * 100);
       document.getElementById('slide-counter').innerHTML = `
         <div class="flex items-center gap-1.5 md:gap-2">
           <div class="w-12 md:w-20 h-1.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600 hidden sm:block">
-            <div class="h-full bg-gradient-to-r from-blue-500 to-amber-500 transition-all duration-300" style="width: ${(sIdx + 1) * 8.33}%"></div>
+            <div class="h-full bg-gradient-to-r from-blue-500 to-amber-500 transition-all duration-300" style="width: ${pctProgress}%"></div>
           </div>
-          <span class="text-[10px] md:text-xs font-mono text-slate-300 font-extrabold">${sIdx + 1} / 12</span>
+          <span class="text-[10px] md:text-xs font-mono text-slate-300 font-extrabold">${sIdx + 1} / ${totalSlides}</span>
         </div>
       `;
 
       const pillsContainer = document.getElementById('slide-pills-container');
       pillsContainer.innerHTML = '';
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < totalSlides; i++) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'slide-pill' + (i === sIdx ? ' is-on' : (i < sIdx ? ' is-done' : ''));
@@ -5028,15 +5060,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
           </div>
         `;
-      } else if (sIdx >= 4 && sIdx <= 8) {
+      } else if (sIdx >= 4 && sIdx < 4 + exCount) {
         window._labContoh = labUntukBab(m.bab, currentMode);
         
-        // Each Level is now a dedicated native Slide (Slide 5 = Level 1, Slide 6 = Level 2, Slide 7 = Level 3, Slide 8 = Level 4, Slide 9 = Level 5)
+        // Each Level is now a dedicated native Slide
         const exIdx = sIdx - 4;
 
         const exTitles = isClil ? 
-          ["Level 1: Conceptual Foundation", "Level 2: Characteristic & Analysis", "Level 3: Synthesis & Construction", "Level 4: UTBK/SNBT Standard", "Level 5: Contextual HOTS"] : 
-          ["Level 1: Fondasi Konsep", "Level 2: Karakteristik & Analitis", "Level 3: Konstruksi & Sintesis", "Level 4: Standar UTBK-SNBT", "Level 5: HOTS Kontekstual"];
+          ["Level 1: Conceptual Foundation", "Level 2: Characteristic & Analysis", "Level 3: Synthesis & Construction", "Level 4: Dispersion of Location", "Level 5: Outlier & Boundary Detection", "Level 6: Box-and-Whisker Plot", "Level 7: UTBK-SNBT Standard & Linear Transformation", "Level 8: Advanced Non-Routine HOTS"] : 
+          ["Level 1: Fondasi Konsep", "Level 2: Karakteristik & Analitis", "Level 3: Konstruksi & Sintesis", "Level 4: Ukuran Penyebaran Posisi", "Level 5: Deteksi Nilai Pencilan (Outlier)", "Level 6: Diagram Kotak-Garis (Boxplot)", "Level 7: Standar UTBK-SNBT & Transformasi", "Level 8: HOTS Non-Rutin"];
         
         const matchSubj = isClil ? 'tka_clil' : (currentMode === 'minat' ? 'tka_minat' : 'tka_wajib');
         const matchPkg = db[matchSubj] ? db[matchSubj][m.id] : null;
@@ -5122,13 +5154,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
           </div>
         `;
-      } else if (sIdx === 9) {
-        // SLIDE 10: DYNAMIC COLLABORATIVE PEDAGOGICAL ARENA
+      } else if (sIdx === 4 + exCount) {
+        // SLIDE: DYNAMIC COLLABORATIVE PEDAGOGICAL ARENA
         const defaultMethod = getDefaultPedagogyForMeeting(m.id, currentMode);
         const selectedMethodKey = window.currentMeetingPedagogy || defaultMethod;
         body.innerHTML = renderSlide8PedagogyBody(m, isClil, selectedMethodKey);
-      } else if (sIdx === 10) {
-        // SLIDE 11: SUMMARY & ISLAMIC VALUES
+      } else if (sIdx === 4 + exCount + 1) {
+        // SLIDE: SUMMARY & ISLAMIC VALUES
         const summaryData = (m.summary_data) || {
           summary: [
             isClil ? ("Understand core mathematical principles and formulas for " + m.title + ".") : ("Memahami konsep fundamental dan penurunan rumus utama pada materi " + m.title + "."),
@@ -5170,8 +5202,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             </div>
           </div>
         `;
-      } else if (sIdx === 11) {
-        // SLIDE 12: CLOSING & EVALUATION
+      } else if (sIdx === 4 + exCount + 2) {
+        // SLIDE: CLOSING & EVALUATION
         body.innerHTML = `
           <div class="h-full flex flex-col items-center justify-center text-center space-y-4 p-5 md:p-8 bg-[#0D1B2E] rounded-3xl border border-blue-800/80 shadow-2xl">
             <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl shadow-lg">
@@ -7181,8 +7213,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
     // NEXT & PREV CONTROLS
     function nextSlide() {
-      const meetings = db[currentMode] || db['wajib'];
-      if (currentSlideIdx < 11) {
+      const meetings = db[currentMode] || db['wajib'] || [];
+      const m = meetings[currentMeetingIdx];
+      const exCount = (m && m.examples && m.examples.length) ? m.examples.length : 5;
+      const totalSlides = exCount + 7;
+      if (currentSlideIdx < totalSlides - 1) {
         currentSlideIdx++;
         renderAppView();
       } else if (currentMeetingIdx < meetings.length - 1) {
@@ -7193,12 +7228,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     }
 
     function prevSlide() {
+      const meetings = db[currentMode] || db['wajib'] || [];
       if (currentSlideIdx > 0) {
         currentSlideIdx--;
         renderAppView();
       } else if (currentMeetingIdx > 0) {
         currentMeetingIdx--;
-        currentSlideIdx = 11;
+        const prevM = meetings[currentMeetingIdx];
+        const prevExCount = (prevM && prevM.examples && prevM.examples.length) ? prevM.examples.length : 5;
+        currentSlideIdx = prevExCount + 7 - 1;
         renderAppView();
       }
     }
@@ -7650,6 +7688,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const rawQ = questionsList[activeQIdx] || questionsList[0] || (isClil ? 'Discuss the solution strategy with your group.' : 'Diskusikan strategi penyelesaian bersama kelompok.');
       const cleanActiveQ = rawQ.replace(/^\[[A-Za-z0-9_.-]+\]\s*/, '').replace(/^(?:Kelompok\s+[A-Za-z0-9_]+|Tantangan\s+\d+|Soal\s+[A-Z0-9]+|Kasus\s+[A-Z0-9]+|Level\s+\d+|Babak\s+\d+|Meja\s+Ahli\s+[A-Z]|Pos\s+\d+|Stasiun\s+\d+)\s*:\s*/i, '');
       const activeLabel = taskCfg.labels[activeQIdx] || (isClil ? `Challenge ${activeQIdx + 1}` : `Tantangan ${activeQIdx + 1}`);
+      const collabSvg = getTopicSvgDiagram(m.id, currentMode, 'collab');
 
       // Role Detection: Check if current user is Teacher (Guru)
       const sess = typeof getSession === 'function' ? getSession() : null;
@@ -7839,11 +7878,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                   <div class="flex items-center bg-[#050B14] p-0.5 rounded-lg border border-blue-900/60">
                     ${levelTabsHtml}
                   </div>
-                </div>
-
                 <div class="text-xs md:text-sm lg:text-base font-semibold text-white leading-relaxed">
-                  ${cleanActiveQ}
+                  ${formatMathTables(cleanActiveQ)}
                 </div>
+                ${collabSvg ? `
+                <div class="mt-2.5 p-2 bg-[#050B14] rounded-xl border border-blue-900/60 flex items-center justify-center shadow-inner shrink-0 overflow-x-auto">
+                  ${collabSvg}
+                </div>
+                ` : ''}
               </div>
 
               <!-- TEACHER-EXCLUSIVE COLLABORATIVE SOLUTION PANEL -->
@@ -8084,6 +8126,166 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
 
           if (context === 'toolkit') {
             return drawCube3D(`Kubus Referensi 3D ${mId}`, ``);
+          }
+        }
+
+        if (pNum === 18) {
+          // P18: UKURAN LETAK DATA & BOXPLOT / OUTLIER
+          if (context === 'toolkit') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Diagram Kotak-Garis (Boxplot) & Batas Pencilan</text>
+              <line x1="45" y1="70" x2="175" y2="70" stroke="#94A3B8" stroke-width="1.5"/>
+              <line x1="45" y1="58" x2="45" y2="82" stroke="#94A3B8" stroke-width="1.8"/>
+              <text x="45" y="53" text-anchor="middle" fill="#94A3B8" font-size="7" font-family="monospace">x_min</text>
+              <line x1="175" y1="58" x2="175" y2="82" stroke="#94A3B8" stroke-width="1.8"/>
+              <text x="175" y="53" text-anchor="middle" fill="#94A3B8" font-size="7" font-family="monospace">x_max</text>
+              <rect x="75" y="48" width="65" height="44" fill="#1E293B" stroke="#3B82F6" stroke-width="1.8" rx="3" opacity="0.85"/>
+              <line x1="105" y1="48" x2="105" y2="92" stroke="#F59E0B" stroke-width="2.2"/>
+              <text x="75" y="104" text-anchor="middle" fill="#60A5FA" font-size="7.5" font-weight="bold">Q₁</text>
+              <text x="105" y="104" text-anchor="middle" fill="#F59E0B" font-size="7.5" font-weight="bold">Q₂ (Me)</text>
+              <text x="140" y="104" text-anchor="middle" fill="#60A5FA" font-size="7.5" font-weight="bold">Q₃</text>
+              <line x1="75" y1="114" x2="140" y2="114" stroke="#38BDF8" stroke-width="1.2"/>
+              <polygon points="75,114 79,112 79,116" fill="#38BDF8"/>
+              <polygon points="140,114 136,112 136,116" fill="#38BDF8"/>
+              <text x="107" y="124" text-anchor="middle" fill="#38BDF8" font-size="7" font-family="monospace">Panjang Kotak = QR (Q₃ - Q₁)</text>
+              <line x1="28" y1="45" x2="28" y2="95" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,2"/>
+              <text x="28" y="40" text-anchor="middle" fill="#F87171" font-size="6.5" font-weight="bold">PD</text>
+              <line x1="192" y1="45" x2="192" y2="95" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,2"/>
+              <text x="192" y="40" text-anchor="middle" fill="#F87171" font-size="6.5" font-weight="bold">PL</text>
+              <circle cx="15" cy="70" r="2.8" fill="#EF4444" stroke="#FEE2E2" stroke-width="1"/>
+              <text x="15" y="83" text-anchor="middle" fill="#EF4444" font-size="6" font-weight="bold">* Pencilan</text>
+              <circle cx="205" cy="70" r="2.8" fill="#EF4444" stroke="#FEE2E2" stroke-width="1"/>
+              <text x="205" y="83" text-anchor="middle" fill="#EF4444" font-size="6" font-weight="bold">* Pencilan</text>
+            </svg>`;
+          } else if (context === 'ex1') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 1: Letak Kuartil Bawah Q₁ & Median Q₂</text>
+              <line x1="25" y1="110" x2="195" y2="110" stroke="#475569" stroke-width="1.2"/>
+              <path d="M 30,110 L 60,95 L 95,75 L 135,45 L 165,28 L 190,20" fill="none" stroke="#3B82F6" stroke-width="1.8"/>
+              <line x1="25" y1="85" x2="80" y2="85" stroke="#F59E0B" stroke-width="1" stroke-dasharray="2,2"/>
+              <line x1="80" y1="85" x2="80" y2="110" stroke="#F59E0B" stroke-width="1.2" stroke-dasharray="2,2"/>
+              <circle cx="80" cy="85" r="3" fill="#F59E0B"/>
+              <text x="80" y="122" text-anchor="middle" fill="#FCD34D" font-size="7.5" font-weight="bold">Q₁ = 34,5</text>
+              <line x1="25" y1="55" x2="120" y2="55" stroke="#10B981" stroke-width="1" stroke-dasharray="2,2"/>
+              <line x1="120" y1="55" x2="120" y2="110" stroke="#10B981" stroke-width="1.2" stroke-dasharray="2,2"/>
+              <circle cx="120" cy="55" r="3" fill="#10B981"/>
+              <text x="120" y="122" text-anchor="middle" fill="#34D399" font-size="7.5" font-weight="bold">Q₂ = 44,5</text>
+              <text x="25" y="82" fill="#94A3B8" font-size="6.5">N=15</text>
+              <text x="25" y="52" fill="#94A3B8" font-size="6.5">N=30</text>
+            </svg>`;
+          } else if (context === 'ex2') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 2: Partisi Desil D₇ (70%) & Kuartil Q₃ (75%)</text>
+              <rect x="25" y="55" width="170" height="25" fill="#1E293B" stroke="#475569" stroke-width="1" rx="4"/>
+              <rect x="144" y="55" width="51" height="25" fill="#3B82F6" opacity="0.3"/>
+              <rect x="152" y="55" width="43" height="25" fill="#10B981" opacity="0.4"/>
+              <line x1="144" y1="45" x2="144" y2="85" stroke="#60A5FA" stroke-width="2"/>
+              <text x="144" y="40" text-anchor="middle" fill="#93C5FD" font-size="7" font-weight="bold">D₇ = 84,5</text>
+              <text x="144" y="98" text-anchor="middle" fill="#94A3B8" font-size="6.5">(Datum ke-56)</text>
+              <line x1="152" y1="45" x2="152" y2="85" stroke="#34D399" stroke-width="2"/>
+              <text x="175" y="40" text-anchor="middle" fill="#34D399" font-size="7" font-weight="bold">Q₃ = 86,5</text>
+              <text x="175" y="98" text-anchor="middle" fill="#94A3B8" font-size="6.5">(Datum ke-60)</text>
+              <text x="75" y="71" text-anchor="middle" fill="#64748B" font-size="7">70% Siswa (Skor &lt; 84,5)</text>
+              <text x="110" y="125" text-anchor="middle" fill="#FCD34D" font-size="7.5">Top 25% Berprestasi memiliki Skor ≥ 86,5</text>
+            </svg>`;
+          } else if (context === 'ex3') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 3: Persentil P₈₅ (Ambang Waktu 85% Armada)</text>
+              <line x1="25" y1="110" x2="195" y2="110" stroke="#475569" stroke-width="1.2"/>
+              <path d="M 30,110 Q 70,105 100,80 T 150,40 T 190,20" fill="none" stroke="#10B981" stroke-width="2"/>
+              <line x1="150" y1="35" x2="150" y2="110" stroke="#F59E0B" stroke-width="1.8" stroke-dasharray="2,2"/>
+              <line x1="25" y1="35" x2="150" y2="35" stroke="#F59E0B" stroke-width="1" stroke-dasharray="2,2"/>
+              <circle cx="150" cy="35" r="3.5" fill="#F59E0B"/>
+              <text x="150" y="122" text-anchor="middle" fill="#FCD34D" font-size="7.5" font-weight="bold">P₈₅ = 52,0 Menit</text>
+              <text x="25" y="32" fill="#FCD34D" font-size="7" font-weight="bold">85% (N=85)</text>
+              <text x="90" y="70" fill="#34D399" font-size="7">85% Tiba Tepat Waktu</text>
+              <text x="175" y="70" fill="#EF4444" font-size="7">15% Terlambat</text>
+            </svg>`;
+          } else if (context === 'ex4') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 4: Jangkauan Interkuartil QR & Simpangan Qd</text>
+              <line x1="30" y1="65" x2="190" y2="65" stroke="#64748B" stroke-width="1.5"/>
+              <rect x="65" y="45" width="80" height="40" fill="#1E293B" stroke="#3B82F6" stroke-width="1.8" rx="3"/>
+              <line x1="105" y1="45" x2="105" y2="85" stroke="#F59E0B" stroke-width="2"/>
+              <text x="65" y="40" text-anchor="middle" fill="#60A5FA" font-size="7.5" font-weight="bold">Q₁ = 46,5</text>
+              <text x="145" y="40" text-anchor="middle" fill="#60A5FA" font-size="7.5" font-weight="bold">Q₃ = 65,5</text>
+              <line x1="65" y1="98" x2="145" y2="98" stroke="#F59E0B" stroke-width="1.5"/>
+              <polygon points="65,98 70,96 70,100" fill="#F59E0B"/>
+              <polygon points="145,98 140,96 140,100" fill="#F59E0B"/>
+              <text x="105" y="110" text-anchor="middle" fill="#FCD34D" font-size="8" font-weight="bold">QR = Q₃ - Q₁ = 19,0</text>
+              <text x="105" y="124" text-anchor="middle" fill="#38BDF8" font-size="7.5">Simpangan Kuartil: Qd = ½(19) = 9,5 | L = 28,5</text>
+            </svg>`;
+          } else if (context === 'ex5') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 5: Pagar Dalam (PD), Pagar Luar (PL), & Outlier</text>
+              <rect x="50" y="50" width="120" height="30" fill="#10B981" opacity="0.15" stroke="#10B981" stroke-dasharray="2,2"/>
+              <text x="110" y="68" text-anchor="middle" fill="#34D399" font-size="7.5" font-weight="bold">Zona Data Normal [16,0 ; 112,0]</text>
+              <line x1="50" y1="40" x2="50" y2="90" stroke="#EF4444" stroke-width="2"/>
+              <text x="50" y="35" text-anchor="middle" fill="#F87171" font-size="7" font-weight="bold">PD = 16,0</text>
+              <line x1="170" y1="40" x2="170" y2="90" stroke="#EF4444" stroke-width="2"/>
+              <text x="170" y="35" text-anchor="middle" fill="#F87171" font-size="7" font-weight="bold">PL = 112,0</text>
+              <circle cx="30" cy="65" r="4" fill="#EF4444"/>
+              <text x="30" y="80" text-anchor="middle" fill="#FCA5A5" font-size="6.5" font-weight="bold">xA = 14,0</text>
+              <text x="30" y="90" text-anchor="middle" fill="#EF4444" font-size="6">(Outlier Bawah)</text>
+              <circle cx="195" cy="65" r="4" fill="#EF4444"/>
+              <text x="195" y="80" text-anchor="middle" fill="#FCA5A5" font-size="6.5" font-weight="bold">xB = 115,0</text>
+              <text x="195" y="90" text-anchor="middle" fill="#EF4444" font-size="6">(Outlier Atas)</text>
+              <text x="110" y="125" text-anchor="middle" fill="#FCD34D" font-size="7.5">Kriteria: Data di luar [PD, PL] = Pencilan Ekstrem</text>
+            </svg>`;
+          } else if (context === 'ex6') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 6: Distribusi Miring Positif (Kanan)</text>
+              <line x1="40" y1="65" x2="70" y2="65" stroke="#94A3B8" stroke-width="1.5"/>
+              <line x1="40" y1="55" x2="40" y2="75" stroke="#94A3B8" stroke-width="1.8"/>
+              <text x="40" y="50" text-anchor="middle" fill="#94A3B8" font-size="6.5">Min=10</text>
+              <rect x="70" y="45" width="60" height="40" fill="#1E293B" stroke="#3B82F6" stroke-width="1.8" rx="2"/>
+              <line x1="90" y1="45" x2="90" y2="85" stroke="#F59E0B" stroke-width="2.2"/>
+              <text x="70" y="98" text-anchor="middle" fill="#60A5FA" font-size="7">Q₁=20</text>
+              <text x="90" y="98" text-anchor="middle" fill="#F59E0B" font-size="7">Q₂=25</text>
+              <text x="130" y="98" text-anchor="middle" fill="#60A5FA" font-size="7">Q₃=35</text>
+              <line x1="130" y1="65" x2="185" y2="65" stroke="#94A3B8" stroke-width="1.5"/>
+              <line x1="185" y1="55" x2="185" y2="75" stroke="#94A3B8" stroke-width="1.8"/>
+              <text x="185" y="50" text-anchor="middle" fill="#94A3B8" font-size="6.5">Max=52</text>
+              <text x="80" y="38" text-anchor="middle" fill="#64748B" font-size="6.5">5</text>
+              <text x="110" y="38" text-anchor="middle" fill="#F59E0B" font-size="6.5">10 (Lebih Renggang)</text>
+              <text x="110" y="122" text-anchor="middle" fill="#FCD34D" font-size="7.5">Kanan > Kiri ⇒ Miring Kanan (Mean > Median)</text>
+            </svg>`;
+          } else if (context === 'ex7') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Level 7: Transformasi Linear Y = 1,25X + 50</text>
+              <text x="25" y="46" fill="#94A3B8" font-size="7" font-weight="bold">Data X:</text>
+              <line x1="45" y1="45" x2="145" y2="45" stroke="#64748B" stroke-width="1.2"/>
+              <rect x="65" y="35" width="55" height="20" fill="#1E293B" stroke="#64748B" stroke-width="1.2" rx="2"/>
+              <line x1="90" y1="35" x2="90" y2="55" stroke="#94A3B8" stroke-width="1.5"/>
+              <text x="65" y="30" text-anchor="middle" fill="#94A3B8" font-size="6">Q₁=400</text>
+              <text x="120" y="30" text-anchor="middle" fill="#94A3B8" font-size="6">Q₃=640</text>
+              <text x="155" y="48" fill="#94A3B8" font-size="6.5">QR = 240</text>
+              <text x="25" y="86" fill="#F59E0B" font-size="7" font-weight="bold">Data Y:</text>
+              <line x1="60" y1="85" x2="185" y2="85" stroke="#3B82F6" stroke-width="1.5"/>
+              <rect x="85" y="72" width="75" height="26" fill="#1E293B" stroke="#3B82F6" stroke-width="1.8" rx="2"/>
+              <line x1="120" y1="72" x2="120" y2="98" stroke="#F59E0B" stroke-width="2"/>
+              <text x="85" y="110" text-anchor="middle" fill="#60A5FA" font-size="6.5" font-weight="bold">Q₁*=550</text>
+              <text x="120" y="110" text-anchor="middle" fill="#F59E0B" font-size="6.5" font-weight="bold">Q₂*=700</text>
+              <text x="160" y="110" text-anchor="middle" fill="#60A5FA" font-size="6.5" font-weight="bold">Q₃*=850</text>
+              <text x="190" y="88" fill="#FCD34D" font-size="6.5" font-weight="bold">QR* = 300</text>
+              <text x="110" y="127" text-anchor="middle" fill="#38BDF8" font-size="7">Kuartil Geser (+50 &amp; x1,25), QR Hanya Mengembang (x1,25)</text>
+            </svg>`;
+          } else if (context === 'collab') {
+            return `<svg ${baseAttrs}>${drawGrid()}
+              <text x="110" y="14" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="bold">Stasiun Kolaborasi: Komparasi Boxplot Dua Tim</text>
+              <text x="25" y="46" fill="#60A5FA" font-size="7" font-weight="bold">Tim A (Simetris):</text>
+              <line x1="50" y1="43" x2="170" y2="43" stroke="#60A5FA" stroke-width="1.2"/>
+              <rect x="75" y="33" width="70" height="20" fill="#1E293B" stroke="#60A5FA" stroke-width="1.5" rx="2"/>
+              <line x1="110" y1="33" x2="110" y2="53" stroke="#F59E0B" stroke-width="2"/>
+              <text x="180" y="46" fill="#93C5FD" font-size="6.5">QR = 20</text>
+              <text x="25" y="86" fill="#34D399" font-size="7" font-weight="bold">Tim B (Pencilan):</text>
+              <line x1="60" y1="83" x2="155" y2="83" stroke="#34D399" stroke-width="1.2"/>
+              <rect x="80" y="73" width="50" height="20" fill="#1E293B" stroke="#34D399" stroke-width="1.5" rx="2"/>
+              <line x1="95" y1="73" x2="95" y2="93" stroke="#F59E0B" stroke-width="2"/>
+              <circle cx="190" cy="83" r="3.5" fill="#EF4444"/>
+              <text x="190" y="96" text-anchor="middle" fill="#F87171" font-size="6" font-weight="bold">* Outlier</text>
+              <text x="110" y="125" text-anchor="middle" fill="#FCD34D" font-size="7.5">Analisis: Selidiki Kesenjangan Interkuartil & Batas Pagar!</text>
+            </svg>`;
           }
         }
 
