@@ -999,7 +999,7 @@ const NAMA_TINGKAT = 'XII';
         "Mendiagnosis kesiapan pengerjaan soal prediksi ASTS CBT Matematika Wajib.",
         "Melatih ketepatan visualisasi spasial 3D dan kalkulasi aljabar bentuk akar."
       ],
-      "hook": "Uji kesiapan komprehensif Bab 2 Geometri Dimensi Tiga sebelum memasuki Bab 3 Statistika & Analisis Data.",
+      "hook": "Uji kesiapan komprehensif Bab 2 Geometri Dimensi Tiga sebelum memasuki Bab 3 Statistika & Analisis Data Bivariat.",
       "toolkit": [
         {
           "name": "Matriks Uji Bab 2",
@@ -1066,7 +1066,7 @@ const NAMA_TINGKAT = 'XII';
     },
     {
       "id": "P15",
-      "bab": "Bab 3: Statistika & Analisis Data",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
       "title": "Penyajian Data Berkelompok (Histogram, Poligon, & Ogive)",
       "obj": [
         "Menyusun tabel distribusi frekuensi data berkelompok dengan Aturan Sturges $k = 1 + 3{,}3 \\log N$.",
@@ -1140,7 +1140,7 @@ const NAMA_TINGKAT = 'XII';
     },
     {
       "id": "P16",
-      "bab": "Bab 3: Statistika & Analisis Data",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
       "title": "Rata-rata Hitung (Mean) Data Berkelompok",
       "obj": [
         "Menghitung mean data berkelompok menggunakan metode titik tengah $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i}$.",
@@ -1219,7 +1219,7 @@ const NAMA_TINGKAT = 'XII';
     },
     {
       "id": "P17",
-      "bab": "Bab 3: Statistika & Analisis Data",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
       "title": "Median dan Modus Data Berkelompok",
       "obj": [
         "Menentukan letak kelas median $\\frac{1}{2}N$ dan menghitung nilai Median menggunakan rumus interpolasi linier.",
@@ -1410,7 +1410,7 @@ const NAMA_TINGKAT = 'XII';
     },
     {
       "id": "P19",
-      "bab": "Bab 3: Statistika & Analisis Data",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
       "title": "Ukuran Penyebaran Data (Simpangan Rata-rata, Varians, Simpangan Baku)",
       "obj": [
         "Menghitung Simpangan Rata-rata ($SR = \\frac{\\sum f_i |x_i - \\bar{x}|}{N}$).",
@@ -1489,7 +1489,7 @@ const NAMA_TINGKAT = 'XII';
     },
     {
       "id": "P20",
-      "bab": "Bab 3: Statistika & Analisis Data",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
       "title": "Analisis Data Bivariat (Scatter Plot, Korelasi Pearson, & Garis Regresi)",
       "obj": [
         "Membuat diagram pencar (Scatter Plot) untuk pasangan data bivariat $(x, y)$.",
@@ -1564,7 +1564,7 @@ const NAMA_TINGKAT = 'XII';
     },
     {
       "id": "P21",
-      "bab": "Bab 3: Statistika & Analisis Data",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
       "title": "Asesmen Sumatif Terpadu Statistika & Simulasi ASAS CBT",
       "obj": [
         "Mengevaluasi penguasaan materi statistika univariat dan bivariat secara menyeluruh (P15 - P20).",

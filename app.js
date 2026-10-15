@@ -3681,7 +3681,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         baris: ['Kaidah Pencacahan', '& Peluang'], x: 125, y: 130, pra: []
       },
       W3: {
-        aliran: 'wajib', bab: 'Bab 3: Statistika & Analisis Data', kode: 'BAB 3',
+        aliran: 'wajib', bab: 'Bab 3: Statistika & Analisis Data Bivariat', kode: 'BAB 3',
         baris: ['Statistika &', 'Analisis Data'], x: 370, y: 130, pra: ['W1']
       },
       W2: {
@@ -4369,9 +4369,20 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     function pickerGroups(items) {
       const urut = [], peta = {};
       items.forEach(it => {
-        const k = it.bab || 'Lainnya';
-        if (peta[k] === undefined) { peta[k] = urut.length; urut.push({ key: k, items: [] }); }
-        urut[peta[k]].items.push(it);
+        const rawK = (it.bab || 'Lainnya').trim();
+        const m = /^Bab\s*(\d+)/i.exec(rawK);
+        // Canonical group key: "BAB_1", "BAB_2", etc. or full string if not numbered
+        const normKey = m ? ('BAB_' + m[1]) : rawK;
+        if (peta[normKey] === undefined) {
+          peta[normKey] = urut.length;
+          urut.push({ key: rawK, normKey: normKey, items: [] });
+        } else {
+          // If a later item has a longer/more comprehensive title, adopt it as canonical title
+          if (rawK.length > urut[peta[normKey]].key.length) {
+            urut[peta[normKey]].key = rawK;
+          }
+        }
+        urut[peta[normKey]].items.push(it);
       });
       const warna = PICKER_ACCENTS[pickerAliran()] || PICKER_ACCENTS.wajib;
       urut.forEach((g, i) => {
@@ -4468,13 +4479,13 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         groups.forEach(g => {
           const btn = document.createElement('button');
           btn.type = 'button';
-          const isSelected = pickerBabFilter === g.key;
+          const isSelected = pickerBabFilter === g.key || pickerBabFilter === g.normKey;
           btn.className = isSelected ? 
             "px-3 py-0.5 rounded-lg text-[11px] font-mono font-bold bg-amber-500 text-slate-950 shadow transition" : 
             "px-3 py-0.5 rounded-lg text-[11px] font-mono font-bold bg-[#0D1B2E] text-slate-300 hover:text-white border border-blue-900/60 hover:border-amber-500/40 transition";
           btn.textContent = g.label;
           btn.onclick = () => {
-            pickerBabFilter = (pickerBabFilter === g.key) ? 'all' : g.key;
+            pickerBabFilter = (pickerBabFilter === g.key || pickerBabFilter === g.normKey) ? 'all' : g.key;
             if (pickerCollapsed) pickerCollapsed.delete(g.key);
             renderMeetingPicker(document.getElementById('picker-search') ? document.getElementById('picker-search').value : '');
           };
@@ -4488,13 +4499,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         it.title.toLowerCase().includes(q) || it.bab.toLowerCase().includes(q) || (it.desc || '').toLowerCase().includes(q);
 
       const tampil = groups
-        .filter(g => pickerBabFilter === 'all' || g.key === pickerBabFilter)
+        .filter(g => pickerBabFilter === 'all' || g.key === pickerBabFilter || g.normKey === pickerBabFilter)
         .map(g => Object.assign({}, g, { hasil: g.items.filter(cocok) }))
         .filter(g => g.hasil.length);
 
       if (pickerCollapsed === null) {
         pickerCollapsed = new Set();
-        const aktifKey = (items.find(it => it.aktif) || {}).bab;
+        const aktifGroup = groups.find(g => g.items.some(x => x.aktif));
+        const aktifKey = aktifGroup ? aktifGroup.key : '';
         groups.forEach(g => { if (g.key !== aktifKey) pickerCollapsed.add(g.key); });
       }
 
@@ -4612,6 +4624,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const m = document.getElementById('meeting-picker-modal');
       if (m) m.classList.add('hidden');
     }
+    window.openMeetingPicker = openMeetingPicker;
+    window.closeMeetingPicker = closeMeetingPicker;
+    window.renderMeetingPicker = renderMeetingPicker;
 
     // pindah satu paket ke depan/belakang tanpa membuka modal
     let _lastStepPkgTime = 0;
@@ -9265,17 +9280,26 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         if (meetings.length === 0) return;
 
         const babsMap = {};
+        const babsCanonicalName = {};
         meetings.forEach(m => {
-          const babName = m.bab || 'Materi Pembelajaran';
-          if (!babsMap[babName]) babsMap[babName] = [];
-          babsMap[babName].push(m);
+          const rawBab = (m.bab || 'Materi Pembelajaran').trim();
+          const matchBab = /^Bab\s*(\d+)/i.exec(rawBab);
+          const babKey = matchBab ? ('bab_' + matchBab[1]) : rawBab;
+          if (!babsMap[babKey]) {
+            babsMap[babKey] = [];
+            babsCanonicalName[babKey] = rawBab;
+          } else if (rawBab.length > babsCanonicalName[babKey].length) {
+            babsCanonicalName[babKey] = rawBab;
+          }
+          babsMap[babKey].push(m);
         });
 
         const filteredBabs = {};
         let subjMatchCount = 0;
 
-        Object.keys(babsMap).forEach(bName => {
-          const mList = babsMap[bName];
+        Object.keys(babsMap).forEach(bKey => {
+          const bName = babsCanonicalName[bKey];
+          const mList = babsMap[bKey];
           const matched = mList.filter(m => !q || 
             m.title.toLowerCase().includes(q) || 
             m.id.toLowerCase().includes(q) || 
