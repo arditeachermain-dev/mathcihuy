@@ -1416,7 +1416,7 @@ const NAMA_TINGKAT = 'XII';
           "Diagram Kotak-Garis (Boxplot) memvisualisasikan ringkasan lima data (Five-Number Summary) serta mengindikasikan simetri atau kemiringan (skewness) sebaran data.",
           "Transformasi linear $Y = aX + b$ menggeser seluruh ukuran letak ($Q_{new} = aQ_{old} + b$), namun ukuran penyebaran posisi hanya dipengaruhi faktor skala ($QR_{new} = |a|QR_{old}$)."
         ],
-        "islamic": "Keteraturan pembagian ukuran letak (kuartil, desil, persentil) dan penetapan batas pagar yang adil merefleksikan prinsip Al-Mizan (keseimbangan) dan ketetapan ukuran dalam ciptaan Allah SWT: 'Dan segala sesuatu pada sisi-Nya ada ukuran tertentu' (QS. Ar-Ra'd: 8) serta 'Sesungguhnya Kami menciptakan segala sesuatu menurut ukuran' (QS. Al-Qamar: 49)."
+        "islamic": "Keteraturan pembagian ukuran letak (kuartil, desil, persentil) dan penetapan batas pagar yang adil merefleksikan prinsip keadilan dan keseimbangan nilai keislaman serta ketetapan ukuran dalam ciptaan Allah SWT: 'Dan segala sesuatu pada sisi-Nya ada ukuran tertentu' (QS. Ar-Ra'd: 8) serta 'Sesungguhnya Kami menciptakan segala sesuatu menurut ukuran' (QS. Al-Qamar: 49)."
       },
       "collab_cases": [
         "Tantangan 1 (Meja A • Analisis Kuartil & Desil Lengkap):\nDiberikan tabel distribusi frekuensi nilai ujian 100 siswa:\n[30-39: 10], [40-49: 15], [50-59: 25], [60-69: 30], [70-79: 20]\nTotal $N = 100$. Hitunglah Kuartil Bawah ($Q_1$), Kuartil Atas ($Q_3$), serta Desil ke-4 ($D_4$) dan Desil ke-8 ($D_8$)!",

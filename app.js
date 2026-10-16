@@ -5119,7 +5119,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
                 }).join('')}
               </div>
 
-              <!-- FOOTER REFLECTION / AL-MIZAN -->
+              <!-- FOOTER REFLECTION / KEISLAMAN -->
               <div class="p-2.5 rounded-2xl bg-[#081324] border border-blue-900/60 flex items-center justify-between text-xs text-slate-300 gap-3">
                 <div class="flex items-center gap-2">
                   <i class="fa-solid fa-quote-left text-amber-400 shrink-0 opacity-80"></i>
