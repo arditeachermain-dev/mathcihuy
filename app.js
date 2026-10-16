@@ -5062,65 +5062,140 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           </div>
         `;
       } else if (sIdx === 2) {
-        body.innerHTML = `
-          <div class="w-full max-w-4xl mx-auto my-auto p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-amber-500/40 shadow-xl flex flex-col gap-3.5">
-            <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
-              <div class="flex items-center gap-2.5">
-                <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-xs">
-                  <i class="fa-solid fa-lightbulb"></i>
-                </span>
-                <div>
-                  <h3 class="text-xs md:text-sm font-bold text-amber-400 tracking-wide uppercase">
-                    ${isClil ? 'REAL-WORLD CONTEXT & APERCEPTION' : 'APERSEPSI & MOTIVASI KONTEKSTUAL RIIL'}
-                  </h3>
-                  <p class="text-[10px] text-slate-400 font-mono">${m.id} • ${isClil ? 'Why Location Matters More Than Mean' : 'Mengapa Ukuran Letak Lebih Kuat Dibanding Rata-Rata'}</p>
-                </div>
-              </div>
-              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-mono font-bold">
-                Kasus Nyata
-              </span>
-            </div>
+        // SLIDE 3: 3-PILLAR REAL-WORLD APERCEPTION & CONTEXTUAL HOOK
+        const has3Pillars = Array.isArray(m.apersepsi_items) && m.apersepsi_items.length >= 3;
+        const apersepsiList = has3Pillars ? m.apersepsi_items : null;
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-stretch">
-              <div class="md:col-span-7 p-3.5 bg-[#081324] rounded-2xl border border-blue-900/60 flex flex-col justify-between gap-2.5">
-                <div>
-                  <span class="text-[11px] font-mono font-bold text-amber-300 uppercase tracking-wide block mb-1">
-                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Problem Riil: Jebakan Rata-Rata (Mean Distortion)
+        if (apersepsiList) {
+          body.innerHTML = `
+            <div class="w-full max-w-5xl mx-auto my-auto p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-amber-500/40 shadow-xl flex flex-col gap-4">
+              <!-- HEADER -->
+              <div class="flex items-center justify-between border-b border-blue-900/80 pb-2.5">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-sm shadow-sm">
+                    <i class="fa-solid fa-lightbulb"></i>
                   </span>
-                  <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
-                    ${m.hook || ''}
-                  </p>
+                  <div>
+                    <h3 class="text-xs md:text-sm font-bold text-amber-400 tracking-wide uppercase">
+                      ${isClil ? 'REAL-WORLD CONTEXT & APERCEPTION: 3 CORE PILLARS' : 'APERSEPSI & MOTIVASI KONTEKSTUAL RIIL: 3 PILAR UTAMA'}
+                    </h3>
+                    <p class="text-[10px] text-slate-400 font-mono">${m.id} • ${m.title || ''}</p>
+                  </div>
                 </div>
-                <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200">
-                  <i class="fa-solid fa-quote-left mr-1 opacity-70"></i> <em>Statistik letak (Kuartil & Persentil) bersifat <strong>resisten</strong> terhadap pencilan ekstrem, menjadikannya fondasi utama dalam seleksi UTBK dan jaminan SLA sistem.</em>
-                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-mono font-bold">
+                  3 Kasus Nyata
+                </span>
               </div>
 
-              <div class="md:col-span-5 p-3.5 bg-[#081324] rounded-2xl border border-blue-900/60 flex flex-col justify-between gap-2">
-                <span class="text-[11px] font-mono font-bold text-blue-300 uppercase tracking-wide block border-b border-blue-900/60 pb-1">
-                  <i class="fa-solid fa-compass mr-1"></i> 3 Pilar Analisis Letak Data
+              <!-- 3-PILLAR CARDS GRID -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 items-stretch">
+                ${apersepsiList.map((item, idx) => {
+                  const borderCol = item.accent === 'emerald' ? 'border-emerald-500/40 hover:border-emerald-400' : (item.accent === 'amber' ? 'border-amber-500/40 hover:border-amber-400' : 'border-blue-500/40 hover:border-blue-400');
+                  const tagBg = item.accent === 'emerald' ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' : (item.accent === 'amber' ? 'bg-amber-500/15 text-amber-300 border-amber-500/30' : 'bg-blue-500/15 text-blue-300 border-blue-500/30');
+                  const iconCol = item.accent === 'emerald' ? 'text-emerald-400' : (item.accent === 'amber' ? 'text-amber-400' : 'text-blue-400');
+                  return `
+                    <div class="p-3.5 bg-[#081324] rounded-2xl border ${borderCol} flex flex-col justify-between gap-3 shadow-md transition duration-200">
+                      <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                          <span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold border ${tagBg}">
+                            ${item.tag}
+                          </span>
+                          <i class="${item.icon || 'fa-solid fa-compass'} ${iconCol} text-sm"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-white leading-snug">
+                          ${item.title}
+                        </h4>
+                        <div class="p-2 rounded-xl bg-[#050B14] border border-blue-900/40 text-[11px] text-slate-300 leading-relaxed">
+                          <strong class="text-amber-300 block mb-0.5"><i class="fa-solid fa-triangle-exclamation text-[10px] mr-1"></i> Problem Riil:</strong>
+                          ${item.problem}
+                        </div>
+                      </div>
+                      <div class="p-2 rounded-xl bg-blue-950/30 border border-blue-800/40 text-[11px] text-slate-200 leading-relaxed">
+                        <strong class="${iconCol} block mb-0.5"><i class="fa-solid fa-circle-check text-[10px] mr-1"></i> Solusi Matematis:</strong>
+                        ${item.solution}
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+
+              <!-- FOOTER REFLECTION / AL-MIZAN -->
+              <div class="p-2.5 rounded-2xl bg-[#081324] border border-blue-900/60 flex items-center justify-between text-xs text-slate-300 gap-3">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-quote-left text-amber-400 shrink-0 opacity-80"></i>
+                  <span class="text-[11px] leading-relaxed text-slate-300">
+                    <em>${
+                      (m.title || '').includes('Ukuran Letak') ? 'Statistik letak (Kuartil, Desil, Persentil) bersifat <strong>resisten</strong> terhadap pencilan ekstrem, menjadikannya fondasi utama seleksi nasional UTBK-SNBT dan audit mutu industri.' :
+                      (m.title || '').includes('Rantai') ? 'Aturan rantai diferensiasi mendekomposisi fungsi trigonometri majemuk lapis demi lapis, menjamin ketelitian laju perubahan pada sains osilasi dan teknologi modern.' :
+                      (m.title || '').includes('Vektor') ? 'Panjang vektor dan vektor satuan mengisolasi magnitudo dan arah gerak Euclidean, menjadi fondasi navigasi satelit dan grafika komputer 3D.' :
+                      (m.title || '').includes('Lingkaran') ? 'Sifat tegak lurus garis singgung terhadap jari-jari kontak adalah manifestasi presisi geometri analitik pada rekayasa mekanika roda dan optik.' :
+                      'Penalaran matematis terstruktur mentransformasi intuisi kontekstual menjadi formula teruji yang akurat dan aplikatif.'
+                    }</em>
+                  </span>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg bg-blue-900/30 text-blue-300 border border-blue-800/50 text-[10px] font-mono font-bold shrink-0">
+                  Standar TKA &amp; SNBT 2027
                 </span>
-                <div class="space-y-1.5 text-xs text-slate-300">
-                  <div class="p-2 rounded-lg bg-[#050B14] border border-blue-900/40 flex items-center gap-2">
-                    <i class="fa-solid fa-layer-group text-blue-400 text-xs"></i>
-                    <div><strong class="text-white">Kuartil ($Q_1, Q_2, Q_3$)</strong>: Membagi data 4 bagian setara.</div>
-                  </div>
-                  <div class="p-2 rounded-lg bg-[#050B14] border border-blue-900/40 flex items-center gap-2">
-                    <i class="fa-solid fa-percent text-emerald-400 text-xs"></i>
-                    <div><strong class="text-white">Desil & Persentil</strong>: Ambang batas spesifik ($D_i, P_{90}$).</div>
-                  </div>
-                  <div class="p-2 rounded-lg bg-[#050B14] border border-blue-900/40 flex items-center gap-2">
-                    <i class="fa-solid fa-shield-halved text-amber-400 text-xs"></i>
-                    <div><strong class="text-white">Pagar Pencilan ($PD, PL$)</strong>: Mendeteksi anomali sistem.</div>
+              </div>
+            </div>
+          `;
+        } else {
+          // DYNAMIC FALLBACK FOR ALL OTHER PACKAGES
+          const objs = m.obj || [];
+          body.innerHTML = `
+            <div class="w-full max-w-4xl mx-auto my-auto p-4 md:p-6 bg-[#0D1B2E] rounded-3xl border border-amber-500/40 shadow-xl flex flex-col gap-3.5">
+              <div class="flex items-center justify-between border-b border-blue-900/80 pb-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-lightbulb"></i>
+                  </span>
+                  <div>
+                    <h3 class="text-xs md:text-sm font-bold text-amber-400 tracking-wide uppercase">
+                      ${isClil ? 'REAL-WORLD CONTEXT & APERCEPTION' : 'APERSEPSI & MOTIVASI KONTEKSTUAL RIIL'}
+                    </h3>
+                    <p class="text-[10px] text-slate-400 font-mono">${m.id} • ${m.title || ''}</p>
                   </div>
                 </div>
-                <div class="text-[10px] text-slate-400 font-mono pt-1 text-center border-t border-blue-900/40">
-                  Standar Uji: <strong>TKA Nasional &amp; UTBK-SNBT 2027</strong>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-mono font-bold">
+                  Kasus Nyata
+                </span>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-stretch">
+                <div class="md:col-span-7 p-3.5 bg-[#081324] rounded-2xl border border-blue-900/60 flex flex-col justify-between gap-2.5">
+                  <div>
+                    <span class="text-[11px] font-mono font-bold text-amber-300 uppercase tracking-wide block mb-1">
+                      <i class="fa-solid fa-triangle-exclamation mr-1"></i> Problem Riil &amp; Relevansi Praktis:
+                    </span>
+                    <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
+                      ${m.hook || 'Konseptualisasi pemodelan masalah matematis dalam kehidupan nyata dan sains modern.'}
+                    </p>
+                  </div>
+                  <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200">
+                    <i class="fa-solid fa-quote-left mr-1 opacity-70"></i> <em>Penalaran matematis terstruktur mengubah intuisi abstrak menjadi instrumen analisis yang eksak dan terukur.</em>
+                  </div>
+                </div>
+
+                <div class="md:col-span-5 p-3.5 bg-[#081324] rounded-2xl border border-blue-900/60 flex flex-col justify-between gap-2">
+                  <span class="text-[11px] font-mono font-bold text-blue-300 uppercase tracking-wide block border-b border-blue-900/60 pb-1">
+                    <i class="fa-solid fa-compass mr-1"></i> Fokus Target Kompetensi
+                  </span>
+                  <div class="space-y-1.5 text-xs text-slate-300">
+                    ${objs.slice(0, 3).map((ob, oidx) => `
+                      <div class="p-2 rounded-lg bg-[#050B14] border border-blue-900/40 flex items-start gap-2">
+                        <span class="w-4 h-4 rounded-full bg-blue-600/30 text-blue-400 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">${oidx + 1}</span>
+                        <div class="text-[11px] text-slate-200 leading-snug">${ob.replace(/\(\*([^*]+)\*\)/g, '($1)').replace(/\*([^*]+)\*/g, '$1')}</div>
+                      </div>
+                    `).join('')}
+                  </div>
+                  <div class="text-[10px] text-slate-400 font-mono pt-1 text-center border-t border-blue-900/40">
+                    Standar Uji: <strong>TKA Nasional &amp; UTBK-SNBT 2027</strong>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        `;
+          `;
+        }
       } else if (sIdx === 3) {
         // SLIDE 4: THE MATHEMATICAL TOOLKIT (BALANCED 2-COL FORMULAS + MODEL VISUALIZER)
         const formulas = m.toolkit || [];

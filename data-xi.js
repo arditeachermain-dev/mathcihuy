@@ -1309,6 +1309,32 @@ const db = {
         "Menentukan kedudukan sebuah garis terhadap lingkaran dengan membandingkan jarak pusat ke garis terhadap jari-jari."
       ],
       "hook": "Sebuah garis dan sebuah lingkaran hanya punya tiga kemungkinan pertemuan: tidak bertemu sama sekali, bertemu di dua titik, atau — persis di perbatasan keduanya — bertemu di tepat satu titik. Yang ketiga itulah garis singgung, dan ia membawa satu sifat yang membuat hampir semua soal bab ini bisa diselesaikan: sudut siku-siku.",
+      "apersepsi_items": [
+        {
+          "tag": "Pilar 1: Tiga Posisi Geometris",
+          "title": "Tiga Kemungkinan Kontak Garis & Lingkaran",
+          "icon": "fa-regular fa-circle",
+          "accent": "blue",
+          "problem": "Bagaimana cara membedakan secara matematis antara lintasan partikel yang meleset, memotong melintasi lingkaran, atau tepat menyentuh di satu titik batas?",
+          "solution": "Berdasarkan jarak pusat ke garis $d$ dibanding jari-jari $r$: jika $d > r$ (tidak memotong), $d < r$ (memotong 2 titik), dan $d = r$ persis menyentuh di 1 titik kontak unik (garis singgung)."
+        },
+        {
+          "tag": "Pilar 2: Sifat Tegak Lurus",
+          "title": "Ortogonalitas Sempurna Sudut 90 Derajat",
+          "icon": "fa-solid fa-shapes",
+          "accent": "emerald",
+          "problem": "Mengapa roda kereta cepat dan lintasan rel selalu mempertahankan gaya gesek statis optimal di titik tumpu tanpa tergelincir?",
+          "solution": "Garis singgung lingkaran selalu membentuk sudut siku-siku $90^\\circ$ sempurna terhadap vektor jari-jari di titik singgungnya, memungkinkan pemanfaatan teorema Pythagoras untuk menghitung panjang garis singgung."
+        },
+        {
+          "tag": "Pilar 3: Diskriminan Nol",
+          "title": "Analisis Aljabar Titik Tunggal (D = 0)",
+          "icon": "fa-solid fa-calculator",
+          "accent": "amber",
+          "problem": "Ketika persamaan garis $y = mx + c$ disubstitusikan ke persamaan lingkaran $x^2 + y^2 = r^2$, apa syarat aljabar mutlak agar garis menyinggung?",
+          "solution": "Persamaan kuadrat persekutuan harus memiliki tepat satu akar kembar real, yaitu nilai diskriminan $D = b^2 - 4ac = 0$."
+        }
+      ],
       "toolkit": [
         {
           "name": "Sifat Pokok",

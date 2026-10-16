@@ -1303,7 +1303,33 @@ const NAMA_TINGKAT = 'XII';
         "Mengonstruksi ringkasan lima data (*Five-Number Summary*) dan menginterpretasikan bentuk kemiringan sebaran (*skewness*) melalui Diagram Kotak-Garis (*Box-and-Whisker Plot*).",
         "Memecahkan masalah kontekstual terapan pemodelan data (analisis passing grade UTBK-SNBT, Service Level Agreement SLA IT, dan efek transformasi linear $Y = aX + b$ pada ukuran letak)."
       ],
-      "hook": "Dalam seleksi masuk perguruan tinggi bergengsi (UTBK-SNBT) dan penetapan Service Level Agreement (SLA) infrastruktur cloud computing, nilai rata-rata (mean) sering kali menyesatkan karena mudah terdistorsi oleh satu atau dua data ekstrem. Lembaga penguji nasional dan praktisi IT mengandalkan ukuran letak: Kuartil ($Q_1, Q_2, Q_3$), Desil ($D_i$), dan Persentil ($P_{90}/P_{99}$) untuk menentukan passing grade serta mendeteksi anomali kegagalan sistem (outlier) secara akurat.",
+      "hook": "Dalam seleksi masuk perguruan tinggi bergengsi (UTBK-SNBT) dan penetapan Service Level Agreement (SLA) infrastruktur cloud computing, nilai rata-rata (mean) sering kali menyesatkan karena mudah terdistorsi oleh satu atau dua data ekstrem. Lembaga penguji nasional dan praktisi IT mengandalkan 3 ukuran letak utama: Kuartil ($Q_1, Q_2, Q_3$), Desil ($D_i$), dan Persentil ($P_{90}/P_{99}$) untuk menentukan passing grade, kuota beasiswa, serta mendeteksi anomali kegagalan sistem (outlier) secara akurat.",
+      "apersepsi_items": [
+        {
+          "tag": "Pilar 1: Kuartil",
+          "title": "Jebakan Mean & Passing Grade UTBK-SNBT",
+          "icon": "fa-solid fa-layer-group",
+          "accent": "blue",
+          "problem": "Nilai rata-rata kelas mudah anjlok hanya karena satu siswa memperoleh nilai 0. Bagaimana cara Balai Pengujian Nasional (BPPP) memetakan passing grade PTN impian secara adil dan kebal distorsi ekstrem?",
+          "solution": "Kuartil ($Q_1, Q_2, Q_3$) membagi data terurut menjadi 4 bagian sama besar ($25\\%$ tiap kuadran). Kuartil Bawah ($Q_1$) dan Kuartil Atas ($Q_3$) resisten terhadap pencilan nilai nol, menjadi patokan baku ambang kelulusan program studi favorit."
+        },
+        {
+          "tag": "Pilar 2: Desil",
+          "title": "Alokasi Beasiswa Riset & Desil Kesejahteraan",
+          "icon": "fa-solid fa-percent",
+          "accent": "emerald",
+          "problem": "Sebuah universitas riset dunia hanya menyediakan kuota beasiswa bebas biaya kuliah untuk 20% pendaftar terbaik nasional. Bagaimana menentukan batas minimal skor peserta secara presisi dari ribuan pendaftar?",
+          "solution": "Desil ($D_1$ s.d. $D_9$) membagi sebaran populasi menjadi 10 fraksi setara. Ambang Desil ke-8 ($D_8$) secara eksklusif menyaring tepat $20\\%$ skor tertinggi pendaftar, sedangkan Desil 1–2 digunakan kementerian untuk penyaluran bantuan afirmasi."
+        },
+        {
+          "tag": "Pilar 3: Persentil & Pencilan",
+          "title": "SLA 99% Cloud Computing & Pagar Deteksi Outlier",
+          "icon": "fa-solid fa-shield-halved",
+          "accent": "amber",
+          "problem": "Pusat data kecerdasan buatan IKN Nusantara memantau jutaan request telemetri server. Bagaimana tim engineer mendeteksi anomali latensi atau serangan siber tanpa harus memeriksa jutaan baris log secara manual?",
+          "solution": "Service Level Agreement diukur pada Persentil ke-99 ($P_{99}$). Menggunakan Pagar Tukey ($PD = Q_1 - 1{,}5QR$ dan $PL = Q_3 + 1{,}5QR$), sistem secara otomatis menandai setiap latensi yang melonjak di luar pagar sebagai anomali pencilan (outlier)."
+        }
+      ],
       "toolkit": [
         {
           "name": "Kuartil ke-i (Letak: $\\frac{i}{4}N$)",
@@ -2974,7 +3000,33 @@ const NAMA_TINGKAT = 'XII';
         "Menentukan turunan dari $\\sin(ax+b)$, $\\cos(ax+b)$, dan $\\tan(ax^2+bx)$.",
         "Mengevaluasi nilai turunan fungsi komposisi pada titik tertentu."
       ],
-      "hook": "Bagaikan membuka lapisan bawang, aturan rantai menurunkan lapisan fungsi trigonometri luar terlebih dahulu, lalu dikalikan dengan turunan fungsi aljabar di dalamnya.",
+      "hook": "Bagaikan membuka lapisan bawang, diferensiasi aturan rantai bekerja lapis demi lapis: menurunkan fungsi trigonometri terluar terlebih dahulu, kemudian mengalikannya secara beruntun dengan turunan fungsi aljabar di dalamnya tanpa ada suku yang tertinggal.",
+      "apersepsi_items": [
+        {
+          "tag": "Pilar 1: Dekomposisi",
+          "title": "Analogi Lapisan Bawang (Outer vs Inner)",
+          "icon": "fa-solid fa-layer-group",
+          "accent": "blue",
+          "problem": "Bagaimana cara membedakan peran fungsi trigonometri terluar $f(u)$ dan fungsi aljabar terdalam $u(x)$ saat mendiferensiasikan $\\sin(3x^2 - 5)$?",
+          "solution": "Turunkan fungsi luar $\\sin(u)$ menjadi $\\cos(u)$ dengan membiarkan fungsi dalam tetap utuh, lalu kalikan dengan turunan sudut dalamnya $u'(x) = 6x$."
+        },
+        {
+          "tag": "Pilar 2: Dinamika Fisika",
+          "title": "Osilasi Gelombang & Kecepatan Sudut",
+          "icon": "fa-solid fa-bolt",
+          "accent": "emerald",
+          "problem": "Dalam osilasi pegas dan gelombang elektromagnetik $\\theta(t) = \\cos(\\omega t + \\phi)$, dari manakah pengali frekuensi sudut $\\omega$ muncul pada fungsi kecepatan $v(t)$?",
+          "solution": "Faktor $\\omega$ muncul secara eksak dari turunan rantai fungsi sudut linear $(\\omega t + \\phi)' = \\omega$, membuktikan aturan rantai adalah fondasi hukum dinamika getaran."
+        },
+        {
+          "tag": "Pilar 3: Standar UTBK",
+          "title": "Jebakan Turunan Pangkat Komposisi",
+          "icon": "fa-solid fa-graduation-cap",
+          "accent": "amber",
+          "problem": "Soal seleksi UTBK-SNBT sering menguji turunan bertingkat tiga seperti $y = \\sin^3(4x^2 - 1)$. Di mana letak kesalahan fatal 80% siswa?",
+          "solution": "Siswa sering melupakan rantai 3 tahap: (1) Turunan pangkat luar $3u^2$, (2) Turunan trigonometri $\\cos(v)$, dan (3) Turunan aljabar $8x$. Formula: $y' = 3\\sin^2(4x^2-1) \\cdot \\cos(4x^2-1) \\cdot 8x$."
+        }
+      ],
       "toolkit": [
         {
           "name": "Aturan Rantai Komposisi",

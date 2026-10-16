@@ -1329,6 +1329,32 @@ const db = {
         "Menentukan vektor satuan searah sebuah vektor, dan memeriksa bahwa panjangnya tepat $1$."
       ],
       "hook": "Sebuah kapal berlayar $9$ km ke timur lalu $12$ km ke utara. Ia menempuh $21$ km, tetapi dari pelabuhan ia hanya berjarak $15$ km. Angka $15$ itu tidak muncul dari penjumlahan biasa; ia muncul dari sebuah segitiga siku-siku yang tersembunyi di dalam komponen vektornya. Begitu segitiga itu terlihat, panjang setiap vektor dapat dihitung tanpa mengukur.",
+      "apersepsi_items": [
+        {
+          "tag": "Pilar 1: Navigasi Maritim",
+          "title": "Perpindahan Kapal vs Total Jarak Tempuh",
+          "icon": "fa-solid fa-ship",
+          "accent": "blue",
+          "problem": "Sebuah kapal berlayar $9$ km ke timur lalu $12$ km ke utara. Log mesin mencatat $21$ km, tetapi radar pelabuhan mencatat kapal hanya berjarak $15$ km. Mengapa?",
+          "solution": "Jarak lurus kapal adalah magnitudo vektor perpindahan. Menggunakan teorema Pythagoras: $|\\vec{v}| = \\sqrt{9^2 + 12^2} = \\sqrt{81 + 144} = \\sqrt{225} = 15\\text{ km}$."
+        },
+        {
+          "tag": "Pilar 2: Jarak Euclidean",
+          "title": "Geolokasi GPS & Jarak Dua Titik Koordinat",
+          "icon": "fa-solid fa-location-crosshairs",
+          "accent": "emerald",
+          "problem": "Bagaimana sistem satelit GPS menghitung jarak langsung antara drone di $A(x_1, y_1)$ dan target penerima di $B(x_2, y_2)$?",
+          "solution": "GPS membentuk vektor perpindahan $\\vec{AB} = \\binom{x_2 - x_1}{y_2 - y_1}$, lalu menghitung panjang vektornya menggunakan formula jarak Euclidean $d = \\sqrt{(\\Delta x)^2 + (\\Delta y)^2}$."
+        },
+        {
+          "tag": "Pilar 3: Vektor Satuan",
+          "title": "Menentukan Arah Murni Berpanjang Tepat 1",
+          "icon": "fa-solid fa-compass",
+          "accent": "amber",
+          "problem": "Dalam pemrograman game fisika dan autopilot, bagaimana cara mengunci arah navigasi tanpa mengubah kecepatan objek?",
+          "solution": "Vektor satuan $\\hat{u} = \\frac{\\vec{u}}{|\\vec{u}|}$ menormalisasi magnitudo menjadi tepat $1$, menghasilkan orientasi arah murni yang siap dikalikan dengan laju kecepatan skalar apa pun."
+        }
+      ],
       "toolkit": [
         {
           "name": "Panjang Vektor",
