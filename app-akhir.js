@@ -2772,7 +2772,7 @@ function calculateStudentRpgStats(profile) {
       const container = document.getElementById('lb-podium-container');
       if (!container) return;
       if (!top3 || top3.length === 0) {
-        container.innerHTML = '<div class="col-span-3 text-center py-6 text-xs text-[#787774]">Belum ada data pengerjaan CBT.</div>';
+        container.innerHTML = '<div class="col-span-3 text-center py-6 text-xs text-slate-500">Belum ada data pengerjaan CBT.</div>';
         return;
       }
 
@@ -2782,89 +2782,108 @@ function calculateStudentRpgStats(profile) {
       const r3 = top3[2] || null;
 
       const orderedPodium = [
-        { rank: 2, item: r2, bg: '#F8FAFC', border: '#E2E8F0', medal: '🥈', medalColor: '#64748B', title: 'Peringkat 2' },
-        { rank: 1, item: r1, bg: '#FFFDF5', border: '#FDE68A', medal: '🥇', medalColor: '#D97706', title: 'Peringkat 1 (Puncak)', highlight: true },
-        { rank: 3, item: r3, bg: '#FFF7ED', border: '#FED7AA', medal: '🥉', medalColor: '#C2410C', title: 'Peringkat 3' }
+        {
+          rank: 2, item: r2,
+          cardClass: 'border-slate-300 bg-gradient-to-b from-slate-50 via-white to-slate-50/30 md:order-1',
+          badgeText: '🥈 JUARA 2 • TITAN SLAYER',
+          badgeClass: 'bg-slate-200 text-slate-800 border-slate-300',
+          crownIcon: '🥈',
+          avatarSize: 44
+        },
+        {
+          rank: 1, item: r1,
+          cardClass: 'border-2 border-amber-400 bg-gradient-to-b from-amber-50/90 via-white to-amber-50/20 shadow-md ring-2 ring-amber-300/40 md:-translate-y-2 md:order-2',
+          badgeText: '👑 JUARA 1 • GRAND CHAMPION',
+          badgeClass: 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-xs border-amber-400 font-black',
+          crownIcon: '👑',
+          avatarSize: 52,
+          highlight: true
+        },
+        {
+          rank: 3, item: r3,
+          cardClass: 'border-amber-700/30 bg-gradient-to-b from-orange-50/60 via-white to-orange-50/20 md:order-3',
+          badgeText: '🥉 JUARA 3 • ELITE CONQUEROR',
+          badgeClass: 'bg-amber-100 text-amber-900 border-amber-200',
+          crownIcon: '🥉',
+          avatarSize: 44
+        }
       ];
 
       container.innerHTML = orderedPodium.map(slot => {
         const item = slot.item;
         if (!item) {
           return `
-            <div class="p-4 rounded-xl border border-dashed flex flex-col items-center justify-center text-center opacity-40 min-h-[170px]" style="background-color: ${slot.bg}; border-color: ${slot.border};">
-              <span class="text-2xl mb-1">${slot.medal}</span>
-              <span class="text-xs font-bold text-[#787774]">${slot.title}</span>
-              <span class="text-[11px] text-[#A8A29E]">Menunggu siswa</span>
+            <div class="p-4 rounded-2xl border border-dashed flex flex-col items-center justify-center text-center opacity-40 min-h-[190px] ${slot.cardClass}">
+              <span class="text-3xl mb-1">${slot.crownIcon}</span>
+              <span class="text-xs font-bold text-slate-500">${slot.badgeText}</span>
+              <span class="text-[11px] text-slate-400">Menunggu Sang Juara</span>
             </div>`;
         }
 
         const isMe = String(item.nis) === String(currentNis);
-        const initials = getStudentInitials(item.nama);
         const badgesList = item.badges || [];
         const xpVal = item.xp_display !== undefined ? item.xp_display : item.total_xp;
         const sempurnaVal = item.sempurna_display !== undefined ? item.sempurna_display : item.total_sempurna;
         const xpLabel = _currentLbMapel === 'minat' ? 'XP Minat' : (_currentLbMapel === 'all' ? 'Total XP' : 'XP Wajib');
 
         return `
-          <div class="p-4 rounded-xl border shadow-xs relative flex flex-col justify-between transition-transform hover:-translate-y-0.5 ${slot.highlight ? 'ring-1 ring-amber-300 md:-translate-y-1' : ''}"
-               style="background-color: ${slot.bg}; border-color: ${slot.border};">
+          <div class="p-4 sm:p-5 rounded-2xl border shadow-xs relative flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 ${slot.cardClass}">
             
-            <!-- BADGE MEDALI SUDUT -->
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-1.5">
-                <span class="text-xl">${slot.medal}</span>
-                <span class="text-[11px] font-bold uppercase tracking-wider" style="color: ${slot.medalColor};">
-                  ${slot.title}
-                </span>
-              </div>
-              ${isMe ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-white shadow-2xs">KAMU</span>' : ''}
+            <!-- HEADER PODIUM: MEDAL BADGE & KAMU PILL -->
+            <div class="flex items-center justify-between mb-3 gap-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10.5px] font-bold border tracking-wide uppercase ${slot.badgeClass}">
+                ${slot.badgeText}
+              </span>
+              ${isMe ? '<span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-500 text-white shadow-2xs">KAMU</span>' : ''}
             </div>
 
-            <!-- PROFIL SISWA DENGAN BINGKAI & AVATAR KARAKTER PIXEL -->
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-11 h-11 rounded-xl flex items-center justify-center text-base shadow-xs shrink-0" 
-                   style="background-color: ${getAvatarObj(item.selected_avatar).bg || '#2E384D'}; border: 2.5px solid ${getFrameObj(item.selected_frame).border || '#CBD5E1'}; box-shadow: 0 0 8px ${getFrameObj(item.selected_frame).bgGlow || 'transparent'};">
-                ${getPixelAvatarSvg(item.selected_avatar, 30) || `<i class="${getAvatarObj(item.selected_avatar).icon || 'fa-solid fa-user'}" style="color: ${getAvatarObj(item.selected_avatar).color || '#FFFFFF'};"></i>`}
+            <!-- PROFIL SISWA DENGAN AVATAR & BINGKAI PIXEL -->
+            <div class="flex items-center gap-3 mb-3.5">
+              <div class="rounded-2xl flex items-center justify-center shadow-xs shrink-0 relative" 
+                   style="width: ${slot.avatarSize}px; height: ${slot.avatarSize}px; background-color: ${getAvatarObj(item.selected_avatar).bg || '#2E384D'}; border: 2.5px solid ${getFrameObj(item.selected_frame).border || '#CBD5E1'}; box-shadow: 0 0 10px ${getFrameObj(item.selected_frame).bgGlow || 'transparent'};">
+                ${getPixelAvatarSvg(item.selected_avatar, slot.avatarSize - 12) || `<i class="${getAvatarObj(item.selected_avatar).icon || 'fa-solid fa-user'}" style="color: ${getAvatarObj(item.selected_avatar).color || '#FFFFFF'}; font-size: ${slot.avatarSize / 2}px;"></i>`}
+                ${slot.highlight ? '<span class="absolute -top-2.5 -right-2 text-base drop-shadow-xs">👑</span>' : ''}
               </div>
               <div class="min-w-0 flex-1">
-                <h4 class="text-xs sm:text-sm font-bold text-[#2F3437] truncate" title="${escapeHtml(item.nama)}">
+                <h4 class="text-sm sm:text-base font-extrabold text-slate-800 truncate" title="${escapeHtml(item.nama)}">
                   ${escapeHtml(item.nama)}
                 </h4>
-                <div class="flex items-center gap-1.5 text-[11px] text-[#5F5E5B]">
-                  <span class="font-mono font-semibold">${escapeHtml(item.kelas)}</span>
+                <div class="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
+                  <span class="px-1.5 py-0.2 rounded font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200 text-[10.5px]">${escapeHtml(item.kelas)}</span>
                   <span>•</span>
-                  <span class="truncate font-medium text-amber-700">${escapeHtml(item.selected_title || item.gelar)}</span>
+                  <span class="truncate font-semibold text-amber-700">${escapeHtml(item.selected_title || item.gelar)}</span>
                 </div>
               </div>
             </div>
 
             <!-- STATS PRESTASI PODIUM -->
-            <div class="pt-2.5 border-t border-black/5 grid grid-cols-3 gap-1 text-center text-xs">
+            <div class="p-2.5 rounded-xl bg-white/70 border border-slate-200/80 grid grid-cols-3 gap-1.5 text-center shadow-2xs">
               <div>
-                <div class="text-[10px] text-[#787774]">${xpLabel}</div>
-                <div class="font-extrabold text-[#2F3437] font-mono">${(xpVal || 0).toLocaleString('id-ID')}</div>
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500">${xpLabel}</div>
+                <div class="font-black text-slate-900 font-mono text-sm sm:text-base">${(xpVal || 0).toLocaleString('id-ID')}</div>
               </div>
               <div>
-                <div class="text-[10px] text-[#787774]">Streak 🔥</div>
-                <div class="font-bold text-rose-700 font-mono">${item.current_streak || 1} Hari</div>
+                <div class="text-[10px] font-bold uppercase tracking-wider text-rose-600">Streak 🔥</div>
+                <div class="font-extrabold text-rose-700 font-mono text-sm sm:text-base">${item.current_streak || 1} Hari</div>
               </div>
               <div>
-                <div class="text-[10px] text-[#787774]">Skor 100</div>
-                <div class="font-bold text-amber-700 font-mono">${sempurnaVal || 0}x</div>
+                <div class="text-[10px] font-bold uppercase tracking-wider text-amber-700">Skor 100 🎯</div>
+                <div class="font-extrabold text-amber-800 font-mono text-sm sm:text-base">${sempurnaVal || 0}x</div>
               </div>
             </div>
 
             <!-- PREVIEW LENCANA -->
             ${badgesList.length > 0 ? `
-              <div class="mt-2.5 pt-2 border-t border-black/5 flex items-center gap-1 flex-wrap">
-                ${badgesList.slice(0, 4).map(b => `
-                  <span class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] border shadow-2xs cursor-help"
-                        style="background-color: ${b.bg || '#FFFFFF'}; color: ${b.color || '#2F3437'}; border-color: ${b.color ? b.color + '33' : '#E8E6DF'};"
+              <div class="mt-3 pt-2.5 border-t border-slate-200/70 flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Lencana:</span>
+                ${badgesList.slice(0, 5).map(b => `
+                  <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs border shadow-2xs cursor-help transition hover:scale-110"
+                        style="background-color: ${b.bg || '#FFFFFF'}; color: ${b.color || '#1E293B'}; border-color: ${b.color ? b.color + '44' : '#CBD5E1'};"
                         title="${escapeHtml(b.name || '')}">
                     <i class="${escapeHtml(b.icon || 'fa-solid fa-award')}"></i>
                   </span>
                 `).join('')}
-                ${badgesList.length > 4 ? `<span class="text-[10px] font-mono text-[#787774]">+${badgesList.length - 4}</span>` : ''}
+                ${badgesList.length > 5 ? `<span class="text-[10px] font-mono font-bold text-slate-500">+${badgesList.length - 5}</span>` : ''}
               </div>` : ''}
           </div>`;
       }).join('');
@@ -2876,89 +2895,95 @@ function calculateStudentRpgStats(profile) {
       if (!tbody) return;
 
       if (!list || list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="py-8 text-center text-[#787774]">Tidak ada data siswa ditemukan untuk filter ini.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="py-8 text-center text-slate-500">Tidak ada data siswa ditemukan untuk filter ini.</td></tr>';
         return;
       }
 
-      // Tampilkan 10 teratas sesuai instruksi
       const top10 = list.slice(0, 10);
-      const isUserInTop10 = currentNis ? top10.some(item => String(item.nis) === String(currentNis)) : false;
-      const userItem = (!isUserInTop10 && currentNis) ? list.find(item => String(item.nis) === String(currentNis)) : null;
+      const userIndex = currentNis ? list.findIndex(item => String(item.nis) === String(currentNis)) : -1;
+      const isUserInTop10 = userIndex >= 0 && userIndex < 10;
+      const userItem = (!isUserInTop10 && userIndex >= 0) ? list[userIndex] : null;
 
-      function renderRow(item) {
+      function renderRow(item, isStickyOut) {
         const isMe = String(item.nis) === String(currentNis);
-        const initials = getStudentInitials(item.nama);
         const badgesList = item.badges || [];
         const xpVal = item.xp_display !== undefined ? item.xp_display : item.total_xp;
         const sempurnaVal = item.sempurna_display !== undefined ? item.sempurna_display : item.total_sempurna;
 
-        let rankBadge = `<span class="font-mono font-bold text-xs text-[#5F5E5B]">${item.rank}</span>`;
-        if (item.rank === 1) rankBadge = `<span class="text-base" title="Juara 1">🥇</span>`;
-        else if (item.rank === 2) rankBadge = `<span class="text-base" title="Juara 2">🥈</span>`;
-        else if (item.rank === 3) rankBadge = `<span class="text-base" title="Juara 3">🥉</span>`;
+        let rankBadge = `<span class="w-6 h-6 rounded-full font-mono font-bold text-xs bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center mx-auto">${item.rank}</span>`;
+        if (item.rank === 1) rankBadge = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-100 text-amber-800 border border-amber-300 font-extrabold text-sm shadow-2xs" title="Juara 1">🥇</span>`;
+        else if (item.rank === 2) rankBadge = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-slate-200 text-slate-800 border border-slate-300 font-extrabold text-sm shadow-2xs" title="Juara 2">🥈</span>`;
+        else if (item.rank === 3) rankBadge = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-orange-100 text-orange-900 border border-orange-300 font-extrabold text-sm shadow-2xs" title="Juara 3">🥉</span>`;
 
         return `
-          <tr class="transition-colors hover:bg-[#F7F6F3]/70 ${isMe ? 'bg-amber-50/70 font-semibold' : ''}">
-            <td class="py-2.5 px-3 text-center">${rankBadge}</td>
-            <td class="py-2.5 px-3">
+          <tr class="transition-colors hover:bg-slate-50/80 ${isMe ? 'bg-amber-50/80 font-semibold ring-1 ring-amber-300/60' : ''}">
+            <td class="py-3 px-3 text-center">${rankBadge}</td>
+            <td class="py-3 px-3">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs shrink-0 shadow-2xs" 
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center text-xs shrink-0 shadow-2xs" 
                      style="background-color: ${getAvatarObj(item.selected_avatar).bg || '#2E384D'}; border: 2px solid ${getFrameObj(item.selected_frame).border || '#CBD5E1'};">
                   ${getPixelAvatarSvg(item.selected_avatar, 22) || `<i class="${getAvatarObj(item.selected_avatar).icon || 'fa-solid fa-user'}" style="color: ${getAvatarObj(item.selected_avatar).color || '#FFFFFF'};"></i>`}
                 </div>
                 <div class="min-w-0">
-                  <div class="text-xs font-bold text-[#2F3437] truncate max-w-[200px] flex items-center gap-1.5" title="${escapeHtml(item.nama)}">
+                  <div class="text-xs font-bold text-slate-800 truncate max-w-[210px] flex items-center gap-1.5" title="${escapeHtml(item.nama)}">
                     <span>${escapeHtml(item.nama)}</span>
-                    ${isMe ? '<span class="px-1.5 py-0.2 rounded text-[9.5px] font-extrabold bg-amber-500 text-white">KAMU</span>' : ''}
+                    ${isMe ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-black bg-amber-500 text-white shadow-2xs">KAMU</span>' : ''}
                   </div>
-                  <div class="text-[10px] text-[#787774] font-mono sm:hidden">${escapeHtml(item.kelas)}</div>
+                  <div class="text-[10px] text-slate-500 font-mono sm:hidden">${escapeHtml(item.kelas)}</div>
                 </div>
               </div>
             </td>
-            <td class="py-2.5 px-3 text-center font-mono text-[11px] text-[#5F5E5B]">${escapeHtml(item.kelas)}</td>
-            <td class="py-2.5 px-3">
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10.5px] font-medium" style="background-color: #F0EFEA; color: #2F3437; border: 1px solid #E8E6DF;">
+            <td class="py-3 px-3 text-center font-mono text-xs font-bold text-slate-700">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200">${escapeHtml(item.kelas)}</span>
+            </td>
+            <td class="py-3 px-3">
+              <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-xs font-semibold bg-slate-50 text-slate-700 border border-slate-200">
                 <span class="text-[10px] font-mono font-bold text-amber-700">Lvl ${item.level}</span>
                 <span>${escapeHtml(item.gelar)}</span>
               </span>
             </td>
-            <td class="py-2.5 px-3 text-center">
-              <span class="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-rose-700">
+            <td class="py-3 px-3 text-center">
+              <span class="inline-flex items-center gap-1 text-xs font-mono font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200/60">
                 <i class="fa-solid fa-fire text-[10px] text-rose-500"></i> ${item.current_streak || 1}
               </span>
             </td>
-            <td class="py-2.5 px-3 text-center">
-              <span class="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-amber-800">
+            <td class="py-3 px-3 text-center">
+              <span class="inline-flex items-center gap-1 text-xs font-mono font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/60">
                 <i class="fa-solid fa-bullseye text-[10px] text-amber-600"></i> ${sempurnaVal || 0}
               </span>
             </td>
-            <td class="py-2.5 px-3 text-right font-mono font-bold text-xs text-[#2F3437]">
+            <td class="py-3 px-3 text-right font-mono font-black text-xs text-slate-900">
               ${(xpVal || 0).toLocaleString('id-ID')}
             </td>
-            <td class="py-2.5 px-3 text-center">
+            <td class="py-3 px-3 text-center">
               <div class="flex items-center justify-center gap-1 flex-wrap">
                 ${badgesList.length > 0 ? badgesList.map(b => `
                   <span class="w-5 h-5 rounded flex items-center justify-center text-[10px] border shadow-2xs cursor-help"
-                        style="background-color: ${b.bg || '#FFFFFF'}; color: ${b.color || '#2F3437'}; border-color: ${b.color ? b.color + '33' : '#E8E6DF'};"
+                        style="background-color: ${b.bg || '#FFFFFF'}; color: ${b.color || '#1E293B'}; border-color: ${b.color ? b.color + '33' : '#CBD5E1'};"
                         title="${escapeHtml(b.name || '')}">
                     <i class="${escapeHtml(b.icon || 'fa-solid fa-award')}"></i>
                   </span>
-                `).join('') : '<span class="text-[10px] text-[#A8A29E]">-</span>'}
+                `).join('') : '<span class="text-[10px] text-slate-400">-</span>'}
               </div>
             </td>
           </tr>`;
       }
 
-      let html = top10.map(renderRow).join('');
+      let html = top10.map(item => renderRow(item, false)).join('');
 
       if (userItem) {
+        const gapXp = userIndex > 0 ? Math.max(1, (list[userIndex - 1].total_xp || 0) - (userItem.total_xp || 0) + 1) : 0;
         html += `
-          <tr class="bg-[#F7F6F3]/60">
-            <td colspan="8" class="py-2 px-3 text-center text-[10.5px] font-semibold text-[#787774] border-y border-dashed border-[#E8E6DF]">
-              ••• Peringkat Kamu di Luar 10 Besar •••
+          <tr class="bg-amber-50/50 border-t-2 border-b-2 border-amber-300">
+            <td colspan="8" class="py-2.5 px-3 text-center text-xs font-bold text-amber-900">
+              <div class="flex items-center justify-center gap-2 flex-wrap">
+                <span>🎯 <strong class="text-amber-800 font-extrabold">Posisi Belajar Kamu:</strong> Peringkat #${userItem.rank} dari ${list.length} Siswa</span>
+                <span class="text-amber-500">•</span>
+                <span class="text-amber-800 font-medium">Butuh <strong class="font-mono text-amber-900 font-bold">+${gapXp.toLocaleString('id-ID')} XP</strong> lagi untuk menyalip peringkat #${userItem.rank - 1}!</span>
+              </div>
             </td>
           </tr>
-          ${renderRow(userItem)}
+          ${renderRow(userItem, true)}
         `;
       }
 
@@ -5617,11 +5642,22 @@ function calculateStudentRpgStats(profile) {
       let countPassed = 0;
       let countPerfect = 0;
 
+      const clusterIcons = {
+        'wajib_bab1': 'fa-dice text-amber-600',
+        'wajib_bab2': 'fa-cube text-indigo-600',
+        'wajib_bab3': 'fa-chart-pie text-emerald-600',
+        'minat_bab1': 'fa-circle-dot text-amber-600',
+        'minat_bab2': 'fa-infinity text-blue-600',
+        'minat_bab3': 'fa-wave-square text-purple-600',
+        'minat_bab4': 'fa-shapes text-rose-600'
+      };
+
       const clustersHtml = clusters.map(cluster => {
         let clusterMastered = 0;
         const totalClusterNodes = cluster.nodes.length;
+        const clusterIcon = clusterIcons[cluster.clusterId] || 'fa-diagram-project text-indigo-600';
 
-        const nodesHtml = cluster.nodes.map(node => {
+        const nodesHtml = cluster.nodes.map((node, nodeIdx) => {
           totalNodes++;
           const sub = subMap[`${mapel}_${node.id.toUpperCase()}`] || subMap[`${mapel}_${node.id.toLowerCase()}`];
 
@@ -5645,47 +5681,56 @@ function calculateStudentRpgStats(profile) {
             countLocked++;
           }
 
-          let cardBorder = 'border-[#E8E6DF] bg-[#FFFFFF]';
-          let starIcon = '<i class="fa-solid fa-lock text-[#A8A29E] text-xs"></i>';
-          let badgeHtml = '<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium text-[#787774] bg-[#F0EFEA] border border-[#E8E6DF]">Belum</span>';
+          let cardStyle = 'border-slate-200 bg-white hover:border-indigo-300';
+          let idBadge = '<span class="w-7 h-7 rounded-lg font-mono font-bold text-xs flex items-center justify-center bg-slate-100 border border-slate-200 text-slate-700 shadow-2xs">' + node.id + '</span>';
+          let badgeHtml = '<span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium text-slate-500 bg-slate-100 border border-slate-200 flex items-center gap-1"><i class="fa-solid fa-lock text-[8px] text-slate-400"></i> Belum</span>';
+          let cbtLabel = 'Kerjakan';
 
           if (status === 'perfect') {
-            cardBorder = 'border-amber-400 bg-[#FFFDF5] shadow-xs ring-1 ring-amber-300';
-            starIcon = '<i class="fa-solid fa-crown text-amber-500 text-xs"></i>';
-            badgeHtml = '<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-900 bg-amber-100 border border-amber-300">100 👑</span>';
+            cardStyle = 'border-amber-300 bg-gradient-to-b from-amber-50/80 via-white to-amber-50/20 shadow-xs ring-1 ring-amber-300/50';
+            idBadge = '<span class="w-7 h-7 rounded-lg font-mono font-black text-xs flex items-center justify-center bg-amber-500 text-white shadow-2xs border border-amber-600">' + node.id + '</span>';
+            badgeHtml = '<span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold text-amber-900 bg-amber-100 border border-amber-300 flex items-center gap-1 shadow-2xs"><i class="fa-solid fa-crown text-[9px] text-amber-600"></i> 100 👑</span>';
+            cbtLabel = 'Nilai 100';
           } else if (status === 'passed') {
-            cardBorder = 'border-emerald-400 bg-[#F0FDF4] shadow-xs';
-            starIcon = '<i class="fa-solid fa-circle-check text-emerald-600 text-xs"></i>';
-            badgeHtml = `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100 border border-emerald-300">${skorVal} ✓</span>`;
+            cardStyle = 'border-emerald-300 bg-gradient-to-b from-emerald-50/80 via-white to-emerald-50/20 shadow-xs ring-1 ring-emerald-300/40';
+            idBadge = '<span class="w-7 h-7 rounded-lg font-mono font-black text-xs flex items-center justify-center bg-emerald-600 text-white shadow-2xs border border-emerald-700">' + node.id + '</span>';
+            badgeHtml = `<span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 flex items-center gap-1 shadow-2xs"><i class="fa-solid fa-circle-check text-[9px] text-emerald-600"></i> ${skorVal} ✓</span>`;
+            cbtLabel = 'Tingkatkan';
           } else if (status === 'remedial') {
-            cardBorder = 'border-rose-300 bg-[#FFF1F0] shadow-xs';
-            starIcon = '<i class="fa-solid fa-triangle-exclamation text-rose-600 text-xs"></i>';
-            badgeHtml = `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-rose-800 bg-rose-100 border border-rose-300">${skorVal} ⚠️</span>`;
+            cardStyle = 'border-rose-300 bg-gradient-to-b from-rose-50/70 via-white to-rose-50/20 shadow-xs ring-1 ring-rose-300/40';
+            idBadge = '<span class="w-7 h-7 rounded-lg font-mono font-black text-xs flex items-center justify-center bg-rose-500 text-white shadow-2xs border border-rose-600">' + node.id + '</span>';
+            badgeHtml = `<span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold text-rose-900 bg-rose-100 border border-rose-300 flex items-center gap-1 shadow-2xs"><i class="fa-solid fa-triangle-exclamation text-[9px] text-rose-600"></i> ${skorVal} ⚠️</span>`;
+            cbtLabel = 'Remedial';
           }
 
           return `
-            <div class="rounded-xl border p-3 flex flex-col justify-between gap-2.5 transition hover:shadow-sm ${cardBorder}">
+            <div class="rounded-2xl border p-3.5 flex flex-col justify-between gap-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm ${cardStyle}">
+              <!-- TOP NODE HEADER -->
               <div class="flex items-start justify-between gap-2">
-                <div class="flex items-center gap-1.5">
-                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-white border border-[#E8E6DF] text-[#2E384D] shadow-2xs">${node.id}</span>
-                  <span class="text-[10px] font-semibold text-[#787774] uppercase tracking-wider">${node.tag}</span>
+                <div class="flex items-center gap-2">
+                  ${idBadge}
+                  <div>
+                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">${node.tag}</span>
+                    <span class="text-[9.5px] font-mono text-slate-400">Step ${nodeIdx + 1} of ${totalClusterNodes}</span>
+                  </div>
                 </div>
-                <div class="flex items-center gap-1">
-                  ${starIcon}
-                  ${badgeHtml}
-                </div>
+                ${badgeHtml}
               </div>
 
+              <!-- NODE TITLE -->
               <div>
-                <h5 class="text-xs font-bold text-[#2F3437] line-clamp-2 leading-snug" title="${escapeHtml(node.title)}">${escapeHtml(node.title)}</h5>
+                <h5 class="text-xs sm:text-[13px] font-bold text-slate-800 line-clamp-2 leading-snug" title="${escapeHtml(node.title)}">
+                  ${escapeHtml(node.title)}
+                </h5>
               </div>
 
-              <div class="flex items-center gap-1.5 pt-1.5 mt-auto border-t border-[#E8E6DF]/70">
-                <button type="button" onclick="bukaCbtDariSkillTree('${mapel}', '${node.id}')" class="notion-btn-primary flex-1 py-1 rounded-lg text-[10.5px] font-bold flex items-center justify-center gap-1 text-white cursor-pointer shadow-2xs" title="Kerjakan CBT ${node.id}">
-                  <i class="fa-solid fa-play text-[9px]"></i> <span>CBT</span>
+              <!-- ACTION BUTTONS (CBT & SLIDE) -->
+              <div class="flex items-center gap-1.5 pt-2 mt-auto border-t border-slate-200/80">
+                <button type="button" onclick="bukaCbtDariSkillTree('${mapel}', '${node.id}')" class="notion-btn-primary flex-1 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 text-white cursor-pointer shadow-2xs hover:bg-indigo-700 transition" style="background-color: #4F46E5 !important; border-color: #4338CA !important;" title="Kerjakan CBT ${node.id}">
+                  <i class="fa-solid fa-play text-[9px] text-amber-300"></i> <span>${cbtLabel}</span>
                 </button>
-                <button type="button" onclick="bukaSlideDariSkillTree('${mapel}', '${node.id}')" class="notion-btn-secondary px-2.5 py-1 rounded-lg text-[10.5px] font-semibold flex items-center justify-center gap-1 cursor-pointer text-[#5F5E5B] hover:text-[#2F3437] border border-[#E8E6DF] bg-white" title="Buka Slide Materi ${node.id}">
-                  <i class="fa-solid fa-book-open text-[10px] text-indigo-600"></i> <span>Slide</span>
+                <button type="button" onclick="bukaSlideDariSkillTree('${mapel}', '${node.id}')" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer text-slate-700 hover:text-slate-900 border border-slate-200 bg-white hover:bg-slate-50 transition" title="Buka Slide Materi ${node.id}">
+                  <i class="fa-solid fa-book-open text-xs text-indigo-600"></i> <span>Slide</span>
                 </button>
               </div>
             </div>`;
@@ -5694,20 +5739,34 @@ function calculateStudentRpgStats(profile) {
         const clusterPct = Math.round((clusterMastered / totalClusterNodes) * 100);
 
         return `
-          <div class="rounded-2xl border p-4 sm:p-5 space-y-3.5" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-2.5" style="border-color: #E8E6DF;">
-              <div>
-                <h4 class="text-sm font-bold text-[#2F3437]">${escapeHtml(cluster.clusterTitle)}</h4>
-                <p class="text-[11px] text-[#787774]">${escapeHtml(cluster.clusterSub)}</p>
+          <div class="rounded-2xl border p-4 sm:p-5 space-y-4" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+            <!-- CLUSTER HEADER WITH RPG CONSTELLATION FEEL -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3" style="border-color: #E2E8F0;">
+              <div class="flex items-start sm:items-center gap-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-slate-50 border border-slate-200 shrink-0 shadow-2xs">
+                  <i class="fa-solid ${clusterIcon}"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm sm:text-base font-extrabold text-slate-800 tracking-tight">${escapeHtml(cluster.clusterTitle)}</h4>
+                  <p class="text-xs text-slate-500">${escapeHtml(cluster.clusterSub)}</p>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded-md text-xs font-mono font-bold ${clusterPct >= 80 ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-[#F0EFEA] text-[#5F5E5B] border border-[#E8E6DF]'}">
-                  ${clusterMastered} / ${totalClusterNodes} Tuntas (${clusterPct}%)
+              
+              <!-- CLUSTER PROGRESS PILL & BAR -->
+              <div class="flex items-center gap-3">
+                <div class="hidden sm:block">
+                  <div class="w-28 h-2 rounded-full overflow-hidden bg-slate-100 border border-slate-200">
+                    <div class="h-full rounded-full bg-gradient-to-r from-amber-400 to-emerald-500 transition-all duration-700" style="width: ${clusterPct}%;"></div>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold ${clusterPct >= 80 ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-slate-100 text-slate-700 border border-slate-200'}">
+                  ${clusterMastered} / ${totalClusterNodes} Bintang (${clusterPct}%)
                 </span>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+            <!-- CONSTELLATION NODES GRID -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               ${nodesHtml}
             </div>
           </div>`;

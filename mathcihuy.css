@@ -2512,54 +2512,61 @@ html.terang #meeting-picker-modal #picker-body button.bg-blue-600 {
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. DARK MODE (DEFAULT) — LINEAR DEEP SAPPHIRE & AMBER GOLD
+   1. DARK MODE (DEFAULT) — EXECUTIVE DARK SLATE & WARM AMBER (NO NEON GLOW)
    -------------------------------------------------------------------------- */
 html:not(.terang), html:not(.terang) body {
-  background-color: #050B14 !important;
-  color: #FFFFFF !important;
+  background-color: #0F172A !important;
+  color: #F8FAFC !important;
 }
 
 html:not(.terang) #slide-stage,
 html:not(.terang) #tka-stage,
 html:not(.terang) #home-stage {
-  background: #08101E !important;
-  border-color: rgba(37, 99, 235, 0.35) !important;
+  background: #1E293B !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
 }
 
 html:not(.terang) .formula-box {
-  background: #081324 !important;
-  border: 1px solid rgba(37, 99, 235, 0.30) !important;
+  background: #0F172A !important;
+  border: 1px solid #334155 !important;
   border-left: 4px solid #F59E0B !important;
-  color: #FFFFFF !important;
+  color: #F8FAFC !important;
 }
 html:not(.terang) .formula-box .fb-name {
   color: #FBBF24 !important;
 }
 html:not(.terang) .formula-box .fb-math,
 html:not(.terang) .formula-box .fb-math .katex {
-  color: #FFFFFF !important;
+  color: #F8FAFC !important;
 }
 
 html:not(.terang) .slide-pill.is-on {
-  background: #2563EB !important;
+  background: #4F46E5 !important;
   color: #FFFFFF !important;
-  border-color: #60A5FA !important;
+  border-color: #6366F1 !important;
   font-weight: 800 !important;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
 }
 html:not(.terang) .slide-pill.is-done {
-  background: #0D1B2E !important;
-  color: #93C5FD !important;
-  border-color: rgba(37, 99, 235, 0.4) !important;
+  background: #0F172A !important;
+  color: #94A3B8 !important;
+  border-color: #334155 !important;
 }
 
 html:not(.terang) #meeting-picker-modal > div,
 html:not(.terang) #schedule-modal > div,
 html:not(.terang) #analytics-modal > div,
 html:not(.terang) #tka-scorecard-modal > div,
-html:not(.terang) #peta-modal > div {
-  background: #08101E !important;
-  border-color: rgba(37, 99, 235, 0.4) !important;
+html:not(.terang) #peta-modal > div,
+html:not(.terang) #leaderboard-modal > div,
+html:not(.terang) #skill-tree-modal > div,
+html:not(.terang) #rapor-siswa-modal > div,
+html:not(.terang) #profile-selector-modal > div,
+html:not(.terang) #share-card-modal > div {
+  background: #0F172A !important;
+  border-color: #334155 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -3238,8 +3245,8 @@ html.terang #slide-body [class*="border-blue-800"] {
 
 /* 1. Header Styling in Dark Mode */
 html:not(.terang) #app-header {
-  background-color: #0B132B !important;
-  border-color: #1E293B !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #app-header h1,
 html:not(.terang) #app-header [style*="color: #2F3437"],
@@ -3251,19 +3258,19 @@ html:not(.terang) #app-header [style*="color: #5F5E5B"] {
   color: #94A3B8 !important;
 }
 html:not(.terang) #app-header div[style*="background-color: #F0EFEA"] {
-  background-color: #162032 !important;
-  border-color: #1E293B !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #app-header .tab-inactive {
   color: #94A3B8 !important;
 }
 html:not(.terang) #app-header .tab-inactive:hover {
   color: #F8FAFC !important;
-  background-color: #1E2D44 !important;
+  background-color: #334155 !important;
 }
 html:not(.terang) #app-header #pilih-tingkat {
-  background-color: #162032 !important;
-  border-color: #1E293B !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #app-header #pilih-tingkat a {
   color: #94A3B8 !important;
@@ -3271,18 +3278,18 @@ html:not(.terang) #app-header #pilih-tingkat a {
 
 /* 2. Main Stage & Top Bar in Dark Mode */
 html:not(.terang) #home-stage {
-  background-color: #070E1B !important;
-  border-color: #1E293B !important;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(59, 130, 246, 0.1) !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
 }
 html:not(.terang) #home-stage > div:first-child,
 html:not(.terang) #home-stage .h-14[style*="background-color: #FFFFFF"],
 html:not(.terang) #home-stage div[style*="background-color: #FFFFFF"] {
-  background-color: #0D1B2E !important;
-  border-color: #1E293B !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #home-stage .custom-scroll {
-  background-color: #070E1B !important;
+  background-color: #1E293B !important;
 }
 html:not(.terang) #home-stage span[style*="color: #2F3437"],
 html:not(.terang) #home-stage h1[style*="color: #2F3437"],
@@ -3298,8 +3305,8 @@ html:not(.terang) #home-stage [style*="color: #5F5E5B"] {
   color: #94A3B8 !important;
 }
 html:not(.terang) #home-stage div[style*="background-color: #F0EFEA"] {
-  background-color: #162032 !important;
-  border-color: #1E293B !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
   color: #94A3B8 !important;
 }
 html:not(.terang) #home-stage div[style*="background-color: #F0EFEA"] strong {
@@ -3309,96 +3316,68 @@ html:not(.terang) #home-stage div[style*="background-color: #F0EFEA"] strong {
 /* 3. Hero Welcome Card in Dark Mode */
 html:not(.terang) .hero-welcome-banner,
 html:not(.terang) #home-stage .p-6.md\:p-7[style*="background-color: #FFFFFF"] {
-  background-color: #0D1B2E !important;
-  border-color: #1E293B !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
 }
 
 /* 4. Gamifikasi Hero Card in Dark Mode */
 html:not(.terang) #gamifikasi-hero-card {
-  background-color: #0D1B2E !important;
-  border-color: #1E293B !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #gamifikasi-nama {
   color: #F8FAFC !important;
 }
 html:not(.terang) #gamifikasi-kelas {
-  background-color: #162032 !important;
-  border-color: #1E293B !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
   color: #94A3B8 !important;
 }
 html:not(.terang) #gamifikasi-xp-label {
   color: #94A3B8 !important;
 }
 html:not(.terang) #gamifikasi-next-xp {
-  color: #64748B !important;
+  color: #94A3B8 !important;
 }
 html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #F0EFEA"] {
-  background-color: #1E293B !important;
+  background-color: #334155 !important;
 }
 
-/* Gamifikasi Stat Boxes in Dark Mode */
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FEF2F2"] {
-  background-color: rgba(76, 5, 25, 0.45) !important;
-  border-color: rgba(225, 29, 72, 0.35) !important;
+/* Gamifikasi Stat Boxes in Dark Mode (Unified Sleek Dark Slate) */
+html:not(.terang) #gamifikasi-hero-card .grid > div {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
 }
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FEF2F2"] .text-rose-700 {
-  color: #FDA4AF !important;
+html:not(.terang) #gamifikasi-hero-card .grid > div .text-slate-500 {
+  color: #94A3B8 !important;
 }
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FEF2F2"] .text-rose-900 {
-  color: #FFE4E6 !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FEF2F2"] .bg-white {
-  background-color: rgba(225, 29, 72, 0.25) !important;
-  color: #FDA4AF !important;
-}
-
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #ECFDF5"] {
-  background-color: rgba(6, 78, 59, 0.45) !important;
-  border-color: rgba(16, 185, 129, 0.35) !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #ECFDF5"] .text-emerald-700 {
-  color: #6EE7B7 !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #ECFDF5"] .text-emerald-900 {
-  color: #D1FAE5 !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #ECFDF5"] .bg-white {
-  background-color: rgba(16, 185, 129, 0.25) !important;
-  color: #6EE7B7 !important;
-}
-
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FFFDF5"] {
-  background-color: rgba(120, 53, 15, 0.45) !important;
-  border-color: rgba(245, 158, 11, 0.35) !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FFFDF5"] .text-amber-700 {
-  color: #FCD34D !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FFFDF5"] .text-amber-900 {
-  color: #FEF3C7 !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FFFDF5"] .bg-white {
-  background-color: rgba(245, 158, 11, 0.25) !important;
-  color: #FCD34D !important;
-}
-
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #F8FAFC"] {
-  background-color: rgba(30, 41, 59, 0.65) !important;
-  border-color: rgba(71, 85, 105, 0.45) !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #F8FAFC"] .text-slate-600 {
-  color: #CBD5E1 !important;
-}
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #F8FAFC"] .text-slate-800 {
+html:not(.terang) #gamifikasi-hero-card .grid > div .text-slate-800 {
   color: #F8FAFC !important;
 }
-html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #F8FAFC"] .bg-white {
-  background-color: rgba(51, 65, 85, 0.6) !important;
-  color: #CBD5E1 !important;
+html:not(.terang) #gamifikasi-hero-card .bg-amber-50 {
+  background-color: rgba(120, 53, 15, 0.3) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  color: #FCD34D !important;
+}
+html:not(.terang) #gamifikasi-hero-card .bg-emerald-50 {
+  background-color: rgba(6, 78, 59, 0.3) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: #6EE7B7 !important;
+}
+html:not(.terang) #gamifikasi-hero-card .bg-indigo-50 {
+  background-color: rgba(49, 46, 129, 0.3) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  color: #A5B4FC !important;
+}
+html:not(.terang) #gamifikasi-hero-card .bg-amber-50\/80 {
+  background-color: rgba(120, 53, 15, 0.25) !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+  color: #FDE68A !important;
 }
 
+html:not(.terang) #gamifikasi-hero-card div[style*="border-color: #E2E8F0"],
 html:not(.terang) #gamifikasi-hero-card div[style*="border-color: #E8E6DF"] {
-  border-color: #1E293B !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #gamifikasi-badges-pills span {
   color: #94A3B8 !important;
@@ -3406,53 +3385,63 @@ html:not(.terang) #gamifikasi-badges-pills span {
 
 /* 5. Weekly Raid Boss Card in Dark Mode */
 html:not(.terang) #weekly-event-card {
-  background-color: #0D1B2E !important;
-  border-color: #B45309 !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
 }
+html:not(.terang) #weekly-event-card div[style*="border-color: #E2E8F0"],
 html:not(.terang) #weekly-event-card div[style*="border-color: #E8E6DF"] {
-  border-color: #1E293B !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #weekly-event-card h4,
+html:not(.terang) #weekly-event-card .text-slate-800,
 html:not(.terang) #weekly-event-card .text-\[\#2F3437\] {
   color: #F8FAFC !important;
 }
 html:not(.terang) #weekly-event-card p,
+html:not(.terang) #weekly-event-card .text-slate-600,
 html:not(.terang) #weekly-event-card .text-\[\#5F5E5B\],
 html:not(.terang) #weekly-event-card .text-\[\#787774\] {
   color: #94A3B8 !important;
 }
+html:not(.terang) #weekly-event-card strong.text-slate-800,
+html:not(.terang) #weekly-event-card strong.text-slate-900,
 html:not(.terang) #weekly-event-card strong.text-\[\#2F3437\] {
-  color: #FFFFFF !important;
+  color: #F8FAFC !important;
 }
-html:not(.terang) #weekly-event-card div[style*="background-color: #FFF1F0"] {
-  background-color: rgba(76, 5, 25, 0.5) !important;
+html:not(.terang) #weekly-event-card .bg-rose-50 {
+  background-color: rgba(159, 18, 57, 0.25) !important;
   border-color: rgba(225, 29, 72, 0.4) !important;
   color: #FDA4AF !important;
 }
+html:not(.terang) #weekly-event-card div[style*="background-color: #F8FAFC"],
 html:not(.terang) #weekly-event-card div[style*="background-color: #FBFBFA"] {
-  background-color: #070E1B !important;
-  border-color: #1E293B !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #boss-hp-text {
   color: #F8FAFC !important;
 }
-html:not(.terang) #weekly-event-card div[style*="background-color: #FFFDF5"] {
-  background-color: #0A1526 !important;
-  border-color: #1E293B !important;
+html:not(.terang) #boss-daily-raid-banner {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #weekly-event-card div[style*="background-color: #FFFFFF"] {
-  background-color: #101B2E !important;
-  border-color: #1E293B !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
 }
-html:not(.terang) #weekly-event-card span[style*="background-color: #FEF2F2"] {
-  background-color: rgba(76, 5, 25, 0.45) !important;
-  border-color: rgba(225, 29, 72, 0.35) !important;
-  color: #FDA4AF !important;
+html:not(.terang) #boss-portals-grid > div {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+}
+html:not(.terang) #boss-timer-text {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
 }
 html:not(.terang) #weekly-event-card .notion-btn-secondary {
-  background-color: #162032 !important;
-  border-color: #1E293B !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
   color: #F8FAFC !important;
 }
 
@@ -3534,11 +3523,11 @@ html:not(.terang) #angket-banner-card div[style*="background-color: #EBF3FB"] {
 
 /* 7. Stream Cards in Dark Mode */
 html:not(.terang) #home-stage .grid .rounded-2xl[style*="background-color: #FFFFFF"] {
-  background-color: #0D1B2E !important;
-  border-color: #1E293B !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #home-stage .grid .rounded-2xl[style*="background-color: #FFFFFF"]:hover {
-  border-color: #3B82F6 !important;
+  border-color: #6366F1 !important;
 }
 html:not(.terang) #home-stage .grid .rounded-2xl h3 {
   color: #F8FAFC !important;
@@ -3549,29 +3538,29 @@ html:not(.terang) #home-stage .grid .rounded-2xl p {
 
 /* 8. Quick Tools Dock & Agenda in Dark Mode */
 html:not(.terang) #home-stage div[style*="background-color: #F0EFEA"] {
-  background-color: #0D1B2E !important;
-  border-color: #1E293B !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
 }
 html:not(.terang) #home-stage .notion-btn-secondary {
-  background-color: #162032 !important;
-  border-color: #24344D !important;
-  color: #E2E8F0 !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
 }
 html:not(.terang) #home-stage .notion-btn-secondary:hover {
-  background-color: #1E2D44 !important;
-  border-color: #3B82F6 !important;
+  background-color: #334155 !important;
+  border-color: #475569 !important;
   color: #FFFFFF !important;
 }
 
 /* Top Navbar Buttons in Dark Mode */
 html:not(.terang) .notion-btn-secondary {
-  background-color: #162032 !important;
-  border-color: #24344D !important;
-  color: #E2E8F0 !important;
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
 }
 html:not(.terang) .notion-btn-secondary:hover {
-  background-color: #1E2D44 !important;
-  border-color: #3B82F6 !important;
+  background-color: #334155 !important;
+  border-color: #475569 !important;
   color: #FFFFFF !important;
 }
 html:not(.terang) #user-display-name {
@@ -3592,8 +3581,8 @@ html:not(.terang) #user-display-name {
 }
 
 html:not(.terang) #app-header {
-  background-color: #0B132B !important;
-  border-color: #1E293B !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
 }
 
 #app-header .header-container {
@@ -3917,6 +3906,20 @@ html.terang .notion-btn-secondary * {
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
 }
+@media (min-width: 640px) {
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+}
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .lg\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+}
 .gap-3 {
   gap: 0.75rem !important;
 }
@@ -3924,6 +3927,352 @@ html.terang .notion-btn-secondary * {
   flex: 1 1 0% !important;
 }
 
+/* ==========================================================================
+   NOTION MODAL CONTAINER & EXECUTIVE DARK MODE COHESION (NO NEON GLOW)
+   ========================================================================== */
 
+.notion-modal-container {
+  background-color: #FFFFFF !important;
+  color: #1E293B !important;
+}
+html.terang .notion-modal-container {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #1E293B !important;
+}
+html:not(.terang) .notion-modal-container {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
 
+/* Modals Dark Mode Complete Overrides */
+html:not(.terang) #leaderboard-modal .bg-\[\#FFFFFF\],
+html:not(.terang) #skill-tree-modal .bg-\[\#FFFFFF\],
+html:not(.terang) #rapor-siswa-modal .bg-\[\#FFFFFF\],
+html:not(.terang) #leaderboard-modal [style*="background-color: #FFFFFF"],
+html:not(.terang) #skill-tree-modal [style*="background-color: #FFFFFF"],
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #FFFFFF"],
+html:not(.terang) #share-card-modal [style*="background-color: #FFFFFF"] {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
 
+html:not(.terang) #leaderboard-modal [style*="background-color: #FBFBFA"],
+html:not(.terang) #skill-tree-modal [style*="background-color: #FBFBFA"],
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #FBFBFA"],
+html:not(.terang) #share-card-modal [style*="background-color: #FBFBFA"],
+html:not(.terang) #leaderboard-modal [style*="background-color: #F7F6F3"],
+html:not(.terang) #skill-tree-modal [style*="background-color: #F7F6F3"],
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #F7F6F3"] {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
+
+html:not(.terang) #leaderboard-modal .text-\[\#2F3437\],
+html:not(.terang) #skill-tree-modal .text-\[\#2F3437\],
+html:not(.terang) #rapor-siswa-modal .text-\[\#2F3437\],
+html:not(.terang) #share-card-modal .text-\[\#2F3437\],
+html:not(.terang) #leaderboard-modal [style*="color: #2F3437"],
+html:not(.terang) #skill-tree-modal [style*="color: #2F3437"],
+html:not(.terang) #rapor-siswa-modal [style*="color: #2F3437"] {
+  color: #F8FAFC !important;
+}
+
+html:not(.terang) #leaderboard-modal .text-\[\#787774\],
+html:not(.terang) #skill-tree-modal .text-\[\#787774\],
+html:not(.terang) #rapor-siswa-modal .text-\[\#787774\],
+html:not(.terang) #leaderboard-modal .text-\[\#5F5E5B\],
+html:not(.terang) #skill-tree-modal .text-\[\#5F5E5B\],
+html:not(.terang) #rapor-siswa-modal .text-\[\#5F5E5B\],
+html:not(.terang) #leaderboard-modal [style*="color: #787774"],
+html:not(.terang) #skill-tree-modal [style*="color: #787774"],
+html:not(.terang) #leaderboard-modal [style*="color: #5F5E5B"] {
+  color: #94A3B8 !important;
+}
+
+html:not(.terang) #leaderboard-modal .border-\[\#E8E6DF\],
+html:not(.terang) #skill-tree-modal .border-\[\#E8E6DF\],
+html:not(.terang) #rapor-siswa-modal .border-\[\#E8E6DF\],
+html:not(.terang) #share-card-modal .border-\[\#E8E6DF\],
+html:not(.terang) #leaderboard-modal [style*="border-color: #E8E6DF"],
+html:not(.terang) #skill-tree-modal [style*="border-color: #E8E6DF"],
+html:not(.terang) #rapor-siswa-modal [style*="border-color: #E8E6DF"] {
+  border-color: #334155 !important;
+}
+
+html:not(.terang) #lb-mapel-selector {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+}
+html:not(.terang) #btn-lb-mapel-wajib.bg-\[\#2E384D\] {
+  background-color: #4F46E5 !important;
+  color: #FFFFFF !important;
+}
+html:not(.terang) #lb-tabs-container .notion-btn-tab {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+html:not(.terang) #lb-tabs-container .notion-btn-tab.active {
+  background-color: #4F46E5 !important;
+  border-color: #6366F1 !important;
+  color: #FFFFFF !important;
+}
+
+html:not(.terang) #lb-view-table .rounded-xl.border {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+}
+html:not(.terang) #lb-view-table thead tr {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+html:not(.terang) #lb-table-tbody tr {
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
+html:not(.terang) #lb-table-tbody tr:hover {
+  background-color: rgba(51, 65, 85, 0.5) !important;
+}
+html:not(.terang) #lb-table-tbody tr.bg-amber-50\/70,
+html:not(.terang) #lb-table-tbody tr.bg-amber-50\/80 {
+  background-color: rgba(120, 53, 15, 0.35) !important;
+}
+html:not(.terang) #lb-table-tbody .text-slate-800,
+html:not(.terang) #lb-table-tbody .text-\[\#2F3437\] {
+  color: #F8FAFC !important;
+}
+html:not(.terang) #lb-table-tbody .text-slate-500,
+html:not(.terang) #lb-table-tbody .text-\[\#787774\],
+html:not(.terang) #lb-table-tbody .text-\[\#5F5E5B\] {
+  color: #94A3B8 !important;
+}
+html:not(.terang) #lb-table-tbody .bg-slate-100 {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+
+/* Skill Tree Dark Mode Overrides */
+html:not(.terang) #skill-tree-modal .rounded-2xl.border {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+}
+html:not(.terang) #skill-tree-modal .text-slate-800 {
+  color: #F8FAFC !important;
+}
+html:not(.terang) #skill-tree-modal .text-slate-500,
+html:not(.terang) #skill-tree-modal .text-slate-400 {
+  color: #94A3B8 !important;
+}
+html:not(.terang) #skill-tree-modal .bg-slate-50,
+html:not(.terang) #skill-tree-modal .bg-slate-100 {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+html:not(.terang) #skill-tree-modal .border-slate-200 {
+  border-color: #334155 !important;
+}
+html:not(.terang) #skill-tree-modal .hover\:bg-slate-50:hover {
+  background-color: #334155 !important;
+}
+html:not(.terang) #skill-tree-modal .bg-white {
+  background-color: #1E293B !important;
+}
+
+/* Modal Inner Panels Dark Overrides */
+html:not(.terang) #leaderboard-modal .bg-\[\#FFFFFF\],
+html:not(.terang) #leaderboard-modal .bg-white,
+html:not(.terang) #skill-tree-modal .bg-\[\#FFFFFF\],
+html:not(.terang) #skill-tree-modal .bg-white,
+html:not(.terang) #rapor-siswa-modal .bg-\[\#FFFFFF\],
+html:not(.terang) #share-card-modal .bg-\[\#FFFFFF\] {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+html:not(.terang) #leaderboard-modal .bg-\[\#F7F6F3\],
+html:not(.terang) #leaderboard-modal .bg-\[\#F0EFEA\],
+html:not(.terang) #skill-tree-modal .bg-\[\#F7F6F3\],
+html:not(.terang) #skill-tree-modal .bg-\[\#F0EFEA\],
+html:not(.terang) #rapor-siswa-modal .bg-\[\#F7F6F3\],
+html:not(.terang) #share-card-modal .bg-\[\#F7F6F3\] {
+  background-color: #0F172A !important;
+  color: #94A3B8 !important;
+}
+
+html:not(.terang) #leaderboard-modal .text-\[\#2F3437\],
+html:not(.terang) #skill-tree-modal .text-\[\#2F3437\],
+html:not(.terang) #rapor-siswa-modal .text-\[\#2F3437\],
+html:not(.terang) #share-card-modal .text-\[\#2F3437\] {
+  color: #F8FAFC !important;
+}
+
+html:not(.terang) #leaderboard-modal .text-\[\#787774\],
+html:not(.terang) #leaderboard-modal .text-\[\#5F5E5B\],
+html:not(.terang) #skill-tree-modal .text-\[\#787774\],
+html:not(.terang) #skill-tree-modal .text-\[\#5F5E5B\],
+html:not(.terang) #rapor-siswa-modal .text-\[\#787774\],
+html:not(.terang) #share-card-modal .text-\[\#787774\] {
+  color: #94A3B8 !important;
+}
+
+html:not(.terang) #btn-st-tab-wajib.bg-white {
+  background-color: #4F46E5 !important;
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   EXECUTIVE DARK SLATE OVERRIDES: GAMIFIKASI HERO & WEEKLY RAID BOSS
+   Eliminates all jarring white backgrounds and neon glares in dark mode
+   ========================================================================== */
+
+/* Gamifikasi Hero Card */
+html:not(.terang) #gamifikasi-hero-card {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card div[style*="background-color: #FFFFFF"],
+html:not(.terang) #gamifikasi-hero-card div[style*="background-color:#FFFFFF"] {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card div[style*="border-color: #E2E8F0"] {
+  border-color: #334155 !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card .text-slate-800,
+html:not(.terang) #gamifikasi-hero-card .text-slate-900 {
+  color: #F8FAFC !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card .text-slate-500,
+html:not(.terang) #gamifikasi-hero-card .text-slate-600 {
+  color: #94A3B8 !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card .bg-amber-50,
+html:not(.terang) #gamifikasi-hero-card .bg-amber-50\/80 {
+  background-color: rgba(120, 53, 15, 0.35) !important;
+  border-color: rgba(180, 83, 9, 0.45) !important;
+  color: #FDE68A !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card .bg-emerald-50 {
+  background-color: rgba(6, 78, 59, 0.35) !important;
+  border-color: rgba(4, 120, 87, 0.45) !important;
+  color: #6EE7B7 !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card .bg-indigo-50 {
+  background-color: rgba(49, 46, 129, 0.35) !important;
+  border-color: rgba(67, 56, 202, 0.45) !important;
+  color: #A5B4FC !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card .notion-btn-secondary {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #E2E8F0 !important;
+}
+
+html:not(.terang) #gamifikasi-hero-card .notion-btn-secondary:hover {
+  background-color: #1E293B !important;
+  border-color: #475569 !important;
+}
+
+/* Weekly Raid Boss Card */
+html:not(.terang) #weekly-event-card {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+}
+
+html:not(.terang) #weekly-event-card div[style*="border-color: #E2E8F0"] {
+  border-color: #334155 !important;
+}
+
+html:not(.terang) #weekly-event-card .text-slate-800,
+html:not(.terang) #weekly-event-card .text-slate-900 {
+  color: #F8FAFC !important;
+}
+
+html:not(.terang) #weekly-event-card .text-slate-600,
+html:not(.terang) #weekly-event-card .text-slate-700 {
+  color: #94A3B8 !important;
+}
+
+html:not(.terang) #weekly-event-card .bg-rose-50 {
+  background-color: rgba(136, 19, 55, 0.35) !important;
+  border-color: rgba(190, 18, 60, 0.45) !important;
+  color: #FDA4AF !important;
+}
+
+html:not(.terang) #weekly-event-card .bg-amber-50,
+html:not(.terang) #weekly-event-card .bg-amber-100 {
+  background-color: rgba(120, 53, 15, 0.35) !important;
+  border-color: rgba(180, 83, 9, 0.45) !important;
+  color: #FDE68A !important;
+}
+
+html:not(.terang) #weekly-event-card .bg-slate-50 {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+
+html:not(.terang) #weekly-event-card .notion-btn-secondary {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #E2E8F0 !important;
+}
+
+html:not(.terang) #weekly-event-card div[style*="background-color: #F8FAFC"] {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+}
+
+html:not(.terang) #weekly-event-card div[style*="background-color: #E2E8F0"] {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+}
+
+/* Raid Campaign Banner in Dark Mode */
+html:not(.terang) #boss-daily-raid-banner {
+  background-color: rgba(15, 23, 42, 0.95) !important;
+  border-color: rgba(217, 119, 6, 0.45) !important;
+}
+
+html:not(.terang) #boss-daily-raid-banner .boss-pill {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #E2E8F0 !important;
+}
+
+html:not(.terang) #boss-daily-raid-banner .boss-feature-pill {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+
+/* 4 Portal Cards in Dark Mode */
+html:not(.terang) #boss-portals-grid > div {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+}
+
+html:not(.terang) #boss-portals-grid > div:hover {
+  border-color: #475569 !important;
+}
+
+/* Dark Mode KaTeX Polish */
+html:not(.terang) .katex,
+html:not(.terang) .katex * {
+  color: #F8FAFC !important;
+}

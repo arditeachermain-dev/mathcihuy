@@ -37,7 +37,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v20261017_softslate_v1">
+  <link rel="stylesheet" href="mathcihuy.css?v=v20261017_rpg_refined_v1">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -744,52 +744,52 @@
             <!-- SISI KANAN: STATS KOTAK (STREAK, SHIELD, AKURASI SEMPURNA, PERINGKAT) -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 w-full lg:w-auto shrink-0">
               <!-- Kotak Daily Streak -->
-              <div class="px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs" style="background-color: #FEF2F2; border-color: #FEE2E2;">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-base text-rose-600 bg-white shadow-xs shrink-0">
+              <div class="px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs transition hover:border-amber-300" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+                <div class="w-9 h-9 rounded-lg flex items-center justify-center text-base text-amber-600 bg-amber-50 border border-amber-200/60 shadow-2xs shrink-0">
                   <i class="fa-solid fa-fire-flame-curved"></i>
                 </div>
                 <div class="min-w-0">
-                  <div class="text-[10px] font-semibold uppercase tracking-wider text-rose-700 truncate">Daily Streak</div>
-                  <div class="text-sm font-extrabold text-rose-900 font-mono flex items-center gap-1">
-                    <span id="gamifikasi-streak-count">1</span> <span class="text-xs font-normal">Hari</span>
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 truncate">Daily Streak</div>
+                  <div class="text-sm sm:text-base font-extrabold text-slate-800 font-mono flex items-center gap-1">
+                    <span id="gamifikasi-streak-count">1</span> <span class="text-xs font-normal text-slate-500">Hari</span>
                   </div>
                 </div>
               </div>
 
               <!-- Kotak Streak Shield (Perisai Pelindung Streak) -->
-              <div id="gamifikasi-shield-box" class="px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs cursor-help transition hover:scale-[1.02]" style="background-color: #ECFDF5; border-color: #D1FAE5;" title="Streak Shield: Melindungi api streak agar tidak padam jika kamu berhalangan aktif 1 hari!">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-base text-emerald-600 bg-white shadow-xs shrink-0">
+              <div id="gamifikasi-shield-box" class="px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs cursor-help transition hover:border-emerald-300" style="background-color: #FFFFFF; border-color: #E2E8F0;" title="Streak Shield: Melindungi api streak agar tidak padam jika kamu berhalangan aktif 1 hari!">
+                <div class="w-9 h-9 rounded-lg flex items-center justify-center text-base text-emerald-600 bg-emerald-50 border border-emerald-200/60 shadow-2xs shrink-0">
                   <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <div class="min-w-0">
-                  <div class="text-[10px] font-semibold uppercase tracking-wider text-emerald-700 truncate">Streak Shield</div>
-                  <div class="text-sm font-extrabold text-emerald-900 font-mono flex items-center gap-1">
-                    <span id="gamifikasi-shield-count">0</span> <span class="text-xs font-normal">Perisai</span>
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 truncate">Streak Shield</div>
+                  <div class="text-sm sm:text-base font-extrabold text-slate-800 font-mono flex items-center gap-1">
+                    <span id="gamifikasi-shield-count">0</span> <span class="text-xs font-normal text-slate-500">Perisai</span>
                   </div>
                 </div>
               </div>
 
               <!-- Kotak Nilai Sempurna 100 -->
-              <div class="px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs" style="background-color: #FFFDF5; border-color: #FEF3C7;">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-base text-amber-600 bg-white shadow-xs shrink-0">
+              <div class="px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs transition hover:border-indigo-300" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+                <div class="w-9 h-9 rounded-lg flex items-center justify-center text-base text-indigo-600 bg-indigo-50 border border-indigo-200/60 shadow-2xs shrink-0">
                   <i class="fa-solid fa-bullseye"></i>
                 </div>
                 <div class="min-w-0">
-                  <div class="text-[10px] font-semibold uppercase tracking-wider text-amber-700 truncate">Skor 100</div>
-                  <div class="text-sm font-extrabold text-amber-900 font-mono flex items-center gap-1">
-                    <span id="gamifikasi-sempurna-count">0</span> <span class="text-xs font-normal">Kali</span>
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 truncate">Skor 100</div>
+                  <div class="text-sm sm:text-base font-extrabold text-slate-800 font-mono flex items-center gap-1">
+                    <span id="gamifikasi-sempurna-count">0</span> <span class="text-xs font-normal text-slate-500">Kali</span>
                   </div>
                 </div>
               </div>
 
               <!-- Kotak Peringkat -->
-              <div class="px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs" style="background-color: #F8FAFC; border-color: #E2E8F0;">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-base text-slate-700 bg-white shadow-xs shrink-0">
+              <div class="px-3.5 py-2.5 rounded-xl border flex items-center gap-2.5 shadow-xs transition hover:border-amber-300" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+                <div class="w-9 h-9 rounded-lg flex items-center justify-center text-base text-amber-700 bg-amber-50/80 border border-amber-200/80 shadow-2xs shrink-0">
                   <i class="fa-solid fa-trophy"></i>
                 </div>
                 <div class="min-w-0">
-                  <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-600 truncate">Peringkat Kelas</div>
-                  <div class="text-sm font-extrabold text-slate-800 font-mono flex items-center gap-1 truncate">
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 truncate">Peringkat Kelas</div>
+                  <div class="text-sm sm:text-base font-extrabold text-slate-800 font-mono flex items-center gap-1 truncate">
                     <span id="gamifikasi-rank-text">#-</span> <span id="gamifikasi-rank-sub" class="text-xs font-normal text-slate-500"></span>
                   </div>
                 </div>
@@ -797,119 +797,124 @@
             </div>
           </div>
 
-          <!-- BARIS BAWAH: KOLEKSI LENCANA & TOMBOL NAVIGASI GAMIFIKASI -->
-          <div class="pt-3 border-t flex flex-col lg:flex-row lg:items-center justify-between gap-3" style="border-color: #E8E6DF;">
-            <div class="flex items-center gap-2 overflow-x-auto py-1 custom-scroll min-w-0 flex-1">
-              <span class="text-[11px] font-semibold shrink-0 mr-1" style="color: #787774;">
-                <i class="fa-solid fa-award text-amber-500 mr-1"></i>Lencana:
-              </span>
+          <!-- BARIS TENGAH: KOLEKSI LENCANA TERCAPAI (DEDICATED FULL-WIDTH RACK) -->
+          <div class="pt-3 border-t flex items-center justify-between gap-3" style="border-color: #E2E8F0;">
+            <div class="flex items-center gap-2.5 overflow-x-auto py-1 custom-scroll min-w-0 flex-1">
+              <div class="flex items-center gap-1.5 shrink-0 px-2.5 py-1 rounded-lg bg-amber-50/80 border border-amber-200/60 text-amber-900 text-xs font-bold">
+                <i class="fa-solid fa-award text-amber-600"></i>
+                <span>Lencana:</span>
+              </div>
               <div id="gamifikasi-badges-pills" class="flex items-center gap-1.5 flex-nowrap shrink-0">
                 <!-- Badges rendered via JavaScript -->
-                <span class="text-[11px] italic" style="color: #787774;">Menghubungkan lencana...</span>
+                <span class="text-xs text-slate-500 italic">Menghubungkan lencana...</span>
               </div>
             </div>
+            <button type="button" onclick="openLeaderboardModal('all', 'catalog')" class="shrink-0 text-xs text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1 transition px-2 py-1 rounded-lg hover:bg-indigo-50/50">
+              <span>Katalog</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+          </div>
 
-            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 max-w-full shrink-0 lg:flex-wrap">
-              <button type="button" onclick="openProfileSelectorModal('sheet')" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition shrink-0" style="border-color: #2F3437; color: #2E384D;" title="Buka Lembar Status Karakter RPG (Atribut, Vitals, Gear)">
-                <i class="fa-solid fa-gamepad text-teal-600"></i> <span>Status RPG</span>
-              </button>
-              <button type="button" onclick="openProfileSelectorModal('armory')" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition shrink-0" title="Pilih Karakter & Bingkai Profil (Dibuka per 10 Level)">
-                <i class="fa-solid fa-shield-halved text-amber-600"></i> <span>Ganti Karakter</span>
-              </button>
-              <button type="button" onclick="openSkillTreeModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition shrink-0" title="Buka Peta Rasi Bintang Penguasaan Materi (Skill Tree)">
-                <i class="fa-solid fa-diagram-project text-indigo-600"></i> <span>Skill Tree</span>
-              </button>
-              <button type="button" onclick="openShareCardModal()" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#E8E6DF] transition shrink-0" title="Bagikan Kartu Pencapaian Estetik ke IG Story / Discord">
-                <i class="fa-solid fa-camera-retro text-rose-600"></i> <span>Kartu Prestasi</span>
-              </button>
-              <button type="button" onclick="openLeaderboardModal('all', 'catalog')" class="notion-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm shrink-0">
-                <i class="fa-solid fa-award text-amber-600"></i> <span>Katalog Lencana</span>
-              </button>
-              <button type="button" onclick="openLeaderboardModal()" class="notion-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm shrink-0">
-                <i class="fa-solid fa-trophy text-amber-400"></i> <span>Papan Peringkat</span>
-              </button>
-            </div>
+          <!-- BARIS BAWAH: ACTION DOCK (6 TOMBOL TERATUR, RESPONSIF & ERGONOMIS) -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 pt-1 border-t" style="border-color: #E2E8F0;">
+            <button type="button" onclick="openProfileSelectorModal('sheet')" class="notion-btn-secondary px-3 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs hover:bg-slate-50 transition" title="Buka Lembar Status Karakter RPG (Atribut, Vitals, Gear)">
+              <i class="fa-solid fa-gamepad text-teal-600"></i> <span>Status RPG</span>
+            </button>
+            <button type="button" onclick="openProfileSelectorModal('armory')" class="notion-btn-secondary px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs hover:bg-slate-50 transition" title="Pilih Karakter & Bingkai Profil (Dibuka per 10 Level)">
+              <i class="fa-solid fa-shield-halved text-amber-600"></i> <span>Ganti Karakter</span>
+            </button>
+            <button type="button" onclick="openSkillTreeModal()" class="notion-btn-secondary px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs hover:bg-slate-50 transition" title="Buka Peta Rasi Bintang Penguasaan Materi (Skill Tree)">
+              <i class="fa-solid fa-diagram-project text-indigo-600"></i> <span>Skill Tree</span>
+            </button>
+            <button type="button" onclick="openShareCardModal()" class="notion-btn-secondary px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs hover:bg-slate-50 transition" title="Bagikan Kartu Pencapaian Estetik ke IG Story / Discord">
+              <i class="fa-solid fa-camera-retro text-rose-600"></i> <span>Kartu Prestasi</span>
+            </button>
+            <button type="button" onclick="openLeaderboardModal('all', 'catalog')" class="notion-btn-secondary px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs hover:bg-slate-50 transition">
+              <i class="fa-solid fa-award text-amber-600"></i> <span>Katalog Lencana</span>
+            </button>
+            <button type="button" onclick="openLeaderboardModal()" class="notion-btn-primary px-3.5 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs" style="background-color: #4F46E5 !important; border-color: #4338CA !important;">
+              <i class="fa-solid fa-trophy text-amber-300"></i> <span>Papan Peringkat</span>
+            </button>
           </div>
         </div>
 
         <!-- 1.2 WEEKLY RAID BOSS BATTLE (EVENT MINGGUAN MATEMATIKA) -->
         <div id="raid-boss" class="scroll-mt-20"></div>
-        <div id="weekly-event-card" class="p-4 sm:p-5 rounded-2xl transition space-y-3.5 relative overflow-hidden scroll-mt-20" style="background-color: #FFFFFF; border: 1px solid #E8E6DF; box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.04);">
-          <!-- TOP ACCENT WARM RIBBON -->
-          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600"></div>
+        <div id="weekly-event-card" class="p-4 sm:p-5 rounded-2xl transition space-y-3.5 relative overflow-hidden scroll-mt-20" style="background-color: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);">
+          <!-- TOP ACCENT SUBTLE GOLD/CRIMSON BORDER -->
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-rose-600"></div>
 
           <!-- HEADER RAID BOSS -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3.5 pt-1" style="border-color: #E8E6DF;">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3.5 pt-1" style="border-color: #E2E8F0;">
             <div class="flex items-start sm:items-center gap-3">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-2xs shrink-0" style="background-color: #FFF1F0; border: 1px solid #FFA39E; color: #CF1322;">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-2xs shrink-0 bg-rose-50 border border-rose-200/80 text-rose-700">
                 <i class="fa-solid fa-dragon"></i>
               </div>
               <div class="space-y-1">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FFF7E6] text-[#B26B00] border border-[#FFE7BA]">
-                    <i class="fa-solid fa-fire text-amber-500"></i> Event Mingguan Angkatan XII
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                    <i class="fa-solid fa-fire text-amber-600"></i> Event Mingguan Angkatan XII
                   </span>
-                  <h4 class="text-sm sm:text-base font-bold text-[#2F3437] tracking-tight">Raid Boss Battle • Titan Statigo</h4>
-                  <span id="boss-phase-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FFF1F0] text-[#CF1322] border border-[#FFA39E]">
+                  <h4 class="text-sm sm:text-base font-bold text-slate-800 tracking-tight">Raid Boss Battle • Titan Statigo</h4>
+                  <span id="boss-phase-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
                     Fase 2 • Weakened
                   </span>
                 </div>
-                <p class="text-xs text-[#5F5E5B] leading-relaxed">
-                  Gempur darah <strong class="text-[#CF1322] font-semibold">Titan Statigo (300.000 HP)</strong> bersama seluruh angkatan XII! Selesaikan butir soal TKA pekan ini untuk cetak Damage, raih EXP, dan dongkrak <strong class="text-[#2F3437] font-semibold">Nilai Rapor Semester 5</strong>!
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Gempur darah <strong class="text-rose-700 font-semibold">Titan Statigo (300.000 HP)</strong> bersama seluruh angkatan XII! Selesaikan butir soal TKA pekan ini untuk cetak Damage, raih EXP, dan dongkrak <strong class="text-slate-900 font-semibold">Nilai Rapor Semester 5</strong>!
                 </p>
               </div>
             </div>
 
             <div class="flex items-center gap-2 self-start sm:self-center shrink-0 flex-wrap">
-              <span id="boss-timer-text" class="px-2.5 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 shadow-2xs" style="background-color: #FEF2F2; color: #B91C1C; border: 1px solid #FEE2E2;">
-                <i class="fa-solid fa-hourglass-half text-[11px]"></i> <span>Reset Minggu 23:59 WIB</span>
+              <span id="boss-timer-text" class="px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 shadow-2xs bg-slate-50 text-slate-700 border border-slate-200">
+                <i class="fa-solid fa-hourglass-half text-[11px] text-amber-600"></i> <span>Reset Minggu 23:59 WIB</span>
               </span>
-              <button type="button" onclick="openRaidBossLeaderboardModal()" class="notion-btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]" title="Lihat Papan Peringkat Pemburu Boss">
+              <button type="button" onclick="openRaidBossLeaderboardModal()" class="notion-btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs border border-slate-200 bg-white text-slate-800 hover:bg-slate-50" title="Lihat Papan Peringkat Pemburu Boss">
                 <i class="fa-solid fa-trophy text-amber-500 text-xs"></i> <span>Leaderboard Boss</span>
               </button>
             </div>
           </div>
 
           <!-- BOSS HEALTH BAR (GLOBAL HP ANGKATAN XII) -->
-          <div class="p-3.5 rounded-xl border space-y-2.5" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+          <div class="p-3.5 rounded-xl border space-y-2.5" style="background-color: #F8FAFC; border-color: #E2E8F0;">
             <div class="flex items-center justify-between gap-2 flex-wrap text-xs">
               <div class="flex items-center gap-2">
-                <span class="font-bold text-[#CF1322] text-xs flex items-center gap-1.5">
-                  <i class="fa-solid fa-heart-pulse text-rose-500"></i> Boss HP:
+                <span class="font-bold text-rose-700 text-xs flex items-center gap-1.5">
+                  <i class="fa-solid fa-heart-pulse text-rose-600"></i> Boss HP:
                 </span>
-                <span id="boss-hp-text" class="font-bold text-[#2F3437] text-xs sm:text-sm">300.000 / 300.000 HP (100% Tersisa)</span>
+                <span id="boss-hp-text" class="font-extrabold text-slate-900 text-xs sm:text-sm font-mono">300.000 / 300.000 HP (100% Tersisa)</span>
               </div>
-              <div class="flex items-center gap-3 text-xs text-[#787774]">
-                <span><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i>Total Damage: <strong id="boss-total-damage-text" class="text-[#2F3437] font-semibold">0 DMG</strong></span>
-                <span><i class="fa-solid fa-users text-indigo-600 mr-1"></i><strong id="boss-attackers-count" class="text-[#2F3437] font-semibold">0</strong> Pendekar</span>
+              <div class="flex items-center gap-3 text-xs text-slate-600">
+                <span><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i>Total Damage: <strong id="boss-total-damage-text" class="text-slate-800 font-semibold font-mono">0 DMG</strong></span>
+                <span><i class="fa-solid fa-users text-indigo-600 mr-1"></i><strong id="boss-attackers-count" class="text-slate-800 font-semibold font-mono">0</strong> Pendekar</span>
               </div>
             </div>
 
             <!-- THE HEALTH BAR -->
-            <div class="w-full h-3 rounded-full overflow-hidden p-0.5 border" style="background-color: #E8E6DF; border-color: #D3CFBE;">
-              <div id="boss-hp-bar" class="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500" style="width: 100%;"></div>
+            <div class="w-full h-3 rounded-full overflow-hidden p-0.5 border" style="background-color: #E2E8F0; border-color: #CBD5E1;">
+              <div id="boss-hp-bar" class="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-600" style="width: 100%;"></div>
             </div>
           </div>
 
           <!-- KAMPANYE MINGGUAN: SERANGAN TITAN STATIGO (50 SOAL TKA, BISA DITUNDA & SERANG PER SOAL) -->
-          <div id="boss-daily-raid-banner" class="p-4 rounded-xl border transition" style="background-color: #FFFDF5; border-color: #FDE68A; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);">
+          <div id="boss-daily-raid-banner" class="p-4 rounded-xl border transition" style="background-color: #FFFBEB; border-color: #FDE68A; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);">
             <div class="banner-main">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 shadow-2xs" style="background-color: #FEF3C7; color: #B45309; border: 1px solid #FDE68A;">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 shadow-2xs bg-amber-100 text-amber-800 border border-amber-300">
                 <i class="fa-solid fa-khanda"></i>
               </div>
               <div class="space-y-2 flex-1 min-w-0">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="boss-pill bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">Kuota 1 Pekan</span>
-                  <span id="daily-raid-squad-badge" class="boss-pill bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]">⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)</span>
-                  <span id="daily-raid-date-tag" class="text-xs text-[#787774] whitespace-nowrap">Pekan Ini (W42)</span>
+                  <span class="boss-pill bg-amber-100 text-amber-900 border border-amber-300">Kuota 1 Pekan</span>
+                  <span id="daily-raid-squad-badge" class="boss-pill bg-indigo-50 text-indigo-700 border border-indigo-200">⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)</span>
+                  <span id="daily-raid-date-tag" class="text-xs text-slate-500 whitespace-nowrap">Pekan Ini (W42)</span>
                 </div>
-                <h5 id="daily-raid-banner-title" class="text-sm font-bold text-[#2F3437] leading-snug">
+                <h5 id="daily-raid-banner-title" class="text-sm font-bold text-slate-800 leading-snug">
                   ⚔️ Ekspedisi Titan Statigo • 50 Butir Soal TKA (Wajib P17-P18 &amp; Add Math P18-P19)
                 </h5>
-                <p id="daily-raid-banner-desc" class="text-xs text-[#5F5E5B] leading-relaxed">
-                  Santai tapi pasti! Kamu punya waktu <strong class="text-[#2F3437] font-semibold">1 pekan penuh (Senin s.d. Minggu)</strong> untuk menaklukkan Titan Statigo dengan cakupan materi uji TKA pekan ini (Wajib P17-P18 dan Additional Math P18-P19). <strong class="text-emerald-700 font-semibold">Bebas dicicil santai kapan saja</strong> &amp; progres serangan otomatis tersimpan per butir soal. Raih Combo Streaks hingga 2.0x DMG, amankan <strong class="text-[#2F3437] font-semibold">Nilai Rapor Semester 5</strong>, dan raih tahta Titan Slayer!
+                <p id="daily-raid-banner-desc" class="text-xs text-slate-600 leading-relaxed">
+                  Santai tapi pasti! Kamu punya waktu <strong class="text-slate-800 font-semibold">1 pekan penuh (Senin s.d. Minggu)</strong> untuk menaklukkan Titan Statigo dengan cakupan materi uji TKA pekan ini (Wajib P17-P18 dan Additional Math P18-P19). <strong class="text-emerald-700 font-semibold">Bebas dicicil santai kapan saja</strong> &amp; progres serangan otomatis tersimpan per butir soal. Raih Combo Streaks hingga 2.0x DMG, amankan <strong class="text-slate-800 font-semibold">Nilai Rapor Semester 5</strong>, dan raih tahta Titan Slayer!
                 </p>
-                <div class="flex items-center gap-1.5 flex-wrap pt-1 text-xs text-[#5F5E5B]">
+                <div class="flex items-center gap-1.5 flex-wrap pt-1 text-xs text-slate-600">
                   <span class="boss-feature-pill">
                     <i class="fa-regular fa-calendar-check text-amber-600"></i> 1 Pekan Penuh
                   </span>
@@ -928,11 +933,11 @@
 
             <div class="banner-actions">
               <div id="daily-raid-status-wrap" class="text-left sm:text-right">
-                <span id="daily-raid-status-badge" class="inline-block px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] whitespace-nowrap">
+                <span id="daily-raid-status-badge" class="inline-block px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300 whitespace-nowrap">
                   ⚡ Siap Tempur • Kuota 1 Pekan
                 </span>
               </div>
-              <button type="button" id="btn-daily-raid-action" onclick="openDailyRaidModal()" class="notion-btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:bg-[#1E2533] transition whitespace-nowrap">
+              <button type="button" id="btn-daily-raid-action" onclick="openDailyRaidModal()" class="notion-btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:bg-indigo-700 transition whitespace-nowrap" style="background-color: #4F46E5 !important; border-color: #4338CA !important;">
                 <i class="fa-solid fa-khanda text-amber-300 text-xs"></i> <span id="btn-daily-raid-text">Ganyang Titan (50 Soal / Pekan)</span>
               </button>
             </div>
@@ -1916,7 +1921,7 @@
 
     <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->
   <div id="rapor-siswa-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div style="background-color: #FBFBFA !important; max-height: 90vh; height: 90vh;" class="border border-[#E8E6DF] rounded-2xl max-w-5xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
+    <div style="max-height: 90vh; height: 90vh;" class="notion-modal-container border border-[#E8E6DF] rounded-2xl max-w-5xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
       
       <!-- MODAL TOP BAR (COMPACT) -->
       <div class="px-4 sm:px-6 py-2.5 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-[#FFFFFF]">
@@ -2192,7 +2197,7 @@
 
   <!-- MODAL PAPAN PERINGKAT, LEVEL XP & DAILY STREAK (NOTION WARM PAPER AESTHETIC) -->
   <div id="leaderboard-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div style="background-color: #FBFBFA !important; max-height: 90vh; height: 90vh;" class="border border-[#E8E6DF] rounded-2xl max-w-5xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
+    <div style="max-height: 90vh; height: 90vh;" class="notion-modal-container border border-[#E8E6DF] rounded-2xl max-w-5xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
       
       <!-- MODAL TOP BAR (COMPACT & CLEAN) -->
       <div class="px-4 sm:px-6 py-3 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-[#FFFFFF]">
@@ -2770,7 +2775,7 @@
 
   <!-- MODAL MASTERY SKILL TREE (PETA RASI BINTANG PENGUASAAN MATERI) -->
   <div id="skill-tree-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div style="background-color: #FBFBFA !important; max-height: 90vh; height: 90vh;" class="border border-[#E8E6DF] rounded-2xl max-w-5xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
+    <div style="max-height: 90vh; height: 90vh;" class="notion-modal-container border border-[#E8E6DF] rounded-2xl max-w-5xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
       
       <!-- TOP BAR -->
       <div class="px-4 sm:px-6 py-3 border-b border-[#E8E6DF] flex flex-wrap items-center justify-between gap-2.5 shrink-0 bg-[#FFFFFF]">
@@ -2854,7 +2859,7 @@
 
   <!-- MODAL AESTHETIC ACHIEVEMENT CARD GENERATOR ("SPOTIFY WRAPPED" MATEMATIKA) -->
   <div id="share-card-modal" style="z-index: 9999;" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div style="background-color: #FBFBFA !important; max-height: 90vh; height: 90vh;" class="border border-[#E8E6DF] rounded-2xl max-w-xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
+    <div style="max-height: 90vh; height: 90vh;" class="notion-modal-container border border-[#E8E6DF] rounded-2xl max-w-xl h-[90vh] max-h-[92vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
       
       <!-- TOP BAR -->
       <div class="px-4 sm:px-6 py-3 border-b border-[#E8E6DF] flex items-center justify-between gap-2 shrink-0 bg-[#FFFFFF]">
@@ -4136,7 +4141,7 @@
 
     <script src="daily-raid-data.js?v=v20261011_tka_models_v2"></script>
     <script src="weekly-raid-data.js?v=v20261016_p18_supervisi_v1"></script>
-    <script src="app-akhir.js?v=v20261017_dashboard_notion_fix_v2"></script>
+    <script src="app-akhir.js?v=v20261017_rpg_refined_v1"></script>
     <script src="angket.js?v=v20261012_security_lockdown_v1"></script>
     <script src="helpdesk-notif.js?v=v20261012_notif_anticlip_v2"></script>
 
