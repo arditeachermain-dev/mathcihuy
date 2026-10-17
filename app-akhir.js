@@ -3259,11 +3259,11 @@ function calculateStudentRpgStats(profile) {
         if (phaseBadge) {
           phaseBadge.textContent = phase;
           if (isDefeated) {
-            phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
+            phaseBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]';
           } else if (pctHp <= 25) {
-            phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-100 text-rose-900 border border-rose-300';
+            phaseBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FFF1F0] text-[#CF1322] border border-[#FFA39E]';
           } else {
-            phaseBadge.className = 'px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200';
+            phaseBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FFF1F0] text-[#CF1322] border border-[#FFA39E]';
           }
         }
 
@@ -5349,20 +5349,20 @@ function calculateStudentRpgStats(profile) {
         const isW42 = (weekId === '2026-W42');
         if (squad === 'F1_F2') {
           squadBadge.textContent = isW42 ? '🛡️ Skuad F1 - F2 (50 Matwa P17-P18)' : '🛡️ Skuad F1 - F2 (50 Matwa)';
-          squadBadge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200';
+          squadBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]';
         } else {
           squadBadge.textContent = isW42 ? '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat P18-P19)' : '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)';
-          squadBadge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-800 border border-rose-200';
+          squadBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]';
         }
       }
 
       if (isCompleted) {
         if (badge) {
           badge.textContent = `👑 Selesai (+${totalDamage.toLocaleString('id-ID')} DMG)`;
-          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300';
+          badge.className = 'inline-block px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#EDF7ED] text-[#2E7D32] border border-[#C8E6C9] whitespace-nowrap';
         }
         if (btnAction) {
-          btnAction.className = 'notion-btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]';
+          btnAction.className = 'notion-btn-secondary px-4 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0] whitespace-nowrap';
         }
         if (btnText) {
           btnText.textContent = 'Review Solusi & Rapor (50 Soal)';
@@ -5370,10 +5370,10 @@ function calculateStudentRpgStats(profile) {
       } else if (completedCount > 0) {
         if (badge) {
           badge.textContent = `⚡ Sedang Berjalan (${completedCount}/50 Butir)`;
-          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-indigo-100 text-indigo-900 border border-indigo-300';
+          badge.className = 'inline-block px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE] whitespace-nowrap';
         }
         if (btnAction) {
-          btnAction.className = 'notion-btn-primary px-4 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533] transition';
+          btnAction.className = 'notion-btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:bg-[#1E2533] transition whitespace-nowrap';
         }
         if (btnText) {
           btnText.textContent = `Lanjutkan Tempur (${50 - completedCount} Butir Lagi)`;
@@ -5381,10 +5381,10 @@ function calculateStudentRpgStats(profile) {
       } else {
         if (badge) {
           badge.textContent = '⚡ Siap Tempur • Kuota 1 Pekan';
-          badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300';
+          badge.className = 'inline-block px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] whitespace-nowrap';
         }
         if (btnAction) {
-          btnAction.className = 'notion-btn-primary px-4 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533] transition';
+          btnAction.className = 'notion-btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:bg-[#1E2533] transition whitespace-nowrap';
         }
         if (btnText) {
           btnText.textContent = 'Ganyang Titan (50 Soal / Pekan)';

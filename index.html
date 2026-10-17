@@ -37,7 +37,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v20261017_ui_overhaul_v1">
+  <link rel="stylesheet" href="mathcihuy.css?v=v20261017_dashboard_notion_fix_v2">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -721,203 +721,211 @@
 
         <!-- 1.2 WEEKLY RAID BOSS BATTLE (EVENT MINGGUAN MATEMATIKA) -->
         <div id="raid-boss" class="scroll-mt-20"></div>
-        <div id="weekly-event-card" class="p-4 sm:p-5 rounded-2xl transition space-y-3.5 relative overflow-hidden scroll-mt-20" style="background-color: #FFFFFF; border: 1.5px solid #F59E0B; box-shadow: 0 4px 16px -2px rgba(245, 158, 11, 0.12);">
-          <!-- TOP ACCENT GRADIENT RIBBON -->
+        <div id="weekly-event-card" class="p-4 sm:p-5 rounded-2xl transition space-y-3.5 relative overflow-hidden scroll-mt-20" style="background-color: #FFFFFF; border: 1px solid #E8E6DF; box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.04);">
+          <!-- TOP ACCENT WARM RIBBON -->
           <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600"></div>
 
           <!-- HEADER RAID BOSS -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3 pt-1" style="border-color: #E8E6DF;">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-xs shrink-0" style="background-color: #FFF1F0; border: 1px solid #FFA39E; color: #CF1322;">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3.5 pt-1" style="border-color: #E8E6DF;">
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-2xs shrink-0" style="background-color: #FFF1F0; border: 1px solid #FFA39E; color: #CF1322;">
                 <i class="fa-solid fa-dragon"></i>
               </div>
-              <div>
+              <div class="space-y-1">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10.5px] font-mono font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">
-                    <i class="fa-solid fa-fire text-amber-600"></i> EVENT MINGGUAN ANGKATAN XII
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FFF7E6] text-[#B26B00] border border-[#FFE7BA]">
+                    <i class="fa-solid fa-fire text-amber-500"></i> Event Mingguan Angkatan XII
                   </span>
-                  <h4 class="text-sm sm:text-base font-black text-[#2F3437] tracking-tight">RAID BOSS BATTLE • TITAN STATIGO</h4>
-                  <span id="boss-phase-badge" class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200">
-                    FASE 2 • WEAKENED
+                  <h4 class="text-sm sm:text-base font-bold text-[#2F3437] tracking-tight">Raid Boss Battle • Titan Statigo</h4>
+                  <span id="boss-phase-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FFF1F0] text-[#CF1322] border border-[#FFA39E]">
+                    Fase 2 • Weakened
                   </span>
                 </div>
-                <p class="text-[11.5px] text-[#5F5E5B] pt-0.5">
-                  Gempur darah <strong class="text-rose-700 font-extrabold">Titan Statigo (300.000 HP)</strong> bersama seluruh angkatan XII! Selesaikan butir soal TKA pekan ini untuk cetak Damage, raih EXP, dan dongkrak <strong class="text-[#2F3437] font-black">Nilai Rapor Semester 5</strong>!
+                <p class="text-xs text-[#5F5E5B] leading-relaxed">
+                  Gempur darah <strong class="text-[#CF1322] font-semibold">Titan Statigo (300.000 HP)</strong> bersama seluruh angkatan XII! Selesaikan butir soal TKA pekan ini untuk cetak Damage, raih EXP, dan dongkrak <strong class="text-[#2F3437] font-semibold">Nilai Rapor Semester 5</strong>!
                 </p>
               </div>
             </div>
 
-            <div class="flex items-center gap-2 self-start sm:self-center shrink-0">
-              <span id="boss-timer-text" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 shadow-2xs" style="background-color: #FEF2F2; color: #B91C1C; border: 1px solid #FEE2E2;">
+            <div class="flex items-center gap-2 self-start sm:self-center shrink-0 flex-wrap">
+              <span id="boss-timer-text" class="px-2.5 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 shadow-2xs" style="background-color: #FEF2F2; color: #B91C1C; border: 1px solid #FEE2E2;">
                 <i class="fa-solid fa-hourglass-half text-[11px]"></i> <span>Reset Minggu 23:59 WIB</span>
               </span>
-              <button type="button" onclick="openRaidBossLeaderboardModal()" class="notion-btn-secondary px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]" title="Lihat Papan Peringkat Pemburu Boss">
+              <button type="button" onclick="openRaidBossLeaderboardModal()" class="notion-btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs border border-[#E8E6DF] bg-white text-[#2F3437] hover:bg-[#F5F4F0]" title="Lihat Papan Peringkat Pemburu Boss">
                 <i class="fa-solid fa-trophy text-amber-500 text-xs"></i> <span>Leaderboard Boss</span>
               </button>
             </div>
           </div>
 
           <!-- BOSS HEALTH BAR (GLOBAL HP ANGKATAN XII) -->
-          <div class="p-3.5 rounded-xl border space-y-2" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+          <div class="p-3.5 rounded-xl border space-y-2.5" style="background-color: #FBFBFA; border-color: #E8E6DF;">
             <div class="flex items-center justify-between gap-2 flex-wrap text-xs">
               <div class="flex items-center gap-2">
-                <span class="font-extrabold uppercase tracking-wider text-rose-800 text-[11px] flex items-center gap-1">
-                  <i class="fa-solid fa-heart-pulse text-rose-600"></i> BOSS HP:
+                <span class="font-bold text-[#CF1322] text-xs flex items-center gap-1.5">
+                  <i class="fa-solid fa-heart-pulse text-rose-500"></i> Boss HP:
                 </span>
-                <span id="boss-hp-text" class="font-mono font-black text-[#2F3437] text-xs sm:text-sm">300.000 / 300.000 HP (100% Tersisa)</span>
+                <span id="boss-hp-text" class="font-bold text-[#2F3437] text-xs sm:text-sm">300.000 / 300.000 HP (100% Tersisa)</span>
               </div>
-              <div class="flex items-center gap-3 text-[11px] font-mono text-[#5F5E5B]">
-                <span><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i>Total Damage: <strong id="boss-total-damage-text" class="text-rose-700 font-bold">0 DMG</strong></span>
-                <span><i class="fa-solid fa-users text-indigo-600 mr-1"></i><strong id="boss-attackers-count">0</strong> Pendekar</span>
+              <div class="flex items-center gap-3 text-xs text-[#787774]">
+                <span><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i>Total Damage: <strong id="boss-total-damage-text" class="text-[#2F3437] font-semibold">0 DMG</strong></span>
+                <span><i class="fa-solid fa-users text-indigo-600 mr-1"></i><strong id="boss-attackers-count" class="text-[#2F3437] font-semibold">0</strong> Pendekar</span>
               </div>
             </div>
 
             <!-- THE HEALTH BAR -->
-            <div class="w-full h-3.5 rounded-full overflow-hidden p-0.5 border" style="background-color: #E8E6DF; border-color: #D3CFBE;">
-              <div id="boss-hp-bar" class="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-rose-600 via-amber-500 to-yellow-400" style="width: 100%;"></div>
+            <div class="w-full h-3 rounded-full overflow-hidden p-0.5 border" style="background-color: #E8E6DF; border-color: #D3CFBE;">
+              <div id="boss-hp-bar" class="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500" style="width: 100%;"></div>
             </div>
           </div>
 
           <!-- KAMPANYE MINGGUAN: SERANGAN TITAN STATIGO (50 SOAL TKA, BISA DITUNDA & SERANG PER SOAL) -->
-          <div id="boss-daily-raid-banner" class="p-4 rounded-xl border flex flex-col lg:flex-row lg:items-center justify-between gap-4 transition" style="background-color: #FFFDF5; border-color: #FDE68A; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);">
-            <div class="flex items-start gap-3 flex-1 min-w-0">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 shadow-xs" style="background-color: #FEF3C7; color: #B45309; border: 1px solid #FDE68A;">
+          <div id="boss-daily-raid-banner" class="p-4 rounded-xl border transition" style="background-color: #FFFDF5; border-color: #FDE68A; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);">
+            <div class="banner-main">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 shadow-2xs" style="background-color: #FEF3C7; color: #B45309; border: 1px solid #FDE68A;">
                 <i class="fa-solid fa-khanda"></i>
               </div>
-              <div class="space-y-1.5 flex-1 min-w-0">
+              <div class="space-y-2 flex-1 min-w-0">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">KUOTA 1 PEKAN (SENIN - MINGGU)</span>
-                  <span id="daily-raid-squad-badge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200">⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat P18/P19)</span>
-                  <span id="daily-raid-date-tag" class="text-[11px] font-mono font-semibold text-[#787774]">Pekan Ini (W42)</span>
+                  <span class="boss-pill bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">Kuota 1 Pekan</span>
+                  <span id="daily-raid-squad-badge" class="boss-pill bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]">⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)</span>
+                  <span id="daily-raid-date-tag" class="text-xs text-[#787774] whitespace-nowrap">Pekan Ini (W42)</span>
                 </div>
-                <h5 id="daily-raid-banner-title" class="text-xs sm:text-sm font-bold text-[#2F3437] leading-tight">
+                <h5 id="daily-raid-banner-title" class="text-sm font-bold text-[#2F3437] leading-snug">
                   ⚔️ Ekspedisi Titan Statigo • 50 Butir Soal TKA (Wajib P17-P18 &amp; Add Math P18-P19)
                 </h5>
-                <p id="daily-raid-banner-desc" class="text-[11px] sm:text-xs text-[#5F5E5B] leading-relaxed">
-                  Santai tapi pasti! Kamu punya waktu <strong class="text-[#2F3437] font-bold">1 pekan penuh (Senin s.d. Minggu)</strong> untuk menaklukkan Titan Statigo dengan cakupan materi uji TKA pekan ini (Wajib P17-P18 dan Additional Math P18-P19). <strong class="text-emerald-700 font-bold">Bebas dicicil santai kapan saja</strong> &amp; progres serangan otomatis tersimpan per butir soal. Raih Combo Streaks hingga 2.0x DMG, amankan <strong class="text-[#2F3437] font-bold">Nilai Rapor Semester 5</strong>, dan raih tahta Titan Slayer!
+                <p id="daily-raid-banner-desc" class="text-xs text-[#5F5E5B] leading-relaxed">
+                  Santai tapi pasti! Kamu punya waktu <strong class="text-[#2F3437] font-semibold">1 pekan penuh (Senin s.d. Minggu)</strong> untuk menaklukkan Titan Statigo dengan cakupan materi uji TKA pekan ini (Wajib P17-P18 dan Additional Math P18-P19). <strong class="text-emerald-700 font-semibold">Bebas dicicil santai kapan saja</strong> &amp; progres serangan otomatis tersimpan per butir soal. Raih Combo Streaks hingga 2.0x DMG, amankan <strong class="text-[#2F3437] font-semibold">Nilai Rapor Semester 5</strong>, dan raih tahta Titan Slayer!
                 </p>
-                <div class="flex items-center gap-1.5 flex-wrap pt-0.5 text-[10.5px] text-[#5F5E5B]">
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white border border-[#E8E6DF] text-[#2F3437]">
-                    <i class="fa-regular fa-calendar-check text-amber-600"></i> 1 Pekan Penuh (Bukan 1 Hari)
+                <div class="flex items-center gap-1.5 flex-wrap pt-1 text-xs text-[#5F5E5B]">
+                  <span class="boss-feature-pill">
+                    <i class="fa-regular fa-calendar-check text-amber-600"></i> 1 Pekan Penuh
                   </span>
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white border border-[#E8E6DF] text-[#2F3437]">
-                    <i class="fa-solid fa-floppy-disk text-emerald-600"></i> Auto-Save (Bebas Cicil)
+                  <span class="boss-feature-pill">
+                    <i class="fa-solid fa-floppy-disk text-emerald-600"></i> Auto-Save
                   </span>
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white border border-[#E8E6DF] text-[#2F3437]">
-                    <i class="fa-solid fa-bolt text-amber-600"></i> Real-Time Combo s.d. 2.0x DMG
+                  <span class="boss-feature-pill">
+                    <i class="fa-solid fa-bolt text-amber-600"></i> Combo 2.0x DMG
                   </span>
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white border border-[#E8E6DF] text-[#2F3437]">
-                    <i class="fa-solid fa-graduation-cap text-indigo-600"></i> Masuk Rapor Sem 5
+                  <span class="boss-feature-pill">
+                    <i class="fa-solid fa-graduation-cap text-indigo-600"></i> Rapor Semester 5
                   </span>
                 </div>
               </div>
             </div>
 
-            <div class="flex items-center gap-2.5 shrink-0 self-start lg:self-center">
-              <div id="daily-raid-status-wrap" class="text-right">
-                <span id="daily-raid-status-badge" class="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">
+            <div class="banner-actions">
+              <div id="daily-raid-status-wrap" class="text-left sm:text-right">
+                <span id="daily-raid-status-badge" class="inline-block px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] whitespace-nowrap">
                   ⚡ Siap Tempur • Kuota 1 Pekan
                 </span>
               </div>
-              <button type="button" id="btn-daily-raid-action" onclick="openDailyRaidModal()" class="notion-btn-primary px-4 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer shadow-sm hover:bg-[#1E2533] transition">
+              <button type="button" id="btn-daily-raid-action" onclick="openDailyRaidModal()" class="notion-btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:bg-[#1E2533] transition whitespace-nowrap">
                 <i class="fa-solid fa-khanda text-amber-300 text-xs"></i> <span id="btn-daily-raid-text">Ganyang Titan (50 Soal / Pekan)</span>
               </button>
             </div>
           </div>
 
           <!-- 4 PORTAL SERANGAN PEKAN INI (WAJIB P17, WAJIB P18, MINAT P18, MINAT P19) -->
-          <div id="boss-portals-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-0.5">
+          <div id="boss-portals-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
             <!-- Portal 1: Wajib P17 -->
-            <div id="portal-card-p17" class="p-3 rounded-xl border flex flex-col justify-between gap-2.5 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-blue-50 text-blue-700 border border-blue-200">P17</span>
-                  <div>
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#787774] block">Matematika Wajib</span>
-                    <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Median &amp; Modus Berkelompok</h5>
+            <div id="portal-card-p17" class="p-3.5 rounded-xl border flex flex-col justify-between gap-3 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-md font-bold text-xs flex items-center justify-center bg-blue-50 text-blue-700 border border-blue-200">P17</span>
+                    <div>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-[#787774] block">Matematika Wajib</span>
+                      <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Median &amp; Modus Berkelompok</h5>
+                    </div>
                   </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold text-[#CF1322] bg-[#FFF1F0] border border-[#FFA39E] whitespace-nowrap shrink-0">Max 1.500 DMG</span>
                 </div>
-                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-rose-700 bg-rose-50 border border-rose-200">Max 1.500 DMG</span>
+                <p class="text-xs text-[#787774] leading-relaxed mt-1.5">100 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
               </div>
-              <p class="text-[10.5px] text-[#787774] leading-snug">100 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
-              <div class="pt-1 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
-                <div class="text-[10.5px]">
-                  <span class="text-[#787774]">Statusmu:</span>
-                  <strong id="boss-p17-status" class="font-mono text-[#2F3437] ml-1">Belum Serang</strong>
+              <div class="pt-2 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
+                <div class="text-xs min-w-0">
+                  <span class="text-[#787774] text-[11px] block sm:inline">Status:</span>
+                  <strong id="boss-p17-status" class="text-xs font-semibold text-[#2F3437] ml-0.5">Belum Serang</strong>
                 </div>
-                <button type="button" onclick="serangRaidBoss('wajib', 'P17')" class="notion-btn-primary px-3 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
+                <button type="button" onclick="serangRaidBoss('wajib', 'P17')" class="notion-btn-primary px-3 py-1.5 rounded-lg text-xs font-bold text-white flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
                   <i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P17</span>
                 </button>
               </div>
             </div>
 
             <!-- Portal 2: Wajib P18 -->
-            <div id="portal-card-p18" class="p-3 rounded-xl border flex flex-col justify-between gap-2.5 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-blue-50 text-blue-700 border border-blue-200">P18</span>
-                  <div>
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#787774] block">Matematika Wajib</span>
-                    <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Ukuran Letak: Kuartil &amp; Desil</h5>
+            <div id="portal-card-p18" class="p-3.5 rounded-xl border flex flex-col justify-between gap-3 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-md font-bold text-xs flex items-center justify-center bg-blue-50 text-blue-700 border border-blue-200">P18</span>
+                    <div>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-[#787774] block">Matematika Wajib</span>
+                      <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Ukuran Letak: Kuartil &amp; Desil</h5>
+                    </div>
                   </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold text-[#CF1322] bg-[#FFF1F0] border border-[#FFA39E] whitespace-nowrap shrink-0">Max 1.500 DMG</span>
                 </div>
-                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-rose-700 bg-rose-50 border border-rose-200">Max 1.500 DMG</span>
+                <p class="text-xs text-[#787774] leading-relaxed mt-1.5">100 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
               </div>
-              <p class="text-[10.5px] text-[#787774] leading-snug">100 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
-              <div class="pt-1 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
-                <div class="text-[10.5px]">
-                  <span class="text-[#787774]">Statusmu:</span>
-                  <strong id="boss-p18-status" class="font-mono text-[#2F3437] ml-1">Belum Serang</strong>
+              <div class="pt-2 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
+                <div class="text-xs min-w-0">
+                  <span class="text-[#787774] text-[11px] block sm:inline">Status:</span>
+                  <strong id="boss-p18-status" class="text-xs font-semibold text-[#2F3437] ml-0.5">Belum Serang</strong>
                 </div>
-                <button type="button" onclick="serangRaidBoss('wajib', 'P18')" class="notion-btn-primary px-3 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
+                <button type="button" onclick="serangRaidBoss('wajib', 'P18')" class="notion-btn-primary px-3 py-1.5 rounded-lg text-xs font-bold text-white flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
                   <i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P18</span>
                 </button>
               </div>
             </div>
 
             <!-- Portal 3: Minat P18 -->
-            <div id="portal-card-m18" class="p-3 rounded-xl border flex flex-col justify-between gap-2.5 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200">P18</span>
-                  <div>
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">Additional Math</span>
-                    <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Turunan Rantai Trigonometri</h5>
+            <div id="portal-card-m18" class="p-3.5 rounded-xl border flex flex-col justify-between gap-3 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-md font-bold text-xs flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200">P18</span>
+                    <div>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">Additional Math</span>
+                      <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Turunan Rantai Trigonometri</h5>
+                    </div>
                   </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold text-amber-800 bg-[#FFF7E6] border border-[#FFE7BA] whitespace-nowrap shrink-0">Max 2.000 DMG</span>
                 </div>
-                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-800 bg-amber-50 border border-amber-200">Max 2.000 DMG</span>
+                <p class="text-xs text-[#787774] leading-relaxed mt-1.5">150 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
               </div>
-              <p class="text-[10.5px] text-[#787774] leading-snug">150 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
-              <div class="pt-1 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
-                <div class="text-[10.5px]">
-                  <span class="text-[#787774]">Statusmu:</span>
-                  <strong id="boss-m18-status" class="font-mono text-[#2F3437] ml-1">Belum Serang</strong>
+              <div class="pt-2 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
+                <div class="text-xs min-w-0">
+                  <span class="text-[#787774] text-[11px] block sm:inline">Status:</span>
+                  <strong id="boss-m18-status" class="text-xs font-semibold text-[#2F3437] ml-0.5">Belum Serang</strong>
                 </div>
-                <button type="button" onclick="serangRaidBoss('minat', 'P18')" class="notion-btn-primary px-3 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
+                <button type="button" onclick="serangRaidBoss('minat', 'P18')" class="notion-btn-primary px-3 py-1.5 rounded-lg text-xs font-bold text-white flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
                   <i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P18</span>
                 </button>
               </div>
             </div>
 
             <!-- Portal 4: Minat P19 (Add Math Perkalian & Pembagian Trigonometri) -->
-            <div id="portal-card-m19" class="p-3 rounded-xl border flex flex-col justify-between gap-2.5 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-md font-mono font-bold text-[11px] flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200">P19</span>
-                  <div>
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">Additional Math</span>
-                    <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Perkalian &amp; Pembagian Trig</h5>
+            <div id="portal-card-m19" class="p-3.5 rounded-xl border flex flex-col justify-between gap-3 shadow-2xs transition hover:shadow-sm" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-md font-bold text-xs flex items-center justify-center bg-amber-50 text-amber-800 border border-amber-200">P19</span>
+                    <div>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">Additional Math</span>
+                      <h5 class="text-xs font-bold text-[#2F3437] leading-tight">Perkalian &amp; Pembagian Trig</h5>
+                    </div>
                   </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold text-amber-800 bg-[#FFF7E6] border border-[#FFE7BA] whitespace-nowrap shrink-0">Max 2.000 DMG</span>
                 </div>
-                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-800 bg-amber-50 border border-amber-200">Max 2.000 DMG</span>
+                <p class="text-xs text-[#787774] leading-relaxed mt-1.5">150 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
               </div>
-              <p class="text-[10.5px] text-[#787774] leading-snug">150 DMG/soal benar + 500 DMG Critical (Skor 100).</p>
-              <div class="pt-1 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
-                <div class="text-[10.5px]">
-                  <span class="text-[#787774]">Statusmu:</span>
-                  <strong id="boss-m19-status" class="font-mono text-[#2F3437] ml-1">Belum Serang</strong>
+              <div class="pt-2 border-t border-[#E8E6DF] flex items-center justify-between gap-2">
+                <div class="text-xs min-w-0">
+                  <span class="text-[#787774] text-[11px] block sm:inline">Status:</span>
+                  <strong id="boss-m19-status" class="text-xs font-semibold text-[#2F3437] ml-0.5">Belum Serang</strong>
                 </div>
-                <button type="button" onclick="serangRaidBoss('minat', 'P19')" class="notion-btn-primary px-3 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
+                <button type="button" onclick="serangRaidBoss('minat', 'P19')" class="notion-btn-primary px-3 py-1.5 rounded-lg text-xs font-bold text-white flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs hover:bg-[#1E2533]">
                   <i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i> <span>Serang P19</span>
                 </button>
               </div>
@@ -925,20 +933,20 @@
           </div>
 
           <!-- KONTRIBUSI DAMAGE SISWA & REWARD BANNER -->
-          <div class="p-3 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+          <div class="p-3.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs" style="background-color: #FBFBFA; border-color: #E8E6DF;">
             <div class="flex items-center gap-2.5 flex-wrap">
               <span class="text-[#787774]">Kontribusi Seranganmu Pekan Ini:</span>
-              <span id="boss-user-dmg" class="font-black font-mono text-rose-700 text-sm">0 DMG</span>
-              <span id="boss-user-rank-badge" class="px-2 py-0.5 rounded-md text-[10.5px] font-bold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">Peringkat #-</span>
-              <span id="boss-user-reward" class="text-[11px] text-[#5F5E5B] font-mono">(Potensi +0 EXP)</span>
+              <span id="boss-user-dmg" class="font-bold text-[#CF1322] text-sm">0 DMG</span>
+              <span id="boss-user-rank-badge" class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">Peringkat #-</span>
+              <span id="boss-user-reward" class="text-xs text-[#5F5E5B]">(Potensi +0 EXP)</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-[11px] text-[#787774] italic">Selesaikan ketiga paket untuk mencetak hingga 5.000 DMG!</span>
+              <span class="text-xs text-[#787774] italic">Selesaikan paket ujian untuk mencetak hingga 5.000 DMG!</span>
             </div>
           </div>
 
           <!-- VICTORY CELEBRATION BANNER (JIKA BOSS TUMFANG) -->
-          <div id="boss-victory-banner" class="hidden p-3 rounded-xl border flex items-center justify-between gap-3 text-xs" style="background-color: #FEF9C3; border-color: #FDE047; color: #854D0E;">
+          <div id="boss-victory-banner" class="hidden p-3.5 rounded-xl border flex items-center justify-between gap-3 text-xs" style="background-color: #FEF9C3; border-color: #FDE047; color: #854D0E;">
             <div class="flex items-center gap-2 font-semibold">
               <i class="fa-solid fa-crown text-amber-600 text-base"></i>
               <span>🎉 <strong>VICTORY!</strong> Titan Statigo Berhasil Ditumbangkan oleh Pendekar Matematika! Seluruh Penyerang Mendapatkan <strong>+250 Mega Bonus EXP</strong> &amp; Lencana <em>Pemburu Titan</em>!</span>
@@ -1055,11 +1063,11 @@
                 <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
                   <i class="fa-solid fa-laptop-code"></i>
                 </div>
-                <div class="flex items-center gap-1.5">
-                  <a href="simulasi-akm" onclick="event.stopPropagation()" class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#F9F0FF] text-[#531DAB] border border-[#D3ADF7] hover:bg-[#531DAB] hover:text-white transition flex items-center gap-1 shadow-sm">
+                <div class="flex items-center gap-1.5 flex-wrap justify-end">
+                  <a href="simulasi-akm" onclick="event.stopPropagation()" class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#F9F0FF] text-[#531DAB] border border-[#D3ADF7] hover:bg-[#531DAB] hover:text-white transition flex items-center gap-1 shadow-sm whitespace-nowrap">
                     <i class="fa-solid fa-bolt text-amber-400"></i> Mode Pusmendik
                   </a>
-                  <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
+                  <span class="px-2 py-0.5 rounded-lg text-xs font-mono font-semibold whitespace-nowrap" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
                     <span id="jml-soal-kartu">570</span> Soal CBT
                   </span>
                 </div>
@@ -4112,7 +4120,7 @@
 
     <script src="daily-raid-data.js?v=v20261011_tka_models_v2"></script>
     <script src="weekly-raid-data.js?v=v20261016_p18_supervisi_v1"></script>
-    <script src="app-akhir.js?v=v20261016_p18_supervisi_v1"></script>
+    <script src="app-akhir.js?v=v20261017_dashboard_notion_fix_v2"></script>
     <script src="angket.js?v=v20261012_security_lockdown_v1"></script>
     <script src="helpdesk-notif.js?v=v20261012_notif_anticlip_v2"></script>
 
