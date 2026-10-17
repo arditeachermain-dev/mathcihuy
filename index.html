@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full terang" style="background:#F7F6F3">
+<html lang="id" class="h-full terang" style="background:#F8FAFC">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="manifest" href="manifest.json">
 
-  <meta name="theme-color" content="#F7F6F3">
+  <meta name="theme-color" content="#F8FAFC">
     <!-- Google Fonts: Retro RPG Fonts (Press Start 2P & Silkscreen) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +37,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v20261017_dashboard_notion_fix_v2">
+  <link rel="stylesheet" href="mathcihuy.css?v=v20261017_softslate_v1">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -324,7 +324,7 @@
     }
   </style>
 </head>
-<body class="h-full min-h-full flex flex-col overflow-x-hidden font-sans" style="background-color: #F7F6F3; color: #2F3437;">
+<body class="h-full min-h-full flex flex-col overflow-x-hidden font-sans" style="background-color: #F8FAFC; color: #1E293B;">
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0"
      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <defs>
@@ -335,42 +335,42 @@
 </svg>
 
 
-  <!-- TOP HEADER WITH LOGO, SUBJECT TABS, & NOTION WARM PAPER STYLING -->
+  <!-- TOP HEADER WITH LOGO, SUBJECT TABS, & SOFT SLATE STYLING -->
   <header id="app-header" class="border-b z-40 shrink-0 sticky top-0 shadow-sm transition-colors duration-200">
     <div class="header-container">
       
       <!-- LEFT: DRAWER MENU TOGGLE & SCHOOL IDENTITY -->
       <div class="header-brand">
         <button onclick="toggleCurriculumDrawer()" aria-label="Buka menu kurikulum" class="notion-btn-secondary p-2 md:px-2.5 md:py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 active:scale-95 shadow-sm shrink-0 cursor-pointer" title="Buka Menu Navigasi Kurikulum (Alt + M)">
-          <i class="fa-solid fa-bars-staggered text-xs" style="color: #787774;"></i>
-          <span class="hidden xl:inline text-[11px] font-bold" style="color: #2F3437;">Silabus</span>
+          <i class="fa-solid fa-bars-staggered text-xs" style="color: #475569;"></i>
+          <span class="hidden xl:inline text-[11px] font-bold" style="color: #1E293B;">Silabus</span>
         </button>
 
         <div class="flex items-center gap-2 cursor-pointer min-w-0 overflow-hidden" onclick="switchSubject('home')">
           <span role="img" aria-label="Logo Math Cihuy" class="mc-logo h-7 w-7 md:h-8 md:w-8 object-contain shrink-0"></span>
           <div class="truncate min-w-0">
             <div class="flex items-center gap-1.5">
-              <h1 class="text-xs md:text-sm font-bold tracking-wide truncate" style="color: #2F3437;">MATHCIHUY</h1>
-              <span id="lencana-tingkat" class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">XII</span>
+              <h1 class="text-xs md:text-sm font-bold tracking-wide truncate" style="color: #1E293B;">MATHCIHUY</h1>
+              <span id="lencana-tingkat" class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded" style="background-color: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE;">XII</span>
             </div>
-            <p class="text-[10px] font-medium truncate max-w-[120px] md:max-w-[200px]" style="color: #787774;" id="header-subject-label">
+            <p class="text-[10px] font-medium truncate max-w-[120px] md:max-w-[200px]" style="color: #475569;" id="header-subject-label">
               Beranda Portal
             </p>
           </div>
         </div>
 
         <!-- PILIH TINGKAT (hanya guru; ditampilkan & ditandai oleh app.js) -->
-        <nav id="pilih-tingkat" aria-label="Pilih tingkat kelas" class="hidden items-center gap-0.5 p-0.5 rounded-lg shrink-0" style="background-color: #F0EFEA; border: 1px solid #E8E6DF;">
-          <a href="/10" data-tingkat="10" title="Portal Kelas X" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #787774;">X</a>
-          <a href="/11" data-tingkat="11" title="Portal Kelas XI" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #787774;">XI</a>
-          <a href="/" data-tingkat="12" title="Portal Kelas XII" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #787774;">XII</a>
+        <nav id="pilih-tingkat" aria-label="Pilih tingkat kelas" class="hidden items-center gap-0.5 p-0.5 rounded-lg shrink-0" style="background-color: #F1F5F9; border: 1px solid #E2E8F0;">
+          <a href="/10" data-tingkat="10" title="Portal Kelas X" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #475569;">X</a>
+          <a href="/11" data-tingkat="11" title="Portal Kelas XI" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #475569;">XI</a>
+          <a href="/" data-tingkat="12" title="Portal Kelas XII" class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold" style="color: #475569;">XII</a>
         </nav>
       </div>
 
       <!-- CENTER: NAVIGATION TABS -->
       <div class="header-nav">
-        <div class="flex items-center p-1 rounded-xl border shadow-sm max-w-full overflow-x-auto no-scrollbar" style="background-color: #F0EFEA; border-color: #E8E6DF;">
-          <button onclick="switchSubject('home')" id="tab-home" class="tab-active active-subject-tab px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white" style="background-color: #2E384D; color: #FFFFFF;">
+        <div class="flex items-center p-1 rounded-xl border shadow-sm max-w-full overflow-x-auto no-scrollbar" style="background-color: #F1F5F9; border-color: #E2E8F0;">
+          <button onclick="switchSubject('home')" id="tab-home" class="tab-active active-subject-tab px-3.5 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white" style="background-color: #4F46E5; color: #FFFFFF;">
             <i class="fa-solid fa-house text-[10px]"></i> <span>Beranda</span>
           </button>
           <button onclick="switchSubject('wajib')" id="tab-wajib" class="tab-inactive inactive-subject-tab px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:text-[#2F3437] hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer" style="color: #5F5E5B;">
@@ -508,77 +508,190 @@
   <main class="flex-1 min-h-0 relative flex items-stretch justify-center p-2 md:p-4 overflow-hidden">
     
     <!-- VIEW 0: ULTRA-LUXURY HOMEPAGE DASHBOARD -->
-    <div id="home-stage" class="w-full h-full max-h-[900px] rounded-2xl md:rounded-3xl border flex flex-col overflow-hidden relative z-20 shadow-sm" style="max-width: min(98vw, 1380px); background-color: #FFFFFF; border-color: #E8E6DF;">
+    <div id="home-stage" class="w-full h-full max-h-[900px] rounded-2xl md:rounded-3xl border flex flex-col overflow-hidden relative z-20 shadow-sm" style="max-width: 1024px; margin: 0 auto; width: 100%; background-color: #FFFFFF; border-color: #E2E8F0;">
       
       <!-- DASHBOARD TOP BAR -->
-      <div class="h-14 border-b px-3 md:px-6 flex items-center justify-between shrink-0 gap-2" style="background-color: #FFFFFF; border-color: #E8E6DF;">
+      <div class="h-14 border-b px-3 md:px-6 flex items-center justify-between shrink-0 gap-3" style="background-color: #FFFFFF; border-color: #E2E8F0;">
         <div class="flex items-center gap-2 md:gap-3 min-w-0">
-          <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm text-white shrink-0" style="background-color: #2E384D;">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm text-white shrink-0" style="background-color: #4F46E5;">
             <i class="fa-solid fa-square-root-variable"></i>
           </div>
           <div class="truncate min-w-0">
-            <span class="text-xs font-bold tracking-wide truncate block" style="color: #2F3437;">MATHCIHUY • KELAS XII</span>
-            <span class="text-[10px] font-medium hidden sm:inline" style="color: #787774;">Guru Pengampu: Mr. Ardi</span>
+            <span class="text-xs font-bold tracking-wide truncate block" style="color: #1E293B;">MATHCIHUY • KELAS XII</span>
+            <span class="text-[10px] font-medium hidden sm:inline" style="color: #475569;">Guru Pengampu: Mr. Ardi</span>
           </div>
         </div>
-        <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
-          <button onclick="openLeaderboardModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Papan Peringkat, Level XP & Prestasi Siswa">
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="openLeaderboardModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Papan Peringkat, Level XP & Prestasi Siswa">
             <i class="fa-solid fa-trophy" style="color: #D97706;"></i> <span class="hidden md:inline">Peringkat &amp; XP</span>
           </button>
-          <button onclick="openAngketModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Isi Angket Refleksi Pemahaman Siswa">
+          <button onclick="openAngketModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Isi Angket Refleksi Pemahaman Siswa">
             <i class="fa-solid fa-clipboard-question" style="color: #0284C7;"></i> <span class="hidden md:inline">Angket Refleksi</span>
           </button>
-          <button onclick="openRaporModal()" class="notion-btn-primary p-2 sm:px-3.5 sm:py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Lihat Rapor Capaian Siswa">
+          <button onclick="openRaporModal()" class="notion-btn-primary p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Lihat Rapor Capaian Siswa">
             <i class="fa-solid fa-graduation-cap" style="color: #FBBF24;"></i> <span class="hidden sm:inline">Rapor Siswa</span>
           </button>
-          <button onclick="openAnalyticsModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Statistik &amp; Progres Belajar">
-            <i class="fa-solid fa-chart-pie" style="color: #1B4F8B;"></i> <span class="hidden sm:inline">Statistik</span>
+          <button onclick="openAnalyticsModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Statistik &amp; Progres Belajar">
+            <i class="fa-solid fa-chart-pie" style="color: #4F46E5;"></i> <span class="hidden sm:inline">Statistik</span>
           </button>
-          <button onclick="switchSubject('tka')" class="notion-btn-secondary p-2 sm:px-3.5 sm:py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Masuk Arena CBT">
+          <button onclick="switchSubject('tka')" class="notion-btn-secondary p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Masuk Arena CBT">
             <i class="fa-solid fa-bolt" style="color: #B26B00;"></i> <span class="hidden sm:inline">Arena CBT</span>
           </button>
         </div>
       </div>
 
-      <!-- DASHBOARD SCROLLABLE BODY (NOTION WARM PAPER REDESIGN) -->
-      <div class="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto space-y-5 custom-scroll" style="background-color: #F7F6F3;">
+      <!-- DASHBOARD SCROLLABLE BODY (SOFT SLATE REDESIGN) -->
+      <div class="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto space-y-5 custom-scroll" style="background-color: #F8FAFC;">
         
-        <!-- 1. HERO WELCOME BANNER -->
-        <div class="p-6 md:p-7 rounded-2xl border shadow-sm space-y-5 relative overflow-hidden" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
-            <div class="space-y-2.5 max-w-2xl">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-semibold shadow-none" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #5F5E5B;">
-                <span class="w-2 h-2 rounded-full" style="background-color: #2E7D32;"></span>
+        <!-- 1. HERO ACTION HUB (PILIH KELAS & AKSI UTAMA MEMULAI UJIAN / KBM) -->
+        <div class="p-4 sm:p-6 rounded-2xl border shadow-xs space-y-4" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-1">
+            <!-- IDENTITY & WELCOME -->
+            <div class="space-y-1.5 max-w-xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-semibold" style="background-color: #F1F5F9; border: 1px solid #E2E8F0; color: #475569;">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                 <span>TP 2026/2027 • Semester Ganjil • Mr. Ardi</span>
               </div>
-              <h1 class="text-xl md:text-3xl font-bold tracking-tight leading-tight" style="color: #2F3437;">
-                Portal Pembelajaran &amp; Drilling CBT Matematika
+              <h1 class="text-lg md:text-2xl font-bold tracking-tight" style="color: #1E293B;">
+                Portal Pembelajaran &amp; Ujian Matematika
               </h1>
-              <p class="text-xs md:text-sm leading-relaxed" style="color: #787774;">
-                Materi interaktif 12-slide terstruktur (Building Thinking Classrooms) dan bank soal drilling TKA Nasional &amp; UTBK-SNBT 2027.
+              <p class="text-xs md:text-sm leading-relaxed" style="color: #475569;">
+                Pilih tingkat kelas atau langsung mulai simulasi ujian CBT &amp; materi KBM interaktif.
               </p>
+            </div>
 
-              <!-- ACADEMIC METADATA -->
-              <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                <div class="px-3 py-1.5 rounded-xl flex items-center gap-2 text-xs font-medium" style="background-color: #F0EFEA; border: 1px solid #E8E6DF; color: #5F5E5B;">
-                  <i class="fa-solid fa-chalkboard-user" style="color: #787774;"></i>
-                  <span>Guru Pengampu: <strong style="color: #2F3437;">Muhammad Ardiansyah, S.Pd.Gr.</strong></span>
-                </div>
+            <!-- PILIH TINGKAT KELAS (AKSI UTAMA: X, XI, XII) DENGAN MIN-HEIGHT 48PX & GAP 12PX -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 shrink-0">
+              <span class="text-xs font-semibold text-[#475569] flex items-center gap-1.5 self-start sm:self-auto">
+                <i class="fa-solid fa-layer-group text-indigo-600"></i> Pilih Kelas:
+              </span>
+              <div class="flex items-center gap-2 w-full sm:w-auto">
+                <a href="/10" title="Pindah ke Portal Kelas X" class="flex-1 sm:flex-initial min-h-[48px] px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-[#1E293B] font-bold text-xs flex items-center justify-center gap-1 transition shadow-xs">
+                  <span>Kelas X</span>
+                </a>
+                <a href="/11" title="Pindah ke Portal Kelas XI" class="flex-1 sm:flex-initial min-h-[48px] px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-[#1E293B] font-bold text-xs flex items-center justify-center gap-1 transition shadow-xs">
+                  <span>Kelas XI</span>
+                </a>
+                <a href="/" title="Portal Kelas XII (Aktif)" class="flex-1 sm:flex-initial min-h-[48px] px-3 sm:px-4 py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-1 shadow-sm border border-indigo-700">
+                  <i class="fa-solid fa-check text-[10px]"></i> <span>Kelas XII</span>
+                </a>
               </div>
             </div>
+          </div>
 
-            <!-- HERO CTA BUTTONS -->
-            <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0">
-              <button onclick="switchSubject('wajib')" class="notion-btn-primary px-5 py-3 rounded-xl font-bold text-xs md:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
-                <i class="fa-solid fa-play" style="color: #FBBF24;"></i>
-                <span>Mulai KBM Interaktif</span>
-              </button>
-              <button onclick="openScheduleModal()" class="notion-btn-secondary px-5 py-3 rounded-xl font-semibold text-xs md:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
-                <i class="fa-solid fa-calendar-days" style="color: #787774;"></i>
-                <span>Lihat Jadwal KBM</span>
-              </button>
+          <!-- AKSI CEPAT MEMULAI UJIAN & KBM (TOUCH TARGET MIN 48PX, GAP 12PX) -->
+          <div class="pt-3 border-t border-[#E2E8F0] grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button onclick="switchSubject('tka')" class="notion-btn-primary min-h-[48px] px-5 py-3 rounded-xl font-bold text-xs sm:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
+              <i class="fa-solid fa-bolt text-amber-300"></i>
+              <span>Mulai Ujian CBT &amp; AKM</span>
+            </button>
+            <button onclick="switchSubject('wajib')" class="notion-btn-secondary min-h-[48px] px-5 py-3 rounded-xl font-bold text-xs sm:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
+              <i class="fa-solid fa-play text-indigo-600"></i>
+              <span>Mulai KBM Wajib</span>
+            </button>
+            <button onclick="openRaporModal()" class="notion-btn-secondary min-h-[48px] px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm shadow-sm flex items-center justify-center gap-2.5 cursor-pointer">
+              <i class="fa-solid fa-graduation-cap text-amber-600"></i>
+              <span>Buka Rapor Siswa</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. 4 MAIN STREAM CARDS (LANGSUNG DI ATAS TANPA BANYAK SCROLL) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          
+          <!-- CARD 1: WAJIB -->
+          <div onclick="switchSubject('wajib')" class="p-4 sm:p-5 rounded-2xl border shadow-xs transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-indigo-400" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE;">
+                  <i class="fa-solid fa-shapes"></i>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE;">
+                  <span id="jml-wajib-kartu">21</span> Pertemuan
+                </span>
+              </div>
+              <h3 class="text-sm md:text-base font-bold transition" style="color: #1E293B;">Matematika Wajib</h3>
+              <p id="bab-wajib-kartu" class="text-xs leading-relaxed" style="color: #475569;">
+                Kaidah Pencacahan &amp; Peluang, Geometri Dimensi Tiga, dan Statistika Data Bivariat.
+              </p>
+            </div>
+            <div class="pt-2.5 border-t flex items-center justify-between text-xs font-semibold min-h-[36px]" style="border-color: #E2E8F0; color: #4338CA;">
+              <span><span id="butir-wajib-kartu">210</span> Butir Soal CBT</span>
+              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
+
+          <!-- CARD 2: MINAT -->
+          <div data-gate="minat" onclick="switchSubject('minat')" class="p-4 sm:p-5 rounded-2xl border shadow-xs transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-amber-400" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA;">
+                  <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA;">
+                  <span id="jml-minat-kartu">30</span> Pertemuan
+                </span>
+              </div>
+              <h3 class="text-sm md:text-base font-bold transition" style="color: #1E293B;">Matematika Peminatan</h3>
+              <p id="bab-minat-kartu" class="text-xs leading-relaxed" style="color: #475569;">
+                Geometri Analitik Lingkaran, Limit Fungsi, Turunan Trigonometri, dan Integral.
+              </p>
+            </div>
+            <div class="pt-2.5 border-t flex items-center justify-between text-xs font-semibold min-h-[36px]" style="border-color: #E2E8F0; color: #C2410C;">
+              <span><span id="butir-minat-kartu">300</span> Butir Soal CBT</span>
+              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </div>
+
+          <!-- CARD 3: CLIL -->
+          <div data-gate="clil" onclick="switchSubject('clil')" class="p-4 sm:p-5 rounded-2xl border shadow-xs transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-purple-400" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF;">
+                  <i class="fa-solid fa-earth-americas"></i>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF;">
+                  <span id="jml-clil-kartu">6</span> Units
+                </span>
+              </div>
+              <h3 class="text-sm md:text-base font-bold transition" style="color: #1E293B;">CLIL Bilingual Stream</h3>
+              <p id="bab-clil-kartu" class="text-xs leading-relaxed" style="color: #475569;">
+                Integral Calculus, Integration by Parts, FTC, Area of Plane Regions, &amp; Solids.
+              </p>
+            </div>
+            <div class="pt-2.5 border-t flex items-center justify-between text-xs font-semibold min-h-[36px]" style="border-color: #E2E8F0; color: #7E22CE;">
+              <span><span id="butir-clil-kartu">60</span> Butir Soal CBT</span>
+              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </div>
+
+          <!-- CARD 4: CBT & TKA -->
+          <div onclick="switchSubject('tka')" class="p-4 sm:p-5 rounded-2xl border shadow-xs transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-emerald-400" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #F0FDF4; color: #166534; border: 1px solid #BBF7D0;">
+                  <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <div class="flex items-center gap-1.5 flex-wrap justify-end">
+                  <a href="simulasi-akm" onclick="event.stopPropagation()" class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#F9F0FF] text-[#531DAB] border border-[#D3ADF7] hover:bg-[#531DAB] hover:text-white transition flex items-center gap-1 shadow-xs whitespace-nowrap">
+                    <i class="fa-solid fa-bolt text-amber-400"></i> Mode Pusmendik
+                  </a>
+                  <span class="px-2 py-0.5 rounded-lg text-xs font-mono font-semibold whitespace-nowrap" style="background-color: #F0FDF4; color: #166534; border: 1px solid #BBF7D0;">
+                    <span id="jml-soal-kartu">570</span> Soal CBT
+                  </span>
+                </div>
+              </div>
+              <h3 class="text-sm md:text-base font-bold transition" style="color: #1E293B;">Arena CBT &amp; TKA Nasional</h3>
+              <p class="text-xs leading-relaxed" style="color: #475569;">
+                Simulasi Ujian CBT Mandiri, Drilling UTBK-SNBT 2027, &amp; 5 Model Baku AKM Pusmendik.
+              </p>
+            </div>
+            <div class="pt-2.5 border-t flex items-center justify-between text-xs font-semibold min-h-[36px]" style="border-color: #E2E8F0; color: #166534;">
+              <span>Pilihan Ganda &amp; 5 Model AKM</span>
+              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </div>
+
         </div>
 
         <!-- 1.1 GAMIFIKASI & DAILY STREAK HERO CARD (NOTION WARM PAPER AESTHETIC) -->
@@ -987,185 +1100,88 @@
           </div>
         </div>
 
-        <!-- 2. 4 MAIN STREAM CARDS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          
-          <!-- CARD 1: WAJIB -->
-          <div onclick="switchSubject('wajib')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">
-                  <i class="fa-solid fa-shapes"></i>
-                </div>
-                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">
-                  <span id="jml-wajib-kartu">21</span> Pertemuan
-                </span>
-              </div>
-              <h3 class="text-sm md:text-base font-bold transition" style="color: #2F3437;">Matematika Wajib</h3>
-              <p id="bab-wajib-kartu" class="text-xs leading-relaxed" style="color: #787774;">
-                Kaidah Pencacahan &amp; Peluang, Geometri Dimensi Tiga, dan Statistika Data Bivariat.
-              </p>
-            </div>
-            <div class="pt-2 border-t flex items-center justify-between text-xs font-semibold" style="border-color: #E8E6DF; color: #1B4F8B;">
-              <span><span id="butir-wajib-kartu">210</span> Butir Soal CBT</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform" style="color: #1B4F8B;"></i>
-            </div>
-          </div>
-
-          <!-- CARD 2: MINAT -->
-          <div data-gate="minat" onclick="switchSubject('minat')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
-                  <i class="fa-solid fa-chart-line"></i>
-                </div>
-                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
-                  <span id="jml-minat-kartu">30</span> Pertemuan
-                </span>
-              </div>
-              <h3 class="text-sm md:text-base font-bold transition" style="color: #2F3437;">Matematika Peminatan</h3>
-              <p id="bab-minat-kartu" class="text-xs leading-relaxed" style="color: #787774;">
-                Geometri Analitik Lingkaran, Limit Fungsi, Turunan Trigonometri, dan Integral.
-              </p>
-            </div>
-            <div class="pt-2 border-t flex items-center justify-between text-xs font-semibold" style="border-color: #E8E6DF; color: #B26B00;">
-              <span><span id="butir-minat-kartu">300</span> Butir Soal CBT</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform" style="color: #B26B00;"></i>
-            </div>
-          </div>
-
-          <!-- CARD 3: CLIL -->
-          <div data-gate="clil" onclick="switchSubject('clil')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #F3E8FF; color: #7E22CE; border: 1px solid #E9D5FF;">
-                  <i class="fa-solid fa-earth-americas"></i>
-                </div>
-                <span class="px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold" style="background-color: #F3E8FF; color: #7E22CE; border: 1px solid #E9D5FF;">
-                  <span id="jml-clil-kartu">6</span> Units
-                </span>
-              </div>
-              <h3 class="text-sm md:text-base font-bold transition" style="color: #2F3437;">CLIL Bilingual Stream</h3>
-              <p id="bab-clil-kartu" class="text-xs leading-relaxed" style="color: #787774;">
-                Integral Calculus, Integration by Parts, FTC, Area of Plane Regions, &amp; Solids of Revolution.
-              </p>
-            </div>
-            <div class="pt-2 border-t flex items-center justify-between text-xs font-semibold" style="border-color: #E8E6DF; color: #7E22CE;">
-              <span><span id="butir-clil-kartu">60</span> Butir Soal CBT</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform" style="color: #7E22CE;"></i>
-            </div>
-          </div>
-
-          <!-- CARD 4: CBT & TKA -->
-          <div onclick="switchSubject('tka')" class="p-5 rounded-2xl border shadow-sm transition space-y-3 flex flex-col justify-between cursor-pointer group hover:border-[#B8B4A5]" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base transition-transform group-hover:scale-105" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
-                  <i class="fa-solid fa-laptop-code"></i>
-                </div>
-                <div class="flex items-center gap-1.5 flex-wrap justify-end">
-                  <a href="simulasi-akm" onclick="event.stopPropagation()" class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#F9F0FF] text-[#531DAB] border border-[#D3ADF7] hover:bg-[#531DAB] hover:text-white transition flex items-center gap-1 shadow-sm whitespace-nowrap">
-                    <i class="fa-solid fa-bolt text-amber-400"></i> Mode Pusmendik
-                  </a>
-                  <span class="px-2 py-0.5 rounded-lg text-xs font-mono font-semibold whitespace-nowrap" style="background-color: #EDF7ED; color: #2E7D32; border: 1px solid #C8E6C9;">
-                    <span id="jml-soal-kartu">570</span> Soal CBT
-                  </span>
-                </div>
-              </div>
-              <h3 class="text-sm md:text-base font-bold transition" style="color: #2F3437;">Arena CBT &amp; TKA Nasional</h3>
-              <p class="text-xs leading-relaxed" style="color: #787774;">
-                Simulasi Ujian CBT Mandiri, Drilling UTBK-SNBT 2027, &amp; 5 Model Baku AKM Pusmendik.
-              </p>
-            </div>
-            <div class="pt-2 border-t flex items-center justify-between text-xs font-semibold" style="border-color: #E8E6DF; color: #2E7D32;">
-              <span>Pilihan Ganda &amp; 5 Model AKM</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform" style="color: #2E7D32;"></i>
-            </div>
-          </div>
-
-        </div>
 
         <!-- 3. QUICK TOOLS DOCK (ALAT BANTU BELAJAR) -->
-        <div class="p-4 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-3 shadow-sm" style="background-color: #F0EFEA; border-color: #E8E6DF;">
-          <div class="flex items-center gap-2 text-xs font-bold shrink-0" style="color: #2F3437;">
-            <i class="fa-solid fa-toolbox" style="color: #787774;"></i>
+        <div class="p-4 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-3 shadow-xs" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+          <div class="flex items-center gap-2 text-xs font-bold shrink-0" style="color: #1E293B;">
+            <i class="fa-solid fa-toolbox text-indigo-600"></i>
             <span>Alat Bantu Pembelajaran Mandiri:</span>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 w-full md:w-auto text-xs font-semibold">
-            <a href="simulasi-akm" class="notion-btn-secondary px-3 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-sm text-purple-800 border-purple-200 bg-purple-50 hover:bg-purple-100">
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 w-full md:w-auto text-xs font-semibold">
+            <a href="simulasi-akm" class="notion-btn-secondary min-h-[48px] px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs text-purple-800 border-purple-200 bg-purple-50 hover:bg-purple-100">
               <i class="fa-solid fa-graduation-cap" style="color: #531DAB;"></i>
               <span>Simulasi AKM</span>
             </a>
-            <button onclick="openRumusSaku()" class="notion-btn-secondary px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm">
-              <i class="fa-solid fa-book-bookmark" style="color: #1B4F8B;"></i>
+            <button onclick="openRumusSaku()" class="notion-btn-secondary min-h-[48px] px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-xs">
+              <i class="fa-solid fa-book-bookmark text-indigo-600"></i>
               <span>Rumus Saku</span>
             </button>
-            <button onclick="openPeta()" class="notion-btn-secondary px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm">
-              <i class="fa-solid fa-diagram-project" style="color: #B26B00;"></i>
+            <button onclick="openPeta()" class="notion-btn-secondary min-h-[48px] px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-xs">
+              <i class="fa-solid fa-diagram-project text-amber-600"></i>
               <span>Peta Konsep</span>
             </button>
-            <button onclick="openLab()" class="notion-btn-secondary px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm">
-              <i class="fa-solid fa-cube" style="color: #2E7D32;"></i>
+            <button onclick="openLab()" class="notion-btn-secondary min-h-[48px] px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-xs">
+              <i class="fa-solid fa-cube text-emerald-600"></i>
               <span>Lab 3D GeoGebra</span>
             </button>
-            <button onclick="toggleCurriculumDrawer()" class="notion-btn-secondary px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm">
-              <i class="fa-solid fa-list-check" style="color: #787774;"></i>
+            <button onclick="toggleCurriculumDrawer()" class="notion-btn-secondary min-h-[48px] px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-xs">
+              <i class="fa-solid fa-list-check text-slate-500"></i>
               <span>Silabus &amp; Matriks</span>
             </button>
           </div>
         </div>
 
         <!-- 4. AGENDA STRATEGIS NASIONAL (FULL WIDTH) -->
-        <div class="p-5 rounded-2xl border shadow-sm space-y-4 pt-1" style="background-color: #FFFFFF; border-color: #E8E6DF;">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3" style="border-color: #E8E6DF;">
+        <div class="p-5 rounded-2xl border shadow-xs space-y-4 pt-1" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3" style="border-color: #E2E8F0;">
             <div class="flex items-center gap-2.5">
-              <span class="w-8 h-8 rounded-xl flex items-center justify-center text-sm" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">
+              <span class="w-8 h-8 rounded-xl flex items-center justify-center text-sm" style="background-color: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA;">
                 <i class="fa-solid fa-bullseye"></i>
               </span>
               <div>
-                <h3 class="text-xs md:text-sm font-bold tracking-wide" style="color: #2F3437;">AGENDA STRATEGIS &amp; ASESMEN NASIONAL</h3>
-                <p class="text-[10px]" style="color: #787774;">Tahun Pelajaran 2026/2027 • Pembelajaran Matematika Mr. Ardi</p>
+                <h3 class="text-xs md:text-sm font-bold tracking-wide" style="color: #1E293B;">AGENDA STRATEGIS &amp; ASESMEN NASIONAL</h3>
+                <p class="text-[10px]" style="color: #475569;">Tahun Pelajaran 2026/2027 • Pembelajaran Matematika Mr. Ardi</p>
               </div>
             </div>
-            <button onclick="openScheduleModal()" class="notion-btn-secondary px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm shrink-0">
-              <i class="fa-solid fa-calendar-days" style="color: #787774;"></i>
+            <button onclick="openScheduleModal()" class="notion-btn-secondary min-h-[44px] px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-xs shrink-0">
+              <i class="fa-solid fa-calendar-days text-slate-500"></i>
               <span>Kalender Akademik Lengkap</span>
-              <i class="fa-solid fa-arrow-right text-[10px]" style="color: #787774;"></i>
+              <i class="fa-solid fa-arrow-right text-[10px] text-slate-500"></i>
             </button>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-            <div class="p-3.5 rounded-xl border space-y-2 flex flex-col justify-between" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+            <div class="p-3.5 rounded-xl border space-y-2 flex flex-col justify-between" style="background-color: #F8FAFC; border-color: #E2E8F0;">
               <div class="space-y-1">
                 <div class="flex items-center justify-between">
                   <span class="text-[10px] font-mono font-bold" style="color: #531DAB;">12 - 18 OKTOBER 2026</span>
-                  <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #F9F0FF; color: #531DAB; border: 1px solid #D3ADF7;">Simulasi</span>
+                  <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #FAF5FF; color: #531DAB; border: 1px solid #E9D5FF;">Simulasi</span>
                 </div>
-                <p class="font-bold text-xs" style="color: #2F3437;">Gladi Bersih TKA &amp; ANBK Gel. 2</p>
-                <p class="text-[10px]" style="color: #787774;">25 butir soal autentik (75 menit) &amp; 5 model baku AKM Pusmendik.</p>
+                <p class="font-bold text-xs" style="color: #1E293B;">Gladi Bersih TKA &amp; ANBK Gel. 2</p>
+                <p class="text-[10px]" style="color: #475569;">25 butir soal autentik (75 menit) &amp; 5 model baku AKM Pusmendik.</p>
               </div>
-              <a href="simulasi-akm" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm transition hover:opacity-90 active:scale-95" style="background-color: #531DAB;">
+              <a href="simulasi-akm" class="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-3 py-2 rounded-lg text-xs font-bold text-white shadow-xs transition hover:opacity-90 active:scale-95" style="background-color: #531DAB;">
                 <i class="fa-solid fa-play text-[10px] text-amber-300"></i>
                 <span>Mulai Simulasi Pusmendik</span>
               </a>
             </div>
 
-            <div class="p-3.5 rounded-xl border space-y-1" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+            <div class="p-3.5 rounded-xl border space-y-1" style="background-color: #F8FAFC; border-color: #E2E8F0;">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono font-bold" style="color: #1B4F8B;">2 - 5 NOVEMBER 2026</span>
-                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #EBF3FB; color: #1B4F8B; border: 1px solid #D0E2F5;">Utama</span>
+                <span class="text-[10px] font-mono font-bold" style="color: #4338CA;">2 - 5 NOVEMBER 2026</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE;">Utama</span>
               </div>
-              <p class="font-semibold text-xs" style="color: #2F3437;">Pelaksanaan Utama TKA Gel. 2</p>
-              <p class="text-[10px]" style="color: #787774;">Tes Kemampuan Akademik resmi nasional.</p>
+              <p class="font-semibold text-xs" style="color: #1E293B;">Pelaksanaan Utama TKA Gel. 2</p>
+              <p class="text-[10px]" style="color: #475569;">Tes Kemampuan Akademik resmi nasional.</p>
             </div>
 
-            <div class="p-3.5 rounded-xl border space-y-1" style="background-color: #FBFBFA; border-color: #E8E6DF;">
+            <div class="p-3.5 rounded-xl border space-y-1" style="background-color: #F8FAFC; border-color: #E2E8F0;">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono font-bold" style="color: #B26B00;">21 - 30 APRIL 2027</span>
-                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #FFF7E6; color: #B26B00; border: 1px solid #FFE7BA;">Seleksi PTN</span>
+                <span class="text-[10px] font-mono font-bold" style="color: #C2410C;">21 - 30 APRIL 2027</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold" style="background-color: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA;">Seleksi PTN</span>
               </div>
-              <p class="font-semibold text-xs" style="color: #2F3437;">Pelaksanaan UTBK-SNBT 2027</p>
-              <p class="text-[10px]" style="color: #787774;">Gelombang utama seleksi masuk PTN seluruh Indonesia.</p>
+              <p class="font-semibold text-xs" style="color: #1E293B;">Pelaksanaan UTBK-SNBT 2027</p>
+              <p class="text-[10px]" style="color: #475569;">Gelombang utama seleksi masuk PTN seluruh Indonesia.</p>
             </div>
           </div>
         </div>

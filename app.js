@@ -1030,12 +1030,12 @@
         if (btn) {
           if (m === currentMode) {
             btn.className = "tab-active active-subject-tab px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shadow-sm flex items-center gap-1.5 cursor-pointer text-white";
-            btn.style.setProperty('background-color', '#2E384D', 'important');
+            btn.style.setProperty('background-color', '#4F46E5', 'important');
             btn.style.setProperty('color', '#FFFFFF', 'important');
           } else {
-            btn.className = "tab-inactive inactive-subject-tab px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:bg-[#E8E6DF] flex items-center gap-1.5 cursor-pointer";
+            btn.className = "tab-inactive inactive-subject-tab px-3 py-1.5 rounded-lg text-xs font-medium transition whitespace-nowrap hover:bg-[#F1F5F9] flex items-center gap-1.5 cursor-pointer";
             btn.style.setProperty('background-color', 'transparent', 'important');
-            btn.style.setProperty('color', '#5F5E5B', 'important');
+            btn.style.setProperty('color', '#475569', 'important');
           }
         }
       });

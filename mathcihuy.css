@@ -3684,5 +3684,246 @@ html:not(.terang) #app-header {
   }
 }
 
+/* ==========================================================================
+   SOFT SLATE EYE-FRIENDLY & SIMPLIFIED CLEAN UI ARCHITECTURE (ANTI-SILAU)
+   ========================================================================== */
+
+/* 1. Palet Warna Ramah Mata & Tipografi Dasar (16px / line-height 1.8) */
+html, body {
+  font-size: 16px !important;
+  line-height: 1.8 !important;
+  color: #1E293B !important;
+  background-color: #F8FAFC !important;
+}
+
+html.terang, html.terang body {
+  background-color: #F8FAFC !important;
+  background-image: none !important;
+  color: #1E293B !important;
+}
+
+html.terang body::before {
+  display: none !important;
+}
+
+/* Teks Utama (Deep Charcoal) & Teks Sekunder (#475569) */
+body, h1, h2, h3, h4, h5, h6,
+.text-main-charcoal,
+html.terang .text-slate-800,
+html.terang .text-slate-900 {
+  color: #1E293B !important;
+}
+
+p, .prose p, .text-secondary-slate,
+html.terang .text-slate-500,
+html.terang .text-slate-600 {
+  color: #475569 !important;
+  line-height: 1.8 !important;
+}
+
+/* 2. Rumus Matematika (KaTeX / Math Inline & Display) */
+.katex {
+  font-size: 1.05em !important;
+  line-height: 1.25 !important;
+  color: #1E293B !important;
+  text-rendering: geometricPrecision;
+}
+.katex * {
+  color: inherit !important;
+}
+html.terang .katex,
+html.terang .katex * {
+  color: #1E293B !important;
+}
+
+/* Blok Rumus (.katex-display) Aman di Layar HP tanpa merusak lebar layar */
+.katex-display,
+html.terang .katex-display,
+.fb-math .katex-display {
+  display: block !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  max-width: 100% !important;
+  padding: 0.75rem 0.5rem !important;
+  margin: 0.75rem 0 !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: thin !important;
+}
+.katex-display::-webkit-scrollbar {
+  height: 5px !important;
+}
+.katex-display::-webkit-scrollbar-track {
+  background: #F1F5F9 !important;
+  border-radius: 9999px !important;
+}
+.katex-display::-webkit-scrollbar-thumb {
+  background: #CBD5E1 !important;
+  border-radius: 9999px !important;
+}
+
+/* 3. Pembatasan Lebar Kontainer Utama (1024px Dashboard / 768px Area Baca & Soal) */
+#home-stage {
+  max-width: 1024px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Batasi area baca & soal (max-width: 768px di tengah) */
+#slide-body,
+#tka-body,
+.area-baca-soal,
+.soal-reading-container {
+  max-width: 768px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+
+/* 4. Permukaan Kartu / Kontainer #FFFFFF & Border Halus #E2E8F0, Reduksi Shadow */
+html.terang #home-stage,
+html.terang #home-stage .p-6,
+html.terang #home-stage .p-5,
+html.terang #home-stage .p-4,
+html.terang #gamifikasi-hero-card,
+html.terang #weekly-event-card,
+html.terang #angket-banner-card {
+  border-color: #E2E8F0 !important;
+}
+
+html.terang .shadow-2xl,
+html.terang .shadow-xl,
+html.terang .shadow-lg,
+html.terang .shadow-md,
+html.terang .shadow-sm,
+html.terang .shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 5. Aksen Tombol Utama (CTA) Deep Indigo (#4F46E5) & Ergonomi Touch (Min 48px, Gap 12px) */
+.notion-btn-primary,
+html.terang .notion-btn-primary,
+.btn-primary-indigo {
+  background-color: #4F46E5 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #4338CA !important;
+  min-height: 48px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 1px 2px 0 rgba(79, 70, 229, 0.2) !important;
+  transition: all 0.15s ease !important;
+}
+.notion-btn-primary:hover,
+html.terang .notion-btn-primary:hover,
+.btn-primary-indigo:hover {
+  background-color: #4338CA !important;
+  border-color: #3730A3 !important;
+  color: #FFFFFF !important;
+}
+.notion-btn-primary:active,
+html.terang .notion-btn-primary:active,
+.btn-primary-indigo:active {
+  background-color: #3730A3 !important;
+  transform: scale(0.98) !important;
+}
+.notion-btn-primary *,
+html.terang .notion-btn-primary * {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+}
+
+.notion-btn-secondary,
+html.terang .notion-btn-secondary {
+  background-color: #FFFFFF !important;
+  color: #1E293B !important;
+  border: 1px solid #E2E8F0 !important;
+  min-height: 48px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.15s ease !important;
+}
+.notion-btn-secondary:hover,
+html.terang .notion-btn-secondary:hover {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+.notion-btn-secondary *,
+html.terang .notion-btn-secondary * {
+  color: #1E293B !important;
+}
+
+/* Header Navbar: Soft Slate & Deep Indigo Active Tab */
+#app-header {
+  border-bottom: 1px solid #E2E8F0 !important;
+  background-color: #FFFFFF !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+}
+#app-header .header-container {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+#app-header .header-nav {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: auto !important;
+  box-sizing: border-box !important;
+}
+#app-header .header-brand {
+  min-width: 0 !important;
+  max-width: calc(100% - 130px) !important;
+}
+#app-header .tab-active,
+#app-header .active-subject-tab {
+  background-color: #4F46E5 !important;
+  color: #FFFFFF !important;
+}
+#app-header .tab-active *,
+#app-header .active-subject-tab * {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+}
+
+/* Utility Touch Target 48px & Gap 12px */
+.touch-h-48 {
+  min-height: 48px !important;
+}
+.touch-gap-12 {
+  gap: 12px !important;
+}
+
+/* Explicit Grid Support on all screens (including mobile) */
+.grid {
+  display: grid !important;
+}
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+.gap-3 {
+  gap: 0.75rem !important;
+}
+.flex-1 {
+  flex: 1 1 0% !important;
+}
+
+
 
 
