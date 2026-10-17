@@ -3445,39 +3445,19 @@ html:not(.terang) #weekly-event-card .notion-btn-secondary {
   color: #F8FAFC !important;
 }
 
-/* Scoped Daily Raid Banner & Pills (Bulletproof Responsive Layout) */
+/* Scoped Daily Raid Banner & Pills (Editorial RPG Command Center) */
 #boss-daily-raid-banner {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 1rem !important;
+  display: block !important;
 }
-@media (min-width: 1024px) {
-  #boss-daily-raid-banner {
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-  }
-}
-#boss-daily-raid-banner .banner-main {
-  display: flex !important;
-  align-items: flex-start !important;
-  gap: 0.875rem !important;
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-}
-#boss-daily-raid-banner .banner-actions {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0.625rem !important;
-  flex-shrink: 0 !important;
+#daily-raid-deck-panel {
   width: 100% !important;
 }
-@media (min-width: 640px) {
-  #boss-daily-raid-banner .banner-actions {
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    width: auto !important;
+@media (min-width: 1024px) {
+  #daily-raid-deck-panel {
+    width: 320px !important;
+    min-width: 320px !important;
+    max-width: 320px !important;
+    flex-shrink: 0 !important;
   }
 }
 .boss-pill {
@@ -3495,19 +3475,19 @@ html:not(.terang) #weekly-event-card .notion-btn-secondary {
   align-items: center !important;
   gap: 0.35rem !important;
   padding: 0.25rem 0.6rem !important;
-  border-radius: 0.375rem !important;
-  background-color: #FFFFFF !important;
-  border: 1px solid #E8E6DF !important;
-  color: #2F3437 !important;
+  border-radius: 0.5rem !important;
+  background-color: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #334155 !important;
   font-size: 0.72rem !important;
   font-weight: 500 !important;
   white-space: nowrap !important;
   box-shadow: 0 1px 2px rgba(0,0,0,0.02) !important;
 }
 html:not(.terang) .boss-feature-pill {
-  background-color: #101B2E !important;
-  border-color: #1E293B !important;
-  color: #CBD5E1 !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
 }
 
 /* 6. Angket Banner Card in Dark Mode */
@@ -4245,18 +4225,32 @@ html:not(.terang) #weekly-event-card div[style*="background-color: #E2E8F0"] {
 
 /* Raid Campaign Banner in Dark Mode */
 html:not(.terang) #boss-daily-raid-banner {
-  background-color: rgba(15, 23, 42, 0.95) !important;
-  border-color: rgba(217, 119, 6, 0.45) !important;
-}
-
-html:not(.terang) #boss-daily-raid-banner .boss-pill {
   background-color: #1E293B !important;
+  border-color: #334155 !important;
+  border-left: 4px solid #F59E0B !important;
+}
+html:not(.terang) #daily-raid-deck-panel {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+}
+html:not(.terang) #boss-daily-raid-banner #daily-raid-banner-title {
+  color: #F8FAFC !important;
+}
+html:not(.terang) #boss-daily-raid-banner #daily-raid-banner-desc {
+  color: #94A3B8 !important;
+}
+html:not(.terang) #boss-daily-raid-banner .boss-pill {
+  background-color: #0F172A !important;
   border-color: #334155 !important;
   color: #E2E8F0 !important;
 }
-
 html:not(.terang) #boss-daily-raid-banner .boss-feature-pill {
-  background-color: #1E293B !important;
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+html:not(.terang) #boss-daily-raid-banner #daily-raid-date-tag {
+  background-color: #0F172A !important;
   border-color: #334155 !important;
   color: #94A3B8 !important;
 }
