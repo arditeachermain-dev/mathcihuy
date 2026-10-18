@@ -3285,18 +3285,25 @@
               headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
               body: JSON.stringify(payload)
             }).then(r => {
-              if (!r.ok) return r.json().then(e => Promise.reject(e)).catch(() => Promise.reject('D1 unavailable'));
+              if (!r.ok) {
+                return r.json()
+                  .catch(() => ({ error: 'Koneksi ke server Cloudflare D1 bermasalah (HTTP ' + r.status + ')' }))
+                  .then(e => Promise.reject(e));
+              }
               return r.json();
             }).then(d1Res => {
               alertBox.className = 'mb-4 p-3 bg-emerald-950/95 border-2 border-emerald-500 text-emerald-200 rounded-2xl text-xs shadow-xl flex items-center gap-2.5';
               alertBox.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i> <span class="font-bold text-white text-xs">Alhamdulillah! Nilai berhasil diverifikasi dan tersimpan resmi di server sekolah.</span>';
               hapusDariOutboxCbt(payload.nis, subj, pkgId);
+              if (d1Res && typeof updateScorecardWithServerResult === 'function') {
+                updateScorecardWithServerResult(subj, pkgId, d1Res, payload.jumlah_soal);
+              }
               if (typeof successCallback === 'function') successCallback(d1Res.jumlah_percobaan);
               setTimeout(() => { alertBox.remove(); }, 3000);
             }).catch(errRetry => {
               btn.disabled = false;
               btn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Coba Kirim Ulang Sekarang';
-              const rMsg = (errRetry && errRetry.error) ? errRetry.error : errRetry;
+              const rMsg = (errRetry && errRetry.error) ? errRetry.error : (typeof errRetry === 'string' ? errRetry : 'Gagal mengirim nilai ke server');
               alert('⚠️ Pengiriman ulang masih belum berhasil: ' + rMsg + '\n\nNilai Anda tetap aman tersimpan di antrean perangkat dan akan otomatis disinkronkan saat koneksi kembali stabil.');
             });
           };
@@ -3358,6 +3365,16 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       const pct = Math.round((benar / n) * 100);
       const akhir = cbtHistory[cbtHistory.length - 1];
       if (akhir && akhir.subj === subj && akhir.pkg === pkgId && akhir.pct === pct && akhir.n === n && !forceSubmit) return;
+
+      // In-flight deduplication guard: Cegah pengiriman ganda simultan untuk paket yang sama
+      window._cbtSubmittingInFlight = window._cbtSubmittingInFlight || {};
+      const flightKey = `${subj}_${pkgId}`;
+      if (window._cbtSubmittingInFlight[flightKey]) {
+        console.log(`⏳ Submission ${flightKey} sedang diproses di server, abaikan pemanggilan ganda.`);
+        return;
+      }
+      window._cbtSubmittingInFlight[flightKey] = true;
+
       cbtHistory.push({ ts: Date.now(), subj: subj, pkg: pkgId, benar: benar, n: n, pct: pct });
       simpanKemajuan();
 
@@ -3446,11 +3463,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             keepalive: true
           }).then(r => {
             if (!r.ok) {
-              return r.json().then(e => Promise.reject(e)).catch(() => Promise.reject('D1 unavailable'));
+              return r.json()
+                .catch(() => ({ error: 'Koneksi ke server Cloudflare D1 bermasalah (HTTP ' + r.status + ')' }))
+                .then(e => Promise.reject(e));
             }
             return r.json();
           })
           .then(d1Res => {
+            delete window._cbtSubmittingInFlight[flightKey];
             console.log('⚡ Nilai CBT berhasil diverifikasi & disimpan resmi di Cloudflare D1:', d1Res);
             
             // Konfirmasi Sukses Server: Hapus dari antrean outbox perangkat
@@ -3499,6 +3519,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             // HANYA tandai selesai setelah server mengonfirmasi!
             onSubmissionComplete(d1Res.jumlah_percobaan);
           }).catch((err) => {
+            delete window._cbtSubmittingInFlight[flightKey];
             console.warn('⚠️ Gagal terhubung ke Cloudflare D1, lembar jawaban aman di Outbox:', err);
             // JANGAN panggil onSubmissionComplete() di sini!
             // Jika terkena batas jeda cooldown antarpaket (< 30s), munculkan dialog edukatif ramah:
@@ -3510,8 +3531,11 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             // Berikan notifikasi UI tegas & tombol Coba Kirim Ulang:
             tampilkanPeringatanGagalSubmit(subj, pkgId, payload, err, onSubmissionComplete);
           });
+        } else {
+          delete window._cbtSubmittingInFlight[flightKey];
         }
       } catch (e) {
+        delete window._cbtSubmittingInFlight[flightKey];
         console.warn('catatNilaiCBTKeCloud error:', e);
       }
     }   // ---------------------------------------------------------------
@@ -6117,8 +6141,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         isPending
       });
 
-      // PENTING: Jika ada butir yang menunggu verifikasi kunci resmi server, picu sinkronisasi server segera
-      if (isPending && typeof catatSesiCbt === 'function') {
+      // PENTING: Jika ada butir yang menunggu verifikasi kunci resmi server, picu sinkronisasi server segera (hanya saat submit aktif, bukan saat buka review mode)
+      if (isPending && typeof catatSesiCbt === 'function' && !window._tkaReviewMode) {
         catatSesiCbt(tkaSubj, tkaPkgId, true);
       }
     }

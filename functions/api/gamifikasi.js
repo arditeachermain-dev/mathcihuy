@@ -1091,12 +1091,14 @@ export async function updateStudentGamification(db, nis) {
   const hasAngket = !!angket;
 
   // 3.5. Cek aktivitas kuis harian Discord
+  let quizRowsList = [];
   let discordQuizStats = { total_quiz: 0, total_correct: 0, total_quiz_xp: 0, dates: [] };
   try {
     const { results: quizRows } = await db.prepare(
       "SELECT quiz_date, is_correct, xp_awarded FROM discord_quiz_answers WHERE nis = ? ORDER BY quiz_date ASC"
     ).bind(cleanNis).all();
     if (quizRows && quizRows.length > 0) {
+      quizRowsList = quizRows;
       discordQuizStats.total_quiz = quizRows.length;
       discordQuizStats.total_correct = quizRows.filter(r => r.is_correct === 1).length;
       discordQuizStats.total_quiz_xp = quizRows.reduce((acc, r) => acc + (Number(r.xp_awarded) || 0), 0);
@@ -1194,7 +1196,7 @@ export async function updateStudentGamification(db, nis) {
   totalXp += discordQuizStats.total_quiz_xp;
 
   // 4.5. Hitung Event Mingguan EXP (Weekly Quests & Raid Boss Titan Statigo)
-  const weeklyEvent = getWeeklyEventStatus(exams || [], quizRows || [], hasAngket);
+  const weeklyEvent = getWeeklyEventStatus(exams || [], quizRowsList || [], hasAngket);
   totalXp += weeklyEvent.earned_bonus_xp;
 
   try {

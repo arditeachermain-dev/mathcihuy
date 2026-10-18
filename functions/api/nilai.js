@@ -168,14 +168,15 @@ export async function onRequestPost(context) {
       // Deteksi Rapid-Fire Bot antar paket (< 30 detik antar pengumpulan paket matematika)
       try {
         const lastSub = await context.env.DB.prepare(
-          "SELECT waktu_submit FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit DESC LIMIT 1"
+          "SELECT waktu_submit, kode_pertemuan, mapel FROM nilai_cbt WHERE nis = ? ORDER BY waktu_submit DESC LIMIT 1"
         ).bind(canonicalNis).first();
 
         if (lastSub && lastSub.waktu_submit) {
           const lastTime = new Date(lastSub.waktu_submit).getTime();
           const nowTime = Date.now();
           lastSubmitDiffSec = (nowTime - lastTime) / 1000;
-          if (lastSubmitDiffSec >= 0 && lastSubmitDiffSec < 30) {
+          const isSamePackage = (String(lastSub.kode_pertemuan || '').toUpperCase() === cleanKode && String(lastSub.mapel || '').toLowerCase() === cleanMapel);
+          if (!isSamePackage && lastSubmitDiffSec >= 0 && lastSubmitDiffSec < 30) {
             return jsonResponse({
               error: `Pengumpulan ditolak (Proteksi Cooldown): Terdeteksi jeda submit antar paket (${Math.round(lastSubmitDiffSec)} detik) terlalu cepat. Harap luangkan jeda minimal 30 detik untuk membaca dan meninjau paket ujian berikutnya.`,
               error_code: 'RATE_LIMIT'
