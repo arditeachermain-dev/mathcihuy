@@ -3335,87 +3335,129 @@ function calculateStudentRpgStats(profile) {
         const userRankBadge = document.getElementById('boss-user-rank-badge');
         const userRewardEl = document.getElementById('boss-user-reward');
 
-        // Isolasi Kurikulum Skuad F1-F2 vs F3-F4 pada Portal Serangan
+        // Isolasi Kurikulum Skuad F1-F2 vs F3-F4 pada Portal Serangan (Simulasi TKA Gladi Bersih K10-K12)
         const activeStudentNis = getActiveStudentNis();
         const activeSquad = getStudentDefaultSquad(activeStudentNis);
         const isGuruUser = isCurrentTeacher();
-        const portalM18 = document.getElementById('portal-card-m18');
-        const portalM19 = document.getElementById('portal-card-m19');
+        const portalK10 = document.getElementById('portal-card-k10') || document.getElementById('portal-card-p17');
+        const portalK11 = document.getElementById('portal-card-k11') || document.getElementById('portal-card-p18');
+        const portalK12 = document.getElementById('portal-card-k12');
+        const portalMinat = document.getElementById('portal-card-minat') || document.getElementById('portal-card-m18') || document.getElementById('portal-card-m19');
         const portalsGrid = document.getElementById('boss-portals-grid');
 
         if (!isGuruUser && activeSquad === 'F1_F2') {
-          if (portalM18) {
-            portalM18.style.display = 'none';
-            portalM18.classList.add('hidden');
+          // Skuad F1_F2: 50 Soal Matematika Wajib (Kelas 10, Kelas 11, Kelas 12)
+          if (portalMinat) {
+            portalMinat.style.display = 'none';
+            portalMinat.classList.add('hidden');
           }
-          if (portalM19) {
-            portalM19.style.display = 'none';
-            portalM19.classList.add('hidden');
-          }
+          if (portalK10) { portalK10.style.display = ''; portalK10.classList.remove('hidden'); }
+          if (portalK11) { portalK11.style.display = ''; portalK11.classList.remove('hidden'); }
+          if (portalK12) { portalK12.style.display = ''; portalK12.classList.remove('hidden'); }
           if (portalsGrid) {
-            portalsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-0.5';
+            portalsGrid.className = 'grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1';
           }
         } else {
-          if (portalM18) {
-            portalM18.style.display = '';
-            portalM18.classList.remove('hidden');
+          // Skuad F3_F4 (dan Guru): 25 Wajib (K10-K12) + 25 Minat (K10-K12)
+          if (portalMinat) {
+            portalMinat.style.display = '';
+            portalMinat.classList.remove('hidden');
           }
-          if (portalM19) {
-            portalM19.style.display = '';
-            portalM19.classList.remove('hidden');
-          }
+          if (portalK10) { portalK10.style.display = ''; portalK10.classList.remove('hidden'); }
+          if (portalK11) { portalK11.style.display = ''; portalK11.classList.remove('hidden'); }
+          if (portalK12) { portalK12.style.display = ''; portalK12.classList.remove('hidden'); }
           if (portalsGrid) {
-            portalsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-0.5';
+            portalsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1';
+          }
+        }
+
+        const currentWeekId = (typeof getWeeklyCampaignIdFallback === 'function' ? getWeeklyCampaignIdFallback() : '2026-W43');
+        const isW43 = (data.campaign_week === '2026-W43' || currentWeekId === '2026-W43');
+
+        if (isW43) {
+          // Render Status Progres TKA per Tingkat (Kelas 10, Kelas 11, Kelas 12, dan Minat)
+          const k10Status = document.getElementById('boss-k10-status') || document.getElementById('boss-p17-status');
+          const k11Status = document.getElementById('boss-k11-status') || document.getElementById('boss-p18-status');
+          const k12Status = document.getElementById('boss-k12-status') || document.getElementById('boss-m18-status');
+          const minatStatus = document.getElementById('boss-minat-status') || document.getElementById('boss-m19-status');
+
+          let k10Total = 0, k10Done = 0, k10Correct = 0;
+          let k11Total = 0, k11Done = 0, k11Correct = 0;
+          let k12Total = 0, k12Done = 0, k12Correct = 0;
+          let minatTotal = 0, minatDone = 0, minatCorrect = 0;
+
+          const savedStateKey = getWeeklyRaidStorageKey(activeStudentNis, '2026-W43', activeSquad);
+          let savedRaidData = null;
+          try { savedRaidData = JSON.parse(localStorage.getItem(savedStateKey) || 'null'); } catch(e) {}
+          const attacksMap = savedRaidData?.attacks || {};
+
+          const qPool = (typeof window.getWeeklyRaid50Questions === 'function')
+            ? window.getWeeklyRaid50Questions(activeStudentNis, '2026-W43', activeSquad)
+            : [];
+
+          qPool.forEach((q, idx) => {
+            const mat = (q.materi || '') + ' ' + (q.mapel || '');
+            const isMinatQ = mat.toLowerCase().includes('minat') || mat.toLowerCase().includes('additional');
+            const atk = attacksMap[idx];
+            const isDone = Boolean(atk);
+            const isCorr = atk ? Boolean(atk.isCorrect) : false;
+
+            if (isMinatQ) {
+              minatTotal++;
+              if (isDone) { minatDone++; if (isCorr) minatCorrect++; }
+            } else if (mat.includes('Kelas 10')) {
+              k10Total++;
+              if (isDone) { k10Done++; if (isCorr) k10Correct++; }
+            } else if (mat.includes('Kelas 11')) {
+              k11Total++;
+              if (isDone) { k11Done++; if (isCorr) k11Correct++; }
+            } else {
+              k12Total++;
+              if (isDone) { k12Done++; if (isCorr) k12Correct++; }
+            }
+          });
+
+          if (k10Status) {
+            k10Status.innerHTML = k10Done > 0
+              ? `<span class="text-emerald-700 font-bold">${k10Done}/${k10Total}</span> <span class="text-[10px] text-slate-500">(${Math.round((k10Correct/Math.max(1,k10Done))*100)}% Benar)</span>`
+              : 'Siap Tempur';
+          }
+          if (k11Status) {
+            k11Status.innerHTML = k11Done > 0
+              ? `<span class="text-emerald-700 font-bold">${k11Done}/${k11Total}</span> <span class="text-[10px] text-slate-500">(${Math.round((k11Correct/Math.max(1,k11Done))*100)}% Benar)</span>`
+              : 'Siap Tempur';
+          }
+          if (k12Status) {
+            k12Status.innerHTML = k12Done > 0
+              ? `<span class="text-emerald-700 font-bold">${k12Done}/${k12Total}</span> <span class="text-[10px] text-slate-500">(${Math.round((k12Correct/Math.max(1,k12Done))*100)}% Benar)</span>`
+              : 'Siap Tempur';
+          }
+          if (minatStatus) {
+            minatStatus.innerHTML = minatDone > 0
+              ? `<span class="text-amber-800 font-bold">${minatDone}/${minatTotal}</span> <span class="text-[10px] text-slate-500">(${Math.round((minatCorrect/Math.max(1,minatDone))*100)}% Benar)</span>`
+              : 'Siap Tempur';
+          }
+        } else if (uStats) {
+          const isW42 = (data.campaign_week === '2026-W42' || currentWeekId === '2026-W42');
+          if (p17Status) {
+            const s17 = isW42 ? (uStats.p17_wajib_skor || 0) : (uStats.p15_wajib_skor || 0);
+            p17Status.innerHTML = s17 > 0 ? `<span class="text-emerald-700 font-bold">${s17}</span>` : 'Belum Serang';
+          }
+          if (p18Status) {
+            const s18 = isW42 ? (uStats.p18_wajib_skor || 0) : (uStats.p16_wajib_skor || 0);
+            p18Status.innerHTML = s18 > 0 ? `<span class="text-emerald-700 font-bold">${s18}</span>` : 'Belum Serang';
+          }
+          if (m18Status && (isGuruUser || activeSquad !== 'F1_F2')) {
+            const sm18 = isW42 ? (uStats.p18_minat_skor || 0) : 0;
+            m18Status.innerHTML = sm18 > 0 ? `<span class="text-amber-800 font-bold">${sm18}</span>` : 'Belum Serang';
+          }
+          if (m19Status && (isGuruUser || activeSquad !== 'F1_F2')) {
+            const sm19 = isW42 ? (uStats.p19_minat_skor || 0) : (uStats.p17_minat_skor || 0);
+            m19Status.innerHTML = sm19 > 0 ? `<span class="text-amber-800 font-bold">${sm19}</span>` : 'Belum Serang';
           }
         }
 
         if (uStats) {
-          const isW42 = (data.campaign_week === '2026-W42' || (typeof getWeeklyCampaignIdFallback === 'function' && getWeeklyCampaignIdFallback() === '2026-W42'));
-
-          // 1. Portal 1: Matematika Wajib P17 (Median & Modus)
-          if (p17Status) {
-            const s17 = isW42 ? (uStats.p17_wajib_skor || 0) : (uStats.p15_wajib_skor || 0);
-            if (s17 > 0) {
-              const dmg17 = s17 * 10 + (s17 === 100 ? 500 : 0);
-              p17Status.innerHTML = `<span class="text-emerald-700 font-bold">${s17}</span> <span class="text-[10px] text-slate-500">(${dmg17} DMG)</span>`;
-            } else {
-              p17Status.textContent = 'Belum Serang';
-            }
-          }
-
-          // 2. Portal 2: Matematika Wajib P18 (Kuartil & Desil)
-          if (p18Status) {
-            const s18 = isW42 ? (uStats.p18_wajib_skor || 0) : (uStats.p16_wajib_skor || 0);
-            if (s18 > 0) {
-              const dmg18 = s18 * 10 + (s18 === 100 ? 500 : 0);
-              p18Status.innerHTML = `<span class="text-emerald-700 font-bold">${s18}</span> <span class="text-[10px] text-slate-500">(${dmg18} DMG)</span>`;
-            } else {
-              p18Status.textContent = 'Belum Serang';
-            }
-          }
-
-          // 3. Portal 3: Additional Mathematics P18 (Turunan Rantai Trigonometri) - Hanya jika berhak
-          if (m18Status && (isGuruUser || activeSquad !== 'F1_F2')) {
-            const sm18 = isW42 ? (uStats.p18_minat_skor || 0) : 0;
-            if (sm18 > 0) {
-              const dmgM18 = sm18 * 15 + (sm18 === 100 ? 500 : 0);
-              m18Status.innerHTML = `<span class="text-amber-800 font-bold">${sm18}</span> <span class="text-[10px] text-slate-500">(${dmgM18} DMG)</span>`;
-            } else {
-              m18Status.textContent = 'Belum Serang';
-            }
-          }
-
-          // 4. Portal 4: Additional Mathematics P19 (Perkalian & Pembagian Trig) - Hanya jika berhak
-          if (m19Status && (isGuruUser || activeSquad !== 'F1_F2')) {
-            const sm19 = isW42 ? (uStats.p19_minat_skor || 0) : (uStats.p17_minat_skor || 0);
-            if (sm19 > 0) {
-              const dmgM19 = sm19 * 15 + (sm19 === 100 ? 500 : 0);
-              m19Status.innerHTML = `<span class="text-amber-800 font-bold">${sm19}</span> <span class="text-[10px] text-slate-500">(${dmgM19} DMG)</span>`;
-            } else {
-              m19Status.textContent = 'Belum Serang';
-            }
-          }
-
           if (userDmgEl) userDmgEl.textContent = `${(uStats.total_damage || 0).toLocaleString('id-ID')} DMG`;
           if (userRankBadge) {
             if (uStats.total_damage > 0) {
@@ -4228,7 +4270,7 @@ function calculateStudentRpgStats(profile) {
       }
     }
 
-    async function openDailyRaidModal() {
+    async function openDailyRaidModal(targetCategory) {
       const nis = getActiveStudentNis();
 
       // 1. Validasi Anti-Cheat Bot Lockout Penalty
@@ -4277,7 +4319,11 @@ function calculateStudentRpgStats(profile) {
       const themeDesc = document.getElementById('dr-modal-theme-desc');
       if (themeDesc) {
         let sqText = '';
-        if (weekId === '2026-W42') {
+        if (weekId === '2026-W43') {
+          sqText = _dailyRaidCurrentSquad === 'F1_F2'
+            ? '50 Butir TKA Wajib Kelas 10, 11 & 12 (5 Model Pusmendik)'
+            : '25 Butir TKA Wajib + 25 Butir TKA Minat Kelas 10, 11 & 12 (5 Model Pusmendik)';
+        } else if (weekId === '2026-W42') {
           sqText = _dailyRaidCurrentSquad === 'F1_F2'
             ? '50 Butir Wajib P17 (Median/Modus) & P18 (Ukuran Letak Data)'
             : '25 Butir Wajib (P17/P18) + 25 Butir Minat (P18/P19 Turunan Lanjut)';
@@ -4314,15 +4360,43 @@ function calculateStudentRpgStats(profile) {
             localStorage.setItem(storageKey, JSON.stringify(savedState));
           } catch(e) {}
         }
-        // Navigasi otomatis ke soal pertama yang belum diserang
-        let firstUnattacked = 0;
-        for (let i = 0; i < _dailyRaidQuestions.length; i++) {
-          if (!_dailyRaidAttacks[i]) {
-            firstUnattacked = i;
-            break;
+
+        // Navigasi cerdas jika targetCategory ditekan (K10, K11, K12, MINAT)
+        let targetIdx = -1;
+        if (targetCategory) {
+          for (let i = 0; i < _dailyRaidQuestions.length; i++) {
+            const q = _dailyRaidQuestions[i];
+            const mat = (q.materi || '') + ' ' + (q.mapel || '');
+            let match = false;
+            if (targetCategory === 'K10') match = mat.includes('Kelas 10') && !mat.toLowerCase().includes('minat');
+            else if (targetCategory === 'K11') match = mat.includes('Kelas 11') && !mat.toLowerCase().includes('minat');
+            else if (targetCategory === 'K12') match = mat.includes('Kelas 12') && !mat.toLowerCase().includes('minat');
+            else if (targetCategory === 'MINAT') match = mat.toLowerCase().includes('minat') || mat.toLowerCase().includes('additional');
+
+            if (match) {
+              if (!_dailyRaidAttacks[i]) {
+                targetIdx = i;
+                break;
+              } else if (targetIdx === -1) {
+                targetIdx = i;
+              }
+            }
           }
         }
-        _dailyRaidCurrentIdx = firstUnattacked;
+
+        if (targetIdx !== -1) {
+          _dailyRaidCurrentIdx = targetIdx;
+        } else {
+          // Navigasi default ke soal pertama yang belum diserang
+          let firstUnattacked = 0;
+          for (let i = 0; i < _dailyRaidQuestions.length; i++) {
+            if (!_dailyRaidAttacks[i]) {
+              firstUnattacked = i;
+              break;
+            }
+          }
+          _dailyRaidCurrentIdx = firstUnattacked;
+        }
         showDailyRaidExamView(savedState);
       }
     }
@@ -5371,13 +5445,23 @@ function calculateStudentRpgStats(profile) {
       const squadBadge = document.getElementById('daily-raid-squad-badge');
 
       if (squadBadge) {
-        const isW42 = (weekId === '2026-W42');
-        if (squad === 'F1_F2') {
-          squadBadge.textContent = isW42 ? '🛡️ Skuad F1 - F2 (50 Matwa P17-P18)' : '🛡️ Skuad F1 - F2 (50 Matwa)';
-          squadBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]';
+        if (weekId === '2026-W43') {
+          if (squad === 'F1_F2') {
+            squadBadge.textContent = '🛡️ Skuad F1 - F2 (50 TKA Wajib K10-K12)';
+            squadBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]';
+          } else {
+            squadBadge.textContent = '⚔️ Skuad F3 - F4 (25 Wajib + 25 Minat K10-K12)';
+            squadBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]';
+          }
         } else {
-          squadBadge.textContent = isW42 ? '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat P18-P19)' : '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)';
-          squadBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]';
+          const isW42 = (weekId === '2026-W42');
+          if (squad === 'F1_F2') {
+            squadBadge.textContent = isW42 ? '🛡️ Skuad F1 - F2 (50 Matwa P17-P18)' : '🛡️ Skuad F1 - F2 (50 Matwa)';
+            squadBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]';
+          } else {
+            squadBadge.textContent = isW42 ? '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat P18-P19)' : '⚔️ Skuad F3 - F4 (25 Matwa + 25 Minat)';
+            squadBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE]';
+          }
         }
       }
 

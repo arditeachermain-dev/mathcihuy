@@ -716,16 +716,25 @@ export async function getRaidBossData(db, nis, targetWeek) {
   const MAX_BOSS_HP = 300000;
   
   // Waktu transisi Pekan 2 (W42): Senin, 12 Oktober 2026 pukul 05:00 WIB (2026-10-11T22:00:00.000Z)
+  // Waktu transisi Pekan 3 (W43): Senin, 19 Oktober 2026 pukul 00:00 WIB (2026-10-18T17:00:00.000Z)
   const now = new Date();
   const w42LaunchTime = new Date('2026-10-11T22:00:00.000Z').getTime();
-  const activeWeek = targetWeek || (now.getTime() >= w42LaunchTime ? '2026-W42' : '2026-W41');
+  const w43LaunchTime = new Date('2026-10-18T17:00:00.000Z').getTime();
+  const activeWeek = targetWeek || (now.getTime() >= w43LaunchTime ? '2026-W43' : (now.getTime() >= w42LaunchTime ? '2026-W42' : '2026-W41'));
+  const isW43 = (activeWeek === '2026-W43');
   const isW42 = (activeWeek === '2026-W42');
 
-  const bossTitle = isW42 ? 'TITAN STATIGO: RONDE 2 (MEDIAN, KUARTIL & ATURAN RANTAI)' : 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF';
-  const bossSubtitle = isW42 ? 'Event Pertemuan: Wajib P17 & P18 • Minat P18 & P19' : 'Event Pertemuan: Wajib P15 & P16 • Minat P17';
-  const bossDesc = isW42
-    ? 'Titan Statigo bangkit kembali dengan ketahanan 300.000 HP! Kuasai interpolasi median, kuartil, desil, IQR, serta aturan rantai dan turunan perkalian/pembagian trigonometri untuk menumbangkannya!'
-    : 'Monster raksasa penunggu gerbang PTS-PAS yang terbuat dari balok-balok histogram dan gelombang kurva trigonometri. Banyak-banyakan selesaikan soal untuk menumbangkan Titan!';
+  const bossTitle = isW43
+    ? 'TITAN STATIGO: GLADI BERSIH TKA NASIONAL (KELAS 10 - 12)'
+    : (isW42 ? 'TITAN STATIGO: RONDE 2 (MEDIAN, KUARTIL & ATURAN RANTAI)' : 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF');
+  const bossSubtitle = isW43
+    ? 'Simulasi TKA Pusmendik: Fase E (K10), Fase F (K11), Fase F Lanjut (K12) & Peminatan'
+    : (isW42 ? 'Event Pertemuan: Wajib P17 & P18 • Minat P18 & P19' : 'Event Pertemuan: Wajib P15 & P16 • Minat P17');
+  const bossDesc = isW43
+    ? 'Titan Statigo dalam wujud puncak Asesmen Nasional! Uji ketajaman bernalar 5 model Pusmendik: Isian Numerik, Benar/Salah, Kompleks, Kausatif, dan Pilihan Ganda mencakup seluruh materi Kelas 10, 11, hingga 12!'
+    : (isW42
+      ? 'Titan Statigo bangkit kembali dengan ketahanan 300.000 HP! Kuasai interpolasi median, kuartil, desil, IQR, serta aturan rantai dan turunan perkalian/pembagian trigonometri untuk menumbangkannya!'
+      : 'Monster raksasa penunggu gerbang PTS-PAS yang terbuat dari balok-balok histogram dan gelombang kurva trigonometri. Banyak-banyakan selesaikan soal untuk menumbangkan Titan!');
 
   if (!db) {
     return {
@@ -761,7 +770,33 @@ export async function getRaidBossData(db, nis, targetWeek) {
     const todayStr = nowWib.toISOString().slice(0, 10);
 
     let rows = [];
-    if (isW42) {
+    if (isW43) {
+      // Query untuk Pekan 3 (W43): Gladi Bersih TKA Nasional (WEEKLY_2026-W43%)
+      rows = (await db.prepare(`
+        SELECT n.nis, s.nama, s.kelas,
+          SUM(
+            CASE 
+              WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W43%') AND DATE(n.waktu_submit) >= '2026-10-18') 
+              THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
+              ELSE 0 
+            END
+          ) as daily_damage,
+          SUM(CASE WHEN n.skor = 100 THEN 1 ELSE 0 END) as critical_hits,
+          SUM(
+            CASE 
+              WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W43%') AND DATE(n.waktu_submit) >= '2026-10-18') 
+              THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
+              ELSE 0
+            END
+          ) as total_damage
+        FROM nilai_cbt n
+        JOIN siswa s ON n.nis = s.nis
+        WHERE ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W43%') AND DATE(n.waktu_submit) >= '2026-10-18')
+          AND (n.is_flagged IS NULL OR n.is_flagged = 0)
+        GROUP BY n.nis
+        ORDER BY total_damage DESC, critical_hits DESC, n.nis ASC
+      `).all()).results || [];
+    } else if (isW42) {
       // Query untuk Pekan 2 (W42): Wajib P17/P18 dan Minat P18/P19
       rows = (await db.prepare(`
         SELECT n.nis, s.nama, s.kelas,
