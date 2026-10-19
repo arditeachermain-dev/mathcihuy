@@ -121,10 +121,63 @@ export async function onRequestPost(context) {
       });
     }
 
+    // C. Aksi Guru: Hapus / Bersihkan Notifikasi
+    if (action === 'clear_all') {
+      if (session.role !== 'guru') {
+        return jsonResponse({ error: "Akses dilarang (403): Hanya guru yang dapat membersihkan semua notifikasi." }, 403);
+      }
+      await context.env.DB.prepare(`DELETE FROM notifikasi_siswa`).run();
+      await context.env.DB.prepare(`DELETE FROM sqlite_sequence WHERE name='notifikasi_siswa'`).run();
+      return jsonResponse({
+        success: true,
+        message: "Seluruh notifikasi berhasil dibersihkan."
+      });
+    }
+
+    if (action === 'delete') {
+      if (session.role !== 'guru') {
+        return jsonResponse({ error: "Akses dilarang (403): Hanya guru yang dapat menghapus notifikasi." }, 403);
+      }
+      const notifId = Number(body.id);
+      if (!notifId) {
+        return jsonResponse({ error: "ID notifikasi tidak valid." }, 400);
+      }
+      await context.env.DB.prepare(`DELETE FROM notifikasi_siswa WHERE id = ?`).bind(notifId).run();
+      return jsonResponse({
+        success: true,
+        message: `Notifikasi #${notifId} berhasil dihapus.`
+      });
+    }
+
     return jsonResponse({ error: "Aksi tidak dikenali." }, 400);
 
   } catch (err) {
     console.error("Error post notifikasi:", err);
     return jsonResponse({ error: "Gagal memproses aksi notifikasi." }, 500);
+  }
+}
+
+// 3. DELETE /api/notifikasi - Guru menghapus notifikasi atau membersihkan semua
+export async function onRequestDelete(context) {
+  try {
+    const session = await authenticateRequest(context.request, context.env);
+    if (!session || session.role !== 'guru') {
+      return jsonResponse({ error: "Akses dilarang (403): Hanya guru yang dapat menghapus notifikasi." }, 403);
+    }
+
+    const url = new URL(context.request.url);
+    const id = url.searchParams.get('id');
+
+    if (id) {
+      await context.env.DB.prepare(`DELETE FROM notifikasi_siswa WHERE id = ?`).bind(Number(id)).run();
+      return jsonResponse({ success: true, message: `Notifikasi #${id} berhasil dihapus.` });
+    } else {
+      await context.env.DB.prepare(`DELETE FROM notifikasi_siswa`).run();
+      await context.env.DB.prepare(`DELETE FROM sqlite_sequence WHERE name='notifikasi_siswa'`).run();
+      return jsonResponse({ success: true, message: "Seluruh notifikasi berhasil dibersihkan." });
+    }
+  } catch (err) {
+    console.error("Error delete notifikasi:", err);
+    return jsonResponse({ error: "Gagal menghapus data notifikasi." }, 500);
   }
 }

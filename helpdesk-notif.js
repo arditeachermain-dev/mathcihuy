@@ -203,6 +203,17 @@
     if (!modal) return;
     const isHidden = modal.classList.contains('hidden');
     if (isHidden) {
+      const sess = getActiveSession();
+      const clearBtn = document.getElementById('btn-guru-clear-all-notif');
+      if (clearBtn) {
+        if (sess && sess.role === 'guru') {
+          clearBtn.classList.remove('hidden');
+          clearBtn.classList.add('inline-flex');
+        } else {
+          clearBtn.classList.add('hidden');
+          clearBtn.classList.remove('inline-flex');
+        }
+      }
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.classList.add('overflow-hidden');
@@ -407,6 +418,26 @@
       });
       window.fetchNotifikasi();
     } catch (e) {}
+  };
+
+  window.clearAllNotifikasiGuru = async function () {
+    if (!confirm('Apakah Anda yakin ingin menghapus dan membersihkan SEMUA notifikasi di Math Cihuy?')) return;
+    try {
+      const res = await fetch('/api/notifikasi', {
+        method: 'POST',
+        headers: getRequestHeaders(),
+        body: JSON.stringify({ action: 'clear_all' })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        alert('✅ Seluruh notifikasi di Math Cihuy berhasil dibersihkan.');
+        window.fetchNotifikasi();
+      } else {
+        alert('⚠️ ' + (data.error || 'Gagal membersihkan notifikasi.'));
+      }
+    } catch (e) {
+      alert('Terjadi kesalahan koneksi.');
+    }
   };
 
   // =========================================================================
