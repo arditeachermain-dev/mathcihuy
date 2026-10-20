@@ -1186,12 +1186,13 @@ export async function updateStudentGamification(db, nis) {
         packetXp += 25; // Bonus KKM
       }
 
+      const isCrossGrade = mapel.startsWith('t10_') || mapel.startsWith('t11_');
       if (mapel === 'minat') {
         xpMinat += packetXp;
         ujianMinat++;
         if (isPureFirstPerfect) sempurnaMinat++;
-      } else {
-        // Matematika Wajib (atau default)
+      } else if (!isCrossGrade) {
+        // Matematika Wajib (atau default kelas 12)
         xpWajib += packetXp;
         ujianWajib++;
         if (isPureFirstPerfect) sempurnaWajib++;
@@ -1199,22 +1200,24 @@ export async function updateStudentGamification(db, nis) {
 
       // Validasi Speedrun Mode On (fast_thinker):
       // Memerlukan durasi manusia yang realistis (3 menit s.d. 20 menit) tuntas skor >= 80 pada attempt pertama
-      if (rawDurasi >= 180 && rawDurasi <= 1200 && rawSkor >= 80 && rawAttempt === 1) {
+      if (!isCrossGrade && rawDurasi >= 180 && rawDurasi <= 1200 && rawSkor >= 80 && rawAttempt === 1) {
         hasFast = true;
       }
 
-      const kode = String(e.kode_pertemuan || '').toUpperCase();
-      if (['P01','P02','P03','P04','P05','P06','P07','P08'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
-        hasPencacahan = true;
-      }
-      if (['P09','P10','P11','P12','P13','P14'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
-        hasDimensiTiga = true;
-      }
-      if (['P15','P16','P17','P18','P19','P20','P21'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
-        hasStatistika = true;
-      }
-      if (['P01','P02','P03','P04','P05','P06','P07','P08','P09'].includes(kode) && mapel === 'minat') {
-        hasLingkaran = true;
+      if (!isCrossGrade) {
+        const kode = String(e.kode_pertemuan || '').toUpperCase();
+        if (['P01','P02','P03','P04','P05','P06','P07','P08'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
+          hasPencacahan = true;
+        }
+        if (['P09','P10','P11','P12','P13','P14'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
+          hasDimensiTiga = true;
+        }
+        if (['P15','P16','P17','P18','P19','P20','P21'].includes(kode) && (mapel === 'wajib' || mapel === '')) {
+          hasStatistika = true;
+        }
+        if (['P01','P02','P03','P04','P05','P06','P07','P08','P09'].includes(kode) && mapel === 'minat') {
+          hasLingkaran = true;
+        }
       }
     }
 

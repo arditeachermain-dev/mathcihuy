@@ -1467,13 +1467,25 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
         if (resp.ok) {
           const data = await resp.json();
           if (Array.isArray(data)) {
-            data.forEach(r => {
-              const k1 = `${r.mapel}_${r.kode_pertemuan}`;
-              const k2 = `${(r.mapel || '').toLowerCase()}_${String(r.kode_pertemuan || '').toUpperCase()}`;
-              const k3 = `${(r.mapel || '').toLowerCase()}_${String(r.kode_pertemuan || '').toLowerCase()}`;
-              subMap[k1] = r;
-              subMap[k2] = r;
-              subMap[k3] = r;
+            const isT10 = typeof TINGKAT_HALAMAN !== 'undefined' && TINGKAT_HALAMAN === 10;
+            const isT11 = typeof TINGKAT_HALAMAN !== 'undefined' && TINGKAT_HALAMAN === 11;
+
+            const relevantRows = data.filter(r => {
+              const rawMapel = String(r.mapel || '').trim().toLowerCase();
+              if (isT10) return rawMapel.startsWith('t10_');
+              if (isT11) return rawMapel.startsWith('t11_');
+              return !rawMapel.startsWith('t10_') && !rawMapel.startsWith('t11_');
+            });
+
+            relevantRows.forEach(r => {
+              const baseMapel = (r.mapel || 'wajib').toLowerCase().replace(/^t\d+_/, '');
+              const k1 = `${baseMapel}_${r.kode_pertemuan}`;
+              const k2 = `${baseMapel}_${String(r.kode_pertemuan || '').toUpperCase()}`;
+              const k3 = `${baseMapel}_${String(r.kode_pertemuan || '').toLowerCase()}`;
+              const normalizedR = Object.assign({}, r, { mapel: baseMapel });
+              subMap[k1] = normalizedR;
+              subMap[k2] = normalizedR;
+              subMap[k3] = normalizedR;
             });
 
             if (!isGuru && String(targetNis) === String((sess && sess.data && sess.data.nis) || '')) {
@@ -5668,11 +5680,20 @@ function calculateStudentRpgStats(profile) {
           .then(data => {
             if (Array.isArray(data)) {
               window._cbtCompletedSubmissions = window._cbtCompletedSubmissions || {};
+              const isT10 = typeof TINGKAT_HALAMAN !== 'undefined' && TINGKAT_HALAMAN === 10;
+              const isT11 = typeof TINGKAT_HALAMAN !== 'undefined' && TINGKAT_HALAMAN === 11;
               data.forEach(r => {
-                const k1 = `${(r.mapel || 'wajib').toLowerCase()}_${String(r.kode_pertemuan || '').toUpperCase()}`;
-                const k2 = `${(r.mapel || 'wajib').toLowerCase()}_${String(r.kode_pertemuan || '').toLowerCase()}`;
-                window._cbtCompletedSubmissions[k1] = r;
-                window._cbtCompletedSubmissions[k2] = r;
+                const rawMapel = (r.mapel || '').toLowerCase();
+                if (isT10 && !rawMapel.startsWith('t10_')) return;
+                if (isT11 && !rawMapel.startsWith('t11_')) return;
+                if (!isT10 && !isT11 && (rawMapel.startsWith('t10_') || rawMapel.startsWith('t11_'))) return;
+
+                const baseMapel = (r.mapel || 'wajib').toLowerCase().replace(/^t\d+_/, '');
+                const k1 = `${baseMapel}_${String(r.kode_pertemuan || '').toUpperCase()}`;
+                const k2 = `${baseMapel}_${String(r.kode_pertemuan || '').toLowerCase()}`;
+                const normalizedR = Object.assign({}, r, { mapel: baseMapel });
+                window._cbtCompletedSubmissions[k1] = normalizedR;
+                window._cbtCompletedSubmissions[k2] = normalizedR;
               });
               renderSkillTree(_currentSkillTreeTab || 'wajib');
             }

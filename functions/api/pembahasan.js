@@ -65,9 +65,13 @@ export async function onRequestGet(context) {
     // 2. SISWA: Wajib sudah menyelesaikan & mengumpulkan ujian paket bersangkutan di database D1!
     if (session.role === 'siswa') {
       const nis = String(session.nis);
+      const cleanMapel = String(mapel).toLowerCase().replace(/^t\d+_/, '');
+      const cleanTingkat = String(tingkat || '12').replace(/[^0-9]/g, '');
+      const tMapel = (cleanTingkat === '10' ? 't10_' : (cleanTingkat === '11' ? 't11_' : '')) + cleanMapel;
+
       const submission = await context.env.DB.prepare(
-        "SELECT id, skor, waktu_submit FROM nilai_cbt WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-      ).bind(nis, String(mapel), String(kode_pertemuan)).first();
+        "SELECT id, skor, waktu_submit FROM nilai_cbt WHERE nis = ? AND (mapel = ? OR mapel = ?) AND kode_pertemuan = ?"
+      ).bind(nis, cleanMapel, tMapel, String(kode_pertemuan)).first();
 
       if (!submission) {
         return jsonResponse({
@@ -75,13 +79,13 @@ export async function onRequestGet(context) {
         }, 403);
       }
 
-      const rawSolutions = getSolutionsForPackage(tingkat, mapel, kode_pertemuan);
+      const rawSolutions = getSolutionsForPackage(cleanTingkat, cleanMapel, kode_pertemuan);
       if (!rawSolutions) {
         return jsonResponse({ error: 'Pembahasan untuk paket ini sedang disiapkan.' }, 404);
       }
 
       // Proteksi Kunci Paket Dinamis (D1 cbt_package_locks)
-      const packageKey = `${tingkat}_${String(mapel).toLowerCase()}_${String(kode_pertemuan).toUpperCase()}`;
+      const packageKey = `${cleanTingkat}_${cleanMapel}_${String(kode_pertemuan).toUpperCase()}`;
       let isPackageLocked = false;
       let lockReason = '';
 
@@ -94,8 +98,8 @@ export async function onRequestGet(context) {
           isPackageLocked = Number(lockRow.is_locked) === 1;
           lockReason = lockRow.locked_reason || 'Dikunci oleh guru';
         } else {
-          // Fallback default: W42 active lock
-          isPackageLocked = isW42LockedPackage(mapel, kode_pertemuan);
+          // Fallback default: W42 active lock only for Grade 12
+          isPackageLocked = cleanTingkat === '12' && isW42LockedPackage(cleanMapel, kode_pertemuan);
           if (isPackageLocked) lockReason = 'Materi Uji Aktif Pekan W42';
         }
       } catch (_) {

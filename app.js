@@ -751,9 +751,13 @@
       try {
         const sess = getSession();
         if (sess && sess.type === 'siswa' && sess.data && sess.data.access_level === 'wajib_only') {
-          ['minat', 'clil'].forEach(function (m) {
-            if (terkunci.indexOf(m) === -1) terkunci.push(m);
-          });
+          // Siswa kelas 12 yang mengakses kelas X atau XI berhak mengakses seluruh materi (seperti akun Aunillah untuk persiapan UTBK/TKA)
+          const isKelas12Review = (typeof tingkatDariKelas === 'function' ? tingkatDariKelas(sess.data.kelas_name || sess.data.kelas) === 12 : false) && TINGKAT_HALAMAN !== 12;
+          if (!isKelas12Review) {
+            ['minat', 'clil'].forEach(function (m) {
+              if (terkunci.indexOf(m) === -1) terkunci.push(m);
+            });
+          }
         }
       } catch (e) {}
       return terkunci;
@@ -2060,7 +2064,9 @@
         // yang sama sehingga menimpa nilai "P01" miliknya sendiri. Guru bebas.
         if (sess.type === 'siswa' && sess.data) {
             const isAlumni = String(sess.data.kelas_name || sess.data.kelas || '').toLowerCase().includes('alumni') || sess.data.access_level === 'all';
-            if (!isAlumni) {
+            const isKelas12 = typeof tingkatDariKelas === 'function' ? (tingkatDariKelas(sess.data.kelas_name || sess.data.kelas) === 12) : false;
+            const canAccessAllGrades = isAlumni || isKelas12;
+            if (!canAccessAllGrades) {
                 const t = tingkatDariKelas(sess.data.kelas_name || sess.data.kelas);
                 if (t && t !== TINGKAT_HALAMAN && HALAMAN_TINGKAT[t]) {
                     window.location.replace(HALAMAN_TINGKAT[t]);
@@ -2170,7 +2176,8 @@
         // supaya ketiga halaman bisa dibangkitkan dari index.html yang sama.
         const guru = sess?.type === 'guru';
         const isAlumni = String(sess?.data?.kelas_name || sess?.data?.kelas || '').toLowerCase().includes('alumni') || sess?.data?.access_level === 'all';
-        const canSwitchTingkat = guru || isAlumni;
+        const isKelas12 = typeof tingkatDariKelas === 'function' ? (tingkatDariKelas(sess?.data?.kelas_name || sess?.data?.kelas) === 12) : false;
+        const canSwitchTingkat = guru || isAlumni || isKelas12;
         const pilih = document.getElementById('pilih-tingkat');
         const lencana = document.getElementById('lencana-tingkat');
         if (lencana && typeof NAMA_TINGKAT !== 'undefined') lencana.textContent = NAMA_TINGKAT;
@@ -2510,11 +2517,26 @@
         function prosesDataSelesai(data) {
           if (!Array.isArray(data)) return;
           const map = Object.assign({}, window._cbtCompletedSubmissions);
-          const serverKeys = new Set(data.map(r => `${String(r.mapel || '').trim().toLowerCase()}_${String(r.kode_pertemuan || '').trim().toUpperCase()}`));
-          data.forEach(row => {
-            const subj = String(row.mapel || 'wajib').trim().toLowerCase();
+          const isT10 = TINGKAT_HALAMAN === 10;
+          const isT11 = TINGKAT_HALAMAN === 11;
+
+          const relevantRows = data.filter(row => {
+            const rawMapel = String(row.mapel || '').trim().toLowerCase();
+            if (isT10) return rawMapel.startsWith('t10_');
+            if (isT11) return rawMapel.startsWith('t11_');
+            return !rawMapel.startsWith('t10_') && !rawMapel.startsWith('t11_');
+          });
+
+          const serverKeys = new Set(relevantRows.map(r => {
+            const cleanSubj = String(r.mapel || 'wajib').trim().toLowerCase().replace(/^t\d+_/, '');
+            return `${cleanSubj}_${String(r.kode_pertemuan || '').trim().toUpperCase()}`;
+          }));
+
+          relevantRows.forEach(row => {
+            const subj = String(row.mapel || 'wajib').trim().toLowerCase().replace(/^t\d+_/, '');
             const pkg = String(row.kode_pertemuan || '').trim().toUpperCase();
-            map[`${subj}_${pkg}`] = row;
+            const normalizedRow = Object.assign({}, row, { mapel: subj });
+            map[`${subj}_${pkg}`] = normalizedRow;
           });
           window._cbtCompletedSubmissions = map;
           try {
@@ -2556,6 +2578,7 @@
                           durasi_detik: Math.max(Number(item.durasi_detik) || 60, 15),
                           jumlah_percobaan: Number(item.jumlah_percobaan) || 1,
                           answers: item.answers || [],
+                          tingkat: String(typeof TINGKAT_HALAMAN !== 'undefined' ? TINGKAT_HALAMAN : '12'),
                           is_sync: true,
                           source: 'auto-heal'
                         }),
@@ -2672,9 +2695,10 @@
               chosenStr = String(chosen);
             }
           }
+          const liveSubj = (typeof AWALAN_TINGKAT !== 'undefined' ? AWALAN_TINGKAT : '') + String(subj);
           syncLiveAnswerDebounced({
             nis: String(nis),
-            mapel: String(subj),
+            mapel: liveSubj,
             kode_pertemuan: String(pkgId),
             q_idx: Number(qIdx),
             chosen: chosenStr,
@@ -2919,7 +2943,8 @@
         }
 
         // 1. Tarik dari Cloudflare D1 Native Database
-        fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`, {
+        const liveSubjRestore = (typeof AWALAN_TINGKAT !== 'undefined' ? AWALAN_TINGKAT : '') + String(subj);
+        fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(liveSubjRestore)}&kode=${encodeURIComponent(pkgId)}`, {
           headers: getAuthHeaders()
         })
           .then(r => r.ok ? r.json() : Promise.reject())
@@ -3511,7 +3536,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             }
 
             // Bersihkan draft live answers dari Cloudflare D1
-            fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(subj)}&kode=${encodeURIComponent(pkgId)}`, {
+            const liveSubjDel = (typeof AWALAN_TINGKAT !== 'undefined' ? AWALAN_TINGKAT : '') + String(subj);
+            fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(liveSubjDel)}&kode=${encodeURIComponent(pkgId)}`, {
               method: 'DELETE',
               headers: getAuthHeaders()
             }).catch(() => {});
@@ -5687,7 +5713,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         const sess = typeof getSession === 'function' ? getSession() : null;
         const nis = (sess && sess.data && sess.data.nis) ? sess.data.nis : null;
         if (nis && nis !== 'guest') {
-          fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(curSubj)}&kode=${encodeURIComponent(curPkg)}`, {
+          const liveSubjReset = (typeof AWALAN_TINGKAT !== 'undefined' ? AWALAN_TINGKAT : '') + String(curSubj);
+          fetch(`/api/live?nis=${encodeURIComponent(nis)}&mapel=${encodeURIComponent(liveSubjReset)}&kode=${encodeURIComponent(curPkg)}`, {
             method: 'DELETE',
             headers: getAuthHeaders()
           }).catch(() => {});

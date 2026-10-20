@@ -269,7 +269,7 @@ export async function onRequestPost(context) {
         jumlah_percobaan = MAX(nilai_cbt.jumlah_percobaan, excluded.jumlah_percobaan),
         is_flagged = CASE WHEN excluded.skor >= nilai_cbt.skor THEN excluded.is_flagged ELSE nilai_cbt.is_flagged END
     `).bind(
-      canonicalNis, verifiedNama, verifiedKelas, cleanMapel, cleanKode,
+      canonicalNis, verifiedNama, verifiedKelas, dbMapel, cleanKode,
       cleanSkor, cleanSoal, cleanBenar, cleanSalah,
       cleanDurasi, finalAttempt, now, isFlagged
     ).run();
@@ -277,8 +277,8 @@ export async function onRequestPost(context) {
     // Otomatis bersihkan draf live answers dari D1 pasca submit
     try {
       await context.env.DB.prepare(
-        "DELETE FROM cbt_live_answers WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-      ).bind(canonicalNis, cleanMapel, cleanKode).run();
+        "DELETE FROM cbt_live_answers WHERE nis = ? AND (mapel = ? OR mapel = ?) AND kode_pertemuan = ?"
+      ).bind(canonicalNis, cleanMapel, dbMapel, cleanKode).run();
     } catch(e) {}
 
     // Otomatis perbarui profil gamifikasi, level XP, dan daily streak di D1
@@ -289,11 +289,11 @@ export async function onRequestPost(context) {
       console.warn('Gamifikasi update error:', gamErr);
     }
 
-    const rawSolutions = getSolutionsForPackage(studentTingkat, cleanMapel, cleanKode) || [];
+    const rawSolutions = getSolutionsForPackage(studentTingkat, baseMapel, cleanKode) || [];
     let solutions = [];
 
     // Proteksi Masa Uji Aktif Pekan W42 (Wajib P17-P18 & Minat P18-P19)
-    const isW42ExamLock = !isGuru && isW42LockedPackage(cleanMapel, cleanKode);
+    const isW42ExamLock = !isGuru && studentTingkat === '12' && isW42LockedPackage(baseMapel, cleanKode);
 
     if (isW42ExamLock) {
       solutions = rawSolutions.map(sol => ({
