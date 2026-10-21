@@ -186,26 +186,33 @@ export async function onRequestPost(context) {
       } catch(e) {}
     }
 
+    let studentTingkat = String(data.tingkat || '').replace(/[^0-9]/g, '');
+    if (!['10', '11', '12'].includes(studentTingkat)) {
+      studentTingkat = extractTingkat(verifiedKelas);
+    }
+
+    const baseMapel = cleanMapel.replace(/^t\d+_/, '');
+    const isKelas12Review = extractTingkat(verifiedKelas) === '12' && studentTingkat !== '12';
+    const dbMapel = isKelas12Review 
+      ? (`t${studentTingkat}_${baseMapel}`) 
+      : (cleanMapel.startsWith('t10_') || cleanMapel.startsWith('t11_') ? cleanMapel : baseMapel);
+
     // 2. Server-Side Grading: Ambil jawaban yang dikirim klien atau draf dari cbt_live_answers
     let answersToGrade = data.answers;
     if (!answersToGrade || (Array.isArray(answersToGrade) && answersToGrade.length === 0)) {
       try {
         const { results: liveRows } = await context.env.DB.prepare(
-          "SELECT q_idx, chosen FROM cbt_live_answers WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-        ).bind(canonicalNis, cleanMapel, cleanKode).all();
+          "SELECT q_idx, chosen FROM cbt_live_answers WHERE nis = ? AND (mapel = ? OR mapel = ?) AND kode_pertemuan = ?"
+        ).bind(canonicalNis, cleanMapel, dbMapel, cleanKode).all();
         if (liveRows && liveRows.length > 0) {
           answersToGrade = liveRows;
         }
       } catch(e) {}
     }
 
-    let studentTingkat = String(data.tingkat || '').replace(/[^0-9]/g, '');
-    if (!['10', '11', '12'].includes(studentTingkat)) {
-      studentTingkat = extractTingkat(verifiedKelas);
-    }
     let officialGrade = null;
     if (answersToGrade && (Array.isArray(answersToGrade) ? answersToGrade.length > 0 : Object.keys(answersToGrade).length > 0)) {
-      officialGrade = calculateOfficialGrade(studentTingkat, cleanMapel, cleanKode, answersToGrade);
+      officialGrade = calculateOfficialGrade(studentTingkat, baseMapel, cleanKode, answersToGrade);
     }
 
     let cleanSkor, cleanSoal, cleanBenar, cleanSalah;
@@ -225,8 +232,8 @@ export async function onRequestPost(context) {
     // Hitung riwayat percobaan secara otomatis & konsisten di database
     let finalAttempt = Number(jumlah_percobaan) || 1;
     const existing = await context.env.DB.prepare(
-      "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt WHERE nis = ? AND mapel = ? AND kode_pertemuan = ?"
-    ).bind(canonicalNis, cleanMapel, cleanKode).first();
+      "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, durasi_detik, jumlah_percobaan, waktu_submit FROM nilai_cbt WHERE nis = ? AND (mapel = ? OR mapel = ?) AND kode_pertemuan = ?"
+    ).bind(canonicalNis, dbMapel, cleanMapel, cleanKode).first();
 
     if (existing && existing.jumlah_percobaan && Number(existing.jumlah_percobaan) >= finalAttempt) {
       finalAttempt = Number(existing.jumlah_percobaan) + 1;

@@ -5680,6 +5680,8 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         retakeCurrentTkaPkg();
       }
     }
+    window.confirmResetCbtPackage = confirmResetCbtPackage;
+    window.ulangiPengerjaanCbt = confirmResetCbtPackage;
 
     function retakeCurrentTkaPkg() {
       window._tkaReviewMode = false;
@@ -6726,7 +6728,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
               <button onclick="bukaReviewModeCbt()" class="px-3.5 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 text-white font-bold rounded-xl text-xs shadow-lg flex items-center gap-1.5 cursor-pointer transition active:scale-95 border border-emerald-400/40">
                 <i class="fa-solid fa-chart-pie text-amber-300"></i> ${isReviewMode ? (tkaSubj === 'clil' ? 'View Scorecard' : 'Tampilkan Skor') : (tkaSubj === 'clil' ? 'View Solutions & Score' : 'Lihat Kunci & Skor')}
               </button>
-              <button onclick="ulangiPengerjaanCbt()" class="px-3 py-1.5 md:px-3.5 md:py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-medium rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 cursor-pointer transition">
+              <button onclick="confirmResetCbtPackage()" class="px-3 py-1.5 md:px-3.5 md:py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-medium rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 cursor-pointer transition">
                 <i class="fa-solid fa-rotate-left text-amber-400"></i> ${tkaSubj === 'clil' ? 'Retake Unit' : 'Kerjakan Ulang'}
               </button>
             </div>
@@ -8777,6 +8779,21 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         }
       }, 1000);
     }
+
+    let isBtcTimerRunning = false;
+    function toggleBtcTimer() {
+      const btn = document.getElementById('btc-timer-btn');
+      if (!isBtcTimerRunning) {
+        startBtcTimer(300);
+        isBtcTimerRunning = true;
+        if (btn) btn.innerText = (typeof currentMode !== 'undefined' && currentMode === 'clil') ? 'Pause' : 'Jeda';
+      } else {
+        clearInterval(timerInterval);
+        isBtcTimerRunning = false;
+        if (btn) btn.innerText = (typeof currentMode !== 'undefined' && currentMode === 'clil') ? 'Resume' : 'Lanjut';
+      }
+    }
+    window.toggleBtcTimer = toggleBtcTimer;
 
     // ---------------------------------------------------------------
     // SKALA TAMPILAN
