@@ -8,7 +8,7 @@ import { authenticateRequest, jsonResponse } from './_auth.js';
 // Master list of packages for Grade 12, 11, 10
 export const ALL_KNOWN_PACKAGES = {
   "12": {
-    wajib: Array.from({ length: 21 }, (_, i) => 'P' + String(i + 1).padStart(2, '0')),
+    wajib: ['DIAG', ...Array.from({ length: 21 }, (_, i) => 'P' + String(i + 1).padStart(2, '0'))],
     minat: Array.from({ length: 30 }, (_, i) => 'P' + String(i + 1).padStart(2, '0')),
     clil: ['P25', 'P26', 'P27', 'P28', 'P29', 'P30']
   },

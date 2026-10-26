@@ -129,7 +129,8 @@ export async function onRequestGet(context) {
       }
 
       let solutions = [];
-      const isUnderKkm = Number(submission.skor || 0) < 75;
+      const cleanKodeUpper = String(kode_pertemuan || '').toUpperCase();
+      const isUnderKkm = (cleanKodeUpper !== 'DIAG') && Number(submission.skor || 0) < 75;
 
       if (isUnderKkm) {
         solutions = rawSolutions.map(sol => {

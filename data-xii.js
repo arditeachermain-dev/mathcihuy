@@ -4510,6 +4510,230 @@ const NAMA_TINGKAT = 'XII';
     }
   ],
   "tka_wajib": {
+    "DIAG": {
+        "id": "DIAG",
+        "subject": "Matematika Wajib",
+        "title": "Tes Diagnostik TKA Kemendikbud 2026 (Pekan Intensif)",
+        "badge": "Kemendikbud 2026",
+        "kluster_info": "6 Kluster Standar Kemendikbud: Aljabar & Fungsi, Aritmetika & Data, Statistika & Peluang, Barisan & Deret, Geometri & Trigonometri, Penalaran Kuantitatif",
+        "total_bobot": 23,
+        "questions": [
+            {
+                "no": 1,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K1: Aljabar & Fungsi",
+                "kluster_id": "K1",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS A: Produksi UMKM Keripik Pisang Serpong]</b><br/>Sebuah UMKM di Serpong memproduksi keripik pisang kemasan. Total biaya produksi per hari dimodelkan oleh fungsi:<br/><center class='my-2 p-2 rounded-xl bg-slate-900/80 border border-slate-700 font-mono font-bold text-amber-300'>C(x) = x² − 40x + 1.200</center>dengan $x$ adalah jumlah produksi dalam <i>puluhan bungkus</i> dan $C(x)$ adalah biaya produksi dalam <i>ribuan rupiah</i>.<br/>Setiap bungkus dijual dengan harga Rp 15.000, sehingga total pendapatan kotor adalah $R(x) = 15x$ (dalam ribuan rupiah per puluhan bungkus).<br/><br/>Jumlah kemasan keripik pisang (dalam puluhan bungkus) yang harus diproduksi per hari agar <b>biaya produksi mencapai minimum</b> adalah ...",
+                "opsi": [
+                    "A. 10",
+                    "B. 15",
+                    "C. 20",
+                    "D. 25",
+                    "E. 40"
+                ]
+            },
+            {
+                "no": 2,
+                "tipe": "Pilihan Benar / Salah",
+                "level": "C4 Analisis",
+                "kluster": "K1: Aljabar & Fungsi",
+                "kluster_id": "K1",
+                "bobot": 3,
+                "tanya": "<b>[STIMULUS A: Produksi UMKM Keripik Pisang Serpong]</b><br/>Berdasarkan fungsi biaya $C(x) = x^2 - 40x + 1.200$ dan pendapatan $R(x) = 15x$ pada Stimulus A, evaluasi kebenaran setiap pernyataan analisis finansial UMKM berikut:",
+                "opsi": [
+                    "Biaya produksi minimum harian UMKM tersebut adalah Rp 800.000.",
+                    "Jika UMKM memproduksi 50 bungkus (x = 5), maka usaha tersebut merugi karena C(5) > R(5).",
+                    "Fungsi keuntungan bersih harian dirumuskan dengan P(x) = −x² + 55x − 1.200."
+                ]
+            },
+            {
+                "no": 3,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K1: Aljabar & Fungsi",
+                "kluster_id": "K1",
+                "bobot": 1,
+                "tanya": "Dalam uji coba sains STEM roket air, ketinggian roket pada waktu $t$ detik setelah peluncuran dinyatakan oleh fungsi kuadrat:<br/><center class='my-2 p-2 rounded-xl bg-slate-900/80 border border-slate-700 font-mono font-bold text-amber-300'>h(t) = −5t² + 30t + 10 (dalam satuan meter)</center>Roket air tersebut berada pada <b>ketinggian lebih dari 35 meter</b> pada selang waktu ...",
+                "opsi": [
+                    "A. 0 < t < 1",
+                    "B. 1 < t < 5",
+                    "C. 2 < t < 4",
+                    "D. 1 < t < 3",
+                    "E. 3 < t < 5"
+                ]
+            },
+            {
+                "no": 4,
+                "tipe": "Isian Singkat Numerik",
+                "level": "C3 Penerapan",
+                "kluster": "K1: Aljabar & Fungsi",
+                "kluster_id": "K1",
+                "bobot": 1,
+                "tanya": "Sebuah taman hidroponik sekolah berbentuk persegi panjang dirancang dengan panjang <b>(3a + 2) meter</b> dan lebar <b>(3a − 2) meter</b>. Jika luas taman terukur adalah <b>77 m²</b>, tentukan <b>keliling taman</b> tersebut dalam satuan meter.<br/><br/><i>(Tuliskan jawaban akhir berupa angka bulat saja, misalnya: 36)</i>",
+                "opsi": []
+            },
+            {
+                "no": 5,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K2: Aritmetika & Data",
+                "kluster_id": "K2",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS B: Laporan Penjualan Kantin Sehat GIS 2]</b><br/>Berikut catatan penjualan dua jenis minuman di Kantin GIS 2 Serpong selama 5 hari operasional:<br/><div class='overflow-x-auto my-2'><table class='w-full text-xs text-center border-collapse border border-slate-700 rounded-lg'><tr class='bg-slate-800 text-slate-200'><th class='p-2 border border-slate-700'>Hari</th><th class='p-2 border border-slate-700'>Es Teh Manis</th><th class='p-2 border border-slate-700'>Harga / Porsi</th><th class='p-2 border border-slate-700'>Jus Buah Segar</th><th class='p-2 border border-slate-700'>Harga / Porsi</th></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-bold'>Senin</td><td class='p-1.5 border border-slate-700'>45</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>20</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr><tr class='bg-slate-900/30'><td class='p-1.5 border border-slate-700 font-bold'>Selasa</td><td class='p-1.5 border border-slate-700'>38</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>25</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-bold'>Rabu</td><td class='p-1.5 border border-slate-700'>50</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>18</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr><tr class='bg-slate-900/30'><td class='p-1.5 border border-slate-700 font-bold'>Kamis</td><td class='p-1.5 border border-slate-700'>42</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>22</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-bold'>Jumat</td><td class='p-1.5 border border-slate-700'>35</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>15</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr></table></div>Berapakah persentase kontribusi pendapatan dari penjualan <b>Jus Buah Segar</b> terhadap <b>total seluruh pendapatan minuman</b> selama 5 hari tersebut? <i>(Dibulatkan ke persen terdekat)</i>",
+                "opsi": [
+                    "A. 36%",
+                    "B. 42%",
+                    "C. 48%",
+                    "D. 53%",
+                    "E. 60%"
+                ]
+            },
+            {
+                "no": 6,
+                "tipe": "Pilihan Benar / Salah",
+                "level": "C4 Analisis",
+                "kluster": "K2: Aritmetika & Data",
+                "kluster_id": "K2",
+                "bobot": 3,
+                "tanya": "<b>[STIMULUS B: Laporan Penjualan Kantin Sehat GIS 2]</b><br/>Berdasarkan tabel data penjualan pada Stimulus B, evaluasi kebenaran setiap pernyataan berikut:",
+                "opsi": [
+                    "Rata-rata volume penjualan Es Teh Manis per hari adalah tepat 42 porsi.",
+                    "Kombinasi penjualan 40 porsi Es Teh dan 25 porsi Jus Buah menghasilkan tepat Rp 500.000.",
+                    "Total nominal omzet penjualan pada hari Rabu lebih tinggi daripada omzet pada hari Selasa."
+                ]
+            },
+            {
+                "no": 7,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C3 Penerapan",
+                "kluster": "K2: Aritmetika & Data",
+                "kluster_id": "K2",
+                "bobot": 1,
+                "tanya": "Di laboratorium kimia sekolah, seorang siswa hendak membuat <b>400 mL larutan antiseptik beralkohol 45%</b> dengan mencampurkan larutan alkohol berkonsentrasi 30% dan larutan alkohol berkonsentrasi 70%. Volume larutan alkohol 70% yang harus diambil adalah ...",
+                "opsi": [
+                    "A. 100 mL",
+                    "B. 120 mL",
+                    "C. 150 mL",
+                    "D. 200 mL",
+                    "E. 250 mL"
+                ]
+            },
+            {
+                "no": 8,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K3: Statistika & Peluang",
+                "kluster_id": "K3",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS C: Durasi Belajar Mandiri Siswa Kelas 12]</b><br/>Data waktu belajar mandiri per hari (dalam jam) dari sampel 30 siswa kelas 12 menjelang TKA dirangkum pada tabel berikut:<br/><div class='overflow-x-auto my-2'><table class='w-full max-w-sm mx-auto text-xs text-center border-collapse border border-slate-700 rounded-lg'><tr class='bg-slate-800 text-slate-200'><th class='p-2 border border-slate-700'>Interval Waktu (Jam)</th><th class='p-2 border border-slate-700'>Frekuensi Siswa (f)</th></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-mono'>0 – 1</td><td class='p-1.5 border border-slate-700 font-bold'>2</td></tr><tr class='bg-slate-900/30'><td class='p-1.5 border border-slate-700 font-mono'>1 – 2</td><td class='p-1.5 border border-slate-700 font-bold'>6</td></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-mono'>2 – 3</td><td class='p-1.5 border border-slate-700 font-bold'>10</td></tr><tr class='bg-slate-900/30'><td class='p-1.5 border border-slate-700 font-mono'>3 – 4</td><td class='p-1.5 border border-slate-700 font-bold'>8</td></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-mono'>4 – 5</td><td class='p-1.5 border border-slate-700 font-bold'>4</td></tr></table></div>Rata-rata (mean) durasi waktu belajar mandiri siswa kelas 12 berdasarkan data berkelompok tersebut adalah ...",
+                "opsi": [
+                    "A. 2,1 jam",
+                    "B. 2,4 jam",
+                    "C. 2,5 jam",
+                    "D. 2,7 jam",
+                    "E. 3,0 jam"
+                ]
+            },
+            {
+                "no": 9,
+                "tipe": "Isian Singkat Numerik",
+                "level": "C3 Penerapan",
+                "kluster": "K3: Statistika & Peluang",
+                "kluster_id": "K3",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS C: Durasi Belajar Mandiri Siswa Kelas 12]</b><br/>Berdasarkan Stimulus C, tentukan nilai <b>batas bawah</b> (lower limit) dari kelas interval yang memuat nilai <b>median</b> data tersebut.<br/><br/><i>(Tuliskan jawaban berupa angka bilangan bulat saja, misalnya: 2)</i>",
+                "opsi": []
+            },
+            {
+                "no": 10,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K3: Statistika & Peluang",
+                "kluster_id": "K3",
+                "bobot": 1,
+                "tanya": "Dalam sebuah kantong terdapat 5 kartu bertuliskan angka 1, 2, 3, 4, dan 5. Diambil 2 kartu sekaligus secara acak tanpa pengembalian. Peluang terambilnya 2 kartu yang jika angka-angkanya dijumlahkan menghasilkan <b>nilai lebih dari 6</b> adalah ...",
+                "opsi": [
+                    "A. 3/10",
+                    "B. 2/5",
+                    "C. 1/2",
+                    "D. 3/5",
+                    "E. 7/10"
+                ]
+            },
+            {
+                "no": 11,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C3 Penerapan",
+                "kluster": "K4: Barisan & Deret",
+                "kluster_id": "K4",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS D: Proyeksi Pengguna Aktif Platform Edu-Tech]</b><br/>Sebuah startup edukasi rintisan siswa diluncurkan pada Januari 2026. Pertumbuhan pengguna aktif bulanan tercatat stabil sebagai berikut:<br/><div class='overflow-x-auto my-2'><table class='w-full text-xs text-center border-collapse border border-slate-700 rounded-lg'><tr class='bg-slate-800 text-slate-200'><th class='p-2 border border-slate-700'>Bulan</th><th class='p-2 border border-slate-700'>Jan</th><th class='p-2 border border-slate-700'>Feb</th><th class='p-2 border border-slate-700'>Mar</th><th class='p-2 border border-slate-700'>Apr</th><th class='p-2 border border-slate-700'>Mei</th><th class='p-2 border border-slate-700'>Jun</th></tr><tr class='bg-slate-900/60'><td class='p-2 border border-slate-700 font-bold'>Pengguna Aktif</td><td class='p-2 border border-slate-700'>200</td><td class='p-2 border border-slate-700'>350</td><td class='p-2 border border-slate-700'>500</td><td class='p-2 border border-slate-700'>650</td><td class='p-2 border border-slate-700'>800</td><td class='p-2 border border-slate-700'>950</td></tr></table></div>Jika tren peningkatan pengguna aktif tersebut konsisten membentuk barisan aritmetika hingga akhir tahun, maka estimasi jumlah pengguna aktif pada bulan <b>Desember 2026</b> adalah ...",
+                "opsi": [
+                    "A. 1.700 pengguna",
+                    "B. 1.850 pengguna",
+                    "C. 2.000 pengguna",
+                    "D. 2.150 pengguna",
+                    "E. 2.300 pengguna"
+                ]
+            },
+            {
+                "no": 12,
+                "tipe": "Pilihan Benar / Salah",
+                "level": "C4 Analisis",
+                "kluster": "K4: Barisan & Deret",
+                "kluster_id": "K4",
+                "bobot": 3,
+                "tanya": "<b>[STIMULUS D: Proyeksi Pengguna Aktif Platform Edu-Tech]</b><br/>Berdasarkan pola data startup pada Stimulus D, tentukan kebenaran setiap pernyataan proyeksi berikut:",
+                "opsi": [
+                    "Total akumulasi penjumlahan pengguna aktif selama 12 bulan (Jan–Des 2026) adalah 12.900 orang.",
+                    "Platform startup tersebut diproyeksikan pertama kali mencapai angka 2.000 pengguna pada bulan ke-13 (Januari 2027).",
+                    "Bila pertumbuhan diubah menjadi model deret geometri dengan rasio 1,5 (dimulai 200 di Januari), jumlah pengguna Juni akan melampaui data tabel."
+                ]
+            },
+            {
+                "no": 13,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C3 Penerapan",
+                "kluster": "K5: Geometri & Trigonometri",
+                "kluster_id": "K5",
+                "bobot": 1,
+                "tanya": "Sebuah tandon air darurat di lingkungan sekolah berbentuk <b>tabung silinder</b> dengan jari-jari alas 70 cm dan tinggi 120 cm. Akibat pemakaian rutin wudhu, ketinggian air tersisa tinggal <b>3/4 bagian</b> dari kapasitas penuh. Berapakah volume sisa air di dalam tandon tersebut dalam satuan <b>liter</b>?<br/><br/><i>(Gunakan nilai $\\pi = 22/7$ dan $1\\text{ liter} = 1.000\\text{ cm}^3$)</i>",
+                "opsi": [
+                    "A. 1.108 liter",
+                    "B. 1.386 liter",
+                    "C. 1.478 liter",
+                    "D. 1.848 liter",
+                    "E. 2.464 liter"
+                ]
+            },
+            {
+                "no": 14,
+                "tipe": "Isian Singkat Numerik",
+                "level": "C3 Penerapan",
+                "kluster": "K5: Geometri & Trigonometri",
+                "kluster_id": "K5",
+                "bobot": 1,
+                "tanya": "Dari dek observasi menara pandang setinggi 30 meter di tepi pantai, petugas pengawas melihat perahu nelayan dengan <b>sudut depresi sebesar 30°</b>. Tentukan jarak horizontal antara dasar menara pandang dengan posisi perahu tersebut (dalam satuan meter).<br/><br/><i>(Tuliskan jawaban dalam format bilangan bulat atau desimal pembulatan satu angka, di mana $\\sqrt{3} \\approx 1{,}73$, misalnya: 52)</i>",
+                "opsi": []
+            },
+            {
+                "no": 15,
+                "tipe": "Pilihan Benar / Salah",
+                "level": "C4 Analisis",
+                "kluster": "K6: Penalaran Kuantitatif",
+                "kluster_id": "K6",
+                "bobot": 3,
+                "tanya": "Diberikan permasalahan penentuan jumlah peserta ujian seleksi dengan dua informasi terpisah:<br/>• <b>Informasi I:</b> 60% dari seluruh peserta dinyatakan memenuhi kriteria kelulusan akademik.<br/>• <b>Informasi II:</b> Terdapat tepat 12 peserta yang dinyatakan tidak memenuhi kriteria kelulusan.<br/><br/>Tentukan kebenaran setiap pernyataan logika matematis dan kecukupan data berikut:",
+                "opsi": [
+                    "Hanya dengan menggunakan Informasi I saja, kita sudah dapat menghitung jumlah total seluruh peserta ujian.",
+                    "Dengan menggabungkan Informasi I dan Informasi II secara bersamaan, total seluruh peserta ujian adalah 30 orang.",
+                    "Berdasarkan kedua informasi tersebut, jumlah peserta yang dinyatakan lulus ujian adalah 18 orang."
+                ]
+            }
+        ]
+    },
     "P01": {
       "id": "P01",
       "subject": "Matematika Wajib",

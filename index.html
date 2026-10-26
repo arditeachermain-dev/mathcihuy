@@ -596,6 +596,45 @@
           </div>
         </div>
 
+        <!-- SPECIAL EVENT HERO: TES DIAGNOSTIK TKA KEMENDIKBUD 2026 -->
+        <div class="relative overflow-hidden rounded-2xl md:rounded-3xl p-5 md:p-7 shadow-md border-2 border-amber-400 bg-gradient-to-br from-[#0F172A] via-[#1E1B4B] to-[#0F172A] text-white">
+          <div class="absolute -right-10 -top-10 w-44 h-44 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="absolute -left-10 -bottom-10 w-44 h-44 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          
+          <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div class="space-y-3 max-w-2xl">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[11px] font-black tracking-wide uppercase flex items-center gap-1.5 animate-pulse">
+                  <span class="w-2 h-2 rounded-full bg-rose-400"></span> PEKAN INTENSIF: 26 – 29 OKTOBER 2026
+                </span>
+                <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-bold font-mono">
+                  STANDAR RESMI KEMENDIKBUD 2026
+                </span>
+              </div>
+              <h2 class="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-2.5">
+                <i class="fa-solid fa-clipboard-check text-amber-400"></i> Tes Diagnostik TKA Matematika (15 Soal • 23 Poin)
+              </h2>
+              <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+                Pemetaan komprehensif 6 Kluster Kompetensi Standar Nasional: <b>Aljabar &amp; Fungsi, Aritmetika &amp; Data, Statistika &amp; Peluang, Barisan &amp; Deret, Geometri &amp; Trigonometri, dan Penalaran Kuantitatif</b> sebagai persiapan utama menuju TKA &amp; ANBK 2026.
+              </p>
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-slate-400 font-medium pt-1">
+                <span class="flex items-center gap-1.5 text-slate-300"><i class="fa-solid fa-layer-group text-blue-400"></i> 15 Butir Soal (PG, Isian, Benar/Salah)</span>
+                <span class="flex items-center gap-1.5 text-slate-300"><i class="fa-solid fa-award text-amber-400"></i> Total Bobot 23 Poin</span>
+                <span class="flex items-center gap-1.5 text-slate-300"><i class="fa-solid fa-chart-pie text-emerald-400"></i> Radar Skor Per Kluster</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row lg:flex-col items-stretch gap-3 shrink-0">
+              <button onclick="openDiagnostikTka()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2.5 cursor-pointer transition transform active:scale-95 border-2 border-amber-200 ring-4 ring-amber-500/20">
+                <i class="fa-solid fa-play"></i> Mulai Tes Diagnostik Sekarang
+              </button>
+              <button onclick="bukaDiagnostikScorecard()" id="btn-diag-scorecard" class="px-5 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 flex items-center justify-center gap-2 cursor-pointer transition">
+                <i class="fa-solid fa-chart-pie text-cyan-400"></i> Lihat Hasil &amp; Analisis Kluster
+              </button>
+            </div>
+          </div>
+        </div>
+
         <!-- 2. 4 MAIN STREAM CARDS (LANGSUNG DI ATAS TANPA BANYAK SCROLL) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           
@@ -1942,8 +1981,8 @@
   </div>
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
-  <script src="data-xii.js?v=v20261016_p18_apersepsi_3pilar_v1"></script>
-  <script src="app.js?v=v20261021_fix_cbt_submit_access_v1"></script>
+  <script src="data-xii.js?v=v20261026_diagnostik_kemendikbud_v1"></script>
+  <script src="app.js?v=v20261026_diagnostik_kemendikbud_v1"></script>
 
 
     <!-- MODAL RAPOR CAPAIAN BELAJAR & REKAP SKOR CBT SISWA -->

@@ -908,7 +908,14 @@
       if (!hash.startsWith('#/')) return false;
       const parts = hash.replace(/^#\//, '').split('/');
       
-      if (parts[0] === 'home') {
+      if (parts[0] === 'diagnostik' || parts[0] === 'diagnostic') {
+        tkaSubj = 'wajib';
+        tkaPkgId = 'DIAG';
+        tkaQIdx = Math.max(0, (parseInt(parts[1]) || 1) - 1);
+        currentMode = 'tka';
+        renderAppView();
+        return true;
+      } else if (parts[0] === 'home') {
         currentMode = 'home';
         renderAppView();
         return true;
@@ -1148,20 +1155,36 @@
           const comp = window._cbtCompletedSubmissions && window._cbtCompletedSubmissions[`${tkaSubj}_${pkgId}`];
           const isDone = !!comp || (typeof userSessionScores !== 'undefined' && userSessionScores[`${tkaSubj}_${pkgId}_0`] !== undefined);
 
-          let btnClass = `px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition shrink-0 flex items-center gap-1 `;
+          const isDiag = (pkgId === 'DIAG');
+          let btnClass = isDiag
+            ? `px-3 py-1 rounded-lg text-xs font-mono font-black transition shrink-0 flex items-center gap-1.5 `
+            : `px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition shrink-0 flex items-center gap-1 `;
           if (isAct) {
-            btnClass += 'bg-amber-500 text-slate-950 shadow scale-105 font-black border-2 border-amber-300';
+            btnClass += isDiag
+              ? 'bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 shadow scale-105 font-black border-2 border-amber-200 ring-2 ring-amber-400/50'
+              : 'bg-amber-500 text-slate-950 shadow scale-105 font-black border-2 border-amber-300';
           } else if (comp) {
-            btnClass += 'bg-emerald-950/80 text-emerald-300 hover:bg-emerald-900 border border-emerald-500/50 shadow-sm';
+            btnClass += isDiag
+              ? 'bg-emerald-950 text-emerald-300 hover:bg-emerald-900 border-2 border-emerald-400/70 shadow-sm'
+              : 'bg-emerald-950/80 text-emerald-300 hover:bg-emerald-900 border border-emerald-500/50 shadow-sm';
           } else if (isDone) {
-            btnClass += 'bg-blue-950/80 text-blue-300 hover:bg-blue-900 border border-blue-500/50';
+            btnClass += isDiag
+              ? 'bg-blue-950 text-blue-300 hover:bg-blue-900 border-2 border-blue-400/70'
+              : 'bg-blue-950/80 text-blue-300 hover:bg-blue-900 border border-blue-500/50';
           } else {
-            btnClass += 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700/40';
+            btnClass += isDiag
+              ? 'bg-gradient-to-r from-amber-950/90 to-slate-900 text-amber-300 hover:bg-amber-900/60 border-2 border-amber-500/70 shadow-sm animate-pulse'
+              : 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700/40';
           }
 
           btn.className = btnClass;
-          btn.innerHTML = comp ? `<i class="fa-solid fa-check text-[10px] text-emerald-400"></i> ${pkgId}` : (isDone ? `<i class="fa-solid fa-check text-[10px] text-blue-400"></i> ${pkgId}` : pkgId);
-          btn.title = comp ? `${src[pkgId].title} (Selesai • Skor: ${comp.skor}/100)` : src[pkgId].title;
+          if (isDiag) {
+            btn.innerHTML = comp ? `<i class="fa-solid fa-circle-check text-[11px] text-emerald-400"></i> DIAG` : (isDone ? `<i class="fa-solid fa-check text-[11px] text-blue-400"></i> DIAG` : `🎯 DIAG`);
+            btn.title = comp ? `Tes Diagnostik Kemendikbud 2026 (Selesai • Skor: ${comp.skor}/100)` : `Tes Diagnostik TKA Kemendikbud 2026 (Pekan Intensif)`;
+          } else {
+            btn.innerHTML = comp ? `<i class="fa-solid fa-check text-[10px] text-emerald-400"></i> ${pkgId}` : (isDone ? `<i class="fa-solid fa-check text-[10px] text-blue-400"></i> ${pkgId}` : pkgId);
+            btn.title = comp ? `${src[pkgId].title} (Selesai • Skor: ${comp.skor}/100)` : src[pkgId].title;
+          }
           btn.onclick = () => {
             tkaPkgId = pkgId;
             tkaQIdx = 0;
@@ -5981,9 +6004,114 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         }
       }
 
-      // Render Boss Fight Conquered / Defeated Card
+      // Render Diagnostic 6-Cluster Matrix OR Boss Fight Card
       const bossContainer = document.getElementById('scorecard-boss-container');
       if (bossContainer) {
+        if (pkgId === 'DIAG') {
+          const qBobots = [1, 3, 1, 1, 1, 3, 1, 1, 1, 1, 1, 3, 1, 1, 3];
+          const clusterDefs = [
+            { id: 'K1', name: 'Aljabar & Fungsi', qIndices: [0, 1, 2, 3], maxPts: 6, icon: 'fa-shapes' },
+            { id: 'K2', name: 'Aritmetika & Data', qIndices: [4, 5, 6], maxPts: 5, icon: 'fa-calculator' },
+            { id: 'K3', name: 'Statistika & Peluang', qIndices: [7, 8, 9], maxPts: 3, icon: 'fa-chart-simple' },
+            { id: 'K4', name: 'Barisan & Deret', qIndices: [10, 11], maxPts: 4, icon: 'fa-arrow-trend-up' },
+            { id: 'K5', name: 'Geometri & Trigonometri', qIndices: [12, 13], maxPts: 2, icon: 'fa-ruler-combined' },
+            { id: 'K6', name: 'Penalaran Kuantitatif', qIndices: [14], maxPts: 3, icon: 'fa-brain' }
+          ];
+
+          let totalEarned = 0;
+          const clusterScores = clusterDefs.map(c => {
+            let pts = 0;
+            c.qIndices.forEach(qIdx => {
+              const isRight = (Array.isArray(evaluations) && evaluations[qIdx] !== undefined)
+                ? evaluations[qIdx]
+                : (userSessionScores ? userSessionScores[`${subj}_${pkgId}_${qIdx}`] : false);
+              if (isRight) {
+                pts += qBobots[qIdx];
+              }
+            });
+            totalEarned += pts;
+            const pct = Math.round((pts / c.maxPts) * 100);
+            let statusBadge = '';
+            let statusColor = '';
+            if (pct >= 70) {
+              statusBadge = 'Mahir / Siap TKA';
+              statusColor = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+            } else if (pct >= 40) {
+              statusBadge = 'Berkembang';
+              statusColor = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+            } else {
+              statusBadge = 'Perlu Intervensi';
+              statusColor = 'bg-rose-500/20 text-rose-300 border-rose-500/40';
+            }
+            return { ...c, pts, pct, statusBadge, statusColor };
+          });
+
+          const totalPct = Math.round((totalEarned / 23) * 100);
+          let overallStatus = '';
+          let overallDesc = '';
+          let overallBadgeClass = '';
+          if (totalPct >= 70) {
+            overallStatus = 'KATEGORI KESIAPAN: MAHIR (SIAP TKA UTAMA)';
+            overallDesc = 'Selamat! Penguasaan materi lintas 6 kluster sangat solid dan siap mengikuti pelaksanaan utama TKA 2-5 November 2026.';
+            overallBadgeClass = 'from-emerald-950 via-slate-900 to-emerald-950 border-emerald-400 text-emerald-300';
+          } else if (totalPct >= 40) {
+            overallStatus = 'KATEGORI KESIAPAN: BERKEMBANG (BUTUH DRILLING FOKUS)';
+            overallDesc = 'Capaian baik! Penguatan mandiri direkomendasikan pada kluster berkode kuning/merah selama Pekan Intensif 26-29 Oktober 2026.';
+            overallBadgeClass = 'from-amber-950 via-slate-900 to-amber-950 border-amber-400 text-amber-300';
+          } else {
+            overallStatus = 'KATEGORI KESIAPAN: PERLU INTERVENSI KHUSUS';
+            overallDesc = 'Direkomendasikan mengikuti Klinik Remedial & Pendampingan Terpadu bersama Mr. Ardi pada Pekan Intensif 26-29 Oktober 2026.';
+            overallBadgeClass = 'from-rose-950 via-slate-900 to-rose-950 border-rose-400 text-rose-300';
+          }
+
+          bossContainer.innerHTML = `
+            <div class="space-y-3 w-full text-left pt-2">
+              <div class="p-3.5 rounded-2xl border-2 bg-gradient-to-r ${overallBadgeClass} shadow-xl space-y-1">
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                  <span class="text-xs font-black tracking-wide uppercase flex items-center gap-1.5">
+                    <i class="fa-solid fa-clipboard-check text-amber-400"></i> ${overallStatus}
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-mono font-black text-xs shadow-sm">
+                    ${totalEarned} / 23 Poin (${totalPct}%)
+                  </span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-snug">
+                  ${overallDesc}
+                </p>
+              </div>
+
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                  PETA CAPAIAN 6 KLUSTER STANDAR KEMENDIKBUD:
+                </span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  ${clusterScores.map(cs => `
+                    <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 hover:border-slate-700 transition">
+                      <div class="flex items-center justify-between gap-1.5 text-xs">
+                        <span class="font-bold text-white flex items-center gap-1.5 truncate">
+                          <i class="fa-solid ${cs.icon} text-amber-400 text-[10px]"></i>
+                          <span class="truncate">${cs.id}: ${cs.name}</span>
+                        </span>
+                        <span class="font-mono font-black text-amber-400 text-[11px] shrink-0">
+                          ${cs.pts}/${cs.maxPts} pt
+                        </span>
+                      </div>
+                      <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-blue-500 to-amber-400 rounded-full" style="width: ${cs.pct}%"></div>
+                      </div>
+                      <div class="flex items-center justify-between text-[10px]">
+                        <span class="px-2 py-0.5 rounded border ${cs.statusColor} font-semibold">
+                          ${cs.statusBadge}
+                        </span>
+                        <span class="font-mono text-slate-400">${cs.pct}%</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
         // Ambil evaluasi Soal 9 (idx 8) dan Soal 10 (idx 9)
         const q8Val = (Array.isArray(evaluations) && evaluations[8] !== undefined)
           ? evaluations[8]
@@ -6026,6 +6154,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           `;
         }
       }
+        }
 
       // Matriks status butir soal Q1 s.d. Q10
       const matrixEl = document.getElementById('scorecard-q-matrix');
@@ -6216,7 +6345,33 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
     // Helper Tahapan Petualangan CBT (Minion -> Elite Guardian -> The Boss)
     function getCbtStageInfo(qIdx, totalQ, subj) {
       const isClil = subj === 'clil';
-      if (totalQ === 10) {
+      if (totalQ === 15) {
+        const diagClusters = [
+          { name: 'Aljabar & Fungsi', desc: 'Pemodelan Biaya & Optimasi UMKM (4 Soal • 6 Poin)', badge: '🎯 K1: ALJABAR & FUNGSI', bg: 'bg-emerald-950/70 border-emerald-500/40 text-emerald-300' },
+          { name: 'Aritmetika & Data', desc: 'Persentase Omzet & Perbandingan Volume (3 Soal • 5 Poin)', badge: '📊 K2: ARITMETIKA & DATA', bg: 'bg-cyan-950/70 border-cyan-500/40 text-cyan-300' },
+          { name: 'Statistika & Peluang', desc: 'Ukuran Letak & Peluang Pelajar Mandiri (3 Soal • 3 Poin)', badge: '🎲 K3: STATISTIKA & PELUANG', bg: 'bg-blue-950/70 border-blue-500/40 text-blue-300' },
+          { name: 'Barisan & Deret', desc: 'Pola Pertumbuhan Pengguna Startup (2 Soal • 4 Poin)', badge: '📈 K4: BARISAN & DERET', bg: 'bg-indigo-950/70 border-indigo-500/40 text-indigo-300' },
+          { name: 'Geometri & Trigonometri', desc: 'Kapasitas Silinder & Sudut Depresi Menara (2 Soal • 2 Poin)', badge: '📐 K5: GEOMETRI & TRIGONOMETRI', bg: 'bg-purple-950/70 border-purple-500/40 text-purple-300' },
+          { name: 'Penalaran Kuantitatif', desc: 'Kecukupan Data & Logika Himpunan Peserta (1 Soal • 3 Poin)', badge: '🧠 K6: PENALARAN KUANTITATIF', bg: 'bg-gradient-to-r from-amber-950/90 via-slate-900 to-amber-950/90 border-2 border-amber-400 text-amber-300 shadow-lg shadow-amber-950/50' }
+        ];
+        let cIdx = 0;
+        if (qIdx <= 3) cIdx = 0;
+        else if (qIdx <= 6) cIdx = 1;
+        else if (qIdx <= 9) cIdx = 2;
+        else if (qIdx <= 11) cIdx = 3;
+        else if (qIdx <= 13) cIdx = 4;
+        else cIdx = 5;
+
+        const c = diagClusters[cIdx];
+        return {
+          key: 'diag_k' + (cIdx + 1),
+          badge: c.badge,
+          desc: c.desc,
+          bg: c.bg,
+          pillLabel: 'K' + (cIdx + 1),
+          isBoss: (qIdx === 14)
+        };
+      } else if (totalQ === 10) {
         if (qIdx < 4) {
           return {
             key: 'minion',
@@ -6393,8 +6548,15 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           const isAnswered = scoreVal !== undefined;
           const stage = getCbtStageInfo(idx, totalQuestions, tkaSubj);
 
-          // Divider pemisah visual antar-tahap petualangan (Minion -> Elite -> Boss)
-          if (totalQuestions === 10) {
+          // Divider pemisah visual antar-tahap petualangan (Minion -> Elite -> Boss / 6 Kluster Diagnostik)
+          if (totalQuestions === 15) {
+            if ([4, 7, 10, 12, 14].includes(idx)) {
+              const divEl = document.createElement('div');
+              divEl.className = 'h-5 w-px bg-slate-700/80 mx-1 shrink-0';
+              divEl.title = 'Batas Kluster Standar Kemendikbud';
+              pillsContainer.appendChild(divEl);
+            }
+          } else if (totalQuestions === 10) {
             if (idx === 4) {
               const divEl = document.createElement('div');
               divEl.className = 'h-5 w-px bg-slate-700/80 mx-1 shrink-0';
@@ -6765,7 +6927,23 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         tampilkanToastBossBattle(tkaSubj);
       }
 
-      const stageBannerHtml = `
+      const stageBannerHtml = (pkg.questions && pkg.questions.length === 15) ? `
+        <div class="p-2.5 px-3.5 rounded-xl border flex flex-wrap items-center justify-between gap-2 shadow-sm ${stageInfo.bg}">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="font-black text-xs uppercase tracking-wider font-mono">${stageInfo.badge}</span>
+            <span class="text-slate-400 text-xs hidden sm:inline">&bull;</span>
+            <span class="text-[11px] font-medium opacity-90 hidden sm:inline">${stageInfo.desc}</span>
+          </div>
+          <div class="flex items-center gap-1 font-mono text-[9px] shrink-0 overflow-x-auto">
+            <span class="px-1.5 py-0.5 rounded ${tkaQIdx <= 3 ? 'bg-emerald-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K1 (1-4)</span>
+            <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 4 && tkaQIdx <= 6 ? 'bg-cyan-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K2 (5-7)</span>
+            <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 7 && tkaQIdx <= 9 ? 'bg-blue-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K3 (8-10)</span>
+            <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 10 && tkaQIdx <= 11 ? 'bg-indigo-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K4 (11-12)</span>
+            <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 12 && tkaQIdx <= 13 ? 'bg-purple-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K5 (13-14)</span>
+            <span class="px-1.5 py-0.5 rounded ${tkaQIdx === 14 ? 'bg-amber-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K6 (15)</span>
+          </div>
+        </div>
+      ` : `
         <div class="p-2.5 px-3.5 rounded-xl border flex flex-wrap items-center justify-between gap-2 shadow-sm ${stageInfo.bg}">
           <div class="flex items-center gap-2 min-w-0">
             <span class="font-black text-xs uppercase tracking-wider font-mono">${stageInfo.badge}</span>
@@ -10514,3 +10692,22 @@ window.openTkaForCurrentMeeting = openTkaForCurrentMeeting;
 window.switchSubject = switchSubject;
 window.parseHashRoute = parseHashRoute;
 if (typeof db !== 'undefined') window.db = db;
+
+    // HELPER TES DIAGNOSTIK KEMENDIKBUD 2026 (PEKAN INTENSIF)
+    window.openDiagnostikTka = function(qIdx) {
+      tkaSubj = 'wajib';
+      tkaPkgId = 'DIAG';
+      tkaQIdx = (qIdx !== undefined) ? qIdx : 0;
+      currentMode = 'tka';
+      renderAppView();
+    };
+
+    window.bukaDiagnostikScorecard = function() {
+      tkaSubj = 'wajib';
+      tkaPkgId = 'DIAG';
+      currentMode = 'tka';
+      renderAppView();
+      if (typeof bukaReviewModeCbt === 'function') {
+        bukaReviewModeCbt();
+      }
+    };
