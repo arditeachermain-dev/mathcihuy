@@ -2248,7 +2248,7 @@ const NAMA_TINGKAT = 'XII';
         },
         {
           "problem": "Tentukan persamaan kedua garis singgung lingkaran $x^2 + y^2 = 25$ yang ditarik melalui titik $P(7, 1)$!",
-          "solution": "Langkah 1: Gunakan titik singgung $(3, 4)$ dan $(4, -3)$ yang telah diperoleh.\nLangkah 2: PGSL di $(3, 4)$: $3x + 4y = 25$.\nLangkah 3: PGSL di $(4, -3)$: $4x - 3y = 25$.\nKesimpulan: Persamaan kedua garis singgung adalah $3x + 4y = 25$ dan $4x - 3y = 25$."
+          "solution": "Langkah 1: Menentukan titik singgung melalui garis polar titik luar $P(7, 1)$:\n- Persamaan garis polar: $7x + 1y = 25 \\implies y = 25 - 7x$.\n- Substitusi ke lingkaran: $x^2 + (25 - 7x)^2 = 25 \\implies 50x^2 - 350x + 600 = 0 \\implies x^2 - 7x + 12 = 0 \\implies (x - 3)(x - 4) = 0$.\n- Diperoleh $x_1 = 3 \\implies y_1 = 25 - 7(3) = 4$ dan $x_2 = 4 \\implies y_2 = 25 - 7(4) = -3$.\n$\\implies$ Kedua titik singgungnya adalah $(3, 4)$ dan $(4, -3)$.\nLangkah 2: Persamaan garis singgung di titik $(3, 4)$ (bagi adil): $x_1 x + y_1 y = 25 \\implies 3x + 4y = 25$.\nLangkah 3: Persamaan garis singgung di titik $(4, -3)$ (bagi adil): $x_1 x + y_1 y = 25 \\implies 4x - 3y = 25$.\nKesimpulan: Persamaan kedua garis singgung adalah $3x + 4y = 25$ dan $4x - 3y = 25$."
         },
         {
           "problem": "Tentukan panjang tali busur kontak antara dua titik singgung yang ditarik dari titik $P(7, 1)$ ke lingkaran $x^2 + y^2 = 25$!",
