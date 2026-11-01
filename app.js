@@ -185,28 +185,7 @@
         return true;
       }
 
-      // 4. Feature modals (Daily Raid, Raid Boss, Skill Tree, Share Card, Leaderboard, Rapor, CBT Scorecard, Guru Dashboard, Search, Jadwal, Analytics, Lab, Rumus, dll.)
-      const dailyRaidModal = document.getElementById('daily-raid-modal');
-      if (dailyRaidModal && !dailyRaidModal.classList.contains('hidden') && dailyRaidModal.style.display !== 'none') {
-        if (typeof window.closeDailyRaidModal === 'function') window.closeDailyRaidModal();
-        else {
-          dailyRaidModal.classList.add('hidden');
-          dailyRaidModal.classList.remove('flex');
-        }
-        document.body.classList.remove('overflow-hidden');
-        document.body.style.overflow = '';
-        return true;
-      }
-
-      const raidBossModal = document.getElementById('raid-boss-modal');
-      if (raidBossModal && !raidBossModal.classList.contains('hidden') && raidBossModal.style.display !== 'none') {
-        if (typeof window.closeRaidBossLeaderboardModal === 'function') window.closeRaidBossLeaderboardModal();
-        else {
-          raidBossModal.classList.add('hidden');
-          raidBossModal.classList.remove('flex');
-        }
-        return true;
-      }
+      // 4. Feature modals (Skill Tree, Share Card, Leaderboard, Rapor, CBT Scorecard, Guru Dashboard, Search, Jadwal, Analytics, Lab, Rumus, dll.)
 
       const skillTreeModal = document.getElementById('skill-tree-modal');
       if (skillTreeModal && !skillTreeModal.classList.contains('hidden') && skillTreeModal.style.display !== 'none') {
@@ -2007,7 +1986,28 @@
         const sess = localStorage.getItem(SESSION_KEY);
         if (!sess) return null;
         try {
-            const parsed = JSON.parse(sess);
+            let parsed = JSON.parse(sess);
+            if (!parsed || typeof parsed !== 'object') return null;
+
+            // Defensive Normalization: Dukung flat session objek dari automated test & login legacy
+            if (!parsed.timestamp) {
+                parsed.timestamp = Date.now();
+            }
+            if (!parsed.type && (parsed.role || parsed.nis)) {
+                parsed.type = parsed.role === 'guru' ? 'guru' : 'siswa';
+            }
+            if (!parsed.data && (parsed.nis || parsed.nama || parsed.name)) {
+                parsed.data = {
+                    nis: parsed.nis || '',
+                    nama: parsed.nama || parsed.name || '',
+                    name: parsed.nama || parsed.name || '',
+                    kelas: parsed.kelas || parsed.kelas_name || 'XII F.1',
+                    kelas_name: parsed.kelas || parsed.kelas_name || 'XII F.1',
+                    role: parsed.role || parsed.type || 'siswa',
+                    access_level: parsed.access_level || 'full'
+                };
+            }
+
             if (Date.now() - (parsed.timestamp || 0) > SESSION_TIMEOUT) {
                 localStorage.removeItem(SESSION_KEY);
                 return null;

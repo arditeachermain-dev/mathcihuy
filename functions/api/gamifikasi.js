@@ -713,398 +713,20 @@ export function getWeeklyEventStatus(exams, discordQuizRows, hasAngket) {
 // 4. GET RAID BOSS DATA (TITAN STATIGO: 300.000 HP, MULTI-WEEK CAMPAIGN)
 // =============================================================================
 export async function getRaidBossData(db, nis, targetWeek) {
-  const MAX_BOSS_HP = 300000;
-  
-  // Waktu transisi Pekan 2 (W42): Senin, 12 Oktober 2026 pukul 05:00 WIB (2026-10-11T22:00:00.000Z)
-  // Waktu transisi Pekan 3 (W43): Senin, 19 Oktober 2026 pukul 00:00 WIB (2026-10-18T17:00:00.000Z)
-  const now = new Date();
-  const w42LaunchTime = new Date('2026-10-11T22:00:00.000Z').getTime();
-  const w43LaunchTime = new Date('2026-10-18T17:00:00.000Z').getTime();
-  const activeWeek = targetWeek || (now.getTime() >= w43LaunchTime ? '2026-W43' : (now.getTime() >= w42LaunchTime ? '2026-W42' : '2026-W41'));
-  const isW43 = (activeWeek === '2026-W43');
-  const isW42 = (activeWeek === '2026-W42');
-
-  const bossTitle = isW43
-    ? 'TITAN STATIGO: GLADI BERSIH TKA NASIONAL (KELAS 10 - 12)'
-    : (isW42 ? 'TITAN STATIGO: RONDE 2 (MEDIAN, KUARTIL & ATURAN RANTAI)' : 'TITAN STATIGO: KOLO-SOS FREKUENSI & DERIVATIF');
-  const bossSubtitle = isW43
-    ? 'Simulasi TKA Pusmendik: Fase E (K10), Fase F (K11), Fase F Lanjut (K12) & Peminatan'
-    : (isW42 ? 'Event Pertemuan: Wajib P17 & P18 • Minat P18 & P19' : 'Event Pertemuan: Wajib P15 & P16 • Minat P17');
-  const bossDesc = isW43
-    ? 'Titan Statigo dalam wujud puncak Asesmen Nasional! Uji ketajaman bernalar 5 model Pusmendik: Isian Numerik, Benar/Salah, Kompleks, Kausatif, dan Pilihan Ganda mencakup seluruh materi Kelas 10, 11, hingga 12!'
-    : (isW42
-      ? 'Titan Statigo bangkit kembali dengan ketahanan 300.000 HP! Kuasai interpolasi median, kuartil, desil, IQR, serta aturan rantai dan turunan perkalian/pembagian trigonometri untuk menumbangkannya!'
-      : 'Monster raksasa penunggu gerbang PTS-PAS yang terbuat dari balok-balok histogram dan gelombang kurva trigonometri. Banyak-banyakan selesaikan soal untuk menumbangkan Titan!');
-
-  if (!db) {
-    return {
-      boss_id: 'titan_statigo',
-      boss_name: bossTitle,
-      boss_subtitle: bossSubtitle,
-      boss_desc: bossDesc,
-      week_id: activeWeek,
-      max_hp: MAX_BOSS_HP,
-      current_hp: 300000,
-      total_damage_dealt: 0,
-      pct_hp_remaining: 100,
-      is_defeated: false,
-      phase: 'FASE 1: BATTLE COMMENCED',
-      total_attackers: 0,
-      days_remaining: 1,
-      hours_remaining: 20,
-      target_packages: [],
-      user_stats: null,
-      top_attackers: [],
-      leaderboard: []
-    };
-  }
-
-  try {
-    const nowWib = new Date(Date.now() + 7 * 3600 * 1000);
-    const dayOfWeek = nowWib.getUTCDay();
-    const diffToMonday = (dayOfWeek === 0 ? -6 : 1 - dayOfWeek);
-    const mondayWib = new Date(nowWib);
-    mondayWib.setUTCDate(nowWib.getUTCDate() + diffToMonday);
-    mondayWib.setUTCHours(0, 0, 0, 0);
-    const mondayStr = mondayWib.toISOString().slice(0, 10);
-    const todayStr = nowWib.toISOString().slice(0, 10);
-
-    let rows = [];
-    if (isW43) {
-      // Query untuk Pekan 3 (W43): Gladi Bersih TKA Nasional (WEEKLY_2026-W43%)
-      rows = (await db.prepare(`
-        SELECT n.nis, s.nama, s.kelas,
-          SUM(
-            CASE 
-              WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W43%') AND DATE(n.waktu_submit) >= '2026-10-18') 
-              THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              ELSE 0 
-            END
-          ) as daily_damage,
-          SUM(CASE WHEN n.skor = 100 THEN 1 ELSE 0 END) as critical_hits,
-          SUM(
-            CASE 
-              WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W43%') AND DATE(n.waktu_submit) >= '2026-10-18') 
-              THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              ELSE 0
-            END
-          ) as total_damage
-        FROM nilai_cbt n
-        JOIN siswa s ON n.nis = s.nis
-        WHERE ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W43%') AND DATE(n.waktu_submit) >= '2026-10-18')
-          AND (n.is_flagged IS NULL OR n.is_flagged = 0)
-        GROUP BY n.nis
-        ORDER BY total_damage DESC, critical_hits DESC, n.nis ASC
-      `).all()).results || [];
-    } else if (isW42) {
-      // Query untuk Pekan 2 (W42): Wajib P17/P18 dan Minat P18/P19
-      rows = (await db.prepare(`
-        SELECT n.nis, s.nama, s.kelas,
-          MAX(CASE WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor ELSE 0 END) as p17_wajib_skor,
-          MAX(CASE WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P18','p18')) THEN n.skor ELSE 0 END) as p18_wajib_skor,
-          MAX(CASE WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P18','p18')) THEN n.skor ELSE 0 END) as p18_minat_skor,
-          MAX(CASE WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P19','p19')) THEN n.skor ELSE 0 END) as p19_minat_skor,
-          SUM(
-            CASE 
-              WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W42%') AND DATE(n.waktu_submit) >= '2026-10-12') 
-              THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              ELSE 0 
-            END
-          ) as daily_damage,
-          SUM(CASE WHEN n.skor = 100 THEN 1 ELSE 0 END) as critical_hits,
-          SUM(
-            CASE 
-              WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P18','p18')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P18','p18')) THEN n.skor * 15 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P19','p19')) THEN n.skor * 15 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W42%') AND DATE(n.waktu_submit) >= '2026-10-12') 
-              THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              ELSE 0
-            END
-          ) as total_damage
-        FROM nilai_cbt n
-        JOIN siswa s ON n.nis = s.nis
-        WHERE ((n.mapel = 'wajib' AND n.kode_pertemuan IN ('P17','P18','p17','p18')) 
-           OR (n.mapel = 'minat' AND n.kode_pertemuan IN ('P18','P19','p18','p19'))
-           OR ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY_2026-W42%') AND DATE(n.waktu_submit) >= '2026-10-12'))
-          AND (n.is_flagged IS NULL OR n.is_flagged = 0)
-        GROUP BY n.nis
-        ORDER BY total_damage DESC, critical_hits DESC, n.nis ASC
-      `).all()).results || [];
-    } else {
-      // Query untuk Pekan 1 (W41): Wajib P15/P16 dan Minat P17
-      rows = (await db.prepare(`
-        SELECT n.nis, s.nama, s.kelas,
-          MAX(CASE WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','p15')) THEN n.skor ELSE 0 END) as p15_wajib_skor,
-          MAX(CASE WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P16','p16')) THEN n.skor ELSE 0 END) as p16_wajib_skor,
-          MAX(CASE WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor ELSE 0 END) as p17_minat_skor,
-          SUM(
-            CASE 
-              WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY%') AND DATE(n.waktu_submit) >= ?) 
-              THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              ELSE 0 
-            END
-          ) as daily_damage,
-          SUM(CASE WHEN n.skor = 100 THEN 1 ELSE 0 END) as critical_hits,
-          SUM(
-            CASE 
-              WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','p15')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              WHEN (n.mapel = 'wajib' AND n.kode_pertemuan IN ('P16','p16')) THEN n.skor * 10 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              WHEN (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17')) THEN n.skor * 15 + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              WHEN ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY%') AND DATE(n.waktu_submit) >= ?) 
-              THEN (n.jumlah_benar * 100) + (CASE WHEN n.skor = 100 THEN 500 ELSE 0 END)
-              ELSE 0
-            END
-          ) as total_damage
-        FROM nilai_cbt n
-        JOIN siswa s ON n.nis = s.nis
-        WHERE ((n.mapel = 'wajib' AND n.kode_pertemuan IN ('P15','P16','p15','p16')) 
-           OR (n.mapel = 'minat' AND n.kode_pertemuan IN ('P17','p17'))
-           OR ((n.mapel = 'raid' OR n.kode_pertemuan LIKE 'DAILY%' OR n.kode_pertemuan LIKE 'RAID_DAILY%' OR n.kode_pertemuan LIKE 'WEEKLY%') AND DATE(n.waktu_submit) >= ?))
-          AND (n.is_flagged IS NULL OR n.is_flagged = 0)
-        GROUP BY n.nis
-        ORDER BY total_damage DESC, critical_hits DESC, n.nis ASC
-      `).bind(mondayStr, mondayStr, mondayStr).all()).results || [];
-    }
-
-    let totalGlobalDamage = 0;
-    const leaderboard = rows.map((r, idx) => {
-      const dmg = Number(r.total_damage) || 0;
-      totalGlobalDamage += dmg;
-      const rank = idx + 1;
-      let rewardXp = 200;
-      let title = 'Brave Warrior';
-      if (rank === 1) { rewardXp = 500; title = 'Titan Slayer'; }
-      else if (rank <= 3) { rewardXp = 400; title = 'Grand Conqueror'; }
-      else if (rank <= 10) { rewardXp = 300; title = 'Raid Commander'; }
-
-      const item = {
-        rank: rank,
-        nis: r.nis,
-        nama: r.nama,
-        kelas: r.kelas,
-        total_damage: dmg,
-        daily_damage: Number(r.daily_damage) || 0,
-        critical_hits: Number(r.critical_hits) || 0,
-        reward_xp: rewardXp,
-        title: title
-      };
-
-      if (isW42) {
-        item.p17_wajib_skor = Number(r.p17_wajib_skor) || 0;
-        item.p18_wajib_skor = Number(r.p18_wajib_skor) || 0;
-        item.p18_minat_skor = Number(r.p18_minat_skor) || 0;
-        item.p19_minat_skor = Number(r.p19_minat_skor) || 0;
-      } else {
-        item.p15_wajib_skor = Number(r.p15_wajib_skor) || 0;
-        item.p16_wajib_skor = Number(r.p16_wajib_skor) || 0;
-        item.p17_minat_skor = Number(r.p17_minat_skor) || 0;
-      }
-
-      return item;
-    });
-
-    const currentHp = Math.max(0, MAX_BOSS_HP - totalGlobalDamage);
-    const pctRemaining = Math.max(0, Math.min(100, Math.round((currentHp / MAX_BOSS_HP) * 100)));
-    const isDefeated = currentHp <= 0;
-
-    let phase = 'FASE 1: BATTLE COMMENCED';
-    if (isDefeated) {
-      phase = 'DEFEATED: TITAN TUMBANG!';
-    } else if (pctRemaining <= 25) {
-      phase = 'FASE 3: CRITICAL RAGE';
-    } else if (pctRemaining <= 60) {
-      phase = 'FASE 2: WEAKENED';
-    }
-
-    // Status Serangan Harian/Mingguan untuk NIS aktif
-    let todayDailyRaid = {
-      completed: false,
-      skor: 0,
-      jumlah_benar: 0,
-      jumlah_soal: 50,
-      damage_earned: 0,
-      waktu_submit: null
-    };
-
-    let userStats = null;
-    if (nis) {
-      const cleanNis = String(nis).trim();
-      const found = leaderboard.find(l => String(l.nis) === cleanNis);
-      if (found) {
-        userStats = { ...found };
-      } else {
-        userStats = {
-          rank: leaderboard.length + 1,
-          nis: cleanNis,
-          nama: 'Kamu',
-          kelas: 'XII',
-          total_damage: 0,
-          daily_damage: 0,
-          critical_hits: 0,
-          reward_xp: 0,
-          title: 'Belum Menyerang'
-        };
-        if (isW42) {
-          userStats.p17_wajib_skor = 0;
-          userStats.p18_wajib_skor = 0;
-          userStats.p18_minat_skor = 0;
-          userStats.p19_minat_skor = 0;
-        } else {
-          userStats.p15_wajib_skor = 0;
-          userStats.p16_wajib_skor = 0;
-          userStats.p17_minat_skor = 0;
-        }
-      }
-
-      try {
-        const todayRow = await db.prepare(
-          "SELECT skor, jumlah_soal, jumlah_benar, jumlah_salah, waktu_submit FROM nilai_cbt WHERE nis = ? AND (mapel = 'raid' OR kode_pertemuan LIKE 'DAILY%' OR kode_pertemuan LIKE 'RAID_DAILY%' OR kode_pertemuan LIKE 'WEEKLY%') AND DATE(waktu_submit) = ? ORDER BY id DESC LIMIT 1"
-        ).bind(cleanNis, todayStr).first();
-        if (todayRow) {
-          const isWeekly = String(todayRow.kode_pertemuan || '').toUpperCase().includes('WEEKLY');
-          const totalJawab = (Number(todayRow.jumlah_benar) || 0) + (Number(todayRow.jumlah_salah) || 0);
-          const isFinished = isWeekly ? (totalJawab >= 50) : true;
-          todayDailyRaid = {
-            completed: isFinished,
-            skor: Number(todayRow.skor) || 0,
-            jumlah_benar: Number(todayRow.jumlah_benar) || 0,
-            jumlah_soal: Number(todayRow.jumlah_soal) || (isWeekly ? 50 : 10),
-            damage_earned: (Number(todayRow.jumlah_benar) || 0) * 100 + (Number(todayRow.skor) === 100 ? 500 : 0),
-            waktu_submit: todayRow.waktu_submit
-          };
-        }
-      } catch (e) {
-        console.warn('Check todayDailyRaid error:', e);
-      }
-      userStats.today_daily_raid = todayDailyRaid;
-    }
-
-    // Waktu reset mingguan (Minggu 23:59 WIB)
-    const diffToSunday = (7 - dayOfWeek) % 7;
-    const sundayWib = new Date(nowWib);
-    sundayWib.setUTCDate(nowWib.getUTCDate() + (dayOfWeek === 0 ? 0 : diffToSunday));
-    sundayWib.setUTCHours(23, 59, 59, 999);
-    const msRemaining = Math.max(0, sundayWib.getTime() - nowWib.getTime());
-    const hoursRemaining = Math.floor(msRemaining / (1000 * 3600));
-    const daysRemaining = Math.floor(hoursRemaining / 24);
-
-    const targetPackages = isW42 ? [
-      {
-        mapel: 'raid',
-        kode: 'DAILY',
-        title: 'Misi Serangan Mingguan Titan (W42)',
-        subtitle: '50 Soal TKA Skuad (Wajib P17/P18 & Minat P18/P19)',
-        dmg_formula: '100 DMG / soal + Real-Time Combo Multiplier (hingga 2.0x DMG)',
-        max_dmg: 10000,
-        is_daily: true
-      },
-      {
-        mapel: 'wajib',
-        kode: 'P17',
-        title: 'Median dan Modus Data Berkelompok',
-        dmg_formula: '100 DMG / soal + 500 Bonus Skor 100',
-        max_dmg: 1500
-      },
-      {
-        mapel: 'wajib',
-        kode: 'P18',
-        title: 'Ukuran Letak Data (Kuartil, Desil, IQR, Outlier)',
-        dmg_formula: '100 DMG / soal + 500 Bonus Skor 100',
-        max_dmg: 1500
-      },
-      {
-        mapel: 'minat',
-        kode: 'P18',
-        title: 'Turunan Trigonometri Aturan Rantai & Pangkat',
-        dmg_formula: '150 DMG / soal + 500 Bonus Skor 100',
-        max_dmg: 2000
-      },
-      {
-        mapel: 'minat',
-        kode: 'P19',
-        title: 'Turunan Perkalian (u·v) & Pembagian (u/v)',
-        dmg_formula: '150 DMG / soal + 500 Bonus Skor 100',
-        max_dmg: 2000
-      }
-    ] : [
-      {
-        mapel: 'raid',
-        kode: 'DAILY',
-        title: 'Misi Serangan Harian Titan',
-        subtitle: '10 Soal Acak (Wajib P15, P16 & Minat P17)',
-        dmg_formula: '100 DMG / soal + 500 Bonus Critical (Maks 1.500 DMG / hari)',
-        max_dmg: 1500,
-        is_daily: true
-      },
-      {
-        mapel: 'wajib',
-        kode: 'P15',
-        title: 'Histogram, Poligon & Ogive',
-        dmg_formula: '100 DMG / soal + 500 Bonus Skor 100',
-        max_dmg: 1500
-      },
-      {
-        mapel: 'wajib',
-        kode: 'P16',
-        title: 'Rata-rata Hitung (Mean) Berkelompok',
-        dmg_formula: '100 DMG / soal + 500 Bonus Skor 100',
-        max_dmg: 1500
-      },
-      {
-        mapel: 'minat',
-        kode: 'P17',
-        title: 'Rumus Dasar Turunan Trigonometri',
-        dmg_formula: '150 DMG / soal + 500 Bonus Skor 100',
-        max_dmg: 2000
-      }
-    ];
-
-    return {
-      boss_id: 'titan_statigo',
-      boss_name: bossTitle,
-      boss_subtitle: bossSubtitle,
-      boss_desc: bossDesc,
-      week_id: activeWeek,
-      max_hp: MAX_BOSS_HP,
-      current_hp: currentHp,
-      total_damage_dealt: totalGlobalDamage,
-      pct_hp_remaining: pctRemaining,
-      is_defeated: isDefeated,
-      phase: phase,
-      total_attackers: leaderboard.length,
-      days_remaining: daysRemaining,
-      hours_remaining: hoursRemaining,
-      today_daily_raid: todayDailyRaid,
-      target_packages: targetPackages,
-      user_stats: userStats,
-      top_attackers: leaderboard.slice(0, 10),
-      leaderboard: leaderboard
-    };
-  } catch (err) {
-    console.error('Error getRaidBossData:', err);
-    return {
-      boss_id: 'titan_statigo',
-      boss_name: bossTitle,
-      boss_subtitle: bossSubtitle,
-      boss_desc: bossDesc,
-      week_id: activeWeek,
-      max_hp: MAX_BOSS_HP,
-      current_hp: 300000,
-      total_damage_dealt: 0,
-      pct_hp_remaining: 100,
-      is_defeated: false,
-      phase: 'FASE 1: BATTLE COMMENCED',
-      total_attackers: 0,
-      days_remaining: 1,
-      hours_remaining: 20,
-      target_packages: [],
-      user_stats: null,
-      top_attackers: [],
-      leaderboard: []
-    };
-  }
+  return {
+    disabled: true,
+    boss_id: null,
+    boss_name: null,
+    is_defeated: false,
+    max_hp: 0,
+    current_hp: 0,
+    total_damage_dealt: 0,
+    pct_hp_remaining: 0,
+    total_attackers: 0,
+    leaderboard: [],
+    user_stats: null,
+    today_daily_raid: null
+  };
 }
 
 // Rekalkulasi profil gamifikasi satu siswa secara transaksional
@@ -1237,16 +859,7 @@ export async function updateStudentGamification(db, nis) {
   const weeklyEvent = getWeeklyEventStatus(exams || [], quizRowsList || [], hasAngket);
   totalXp += weeklyEvent.earned_bonus_xp;
 
-  try {
-    const raidBoss = await getRaidBossData(db, cleanNis);
-    if (raidBoss && raidBoss.user_stats) {
-      totalXp += (raidBoss.user_stats.reward_xp || 0);
-      if (raidBoss.is_defeated) totalXp += 250;
-      if (raidBoss.user_stats.total_damage > 0) badges.push('titan_slayer');
-    }
-  } catch (e) {
-    console.warn('Raid boss calc in updateStudentGamification:', e);
-  }
+  // Note: Raid boss XP calculation discontinued
 
   // Lencana Karakter Reflektif & Perisai Streak
   if (hasAngket) {
@@ -1387,16 +1000,14 @@ export async function onRequestGet(context) {
     const limit = Math.min(100, Math.max(1, parseInt(url.searchParams.get('limit') || '10', 10)));
     const offset = Math.max(0, parseInt(url.searchParams.get('offset') || '0', 10));
 
-    // A.0. JIKA REQUEST RAID BOSS LEADERBOARD & DATA
+    // A.0. JIKA REQUEST RAID BOSS LEADERBOARD & DATA (FITUR DIHAPUS RESMI)
     if (url.searchParams.has('raid_boss') || url.searchParams.get('type') === 'raid_boss' || url.searchParams.has('daily_raid')) {
-      const targetNis = url.searchParams.get('nis') || '';
-      const targetWeek = url.searchParams.get('week') || '';
-      const raidBoss = await getRaidBossData(db, targetNis, targetWeek);
       return jsonResponse({
         success: true,
-        today_daily_raid: raidBoss.today_daily_raid || null,
-        user_stats: raidBoss.user_stats || null,
-        raid_boss: raidBoss
+        disabled: true,
+        today_daily_raid: null,
+        user_stats: null,
+        raid_boss: null
       });
     }
 
@@ -1509,9 +1120,7 @@ export async function onRequestGet(context) {
         streakShields = sInfo.shields_remaining;
         isShieldActive = sInfo.is_shield_active;
         weeklyEvent = getWeeklyEventStatus(exams || [], quizRows || [], hasAngket);
-        try {
-          raidBoss = await getRaidBossData(db, cleanNis);
-        } catch (eRaid) {}
+        // raidBoss discontinued
       } catch (e) {}
 
       const enrichedBadges = badgesList.map(bId => BADGE_CATALOG[bId] || { id: bId, name: bId, icon: 'fa-solid fa-award', color: '#787774', bg: '#F0EFEA', desc: '' });
@@ -1543,7 +1152,7 @@ export async function onRequestGet(context) {
           streak_shields: streakShields,
           is_shield_active: isShieldActive,
           weekly_event: weeklyEvent,
-          raid_boss: raidBoss,
+          raid_boss: null,
           last_active_date: profile.last_active_date,
           total_ujian: profile.total_ujian,
           total_sempurna: profile.total_sempurna,

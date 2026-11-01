@@ -282,12 +282,8 @@
     if (!target) return;
     const t = String(target).trim();
     if (t === '#raid-boss' || t === '#boss' || t === '#weekly-event-card') {
-      const el = document.getElementById('weekly-event-card') || document.getElementById('raid-boss') || document.getElementById('boss-daily-raid-banner');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        el.classList.add('ring-2', 'ring-amber-500', 'transition-all');
-        setTimeout(() => el.classList.remove('ring-2', 'ring-amber-500'), 2500);
-      }
+      const el = document.getElementById('home') || document.querySelector('main');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
     if (t === '#rapor') {
@@ -332,7 +328,7 @@
       info: { icon: 'fa-solid fa-bullhorn', color: '#0284C7', bg: '#F0F9FF', label: 'Pengumuman Resmi' },
       warning: { icon: 'fa-solid fa-triangle-exclamation', color: '#F59E0B', bg: '#FFFBEB', label: 'Pemberitahuan Sistem' },
       success: { icon: 'fa-solid fa-circle-check', color: '#059669', bg: '#ECFDF5', label: 'Verifikasi Berhasil' },
-      event: { icon: 'fa-solid fa-shield-halved', color: '#8B5CF6', bg: '#FAF5FF', label: 'Raid Boss Event' },
+      event: { icon: 'fa-solid fa-shield-halved', color: '#8B5CF6', bg: '#FAF5FF', label: 'Event Khusus' },
       prestasi: { icon: 'fa-solid fa-trophy', color: '#D97706', bg: '#FFFBEB', label: 'Prestasi &amp; Rapor' }
     };
 
