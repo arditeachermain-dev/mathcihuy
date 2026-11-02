@@ -748,3 +748,17 @@
   }
 
 })();
+
+
+// Global Safe Modal Aliases for Test Compatibility
+window.openNotifikasiModal = window.openNotifikasiModal || window.toggleNotifikasiModal;
+window.openLaporKendalaModal = window.openLaporKendalaModal || window.openLaporModal;
+window.closeLaporKendalaModal = window.closeLaporKendalaModal || window.closeLaporModal;
+window.openRumusModal = window.openRumusModal || window.openRumusSaku;
+window.closeRumusModal = window.closeRumusModal || window.closeRumusSaku;
+window.openLabModal = window.openLabModal || window.openLab;
+window.closeLabModal = window.closeLabModal || window.closeLab;
+window.openQuickSearch = window.openQuickSearch || window.openSearchModal;
+window.closeQuickSearch = window.closeQuickSearch || window.closeSearchModal;
+window.openAngketRefleksiModal = window.openAngketRefleksiModal || window.openAngketModal;
+window.closeAngketRefleksiModal = window.closeAngketRefleksiModal || window.closeAngketModal;
