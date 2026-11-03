@@ -368,7 +368,7 @@
       --lux-blue:    #2563EB;   /* Royal Blue  */
       --lux-gold:    #F59E0B;   /* Gold Amber  */
       --lux-jade:    #10B981;   /* Emerald Jade */
-      --lux-cyan:    #06B6D4;   /* Cyan Ice    */
+      --lux-cyan:    #38BDF8;   /* Cyan Ice    */
       --lux-gold-lt: #FDE68A;   /* penekanan rumus */
     }
 
@@ -559,7 +559,7 @@
     }
     .quick-act:hover {
       color: #fff; background: rgba(var(--qas), 0.30);
-      box-shadow: 0 0 16px rgba(var(--qas), 0.35);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
     .quick-act .qa-nm { display: none; }
     @media (min-width: 1024px) { .quick-act .qa-nm { display: inline; } }
@@ -645,6 +645,7 @@
       --lux-line: rgba(15, 23, 42, 0.10);
       --lux-line-2: rgba(15, 23, 42, 0.18);
       --lux-gold-lt: #92400E;
+      --lux-cyan: #0284C7;
       background: #EEF2F7 !important;
     }
     html.terang body { color: #0F172A; }
@@ -1230,7 +1231,7 @@
     .peta-node.al-wajib .peta-kode    { fill: #FBBF24; }
     .peta-node.al-wajib .peta-cincin  { stroke: #F59E0B; }
     .peta-node.al-minat .peta-lingkar { fill: rgba(56, 189, 248, .14); }
-    .peta-node.al-minat .peta-kode    { fill: #67E8F9; }
+    .peta-node.al-minat .peta-kode    { fill: #38BDF8; }
     .peta-node.al-minat .peta-cincin  { stroke: #38BDF8; }
     .peta-node.al-clil  .peta-lingkar { fill: rgba(52, 211, 153, .14); }
     .peta-node.al-clil  .peta-kode    { fill: #6EE7B7; }
@@ -1287,7 +1288,7 @@
       .peta-ket-akhir { margin-left: 0; }
       .peta-geser {
         display: inline-flex; align-items: center; gap: .4rem; width: 100%;
-        font-size: .66rem; font-weight: 700; color: #67E8F9;
+        font-size: .66rem; font-weight: 700; color: #7DD3FC;
       }
     }
     html.terang .peta-geser { color: #0E7490; }
@@ -1355,7 +1356,7 @@
     .to-chip:hover { color: #fff; border-color: rgba(16,185,129,.5); }
     .to-chip.is-on {
       color: #0B1628; background: linear-gradient(160deg, #34D399, #10B981);
-      border-color: rgba(110,231,183,.7); box-shadow: 0 0 16px rgba(16,185,129,.35);
+      border-color: rgba(110,231,183,.7); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
     .to-chip.is-on em { color: rgba(11,22,40,.72); }
     .to-bab-chip { width: 100%; }
@@ -1637,7 +1638,7 @@
       width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 999px;
       pointer-events: none; opacity: 0; transition: opacity .15s ease;
       background: radial-gradient(circle, #FCA5A5 0%, #EF4444 45%, rgba(239,68,68,0) 70%);
-      box-shadow: 0 0 14px 5px rgba(239,68,68,.55), 0 0 34px 12px rgba(239,68,68,.25);
+      box-shadow: 0 0 6px 1px rgba(239,68,68,.6);
     }
     #pres-laser.is-on { opacity: 1; }
 
@@ -1680,7 +1681,7 @@
     #pres-remote button:hover { color: #fff; background: rgba(148,163,184,.14); }
     #pres-remote button.is-on {
       color: #0B1628; background: linear-gradient(160deg, #FBBF24, #F59E0B);
-      border-color: rgba(253,230,138,.7); box-shadow: 0 0 14px rgba(245,158,11,.45);
+      border-color: rgba(253,230,138,.7); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
     #pres-count {
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -1692,7 +1693,7 @@
       width: 1.4rem !important; height: 1.4rem !important; border-radius: 999px !important;
       background: var(--pw) !important; border: 2px solid transparent !important;
     }
-    .pres-warna.is-on { border-color: #fff !important; box-shadow: 0 0 10px var(--pw); }
+    .pres-warna.is-on { border-color: #fff !important; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
     html.cinema #pres-remote { bottom: 1.2rem; }
     @media (max-width: 640px) { #pres-remote { bottom: .6rem; gap: .15rem; padding: .3rem .35rem; } }
 
@@ -1743,7 +1744,7 @@
       transition: color .15s ease, background .15s ease, border-color .15s ease;
     }
     .lab-chip:hover { color: #fff; border-color: rgba(6,182,212,.5); }
-    .lab-chip.is-on { color: #67E8F9; background: rgba(6,182,212,.16); border-color: rgba(6,182,212,.55); }
+    .lab-chip.is-on { color: #7DD3FC; background: rgba(6,182,212,.16); border-color: rgba(6,182,212,.55); }
     .lab-read { display: flex; flex-direction: column; gap: .4rem; }
     .lab-line {
       background: rgba(4,10,22,.72); border: 1px solid var(--lux-line);
@@ -1776,7 +1777,7 @@
     .lab-tab:hover { color: #fff; border-color: rgba(6,182,212,.5); }
     .lab-tab.is-on {
       color: #0B1628; background: linear-gradient(160deg, #22D3EE, #06B6D4);
-      border-color: rgba(103,232,249,.7); box-shadow: 0 0 16px rgba(6,182,212,.4);
+      border-color: rgba(103,232,249,.7); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
     .qa-cyan { --qa: #67E8F9; --qas: 6,182,212; }
 
@@ -4858,11 +4859,11 @@ html.terang #slide-body .formula-box .fb-name {
 
 /* 6. Lab 3D GeoGebra Controls */
 .lab-tab.is-on {
-  background-color: #06B6D4 !important;
-  color: #081B2E !important;
+  background-color: #0369A1 !important;
+  color: #FFFFFF !important;
 }
 .lab-tab.is-on * {
-  color: #081B2E !important;
+  color: #FFFFFF !important;
 }
 .lab-btn.lab-reset,
 button.lab-reset {
@@ -5021,4 +5022,227 @@ html:not(.terang) .angket-modal-frame #btn-submit-angket span {
 html:not(.terang) #rumus-modal .text-amber-400,
 html:not(.terang) #rumus-modal span.text-amber-400 {
   color: #FBBF24 !important;
+}
+
+
+/* ==========================================================================
+   GIS ANTI-NEON & EXECUTIVE ACADEMIC CONTRAST (WCAG 2.1 AA/AAA)
+   ========================================================================== */
+
+/* 1. Eliminate all glowing box-shadows / halos */
+.quick-act:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+.to-chip.is-on {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+#pres-remote button.is-on {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+.pres-warna.is-on {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+.lab-tab.is-on {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 2. Light Mode: Notion Warm Paper Anti-Neon Overrides */
+html.terang .text-cyan-300,
+html.terang .text-cyan-400,
+html.terang .text-cyan-500,
+html.terang [class*="text-cyan-"] {
+  color: #0369A1 !important; /* Muted Sky/Navy - 6.5:1 on light paper */
+}
+html.terang .bg-cyan-950,
+html.terang [class*="bg-cyan-950"],
+html.terang .bg-cyan-500\/12 {
+  background-color: #E0F2FE !important; /* Soft sky tint */
+  color: #0369A1 !important;
+}
+html.terang .border-cyan-400,
+html.terang .border-cyan-500,
+html.terang [class*="border-cyan-"] {
+  border-color: #BAE6FD !important;
+}
+html.terang .lab-tab.is-on {
+  background-color: #0369A1 !important;
+  color: #FFFFFF !important;
+  border-color: #0284C7 !important;
+}
+html.terang .lab-tab.is-on * {
+  color: #FFFFFF !important;
+}
+html.terang .qa-cyan {
+  --qa: #0369A1 !important;
+  --qas: 3, 105, 161 !important;
+}
+
+/* 3. Dark Mode: Executive Dark Slate & Soft Sky Overrides (Zero Neon) */
+html:not(.terang) .text-cyan-300,
+html:not(.terang) .text-cyan-400,
+html:not(.terang) [class*="text-cyan-300"],
+html:not(.terang) [class*="text-cyan-400"] {
+  color: #7DD3FC !important; /* Soft Sky Blue - 9.8:1 on dark slate */
+}
+html:not(.terang) .bg-cyan-950,
+html:not(.terang) [class*="bg-cyan-950"] {
+  background-color: #0F2338 !important; /* Deep non-neon navy slate */
+}
+html:not(.terang) .border-cyan-400,
+html:not(.terang) .border-cyan-500,
+html:not(.terang) [class*="border-cyan-"] {
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+html:not(.terang) .lab-tab.is-on {
+  background-color: #0369A1 !important;
+  color: #FFFFFF !important;
+  border-color: #38BDF8 !important;
+}
+html:not(.terang) .lab-tab.is-on * {
+  color: #FFFFFF !important;
+}
+html:not(.terang) .qa-cyan {
+  --qa: #38BDF8 !important;
+  --qas: 56, 189, 248 !important;
+}
+
+/* 4. Neutralize any fluorescent lime or electric green */
+.text-lime-400, .text-lime-300 {
+  color: #10B981 !important;
+}
+html.terang .text-lime-400, html.terang .text-lime-300 {
+  color: #047857 !important;
+}
+
+
+/* 5. Precision Anti-Neon & High-Contrast Hardening for All Viewports & Modals */
+.bg-\[\#2E384D\] {
+  background-color: #2E384D !important;
+}
+
+#achievement-card-preview .bg-\[\#2E384D\] {
+  background-color: #2E384D !important;
+  color: #FBBF24 !important;
+}
+
+.peta-geser,
+#peta-materi .peta-geser {
+  color: #7DD3FC !important;
+}
+html.terang .peta-geser,
+html.terang #peta-materi .peta-geser {
+  color: #0369A1 !important;
+}
+
+.peta-node.al-minat .peta-kode {
+  fill: #38BDF8 !important;
+}
+
+/* Rapor Modal Contrast Hardening */
+html.terang #rapor-siswa-modal button.bg-\[\#2E384D\] {
+  background-color: #2E384D !important;
+  color: #FFFFFF !important;
+}
+html.terang #rapor-siswa-modal button.bg-\[\#2E384D\] * {
+  color: #FFFFFF !important;
+}
+html.terang #rapor-siswa-modal .text-\[\#787774\],
+html.terang #rapor-siswa-modal [style*="color: #787774"] {
+  color: #475569 !important;
+}
+html.terang #rapor-siswa-modal [style*="color: rgb(178, 107, 0)"],
+html.terang #rapor-siswa-modal [style*="color: #B26B00"] {
+  color: #92400E !important;
+}
+
+/* Dark Mode Rapor Modal Overrides */
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #F0EFEA"] {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+  border-color: #334155 !important;
+}
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #F0EFEA"] * {
+  color: #F8FAFC !important;
+}
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #F0EFEA"] i,
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #F0EFEA"] .text-\[\#787774\] {
+  color: #94A3B8 !important;
+}
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #EDF7ED"] {
+  background-color: #064E3B !important;
+  color: #A7F3D0 !important;
+  border-color: #047857 !important;
+}
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #FFF7E6"] {
+  background-color: #451A03 !important;
+  color: #FDE68A !important;
+  border-color: #78350F !important;
+}
+html:not(.terang) #rapor-siswa-modal [style*="background-color: #FFF7E6"] * {
+  color: #FDE68A !important;
+}
+
+
+/* Global Dark Navy Container Text Enforcement (Contrast AAA > 8.5:1) */
+[class*="bg-[#2E384D]"],
+[class*="bg-[#2E384D]"] *,
+.bg-\[\#2E384D\],
+.bg-\[\#2E384D\] *,
+button.bg-\[\#2E384D\],
+button.bg-\[\#2E384D\] *,
+span.bg-\[\#2E384D\],
+div.bg-\[\#2E384D\],
+#rapor-siswa-modal button.bg-\[\#2E384D\],
+#rapor-siswa-modal button.bg-\[\#2E384D\] *,
+.angket-modal-frame span[class*="bg-[#2E384D]"],
+.angket-modal-frame [class*="bg-[#2E384D]"],
+#btn-lb-mapel-wajib,
+#btn-lb-mapel-wajib *,
+#btn-theme-paper.bg-\[\#2E384D\],
+#btn-theme-paper.bg-\[\#2E384D\] * {
+  color: #FFFFFF !important;
+}
+
+#achievement-card-preview div.bg-\[\#2E384D\] {
+  color: #FBBF24 !important; /* 6.5:1 contrast gold symbol */
+}
+
+
+/* Absolute ID Specificity Contrast Hardening for Modals */
+#modal-angket-refleksi span.bg-\[\#2E384D\],
+#modal-angket-refleksi span[class*="bg-[#2E384D]"],
+#modal-angket-refleksi .bg-\[\#2E384D\],
+#modal-angket-refleksi [class*="bg-[#2E384D]"],
+#rapor-siswa-modal button.bg-\[\#2E384D\],
+#rapor-siswa-modal button.bg-\[\#2E384D\] *,
+#share-card-modal #btn-theme-paper.bg-\[\#2E384D\],
+#share-card-modal #btn-theme-paper.bg-\[\#2E384D\] *,
+#share-card-modal button.bg-\[\#2E384D\],
+#share-card-modal button.bg-\[\#2E384D\] * {
+  color: #FFFFFF !important;
+  background-color: #2E384D !important;
+}
+
+#rapor-siswa-modal button.bg-\[\#2E384D\] {
+  color: #FFFFFF !important;
+}
+html.terang #rapor-siswa-modal button.bg-\[\#2E384D\] {
+  color: #FFFFFF !important;
+}
+
+
+/* High Specificity HTML.TERANG Modals Hardening */
+html.terang #modal-angket-refleksi span[class*="bg-[#2E384D]"],
+html.terang #modal-angket-refleksi span.bg-\[\#2E384D\],
+html.terang #modal-angket-refleksi [class*="bg-[#2E384D]"],
+html.terang #modal-angket-refleksi .bg-\[\#2E384D\],
+html.terang #rapor-siswa-modal button[class*="bg-[#2E384D]"],
+html.terang #rapor-siswa-modal button.bg-\[\#2E384D\],
+html.terang #rapor-siswa-modal button.bg-\[\#2E384D\] *,
+html.terang #share-card-modal #btn-theme-paper.bg-\[\#2E384D\],
+html.terang #share-card-modal #btn-theme-paper.bg-\[\#2E384D\] *,
+html.terang #share-card-modal button[class*="bg-[#2E384D]"],
+html.terang #share-card-modal button.bg-\[\#2E384D\] * {
+  color: #FFFFFF !important;
+  background-color: #2E384D !important;
 }

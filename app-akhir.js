@@ -646,14 +646,14 @@
             anomaliTag = ` <span title="⚠️ Terdeteksi Anomali Kognitif: Selesai < 120 detik (${dDetik}s) dengan skor 100. Indikasi bot / instant answer key." class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/50 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-triangle-exclamation"></i> Flagged (${dDetik}s)</span>`;
           } else if (isAnomaliCepat) {
             if (nAttempt > 1) {
-              anomaliTag = ` <span title="Pengerjaan ulang / remedial (percobaan ke-${nAttempt}) durasi ${dDetik}s." class="px-1.5 py-0.5 rounded bg-blue-500/20 text-cyan-300 border border-blue-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-rotate-right"></i> Ulang (${nAttempt}x)</span>`;
+              anomaliTag = ` <span title="Pengerjaan ulang / remedial (percobaan ke-${nAttempt}) durasi ${dDetik}s." class="px-1.5 py-0.5 rounded bg-blue-500/20 text-sky-300 border border-blue-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-rotate-right"></i> Ulang (${nAttempt}x)</span>`;
             } else {
               anomaliTag = ` <span title="Perhatian: Selesai sangat cepat (< 120 detik) pada percobaan pertama dengan skor tinggi." class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-black whitespace-nowrap"><i class="fa-solid fa-bolt"></i> Cepat?</span>`;
             }
           }
           durasiDisplay = `<span class="text-xs text-slate-300 font-mono whitespace-nowrap">${r.durasi_menit || 0} Menit</span>${anomaliTag}`;
           if (nAttempt > 1) {
-            percobaanDisplay = `<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-cyan-950 text-cyan-300 border border-cyan-500/50 whitespace-nowrap inline-flex items-center gap-1 shadow-sm" title="Mengerjakan ulang / remedial (percobaan ke-${nAttempt})"><i class="fa-solid fa-rotate-right text-cyan-400 text-[9px]"></i> Ke-${nAttempt}</span>`;
+            percobaanDisplay = `<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-slate-900 text-sky-300 border border-sky-500/50 whitespace-nowrap inline-flex items-center gap-1 shadow-sm" title="Mengerjakan ulang / remedial (percobaan ke-${nAttempt})"><i class="fa-solid fa-rotate-right text-sky-400 text-[9px]"></i> Ke-${nAttempt}</span>`;
           } else {
             percobaanDisplay = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-slate-300 border border-slate-700 whitespace-nowrap inline-flex items-center gap-1" title="Percobaan pertama"><i class="fa-solid fa-check text-slate-400 text-[9px]"></i> Pertama</span>`;
           }
@@ -689,7 +689,7 @@
         if (r.status === 'sudah') {
           jamCell = wib ? `<span class="font-mono font-black text-amber-300 text-xs whitespace-nowrap">${wib.jam}</span>` : '<span class="text-xs text-slate-500 font-mono">-</span>';
         } else if (r.status === 'sedang') {
-          jamCell = wib ? `<span class="font-mono font-bold text-cyan-300 text-xs whitespace-nowrap">${wib.jam}</span>` : '<span class="text-xs text-cyan-400 font-mono italic whitespace-nowrap">Live</span>';
+          jamCell = wib ? `<span class="font-mono font-bold text-sky-300 text-xs whitespace-nowrap">${wib.jam}</span>` : '<span class="text-xs text-sky-400 font-mono italic whitespace-nowrap">Live</span>';
         } else {
           jamCell = '<span class="text-xs text-slate-500 font-mono whitespace-nowrap">-</span>';
         }
@@ -702,7 +702,7 @@
             <td class="border-r border-blue-900/60 px-4 py-2.5 font-bold text-white min-w-[170px]">${escapeHtml(r.nama)}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs text-amber-400 font-bold whitespace-nowrap">${escapeHtml(r.kelas)}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs uppercase text-slate-300 whitespace-nowrap">${escapeHtml(namaMapel)}</td>
-            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs font-mono font-bold text-cyan-300 whitespace-nowrap">${escapeHtml(r.kode_pertemuan || '-')}</td>
+            <td class="border-r border-blue-900/60 px-3 py-2.5 text-center text-xs font-mono font-bold text-sky-300 whitespace-nowrap">${escapeHtml(r.kode_pertemuan || '-')}</td>
             <td class="border-r border-blue-900/60 px-3.5 py-2.5 text-center min-w-[130px]">${skorDisplay}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center min-w-[95px]">${detailDisplay}</td>
             <td class="border-r border-blue-900/60 px-3 py-2.5 text-center min-w-[95px]">${durasiDisplay}</td>
@@ -2766,7 +2766,7 @@ function calculateStudentRpgStats(profile) {
         renderBadgeCatalog(data.catalog, data.levels);
 
       } catch (err) {
-        console.error('Error load leaderboard:', err);
+        console.warn('[Leaderboard] Backend offline fallback:', err.message || err);
         if (tableTbody) {
           tableTbody.innerHTML = `
             <tr>
@@ -4508,7 +4508,7 @@ Guru Pengampu: Mr. Ardi
                 </div>
 
                 <div class="p-2.5 rounded-xl border bg-white shadow-2xs" style="border-color: #E8E6DF;">
-                  <div class="text-base text-cyan-600 mb-0.5">⚡</div>
+                  <div class="text-base text-sky-600 mb-0.5">⚡</div>
                   <div class="text-xs sm:text-sm font-extrabold text-[#2F3437]" style="font-family: 'Press Start 2P', monospace;">${rpgStats.dex}</div>
                   <div class="text-[8.5px] font-bold text-[#787774] uppercase mt-0.5">DEX</div>
                 </div>

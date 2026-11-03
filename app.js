@@ -2922,7 +2922,7 @@
 
         const badge = document.getElementById('cbt-autosave-badge');
         if (badge) {
-          badge.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs text-cyan-400"></i>';
+          badge.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs text-sky-400"></i>';
         }
 
         function prosesRestore(rows) {
@@ -5937,14 +5937,14 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       }
 
       if (isPending) {
-        if (totScoreEl) totScoreEl.innerHTML = `<span class="inline-flex items-center gap-1.5 text-base md:text-xl text-cyan-300 font-mono animate-pulse"><i class="fa-solid fa-circle-notch fa-spin text-sm"></i> Verifikasi...</span>`;
+        if (totScoreEl) totScoreEl.innerHTML = `<span class="inline-flex items-center gap-1.5 text-base md:text-xl text-sky-300 font-mono animate-pulse"><i class="fa-solid fa-circle-notch fa-spin text-sm"></i> Verifikasi...</span>`;
         if (corCntEl) corCntEl.innerText = `- / ${totalQ}`;
         if (wrgCntEl) wrgCntEl.innerText = `- / ${totalQ}`;
         if (predEl) {
           predEl.innerText = isClil ? '⏳ Verifying official score with Cloudflare server...' : '⏳ Memverifikasi nilai resmi dengan server Cloudflare...';
-          predEl.className = 'text-xs md:text-sm font-extrabold text-cyan-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-cyan-500/40';
+          predEl.className = 'text-xs md:text-sm font-extrabold text-sky-300 text-center px-4 py-1.5 rounded-xl bg-slate-950 border border-sky-500/40';
         }
-        if (badgeEl) badgeEl.className = 'w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-cyan-300/60 animate-pulse';
+        if (badgeEl) badgeEl.className = 'w-28 h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-sky-700 to-blue-600 p-1.5 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-sky-400/60 animate-pulse';
       } else {
         const displayScore = Math.max(0, Math.min(100, Math.round(attemptScore)));
         const displayBenar = Number(attemptBenar) || 0;
@@ -6175,7 +6175,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
             qBg = 'bg-rose-950 border-rose-400 text-rose-300';
             icon = '<i class="fa-solid fa-xmark text-[10px]"></i>';
           } else if (st === null) {
-            qBg = 'bg-cyan-950/70 border-cyan-500/50 text-cyan-300';
+            qBg = 'bg-sky-950/70 border-sky-500/50 text-sky-300';
             icon = '<i class="fa-solid fa-circle-notch fa-spin text-[10px]"></i>';
           }
 
@@ -6348,7 +6348,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
       if (totalQ === 15) {
         const diagClusters = [
           { name: 'Aljabar & Fungsi', desc: 'Pemodelan Biaya & Optimasi UMKM (4 Soal • 6 Poin)', badge: '🎯 K1: ALJABAR & FUNGSI', bg: 'bg-emerald-950/70 border-emerald-500/40 text-emerald-300' },
-          { name: 'Aritmetika & Data', desc: 'Persentase Omzet & Perbandingan Volume (3 Soal • 5 Poin)', badge: '📊 K2: ARITMETIKA & DATA', bg: 'bg-cyan-950/70 border-cyan-500/40 text-cyan-300' },
+          { name: 'Aritmetika & Data', desc: 'Persentase Omzet & Perbandingan Volume (3 Soal • 5 Poin)', badge: '📊 K2: ARITMETIKA & DATA', bg: 'bg-sky-950/70 border-sky-500/40 text-sky-300' },
           { name: 'Statistika & Peluang', desc: 'Ukuran Letak & Peluang Pelajar Mandiri (3 Soal • 3 Poin)', badge: '🎲 K3: STATISTIKA & PELUANG', bg: 'bg-blue-950/70 border-blue-500/40 text-blue-300' },
           { name: 'Barisan & Deret', desc: 'Pola Pertumbuhan Pengguna Startup (2 Soal • 4 Poin)', badge: '📈 K4: BARISAN & DERET', bg: 'bg-indigo-950/70 border-indigo-500/40 text-indigo-300' },
           { name: 'Geometri & Trigonometri', desc: 'Kapasitas Silinder & Sudut Depresi Menara (2 Soal • 2 Poin)', badge: '📐 K5: GEOMETRI & TRIGONOMETRI', bg: 'bg-purple-950/70 border-purple-500/40 text-purple-300' },
@@ -6936,7 +6936,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           </div>
           <div class="flex items-center gap-1 font-mono text-[9px] shrink-0 overflow-x-auto">
             <span class="px-1.5 py-0.5 rounded ${tkaQIdx <= 3 ? 'bg-emerald-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K1 (1-4)</span>
-            <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 4 && tkaQIdx <= 6 ? 'bg-cyan-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K2 (5-7)</span>
+            <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 4 && tkaQIdx <= 6 ? 'bg-sky-600 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K2 (5-7)</span>
             <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 7 && tkaQIdx <= 9 ? 'bg-blue-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K3 (8-10)</span>
             <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 10 && tkaQIdx <= 11 ? 'bg-indigo-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K4 (11-12)</span>
             <span class="px-1.5 py-0.5 rounded ${tkaQIdx >= 12 && tkaQIdx <= 13 ? 'bg-purple-500 text-slate-950 font-black shadow-xs' : 'text-slate-400'}">K5 (13-14)</span>
@@ -7325,10 +7325,10 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           const span = mSpan(b);
           b.disabled = true;
           if (L === C) {
-            b.className = 'opt-btn' + span + ' pointer-events-none p-3.5 md:p-4 bg-cyan-950/70 border-2 border-cyan-400 rounded-2xl text-left text-sm text-cyan-200 flex items-start gap-3 shadow';
+            b.className = 'opt-btn' + span + ' pointer-events-none p-3.5 md:p-4 bg-sky-950/70 border-2 border-sky-500 rounded-2xl text-left text-sm text-sky-200 flex items-start gap-3 shadow';
             const mark = b.querySelector('.opt-mark');
             if (mark) {
-              mark.innerHTML = '<span class="px-2.5 py-1 rounded-lg bg-cyan-600 text-white text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> JAWABAN ANDA</span>';
+              mark.innerHTML = '<span class="px-2.5 py-1 rounded-lg bg-sky-600 text-white text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> JAWABAN ANDA</span>';
             }
           } else {
             b.className = 'opt-btn' + span + ' pointer-events-none p-3.5 md:p-4 bg-slate-800/40 border border-slate-700/50 rounded-2xl text-left text-sm text-slate-500 opacity-60 flex items-start gap-3';
@@ -7805,17 +7805,17 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
         tag: "Nomor 1 s.d. 4 Tiap Anggota",
         tag_en: "Numbers 1 to 4 per Group",
         icon: "fa-solid fa-arrow-down-1-9",
-        color: "cyan",
+        color: "sky",
         title: "Pemerataan Pemahaman Tim & Akuntabilitas Individu",
         title_en: "Equal Team Mastery & Individual Accountability",
         steps: [
-          { num: "1. Penomoran (1-4)", icon: "fa-solid fa-id-badge", color: "cyan", text: "Setiap siswa dalam kelompok (4 orang) mendapatkan nomor identitas unik: 1, 2, 3, atau 4." },
+          { num: "1. Penomoran (1-4)", icon: "fa-solid fa-id-badge", color: "sky", text: "Setiap siswa dalam kelompok (4 orang) mendapatkan nomor identitas unik: 1, 2, 3, atau 4." },
           { num: "2. Heads Together (6m)", icon: "fa-solid fa-comments", color: "amber", text: "Semua anggota menyatukan pikiran memastikan <strong>semua anggota paham 100%</strong> cara kerjanya." },
           { num: "3. Panggilan Nomor Acak", icon: "fa-solid fa-shuffle", color: "purple", text: "Guru memanggil satu nomor secara acak (misal: 'Semua nomor 3 siap'). Siswa bernomor bersiap." },
           { num: "4. Respons Perwakilan", icon: "fa-solid fa-chalkboard-user", color: "emerald", text: "Hanya siswa bernomor terpilih yang boleh menjawab atau menuliskan langkah solusi di papan." }
         ],
         steps_en: [
-          { num: "1. Numbering (1-4)", icon: "fa-solid fa-id-badge", color: "cyan", text: "Each student in the group (4 members) receives a unique identity number: 1, 2, 3, or 4." },
+          { num: "1. Numbering (1-4)", icon: "fa-solid fa-id-badge", color: "sky", text: "Each student in the group (4 members) receives a unique identity number: 1, 2, 3, or 4." },
           { num: "2. Heads Together (6m)", icon: "fa-solid fa-comments", color: "amber", text: "Members put their heads together ensuring <strong>every single member understands 100%</strong> of the proof." },
           { num: "3. Random Number Call", icon: "fa-solid fa-shuffle", color: "purple", text: "Teacher calls a random number (e.g., 'All Number 3s ready'). Designated students prepare to answer." },
           { num: "4. Designated Response", icon: "fa-solid fa-chalkboard-user", color: "emerald", text: "Only the designated numbered student may answer or write the complete solution on the board." }
@@ -8186,9 +8186,9 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           } else if (stepNum == 3) {
             stepTitle = isClil ? 'Computation &amp; Algebraic Expansion' : 'Komputasi &amp; Penjabaran Aljabar';
             icon = 'fa-solid fa-square-root-variable';
-            borderTheme = 'border-cyan-900/80';
-            badgeTheme = 'bg-cyan-600/25 text-cyan-300 border-cyan-500/50';
-            titleColor = 'text-cyan-300';
+            borderTheme = 'border-sky-900/80';
+            badgeTheme = 'bg-sky-600/25 text-sky-300 border-sky-500/50';
+            titleColor = 'text-sky-300';
           } else if (stepNum == 4) {
             stepTitle = isClil ? 'Verification &amp; Boundary Conditions' : 'Verifikasi &amp; Uji Kondisi Batas';
             icon = 'fa-solid fa-circle-check';
@@ -9856,7 +9856,7 @@ function catatSesiCbt(subj, pkgId, forceSubmit) {
           <p class="text-[9px] text-slate-500">Asesmen Standar Nasional</p>
         </div>
         <div class="p-1.5 bg-slate-950/80 border border-slate-800/80 rounded-lg">
-          <div class="flex justify-between items-center"><span class="font-bold text-cyan-300 text-[10px]">UTBK-SNBT 2027</span><span class="font-mono text-[9px] text-slate-400">21 - 30 Apr 2027</span></div>
+          <div class="flex justify-between items-center"><span class="font-bold text-sky-300 text-[10px]">UTBK-SNBT 2027</span><span class="font-mono text-[9px] text-slate-400">21 - 30 Apr 2027</span></div>
           <p class="text-[9px] text-slate-500">Seleksi Nasional PTN</p>
         </div>
         <div class="p-1.5 bg-slate-950/80 border border-slate-800/80 rounded-lg">
