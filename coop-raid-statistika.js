@@ -451,6 +451,50 @@
     }
   }
 
+  let _portalStudentName = '';
+  function autoPopulateFromPortalSession() {
+    try {
+      let sess = null;
+      if (typeof window.getSession === 'function') {
+        sess = window.getSession();
+      } else {
+        const raw = localStorage.getItem('portal_session');
+        if (raw) sess = JSON.parse(raw);
+      }
+      if (sess && sess.type === 'siswa' && sess.data) {
+        const rawClass = String(sess.data.kelas_name || sess.data.kelas || '').trim().toUpperCase();
+        let canonicalClass = '';
+        if (rawClass.includes('F3')) canonicalClass = 'XII F3';
+        else if (rawClass.includes('F1')) canonicalClass = 'XII F1';
+        else if (rawClass.includes('F2')) canonicalClass = 'XII F2';
+        else if (rawClass.includes('F4')) canonicalClass = 'XII F4';
+
+        _portalStudentName = sess.data.nama || sess.data.name || '';
+
+        if (canonicalClass && (!currentSession.studentName || currentSession.studentName === _portalStudentName)) {
+          currentSession.className = canonicalClass;
+        }
+      }
+    } catch (e) {
+      console.warn("Auto-populate Co-op student session failed:", e);
+    }
+  }
+
+  function changeClass(newClass) {
+    currentSession.className = newClass;
+    currentSession.studentName = '';
+    saveCurrentSession();
+    renderCurrentView();
+  }
+
+  function leaveArena() {
+    if (confirm("Kembali ke Lobby turnamen untuk mengganti profil siswa atau kelas rombel?")) {
+      currentSession.studentName = '';
+      saveCurrentSession();
+      renderCurrentView();
+    }
+  }
+
   function getContributedValueFromAnswer(posData, userAns) {
     if (!posData || !userAns) return '-';
     if (posData.opsi && Array.isArray(posData.opsi)) {
@@ -482,6 +526,8 @@
     openModal: openCoopModal,
     closeModal: closeCoopModal,
     startTournament: startTournament,
+    changeClass: changeClass,
+    leaveArena: leaveArena,
     submitActivePosAnswer: submitActivePosAnswer,
     submitWavePin: submitWavePin,
     startIndividualTest: startIndividualTest,
@@ -680,6 +726,7 @@
 
   function initCoopRaid() {
     loadSavedSession();
+    autoPopulateFromPortalSession();
     registerAntiCheatListeners();
   }
 
@@ -728,10 +775,11 @@
     // Filter student options
     let studentOptions = '';
     const currentClass = currentSession.className || 'XII F1';
+    const targetSelectedName = currentSession.studentName || _portalStudentName;
     Object.keys(students).forEach(id => {
       const s = students[id];
       if (s.kelas === currentClass) {
-        const selected = s.nama === currentSession.studentName ? 'selected' : '';
+        const selected = s.nama === targetSelectedName ? 'selected' : '';
         studentOptions += `<option value="${escapeHtml(s.nama)}" ${selected}>${escapeHtml(s.nama)}</option>`;
       }
     });
@@ -780,7 +828,7 @@
           <!-- KELAS -->
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color: #475569;">Pilih Kelas:</label>
-            <select id="coop-select-kelas" onchange="CoopRaid.session.className = this.value; CoopRaid.openModal();" class="w-full p-2.5 rounded-xl border text-sm font-semibold cursor-pointer outline-none transition" style="background-color: #FFFFFF; border-color: #CBD5E1; color: #1E293B;">
+            <select id="coop-select-kelas" onchange="CoopRaid.changeClass(this.value);" class="w-full p-2.5 rounded-xl border text-sm font-semibold cursor-pointer outline-none transition" style="background-color: #FFFFFF; border-color: #CBD5E1; color: #1E293B;">
               ${classList.map(c => `<option value="${c}" ${c === currentClass ? 'selected' : ''}>${c}</option>`).join('')}
             </select>
           </div>
@@ -861,7 +909,7 @@
         <div class="border-b pb-3 flex flex-wrap items-center justify-between gap-3" style="border-color: #E2E8F0;">
           <div class="flex flex-wrap items-center gap-2.5">
             <span class="px-3 py-1 rounded-lg text-xs font-bold" style="background-color: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE;">
-              <i class="fa-solid fa-users"></i> Kelompok ${currentSession.groupNo}
+              <i class="fa-solid fa-users"></i> Kelompok ${currentSession.groupNo} (${currentSession.className})
             </span>
             <span class="px-2.5 py-1 rounded-lg text-xs font-semibold" style="background-color: #F1F5F9; color: #475569;">
               Anggota ${memberNo} (${escapeHtml(currentSession.studentName)})
@@ -874,8 +922,11 @@
             </span>
           </div>
 
-          <!-- WAVE TABS -->
+          <!-- WAVE TABS & ACTIONS -->
           <div class="flex items-center gap-1.5">
+            <button onclick="CoopRaid.leaveArena()" class="px-2.5 py-1.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold transition flex items-center gap-1 cursor-pointer" title="Keluar Arena & Ganti Profil Siswa / Rombel">
+              <i class="fa-solid fa-arrow-right-from-bracket text-slate-500"></i> Ganti Profil
+            </button>
             ${[1, 2, 3].map(w => {
               const isCurr = w === waveNo;
               const isUnlocked = currentSession.waveUnlocked[w];
