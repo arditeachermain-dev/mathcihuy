@@ -1509,21 +1509,22 @@
       const posNo = getActivePosForMember(sData.memberNo, wNo);
       const posData = w.positions[posNo];
       const userAns = sData.waveAnswers?.[wNo]?.[posNo] || '-';
-      const contribVal = getContributedValueFromAnswer(posData, userAns);
       const errCount = sData.pinErrors?.[wNo] || 0;
       return `
         <tr class="border-b border-slate-200 text-xs">
           <td class="p-2.5 font-bold text-center text-slate-700">Putaran ${wNo}</td>
           <td class="p-2.5 text-slate-800 font-semibold">
             <div>${w.title}</div>
-            <div class="text-[10px] text-slate-500 font-mono">Target PIN: <b class="text-indigo-700">${w.targetPin}</b></div>
+            <div class="text-[10px] text-slate-500 font-medium">Misi Kolaborasi 5 Pos Paralel</div>
           </td>
           <td class="p-2.5 text-slate-700 font-medium">
             <div>Pos ${posNo}: ${posData.title}</div>
             <div class="text-[10px] text-indigo-700 font-semibold">${posData.keyLabel}</div>
           </td>
-          <td class="p-2.5 font-mono font-bold text-center text-indigo-950 bg-indigo-50/50">
-            ${contribVal}
+          <td class="p-2.5 text-center">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+              <i class="fa-solid fa-check mr-1"></i> Terkontribusi
+            </span>
           </td>
           <td class="p-2.5 font-mono font-bold text-center ${errCount > 0 ? 'text-rose-700' : 'text-slate-500'}">
             ${errCount}x
@@ -1540,21 +1541,26 @@
     const indivRowsHtml = qList.map(q => {
       const u = sData.individualAnswers?.[q.no];
       const isCor = isAnswerCorrect(q, u);
+      let userAnsDisplay = '-';
+      if (Array.isArray(u)) {
+        userAnsDisplay = u.join(' - ');
+      } else if (u) {
+        userAnsDisplay = String(u);
+      }
       return `
         <tr class="border-b border-slate-200 text-xs ${isCor ? 'bg-emerald-50/20' : 'bg-rose-50/20'}">
           <td class="p-2.5 font-bold text-center text-slate-700">No. ${q.no}</td>
           <td class="p-2.5 text-slate-800">
-            <div class="font-bold">${q.title}</div>
-            <div class="text-[11px] text-slate-500 italic mt-0.5">${q.bahas}</div>
+            <div class="font-bold text-slate-800">${q.title}</div>
+            <div class="text-[10px] text-slate-500 font-medium mt-0.5">Kompetensi: ${q.level} • AKM Literasi Numerasi</div>
           </td>
-          <td class="p-2.5 font-mono font-bold text-center text-slate-700">${u || '-'}</td>
-          <td class="p-2.5 font-mono font-bold text-center text-emerald-800">${q.kunci}</td>
+          <td class="p-2.5 font-mono font-bold text-center text-slate-800 bg-slate-50/60">${userAnsDisplay}</td>
           <td class="p-2.5 font-mono font-bold text-center ${isCor ? 'text-emerald-700' : 'text-rose-700'}">
             ${isCor ? '20' : '0'}
           </td>
           <td class="p-2.5 text-center">
             <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isCor ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-100 text-rose-800 border border-rose-300'}">
-              ${isCor ? '✓ Benar' : '✗ Salah'}
+              ${isCor ? '✓ Tuntas' : '✗ Evaluasi'}
             </span>
           </td>
         </tr>
@@ -1737,7 +1743,7 @@
                   <th class="p-2.5 text-center w-24">Babak</th>
                   <th class="p-2.5">Misi Putaran</th>
                   <th class="p-2.5">Pos Tugas Siswa</th>
-                  <th class="p-2.5 text-center w-28">Angka Kunci</th>
+                  <th class="p-2.5 text-center w-28">Status Kontribusi</th>
                   <th class="p-2.5 text-center w-24">Salah PIN</th>
                   <th class="p-2.5 text-center w-28">Status</th>
                 </tr>
@@ -1759,10 +1765,9 @@
               <thead class="bg-slate-100 text-slate-700 border-b border-slate-300 text-xs">
                 <tr>
                   <th class="p-2.5 text-center w-16">No</th>
-                  <th class="p-2.5">Materi &amp; Pembahasan Soal</th>
-                  <th class="p-2.5 text-center w-20">Jawaban</th>
-                  <th class="p-2.5 text-center w-16">Kunci</th>
-                  <th class="p-2.5 text-center w-16">Poin</th>
+                  <th class="p-2.5">Materi &amp; Indikator Kompetensi</th>
+                  <th class="p-2.5 text-center w-28">Jawaban Siswa</th>
+                  <th class="p-2.5 text-center w-20">Poin</th>
                   <th class="p-2.5 text-center w-24">Status</th>
                 </tr>
               </thead>
