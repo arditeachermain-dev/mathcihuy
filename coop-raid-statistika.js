@@ -517,27 +517,28 @@
   }
 
   function getIntegrityLevel(count) {
-    if (!count || count <= 0) {
+    const c = count || 0;
+    if (c <= 15) {
       return { 
         level: 'hijau', 
-        label: 'Valid (Murni)', 
+        label: c === 0 ? 'Murni (0x)' : `Aman Toleransi (${c}x)`, 
         color: 'emerald', 
-        badgeHtml: '<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-shield-check text-emerald-600"></i> Hijau (0x)</span>'
+        badgeHtml: `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-shield-check text-emerald-600"></i> Hijau (${c}x)</span>`
       };
     }
-    if (count <= 2) {
+    if (c <= 30) {
       return { 
         level: 'kuning', 
-        label: 'Peringatan Sedang', 
+        label: `Peringatan Sedang (${c}x)`, 
         color: 'amber', 
-        badgeHtml: `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Kuning (${count}x)</span>`
+        badgeHtml: `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Kuning (${c}x)</span>`
       };
     }
     return { 
       level: 'merah', 
-      label: 'Pelanggaran Kritis', 
+      label: `Pelanggaran Kritis (${c}x)`, 
       color: 'rose', 
-      badgeHtml: `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-100 text-rose-900 border border-rose-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-circle-xmark text-rose-600"></i> Merah (${count}x)</span>`
+      badgeHtml: `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-100 text-rose-900 border border-rose-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-circle-xmark text-rose-600"></i> Merah (${c}x)</span>`
     };
   }
 
@@ -549,10 +550,14 @@
     toast.id = 'coop-anticheat-toast';
     const bgBorder = type === 'merah' 
       ? 'bg-rose-950 text-rose-100 border-rose-500' 
-      : 'bg-amber-950 text-amber-100 border-amber-500';
+      : (type === 'hijau' ? 'bg-emerald-950 text-emerald-100 border-emerald-500' : 'bg-amber-950 text-amber-100 border-amber-500');
+
+    const iconClass = type === 'merah' 
+      ? 'fa-circle-xmark text-rose-400' 
+      : (type === 'hijau' ? 'fa-shield-check text-emerald-400' : 'fa-triangle-exclamation text-amber-400');
 
     toast.className = `fixed top-5 left-1/2 -translate-x-1/2 max-w-lg w-[90%] ${bgBorder} border-2 px-4 py-3 rounded-2xl shadow-2xl text-xs sm:text-sm font-bold z-[100000] flex items-center gap-3 animate-bounce`;
-    toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation ${type === 'merah' ? 'text-rose-400' : 'text-amber-400'} text-lg shrink-0"></i> <div class="flex-1">${message}</div>`;
+    toast.innerHTML = `<i class="fa-solid ${iconClass} text-lg shrink-0"></i> <div class="flex-1">${message}</div>`;
     document.body.appendChild(toast);
 
     setTimeout(() => {
@@ -568,10 +573,12 @@
     const count = currentSession.tabSwitchCount;
     const info = getIntegrityLevel(count);
 
-    if (info.level === 'kuning') {
-      showAntiCheatToast(`⚠️ <b>Peringatan Integritas (Lencana Kuning):</b> ${reason} terdeteksi! Total pelanggaran: <b>${count} kali</b>.<br>Anda tetap dapat melanjutkan pengerjaan soal. Pelanggaran ini tercatat di Ruang Pengawasan Guru.`, 'kuning');
+    if (info.level === 'hijau') {
+      showAntiCheatToast(`🟢 <b>Pemberitahuan Pindah Layar (${count}x):</b> ${reason} terdeteksi. Status Anda masih <b>Lencana Hijau</b> (Rentang aman: 1–15 kali). Tetap fokus pada kuis!`, 'hijau');
+    } else if (info.level === 'kuning') {
+      showAntiCheatToast(`⚠️ <b>Peringatan Integritas (Lencana Kuning):</b> ${reason} terdeteksi! Total perpindahan layar: <b>${count} kali</b> (Rentang 16–30x).<br>Anda tetap dapat melanjutkan pengerjaan soal. Pelanggaran ini tercatat di Ruang Pengawasan Guru.`, 'kuning');
     } else {
-      showAntiCheatToast(`🚨 <b>Peringatan Kritis (Lencana Merah):</b> ${reason} terdeteksi! Total pelanggaran: <b>${count} kali</b>.<br>Anda tetap dapat mengerjakan soal, namun status integritas Anda ditandai Lencana Merah pada Pengawasan Guru.`, 'merah');
+      showAntiCheatToast(`🚨 <b>Peringatan Kritis (Lencana Merah):</b> ${reason} terdeteksi! Total perpindahan layar: <b>${count} kali</b> (Lebih dari 30x).<br>Anda tetap dapat mengerjakan soal, namun status integritas Anda ditandai Lencana Merah pada Pengawasan Guru.`, 'merah');
     }
     
     // Auto re-render if badge element exists in DOM
@@ -1390,11 +1397,13 @@
 
     let catatanIntegritas = '';
     if (integrity.level === 'hijau') {
-      catatanIntegritas = 'Validasi Murni: Seluruh rangkaian turnamen diselesaikan dengan tingkat kedisiplinan dan fokus optimal tanpa perpindahan layar (0x Alt-Tab).';
+      catatanIntegritas = switchCount === 0 
+        ? 'Validasi Murni: Seluruh rangkaian turnamen diselesaikan dengan tingkat kedisiplinan dan fokus optimal tanpa perpindahan layar (0x Alt-Tab).'
+        : `Validasi Terjaga: Terdeteksi ${switchCount} kali perpindahan layar, masih berada dalam batas aman toleransi Lencana Hijau (1–15x).`;
     } else if (integrity.level === 'kuning') {
-      catatanIntegritas = `Peringatan Waspada: Terdeteksi ${switchCount} kali perpindahan layar (Alt-Tab/tab lain). Pengerjaan tetap tervalidasi dengan catatan kedisiplinan.`;
+      catatanIntegritas = `Peringatan Waspada: Terdeteksi ${switchCount} kali perpindahan layar (Kategori Kuning: 16–30x). Pengerjaan tetap tervalidasi dengan catatan kedisiplinan.`;
     } else {
-      catatanIntegritas = `Peringatan Kritis: Terdeteksi ${switchCount} kali perpindahan layar. Siswa diarahkan untuk sesi konfirmasi kejujuran akademik bersama Guru Pengampu.`;
+      catatanIntegritas = `Peringatan Kritis: Terdeteksi ${switchCount} kali perpindahan layar (Kategori Merah: >30x). Memerlukan sesi konfirmasi dan pembinaan kejujuran akademik bersama Guru Pengampu.`;
     }
 
     const formattedDate = new Date(sData.timestamp || Date.now()).toLocaleDateString('id-ID', {
@@ -2074,11 +2083,11 @@
         <!-- CARD 2: LENCANA HIJAU -->
         <div class="p-3.5 rounded-xl border bg-emerald-50/70 border-emerald-200 shadow-xs">
           <div class="flex items-center justify-between text-emerald-800 text-xs font-semibold">
-            <span>Lencana Hijau (Murni)</span>
+            <span>Lencana Hijau (Aman/Murni)</span>
             <i class="fa-solid fa-shield-check text-emerald-600"></i>
           </div>
           <div class="text-2xl font-black text-emerald-900 mt-1">${hijauCount}</div>
-          <div class="text-[11px] text-emerald-700 mt-0.5">0x Pindah Layar (${totalSiswa ? Math.round((hijauCount / totalSiswa) * 100) : 0}%)</div>
+          <div class="text-[11px] text-emerald-700 mt-0.5">1–15x Pindah Layar (${totalSiswa ? Math.round((hijauCount / totalSiswa) * 100) : 0}%)</div>
         </div>
 
         <!-- CARD 3: LENCANA KUNING -->
@@ -2088,7 +2097,7 @@
             <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
           </div>
           <div class="text-2xl font-black text-amber-950 mt-1">${kuningCount}</div>
-          <div class="text-[11px] text-amber-800 mt-0.5">1-2x Pindah Layar (Peringatan)</div>
+          <div class="text-[11px] text-amber-800 mt-0.5">16–30x Pindah Layar (Peringatan)</div>
         </div>
 
         <!-- CARD 4: LENCANA MERAH -->
@@ -2098,7 +2107,7 @@
             <i class="fa-solid fa-circle-xmark text-rose-600"></i>
           </div>
           <div class="text-2xl font-black text-rose-950 mt-1">${merahCount}</div>
-          <div class="text-[11px] text-rose-800 mt-0.5">&ge;3x Pindah Layar (Perlu Dibina)</div>
+          <div class="text-[11px] text-rose-800 mt-0.5">&gt;30x Pindah Layar (Perlu Dibina)</div>
         </div>
       </div>
 
@@ -2122,9 +2131,9 @@
             <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Lencana:</span>
             <select onchange="CoopRaid.filterTeacherMonitor('badge', this.value)" class="p-1.5 px-2.5 rounded-lg border text-xs font-semibold cursor-pointer outline-none bg-slate-50 border-slate-300 text-slate-800">
               <option value="ALL" ${proctorFilterBadge === 'ALL' ? 'selected' : ''}>Semua Status</option>
-              <option value="hijau" ${proctorFilterBadge === 'hijau' ? 'selected' : ''}>🟢 Hijau (0x)</option>
-              <option value="kuning" ${proctorFilterBadge === 'kuning' ? 'selected' : ''}>🟡 Kuning (1-2x)</option>
-              <option value="merah" ${proctorFilterBadge === 'merah' ? 'selected' : ''}>🔴 Merah (&ge;3x)</option>
+              <option value="hijau" ${proctorFilterBadge === 'hijau' ? 'selected' : ''}>🟢 Hijau (1–15x)</option>
+              <option value="kuning" ${proctorFilterBadge === 'kuning' ? 'selected' : ''}>🟡 Kuning (16–30x)</option>
+              <option value="merah" ${proctorFilterBadge === 'merah' ? 'selected' : ''}>🔴 Merah (>30x)</option>
             </select>
           </div>
 
@@ -2217,9 +2226,9 @@
       <!-- FOOTER NOTE -->
       <div class="p-3 md:px-6 border-t flex flex-wrap items-center justify-between text-[11px] text-slate-500 shrink-0" style="background-color: #F8FAFC; border-color: #E2E8F0;">
         <div class="flex items-center gap-4">
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> <b>Hijau:</b> 0x Pindah Layar (Murni)</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> <b>Kuning:</b> 1-2x Pindah Layar (Waspada)</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> <b>Merah:</b> &ge;3x Pindah Layar (Kritis)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> <b>Hijau:</b> 1–15x Pindah Layar (Aman / Murni)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> <b>Kuning:</b> 16–30x Pindah Layar (Waspada)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> <b>Merah:</b> &gt;30x Pindah Layar (Kritis)</span>
         </div>
         <div class="italic text-slate-400">
           *Siswa tetap dapat mengerjakan ujian tanpa terblokir sistem. Pelanggaran tersinkronisasi otomatis.
@@ -2255,9 +2264,9 @@
 
 📊 *RINGKASAN INTEGRITAS KELAS XII (100 SISWA):*
 • Total Siswa Terdata: ${totalSiswa} Siswa
-• 🟢 Lencana Hijau (Murni 0x): ${hijauCount} siswa (${totalSiswa ? Math.round((hijauCount / totalSiswa) * 100) : 0}%)
-• 🟡 Lencana Kuning (Waspada 1-2x): ${kuningCount} siswa
-• 🔴 Lencana Merah (Kritis ≥3x): ${merahCount} siswa
+• 🟢 Lencana Hijau (1–15x): ${hijauCount} siswa (${totalSiswa ? Math.round((hijauCount / totalSiswa) * 100) : 0}%)
+• 🟡 Lencana Kuning (16–30x): ${kuningCount} siswa
+• 🔴 Lencana Merah (>30x): ${merahCount} siswa
 
 🚨 *CATATAN SISWA DENGAN PERPINDAHAN LAYAR:*
 ${flaggedList}
