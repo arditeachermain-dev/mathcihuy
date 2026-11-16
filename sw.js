@@ -16,12 +16,12 @@
 //    permintaan navigasi, sehingga halaman gagal terbuka sama sekali. Karena
 //    itu yang disimpan hanya alamat kanonik ('/' dan '/11'), dan respons yang
 //    ternyata hasil pantulan tidak pernah dipakai untuk navigasi.
-const VERSI = 'mathcihuy-v20261116_backend_vault_v13';
+const VERSI = 'mathcihuy-v20261117_pair_practice_v14';
 
 // Hanya alamat kanonik -- jangan pernah menambahkan yang berakhiran .html.
 const HALAMAN = ['./', './11', './10', './simulasi-akm'];
 const ASET = [
-  './mathcihuy.css', './vendor.js', './app.js', './app-akhir.js', './coop-raid-statistika.js',
+  './mathcihuy.css', './vendor.js', './app.js', './app-akhir.js', './coop-raid-statistika.js', './pair-practice-integral.js',
   './data-xii.js', './data-xi.js', './data-x.js', './data-students.js', './data-akm.js',
   './manifest.json', './icon-192.png', './icon-512.png', './gis_official_logo.png'
 ];
