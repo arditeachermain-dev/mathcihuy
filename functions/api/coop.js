@@ -1,8 +1,58 @@
 // functions/api/coop.js
-// Cloudflare D1 Backend for Live Co-op Raid Proctoring & Student State Sync
+// Cloudflare D1 Backend for Live Co-op Raid Proctoring, Student State Sync & Secure Server-Side Key Validation
 // SMA Global Islamic School 2 Serpong • Mr. Ardi
+// CATATAN KEAMANAN: Seluruh kunci jawaban, target PIN, dan rubrik penilaian hanya tersimpan di server Cloudflare (Backend).
+// Kunci jawaban TIDAK BOLEH dikirimkan ke front-end browser siswa!
 
 import { jsonResponse } from './_auth.js';
+
+// MASTER SECRET DATA (HANYA ADA DI BACKEND SERVER)
+const SECRET_COOP_DATA = {
+  targetPins: {
+    1: 192,
+    2: 102,
+    3: 217
+  },
+  indivKeys: {
+    1: "C",
+    2: ["B", "S", "B"],
+    3: "C",
+    4: ["A", "B", "C"],
+    5: "D"
+  }
+};
+
+function gradeIndividualQuestion(qNo, userAns) {
+  const k = SECRET_COOP_DATA.indivKeys[qNo];
+  if (!k || userAns === undefined || userAns === null) return false;
+  if (Array.isArray(k)) {
+    if (!Array.isArray(userAns)) return false;
+    if (qNo === 4) {
+      // Checkbox multi selection: exact match of selected options (order insensitive)
+      const s1 = [...userAns].map(x => String(x).trim().toUpperCase()).sort().join(',');
+      const s2 = [...k].map(x => String(x).trim().toUpperCase()).sort().join(',');
+      return s1 === s2;
+    }
+    if (userAns.length !== k.length) return false;
+    return k.every((val, idx) => String(userAns[idx]).trim().toUpperCase() === String(val).trim().toUpperCase());
+  }
+  return String(userAns).trim().toUpperCase() === String(k).trim().toUpperCase();
+}
+
+function enrichRowResults(row) {
+  if (!row) return row;
+  if (!row.results_indiv && row.answers_indiv) {
+    try {
+      const u = typeof row.answers_indiv === 'string' ? JSON.parse(row.answers_indiv) : row.answers_indiv;
+      const res = {};
+      [1, 2, 3, 4, 5].forEach(qNo => {
+        res[qNo] = gradeIndividualQuestion(qNo, u[qNo]);
+      });
+      row.results_indiv = JSON.stringify(res);
+    } catch(e) {}
+  }
+  return row;
+}
 
 async function ensureTable(db) {
   await db.prepare(`
@@ -24,9 +74,16 @@ async function ensureTable(db) {
       answers_wave2 TEXT,
       answers_wave3 TEXT,
       answers_indiv TEXT,
+      results_indiv TEXT,
       updated_at TEXT
     )
   `).run();
+
+  try {
+    await db.prepare("ALTER TABLE coop_raid_scores ADD COLUMN results_indiv TEXT").run();
+  } catch(e) {
+    // Column already exists, safe to ignore
+  }
 }
 
 export async function onRequestGet(context) {
@@ -43,7 +100,7 @@ export async function onRequestGet(context) {
       const row = await context.env.DB.prepare(
         "SELECT * FROM coop_raid_scores WHERE nis = ?"
       ).bind(String(nis)).first();
-      return jsonResponse(row || null);
+      return jsonResponse(row ? enrichRowResults(row) : null);
     }
 
     // Return all records for teacher proctoring
@@ -51,7 +108,8 @@ export async function onRequestGet(context) {
       "SELECT * FROM coop_raid_scores ORDER BY updated_at DESC"
     ).all();
 
-    return jsonResponse(results || []);
+    const enriched = (results || []).map(r => enrichRowResults(r));
+    return jsonResponse(enriched);
   } catch (err) {
     return jsonResponse({ error: err.message }, 500);
   }
@@ -65,7 +123,124 @@ export async function onRequestPost(context) {
     await ensureTable(context.env.DB);
 
     const body = await context.request.json();
-    if (!body || !body.nis) {
+    if (!body) {
+      return jsonResponse({ error: 'Payload tidak boleh kosong' }, 400);
+    }
+
+    // 1. ACTION: VALIDASI PIN TIM SECARA RAHASIA DI SERVER (ZERO FRONTEND KEY)
+    if (body.action === 'validate_pin') {
+      const waveNo = Number(body.wave) || 1;
+      const pin = Number(body.pin) || 0;
+      const isValid = (pin === SECRET_COOP_DATA.targetPins[waveNo]);
+
+      if (body.nis && !isValid) {
+        try {
+          await context.env.DB.prepare(`
+            UPDATE coop_raid_scores 
+            SET pin_errors = pin_errors + 1, updated_at = ?
+            WHERE nis = ?
+          `).bind(new Date().toISOString(), String(body.nis)).run();
+        } catch(e) {}
+      }
+
+      return jsonResponse({
+        success: true,
+        valid: isValid,
+        wave: waveNo
+      });
+    }
+
+    // 2. ACTION: SUBMIT & PENILAIAN OTOMATIS EVALUASI INDIVIDU DI SERVER (ZERO FRONTEND KEY)
+    if (body.action === 'submit_individual') {
+      if (!body.nis) return jsonResponse({ error: 'NIS wajib diisi' }, 400);
+
+      const nis = String(body.nis).trim();
+      const nama = String(body.nama || '').trim();
+      const kelas = String(body.kelas || '').trim();
+      const kelompok = String(body.kelompok || '').trim();
+      const anggota = String(body.anggota || '').trim();
+      const userAnswers = typeof body.answers_indiv === 'object' ? body.answers_indiv : {};
+
+      // Evaluasi jawaban rahasia di server
+      let correctCount = 0;
+      const results = {};
+      [1, 2, 3, 4, 5].forEach(qNo => {
+        const u = userAnswers[qNo];
+        const isCor = gradeIndividualQuestion(qNo, u);
+        results[qNo] = isCor;
+        if (isCor) correctCount++;
+      });
+
+      const skorCoop = 100;
+      const skorIndiv = correctCount * 20;
+      const skorAkhir = Math.round((skorCoop * 0.4) + (skorIndiv * 0.6));
+      const tabSwitchCount = Number(body.tab_switch_count) || 0;
+      const pinErrors = Number(body.pin_errors) || 0;
+
+      let integrityLevel = 'hijau';
+      let integrityLabel = 'Murni';
+      if (tabSwitchCount > 30) {
+        integrityLevel = 'merah';
+        integrityLabel = 'Kritis';
+      } else if (tabSwitchCount > 15) {
+        integrityLevel = 'kuning';
+        integrityLabel = 'Waspada';
+      }
+
+      const ansW1 = typeof body.answers_wave1 === 'object' ? JSON.stringify(body.answers_wave1) : String(body.answers_wave1 || '');
+      const ansW2 = typeof body.answers_wave2 === 'object' ? JSON.stringify(body.answers_wave2) : String(body.answers_wave2 || '');
+      const ansW3 = typeof body.answers_wave3 === 'object' ? JSON.stringify(body.answers_wave3) : String(body.answers_wave3 || '');
+      const ansIndivStr = JSON.stringify(userAnswers);
+      const resultsIndivStr = JSON.stringify(results);
+      const updatedAt = new Date().toISOString();
+
+      await context.env.DB.prepare(`
+        INSERT INTO coop_raid_scores (
+          nis, nama, kelas, kelompok, anggota, status,
+          skor_coop, skor_individu, skor_akhir,
+          tab_switch_count, pin_errors, integrity_level, integrity_label,
+          answers_wave1, answers_wave2, answers_wave3, answers_indiv, results_indiv,
+          updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(nis) DO UPDATE SET
+          nama = excluded.nama,
+          kelas = excluded.kelas,
+          kelompok = excluded.kelompok,
+          anggota = excluded.anggota,
+          status = 'Selesai',
+          skor_coop = 100,
+          skor_individu = excluded.skor_individu,
+          skor_akhir = excluded.skor_akhir,
+          tab_switch_count = MAX(coop_raid_scores.tab_switch_count, excluded.tab_switch_count),
+          pin_errors = MAX(coop_raid_scores.pin_errors, excluded.pin_errors),
+          integrity_level = excluded.integrity_level,
+          integrity_label = excluded.integrity_label,
+          answers_wave1 = CASE WHEN excluded.answers_wave1 != '' THEN excluded.answers_wave1 ELSE coop_raid_scores.answers_wave1 END,
+          answers_wave2 = CASE WHEN excluded.answers_wave2 != '' THEN excluded.answers_wave2 ELSE coop_raid_scores.answers_wave2 END,
+          answers_wave3 = CASE WHEN excluded.answers_wave3 != '' THEN excluded.answers_wave3 ELSE coop_raid_scores.answers_wave3 END,
+          answers_indiv = excluded.answers_indiv,
+          results_indiv = excluded.results_indiv,
+          updated_at = excluded.updated_at
+      `).bind(
+        nis, nama, kelas, kelompok, anggota, 'Selesai',
+        skorCoop, skorIndiv, skorAkhir,
+        tabSwitchCount, pinErrors, integrityLevel, integrityLabel,
+        ansW1, ansW2, ansW3, ansIndivStr, resultsIndivStr,
+        updatedAt
+      ).run();
+
+      return jsonResponse({
+        success: true,
+        skor_coop: skorCoop,
+        skor_individu: skorIndiv,
+        skor_akhir: skorAkhir,
+        results: results,
+        updated_at: updatedAt
+      });
+    }
+
+    // 3. ACTION: SYNC LIVE STATE UMUM (PROCTORING & PERSISTENCE)
+    if (!body.nis) {
       return jsonResponse({ error: 'NIS wajib diisi' }, 400);
     }
 
