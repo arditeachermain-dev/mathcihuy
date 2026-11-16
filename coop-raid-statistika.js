@@ -18,7 +18,7 @@
         waveNo: 1,
         title: "Putaran 1: Fondasi Pemusatan & Letak Data",
         targetPin: 192,
-        pinFormula: "Mo(68) + H(18) + σ²(8) + ȳ(90) + k(8) = 192",
+        pinFormula: "PIN = Pos 1 (Mo) + Pos 2 (H) + Pos 3 (σ²) + Pos 4 (ȳ) + Pos 5 (k)",
         positions: {
           1: {
             title: "Pos 1: Modus Data Berkelompok",
@@ -133,7 +133,7 @@
         waveNo: 2,
         title: "Putaran 2: Analisis Ragam & Eliminasi Outlier",
         targetPin: 102,
-        pinFormula: "Me(56) + (D7-D1)(21) + SR(4) + R_baru(15) + m(6) = 102",
+        pinFormula: "PIN = Pos 1 (Me) + Pos 2 (D₇ - D₁) + Pos 3 (SR) + Pos 4 (R_baru) + Pos 5 (m)",
         positions: {
           1: {
             title: "Pos 1: Median Data Berkelompok",
@@ -248,7 +248,7 @@
         waveNo: 3,
         title: "Putaran 3: Komparasi Populasi & Kuartil Poligon",
         targetPin: 217,
-        pinFormula: "Q3(78) + x̄(68) + nA(36) + σ_total²(26) + b(9) = 217",
+        pinFormula: "PIN = Pos 1 (Q₃) + Pos 2 (x̄) + Pos 3 (n_A) + Pos 4 (σ_total²) + Pos 5 (b)",
         positions: {
           1: {
             title: "Pos 1: Kuartil Atas Data Berkelompok",
@@ -793,7 +793,7 @@
 
           <div class="flex flex-col sm:flex-row items-center gap-3">
             <div class="flex-1 w-full flex items-center gap-2">
-              <input type="number" id="coop-pin-input" placeholder="Masukkan 3 Digit PIN Tim (Contoh: 192)" 
+              <input type="number" id="coop-pin-input" placeholder="Masukkan 3 Digit PIN Tim..." 
                 class="w-full p-2.5 rounded-xl border text-sm font-mono font-bold tracking-wider text-center outline-none transition" 
                 style="background-color: #FFFFFF; border-color: #CBD5E1; color: #1E293B;"
                 value="${currentSession.wavePins[waveNo] || ''}">
@@ -959,7 +959,7 @@
         startIndividualTest();
       }
     } else {
-      alert(`❌ PIN Tim ${pinVal || 0} TIDAK TEPAT!\nRumus target: ${wave.pinFormula}.\nPastikan seluruh 5 anggota tim telah menghitung dengan benar di pos masing-masing!`);
+      alert(`❌ PIN Tim ${pinVal || 0} TIDAK TEPAT!\nPastikan kelima anggota tim telah menyelesaikan pos masing-masing, lalu jumlahkan ke-5 angka kuncinya!`);
     }
   }
 
