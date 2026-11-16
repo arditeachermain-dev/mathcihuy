@@ -26,7 +26,7 @@
             level: "L2 (Aplikasi)",
             keyNumber: 68,
             keyLabel: "Nilai Modus (Mo)",
-            tanya: "Tabel distribusi frekuensi berikut menyajikan data nilai ujian Statistika dari 40 siswa kelas XII:<br><br>" +
+            tanya: "Tabel distribusi frekuensi nilai ujian Statistika dari 40 siswa kelas XII:<br><br>" +
                    "<div class='overflow-x-auto my-2'><table class='w-full text-xs border border-slate-700 rounded-lg overflow-hidden'>" +
                    "<thead class='bg-slate-800 text-slate-200'><tr><th class='p-2 border border-slate-700'>Nilai Ujian</th><th class='p-2 border border-slate-700'>Frekuensi (fi)</th><th class='p-2 border border-slate-700'>Frek. Kumulatif (fk)</th></tr></thead>" +
                    "<tbody>" +
@@ -36,7 +36,8 @@
                    "<tr class='text-center'><td class='p-1.5 border border-slate-700'>71 – 80</td><td class='p-1.5 border border-slate-700'>10</td><td class='p-1.5 border border-slate-700'>32</td></tr>" +
                    "<tr class='text-center'><td class='p-1.5 border border-slate-700'>81 – 90</td><td class='p-1.5 border border-slate-700'>8</td><td class='p-1.5 border border-slate-700'>40</td></tr>" +
                    "</tbody></table></div>" +
-                   "Berdasarkan tabel distribusi frekuensi di atas, nilai modus dari data tersebut adalah ....",
+                   "Berdasarkan tabel distribusi frekuensi di atas, tentukan nilai modus (Mo) dari data tersebut!<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 1 untuk perakitan PIN tim adalah nilai <b>Modus (Mo)</b> yang diperoleh.</div>",
             opsi: [
               "A. 63,0",
               "B. 66,5",
@@ -45,60 +46,61 @@
               "E. 68,5"
             ],
             kunci: "D",
-            bahas: "Kelas modus pada interval 61–70 (f=12). L=60,5; p=10; d1=12-6=6; d2=12-10=2.<br>Mo = 60,5 + [6 / (6 + 2)] × 10 = 60,5 + 7,5 = <b>68,0</b>. Angka Kunci Pos 1 = <b>68</b>."
+            bahas: "Kelas modus pada interval 61–70 (f=12). L=60,5; p=10; d1=12-6=6; d2=12-10=2.<br>Mo = 60,5 + [6 / (6 + 2)] × 10 = 60,5 + 7,5 = <b>68,0</b>. Nilai Kontribusi Pos 1 = <b>68</b>."
           },
           2: {
-            title: "Pos 2: Rataan & Kuartil Data Berkelompok",
-            tipe: "tf",
+            title: "Pos 2: Jangkauan Antarkuartil Data Berkelompok",
+            tipe: "mc",
             level: "L2 (Aplikasi)",
             keyNumber: 18,
             keyLabel: "Jangkauan Antarkuartil (H)",
-            tanya: "Berdasarkan tabel distribusi frekuensi 40 siswa yang sama (41-50: 4, 51-60: 6, 61-70: 12, 71-80: 10, 81-90: 8), tentukan apakah setiap pernyataan berikut bernilai <b>Benar</b> atau <b>Salah</b>!",
-            pernyataan: [
-              "Nilai rataan hitung (x̄) dari data ujian tersebut adalah 68,5.",
-              "Nilai kuartil bawah (Q₁) dari data ujian tersebut adalah 61,5.",
-              "Jangkauan antarkuartil (H = Q₃ - Q₁) dari data ujian tersebut adalah 18,0."
+            tanya: "Berdasarkan tabel distribusi frekuensi 40 siswa yang sama (41–50: 4, 51–60: 6, 61–70: 12, 71–80: 10, 81–90: 8), tentukan nilai <b>Jangkauan Antarkuartil (H = Q₃ - Q₁)</b> dari data ujian tersebut!<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 2 untuk perakitan PIN tim adalah nilai <b>Jangkauan Antarkuartil (H)</b> yang diperoleh.</div>",
+            opsi: [
+              "A. 15,0",
+              "B. 16,5",
+              "C. 18,0",
+              "D. 19,5",
+              "E. 21,0"
             ],
-            kunci: ["B", "S", "B"],
-            bahas: "Pernyataan 1 (Benar): x̄ = 65,5 + (12/40)×10 = 68,5.<br>Pernyataan 2 (Salah): Letak Q₁ = data ke-10 (interval 51–60) → Q₁ = 50,5 + [(10-4)/6]×10 = 60,5 (bukan 61,5).<br>Pernyataan 3 (Benar): Letak Q₃ = data ke-30 (interval 71–80) → Q₃ = 70,5 + [(30-22)/10]×10 = 78,5. Maka H = 78,5 - 60,5 = <b>18,0</b>. Angka Kunci Pos 2 = <b>18</b>."
+            kunci: "C",
+            bahas: "Letak Q₁ = data ke-10 (interval 51–60) → Q₁ = 50,5 + [(10-4)/6]×10 = 60,5.<br>Letak Q₃ = data ke-30 (interval 71–80) → Q₃ = 70,5 + [(30-22)/10]×10 = 78,5.<br>Maka H = Q₃ - Q₁ = 78,5 - 60,5 = <b>18,0</b>. Nilai Kontribusi Pos 2 = <b>18</b>."
           },
           3: {
-            title: "Pos 3: Kecukupan Data (Ragam Barisan)",
-            tipe: "ds",
+            title: "Pos 3: Ragam (Varians) Barisan Data",
+            tipe: "mc",
             level: "L3 (Penalaran HOTS)",
             keyNumber: 8,
             keyLabel: "Nilai Ragam Populasi (σ²)",
-            tanya: "Diketahui lima bilangan bulat positif terurut dari yang terkecil hingga terbesar adalah a, b, c, d, e. Berapakah nilai ragam (varians) populasi dari kelima bilangan tersebut?<br><br>" +
-                   "Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut:<br>" +
-                   "<b>(1)</b> Kelima bilangan tersebut membentuk barisan aritmetika dengan beda 2.<br>" +
-                   "<b>(2)</b> Nilai rata-rata kelima bilangan tersebut adalah 10 dan jangkauannya (e - a) adalah 8.",
+            tanya: "Diketahui lima bilangan bulat positif terurut membentuk barisan aritmetika dengan beda 2: (c - 4), (c - 2), c, (c + 2), dan (c + 4). Berapakah nilai <b>ragam (varians) populasi (σ²)</b> dari kelima bilangan tersebut?<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 3 untuk perakitan PIN tim adalah nilai <b>Ragam / Varians (σ²)</b> yang diperoleh.</div>",
             opsi: [
-              "A. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.",
-              "B. Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.",
-              "C. DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.",
-              "D. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.",
-              "E. Pernyataan (1) dan pernyataan (2) TIDAK CUKUP untuk menjawab pertanyaan."
+              "A. 4",
+              "B. 6",
+              "C. 8",
+              "D. 10",
+              "E. 12"
             ],
-            kunci: "A",
-            bahas: "Pernyataan (1): Kelima bilangan dapat dinyatakan sebagai c-4, c-2, c, c+2, c+4. Rataan = c. Ragam σ² = [(-4)² + (-2)² + 0² + 2² + 4²] / 5 = 40 / 5 = <b>8</b>. Nilai ragam pasti 8 tanpa perlu tahu nilai c (Cukup!).<br>Pernyataan (2): x̄=10 dan e-a=8. Data {6,8,10,12,14} memiliki σ²=8, tetapi data {6,9,10,11,14} memiliki σ²=6,8. Hasil tidak tunggal (Tidak cukup!).<br>Kunci: <b>A</b>. Angka Kunci Pos 3 = <b>8</b>."
+            kunci: "C",
+            bahas: "Rataan kelima bilangan adalah c.<br>Deviasi kuadrat: (-4)² + (-2)² + 0² + 2² + 4² = 16 + 4 + 0 + 4 + 16 = 40.<br>Maka ragam populasi σ² = 40 / 5 = <b>8</b>. Nilai Kontribusi Pos 3 = <b>8</b>."
           },
           4: {
-            title: "Pos 4: Transformasi Linear Data",
-            tipe: "multi",
+            title: "Pos 4: Rataan Hasil Transformasi Linear Data",
+            tipe: "mc",
             level: "L3 (Penalaran HOTS)",
             keyNumber: 90,
             keyLabel: "Rataan Rapor Baru (ȳ)",
-            tanya: "Sekelompok data nilai awal ujian siswa memiliki rataan x̄₀ = 60, median Me₀ = 63, jangkauan R₀ = 30, dan simpangan baku s₀ = 6. Setiap nilai awal (xᵢ) diubah menjadi nilai baru (yᵢ) mengikuti fungsi transformasi linear: <b>yᵢ = (4/3)xᵢ + 10</b>.<br><br>" +
-                   "Pilihlah <b>semua pernyataan yang bernilai BENAR</b> mengenai statistik data nilai rapor baru (yᵢ)!",
+            tanya: "Sekelompok data nilai awal ujian siswa memiliki rataan hitung x̄₀ = 60. Karena ada penyesuaian bobot kurikulum, setiap nilai awal (xᵢ) diubah menjadi nilai rapor baru (yᵢ) mengikuti fungsi transformasi linear: <b>yᵢ = (4/3)xᵢ + 10</b>.<br>Berapakah nilai rataan baru (ȳ) dari nilai rapor siswa tersebut?<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 4 untuk perakitan PIN tim adalah nilai <b>Rataan Rapor Baru (ȳ)</b> yang diperoleh.</div>",
             opsi: [
-              "A. Rataan nilai rapor siswa menjadi 90.",
-              "B. Median nilai rapor siswa menjadi 94.",
-              "C. Simpangan baku nilai rapor siswa menjadi 18.",
-              "D. Jangkauan nilai rapor siswa menjadi 40.",
-              "E. Ragam (varians) nilai rapor siswa menjadi 8."
+              "A. 80",
+              "B. 85",
+              "C. 90",
+              "D. 94",
+              "E. 96"
             ],
-            kunci: ["A", "B", "D"],
-            bahas: "Opsi A (Benar): ȳ = (4/3)(60) + 10 = 80 + 10 = <b>90</b>.<br>Opsi B (Benar): Me_baru = (4/3)(63) + 10 = 84 + 10 = <b>94</b>.<br>Opsi C (Salah): Simpangan baku tidak dipengaruhi penjumlahan 10 → s_baru = (4/3)(6) = 8 (bukan 18).<br>Opsi D (Benar): R_baru = (4/3)(30) = <b>40</b>.<br>Opsi E (Salah): Ragam baru = 8² = 64.<br>Pernyataan Benar: <b>A, B, D</b>. Angka Kunci Pos 4 = <b>90</b>."
+            kunci: "C",
+            bahas: "Sifat transformasi linear rata-rata: ȳ = (4/3)x̄₀ + 10 = (4/3)(60) + 10 = 80 + 10 = <b>90</b>. Nilai Kontribusi Pos 4 = <b>90</b>."
           },
           5: {
             title: "Pos 5: Frekuensi Hilang dari Median (Kapten)",
@@ -106,17 +108,8 @@
             level: "L3 (Penalaran HOTS)",
             keyNumber: 8,
             keyLabel: "Nilai Frekuensi Hilang (k)",
-            tanya: "Tabel distribusi frekuensi berikut menyajikan data nilai praktikum siswa kelas XII dengan satu frekuensi yang belum diketahui (k):<br><br>" +
-                   "<div class='overflow-x-auto my-2'><table class='w-full text-xs border border-slate-700 rounded-lg overflow-hidden'>" +
-                   "<thead class='bg-slate-800 text-slate-200'><tr><th class='p-2 border border-slate-700'>Nilai Praktikum</th><th class='p-2 border border-slate-700'>Frekuensi (fi)</th><th class='p-2 border border-slate-700'>Frek. Kumulatif (fk)</th></tr></thead>" +
-                   "<tbody>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>51 – 60</td><td class='p-1.5 border border-slate-700'>5</td><td class='p-1.5 border border-slate-700'>5</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>61 – 70</td><td class='p-1.5 border border-slate-700'>9</td><td class='p-1.5 border border-slate-700'>14</td></tr>" +
-                   "<tr class='text-center bg-indigo-950/40 font-bold text-indigo-300'><td class='p-1.5 border border-slate-700'>71 – 80</td><td class='p-1.5 border border-slate-700'>12</td><td class='p-1.5 border border-slate-700'>26</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>81 – 90</td><td class='p-1.5 border border-slate-700'>k</td><td class='p-1.5 border border-slate-700'>26 + k</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>91 – 100</td><td class='p-1.5 border border-slate-700'>6</td><td class='p-1.5 border border-slate-700'>32 + k</td></tr>" +
-                   "</tbody></table></div>" +
-                   "Jika diketahui nilai median (Me) dari data pada tabel di atas adalah <b>75,5</b>, maka nilai k adalah ....",
+            tanya: "Tabel distribusi frekuensi nilai praktikum (51–60: 5, 61–70: 9, 71–80: 12, 81–90: k, 91–100: 6). Jika diketahui nilai median (Me) dari data pada tabel tersebut adalah <b>75,5</b>, berapakah nilai frekuensi hilang <b>k</b>?<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 5 untuk perakitan PIN tim adalah nilai <b>Frekuensi Hilang (k)</b> yang diperoleh.</div>",
             opsi: [
               "A. 6",
               "B. 8",
@@ -125,7 +118,7 @@
               "E. 14"
             ],
             kunci: "B",
-            bahas: "Me = 75,5 terletak di kelas 71–80 (L=70,5; p=10; f_me=12; fk_sebelum=14). Total N = 32 + k.<br>75,5 = 70,5 + [((32+k)/2 - 14) / 12] × 10<br>5 = [(16 + 0,5k - 14) / 12] × 10 → 6 = 2 + 0,5k → 0,5k = 4 → <b>k = 8</b>.<br>Kunci: <b>B</b>. Angka Kunci Pos 5 = <b>8</b>."
+            bahas: "Me = 75,5 di kelas 71–80 (L=70,5; p=10; f_me=12; fk_sebelum=14). Total N = 32 + k.<br>75,5 = 70,5 + [((32+k)/2 - 14) / 12] × 10 → 5 = [(2 + 0,5k)/12] × 10 → 6 = 2 + 0,5k → 0,5k = 4 → <b>k = 8</b>. Nilai Kontribusi Pos 5 = <b>8</b>."
           }
         }
       },
@@ -141,79 +134,71 @@
             level: "L2 (Aplikasi)",
             keyNumber: 56,
             keyLabel: "Nilai Median (Me)",
-            tanya: "Tabel distribusi frekuensi berikut menyajikan skor tes literasi numerasi dari 50 siswa kelas XII:<br><br>" +
-                   "<div class='overflow-x-auto my-2'><table class='w-full text-xs border border-slate-700 rounded-lg overflow-hidden'>" +
-                   "<thead class='bg-slate-800 text-slate-200'><tr><th class='p-2 border border-slate-700'>Skor Tes</th><th class='p-2 border border-slate-700'>Frekuensi (fi)</th><th class='p-2 border border-slate-700'>Frek. Kumulatif (fk)</th></tr></thead>" +
-                   "<tbody>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>31 – 40</td><td class='p-1.5 border border-slate-700'>5</td><td class='p-1.5 border border-slate-700'>5</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>41 – 50</td><td class='p-1.5 border border-slate-700'>9</td><td class='p-1.5 border border-slate-700'>14</td></tr>" +
-                   "<tr class='text-center bg-indigo-950/40 font-bold text-indigo-300'><td class='p-1.5 border border-slate-700'>51 – 60</td><td class='p-1.5 border border-slate-700'>20</td><td class='p-1.5 border border-slate-700'>34</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>61 – 70</td><td class='p-1.5 border border-slate-700'>10</td><td class='p-1.5 border border-slate-700'>44</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>71 – 80</td><td class='p-1.5 border border-slate-700'>6</td><td class='p-1.5 border border-slate-700'>50</td></tr>" +
-                   "</tbody></table></div>" +
-                   "Berdasarkan tabel di atas, nilai median (Me) dari data tersebut adalah ....",
+            tanya: "Tabel distribusi frekuensi skor tes 50 siswa (31–40: 5, 41–50: 9, 51–60: 20, 61–70: 10, 71–80: 6). Berdasarkan tabel tersebut, tentukan nilai median (Me) dari data tersebut!<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 1 untuk perakitan PIN tim adalah nilai <b>Median (Me)</b> yang diperoleh.</div>",
             opsi: [
-              "A. 54,5",
+              "A. 54,0",
               "B. 55,0",
               "C. 55,5",
               "D. 56,0",
               "E. 56,5"
             ],
             kunci: "D",
-            bahas: "Letak median = data ke-25 (interval 51–60). L=50,5; p=10; fk=14; f_me=20.<br>Me = 50,5 + [(25 - 14) / 20] × 10 = 50,5 + 5,5 = <b>56,0</b>. Angka Kunci Pos 1 = <b>56</b>."
+            bahas: "Letak median = data ke-25 (interval 51–60). L=50,5; p=10; fk=14; f_me=20.<br>Me = 50,5 + [(25 - 14) / 20] × 10 = 50,5 + 5,5 = <b>56,0</b>. Nilai Kontribusi Pos 1 = <b>56</b>."
           },
           2: {
-            title: "Pos 2: Rataan, Modus & Desil",
-            tipe: "tf",
+            title: "Pos 2: Selisih Desil Data Berkelompok",
+            tipe: "mc",
             level: "L2 (Aplikasi)",
             keyNumber: 21,
             keyLabel: "Selisih Desil (D₇ - D₁)",
-            tanya: "Berdasarkan tabel skor 50 siswa (31-40: 5, 41-50: 9, 51-60: 20, 61-70: 10, 71-80: 6), tentukan status Benar atau Salah dari setiap pernyataan berikut!",
-            pernyataan: [
-              "Nilai rataan hitung (x̄) dari data skor tes tersebut adalah 56,1.",
-              "Nilai modus (Mo) dari data skor tes tersebut adalah 55,5.",
-              "Selisih antara desil ke-7 (D₇) dan desil ke-1 (D₁) adalah 21,0."
+            tanya: "Berdasarkan tabel skor 50 siswa yang sama (31–40: 5, 41–50: 9, 51–60: 20, 61–70: 10, 71–80: 6), tentukan nilai selisih antara <b>Desil ke-7 (D₇)</b> dan <b>Desil ke-1 (D₁)</b> dari data tersebut!<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 2 untuk perakitan PIN tim adalah nilai <b>Selisih Desil (D₇ - D₁)</b> yang diperoleh.</div>",
+            opsi: [
+              "A. 18",
+              "B. 19",
+              "C. 20",
+              "D. 21",
+              "E. 22"
             ],
-            kunci: ["B", "S", "B"],
-            bahas: "Pernyataan 1 (Benar): Coding xs=55,5 → x̄ = 55,5 + (3/50)×10 = 56,1.<br>Pernyataan 2 (Salah): Modus di 51–60, d1=11, d2=10 → Mo = 50,5 + (11/21)×10 = 55,74 (bukan 55,5).<br>Pernyataan 3 (Benar): D₁ data ke-5 = 40,5; D₇ data ke-35 = 61,5. Selisih D₇ - D₁ = 61,5 - 40,5 = <b>21,0</b>. Angka Kunci Pos 2 = <b>21</b>."
+            kunci: "D",
+            bahas: "D₁ terletak pada data ke-5 (batas atas 31–40) → D₁ = 40,5.<br>D₇ terletak pada data ke-35 (interval 61–70) → D₇ = 60,5 + [(35-34)/10]×10 = 61,5.<br>Maka selisih D₇ - D₁ = 61,5 - 40,5 = <b>21</b>. Nilai Kontribusi Pos 2 = <b>21</b>."
           },
           3: {
-            title: "Pos 3: Simpangan Rata-Rata (Kecukupan Data)",
-            tipe: "ds",
+            title: "Pos 3: Simpangan Rata-Rata Empat Bilangan",
+            tipe: "mc",
             level: "L3 (Penalaran HOTS)",
             keyNumber: 4,
             keyLabel: "Simpangan Rata-rata (SR)",
-            tanya: "Diketahui empat bilangan bulat positif terurut p ≤ q ≤ r ≤ s memiliki rata-rata 15 dan median 15. Berapakah nilai simpangan rata-rata (SR) dari keempat bilangan tersebut?<br><br>" +
-                   "Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut:<br>" +
-                   "<b>(1)</b> Jumlah dua bilangan terkecil (p + q) adalah 22.<br>" +
-                   "<b>(2)</b> Dua bilangan terbesarnya berturut-turut adalah r = 17 dan s = 21.",
+            tanya: "Diketahui empat bilangan bulat positif terurut p ≤ q ≤ r ≤ s memiliki rata-rata 15 dan median 15 (sehingga p + q + r + s = 60). Jika diketahui jumlah dua bilangan terkecil adalah (p + q) = 22, berapakah nilai <b>simpangan rata-rata (SR)</b> dari keempat bilangan tersebut?<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 3 untuk perakitan PIN tim adalah nilai <b>Simpangan Rata-rata (SR)</b> yang diperoleh.</div>",
             opsi: [
-              "A. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.",
-              "B. Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.",
-              "C. DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.",
-              "D. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.",
-              "E. Pernyataan (1) dan pernyataan (2) TIDAK CUKUP untuk menjawab pertanyaan."
+              "A. 2",
+              "B. 3",
+              "C. 4",
+              "D. 5",
+              "E. 6"
             ],
-            kunci: "D",
-            bahas: "Total data p+q+r+s = 60. Karena p ≤ q ≤ 15 ≤ r ≤ s, rumus SR = [(r + s) - (p + q)] / 4.<br>Pernyataan (1): p+q=22 → r+s = 60 - 22 = 38 → SR = (38 - 22) / 4 = <b>4</b> (Cukup!).<br>Pernyataan (2): r=17, s=21 → r+s=38 → p+q=22 → SR = (38 - 22) / 4 = <b>4</b> (Cukup!).<br>Kunci: <b>D</b>. Angka Kunci Pos 3 = <b>4</b>."
+            kunci: "C",
+            bahas: "Karena p ≤ q ≤ 15 ≤ r ≤ s, rumus simpangan rata-rata adalah SR = [(r + s) - (p + q)] / 4.<br>Karena p + q = 22, maka r + s = 60 - 22 = 38.<br>Maka SR = (38 - 22) / 4 = 16 / 4 = <b>4</b>. Nilai Kontribusi Pos 3 = <b>4</b>."
           },
           4: {
-            title: "Pos 4: Eliminasi Pencilan (Outlier)",
-            tipe: "multi",
+            title: "Pos 4: Eliminasi Pencilan & Jangkauan Baru",
+            tipe: "mc",
             level: "L3 (Penalaran HOTS)",
             keyNumber: 15,
             keyLabel: "Jangkauan Baru (R_baru)",
-            tanya: "Lima siswa mengikuti kuis susulan dengan skor: 70, 75, 80, 85, 40. Karena skor 40 teridentifikasi sebagai kesalahan sistem (pencilan), skor tersebut dihapus sehingga tersisa 4 data: {70, 75, 80, 85}.<br><br>" +
-                   "Pilihlah <b>semua pernyataan yang BENAR</b> mengenai kondisi statistik setelah skor 40 dihapus!",
+            tanya: "Lima siswa mengikuti tes susulan dengan skor: 70, 75, 80, 85, dan 40. Karena skor 40 teridentifikasi sebagai kesalahan pencatatan (pencilan luar), skor 40 tersebut dihapus dari sistem sehingga tersisa 4 data: {70, 75, 80, 85}.<br>Berapakah nilai <b>jangkauan baru (R_baru)</b> dari data tersebut setelah pencilan dieliminasi?<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 4 untuk perakitan PIN tim adalah nilai <b>Jangkauan Baru (R_baru)</b> yang diperoleh.</div>",
             opsi: [
-              "A. Rataan hitung data meningkat dari 70 menjadi 77,5.",
-              "B. Median data tetap bernilai 75.",
-              "C. Jangkauan data menyusut menjadi 15.",
-              "D. Simpangan rata-rata dari 4 data yang tersisa adalah 5.",
-              "E. Ragam populasi data meningkat setelah pencilan dihapus."
+              "A. 10",
+              "B. 12",
+              "C. 15",
+              "D. 18",
+              "E. 20"
             ],
-            kunci: ["A", "C", "D"],
-            bahas: "Opsi A (Benar): Rataan awal = 350/5 = 70. Rataan baru = 310/4 = <b>77,5</b>.<br>Opsi B (Salah): Median baru = (75 + 80)/2 = 77,5.<br>Opsi C (Benar): Jangkauan baru = 85 - 70 = <b>15</b>.<br>Opsi D (Benar): SR = (|70-77,5| + |75-77,5| + |80-77,5| + |85-77,5|) / 4 = (7,5 + 2,5 + 2,5 + 7,5)/4 = <b>5</b>.<br>Opsi E (Salah): Data makin homogen, ragam menurun.<br>Kunci: <b>A, C, D</b>. Angka Kunci Pos 4 = <b>15</b>."
+            kunci: "C",
+            bahas: "Setelah skor 40 dihapus, data tersisa: {70, 75, 80, 85}.<br>Jangkauan baru: R_baru = X_maks - X_min = 85 - 70 = <b>15</b>. Nilai Kontribusi Pos 4 = <b>15</b>."
           },
           5: {
             title: "Pos 5: Frekuensi Hilang dari Rataan (Kapten)",
@@ -221,17 +206,8 @@
             level: "L3 (Penalaran HOTS)",
             keyNumber: 6,
             keyLabel: "Nilai Frekuensi Hilang (m)",
-            tanya: "Tabel distribusi frekuensi usia peserta komunitas lari:<br><br>" +
-                   "<div class='overflow-x-auto my-2'><table class='w-full text-xs border border-slate-700 rounded-lg overflow-hidden'>" +
-                   "<thead class='bg-slate-800 text-slate-200'><tr><th class='p-2 border border-slate-700'>Kelompok Usia</th><th class='p-2 border border-slate-700'>Titik Tengah (xi)</th><th class='p-2 border border-slate-700'>Frekuensi (fi)</th></tr></thead>" +
-                   "<tbody>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>11 – 15</td><td class='p-1.5 border border-slate-700'>13</td><td class='p-1.5 border border-slate-700'>5</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>16 – 20</td><td class='p-1.5 border border-slate-700'>18</td><td class='p-1.5 border border-slate-700'>8</td></tr>" +
-                   "<tr class='text-center bg-indigo-950/40 font-bold text-indigo-300'><td class='p-1.5 border border-slate-700'>21 – 25</td><td class='p-1.5 border border-slate-700'>23</td><td class='p-1.5 border border-slate-700'>13</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>26 – 30</td><td class='p-1.5 border border-slate-700'>28</td><td class='p-1.5 border border-slate-700'>m</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>31 – 35</td><td class='p-1.5 border border-slate-700'>33</td><td class='p-1.5 border border-slate-700'>8</td></tr>" +
-                   "</tbody></table></div>" +
-                   "Jika rataan hitung usia peserta pada tabel di atas adalah <b>23,5 tahun</b>, maka nilai m adalah ....",
+            tanya: "Tabel distribusi frekuensi usia peserta lari (11–15: 5, 16–20: 8, 21–25: 13, 26–30: m, 31–35: 8). Jika diketahui rataan hitung usia peserta adalah <b>23,5 tahun</b>, berapakah nilai frekuensi hilang <b>m</b>?<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 5 untuk perakitan PIN tim adalah nilai <b>Frekuensi Hilang (m)</b> yang diperoleh.</div>",
             opsi: [
               "A. 4",
               "B. 6",
@@ -240,7 +216,7 @@
               "E. 12"
             ],
             kunci: "B",
-            bahas: "Rataan sementara xs = 23, p = 5. Σfi = 34 + m. Σfi·ci = 5(-2) + 8(-1) + 13(0) + m(1) + 8(2) = m - 2.<br>23,5 = 23 + [(m - 2) / (34 + m)] × 5 → 0,5(34 + m) = 5(m - 2) → 17 + 0,5m = 5m - 10 → 4,5m = 27 → <b>m = 6</b>.<br>Kunci: <b>B</b>. Angka Kunci Pos 5 = <b>6</b>."
+            bahas: "Rataan sementara xs = 23 (kelas 21–25, p=5). Σfi = 34 + m.<br>Σfi·ci = 5(-2) + 8(-1) + 13(0) + m(1) + 8(2) = m - 2.<br>23,5 = 23 + [(m-2)/(34+m)] × 5 → 0,5(34+m) = 5(m-2) → 17 + 0,5m = 5m - 10 → 4,5m = 27 → <b>m = 6</b>. Nilai Kontribusi Pos 5 = <b>6</b>."
           }
         }
       },
@@ -256,81 +232,71 @@
             level: "L2 (Aplikasi)",
             keyNumber: 78,
             keyLabel: "Nilai Kuartil Atas (Q₃)",
-            tanya: "Tabel durasi belajar mandiri (dalam menit) dari 60 siswa kelas XII:<br><br>" +
-                   "<div class='overflow-x-auto my-2'><table class='w-full text-xs border border-slate-700 rounded-lg overflow-hidden'>" +
-                   "<thead class='bg-slate-800 text-slate-200'><tr><th class='p-2 border border-slate-700'>Durasi Belajar</th><th class='p-2 border border-slate-700'>Frekuensi (fi)</th><th class='p-2 border border-slate-700'>Frek. Kumulatif (fk)</th></tr></thead>" +
-                   "<tbody>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>41 – 50</td><td class='p-1.5 border border-slate-700'>7</td><td class='p-1.5 border border-slate-700'>7</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>51 – 60</td><td class='p-1.5 border border-slate-700'>11</td><td class='p-1.5 border border-slate-700'>18</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>61 – 70</td><td class='p-1.5 border border-slate-700'>12</td><td class='p-1.5 border border-slate-700'>30</td></tr>" +
-                   "<tr class='text-center bg-indigo-950/40 font-bold text-indigo-300'><td class='p-1.5 border border-slate-700'>71 – 80</td><td class='p-1.5 border border-slate-700'>20</td><td class='p-1.5 border border-slate-700'>50</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>81 – 90</td><td class='p-1.5 border border-slate-700'>10</td><td class='p-1.5 border border-slate-700'>60</td></tr>" +
-                   "</tbody></table></div>" +
-                   "Berdasarkan tabel durasi belajar 60 siswa di atas, nilai kuartil atas (Q₃) adalah ....",
+            tanya: "Tabel durasi belajar 60 siswa (41–50: 7, 51–60: 11, 61–70: 12, 71–80: 20, 81–90: 10). Berdasarkan tabel tersebut, tentukan nilai kuartil atas (Q₃) dari data tersebut!<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 1 untuk perakitan PIN tim adalah nilai <b>Kuartil Atas (Q₃)</b> yang diperoleh.</div>",
             opsi: [
-              "A. 75,5",
-              "B. 76,0",
-              "C. 77,5",
+              "A. 75,0",
+              "B. 76,5",
+              "C. 77,0",
               "D. 78,0",
-              "E. 78,5"
+              "E. 79,5"
             ],
             kunci: "D",
-            bahas: "Letak Q₃ = data ke-45 (interval 71–80). L=70,5; p=10; fk=30; f=20.<br>Q₃ = 70,5 + [(45 - 30) / 20] × 10 = 70,5 + 7,5 = <b>78,0</b>. Angka Kunci Pos 1 = <b>78</b>."
+            bahas: "Letak Q₃ = data ke-45 (interval 71–80). L=70,5; p=10; fk=30; f=20.<br>Q₃ = 70,5 + [(45 - 30) / 20] × 10 = 70,5 + 7,5 = <b>78,0</b>. Nilai Kontribusi Pos 1 = <b>78</b>."
           },
           2: {
-            title: "Pos 2: Evaluasi Pemusatan Data Berkelompok",
-            tipe: "tf",
+            title: "Pos 2: Rataan Hitung Data Berkelompok",
+            tipe: "mc",
             level: "L2 (Aplikasi)",
             keyNumber: 68,
             keyLabel: "Rataan Hitung (x̄)",
-            tanya: "Berdasarkan tabel durasi belajar 60 siswa di atas, tentukan status Benar atau Salah dari setiap pernyataan berikut!",
-            pernyataan: [
-              "Nilai rataan hitung (x̄) durasi belajar siswa adalah 68,0 menit.",
-              "Nilai median (Me) durasi belajar siswa adalah 70,5 menit.",
-              "Nilai modus (Mo) durasi belajar siswa adalah 75,5 menit."
+            tanya: "Berdasarkan tabel durasi belajar 60 siswa yang sama (41–50: 7, 51–60: 11, 61–70: 12, 71–80: 20, 81–90: 10), tentukan nilai <b>rataan hitung (x̄)</b> durasi belajar siswa tersebut!<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 2 untuk perakitan PIN tim adalah nilai <b>Rataan Hitung (x̄)</b> yang diperoleh.</div>",
+            opsi: [
+              "A. 65,5",
+              "B. 67,0",
+              "C. 68,0",
+              "D. 69,5",
+              "E. 70,5"
             ],
-            kunci: ["B", "B", "S"],
-            bahas: "Pernyataan 1 (Benar): Coding xs=65,5 → x̄ = 65,5 + (15/60)×10 = <b>68,0</b>.<br>Pernyataan 2 (Benar): Median data ke-30 ada di batas atas kelas 61–70 → Me = 60,5 + (12/12)×10 = <b>70,5</b>.<br>Pernyataan 3 (Salah): Modus di 71–80, d1=8, d2=10 → Mo = 70,5 + (8/18)×10 = 74,94 (bukan 75,5).<br>Kunci: <b>B - B - S</b>. Angka Kunci Pos 2 = <b>68</b>."
+            kunci: "C",
+            bahas: "Coding xs = 65,5 (kelas 61–70, p=10). Σfi = 60.<br>Σfi·ci = 7(-2) + 11(-1) + 12(0) + 20(1) + 10(2) = 15.<br>x̄ = 65,5 + (15/60) × 10 = 65,5 + 2,5 = <b>68,0</b>. Nilai Kontribusi Pos 2 = <b>68</b>."
           },
           3: {
-            title: "Pos 3: Rataan Gabungan (Kecukupan Data)",
-            tipe: "ds",
+            title: "Pos 3: Ukuran Populasi dari Rataan Gabungan",
+            tipe: "mc",
             level: "L3 (Penalaran HOTS)",
             keyNumber: 36,
             keyLabel: "Jumlah Siswa XII-A (nA)",
-            tanya: "Rataan nilai ujian Matematika gabungan dari kelas XII-A dan XII-B adalah 82. Jika rataan kelas XII-A adalah 80 dan rataan kelas XII-B adalah 85, berapakah jumlah siswa di kelas XII-A?<br><br>" +
-                   "Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut:<br>" +
-                   "<b>(1)</b> Perbandingan jumlah siswa kelas XII-A dan XII-B adalah 3 : 2.<br>" +
-                   "<b>(2)</b> Selisih jumlah siswa kelas XII-A dan XII-B adalah 12 orang.",
+            tanya: "Rataan nilai ujian Matematika gabungan dari kelas XII-A dan XII-B adalah 82. Diketahui rataan kelas XII-A adalah 80 dan rataan kelas XII-B adalah 85. Jika selisih jumlah siswa kelas XII-A dan XII-B adalah (nA - nB) = 12 orang, berapakah <b>jumlah siswa di kelas XII-A (nA)</b>?<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 3 untuk perakitan PIN tim adalah nilai <b>Jumlah Siswa Kelas XII-A (nA)</b> yang diperoleh.</div>",
             opsi: [
-              "A. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.",
-              "B. Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.",
-              "C. DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.",
-              "D. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.",
-              "E. Pernyataan (1) dan pernyataan (2) TIDAK CUKUP untuk menjawab pertanyaan."
+              "A. 30",
+              "B. 32",
+              "C. 36",
+              "D. 40",
+              "E. 48"
             ],
-            kunci: "B",
-            bahas: "Dari soal utama: 82(nA + nB) = 80nA + 85nB → 2nA = 3nB → nB = (2/3)nA.<br>Pernyataan (1): Hanya menegaskan nA : nB = 3 : 2 (Informasi sudah ada pada soal utama, tidak cukup sendiri).<br>Pernyataan (2): nA - nB = 12 → nA - (2/3)nA = 12 → (1/3)nA = 12 → <b>nA = 36</b> (Cukup sendiri!).<br>Kunci: <b>B</b>. Angka Kunci Pos 3 = <b>36</b>."
+            kunci: "C",
+            bahas: "Rataan gabungan: 82(nA + nB) = 80nA + 85nB → 2nA = 3nB → nB = (2/3)nA.<br>Selisih: nA - (2/3)nA = 12 → (1/3)nA = 12 → <b>nA = 36</b>. Nilai Kontribusi Pos 3 = <b>36</b>."
           },
           4: {
-            title: "Pos 4: Komparasi Ragam & Konsistensi Regu",
-            tipe: "multi",
+            title: "Pos 4: Total Ragam (Varians) Dua Populasi",
+            tipe: "mc",
             level: "L3 (Penalaran HOTS)",
             keyNumber: 26,
-            keyLabel: "Total Ragam (σ_Elang² + σ_Rajawali²)",
-            tanya: "Dua regu panahan masing-masing terdiri atas 5 atlet dengan rincian skor:<br>" +
-                   "• <b>Regu Elang</b>: 16, 18, 20, 22, 24<br>" +
-                   "• <b>Regu Rajawali</b>: 14, 17, 20, 23, 26<br><br>" +
-                   "Pilihlah <b>semua pernyataan yang BENAR</b>!",
+            keyLabel: "Total Ragam (σ_total²)",
+            tanya: "Dua regu panahan masing-masing terdiri atas 5 atlet:<br>• <b>Regu Elang</b>: {16, 18, 20, 22, 24}<br>• <b>Regu Rajawali</b>: {14, 17, 20, 23, 26}<br>Hitunglah nilai <b>total penjumlahan ragam populasi kedua regu (σ_total² = σ_Elang² + σ_Rajawali²)</b>!<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 4 untuk perakitan PIN tim adalah nilai <b>Total Ragam (σ_total²)</b> yang diperoleh.</div>",
             opsi: [
-              "A. Kedua regu memiliki rataan hitung dan median yang sama besar, yaitu 20.",
-              "B. Ragam populasi skor Regu Elang adalah 8 dan Regu Rajawali adalah 18.",
-              "C. Perbandingan simpangan baku Regu Elang terhadap Regu Rajawali adalah 4 : 9.",
-              "D. Skor atlet Regu Elang lebih konsisten (homogen) dibandingkan Regu Rajawali.",
-              "E. Jangkauan skor Regu Elang lebih besar daripada Regu Rajawali."
+              "A. 20",
+              "B. 24",
+              "C. 26",
+              "D. 28",
+              "E. 32"
             ],
-            kunci: ["A", "B", "D"],
-            bahas: "Opsi A (Benar): Rataan & median keduanya = 20.<br>Opsi B (Benar): σ_E² = (16+4+0+4+16)/5 = <b>8</b>. σ_R² = (36+9+0+9+36)/5 = <b>18</b>. Total = 8 + 18 = <b>26</b>.<br>Opsi C (Salah): Rasio SD = √8 : √18 = 2√2 : 3√2 = 2 : 3 (bukan 4:9).<br>Opsi D (Benar): SD Elang lebih kecil, maka lebih konsisten.<br>Opsi E (Salah): Jangkauan Elang 8 < Rajawali 12.<br>Kunci: <b>A, B, D</b>. Angka Kunci Pos 4 = <b>26</b>."
+            kunci: "C",
+            bahas: "Rataan kedua regu = 20.<br>Ragam Elang: σ_E² = (16+4+0+4+16)/5 = <b>8</b>.<br>Ragam Rajawali: σ_R² = (36+9+0+9+36)/5 = <b>18</b>.<br>Maka total ragam σ_total² = 8 + 18 = <b>26</b>. Nilai Kontribusi Pos 4 = <b>26</b>."
           },
           5: {
             title: "Pos 5: Dua Frekuensi Hilang dari Median (Kapten)",
@@ -338,17 +304,8 @@
             level: "L3 (Penalaran HOTS)",
             keyNumber: 9,
             keyLabel: "Nilai Frekuensi Hilang (b)",
-            tanya: "Tabel berikut menyajikan data berat badan 50 siswa dengan dua frekuensi kelas yang belum diketahui (a dan b):<br><br>" +
-                   "<div class='overflow-x-auto my-2'><table class='w-full text-xs border border-slate-700 rounded-lg overflow-hidden'>" +
-                   "<thead class='bg-slate-800 text-slate-200'><tr><th class='p-2 border border-slate-700'>Berat Badan (kg)</th><th class='p-2 border border-slate-700'>Frekuensi (fi)</th></tr></thead>" +
-                   "<tbody>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>41 – 50</td><td class='p-1.5 border border-slate-700'>4</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>51 – 60</td><td class='p-1.5 border border-slate-700'>a</td></tr>" +
-                   "<tr class='text-center bg-indigo-950/40 font-bold text-indigo-300'><td class='p-1.5 border border-slate-700'>61 – 70</td><td class='p-1.5 border border-slate-700'>16</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>71 – 80</td><td class='p-1.5 border border-slate-700'>b</td></tr>" +
-                   "<tr class='text-center'><td class='p-1.5 border border-slate-700'>81 – 90</td><td class='p-1.5 border border-slate-700'>8</td></tr>" +
-                   "</tbody></table></div>" +
-                   "Jika total siswa 50 orang dan median (Me) adalah <b>65,5 kg</b>, maka nilai b adalah ....",
+            tanya: "Tabel distribusi berat badan 50 siswa (41–50: 4, 51–60: a, 61–70: 16, 71–80: b, 81–90: 8). Jika total siswa 50 orang dan nilai median (Me) adalah <b>65,5 kg</b>, berapakah nilai frekuensi kelas <b>b</b>?<br><br>" +
+                   "<div class='p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 text-indigo-950 font-semibold text-xs leading-relaxed'><i class='fa-solid fa-circle-info text-indigo-600 mr-1'></i> <b>Pernyataan Kontribusi PIN:</b> Nilai kontribusi anggota Pos 5 untuk perakitan PIN tim adalah nilai <b>Frekuensi Hilang (b)</b> yang diperoleh.</div>",
             opsi: [
               "A. 7",
               "B. 8",
@@ -357,7 +314,7 @@
               "E. 13"
             ],
             kunci: "C",
-            bahas: "Total N = 50 → 4 + a + 16 + b + 8 = 50 → a + b = 22.<br>Median Me = 65,5 di 61–70 (L=60,5; p=10; f=16; fk_sebelum=4+a).<br>65,5 = 60,5 + [(25 - (4+a)) / 16] × 10 → 5 = [(21-a)/16]×10 → 8 = 21-a → a = 13.<br>Maka b = 22 - 13 = <b>9</b>.<br>Kunci: <b>C</b>. Angka Kunci Pos 5 = <b>9</b>."
+            bahas: "Total N = 50 → a + b = 22.<br>Median Me = 65,5 di 61–70 (L=60,5; p=10; f=16; fk_sebelum=4+a).<br>65,5 = 60,5 + [(25 - (4+a)) / 16] × 10 → 5 = [(21-a)/16]×10 → a = 13 → b = 22 - 13 = <b>9</b>. Nilai Kontribusi Pos 5 = <b>9</b>."
           }
         }
       }
@@ -462,6 +419,7 @@
     waveAnswers: { 1: {}, 2: {}, 3: {} },
     wavePins: { 1: '', 2: '', 3: '' },
     waveUnlocked: { 1: true, 2: false, 3: false },
+    pinErrors: { 1: 0, 2: 0, 3: 0 },
     individualAnswers: {},
     individualStarted: false,
     individualDone: false,
@@ -478,6 +436,7 @@
       if (raw) {
         const parsed = JSON.parse(raw);
         currentSession = Object.assign(currentSession, parsed);
+        currentSession.pinErrors = currentSession.pinErrors || { 1: 0, 2: 0, 3: 0 };
       }
     } catch (e) {
       console.warn("Gagal membaca session Co-op Raid:", e);
@@ -490,6 +449,21 @@
     } catch (e) {
       console.warn("Gagal menyimpan session Co-op Raid:", e);
     }
+  }
+
+  function getContributedValueFromAnswer(posData, userAns) {
+    if (!posData || !userAns) return '-';
+    if (posData.opsi && Array.isArray(posData.opsi)) {
+      const optStr = posData.opsi.find(o => o.startsWith(userAns + '.'));
+      if (optStr) {
+        const match = optStr.match(/^[A-E]\.\s*([\d,.]+)/);
+        if (match) {
+          return match[1];
+        }
+        return optStr.substring(2).trim();
+      }
+    }
+    return userAns;
   }
 
   // --------------------------------------------------------------------------
@@ -533,12 +507,10 @@
 
   function isCoopModalActive() {
     const modal = document.getElementById('coop-raid-modal');
-    return modal && 
-           !modal.classList.contains('hidden') && 
-           modal.style.display !== 'none' && 
-           currentSession && 
-           currentSession.studentName && 
-           !currentSession.individualDone;
+    if (!modal) return false;
+    const isHidden = modal.classList.contains('hidden');
+    const isDisplayNone = modal.style.display === 'none' || window.getComputedStyle(modal).display === 'none';
+    return !isHidden && !isDisplayNone;
   }
 
   function getIntegrityLevel(count) {
@@ -594,9 +566,9 @@
     const info = getIntegrityLevel(count);
 
     if (info.level === 'kuning') {
-      showAntiCheatToast(`⚠️ <b>Peringatan Integritas (Lencana Kuning):</b> ${reason} terdeteksi (${count}x)! Anda tetap dapat melanjutkan pengerjaan soal. Pelanggaran ini tercatat di Ruang Pengawasan Guru.`, 'kuning');
+      showAntiCheatToast(`⚠️ <b>Peringatan Integritas (Lencana Kuning):</b> ${reason} terdeteksi! Total pelanggaran: <b>${count} kali</b>.<br>Anda tetap dapat melanjutkan pengerjaan soal. Pelanggaran ini tercatat di Ruang Pengawasan Guru.`, 'kuning');
     } else {
-      showAntiCheatToast(`🚨 <b>Peringatan Kritis (Lencana Merah):</b> ${reason} terdeteksi (${count}x)! Anda tetap dapat mengerjakan soal, namun status integritas Anda ditandai Lencana Merah pada Pengawasan Guru.`, 'merah');
+      showAntiCheatToast(`🚨 <b>Peringatan Kritis (Lencana Merah):</b> ${reason} terdeteksi! Total pelanggaran: <b>${count} kali</b>.<br>Anda tetap dapat mengerjakan soal, namun status integritas Anda ditandai Lencana Merah pada Pengawasan Guru.`, 'merah');
     }
     
     // Auto re-render if badge element exists in DOM
@@ -612,43 +584,69 @@
 
     // 1. Tab switch / Visibility change
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') {
-        handleAntiCheatViolation('Perpindahan Tab Browser');
+      if (document.visibilityState === 'hidden' && isCoopModalActive()) {
+        const now = Date.now();
+        if (now - lastBlurTime > 500) {
+          lastBlurTime = now;
+          handleAntiCheatViolation('Perpindahan Tab Browser');
+        }
       }
-    });
+    }, true);
 
     // 2. Window blur (Alt+Tab, split screen, klik window aplikasi lain)
     window.addEventListener('blur', function () {
-      const now = Date.now();
-      if (now - lastBlurTime > 1500) {
-        lastBlurTime = now;
-        handleAntiCheatViolation('Kehilangan Fokus Layar (Alt+Tab / App Lain)');
+      if (isCoopModalActive()) {
+        const now = Date.now();
+        if (now - lastBlurTime > 500) {
+          lastBlurTime = now;
+          handleAntiCheatViolation('Kehilangan Fokus Layar (Alt+Tab / Pindah Aplikasi)');
+        }
       }
-    });
+    }, true);
 
-    // 3. Blokir Copy & Cut pada teks soal
+    // 3. Focusout on window/document (backup for Alt+Tab)
+    window.addEventListener('focusout', function (e) {
+      if (e.target === window || e.target === document) {
+        if (isCoopModalActive()) {
+          const now = Date.now();
+          if (now - lastBlurTime > 500) {
+            lastBlurTime = now;
+            handleAntiCheatViolation('Kehilangan Fokus Layar (Alt+Tab)');
+          }
+        }
+      }
+    }, true);
+
+    // 4. Page hide
+    window.addEventListener('pagehide', function () {
+      if (isCoopModalActive()) {
+        handleAntiCheatViolation('Halaman Ditinggalkan (PageHide)');
+      }
+    }, true);
+
+    // 5. Blokir Copy & Cut
     document.addEventListener('copy', function (e) {
       if (isCoopModalActive()) {
         e.preventDefault();
         showAntiCheatToast('Anti-AI: Penyalinan soal dinonaktifkan demi menjaga integritas turnamen!');
       }
-    });
+    }, true);
 
     document.addEventListener('cut', function (e) {
       if (isCoopModalActive()) {
         e.preventDefault();
       }
-    });
+    }, true);
 
-    // 4. Blokir Klik Kanan (Context Menu)
+    // 6. Blokir Klik Kanan
     document.addEventListener('contextmenu', function (e) {
       if (isCoopModalActive()) {
         e.preventDefault();
         showAntiCheatToast('Menu klik kanan dinonaktifkan selama turnamen berlangsung!');
       }
-    });
+    }, true);
 
-    // 5. Blokir Pintasan Keyboard Inspeksi (F12, Ctrl+Shift+I, Ctrl+U)
+    // 7. Blokir Pintasan Keyboard Inspeksi
     document.addEventListener('keydown', function (e) {
       if (!isCoopModalActive()) return;
       if (
@@ -659,7 +657,7 @@
         e.preventDefault();
         showAntiCheatToast('Pintasan inspeksi kode dinonaktifkan selama turnamen!');
       }
-    });
+    }, true);
   }
 
   // --------------------------------------------------------------------------
@@ -836,8 +834,8 @@
     const posData = wave.positions[activePos];
 
     const currentAns = currentSession.waveAnswers[waveNo] && currentSession.waveAnswers[waveNo][activePos];
-    const isAnswered = currentAns !== undefined && currentAns !== null;
-    const isCorrect = isAnswerCorrect(posData, currentAns);
+    const isAnswered = currentAns !== undefined && currentAns !== null && currentAns !== '';
+    const userContributed = isAnswered ? getContributedValueFromAnswer(posData, currentAns) : '-';
     const integrity = getIntegrityLevel(currentSession.tabSwitchCount || 0);
 
     container.innerHTML = `
@@ -900,11 +898,15 @@
                 ${posData.level}
               </span>
             </div>
-            ${isCorrect ? `
-              <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1.5 animate-bounce">
-                <i class="fa-solid fa-check"></i> Pos Tuntas!
+            ${isAnswered ? `
+              <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-900 border border-indigo-200 flex items-center gap-1.5">
+                <i class="fa-solid fa-bookmark text-indigo-700"></i> Jawaban Tersimpan
               </span>
-            ` : ''}
+            ` : `
+              <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 text-slate-500">
+                Belum Disimpan
+              </span>
+            `}
           </div>
 
           <!-- QUESTION CONTENT -->
@@ -914,28 +916,33 @@
 
           <!-- INTERACTIVE OPTIONS FORM -->
           <div id="coop-pos-options-area" class="space-y-2 pt-1">
-            ${renderPosOptionsHtml(posData, currentAns, isCorrect)}
+            ${renderPosOptionsHtml(posData, currentAns)}
           </div>
 
-          <!-- SUBMIT / VERIFY BUTTON -->
-          ${!isCorrect ? `
-            <div class="pt-2">
-              <button onclick="CoopRaid.submitActivePosAnswer(${waveNo}, ${activePos})" class="min-h-[44px] px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 cursor-pointer transition">
-                <i class="fa-solid fa-key"></i> Kunci Jawaban &amp; Cek Angka Kunci Pos
-              </button>
-            </div>
-          ` : `
-            <!-- REVEALED KEY NUMBER CARD -->
-            <div id="coop-revealed-key" class="p-3.5 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-900 flex items-center justify-between">
+          <!-- STATUS KONTRIBUSI JAWABAN ANGGOTA -->
+          ${isAnswered ? `
+            <div class="p-3.5 rounded-xl border border-indigo-200 bg-indigo-50/70 flex flex-wrap items-center justify-between gap-3 shadow-xs">
               <div>
-                <div class="text-[11px] font-bold text-emerald-700 uppercase tracking-wide">Kontribusi Angka Kunci Anda:</div>
-                <div class="text-sm font-semibold">${posData.keyLabel}: <span class="font-mono text-base font-black text-emerald-900">${posData.keyNumber}</span></div>
+                <div class="text-[11px] font-bold text-indigo-950 uppercase tracking-wide flex items-center gap-1.5">
+                  <i class="fa-solid fa-calculator text-indigo-700"></i> Angka Hasil Perhitungan Anda:
+                </div>
+                <div class="text-xs text-slate-700 font-semibold mt-0.5">
+                  Tersimpan di Opsi <span class="font-bold text-indigo-950 text-sm font-mono">${currentAns}</span> (${posData.keyLabel})
+                </div>
               </div>
-              <div class="text-2xl font-black font-mono text-emerald-700 bg-white px-3 py-1.5 rounded-lg border border-emerald-200 shadow-xs">
-                ${posData.keyNumber}
+              <div class="text-right">
+                <div class="text-[10px] font-bold text-slate-500 uppercase">Kontribusi ke PIN Tim:</div>
+                <div class="text-xl font-black font-mono text-indigo-900 bg-white px-3 py-1 rounded-lg border border-indigo-200 shadow-xs inline-block">${userContributed}</div>
               </div>
             </div>
-          `}
+          ` : ''}
+
+          <!-- SUBMIT / SIMPAN JAWABAN BUTTON -->
+          <div class="pt-2">
+            <button onclick="CoopRaid.submitActivePosAnswer(${waveNo}, ${activePos})" class="w-full min-h-[44px] px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-xs flex items-center justify-center gap-2 cursor-pointer transition">
+              <i class="fa-solid fa-floppy-disk"></i> ${isAnswered ? 'Perbarui Simpanan Jawaban Pos' : 'Simpan Jawaban Pos'}
+            </button>
+          </div>
         </div>
 
         <!-- RAKITAN PIN TIM SECTION -->
@@ -944,7 +951,13 @@
             <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
               <i class="fa-solid fa-shield-halved text-indigo-600"></i> Rakitan PIN Master Tim (Putaran ${waveNo})
             </span>
-            <span class="text-[11px] text-slate-500 font-medium">Satukan angka dari 5 anggota</span>
+            <span class="${(currentSession.pinErrors?.[waveNo] || 0) > 0 ? 'text-rose-700 font-bold bg-rose-50 px-2 py-0.5 rounded border border-rose-200' : 'text-slate-500'} text-[11px] font-medium flex items-center gap-1">
+              <i class="fa-solid fa-triangle-exclamation"></i> Kesalahan Percobaan PIN: <b>${currentSession.pinErrors?.[waveNo] || 0}x</b>
+            </span>
+          </div>
+
+          <div class="text-xs text-slate-600 font-mono bg-white p-2.5 rounded-xl border border-slate-200">
+            Rumus Target Babak: <b class="text-indigo-700">${wave.pinFormula}</b>
           </div>
 
           <div class="flex flex-col sm:flex-row items-center gap-3">
@@ -955,141 +968,57 @@
                 value="${currentSession.wavePins[waveNo] || ''}">
             </div>
             <button onclick="CoopRaid.submitWavePin(${waveNo})" class="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 cursor-pointer transition shrink-0">
-              <i class="fa-solid fa-unlock"></i> Buka Gerbang Babak
+              <i class="fa-solid fa-unlock"></i> Uji Validasi PIN Tim
             </button>
           </div>
 
           <div class="text-[11px] text-slate-500 leading-relaxed italic">
-            *Tips Kolaborasi: Jika ada teman di Pos lain yang kesulitan menghitung, Anggota yang sudah tuntas wajib membantu menghitung di kertas buram agar kelima angka kunci terkumpul!
+            *Validasi Benar/Salah hanya dilakukan melalui verifikasi PIN Tim di atas. Jika PIN Tim belum tepat, diskusikan bersama dan periksa kembali langkah perhitungan di masing-masing Pos!
           </div>
         </div>
       </div>
     `;
   }
 
-  function renderPosOptionsHtml(posData, currentAns, isCorrect) {
-    if (posData.tipe === 'mc' || posData.tipe === 'ds') {
-      return posData.opsi.map(opt => {
-        const val = opt.charAt(0);
-        const isChecked = currentAns === val;
-        return `
-          <label class="p-3 rounded-xl border flex items-center gap-3 cursor-pointer transition ${isChecked ? 'border-indigo-600 bg-indigo-50/60 font-semibold' : 'border-slate-200 hover:bg-slate-50'}" style="background-color: #FFFFFF;">
-            <input type="radio" name="coop_active_opt" value="${val}" ${isChecked ? 'checked' : ''} ${isCorrect ? 'disabled' : ''} class="w-4 h-4 text-indigo-600 cursor-pointer">
-            <span class="text-xs md:text-sm text-slate-700">${opt}</span>
-          </label>
-        `;
-      }).join('');
-    } else if (posData.tipe === 'tf') {
-      const savedArr = Array.isArray(currentAns) ? currentAns : ['', '', ''];
+  function renderPosOptionsHtml(posData, currentAns) {
+    if (!posData || !posData.opsi) return '';
+    return posData.opsi.map(opt => {
+      const val = opt.charAt(0);
+      const isChecked = currentAns === val;
       return `
-        <div class="overflow-x-auto">
-          <table class="w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
-            <thead class="bg-slate-100 text-slate-700 font-bold">
-              <tr>
-                <th class="p-2 border border-slate-200 text-left">No</th>
-                <th class="p-2 border border-slate-200 text-left">Pernyataan</th>
-                <th class="p-2 border border-slate-200 text-center w-28">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${posData.pernyataan.map((p, idx) => `
-                <tr class="border-t border-slate-200">
-                  <td class="p-2 font-bold text-center border-r border-slate-200">${idx + 1}</td>
-                  <td class="p-2 border-r border-slate-200 text-slate-700">${p}</td>
-                  <td class="p-2 text-center">
-                    <div class="flex items-center justify-center gap-2">
-                      <label class="flex items-center gap-1 cursor-pointer">
-                        <input type="radio" name="coop_tf_${idx}" value="B" ${savedArr[idx] === 'B' ? 'checked' : ''} ${isCorrect ? 'disabled' : ''}>
-                        <span class="font-bold text-emerald-700">B</span>
-                      </label>
-                      <label class="flex items-center gap-1 cursor-pointer">
-                        <input type="radio" name="coop_tf_${idx}" value="S" ${savedArr[idx] === 'S' ? 'checked' : ''} ${isCorrect ? 'disabled' : ''}>
-                        <span class="font-bold text-rose-700">S</span>
-                      </label>
-                    </div>
-                  </td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
+        <label class="p-3.5 rounded-xl border flex items-center gap-3 cursor-pointer transition ${isChecked ? 'border-indigo-600 bg-indigo-50/70 font-semibold shadow-xs' : 'border-slate-200 hover:bg-slate-50'}" style="background-color: #FFFFFF;">
+          <input type="radio" name="coop_active_opt" value="${val}" ${isChecked ? 'checked' : ''} class="w-4 h-4 text-indigo-600 cursor-pointer">
+          <span class="text-xs md:text-sm text-slate-800 font-medium">${opt}</span>
+        </label>
       `;
-    } else if (posData.tipe === 'multi') {
-      const savedArr = Array.isArray(currentAns) ? currentAns : [];
-      return posData.opsi.map(opt => {
-        const val = opt.charAt(0);
-        const isChecked = savedArr.includes(val);
-        return `
-          <label class="p-3 rounded-xl border flex items-center gap-3 cursor-pointer transition ${isChecked ? 'border-indigo-600 bg-indigo-50/60 font-semibold' : 'border-slate-200 hover:bg-slate-50'}" style="background-color: #FFFFFF;">
-            <input type="checkbox" name="coop_multi_opt" value="${val}" ${isChecked ? 'checked' : ''} ${isCorrect ? 'disabled' : ''} class="w-4 h-4 text-indigo-600 rounded cursor-pointer">
-            <span class="text-xs md:text-sm text-slate-700">${opt}</span>
-          </label>
-        `;
-      }).join('');
-    }
-    return '';
+    }).join('');
   }
 
   function isAnswerCorrect(posData, userAns) {
-    if (!userAns) return false;
-    if (posData.tipe === 'mc' || posData.tipe === 'ds') {
-      return String(userAns).trim().toUpperCase() === String(posData.kunci).trim().toUpperCase();
-    } else if (posData.tipe === 'tf') {
-      if (!Array.isArray(userAns) || userAns.length !== posData.kunci.length) return false;
-      return userAns.every((v, i) => v === posData.kunci[i]);
-    } else if (posData.tipe === 'multi') {
-      if (!Array.isArray(userAns)) return false;
-      const sortedUser = [...userAns].sort();
-      const sortedKey = [...posData.kunci].sort();
-      return sortedUser.length === sortedKey.length && sortedUser.every((v, i) => v === sortedKey[i]);
-    }
-    return false;
+    if (!posData || !userAns) return false;
+    return String(userAns).trim().toUpperCase() === String(posData.kunci).trim().toUpperCase();
   }
 
   function submitActivePosAnswer(waveNo, posNo) {
     if (!waveNo) waveNo = currentSession.activeWave || 1;
-    if (!posNo) posNo = getActivePositionForMember(currentSession.memberNo, waveNo);
+    if (!posNo) posNo = getActivePosForMember(currentSession.memberNo, waveNo);
     const wave = COOP_DATA.waves[waveNo - 1];
     const posData = wave ? wave.positions[posNo] : null;
     if (!posData) return;
-    let userAns = null;
 
-    if (posData.tipe === 'mc' || posData.tipe === 'ds') {
-      const checked = document.querySelector('input[name="coop_active_opt"]:checked');
-      if (!checked) {
-        alert("Silakan pilih salah satu opsi jawaban terlebih dahulu.");
-        return;
-      }
-      userAns = checked.value;
-    } else if (posData.tipe === 'tf') {
-      userAns = [];
-      for (let i = 0; i < posData.pernyataan.length; i++) {
-        const c = document.querySelector(`input[name="coop_tf_${i}"]:checked`);
-        if (!c) {
-          alert(`Pernyataan ke-${i + 1} belum dijawab! Tentukan status Benar atau Salah.`);
-          return;
-        }
-        userAns.push(c.value);
-      }
-    } else if (posData.tipe === 'multi') {
-      userAns = [];
-      const boxes = document.querySelectorAll('input[name="coop_multi_opt"]:checked');
-      if (boxes.length === 0) {
-        alert("Pilihlah minimal satu pernyataan yang bernilai benar.");
-        return;
-      }
-      boxes.forEach(b => userAns.push(b.value));
+    const checked = document.querySelector('input[name="coop_active_opt"]:checked');
+    if (!checked) {
+      alert("Silakan pilih salah satu opsi jawaban terlebih dahulu.");
+      return;
     }
+    const userAns = checked.value;
+    const contributedVal = getContributedValueFromAnswer(posData, userAns);
 
     currentSession.waveAnswers[waveNo] = currentSession.waveAnswers[waveNo] || {};
     currentSession.waveAnswers[waveNo][posNo] = userAns;
     saveCurrentSession();
 
-    if (isAnswerCorrect(posData, userAns)) {
-      alert(`🎉 LUAR BIASA! Jawaban Pos ${posNo} Anda BENAR!\nAngka Kunci Kontribusi Anda: ${posData.keyNumber}\nBagikan angka ini ke rekan setimmu untuk merakit PIN Tim!`);
-    } else {
-      alert("⚠️ Jawaban Anda belum tepat. Periksa kembali langkah perhitungan Anda atau minta bantuan rekan tim!");
-    }
+    alert(`✅ Jawaban Pos ${posNo} Berhasil Disimpan!\n\nNilai kontribusi Anda: ${contributedVal} (${posData.keyLabel})\n\nBagikan angka ${contributedVal} ini kepada rekan tim Anda untuk dirakit bersama 4 angka anggota lainnya ke dalam PIN Tim!`);
 
     renderCurrentView();
   }
@@ -1099,23 +1028,29 @@
     const pinVal = parseInt(input?.value || '0');
     const wave = COOP_DATA.waves[waveNo - 1];
 
+    currentSession.pinErrors = currentSession.pinErrors || { 1: 0, 2: 0, 3: 0 };
+
     if (pinVal === wave.targetPin) {
       currentSession.wavePins[waveNo] = pinVal;
+      saveCurrentSession();
       if (waveNo < 3) {
         currentSession.waveUnlocked[waveNo + 1] = true;
         currentSession.activeWave = waveNo + 1;
         saveCurrentSession();
-        alert(`🏆 GERBANG BABAK ${waveNo} BERHASIL TERBUKA!\nPIN Tim ${pinVal} TERVALIDASI SEMPURNA.\nLanjut ke Putaran ${waveNo + 1}!`);
+        alert(`🏆 GERBANG BABAK ${waveNo} BERHASIL TERBUKA!\n\nPIN Tim ${pinVal} TERVALIDASI BENAR!\nSeluruh 5 anggota tim telah menghitung dengan tepat.\n(Total Kesalahan Percobaan PIN: ${currentSession.pinErrors[waveNo] || 0}x)\n\nLanjut ke Putaran ${waveNo + 1}!`);
         renderCurrentView();
       } else {
         // All 3 waves complete!
         currentSession.scoreCoop = 100;
         saveCurrentSession();
-        alert("🎉 SELAMAT! TIM ANDA TELAH MENUNTASKAN SELURUH 3 PUTARAN CO-OP RAID DENGAN SEMPURNA!\nSkor Kolaborasi Tim: 100 POIN.\nSekarang seluruh anggota akan masuk ke Sesi Evaluasi Individu (5 Soal • 20 Menit)!");
+        alert(`🎉 SELAMAT! TIM ANDA BERHASIL MENYELESAIKAN 3 PUTARAN CO-OP RAID!\n\nPIN Tim Putaran 3 (${pinVal}) TERVALIDASI BENAR!\nSkor Kolaborasi Tim: 100 POIN.\n(Total Kesalahan Percobaan PIN Babak Ini: ${currentSession.pinErrors[waveNo] || 0}x)\n\nSekarang seluruh anggota akan masuk ke Sesi Evaluasi Individu (5 Soal • 20 Menit)!`);
         startIndividualTest();
       }
     } else {
-      alert(`❌ PIN Tim ${pinVal || 0} TIDAK TEPAT!\nPastikan kelima anggota tim telah menyelesaikan pos masing-masing, lalu jumlahkan ke-5 angka kuncinya!`);
+      currentSession.pinErrors[waveNo] = (currentSession.pinErrors[waveNo] || 0) + 1;
+      saveCurrentSession();
+      alert(`❌ PIN TIM BELUM TEPAT!\n\nJumlah Kesalahan Tim: ${currentSession.pinErrors[waveNo]}x percobaan gagal.\n\nPIN Tim yang Anda masukkan (${pinVal || 0}) belum sesuai dengan target pembuka gerbang.\nAda satu atau lebih anggota tim yang hasil perhitungannya belum tepat.\nSilakan berkoordinasi dan periksa kembali langkah perhitungan di masing-masing Pos!`);
+      renderCurrentView();
     }
   }
 
@@ -1473,7 +1408,8 @@
         scoreCoop: 0,
         scoreIndividual: 0,
         finalScore: 0,
-        tabSwitchCount: 0
+        tabSwitchCount: 0,
+        pinErrors: { 1: 0, 2: 0, 3: 0 }
       };
       if (timerInterval) {
         clearInterval(timerInterval);
@@ -1497,6 +1433,7 @@
       skor_individu: currentSession.scoreIndividual,
       skor_akhir: currentSession.finalScore,
       tab_switch_count: currentSession.tabSwitchCount || 0,
+      pin_errors: ((currentSession.pinErrors && currentSession.pinErrors[1]) || 0) + ((currentSession.pinErrors && currentSession.pinErrors[2]) || 0) + ((currentSession.pinErrors && currentSession.pinErrors[3]) || 0),
       integrity_level: integrity.level,
       integrity_label: integrity.label,
       answers_wave1: currentSession.waveAnswers[1],
@@ -1590,6 +1527,7 @@
       let scoreIndiv = '-';
       let scoreFinal = '-';
       let switchCount = 0;
+      let pinErrors = 0;
       let teamInfo = '-';
 
       if (histItem) {
@@ -1598,6 +1536,7 @@
         scoreIndiv = histItem.skor_individu !== undefined ? histItem.skor_individu : 0;
         scoreFinal = histItem.skor_akhir !== undefined ? histItem.skor_akhir : 0;
         switchCount = histItem.tab_switch_count !== undefined ? histItem.tab_switch_count : 0;
+        pinErrors = histItem.pin_errors !== undefined ? histItem.pin_errors : 0;
         teamInfo = histItem.kelompok ? `${histItem.kelompok} (${histItem.anggota || 'Anggota'})` : '-';
       }
 
@@ -1613,6 +1552,8 @@
         scoreIndiv = currentSession.scoreIndividual !== undefined ? currentSession.scoreIndividual : scoreIndiv;
         scoreFinal = currentSession.finalScore !== undefined ? currentSession.finalScore : scoreFinal;
         switchCount = Math.max(switchCount, currentSession.tabSwitchCount || 0);
+        const curPinErrors = ((currentSession.pinErrors && currentSession.pinErrors[1]) || 0) + ((currentSession.pinErrors && currentSession.pinErrors[2]) || 0) + ((currentSession.pinErrors && currentSession.pinErrors[3]) || 0);
+        pinErrors = Math.max(pinErrors, curPinErrors);
         teamInfo = `Kelompok ${currentSession.groupNo} (Anggota ${currentSession.memberNo})`;
       }
 
@@ -1627,6 +1568,7 @@
         scoreIndiv: scoreIndiv,
         scoreFinal: scoreFinal,
         switchCount: switchCount,
+        pinErrors: pinErrors,
         badge: getIntegrityLevel(switchCount)
       });
     });
@@ -1802,6 +1744,7 @@
                 <th class="py-2.5 px-3 text-center w-20">Skor Indiv</th>
                 <th class="py-2.5 px-3 text-center w-20">Nilai Akhir</th>
                 <th class="py-2.5 px-3 text-center w-28">Pindah Layar</th>
+                <th class="py-2.5 px-3 text-center w-24">Salah PIN</th>
                 <th class="py-2.5 px-3 text-center w-36">Lencana Integritas</th>
               </tr>
             </thead>
@@ -1837,6 +1780,9 @@
                     <td class="py-2.5 px-3 text-center font-black text-slate-900 font-mono text-sm">${s.scoreFinal}</td>
                     <td class="py-2.5 px-3 text-center font-mono font-bold ${s.switchCount === 0 ? 'text-emerald-700' : (s.switchCount <= 2 ? 'text-amber-800' : 'text-rose-700')}">
                       ${s.switchCount}x
+                    </td>
+                    <td class="py-2.5 px-3 text-center font-mono font-bold ${s.pinErrors > 0 ? 'text-rose-700' : 'text-slate-400'}">
+                      ${s.pinErrors}x
                     </td>
                     <td class="py-2.5 px-3 text-center">
                       ${s.badge.badgeHtml}
@@ -1876,8 +1822,8 @@
       flaggedList = '✅ Seluruh siswa mempertahankan integritas murni (0x pelanggaran).';
     } else {
       flaggedList = flagged.map((s, idx) => {
-        const icon = s.badge.level === 'merah' ? '🔴' : '🟡';
-        return `${idx + 1}. ${icon} *${s.nama}* (${s.kelas}) - ${s.switchCount}x Pindah Layar [${s.badge.label}] | Skor: ${s.scoreFinal}`;
+        const icon = s.badge.level === 'merah' ? '🔴' : (s.badge.level === 'kuning' ? '🟡' : '🟢');
+        return `${idx + 1}. ${icon} *${s.nama}* (${s.kelas}) - Alt-Tab: ${s.switchCount}x [${s.badge.label}] | Salah PIN: ${s.pinErrors}x | Skor: ${s.scoreFinal}`;
       }).join('\n');
     }
 
@@ -1926,7 +1872,7 @@ Siswa dengan lencana kuning/merah tetap menyelesaikan butir soal dan diarahkan u
   function exportTeacherCSV() {
     const allData = getProctorDataList();
     const rows = [
-      ['No', 'NIS', 'Nama Siswa', 'Kelas', 'Kelompok & Pos', 'Status Pengerjaan', 'Skor Co-op', 'Skor Mandiri', 'Nilai Akhir', 'Jumlah Pelanggaran', 'Lencana Integritas', 'Waktu Rekap']
+      ['No', 'NIS', 'Nama Siswa', 'Kelas', 'Kelompok & Pos', 'Status Pengerjaan', 'Skor Co-op', 'Skor Mandiri', 'Nilai Akhir', 'Jumlah Pelanggaran (Alt-Tab)', 'Jumlah Kesalahan PIN', 'Lencana Integritas', 'Waktu Rekap']
     ];
 
     allData.forEach(s => {
@@ -1941,6 +1887,7 @@ Siswa dengan lencana kuning/merah tetap menyelesaikan butir soal dan diarahkan u
         s.scoreIndiv,
         s.scoreFinal,
         s.switchCount,
+        s.pinErrors,
         `"${s.badge.label}"`,
         `"${new Date().toLocaleString('id-ID')}"`
       ]);
@@ -1970,9 +1917,13 @@ Siswa dengan lencana kuning/merah tetap menyelesaikan butir soal dan diarahkan u
 
   // Auto-init on script load
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCoopRaid);
+    document.addEventListener('DOMContentLoaded', () => {
+      initCoopRaid();
+      registerAntiCheatListeners();
+    });
   } else {
     initCoopRaid();
+    registerAntiCheatListeners();
   }
 
 })();
