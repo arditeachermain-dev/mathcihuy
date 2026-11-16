@@ -492,6 +492,8 @@
     openTeacherMonitor: openTeacherMonitor,
     closeTeacherMonitor: closeTeacherMonitor,
     renderTeacherMonitor: renderTeacherMonitor,
+    fetchAndUpdateLiveProctor: fetchAndUpdateLiveProctor,
+    syncStudentLiveState: syncStudentLiveState,
     filterTeacherMonitor: filterTeacherMonitor,
     copyTeacherReport: copyTeacherReport,
     exportTeacherCSV: exportTeacherCSV,
@@ -569,6 +571,7 @@
     if (!isCoopModalActive()) return;
     currentSession.tabSwitchCount = (currentSession.tabSwitchCount || 0) + 1;
     saveCurrentSession();
+    syncStudentLiveState();
 
     const count = currentSession.tabSwitchCount;
     const info = getIntegrityLevel(count);
@@ -835,6 +838,7 @@
     currentSession.studentName = name;
     currentSession.activeWave = 1;
     saveCurrentSession();
+    syncStudentLiveState();
     renderCurrentView();
   }
 
@@ -1030,6 +1034,7 @@
     currentSession.waveAnswers[waveNo] = currentSession.waveAnswers[waveNo] || {};
     currentSession.waveAnswers[waveNo][posNo] = userAns;
     saveCurrentSession();
+    syncStudentLiveState();
 
     alert(`✅ Jawaban Pos ${posNo} Berhasil Disimpan!\n\nNilai kontribusi Anda: ${contributedVal} (${posData.keyLabel})\n\nBagikan angka ${contributedVal} ini kepada rekan tim Anda untuk dirakit bersama 4 angka anggota lainnya ke dalam PIN Tim!`);
 
@@ -1046,22 +1051,26 @@
     if (pinVal === wave.targetPin) {
       currentSession.wavePins[waveNo] = pinVal;
       saveCurrentSession();
+      syncStudentLiveState();
       if (waveNo < 3) {
         currentSession.waveUnlocked[waveNo + 1] = true;
         currentSession.activeWave = waveNo + 1;
         saveCurrentSession();
+        syncStudentLiveState();
         alert(`🏆 GERBANG BABAK ${waveNo} BERHASIL TERBUKA!\n\nPIN Tim ${pinVal} TERVALIDASI BENAR!\nSeluruh 5 anggota tim telah menghitung dengan tepat.\n(Total Kesalahan Percobaan PIN: ${currentSession.pinErrors[waveNo] || 0}x)\n\nLanjut ke Putaran ${waveNo + 1}!`);
         renderCurrentView();
       } else {
         // All 3 waves complete!
         currentSession.scoreCoop = 100;
         saveCurrentSession();
+        syncStudentLiveState();
         alert(`🎉 SELAMAT! TIM ANDA BERHASIL MENYELESAIKAN 3 PUTARAN CO-OP RAID!\n\nPIN Tim Putaran 3 (${pinVal}) TERVALIDASI BENAR!\nSkor Kolaborasi Tim: 100 POIN.\n(Total Kesalahan Percobaan PIN Babak Ini: ${currentSession.pinErrors[waveNo] || 0}x)\n\nSekarang seluruh anggota akan masuk ke Sesi Evaluasi Individu (5 Soal • 20 Menit)!`);
         startIndividualTest();
       }
     } else {
       currentSession.pinErrors[waveNo] = (currentSession.pinErrors[waveNo] || 0) + 1;
       saveCurrentSession();
+      syncStudentLiveState();
       alert(`❌ PIN TIM BELUM TEPAT!\n\nJumlah Kesalahan Tim: ${currentSession.pinErrors[waveNo]}x percobaan gagal.\n\nPIN Tim yang Anda masukkan (${pinVal || 0}) belum sesuai dengan target pembuka gerbang.\nAda satu atau lebih anggota tim yang hasil perhitungannya belum tepat.\nSilakan berkoordinasi dan periksa kembali langkah perhitungan di masing-masing Pos!`);
       renderCurrentView();
     }
@@ -1073,6 +1082,7 @@
     currentSession.individualDone = false;
     currentSession.individualTimeLeft = currentSession.individualTimeLeft || 1200;
     saveCurrentSession();
+    syncStudentLiveState();
 
     if (!timerInterval) {
       timerInterval = setInterval(() => {
@@ -1319,6 +1329,36 @@
       histItem = history.slice().reverse().find(h => String(h.nis) === String(nis) || h.nama === (std && std.nama));
     } else if (currentSession.studentName) {
       histItem = history.slice().reverse().find(h => h.nama === currentSession.studentName);
+    }
+
+    if (!histItem && Array.isArray(window._coopServerCache)) {
+      const srv = window._coopServerCache.find(s => String(s.nis) === String(nis) || s.nama === (std && std.nama));
+      if (srv) {
+        let w1 = {}, w2 = {}, w3 = {}, ind = {};
+        try { w1 = typeof srv.answers_wave1 === 'string' ? JSON.parse(srv.answers_wave1 || '{}') : (srv.answers_wave1 || {}); } catch(e){}
+        try { w2 = typeof srv.answers_wave2 === 'string' ? JSON.parse(srv.answers_wave2 || '{}') : (srv.answers_wave2 || {}); } catch(e){}
+        try { w3 = typeof srv.answers_wave3 === 'string' ? JSON.parse(srv.answers_wave3 || '{}') : (srv.answers_wave3 || {}); } catch(e){}
+        try { ind = typeof srv.answers_indiv === 'string' ? JSON.parse(srv.answers_indiv || '{}') : (srv.answers_indiv || {}); } catch(e){}
+        histItem = {
+          nis: srv.nis,
+          nama: srv.nama,
+          kelas: srv.kelas,
+          kelompok: srv.kelompok,
+          anggota: srv.anggota,
+          skor_coop: srv.skor_coop,
+          skor_individu: srv.skor_individu,
+          skor_akhir: srv.skor_akhir,
+          tab_switch_count: srv.tab_switch_count,
+          pin_errors: srv.pin_errors,
+          integrity_level: srv.integrity_level,
+          integrity_label: srv.integrity_label,
+          answers_wave1: w1,
+          answers_wave2: w2,
+          answers_wave3: w3,
+          answers_indiv: ind,
+          timestamp: srv.updated_at
+        };
+      }
     }
 
     const isCurrent = currentSession.studentName && (!std || currentSession.studentName === std.nama);
@@ -1831,6 +1871,81 @@
     }
   }
 
+  // --------------------------------------------------------------------------
+  // 5. SERVER SYNC & PERSISTENCE (CLOUDFLARE D1 BACKEND)
+  // --------------------------------------------------------------------------
+  window._coopServerCache = window._coopServerCache || [];
+  let _proctorLiveTimer = null;
+
+  function syncStudentLiveState() {
+    if (!currentSession.studentName) return;
+
+    let studentNis = '';
+    const stds = window.STUDENTS_DATA || {};
+    for (const k in stds) {
+      if (stds[k].nama === currentSession.studentName) {
+        studentNis = k;
+        break;
+      }
+    }
+    if (!studentNis) return;
+
+    const integrity = getIntegrityLevel(currentSession.tabSwitchCount || 0);
+    const pinErrTotal = ((currentSession.pinErrors && currentSession.pinErrors[1]) || 0) + 
+                        ((currentSession.pinErrors && currentSession.pinErrors[2]) || 0) + 
+                        ((currentSession.pinErrors && currentSession.pinErrors[3]) || 0);
+
+    let currentStatus = 'Aktif (Lobi)';
+    if (currentSession.individualDone) {
+      currentStatus = 'Selesai';
+    } else if (currentSession.individualStarted) {
+      currentStatus = 'Ujian Mandiri';
+    } else if (currentSession.activeWave) {
+      currentStatus = `Putaran ${currentSession.activeWave}`;
+    }
+
+    const payload = {
+      nis: studentNis,
+      nama: currentSession.studentName,
+      kelas: currentSession.className,
+      kelompok: `Kelompok ${currentSession.groupNo}`,
+      anggota: `Anggota ${currentSession.memberNo}`,
+      status: currentStatus,
+      skor_coop: currentSession.scoreCoop || 0,
+      skor_individu: currentSession.scoreIndividual || 0,
+      skor_akhir: currentSession.finalScore || 0,
+      tab_switch_count: currentSession.tabSwitchCount || 0,
+      pin_errors: pinErrTotal,
+      integrity_level: integrity.level,
+      integrity_label: integrity.label,
+      answers_wave1: currentSession.waveAnswers?.[1] || {},
+      answers_wave2: currentSession.waveAnswers?.[2] || {},
+      answers_wave3: currentSession.waveAnswers?.[3] || {},
+      answers_indiv: currentSession.individualAnswers || {}
+    };
+
+    fetch('/api/coop', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  }
+
+  async function fetchAndUpdateLiveProctor() {
+    try {
+      const res = await fetch('/api/coop?_t=' + Date.now());
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          window._coopServerCache = data;
+          renderTeacherMonitor();
+        }
+      }
+    } catch (e) {
+      // offline / fallback
+    }
+  }
+
   function sendResultToBackend() {
     const integrity = getIntegrityLevel(currentSession.tabSwitchCount || 0);
     let studentNis = '';
@@ -1872,13 +1987,16 @@
       localStorage.setItem(histKey, JSON.stringify(list));
     } catch (e) {}
 
-    // 2. Kirim ke Endpoint Cloudflare / API jika tersedia
+    // 2. Kirim update ke D1 Co-op Backend
+    syncStudentLiveState();
+
+    // 3. Kirim ke Endpoint Cloudflare / API jika tersedia
     try {
       fetch('/api/nilai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nis: currentSession.memberNo + '' + currentSession.groupNo + '00',
+          nis: studentNis || (currentSession.memberNo + '' + currentSession.groupNo + '00'),
           nama: currentSession.studentName,
           kelas: currentSession.className,
           mapel: 'wajib',
@@ -1910,10 +2028,17 @@
       modal.classList.remove('hidden');
       modal.style.display = 'flex';
       renderTeacherMonitor();
+      fetchAndUpdateLiveProctor();
+      if (_proctorLiveTimer) clearInterval(_proctorLiveTimer);
+      _proctorLiveTimer = setInterval(fetchAndUpdateLiveProctor, 4000);
     }
   }
 
   function closeTeacherMonitor() {
+    if (_proctorLiveTimer) {
+      clearInterval(_proctorLiveTimer);
+      _proctorLiveTimer = null;
+    }
     const modal = document.getElementById('modal-guru-coop-proctor');
     if (modal) {
       modal.classList.add('hidden');
@@ -1930,6 +2055,8 @@
       history = [];
     }
 
+    const serverList = window._coopServerCache || [];
+
     const result = [];
     let no = 1;
 
@@ -1938,11 +2065,14 @@
       // Abaikan alumni
       if (std.kelas === 'Alumni 2026') return;
 
-      // Cari apakah ada sesi aktif di currentSession
+      // 1. Cek sesi lokal aktif jika ada
       const isCur = currentSession.studentName === std.nama && currentSession.className === std.kelas;
 
-      // Cari rekaman di history (ambil yang paling akhir)
-      const histItem = history.slice().reverse().find(h => h.nama === std.nama && h.kelas === std.kelas);
+      // 2. Cek apakah ada record dari Cloudflare D1 Server
+      const srvItem = serverList.find(s => String(s.nis) === String(nis) || (s.nama === std.nama && s.kelas === std.kelas));
+
+      // 3. Cek rekaman di local history
+      const histItem = history.slice().reverse().find(h => String(h.nis) === String(nis) || (h.nama === std.nama && h.kelas === std.kelas));
 
       let status = 'Belum Mulai';
       let scoreCoop = '-';
@@ -1952,6 +2082,7 @@
       let pinErrors = 0;
       let teamInfo = '-';
 
+      // Prioritas: Local History / Sesi Selesai
       if (histItem) {
         status = 'Selesai';
         scoreCoop = histItem.skor_coop !== undefined ? histItem.skor_coop : 100;
@@ -1962,6 +2093,18 @@
         teamInfo = histItem.kelompok ? `${histItem.kelompok} (${histItem.anggota || 'Anggota'})` : '-';
       }
 
+      // Merge Cloudflare D1 Server Record
+      if (srvItem) {
+        status = srvItem.status || (srvItem.skor_akhir > 0 ? 'Selesai' : 'Aktif');
+        scoreCoop = srvItem.skor_coop !== undefined && srvItem.skor_coop !== null ? srvItem.skor_coop : scoreCoop;
+        scoreIndiv = srvItem.skor_individu !== undefined && srvItem.skor_individu !== null ? srvItem.skor_individu : scoreIndiv;
+        scoreFinal = srvItem.skor_akhir !== undefined && srvItem.skor_akhir !== null ? srvItem.skor_akhir : scoreFinal;
+        switchCount = Math.max(switchCount, srvItem.tab_switch_count || 0);
+        pinErrors = Math.max(pinErrors, srvItem.pin_errors || 0);
+        teamInfo = srvItem.kelompok ? `${srvItem.kelompok} (${srvItem.anggota || 'Anggota'})` : teamInfo;
+      }
+
+      // Merge Sesi Aktif di Tab Ini (jika ada)
       if (isCur) {
         if (currentSession.individualDone) {
           status = 'Selesai';
@@ -2041,6 +2184,9 @@
               <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 border border-indigo-200">
                 Akun Guru • Live Proctoring
               </span>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Cloudflare D1 Live Sync (${(window._coopServerCache || []).length} Data Server)
+              </span>
               <span class="text-[10px] text-slate-500 font-medium">TP 2026/2027</span>
             </div>
             <h2 class="text-base md:text-lg font-bold tracking-tight text-slate-900 mt-0.5">
@@ -2053,7 +2199,7 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <button onclick="CoopRaid.renderTeacherMonitor()" class="px-3 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+          <button onclick="CoopRaid.fetchAndUpdateLiveProctor()" class="px-3 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs" title="Tarik pembaruan data terkini dari server">
             <i class="fa-solid fa-rotate"></i> Refresh Data
           </button>
           <button onclick="CoopRaid.copyTeacherReport()" class="px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs">

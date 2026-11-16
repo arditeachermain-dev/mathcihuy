@@ -16,12 +16,12 @@
 //    permintaan navigasi, sehingga halaman gagal terbuka sama sekali. Karena
 //    itu yang disimpan hanya alamat kanonik ('/' dan '/11'), dan respons yang
 //    ternyata hasil pantulan tidak pernah dipakai untuk navigasi.
-const VERSI = 'mathcihuy-v20261003_p17_p20_perfect_verified';
+const VERSI = 'mathcihuy-v20261116_coop_live_v9_instant';
 
 // Hanya alamat kanonik -- jangan pernah menambahkan yang berakhiran .html.
 const HALAMAN = ['./', './11', './10', './simulasi-akm'];
 const ASET = [
-  './mathcihuy.css', './vendor.js', './app.js', './app-akhir.js',
+  './mathcihuy.css', './vendor.js', './app.js', './app-akhir.js', './coop-raid-statistika.js',
   './data-xii.js', './data-xi.js', './data-x.js', './data-students.js', './data-akm.js',
   './manifest.json', './icon-192.png', './icon-512.png', './gis_official_logo.png'
 ];
@@ -67,6 +67,7 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith('/api/')) return; // API selalu Network-Only tanpa cache
 
   if (req.mode === 'navigate') {
     const kunci = kunciHalaman(url.pathname);
@@ -114,8 +115,7 @@ self.addEventListener('fetch', (e) => {
     }).catch(async () => {
       const tersimpan = await caches.match(req);
       if (tersimpan) return tersimpan;
-      const cleanUrl = req.url.split('?')[0];
-      return await caches.match(cleanUrl);
+      return null;
     })
   );
 });
