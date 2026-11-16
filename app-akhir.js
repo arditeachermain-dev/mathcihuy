@@ -1299,7 +1299,58 @@ Nilai ini akan langsung dikunci sebagai nilai resmi di Cloudflare D1.`)) {
           </div>`;
       });
 
-      cardsContainer.innerHTML = htmlSections.join('');
+      let coopCardHtml = '';
+      if (_raporCurrentFilter === 'all' || _raporCurrentFilter === 'wajib' || _raporCurrentFilter === 'tuntas') {
+        let coopHistory = [];
+        try {
+          coopHistory = JSON.parse(localStorage.getItem('mathcihuy_coop_history') || '[]');
+        } catch(e) {}
+        const studentNis = _raporActiveStudentNis || '';
+        const stds = window.STUDENTS_DATA || {};
+        const studentName = (stds[studentNis] && stds[studentNis].nama) || '';
+        const cRecord = coopHistory.slice().reverse().find(h => (studentNis && String(h.nis) === String(studentNis)) || (studentName && h.nama === studentName));
+
+        if (cRecord || (window.CoopRaid && window.CoopRaid.session && window.CoopRaid.session.studentName === studentName && window.CoopRaid.session.individualDone)) {
+          const cFinal = cRecord ? cRecord.skor_akhir : (window.CoopRaid?.session?.finalScore || 100);
+          const cSwitches = cRecord ? cRecord.tab_switch_count : (window.CoopRaid?.session?.tabSwitchCount || 0);
+          const cErrors = cRecord ? cRecord.pin_errors : 0;
+          const cBadge = window.CoopRaid ? window.CoopRaid.getIntegrityLevel(cSwitches) : { label: 'Valid (Murni)', badgeHtml: '<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800">Hijau</span>' };
+
+          coopCardHtml = `
+            <div class="rapor-bab-card rounded-xl border-2 border-indigo-200 shadow-xs overflow-hidden mb-3" style="background-color: #F8FAFC;">
+              <div class="px-4 py-3 flex flex-wrap items-center justify-between gap-3 border-b border-indigo-100 bg-indigo-50/70">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                    <i class="fa-solid fa-trophy"></i>
+                  </div>
+                  <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 bg-white px-2 py-0.5 rounded border border-indigo-200">Turnamen Co-op Raid</span>
+                    <h4 class="font-bold text-xs sm:text-sm text-slate-800 mt-0.5">Bab 3: Statistika &amp; Analisis Data Bivariat (Kelas XII)</h4>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-mono font-bold bg-white px-2.5 py-1 rounded-lg border border-indigo-200 text-indigo-950 shadow-2xs">
+                    Nilai Rapor: <b>${cFinal}</b> / 100
+                  </span>
+                  <button type="button" onclick="closeRaporModal(); CoopRaid.openStudentRapor('${studentNis}');" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer">
+                    <i class="fa-solid fa-file-invoice"></i> Buka Rapor Co-op
+                  </button>
+                </div>
+              </div>
+              <div class="px-4 py-2.5 bg-white flex flex-wrap items-center justify-between text-xs text-slate-600 gap-2">
+                <div class="flex items-center gap-3">
+                  <span><i class="fa-solid fa-users text-indigo-600"></i> ${cRecord?.kelompok || 'Kelompok Tim'}</span>
+                  <span><i class="fa-solid fa-clock-rotate-left text-slate-400"></i> Alt-Tab: <b>${cSwitches}x</b></span>
+                  <span><i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Salah PIN: <b>${cErrors}x</b></span>
+                </div>
+                <div>${cBadge.badgeHtml}</div>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      cardsContainer.innerHTML = coopCardHtml + htmlSections.join('');
     }
 
     function updateRaporKPI() {

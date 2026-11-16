@@ -37,7 +37,7 @@
   <meta http-equiv="Expires" content="0">
 
   <!-- Tailwind: pre-compiled stylesheet (no runtime JIT compiler) -->
-  <link rel="stylesheet" href="mathcihuy.css?v=v20261103_anti_neon_contrast_v2">
+  <link rel="stylesheet" href="mathcihuy.css?v=v20261116_coop_rapor_v6">
 
 
   <!-- Font Awesome Icons CDN -->
@@ -1763,7 +1763,7 @@
 
   <!-- JAVASCRIPT MASTER STATE ENGINE & PERSISTENCE -->
   <script src="data-xii.js?v=v20261026_diagnostik_kemendikbud_v1"></script>
-  <script src="coop-raid-statistika.js?v=v20261116_coop_final_v5"></script>
+  <script src="coop-raid-statistika.js?v=v20261116_coop_rapor_v7"></script>
   <script src="app.js?v=v20261103_anti_neon_contrast_v2"></script>
 
 
@@ -3235,6 +3235,13 @@
     <div id="modal-guru-coop-proctor" style="z-index: 10000; display: none;" class="hidden fixed inset-0 bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
       <div id="coop-teacher-proctor-content" style="max-height: 94vh; height: 94vh;" class="notion-modal-container border border-[#E8E6DF] rounded-2xl max-w-6xl h-[94vh] max-h-[94vh] flex flex-col w-full shadow-2xl text-[#2F3437] relative overflow-hidden font-sans my-auto">
         <!-- Rendered by CoopRaid.renderTeacherMonitor() -->
+      </div>
+    </div>
+
+    <!-- MODAL RAPOR RESMI TURNAMEN CO-OP RAID (STATISTIKA & DATA BIVARIAT) -->
+    <div id="coop-student-rapor-modal" style="z-index: 10005; display: none;" class="hidden fixed inset-0 bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+      <div id="coop-student-rapor-content" style="max-height: 94vh; height: 94vh;" class="notion-modal-container border border-[#CBD5E1] rounded-2xl max-w-4xl h-[94vh] max-h-[94vh] flex flex-col w-full shadow-2xl text-[#1E293B] relative overflow-hidden font-sans my-auto bg-white">
+        <!-- Rendered by CoopRaid.openStudentRapor() -->
       </div>
     </div>
 

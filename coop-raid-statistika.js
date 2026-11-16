@@ -496,7 +496,10 @@
     copyTeacherReport: copyTeacherReport,
     exportTeacherCSV: exportTeacherCSV,
     handleViolation: handleAntiCheatViolation,
-    getIntegrityLevel: getIntegrityLevel
+    getIntegrityLevel: getIntegrityLevel,
+    openStudentRapor: openStudentRapor,
+    closeStudentRapor: closeStudentRapor,
+    printRapor: printRapor
   };
 
   // --------------------------------------------------------------------------
@@ -737,6 +740,9 @@
             </div>
           </div>
           <div class="flex items-center gap-2">
+            <button onclick="CoopRaid.openStudentRapor()" class="px-3 py-1.5 rounded-xl border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs" title="Lihat Rapor Capaian Turnamen Co-op">
+              <i class="fa-solid fa-file-invoice text-emerald-600"></i> Rapor Co-op Saya
+            </button>
             <button onclick="CoopRaid.openTeacherMonitor()" class="px-3 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs">
               <i class="fa-solid fa-user-shield"></i> Ruang Pengawasan Guru
             </button>
@@ -962,7 +968,7 @@
 
           <div class="flex flex-col sm:flex-row items-center gap-3">
             <div class="flex-1 w-full flex items-center gap-2">
-              <input type="number" id="coop-pin-input" placeholder="Masukkan 3 Digit PIN Tim..." 
+              <input type="number" id="coop-pin-input" placeholder="Masukkan Kode PIN Tim..." 
                 class="w-full p-2.5 rounded-xl border text-sm font-mono font-bold tracking-wider text-center outline-none transition" 
                 style="background-color: #FFFFFF; border-color: #CBD5E1; color: #1E293B;"
                 value="${currentSession.wavePins[waveNo] || ''}">
@@ -1276,98 +1282,495 @@
     renderCurrentView();
   }
 
-  // VIEW 4: SCORECARD & REKAP AKHIR
-  function renderScorecardView(container) {
+  // --------------------------------------------------------------------------
+  // 6. MODUL RAPOR RESMI HASIL TURNAMEN CO-OP RAID (STANDAR DINAS GIS 2 SERPONG)
+  // --------------------------------------------------------------------------
+  function getStudentRaporData(targetNis) {
+    const stds = window.STUDENTS_DATA || {};
+    let std = null;
+    let nis = targetNis || '';
+
+    if (nis && stds[nis]) {
+      std = stds[nis];
+    } else if (currentSession.studentName) {
+      for (const k in stds) {
+        if (stds[k].nama === currentSession.studentName) {
+          std = stds[k];
+          nis = k;
+          break;
+        }
+      }
+    }
+
+    let history = [];
+    try {
+      history = JSON.parse(localStorage.getItem('mathcihuy_coop_history') || '[]');
+    } catch(e) {}
+
+    let histItem = null;
+    if (nis) {
+      histItem = history.slice().reverse().find(h => String(h.nis) === String(nis) || h.nama === (std && std.nama));
+    } else if (currentSession.studentName) {
+      histItem = history.slice().reverse().find(h => h.nama === currentSession.studentName);
+    }
+
+    const isCurrent = currentSession.studentName && (!std || currentSession.studentName === std.nama);
+
+    let pinErrors = (isCurrent && currentSession.pinErrors) || { 1: 0, 2: 0, 3: 0 };
+    if (histItem && histItem.pin_errors_detail) {
+      pinErrors = histItem.pin_errors_detail;
+    }
+
+    let waveAnswers = { 1: {}, 2: {}, 3: {} };
+    if (histItem && histItem.answers_wave1) {
+      waveAnswers = {
+        1: histItem.answers_wave1 || {},
+        2: histItem.answers_wave2 || {},
+        3: histItem.answers_wave3 || {}
+      };
+    } else if (isCurrent && currentSession.waveAnswers) {
+      waveAnswers = currentSession.waveAnswers;
+    }
+
+    let individualAnswers = {};
+    if (histItem && histItem.answers_indiv) {
+      individualAnswers = histItem.answers_indiv;
+    } else if (isCurrent && currentSession.individualAnswers) {
+      individualAnswers = currentSession.individualAnswers;
+    }
+
+    const scoreCoop = histItem?.skor_coop !== undefined ? histItem.skor_coop : (currentSession.scoreCoop || 100);
+    const scoreIndividual = histItem?.skor_individu !== undefined ? histItem.skor_individu : (currentSession.scoreIndividual || 0);
+    const finalScore = histItem?.skor_akhir !== undefined ? histItem.skor_akhir : (currentSession.finalScore || Math.round((scoreCoop * 0.4) + (scoreIndividual * 0.6)));
+    const tabSwitchCount = histItem?.tab_switch_count !== undefined ? histItem.tab_switch_count : (currentSession.tabSwitchCount || 0);
+
+    return {
+      nama: (std && std.nama) || currentSession.studentName || 'Peserta Didik',
+      nis: nis || (std && std.nis) || '-',
+      kelas: (std && std.kelas) || currentSession.className || 'XII F1',
+      kelompok: histItem?.kelompok || `Kelompok ${currentSession.groupNo || 1}`,
+      anggota: histItem?.anggota || `Anggota ${currentSession.memberNo || 1}`,
+      groupNo: currentSession.groupNo || 1,
+      memberNo: currentSession.memberNo || 1,
+      scoreCoop: scoreCoop,
+      scoreIndividual: scoreIndividual,
+      finalScore: finalScore,
+      tabSwitchCount: tabSwitchCount,
+      pinErrors: pinErrors,
+      waveAnswers: waveAnswers,
+      individualAnswers: individualAnswers,
+      isDone: (histItem !== null) || currentSession.individualDone,
+      timestamp: histItem?.timestamp || new Date().toISOString()
+    };
+  }
+
+  function generateRaporCoopHtml(sData, isModalOverlay = false) {
     const qList = COOP_DATA.individual;
-    const switchCount = currentSession.tabSwitchCount || 0;
+    const switchCount = sData.tabSwitchCount || 0;
     const integrity = getIntegrityLevel(switchCount);
 
-    container.innerHTML = `
-      <div id="coop-scorecard-box" class="p-5 md:p-7 space-y-6 flex flex-col max-h-[88vh] overflow-y-auto custom-scroll">
-        <!-- HEADER SCORECARD -->
-        <div class="text-center space-y-1.5 border-b pb-4" style="border-color: #E2E8F0;">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
-            <i class="fa-solid fa-trophy"></i> Turnamen Co-op Raid Tuntas
-          </div>
-          <h2 class="text-xl md:text-2xl font-bold text-slate-800 tracking-tight">Rapor Hasil Capaian Turnamen Statistika</h2>
-          <p class="text-xs text-slate-500 font-medium">SMA Global Islamic School 2 Serpong • TP 2026/2027</p>
-        </div>
+    let predikat = 'D';
+    let predikatText = 'Perlu Bimbingan';
+    let predikatColor = 'text-rose-700 bg-rose-50 border-rose-300';
+    if (sData.finalScore >= 90) {
+      predikat = 'A';
+      predikatText = 'Sangat Mahir';
+      predikatColor = 'text-emerald-800 bg-emerald-50 border-emerald-300';
+    } else if (sData.finalScore >= 80) {
+      predikat = 'B';
+      predikatText = 'Mahir';
+      predikatColor = 'text-indigo-800 bg-indigo-50 border-indigo-300';
+    } else if (sData.finalScore >= 75) {
+      predikat = 'C';
+      predikatText = 'Cakap (Tuntas KKM)';
+      predikatColor = 'text-amber-800 bg-amber-50 border-amber-300';
+    }
 
-        <!-- IDENTITY & KPI GRID -->
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-          <div class="p-3 rounded-xl border bg-slate-50 border-slate-200">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Siswa &amp; Kelas</span>
-            <span class="text-xs font-bold text-slate-800 truncate block mt-0.5">${escapeHtml(currentSession.studentName)}</span>
-            <span class="text-[10px] text-slate-500 font-mono">${currentSession.className}</span>
-          </div>
+    const totalPinErrors = ((sData.pinErrors && sData.pinErrors[1]) || 0) + ((sData.pinErrors && sData.pinErrors[2]) || 0) + ((sData.pinErrors && sData.pinErrors[3]) || 0);
 
-          <div class="p-3 rounded-xl border bg-slate-50 border-slate-200">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Tim Kelompok</span>
-            <span class="text-xs font-bold text-indigo-700 block mt-0.5">Kelompok ${currentSession.groupNo}</span>
-            <span class="text-[10px] text-slate-500 font-mono">Anggota ${currentSession.memberNo}</span>
-          </div>
+    let catatanIntegritas = '';
+    if (integrity.level === 'hijau') {
+      catatanIntegritas = 'Validasi Murni: Seluruh rangkaian turnamen diselesaikan dengan tingkat kedisiplinan dan fokus optimal tanpa perpindahan layar (0x Alt-Tab).';
+    } else if (integrity.level === 'kuning') {
+      catatanIntegritas = `Peringatan Waspada: Terdeteksi ${switchCount} kali perpindahan layar (Alt-Tab/tab lain). Pengerjaan tetap tervalidasi dengan catatan kedisiplinan.`;
+    } else {
+      catatanIntegritas = `Peringatan Kritis: Terdeteksi ${switchCount} kali perpindahan layar. Siswa diarahkan untuk sesi konfirmasi kejujuran akademik bersama Guru Pengampu.`;
+    }
 
-          <div class="p-3 rounded-xl border bg-slate-50 border-slate-200">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Skor Co-op Tim</span>
-            <span class="text-lg font-black text-emerald-700 block mt-0.5">${currentSession.scoreCoop}</span>
-            <span class="text-[10px] text-emerald-600 font-medium">3 Putaran Tuntas</span>
-          </div>
+    const formattedDate = new Date(sData.timestamp || Date.now()).toLocaleDateString('id-ID', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
 
-          <div class="p-3 rounded-xl border bg-slate-50 border-slate-200">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Skor Individu</span>
-            <span id="coop-final-score" class="text-lg font-black text-indigo-700 block mt-0.5">${currentSession.scoreIndividual}</span>
-            <span class="text-[10px] text-indigo-600 font-medium">5 Butir Ujian Mandiri</span>
-          </div>
-
-          <div class="p-3 rounded-xl border col-span-2 sm:col-span-1 ${integrity.level === 'hijau' ? 'bg-emerald-50 border-emerald-300' : (integrity.level === 'kuning' ? 'bg-amber-50 border-amber-300' : 'bg-rose-50 border-rose-300')}">
-            <span class="text-[10px] font-bold uppercase tracking-wider ${integrity.level === 'hijau' ? 'text-emerald-700' : (integrity.level === 'kuning' ? 'text-amber-700' : 'text-rose-700')} block">Integritas Ujian</span>
-            <div class="mt-1">
-              ${integrity.badgeHtml}
-            </div>
-            <span class="text-[10px] ${integrity.level === 'hijau' ? 'text-emerald-600' : (integrity.level === 'kuning' ? 'text-amber-700' : 'text-rose-700')} font-medium block mt-1">
-              ${integrity.level === 'hijau' ? '0x Pindah Layar (Murni &amp; Valid)' : `${switchCount}x Pindah Layar (Tercatat di Pengawasan Guru)`}
+    const waveRowsHtml = [1, 2, 3].map(wNo => {
+      const w = COOP_DATA.waves[wNo - 1];
+      const posNo = getActivePosForMember(sData.memberNo, wNo);
+      const posData = w.positions[posNo];
+      const userAns = sData.waveAnswers?.[wNo]?.[posNo] || '-';
+      const contribVal = getContributedValueFromAnswer(posData, userAns);
+      const errCount = sData.pinErrors?.[wNo] || 0;
+      return `
+        <tr class="border-b border-slate-200 text-xs">
+          <td class="p-2.5 font-bold text-center text-slate-700">Putaran ${wNo}</td>
+          <td class="p-2.5 text-slate-800 font-semibold">
+            <div>${w.title}</div>
+            <div class="text-[10px] text-slate-500 font-mono">Target PIN: <b class="text-indigo-700">${w.targetPin}</b></div>
+          </td>
+          <td class="p-2.5 text-slate-700 font-medium">
+            <div>Pos ${posNo}: ${posData.title}</div>
+            <div class="text-[10px] text-indigo-700 font-semibold">${posData.keyLabel}</div>
+          </td>
+          <td class="p-2.5 font-mono font-bold text-center text-indigo-950 bg-indigo-50/50">
+            ${contribVal}
+          </td>
+          <td class="p-2.5 font-mono font-bold text-center ${errCount > 0 ? 'text-rose-700' : 'text-slate-500'}">
+            ${errCount}x
+          </td>
+          <td class="p-2.5 text-center">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <i class="fa-solid fa-circle-check"></i> Tuntas (100)
             </span>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    const indivRowsHtml = qList.map(q => {
+      const u = sData.individualAnswers?.[q.no];
+      const isCor = isAnswerCorrect(q, u);
+      return `
+        <tr class="border-b border-slate-200 text-xs ${isCor ? 'bg-emerald-50/20' : 'bg-rose-50/20'}">
+          <td class="p-2.5 font-bold text-center text-slate-700">No. ${q.no}</td>
+          <td class="p-2.5 text-slate-800">
+            <div class="font-bold">${q.title}</div>
+            <div class="text-[11px] text-slate-500 italic mt-0.5">${q.bahas}</div>
+          </td>
+          <td class="p-2.5 font-mono font-bold text-center text-slate-700">${u || '-'}</td>
+          <td class="p-2.5 font-mono font-bold text-center text-emerald-800">${q.kunci}</td>
+          <td class="p-2.5 font-mono font-bold text-center ${isCor ? 'text-emerald-700' : 'text-rose-700'}">
+            ${isCor ? '20' : '0'}
+          </td>
+          <td class="p-2.5 text-center">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isCor ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-100 text-rose-800 border border-rose-300'}">
+              ${isCor ? '✓ Benar' : '✗ Salah'}
+            </span>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    return `
+      <div id="coop-rapor-container" class="p-5 sm:p-8 space-y-6 flex flex-col max-h-[92vh] overflow-y-auto custom-scroll bg-white coop-print-page">
+        <!-- TOP TOOLBAR (NO-PRINT) -->
+        <div class="coop-no-print border-b pb-3 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center gap-1.5 shadow-2xs">
+              <i class="fa-solid fa-graduation-cap"></i> Dokumen Rapor Resmi GIS
+            </span>
+            <span class="text-xs text-slate-500">TP 2026/2027</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="CoopRaid.printRapor()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer shadow-xs transition" title="Cetak Rapor ke Printer atau Simpan sebagai PDF">
+              <i class="fa-solid fa-print"></i> Cetak Rapor (PDF)
+            </button>
+            <button onclick="CoopRaid.copyResult()" class="px-3 py-1.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition">
+              <i class="fa-solid fa-copy"></i> Salin Rekap
+            </button>
+            ${isModalOverlay ? `
+              <button onclick="CoopRaid.closeStudentRapor()" class="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+                <i class="fa-solid fa-xmark text-lg"></i>
+              </button>
+            ` : `
+              <button onclick="CoopRaid.closeModal()" class="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+                <i class="fa-solid fa-xmark text-lg"></i>
+              </button>
+            `}
           </div>
         </div>
 
-        <!-- PEMBAHASAN DETAIL ACCORDION -->
-        <div class="space-y-3 pt-2">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-            <i class="fa-solid fa-list-check text-indigo-600"></i> Rincian Evaluasi Soal Individu:
-          </h4>
-          <div class="space-y-2.5">
-            ${qList.map((q, idx) => {
-              const u = currentSession.individualAnswers[q.no];
-              const isCor = isAnswerCorrect(q, u);
-              return `
-                <div class="p-3.5 rounded-xl border text-xs space-y-1.5 ${isCor ? 'border-emerald-200 bg-emerald-50/50' : 'border-rose-200 bg-rose-50/40'}">
-                  <div class="flex items-center justify-between font-bold">
-                    <span class="text-slate-800">Soal ${q.no}: ${q.title}</span>
-                    <span class="${isCor ? 'text-emerald-700' : 'text-rose-700'} flex items-center gap-1">
-                      ${isCor ? '<i class="fa-solid fa-circle-check"></i> Benar (20 Poin)' : '<i class="fa-solid fa-circle-xmark"></i> Salah (0 Poin)'}
-                    </span>
-                  </div>
-                  <div class="text-[11px] text-slate-600 leading-relaxed">${q.bahas}</div>
-                </div>
-              `;
-            }).join('')}
+        <!-- KOP RESMI DOKUMEN SEKOLAH GIS 2 SERPONG -->
+        <div class="flex items-center gap-4 border-b-2 border-slate-900 pb-3">
+          <img src="assets/gis_official_logo.png" alt="Logo Resmi GIS" class="h-20 w-auto object-contain shrink-0">
+          <div class="flex-1 text-center">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-slate-600">YAYASAN ASRAMA PELAJAR ISLAM (YAPI) CABANG BANTEN</div>
+            <h1 class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-snug">SMA GLOBAL ISLAMIC SCHOOL 2 SERPONG</h1>
+            <div class="text-xs font-bold text-indigo-900 uppercase tracking-wide mt-0.5">LEMBAR LAPORAN HASIL ASESMEN KOLABORASI &amp; EVALUASI MANDIRI</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">
+              Jl. Raya Puspiptek Buaran, Serpong - Kota Tangerang Selatan, Banten 15310 • Website: www.global-islamic.com
+            </div>
           </div>
         </div>
 
-        <!-- ACTION BUTTONS -->
-        <div class="border-t pt-4 flex flex-col sm:flex-row items-center justify-end gap-3" style="border-color: #E2E8F0;">
+        <!-- JUDUL & NOMOR DOKUMEN -->
+        <div class="text-center space-y-1">
+          <h2 class="text-sm sm:text-base font-extrabold uppercase tracking-wide text-slate-900">
+            RAPOR CAPAIAN TURNAMEN CO-OP RAID: STATISTIKA &amp; DATA BIVARIAT
+          </h2>
+          <div class="text-[11px] text-slate-600 font-medium">
+            Mata Pelajaran: <b>Matematika (Fase F - Kelas XII)</b> • Semester Ganjil TP 2026/2027
+          </div>
+        </div>
+
+        <!-- TABEL IDENTITAS SISWA & TIM -->
+        <div class="border border-slate-300 rounded-xl overflow-hidden bg-slate-50/60 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-300">
+            <div class="p-3.5 space-y-2">
+              <div class="flex justify-between">
+                <span class="text-slate-500 font-medium">Nama Peserta Didik:</span>
+                <span class="font-bold text-slate-900">${escapeHtml(sData.nama)}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500 font-medium">Nomor Induk Siswa (NIS):</span>
+                <span class="font-mono font-bold text-slate-900">${sData.nis}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500 font-medium">Kelas / Rombel:</span>
+                <span class="font-bold text-slate-900">${sData.kelas}</span>
+              </div>
+            </div>
+            <div class="p-3.5 space-y-2">
+              <div class="flex justify-between">
+                <span class="text-slate-500 font-medium">Skuad Kelompok:</span>
+                <span class="font-bold text-indigo-700">${sData.kelompok}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500 font-medium">Peran Anggota:</span>
+                <span class="font-bold text-slate-800">${sData.anggota}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500 font-medium">Waktu Selesai:</span>
+                <span class="font-medium text-slate-700">${formattedDate}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- REKAPITULASI NILAI & FORMULA BOBOT RESMI -->
+        <div class="border border-slate-300 rounded-xl overflow-hidden">
+          <div class="bg-slate-800 text-white px-3.5 py-2 font-bold text-xs uppercase tracking-wider flex items-center justify-between">
+            <span>Rekapitulasi Capaian Nilai &amp; Bobot Asesmen</span>
+            <span class="text-[10px] font-normal text-slate-300">Standar Penilaian Kurikulum SMA GIS 2</span>
+          </div>
+          <table class="w-full text-xs">
+            <thead class="bg-slate-100 text-slate-700 border-b border-slate-300">
+              <tr>
+                <th class="py-2.5 px-3 text-left">Komponen Asesmen</th>
+                <th class="py-2.5 px-3 text-center w-28">Skor Mentah</th>
+                <th class="py-2.5 px-3 text-center w-24">Bobot</th>
+                <th class="py-2.5 px-3 text-center w-32">Kontribusi Nilai</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="py-2.5 px-3 font-semibold text-slate-800">
+                  A. Kolaborasi Tim Co-op (3 Putaran Estafet Paralel &amp; Perakitan PIN)
+                  <div class="text-[10px] text-slate-500 font-normal">Sinergi 5 anggota tim menyelesaikan 15 pos perhitungan statistika.</div>
+                </td>
+                <td class="py-2.5 px-3 text-center font-mono font-bold text-emerald-700">${sData.scoreCoop} / 100</td>
+                <td class="py-2.5 px-3 text-center font-mono text-slate-600">40%</td>
+                <td class="py-2.5 px-3 text-center font-mono font-bold text-slate-900">${(sData.scoreCoop * 0.4).toFixed(1)}</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-semibold text-slate-800">
+                  B. Evaluasi Mandiri Siswa (5 Butir Soal AKM Statistika Berkelompok)
+                  <div class="text-[10px] text-slate-500 font-normal">Pengujian mandiri 20 menit mencakup Mean, Median, Kuartil, Ragam, dan Transformasi.</div>
+                </td>
+                <td class="py-2.5 px-3 text-center font-mono font-bold text-indigo-700">${sData.scoreIndividual} / 100</td>
+                <td class="py-2.5 px-3 text-center font-mono text-slate-600">60%</td>
+                <td class="py-2.5 px-3 text-center font-mono font-bold text-slate-900">${(sData.scoreIndividual * 0.6).toFixed(1)}</td>
+              </tr>
+              <tr class="bg-indigo-50/60 font-bold border-t-2 border-slate-300">
+                <td class="py-3 px-3 text-indigo-950 text-xs uppercase">
+                  Total Nilai Akhir Rapor Turnamen
+                </td>
+                <td colspan="2" class="py-3 px-3 text-center">
+                  <span class="px-2.5 py-1 rounded-md text-xs font-bold border ${predikatColor}">
+                    Predikat: ${predikat} (${predikatText})
+                  </span>
+                </td>
+                <td class="py-3 px-3 text-center font-mono font-black text-indigo-950 text-base">
+                  ${sData.finalScore} / 100
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- MATRIKS AUDIT INTEGRITAS & KEAMANAN UJIAN -->
+        <div class="border border-slate-300 rounded-xl p-3.5 bg-slate-50/50 space-y-2.5 text-xs">
+          <div class="font-bold text-slate-800 flex items-center justify-between border-b border-slate-200 pb-2">
+            <span class="flex items-center gap-1.5 uppercase tracking-wide text-[11px] text-slate-700">
+              <i class="fa-solid fa-shield-halved text-indigo-600"></i> Audit Integritas &amp; Kedisiplinan Layar Siswa
+            </span>
+            <span>${integrity.badgeHtml}</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
+            <div class="p-2 rounded-lg bg-white border border-slate-200">
+              <span class="text-[10px] text-slate-500 uppercase block font-semibold">Pindah Layar (Alt-Tab)</span>
+              <span class="text-sm font-bold font-mono ${switchCount === 0 ? 'text-emerald-700' : (switchCount <= 2 ? 'text-amber-700' : 'text-rose-700')}">${switchCount} kali</span>
+            </div>
+            <div class="p-2 rounded-lg bg-white border border-slate-200">
+              <span class="text-[10px] text-slate-500 uppercase block font-semibold">Percobaan Gagal PIN Tim</span>
+              <span class="text-sm font-bold font-mono ${totalPinErrors > 0 ? 'text-rose-700' : 'text-emerald-700'}">${totalPinErrors} kali</span>
+            </div>
+            <div class="p-2 rounded-lg bg-white border border-slate-200 col-span-2 sm:col-span-1">
+              <span class="text-[10px] text-slate-500 uppercase block font-semibold">Status Validasi</span>
+              <span class="text-xs font-bold text-slate-800">${integrity.label}</span>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-600 italic bg-white p-2.5 rounded-lg border border-slate-200">
+            *Catatan Pengawas: ${catatanIntegritas}
+          </div>
+        </div>
+
+        <!-- RINCIAN FASE 1: ESTAFET CO-OP 3 PUTARAN -->
+        <div class="space-y-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+            <i class="fa-solid fa-users-rays text-indigo-600"></i> Rincian Kontribusi Anggota di Sesi Co-op (3 Putaran):
+          </h3>
+          <div class="border border-slate-300 rounded-xl overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-100 text-slate-700 border-b border-slate-300 text-xs">
+                <tr>
+                  <th class="p-2.5 text-center w-24">Babak</th>
+                  <th class="p-2.5">Misi Putaran</th>
+                  <th class="p-2.5">Pos Tugas Siswa</th>
+                  <th class="p-2.5 text-center w-28">Angka Kunci</th>
+                  <th class="p-2.5 text-center w-24">Salah PIN</th>
+                  <th class="p-2.5 text-center w-28">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${waveRowsHtml}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- RINCIAN FASE 2: UJIAN EVALUASI MANDIRI (5 SOAL) -->
+        <div class="space-y-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+            <i class="fa-solid fa-list-check text-indigo-600"></i> Rincian Butir Soal Ujian Evaluasi Mandiri (5 Butir AKM):
+          </h3>
+          <div class="border border-slate-300 rounded-xl overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-100 text-slate-700 border-b border-slate-300 text-xs">
+                <tr>
+                  <th class="p-2.5 text-center w-16">No</th>
+                  <th class="p-2.5">Materi &amp; Pembahasan Soal</th>
+                  <th class="p-2.5 text-center w-20">Jawaban</th>
+                  <th class="p-2.5 text-center w-16">Kunci</th>
+                  <th class="p-2.5 text-center w-16">Poin</th>
+                  <th class="p-2.5 text-center w-24">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${indivRowsHtml}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PENGESAHAN RESMI (TANDA TANGAN & STEMPEL DINAS GIS) -->
+        <div class="pt-6 border-t border-slate-300 grid grid-cols-2 gap-6 text-center text-xs text-slate-800">
+          <div>
+            <div class="font-medium text-slate-600">Mengetahui,</div>
+            <div class="font-bold">Kepala SMA Global Islamic School 2 Serpong</div>
+            <div class="h-20 flex items-center justify-center my-1.5">
+              <img src="assets/perfect_stamp_sig.png" alt="Stempel &amp; TTD Kepala Sekolah" class="h-20 w-auto object-contain">
+            </div>
+            <div class="font-bold underline text-slate-900">Dwi Kurniawati, S.Pd., Gr.</div>
+            <div class="text-[10px] text-slate-500 font-mono">Kepala Sekolah</div>
+          </div>
+          <div>
+            <div class="font-medium text-slate-600">Tangerang Selatan, ${formattedDate}</div>
+            <div class="font-bold">Guru Pengampu Matematika</div>
+            <div class="h-20 flex items-center justify-center my-1.5">
+              <img src="assets/sig_guru_perfect.png" alt="TTD Guru Pengampu" class="h-16 w-auto object-contain">
+            </div>
+            <div class="font-bold underline text-slate-900">Muhammad Ardiansyah, S.Pd.Gr.</div>
+            <div class="text-[10px] text-slate-500 font-mono">Guru Pengampu Fase F</div>
+          </div>
+        </div>
+
+        <!-- BOTTOM ACTION BUTTONS (NO-PRINT) -->
+        <div class="coop-no-print border-t pt-4 flex flex-col sm:flex-row items-center justify-end gap-3">
+          <button onclick="CoopRaid.printRapor()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow-xs">
+            <i class="fa-solid fa-print"></i> Cetak Dokumen Rapor
+          </button>
           <button onclick="CoopRaid.copyResult()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition">
             <i class="fa-solid fa-copy"></i> Salin Rekap Capaian
           </button>
-          <button onclick="CoopRaid.resetTournament()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition">
-            <i class="fa-solid fa-rotate-left"></i> Mulai Ulang Sesi
-          </button>
-          <button onclick="CoopRaid.closeModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 cursor-pointer transition">
-            <i class="fa-solid fa-check"></i> Selesai
-          </button>
+          ${isModalOverlay ? `
+            <button onclick="CoopRaid.closeStudentRapor()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 cursor-pointer transition">
+              <i class="fa-solid fa-check"></i> Tutup Rapor
+            </button>
+          ` : `
+            <button onclick="CoopRaid.resetTournament()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition">
+              <i class="fa-solid fa-rotate-left"></i> Mulai Ulang Sesi
+            </button>
+            <button onclick="CoopRaid.closeModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 cursor-pointer transition">
+              <i class="fa-solid fa-check"></i> Selesai
+            </button>
+          `}
         </div>
       </div>
     `;
+  }
+
+  // VIEW 4: SCORECARD & REKAP AKHIR TURNAMEN
+  function renderScorecardView(container) {
+    const sData = getStudentRaporData();
+    container.innerHTML = generateRaporCoopHtml(sData, false);
+  }
+
+  function openStudentRapor(targetNis) {
+    const sData = getStudentRaporData(targetNis);
+    const modal = document.getElementById('coop-student-rapor-modal');
+    const content = document.getElementById('coop-student-rapor-content');
+
+    if (modal && content) {
+      content.innerHTML = generateRaporCoopHtml(sData, true);
+      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
+      document.body.classList.add('overflow-hidden');
+    } else {
+      // Fallback inside coop-raid-modal
+      const raidModal = document.getElementById('coop-raid-modal');
+      const raidContent = document.getElementById('coop-modal-content');
+      if (raidModal && raidContent) {
+        raidContent.innerHTML = generateRaporCoopHtml(sData, false);
+        raidModal.classList.remove('hidden');
+        raidModal.style.display = 'flex';
+        document.body.classList.add('overflow-hidden');
+      }
+    }
+  }
+
+  function closeStudentRapor() {
+    const modal = document.getElementById('coop-student-rapor-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+      // Only restore overflow if teacher proctor modal or coop modal is not active
+      const proctorModal = document.getElementById('modal-guru-coop-proctor');
+      const coopModal = document.getElementById('coop-raid-modal');
+      const isProctorOpen = proctorModal && !proctorModal.classList.contains('hidden') && proctorModal.style.display !== 'none';
+      const isCoopOpen = coopModal && !coopModal.classList.contains('hidden') && coopModal.style.display !== 'none';
+      if (!isProctorOpen && !isCoopOpen) {
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+  }
+
+  function printRapor() {
+    document.body.classList.add('coop-rapor-printing');
+    window.print();
+    setTimeout(() => {
+      document.body.classList.remove('coop-rapor-printing');
+    }, 1200);
   }
 
   function copyResult() {
@@ -1421,6 +1824,15 @@
 
   function sendResultToBackend() {
     const integrity = getIntegrityLevel(currentSession.tabSwitchCount || 0);
+    let studentNis = '';
+    const stds = window.STUDENTS_DATA || {};
+    for (const k in stds) {
+      if (stds[k].nama === currentSession.studentName) {
+        studentNis = k;
+        break;
+      }
+    }
+
     const payload = {
       timestamp: new Date().toISOString(),
       mapel: 'wajib',
@@ -1429,6 +1841,7 @@
       kelompok: `Kelompok ${currentSession.groupNo}`,
       anggota: `Anggota ${currentSession.memberNo}`,
       nama: currentSession.studentName,
+      nis: studentNis,
       skor_coop: currentSession.scoreCoop,
       skor_individu: currentSession.scoreIndividual,
       skor_akhir: currentSession.finalScore,
@@ -1746,6 +2159,7 @@
                 <th class="py-2.5 px-3 text-center w-28">Pindah Layar</th>
                 <th class="py-2.5 px-3 text-center w-24">Salah PIN</th>
                 <th class="py-2.5 px-3 text-center w-36">Lencana Integritas</th>
+                <th class="py-2.5 px-3 text-center w-24">Rapor</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 font-medium">
@@ -1786,6 +2200,11 @@
                     </td>
                     <td class="py-2.5 px-3 text-center">
                       ${s.badge.badgeHtml}
+                    </td>
+                    <td class="py-2.5 px-3 text-center">
+                      <button onclick="CoopRaid.openStudentRapor('${s.nis}')" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs border border-indigo-200 transition flex items-center justify-center gap-1 cursor-pointer w-full shadow-2xs" title="Buka Rapor Co-op Siswa">
+                        <i class="fa-solid fa-file-invoice"></i> Rapor
+                      </button>
                     </td>
                   </tr>
                 `;
