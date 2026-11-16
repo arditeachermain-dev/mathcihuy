@@ -514,7 +514,15 @@
     saveIndividualAnswer: saveIndividualAnswer,
     submitIndividualTest: submitIndividualTest,
     resetTournament: resetTournament,
-    copyResult: copyResult
+    copyResult: copyResult,
+    openTeacherMonitor: openTeacherMonitor,
+    closeTeacherMonitor: closeTeacherMonitor,
+    renderTeacherMonitor: renderTeacherMonitor,
+    filterTeacherMonitor: filterTeacherMonitor,
+    copyTeacherReport: copyTeacherReport,
+    exportTeacherCSV: exportTeacherCSV,
+    handleViolation: handleAntiCheatViolation,
+    getIntegrityLevel: getIntegrityLevel
   };
 
   // --------------------------------------------------------------------------
@@ -533,31 +541,68 @@
            !currentSession.individualDone;
   }
 
-  function showAntiCheatToast(message) {
+  function getIntegrityLevel(count) {
+    if (!count || count <= 0) {
+      return { 
+        level: 'hijau', 
+        label: 'Valid (Murni)', 
+        color: 'emerald', 
+        badgeHtml: '<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-shield-check text-emerald-600"></i> Hijau (0x)</span>'
+      };
+    }
+    if (count <= 2) {
+      return { 
+        level: 'kuning', 
+        label: 'Peringatan Sedang', 
+        color: 'amber', 
+        badgeHtml: `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Kuning (${count}x)</span>`
+      };
+    }
+    return { 
+      level: 'merah', 
+      label: 'Pelanggaran Kritis', 
+      color: 'rose', 
+      badgeHtml: `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-100 text-rose-900 border border-rose-300 inline-flex items-center gap-1 shadow-xs"><i class="fa-solid fa-circle-xmark text-rose-600"></i> Merah (${count}x)</span>`
+    };
+  }
+
+  function showAntiCheatToast(message, type = 'kuning') {
     const existing = document.getElementById('coop-anticheat-toast');
     if (existing) existing.remove();
 
     const toast = document.createElement('div');
     toast.id = 'coop-anticheat-toast';
-    toast.className = 'fixed top-5 left-1/2 -translate-x-1/2 max-w-lg w-[90%] bg-rose-950 text-rose-100 border-2 border-rose-500 px-4 py-3 rounded-2xl shadow-2xl text-xs sm:text-sm font-bold z-[100000] flex items-center gap-3 animate-bounce';
-    toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-400 text-lg shrink-0"></i> <span>${escapeHtml(message)}</span>`;
+    const bgBorder = type === 'merah' 
+      ? 'bg-rose-950 text-rose-100 border-rose-500' 
+      : 'bg-amber-950 text-amber-100 border-amber-500';
+
+    toast.className = `fixed top-5 left-1/2 -translate-x-1/2 max-w-lg w-[90%] ${bgBorder} border-2 px-4 py-3 rounded-2xl shadow-2xl text-xs sm:text-sm font-bold z-[100000] flex items-center gap-3 animate-bounce`;
+    toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation ${type === 'merah' ? 'text-rose-400' : 'text-amber-400'} text-lg shrink-0"></i> <div class="flex-1">${message}</div>`;
     document.body.appendChild(toast);
 
     setTimeout(() => {
       if (toast && toast.parentNode) toast.remove();
-    }, 5500);
+    }, 6000);
   }
 
   function handleAntiCheatViolation(reason) {
     if (!isCoopModalActive()) return;
     currentSession.tabSwitchCount = (currentSession.tabSwitchCount || 0) + 1;
     saveCurrentSession();
-    showAntiCheatToast(`Peringatan Integritas: ${reason} terdeteksi (${currentSession.tabSwitchCount}x)! Aktivitas dicatat pada Rapor Ujian.`);
+
+    const count = currentSession.tabSwitchCount;
+    const info = getIntegrityLevel(count);
+
+    if (info.level === 'kuning') {
+      showAntiCheatToast(`⚠️ <b>Peringatan Integritas (Lencana Kuning):</b> ${reason} terdeteksi (${count}x)! Anda tetap dapat melanjutkan pengerjaan soal. Pelanggaran ini tercatat di Ruang Pengawasan Guru.`, 'kuning');
+    } else {
+      showAntiCheatToast(`🚨 <b>Peringatan Kritis (Lencana Merah):</b> ${reason} terdeteksi (${count}x)! Anda tetap dapat mengerjakan soal, namun status integritas Anda ditandai Lencana Merah pada Pengawasan Guru.`, 'merah');
+    }
     
-    // Auto re-render if on scorecard to reflect switch count immediately
+    // Auto re-render if badge element exists in DOM
     const badge = document.getElementById('coop-live-switch-badge');
     if (badge) {
-      badge.innerText = `${currentSession.tabSwitchCount}x Pindah Layar`;
+      badge.innerHTML = info.badgeHtml;
     }
   }
 
@@ -693,9 +738,14 @@
               <h2 class="text-lg md:text-xl font-bold tracking-tight mt-0.5" style="color: #1E293B;">Co-op Raid: Estafet Paralel &amp; Rakitan Kode</h2>
             </div>
           </div>
-          <button onclick="CoopRaid.closeModal()" class="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
-            <i class="fa-solid fa-xmark text-lg"></i>
-          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="CoopRaid.openTeacherMonitor()" class="px-3 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+              <i class="fa-solid fa-user-shield"></i> Ruang Pengawasan Guru
+            </button>
+            <button onclick="CoopRaid.closeModal()" class="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+              <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+          </div>
         </div>
 
         <!-- BRIEFING RULES -->
@@ -788,12 +838,13 @@
     const currentAns = currentSession.waveAnswers[waveNo] && currentSession.waveAnswers[waveNo][activePos];
     const isAnswered = currentAns !== undefined && currentAns !== null;
     const isCorrect = isAnswerCorrect(posData, currentAns);
+    const integrity = getIntegrityLevel(currentSession.tabSwitchCount || 0);
 
     container.innerHTML = `
       <div class="p-4 md:p-6 space-y-5 flex flex-col max-h-[88vh] overflow-y-auto custom-scroll">
         <!-- TOP HUD -->
         <div class="border-b pb-3 flex flex-wrap items-center justify-between gap-3" style="border-color: #E2E8F0;">
-          <div class="flex items-center gap-2.5">
+          <div class="flex flex-wrap items-center gap-2.5">
             <span class="px-3 py-1 rounded-lg text-xs font-bold" style="background-color: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE;">
               <i class="fa-solid fa-users"></i> Kelompok ${currentSession.groupNo}
             </span>
@@ -802,6 +853,9 @@
             </span>
             <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold" style="background-color: #FEF3C7; color: #92400E; border: 1px solid #FDE68A;">
               Tugas: Pos ${activePos}
+            </span>
+            <span id="coop-live-switch-badge">
+              ${integrity.badgeHtml}
             </span>
           </div>
 
@@ -1098,11 +1152,12 @@
     const qList = COOP_DATA.individual;
     const m = Math.floor(currentSession.individualTimeLeft / 60);
     const s = currentSession.individualTimeLeft % 60;
+    const integrity = getIntegrityLevel(currentSession.tabSwitchCount || 0);
 
     container.innerHTML = `
       <div class="p-4 md:p-6 space-y-5 flex flex-col max-h-[88vh] overflow-y-auto custom-scroll">
         <!-- TOP STATUS -->
-        <div class="border-b pb-3 flex items-center justify-between" style="border-color: #E2E8F0;">
+        <div class="border-b pb-3 flex flex-wrap items-center justify-between gap-3" style="border-color: #E2E8F0;">
           <div class="flex items-center gap-2.5">
             <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
               <i class="fa-solid fa-user-pen"></i> Evaluasi Mandiri Siswa
@@ -1112,10 +1167,15 @@
             </span>
           </div>
 
-          <!-- TIMER DISPLAY -->
-          <div class="px-3.5 py-1 rounded-xl bg-slate-900 text-amber-300 font-mono font-bold text-sm flex items-center gap-2 border border-slate-700 shadow-xs">
-            <i class="fa-solid fa-stopwatch text-amber-400"></i>
-            <span id="coop-indiv-timer">${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}</span>
+          <!-- TIMER DISPLAY & INTEGRITY BADGE -->
+          <div class="flex items-center gap-2.5">
+            <span id="coop-live-switch-badge">
+              ${integrity.badgeHtml}
+            </span>
+            <div class="px-3.5 py-1 rounded-xl bg-slate-900 text-amber-300 font-mono font-bold text-sm flex items-center gap-2 border border-slate-700 shadow-xs">
+              <i class="fa-solid fa-stopwatch text-amber-400"></i>
+              <span id="coop-indiv-timer">${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}</span>
+            </div>
           </div>
         </div>
 
@@ -1284,6 +1344,9 @@
   // VIEW 4: SCORECARD & REKAP AKHIR
   function renderScorecardView(container) {
     const qList = COOP_DATA.individual;
+    const switchCount = currentSession.tabSwitchCount || 0;
+    const integrity = getIntegrityLevel(switchCount);
+
     container.innerHTML = `
       <div id="coop-scorecard-box" class="p-5 md:p-7 space-y-6 flex flex-col max-h-[88vh] overflow-y-auto custom-scroll">
         <!-- HEADER SCORECARD -->
@@ -1321,13 +1384,13 @@
             <span class="text-[10px] text-indigo-600 font-medium">5 Butir Ujian Mandiri</span>
           </div>
 
-          <div class="p-3 rounded-xl border col-span-2 sm:col-span-1 ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? 'bg-emerald-50 border-emerald-300' : 'bg-amber-50 border-amber-300'}">
-            <span class="text-[10px] font-bold uppercase tracking-wider ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? 'text-emerald-700' : 'text-amber-700'} block">Integritas</span>
-            <span class="text-xs font-bold block mt-0.5 ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? 'text-emerald-800' : 'text-amber-900'}">
-              ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? '<i class="fa-solid fa-shield-check text-emerald-600"></i> Valid' : `<i class="fa-solid fa-triangle-exclamation text-amber-600"></i> ${currentSession.tabSwitchCount}x Pindah`}
-            </span>
-            <span class="text-[10px] ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? 'text-emerald-600' : 'text-amber-700'} font-medium">
-              ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? '0x Alt+Tab (Murni)' : 'Tercatat di Sistem'}
+          <div class="p-3 rounded-xl border col-span-2 sm:col-span-1 ${integrity.level === 'hijau' ? 'bg-emerald-50 border-emerald-300' : (integrity.level === 'kuning' ? 'bg-amber-50 border-amber-300' : 'bg-rose-50 border-rose-300')}">
+            <span class="text-[10px] font-bold uppercase tracking-wider ${integrity.level === 'hijau' ? 'text-emerald-700' : (integrity.level === 'kuning' ? 'text-amber-700' : 'text-rose-700')} block">Integritas Ujian</span>
+            <div class="mt-1">
+              ${integrity.badgeHtml}
+            </div>
+            <span class="text-[10px] ${integrity.level === 'hijau' ? 'text-emerald-600' : (integrity.level === 'kuning' ? 'text-amber-700' : 'text-rose-700')} font-medium block mt-1">
+              ${integrity.level === 'hijau' ? '0x Pindah Layar (Murni &amp; Valid)' : `${switchCount}x Pindah Layar (Tercatat di Pengawasan Guru)`}
             </span>
           </div>
         </div>
@@ -1373,6 +1436,7 @@
   }
 
   function copyResult() {
+    const integrity = getIntegrityLevel(currentSession.tabSwitchCount || 0);
     const text = `=== HASIL CO-OP RAID STATISTIKA MATH CIHUY ===\n` +
       `Nama: ${currentSession.studentName}\n` +
       `Kelas: ${currentSession.className}\n` +
@@ -1380,7 +1444,7 @@
       `Skor Co-op Tim: ${currentSession.scoreCoop} / 100\n` +
       `Skor Individu: ${currentSession.scoreIndividual} / 100\n` +
       `Nilai Akhir: ${currentSession.finalScore} / 100\n` +
-      `Integritas: ${currentSession.tabSwitchCount ? currentSession.tabSwitchCount + 'x Pindah Layar (Tercatat)' : '0x (Valid - Murni)'}\n` +
+      `Integritas: ${currentSession.tabSwitchCount ? currentSession.tabSwitchCount + 'x Pindah Layar [' + integrity.label + ']' : '0x [Valid - Murni]'}\n` +
       `Waktu: ${new Date().toLocaleString('id-ID')}\n` +
       `Portal: https://mathcihuy.pages.dev`;
     navigator.clipboard.writeText(text).then(() => {
@@ -1420,6 +1484,7 @@
   }
 
   function sendResultToBackend() {
+    const integrity = getIntegrityLevel(currentSession.tabSwitchCount || 0);
     const payload = {
       timestamp: new Date().toISOString(),
       mapel: 'wajib',
@@ -1431,6 +1496,9 @@
       skor_coop: currentSession.scoreCoop,
       skor_individu: currentSession.scoreIndividual,
       skor_akhir: currentSession.finalScore,
+      tab_switch_count: currentSession.tabSwitchCount || 0,
+      integrity_level: integrity.level,
+      integrity_label: integrity.label,
       answers_wave1: currentSession.waveAnswers[1],
       answers_wave2: currentSession.waveAnswers[2],
       answers_wave3: currentSession.waveAnswers[3],
@@ -1460,12 +1528,434 @@
           jml_soal: 5,
           benar: Math.round(currentSession.scoreIndividual / 20),
           salah: 5 - Math.round(currentSession.scoreIndividual / 20),
-          durasi_detik: 1200 - currentSession.individualTimeLeft
+          durasi_detik: 1200 - currentSession.individualTimeLeft,
+          tab_switch_count: currentSession.tabSwitchCount || 0,
+          integrity_level: integrity.level
         })
       }).catch(() => {
         // Fallback gracefully without throwing
       });
     } catch (e) {}
+  }
+
+  // --------------------------------------------------------------------------
+  // 6. RUANG PENGAWASAN & INTEGRITAS AKUN GURU (TEACHER PROCTORING ROOM)
+  // --------------------------------------------------------------------------
+  let proctorFilterClass = 'ALL';
+  let proctorFilterBadge = 'ALL';
+  let proctorSearchQuery = '';
+
+  function openTeacherMonitor() {
+    const modal = document.getElementById('modal-guru-coop-proctor');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
+      renderTeacherMonitor();
+    }
+  }
+
+  function closeTeacherMonitor() {
+    const modal = document.getElementById('modal-guru-coop-proctor');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+    }
+  }
+
+  function getProctorDataList() {
+    const studentsMaster = window.STUDENTS_DATA || {};
+    let history = [];
+    try {
+      history = JSON.parse(localStorage.getItem('mathcihuy_coop_history') || '[]');
+    } catch (e) {
+      history = [];
+    }
+
+    const result = [];
+    let no = 1;
+
+    Object.keys(studentsMaster).forEach(nis => {
+      const std = studentsMaster[nis];
+      // Abaikan alumni
+      if (std.kelas === 'Alumni 2026') return;
+
+      // Cari apakah ada sesi aktif di currentSession
+      const isCur = currentSession.studentName === std.nama && currentSession.className === std.kelas;
+
+      // Cari rekaman di history (ambil yang paling akhir)
+      const histItem = history.slice().reverse().find(h => h.nama === std.nama && h.kelas === std.kelas);
+
+      let status = 'Belum Mulai';
+      let scoreCoop = '-';
+      let scoreIndiv = '-';
+      let scoreFinal = '-';
+      let switchCount = 0;
+      let teamInfo = '-';
+
+      if (histItem) {
+        status = 'Selesai';
+        scoreCoop = histItem.skor_coop !== undefined ? histItem.skor_coop : 100;
+        scoreIndiv = histItem.skor_individu !== undefined ? histItem.skor_individu : 0;
+        scoreFinal = histItem.skor_akhir !== undefined ? histItem.skor_akhir : 0;
+        switchCount = histItem.tab_switch_count !== undefined ? histItem.tab_switch_count : 0;
+        teamInfo = histItem.kelompok ? `${histItem.kelompok} (${histItem.anggota || 'Anggota'})` : '-';
+      }
+
+      if (isCur) {
+        if (currentSession.individualDone) {
+          status = 'Selesai';
+        } else if (currentSession.individualStarted) {
+          status = 'Ujian Mandiri';
+        } else if (currentSession.activeWave) {
+          status = `Co-op Putaran ${currentSession.activeWave}`;
+        }
+        scoreCoop = currentSession.scoreCoop || scoreCoop;
+        scoreIndiv = currentSession.scoreIndividual !== undefined ? currentSession.scoreIndividual : scoreIndiv;
+        scoreFinal = currentSession.finalScore !== undefined ? currentSession.finalScore : scoreFinal;
+        switchCount = Math.max(switchCount, currentSession.tabSwitchCount || 0);
+        teamInfo = `Kelompok ${currentSession.groupNo} (Anggota ${currentSession.memberNo})`;
+      }
+
+      result.push({
+        no: no++,
+        nis: nis,
+        nama: std.nama,
+        kelas: std.kelas,
+        teamInfo: teamInfo,
+        status: status,
+        scoreCoop: scoreCoop,
+        scoreIndiv: scoreIndiv,
+        scoreFinal: scoreFinal,
+        switchCount: switchCount,
+        badge: getIntegrityLevel(switchCount)
+      });
+    });
+
+    return result;
+  }
+
+  function filterTeacherMonitor(type, val) {
+    if (type === 'kelas') proctorFilterClass = val;
+    if (type === 'badge') proctorFilterBadge = val;
+    if (type === 'search') proctorSearchQuery = val || '';
+    renderTeacherMonitor();
+  }
+
+  function renderTeacherMonitor() {
+    const container = document.getElementById('coop-teacher-proctor-content');
+    if (!container) return;
+
+    const allData = getProctorDataList();
+
+    // Hitung KPI
+    const totalSiswa = allData.length;
+    const hijauCount = allData.filter(s => s.badge.level === 'hijau').length;
+    const kuningCount = allData.filter(s => s.badge.level === 'kuning').length;
+    const merahCount = allData.filter(s => s.badge.level === 'merah').length;
+    const aktifSelesaiCount = allData.filter(s => s.status !== 'Belum Mulai').length;
+
+    // Filter data
+    const filtered = allData.filter(s => {
+      if (proctorFilterClass !== 'ALL' && s.kelas !== proctorFilterClass) return false;
+      if (proctorFilterBadge !== 'ALL' && s.badge.level !== proctorFilterBadge) return false;
+      if (proctorSearchQuery.trim()) {
+        const q = proctorSearchQuery.toLowerCase();
+        return s.nama.toLowerCase().includes(q) || s.nis.toLowerCase().includes(q);
+      }
+      return true;
+    });
+
+    container.innerHTML = `
+      <!-- HEADER RUANG PENGAWASAN -->
+      <div class="p-4 md:p-6 border-b flex flex-wrap items-center justify-between gap-3 shrink-0" style="border-color: #E2E8F0; background-color: #FAFAFA;">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl flex items-center justify-center text-xl shadow-xs" style="background-color: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE;">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 border border-indigo-200">
+                Akun Guru • Live Proctoring
+              </span>
+              <span class="text-[10px] text-slate-500 font-medium">TP 2026/2027</span>
+            </div>
+            <h2 class="text-base md:text-lg font-bold tracking-tight text-slate-900 mt-0.5">
+              Ruang Pengawasan &amp; Integritas Turnamen Co-op Raid
+            </h2>
+            <p class="text-xs text-slate-500">
+              Guru Pengampu: <b>Muhammad Ardiansyah, S.Pd.Gr.</b> • Pemantauan Alt+Tab &amp; Integritas Real-time
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="CoopRaid.renderTeacherMonitor()" class="px-3 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+            <i class="fa-solid fa-rotate"></i> Refresh Data
+          </button>
+          <button onclick="CoopRaid.copyTeacherReport()" class="px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+            <i class="fa-brands fa-whatsapp"></i> Salin Rekap WA
+          </button>
+          <button onclick="CoopRaid.exportTeacherCSV()" class="px-3 py-2 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+            <i class="fa-solid fa-file-csv"></i> Ekspor CSV
+          </button>
+          <button onclick="CoopRaid.closeTeacherMonitor()" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-200 transition cursor-pointer ml-1">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI METRIC CARDS -->
+      <div class="p-4 md:p-5 grid grid-cols-2 lg:grid-cols-4 gap-3.5 border-b shrink-0" style="background-color: #F8FAFC; border-color: #E2E8F0;">
+        <!-- CARD 1: TOTAL SISWA -->
+        <div class="p-3.5 rounded-xl border bg-white border-slate-200 shadow-xs">
+          <div class="flex items-center justify-between text-slate-500 text-xs font-semibold">
+            <span>Total Siswa (XII F1-F4)</span>
+            <i class="fa-solid fa-users text-slate-400"></i>
+          </div>
+          <div class="text-2xl font-black text-slate-800 mt-1">${totalSiswa}</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">${aktifSelesaiCount} Siswa Aktif / Tuntas</div>
+        </div>
+
+        <!-- CARD 2: LENCANA HIJAU -->
+        <div class="p-3.5 rounded-xl border bg-emerald-50/70 border-emerald-200 shadow-xs">
+          <div class="flex items-center justify-between text-emerald-800 text-xs font-semibold">
+            <span>Lencana Hijau (Murni)</span>
+            <i class="fa-solid fa-shield-check text-emerald-600"></i>
+          </div>
+          <div class="text-2xl font-black text-emerald-900 mt-1">${hijauCount}</div>
+          <div class="text-[11px] text-emerald-700 mt-0.5">0x Pindah Layar (${totalSiswa ? Math.round((hijauCount / totalSiswa) * 100) : 0}%)</div>
+        </div>
+
+        <!-- CARD 3: LENCANA KUNING -->
+        <div class="p-3.5 rounded-xl border bg-amber-50/70 border-amber-200 shadow-xs">
+          <div class="flex items-center justify-between text-amber-900 text-xs font-semibold">
+            <span>Lencana Kuning (Waspada)</span>
+            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+          </div>
+          <div class="text-2xl font-black text-amber-950 mt-1">${kuningCount}</div>
+          <div class="text-[11px] text-amber-800 mt-0.5">1-2x Pindah Layar (Peringatan)</div>
+        </div>
+
+        <!-- CARD 4: LENCANA MERAH -->
+        <div class="p-3.5 rounded-xl border bg-rose-50/70 border-rose-200 shadow-xs">
+          <div class="flex items-center justify-between text-rose-900 text-xs font-semibold">
+            <span>Lencana Merah (Kritis)</span>
+            <i class="fa-solid fa-circle-xmark text-rose-600"></i>
+          </div>
+          <div class="text-2xl font-black text-rose-950 mt-1">${merahCount}</div>
+          <div class="text-[11px] text-rose-800 mt-0.5">&ge;3x Pindah Layar (Perlu Dibina)</div>
+        </div>
+      </div>
+
+      <!-- FILTER TOOLBAR -->
+      <div class="px-4 py-3 md:px-6 border-b flex flex-wrap items-center justify-between gap-3 shrink-0" style="background-color: #FFFFFF; border-color: #E2E8F0;">
+        <div class="flex flex-wrap items-center gap-2.5 flex-1 min-w-[280px]">
+          <!-- Filter Kelas -->
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Kelas:</span>
+            <select onchange="CoopRaid.filterTeacherMonitor('kelas', this.value)" class="p-1.5 px-2.5 rounded-lg border text-xs font-semibold cursor-pointer outline-none bg-slate-50 border-slate-300 text-slate-800">
+              <option value="ALL" ${proctorFilterClass === 'ALL' ? 'selected' : ''}>Semua Kelas (100 Siswa)</option>
+              <option value="XII F1" ${proctorFilterClass === 'XII F1' ? 'selected' : ''}>XII F1</option>
+              <option value="XII F2" ${proctorFilterClass === 'XII F2' ? 'selected' : ''}>XII F2</option>
+              <option value="XII F3" ${proctorFilterClass === 'XII F3' ? 'selected' : ''}>XII F3</option>
+              <option value="XII F4" ${proctorFilterClass === 'XII F4' ? 'selected' : ''}>XII F4</option>
+            </select>
+          </div>
+
+          <!-- Filter Lencana -->
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Lencana:</span>
+            <select onchange="CoopRaid.filterTeacherMonitor('badge', this.value)" class="p-1.5 px-2.5 rounded-lg border text-xs font-semibold cursor-pointer outline-none bg-slate-50 border-slate-300 text-slate-800">
+              <option value="ALL" ${proctorFilterBadge === 'ALL' ? 'selected' : ''}>Semua Status</option>
+              <option value="hijau" ${proctorFilterBadge === 'hijau' ? 'selected' : ''}>🟢 Hijau (0x)</option>
+              <option value="kuning" ${proctorFilterBadge === 'kuning' ? 'selected' : ''}>🟡 Kuning (1-2x)</option>
+              <option value="merah" ${proctorFilterBadge === 'merah' ? 'selected' : ''}>🔴 Merah (&ge;3x)</option>
+            </select>
+          </div>
+
+          <!-- Search Box -->
+          <div class="relative flex-1 max-w-xs">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Cari nama atau NIS siswa..." value="${escapeHtml(proctorSearchQuery)}" 
+              oninput="CoopRaid.filterTeacherMonitor('search', this.value)"
+              class="w-full pl-8 pr-3 py-1.5 rounded-lg border text-xs outline-none bg-slate-50 border-slate-300 text-slate-800 placeholder-slate-400">
+          </div>
+        </div>
+
+        <div class="text-xs font-semibold text-slate-500">
+          Menampilkan: <span class="font-bold text-slate-800">${filtered.length}</span> dari ${totalSiswa} Siswa
+        </div>
+      </div>
+
+      <!-- DATA TABLE (SCROLLABLE) -->
+      <div class="flex-1 overflow-y-auto custom-scroll p-4 md:p-6" style="background-color: #FFFFFF;">
+        <div class="border rounded-xl overflow-hidden shadow-xs border-slate-200">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px] sticky top-0 z-10">
+              <tr>
+                <th class="py-2.5 px-3 w-12 text-center">No</th>
+                <th class="py-2.5 px-3">Nama Siswa</th>
+                <th class="py-2.5 px-3 w-20">Kelas</th>
+                <th class="py-2.5 px-3">Kelompok &amp; Pos</th>
+                <th class="py-2.5 px-3">Status Kuis</th>
+                <th class="py-2.5 px-3 text-center w-20">Skor Co-op</th>
+                <th class="py-2.5 px-3 text-center w-20">Skor Indiv</th>
+                <th class="py-2.5 px-3 text-center w-20">Nilai Akhir</th>
+                <th class="py-2.5 px-3 text-center w-28">Pindah Layar</th>
+                <th class="py-2.5 px-3 text-center w-36">Lencana Integritas</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 font-medium">
+              ${filtered.length === 0 ? `
+                <tr>
+                  <td colspan="10" class="py-8 text-center text-slate-400 italic">
+                    <i class="fa-solid fa-inbox text-2xl mb-2 block text-slate-300"></i>
+                    Tidak ada siswa yang sesuai dengan filter pencarian.
+                  </td>
+                </tr>
+              ` : filtered.map(s => {
+                const rowBg = s.badge.level === 'merah' 
+                  ? 'bg-rose-50/40 hover:bg-rose-50/70' 
+                  : (s.badge.level === 'kuning' ? 'bg-amber-50/30 hover:bg-amber-50/60' : 'hover:bg-slate-50');
+                
+                return `
+                  <tr class="${rowBg} transition">
+                    <td class="py-2.5 px-3 text-center text-slate-400 font-mono text-[11px]">${s.no}</td>
+                    <td class="py-2.5 px-3 font-semibold text-slate-800">
+                      <div>${escapeHtml(s.nama)}</div>
+                      <div class="text-[10px] text-slate-400 font-mono">NIS: ${s.nis}</div>
+                    </td>
+                    <td class="py-2.5 px-3 text-slate-700 font-bold">${s.kelas}</td>
+                    <td class="py-2.5 px-3 text-slate-600">${s.teamInfo}</td>
+                    <td class="py-2.5 px-3">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold ${s.status === 'Selesai' ? 'bg-indigo-100 text-indigo-800 border border-indigo-200' : (s.status === 'Belum Mulai' ? 'bg-slate-100 text-slate-600' : 'bg-emerald-100 text-emerald-800')}">
+                        ${s.status}
+                      </span>
+                    </td>
+                    <td class="py-2.5 px-3 text-center font-bold text-slate-700 font-mono">${s.scoreCoop}</td>
+                    <td class="py-2.5 px-3 text-center font-bold text-indigo-700 font-mono">${s.scoreIndiv}</td>
+                    <td class="py-2.5 px-3 text-center font-black text-slate-900 font-mono text-sm">${s.scoreFinal}</td>
+                    <td class="py-2.5 px-3 text-center font-mono font-bold ${s.switchCount === 0 ? 'text-emerald-700' : (s.switchCount <= 2 ? 'text-amber-800' : 'text-rose-700')}">
+                      ${s.switchCount}x
+                    </td>
+                    <td class="py-2.5 px-3 text-center">
+                      ${s.badge.badgeHtml}
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- FOOTER NOTE -->
+      <div class="p-3 md:px-6 border-t flex flex-wrap items-center justify-between text-[11px] text-slate-500 shrink-0" style="background-color: #F8FAFC; border-color: #E2E8F0;">
+        <div class="flex items-center gap-4">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> <b>Hijau:</b> 0x Pindah Layar (Murni)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> <b>Kuning:</b> 1-2x Pindah Layar (Waspada)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> <b>Merah:</b> &ge;3x Pindah Layar (Kritis)</span>
+        </div>
+        <div class="italic text-slate-400">
+          *Siswa tetap dapat mengerjakan ujian tanpa terblokir sistem. Pelanggaran tersinkronisasi otomatis.
+        </div>
+      </div>
+    `;
+  }
+
+  function copyTeacherReport() {
+    const allData = getProctorDataList();
+    const totalSiswa = allData.length;
+    const hijauCount = allData.filter(s => s.badge.level === 'hijau').length;
+    const kuningCount = allData.filter(s => s.badge.level === 'kuning').length;
+    const merahCount = allData.filter(s => s.badge.level === 'merah').length;
+    const flagged = allData.filter(s => s.switchCount > 0);
+
+    let flaggedList = '';
+    if (flagged.length === 0) {
+      flaggedList = '✅ Seluruh siswa mempertahankan integritas murni (0x pelanggaran).';
+    } else {
+      flaggedList = flagged.map((s, idx) => {
+        const icon = s.badge.level === 'merah' ? '🔴' : '🟡';
+        return `${idx + 1}. ${icon} *${s.nama}* (${s.kelas}) - ${s.switchCount}x Pindah Layar [${s.badge.label}] | Skor: ${s.scoreFinal}`;
+      }).join('\n');
+    }
+
+    const report = 
+`📋 *LAPORAN PENGAWASAN & INTEGRITAS SISWA*
+🏆 *TURNAMEN CO-OP RAID STATISTIKA KELAS XII*
+🏫 SMA Global Islamic School 2 Serpong
+👨‍🏫 Guru Pengampu: Muhammad Ardiansyah, S.Pd.Gr.
+📅 Waktu Pemantauan: ${new Date().toLocaleString('id-ID')}
+
+📊 *RINGKASAN INTEGRITAS KELAS XII (100 SISWA):*
+• Total Siswa Terdata: ${totalSiswa} Siswa
+• 🟢 Lencana Hijau (Murni 0x): ${hijauCount} siswa (${totalSiswa ? Math.round((hijauCount / totalSiswa) * 100) : 0}%)
+• 🟡 Lencana Kuning (Waspada 1-2x): ${kuningCount} siswa
+• 🔴 Lencana Merah (Kritis ≥3x): ${merahCount} siswa
+
+🚨 *CATATAN SISWA DENGAN PERPINDAHAN LAYAR:*
+${flaggedList}
+
+📌 *Catatan Guru Pengampu:*
+Siswa dengan lencana kuning/merah tetap menyelesaikan butir soal dan diarahkan untuk sesi konfirmasi kejujuran akademik.
+
+🌐 Portal Resmi: https://mathcihuy.pages.dev`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(report).then(() => {
+        alert("✅ Rekap laporan pengawasan berhasil disalin ke clipboard! Siap dikirim ke WhatsApp Guru/Wali Kelas.");
+      }).catch(() => {
+        copyFallback(report);
+      });
+    } else {
+      copyFallback(report);
+    }
+  }
+
+  function copyFallback(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert("✅ Rekap laporan pengawasan berhasil disalin ke clipboard!");
+  }
+
+  function exportTeacherCSV() {
+    const allData = getProctorDataList();
+    const rows = [
+      ['No', 'NIS', 'Nama Siswa', 'Kelas', 'Kelompok & Pos', 'Status Pengerjaan', 'Skor Co-op', 'Skor Mandiri', 'Nilai Akhir', 'Jumlah Pelanggaran', 'Lencana Integritas', 'Waktu Rekap']
+    ];
+
+    allData.forEach(s => {
+      rows.push([
+        s.no,
+        `"${s.nis}"`,
+        `"${s.nama.replace(/"/g, '""')}"`,
+        `"${s.kelas}"`,
+        `"${s.teamInfo}"`,
+        `"${s.status}"`,
+        s.scoreCoop,
+        s.scoreIndiv,
+        s.scoreFinal,
+        s.switchCount,
+        `"${s.badge.label}"`,
+        `"${new Date().toLocaleString('id-ID')}"`
+      ]);
+    });
+
+    const csvContent = '\uFEFF' + rows.map(r => r.join(',')).join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Laporan_Pengawasan_Integritas_Coop_Statistika_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   function escapeHtml(text) {

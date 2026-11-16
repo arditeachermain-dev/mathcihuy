@@ -5250,11 +5250,13 @@ html.terang #share-card-modal button.bg-\[\#2E384D\] * {
 /* ==========================================================================
    CO-OP RAID STATISTIKA MODAL STYLING (WCAG 2.1 AA/AAA & ANTI-NEON)
    ========================================================================== */
-#coop-raid-modal {
+#coop-raid-modal,
+#modal-guru-coop-proctor {
   z-index: 9999;
 }
 
-html:not(.terang) #coop-raid-modal .notion-modal-container {
+html:not(.terang) #coop-raid-modal .notion-modal-container,
+html:not(.terang) #modal-guru-coop-proctor .notion-modal-container {
   background-color: #0F172A !important;
   border-color: #334155 !important;
   color: #F8FAFC !important;
@@ -5262,46 +5264,71 @@ html:not(.terang) #coop-raid-modal .notion-modal-container {
 
 html:not(.terang) #coop-raid-modal select,
 html:not(.terang) #coop-raid-modal input[type="text"],
-html:not(.terang) #coop-raid-modal input[type="number"] {
+html:not(.terang) #coop-raid-modal input[type="number"],
+html:not(.terang) #modal-guru-coop-proctor select,
+html:not(.terang) #modal-guru-coop-proctor input[type="text"] {
   background-color: #1E293B !important;
   border-color: #475569 !important;
   color: #F8FAFC !important;
 }
 
-html:not(.terang) #coop-raid-modal select option {
+html:not(.terang) #coop-raid-modal select option,
+html:not(.terang) #modal-guru-coop-proctor select option {
   background-color: #1E293B !important;
   color: #F8FAFC !important;
 }
 
-html:not(.terang) #coop-raid-modal .bg-\[\#FFFFFF\] {
+html:not(.terang) #coop-raid-modal .bg-\[\#FFFFFF\],
+html:not(.terang) #modal-guru-coop-proctor [style*="background-color: #FFFFFF"],
+html:not(.terang) #modal-guru-coop-proctor [style*="background-color: #FAFAFA"] {
   background-color: #0F172A !important;
 }
 
 html:not(.terang) #coop-raid-modal .bg-slate-50,
-html:not(.terang) #coop-raid-modal .bg-slate-100 {
+html:not(.terang) #coop-raid-modal .bg-slate-100,
+html:not(.terang) #modal-guru-coop-proctor .bg-slate-50,
+html:not(.terang) #modal-guru-coop-proctor .bg-slate-100,
+html:not(.terang) #modal-guru-coop-proctor [style*="background-color: #F8FAFC"] {
   background-color: #1E293B !important;
 }
 
 html:not(.terang) #coop-raid-modal .text-slate-800,
 html:not(.terang) #coop-raid-modal .text-slate-900,
 html:not(.terang) #coop-raid-modal .text-\[\#1E293B\],
-html:not(.terang) #coop-raid-modal .text-\[\#2F3437\] {
+html:not(.terang) #coop-raid-modal .text-\[\#2F3437\],
+html:not(.terang) #modal-guru-coop-proctor .text-slate-800,
+html:not(.terang) #modal-guru-coop-proctor .text-slate-900 {
   color: #F8FAFC !important;
 }
 
 html:not(.terang) #coop-raid-modal .text-slate-600,
 html:not(.terang) #coop-raid-modal .text-slate-700,
-html:not(.terang) #coop-raid-modal .text-\[\#475569\] {
+html:not(.terang) #coop-raid-modal .text-\[\#475569\],
+html:not(.terang) #modal-guru-coop-proctor .text-slate-500,
+html:not(.terang) #modal-guru-coop-proctor .text-slate-600,
+html:not(.terang) #modal-guru-coop-proctor .text-slate-700 {
   color: #CBD5E1 !important;
 }
 
 html:not(.terang) #coop-raid-modal .border-slate-200,
 html:not(.terang) #coop-raid-modal .border-\[\#E2E8F0\],
-html:not(.terang) #coop-raid-modal .border-\[\#E8E6DF\] {
+html:not(.terang) #coop-raid-modal .border-\[\#E8E6DF\],
+html:not(.terang) #modal-guru-coop-proctor .border-slate-200,
+html:not(.terang) #modal-guru-coop-proctor [style*="border-color: #E2E8F0"] {
   border-color: #334155 !important;
 }
 
-html.terang #coop-raid-modal .notion-modal-container {
+html:not(.terang) #modal-guru-coop-proctor thead {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+html:not(.terang) #modal-guru-coop-proctor tbody tr:hover {
+  background-color: #1E293B !important;
+}
+
+html.terang #coop-raid-modal .notion-modal-container,
+html.terang #modal-guru-coop-proctor .notion-modal-container {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   color: #1E293B !important;
@@ -5317,7 +5344,8 @@ html.terang #coop-raid-modal .notion-modal-container {
 }
 
 #coop-modal-content input,
-#coop-modal-content select {
+#coop-modal-content select,
+#modal-guru-coop-proctor {
   -webkit-user-select: auto !important;
   -moz-user-select: auto !important;
   -ms-user-select: auto !important;
