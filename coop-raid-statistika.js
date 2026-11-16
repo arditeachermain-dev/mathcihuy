@@ -468,7 +468,8 @@
     individualTimeLeft: 1200, // 20 minutes
     scoreCoop: 0,
     scoreIndividual: 0,
-    finalScore: 0
+    finalScore: 0,
+    tabSwitchCount: 0
   };
 
   function loadSavedSession() {
@@ -517,12 +518,113 @@
   };
 
   // --------------------------------------------------------------------------
-  // 4. RENDERER DAN UI BINDING
+  // 4. ANTI-CHEAT & INTEGRITY MONITORING (ALT+TAB, WINDOW BLUR, ANTI-AI COPY)
+  // --------------------------------------------------------------------------
+  let lastBlurTime = 0;
+  let antiCheatRegistered = false;
+
+  function isCoopModalActive() {
+    const modal = document.getElementById('coop-raid-modal');
+    return modal && 
+           !modal.classList.contains('hidden') && 
+           modal.style.display !== 'none' && 
+           currentSession && 
+           currentSession.studentName && 
+           !currentSession.individualDone;
+  }
+
+  function showAntiCheatToast(message) {
+    const existing = document.getElementById('coop-anticheat-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'coop-anticheat-toast';
+    toast.className = 'fixed top-5 left-1/2 -translate-x-1/2 max-w-lg w-[90%] bg-rose-950 text-rose-100 border-2 border-rose-500 px-4 py-3 rounded-2xl shadow-2xl text-xs sm:text-sm font-bold z-[100000] flex items-center gap-3 animate-bounce';
+    toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-400 text-lg shrink-0"></i> <span>${escapeHtml(message)}</span>`;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      if (toast && toast.parentNode) toast.remove();
+    }, 5500);
+  }
+
+  function handleAntiCheatViolation(reason) {
+    if (!isCoopModalActive()) return;
+    currentSession.tabSwitchCount = (currentSession.tabSwitchCount || 0) + 1;
+    saveCurrentSession();
+    showAntiCheatToast(`Peringatan Integritas: ${reason} terdeteksi (${currentSession.tabSwitchCount}x)! Aktivitas dicatat pada Rapor Ujian.`);
+    
+    // Auto re-render if on scorecard to reflect switch count immediately
+    const badge = document.getElementById('coop-live-switch-badge');
+    if (badge) {
+      badge.innerText = `${currentSession.tabSwitchCount}x Pindah Layar`;
+    }
+  }
+
+  function registerAntiCheatListeners() {
+    if (antiCheatRegistered) return;
+    antiCheatRegistered = true;
+
+    // 1. Tab switch / Visibility change
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') {
+        handleAntiCheatViolation('Perpindahan Tab Browser');
+      }
+    });
+
+    // 2. Window blur (Alt+Tab, split screen, klik window aplikasi lain)
+    window.addEventListener('blur', function () {
+      const now = Date.now();
+      if (now - lastBlurTime > 1500) {
+        lastBlurTime = now;
+        handleAntiCheatViolation('Kehilangan Fokus Layar (Alt+Tab / App Lain)');
+      }
+    });
+
+    // 3. Blokir Copy & Cut pada teks soal
+    document.addEventListener('copy', function (e) {
+      if (isCoopModalActive()) {
+        e.preventDefault();
+        showAntiCheatToast('Anti-AI: Penyalinan soal dinonaktifkan demi menjaga integritas turnamen!');
+      }
+    });
+
+    document.addEventListener('cut', function (e) {
+      if (isCoopModalActive()) {
+        e.preventDefault();
+      }
+    });
+
+    // 4. Blokir Klik Kanan (Context Menu)
+    document.addEventListener('contextmenu', function (e) {
+      if (isCoopModalActive()) {
+        e.preventDefault();
+        showAntiCheatToast('Menu klik kanan dinonaktifkan selama turnamen berlangsung!');
+      }
+    });
+
+    // 5. Blokir Pintasan Keyboard Inspeksi (F12, Ctrl+Shift+I, Ctrl+U)
+    document.addEventListener('keydown', function (e) {
+      if (!isCoopModalActive()) return;
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+        (e.ctrlKey && (e.key === 'U' || e.key === 'u'))
+      ) {
+        e.preventDefault();
+        showAntiCheatToast('Pintasan inspeksi kode dinonaktifkan selama turnamen!');
+      }
+    });
+  }
+
+  // --------------------------------------------------------------------------
+  // 5. RENDERER DAN UI BINDING
   // --------------------------------------------------------------------------
   let timerInterval = null;
 
   function initCoopRaid() {
     loadSavedSession();
+    registerAntiCheatListeners();
   }
 
   function openCoopModal() {
@@ -1194,29 +1296,39 @@
         </div>
 
         <!-- IDENTITY & KPI GRID -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div class="p-3.5 rounded-xl border bg-slate-50 border-slate-200">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+          <div class="p-3 rounded-xl border bg-slate-50 border-slate-200">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Siswa &amp; Kelas</span>
             <span class="text-xs font-bold text-slate-800 truncate block mt-0.5">${escapeHtml(currentSession.studentName)}</span>
             <span class="text-[10px] text-slate-500 font-mono">${currentSession.className}</span>
           </div>
 
-          <div class="p-3.5 rounded-xl border bg-slate-50 border-slate-200">
+          <div class="p-3 rounded-xl border bg-slate-50 border-slate-200">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Tim Kelompok</span>
             <span class="text-xs font-bold text-indigo-700 block mt-0.5">Kelompok ${currentSession.groupNo}</span>
             <span class="text-[10px] text-slate-500 font-mono">Anggota ${currentSession.memberNo}</span>
           </div>
 
-          <div class="p-3.5 rounded-xl border bg-slate-50 border-slate-200">
+          <div class="p-3 rounded-xl border bg-slate-50 border-slate-200">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Skor Co-op Tim</span>
             <span class="text-lg font-black text-emerald-700 block mt-0.5">${currentSession.scoreCoop}</span>
             <span class="text-[10px] text-emerald-600 font-medium">3 Putaran Tuntas</span>
           </div>
 
-          <div class="p-3.5 rounded-xl border bg-slate-50 border-slate-200">
+          <div class="p-3 rounded-xl border bg-slate-50 border-slate-200">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Skor Individu</span>
             <span id="coop-final-score" class="text-lg font-black text-indigo-700 block mt-0.5">${currentSession.scoreIndividual}</span>
             <span class="text-[10px] text-indigo-600 font-medium">5 Butir Ujian Mandiri</span>
+          </div>
+
+          <div class="p-3 rounded-xl border col-span-2 sm:col-span-1 ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? 'bg-emerald-50 border-emerald-300' : 'bg-amber-50 border-amber-300'}">
+            <span class="text-[10px] font-bold uppercase tracking-wider ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? 'text-emerald-700' : 'text-amber-700'} block">Integritas</span>
+            <span class="text-xs font-bold block mt-0.5 ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? 'text-emerald-800' : 'text-amber-900'}">
+              ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? '<i class="fa-solid fa-shield-check text-emerald-600"></i> Valid' : `<i class="fa-solid fa-triangle-exclamation text-amber-600"></i> ${currentSession.tabSwitchCount}x Pindah`}
+            </span>
+            <span class="text-[10px] ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? 'text-emerald-600' : 'text-amber-700'} font-medium">
+              ${(!currentSession.tabSwitchCount || currentSession.tabSwitchCount === 0) ? '0x Alt+Tab (Murni)' : 'Tercatat di Sistem'}
+            </span>
           </div>
         </div>
 
@@ -1268,6 +1380,7 @@
       `Skor Co-op Tim: ${currentSession.scoreCoop} / 100\n` +
       `Skor Individu: ${currentSession.scoreIndividual} / 100\n` +
       `Nilai Akhir: ${currentSession.finalScore} / 100\n` +
+      `Integritas: ${currentSession.tabSwitchCount ? currentSession.tabSwitchCount + 'x Pindah Layar (Tercatat)' : '0x (Valid - Murni)'}\n` +
       `Waktu: ${new Date().toLocaleString('id-ID')}\n` +
       `Portal: https://mathcihuy.pages.dev`;
     navigator.clipboard.writeText(text).then(() => {
@@ -1295,7 +1408,8 @@
         individualTimeLeft: 1200,
         scoreCoop: 0,
         scoreIndividual: 0,
-        finalScore: 0
+        finalScore: 0,
+        tabSwitchCount: 0
       };
       if (timerInterval) {
         clearInterval(timerInterval);
