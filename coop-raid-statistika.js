@@ -2156,8 +2156,8 @@
                 <th class="py-2.5 px-3 text-center w-20">Skor Co-op</th>
                 <th class="py-2.5 px-3 text-center w-20">Skor Indiv</th>
                 <th class="py-2.5 px-3 text-center w-20">Nilai Akhir</th>
-                <th class="py-2.5 px-3 text-center w-28">Pindah Layar</th>
-                <th class="py-2.5 px-3 text-center w-24">Salah PIN</th>
+                <th class="py-2.5 px-3 text-center w-28">Alt-Tab (Layar)</th>
+                <th class="py-2.5 px-3 text-center w-28">Klik Salah (PIN)</th>
                 <th class="py-2.5 px-3 text-center w-36">Lencana Integritas</th>
                 <th class="py-2.5 px-3 text-center w-24">Rapor</th>
               </tr>
@@ -2242,7 +2242,7 @@
     } else {
       flaggedList = flagged.map((s, idx) => {
         const icon = s.badge.level === 'merah' ? '🔴' : (s.badge.level === 'kuning' ? '🟡' : '🟢');
-        return `${idx + 1}. ${icon} *${s.nama}* (${s.kelas}) - Alt-Tab: ${s.switchCount}x [${s.badge.label}] | Salah PIN: ${s.pinErrors}x | Skor: ${s.scoreFinal}`;
+        return `${idx + 1}. ${icon} *${s.nama}* (${s.kelas}) | Nilai Akhir: ${s.scoreFinal} (Co-op 40%: ${s.scoreCoop}, Mandiri 60%: ${s.scoreIndiv}) | Alt-Tab: ${s.switchCount}x [${s.badge.label}] | Klik Salah (PIN): ${s.pinErrors}x`;
       }).join('\n');
     }
 
@@ -2291,7 +2291,7 @@ Siswa dengan lencana kuning/merah tetap menyelesaikan butir soal dan diarahkan u
   function exportTeacherCSV() {
     const allData = getProctorDataList();
     const rows = [
-      ['No', 'NIS', 'Nama Siswa', 'Kelas', 'Kelompok & Pos', 'Status Pengerjaan', 'Skor Co-op', 'Skor Mandiri', 'Nilai Akhir', 'Jumlah Pelanggaran (Alt-Tab)', 'Jumlah Kesalahan PIN', 'Lencana Integritas', 'Waktu Rekap']
+      ['No', 'NIS', 'Nama Siswa', 'Kelas', 'Kelompok & Pos', 'Status Pengerjaan', 'Skor Co-op (40%)', 'Skor Mandiri (60%)', 'Nilai Akhir (100%)', 'Jumlah Alt-Tab (Pindah Layar)', 'Jumlah Klik Salah (Uji PIN)', 'Lencana Integritas', 'Waktu Rekap']
     ];
 
     allData.forEach(s => {
