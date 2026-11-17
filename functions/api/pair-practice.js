@@ -1,19 +1,37 @@
 // functions/api/pair-practice.js
 // Cloudflare D1 Backend for Pair Practice: Commander & Defuser (Integral Substitusi P26)
 // SMA Global Islamic School 2 Serpong • Mr. Ardi
-// CATATAN KEAMANAN: Seluruh kunci jawaban modul tersimpan rahasia di backend server (ZERO FRONTEND KEYS).
+// CATATAN KEAMANAN: ZERO FRONTEND KEYS & ZERO FRONTEND PINS.
+// Seluruh kunci jawaban modul dan 3 Digit PIN Otorisasi tersimpan rahasia di backend server.
 
 import { jsonResponse } from './_auth.js';
 import { updateStudentGamification } from './gamifikasi.js';
 
-// SECRET ANSWER KEYS & RUBRIC (HANYA ADA DI SERVER BACKEND)
+// SECRET ANSWER KEYS & 3 DIGIT PINS (HANYA ADA DI SERVER BACKEND)
 const SECRET_PAIR_DATA = {
+  // Kunci Jawaban Berbasis ID Opsi Netral
   keys: {
-    1: "A", // int 6x(x^2 - 4)^4 dx = 3/5(x^2 - 4)^5 + C
-    2: "B", // int 4x / sqrt(2x^2 + 5) dx = 2*sqrt(2x^2 + 5) + C
-    3: "B", // int sin^3(x) cos(x) dx = 1/4 sin^4(x) + C
-    4: "A", // int (3x^2 + 2) / (x^3 + 2x - 1) dx = ln|x^3 + 2x - 1| + C
-    5: "B"  // int_0^1 2x(x^2 + 1)^3 dx = 15/4
+    1: "m1_opt1", // \int 6x(x^2 - 4)^4 dx = \frac{3}{5}(x^2 - 4)^5 + C
+    2: "m2_opt1", // \int \frac{4x}{\sqrt{2x^2 + 5}} dx = 2\sqrt{2x^2 + 5} + C
+    3: "m3_opt1", // \int \sin^3(x)\cos(x) dx = \frac{1}{4}\sin^4(x) + C
+    4: "m4_opt1", // \int \frac{3x^2 + 2}{x^3 + 2x - 1} dx = \ln|x^3 + 2x - 1| + C
+    5: "m5_opt1"  // \int_{0}^{1} 2x(x^2 + 1)^3 dx = \frac{15}{4}
+  },
+  // Kunci Alternatif / Legacy
+  legacyKeys: {
+    1: "A",
+    2: "B",
+    3: "B",
+    4: "A",
+    5: "B"
+  },
+  // 3 DIGIT PIN OTORISASI GERBANG SOAL (UNTUK MELANGKAH SELANJUTNYA)
+  pins: {
+    1: "354", // Modul 1 -> Lanjut ke Modul 2
+    2: "245", // Modul 2 -> Lanjut ke Modul 3
+    3: "143", // Modul 3 -> Lanjut ke Modul 4
+    4: "321", // Modul 4 -> Lanjut ke Modul 5
+    5: "154"  // Modul 5 -> Otorisasi Pelucutan Final & Rekap Nilai
   }
 };
 
@@ -77,12 +95,12 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Payload tidak boleh kosong' }, 400);
     }
 
-    // 1. ACTION: VALIDASI MODUL INTERAKTIF REALTIME (ZERO FRONTEND KEY)
-    if (body.action === 'validate_module') {
+    // 1. ACTION: VALIDASI 3 DIGIT PIN UNTUK MELANGKAH KE SOAL BERIKUTNYA
+    if (body.action === 'validate_pin') {
       const modNo = Number(body.moduleNo) || 1;
-      const ans = String(body.answer || '').trim().toUpperCase();
-      const expected = SECRET_PAIR_DATA.keys[modNo];
-      const isValid = (ans === expected);
+      const inputPin = String(body.pin || '').trim();
+      const expectedPin = SECRET_PAIR_DATA.pins[modNo];
+      const isValid = (inputPin === expectedPin);
 
       return jsonResponse({
         success: true,
@@ -91,7 +109,22 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 2. ACTION: SUBMIT HASIL AKHIR & LANGSUNG MASUK KE NILAI CBT GURU (KEDUA SISWA)
+    // 2. ACTION: VALIDASI PEMOTONGAN KABEL MODUL (ZERO FRONTEND KEY)
+    if (body.action === 'validate_module') {
+      const modNo = Number(body.moduleNo) || 1;
+      const ans = String(body.answer || '').trim();
+      const expectedId = SECRET_PAIR_DATA.keys[modNo];
+      const expectedLegacy = SECRET_PAIR_DATA.legacyKeys[modNo];
+      const isValid = (ans === expectedId || ans.toUpperCase() === expectedLegacy);
+
+      return jsonResponse({
+        success: true,
+        valid: isValid,
+        moduleNo: modNo
+      });
+    }
+
+    // 3. ACTION: SUBMIT HASIL AKHIR & LANGSUNG MASUK KE NILAI CBT GURU (KEDUA SISWA)
     if (body.action === 'submit_pair_grade') {
       const commanderNis = String(body.commander_nis || '').trim();
       const commanderNama = String(body.commander_nama || '').trim();
@@ -106,8 +139,10 @@ export async function onRequestPost(context) {
       let correctCount = 0;
       const results = {};
       [1, 2, 3, 4, 5].forEach(mNo => {
-        const u = String(userAnswers[mNo] || '').trim().toUpperCase();
-        const isCor = (u === SECRET_PAIR_DATA.keys[mNo]);
+        const u = String(userAnswers[mNo] || '').trim();
+        const expectedId = SECRET_PAIR_DATA.keys[mNo];
+        const expectedLegacy = SECRET_PAIR_DATA.legacyKeys[mNo];
+        const isCor = (u === expectedId || u.toUpperCase() === expectedLegacy);
         results[mNo] = isCor;
         if (isCor) correctCount++;
       });

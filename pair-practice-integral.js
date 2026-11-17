@@ -1,13 +1,14 @@
 // pair-practice-integral.js
 // Mode Latihan Berpasangan: Commander and Defuser (Integral Substitusi - Minat XII P26)
 // SMA Global Islamic School 2 Serpong • Mr. Ardi
-// CATATAN KEAMANAN: ZERO FRONTEND KEYS. Seluruh validasi kunci jawaban dan penilaian dilakukan server-side di Cloudflare Backend (/api/pair-practice & /api/nilai).
+// CATATAN KEAMANAN: ZERO FRONTEND KEYS & ZERO FRONTEND PINS.
+// Seluruh validasi kunci jawaban dan 3 Digit PIN Otorisasi dilakukan server-side di Cloudflare Backend (/api/pair-practice).
 
 (function() {
   'use strict';
 
   // --------------------------------------------------------------------------
-  // 1. DATA MISI LATIHAN BERPASANGAN (ZERO FRONTEND KEYS)
+  // 1. DATA MISI LATIHAN BERPASANGAN (ZERO FRONTEND KEYS & PINS)
   // --------------------------------------------------------------------------
   const PAIR_DATA = {
     topik: "Integral Substitusi (Calculus)",
@@ -26,17 +27,18 @@
           diferensial: "Diferensialkan: $\\frac{du}{dx} = 2x \\implies du = 2x \\, dx$.",
           penyeimbang: "Hubungkan dengan faktor pengali luar: $6x \\, dx = 3(2x \\, dx) = 3 \\, du$.",
           bentukBaru: "Integral berubah menjadi: $\\int 3u^4 \\, du = 3 \\left( \\frac{1}{5}u^5 \\right) + C = \\frac{3}{5}u^5 + C$.",
-          instruksiTaktis: "Defuser, integran memiliki fungsi dalam $(x^2 - 4)$ dengan turunan $2x$. Karena faktor luar $6x$, terdapat kelipatan 3. Cari dan potong kabel hasil akhir dengan koefisien 3/5 berpangkat 5!"
+          instruksiTaktis: "Defuser, integran memiliki fungsi dalam $(x^2 - 4)$ dengan turunan $2x$. Karena faktor luar $6x$, terdapat kelipatan 3. Cari dan pilih kabel antiturunan berkoefisien 3/5 berpangkat 5!"
         },
         defuserConsole: {
-          keterangan: "Pilih jalur kabel terminasi yang memuat rumus antiturunan substitusi yang tepat:",
-          opsiWires: [
-            { id: "A", color: "sky", label: "Kabel Biru", math: "\\frac{3}{5}(x^2 - 4)^5 + C" },
-            { id: "B", color: "rose", label: "Kabel Merah", math: "\\frac{6}{5}(x^2 - 4)^5 + C" },
-            { id: "C", color: "amber", label: "Kabel Kuning", math: "\\frac{1}{5}(x^2 - 4)^5 + C" },
-            { id: "D", color: "emerald", label: "Kabel Hijau", math: "\\frac{3}{4}(x^2 - 4)^4 + C" }
-          ]
-        }
+          keterangan: "Pilih salah satu dari 5 jalur kabel terminasi yang memuat rumus antiturunan substitusi yang tepat:"
+        },
+        rawOptions: [
+          { id: "m1_opt1", math: "\\frac{3}{5}(x^2 - 4)^5 + C" },
+          { id: "m1_opt2", math: "\\frac{6}{5}(x^2 - 4)^5 + C" },
+          { id: "m1_opt3", math: "\\frac{1}{5}(x^2 - 4)^5 + C" },
+          { id: "m1_opt4", math: "\\frac{3}{4}(x^2 - 4)^4 + C" },
+          { id: "m1_opt5", math: "\\frac{1}{2}(x^2 - 4)^5 + C" }
+        ]
       },
       {
         no: 2,
@@ -51,14 +53,15 @@
           instruksiTaktis: "Defuser, turunan dari $2x^2 + 5$ tepat $4x$. Integral dari $u^{-1/2}$ menghasilkan perkalian $2\\sqrt{u}$. Potong kabel dengan hasil 2 kali akar!"
         },
         defuserConsole: {
-          keterangan: "Pilih frekuensi dekoder penjinak yang sesuai dengan antiturunan fungsi akar:",
-          opsiWires: [
-            { id: "A", color: "sky", label: "Kabel Biru", math: "4\\sqrt{2x^2 + 5} + C" },
-            { id: "B", color: "rose", label: "Kabel Merah", math: "2\\sqrt{2x^2 + 5} + C" },
-            { id: "C", color: "amber", label: "Kabel Kuning", math: "\\sqrt{2x^2 + 5} + C" },
-            { id: "D", color: "emerald", label: "Kabel Hijau", math: "\\frac{1}{2}\\sqrt{2x^2 + 5} + C" }
-          ]
-        }
+          keterangan: "Pilih frekuensi dekoder penjinak yang sesuai dengan antiturunan fungsi akar rasional:"
+        },
+        rawOptions: [
+          { id: "m2_opt1", math: "2\\sqrt{2x^2 + 5} + C" },
+          { id: "m2_opt2", math: "4\\sqrt{2x^2 + 5} + C" },
+          { id: "m2_opt3", math: "\\sqrt{2x^2 + 5} + C" },
+          { id: "m2_opt4", math: "\\frac{1}{2}\\sqrt{2x^2 + 5} + C" },
+          { id: "m2_opt5", math: "\\frac{4}{3}(2x^2 + 5)^{3/2} + C" }
+        ]
       },
       {
         no: 3,
@@ -73,14 +76,15 @@
           instruksiTaktis: "Defuser, fungsi sinus berpangkat 3 memiliki pendamping cosinus. Ini adalah integrasi langsung pangkat 3 menjadi seperempat pangkat 4 sinus!"
         },
         defuserConsole: {
-          keterangan: "Pilih polaritas terminal trigonometri yang tepat:",
-          opsiWires: [
-            { id: "A", color: "sky", label: "Kabel Biru", math: "-\\frac{1}{4}\\cos^4(x) + C" },
-            { id: "B", color: "rose", label: "Kabel Merah", math: "\\frac{1}{4}\\sin^4(x) + C" },
-            { id: "C", color: "amber", label: "Kabel Kuning", math: "\\sin^4(x) + C" },
-            { id: "D", color: "emerald", label: "Kabel Hijau", math: "\\frac{1}{3}\\sin^3(x) + C" }
-          ]
-        }
+          keterangan: "Pilih polaritas terminal trigonometri yang tepat:"
+        },
+        rawOptions: [
+          { id: "m3_opt1", math: "\\frac{1}{4}\\sin^4(x) + C" },
+          { id: "m3_opt2", math: "-\\frac{1}{4}\\cos^4(x) + C" },
+          { id: "m3_opt3", math: "\\frac{1}{3}\\sin^3(x) + C" },
+          { id: "m3_opt4", math: "\\sin^4(x) + C" },
+          { id: "m3_opt5", math: "-\\frac{1}{4}\\sin^4(x) + C" }
+        ]
       },
       {
         no: 4,
@@ -95,14 +99,15 @@
           instruksiTaktis: "Defuser, integran ini memenuhi pola integral logaritma natural du per u. Potong kabel bertuliskan fungsi ln mutlak penyebut!"
         },
         defuserConsole: {
-          keterangan: "Pilih sakelar reaktor logaritmik yang tepat:",
-          opsiWires: [
-            { id: "A", color: "sky", label: "Kabel Biru", math: "\\ln|x^3 + 2x - 1| + C" },
-            { id: "B", color: "rose", label: "Kabel Merah", math: "\\frac{1}{(x^3 + 2x - 1)^2} + C" },
-            { id: "C", color: "amber", label: "Kabel Kuning", math: "\\frac{1}{2}\\ln|x^3 + 2x - 1| + C" },
-            { id: "D", color: "emerald", label: "Kabel Hijau", math: "3\\ln|x^2 + 2| + C" }
-          ]
-        }
+          keterangan: "Pilih sakelar reaktor logaritmik yang tepat:"
+        },
+        rawOptions: [
+          { id: "m4_opt1", math: "\\ln|x^3 + 2x - 1| + C" },
+          { id: "m4_opt2", math: "\\frac{1}{(x^3 + 2x - 1)^2} + C" },
+          { id: "m4_opt3", math: "\\frac{1}{2}\\ln|x^3 + 2x - 1| + C" },
+          { id: "m4_opt4", math: "3\\ln|x^2 + 2| + C" },
+          { id: "m4_opt5", math: "\\frac{3x^2 + 2}{(x^3 + 2x - 1)^2} + C" }
+        ]
       },
       {
         no: 5,
@@ -117,14 +122,15 @@
           instruksiTaktis: "Defuser, modul terakhir adalah integral tentu! Batas x=0 dan x=1 berubah menjadi u=1 dan u=2. Hitung seperempat dikali 15! Hasil akhirnya adalah 15/4!"
         },
         defuserConsole: {
-          keterangan: "Masukkan kode angka rasional akhir untuk melucuti detonator inti:",
-          opsiWires: [
-            { id: "A", color: "sky", label: "Kabel Biru", math: "4" },
-            { id: "B", color: "rose", label: "Kabel Merah", math: "\\frac{15}{4}" },
-            { id: "C", color: "amber", label: "Kabel Kuning", math: "\\frac{17}{4}" },
-            { id: "D", color: "emerald", label: "Kabel Hijau", math: "\\frac{15}{2}" }
-          ]
-        }
+          keterangan: "Masukkan kode angka rasional akhir untuk melucuti detonator inti:"
+        },
+        rawOptions: [
+          { id: "m5_opt1", math: "\\frac{15}{4}" },
+          { id: "m5_opt2", math: "4" },
+          { id: "m5_opt3", math: "\\frac{17}{4}" },
+          { id: "m5_opt4", math: "\\frac{15}{2}" },
+          { id: "m5_opt5", math: "\\frac{7}{2}" }
+        ]
       }
     ]
   };
@@ -140,8 +146,12 @@
     defuserNama: "",
     activeModule: 1,
     activeViewMode: "dual", // "dual", "commander", "defuser"
-    selectedWires: {},      // { 1: "A", 2: "B", ... }
+    selectedWires: {},      // { 1: "m1_opt1", 2: "m2_opt1", ... }
     moduleDefused: {},      // { 1: true, ... }
+    unlockedModules: { 1: true }, // Modul 1 terbuka sejak awal
+    modulePinVerified: {},  // { 1: true, ... }
+    enteredPins: {},        // { 1: "...", ... }
+    shuffledOptions: {},    // { 1: [...5 items...], ... }
     strikes: 0,
     timeLeft: 900,
     isCompleted: false,
@@ -160,6 +170,10 @@
         const parsed = JSON.parse(saved);
         if (parsed && !parsed.isCompleted) {
           session = Object.assign(session, parsed);
+          session.unlockedModules = session.unlockedModules || { 1: true };
+          session.modulePinVerified = session.modulePinVerified || {};
+          session.enteredPins = session.enteredPins || {};
+          session.shuffledOptions = session.shuffledOptions || {};
         }
       }
     } catch (e) {}
@@ -260,10 +274,10 @@
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40">
                   <i class="fa-solid fa-user-ninja mr-1"></i> Mode Latihan Berpasangan
                 </span>
-                <span class="text-xs text-slate-400 font-mono">Minat XII • Bab 4</span>
+                <span class="text-xs text-slate-400 font-mono font-semibold">Integral Substitusi • P26</span>
               </div>
-              <h2 class="text-xl md:text-2xl font-black text-white tracking-tight mt-0.5">
-                Commander &amp; Defuser: Integral Substitusi
+              <h2 class="text-lg md:text-xl font-black text-white tracking-tight mt-0.5">
+                Pair Practice: Commander &amp; Defuser
               </h2>
             </div>
           </div>
@@ -272,33 +286,36 @@
           </button>
         </div>
 
-        <!-- BRIEFING PEDAGOGIS -->
+        <!-- BRIEFING KONSEPTUAL DUO -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="p-4 rounded-2xl bg-slate-800/60 border border-sky-500/30 space-y-2">
+          <div class="p-4 rounded-2xl bg-sky-950/40 border border-sky-500/30 space-y-2">
             <div class="flex items-center gap-2 text-sky-400 font-bold text-sm">
-              <i class="fa-solid fa-headset text-base"></i> Peran 1: Komandan (Commander)
+              <i class="fa-solid fa-headset text-base"></i> Peran 1: KOMANDAN (Commander)
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Bertanggung jawab membaca <b>Manual Dekonstruksi Taktis</b>. Komandan menganalisis fungsi bagian dalam <code>u = g(x)</code>, diferensial penyeimbang <code>du = g'(x)dx</code>, serta memberikan instruksi verbal presisi ke Defuser.
+              Membuka <b>Manual Taktis Substitusi</b> ($u = g(x)$ dan $du = g'(x)dx$), menganalisis struktur rumus integran, dan memberikan instruksi verbal pemotongan kabel serta PIN gerbang kepada Defuser.
             </p>
           </div>
-          <div class="p-4 rounded-2xl bg-slate-800/60 border border-rose-500/30 space-y-2">
+          <div class="p-4 rounded-2xl bg-rose-950/40 border border-rose-500/30 space-y-2">
             <div class="flex items-center gap-2 text-rose-400 font-bold text-sm">
-              <i class="fa-solid fa-scissors text-base"></i> Peran 2: Defuser (Operator Penjinak)
+              <i class="fa-solid fa-scissors text-base"></i> Peran 2: OPERATOR DEFUSER
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Bertanggung jawab mengoperasikan <b>Terminal Penjinak Bom</b>. Defuser mendengarkan arahan Komandan, memverifikasi kabel antiturunan yang cocok, dan memotong kabel hasil integrasi sebelum bom meledak!
+              Mengoperasikan <b>Terminal Konsol Bom</b> dengan 5 pilihan ganda teracak. Mendengarkan arahan Komandan, memilih kabel yang tepat, dan memasukkan 3 Digit PIN Otorisasi untuk melangkah ke modul berikutnya.
             </p>
           </div>
         </div>
 
         <!-- FORM REGISTRASI PASANGAN OLEH KOMANDAN -->
-        <div class="p-5 md:p-6 rounded-2xl bg-slate-900/80 border border-slate-700/80 space-y-4">
-          <h3 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
-            <i class="fa-solid fa-clipboard-user"></i> Registrasi Pasangan Misi (Langsung Terkoneksi ke Nilai Guru)
-          </h3>
+        <div class="p-5 md:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-5 shadow-inner">
+          <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-id-card"></i> Pendaftaran Personel Misi oleh Komandan
+            </span>
+            <span class="text-[11px] text-slate-400">Data otomatis sinkron ke Nilai CBT Guru</span>
+          </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- PILIH KELAS -->
             <div>
               <label class="block text-xs font-bold uppercase text-slate-400 mb-1.5">Kelas:</label>
@@ -313,7 +330,7 @@
                 <i class="fa-solid fa-user-shield"></i> Nama Komandan:
               </label>
               <select id="pair-select-commander" class="w-full p-2.5 rounded-xl bg-slate-800 border border-sky-500/40 text-white text-xs font-semibold outline-none focus:border-sky-400 transition cursor-pointer">
-                <option value="">-- Pilih Komandan Misi --</option>
+                <option value="">-- Pilih Nama Komandan --</option>
                 ${studentOptionsCommander}
               </select>
             </div>
@@ -321,27 +338,25 @@
             <!-- NAMA DEFUSER -->
             <div>
               <label class="block text-xs font-bold uppercase text-rose-400 mb-1.5 flex items-center gap-1.5">
-                <i class="fa-solid fa-user-astronaut"></i> Nama Defuser (Partner):
+                <i class="fa-solid fa-user-astronaut"></i> Nama Operator Defuser:
               </label>
               <select id="pair-select-defuser" class="w-full p-2.5 rounded-xl bg-slate-800 border border-rose-500/40 text-white text-xs font-semibold outline-none focus:border-rose-400 transition cursor-pointer">
-                <option value="">-- Pilih Rekan Defuser --</option>
+                <option value="">-- Pilih Nama Defuser --</option>
                 ${studentOptionsDefuser}
               </select>
             </div>
           </div>
 
-          <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs leading-relaxed flex items-center gap-2.5">
-            <i class="fa-solid fa-circle-check text-amber-400 text-base shrink-0"></i>
-            <span>
-              <b>Sinkronisasi Nilai Otomatis:</b> Setelah ke-5 modul diselesaikan, skor perolehan pasangan (maksimal 100 poin) akan <b>langsung dicatat ke database nilai CBT resmi guru (Cloudflare D1)</b> untuk nama Komandan dan Defuser sekaligus!
-            </span>
+          <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs leading-relaxed flex items-start gap-2.5">
+            <i class="fa-solid fa-circle-exclamation text-amber-400 mt-0.5 shrink-0"></i>
+            <div>
+              <b>Pemberitahuan Penilaian:</b> Nilai hasil latihan berpasangan ini (5 soal = 100 poin) akan <b>langsung terekam resmi ke database nilai CBT kedua siswa</b> pada pertemuan <b>P26 Matematika Peminatan</b>. Setiap modul dilengkapi 3 Digit PIN Otorisasi untuk melangkah ke modul berikutnya.
+            </div>
           </div>
-        </div>
 
-        <!-- ACTION BUTTON -->
-        <div class="pt-2">
-          <button onclick="PairPractice.startMission()" class="w-full min-h-[48px] py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-black text-sm shadow-xl flex items-center justify-center gap-2.5 cursor-pointer transition transform active:scale-98">
-            <i class="fa-solid fa-play"></i> Mulai Operasi Penjinakan Integral Berpasangan
+          <!-- TOMBOL MULAI MISI -->
+          <button onclick="PairPractice.startMission()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-white font-black text-sm tracking-wide shadow-xl flex items-center justify-center gap-2 cursor-pointer transition transform active:scale-98">
+            <i class="fa-solid fa-play"></i> Mulai Misi Penjinakan Bom (5 Modul Berpasangan)
           </button>
         </div>
       </div>
@@ -365,17 +380,17 @@
     const defName = defSelect?.value;
 
     if (!cmdName || !defName) {
-      alert("Harap pilih nama Komandan dan nama Defuser terlebih dahulu!");
+      alert("Komandan wajib memilih Nama Komandan dan Nama Defuser terlebih dahulu.");
       return;
     }
 
     if (cmdName === defName) {
-      alert("Komandan dan Defuser harus terdiri dari dua peserta didik yang berbeda untuk latihan berpasangan!");
+      alert("Komandan dan Operator Defuser harus merupakan dua siswa yang berbeda.");
       return;
     }
 
-    const cmdNis = cmdSelect.options[cmdSelect.selectedIndex]?.getAttribute('data-nis') || '';
-    const defNis = defSelect.options[defSelect.selectedIndex]?.getAttribute('data-nis') || '';
+    const cmdNis = cmdSelect?.options[cmdSelect.selectedIndex]?.getAttribute('data-nis') || '';
+    const defNis = defSelect?.options[defSelect.selectedIndex]?.getAttribute('data-nis') || '';
 
     session.kelas = kls;
     session.commanderNama = cmdName;
@@ -385,26 +400,62 @@
     session.activeModule = 1;
     session.selectedWires = {};
     session.moduleDefused = {};
+    session.unlockedModules = { 1: true };
+    session.modulePinVerified = {};
+    session.enteredPins = {};
     session.strikes = 0;
     session.timeLeft = PAIR_DATA.durasiDefaultDetik;
     session.isCompleted = false;
+    session.finalScore = 0;
+    session.correctCount = 0;
     session.startTime = Date.now();
-    saveLocalSession();
 
-    startTimer();
+    // ACAK URUTAN 5 PILIHAN GANDA DI TIAP MODUL UNTUK PASANGAN SISWA INI
+    const wireThemes = [
+      { letter: "A", color: "sky", label: "Kabel Biru", badgeBg: "bg-sky-500/20 text-sky-300 border-sky-500/40" },
+      { letter: "B", color: "rose", label: "Kabel Merah", badgeBg: "bg-rose-500/20 text-rose-300 border-rose-500/40" },
+      { letter: "C", color: "amber", label: "Kabel Kuning", badgeBg: "bg-amber-500/20 text-amber-300 border-amber-500/40" },
+      { letter: "D", color: "emerald", label: "Kabel Hijau", badgeBg: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" },
+      { letter: "E", color: "purple", label: "Kabel Ungu", badgeBg: "bg-purple-500/20 text-purple-300 border-purple-500/40" }
+    ];
+
+    session.shuffledOptions = {};
+    PAIR_DATA.modulList.forEach(mod => {
+      const rawOpts = [...mod.rawOptions];
+      // Fisher-Yates shuffle
+      for (let i = rawOpts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [rawOpts[i], rawOpts[j]] = [rawOpts[j], rawOpts[i]];
+      }
+      session.shuffledOptions[mod.no] = rawOpts.map((opt, idx) => {
+        const theme = wireThemes[idx] || wireThemes[0];
+        return {
+          id: opt.id,
+          math: opt.math,
+          letter: theme.letter,
+          color: theme.color,
+          label: theme.label,
+          badgeBg: theme.badgeBg
+        };
+      });
+    });
+
+    saveLocalSession();
     renderCurrentView();
+    startTimer();
   }
 
   function startTimer() {
     if (timerInterval) clearInterval(timerInterval);
+
     timerInterval = setInterval(() => {
-      if (session.timeLeft > 0) {
+      if (session.timeLeft > 0 && !session.isCompleted) {
         session.timeLeft--;
-        const timerEl = document.getElementById('pair-timer-display');
-        if (timerEl) {
-          const m = Math.floor(session.timeLeft / 60);
-          const s = session.timeLeft % 60;
-          timerEl.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+        const m = Math.floor(session.timeLeft / 60);
+        const s = session.timeLeft % 60;
+        const el = document.getElementById('pair-timer-display');
+        if (el) {
+          el.innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
         }
       } else {
         clearInterval(timerInterval);
@@ -422,30 +473,64 @@
     const curModNo = session.activeModule || 1;
     const curMod = PAIR_DATA.modulList[curModNo - 1];
     const isDefused = session.moduleDefused[curModNo] === true;
+    const isPinVerified = session.modulePinVerified[curModNo] === true;
     const totalDefused = Object.values(session.moduleDefused).filter(Boolean).length;
     const m = Math.floor(session.timeLeft / 60);
     const s = session.timeLeft % 60;
     const viewMode = session.activeViewMode || 'dual';
 
-    // Module Progress indicators
+    // Module Progress indicators with lock guards
     const moduleTabsHtml = PAIR_DATA.modulList.map(mod => {
+      const isUnlocked = session.unlockedModules[mod.no] === true;
+      const isPinOk = session.modulePinVerified[mod.no] === true;
       const isDef = session.moduleDefused[mod.no] === true;
       const isAct = session.activeModule === mod.no;
+
+      let badgeIcon = `<span class="w-4 h-4 rounded-full bg-slate-700 text-[10px] inline-flex items-center justify-center">${mod.no}</span>`;
+      if (!isUnlocked) {
+        badgeIcon = `<i class="fa-solid fa-lock text-slate-500 text-[11px]"></i>`;
+      } else if (isPinOk && isDef) {
+        badgeIcon = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+      } else if (isPinOk) {
+        badgeIcon = `<i class="fa-solid fa-key text-amber-400"></i>`;
+      }
+
       return `
-        <button onclick="PairPractice.switchModule(${mod.no})" class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${isAct ? 'bg-amber-400 text-slate-950 shadow-md ring-2 ring-amber-400/50' : (isDef ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-slate-800 text-slate-400 hover:bg-slate-700')}">
-          ${isDef ? '<i class="fa-solid fa-circle-check text-emerald-400"></i>' : `<span class="w-4 h-4 rounded-full bg-slate-700 text-[10px] inline-flex items-center justify-center">${mod.no}</span>`}
+        <button onclick="PairPractice.switchModule(${mod.no})" class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${isAct ? 'bg-amber-400 text-slate-950 shadow-md ring-2 ring-amber-400/50' : (isUnlocked ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-slate-900/60 text-slate-600 cursor-not-allowed border border-slate-800')}">
+          ${badgeIcon}
           <span>Modul ${mod.no}</span>
         </button>
       `;
     }).join('');
 
+    // Ensure shuffled options exist
+    if (!session.shuffledOptions[curModNo]) {
+      const wireThemes = [
+        { letter: "A", color: "sky", label: "Kabel Biru", badgeBg: "bg-sky-500/20 text-sky-300 border-sky-500/40" },
+        { letter: "B", color: "rose", label: "Kabel Merah", badgeBg: "bg-rose-500/20 text-rose-300 border-rose-500/40" },
+        { letter: "C", color: "amber", label: "Kabel Kuning", badgeBg: "bg-amber-500/20 text-amber-300 border-amber-500/40" },
+        { letter: "D", color: "emerald", label: "Kabel Hijau", badgeBg: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" },
+        { letter: "E", color: "purple", label: "Kabel Ungu", badgeBg: "bg-purple-500/20 text-purple-300 border-purple-500/40" }
+      ];
+      session.shuffledOptions[curModNo] = curMod.rawOptions.map((opt, idx) => ({
+        id: opt.id,
+        math: opt.math,
+        letter: wireThemes[idx].letter,
+        color: wireThemes[idx].color,
+        label: wireThemes[idx].label,
+        badgeBg: wireThemes[idx].badgeBg
+      }));
+    }
+
+    const currentOptions = session.shuffledOptions[curModNo];
+
     container.innerHTML = `
       <div class="flex flex-col h-full max-h-[92vh] bg-[#0A0F18] text-slate-100 font-sans overflow-hidden">
-        <!-- TOP HUD -->
-        <div class="p-3.5 sm:p-4 border-b border-slate-800 bg-[#0F172A] shrink-0 flex flex-wrap items-center justify-between gap-3 shadow-md">
-          <!-- Identitas Pasangan -->
+        
+        <!-- TOP STATUS BAR: PAIR IDENTITY, TIMER & STRIKES -->
+        <div class="px-4 md:px-6 py-3 border-b border-slate-800 bg-[#0E1520] shrink-0 flex flex-wrap items-center justify-between gap-3 shadow-md">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-rose-600 flex items-center justify-center text-white text-lg shadow-sm">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-rose-600 flex items-center justify-center text-white text-base shadow-sm">
               <i class="fa-solid fa-bomb"></i>
             </div>
             <div>
@@ -571,7 +656,7 @@
               </div>
             ` : ''}
 
-            <!-- PANEL KANAN: LAYAR DEFUSER (TERMINAL PENJINAK BOM) -->
+            <!-- PANEL KANAN: LAYAR DEFUSER (TERMINAL PENJINAK BOM & 5 PILIHAN GANDA) -->
             ${(viewMode === 'dual' || viewMode === 'defuser') ? `
               <div class="rounded-2xl border border-rose-500/40 bg-[#0F172A] p-5 md:p-6 space-y-4 shadow-xl flex flex-col justify-between">
                 <div class="space-y-4">
@@ -597,9 +682,9 @@
                     ${curMod.defuserConsole.keterangan}
                   </div>
 
-                  <!-- Opsi Kabel Penjinak (Interactive Wires) -->
-                  <div class="space-y-2.5">
-                    ${curMod.defuserConsole.opsiWires.map(wire => {
+                  <!-- 5 OPSI KABEL PENJINAK (TERACAK SETIAP SISWA/SESI) -->
+                  <div class="space-y-2">
+                    ${currentOptions.map(wire => {
                       const isSel = session.selectedWires[curMod.no] === wire.id;
                       let borderClass = 'border-slate-800 hover:border-slate-600 bg-slate-900/60';
                       if (isSel) {
@@ -607,33 +692,71 @@
                       }
 
                       return `
-                        <label class="p-3.5 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition ${borderClass}">
-                          <div class="flex items-center gap-3">
+                        <label class="p-3 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition ${borderClass}">
+                          <div class="flex items-center gap-2.5 shrink-0">
                             <input type="radio" name="wire_opt_${curMod.no}" value="${wire.id}" ${isSel ? 'checked' : ''} onchange="PairPractice.selectWire(${curMod.no}, '${wire.id}')" class="w-4 h-4 text-amber-500 cursor-pointer">
-                            <span class="w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 font-bold text-xs flex items-center justify-center">${wire.id}</span>
-                            <span class="text-xs font-bold text-slate-300">${wire.label}:</span>
+                            <span class="w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center">${wire.letter}</span>
+                            <span class="text-xs font-bold text-slate-300 hidden sm:inline">${wire.label}:</span>
                           </div>
-                          <div class="text-sm font-black text-amber-300 font-mono text-right">
+                          <div class="text-sm font-black text-amber-300 font-mono text-right overflow-x-auto">
                             $$${wire.math}$$
                           </div>
                         </label>
                       `;
                     }).join('')}
                   </div>
+
+                  <!-- Tombol Eksekusi Pemotongan Kabel -->
+                  <div class="pt-1 space-y-2">
+                    <button onclick="PairPractice.executeDefusal(${curMod.no})" ${isDefused ? 'disabled' : ''} class="w-full min-h-[44px] py-2.5 rounded-xl ${isDefused ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700' : 'bg-gradient-to-r from-rose-600 via-rose-500 to-amber-500 hover:from-rose-500 hover:to-amber-400 text-white font-black cursor-pointer shadow-lg active:scale-98'} text-xs sm:text-sm flex items-center justify-center gap-2 transition">
+                      <i class="fa-solid fa-bolt"></i> ${isDefused ? 'Kabel Modul Ini Telah Berhasil Dijinakkan!' : 'Eksekusi Pemotongan Kabel Terpilih'}
+                    </button>
+
+                    ${isDefused ? `
+                      <div class="text-center text-xs text-emerald-400 font-bold flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-circle-check"></i> Sinyal kabel terputus aman! Masukkan 3 Digit PIN di bawah untuk melangkah ke modul berikutnya.
+                      </div>
+                    ` : ''}
+                  </div>
                 </div>
 
-                <!-- Tombol Eksekusi Pemotongan Kabel -->
-                <div class="pt-3 space-y-2">
-                  <button onclick="PairPractice.executeDefusal(${curMod.no})" ${isDefused ? 'disabled' : ''} class="w-full min-h-[46px] py-3 rounded-xl ${isDefused ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700' : 'bg-gradient-to-r from-rose-600 via-rose-500 to-amber-500 hover:from-rose-500 hover:to-amber-400 text-white font-black cursor-pointer shadow-lg active:scale-98'} text-xs sm:text-sm flex items-center justify-center gap-2 transition">
-                    <i class="fa-solid fa-bolt"></i> ${isDefused ? 'Modul Ini Telah Berhasil Dijinakkan!' : 'Eksekusi Pemotongan Kabel Terpilih'}
-                  </button>
-
-                  ${isDefused ? `
-                    <div class="text-center text-xs text-emerald-400 font-bold flex items-center justify-center gap-1.5">
-                      <i class="fa-solid fa-circle-check"></i> Sinyal terputus aman! Lanjutkan ke modul berikutnya.
+                <!-- KOTAK OTORISASI 3 DIGIT PIN UNTUK MELANGKAH SELANJUTNYA -->
+                <div class="mt-4 p-4 rounded-2xl border ${isPinVerified ? 'border-emerald-500/50 bg-emerald-950/20' : 'border-amber-500/40 bg-slate-900/90'} space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded-lg ${isPinVerified ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'} flex items-center justify-center font-bold text-xs">
+                        <i class="fa-solid ${isPinVerified ? 'fa-lock-open' : 'fa-key'}"></i>
+                      </div>
+                      <div>
+                        <div class="text-xs font-bold ${isPinVerified ? 'text-emerald-300' : 'text-amber-300'} uppercase tracking-wide">
+                          Otorisasi 3 Digit PIN Gerbang • Modul ${curModNo}
+                        </div>
+                        <div class="text-[10px] text-slate-400">
+                          ${curModNo < 5 ? `Wajib memasukkan 3 digit PIN yang benar untuk melangkah ke Modul ${curModNo + 1}` : `Wajib memasukkan 3 digit PIN final untuk membuka pengiriman nilai CBT`}
+                        </div>
+                      </div>
                     </div>
-                  ` : ''}
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${isPinVerified ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'}">
+                      ${isPinVerified ? '✓ GERBANG TERBUKA' : '🔒 TERKUNCI'}
+                    </span>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1">
+                    <div class="relative flex-1">
+                      <input type="text" id="pair-pin-input-${curModNo}" maxlength="3" pattern="[0-9]*" inputmode="numeric"
+                        placeholder="Masukkan 3 Digit PIN Tim (Contoh: 192)"
+                        value="${session.enteredPins[curModNo] || ''}"
+                        ${isPinVerified ? 'disabled' : ''}
+                        class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border ${isPinVerified ? 'border-emerald-500/50 text-emerald-300' : 'border-slate-700 text-white'} text-sm font-mono font-bold tracking-widest text-center outline-none focus:border-amber-400 transition placeholder:font-sans placeholder:tracking-normal placeholder:text-slate-500">
+                    </div>
+                    <button onclick="PairPractice.validateAndProceed(${curModNo})" ${isPinVerified ? 'disabled' : ''}
+                      class="px-5 py-2.5 rounded-xl ${isPinVerified ? 'bg-emerald-900/60 text-emerald-300 border border-emerald-500/40 cursor-default' : 'bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 hover:from-amber-400 hover:to-emerald-300 text-slate-950 cursor-pointer shadow-lg active:scale-95'} font-black text-xs flex items-center justify-center gap-2 transition shrink-0">
+                      <i class="fa-solid ${isPinVerified ? 'fa-circle-check' : 'fa-unlock'}"></i>
+                      ${isPinVerified ? 'Gerbang Berhasil Dibuka' : (curModNo < 5 ? `Uji PIN & Lanjut Modul ${curModNo + 1}` : 'Uji PIN Otorisasi Final')}
+                    </button>
+                  </div>
                 </div>
+
               </div>
             ` : ''}
 
@@ -651,28 +774,37 @@
 
           <div class="flex items-center gap-2.5">
             ${curModNo > 1 ? `
-              <button onclick="PairPractice.switchModule(${curModNo - 1})" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition">
+              <button onclick="PairPractice.switchModule(${curModNo - 1})" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition">
                 <i class="fa-solid fa-arrow-left"></i> Sebelumnya
               </button>
             ` : ''}
 
             ${curModNo < 5 ? `
-              <button onclick="PairPractice.switchModule(${curModNo + 1})" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition">
-                Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+              <button onclick="PairPractice.switchModule(${curModNo + 1})" class="px-4 py-2 rounded-xl ${session.unlockedModules[curModNo + 1] ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 cursor-pointer' : 'bg-slate-900 text-slate-600 cursor-not-allowed border border-slate-800'} font-bold text-xs flex items-center gap-1.5 transition">
+                ${session.unlockedModules[curModNo + 1] ? 'Selanjutnya <i class="fa-solid fa-arrow-right"></i>' : '<i class="fa-solid fa-lock text-slate-500 mr-1"></i> Terkunci'}
               </button>
             ` : ''}
 
             <button onclick="PairPractice.submitFinalMission()" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs flex items-center gap-2 cursor-pointer shadow-md transition transform active:scale-95">
-              <i class="fa-solid fa-flag-checkered"></i> Selesaikan Misi &amp; Catat Nilai
+              <i class="fa-solid fa-flag-checkered"></i> Kirim Misi &amp; Catat Nilai CBT
             </button>
           </div>
         </div>
+
       </div>
     `;
   }
 
-  function switchModule(modNo) {
-    session.activeModule = modNo;
+  // --------------------------------------------------------------------------
+  // 4. INTERACTION HANDLERS & PIN GATEWAY VALIDATION
+  // --------------------------------------------------------------------------
+  function switchModule(targetModNo) {
+    if (targetModNo < 1 || targetModNo > 5) return;
+    if (!session.unlockedModules[targetModNo]) {
+      alert(`🔒 Modul ${targetModNo} masih terkunci!\n\nMasukkan 3 Digit PIN yang benar pada soal sebelumnya untuk melangkah ke modul ini.`);
+      return;
+    }
+    session.activeModule = targetModNo;
     saveLocalSession();
     renderCurrentView();
   }
@@ -686,18 +818,17 @@
   function selectWire(modNo, wireId) {
     session.selectedWires[modNo] = wireId;
     saveLocalSession();
+    renderCurrentView();
   }
 
-  // --------------------------------------------------------------------------
-  // 4. SERVER-SIDE DEFUSAL VERIFICATION (ZERO FRONTEND KEY)
-  // --------------------------------------------------------------------------
   async function executeDefusal(modNo) {
     const chosen = session.selectedWires[modNo];
     if (!chosen) {
-      alert("Defuser belum memilih kabel mana yang akan dipotong! Diskusikan dengan Komandan.");
+      alert("Defuser belum memilih kabel penjinak untuk dipotong. Diskusikan dengan Komandan terlebih dahulu!");
       return;
     }
 
+    // Validasi pemotongan kabel ke Cloudflare Serverless Backend
     try {
       const res = await fetch('/api/pair-practice', {
         method: 'POST',
@@ -709,29 +840,77 @@
         })
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        if (data.valid) {
-          session.moduleDefused[modNo] = true;
+      if (!res.ok) {
+        throw new Error('Gagal menghubungi server');
+      }
+
+      const result = await res.json();
+      if (result.valid) {
+        session.moduleDefused[modNo] = true;
+        saveLocalSession();
+        renderCurrentView();
+        alert(`✅ KABEL BERHASIL DIPUTUS!\n\nDetonator Modul ${modNo} berhasil dijinakkan tanpa korsleting!\nMasukkan 3 Digit PIN untuk melangkah ke modul berikutnya.`);
+      } else {
+        session.strikes += 1;
+        saveLocalSession();
+        renderCurrentView();
+        alert(`💥 KORSLETING LISTRIK (Strikes ${session.strikes}x)!\n\nKabel yang Anda potong keliru. Amati kembali manual langkah substitusi bersama Komandan!`);
+      }
+    } catch (e) {
+      alert("Terjadi gangguan koneksi ke server saat validasi kabel. Silakan coba kembali.");
+    }
+  }
+
+  // VALIDASI 3 DIGIT PIN UNTUK MELANGKAH KE SOAL BERIKUTNYA
+  async function validateAndProceed(modNo) {
+    const input = document.getElementById(`pair-pin-input-${modNo}`);
+    const pinVal = String(input?.value || '').trim();
+    if (!pinVal || pinVal.length < 3) {
+      alert("Silakan masukkan 3 Digit PIN Otorisasi terlebih dahulu (Contoh: 192).");
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/pair-practice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'validate_pin',
+          moduleNo: modNo,
+          pin: pinVal
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error('Gagal menghubungi server validasi PIN');
+      }
+
+      const data = await res.json();
+      if (data.valid) {
+        session.modulePinVerified[modNo] = true;
+        session.enteredPins[modNo] = pinVal;
+
+        if (modNo < 5) {
+          session.unlockedModules[modNo + 1] = true;
+          session.activeModule = modNo + 1;
           saveLocalSession();
-          alert(`⚡ MODUL ${modNo} BERHASIL DIJINAKKAN!\n\nInstruksi Komandan dan eksekusi Defuser berhasil memutus detonator secara akurat.`);
-          
-          if (modNo < 5) {
-            session.activeModule = modNo + 1;
-            saveLocalSession();
-          }
           renderCurrentView();
-          return;
+          alert(`✅ PIN 3 DIGIT TERVERIFIKASI!\n\nGerbang Modul ${modNo + 1} Berhasil Dibuka.\nMelangkah ke soal berikutnya!`);
         } else {
-          session.strikes = (session.strikes || 0) + 1;
+          session.unlockedModules[5] = true;
           saveLocalSession();
-          alert(`💥 KORSLETING! KABEL ${chosen} BUKAN JAWABAN YANG TEPAT!\n\n(Total Korsleting: ${session.strikes}x)\nPeriksa kembali panduan kalkulus Komandan pada langkah substitusi fungsi u dan pengali diferensialnya!`);
           renderCurrentView();
-          return;
+          alert(`🎉 PIN 3 DIGIT FINAL TERVERIFIKASI!\n\nSeluruh 5 gerbang modul berhasil diotorisasi.\nSilakan klik tombol 'Kirim Misi & Catat Nilai CBT' untuk menyimpan nilai resmi ke rapor!`);
+        }
+      } else {
+        alert(`❌ PIN 3 DIGIT SALAH!\n\nPIN "${pinVal}" tidak cocok untuk Modul ${modNo}.\nDiskusikan dekonstruksi substitusi dengan Komandan atau minta verifikasi otorisasi dari Guru.`);
+        if (input) {
+          input.value = '';
+          input.focus();
         }
       }
     } catch (err) {
-      console.warn("Backend validation fetch error:", err);
+      alert("Terjadi kendala jaringan saat memverifikasi PIN. Silakan coba kembali.");
     }
   }
 
@@ -933,7 +1112,7 @@
                 <tr>
                   <th class="p-2.5 text-center w-16">Modul</th>
                   <th class="p-2.5">Materi &amp; Indikator Kompetensi</th>
-                  <th class="p-2.5 text-center w-28">Kabel Terpilih</th>
+                  <th class="p-2.5 text-center w-28">Status PIN</th>
                   <th class="p-2.5 text-center w-20">Poin</th>
                   <th class="p-2.5 text-center w-28">Status</th>
                 </tr>
@@ -941,7 +1120,7 @@
               <tbody class="divide-y divide-slate-200">
                 ${PAIR_DATA.modulList.map(mod => {
                   const isDef = session.moduleDefused[mod.no] === true;
-                  const chosen = session.selectedWires[mod.no] || '-';
+                  const isPinOk = session.modulePinVerified[mod.no] === true;
                   return `
                     <tr class="${isDef ? 'bg-emerald-50/20' : 'bg-rose-50/20'}">
                       <td class="p-2.5 font-bold text-center text-slate-700">No. ${mod.no}</td>
@@ -949,7 +1128,9 @@
                         <div class="font-bold text-slate-900">${mod.title}</div>
                         <div class="text-[10px] text-slate-500 font-medium">${mod.level}</div>
                       </td>
-                      <td class="p-2.5 font-mono font-bold text-center text-slate-800 bg-slate-50/50">Kabel ${chosen}</td>
+                      <td class="p-2.5 font-mono font-bold text-center text-slate-800 bg-slate-50/50">
+                        ${isPinOk ? '<span class="text-emerald-700 font-bold"><i class="fa-solid fa-key"></i> Terotorisasi</span>' : '<span class="text-slate-400">-</span>'}
+                      </td>
                       <td class="p-2.5 font-mono font-bold text-center ${isDef ? 'text-emerald-700' : 'text-rose-700'}">${isDef ? '20' : '0'}</td>
                       <td class="p-2.5 text-center">
                         <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isDef ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-100 text-rose-800 border border-rose-300'}">
@@ -1007,6 +1188,10 @@
     session.activeModule = 1;
     session.selectedWires = {};
     session.moduleDefused = {};
+    session.unlockedModules = { 1: true };
+    session.modulePinVerified = {};
+    session.enteredPins = {};
+    session.shuffledOptions = {};
     session.strikes = 0;
     session.timeLeft = PAIR_DATA.durasiDefaultDetik;
     session.isCompleted = false;
@@ -1063,6 +1248,7 @@
     setViewMode: setViewMode,
     selectWire: selectWire,
     executeDefusal: executeDefusal,
+    validateAndProceed: validateAndProceed,
     submitFinalMission: submitFinalMission,
     resetSession: resetSession,
     printCertificate: printCertificate,
