@@ -23,11 +23,11 @@
         level: "Level 1: Fondasi Aljabar",
         soalMath: "\\int 6x(x^2 - 4)^4 \\, dx",
         commanderBlueprint: {
-          substitusiInti: "Misalkan fungsi di dalam kurung berpangkat tinggi sebagai $u = x^2 - 4$.",
-          diferensial: "Diferensialkan: $\\frac{du}{dx} = 2x \\implies du = 2x \\, dx$.",
-          penyeimbang: "Hubungkan dengan faktor pengali luar: $6x \\, dx = 3(2x \\, dx) = 3 \\, du$.",
-          bentukBaru: "Integral berubah menjadi: $\\int 3u^4 \\, du = 3 \\left( \\frac{1}{5}u^5 \\right) + C = \\frac{3}{5}u^5 + C$.",
-          instruksiTaktis: "Defuser, integran memiliki fungsi dalam $(x^2 - 4)$ dengan turunan $2x$. Karena faktor luar $6x$, terdapat kelipatan 3. Cari dan pilih kabel antiturunan berkoefisien 3/5 berpangkat 5!"
+          panduan1: "Tentukan fungsi di dalam tanda kurung berpangkat tinggi sebagai variabel substitusi $u = g(x)$.",
+          panduan2: "Hitung turunan pertama fungsi tersebut untuk mendapatkan diferensial penyeimbang $du = g'(x)dx$.",
+          panduan3: "Hubungkan diferensial $du$ dengan pengali luar untuk mencari faktor kelipatan penyeimbangnya.",
+          panduan4: "Hitung integrasi bentuk baru $\\int u^n du$ secara mandiri pada kertas cakar bersama Defuser.",
+          instruksiTaktis: "Defuser, amati fungsi dalam kurung dan cari hubungannya dengan $6x dx$. Hitung pangkat antiturunannya dan cocokkan dengan opsi kabel di terminalmu!"
         },
         defuserConsole: {
           keterangan: "Pilih salah satu dari 5 jalur kabel terminasi yang memuat rumus antiturunan substitusi yang tepat:"
@@ -46,11 +46,11 @@
         level: "Level 2: Pangkat Rasional Negatif",
         soalMath: "\\int \\frac{4x}{\\sqrt{2x^2 + 5}} \\, dx",
         commanderBlueprint: {
-          substitusiInti: "Ubah bentuk akar di penyebut menjadi pangkat negatif: $(2x^2 + 5)^{-1/2}$. Misalkan $u = 2x^2 + 5$.",
-          diferensial: "Diferensialkan: $\\frac{du}{dx} = 4x \\implies du = 4x \\, dx$ (Persis sama dengan pembilang!).",
-          penyeimbang: "Tidak ada pengali luar tambahan ($4x \\, dx = du$).",
-          bentukBaru: "Integral berubah menjadi: $\\int u^{-1/2} \\, du = \\frac{u^{1/2}}{1/2} + C = 2\\sqrt{u} + C = 2\\sqrt{2x^2 + 5} + C$.",
-          instruksiTaktis: "Defuser, turunan dari $2x^2 + 5$ tepat $4x$. Integral dari $u^{-1/2}$ menghasilkan perkalian $2\\sqrt{u}$. Potong kabel dengan hasil 2 kali akar!"
+          panduan1: "Perhatikan bentuk akar pada penyebut dan tentukan fungsi di dalam akar sebagai variabel $u$.",
+          panduan2: "Hitung turunan pertama fungsi tersebut untuk mendapatkan diferensial $du$.",
+          panduan3: "Ubah bentuk pecahan akar menjadi pangkat rasional negatif $u^{-1/2}$.",
+          panduan4: "Gunakan aturan integral substitusi aljabar $\\int u^{-1/2} du$ secara mandiri bersama Defuser.",
+          instruksiTaktis: "Defuser, turunkan fungsi yang berada di dalam akar. Perhatikan pangkat setelah diintegralkan dan cari kabel yang tepat!"
         },
         defuserConsole: {
           keterangan: "Pilih frekuensi dekoder penjinak yang sesuai dengan antiturunan fungsi akar rasional:"
@@ -69,11 +69,11 @@
         level: "Level 3: Substitusi Fungsi Transenden",
         soalMath: "\\int \\sin^3(x) \\cos(x) \\, dx",
         commanderBlueprint: {
-          substitusiInti: "Identifikasi pasangan fungsi dan turunannya: pilih $u = \\sin(x)$.",
-          diferensial: "Diferensialkan: $du = \\cos(x) \\, dx$.",
-          penyeimbang: "Faktor $\\cos(x) \\, dx$ terserap langsung menjadi $du$.",
-          bentukBaru: "Integral berubah menjadi: $\\int u^3 \\, du = \\frac{1}{4}u^4 + C = \\frac{1}{4}\\sin^4(x) + C$.",
-          instruksiTaktis: "Defuser, fungsi sinus berpangkat 3 memiliki pendamping cosinus. Ini adalah integrasi langsung pangkat 3 menjadi seperempat pangkat 4 sinus!"
+          panduan1: "Identifikasi pasangan fungsi trigonometri dan turunannya yang saling bersesuaian pada integran.",
+          panduan2: "Tentukan fungsi trigonometri mana yang dijadikan variabel substitusi inti $u$.",
+          panduan3: "Periksa apakah fungsi pendamping langsung terserap ke dalam diferensial $du$.",
+          panduan4: "Selesaikan antiturunan variabel $u$ secara mandiri pada lembar cakar bersama Defuser.",
+          instruksiTaktis: "Defuser, pilih substitusi fungsi trigonometri yang memiliki turunan di sebelahnya. Hitung pangkat akhirnya dan amati tanda positif/negatifnya!"
         },
         defuserConsole: {
           keterangan: "Pilih polaritas terminal trigonometri yang tepat:"
@@ -92,11 +92,11 @@
         level: "Level 4: Pola Derivatif Pembilang",
         soalMath: "\\int \\frac{3x^2 + 2}{x^3 + 2x - 1} \\, dx",
         commanderBlueprint: {
-          substitusiInti: "Amati bahwa pembilang tepat turunan dari penyebut: misalkan $u = x^3 + 2x - 1$.",
-          diferensial: "Diferensialkan: $du = (3x^2 + 2) \\, dx$.",
-          penyeimbang: "Pembilang $(3x^2 + 2)dx$ setara penuh dengan $du$.",
-          bentukBaru: "Integral berubah menjadi: $\\int \\frac{1}{u} \\, du = \\ln|u| + C = \\ln|x^3 + 2x - 1| + C$.",
-          instruksiTaktis: "Defuser, integran ini memenuhi pola integral logaritma natural du per u. Potong kabel bertuliskan fungsi ln mutlak penyebut!"
+          panduan1: "Analisis struktur fungsi rasional pada pembilang dan penyebut integran target.",
+          panduan2: "Uji apakah pembilang merupakan turunan langsung dari fungsi penyebut: $\\frac{g'(x)}{g(x)}$.",
+          panduan3: "Gunakan aturan integrasi logaritma natural $\\int \\frac{1}{u} du$.",
+          panduan4: "Tuliskan hasil antiturunan dalam bentuk nilai mutlak pada lembar kerja bersama Defuser.",
+          instruksiTaktis: "Defuser, uji apakah pembilang adalah turunan persis dari penyebut. Ini mengarah pada bentuk fungsi logaritma!"
         },
         defuserConsole: {
           keterangan: "Pilih sakelar reaktor logaritmik yang tepat:"
@@ -115,11 +115,11 @@
         level: "Level 5: Konversi Batas Integrasi",
         soalMath: "\\int_{0}^{1} 2x(x^2 + 1)^3 \\, dx",
         commanderBlueprint: {
-          substitusiInti: "Misalkan $u = x^2 + 1 \\implies du = 2x \\, dx$.",
-          diferensial: "Kritis: Konversikan batas integrasi secara serentak!",
-          penyeimbang: "Batas bawah: $x = 0 \\implies u = 0^2 + 1 = 1$. Batas atas: $x = 1 \\implies u = 1^2 + 1 = 2$.",
-          bentukBaru: "Integral tentu baru: $\\int_{1}^{2} u^3 \\, du = \\left[ \\frac{1}{4}u^4 \\right]_{1}^{2} = \\frac{1}{4}(2^4 - 1^4) = \\frac{1}{4}(16 - 1) = \\frac{15}{4}$.",
-          instruksiTaktis: "Defuser, modul terakhir adalah integral tentu! Batas x=0 dan x=1 berubah menjadi u=1 dan u=2. Hitung seperempat dikali 15! Hasil akhirnya adalah 15/4!"
+          panduan1: "Tentukan fungsi substitusi $u = g(x)$ dan cari diferensial penyeimbangnya.",
+          panduan2: "Hitung perubahan batas integrasi bawah dan batas integrasi atas secara simultan.",
+          panduan3: "Integralkan fungsi bentuk baru dalam batas $u$ tanpa perlu mengembalikan ke variabel $x$.",
+          panduan4: "Substitusikan batas atas dan batas bawah, lalu hitung selisih numerik pecahan akhirnya bersama Defuser.",
+          instruksiTaktis: "Defuser, ini adalah integral tentu. Konversikan batas bawah dan atas terlebih dahulu, lalu hitung nilai pecahan akhirnya!"
         },
         defuserConsole: {
           keterangan: "Masukkan kode angka rasional akhir untuk melucuti detonator inti:"
@@ -608,38 +608,38 @@
                     </div>
                   </div>
 
-                  <!-- Langkah Dekonstruksi Substitusi -->
+                  <!-- Panduan Analisis Dekonstruksi Substitusi (Tanpa Bocoran Cara/Jawaban) -->
                   <div class="space-y-2.5 text-xs text-slate-300 leading-relaxed">
                     <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1">
                       <div class="font-bold text-sky-300 flex items-center gap-1.5">
                         <i class="fa-solid fa-1 text-[10px] w-4 h-4 rounded-full bg-sky-500 text-slate-950 inline-flex items-center justify-center font-bold"></i>
-                        Penentuan Fungsi Substitusi Inti ($u$):
+                        Langkah Investigasi 1:
                       </div>
-                      <div class="pl-5 text-slate-200">${curMod.commanderBlueprint.substitusiInti}</div>
+                      <div class="pl-5 text-slate-200">${curMod.commanderBlueprint.panduan1}</div>
                     </div>
 
                     <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1">
                       <div class="font-bold text-sky-300 flex items-center gap-1.5">
                         <i class="fa-solid fa-2 text-[10px] w-4 h-4 rounded-full bg-sky-500 text-slate-950 inline-flex items-center justify-center font-bold"></i>
-                        Diferensial Penyeimbang ($du$):
+                        Langkah Investigasi 2:
                       </div>
-                      <div class="pl-5 text-slate-200">${curMod.commanderBlueprint.diferensial}</div>
+                      <div class="pl-5 text-slate-200">${curMod.commanderBlueprint.panduan2}</div>
                     </div>
 
                     <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1">
                       <div class="font-bold text-sky-300 flex items-center gap-1.5">
                         <i class="fa-solid fa-3 text-[10px] w-4 h-4 rounded-full bg-sky-500 text-slate-950 inline-flex items-center justify-center font-bold"></i>
-                        Hubungan dengan Pengali Luar:
+                        Langkah Investigasi 3:
                       </div>
-                      <div class="pl-5 text-slate-200">${curMod.commanderBlueprint.penyeimbang}</div>
+                      <div class="pl-5 text-slate-200">${curMod.commanderBlueprint.panduan3}</div>
                     </div>
 
                     <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1">
                       <div class="font-bold text-emerald-300 flex items-center gap-1.5">
                         <i class="fa-solid fa-4 text-[10px] w-4 h-4 rounded-full bg-emerald-500 text-slate-950 inline-flex items-center justify-center font-bold"></i>
-                        Bentuk Integral Baru &amp; Antiturunan:
+                        Eksplorasi Bersama Defuser:
                       </div>
-                      <div class="pl-5 text-slate-200">${curMod.commanderBlueprint.bentukBaru}</div>
+                      <div class="pl-5 text-slate-200">${curMod.commanderBlueprint.panduan4}</div>
                     </div>
                   </div>
                 </div>
