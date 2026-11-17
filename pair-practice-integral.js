@@ -197,6 +197,12 @@
     document.body.classList.add('overflow-hidden');
 
     renderCurrentView();
+
+    if (session.commanderNama && session.defuserNama && session.startTime && !session.isCompleted) {
+      if (!timerInterval) {
+        startTimer();
+      }
+    }
   }
 
   function closePairModal() {
@@ -216,12 +222,20 @@
     const container = document.getElementById('pair-practice-modal-content');
     if (!container) return;
 
+    const prevScrollEl = document.getElementById('pair-main-scroll-arena');
+    const prevScrollTop = prevScrollEl ? prevScrollEl.scrollTop : 0;
+
     if (!session.commanderNama || !session.defuserNama) {
       renderLobbyView(container);
     } else if (session.isCompleted) {
       renderScorecardView(container);
     } else {
       renderMissionArenaView(container);
+    }
+
+    const newScrollEl = document.getElementById('pair-main-scroll-arena');
+    if (newScrollEl && prevScrollTop > 0) {
+      newScrollEl.scrollTop = prevScrollTop;
     }
 
     // Render KaTeX Math across the newly injected DOM
@@ -389,8 +403,17 @@
       return;
     }
 
-    const cmdNis = cmdSelect?.options[cmdSelect.selectedIndex]?.getAttribute('data-nis') || '';
-    const defNis = defSelect?.options[defSelect.selectedIndex]?.getAttribute('data-nis') || '';
+    let cmdNis = cmdSelect?.options[cmdSelect.selectedIndex]?.getAttribute('data-nis') || '';
+    let defNis = defSelect?.options[defSelect.selectedIndex]?.getAttribute('data-nis') || '';
+
+    if (!cmdNis && window.STUDENTS_DATA) {
+      const found = Object.keys(window.STUDENTS_DATA).find(n => window.STUDENTS_DATA[n].nama === cmdName);
+      if (found) cmdNis = found;
+    }
+    if (!defNis && window.STUDENTS_DATA) {
+      const found = Object.keys(window.STUDENTS_DATA).find(n => window.STUDENTS_DATA[n].nama === defName);
+      if (found) defNis = found;
+    }
 
     session.kelas = kls;
     session.commanderNama = cmdName;
@@ -747,6 +770,8 @@
                         placeholder="Enter 3-Digit Team PIN (e.g. 192)"
                         value="${session.enteredPins[curModNo] || ''}"
                         ${isPinVerified ? 'disabled' : ''}
+                        oninput="PairPractice.onPinInput(${curModNo}, this.value)"
+                        onkeydown="if(event.key === 'Enter') PairPractice.validateAndProceed(${curModNo})"
                         class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border ${isPinVerified ? 'border-emerald-500/50 text-emerald-300' : 'border-slate-700 text-white'} text-sm font-mono font-bold tracking-widest text-center outline-none focus:border-amber-400 transition placeholder:font-sans placeholder:tracking-normal placeholder:text-slate-500">
                     </div>
                     <button onclick="PairPractice.validateAndProceed(${curModNo})" ${isPinVerified ? 'disabled' : ''}
@@ -821,6 +846,11 @@
     renderCurrentView();
   }
 
+  function onPinInput(modNo, val) {
+    session.enteredPins[modNo] = String(val || '').trim();
+    saveLocalSession();
+  }
+
   async function executeDefusal(modNo) {
     const chosen = session.selectedWires[modNo];
     if (!chosen) {
@@ -863,7 +893,7 @@
   // VALIDATE 3-DIGIT PIN TO ADVANCE TO THE NEXT MODULE
   async function validateAndProceed(modNo) {
     const input = document.getElementById(`pair-pin-input-${modNo}`);
-    const pinVal = String(input?.value || '').trim();
+    const pinVal = String(input?.value || session.enteredPins[modNo] || '').trim();
     if (!pinVal || pinVal.length < 3) {
       alert("Please enter the 3-Digit Authorization PIN first (e.g. 192).");
       return;
@@ -1242,6 +1272,7 @@
     switchModule: switchModule,
     setViewMode: setViewMode,
     selectWire: selectWire,
+    onPinInput: onPinInput,
     executeDefusal: executeDefusal,
     validateAndProceed: validateAndProceed,
     submitFinalMission: submitFinalMission,
