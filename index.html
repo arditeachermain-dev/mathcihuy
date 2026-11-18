@@ -516,7 +516,7 @@
       
       <!-- DASHBOARD TOP BAR -->
       <div class="h-14 border-b px-3 md:px-6 flex items-center justify-between shrink-0 gap-3" style="background-color: #FFFFFF; border-color: #E2E8F0;">
-        <div class="flex items-center gap-2 md:gap-3 min-w-0">
+        <div class="flex items-center gap-2 md:gap-3 shrink-0">
           <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shadow-sm text-white shrink-0" style="background-color: #4F46E5;">
             <i class="fa-solid fa-square-root-variable"></i>
           </div>
@@ -525,29 +525,29 @@
             <span class="text-[10px] font-medium hidden sm:inline" style="color: #475569;">Guru Pengampu: Mr. Ardi</span>
           </div>
         </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <button onclick="openLeaderboardModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Papan Peringkat, Level XP & Prestasi Siswa">
-            <i class="fa-solid fa-trophy" style="color: #D97706;"></i> <span class="hidden md:inline">Peringkat &amp; XP</span>
+        <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 min-w-0 flex-1 justify-end">
+          <button onclick="openLeaderboardModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0" title="Papan Peringkat, Level XP &amp; Prestasi Siswa">
+            <i class="fa-solid fa-trophy" style="color: #D97706;"></i> <span class="hidden xl:inline">Peringkat &amp; XP</span>
           </button>
-          <button onclick="openAngketModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Isi Angket Refleksi Pemahaman Siswa">
-            <i class="fa-solid fa-clipboard-question" style="color: #0284C7;"></i> <span class="hidden md:inline">Angket Refleksi</span>
+          <button onclick="openAngketModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0" title="Isi Angket Refleksi Pemahaman Siswa">
+            <i class="fa-solid fa-clipboard-question" style="color: #0284C7;"></i> <span class="hidden 2xl:inline">Angket Refleksi</span>
           </button>
-          <button onclick="openRaporModal()" class="notion-btn-primary p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Lihat Rapor Capaian Siswa">
+          <button onclick="openRaporModal()" class="notion-btn-primary p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0" title="Lihat Rapor Capaian Siswa">
             <i class="fa-solid fa-graduation-cap" style="color: #FBBF24;"></i> <span class="hidden sm:inline">Rapor Siswa</span>
           </button>
-          <button onclick="CoopRaid.openModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Co-op Raid: Estafet Paralel Statistika">
-            <i class="fa-solid fa-users-rays" style="color: #0D9488;"></i> <span class="hidden md:inline">Co-op Raid</span>
+          <button onclick="CoopRaid.openModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0" title="Co-op Raid: Estafet Paralel Statistika">
+            <i class="fa-solid fa-users-rays" style="color: #0D9488;"></i> <span class="hidden xl:inline">Co-op Raid</span>
           </button>
-          <button onclick="PairPractice.openModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Pair Practice: Commander &amp; Defuser (Integral Substitusi P26)">
-            <i class="fa-solid fa-user-astronaut" style="color: #6366F1;"></i> <span class="hidden md:inline">Pair Practice</span>
+          <button onclick="PairPractice.openModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0" title="Pair Practice: Commander &amp; Defuser (Integral Substitusi P26)">
+            <i class="fa-solid fa-user-astronaut" style="color: #6366F1;"></i> <span class="hidden 2xl:inline">Pair Practice</span>
           </button>
-          <button onclick="StrategicAuction.openModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Pertemuan 2: Bursa Taruhan Poin (Tabel Distribusi, Pemusatan &amp; Penyebaran Data)">
-            <i class="fa-solid fa-coins" style="color: #F59E0B;"></i> <span class="hidden md:inline">Bursa Taruhan</span>
+          <button onclick="StrategicAuction.openModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0" title="Pertemuan 2: Bursa Taruhan Poin (Tabel Distribusi, Pemusatan &amp; Penyebaran Data)">
+            <i class="fa-solid fa-coins" style="color: #F59E0B;"></i> <span class="hidden xl:inline">Bursa Taruhan</span>
           </button>
-          <button onclick="openAnalyticsModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Statistik &amp; Progres Belajar">
-            <i class="fa-solid fa-chart-pie" style="color: #4F46E5;"></i> <span class="hidden sm:inline">Statistik</span>
+          <button onclick="openAnalyticsModal()" class="notion-btn-secondary p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0" title="Statistik &amp; Progres Belajar">
+            <i class="fa-solid fa-chart-pie" style="color: #4F46E5;"></i> <span class="hidden 2xl:inline">Statistik</span>
           </button>
-          <button onclick="switchSubject('tka')" class="notion-btn-secondary p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Masuk Arena CBT">
+          <button onclick="switchSubject('tka')" class="notion-btn-secondary p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm cursor-pointer shrink-0" title="Masuk Arena CBT">
             <i class="fa-solid fa-bolt" style="color: #B26B00;"></i> <span class="hidden sm:inline">Arena CBT</span>
           </button>
         </div>
