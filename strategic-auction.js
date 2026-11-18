@@ -1,5 +1,5 @@
 // strategic-auction.js
-// Pertemuan 2: Bursa Taruhan Poin & Gallery Walk (Strategic Auction & Risk Management)
+// Pertemuan 2: Bursa Taruhan Poin (Strategic Auction & Risk Management)
 // SMA Global Islamic School 2 Serpong • Muhammad Ardiansyah, S.Pd.Gr.
 // SECURITY AUDIT: ZERO FRONTEND KEYS & ZERO SPOILERS.
 // All official evaluation and answer keys are strictly stored on the server.
@@ -137,7 +137,7 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
   // 2. STATE PERSISTENCE & LOCAL ENGINE
   // --------------------------------------------------------------------------
   let auctionState = {
-    view: 'lobby', // 'lobby', 'bidding', 'solving', 'result', 'gallery_walk', 'exit_ticket', 'projector'
+    view: 'lobby', // 'lobby', 'bidding', 'solving', 'result', 'exit_ticket', 'projector'
     kelas: 'XII F3',
     teamId: 'team_1',
     teamName: 'Kelompok 1',
@@ -149,8 +149,6 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
     roundResults: {},
     streak: 0,
     isCompleted: false,
-    galleryTimerSec: 1500, // 25 Menit
-    galleryTimerRunning: false,
     exitTicketNis: '',
     exitTicketNama: '',
     exitTicketTimerSec: 180, // 3 Menit
@@ -159,7 +157,6 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
     exitTicketScore: null
   };
 
-  let galleryInterval = null;
   let exitTicketInterval = null;
 
   function loadLocalState() {
@@ -198,7 +195,6 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
     modal.style.display = 'none';
     document.body.classList.remove('overflow-hidden');
 
-    if (galleryInterval) clearInterval(galleryInterval);
     if (exitTicketInterval) clearInterval(exitTicketInterval);
   }
 
@@ -221,9 +217,6 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
         break;
       case 'result':
         renderResultView(container);
-        break;
-      case 'gallery_walk':
-        renderGalleryWalkView(container);
         break;
       case 'exit_ticket':
         renderExitTicketView(container);
@@ -285,7 +278,7 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
                 <span class="text-xs text-slate-400 font-mono">TKA &amp; UTBK Simulation</span>
               </div>
               <h2 class="text-lg md:text-xl font-black text-white tracking-tight mt-0.5">
-                Bursa Taruhan Poin &amp; Gallery Walk
+                Bursa Taruhan Poin (Strategic Auction)
               </h2>
             </div>
           </div>
@@ -329,10 +322,10 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
 
             <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1.5">
               <div class="text-xs font-bold text-purple-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-person-walking-arrow-right"></i> Gallery Walk
+                <i class="fa-solid fa-chalkboard-user"></i> Bedah Trik di Layar
               </div>
-              <div class="text-xl font-black text-white">25 Menit Sesi</div>
-              <p class="text-[11px] text-slate-400 leading-relaxed">Menempelkan cara cepat soal tersulit di VNPS &amp; rotasi umpan balik sebaya.</p>
+              <div class="text-xl font-black text-white">Langsung di Tempat</div>
+              <p class="text-[11px] text-slate-400 leading-relaxed">Trik kilat dibedah langsung di proyektor tanpa repot jalan keliling kelas.</p>
             </div>
           </div>
 
@@ -776,11 +769,14 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
               </button>
             ` : `
               <div class="space-y-3">
-                <div class="p-3 rounded-xl bg-purple-500/20 border border-purple-500/40 text-purple-300 text-xs font-bold">
+                <div class="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold">
                   🏆 Seluruh 4 Ronde Bursa Taruhan Telah Selesai!
                 </div>
-                <button onclick="StrategicAuction.setView('gallery_walk')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs uppercase tracking-wide cursor-pointer transition shadow-lg">
-                  <i class="fa-solid fa-person-walking-arrow-right mr-1.5"></i> Buka Sesi Gallery Walk (25 Menit)
+                <button onclick="StrategicAuction.setView('exit_ticket')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-black text-xs uppercase tracking-wide cursor-pointer transition shadow-xl transform active:scale-95">
+                  <i class="fa-solid fa-ticket-simple mr-1.5"></i> Lanjut ke Mini Mastery Check (Tiket Keluar Individu - 3 Menit)
+                </button>
+                <button onclick="StrategicAuction.setView('projector')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs cursor-pointer transition">
+                  <i class="fa-solid fa-tv mr-1.5"></i> Lihat Papan Peringkat Akhir di Proyektor
                 </button>
               </div>
             `}
@@ -799,121 +795,7 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
   }
 
   // --------------------------------------------------------------------------
-  // VIEW 5: GALLERY WALK STATION CONTROLLER (25 MENIT DISKUSI SEBAYA)
-  // --------------------------------------------------------------------------
-  function renderGalleryWalkView(container) {
-    const m = Math.floor(auctionState.galleryTimerSec / 60);
-    const s = auctionState.galleryTimerSec % 60;
-
-    container.innerHTML = `
-      <div class="flex flex-col h-full max-h-[92vh] bg-[#0A0F18] text-slate-100 font-sans overflow-hidden">
-        <!-- TOP BAR -->
-        <div class="px-6 py-3.5 border-b border-slate-800 bg-[#0E1520] shrink-0 flex flex-wrap items-center justify-between gap-3 shadow-md">
-          <div class="flex items-center gap-3">
-            <span class="px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/40">
-              <i class="fa-solid fa-person-walking-arrow-right mr-1.5"></i> Sesi Gallery Walk Pembahasan
-            </span>
-            <span class="text-xs text-slate-400 font-mono">25 Menit Diskusi &amp; Solusi Alternatif</span>
-          </div>
-
-          <!-- TIMER CONTROLLER -->
-          <div class="flex items-center gap-3">
-            <div class="px-4 py-1.5 rounded-xl bg-slate-900 border border-purple-500/40 font-mono font-black text-sm text-purple-300 flex items-center gap-2">
-              <i class="fa-solid fa-hourglass-half animate-spin text-purple-400"></i>
-              <span>${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}</span>
-            </div>
-            <button onclick="StrategicAuction.toggleGalleryTimer()" class="px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${auctionState.galleryTimerRunning ? 'bg-rose-600 text-white' : 'bg-emerald-600 text-white'}">
-              <i class="fa-solid ${auctionState.galleryTimerRunning ? 'fa-pause' : 'fa-play'}"></i>
-            </button>
-            <button onclick="StrategicAuction.closeModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- CONTENT -->
-        <div class="flex-1 overflow-y-auto custom-scroll p-6 space-y-6">
-          <div class="max-w-4xl mx-auto space-y-6">
-            
-            <!-- GALLERY WALK INSTRUCTION CARD -->
-            <div class="p-6 rounded-2xl bg-gradient-to-br from-purple-950/40 to-slate-900 border border-purple-500/30 space-y-4">
-              <div class="flex items-center gap-2 text-purple-300 font-bold text-sm">
-                <i class="fa-solid fa-clipboard-list text-lg"></i> Protokol Gallery Walk (Sintaks Pembahasan Sebaya)
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300">
-                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
-                  <div class="font-bold text-purple-400 flex items-center gap-1.5">
-                    <span class="w-5 h-5 rounded-full bg-purple-500 text-slate-950 text-[10px] inline-flex items-center justify-center font-bold">1</span>
-                    Pajang Solusi Tercepat:
-                  </div>
-                  <p class="text-slate-400">Tiap tim menempelkan cara cepat / jalan pintas (shortcut) untuk 1 soal tersulit pada kertas plano / VNPS di dinding kelas.</p>
-                </div>
-
-                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
-                  <div class="font-bold text-sky-400 flex items-center gap-1.5">
-                    <span class="w-5 h-5 rounded-full bg-sky-500 text-slate-950 text-[10px] inline-flex items-center justify-center font-bold">2</span>
-                    Rotasi Searah Jarum Jam:
-                  </div>
-                  <p class="text-slate-400">Setiap 4 menit, bel berbunyi untuk berpindah ke pos tim lain guna menganalisis perbandingan metode.</p>
-                </div>
-
-                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
-                  <div class="font-bold text-emerald-400 flex items-center gap-1.5">
-                    <span class="w-5 h-5 rounded-full bg-emerald-500 text-slate-950 text-[10px] inline-flex items-center justify-center font-bold">3</span>
-                    Umpan Balik Sticky Notes:
-                  </div>
-                  <p class="text-slate-400">Tinggalkan minimal 1 apresiasi dan 1 pertanyaan kritis atau alternatif metode hitung cepat (misal: Coding Rataan Sementara, Interpolasi Median/Modus, atau Estimasi Regresi) yang lebih ringkas.</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- PROCEED TO MINI MASTERY CHECK -->
-            <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4 text-center">
-              <div class="text-xs font-bold uppercase tracking-wider text-amber-400">
-                Tahap Penutup KBM: Tiket Keluar Individu
-              </div>
-              <h3 class="text-lg font-black text-white">
-                Mini Mastery Check (Exit Ticket 3 Menit)
-              </h3>
-              <p class="text-xs text-slate-400 max-w-lg mx-auto">
-                Setelah rotasi Gallery Walk selesai, seluruh siswa kembali ke perangkat masing-masing untuk mengerjakan 2 soal reflektif individu sebagai tiket keluar.
-              </p>
-              <button onclick="StrategicAuction.setView('exit_ticket')" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-black text-xs uppercase tracking-wide cursor-pointer transition shadow-xl transform active:scale-95">
-                <i class="fa-solid fa-ticket-simple mr-1.5"></i> Mulai Mini Mastery Check Individu (3 Menit)
-              </button>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  function toggleGalleryTimer() {
-    if (auctionState.galleryTimerRunning) {
-      clearInterval(galleryInterval);
-      auctionState.galleryTimerRunning = false;
-    } else {
-      auctionState.galleryTimerRunning = true;
-      galleryInterval = setInterval(() => {
-        if (auctionState.galleryTimerSec > 0) {
-          auctionState.galleryTimerSec--;
-          const m = Math.floor(auctionState.galleryTimerSec / 60);
-          const s = auctionState.galleryTimerSec % 60;
-          const el = document.getElementById('gallery-timer-display');
-          if (el) el.innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
-        } else {
-          clearInterval(galleryInterval);
-          auctionState.galleryTimerRunning = false;
-          alert("⏰ Waktu Gallery Walk telah selesai! Silakan buka Mini Mastery Check individu.");
-        }
-      }, 1000);
-    }
-    renderCurrentView();
-  }
-
-  // --------------------------------------------------------------------------
-  // VIEW 6: MINI MASTERY CHECK (INDIVIDUAL EXIT TICKET 3 MENIT)
+  // VIEW 5: MINI MASTERY CHECK (INDIVIDUAL EXIT TICKET 3 MENIT)
   // --------------------------------------------------------------------------
   function renderExitTicketView(container) {
     const m = Math.floor(auctionState.exitTicketTimerSec / 60);
@@ -1092,7 +974,7 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
                 Layar Proyektor Kelas • SMA GIS 2 Serpong
               </div>
               <h1 class="text-xl font-black text-white">
-                Bursa Taruhan Poin &amp; Gallery Walk (${auctionState.kelas})
+                Bursa Taruhan Poin (Strategic Auction) (${auctionState.kelas})
               </h1>
             </div>
           </div>
@@ -1151,20 +1033,20 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
               </div>
               <div class="space-y-2.5 text-xs text-slate-300">
                 <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between">
-                  <span>10 Menit: Pembagian Tim &amp; Aturan</span>
+                  <span>10 Menit: Pembagian Tim &amp; Modal 1.000 Poin</span>
                   <span class="font-mono text-amber-300">10'</span>
                 </div>
                 <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between">
-                  <span>50 Menit: Bursa Taruhan Utama</span>
-                  <span class="font-mono text-amber-300">50'</span>
+                  <span>55 Menit: 4 Ronde Taruhan &amp; Bedah Trik Kilat</span>
+                  <span class="font-mono text-amber-300">55'</span>
                 </div>
                 <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between">
-                  <span>15 Menit: Mini Mastery Check Individu</span>
+                  <span>15 Menit: Mini Mastery Check Individu (3 Menit)</span>
                   <span class="font-mono text-amber-300">15'</span>
                 </div>
                 <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between">
-                  <span>15 Menit: Bedah Jebakan &amp; Apresiasi</span>
-                  <span class="font-mono text-amber-300">15'</span>
+                  <span>10 Menit: Penganugerahan Risk Master &amp; Penutup</span>
+                  <span class="font-mono text-amber-300">10'</span>
                 </div>
               </div>
             </div>
@@ -1174,7 +1056,7 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
                 <i class="fa-solid fa-lightbulb"></i> Tips Manajemen Risiko
               </div>
               <p class="text-xs text-slate-300 leading-relaxed">
-                Kelompok yang sukses tidak selalu memasang 300 poin di setiap ronde. Gunakan taruhan konservatif (100–150 Pts) saat menghadapi soal C5 evaluasi dan maksimalkan taruhan agresif saat menemukan pola substitusi yang telah dikuasai!
+                Kelompok yang sukses tidak selalu memasang 300 poin di setiap ronde. Gunakan taruhan konservatif (100–150 Pts) saat menghadapi soal C5 evaluasi dan maksimalkan taruhan agresif saat menemukan pola statistika & regresi bivariat yang telah dikuasai!
               </p>
             </div>
           </div>
@@ -1247,7 +1129,6 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
     submitRoundAnswer: submitRoundAnswer,
     nextRound: nextRound,
     setView: setView,
-    toggleGalleryTimer: toggleGalleryTimer,
     setExitAnswer: setExitAnswer,
     submitExitTicket: submitExitTicket,
     refreshLeaderboard: refreshLeaderboard

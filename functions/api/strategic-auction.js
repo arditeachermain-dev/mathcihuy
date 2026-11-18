@@ -1,5 +1,5 @@
 // functions/api/strategic-auction.js
-// Cloudflare D1 Backend for Pertemuan 2: Strategic Auction & Gallery Walk (Statistika Kelas XII)
+// Cloudflare D1 Backend for Pertemuan 2: Strategic Auction (Statistika Kelas XII)
 // SMA Global Islamic School 2 Serpong • Mr. Muhammad Ardiansyah, S.Pd.Gr.
 // SECURITY AUDIT: ZERO FRONTEND KEYS & ZERO SPOILERS.
 // All official evaluation and answer keys are strictly stored on the server.
