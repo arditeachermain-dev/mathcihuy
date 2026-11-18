@@ -282,7 +282,7 @@ export async function onRequestPost(context) {
         is_correct1: isCor1 === 1,
         is_correct2: isCor2 === 1,
         feedback: {
-          q1_explanation: "Penambahan setiap data dengan konstanta hanya menggeser posisi seluruh data secara seragam, sehingga selisih jarak $(x_i - \\bar{x})$ tetap konstan dan ukuran penyebaran (Simpangan Baku, Varians, Jangkauan) tidak mengalami perubahan.",
+          q1_explanation: "Nilai simpangan baku ($S$) tidak pernah bernilai negatif karena setiap deviasi $(x_i - \\bar{x})$ dikuadratkan sebelum dirata-ratakan, dan akar kuadrat utama dari bilangan non-negatif selalu menghasilkan nilai non-negatif ($S \\ge 0$).",
           q2_explanation: "Dalam kaidah penyusunan tabel distribusi frekuensi, nilai panjang kelas interval ($p$) harus selalu dibulatkan ke atas menjadi $p = 7$ agar rentang kapasitas 8 kelas interval ($8 \\times 7 = 56$) dapat menampung seluruh jangkauan sebaran data ($54$) hingga data maksimum."
         }
       });

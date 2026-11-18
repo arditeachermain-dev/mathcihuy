@@ -53,17 +53,27 @@ Jika modus dari data berkelompok tersebut adalah <b>76,5</b>, tentukan nilai <b>
       formatTitle: "Format 2: Pernyataan Benar / Salah (AKM Binary Statements)",
       formatBadge: "AKM Benar / Salah",
       formatBadgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
-      indikator: "Menganalisis pengaruh transformasi linier data yi = 1,5 xi - 10 terhadap ukuran pemusatan (Rata-rata) dan ukuran penyebaran (Jangkauan, Simpangan Baku, dan Varians).",
-      domain: "Ukuran Pemusatan & Penyebaran • Level C5 Evaluasi",
+      indikator: "Menganalisis dan memvalidasi kebenaran karakteristik ukuran pemusatan dan ukuran penyebaran pada tabel distribusi frekuensi data berkelompok.",
+      domain: "Ukuran Pemusatan & Penyebaran • Level C4 Analisis",
       estimasiWaktu: "5 Menit",
       rekomendasiTaruhan: "200 - 300 Poin (Tingkat Risiko Tinggi)",
-      tanya: "Suatu kumpulan data memiliki rata-rata $\\bar{x} = 60$, jangkauan $R = 20$, simpangan baku $S = 8$, dan varians $S^2 = 64$. Setiap nilai data diubah dengan aturan transformasi $y_i = 1,5 x_i - 10$.\n\nTentukan status **BENAR** atau **SALAH** untuk masing-masing pernyataan statistika berikut:",
+      tanya: `Diberikan tabel distribusi frekuensi hasil ulangan harian matematika 40 siswa sebagai berikut:
+
+| Nilai Interval | Frekuensi ($f_i$) |
+| :---: | :---: |
+| $51 - 60$ | 6 |
+| $61 - 70$ | 10 |
+| $71 - 80$ | 14 |
+| $81 - 90$ | 7 |
+| $91 - 100$ | 3 |
+
+Tentukan status **BENAR** atau **SALAH** untuk masing-masing pernyataan statistika berikut:`,
       type: "true_false",
       statements: [
-        { id: "s1", text: "Nilai rata-rata baru kumpulan data adalah $\\bar{y} = 80$." },
-        { id: "s2", text: "Nilai jangkauan baru kumpulan data tetap sama yaitu $R_{baru} = 20$." },
-        { id: "s3", text: "Nilai simpangan baku baru kumpulan data menjadi $S_{baru} = 12$." },
-        { id: "s4", text: "Nilai varians baru kumpulan data menjadi $S^2_{baru} = 96$." }
+        { id: "s1", text: "Tepi bawah kelas modus dari tabel distribusi data tersebut adalah $70,5$." },
+        { id: "s2", text: "Panjang kelas interval ($p$) pada tabel tersebut bernilai $9$." },
+        { id: "s3", text: "Letak kelas median data berada pada kelas interval $71 - 80$." },
+        { id: "s4", text: "Jangkauan kasar (*crude range*) berdasarkan selisih titik tengah kelas tertinggi dan terendah adalah $50$." }
       ]
     },
     {
@@ -113,12 +123,12 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
   const EXIT_TICKET_DATA = [
     {
       no: 1,
-      tanya: "Jika setiap nilai data dalam suatu kelompok ditambah dengan konstanta 10, mengapa nilai simpangan baku dan jangkauannya tidak mengalami perubahan sama sekali?",
+      tanya: "Mengapa nilai simpangan baku ($S$) dari sekumpulan data pengukuran tidak pernah bernilai negatif ($S \\ge 0$)?",
       opsi: [
-        { id: "A", text: "Karena rata-rata data tidak mengalami perubahan setelah penambahan konstanta." },
-        { id: "B", text: "Karena operasi penjumlahan konstanta hanya menggeser seluruh titik data sama jauh tanpa mengubah selisih/jarak relatif $(x_i - \\bar{x})$." },
-        { id: "C", text: "Karena simpangan baku selalu bernilai nol untuk data yang berurutan." },
-        { id: "D", text: "Karena rumus simpangan baku hanya dipengaruhi oleh nilai data maksimum." }
+        { id: "A", text: "Karena rumus simpangan baku selalu membagi data dengan rata-rata yang bernilai positif." },
+        { id: "B", text: "Karena setiap deviasi $(x_i - \\bar{x})$ dikuadratkan sehingga non-negatif, dan akar kuadrat utama dari bilangan non-negatif selalu bernilai non-negatif." },
+        { id: "C", text: "Karena simpangan baku hanya dapat dihitung jika seluruh nilai data mentah bernilai positif." },
+        { id: "D", text: "Karena nilai simpangan baku selalu identik dengan nilai jangkauan data." }
       ]
     },
     {
@@ -842,7 +852,7 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
             <!-- SOAL 1 -->
             <div class="p-6 rounded-2xl bg-[#0F172A] border border-slate-800 space-y-4">
               <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                <span class="text-xs font-bold text-sky-400">Soal Reflektif 1: Sifat Transformasi &amp; Jarak Relatif Data</span>
+                <span class="text-xs font-bold text-sky-400">Soal Reflektif 1: Konsep Matematis Simpangan Baku</span>
                 <span class="text-[11px] font-mono text-slate-400">Bobot: 50 Poin</span>
               </div>
               <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
