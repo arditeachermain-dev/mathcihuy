@@ -8,7 +8,7 @@
   'use strict';
 
   // --------------------------------------------------------------------------
-  // 1. DATA KISI-KISI & SOAL 4 FORMAT STANDAR (ZERO FRONTEND ANSWER KEYS)
+  // 1. DATA KISI-KISI & SOAL 4 FORMAT STANDAR (STATISTIKA KELAS XII)
   // --------------------------------------------------------------------------
   const AUCTION_ROUNDS = [
     {
@@ -16,18 +16,36 @@
       formatTitle: "Format 1: Pilihan Ganda Tunggal (Single Choice)",
       formatBadge: "Single Choice",
       formatBadgeColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
-      indikator: "Menentukan nilai integral tentu aljabar bentuk pecahan rasional menggunakan teknik substitusi variabel berpangkat ganjil.",
-      domain: "Kalkulus Integral Tentu • Level C4 Analisis",
+      indikator: "Menganalisis tabel distribusi frekuensi data berkelompok dengan frekuensi tak tentu k berdasarkan nilai modus, kemudian menentukan nilai Kuartil Atas (Q3).",
+      domain: "Statistika Data Berkelompok • Level C4 Analisis",
       estimasiWaktu: "4 Menit",
       rekomendasiTaruhan: "150 - 250 Poin (Tingkat Risiko Sedang)",
-      tanya: "Tentukan nilai eksak dari integral tentu berikut:\n$$\\int_{0}^{2} \\frac{x^3}{\\sqrt{x^2 + 1}} \\, dx$$",
+      tanya: `Diberikan tabel distribusi frekuensi nilai ujian matematika siswa kelas XII:
+<div class="overflow-x-auto my-3">
+  <table class="w-full text-center text-xs border border-slate-700 bg-slate-900 rounded-xl">
+    <thead class="bg-slate-800 text-amber-300 font-bold">
+      <tr>
+        <th class="p-2 border border-slate-700">Interval Nilai</th>
+        <th class="p-2 border border-slate-700">Frekuensi</th>
+      </tr>
+    </thead>
+    <tbody class="text-slate-200 font-mono">
+      <tr><td class="p-2 border border-slate-800">51 – 60</td><td class="p-2 border border-slate-800">4</td></tr>
+      <tr><td class="p-2 border border-slate-800">61 – 70</td><td class="p-2 border border-slate-800">8</td></tr>
+      <tr class="bg-amber-500/10 text-amber-200 font-bold"><td class="p-2 border border-slate-800">71 – 80 (Kelas Modus)</td><td class="p-2 border border-slate-800">k</td></tr>
+      <tr><td class="p-2 border border-slate-800">81 – 90</td><td class="p-2 border border-slate-800">10</td></tr>
+      <tr><td class="p-2 border border-slate-800">91 – 100</td><td class="p-2 border border-slate-800">6</td></tr>
+    </tbody>
+  </table>
+</div>
+Jika modus dari data berkelompok tersebut adalah <b>76,5</b>, tentukan nilai <b>Kuartil Atas ($Q_3$)</b> data tersebut!`,
       type: "single_choice",
       opsi: [
-        { id: "A", text: "$$\\frac{2}{3}(1 + 2\\sqrt{5})$$" },
-        { id: "B", text: "$$\\frac{2}{3}(5\\sqrt{5} - 1)$$" },
-        { id: "C", text: "$$\\frac{2}{3}(2\\sqrt{5} + 1)$$" },
-        { id: "D", text: "$$\\frac{4}{3}(\\sqrt{5} - 1)$$" },
-        { id: "E", text: "$$\\frac{1}{3}(4\\sqrt{5} - 2)$$" }
+        { id: "A", text: "$$83,5$$" },
+        { id: "B", text: "$$84,5$$" },
+        { id: "C", text: "$$86,0$$" },
+        { id: "D", text: "$$87,5$$" },
+        { id: "E", text: "$$88,0$$" }
       ]
     },
     {
@@ -35,17 +53,17 @@
       formatTitle: "Format 2: Pernyataan Benar / Salah (AKM Binary Statements)",
       formatBadge: "AKM Benar / Salah",
       formatBadgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
-      indikator: "Menganalisis 4 pernyataan teoritis dan kalkulatif mengenai validitas formula substitusi, sifat kesimetrian fungsi ganjil/genap, dan Teorema Fundamental Kalkulus.",
-      domain: "Analisis Teorema Kalkulus • Level C5 Evaluasi",
+      indikator: "Menganalisis pengaruh transformasi linier data yi = 1,5 xi - 10 terhadap ukuran pemusatan (Rata-rata) dan ukuran penyebaran (Jangkauan, Simpangan Baku, dan Varians).",
+      domain: "Ukuran Pemusatan & Penyebaran • Level C5 Evaluasi",
       estimasiWaktu: "5 Menit",
       rekomendasiTaruhan: "200 - 300 Poin (Tingkat Risiko Tinggi)",
-      tanya: "Periksalah kebenaran masing-masing pernyataan matematis berikut ini:",
+      tanya: "Suatu kumpulan data memiliki rata-rata $\\bar{x} = 60$, jangkauan $R = 20$, simpangan baku $S = 8$, dan varians $S^2 = 64$. Setiap nilai data diubah dengan aturan transformasi $y_i = 1,5 x_i - 10$.\n\nTentukan status **BENAR** atau **SALAH** untuk masing-masing pernyataan statistika berikut:",
       type: "true_false",
       statements: [
-        { id: "s1", text: "Jika $n \\neq -1$, maka berlaku $\\int f'(x) [f(x)]^n dx = \\frac{1}{n+1}[f(x)]^{n+1} + C$." },
-        { id: "s2", text: "Nilai integral $\\int_{-\\pi}^{\\pi} x^3 \\cos(x) dx = 0$ karena fungsi integrannya merupakan fungsi ganjil simetris." },
-        { id: "s3", text: "Jika $\\int_{0}^{4} f(x) dx = 8$, maka nilai $\\int_{0}^{2} x f(x^2) dx = 8$." },
-        { id: "s4", text: "Metode Tanzalin (parsial tabular) selalu menghasilkan turunan berujung nol untuk polinomial berderajat $n$." }
+        { id: "s1", text: "Nilai rata-rata baru kumpulan data adalah $\\bar{y} = 80$." },
+        { id: "s2", text: "Nilai jangkauan baru kumpulan data tetap sama yaitu $R_{baru} = 20$." },
+        { id: "s3", text: "Nilai simpangan baku baru kumpulan data menjadi $S_{baru} = 12$." },
+        { id: "s4", text: "Nilai varians baru kumpulan data menjadi $S^2_{baru} = 96$." }
       ]
     },
     {
@@ -53,11 +71,15 @@
       formatTitle: "Format 3: Kecukupan Data (UTBK SNBT Data Sufficiency)",
       formatBadge: "Kecukupan Data",
       formatBadgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
-      indikator: "Mengevaluasi apakah informasi pada pernyataan (1) dan/atau pernyataan (2) cukup untuk menentukan nilai parameter konstanta pemotong luas daerah parabola.",
-      domain: "Pemodelan Geometri Luas • Level C4 Penalaran",
+      indikator: "Mengevaluasi kecukupan data informasi (1) dan (2) untuk menentukan kemiringan garis regresi b pada persamaan regresi linier y = a + bx.",
+      domain: "Analisis Data Bivariat & Garis Regresi • Level C4 Penalaran",
       estimasiWaktu: "4 Menit",
       rekomendasiTaruhan: "200 - 250 Poin (Tingkat Risiko Taktis)",
-      tanya: "Berapakah luas daerah tertutup $L$ yang dibatasi oleh parabola $y = x^2 - 4$ dan garis mendatar $y = k$?\n\nPutuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut:\n(1) Garis $y = k$ melalui titik koordinat $(0, 5)$.\n(2) Gradien garis singgung parabola di salah satu titik potongnya dengan garis $y = k$ bernilai $6$.",
+      tanya: `Diberikan sekumpulan data bivariat $(x_i, y_i)$ sebanyak $n = 10$ pasangan pengamatan. Apakah dapat ditentukan nilai kemiringan (gradien) garis regresi linier $b$ pada persamaan $\\hat{y} = a + bx$?
+
+Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut:
+(1) Diketahui nilai koefisien korelasi Pearson $r = 0,80$, simpangan baku $s_x = 4$, dan simpangan baku $s_y = 6$.
+(2) Diketahui nilai $\\sum (x_i - \\bar{x})^2 = 160$ dan $\\sum (x_i - \\bar{x})(y_i - \\bar{y}) = 192$.`,
       type: "data_sufficiency",
       opsi: [
         { id: "A", text: "Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup." },
@@ -72,41 +94,41 @@
       formatTitle: "Format 4: Pilihan Ganda Kompleks (Complex Checkbox MC)",
       formatBadge: "Pilihan Ganda Kompleks",
       formatBadgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40",
-      indikator: "Memvalidasi seluruh opsi transformasi integral eksponensial trigonometri, perubahan batas integrasi, dan nilai akhirnya.",
-      domain: "Integrasi Transendental • Level C5 Analisis Lanjut",
+      indikator: "Memvalidasi seluruh pernyataan analisis kuartil data, jangkauan interkuartil, simpangan kuartil, batas pagar, dan penyaringan data pencilan (outlier).",
+      domain: "Ukuran Letak & Deteksi Pencilan • Level C5 Analisis Lanjut",
       estimasiWaktu: "5 Menit",
       rekomendasiTaruhan: "250 - 300 Poin (Grand Finale Bidding)",
-      tanya: "Diberikan bentuk integral tentu:\n$$I = \\int_{0}^{\\frac{\\pi}{2}} \\sin(2x) e^{\\sin^2(x)} \\, dx$$\nManakah pernyataan berikut yang bernilai **BENAR**? *(Pilih semua pernyataan yang benar)*",
+      tanya: "Dari survei skor asesmen numerasi 100 siswa, diperoleh nilai kuartil bawah $Q_1 = 58$, median $Me = 70$, dan kuartil atas $Q_3 = 82$. Manakah pernyataan analisis data berikut yang bernilai **BENAR**? *(Pilih semua pernyataan yang benar)*",
       type: "complex_mc",
       opsi: [
-        { id: "opt1", text: "(1) Substitusi $u = \\sin^2(x)$ menghasilkan diferensial $du = \\sin(2x) dx$." },
-        { id: "opt2", text: "(2) Batas bawah bertransformasi menjadi $u = 0$ dan batas atas menjadi $u = 1$." },
-        { id: "opt3", text: "(3) Bentuk integral baru terdefinisi menjadi $\\int_{0}^{1} e^u du$." },
-        { id: "opt4", text: "(4) Nilai evaluasi eksak integral tersebut adalah $e - 1$." }
+        { id: "opt1", text: "(1) Jangkauan interkuartil ($QR$) data tersebut adalah $24$." },
+        { id: "opt2", text: "(2) Simpangan kuartil ($Q_d$) dari data tersebut adalah $12$." },
+        { id: "opt3", text: "(3) Batas pagar atas untuk menyaring data pencilan (*outlier*) adalah $118$." },
+        { id: "opt4", text: "(4) Siswa yang memperoleh skor $40$ tidak dikategorikan sebagai data pencilan bawah." }
       ]
     }
   ];
 
-  // MINI MASTERY CHECK (EXIT TICKET INDIVIDU 3 MENIT)
+  // MINI MASTERY CHECK (EXIT TICKET INDIVIDU 3 MENIT - STATISTIKA)
   const EXIT_TICKET_DATA = [
     {
       no: 1,
-      tanya: "Seorang siswa menjawab $\\int \\cos(3x) dx = \\sin(3x) + C$. Di manakah letak kesalahan konseptual siswa tersebut menurut aturan turunan rantai?",
+      tanya: "Jika setiap nilai data dalam suatu kelompok ditambah dengan konstanta 10, mengapa nilai simpangan baku dan jangkauannya tidak mengalami perubahan sama sekali?",
       opsi: [
-        { id: "A", text: "Turunan dari $\\cos(x)$ seharusnya $-\\sin(x)$, sehingga tanda hasil harus minus." },
-        { id: "B", text: "Siswa mengabaikan diferensial substitusi $u = 3x \\implies dx = \\frac{1}{3}du$, sehingga kurang faktor $\\frac{1}{3}$." },
-        { id: "C", text: "Integral trigonometri tidak dapat diselesaikan dengan substitusi aljabar." },
-        { id: "D", text: "Argumen sudut $3x$ harus dikuadratkan terlebih dahulu." }
+        { id: "A", text: "Karena rata-rata data tidak mengalami perubahan setelah penambahan konstanta." },
+        { id: "B", text: "Karena operasi penjumlahan konstanta hanya menggeser seluruh titik data sama jauh tanpa mengubah selisih/jarak relatif $(x_i - \\bar{x})$." },
+        { id: "C", text: "Karena simpangan baku selalu bernilai nol untuk data yang berurutan." },
+        { id: "D", text: "Karena rumus simpangan baku hanya dipengaruhi oleh nilai data maksimum." }
       ]
     },
     {
       no: 2,
-      tanya: "Saat menghadapi soal integral pecahan bentuk akar di penyebut $\\int \\frac{g'(x)}{\\sqrt{g(x)}} dx$, strategi paling efisien untuk menyelesaikannya dalam waktu 30 detik tanpa coretan panjang adalah...",
+      tanya: "Dalam analisis data bivariat antara lama jam belajar ($X$) dan nilai ujian ($Y$), diperoleh nilai koefisien korelasi Pearson $r = -0,88$. Interpretasi paling tepat mengenai hubungan kedua variabel tersebut adalah...",
       opsi: [
-        { id: "A", text: "Mengalikan pembilang dan penyebut dengan bentuk akar sekawan." },
-        { id: "B", text: "Menggunakan metode integrasi parsial Tanzalin tabular berulang dua kali." },
-        { id: "C", text: "Menggunakan bentuk baku antiturunan $\\int [g(x)]^{-1/2} g'(x) dx = 2\\sqrt{g(x)} + C$." },
-        { id: "D", text: "Mengubah integran menjadi pecahan desimal berulang." }
+        { id: "A", text: "Hubungan antara variabel $X$ dan $Y$ sangat lemah karena nilainya bertanda negatif." },
+        { id: "B", text: "Sebanyak 88% data bernilai salah akibat adanya galat pengukuran." },
+        { id: "C", text: "Terdapat hubungan linier negatif yang sangat kuat; ketika nilai $X$ meningkat, nilai $Y$ cenderung mengalami penurunan secara konsisten." },
+        { id: "D", text: "Garis regresi tidak dapat dibentuk karena koefisien korelasi bertanda negatif." }
       ]
     }
   ];
@@ -840,7 +862,7 @@
                     <span class="w-5 h-5 rounded-full bg-emerald-500 text-slate-950 text-[10px] inline-flex items-center justify-center font-bold">3</span>
                     Umpan Balik Sticky Notes:
                   </div>
-                  <p class="text-slate-400">Tinggalkan minimal 1 apresiasi dan 1 pertanyaan kritis atau alternatif rumus Tanzalin yang lebih cepat.</p>
+                  <p class="text-slate-400">Tinggalkan minimal 1 apresiasi dan 1 pertanyaan kritis atau alternatif metode hitung cepat (misal: Coding Rataan Sementara, Interpolasi Median/Modus, atau Estimasi Regresi) yang lebih ringkas.</p>
                 </div>
               </div>
             </div>
@@ -938,7 +960,7 @@
             <!-- SOAL 1 -->
             <div class="p-6 rounded-2xl bg-[#0F172A] border border-slate-800 space-y-4">
               <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                <span class="text-xs font-bold text-sky-400">Soal Reflektif 1: Jebakan Turunan Rantai</span>
+                <span class="text-xs font-bold text-sky-400">Soal Reflektif 1: Sifat Transformasi &amp; Jarak Relatif Data</span>
                 <span class="text-[11px] font-mono text-slate-400">Bobot: 50 Poin</span>
               </div>
               <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
@@ -962,7 +984,7 @@
             <!-- SOAL 2 -->
             <div class="p-6 rounded-2xl bg-[#0F172A] border border-slate-800 space-y-4">
               <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                <span class="text-xs font-bold text-emerald-400">Soal Reflektif 2: Manajemen Risiko &amp; Kecepatan UTBK</span>
+                <span class="text-xs font-bold text-emerald-400">Soal Reflektif 2: Interpretasi Korelasi Bivariat Pearson</span>
                 <span class="text-[11px] font-mono text-slate-400">Bobot: 50 Poin</span>
               </div>
               <p class="text-xs md:text-sm text-slate-200 leading-relaxed">

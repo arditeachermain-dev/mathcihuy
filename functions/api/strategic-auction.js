@@ -1,5 +1,5 @@
 // functions/api/strategic-auction.js
-// Cloudflare D1 Backend for Pertemuan 2: Strategic Auction & Gallery Walk
+// Cloudflare D1 Backend for Pertemuan 2: Strategic Auction & Gallery Walk (Statistika Kelas XII)
 // SMA Global Islamic School 2 Serpong • Mr. Muhammad Ardiansyah, S.Pd.Gr.
 // SECURITY AUDIT: ZERO FRONTEND KEYS & ZERO SPOILERS.
 // All official evaluation and answer keys are strictly stored on the server.
@@ -7,31 +7,31 @@
 import { jsonResponse } from './_auth.js';
 import { updateStudentGamification } from './gamifikasi.js';
 
-// RAHASIA GURU: KUNCI JAWABAN RESMI 4 TIPE SOAL BURSA & 2 EXIT TICKET
+// RAHASIA GURU: KUNCI JAWABAN RESMI 4 TIPE SOAL BURSA & 2 EXIT TICKET (STATISTIKA)
 const SECRET_AUCTION_DATA = {
-  // 4 Soal Bursa Taruhan Poin Kelompok
+  // 4 Soal Bursa Taruhan Poin Kelompok (Statistika Data Berkelompok & Bivariat)
   questions: {
     1: {
       type: "single_choice",
-      key: "C" // \int_0^2 \frac{x^3}{\sqrt{x^2+1}} dx = \frac{2}{3}(2 - \sqrt{5}) + \dots
+      key: "C" // Nilai Kuartil Atas Q3 = 86,0
     },
     2: {
       type: "true_false",
-      key: { s1: true, s2: true, s3: false, s4: true }
+      key: { s1: true, s2: false, s3: true, s4: false } // (1) Benar, (2) Salah, (3) Benar, (4) Salah
     },
     3: {
       type: "data_sufficiency",
-      key: "D" // Masing-masing pernyataan (1) SAJA cukup, dan (2) SAJA cukup
+      key: "D" // Pernyataan (1) SAJA cukup dan (2) SAJA cukup untuk menentukan kemiringan garis regresi b
     },
     4: {
       type: "complex_mc",
-      key: ["opt1", "opt2", "opt3", "opt4"] // Keempat pernyataan bernilai BENAR
+      key: ["opt1", "opt2", "opt3", "opt4"] // Keempat pernyataan bernilai BENAR (QR, Qd, Pagar Atas, Outlier)
     }
   },
-  // 2 Soal Mini Mastery Check (Exit Ticket Individu)
+  // 2 Soal Mini Mastery Check (Exit Ticket Individu Statistika)
   exitTicket: {
-    1: "B", // Faktor turunan rantai 1/3
-    2: "C"  // Menguji kelipatan turunan fungsi dalam akar
+    1: "B", // Penjumlahan konstanta tidak mengubah simpangan baku karena jarak (xi - xbar) tetap
+    2: "C"  // Hubungan linier negatif yang sangat kuat (r = -0,88)
   }
 };
 
@@ -282,8 +282,8 @@ export async function onRequestPost(context) {
         is_correct1: isCor1 === 1,
         is_correct2: isCor2 === 1,
         feedback: {
-          q1_explanation: "Substitusi $u = 3x$ mewajibkan penyesuaian diferensial $du = 3 dx \\implies dx = \\frac{1}{3}du$, sehingga muncul faktor $\\frac{1}{3}$.",
-          q2_explanation: "Strategi cepat: Periksa apakah pembilang merupakan turunan dari fungsi di dalam akar untuk langsung menerapkan pola $\\int \\frac{g'(x)}{\\sqrt{g(x)}} dx = 2\\sqrt{g(x)} + C$."
+          q1_explanation: "Penambahan setiap data dengan konstanta hanya menggeser posisi seluruh data secara seragam, sehingga selisih jarak $(x_i - \\bar{x})$ tetap konstan dan ukuran penyebaran (Simpangan Baku, Varians, Jangkauan) tidak mengalami perubahan.",
+          q2_explanation: "Nilai koefisien korelasi Pearson $r = -0,88$ menunjukkan hubungan linier negatif yang sangat kuat; ketika nilai variabel bebas $X$ meningkat, nilai variabel terikat $Y$ cenderung mengalami penurunan secara konsisten."
         }
       });
     }
