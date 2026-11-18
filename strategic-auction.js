@@ -71,15 +71,15 @@ Jika modus dari data berkelompok tersebut adalah <b>76,5</b>, tentukan nilai <b>
       formatTitle: "Format 3: Kecukupan Data (UTBK SNBT Data Sufficiency)",
       formatBadge: "Kecukupan Data",
       formatBadgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
-      indikator: "Mengevaluasi kecukupan data informasi (1) dan (2) untuk menentukan kemiringan garis regresi b pada persamaan regresi linier y = a + bx.",
-      domain: "Analisis Data Bivariat & Garis Regresi • Level C4 Penalaran",
+      indikator: "Mengevaluasi kecukupan data informasi (1) dan (2) untuk menentukan nilai rata-rata hitung (Mean) data berkelompok dengan metode rataan sementara.",
+      domain: "Ukuran Pemusatan Data Berkelompok • Level C4 Penalaran",
       estimasiWaktu: "4 Menit",
       rekomendasiTaruhan: "200 - 250 Poin (Tingkat Risiko Taktis)",
-      tanya: `Diberikan sekumpulan data bivariat $(x_i, y_i)$ sebanyak $n = 10$ pasangan pengamatan. Apakah dapat ditentukan nilai kemiringan (gradien) garis regresi linier $b$ pada persamaan $\\hat{y} = a + bx$?
+      tanya: `Diberikan tabel distribusi frekuensi data berkelompok hasil pengukuran yang terdiri dari 5 kelas interval dengan panjang kelas $p = 5$. Berapakah nilai rata-rata hitung ($\\bar{x}$) dari data tersebut?
 
 Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut:
-(1) Diketahui nilai koefisien korelasi Pearson $r = 0,80$, simpangan baku $s_x = 4$, dan simpangan baku $s_y = 6$.
-(2) Diketahui nilai $\\sum (x_i - \\bar{x})^2 = 160$ dan $\\sum (x_i - \\bar{x})(y_i - \\bar{y}) = 192$.`,
+(1) Dipilih nilai rataan sementara $x_s = 62$ dengan jumlah deviasi berbobot $\\sum f_i d_i = +45$.
+(2) Jumlah seluruh frekuensi pengamatan pada tabel tersebut adalah $\\sum f_i = 30$.`,
       type: "data_sufficiency",
       opsi: [
         { id: "A", text: "Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup." },
@@ -123,12 +123,12 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
     },
     {
       no: 2,
-      tanya: "Dalam analisis data bivariat antara lama jam belajar ($X$) dan nilai ujian ($Y$), diperoleh nilai koefisien korelasi Pearson $r = -0,88$. Interpretasi paling tepat mengenai hubungan kedua variabel tersebut adalah...",
+      tanya: "Dalam menyusun tabel distribusi frekuensi dari 100 data nilai ujian, diketahui nilai minimum 41 dan maksimum 95 ($Jangkauan = 54$). Menggunakan aturan Sturgess $k = 1 + 3,3 \\log_{10}(100) = 7,6 \\approx 8$ kelas, dihitung estimasi panjang kelas interval: $$p = \\frac{\\text{Jangkauan}}{k} = \\frac{54}{8} = 6,75$$ Manakah keputusan pembulatan panjang kelas interval ($p$) yang paling tepat secara metodologis beserta alasannya?",
       opsi: [
-        { id: "A", text: "Hubungan antara variabel $X$ dan $Y$ sangat lemah karena nilainya bertanda negatif." },
-        { id: "B", text: "Sebanyak 88% data bernilai salah akibat adanya galat pengukuran." },
-        { id: "C", text: "Terdapat hubungan linier negatif yang sangat kuat; ketika nilai $X$ meningkat, nilai $Y$ cenderung mengalami penurunan secara konsisten." },
-        { id: "D", text: "Garis regresi tidak dapat dibentuk karena koefisien korelasi bertanda negatif." }
+        { id: "A", text: "Dibulatkan ke atas menjadi $p = 7$, agar seluruh rentang data dari 41 hingga 95 dijamin tertampung penuh ke dalam 8 kelas interval ($8 \\times 7 = 56 \\ge 54$)." },
+        { id: "B", text: "Dibulatkan ke bawah menjadi $p = 6$, agar interval kelas lebih padat dan tidak ada kelas yang memiliki frekuensi nol." },
+        { id: "C", text: "Dibulatkan ke bilangan genap terdekat yaitu $p = 8$, agar mempermudah penentuan titik tengah $(x_i)$ kelas interval." },
+        { id: "D", text: "Dibiarkan dalam bentuk bilangan desimal $p = 6,75$, agar perhitungan rata-rata dan simpangan baku tetap presisi." }
       ]
     }
   ];
@@ -866,7 +866,7 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
             <!-- SOAL 2 -->
             <div class="p-6 rounded-2xl bg-[#0F172A] border border-slate-800 space-y-4">
               <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                <span class="text-xs font-bold text-emerald-400">Soal Reflektif 2: Interpretasi Korelasi Bivariat Pearson</span>
+                <span class="text-xs font-bold text-emerald-400">Soal Reflektif 2: Aturan Penyusunan Tabel Distribusi Frekuensi</span>
                 <span class="text-[11px] font-mono text-slate-400">Bobot: 50 Poin</span>
               </div>
               <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
@@ -1056,7 +1056,7 @@ Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan t
                 <i class="fa-solid fa-lightbulb"></i> Tips Manajemen Risiko
               </div>
               <p class="text-xs text-slate-300 leading-relaxed">
-                Kelompok yang sukses tidak selalu memasang 300 poin di setiap ronde. Gunakan taruhan konservatif (100–150 Pts) saat menghadapi soal C5 evaluasi dan maksimalkan taruhan agresif saat menemukan pola statistika & regresi bivariat yang telah dikuasai!
+                Kelompok yang sukses tidak selalu memasang 300 poin di setiap ronde. Gunakan taruhan konservatif (100–150 Pts) saat menghadapi soal C5 evaluasi dan maksimalkan taruhan agresif saat menemukan pola pemusatan dan penyebaran data yang telah dikuasai!
               </p>
             </div>
           </div>

@@ -9,7 +9,7 @@ import { updateStudentGamification } from './gamifikasi.js';
 
 // RAHASIA GURU: KUNCI JAWABAN RESMI 4 TIPE SOAL BURSA & 2 EXIT TICKET (STATISTIKA)
 const SECRET_AUCTION_DATA = {
-  // 4 Soal Bursa Taruhan Poin Kelompok (Statistika Data Berkelompok & Bivariat)
+  // 4 Soal Bursa Taruhan Poin Kelompok (Tabel Distribusi, Pemusatan & Penyebaran Data)
   questions: {
     1: {
       type: "single_choice",
@@ -21,7 +21,7 @@ const SECRET_AUCTION_DATA = {
     },
     3: {
       type: "data_sufficiency",
-      key: "D" // Pernyataan (1) SAJA cukup dan (2) SAJA cukup untuk menentukan kemiringan garis regresi b
+      key: "C" // DUA pernyataan BERSAMA-SAMA cukup untuk menghitung rata-rata xbar = xs + sum(fi*di)/sum(fi)
     },
     4: {
       type: "complex_mc",
@@ -31,7 +31,7 @@ const SECRET_AUCTION_DATA = {
   // 2 Soal Mini Mastery Check (Exit Ticket Individu Statistika)
   exitTicket: {
     1: "B", // Penjumlahan konstanta tidak mengubah simpangan baku karena jarak (xi - xbar) tetap
-    2: "C"  // Hubungan linier negatif yang sangat kuat (r = -0,88)
+    2: "A"  // Pembulatan panjang kelas p selalu ke atas agar 8 * 7 = 56 >= 54
   }
 };
 
@@ -283,7 +283,7 @@ export async function onRequestPost(context) {
         is_correct2: isCor2 === 1,
         feedback: {
           q1_explanation: "Penambahan setiap data dengan konstanta hanya menggeser posisi seluruh data secara seragam, sehingga selisih jarak $(x_i - \\bar{x})$ tetap konstan dan ukuran penyebaran (Simpangan Baku, Varians, Jangkauan) tidak mengalami perubahan.",
-          q2_explanation: "Nilai koefisien korelasi Pearson $r = -0,88$ menunjukkan hubungan linier negatif yang sangat kuat; ketika nilai variabel bebas $X$ meningkat, nilai variabel terikat $Y$ cenderung mengalami penurunan secara konsisten."
+          q2_explanation: "Dalam kaidah penyusunan tabel distribusi frekuensi, nilai panjang kelas interval ($p$) harus selalu dibulatkan ke atas menjadi $p = 7$ agar rentang kapasitas 8 kelas interval ($8 \\times 7 = 56$) dapat menampung seluruh jangkauan sebaran data ($54$) hingga data maksimum."
         }
       });
     }
