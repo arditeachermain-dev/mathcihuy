@@ -1,0 +1,45 @@
+# Cloudflare Pages Deployment Ignore Rules (.cfignore)
+# Prevent non-production scripts, SQL migrations, docs, backups, and private files from being served publicly.
+
+.git/
+.github/
+.agents/
+.wrangler/
+node_modules/
+scratch/
+__pycache__/
+Claude outputs/
+
+# Documentation & private archives
+*.md
+*.txt
+*.bak
+*.BAK_WITH_KEYS
+*.SESUDAH-MIGRASI
+daftar_akun_xii.md
+PROMPT-LENGKAPI-MATERI.md
+tka_questions_dump.txt
+
+# Local tools, DB scripts & Apps Script
+*.py
+*.bat
+*.gs
+*.sql
+server_offline.py
+JALANKAN_SERVER_OFFLINE.bat
+google-apps-script.gs
+test_rls_security.py
+SETUP_SUPABASE_DATABASE.sql
+MIGRASI_*.sql
+
+# Printable exam PDFs & static exam crops (serve via authenticated endpoints if needed)
+*.pdf
+PTS_*
+PAKET_TRYOUT_*
+PEMBAHASAN_TRYOUT_*
+paket_tryout_*
+pembahasan_tryout_*
+BANK_SOAL_PTS_CROP_PNG/
+daily-raid-data.js
+weekly-raid-data.js
+materi-slide-lengkap.json

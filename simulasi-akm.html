@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="id" class="terang h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Simulasi ANBK & TKA Pusmendik • Literasi Numerasi Kelas XII • Math Cihuy</title>
+  <link rel="icon" type="image/png" href="icon-192.png">
+
+  <!-- Core MathCihuy & KaTeX Styles -->
+  <link rel="stylesheet" href="mathcihuy.css?v=v20261017_softslate_v1">
+  <script src="vendor.js?v=v1788449850"></script>
+  <script src="data-akm.js?v=v20261126_nokeys"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadAkmTurnstile&render=explicit" async defer></script>
+
+  <style>
+    /* =========================================================================
+       1. BULLETPROOF LIGHT THEME OVERRIDES (PUSMENDIK STANDARDIZED)
+       ========================================================================= */
+    :root {
+      --pus-bg: #f8fafc;
+      --pus-surface: #ffffff;
+      --pus-surface-alt: #f1f5f9;
+      --pus-border: #e2e8f0;
+      --pus-border-strong: #cbd5e1;
+      --pus-text-main: #1e293b;
+      --pus-text-muted: #64748b;
+      --pus-primary: #2563eb;
+      --pus-primary-hover: #1d4ed8;
+      --pus-primary-light: #eff6ff;
+      --pus-ragu-bg: #fffbeb;
+      --pus-ragu-border: #fde68a;
+      --pus-ragu-text: #92400e;
+      --pus-ragu-active-bg: #f59e0b;
+      --pus-success: #16a34a;
+      --pus-danger: #dc2626;
+    }
+
+    html, html.terang, body, html body {
+      background: #F8FAFC !important;
+      background-color: #F8FAFC !important;
+      background-image: none !important;
+      color: #1E293B !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before, body::after, html::before, html::after {
+      display: none !important;
+      content: none !important;
+      background: none !important;
+    }
+
+    /* KaTeX Mathematical Formulas (Crisp Dark Text on Light Surface) */
+    .katex, .katex *, .katex-display, .katex-display * {
+      color: #0F172A !important;
+      font-size: 1.05em;
+    }
+
+    /* Primary Container Surfaces */
+    html.terang header.atlantis-header, html header.atlantis-header, header.atlantis-header {
+      background: linear-gradient(135deg, #1269db 0%, #1572e8 100%) !important;
+      border-bottom: 2px solid #0d5bb5 !important;
+      color: #FFFFFF !important;
+    }
+    html.terang header.atlantis-header h1,
+    html.terang header.atlantis-header h2,
+    html.terang header.atlantis-header #header-pkg-title,
+    html.terang header.atlantis-header #user-display-name,
+    html.terang header.atlantis-header .cbt-badge,
+    html.terang header.atlantis-header span.text-white {
+      color: #FFFFFF !important;
+    }
+    html.terang header.atlantis-header #user-display-nis,
+    html.terang header.atlantis-header .text-blue-100 {
+      color: #DBEAFE !important;
+    }
+    html.terang header.atlantis-header .text-blue-200 {
+      color: #BFDBFE !important;
+    }
+    html.terang header.atlantis-header #pusmendik-timer {
+      color: #0F172A !important;
+    }
+    html.terang header.atlantis-header .timer-label {
+      color: #64748B !important;
+    }
+    html.terang header.atlantis-header .cbt-badge {
+      background-color: rgba(255, 255, 255, 0.22) !important;
+      border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    }
+    footer {
+      background-color: #FFFFFF !important;
+      border-color: #E2E8F0 !important;
+      color: #1E293B !important;
+    }
+
+    /* Split Screen Panels Layout & Cards */
+    .split-panel {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+      height: calc(100vh - 134px) !important;
+      min-height: 480px !important;
+    }
+    @media (min-width: 768px) {
+      .split-panel {
+        grid-template-columns: 1fr 1fr !important;
+      }
+    }
+    @media (max-width: 768px) {
+      .split-panel {
+        height: auto !important;
+        min-height: auto !important;
+      }
+    }
+
+    .split-panel > section {
+      background-color: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      border-radius: 1rem !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
+      min-height: 0 !important;
+    }
+
+    /* Surface Backgrounds */
+    .bg-white { background-color: #FFFFFF !important; }
+    .bg-slate-50, .bg-\[\#F8FAFC\] { background-color: #F8FAFC !important; }
+    .bg-slate-100 { background-color: #F1F5F9 !important; }
+    .bg-slate-200 { background-color: #E2E8F0 !important; }
+    .bg-slate-800 { background-color: #1E293B !important; }
+    .bg-blue-50, .bg-blue-50\/30, .bg-blue-50\/60, .bg-blue-50\/70 { background-color: #EFF6FF !important; }
+    .bg-blue-100 { background-color: #DBEAFE !important; }
+    .bg-amber-50, .bg-amber-50\/80 { background-color: #FFFBEB !important; }
+    .bg-amber-100 { background-color: #FEF3C7 !important; }
+    .bg-amber-200 { background-color: #FDE68A !important; }
+    .bg-emerald-50 { background-color: #ECFDF5 !important; }
+    .bg-emerald-100 { background-color: #D1FAE5 !important; }
+    .bg-emerald-600 { background-color: #059669 !important; }
+    .bg-rose-50, .bg-rose-50\/30, .bg-rose-50\/70 { background-color: #FFF1F2 !important; }
+    .bg-rose-100 { background-color: #FFE4E6 !important; }
+    .bg-purple-50, .bg-purple-50\/60 { background-color: #FAF5FF !important; }
+    .bg-\[\#2563EB\] { background-color: #2563EB !important; }
+    .bg-\[\#F59E0B\] { background-color: #F59E0B !important; }
+    .bg-\[\#DC2626\] { background-color: #DC2626 !important; }
+
+    /* Hover Backgrounds */
+    .hover\:bg-slate-50:hover, .hover\:bg-slate-50\/60:hover { background-color: #F8FAFC !important; }
+    .hover\:bg-slate-200:hover { background-color: #E2E8F0 !important; }
+    .hover\:bg-slate-900:hover { background-color: #0F172A !important; }
+    .hover\:bg-amber-100\/90:hover { background-color: #FEF3C7 !important; }
+    .hover\:bg-emerald-700:hover { background-color: #047857 !important; }
+    .hover\:bg-\[\#1D4ED8\]:hover { background-color: #1D4ED8 !important; }
+    .hover\:bg-\[\#B91C1C\]:hover { background-color: #B91C1C !important; }
+
+    /* Text Colors */
+    .text-slate-900 { color: #0F172A !important; }
+    .text-slate-800 { color: #1E293B !important; }
+    .text-slate-700 { color: #334155 !important; }
+    .text-slate-600 { color: #475569 !important; }
+    .text-slate-500 { color: #64748B !important; }
+    .text-slate-400 { color: #94A3B8 !important; }
+    .text-white { color: #FFFFFF !important; }
+    .text-blue-600 { color: #2563EB !important; }
+    .text-blue-700 { color: #1D4ED8 !important; }
+    .text-blue-800 { color: #1E40AF !important; }
+    .text-blue-900 { color: #1E3A8A !important; }
+    .text-blue-950 { color: #172554 !important; }
+    .text-amber-500 { color: #F59E0B !important; }
+    .text-amber-600 { color: #D97706 !important; }
+    .text-amber-700 { color: #B45309 !important; }
+    .text-amber-800 { color: #92400E !important; }
+    .text-amber-900 { color: #78350F !important; }
+    .text-amber-950 { color: #451A03 !important; }
+    .text-emerald-600 { color: #059669 !important; }
+    .text-emerald-700 { color: #047857 !important; }
+    .text-emerald-800 { color: #065F46 !important; }
+    .text-rose-500 { color: #F43F5E !important; }
+    .text-rose-600 { color: #E11D48 !important; }
+    .text-rose-700 { color: #BE123C !important; }
+    .text-rose-800 { color: #9F1239 !important; }
+    .text-rose-950 { color: #4C0519 !important; }
+    .text-purple-600 { color: #9333EA !important; }
+    .text-purple-700 { color: #7E22CE !important; }
+    .text-purple-900 { color: #581C87 !important; }
+
+    /* Border Colors */
+    .border-slate-200 { border-color: #E2E8F0 !important; }
+    .border-slate-300 { border-color: #CBD5E1 !important; }
+    .border-blue-100 { border-color: #DBEAFE !important; }
+    .border-blue-200 { border-color: #BFDBFE !important; }
+    .border-blue-300 { border-color: #93C5FD !important; }
+    .border-blue-600 { border-color: #2563EB !important; }
+    .border-amber-200 { border-color: #FDE68A !important; }
+    .border-amber-300 { border-color: #FCD34D !important; }
+    .border-amber-500 { border-color: #F59E0B !important; }
+    .border-emerald-200 { border-color: #A7F3D0 !important; }
+    .border-emerald-300 { border-color: #6EE7B7 !important; }
+    .border-emerald-500 { border-color: #10B981 !important; }
+    .border-rose-200 { border-color: #FECDD3 !important; }
+    .border-rose-300 { border-color: #FDA4AF !important; }
+    .border-rose-400 { border-color: #FB7185 !important; }
+    .border-purple-200 { border-color: #E9D5FF !important; }
+    .hover\:border-slate-400:hover { border-color: #94A3B8 !important; }
+    .focus\:border-blue-500:focus { border-color: #3B82F6 !important; }
+
+    /* Border Widths & Dividers */
+    .border { border-width: 1px !important; }
+    .border-2 { border-width: 2px !important; }
+    .border-b { border-bottom-width: 1px !important; }
+    .border-t { border-top-width: 1px !important; }
+    .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: #F1F5F9 !important; border-top-width: 1px !important; }
+
+    /* Shadows */
+    .shadow-xs { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important; }
+    .shadow-sm { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08) !important; }
+    .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important; }
+
+    /* Sizing & Spacing Utilities (Properly Escaped) */
+    .max-w-\[1700px\] { max-width: 1700px !important; }
+    .max-w-\[140px\] { max-width: 140px !important; }
+    .max-h-\[70vh\] { max-height: 70vh !important; }
+    .max-h-\[90vh\] { max-height: 90vh !important; }
+    .h-2\.5 { height: 0.625rem !important; }
+    .py-0\.5 { padding-top: 0.125rem !important; padding-bottom: 0.125rem !important; }
+    .py-1\.5 { padding-top: 0.375rem !important; padding-bottom: 0.375rem !important; }
+    .py-2\.5 { padding-top: 0.625rem !important; padding-bottom: 0.625rem !important; }
+    .px-1\.5 { padding-left: 0.375rem !important; padding-right: 0.375rem !important; }
+    .px-2\.5 { padding-left: 0.625rem !important; padding-right: 0.625rem !important; }
+    .p-2\.5 { padding: 0.625rem !important; }
+    .p-3\.5 { padding: 0.875rem !important; }
+    .gap-1\.5 { gap: 0.375rem !important; }
+    .gap-2\.5 { gap: 0.625rem !important; }
+    .space-y-0\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.125rem !important; }
+    .space-y-1\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.375rem !important; }
+    .space-y-2\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.625rem !important; }
+    .mt-0\.5 { margin-top: 0.125rem !important; }
+    .my-0\.5 { margin-top: 0.125rem !important; margin-bottom: 0.125rem !important; }
+    .mt-4 { margin-top: 1rem !important; }
+    .mt-6 { margin-top: 1.5rem !important; }
+    .ml-2 { margin-left: 0.5rem !important; }
+    .mr-1\.5 { margin-right: 0.375rem !important; }
+    .pl-4 { padding-left: 1rem !important; }
+
+    /* Modals, Backdrops & Animations */
+    .bg-slate-900\/40 { background-color: rgba(15, 23, 42, 0.4) !important; }
+    .bg-slate-900\/50 { background-color: rgba(15, 23, 42, 0.5) !important; }
+    .duration-150 { transition-duration: 150ms !important; }
+    .duration-1000 { transition-duration: 1000ms !important; }
+    .animate-in { animation: fadeIn 0.15s ease-out !important; }
+    .fade-in { opacity: 1 !important; }
+    .zoom-in-95 { transform: scale(1) !important; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Lists */
+    .list-disc { list-style-type: disc !important; }
+    .list-circle { list-style-type: circle !important; }
+    .list-inside { list-style-position: inside !important; }
+
+    /* Form Controls */
+    .accent-amber-600 { accent-color: #D97706 !important; }
+    .accent-blue-600 { accent-color: #2563EB !important; }
+    .accent-rose-600 { accent-color: #E11D48 !important; }
+    .disabled\:opacity-40:disabled { opacity: 0.4 !important; }
+    .disabled\:pointer-events-none:disabled { pointer-events: none !important; }
+    .active\:scale-95:active { transform: scale(0.95) !important; }
+
+    /* Typography & Micro-sizes */
+    .text-\[9px\] { font-size: 9px !important; }
+    .text-\[10px\] { font-size: 10px !important; }
+    .text-\[11px\] { font-size: 11px !important; }
+    .leading-loose { line-height: 2 !important; }
+
+    /* Select Dropdown in Header */
+    #select-akm-pkg {
+      background-color: #F8FAFC !important;
+      color: #0F172A !important;
+      border: 1px solid #CBD5E1 !important;
+    }
+    #select-akm-pkg option {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+    }
+
+    /* Tables */
+    table {
+      background-color: #FFFFFF !important;
+      color: #1E293B !important;
+      border-collapse: collapse !important;
+    }
+    thead {
+      background-color: #F8FAFC !important;
+      color: #334155 !important;
+    }
+    th {
+      color: #334155 !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+    td {
+      color: #1E293B !important;
+      border-bottom: 1px solid #F1F5F9 !important;
+    }
+
+    /* Modals & Backdrop */
+    .backdrop-blur-xs { backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
+    #modal-daftar-soal, #modal-confirm-finish, #modal-diagnostic-report {
+      background-color: rgba(15, 23, 42, 0.45) !important;
+    }
+
+    /* Responsive Utilities */
+    @media (max-width: 639px) {
+      .xs\:hidden { display: none !important; }
+      .xs\:inline { display: inline !important; }
+    }
+    @media (min-width: 640px) {
+      .sm\:flex { display: flex !important; }
+      .sm\:inline { display: inline !important; }
+      .sm\:flex-row { flex-direction: row !important; }
+      .sm\:items-center { align-items: center !important; }
+      .sm\:flex-none { flex: none !important; }
+      .sm\:w-auto { width: auto !important; }
+      .sm\:w-32 { width: 8rem !important; }
+      .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+      .sm\:px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+      .sm\:px-5 { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+      .sm\:px-6 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+      .sm\:p-3 { padding: 0.75rem !important; }
+      .sm\:p-5 { padding: 1.25rem !important; }
+      .sm\:p-6 { padding: 1.5rem !important; }
+      .sm\:p-8 { padding: 2rem !important; }
+      .sm\:gap-3\.5 { gap: 0.875rem !important; }
+      .sm\:gap-4 { gap: 1rem !important; }
+      .sm\:text-xs { font-size: 0.75rem !important; line-height: 1rem !important; }
+      .sm\:text-sm { font-size: 0.875rem !important; line-height: 1.25rem !important; }
+      .sm\:text-base { font-size: 1rem !important; line-height: 1.5rem !important; }
+      .sm\:text-lg { font-size: 1.125rem !important; line-height: 1.75rem !important; }
+      .sm\:text-2xl { font-size: 1.5rem !important; line-height: 2rem !important; }
+      .sm\:text-6xl { font-size: 3.75rem !important; line-height: 1 !important; }
+    }
+    @media (min-width: 768px) {
+      .md\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
+      .md\:col-span-6 { grid-column: span 6 / span 6 !important; }
+      .md\:gap-4 { gap: 1rem !important; }
+      .md\:p-4 { padding: 1rem !important; }
+      .md\:text-base { font-size: 1rem !important; line-height: 1.5rem !important; }
+      .md\:max-w-\[200px\] { max-width: 200px !important; }
+    }
+    @media (min-width: 1024px) {
+      .lg\:flex { display: flex !important; }
+    }
+
+    /* Font Size Scaler Classes */
+    .fs-small { font-size: 13px !important; line-height: 1.55 !important; }
+    .fs-normal { font-size: 15px !important; line-height: 1.65 !important; }
+    .fs-large { font-size: 17px !important; line-height: 1.75 !important; }
+
+    /* Pusmendik Question Number Palette */
+    .q-pill-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--pus-border-strong) !important;
+      background-color: #ffffff !important;
+      color: #334155 !important;
+      transition: all 0.15s ease-in-out;
+      cursor: pointer;
+      position: relative;
+    }
+    .q-pill-btn:hover {
+      background-color: #f1f5f9 !important;
+      border-color: #94a3b8 !important;
+    }
+    .q-pill-btn.answered {
+      background-color: var(--pus-primary) !important;
+      border-color: var(--pus-primary-hover) !important;
+      color: #ffffff !important;
+    }
+    .q-pill-btn.answered:hover {
+      background-color: var(--pus-primary-hover) !important;
+    }
+    .q-pill-btn.ragu {
+      background-color: var(--pus-ragu-active-bg) !important;
+      border-color: #d97706 !important;
+      color: #ffffff !important;
+    }
+    .q-pill-btn.active-q {
+      box-shadow: 0 0 0 3px #93c5fd, 0 4px 6px -1px rgba(0,0,0,0.06);
+      transform: scale(1.05);
+      z-index: 10;
+    }
+
+    /* Match Option Styles */
+    .matching-select {
+      border: 1.5px solid var(--pus-border) !important;
+      background-color: #ffffff !important;
+      color: #1e293b !important;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      transition: all 0.15s;
+    }
+    .matching-select:focus {
+      border-color: var(--pus-primary) !important;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .matching-select option {
+      background-color: #ffffff !important;
+      color: #1e293b !important;
+    }
+
+    /* Cloze Input Styles */
+    .cloze-input {
+      border: 1.5px solid var(--pus-border-strong) !important;
+      background-color: #ffffff !important;
+      padding: 4px 10px;
+      border-radius: 7px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+      color: #0f172a !important;
+      outline: none;
+      transition: all 0.15s;
+      text-align: center;
+    }
+    .cloze-input:focus {
+      border-color: var(--pus-primary) !important;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      background-color: #eff6ff !important;
+    }
+
+    /* Custom Scrollbar for Stimulus & Questions */
+    .pus-scroll::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    .pus-scroll::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+    .pus-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .pus-scroll::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .hidden {
+      display: none !important;
+    }
+    /* MathCihuy Dark Theme for CBT Login & Confirmation */
+    .mc-login-bg {
+      background: linear-gradient(135deg, #0B2545 0%, #1a3a5c 50%, #071527 100%) !important;
+      min-height: 100vh;
+    }
+    .mc-login-card {
+      background: rgba(15, 23, 42, 0.82) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 20px !important;
+      padding: 50px 35px !important;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55) !important;
+      color: #ffffff !important;
+    }
+    @media (max-width: 480px) {
+      .mc-login-card {
+        padding: 35px 20px !important;
+      }
+    }
+    .mc-logo-section {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .mc-logo {
+      width: 200px;
+      height: 96px;
+      margin: 0 auto 10px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-16.00 -16.00 573.50 305.85' width='1721' height='918' role='img' aria-label='Math Cihuy'%3E%3Ctitle%3EMath Cihuy%3C/title%3E%3Cdefs%3E%3ClinearGradient id='ramp' x1='0' y1='0' x2='.15' y2='1'%3E%3Cstop offset='0' stop-color='%23FCD34D'/%3E%3Cstop offset='.42' stop-color='%23FBBF24'/%3E%3Cstop offset='.75' stop-color='%23F97316'/%3E%3Cstop offset='1' stop-color='%23E11D48'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform='translate(124.50 -65.86) scale(2.9249)'%3E%3Cg transform='translate(50 41)'%3E%3Cpath d='M0 0C-13.5 -19.71 -27 -19.71 -27 0C-27 19.71 -13.5 19.71 0 0M0 0C13.5 -19.71 27 -19.71 27 0C27 19.71 13.5 19.71 0 0' fill='none' stroke='url(%23ramp)' stroke-width='7.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='-13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3Ccircle cx='13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3C/g%3E%3Cg transform='translate(50 67)'%3E%3Cdefs%3E%3Cmask id='cutD' maskUnits='userSpaceOnUse' x='-45' y='-45' width='90' height='90'%3E%3Crect x='-45' y='-45' width='90' height='90' fill='%23fff'/%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23cutD)'%3E%3Cpath d='M-17 -4Q0 12 17 -4' fill='none' stroke='%23F1F5F9' stroke-width='6.4' stroke-linecap='round'/%3E%3C/g%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23F1F5F9' stroke-width='5.2' stroke-linecap='round'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate(0 273.85)'%3E%3Cpath d='M7.7 0L7.7 -74.5L18.7 -74.5L46.7 -35.7L41.2 -35.7L68.7 -74.5L79.7 -74.5L79.7 0L68 0L68 -60.6L72.4 -59.4L44.3 -21L43.1 -21L15.6 -59.4L19.5 -60.6L19.5 0Z M110.2 1.2Q104.7 1.2 100.55 -0.75Q96.4 -2.7 94.1 -6.15Q91.8 -9.6 91.8 -14.3Q91.8 -18.7 93.75 -22.2Q95.7 -25.7 99.8 -28.1Q103.9 -30.5 110.1 -31.5L128.9 -34.6L128.9 -25.7L112.3 -22.8Q107.8 -22 105.7 -19.95Q103.6 -17.9 103.6 -14.7Q103.6 -11.6 105.95 -9.65Q108.3 -7.7 112 -7.7Q116.6 -7.7 120.05 -9.7Q123.5 -11.7 125.4 -15.05Q127.3 -18.4 127.3 -22.5L127.3 -36.4Q127.3 -40.4 124.35 -42.95Q121.4 -45.5 116.5 -45.5Q112 -45.5 108.65 -43.15Q105.3 -40.8 103.7 -37.1L94.3 -41.8Q95.8 -45.8 99.2 -48.85Q102.6 -51.9 107.15 -53.6Q111.7 -55.3 116.8 -55.3Q123.2 -55.3 128.15 -52.9Q133.1 -50.5 135.85 -46.25Q138.6 -42 138.6 -36.4L138.6 0L127.8 0L127.8 -9.8L130.1 -9.5Q128.2 -6.2 125.25 -3.8Q122.3 -1.4 118.55 -0.1Q114.8 1.2 110.2 1.2Z M174.2 0.6Q165.7 0.6 161 -4.2Q156.3 -9 156.3 -17.7L156.3 -43.9L146.8 -43.9L146.8 -54.1L148.3 -54.1Q152.1 -54.1 154.2 -56.3Q156.3 -58.5 156.3 -62.3L156.3 -66.5L167.6 -66.5L167.6 -54.1L179.9 -54.1L179.9 -43.9L167.6 -43.9L167.6 -18.2Q167.6 -15.4 168.5 -13.45Q169.4 -11.5 171.4 -10.45Q173.4 -9.4 176.6 -9.4Q177.4 -9.4 178.4 -9.5Q179.4 -9.6 180.3 -9.7L180.3 0Q178.9 0.2 177.2 0.4Q175.5 0.6 174.2 0.6Z M191.3 0L191.3 -75.7L202.6 -75.7L202.6 -43.5L200.8 -44.9Q202.8 -50 207.2 -52.65Q211.6 -55.3 217.4 -55.3Q223.4 -55.3 228 -52.7Q232.6 -50.1 235.2 -45.5Q237.8 -40.9 237.8 -35L237.8 0L226.6 0L226.6 -31.9Q226.6 -36 225.05 -38.85Q223.5 -41.7 220.8 -43.25Q218.1 -44.8 214.6 -44.8Q211.2 -44.8 208.45 -43.25Q205.7 -41.7 204.15 -38.8Q202.6 -35.9 202.6 -31.9L202.6 0Z' fill='%2393A6C4'/%3E%3Cpath d='M300.3 1.2Q292.3 1.2 285.45 -1.7Q278.6 -4.6 273.5 -9.8Q268.4 -15 265.55 -22Q262.7 -29 262.7 -37.3Q262.7 -45.6 265.5 -52.65Q268.3 -59.7 273.4 -64.85Q278.5 -70 285.35 -72.85Q292.2 -75.7 300.3 -75.7Q308.4 -75.7 314.85 -73Q321.3 -70.3 325.8 -65.8Q330.3 -61.3 332.2 -55.8L318.5 -49.2Q316.6 -54.6 311.85 -58.15Q307.1 -61.7 300.3 -61.7Q293.7 -61.7 288.7 -58.6Q283.7 -55.5 280.95 -50.05Q278.2 -44.6 278.2 -37.3Q278.2 -30 280.95 -24.5Q283.7 -19 288.7 -15.9Q293.7 -12.8 300.3 -12.8Q307.1 -12.8 311.85 -16.35Q316.6 -19.9 318.5 -25.3L332.2 -18.7Q330.3 -13.2 325.8 -8.7Q321.3 -4.2 314.85 -1.5Q308.4 1.2 300.3 1.2Z M341 0L341 -54.6L356 -54.6L356 0ZM341 -59.5L341 -74.5L356 -74.5L356 -59.5Z M367 0L367 -75.7L382 -75.7L382 -43.8L380.2 -46.2Q382.1 -51.1 386.35 -53.45Q390.6 -55.8 396.3 -55.8Q402.5 -55.8 407.15 -53.2Q411.8 -50.6 414.4 -45.95Q417 -41.3 417 -35.1L417 0L402 0L402 -31.9Q402 -35.1 400.75 -37.4Q399.5 -39.7 397.25 -41Q395 -42.3 392 -42.3Q389.1 -42.3 386.8 -41Q384.5 -39.7 383.25 -37.4Q382 -35.1 382 -31.9L382 0Z M446.5 1.2Q439.9 1.2 435.25 -1.65Q430.6 -4.5 428.2 -9.6Q425.8 -14.7 425.8 -21.5L425.8 -54.6L440.8 -54.6L440.8 -22.7Q440.8 -19.6 442.05 -17.25Q443.3 -14.9 445.6 -13.6Q447.9 -12.3 450.8 -12.3Q453.8 -12.3 456.05 -13.6Q458.3 -14.9 459.55 -17.25Q460.8 -19.6 460.8 -22.7L460.8 -54.6L475.8 -54.6L475.8 0L461.8 0L461.8 -10.8L462.6 -8.4Q460.7 -3.5 456.45 -1.15Q452.2 1.2 446.5 1.2Z M495.3 22Q492.9 22 490.65 21.6Q488.4 21.2 486.7 20.3L486.7 8Q488.1 8.4 490 8.7Q491.9 9 493.5 9Q497.9 9 499.8 6.95Q501.7 4.9 502.9 2.3L506.6 -6.2L506.4 6.3L482.4 -54.6L498.5 -54.6L514.4 -11.3L508.4 -11.3L524.3 -54.6L540.4 -54.6L517 5.1Q514.8 10.7 511.6 14.5Q508.4 18.3 504.35 20.15Q500.3 22 495.3 22Z' fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+    }
+    @media (max-width: 480px) {
+      .mc-logo {
+        width: 160px;
+        height: 76px;
+      }
+    }
+    .mc-subtitle {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .01em;
+      color: #CBD5E1 !important;
+      margin-bottom: 24px;
+    }
+    .mc-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .mc-tab-btn {
+      flex: 1;
+      padding: 12px;
+      background: none;
+      border: none;
+      color: #94a3b8 !important;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .mc-tab-btn.active {
+      color: #F59E0B !important;
+      border-bottom-color: #F59E0B;
+    }
+    .mc-form-group {
+      margin-bottom: 18px;
+    }
+    .mc-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #cbd5e1 !important;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .mc-input, .mc-select {
+      width: 100% !important;
+      padding: 12px 15px !important;
+      background: rgba(51, 65, 85, 0.5) !important;
+      border: 1px solid rgba(148, 163, 184, 0.25) !important;
+      border-radius: 8px !important;
+      color: #ffffff !important;
+      font-size: 14px !important;
+      transition: all 0.3s ease !important;
+      outline: none !important;
+      box-sizing: border-box !important;
+    }
+    .mc-input:focus, .mc-select:focus {
+      background: rgba(51, 65, 85, 0.85) !important;
+      border-color: #3B82F6 !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18) !important;
+    }
+    .mc-input::placeholder {
+      color: #64748b !important;
+    }
+    .mc-select option, .mc-select optgroup {
+      background: #0f172a !important;
+      color: #f8fafc !important;
+    }
+    .mc-login-btn {
+      width: 100% !important;
+      padding: 13px !important;
+      background: linear-gradient(135deg, #F59E0B, #EC4899) !important;
+      border: none !important;
+      border-radius: 8px !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2) !important;
+    }
+    .mc-login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.35) !important;
+    }
+    .mc-login-btn:active {
+      transform: translateY(0);
+    }
+    .mc-start-btn {
+      width: 100% !important;
+      padding: 15px !important;
+      background: linear-gradient(135deg, #10B981, #059669) !important;
+      border: none !important;
+      border-radius: 12px !important;
+      color: #ffffff !important;
+      font-weight: 800 !important;
+      font-size: 15px !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3) !important;
+    }
+    .mc-start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.45) !important;
+    }
+    .mc-start-btn:active {
+      transform: translateY(0);
+    }
+    .mc-error {
+      color: #ef4444 !important;
+      font-size: 13px !important;
+      margin-top: 12px !important;
+      padding: 10px 14px !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+      border: 1px solid rgba(239, 68, 68, 0.3) !important;
+      border-radius: 8px !important;
+    }
+    .mc-confirm-card {
+      background: rgba(15, 23, 42, 0.94) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 20px !important;
+      padding: 24px 22px !important;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+      color: #ffffff !important;
+    }
+    html.terang body #view-confirm,
+    html.terang body #view-confirm .mc-confirm-card,
+    html.terang body #view-confirm h2,
+    html.terang body #view-confirm strong,
+    html.terang body #view-confirm .text-white,
+    html.terang body #view-confirm .text-white-keep,
+    html.terang body #view-confirm #confirm-student-name,
+    html.terang body #view-confirm #confirm-student-kelas,
+    html.terang body #view-confirm .mc-confirm-inner-box strong,
+    html.terang body #view-confirm .mc-confirm-inner-box span.font-extrabold {
+      color: #ffffff !important;
+    }
+    html.terang body #view-confirm .mc-confirm-section {
+      background: rgba(30, 41, 59, 0.7) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 14px !important;
+      padding: 14px !important;
+      color: #ffffff !important;
+    }
+    html.terang body #view-confirm label,
+    html.terang body #view-confirm .mc-confirm-section label,
+    html.terang body #view-confirm span.text-slate-400,
+    html.terang body #view-confirm span.text-slate-500,
+    html.terang body #view-confirm .mc-confirm-inner-box span {
+      color: #94a3b8 !important;
+    }
+    html.terang body #view-confirm .mc-confirm-inner-box {
+      background: rgba(15, 23, 42, 0.8) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-radius: 10px !important;
+      padding: 10px 12px !important;
+      color: #ffffff !important;
+    }
+    html.terang body #view-confirm #confirm-student-nis,
+    html.terang body #view-confirm .text-amber-400,
+    html.terang body #view-confirm .text-amber-300 {
+      color: #f59e0b !important;
+    }
+    html.terang body #view-confirm .mc-confirm-directions {
+      background: rgba(245, 158, 11, 0.12) !important;
+      border: 1px solid rgba(245, 158, 11, 0.35) !important;
+      border-radius: 14px !important;
+      padding: 14px !important;
+      color: #fde68a !important;
+    }
+    html.terang body #view-confirm .mc-confirm-directions ol li {
+      color: #fef3c7 !important;
+      line-height: 1.55 !important;
+    }
+    html.terang body #view-confirm .mc-confirm-directions strong,
+    html.terang body #view-confirm .mc-confirm-directions strong.text-white {
+      color: #ffffff !important;
+    }
+    html.terang body #view-confirm .mc-confirm-directions strong.text-amber-300 {
+      color: #fbbf24 !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#F8FAFC] text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 1: LAYAR LOGIN CBT SISWA (MATHCIHUY DESIGN)                     -->
+  <!-- ===================================================================== -->
+  <div id="view-login" class="mc-login-bg min-h-screen w-full flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div class="mc-login-card animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- MathCihuy Logo Section -->
+      <div class="mc-logo-section">
+        <div class="mc-logo" role="img" aria-label="Math Cihuy"></div>
+        <div class="mc-subtitle">Matematika Susah, Tapi Cihuuyy..</div>
+      </div>
+
+      <!-- Tab Siswa (MathCihuy Authentic Tab) -->
+      <div class="mc-tabs">
+        <button class="mc-tab-btn active cursor-default" type="button">
+          <i class="fa-solid fa-user-graduate mr-1.5"></i>Siswa
+        </button>
+      </div>
+
+      <!-- Form Siswa -->
+      <div class="space-y-4">
+        
+        <div class="mc-form-group">
+          <label class="mc-label" for="input-login-nis">
+            NIS (Nomor Induk Siswa)
+          </label>
+          <input type="text" id="input-login-nis" inputmode="numeric" placeholder="Masukkan 8 Digit NIS"
+                 class="mc-input"
+                 onkeydown="if(event.key==='Enter') handleStudentLogin()">
+        </div>
+
+
+        <!-- Password -->
+        <div class="mc-form-group">
+          <label class="mc-label" for="input-login-pass">
+            Password
+          </label>
+          <input type="password" id="input-login-pass" placeholder="Masukkan password"
+                 class="mc-input"
+                 onkeydown="if(event.key==='Enter') handleStudentLogin()">
+        </div>
+
+        <div id="akm-turnstile-box" class="flex justify-center"></div>
+
+        <!-- Error Alert -->
+        <div id="login-error-box" class="hidden mc-error flex items-start gap-2.5">
+          <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-0.5 shrink-0"></i>
+          <span id="login-error-text" class="text-rose-400 font-medium">NIS tidak terdaftar dalam sistem.</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button onclick="handleStudentLogin()" id="btn-submit-login" class="mc-login-btn mt-2 active:scale-95">
+          MASUK
+        </button>
+
+
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 2: LAYAR KONFIRMASI DATA PESERTA & PETUNJUK PENGERJAAN           -->
+  <!-- ===================================================================== -->
+  <div id="view-confirm" class="hidden mc-login-bg min-h-screen w-full flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div class="mc-confirm-card space-y-5 animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Confirm Header -->
+      <div class="flex items-center justify-between gap-4 pb-4 border-b border-white/10">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 p-2 flex items-center justify-center shrink-0">
+            <img src="icon-192.png" alt="Math Cihuy" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <span class="text-[10px] font-mono font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">
+              KONFIRMASI TES CBT
+            </span>
+            <h2 class="text-base sm:text-lg font-black tracking-tight text-white text-white-keep mt-1">PORTAL ASESMEN LITERASI &amp; NUMERASI</h2>
+          </div>
+        </div>
+        <button onclick="handleLogoutStudent(false)" class="text-xs text-white-keep text-slate-300 hover:text-white px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition flex items-center gap-1.5 cursor-pointer" title="Ganti Siswa">
+          <i class="fa-solid fa-arrow-left text-xs"></i>
+          <span class="hidden sm:inline">Ganti Akun</span>
+        </button>
+      </div>
+
+      <!-- Identitas Siswa Grid -->
+      <div class="mc-confirm-section space-y-3">
+        <div class="text-[11px] font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-user-check"></i>
+          <span>IDENTITAS PESERTA UJIAN:</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="mc-confirm-inner-box">
+            <span class="text-[10px] text-slate-400 font-bold block">Nama Lengkap Siswa</span>
+            <strong class="text-white text-white-keep font-extrabold text-sm block mt-0.5 truncate" id="confirm-student-name">-</strong>
+          </div>
+          <div class="mc-confirm-inner-box">
+            <span class="text-[10px] text-slate-400 font-bold block">Nomor Induk Siswa (NIS)</span>
+            <strong class="text-amber-400 font-mono font-black text-sm block mt-0.5" id="confirm-student-nis">-</strong>
+          </div>
+          <div class="mc-confirm-inner-box">
+            <span class="text-[10px] text-slate-400 font-bold block">Rombongan Belajar (Kelas)</span>
+            <strong class="text-white text-white-keep font-black text-sm block mt-0.5" id="confirm-student-kelas">-</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metadata Asesmen Grid -->
+      <div class="mc-confirm-section space-y-3">
+        <div class="text-[11px] font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span>INFORMASI MATA UJI &amp; PAKET SOAL:</span>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold text-slate-300">Pilih Paket Asesmen:</label>
+          <select id="confirm-select-pkg" onchange="switchAkmPackage(this.value)"
+                  class="mc-select text-xs font-bold cursor-pointer">
+            <option value="GLADI_01">Paket 1: Gladi Bersih Gelombang 2 (25 Butir Soal • 75 Menit)</option>
+            <option value="GLADI_02">Paket 2: Drilling Asesmen Nasional (25 Butir Soal • 75 Menit)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-xs pt-1">
+          <div class="mc-confirm-inner-box flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-layer-group text-sm"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold block">Komposisi Soal</span>
+              <span class="font-extrabold text-white text-white-keep text-xs">25 Butir (5 Model AKM)</span>
+            </div>
+          </div>
+          <div class="mc-confirm-inner-box flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-stopwatch text-sm"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold block">Alokasi Waktu</span>
+              <span class="font-black text-amber-400 font-mono text-xs">75 MENIT (Maksimal)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Petunjuk Pengerjaan (Directions) -->
+      <div class="mc-confirm-directions space-y-2">
+        <div class="font-extrabold flex items-center gap-2 text-amber-300 text-xs uppercase tracking-wider">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>PETUNJUK PENGERJAAN UJIAN (DIRECTIONS):</span>
+        </div>
+        <ol class="list-decimal list-inside space-y-1.5 font-medium text-[11.5px] leading-relaxed text-amber-100/90">
+          <li>Mulailah dengan melafalkan <strong class="text-white-keep">Basmallah</strong>.</li>
+          <li>Waktu ujian sebesar <strong class="text-white-keep">75 menit HANYA akan mulai berjalan</strong> saat Anda menekan tombol <strong class="text-amber-400">MULAI UJIAN SEKARANG</strong> di bawah.</li>
+          <li><strong class="text-amber-400">Waktu TIDAK akan kembali ke awal</strong> bila halaman peramban Anda di-refresh (F5). Sisa waktu aktual akan tersimpan secara terus menerus.</li>
+          <li>Kerjakan butir soal yang Anda anggap lebih mudah terlebih dahulu. Anda dapat memanfaatkan fitur <strong class="text-white-keep">Ragu-ragu</strong>.</li>
+          <li>Gunakan menu <strong class="text-white-keep">Daftar Soal</strong> untuk memantau kelengkapan jawaban 25 butir soal sebelum menekan tombol Selesai Tes.</li>
+          <li>Akhiri seluruh rangkaian tes dengan mengucap <strong class="text-white-keep">Hamdalah</strong>.</li>
+        </ol>
+      </div>
+
+      <!-- Tombol Mulai Ujian -->
+      <div class="pt-2 space-y-2.5">
+        <button onclick="mulaiUjian()" id="btn-mulai-ujian" class="mc-start-btn active:scale-95">
+          <i class="fa-solid fa-play text-sm"></i>
+          <span>MULAI UJIAN SEKARANG</span>
+        </button>
+        
+        <button onclick="handleLogoutStudent(false)"
+                class="w-full py-1.5 rounded-xl text-[11px] text-slate-400 hover:text-white transition cursor-pointer text-center block">
+          Bukan akun Anda? Klik di sini untuk Ganti Peserta (Logout)
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 3: ARENA UJIAN CBT PUSMENDIK (SPLIT SCREEN)                      -->
+  <!-- ===================================================================== -->
+  <div id="view-exam" class="hidden fixed inset-0 flex flex-col overflow-hidden bg-[#F8FAFC]">
+
+  <!-- ===================================================================== -->
+  <!-- 1. PUSMENDIK TOP HEADER BAR (LIGHT & GENTLE)                          -->
+  <!-- ===================================================================== -->
+  <header class="atlantis-header shadow-md z-30 shrink-0 border-b border-blue-600/40">
+    <div class="max-w-[1700px] mx-auto px-3 sm:px-5 py-2.5 flex items-center justify-between gap-3">
+      
+      <!-- Brand & Assessment Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 border border-white/40 shadow-xs">
+          <img src="icon-192.png" alt="Math Cihuy" class="w-8 h-8 object-contain">
+        </div>
+        <div class="leading-tight">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] sm:text-xs font-black tracking-wider uppercase px-2 py-0.5 rounded font-mono cbt-badge" style="color: #ffffff !important;">CBT PUSMENDIK</span>
+            <select id="select-akm-pkg" onchange="switchAkmPackage(this.value)" class="bg-white text-slate-800 border border-white/40 rounded-lg px-2.5 py-1 text-xs font-bold outline-none cursor-pointer shadow-xs hover:bg-slate-50">
+              <option value="GLADI_01">Paket 1: Gladi Bersih Gelombang 2 (25 Soal • 75 Menit)</option>
+              <option value="GLADI_02">Paket 2: Drilling Asesmen Nasional (25 Soal • 75 Menit)</option>
+            </select>
+          </div>
+          <h1 class="text-xs sm:text-sm md:text-base font-extrabold tracking-tight mt-0.5" id="header-pkg-title" style="color: #ffffff !important;">
+            SIMULASI ANBK &amp; TKA • GELOMBANG 2
+          </h1>
+        </div>
+      </div>
+
+      <!-- Center: Font Size Controller -->
+      <div class="hidden lg:flex items-center gap-1.5 bg-white/15 px-2.5 py-1 rounded-lg border border-white/20 text-xs text-white">
+        <span class="font-semibold text-[11px] mr-1" style="color: #dbeafe !important;">Font:</span>
+        <button onclick="setFontSize('fs-small')" id="btn-font-s" class="px-2 py-0.5 rounded font-bold transition hover:bg-white/20 text-xs" style="color: #ffffff !important;" title="Font Kecil">A-</button>
+        <button onclick="setFontSize('fs-normal')" id="btn-font-n" class="px-2 py-0.5 rounded font-bold transition bg-white shadow-xs text-blue-700 text-sm border border-white font-black" title="Font Normal">A</button>
+        <button onclick="setFontSize('fs-large')" id="btn-font-l" class="px-2 py-0.5 rounded font-bold transition hover:bg-white/20 text-base" style="color: #ffffff !important;" title="Font Besar">A+</button>
+      </div>
+
+      <!-- Right: User Info, Countdown Timer, & Question List Button -->
+      <div class="flex items-center gap-2 sm:gap-3.5">
+        
+        <!-- Student Info Chip -->
+        <div class="hidden sm:flex items-center gap-2.5 bg-white/15 px-3 py-1.5 rounded-xl border border-white/20 text-right text-xs leading-snug">
+          <div class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-xs" style="color: #ffffff !important;">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="flex flex-col text-right">
+            <span class="font-extrabold truncate max-w-[140px] md:max-w-[200px]" id="user-display-name" style="color: #ffffff !important;">Peserta Ujian</span>
+            <span class="text-[10px] font-mono" id="user-display-nis" style="color: #dbeafe !important;">NIS: 24400000 • 12 F • siswa</span>
+          </div>
+        </div>
+
+        <!-- Digital Timer -->
+        <div class="bg-white border border-white/60 px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-xs">
+          <i class="fa-solid fa-clock text-amber-500 text-xs"></i>
+          <div class="flex flex-col text-right">
+            <span class="text-[9px] uppercase tracking-wider font-bold leading-none hidden xs:inline timer-label">Sisa Waktu</span>
+            <span class="text-xs sm:text-sm font-black font-mono tracking-wider" id="pusmendik-timer">01:15:00</span>
+          </div>
+        </div>
+
+        <!-- Daftar Soal Button -->
+        <button onclick="toggleDaftarSoalModal()" id="btn-daftar-soal" class="bg-white hover:bg-slate-100 text-blue-700 font-black px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm shadow-sm flex items-center gap-2 cursor-pointer transition active:scale-95 shrink-0 border border-white/60">
+          <i class="fa-solid fa-table-cells"></i>
+          <span>DAFTAR SOAL</span>
+        </button>
+
+        <!-- Logout / Ganti Akun Button -->
+        <button onclick="handleLogoutStudent(true)" class="bg-white/15 hover:bg-rose-600/90 text-white font-bold p-2.5 rounded-xl text-xs shadow-sm flex items-center justify-center cursor-pointer transition active:scale-95 shrink-0 border border-white/40" title="Ganti Peserta / Logout">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- 2. MAIN ARENA (SPLIT SCREEN LAYOUT)                                   -->
+  <!-- ===================================================================== -->
+  <main class="flex-1 max-w-[1700px] w-full mx-auto p-2 sm:p-3 md:p-4 overflow-hidden">
+    <div class="w-full h-full grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 split-panel">
+
+      <!-- LEFT COLUMN: STIMULUS & WACANA KONTEKSTUAL -->
+      <section class="md:col-span-6 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col overflow-hidden">
+        
+        <!-- Stimulus Header Bar -->
+        <div class="bg-[#F8FAFC] px-4 py-3 border-b border-slate-200 flex items-center justify-between gap-2 shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center text-xs font-black border border-blue-100">
+              <i class="fa-solid fa-book-open"></i>
+            </span>
+            <span class="font-extrabold text-xs sm:text-sm text-slate-800 uppercase tracking-wide">STIMULUS &amp; WACANA INFORMASI</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200" id="stimulus-badge-domain">
+            Domain AKM
+          </span>
+        </div>
+
+        <!-- Stimulus Scrollable Content -->
+        <div class="flex-1 p-4 sm:p-6 overflow-y-auto pus-scroll space-y-4 fs-normal text-slate-800 leading-relaxed" id="stimulus-content-body">
+          <!-- Dinamis di-render via renderQuestion() -->
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN: SOAL & LEMBAR JAWABAN INTERAKTIF -->
+      <section class="md:col-span-6 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col overflow-hidden">
+        
+        <!-- Question Meta Header -->
+        <div class="bg-[#F8FAFC] px-4 py-3 border-b border-slate-200 flex items-center justify-between gap-2 shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 font-mono font-bold text-xs sm:text-sm border border-blue-200" id="badge-question-num">
+              SOAL NO. 1
+            </span>
+            <span class="text-xs font-semibold text-slate-600 hidden sm:inline" id="badge-question-type">
+              Model 1: Pernyataan Benar/Salah
+            </span>
+          </div>
+          <span class="text-[11px] font-medium text-slate-500 font-mono" id="badge-cognitive-level">
+            Applying (C3-C4)
+          </span>
+        </div>
+
+        <!-- Question & Answer Area Scrollable -->
+        <div class="flex-1 p-4 sm:p-6 overflow-y-auto pus-scroll space-y-5 fs-normal text-slate-800" id="question-answer-body">
+          <!-- Dinamis di-render via renderQuestion() -->
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- 3. PUSMENDIK FOOTER NAVIGATION BAR                                    -->
+  <!-- ===================================================================== -->
+  <footer class="bg-white border-t border-slate-200 px-3 sm:px-6 py-2.5 z-30 shrink-0 shadow-xs">
+    <div class="max-w-[1700px] mx-auto flex items-center justify-between gap-2 sm:gap-4">
+      
+      <!-- Prev Button -->
+      <button onclick="prevQuestion()" id="btn-nav-prev" class="px-3 sm:px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 shadow-xs transition flex items-center gap-2 cursor-pointer disabled:opacity-40 disabled:pointer-events-none active:scale-95">
+        <i class="fa-solid fa-chevron-left text-xs"></i>
+        <span class="hidden xs:inline">SOAL SEBELUMNYA</span>
+        <span class="xs:hidden">PREV</span>
+      </button>
+
+      <!-- Center: Ragu-Ragu Checkbox Toggle Button -->
+      <label id="btn-toggle-ragu" class="px-3 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm border-2 border-amber-300 bg-amber-50/80 text-amber-900 shadow-xs flex items-center gap-2.5 cursor-pointer transition select-none hover:bg-amber-100/90 active:scale-95">
+        <input type="checkbox" id="input-chk-ragu" onchange="toggleRaguCurrent(this.checked)" class="w-4 h-4 accent-amber-600 rounded cursor-pointer">
+        <span class="tracking-wide uppercase">RAGU - RAGU</span>
+      </label>
+
+      <!-- Next or Finish Button -->
+      <button onclick="nextQuestion()" id="btn-nav-next" class="px-3 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xs transition flex items-center gap-2 cursor-pointer active:scale-95">
+        <span class="hidden xs:inline" id="txt-nav-next">SOAL BERIKUTNYA</span>
+        <span class="xs:hidden" id="txt-nav-next-xs">NEXT</span>
+        <i class="fa-solid fa-chevron-right text-xs" id="icon-nav-next"></i>
+      </button>
+
+    </div>
+  </footer>
+  </div> <!-- End of #view-exam -->
+
+  <!-- ===================================================================== -->
+  <!-- 4. MODAL DRAWER DAFTAR SOAL (PUSMENDIK 25 GRID)                       -->
+  <!-- ===================================================================== -->
+  <div id="modal-daftar-soal" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-white rounded-2xl max-w-xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-150">
+      
+      <!-- Drawer Header -->
+      <div class="bg-[#F8FAFC] text-slate-800 px-5 py-4 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-table-cells text-blue-600"></i>
+          <h3 class="font-extrabold text-sm sm:text-base tracking-wide text-slate-900">DAFTAR NOMOR SOAL (25 BUTIR)</h3>
+        </div>
+        <button onclick="toggleDaftarSoalModal()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center cursor-pointer transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Grid Buttons (5 x 5 Grid) -->
+      <div class="p-5 overflow-y-auto pus-scroll">
+        <div class="grid grid-cols-5 gap-3" id="daftar-soal-grid-container">
+          <!-- Dinamis di-render via renderDaftarSoalGrid() -->
+        </div>
+      </div>
+
+      <!-- Status Legend & Close Button -->
+      <div class="bg-[#F8FAFC] p-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-1.5 font-bold text-slate-700">
+            <span class="w-4 h-4 rounded bg-[#2563EB] inline-block border border-blue-600"></span>
+            <span>Dijawab</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-bold text-slate-700">
+            <span class="w-4 h-4 rounded bg-[#F59E0B] inline-block border border-amber-500"></span>
+            <span>Ragu-Ragu</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-bold text-slate-700">
+            <span class="w-4 h-4 rounded bg-white inline-block border border-slate-300"></span>
+            <span>Belum Dijawab</span>
+          </div>
+        </div>
+
+        <button onclick="toggleDaftarSoalModal()" class="w-full sm:w-auto px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold cursor-pointer transition">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 5. MODAL KONFIRMASI SELESAI UJIAN                                     -->
+  <!-- ===================================================================== -->
+  <div id="modal-confirm-finish" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full border border-slate-200 shadow-2xl p-6 text-center space-y-4 animate-in fade-in zoom-in-95 duration-150">
+      
+      <div class="w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto text-2xl border border-blue-100">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div class="space-y-1">
+        <h3 class="text-base sm:text-lg font-black text-slate-900">Konfirmasi Penyelesaian Tes</h3>
+        <p class="text-xs text-slate-600">Apakah Anda yakin ingin mengakhiri sesi simulasi ini sekarang?</p>
+      </div>
+
+      <!-- Ringkasan Status Pengerjaan -->
+      <div class="grid grid-cols-3 gap-2 bg-[#F8FAFC] p-3.5 rounded-xl border border-slate-200 text-center text-xs">
+        <div>
+          <span class="block text-lg font-black text-emerald-600 font-mono" id="summary-answered-count">0</span>
+          <span class="text-[11px] text-slate-500 font-bold">Terjawab</span>
+        </div>
+        <div>
+          <span class="block text-lg font-black text-amber-500 font-mono" id="summary-ragu-count">0</span>
+          <span class="text-[11px] text-slate-500 font-bold">Ragu-ragu</span>
+        </div>
+        <div>
+          <span class="block text-lg font-black text-rose-500 font-mono" id="summary-empty-count">0</span>
+          <span class="text-[11px] text-slate-500 font-bold">Kosong</span>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-amber-800 font-semibold bg-amber-50 p-2.5 rounded-xl border border-amber-200" id="warn-ragu-empty">
+        Periksa kembali jawaban Anda sebelum mengonfirmasi penyerahan ujian.
+      </p>
+
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <button onclick="toggleConfirmFinishModal(false)" class="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer transition">
+          Lanjutkan Ujian
+        </button>
+        <button onclick="submitFinalExam()" id="btn-submit-final" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-xs cursor-pointer transition flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Ya, Kumpulkan</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 6. LEMBAR DIAGNOSTIK & HASIL UJIAN PUSMENDIK                          -->
+  <!-- ===================================================================== -->
+  <div id="modal-diagnostic-report" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 overflow-y-auto p-3 sm:p-6 flex items-center justify-center">
+    <div class="bg-white rounded-2xl max-w-3xl w-full border border-slate-200 shadow-2xl overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Report Header (Light & Crisp) -->
+      <div class="bg-[#F8FAFC] text-slate-800 p-5 sm:p-6 text-center border-b border-slate-200 relative">
+        <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200 inline-block mb-2 uppercase">
+          LEMBAR DIAGNOSIS CAPAIAN PUSMENDIK
+        </span>
+        <h2 class="text-lg sm:text-2xl font-black tracking-tight text-slate-900">RAPOR SIMULASI LITERASI NUMERASI TKA</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Asesmen Nasional Literasi &amp; Numerasi • TP 2026/2027</p>
+
+        <div class="mt-4 inline-flex items-center gap-3 bg-white px-4 py-2 rounded-xl border border-slate-200 text-xs shadow-xs">
+          <span>Peserta: <strong id="report-student-name" class="text-slate-900">-</strong></span>
+          <span class="text-slate-300">•</span>
+          <span>NIS: <strong id="report-student-nis" class="font-mono text-slate-900">-</strong></span>
+        </div>
+      </div>
+
+      <!-- Report Body -->
+      <div class="p-5 sm:p-8 space-y-6 overflow-y-auto max-h-[70vh] pus-scroll">
+        
+        <!-- Score & Achievement Badge -->
+        <div class="p-5 rounded-2xl border border-slate-200 bg-[#F8FAFC] text-center space-y-2" id="report-badge-container">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Nilai Akhir Numerasi (Skala 0 - 100)</span>
+          <div class="text-4xl sm:text-6xl font-black font-mono text-slate-900" id="report-final-score">
+            0
+          </div>
+          <div class="inline-block px-4 py-1.5 rounded-full font-black text-sm tracking-wide shadow-xs" id="report-achievement-level">
+            Kategori Capaian
+          </div>
+          <p class="text-xs text-slate-600 max-w-lg mx-auto pt-1 leading-relaxed" id="report-achievement-desc">
+            Deskripsi kompetensi numerasi siswa.
+          </p>
+        </div>
+
+        <!-- 3 Domain Numerasi Breakdown -->
+        <div class="space-y-3">
+          <h4 class="font-extrabold text-xs sm:text-sm text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-chart-column text-blue-600"></i>
+            <span>PENGUASAAN BERDASARKAN DOMAIN KONTEN NUMERASI:</span>
+          </h4>
+          <div class="space-y-2.5 text-xs" id="report-domain-bars">
+            <!-- Dinamis -->
+          </div>
+        </div>
+
+        <!-- Cognitive Level Breakdown -->
+        <div class="space-y-3">
+          <h4 class="font-extrabold text-xs sm:text-sm text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-brain text-purple-600"></i>
+            <span>PENGUASAAN BERDASARKAN LEVEL KOGNITIF:</span>
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs text-center" id="report-cognitive-boxes">
+            <!-- Dinamis -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Report Footer Buttons -->
+      <div class="bg-[#F8FAFC] p-4 sm:p-5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <button onclick="startReviewMode()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs shadow-xs flex items-center justify-center gap-2 cursor-pointer transition">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Review Pembahasan Lengkap</span>
+        </button>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button onclick="resetCurrentExamPackage()" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-xs cursor-pointer transition flex items-center justify-center gap-1.5 shadow-xs" title="Reset dan ulangi latihan">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Kerjakan Ulang</span>
+          </button>
+          <button onclick="window.print()" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs cursor-pointer transition flex items-center justify-center gap-1.5 shadow-xs">
+            <i class="fa-solid fa-print"></i>
+            <span>Cetak PDF</span>
+          </button>
+          <a href="index.html" class="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-xs flex items-center justify-center gap-1.5 transition">
+            <i class="fa-solid fa-house"></i>
+            <span>Portal MathCihuy</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 7. APPLICATION LOGIC ENGINE                                           -->
+  <!-- ===================================================================== -->
+  <script>
+    // =========================================================================
+    // 0. STUDENT MASTER DATA & SESSION STATE
+    // State Management
+    let currentPkg = AKM_DATA.packages[0];
+    let currentQIdx = 0;
+    let userAnswers = {}; // { qId: answerValue }
+    let userRagu = {};    // { qId: boolean }
+    let timeRemainingSeconds = (currentPkg.durationMinutes || 75) * 60;
+    let timerInterval = null;
+    let isExamFinished = false;
+    let isReviewMode = false;
+    let serverSolutionsByQId = {};
+    let serverDetailsByQId = {};
+    let akmTurnstileToken = '';
+    let akmTurnstileWidgetId = null;
+
+    window.onloadAkmTurnstile = function() {
+      fetch('/api/auth?config=turnstile', { credentials: 'same-origin' })
+        .then(r => r.json())
+        .then(cfg => {
+          const box = document.getElementById('akm-turnstile-box');
+          if (box && cfg && cfg.turnstileSiteKey && typeof turnstile !== 'undefined') {
+            akmTurnstileWidgetId = turnstile.render('#akm-turnstile-box', {
+              sitekey: cfg.turnstileSiteKey,
+              theme: 'dark',
+              callback: t => { akmTurnstileToken = t; },
+              'expired-callback': () => { akmTurnstileToken = ''; },
+              'error-callback': () => { akmTurnstileToken = ''; }
+            });
+          }
+        }).catch(() => {});
+    };
+
+    // Student Session Info
+    let studentInfo = {
+      nama: "Siswa Kelas XII",
+      nis: "",
+      kelas: "12 F"
+    };
+
+    // =========================================================================
+    // 1. VIEW CONTROLLER (LOGIN, CONFIRM, EXAM)
+    // =========================================================================
+    function showView(viewId) {
+      const views = ['view-login', 'view-confirm', 'view-exam'];
+      views.forEach(v => {
+        const el = document.getElementById(v);
+        if (el) {
+          if (v === viewId) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        }
+      });
+      window.scrollTo(0, 0);
+    }
+
+    // Initialize Engine (Verifikasi Sesi Kriptografis Server-Side via /api/auth)
+    document.addEventListener('DOMContentLoaded', () => {
+      initAkmApp();
+    });
+
+    async function initAkmApp() {
+      const stored = await getAuthenticatedStudentSession();
+      if (!stored || !stored.nis) {
+        showView('view-login');
+        return;
+      }
+
+      studentInfo = stored;
+      updateStudentDisplays();
+      await checkExamStateAndProceed();
+    }
+
+    async function getAuthenticatedStudentSession() {
+      try {
+        const res = await fetch('/api/auth', { credentials: 'same-origin' });
+        if (res.ok) {
+          const auth = await res.json();
+          if (auth && auth.authenticated && auth.user) {
+            if (auth.user.must_change_password) {
+              window.location.replace('/login.html');
+              return null;
+            }
+            const u = auth.user;
+            return {
+              nis: String(u.nis || u.id || ''),
+              nama: String(u.nama || u.name || 'Siswa'),
+              kelas: String(u.kelas || 'XII')
+            };
+          }
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    async function checkExamStateAndProceed() {
+      if (!studentInfo || !studentInfo.nis) {
+        showView('view-login');
+        return;
+      }
+
+      const status = localStorage.getItem(`akm_exam_status_${currentPkg.id}_${studentInfo.nis}`);
+      const endStr = localStorage.getItem(`akm_exam_end_${currentPkg.id}_${studentInfo.nis}`);
+
+      if (status === 'finished') {
+        showView('view-exam');
+        restoreSavedAnswers();
+        await hydrateServerSolutions();
+        renderQuestion();
+        const diag = buildDiagnosticsFromServer(serverDetailsByQId);
+        displayDiagnosticReport(diag);
+        return;
+      }
+
+      if (status === 'started' && endStr) {
+        const examEnd = parseInt(endStr, 10);
+        const now = Date.now();
+        const remainingSec = Math.floor((examEnd - now) / 1000);
+
+        if (remainingSec <= 0) {
+          showView('view-exam');
+          restoreSavedAnswers();
+          renderQuestion();
+          alert("Waktu ujian telah berakhir! Lembar jawaban Anda akan otomatis dikumpulkan ke server.");
+          submitFinalExam();
+        } else {
+          showView('view-exam');
+          restoreSavedAnswers();
+          const savedIdx = localStorage.getItem(`akm_last_qidx_${currentPkg.id}_${studentInfo.nis}`);
+          if (savedIdx !== null) currentQIdx = parseInt(savedIdx, 10) || 0;
+          renderQuestion();
+          startTimer(examEnd);
+        }
+      } else {
+        showView('view-confirm');
+        updateConfirmDisplays();
+        const timerEl = document.getElementById('pusmendik-timer');
+        if (timerEl) timerEl.innerText = "01:15:00";
+      }
+    }
+
+    function showLoginError(msg) {
+      const box = document.getElementById('login-error-box');
+      const text = document.getElementById('login-error-text');
+      if (box && text) {
+        text.innerText = msg;
+        box.classList.remove('hidden');
+      }
+    }
+
+    function hideLoginError() {
+      const box = document.getElementById('login-error-box');
+      if (box) box.classList.add('hidden');
+    }
+
+    async function handleStudentLogin() {
+      const nisInput = document.getElementById('input-login-nis');
+      const passInput = document.getElementById('input-login-pass');
+      const btn = document.getElementById('btn-submit-login');
+      const nis = (nisInput?.value || '').trim();
+      const password = passInput?.value || '';
+
+      if (!nis || !password) {
+        showLoginError("NIS dan password wajib diisi.");
+        return;
+      }
+
+      hideLoginError();
+      if (btn) { btn.disabled = true; btn.textContent = 'MEMVERIFIKASI...'; }
+
+      let token = akmTurnstileToken;
+      if (!token && typeof turnstile !== 'undefined' && akmTurnstileWidgetId !== null) {
+        try { token = turnstile.getResponse(akmTurnstileWidgetId); } catch (_) {}
+      }
+
+      try {
+        const resp = await fetch('/api/auth', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role: 'siswa', nis, password, turnstileToken: token })
+        });
+        const res = await resp.json();
+        if (!resp.ok || !res.success || !res.user) {
+          throw new Error(res.error || 'NIS atau password salah.');
+        }
+        if (res.must_change_password) {
+          window.location.replace('/login.html');
+          return;
+        }
+        studentInfo = {
+          nis: String(res.user.nis),
+          nama: String(res.user.nama),
+          kelas: String(res.user.kelas)
+        };
+        updateStudentDisplays();
+        await checkExamStateAndProceed();
+      } catch (err) {
+        if (typeof turnstile !== 'undefined' && akmTurnstileWidgetId !== null) {
+          try { turnstile.reset(akmTurnstileWidgetId); } catch (_) {}
+          akmTurnstileToken = '';
+        }
+        showLoginError(err.message || 'Gagal login.');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'MASUK'; }
+      }
+    }
+
+    async function handleLogoutStudent(warnIfInProgress) {
+      if (warnIfInProgress) {
+        const status = localStorage.getItem(`akm_exam_status_${currentPkg.id}_${studentInfo.nis}`);
+        if (status === 'started' && !isExamFinished) {
+          const ok = confirm("Ujian sedang berjalan! Waktu pengerjaan akan terus berkurang di server. Apakah Anda yakin ingin keluar?");
+          if (!ok) return;
+        }
+      }
+      if (timerInterval) clearInterval(timerInterval);
+      try {
+        await fetch('/api/auth', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'logout' })
+        });
+      } catch (_) {}
+      localStorage.removeItem('cbt_active_student_profile');
+      localStorage.removeItem('portal_session');
+      showView('view-login');
+      const nisInput = document.getElementById('input-login-nis');
+      const passInput = document.getElementById('input-login-pass');
+      if (passInput) passInput.value = '';
+      if (nisInput) {
+        nisInput.value = '';
+        nisInput.focus();
+      }
+    }
+
+    function updateStudentDisplays() {
+      // Header Exam
+      const nameEl = document.getElementById('user-display-name');
+      const nisEl = document.getElementById('user-display-nis');
+      if (nameEl) nameEl.innerText = studentInfo.nama;
+      if (nisEl) nisEl.innerText = `NIS: ${studentInfo.nis} • ${studentInfo.kelas}`;
+
+      // Report Modal
+      const repName = document.getElementById('report-student-name');
+      const repNis = document.getElementById('report-student-nis');
+      if (repName) repName.innerText = studentInfo.nama;
+      if (repNis) repNis.innerText = studentInfo.nis;
+
+      updateConfirmDisplays();
+    }
+
+    function updateConfirmDisplays() {
+      const confName = document.getElementById('confirm-student-name');
+      const confNis = document.getElementById('confirm-student-nis');
+      const confKelas = document.getElementById('confirm-student-kelas');
+      if (confName) confName.innerText = studentInfo.nama;
+      if (confNis) confNis.innerText = studentInfo.nis;
+      if (confKelas) confKelas.innerText = studentInfo.kelas;
+
+      const selConfirm = document.getElementById('confirm-select-pkg');
+      const selHeader = document.getElementById('select-akm-pkg');
+      if (selConfirm) selConfirm.value = currentPkg.id;
+      if (selHeader) selHeader.value = currentPkg.id;
+      const headerTitle = document.getElementById('header-pkg-title');
+      if (headerTitle) headerTitle.innerText = currentPkg.title.toUpperCase();
+    }
+
+    function switchAkmPackage(pkgId) {
+      const found = AKM_DATA.packages.find(p => p.id === pkgId);
+      if (found) {
+        currentPkg = found;
+        currentQIdx = 0;
+        userAnswers = {};
+        userRagu = {};
+        isExamFinished = false;
+        isReviewMode = false;
+
+        const selConfirm = document.getElementById('confirm-select-pkg');
+        const selHeader = document.getElementById('select-akm-pkg');
+        if (selConfirm) selConfirm.value = currentPkg.id;
+        if (selHeader) selHeader.value = currentPkg.id;
+
+        const headerTitle = document.getElementById('header-pkg-title');
+        if (headerTitle) headerTitle.innerText = currentPkg.title.toUpperCase();
+
+        if (studentInfo && studentInfo.nis) {
+          checkExamStateAndProceed();
+        }
+      }
+    }
+
+    // =========================================================================
+    // 2. MULAI UJIAN & PERSISTENT TIMER CONTROLLER
+    // =========================================================================
+    function mulaiUjian() {
+      if (!studentInfo || !studentInfo.nis) {
+        showView('view-login');
+        return;
+      }
+
+      const now = Date.now();
+      const durationMinutes = currentPkg.durationMinutes || 75;
+      const durationMs = durationMinutes * 60 * 1000;
+      const examEnd = now + durationMs;
+
+      localStorage.setItem(`akm_exam_status_${currentPkg.id}_${studentInfo.nis}`, 'started');
+      localStorage.setItem(`akm_exam_start_${currentPkg.id}_${studentInfo.nis}`, String(now));
+      localStorage.setItem(`akm_exam_end_${currentPkg.id}_${studentInfo.nis}`, String(examEnd));
+
+      isExamFinished = false;
+      isReviewMode = false;
+      currentQIdx = 0;
+
+      showView('view-exam');
+      restoreSavedAnswers();
+      renderQuestion();
+      startTimer(examEnd);
+    }
+
+    function startTimer(examEndTimestamp) {
+      if (timerInterval) clearInterval(timerInterval);
+
+      const timerEl = document.getElementById('pusmendik-timer');
+
+      function updateTick() {
+        if (isExamFinished) {
+          if (timerInterval) clearInterval(timerInterval);
+          return;
+        }
+
+        const now = Date.now();
+        const remainingMs = examEndTimestamp - now;
+        const remainingSec = Math.max(0, Math.floor(remainingMs / 1000));
+        timeRemainingSeconds = remainingSec;
+
+        if (remainingSec <= 0) {
+          if (timerInterval) clearInterval(timerInterval);
+          if (timerEl) timerEl.innerText = "00:00:00";
+          alert("Waktu ujian telah berakhir! Lembar jawaban Anda akan otomatis dikumpulkan ke server.");
+          submitFinalExam();
+          return;
+        }
+
+        const h = Math.floor(remainingSec / 3600);
+        const m = Math.floor((remainingSec % 3600) / 60);
+        const s = remainingSec % 60;
+        if (timerEl) {
+          timerEl.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+          // Visual cues
+          if (remainingSec <= 300) {
+            timerEl.className = "text-xs sm:text-sm font-black font-mono tracking-wider text-rose-600 animate-pulse";
+          } else if (remainingSec <= 600) {
+            timerEl.className = "text-xs sm:text-sm font-black font-mono tracking-wider text-amber-700";
+          } else {
+            timerEl.className = "text-xs sm:text-sm font-black font-mono tracking-wider text-slate-900";
+          }
+        }
+      }
+
+      updateTick(); // execute immediately
+      timerInterval = setInterval(updateTick, 1000);
+    }
+
+    function resetCurrentExamPackage() {
+      const ok = confirm("Apakah Anda yakin ingin mengulang pengerjaan paket ini dari awal? Riwayat jawaban sebelumnya pada peranti ini akan direset.");
+      if (!ok) return;
+
+      localStorage.removeItem(`akm_exam_status_${currentPkg.id}_${studentInfo.nis}`);
+      localStorage.removeItem(`akm_exam_start_${currentPkg.id}_${studentInfo.nis}`);
+      localStorage.removeItem(`akm_exam_end_${currentPkg.id}_${studentInfo.nis}`);
+      localStorage.removeItem(`akm_answers_${currentPkg.id}_${studentInfo.nis}`);
+      localStorage.removeItem(`akm_ragu_${currentPkg.id}_${studentInfo.nis}`);
+      localStorage.removeItem(`akm_last_qidx_${currentPkg.id}_${studentInfo.nis}`);
+
+      userAnswers = {};
+      userRagu = {};
+      currentQIdx = 0;
+      isExamFinished = false;
+      isReviewMode = false;
+
+      document.getElementById('modal-diagnostic-report').classList.add('hidden');
+      showView('view-confirm');
+      updateConfirmDisplays();
+    }
+
+    // 3. Font Size Scaler
+    function setFontSize(sizeClass) {
+      const sBody = document.getElementById('stimulus-content-body');
+      const qBody = document.getElementById('question-answer-body');
+      [sBody, qBody].forEach(el => {
+        el.classList.remove('fs-small', 'fs-normal', 'fs-large');
+        el.classList.add(sizeClass);
+      });
+      document.querySelectorAll('#btn-font-s, #btn-font-n, #btn-font-l').forEach(b => {
+        b.classList.remove('bg-white', 'shadow-xs', 'text-blue-700', 'border', 'border-white');
+        b.classList.add('hover:bg-white/20', 'text-white');
+      });
+      const activeBtn = (sizeClass === 'fs-small') ? document.getElementById('btn-font-s') :
+                        (sizeClass === 'fs-normal') ? document.getElementById('btn-font-n') :
+                        document.getElementById('btn-font-l');
+      if (activeBtn) {
+        activeBtn.classList.remove('hover:bg-white/20', 'text-white');
+        activeBtn.classList.add('bg-white', 'shadow-xs', 'text-blue-700', 'border', 'border-white');
+      }
+    }
+
+    // 4. Render Main Question Arena
+    function renderQuestion() {
+      const q = currentPkg.questions[currentQIdx];
+      if (!q) return;
+
+      // Update Navigation & Meta Badges
+      document.getElementById('badge-question-num').innerText = `SOAL NO. ${q.num} / ${currentPkg.questions.length}`;
+      document.getElementById('badge-question-type').innerText = q.modelName;
+      document.getElementById('badge-cognitive-level').innerText = `${q.kognitif} • ${q.konteks}`;
+      document.getElementById('stimulus-badge-domain').innerText = q.domain;
+
+      // Update Footer Buttons
+      document.getElementById('btn-nav-prev').disabled = (currentQIdx === 0);
+      const isLast = (currentQIdx === currentPkg.questions.length - 1);
+      const nextBtn = document.getElementById('btn-nav-next');
+      const nextTxt = document.getElementById('txt-nav-next');
+      const nextTxtXs = document.getElementById('txt-nav-next-xs');
+      const nextIcon = document.getElementById('icon-nav-next');
+
+      if (isLast) {
+        nextBtn.className = "px-3 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-[#DC2626] hover:bg-[#B91C1C] text-white shadow-xs transition flex items-center gap-2 cursor-pointer active:scale-95";
+        nextTxt.innerText = "SELESAI TES";
+        nextTxtXs.innerText = "SELESAI";
+        nextIcon.className = "fa-solid fa-check text-xs";
+      } else {
+        nextBtn.className = "px-3 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xs transition flex items-center gap-2 cursor-pointer active:scale-95";
+        nextTxt.innerText = "SOAL BERIKUTNYA";
+        nextTxtXs.innerText = "NEXT";
+        nextIcon.className = "fa-solid fa-chevron-right text-xs";
+      }
+
+      // Update Ragu-ragu Checkbox
+      const isRagu = Boolean(userRagu[q.id]);
+      const chkRagu = document.getElementById('input-chk-ragu');
+      const labelRagu = document.getElementById('btn-toggle-ragu');
+      chkRagu.checked = isRagu;
+      if (isRagu) {
+        labelRagu.className = "px-3 sm:px-6 py-2.5 rounded-xl font-black text-xs sm:text-sm border-2 border-amber-500 bg-amber-200 text-amber-950 shadow-xs flex items-center gap-2.5 cursor-pointer transition select-none active:scale-95";
+      } else {
+        labelRagu.className = "px-3 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm border-2 border-amber-300 bg-amber-50/80 text-amber-900 shadow-xs flex items-center gap-2.5 cursor-pointer transition select-none hover:bg-amber-100/90 active:scale-95";
+      }
+
+      // Render Left Panel: Stimulus
+      const sBody = document.getElementById('stimulus-content-body');
+      sBody.innerHTML = `
+        <div class="border-b pb-3 mb-3 border-slate-200">
+          <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider block">${q.stimulusBadge}</span>
+          <h2 class="text-base sm:text-lg font-extrabold text-slate-900 mt-0.5">${q.stimulusTitle}</h2>
+        </div>
+        ${q.stimulusText}
+      `;
+
+      // Render Right Panel: Question & Answers based on Model
+      const qBody = document.getElementById('question-answer-body');
+      let answerHtml = '';
+
+      switch (q.model) {
+        case 1:
+          answerHtml = renderModel1(q);
+          break;
+        case 2:
+          answerHtml = renderModel2(q);
+          break;
+        case 3:
+          answerHtml = renderModel3(q);
+          break;
+        case 4:
+          answerHtml = renderModel4(q);
+          break;
+        case 5:
+          answerHtml = renderModel5(q);
+          break;
+        default:
+          answerHtml = `<p class="text-rose-500">Model soal tidak dikenali.</p>`;
+      }
+
+      // Tambahkan Pembahasan jika sedang dalam Review Mode (Hanya dari respons resmi server)
+      let reviewHtml = '';
+      if (isReviewMode) {
+        const srvSol = serverSolutionsByQId[q.id];
+        const bahasContent = srvSol ? (srvSol.bahasLengkap || srvSol.bahas || '') : '🔒 Kunci & pembahasan penuh dibuka setelah Anda menuntaskan KKM (75) pada server.';
+        reviewHtml = `
+          <div class="mt-6 p-4 rounded-xl bg-blue-50/70 border border-blue-200 text-xs space-y-2">
+            <div class="flex items-center gap-2 font-black text-blue-900">
+              <i class="fa-solid fa-lightbulb text-amber-500"></i>
+              <span>PEMBAHASAN &amp; KUNCI JAWABAN RESMI PUSMENDIK:</span>
+            </div>
+            <div class="text-slate-800 leading-relaxed font-sans">${bahasContent}</div>
+          </div>
+        `;
+      }
+
+      qBody.innerHTML = `
+        <div class="space-y-3">
+          <p class="font-bold text-xs sm:text-sm text-slate-900 leading-relaxed">${q.questionText}</p>
+          <div class="pt-2">${answerHtml}</div>
+          ${reviewHtml}
+        </div>
+      `;
+
+      // Render Math Formula with KaTeX
+      if (window.renderMathInElement) {
+        try {
+          renderMathInElement(sBody, { delimiters: [{left: "$", right: "$", display: false}, {left: "$$", right: "$$", display: true}] });
+          renderMathInElement(qBody, { delimiters: [{left: "$", right: "$", display: false}, {left: "$$", right: "$$", display: true}] });
+        } catch(e) {}
+      }
+
+      saveAnswersLocal();
+    }
+
+    // =========================================================================
+    // 5. RENDERERS UNTUK 5 MODEL SOAL BAKU AKM
+    // =========================================================================
+
+    // MODEL 1: PERNYATAAN BENAR DAN SALAH (TABEL 4 BARIS)
+    function renderModel1(q) {
+      const currentAns = userAnswers[q.id] || {}; // { r1: 'B'/'S', ... }
+      return `
+        <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-xs">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead class="bg-[#F8FAFC] text-slate-700 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-3 w-8 text-center">No</th>
+                <th class="p-3">Pernyataan Matematis</th>
+                <th class="p-3 w-16 text-center">Benar</th>
+                <th class="p-3 w-16 text-center">Salah</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              ${q.payload.rows.map((r, i) => {
+                const checkedB = (currentAns[r.id] === 'B') ? 'checked' : '';
+                const checkedS = (currentAns[r.id] === 'S') ? 'checked' : '';
+                const disabled = isReviewMode ? 'disabled' : '';
+                const srvSol = serverSolutionsByQId[q.id];
+                const srvRow = srvSol && Array.isArray(srvSol.rows) ? srvSol.rows.find(x => x.id === r.id) : null;
+                const keyBadge = (isReviewMode && srvRow && !srvSol.is_locked) ? `
+                  <span class="ml-2 font-mono font-bold text-[10px] ${srvRow.key === 'B' ? 'text-emerald-700 bg-emerald-50 border border-emerald-200' : 'text-rose-700 bg-rose-50 border border-rose-200'} px-1.5 py-0.5 rounded">
+                    Kunci: ${srvRow.key === 'B' ? 'BENAR' : 'SALAH'}
+                  </span>` : '';
+
+                return `
+                  <tr class="hover:bg-slate-50/60 transition">
+                    <td class="p-3 text-center font-bold text-slate-500">${i+1}</td>
+                    <td class="p-3 text-slate-800 leading-relaxed font-medium">
+                      ${r.statement}
+                      ${keyBadge}
+                    </td>
+                    <td class="p-3 text-center bg-blue-50/30">
+                      <input type="radio" name="m1_${q.id}_${r.id}" value="B" ${checkedB} ${disabled}
+                             onchange="setAnswerModel1(${q.id}, '${r.id}', 'B')"
+                             class="w-4 h-4 accent-blue-600 cursor-pointer">
+                    </td>
+                    <td class="p-3 text-center bg-rose-50/30">
+                      <input type="radio" name="m1_${q.id}_${r.id}" value="S" ${checkedS} ${disabled}
+                             onchange="setAnswerModel1(${q.id}, '${r.id}', 'S')"
+                             class="w-4 h-4 accent-rose-600 cursor-pointer">
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function setAnswerModel1(qId, rowId, val) {
+      if (!userAnswers[qId]) userAnswers[qId] = {};
+      userAnswers[qId][rowId] = val;
+      saveAnswersLocal();
+    }
+
+    // MODEL 2: MENJODOHKAN (PREMIS KOLOM A ↔ RESPONS KOLOM B)
+    function renderModel2(q) {
+      const currentAns = userAnswers[q.id] || {}; // { A1: 'B1', ... }
+      return `
+        <div class="space-y-3">
+          <div class="p-3 bg-blue-50/60 border border-blue-200 rounded-xl text-xs text-blue-900 font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-blue-600"></i>
+            <span>Pilih pasangan respons yang paling tepat pada menu pilihan di samping setiap premis:</span>
+          </div>
+
+          <div class="space-y-2.5">
+            ${q.payload.columnA.map((prem, i) => {
+              const selectedB = currentAns[prem.id] || "";
+              const disabled = isReviewMode ? 'disabled' : '';
+              const srvSol = serverSolutionsByQId[q.id];
+              const correctB = (srvSol && srvSol.correctPairs && !srvSol.is_locked) ? srvSol.correctPairs[prem.id] : null;
+              const reviewStatus = (isReviewMode && correctB) ? `
+                <div class="mt-1 font-mono text-[10px] ${selectedB === correctB ? 'text-emerald-700 font-bold' : 'text-rose-600'}">
+                  Kunci: ${correctB} (${getOptionText(q.payload.columnB, correctB)})
+                </div>` : '';
+
+              return `
+                <div class="p-3 rounded-xl border border-slate-200 bg-[#F8FAFC] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shadow-xs">
+                  <div class="text-xs text-slate-800 flex-1">
+                    <span class="font-bold text-blue-700 mr-1.5">[${prem.id}]</span>
+                    <span class="font-medium">${prem.text}</span>
+                    ${reviewStatus}
+                  </div>
+                  <div class="shrink-0">
+                    <select onchange="setAnswerModel2(${q.id}, '${prem.id}', this.value)" ${disabled}
+                            class="matching-select w-full sm:w-auto">
+                      <option value="">-- Pilih Respons --</option>
+                      ${q.payload.columnB.map(opt => `
+                        <option value="${opt.id}" ${selectedB === opt.id ? 'selected' : ''}>
+                          [${opt.id}] ${opt.text}
+                        </option>
+                      `).join('')}
+                    </select>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function getOptionText(options, optId) {
+      const found = options.find(o => o.id === optId);
+      return found ? found.text : optId;
+    }
+
+    function setAnswerModel2(qId, premId, val) {
+      if (!userAnswers[qId]) userAnswers[qId] = {};
+      userAnswers[qId][premId] = val;
+      saveAnswersLocal();
+    }
+
+    // MODEL 3: PARAGRAF RUMPANG NUMERIK
+    function renderModel3(q) {
+      const currentAns = userAnswers[q.id] || {}; // { b1: "3", ... }
+      let clozeHtml = q.payload.clozeText;
+
+      q.payload.blanks.forEach(b => {
+        const val = currentAns[b.id] || "";
+        const disabled = isReviewMode ? 'disabled' : '';
+        const srvSol = serverSolutionsByQId[q.id];
+        const srvBlank = (srvSol && Array.isArray(srvSol.blanks) && !srvSol.is_locked) ? srvSol.blanks.find(x => x.id === b.id) : null;
+        const reviewBadge = (isReviewMode && srvBlank && srvBlank.correctValues) ? `
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded border ${isClozeCorrect(val, srvBlank.correctValues) ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-rose-50 text-rose-800 border-rose-200'}">
+            (Kunci: ${srvBlank.correctValues[0]})
+          </span>` : '';
+
+        const inputHtml = `
+          <span class="inline-flex items-center gap-1 mx-1 my-0.5">
+            <strong class="text-blue-700">${b.label}</strong>
+            <input type="text" value="${val}" ${disabled}
+                   placeholder="${b.placeholder}"
+                   oninput="setAnswerModel3(${q.id}, '${b.id}', this.value)"
+                   class="cloze-input w-28 sm:w-32">
+            ${reviewBadge}
+          </span>
+        `;
+        clozeHtml = clozeHtml.replace(`${b.label} [___]`, inputHtml);
+      });
+
+      return `
+        <div class="space-y-4">
+          <div class="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-[#F8FAFC] leading-loose text-xs sm:text-sm text-slate-800 shadow-xs">
+            ${clozeHtml}
+          </div>
+          <p class="text-[11px] text-slate-500 italic">
+            *Ketikkan angka desimal menggunakan titik (.) atau koma (,), atau pecahan biasa (misal: 1/3).
+          </p>
+        </div>
+      `;
+    }
+
+    function isClozeCorrect(userVal, correctList) {
+      if (!userVal) return false;
+      const cleanUser = String(userVal).trim().toLowerCase();
+      return correctList.some(c => cleanUser === String(c).trim().toLowerCase());
+    }
+
+    function setAnswerModel3(qId, blankId, val) {
+      if (!userAnswers[qId]) userAnswers[qId] = {};
+      userAnswers[qId][blankId] = val.trim();
+      saveAnswersLocal();
+    }
+
+    // MODEL 4: SEBAB - AKIBAT ANALITIS
+    function renderModel4(q) {
+      const currentAns = userAnswers[q.id] || ""; // 'A', 'B', etc.
+      const disabled = isReviewMode ? 'disabled' : '';
+
+      return `
+        <div class="space-y-4">
+          
+          <!-- Box Pernyataan -->
+          <div class="p-4 rounded-xl border border-slate-200 bg-[#F8FAFC] text-xs sm:text-sm shadow-xs space-y-1">
+            <span class="text-[11px] font-bold uppercase text-blue-700 tracking-wider">PERNYATAAN:</span>
+            <p class="text-slate-800 font-semibold leading-relaxed">${q.payload.pernyataan}</p>
+          </div>
+
+          <!-- Pita Penghubung SEBAB -->
+          <div class="flex items-center justify-center">
+            <span class="px-4 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-300 font-bold text-xs tracking-widest uppercase shadow-xs">
+              SEBAB
+            </span>
+          </div>
+
+          <!-- Box Alasan -->
+          <div class="p-4 rounded-xl border border-slate-200 bg-[#F8FAFC] text-xs sm:text-sm shadow-xs space-y-1">
+            <span class="text-[11px] font-bold uppercase text-purple-700 tracking-wider">ALASAN:</span>
+            <p class="text-slate-800 font-semibold leading-relaxed">${q.payload.alasan}</p>
+          </div>
+
+          <!-- Opsi A - E -->
+          <div class="space-y-2 pt-2">
+            <p class="font-bold text-xs text-slate-700">Pilihlah salah satu kesimpulan sebab-akibat berikut:</p>
+            ${q.payload.options.map(opt => {
+              const isChecked = (currentAns === opt.id);
+              const srvSol = serverSolutionsByQId[q.id];
+              const isKey = Boolean(srvSol && !srvSol.is_locked && srvSol.key === opt.id);
+              let optionClass = "border-slate-200 bg-white hover:bg-slate-50 text-slate-800";
+
+              if (isReviewMode && srvSol && !srvSol.is_locked) {
+                if (isKey) optionClass = "border-2 border-emerald-500 bg-emerald-50/70 text-emerald-950 font-bold";
+                else if (isChecked) optionClass = "border-2 border-rose-400 bg-rose-50/70 text-rose-950";
+              } else if (isChecked) {
+                optionClass = "border-2 border-blue-600 bg-blue-50/60 text-blue-950 font-bold";
+              }
+
+              return `
+                <label class="p-3 rounded-xl border flex items-start gap-3 cursor-pointer transition shadow-xs ${optionClass}">
+                  <input type="radio" name="m4_${q.id}" value="${opt.id}" ${isChecked ? 'checked' : ''} ${disabled}
+                         onchange="setAnswerModel4(${q.id}, '${opt.id}')"
+                         class="w-4 h-4 accent-blue-600 cursor-pointer mt-0.5">
+                  <div class="text-xs leading-relaxed flex-1">
+                    <span class="font-bold text-blue-700 mr-1.5">${opt.id}.</span>
+                    <span>${opt.text}</span>
+                  </div>
+                </label>
+              `;
+            }).join('')}
+          </div>
+
+        </div>
+      `;
+    }
+
+    function setAnswerModel4(qId, val) {
+      userAnswers[qId] = val;
+      saveAnswersLocal();
+    }
+
+    // MODEL 5: PILIHAN GANDA KOMPLEKS (CHECKBOX MULTI-SELECT)
+    function renderModel5(q) {
+      const currentAns = userAnswers[q.id] || []; // ['c1', 'c2']
+      const disabled = isReviewMode ? 'disabled' : '';
+
+      return `
+        <div class="space-y-3">
+          <div class="p-3 bg-purple-50/60 border border-purple-200 rounded-xl text-xs text-purple-900 font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-square-check text-purple-600"></i>
+            <span>Beri tanda centang (✓) pada setiap pernyataan yang bernilai BENAR! (Jawaban benar lebih dari satu)</span>
+          </div>
+
+          <div class="space-y-2.5">
+            ${q.payload.statements.map((stmt, i) => {
+              const isChecked = currentAns.includes(stmt.id);
+              const srvSol = serverSolutionsByQId[q.id];
+              const srvStmt = (srvSol && Array.isArray(srvSol.statements) && !srvSol.is_locked) ? srvSol.statements.find(x => x.id === stmt.id) : null;
+              const isKey = Boolean(srvStmt && srvStmt.key === true);
+              let boxClass = "border-slate-200 bg-white hover:bg-slate-50 text-slate-800";
+
+              if (isReviewMode && srvStmt) {
+                if (isKey) boxClass = "border-2 border-emerald-500 bg-emerald-50/70 text-emerald-950 font-bold";
+                else if (isChecked) boxClass = "border-2 border-rose-400 bg-rose-50/70 text-rose-950";
+              } else if (isChecked) {
+                boxClass = "border-2 border-blue-600 bg-blue-50/60 text-blue-950 font-bold";
+              }
+
+              return `
+                <label class="p-3.5 rounded-xl border flex items-start gap-3 cursor-pointer transition shadow-xs ${boxClass}">
+                  <input type="checkbox" value="${stmt.id}" ${isChecked ? 'checked' : ''} ${disabled}
+                         onchange="setAnswerModel5(${q.id}, '${stmt.id}', this.checked)"
+                         class="w-4 h-4 accent-blue-600 cursor-pointer rounded mt-0.5">
+                  <div class="text-xs leading-relaxed flex-1">
+                    <span class="font-medium">${stmt.text}</span>
+                    ${(isReviewMode && srvStmt) ? `
+                      <span class="block mt-1 font-mono text-[10px] font-bold ${srvStmt.key ? 'text-emerald-700' : 'text-slate-500'}">
+                        Status Kunci: ${srvStmt.key ? 'BENAR (Harus Dicentang)' : 'SALAH (Jangan Dicentang)'}
+                      </span>` : ''}
+                  </div>
+                </label>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function setAnswerModel5(qId, stmtId, isChecked) {
+      if (!Array.isArray(userAnswers[qId])) userAnswers[qId] = [];
+      if (isChecked) {
+        if (!userAnswers[qId].includes(stmtId)) userAnswers[qId].push(stmtId);
+      } else {
+        userAnswers[qId] = userAnswers[qId].filter(id => id !== stmtId);
+      }
+      saveAnswersLocal();
+    }
+
+    // =========================================================================
+    // 6. NAVIGATION & DAFTAR SOAL MODAL
+    // =========================================================================
+
+    function nextQuestion() {
+      if (currentQIdx < currentPkg.questions.length - 1) {
+        currentQIdx++;
+        renderQuestion();
+      } else {
+        toggleConfirmFinishModal(true);
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQIdx > 0) {
+        currentQIdx--;
+        renderQuestion();
+      }
+    }
+
+    function goToQuestion(idx) {
+      if (idx >= 0 && idx < currentPkg.questions.length) {
+        currentQIdx = idx;
+        renderQuestion();
+        toggleDaftarSoalModal(false);
+      }
+    }
+
+    function toggleRaguCurrent(val) {
+      const q = currentPkg.questions[currentQIdx];
+      userRagu[q.id] = val;
+      renderQuestion();
+      saveAnswersLocal();
+    }
+
+    function toggleDaftarSoalModal(show) {
+      const modal = document.getElementById('modal-daftar-soal');
+      const isVisible = !modal.classList.contains('hidden');
+      const targetState = (show !== undefined) ? show : !isVisible;
+
+      if (targetState) {
+        renderDaftarSoalGrid();
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function renderDaftarSoalGrid() {
+      const container = document.getElementById('daftar-soal-grid-container');
+      container.innerHTML = currentPkg.questions.map((q, idx) => {
+        const isCurrent = (idx === currentQIdx);
+        const isRagu = Boolean(userRagu[q.id]);
+        const isAnswered = isQuestionAnswered(q);
+
+        let cls = 'q-pill-btn ';
+        if (isCurrent) cls += 'active-q ';
+        if (isRagu) cls += 'ragu ';
+        else if (isAnswered) cls += 'answered ';
+
+        return `
+          <button onclick="goToQuestion(${idx})" class="${cls}" title="Soal No. ${q.num}">
+            <span>${q.num}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function isQuestionAnswered(q) {
+      const ans = userAnswers[q.id];
+      if (!ans) return false;
+      if (q.model === 1 || q.model === 2 || q.model === 3) {
+        return Object.keys(ans).length > 0;
+      }
+      if (q.model === 4) return Boolean(ans);
+      if (q.model === 5) return Array.isArray(ans) && ans.length > 0;
+      return false;
+    }
+
+    // =========================================================================
+    // 7. SUBMIT & SCORING DIAGNOSTIC ENGINE (SCALED FOR 25 QUESTIONS)
+    // =========================================================================
+
+    function toggleConfirmFinishModal(show) {
+      const modal = document.getElementById('modal-confirm-finish');
+      if (show) {
+        let answered = 0;
+        let ragu = 0;
+        let empty = 0;
+
+        currentPkg.questions.forEach(q => {
+          if (userRagu[q.id]) ragu++;
+          if (isQuestionAnswered(q)) answered++;
+          else empty++;
+        });
+
+        document.getElementById('summary-answered-count').innerText = answered;
+        document.getElementById('summary-ragu-count').innerText = ragu;
+        document.getElementById('summary-empty-count').innerText = empty;
+
+        const warnEl = document.getElementById('warn-ragu-empty');
+        if (ragu > 0 || empty > 0) {
+          warnEl.innerText = `Perhatian: Masih terdapat ${ragu} butir bertanda ragu-ragu dan ${empty} butir belum terjawab.`;
+        } else {
+          warnEl.innerText = `Luar biasa! Seluruh ${currentPkg.questions.length} butir soal telah berhasil Anda jawab dengan lengkap.`;
+        }
+
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    async function submitFinalExam() {
+      if (timerInterval) clearInterval(timerInterval);
+      toggleConfirmFinishModal(false);
+
+      const serverResp = await syncScoreToCloudflare();
+      if (!serverResp || !serverResp.ok) {
+        const status = serverResp ? serverResp.status : 0;
+        const msg = (serverResp && serverResp.error) ? serverResp.error : 'Koneksi server terputus.';
+        if (status === 401) {
+          alert(`⚠️ Sesi login berakhir atau tidak valid (${msg}). Silakan login ulang untuk menyimpan jawaban Anda.`);
+          isExamFinished = false;
+          showView('view-login');
+          return;
+        }
+        if (status === 0) {
+          alert(`⚠️ Gagal terhubung ke server (${msg}). Jawaban lokal Anda aman; silakan periksa koneksi lalu tekan Selesai lagi.`);
+          isExamFinished = false;
+          return;
+        }
+        alert(`⚠️ Server mengembalikan status ${status}: ${msg}`);
+        isExamFinished = true;
+        await hydrateServerSolutions();
+        const fallbackDiag = buildDiagnosticsFromServer(serverDetailsByQId, window._akmLastServerScore);
+        displayDiagnosticReport(fallbackDiag);
+        return;
+      }
+
+      const srvData = serverResp.data || {};
+      isExamFinished = true;
+      if (studentInfo && studentInfo.nis) {
+        localStorage.setItem(`akm_exam_status_${currentPkg.id}_${studentInfo.nis}`, 'finished');
+      }
+      if (srvData.skor !== undefined) {
+        window._akmLastServerScore = Number(srvData.skor);
+      }
+      if (Array.isArray(srvData.solutions)) {
+        serverSolutionsByQId = {};
+        srvData.solutions.forEach(s => { if (s && s.id !== undefined) serverSolutionsByQId[s.id] = s; });
+      }
+      if (Array.isArray(srvData.details)) {
+        serverDetailsByQId = {};
+        srvData.details.forEach(d => { if (d && d.id !== undefined) serverDetailsByQId[d.id] = d; });
+      }
+
+      const diagnostic = buildDiagnosticsFromServer(serverDetailsByQId, srvData.skor !== undefined ? srvData.skor : null);
+      displayDiagnosticReport(diagnostic);
+    }
+
+    async function hydrateServerSolutions() {
+      try {
+        const res = await fetch(`/api/pembahasan?tingkat=12&mapel=akm&kode_pertemuan=${encodeURIComponent(currentPkg.id)}`, {
+          credentials: 'same-origin'
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.solutions)) {
+            serverSolutionsByQId = {};
+            data.solutions.forEach(s => { if (s && s.id !== undefined) serverSolutionsByQId[s.id] = s; });
+          }
+          if (data && data.skor !== undefined) {
+            window._akmLastServerScore = Number(data.skor);
+          }
+        }
+      } catch (_) {}
+    }
+
+    function buildDiagnosticsFromServer(detailsMap, explicitScore) {
+      const numQuestions = currentPkg.questions.length || 25;
+      const maxPointsPerQ = 100 / numQuestions;
+
+      const domainScores = {
+        "Aljabar & Kaidah Pencacahan": { earned: 0, total: 0 },
+        "Geometri Ruang & Pengukuran": { earned: 0, total: 0 },
+        "Data & Ketidakpastian": { earned: 0, total: 0 }
+      };
+
+      const cognitiveScores = {
+        "Knowing": { earned: 0, total: 0 },
+        "Applying": { earned: 0, total: 0 },
+        "Reasoning": { earned: 0, total: 0 }
+      };
+
+      let sumEarned = 0;
+      currentPkg.questions.forEach(q => {
+        const d = detailsMap ? detailsMap[q.id] : null;
+        const qScore = d ? Number(d.earned || 0) : 0;
+        sumEarned += qScore;
+
+        const dom = q.domain || "Aljabar & Kaidah Pencacahan";
+        if (domainScores[dom]) {
+          domainScores[dom].earned += qScore;
+          domainScores[dom].total += maxPointsPerQ;
+        }
+
+        let cog = "Applying";
+        if (q.kognitif.includes("Knowing")) cog = "Knowing";
+        else if (q.kognitif.includes("Reasoning")) cog = "Reasoning";
+        if (cognitiveScores[cog]) {
+          cognitiveScores[cog].earned += qScore;
+          cognitiveScores[cog].total += maxPointsPerQ;
+        }
+      });
+
+      const finalPercentage = (explicitScore !== null && explicitScore !== undefined)
+        ? Number(explicitScore)
+        : (window._akmLastServerScore !== undefined ? Number(window._akmLastServerScore) : Math.round(sumEarned));
+
+      let levelTitle = "MAHIR";
+      let levelColor = "bg-emerald-100 text-emerald-800 border border-emerald-300";
+      let levelDesc = "Murid mampu bernalar untuk menyelesaikan masalah kompleks serta non-rutin berdasarkan konsep matematika yang dimilikinya secara komprehensif.";
+
+      if (finalPercentage < 55) {
+        levelTitle = "PERLU INTERVENSI KHUSUS";
+        levelColor = "bg-rose-100 text-rose-800 border border-rose-300";
+        levelDesc = "Murid hanya memiliki pengetahuan matematika yang terbatas dan membutuhkan pendampingan konsep terstruktur secara intensif.";
+      } else if (finalPercentage < 70) {
+        levelTitle = "DASAR";
+        levelColor = "bg-amber-100 text-amber-800 border border-amber-300";
+        levelDesc = "Murid memiliki keterampilan dasar matematika: komputasi dasar, rumus langsung, serta konsep geometri dan statistika sederhana.";
+      } else if (finalPercentage < 85) {
+        levelTitle = "CAKAP";
+        levelColor = "bg-blue-100 text-blue-800 border border-blue-300";
+        levelDesc = "Murid mampu mengaplikasikan pengetahuan matematika yang dimiliki dalam konteks yang lebih beragam dan adaptif.";
+      }
+
+      return {
+        score: finalPercentage,
+        levelTitle,
+        levelColor,
+        levelDesc,
+        domainScores,
+        cognitiveScores
+      };
+    }
+
+    function displayDiagnosticReport(diag) {
+      document.getElementById('report-final-score').innerText = diag.score;
+      const levelBadge = document.getElementById('report-achievement-level');
+      levelBadge.innerText = diag.levelTitle;
+      levelBadge.className = `inline-block px-5 py-2 rounded-full font-black text-xs sm:text-sm tracking-wider shadow-xs ${diag.levelColor}`;
+      document.getElementById('report-achievement-desc').innerText = diag.levelDesc;
+
+      // Render Domain Bars
+      const domContainer = document.getElementById('report-domain-bars');
+      domContainer.innerHTML = Object.entries(diag.domainScores).map(([name, data]) => {
+        const pct = data.total > 0 ? Math.round((data.earned / data.total) * 100) : 0;
+        return `
+          <div class="space-y-1">
+            <div class="flex items-center justify-between font-bold text-slate-700">
+              <span>${name}</span>
+              <span class="font-mono text-blue-700">${pct}%</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden border border-slate-200">
+              <div class="h-full rounded-full bg-[#2563EB] transition-all duration-1000" style="width: ${pct}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Cognitive Level Boxes
+      const cogContainer = document.getElementById('report-cognitive-boxes');
+      cogContainer.innerHTML = Object.entries(diag.cognitiveScores).map(([name, data]) => {
+        const pct = data.total > 0 ? Math.round((data.earned / data.total) * 100) : 0;
+        return `
+          <div class="p-3 rounded-xl border border-slate-200 bg-[#F8FAFC] space-y-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">${name}</span>
+            <span class="text-xl font-black font-mono text-slate-900">${pct}%</span>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('modal-diagnostic-report').classList.remove('hidden');
+    }
+
+    async function startReviewMode() {
+      isReviewMode = true;
+      document.getElementById('modal-diagnostic-report').classList.add('hidden');
+      if (Object.keys(serverSolutionsByQId || {}).length === 0) {
+        await hydrateServerSolutions();
+      }
+      currentQIdx = 0;
+      renderQuestion();
+    }
+
+    // =========================================================================
+    // 8. STORAGE & SYNC ENGINE
+    // =========================================================================
+
+    function saveAnswersLocal() {
+      try {
+        if (studentInfo && studentInfo.nis) {
+          localStorage.setItem(`akm_answers_${currentPkg.id}_${studentInfo.nis}`, JSON.stringify(userAnswers));
+          localStorage.setItem(`akm_ragu_${currentPkg.id}_${studentInfo.nis}`, JSON.stringify(userRagu));
+          localStorage.setItem(`akm_last_qidx_${currentPkg.id}_${studentInfo.nis}`, String(currentQIdx));
+        }
+      } catch(e) {}
+    }
+
+    function restoreSavedAnswers() {
+      try {
+        const ans = localStorage.getItem(`akm_answers_${currentPkg.id}_${studentInfo.nis}`);
+        if (ans) userAnswers = JSON.parse(ans);
+        const ragu = localStorage.getItem(`akm_ragu_${currentPkg.id}_${studentInfo.nis}`);
+        if (ragu) userRagu = JSON.parse(ragu);
+      } catch(e) {}
+    }
+
+    async function syncScoreToCloudflare() {
+      try {
+        const payload = {
+          nis: studentInfo.nis,
+          mapel: "akm",
+          kode_pertemuan: currentPkg.id,
+          answers: userAnswers,
+          durasi_detik: (currentPkg.durationMinutes * 60) - timeRemainingSeconds,
+          jumlah_percobaan: 1
+        };
+
+        const res = await fetch('/api/nilai', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        let data = null;
+        try { data = await res.json(); } catch(_) {}
+        if (res.ok) {
+          return { ok: true, status: res.status, data };
+        }
+        return {
+          ok: false,
+          status: res.status,
+          error: (data && (data.error || data.message)) || `HTTP ${res.status}`
+        };
+      } catch(err) {
+        console.warn("⚠️ Sinkronisasi server tertunda:", err);
+        return { ok: false, status: 0, error: err && err.message ? err.message : 'Network error' };
+      }
+    }
+  </script>
+
+</body>
+</html>

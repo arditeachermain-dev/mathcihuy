@@ -1,0 +1,76 @@
+# Berkas yang tidak ikut diunggah ke GitHub.
+# Repositori mathcihuy bersifat PUBLIK, jadi apa pun yang di-commit
+# bisa dibaca siapa saja di internet.
+
+# Daftar akun siswa: memuat nama, NIS, dan password.
+# Sengaja disimpan hanya di komputer, tidak diunggah.
+daftar_akun_xii.md
+
+# Arsip unduhan (mathcihuy-main.zip dsb.)
+*.zip
+
+# Folder "math" berisi repositori git tersendiri sisa percobaan lama.
+# Kalau ikut terbawa, GitHub Desktop akan menandainya sebagai submodule
+# dan isinya tidak pernah benar-benar terunggah.
+math/
+
+# Berkas sementara Windows / macOS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Berkas cadangan editor
+*.bak
+*.BAK_WITH_KEYS
+*.TEST_CLEAN
+*~
+
+# Dokumen kerja untuk melengkapi materi (bukan bagian situs)
+PROMPT-LENGKAPI-MATERI.md
+materi-slide-lengkap.json
+contoh-satu-pertemuan.json
+
+# Folder unggah langsung ke Cloudflare (dibuat ulang tiap kali deploy).
+# Isinya hanya salinan 9 berkas situs -- bukan sumber, jadi tidak perlu
+# ikut ke GitHub.
+_deploy/
+
+# Bank soal & kunci jawaban PTS: hanya untuk komputer guru.
+# Repositori ini PUBLIK -- kalau ikut ter-commit, soal dan kuncinya
+# bisa dibaca siapa saja di GitHub sebelum ujian berlangsung.
+BANK_SOAL_PTS_CROP_PNG/
+PTS_*.md
+PTS_*.html
+PTS_*.pdf
+TKA_PTS_*.md
+TKA_PTS_*.html
+TKA_PTS_*.pdf
+tka_questions_dump.txt
+
+# Sampah Python dari server_offline.py (dibuat ulang sendiri setiap kali
+# dijalankan; tidak ada gunanya di repositori).
+__pycache__/
+*.pyc
+
+# Folder "Claude outputs" hanya berisi salinan data-xi.js yang sudah ada di
+# akar folder. Kalau ikut ter-commit, repositori menyimpan berkas 1,9 MB dua
+# kali dan suatu saat keduanya akan berbeda tanpa ketahuan.
+Claude outputs/
+
+# Cloudflare Wrangler local cache / build state
+.wrangler/
+
+node_modules/
+scratch/
+
+# Berkas migrasi, key uji, backup & artefak sensitif
+*.SESUDAH-MIGRASI
+test_rls_security.py
+SETUP_SUPABASE_DATABASE.sql
+MIGRASI_*.sql
+PAKET_TRYOUT_*
+PEMBAHASAN_TRYOUT_*
+paket_tryout_*
+pembahasan_tryout_*
+daily-raid-data.js
+weekly-raid-data.js

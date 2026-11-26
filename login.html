@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' width='64' height='64' role='img' aria-label='Math Cihuy'%3E%3Ctitle%3EMath Cihuy%3C/title%3E%3Cdefs%3E%3ClinearGradient id='ramp' x1='0' y1='0' x2='.15' y2='1'%3E%3Cstop offset='0' stop-color='%23FCD34D'/%3E%3Cstop offset='.42' stop-color='%23FBBF24'/%3E%3Cstop offset='.75' stop-color='%23F97316'/%3E%3Cstop offset='1' stop-color='%23E11D48'/%3E%3C/linearGradient%3E%3CradialGradient id='glow' cx='50%25' cy='45%25' r='52%25'%3E%3Cstop offset='0' stop-color='%23F97316' stop-opacity='.30'/%3E%3Cstop offset='1' stop-color='%23F97316' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='bgg' cx='28%25' cy='16%25' r='96%25'%3E%3Cstop offset='0' stop-color='%23182742'/%3E%3Cstop offset='1' stop-color='%23070C18'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='10.2' fill='url(%23bgg)'/%3E%3Cg transform='translate(-7.33 -8.75) scale(0.7866)'%3E%3Cg transform='translate(50 41)'%3E%3Cpath d='M0 0C-13.5 -19.71 -27 -19.71 -27 0C-27 19.71 -13.5 19.71 0 0M0 0C13.5 -19.71 27 -19.71 27 0C27 19.71 13.5 19.71 0 0' fill='none' stroke='url(%23ramp)' stroke-width='7.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='-13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3Ccircle cx='13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3C/g%3E%3Cg transform='translate(50 67)'%3E%3Cdefs%3E%3Cmask id='cutI' maskUnits='userSpaceOnUse' x='-45' y='-45' width='90' height='90'%3E%3Crect x='-45' y='-45' width='90' height='90' fill='%23fff'/%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23cutI)'%3E%3Cpath d='M-17 -4Q0 12 17 -4' fill='none' stroke='%23F1F5F9' stroke-width='6.4' stroke-linecap='round'/%3E%3C/g%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23F1F5F9' stroke-width='5.2' stroke-linecap='round'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+    <title>Mathcihuy - Matematika Susah, Tapi Cihuuyy..</title>
+    <meta name="description" content="Mathcihuy - Matematika Susah, Tapi Cihuuyy.. Portal pembelajaran interaktif dan CBT latihan soal.">
+    <!-- Open Graph / WhatsApp / Facebook / Telegram Sharing Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mathcihuy.pages.dev/login.html">
+    <meta property="og:title" content="Mathcihuy - Matematika Susah, Tapi Cihuuyy..">
+    <meta property="og:description" content="Mathcihuy - Matematika Susah, Tapi Cihuuyy.. Portal pembelajaran interaktif dan CBT latihan soal.">
+    <meta property="og:site_name" content="Mathcihuy">
+    <!-- Twitter / X Preview -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Mathcihuy - Matematika Susah, Tapi Cihuuyy..">
+    <meta name="twitter:description" content="Mathcihuy - Matematika Susah, Tapi Cihuuyy.. Portal pembelajaran interaktif dan CBT latihan soal.">
+    <!-- Cloudflare Turnstile (Anti-Bot Tanpa Captcha Ribet) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit" async defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0B2545 0%, #1a3a5c 50%, #071527 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .login-container {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 60px 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 200px;
+            height: 96px;
+            margin: 0 auto 10px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-16.00 -16.00 573.50 305.85' width='1721' height='918' role='img' aria-label='Math Cihuy'%3E%3Ctitle%3EMath Cihuy%3C/title%3E%3Cdefs%3E%3ClinearGradient id='ramp' x1='0' y1='0' x2='.15' y2='1'%3E%3Cstop offset='0' stop-color='%23FCD34D'/%3E%3Cstop offset='.42' stop-color='%23FBBF24'/%3E%3Cstop offset='.75' stop-color='%23F97316'/%3E%3Cstop offset='1' stop-color='%23E11D48'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform='translate(124.50 -65.86) scale(2.9249)'%3E%3Cg transform='translate(50 41)'%3E%3Cpath d='M0 0C-13.5 -19.71 -27 -19.71 -27 0C-27 19.71 -13.5 19.71 0 0M0 0C13.5 -19.71 27 -19.71 27 0C27 19.71 13.5 19.71 0 0' fill='none' stroke='url(%23ramp)' stroke-width='7.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='-13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3Ccircle cx='13.5' cy='-1' r='5' fill='%23F1F5F9'/%3E%3C/g%3E%3Cg transform='translate(50 67)'%3E%3Cdefs%3E%3Cmask id='cutD' maskUnits='userSpaceOnUse' x='-45' y='-45' width='90' height='90'%3E%3Crect x='-45' y='-45' width='90' height='90' fill='%23fff'/%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23cutD)'%3E%3Cpath d='M-17 -4Q0 12 17 -4' fill='none' stroke='%23F1F5F9' stroke-width='6.4' stroke-linecap='round'/%3E%3C/g%3E%3Cpath d='M-5 -5.5L5 11.5M-5 11.5L5 -5.5' fill='none' stroke='%23F1F5F9' stroke-width='5.2' stroke-linecap='round'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate(0 273.85)'%3E%3Cpath d='M7.7 0L7.7 -74.5L18.7 -74.5L46.7 -35.7L41.2 -35.7L68.7 -74.5L79.7 -74.5L79.7 0L68 0L68 -60.6L72.4 -59.4L44.3 -21L43.1 -21L15.6 -59.4L19.5 -60.6L19.5 0Z M110.2 1.2Q104.7 1.2 100.55 -0.75Q96.4 -2.7 94.1 -6.15Q91.8 -9.6 91.8 -14.3Q91.8 -18.7 93.75 -22.2Q95.7 -25.7 99.8 -28.1Q103.9 -30.5 110.1 -31.5L128.9 -34.6L128.9 -25.7L112.3 -22.8Q107.8 -22 105.7 -19.95Q103.6 -17.9 103.6 -14.7Q103.6 -11.6 105.95 -9.65Q108.3 -7.7 112 -7.7Q116.6 -7.7 120.05 -9.7Q123.5 -11.7 125.4 -15.05Q127.3 -18.4 127.3 -22.5L127.3 -36.4Q127.3 -40.4 124.35 -42.95Q121.4 -45.5 116.5 -45.5Q112 -45.5 108.65 -43.15Q105.3 -40.8 103.7 -37.1L94.3 -41.8Q95.8 -45.8 99.2 -48.85Q102.6 -51.9 107.15 -53.6Q111.7 -55.3 116.8 -55.3Q123.2 -55.3 128.15 -52.9Q133.1 -50.5 135.85 -46.25Q138.6 -42 138.6 -36.4L138.6 0L127.8 0L127.8 -9.8L130.1 -9.5Q128.2 -6.2 125.25 -3.8Q122.3 -1.4 118.55 -0.1Q114.8 1.2 110.2 1.2Z M174.2 0.6Q165.7 0.6 161 -4.2Q156.3 -9 156.3 -17.7L156.3 -43.9L146.8 -43.9L146.8 -54.1L148.3 -54.1Q152.1 -54.1 154.2 -56.3Q156.3 -58.5 156.3 -62.3L156.3 -66.5L167.6 -66.5L167.6 -54.1L179.9 -54.1L179.9 -43.9L167.6 -43.9L167.6 -18.2Q167.6 -15.4 168.5 -13.45Q169.4 -11.5 171.4 -10.45Q173.4 -9.4 176.6 -9.4Q177.4 -9.4 178.4 -9.5Q179.4 -9.6 180.3 -9.7L180.3 0Q178.9 0.2 177.2 0.4Q175.5 0.6 174.2 0.6Z M191.3 0L191.3 -75.7L202.6 -75.7L202.6 -43.5L200.8 -44.9Q202.8 -50 207.2 -52.65Q211.6 -55.3 217.4 -55.3Q223.4 -55.3 228 -52.7Q232.6 -50.1 235.2 -45.5Q237.8 -40.9 237.8 -35L237.8 0L226.6 0L226.6 -31.9Q226.6 -36 225.05 -38.85Q223.5 -41.7 220.8 -43.25Q218.1 -44.8 214.6 -44.8Q211.2 -44.8 208.45 -43.25Q205.7 -41.7 204.15 -38.8Q202.6 -35.9 202.6 -31.9L202.6 0Z' fill='%2393A6C4'/%3E%3Cpath d='M300.3 1.2Q292.3 1.2 285.45 -1.7Q278.6 -4.6 273.5 -9.8Q268.4 -15 265.55 -22Q262.7 -29 262.7 -37.3Q262.7 -45.6 265.5 -52.65Q268.3 -59.7 273.4 -64.85Q278.5 -70 285.35 -72.85Q292.2 -75.7 300.3 -75.7Q308.4 -75.7 314.85 -73Q321.3 -70.3 325.8 -65.8Q330.3 -61.3 332.2 -55.8L318.5 -49.2Q316.6 -54.6 311.85 -58.15Q307.1 -61.7 300.3 -61.7Q293.7 -61.7 288.7 -58.6Q283.7 -55.5 280.95 -50.05Q278.2 -44.6 278.2 -37.3Q278.2 -30 280.95 -24.5Q283.7 -19 288.7 -15.9Q293.7 -12.8 300.3 -12.8Q307.1 -12.8 311.85 -16.35Q316.6 -19.9 318.5 -25.3L332.2 -18.7Q330.3 -13.2 325.8 -8.7Q321.3 -4.2 314.85 -1.5Q308.4 1.2 300.3 1.2Z M341 0L341 -54.6L356 -54.6L356 0ZM341 -59.5L341 -74.5L356 -74.5L356 -59.5Z M367 0L367 -75.7L382 -75.7L382 -43.8L380.2 -46.2Q382.1 -51.1 386.35 -53.45Q390.6 -55.8 396.3 -55.8Q402.5 -55.8 407.15 -53.2Q411.8 -50.6 414.4 -45.95Q417 -41.3 417 -35.1L417 0L402 0L402 -31.9Q402 -35.1 400.75 -37.4Q399.5 -39.7 397.25 -41Q395 -42.3 392 -42.3Q389.1 -42.3 386.8 -41Q384.5 -39.7 383.25 -37.4Q382 -35.1 382 -31.9L382 0Z M446.5 1.2Q439.9 1.2 435.25 -1.65Q430.6 -4.5 428.2 -9.6Q425.8 -14.7 425.8 -21.5L425.8 -54.6L440.8 -54.6L440.8 -22.7Q440.8 -19.6 442.05 -17.25Q443.3 -14.9 445.6 -13.6Q447.9 -12.3 450.8 -12.3Q453.8 -12.3 456.05 -13.6Q458.3 -14.9 459.55 -17.25Q460.8 -19.6 460.8 -22.7L460.8 -54.6L475.8 -54.6L475.8 0L461.8 0L461.8 -10.8L462.6 -8.4Q460.7 -3.5 456.45 -1.15Q452.2 1.2 446.5 1.2Z M495.3 22Q492.9 22 490.65 21.6Q488.4 21.2 486.7 20.3L486.7 8Q488.1 8.4 490 8.7Q491.9 9 493.5 9Q497.9 9 499.8 6.95Q501.7 4.9 502.9 2.3L506.6 -6.2L506.4 6.3L482.4 -54.6L498.5 -54.6L514.4 -11.3L508.4 -11.3L524.3 -54.6L540.4 -54.6L517 5.1Q514.8 10.7 511.6 14.5Q508.4 18.3 504.35 20.15Q500.3 22 495.3 22Z' fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+        }
+
+        /* Slogan, bukan keterangan bantuan: sedikit lebih tegas daripada
+           teks pendukung biasa, tetapi tetap di bawah wordmark. */
+        .subtitle {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: .01em;
+            color: #CBD5E1;
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: #F59E0B;
+            border-bottom-color: #F59E0B;
+        }
+
+        .tab-btn:hover {
+            color: #cbd5e1;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(51, 65, 85, 0.8);
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #F59E0B, #EC4899);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .error {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 6px;
+            display: none;
+        }
+
+        .success {
+            color: #10b981;
+            font-size: 13px;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 6px;
+            display: none;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .turnstile-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0 20px;
+            min-height: 65px;
+            width: 100%;
+        }
+
+        .cf-turnstile-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 65px;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 40px 20px;
+            }
+
+            .logo {
+                width: 160px;
+                height: 76px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo" role="img" aria-label="Math Cihuy"></div>
+            <div class="subtitle">Matematika Susah, Tapi Cihuuyy..</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('siswa')">Siswa</button>
+            <button class="tab-btn" onclick="switchTab('guru')">Guru</button>
+        </div>
+
+        <!-- TAB SISWA -->
+        <div id="siswa" class="tab-content active">
+            <form onsubmit="loginSiswa(event)">
+                <div class="form-group">
+                    <label>NIS (Nomor Induk Siswa)</label>
+                    <input type="text" id="nis" placeholder="Masukkan NIS" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password_siswa" placeholder="Masukkan password" required>
+                </div>
+
+                <!-- Cloudflare Turnstile Siswa -->
+                <div class="turnstile-wrapper">
+                    <div id="turnstile-siswa" class="cf-turnstile-box"></div>
+                </div>
+
+                <button type="submit" id="btn_login_siswa" class="login-btn">Masuk</button>
+
+                <div class="error" id="error_siswa"></div>
+                <div class="success" id="success_siswa"></div>
+
+            </form>
+        </div>
+
+        <!-- TAB GURU -->
+        <div id="guru" class="tab-content">
+            <form onsubmit="loginGuru(event)">
+                <div class="form-group">
+                    <label>Email / Username Guru</label>
+                    <input type="text" id="email_guru" placeholder="Masukkan email atau username guru" autocomplete="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password Akun Guru</label>
+                    <input type="password" id="password_guru" placeholder="Masukkan password" autocomplete="current-password" required>
+                </div>
+
+                <!-- Cloudflare Turnstile Guru -->
+                <div class="turnstile-wrapper">
+                    <div id="turnstile-guru" class="cf-turnstile-box"></div>
+                </div>
+
+                <button type="submit" id="btn_login_guru" class="login-btn">Masuk sebagai Guru</button>
+
+                <div class="error" id="error_guru"></div>
+                <div class="success" id="success_guru"></div>
+
+            </form>
+        </div>
+
+        <!-- PANEL WAJIB GANTI PASSWORD AWAL (UNTUK AKUN ONBOARDING 1234) -->
+        <div id="change_pwd_panel" class="tab-content" style="display:none;">
+            <form onsubmit="submitInitialPasswordChange(event)">
+                <div style="font-size:13px; color:#facc15; margin-bottom:14px; line-height:1.5; background:rgba(250,204,21,0.1); padding:10px 12px; border-radius:10px; border:1px solid rgba(250,204,21,0.3);">
+                    🔐 <b>Keamanan Akun Wajib:</b> Anda masih memakai password awal. Buat password pribadi baru minimal <b>8 karakter</b> sebelum masuk portal.
+                </div>
+                <div class="form-group">
+                    <label>Password Baru (Min. 8 Karakter)</label>
+                    <input type="password" id="new_pwd_first" placeholder="Kombinasi huruf dan angka" minlength="8" required>
+                </div>
+                <div class="form-group">
+                    <label>Konfirmasi Password Baru</label>
+                    <input type="password" id="confirm_pwd_first" placeholder="Ulangi password baru" minlength="8" required>
+                </div>
+                <button type="submit" id="btn_save_new_pwd" class="login-btn">Simpan Password &amp; Masuk Portal</button>
+                <div class="error" id="error_new_pwd"></div>
+                <div class="success" id="success_new_pwd"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ===== CLOUDFLARE TURNSTILE (PRODUCTION FAIL-CLOSED ANTI-BOT) =====
+        var turnstileWidgetSiswa = null;
+        var turnstileWidgetGuru = null;
+        var turnstileTokenSiswa = '';
+        var turnstileTokenGuru = '';
+        window.TURNSTILE_SITE_KEY = window.TURNSTILE_SITE_KEY || '';
+
+        function renderTurnstileWidgets() {
+            if (typeof turnstile === 'undefined') return;
+            var siteKey = window.TURNSTILE_SITE_KEY || '';
+            if (!siteKey) return;
+
+            var elSiswa = document.getElementById('turnstile-siswa');
+            if (elSiswa && turnstileWidgetSiswa === null) {
+                try {
+                    turnstileWidgetSiswa = turnstile.render('#turnstile-siswa', {
+                        sitekey: siteKey,
+                        theme: 'dark',
+                        size: 'flexible',
+                        callback: function(token) {
+                            turnstileTokenSiswa = token;
+                        },
+                        'expired-callback': function() {
+                            turnstileTokenSiswa = '';
+                        },
+                        'error-callback': function() {
+                            turnstileTokenSiswa = '';
+                        }
+                    });
+                } catch(err) {
+                    console.warn('Turnstile Siswa render warn:', err);
+                }
+            }
+
+            var elGuru = document.getElementById('turnstile-guru');
+            if (elGuru && turnstileWidgetGuru === null) {
+                try {
+                    turnstileWidgetGuru = turnstile.render('#turnstile-guru', {
+                        sitekey: siteKey,
+                        theme: 'dark',
+                        size: 'flexible',
+                        callback: function(token) {
+                            turnstileTokenGuru = token;
+                        },
+                        'expired-callback': function() {
+                            turnstileTokenGuru = '';
+                        },
+                        'error-callback': function() {
+                            turnstileTokenGuru = '';
+                        }
+                    });
+                } catch(err) {
+                    console.warn('Turnstile Guru render warn:', err);
+                }
+            }
+        }
+
+        window.onloadTurnstileCallback = function() {
+            // Ambil Site Key dinamis dari server jika diatur pada environment Cloudflare Pages
+            fetch('/api/auth?config=turnstile')
+                .then(function(res) { return res.json(); })
+                .then(function(cfg) {
+                    if (cfg && cfg.turnstileSiteKey) {
+                        window.TURNSTILE_SITE_KEY = cfg.turnstileSiteKey;
+                    }
+                    renderTurnstileWidgets();
+                })
+                .catch(function() {
+                    renderTurnstileWidgets();
+                });
+        };
+
+        // ===== TAB SWITCHING =====
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+
+            // Render widget jika tab baru dibuka
+            renderTurnstileWidgets();
+        }
+
+        // ===== PINDAH KE PORTAL =====
+        // Portal ada di '/', BUKAN '/index.html'.
+        // Cloudflare Pages memantulkan '/index.html' ke '/' (308) -> itu sumber loop.
+        // Tiap tingkat punya halamannya sendiri: kelas 12 di '/', kelas 11 di
+        // '/11'. Siswa diarahkan menurut kelasnya, jadi ia tidak pernah membuka
+        // -- apalagi mengunduh -- materi tingkat lain.
+        // Urutan pemeriksaan penting: 'XII F1' juga diawali 'XI' dan 'X'.
+        function halamanTingkat(kelas) {
+            var k = String(kelas || '').trim().toUpperCase();
+            if (k.indexOf('ALUMNI') !== -1) return '/'; // Alumni bebas akses semua tingkat (default ke portal utama XII)
+            if (k.indexOf('XII') === 0) return '/';
+            if (k.indexOf('XI') === 0) return '/11';
+            if (k.indexOf('X') === 0) return '/10';
+            return '/';
+        }
+
+        function gotoPortal(kelas) {
+            sessionStorage.removeItem('redirect_guard');
+            window.location.replace(halamanTingkat(kelas));
+        }
+
+        var _pendingInitialPwd = '';
+        var _pendingKelas = '';
+
+        // ===== SISWA LOGIN =====
+        async function loginSiswa(e) {
+            e.preventDefault();
+            var nis = document.getElementById('nis').value.trim();
+            var password = document.getElementById('password_siswa').value;
+            var errorEl = document.getElementById('error_siswa');
+            var successEl = document.getElementById('success_siswa');
+            var submitBtn = e.target.querySelector('button[type="submit"]');
+
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Memverifikasi...';
+            }
+
+            var tokenToSubmit = turnstileTokenSiswa;
+            if (!tokenToSubmit && typeof turnstile !== 'undefined' && turnstileWidgetSiswa !== null) {
+                try { tokenToSubmit = turnstile.getResponse(turnstileWidgetSiswa); } catch(err) {}
+            }
+
+            try {
+                const resp = await fetch('/api/auth', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        role: 'siswa',
+                        nis: nis,
+                        password: password,
+                        turnstileToken: tokenToSubmit
+                    })
+                });
+                const result = await resp.json();
+
+                if (!resp.ok || !result.success) {
+                    var authErr = new Error(result.error || 'NIS atau password belum cocok.');
+                    authErr.status = resp.status;
+                    throw authErr;
+                }
+
+                var student = result.user || {};
+                var finalNama = student.nama || ('Siswa ' + (student.nis || nis));
+                var finalKelas = student.kelas || 'XII';
+                var canonicalNis = student.nis || nis;
+                var isAlumni = finalKelas.toLowerCase().indexOf('alumni') !== -1;
+
+                localStorage.setItem('portal_session', JSON.stringify({
+                    type: 'siswa',
+                    data: {
+                        nis: canonicalNis,
+                        name: finalNama,
+                        nama: finalNama,
+                        kelas_name: finalKelas,
+                        kelas: finalKelas,
+                        access_level: isAlumni ? 'all' : (student.access_level || (finalKelas.indexOf('F3') !== -1 || finalKelas.indexOf('F4') !== -1 ? 'full' : 'wajib_only'))
+                    },
+                    timestamp: Date.now()
+                }));
+
+                if (result.must_change_password) {
+                    _pendingInitialPwd = password;
+                    _pendingKelas = finalKelas;
+                    document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); el.style.display = 'none'; });
+                    var panel = document.getElementById('change_pwd_panel');
+                    if (panel) {
+                        panel.style.display = 'block';
+                        panel.classList.add('active');
+                    }
+                    return;
+                }
+
+                successEl.textContent = 'Berhasil masuk. Sebentar, ya...';
+                successEl.style.display = 'block';
+                setTimeout(function () { gotoPortal(finalKelas); }, 500);
+
+            } catch (err) {
+                if (typeof turnstile !== 'undefined' && turnstileWidgetSiswa !== null) {
+                    try { turnstile.reset(turnstileWidgetSiswa); } catch(e) {}
+                    turnstileTokenSiswa = '';
+                }
+
+                errorEl.textContent = err.message || 'NIS atau password belum cocok.';
+                errorEl.style.display = 'block';
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Masuk';
+                }
+            }
+        }
+
+        async function submitInitialPasswordChange(e) {
+            e.preventDefault();
+            var newPwd = document.getElementById('new_pwd_first').value.trim();
+            var confirmPwd = document.getElementById('confirm_pwd_first').value.trim();
+            var errEl = document.getElementById('error_new_pwd');
+            var okEl = document.getElementById('success_new_pwd');
+            var btn = document.getElementById('btn_save_new_pwd');
+
+            errEl.style.display = 'none';
+            okEl.style.display = 'none';
+
+            if (newPwd.length < 8) {
+                errEl.textContent = 'Password baru minimal 8 karakter.';
+                errEl.style.display = 'block';
+                return;
+            }
+            if (newPwd !== confirmPwd) {
+                errEl.textContent = 'Konfirmasi password tidak cocok.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            if (btn) { btn.disabled = true; btn.textContent = 'Menyimpan Password...'; }
+            try {
+                const resp = await fetch('/api/auth', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'change_password',
+                        current_password: _pendingInitialPwd,
+                        new_password: newPwd
+                    })
+                });
+                const res = await resp.json();
+                if (!resp.ok || !res.success) {
+                    throw new Error(res.error || 'Gagal menyimpan password baru.');
+                }
+                okEl.textContent = 'Password baru tersimpan aman! Mengalihkan ke portal...';
+                okEl.style.display = 'block';
+                setTimeout(function () { gotoPortal(_pendingKelas || 'XII'); }, 600);
+            } catch (err) {
+                errEl.textContent = err.message || 'Gagal mengganti password.';
+                errEl.style.display = 'block';
+                if (btn) { btn.disabled = false; btn.textContent = 'Simpan Password & Masuk Portal'; }
+            }
+        }
+
+        // ===== GURU LOGIN VIA CLOUDFLARE D1 NATIVE AUTHENTICATION =====
+        async function loginGuru(e) {
+            e.preventDefault();
+            var identifier = document.getElementById('email_guru').value.trim();
+            var password = document.getElementById('password_guru').value;
+            var errorEl = document.getElementById('error_guru');
+            var successEl = document.getElementById('success_guru');
+            var btn = document.getElementById('btn_login_guru');
+
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Memverifikasi Akun Guru...';
+            }
+
+            var tokenToSubmit = turnstileTokenGuru;
+            if (!tokenToSubmit && typeof turnstile !== 'undefined' && turnstileWidgetGuru !== null) {
+                try { tokenToSubmit = turnstile.getResponse(turnstileWidgetGuru); } catch(err) {}
+            }
+
+            try {
+                const resp = await fetch('/api/auth', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: identifier,
+                        username: identifier,
+                        identifier: identifier,
+                        password: password,
+                        role: 'guru',
+                        turnstileToken: tokenToSubmit
+                    })
+                });
+                const result = await resp.json();
+
+                if (!resp.ok || !result.success) {
+                    throw new Error(result.error || 'Email/username atau password guru salah. Silakan coba lagi.');
+                }
+
+                var user = result.user || {};
+                var namaGuru = user.nama || 'M. Ardiansyah, S.Pd.Gr.';
+
+                sessionStorage.removeItem('redirect_guard');
+                localStorage.setItem('portal_session', JSON.stringify({
+                    type: 'guru',
+                    data: {
+                        id: user.id || 'guru_ardi',
+                        email: user.email,
+                        username: user.username || (user.email ? user.email.split('@')[0] : 'arditeacher'),
+                        name: namaGuru,
+                        nama: namaGuru,
+                        role: 'guru',
+                        access_level: 'full'
+                    },
+                    timestamp: Date.now()
+                }));
+
+                successEl.textContent = 'Autentikasi Berhasil! Mengalihkan ke Portal Guru...';
+                successEl.style.display = 'block';
+                setTimeout(function () { gotoPortal('XII'); }, 500);
+
+            } catch (err) {
+                if (typeof turnstile !== 'undefined' && turnstileWidgetGuru !== null) {
+                    try { turnstile.reset(turnstileWidgetGuru); } catch(e) {}
+                    turnstileTokenGuru = '';
+                }
+
+                errorEl.textContent = err.message || 'Gagal masuk. Periksa kembali email dan password.';
+                errorEl.style.display = 'block';
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'Masuk sebagai Guru';
+                }
+            }
+        }
+
+        // ===== CEK SESI SAAT HALAMAN DIBUKA (VERIFIKASI SERVER) =====
+        async function checkExistingSession() {
+            if (sessionStorage.getItem('redirect_guard') === '1') {
+                sessionStorage.removeItem('redirect_guard');
+                localStorage.removeItem('portal_session');
+                return;
+            }
+
+            try {
+                var resp = await fetch('/api/auth', { credentials: 'same-origin' });
+                if (resp.ok) {
+                    var auth = await resp.json();
+                    if (auth && auth.authenticated && auth.user && !auth.user.must_change_password) {
+                        var u = auth.user;
+                        localStorage.setItem('portal_session', JSON.stringify({
+                            type: auth.role === 'guru' ? 'guru' : 'siswa',
+                            data: u,
+                            timestamp: Date.now()
+                        }));
+                        gotoPortal(u.kelas || '');
+                        return;
+                    }
+                }
+            } catch (_) {}
+
+            localStorage.removeItem('portal_session');
+        }
+
+        window.addEventListener('DOMContentLoaded', checkExistingSession);
+    </script>
+</body>
+</html>

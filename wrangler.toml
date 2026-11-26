@@ -1,0 +1,19 @@
+name = "mathcihuy"
+compatibility_date = "2026-08-27"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mathcihuy-db"
+database_id = "9dfecbc1-2187-4a5a-8b98-1318a87a8e4b"
+
+[vars]
+# PENTING: Atur TURNSTILE_SITE_KEY asli di Cloudflare Pages -> Settings -> Environment Variables
+# dan atur secrets berikut via `wrangler pages secret put` atau Cloudflare Dashboard:
+#   - TURNSTILE_SECRET_KEY
+#   - JWT_SECRET
+#   - GURU_PASSWORD (atau GURU_PASSWORD_HASH)
+#   - DISCORD_TOKEN
+DISCORD_PUBLIC_KEY = "3703e790fc773d168f97a93b2f0fed58e0e2363bb03cf37b4dc0730310350607"
+DISCORD_APPLICATION_ID = "1540991188591706202"
+DISCORD_GUILD_ID = "1525419440529870981"

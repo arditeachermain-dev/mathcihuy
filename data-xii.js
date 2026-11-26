@@ -1,0 +1,16037 @@
+// ===========================================================================
+// DATA KELAS XII -- Math Cihuy
+// Berkas ini HANYA berisi hal yang berbeda antar tingkat. Kode aplikasi
+// (app.js), tampilan (mathcihuy.css), dan pustaka (vendor.js) dipakai bersama
+// oleh semua tingkat, sehingga perbaikan cukup dikerjakan sekali.
+// ===========================================================================
+const TINGKAT = 12;
+const NAMA_TINGKAT = 'XII';
+
+
+    // 1. MASTER DATABASE INJECTED FROM SERVER
+    const db = {
+  "wajib": [
+    {
+      "id": "P01",
+      "bab": "Bab 1: Kaidah Pencacahan & Peluang",
+      "title": "Aturan Penjumlahan & Perkalian (Prinsip Dasar & Filling Slots)",
+      "obj": [
+        "Memahami prinsip dasar penjumlahan (pilihan saling lepas) dan perkalian (aktivitas berseri).",
+        "Menerapkan metode pengisian tempat (Filling Slots) untuk menentukan banyak susunan bilangan.",
+        "Menyelesaikan masalah kontekstual pembentukan rute perjalanan dan sandi PIN."
+      ],
+      "hook": "Berapa banyak kemungkinan kombinasi nomor pelat kendaraan bermotor di wilayah Jabodetabek dengan pola 1 huruf depan, 4 angka, dan 3 huruf belakang tanpa ada angka berulang?",
+      "toolkit": [
+        {
+          "name": "Aturan Penjumlahan Kejadian Saling Lepas",
+          "math": "$$\\text{Total Cara} = n_1 + n_2 + \\dots + n_k$$"
+        },
+        {
+          "name": "Aturan Perkalian Aktivitas Berseri",
+          "math": "$$\\text{Total Cara} = n_1 \\times n_2 \\times \\dots \\times n_k$$"
+        },
+        {
+          "name": "Metode Pengisian Tempat Berurutan",
+          "math": "$$\\text{Banyak Susunan} = k_1 \\times k_2 \\times \\dots \\times k_n$$"
+        },
+        {
+          "name": "Pencacahan Bilangan dengan Digit Terbatas",
+          "math": "$$N = N_{\\text{ribuan}} \\times N_{\\text{ratusan}} \\times N_{\\text{puluhan}} \\times N_{\\text{satuan}}$$"
+        },
+        {
+          "name": "Prinsip Komplemen Pencacahan",
+          "math": "$$n(A) = n(S) - n(A')$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Seorang siswa memiliki 3 kemeja putih, 4 kemeja batik, dan 2 kemeja flanel. Jika ia ingin mengenakan satu kemeja ke sekolah, berapa banyak pilihan kemeja yang dapat ia gunakan?",
+          "solution": "Langkah 1: Karena pemilihan kemeja merupakan pilihan tunggal yang saling lepas (hanya memilih 1 kemeja), berlaku aturan penjumlahan.\nLangkah 2: Total pilihan $= n_1 + n_2 + n_3 = 3 + 4 + 2 = 9$ pilihan.\nKesimpulan: Terdapat $9$ pilihan kemeja."
+        },
+        {
+          "problem": "Kota A dan B dihubungkan oleh 4 rute bus, sedangkan kota B dan C dihubungkan oleh 3 rute kereta. Berapa banyak rute perjalanan berbeda dari kota A ke kota C melalui B?",
+          "solution": "Langkah 1: Perjalanan dari A ke C melalui B adalah kegiatan berseri (A ke B, dilanjutkan B ke C), maka berlaku aturan perkalian.\nLangkah 2: Total rute $= n_{AB} \\times n_{BC} = 4 \\times 3 = 12$ rute perjalanan.\nKesimpulan: Terdapat $12$ rute perjalanan berbeda dari kota A ke kota C."
+        },
+        {
+          "problem": "Dari angka-angka 1, 2, 3, 5, 7, 8 akan disusun bilangan ratusan ganjil tanpa ada angka yang berulang. Tentukan banyak bilangan yang dapat dibentuk!",
+          "solution": "Langkah 1: Sediakan 3 slot (Ratusan, Puluhan, Satuan).\nLangkah 2: Syarat bilangan ganjil ditentukan oleh angka satuan. Pilihan satuan ganjil dari himpunan $\\{1, 3, 5, 7\\}$ ada 4 angka (Slot Satuan = 4).\nLangkah 3: Total angka tersedia = 6. Karena tidak boleh berulang, setelah 1 angka dipakai di satuan, sisa 5 angka untuk slot Ratusan (Slot Ratusan = 5).\nLangkah 4: Sisa 4 angka untuk slot Puluhan (Slot Puluhan = 4).\nLangkah 5: Total bilangan $= 5 \\times 4 \\times 4 = 80$ bilangan.\nKesimpulan: Terdapat $80$ bilangan ratusan ganjil tanpa angka berulang."
+        },
+        {
+          "problem": "Tentukan banyak bilangan bernilai antara 300 dan 700 yang dapat disusun dari angka-angka 2, 3, 4, 5, 6, 7, 8 tanpa ada angka berulang!",
+          "solution": "Langkah 1: Bilangan bernilai antara 300 dan 700 adalah bilangan 3 digit (ratusan) dengan angka ratusan bernilai 3, 4, 5, atau 6.\nLangkah 2: Slot Ratusan memiliki 4 pilihan angka $\\{3, 4, 5, 6\\}$.\nLangkah 3: Dari total 7 angka yang tersedia, 1 angka telah digunakan di ratusan, sehingga tersisa 6 pilihan untuk slot Puluhan.\nLangkah 4: Tersisa 5 pilihan untuk slot Satuan.\nLangkah 5: Total susunan $= 4 \\times 6 \\times 5 = 120$ bilangan.\nKesimpulan: Terdapat $120$ bilangan yang memenuhi kriteria."
+        },
+        {
+          "problem": "Sebuah sistem PIN keamanan gawai terdiri atas 4 digit angka. Agar PIN tidak mudah ditebak, sistem mensyaratkan: digit pertama tidak boleh 0, digit terakhir harus genap, dan tidak boleh ada angka yang sama. Berapa banyak kombinasi PIN yang dapat dibuat?",
+          "solution": "Langkah 1: Angka tersedia $\\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\\}$ (10 angka). Genap $\\{0, 2, 4, 6, 8\\}$.\nLangkah 2: Bagi ke dalam 2 kasus berdasarkan digit terakhir (Satuan):\n- Kasus A: Digit terakhir angka 0 (1 pilihan). Digit pertama bisa $\\{1-9\\}$ (9 pilihan). Digit ke-2 (8 pilihan), Digit ke-3 (7 pilihan). Total $= 9 \\times 8 \\times 7 \\times 1 = 504$.\n- Kasus B: Digit terakhir genap bukan 0 $\\{2, 4, 6, 8\\}$ (4 pilihan). Digit pertama tidak boleh 0 dan tidak boleh sama dengan satuan $\\implies 10 - 2 = 8$ pilihan. Digit ke-2 (8 pilihan), Digit ke-3 (7 pilihan). Total $= 8 \\times 8 \\times 7 \\times 4 = 1.792$.\nLangkah 3: Total kombinasi PIN $= 504 + 1.792 = 2.296$ variasi PIN.\nKesimpulan: Terdapat $2.296$ kombinasi PIN yang memenuhi kriteria keamanan."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan banyak bilangan ganjil 4 angka bernilai lebih dari 3.000 tanpa angka berulang yang dapat disusun dari {0, 1, 2, 3, 4, 5, 6}!",
+      "summary_data": {
+        "summary": [
+          "Aturan Penjumlahan digunakan ketika peristiwa bersifat saling lepas (opsional / tidak terjadi bersamaan).",
+          "Aturan Perkalian (Filling Slots) digunakan ketika peristiwa terjadi secara berurutan atau simultan multi-tahap.",
+          "Perhitungan kombinasi kode atau bilangan bersyarat harus mendahulukan slot yang memiliki batasan paling ketat (misal angka ganjil/genap pada slot satuan)."
+        ],
+        "islamic": "Setiap pilihan rute dan keputusan dalam hidup memiliki konsekuensi. Allah SWT memerintahkan manusia untuk senantiasa merencanakan langkah terbaik dengan penuh perhitungan dan bertawakkal (QS. Al-Hasyr: 18)."
+      },
+      "collab_cases": [
+        "Dari angka $\\{0, 1, 2, 3, 4, 5, 6\\}$, tentukan banyak bilangan ganjil 3 angka lebih dari 300 tanpa angka berulang!",
+        "Sebuah kode akses terdiri atas 2 huruf vokal berbeda diikuti 3 angka genap berbeda. Tentukan total kombinasi kode yang dapat dibentuk!",
+        "Tentukan banyak jalur terpendek pada kisi $4 \\times 3$ dari titik $(0,0)$ ke $(4,3)$ yang wajib melewati titik $(2,2)$!",
+        "Sebuah kafetaria menyediakan 4 jenis makanan pokok, 5 lauk, 3 sayur, dan 4 minuman. Berapa variasi paket makan siang (1 makanan, 1 lauk, 1 sayur, 1 minuman) yang dapat dipilih?",
+        "Berapa banyak bilangan bulat positif antara 100 dan 999 yang memiliki minimal satu angka 7 dalam susunannya?"
+      ],
+      "tagline": "Menghitung Peluang & Kemungkinan dari Pilihan Sederhana hingga Sandi Keamanan",
+      "collab_solutions": [
+        "Langkah 1: Ratusan ganjil > 300 dari angka {0,1,2,3,4,5,6} (ada 7 angka, tanpa perulangan).\nLangkah 2: Angka satuan ganjil {1,3,5} (3 opsi), angka ratusan {3,4,5,6} (4 opsi). Bagi 2 kasus:\n- Kasus Ratusan ganjil {3,5} (2 opsi): Satuan tersisa (2 opsi), Puluhan (5 opsi) => 2 x 5 x 2 = 20 bilangan.\n- Kasus Ratusan genap {4,6} (2 opsi): Satuan (3 opsi), Puluhan (5 opsi) => 2 x 5 x 3 = 30 bilangan.\nLangkah 3: Total susunan = 20 + 30 = 50 bilangan.\nKesimpulan: Banyak bilangan ganjil yang terbentuk adalah 50 bilangan.",
+        "Langkah 1: Huruf vokal {A,I,U,E,O} (5 opsi). Ambil 2 huruf berbeda => P(5,2) = 5 x 4 = 20 cara.\nLangkah 2: Angka genap {0,2,4,6,8} (5 opsi). Ambil 3 angka berbeda => P(5,3) = 5 x 4 x 3 = 60 cara.\nLangkah 3: Aturan perkalian aktivitas berseri: Total = 20 x 60 = 1.200 variasi kode akses.\nKesimpulan: Total variasi kode akses yang dapat dibuat adalah 1.200 kombinasi.",
+        "Langkah 1: Titik (0,0) ke (2,1): Bergerak 2K, 1A => Banyak jalur = 3! / (2! 1!) = 3 cara.\nLangkah 2: Titik (2,1) ke (4,3): Bergerak 2K, 2A => Banyak jalur = 4! / (2! 2!) = 6 cara.\nLangkah 3: Total rute melalui (2,1) = 3 x 6 = 18 rute terpendek.\nKesimpulan: Banyak jalur terpendek dari (0,0) ke (4,3) yang melalui (2,1) adalah 18 jalur.",
+        "Langkah 1: Aturan perkalian pemilihan menu lengkap: Total = Pokok x Lauk x Sayur x Minuman.\nLangkah 2: Total = 4 x 5 x 3 x 4 = 240 paket hidangan berbeda.\nKesimpulan: Terdapat 240 variasi paket hidangan makan siang berbeda.",
+        "Langkah 1: Total bilangan 3 digit (100 s.d. 999) = 900 bilangan (Ratusan [9 opsi: 1-9], Puluhan [10 opsi: 0-9], Satuan [10 opsi: 0-9]).\nLangkah 2: Bilangan tanpa angka 7 sama sekali: Ratusan (8 opsi: 1-9 tanpa 7), Puluhan (9 opsi), Satuan (9 opsi) => 8 x 9 x 9 = 648 bilangan.\nLangkah 3: Komplemen (memiliki minimal satu angka 7) = 900 - 648 = 252 bilangan.\nKesimpulan: Banyak bilangan bulat yang memuat minimal satu angka 7 adalah 252 bilangan."
+      ]
+    },
+    {
+      "id": "P02",
+      "bab": "Bab 1: Kaidah Pencacahan & Peluang",
+      "title": "Notasi Faktorial & Permutasi Unsur Berbeda",
+      "obj": [
+        "Mendefinisikan notasi faktorial $n! = n \\times (n-1) \\times \\dots \\times 1$ dan $0! = 1$.",
+        "Menghitung permutasi $r$ unsur dari $n$ unsur berbeda $P(n, r) = \\frac{n!}{(n-r)!}$.",
+        "Menyelesaikan masalah susunan dengan memperhatikan jabatan, posisi juara, dan antrean baris."
+      ],
+      "hook": "Dalam pemilihan formasi kepengurusan OSIS sekolah dari 9 calon kandidat, urutan posisi jabatan (Ketua, Sekretaris, Bendahara) sangat menentukan makna hasil pilihan!",
+      "toolkit": [
+        {
+          "name": "Definisi Notasi Faktorial",
+          "math": "$$n! = n \\times (n-1) \\times (n-2) \\times \\dots \\times 2 \\times 1, \\quad 0! = 1$$"
+        },
+        {
+          "name": "Permutasi n Unsur Berbeda Diambil r",
+          "math": "$$P(n, r) = P^n_r = \\frac{n!}{(n-r)!} \\quad (r \\le n)$$"
+        },
+        {
+          "name": "Permutasi Seluruh Unsur Berbeda",
+          "math": "$$P(n, n) = n!$$"
+        },
+        {
+          "name": "Permutasi Berdampingan Unsur Berdampingan",
+          "math": "$$\\text{Banyak Susunan} = (n - k + 1)! \\times k!$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Hitung nilai dari bentuk faktorial $\\frac{8!}{5! \\cdot 3!}$!",
+          "solution": "Langkah 1: Jabarkan pembilang: $8! = 8 \\times 7 \\times 6 \\times 5!$.\nLangkah 2: Sederhanakan faktor $5!$: $\\frac{8 \\times 7 \\times 6 \\times 5!}{5! \\times (3 \\times 2 \\times 1)} = \\frac{8 \\times 7 \\times 6}{6}$.\nLangkah 3: Evaluasi: $8 \\times 7 = 56$.\nKesimpulan: Nilai dari bentuk faktorial tersebut adalah $56$."
+        },
+        {
+          "problem": "Tentukan nilai dari permutasi $P(7, 3)$!",
+          "solution": "Langkah 1: Gunakan rumus permutasi unsur berbeda: $P(n, r) = \\frac{n!}{(n-r)!}$.\nLangkah 2: $P(7, 3) = \\frac{7!}{(7-3)!} = \\frac{7!}{4!} = 7 \\times 6 \\times 5$.\nLangkah 3: Evaluasi: $7 \\times 30 = 210$.\nKesimpulan: Nilai permutasi $P(7, 3)$ adalah $210$."
+        },
+        {
+          "problem": "Dari 8 pengurus OSIS, akan dipilih 3 orang untuk menduduki jabatan Ketua, Sekretaris, dan Bendahara. Tentukan banyak susunan kepengurusan yang mungkin!",
+          "solution": "Langkah 1: Karena terdapat urutan jabatan struktural (Ketua $\\neq$ Sekretaris $\\neq$ Bendahara), digunakan konsep permutasi $P(8, 3)$.\nLangkah 2: $P(8, 3) = 8 \\times 7 \\times 6 = 336$ susunan.\nKesimpulan: Terdapat $336$ susunan kepengurusan OSIS yang mungkin."
+        },
+        {
+          "problem": "Tentukan nilai bilangan bulat $n$ yang memenuhi persamaan $P(n, 2) = 72$!",
+          "solution": "Langkah 1: Jabarkan rumus permutasi: $P(n, 2) = \\frac{n!}{(n-2)!} = n(n - 1) = 72$.\nLangkah 2: Bentuk persamaan kuadrat: $n^2 - n - 72 = 0$.\nLangkah 3: Faktorkan: $(n - 9)(n + 8) = 0$.\nLangkah 4: Karena $n \\ge 2$ dan harus positif, maka nilai yang memenuhi adalah $n = 9$.\nKesimpulan: Nilai $n$ yang memenuhi adalah $9$."
+        },
+        {
+          "problem": "Sebuah rak buku akan diisi oleh 4 buku Matematika berbeda dan 3 buku Fisika berbeda. Tentukan banyak cara menyusun buku tersebut di rak jika semua buku sejenis harus selalu diletakkan berdampingan!",
+          "solution": "Langkah 1: Kelompokkan buku sejenis menjadi 2 blok elemen: Blok Matematika dan Blok Fisika.\nLangkah 2: Susun 2 blok elemen: $2! = 2$ cara.\nLangkah 3: Susun 4 buku di dalam Blok Matematika: $4! = 4 \\times 3 \\times 2 \\times 1 = 24$ cara.\nLangkah 4: Susun 3 buku di dalam Blok Fisika: $3! = 3 \\times 2 \\times 1 = 6$ cara.\nLangkah 5: Total susunan $= 2! \\times 4! \\times 3! = 2 \\times 24 \\times 6 = 288$ susunan.\nKesimpulan: Terdapat $288$ susunan penataan buku yang mungkin."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan nilai $n$ yang memenuhi persamaan permutasi $P(n, 2) = 72$ dan buktikan kebenarannya!",
+      "summary_data": {
+        "summary": [
+          "Faktorial $n! = n \\times (n-1) \\times \\dots \\times 1$ dengan definisi khusus $0! = 1$.",
+          "Permutasi memperhatikan URUTAN susunan ($AB \\neq BA$).",
+          "Rumus Permutasi $r$ unsur dari $n$ unsur berbeda: $P(n, r) = \\frac{n!}{(n-r)!}$."
+        ],
+        "islamic": "Susunan kepemimpinan dan amanah menuntut penempatan orang yang tepat pada posisi yang tepat (The right man on the right place), sebagaimana sabda Rasulullah SAW tentang menjaga amanah."
+      },
+      "collab_cases": [
+        "Hitunglah nilai $n$ yang memenuhi persamaan permutasi: $P(n, 4) = 42 \\cdot P(n, 2)$!",
+        "Berapa banyak susunan kata berbeda yang dapat dibentuk dari huruf-huruf pada kata 'GLOBALISASI'?",
+        "Tujuh pengurus OSIS duduk berdampingan pada satu baris kursi. Tentukan peluang Ketua, Sekretaris, dan Bendahara selalu duduk berdampingan!",
+        "Dalam lomba cerdas cermat yang diikuti 10 tim, berapa banyak kemungkinan susunan peraih Juara 1, Juara 2, dan Juara 3?",
+        "Buktikan secara aljabar bahwa $P(n, r) = n \\cdot P(n-1, r-1)$ untuk setiap bilangan bulat $1 \\le r \\le n$!"
+      ],
+      "tagline": "Menyusun Formasi Berurutan: Dari Kursi Kepengurusan hingga Susunan Huruf Kata",
+      "collab_solutions": [
+        "Langkah 1: Uraikan definisi permutasi: n(n-1)(n-2)(n-3) = 42 * n(n-1).\nLangkah 2: Karena n >= 4, bagi kedua ruas dengan n(n-1): (n-2)(n-3) = 42.\nLangkah 3: n^2 - 5n + 6 = 42 => n^2 - 5n - 36 = 0 => (n - 9)(n + 4) = 0.\nLangkah 4: Karena n bilangan bulat positif, maka n = 9.\nKesimpulan: Nilai n yang memenuhi persamaan adalah n = 9.",
+        "Langkah 1: Kata 'GLOBALISASI' memiliki total 11 huruf.\nLangkah 2: Identifikasi huruf kembar: G=1, L=2, O=1, B=1, A=2, I=2, S=2.\nLangkah 3: Permutasi unsur sama = 11! / (2! 2! 2! 2!) = 39.916.800 / 16 = 2.494.800 kata.\nKesimpulan: Banyak susunan kata berbeda yang dapat dibentuk adalah 2.494.800 kata.",
+        "Langkah 1: Ikat 3 pengurus inti (Ketua, Sekr, Bend) menjadi 1 kesatuan (dapat bertukar posisi internal 3! = 6 cara).\nLangkah 2: Total elemen = 1 kesatuan + 4 pengurus lain = 5 elemen (disusun 5! = 120 cara).\nLangkah 3: Banyak kejadian n(E) = 120 x 6 = 720 cara. Ruang sampel n(S) = 7! = 5.040 cara.\nLangkah 4: Peluang P = 720 / 5.040 = 1/7.\nKesimpulan: Peluang ketiga pengurus inti duduk berdampingan adalah 1/7.",
+        "Langkah 1: Memilih dan mengurutkan 3 tim juara dari 10 tim: P(10, 3).\nLangkah 2: P(10, 3) = 10 x 9 x 8 = 720 susunan juara.\nKesimpulan: Terdapat 720 kemungkinan susunan peraih Juara 1, 2, dan 3.",
+        "Langkah 1: Ruas kanan: n * P(n-1, r-1) = n * [ (n-1)! / ((n-1) - (r-1))! ].\nLangkah 2: Penyebut: ((n-1) - (r-1))! = (n - 1 - r + 1)! = (n - r)!.\nLangkah 3: Pembilang: n * (n-1)! = n!.\nLangkah 4: Diperoleh n! / (n - r)! = P(n, r) (Terbukti identik dengan ruas kiri).\nKesimpulan: Identitas aljabar permutasi terbukti benar secara matematis."
+      ]
+    },
+    {
+      "id": "P03",
+      "bab": "Bab 1: Kaidah Pencacahan & Peluang",
+      "title": "Permutasi Unsur Sama & Permutasi Siklis",
+      "obj": [
+        "Menghitung permutasi dengan beberapa unsur identik/sama $P = \\frac{n!}{k_1! k_2! \\dots k_m!}$.",
+        "Menerapkan rumus permutasi siklis melingkar $P_{\\text{siklis}} = (n-1)!$.",
+        "Menyelesaikan masalah susunan huruf anagram dan formasi meja bundar."
+      ],
+      "hook": "Berapa banyak anagram kata dari 'MATEMATIKA' yang memiliki beberapa huruf kembar (3 huruf A, 2 huruf M, 2 huruf T), dan bagaimana menyusun delegasi di meja bundar?",
+      "toolkit": [
+        {
+          "name": "Permutasi dengan Unsur yang Sama",
+          "math": "$$P = \\frac{n!}{k_1! \\times k_2! \\times \\dots \\times k_m!}$$"
+        },
+        {
+          "name": "Permutasi Siklis Melingkar",
+          "math": "$$P_{\\text{siklis}} = (n - 1)!$$"
+        },
+        {
+          "name": "Permutasi Siklis dengan Unsur Berdampingan",
+          "math": "$$P = (n - k)! \\times k!$$"
+        },
+        {
+          "name": "Permutasi Siklis Tiga Dimensi Gelang Kalung",
+          "math": "$$P_{\\text{gelang}} = \\frac{(n - 1)!}{2}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan banyak susunan kata berbeda yang dapat dibentuk dari seluruh huruf penyusun kata 'MATEMATIKA'!",
+          "solution": "Langkah 1: Total huruf $n = 10$.\nLangkah 2: Identifikasi huruf yang berulang: huruf M ada 2 ($k_1=2$), huruf A ada 3 ($k_2=3$), huruf T ada 2 ($k_3=2$), huruf E (1), I (1), K (1).\nLangkah 3: Rumus permutasi unsur sama: $P = \\frac{n!}{k_1! \\cdot k_2! \\cdot k_3!} = \\frac{10!}{2! \\cdot 3! \\cdot 2!}$.\nLangkah 4: $P = \\frac{3.628.800}{2 \\times 6 \\times 2} = \\frac{3.628.800}{24} = 151.200$ susunan kata.\nKesimpulan: Banyak susunan kata berbeda yang dapat dibentuk adalah $151.200$ kata."
+        },
+        {
+          "problem": "Sebanyak 6 orang delegasi rapat duduk melingkari meja bundar. Tentukan banyak susunan posisi duduk yang mungkin!",
+          "solution": "Langkah 1: Susunan posisi duduk melingkar merupakan permutasi siklis: $P_{\\text{siklis}} = (n - 1)!$.\nLangkah 2: Dengan $n = 6$, diperoleh $P_{\\text{siklis}} = (6 - 1)! = 5!$.\nLangkah 3: $5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$ susunan.\nKesimpulan: Terdapat $120$ susunan posisi duduk melingkar."
+        },
+        {
+          "problem": "Sebanyak 7 orang anggota keluarga duduk mengelilingi meja makan bundar. Jika Ayah dan Ibu harus selalu duduk berdampingan, tentukan banyak posisi duduk yang dapat dibentuk!",
+          "solution": "Langkah 1: Ikat Ayah dan Ibu menjadi 1 unsur gabungan. Jumlah unsur efektif melingkar $= (7 - 2) + 1 = 6$ unsur.\nLangkah 2: Susun 6 unsur mengelilingi meja bundar: $P_{\\text{siklis}} = (6 - 1)! = 5! = 120$ cara.\nLangkah 3: Ayah dan Ibu dapat bertukar posisi duduk: $2! = 2$ cara.\nLangkah 4: Total susunan $= 120 \\times 2 = 240$ posisi duduk.\nKesimpulan: Terdapat $240$ posisi duduk melingkar."
+        },
+        {
+          "problem": "Dari 3 bendera merah yang identik, 2 bendera putih identik, dan 4 bendera biru identik, akan dipasang berjajar pada tiang tali horizontal. Berapa banyak formasi kibaran bendera berbeda yang dapat dibuat?",
+          "solution": "Langkah 1: Total bendera $n = 3 + 2 + 4 = 9$ bendera.\nLangkah 2: Permutasi unsur sama dengan $k_1 = 3, k_2 = 2, k_3 = 4$.\nLangkah 3: $P = \\frac{9!}{3! \\cdot 2! \\cdot 4!} = \\frac{9 \\times 8 \\times 7 \\times 6 \\times 5 \\times 4!}{(6) \\times (2) \\times 4!} = \\frac{15.120}{12} = 1.260$ formasi.\nKesimpulan: Terdapat $1.260$ formasi kibaran bendera berbeda."
+        },
+        {
+          "problem": "Sebuah gelang perhiasan akan dibuat dari 6 butir manik-manik berwarna berbeda. Berapa banyak pola susunan manik-manik pada gelang yang dapat dirangkai?",
+          "solution": "Langkah 1: Gelang merupakan permutasi siklis 3D yang dapat dibolak-balik (efek cermin simetri bolak-balik).\nLangkah 2: Rumus permutasi gelang manik-manik: $P = \\frac{(n - 1)!}{2}$.\nLangkah 3: Dengan $n = 6$: $P = \\frac{(6 - 1)!}{2} = \\frac{5!}{2} = \\frac{120}{2} = 60$ pola gelang.\nKesimpulan: Terdapat $60$ pola untaian gelang manik-manik yang unik."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan banyak susunan huruf dari kata 'STATISTIKA' jika semua huruf T harus berdampingan!",
+      "summary_data": {
+        "summary": [
+          "Permutasi dengan unsur sama: $P = \\frac{n!}{k_1! \\cdot k_2! \\cdot \\dots \\cdot k_m!}$.",
+          "Permutasi siklis (lingkaran): $P_{\\text{siklis}} = (n-1)!$.",
+          "Jika ada $k$ unsur yang harus selalu berdampingan, anggap $k$ unsur tersebut sebagai 1 kesatuan elemen lalu kalikan dengan $k!$ internal."
+        ],
+        "islamic": "Melingkar dalam musyawarah (halaqah) mencerminkan kesetaraan derajat di hadapan Allah SWT, di mana yang membedakan hanyalah ketakwaan (QS. Al-Hujurat: 13)."
+      },
+      "collab_cases": [
+        "Tentukan banyak cara menyusun huruf-huruf pada kata 'MATEMATIKA' sedemikian hingga semua huruf vokal selalu berdampingan!",
+        "Sebuah meja bundar dihadiri 6 delegasi dari 3 negara (masing-masing 2 orang). Berapa banyak susunan posisi duduk jika delegasi senegara wajib berdampingan?",
+        "Terdapat 5 manik-manik merah berbeda dan 4 manik-manik biru berbeda yang akan dirangkai menjadi sebuah gelang melingkar berselang-seling. Berapa banyak variasinya?",
+        "Tentukan banyak susunan 8 angka yang dapat dibentuk dari angka-angka $\\{2, 2, 3, 3, 3, 5, 5, 7\\}$ yang bernilai lebih dari $50.000.000$!",
+        "Sebuah keluarga (Ayah, Ibu, 3 Anak) makan malam di meja bundar. Tentukan peluang kedua orang tua TIDAK duduk bersebelahan!"
+      ],
+      "tagline": "Menyusun Elemen Berulang & Melingkari Meja Bundar Tanpa Titik Awal",
+      "collab_solutions": [
+        "Langkah 1: Vokal {A, E, A, I, A} (5 huruf dengan A=3) diikat menjadi 1 elemen (susunan internal: 5! / 3! = 20 cara).\nLangkah 2: Konsonan {M, T, M, T, K} (5 huruf dengan M=2, T=2 => 5! / (2! 2!) = 30 cara).\nLangkah 3: Susun elemen vokal bersama 5 konsonan (total 6 elemen dengan M=2, T=2): 6! / (2! 2!) = 180 cara.\nLangkah 4: Total susunan = 180 x 20 = 3.600 cara.\nKesimpulan: Banyak susunan dengan huruf vokal berdampingan adalah 3.600 cara.",
+        "Langkah 1: Ikat tiap pasangan negara menjadi 1 blok (ada 3 blok negara).\nLangkah 2: Permutasi siklis 3 blok = (3 - 1)! = 2! = 2 cara.\nLangkah 3: Pertukaran posisi internal tiap pasangan negara: 2! x 2! x 2! = 8 cara.\nLangkah 4: Total susunan duduk = 2 x 8 = 16 cara.\nKesimpulan: Banyak susunan duduk semeja bundar adalah 16 cara.",
+        "Langkah 1: Total manik-manik = 5 merah + 4 biru = 9 manik-manik berbeda dirangkai gelang (simetri cermin 3D).\nLangkah 2: Rumus gelang = (n - 1)! / 2 = 8! / 2 = 40.320 / 2 = 20.160 cara.\nKesimpulan: Banyak variasi susunan gelang adalah 20.160 susunan.",
+        "Langkah 1: Total 8 angka {2,2, 3,3,3, 5,5, 7}. Agar ganjil, digit terakhir harus ganjil {3, 5, 7}:\n- Akhiran 3 (sisa 2,2, 3,3, 5,5, 7): 7! / (2! 2! 2!) = 5.040 / 8 = 630.\n- Akhiran 5 (sisa 2,2, 3,3,3, 5, 7): 7! / (2! 3! 1!) = 5.040 / 12 = 420.\n- Akhiran 7 (sisa 2,2, 3,3,3, 5,5): 7! / (2! 3! 2!) = 5.040 / 24 = 210.\nLangkah 2: Total bilangan ganjil = 630 + 420 + 210 = 1.260 bilangan.\nKesimpulan: Banyak susunan bilangan ganjil yang terbentuk adalah 1.260 bilangan.",
+        "Langkah 1: Total permutasi siklis 5 anggota keluarga = (5 - 1)! = 4! = 24 cara.\nLangkah 2: Posisi Ayah dan Ibu berdampingan: Ikat (A,I) => 4 elemen siklis = (4 - 1)! x 2! = 6 x 2 = 12 cara.\nLangkah 3: Ayah dan Ibu TIDAK berdampingan = 24 - 12 = 12 cara.\nLangkah 4: Peluang = 12 / 24 = 1/2.\nKesimpulan: Peluang kedua orang tua tidak duduk berdampingan adalah 1/2 (50%)."
+      ]
+    },
+    {
+      "id": "P04",
+      "bab": "Bab 1: Kaidah Pencacahan & Peluang",
+      "title": "Kombinasi & Pemilihan Delegasi Tanpa Urutan",
+      "obj": [
+        "Membedakan konsep kombinasi (tanpa memperhatikan urutan) dan permutasi.",
+        "Menggunakan rumus kombinasi $C(n, r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}$.",
+        "Menyelesaikan masalah pemilihan delegasi tim dengan syarat komposisi tertentu."
+      ],
+      "hook": "Saat memilih 4 siswa perwakilan tim olimpiade sains dari 10 kandidat terbaik, siapapun yang terpilih lebih dulu tidak mempengaruhi komposisi tim.",
+      "toolkit": [
+        {
+          "name": "Rumus Kombinasi Dasar",
+          "math": "$$C(n, r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!} \\quad (r \\le n)$$"
+        },
+        {
+          "name": "Sifat Simetri Kombinasi",
+          "math": "$$\\binom{n}{r} = \\binom{n}{n-r}$$"
+        },
+        {
+          "name": "Aturan Perkalian Pemilihan Subkelompok",
+          "math": "$$\\text{Total Cara} = \\binom{n_1}{r_1} \\times \\binom{n_2}{r_2} \\times \\dots \\times \\binom{n_k}{r_k}$$"
+        },
+        {
+          "name": "Kombinasi dengan Syarat Minimal Sekurang-kurangnya",
+          "math": "$$\\text{Total} = \\sum \\binom{n_A}{k} \\times \\binom{n_B}{r-k}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Hitung nilai kombinasi $C(9, 3)$!",
+          "solution": "Langkah 1: Gunakan rumus kombinasi: $C(n, r) = \\frac{n!}{r!(n-r)!}$.\nLangkah 2: $C(9, 3) = \\frac{9!}{3!(9-3)!} = \\frac{9 \\times 8 \\times 7 \\times 6!}{(3 \\times 2 \\times 1) \\times 6!} = \\frac{504}{6} = 84$.\nKesimpulan: Nilai kombinasi $C(9, 3)$ adalah $84$."
+        },
+        {
+          "problem": "Dari sebuah kelas yang terdiri atas 10 siswa laki-laki dan 8 siswa perempuan, akan dipilih tim cerdas cermat yang beranggotakan 3 laki-laki dan 2 perempuan. Tentukan banyak susunan tim yang dapat dibentuk!",
+          "solution": "Langkah 1: Pemilihan tim tidak memperhatikan urutan jabatan (kombinasi).\nLangkah 2: Memilih 3 laki-laki dari 10: $C(10, 3) = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1} = 120$ cara.\nLangkah 3: Memilih 2 perempuan dari 8: $C(8, 2) = \\frac{8 \\times 7}{2 \\times 1} = 28$ cara.\nLangkah 4: Total tim kombinasi $= C(10, 3) \\times C(8, 2) = 120 \\times 28 = 3.360$ tim.\nKesimpulan: Terdapat $3.360$ susunan tim cerdas cermat yang dapat dibentuk."
+        },
+        {
+          "problem": "Dalam suatu pertemuan yang dihadiri oleh 15 orang, setiap peserta saling berjabat tangan satu sama lain tepat satu kali. Berapa banyak jabat tangan yang terjadi?",
+          "solution": "Langkah 1: Satu jabat tangan melibatkan 2 orang tanpa urutan: $C(15, 2)$.\nLangkah 2: $C(15, 2) = \\frac{15 \\times 14}{2 \\times 1} = 15 \\times 7 = 105$ jabat tangan.\nKesimpulan: Banyak jabat tangan yang terjadi adalah $105$ kali."
+        },
+        {
+          "problem": "Dari 12 soal ujian yang diberikan, siswa wajib mengerjakan 8 soal, dengan syarat soal nomor 1 sampai nomor 4 wajib dikerjakan. Berapa banyak pilihan kombinasi soal yang dapat dipilih siswa?",
+          "solution": "Langkah 1: Karena soal nomor 1, 2, 3, 4 wajib, siswa tinggal memilih sisa soal: $8 - 4 = 4$ soal.\nLangkah 2: Sisa soal yang tersedia untuk dipilih: $12 - 4 = 8$ soal.\nLangkah 3: Banyak pilihan kombinasi $= C(8, 4) = \\frac{8 \\times 7 \\times 6 \\times 5}{4 \\times 3 \\times 2 \\times 1} = 70$ pilihan.\nKesimpulan: Terdapat $70$ pilihan kombinasi paket soal."
+        },
+        {
+          "problem": "Sebuah kantong berisi 6 kelereng merah dan 4 kelereng biru. Diambil 4 kelereng sekaligus secara acak. Tentukan banyak cara pengambilan jika sekurang-kurangnya terambil 2 kelereng merah!",
+          "solution": "Langkah 1: 'Sekurang-kurangnya 2 merah' dari 4 pengambilan mencakup 3 kasus:\n- Kasus 1 (2 Merah & 2 Biru): $C(6, 2) \\times C(4, 2) = 15 \\times 6 = 90$ cara.\n- Kasus 2 (3 Merah & 1 Biru): $C(6, 3) \\times C(4, 1) = 20 \\times 4 = 80$ cara.\n- Kasus 3 (4 Merah & 0 Biru): $C(6, 4) \\times C(4, 0) = 15 \\times 1 = 15$ cara.\nLangkah 2: Total kombinasi $= 90 + 80 + 15 = 185$ cara.\nKesimpulan: Terdapat $185$ cara pengambilan kelereng yang memenuhi syarat."
+        }
+      ],
+      "btc": "Kelompok VNPS: Dari 8 titik pada sebuah bidang datar di mana tidak ada 3 titik yang segaris, tentukan banyak segitiga berbeda yang dapat dibentuk!",
+      "summary_data": {
+        "summary": [
+          "Kombinasi TIDAK memperhatikan urutan susunan ($AB = BA$).",
+          "Rumus Kombinasi: $C(n, r) = \\frac{n!}{r!(n-r)!}$.",
+          "Sifat simetri kombinasi: $C(n, r) = C(n, n-r)$."
+        ],
+        "islamic": "Pemilihan delegasi dan perwakilan umat harus didasarkan pada prinsip musyawarah, integritas, dan kompetensi tanpa membeda-bedakan latar belakang (QS. Asy-Syura: 38)."
+      },
+      "collab_cases": [
+        "Dari 8 siswa putra dan 6 siswa putri, akan dipilih delegasi beranggotakan 5 orang dengan syarat minimal 3 siswa putri. Tentukan banyak cara memilihnya!",
+        "Dalam kotak terdapat 7 bola merah dan 5 bola putih. Diambil 4 bola sekaligus. Tentukan peluang terambil tepat 2 bola merah dan 2 bola putih!",
+        "Buktikan Identitas Segitiga Pascal: $\\binom{n}{k} + \\binom{n}{k-1} = \\binom{n+1}{k}$ dan berikan interpretasi kombinasinya!",
+        "Dari 12 titik pada bidang datar di mana tidak ada 3 titik yang segaris, tentukan banyak segitiga yang dapat dibentuk dengan menghubungkan titik-titik tersebut!",
+        "Tentukan banyak solusi bilangan bulat non-negatif $(x_1, x_2, x_3, x_4)$ dari persamaan $x_1 + x_2 + x_3 + x_4 = 15$ menggunakan metode *stars and bars*!"
+      ],
+      "tagline": "Memilih Delegasi & Kombinasi Terbaik Tanpa Membedakan Urutan Jabatan",
+      "collab_solutions": [
+        "Langkah 1: Total delegasi 5 orang dari 8 putra dan 6 putri dengan syarat minimal 2 putra dan 2 putri:\n- Kasus 1 (3 Putra, 2 Putri): C(8, 3) x C(6, 2) = 56 x 15 = 840 cara.\n- Kasus 2 (2 Putra, 3 Putri): C(8, 2) x C(6, 3) = 28 x 20 = 560 cara.\nLangkah 2: Total kombinasi = 840 + 560 = 1.400 cara.\nKesimpulan: Banyak cara pembentukan delegasi adalah 1.400 kombinasi.",
+        "Langkah 1: Kotak berisi 7 merah dan 5 putih (total 12 bola). Diambil 4 bola sekaligus => n(S) = C(12, 4) = 495.\nLangkah 2: Terambil tepat 2 merah dan 2 putih => n(E) = C(7, 2) x C(5, 2) = 21 x 10 = 210.\nLangkah 3: Peluang P(E) = 210 / 495 = 14 / 33.\nKesimpulan: Peluang terambilnya 2 bola merah dan 2 bola putih adalah 14/33.",
+        "Langkah 1: Ruas kiri: C(n, k) + C(n, k-1) = n! / [k! (n-k)!] + n! / [(k-1)! (n-k+1)!].\nLangkah 2: Samakan penyebut menjadi k! (n-k+1)!: n!(n-k+1) / [k!(n-k+1)!] + n!(k) / [k!(n-k+1)!].\nLangkah 3: Jumlahkan pembilang: n! [ (n - k + 1) + k ] = n! (n + 1) = (n + 1)!.\nLangkah 4: Diperoleh (n+1)! / [ k! ((n+1) - k)! ] = C(n+1, k) (Terbukti).\nKesimpulan: Identitas penjumlahan kombinasi Segitiga Pascal terbukti benar.",
+        "Langkah 1: Segitiga dibentuk dengan memilih 3 titik dari 12 titik tanpa ada 3 titik yang segaris: C(12, 3).\nLangkah 2: C(12, 3) = (12 x 11 x 10) / (3 x 2 x 1) = 220 segitiga.\nKesimpulan: Banyak segitiga yang dapat dibentuk adalah 220 segitiga.",
+        "Langkah 1: Masalah Stars and Bars: Solusi bilangan bulat non-negatif dari x1 + x2 + x3 + x4 = 12.\nLangkah 2: Rumus: C(n + k - 1, k - 1) dengan n = 12 dan k = 4 variabel.\nLangkah 3: C(12 + 4 - 1, 4 - 1) = C(15, 3) = (15 x 14 x 13) / 6 = 455 solusi.\nKesimpulan: Banyak solusi bulat non-negatif yang memenuhi adalah 455 solusi."
+      ]
+    },
+    {
+      "id": "P05",
+      "bab": "Bab 1: Kaidah Pencacahan & Peluang",
+      "title": "Peluang Kejadian Tunggal & Frekuensi Harapan",
+      "obj": [
+        "Menentukan ruang sampel $S$ dan titik sampel kejadian $A$.",
+        "Menghitung peluang teoritis kejadian tunggal $P(A) = \\frac{n(A)}{n(S)}$ dan komplemen $P(A') = 1 - P(A)$.",
+        "Menghitung frekuensi harapan kejadian $F_h(A) = N \\times P(A)$ dalam $N$ percobaan."
+      ],
+      "hook": "Berapa ekspektasi frekuensi munculnya jumlah mata dadu prima saat sepasang dadu dilempar sebanyak 360 kali?",
+      "toolkit": [
+        {
+          "name": "Peluang Teoretik Kejadian Klasik",
+          "math": "$$P(A) = \\frac{n(A)}{n(S)} \\quad [0 \\le P(A) \\le 1]$$"
+        },
+        {
+          "name": "Peluang Komplemen Kejadian",
+          "math": "$$P(A') = 1 - P(A)$$"
+        },
+        {
+          "name": "Frekuensi Harapan Suatu Kejadian",
+          "math": "$$F_h(A) = n \\times P(A)$$"
+        },
+        {
+          "name": "Peluang Pengambilan Objek Tanpa Pengembalian",
+          "math": "$$P(A) = \\frac{\\binom{n_1}{r_1} \\times \\binom{n_2}{r_2}}{\\binom{N}{R}}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Sebuah dadu bersisi enam dilempar sekali. Tentukan peluang munculnya mata dadu bilangan prima ganjil!",
+          "solution": "Langkah 1: Ruang sampel dadu $S = \\{1, 2, 3, 4, 5, 6\\} \\implies n(S) = 6$.\nLangkah 2: Kejadian $A$ (prima ganjil) $= \\{3, 5\\} \\implies n(A) = 2$.\nLangkah 3: Peluang $P(A) = \\frac{n(A)}{n(S)} = \\frac{2}{6} = \\frac{1}{3}$.\nKesimpulan: Peluang munculnya mata dadu prima ganjil adalah $\\frac{1}{3}$."
+        },
+        {
+          "problem": "Dua keping uang logam dilempar bersamaan sebanyak 120 kali. Tentukan frekuensi harapan munculnya paling sedikit satu sisi angka!",
+          "solution": "Langkah 1: Ruang sampel 2 koin: $S = \\{AA, AG, GA, GG\\} \\implies n(S) = 4$.\nLangkah 2: Kejadian paling sedikit satu angka: $A = \\{AA, AG, GA\\} \\implies n(A) = 3$.\nLangkah 3: Peluang $P(A) = \\frac{3}{4}$.\nLangkah 4: Frekuensi harapan $F_h = n \\times P(A) = 120 \\times \\frac{3}{4} = 90$ kali.\nKesimpulan: Frekuensi harapan muncul paling sedikit satu angka adalah $90$ kali."
+        },
+        {
+          "problem": "Dari 1 set kartu bridge lengkap (52 kartu), diambil 1 kartu secara acak. Tentukan peluang terambilnya kartu bergambar Raja (King) atau As!",
+          "solution": "Langkah 1: Total ruang sampel $n(S) = 52$.\nLangkah 2: Jumlah kartu King $= 4$, jumlah kartu As $= 4$. Total kartu yang diharapkan $= 4 + 4 = 8$ kartu.\nLangkah 3: Peluang $P(A) = \\frac{8}{52} = \\frac{2}{13}$.\nKesimpulan: Peluang terambilnya kartu King atau As adalah $\\frac{2}{13}$."
+        },
+        {
+          "problem": "Dalam sebuah kotak terdapat 5 bola merah dan 3 bola putih. Jika diambil 2 bola sekaligus secara acak, tentukan peluang terambilnya 2 bola merah!",
+          "solution": "Langkah 1: Total bola $= 8$. Ruang sampel memilih 2 bola: $n(S) = C(8, 2) = \\frac{8 \\times 7}{2 \\times 1} = 28$.\nLangkah 2: Kejadian $A$ (terambil 2 merah dari 5): $n(A) = C(5, 2) = \\frac{5 \\times 4}{2 \\times 1} = 10$.\nLangkah 3: Peluang $P(A) = \\frac{n(A)}{n(S)} = \\frac{10}{28} = \\frac{5}{14}$.\nKesimpulan: Peluang terambilnya 2 bola merah adalah $\\frac{5}{14}$."
+        },
+        {
+          "problem": "Sebuah pabrik lampu memproduksi bohlam LED dengan tingkat cacat $2\\%$. Jika dalam 1 hari pabrik memproduksi 5.000 bohlam, tentukan estimasi frekuensi harapan bohlam yang berfungsi prima (tidak cacat)!",
+          "solution": "Langkah 1: Peluang lampu prima $P(\\text{Prima}) = 100\\% - 2\\% = 98\\% = 0{,}98$.\nLangkah 2: Frekuensi harapan $F_h = n \\times P(\\text{Prima}) = 5.000 \\times 0{,}98 = 4.900$ unit.\nKesimpulan: Estimasi banyak bohlam yang berfungsi prima adalah $4.900$ unit."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tiga keping uang logam dilempar bersamaan sebanyak 120 kali. Hitung frekuensi harapan munculnya minimal 2 sisi Gambar!",
+      "summary_data": {
+        "summary": [
+          "Peluang teoritis kejadian $A$: $P(A) = \\frac{n(A)}{n(S)}$ dengan kisaran $0 \\le P(A) \\le 1$.",
+          "Peluang komplemen: $P(A') = 1 - P(A)$.",
+          "Frekuensi Harapan: $F_h(A) = n \\times P(A)$ untuk $n$ kali percobaan."
+        ],
+        "islamic": "Peluang mengajarkan konsep ikhtiar optimal dalam menghadapi ketidakpastian dunia, sementara hasil akhir senantiasa berada dalam takdir dan ketetapan Allah SWT (QS. Ar-Ra'd: 11)."
+      },
+      "collab_cases": [
+        "Dua dadu setimbang dilempar bersamaan sebanyak 360 kali. Hitunglah frekuensi harapan munculnya mata dadu berjumlah kelipatan 3 atau prima!",
+        "Peluang seorang penembak jitu mengenai target adalah $0{,}75$. Jika ia melepaskan 6 tembakan, tentukan peluang ia tepat mengenai target sebanyak 5 kali!",
+        "Sebuah kantong berisi 4 kelereng merah dan 6 kelereng biru. Diambil 3 kelereng satu per satu tanpa pengembalian. Tentukan peluang kelereng ketiga merah jika kelereng pertama merah!",
+        "Sebuah koin tak setimbang memiliki peluang muncul angka sebesar $\\frac{2}{3}$. Jika koin dilempar 5 kali, tentukan peluang muncul tepat 3 kali angka!",
+        "Tentukan peluang bahwa dalam sebuah kelompok beranggotakan 30 orang secara acak, minimal terdapat dua orang yang berulang tahun pada hari yang sama!"
+      ],
+      "tagline": "Mengukur Kepastian dari Ketidakpastian & Memprediksi Frekuensi Kejadian Masa Depan",
+      "collab_solutions": [
+        "Langkah 1: Kejadian jumlah mata dadu bilangan prima {2, 3, 5, 7, 11}:\n- Jumlah 2: (1,1) [1]\n- Jumlah 3: (1,2),(2,1) [2]\n- Jumlah 5: (1,4),(2,3),(3,2),(4,1) [4]\n- Jumlah 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) [6]\n- Jumlah 11: (5,6),(6,5) [2]\nLangkah 2: Total titik sampel n(E) = 1 + 2 + 4 + 6 + 2 = 15. Peluang P = 15/36 = 5/12.\nLangkah 3: Frekuensi harapan Fh = N x P = 360 x (5/12) = 150 kali.\nKesimpulan: Frekuensi harapan muncul mata dadu berjumlah prima adalah 150 kali.",
+        "Langkah 1: Distribusi Binomial dengan n = 6 tembakan, p = 0,75 = 3/4, q = 0,25 = 1/4.\nLangkah 2: Peluang tepat 4 kali tepat sasaran: P(X=4) = C(6, 4) * (3/4)^4 * (1/4)^2.\nLangkah 3: C(6, 4) = 15; (3/4)^4 = 81/256; (1/4)^2 = 1/16.\nLangkah 4: P(X=4) = 15 x (81 / 4.096) = 1.215 / 4.096 ≈ 0,2966 (29,66%).\nKesimpulan: Peluang tepat 4 tembakan mengenai target adalah 1.215 / 4.096 ≈ 29,66%.",
+        "Langkah 1: Kantong berisi 4 merah dan 6 biru (total 10). Pengambilan 3 kelereng tanpa pengembalian.\nLangkah 2: Urutan Merah-Biru-Merah (M1, B2, M3):\n- P(M1) = 4/10\n- P(B2 | M1) = 6/9\n- P(M3 | M1 ∩ B2) = 3/8\nLangkah 3: Peluang total = (4/10) x (6/9) x (3/8) = 72 / 720 = 1/10 = 0,1.\nKesimpulan: Peluang terambil kelereng berturut-turut Merah, Biru, Merah adalah 1/10 (10%).",
+        "Langkah 1: Koin tak setimbang dengan P(Angka) = 2/3 dan P(Gambar) = 1/3 pada n = 5 lemparan.\nLangkah 2: Peluang muncul minimal 4 angka = P(X=4) + P(X=5):\n- P(X=4) = C(5, 4) * (2/3)^4 * (1/3)^1 = 5 * (16/81) * (1/3) = 80/243.\n- P(X=5) = C(5, 5) * (2/3)^5 * (1/3)^0 = 1 * (32/243) * 1 = 32/243.\nLangkah 3: Peluang total = 80/243 + 32/243 = 112/243 ≈ 0,4609.\nKesimpulan: Peluang muncul minimal 4 angka adalah 112/243 ≈ 46,09%.",
+        "Langkah 1: Masalah Birthday Paradox pada n = 30 orang (365 hari dalam setahun).\nLangkah 2: Komplemen (tidak ada dua orang berulang tahun sama): P(E') = (365/365) x (364/365) x ... x (336/365) ≈ 0,2937.\nLangkah 3: Peluang minimal 2 orang berulang tahun sama: P(E) = 1 - P(E') = 1 - 0,2937 = 0,7063 (70,63%).\nKesimpulan: Peluang minimal dua orang memiliki hari ulang tahun sama adalah sekitar 70,63%."
+      ]
+    },
+    {
+      "id": "P06",
+      "bab": "Bab 1: Kaidah Pencacahan & Peluang",
+      "title": "Asesmen Sumatif 1 (UH-1 Pencacahan & Peluang Tunggal)",
+      "obj": [
+        "Mengevaluasi penguasaan konsep aturan pengisian tempat, faktorial, permutasi, kombinasi, dan peluang tunggal.",
+        "Melatih kecepatan dan ketepatan penalaran matematika berbasis CBT.",
+        "Mendiagnosis kesiapan menghadapi soal standar UTBK-SNBT."
+      ],
+      "hook": "Uji sumatif pertama untuk mengukur fondasi kombinatorika sebelum melangkah ke peluang kejadian majemuk.",
+      "toolkit": [
+        {
+          "name": "Matriks Uji UH-1",
+          "math": "$$\\text{Filling Slots (25\\%)} + \\text{Permutasi/Kombinasi (50\\%)} + \\text{Peluang Tunggal (25\\%)}$$"
+        },
+        {
+          "name": "Hubungan P dan C",
+          "math": "$$P(n, r) = r! \\times C(n, r)$$"
+        },
+        {
+          "name": "Prinsip Dasar Pencacahan Komplemen",
+          "math": "$$n(A) = n(S) - n(A')$$"
+        },
+        {
+          "name": "Aturan Kombinasi Pemilihan Bebas",
+          "math": "$$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan nilai rasio perbandingan dari $\\frac{P(6, 3)}{C(6, 3)}$!",
+          "solution": "Langkah 1: $P(6, 3) = 6 \\times 5 \\times 4 = 120$.\nLangkah 2: $C(6, 3) = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20$.\nLangkah 3: Rasio $= \\frac{120}{20} = 6 = 3!$.\nKesimpulan: Nilai rasio perbandingan adalah $6$."
+        },
+        {
+          "problem": "Dari himpunan angka $\\{1, 2, 3, 4, 5, 6\\}$ disusun bilangan genap 4 digit tanpa angka berulang. Tentukan banyak bilangan yang dapat dibentuk!",
+          "solution": "Langkah 1: Sediakan 4 slot. Satuan genap $\\{2, 4, 6\\} \\implies 3$ pilihan.\nLangkah 2: Ribuan (sisa 5 angka), Ratusan (sisa 4 angka), Puluhan (sisa 3 angka).\nLangkah 3: Total susunan $= 5 \\times 4 \\times 3 \\times 3 = 180$ bilangan.\nKesimpulan: Terdapat $180$ bilangan genap 4 digit yang dapat dibentuk."
+        },
+        {
+          "problem": "Tentukan nilai bilangan bulat positif $n$ yang memenuhi persamaan kombinasi $C(n, 2) = 28$!",
+          "solution": "Langkah 1: $C(n, 2) = \\frac{n(n - 1)}{2} = 28$.\nLangkah 2: $n(n - 1) = 56 \\implies n^2 - n - 56 = 0$.\nLangkah 3: $(n - 8)(n + 7) = 0 \\implies n = 8$ (karena $n > 0$).\nKesimpulan: Nilai $n$ yang memenuhi adalah $8$."
+        },
+        {
+          "problem": "Sebuah kotak berisi 4 bola merah dan 6 bola hijau. Diambil 3 bola sekaligus secara acak. Tentukan peluang terambilnya 1 bola merah dan 2 bola hijau!",
+          "solution": "Langkah 1: Ruang sampel $n(S) = C(10, 3) = \\frac{10 \\times 9 \\times 8}{3 \\times 2 \\times 1} = 120$.\nLangkah 2: Kejadian $A$: memilih 1 merah dari 4 ($C(4, 1) = 4$) dan 2 hijau dari 6 ($C(6, 2) = 15$).\nLangkah 3: $n(A) = 4 \\times 15 = 60$.\nLangkah 4: $P(A) = \\frac{n(A)}{n(S)} = \\frac{60}{120} = \\frac{1}{2}$.\nKesimpulan: Peluang terambilnya 1 merah dan 2 hijau adalah $\\frac{1}{2}$."
+        },
+        {
+          "problem": "Tujuh orang duduk pada 7 kursi berjajar. Jika 2 orang sahabat karib menolak untuk duduk berdampingan, berapa banyak susunan posisi duduk yang dapat dibentuk?",
+          "solution": "Langkah 1: Total susunan bebas 7 orang $= 7! = 5.040$ cara.\nLangkah 2: Susunan jika 2 sahabat duduk berdampingan: Ikat 2 sahabat jadi 1 unsur $\\implies 6! \\times 2! = 720 \\times 2 = 1.440$ cara.\nLangkah 3: Susunan tidak berdampingan $= 5.040 - 1.440 = 3.600$ cara.\nKesimpulan: Terdapat $3.600$ susunan posisi duduk di mana 2 sahabat tidak berdampingan."
+        }
+      ],
+      "btc": "Kelompok VNPS: Bedah paket 10 soal CBT Sumatif 1 dan buktikan solusi analitisnya bersama tim!",
+      "summary_data": {
+        "summary": [
+          "Evaluasi sumatif mengintegrasikan aturan perkalian, permutasi, kombinasi, dan peluang tunggal.",
+          "Identifikasi kata kunci: 'memperhatikan urutan' $\\to$ Permutasi; 'memilih kelompok' $\\to$ Kombinasi."
+        ],
+        "islamic": "Evaluasi dan muhasabah diri secara berkala adalah ciri mukmin yang cerdas, mempersiapkan bekal terbaik untuk kehidupan mendatang (QS. Al-Hasyr: 18)."
+      },
+      "collab_cases": [
+        "Tentukan banyak bilangan 4 digit berbeda yang habis dibagi 5 dan nilainya terletak di antara $2.000$ dan $7.000$ yang dapat disusun dari $\\{0, 1, 2, 3, 4, 5, 6, 7\\}$!",
+        "Dari 10 finalis (6 pria, 4 wanita), dipilih 3 juara. Berapa peluang Juara 1 dan 2 diraih pria sedangkan Juara 3 diraih wanita?",
+        "Sebuah keluarga (Ayah, Ibu, 4 anak) berfoto melingkar. Tentukan peluang Ayah dan Ibu selalu berdampingan dengan si bungsu di antara mereka!",
+        "Dalam turnamen catur sistem setengah kompetisi (*round-robin*) yang diikuti 12 peserta, berapa total pertandingan yang akan dimainkan?",
+        "Tentukan koefisien dari suku $x^4 y^6$ pada ekspansi binomial Newton $(2x - 3y)^{10}$!"
+      ],
+      "tagline": "Uji Fondasi Kombinatorika & Peluang Tunggal Menuju Standar Asesmen Nasional",
+      "collab_solutions": [
+        "Langkah 1: Bilangan 4 digit habis dibagi 5 (satuan 0 atau 5) antara 2.000 dan 7.000 dari {0,1,2,3,4,5,6,7} (8 angka):\n- Satuan 0: Ribuan {2,3,4,5,6} (5 opsi), Ratusan (6 opsi), Puluhan (5 opsi) => 5 x 6 x 5 x 1 = 150 bilangan.\n- Satuan 5: Ribuan {2,3,4,6} (4 opsi, tanpa 5), Ratusan (6 opsi), Puluhan (5 opsi) => 4 x 6 x 5 x 1 = 120 bilangan.\nLangkah 2: Total bilangan = 150 + 120 = 270 bilangan.\nKesimpulan: Banyak bilangan yang memenuhi kriteria adalah 270 bilangan.",
+        "Langkah 1: Dari 6 pria dan 4 wanita, dipilih Juara 1 (Pria), Juara 2 (Pria), dan Juara 3 (Wanita).\nLangkah 2: Banyak cara kejadian: 6 x 5 x 4 = 120 cara.\nLangkah 3: Total susunan peraih 3 juara dari 10 finalis: P(10, 3) = 10 x 9 x 8 = 720 cara.\nLangkah 4: Peluang P = 120 / 720 = 1/6.\nKesimpulan: Peluang susunan juara tersebut adalah 1/6.",
+        "Langkah 1: Ayah dan Ibu berdampingan dengan si bungsu di tengah membentuk paket pasti (A, Bungsu, I) atau (I, Bungsu, A) => 2 susunan internal.\nLangkah 2: Paket keluarga (1 elemen) + 3 anak lain = 4 elemen melingkar => Permutasi siklis = (4 - 1)! = 3! = 6 cara.\nLangkah 3: Banyak kejadian n(E) = 6 x 2 = 12 cara. Ruang sampel 6 orang melingkar = (6 - 1)! = 5! = 120 cara.\nLangkah 4: Peluang P = 12 / 120 = 1/10.\nKesimpulan: Peluang formasi foto keluarga tersebut adalah 1/10 (10%).",
+        "Langkah 1: Sistem round-robin 12 peserta: setiap pasang peserta bertanding tepat 1 kali: C(12, 2).\nLangkah 2: C(12, 2) = (12 x 11) / 2 = 66 pertandingan.\nKesimpulan: Total pertandingan yang akan dimainkan adalah 66 pertandingan.",
+        "Langkah 1: Suku umum ekspansi binomial Newton: T_{k+1} = C(10, k) * (2x)^{10-k} * (-3y)^k.\nLangkah 2: Untuk suku x^4 y^6, pilih k = 6: T_7 = C(10, 6) * (2x)^4 * (-3y)^6.\nLangkah 3: C(10, 6) = 210; 2^4 = 16; (-3)^6 = 729.\nLangkah 4: Koefisien = 210 x 16 x 729 = 2.449.440.\nKesimpulan: Koefisien dari suku x^4 y^6 adalah 2.449.440."
+      ]
+    },
+    {
+      "id": "P07",
+      "bab": "Bab 1: Kaidah Pencacahan & Peluang",
+      "title": "Peluang Kejadian Saling Lepas & Tidak Saling Lepas",
+      "obj": [
+        "Membedakan kejadian saling lepas ($A \\cap B = \\emptyset$) dan tidak saling lepas ($A \\cap B \\neq \\emptyset$).",
+        "Menerapkan rumus penjumlahan peluang $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.",
+        "Menyelesaikan masalah probabilitas gabungan dua kejadian dalam kehidupan sehari-hari."
+      ],
+      "hook": "Dalam survei minat siswa: 60% gemar Coding, 50% gemar Robotik, dan 30% gemar keduanya. Berapa peluang seorang siswa gemar Coding ATAU Robotik?",
+      "toolkit": [
+        {
+          "name": "Kejadian Saling Lepas",
+          "math": "$$P(A \\cup B) = P(A) + P(B) \\quad (A \\cap B = \\emptyset)$$"
+        },
+        {
+          "name": "Kejadian Tidak Saling Lepas",
+          "math": "$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$"
+        },
+        {
+          "name": "Prinsip Dasar Pencacahan Komplemen",
+          "math": "$$n(A) = n(S) - n(A')$$"
+        },
+        {
+          "name": "Aturan Kombinasi Pemilihan Bebas",
+          "math": "$$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Pada pelemparan 2 buah dadu bersamaan, tentukan peluang munculnya jumlah kedua mata dadu sama dengan 5 atau sama dengan 10!",
+          "solution": "Langkah 1: Ruang sampel 2 dadu $n(S) = 6 \\times 6 = 36$.\nLangkah 2: Kejadian $A$ (jumlah 5): $\\{(1,4), (2,3), (3,2), (4,1)\\} \\implies n(A) = 4$.\nLangkah 3: Kejadian $B$ (jumlah 10): $\\{(4,6), (5,5), (6,4)\\} \\implies n(B) = 3$.\nLangkah 4: Karena jumlah 5 dan 10 tidak mungkin terjadi bersamaan ($A \\cap B = \\emptyset$), kedua kejadian saling lepas:\n$P(A \\cup B) = P(A) + P(B) = \\frac{4}{36} + \\frac{3}{36} = \\frac{7}{36}$.\nKesimpulan: Peluang munculnya jumlah 5 atau 10 adalah $\\frac{7}{36}$."
+        },
+        {
+          "problem": "Dari 1 set kartu bridge (52 kartu), diambil 1 kartu acak. Tentukan peluang terambilnya kartu bergambar Hati (Heart) atau kartu bernomor As!",
+          "solution": "Langkah 1: Total kartu $n(S) = 52$.\nLangkah 2: Kartu Hati $n(H) = 13$, kartu As $n(A) = 4$.\nLangkah 3: Terdapat 1 kartu As Hati yang merupakan irisan ($n(H \\cap A) = 1$). Kejadian **tidak saling lepas**.\nLangkah 4: $P(H \\cup A) = P(H) + P(A) - P(H \\cap A) = \\frac{13}{52} + \\frac{4}{52} - \\frac{1}{52} = \\frac{16}{52} = \\frac{4}{13}$.\nKesimpulan: Peluang terambilnya kartu Hati atau As adalah $\\frac{4}{13}$."
+        },
+        {
+          "problem": "Dari 36 siswa kelas XII, 20 gemar basket, 18 gemar futsal, dan 8 gemar kedua-duanya. Jika dipilih 1 siswa secara acak, tentukan peluang terpilihnya siswa yang gemar basket atau futsal!",
+          "solution": "Langkah 1: $n(S) = 36, n(B) = 20, n(F) = 18, n(B \\cap F) = 8$.\nLangkah 2: $n(B \\cup F) = n(B) + n(F) - n(B \\cap F) = 20 + 18 - 8 = 30$ siswa.\nLangkah 3: Peluang $P(B \\cup F) = \\frac{30}{36} = \\frac{5}{6}$.\nKesimpulan: Peluang terpilih siswa gemar basket atau futsal adalah $\\frac{5}{6}$."
+        },
+        {
+          "problem": "Sebuah kartu diambil dari kotak berisi kartu bernomor 1 sampai 30. Tentukan peluang terambilnya kartu bernomor kelipatan 4 atau kelipatan 6!",
+          "solution": "Langkah 1: $n(S) = 30$.\nLangkah 2: Kelipatan 4: $\\{4, 8, 12, 16, 20, 24, 28\\} \\implies n(A) = 7$.\nLangkah 3: Kelipatan 6: $\\{6, 12, 18, 24, 30\\} \\implies n(B) = 5$.\nLangkah 4: Kelipatan KPK(4,6) = 12: $\\{12, 24\\} \\implies n(A \\cap B) = 2$.\nLangkah 5: $P(A \\cup B) = \\frac{7}{30} + \\frac{5}{30} - \\frac{2}{30} = \\frac{10}{30} = \\frac{1}{3}$.\nKesimpulan: Peluang terambil kartu kelipatan 4 atau 6 adalah $\\frac{1}{3}$."
+        },
+        {
+          "problem": "Dalam suatu survei kepuasan pelanggan terhadap 100 orang, peluang pelanggan puas terhadap kualitas produk adalah 0,70, puas terhadap layanan purna jual adalah 0,55, dan puas terhadap keduanya adalah 0,40. Tentukan peluang seorang pelanggan puas terhadap salah satu aspek atau keduanya!",
+          "solution": "Langkah 1: $P(P) = 0{,}70, P(L) = 0{,}55, P(P \\cap L) = 0{,}40$.\nLangkah 2: $P(P \\cup L) = P(P) + P(L) - P(P \\cap L) = 0{,}70 + 0{,}55 - 0{,}40 = 0{,}85$.\nKesimpulan: Peluang pelanggan puas terhadap produk atau layanan adalah $0{,}85$ ($85\\%$)."
+        }
+      ],
+      "btc": "Kelompok VNPS: Dari 100 pelamar kerja, 45 menguasai Python, 40 menguasai SQL, dan 20 menguasai keduanya. Tentukan peluang seorang pelamar acak TIDAK menguasai keduanya!",
+      "summary_data": {
+        "summary": [
+          "Kejadian Saling Lepas ($A \\cap B = \\emptyset$): $P(A \\cup B) = P(A) + P(B)$.",
+          "Kejadian Tidak Saling Lepas ($A \\cap B \\neq \\emptyset$): $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$."
+        ],
+        "islamic": "Menghargai keberagaman dan tidak mencampuradukkan antara yang hak dan yang batil merupakan prinsip keteguhan iman (QS. Al-Baqarah: 42)."
+      },
+      "collab_cases": [
+        "Dari satu set kartu bridge lengkap (52 kartu), diambil 1 kartu secara acak. Tentukan peluang terambilnya kartu As atau kartu berwarna merah!",
+        "Dua dadu dilempar sekali. Tentukan peluang munculnya jumlah kedua mata dadu kurang dari 5 atau lebih dari 9!",
+        "Dalam kelas XII terdapat 36 siswa: 20 suka Matematika, 15 suka Fisika, dan 8 suka keduanya. Tentukan peluang terpilih siswa yang tidak menyukai keduanya!",
+        "Peluang seorang siswa lulus tes Matematika adalah $0{,}8$ dan peluang lulus tes Bahasa Inggris adalah $0{,}7$. Jika peluang lulus keduanya $0{,}6$, tentukan peluang ia lulus minimal satu tes!",
+        "Buktikan hukum De Morgan untuk peluang: $P((A \\cup B)') = P(A' \\cap B')$ menggunakan diagram Venn probabilitas!"
+      ],
+      "tagline": "Menyatukan Dua Peristiwa: Apakah Saling Lepas atau Beririsan Bersama?",
+      "collab_solutions": [
+        "Langkah 1: Kartu bridge berjumlah 52. Kejadian A = Kartu As (n=4), Kejadian B = Kartu Merah (n=26).\nLangkah 2: Irisan A ∩ B = Kartu As Merah (n=2).\nLangkah 3: Peluang kejadian tidak saling lepas: P(A ∪ B) = P(A) + P(B) - P(A ∩ B) = 4/52 + 26/52 - 2/52 = 28/52 = 7/13.\nKesimpulan: Peluang terambilnya kartu As atau kartu merah adalah 7/13.",
+        "Langkah 1: Dua dadu dilempar (n(S) = 36). Kejadian A: Jumlah < 5 {(1,1),(1,2),(2,1),(1,3),(2,2),(3,1)} => n(A) = 6.\nLangkah 2: Kejadian B: Jumlah > 9 {(4,6),(5,5),(6,4),(5,6),(6,5),(6,6)} => n(B) = 6.\nLangkah 3: Karena A dan B saling lepas (A ∩ B = ∅), P(A ∪ B) = P(A) + P(B) = 6/36 + 6/36 = 12/36 = 1/3.\nKesimpulan: Peluang jumlah mata dadu kurang dari 5 atau lebih dari 9 adalah 1/3.",
+        "Langkah 1: n(S) = 36. Suka Matematika n(M) = 20, Fisika n(F) = 15, Suka keduanya n(M ∩ F) = 8.\nLangkah 2: Suka minimal satu mata pelajaran: n(M ∪ F) = 20 + 15 - 8 = 27 siswa.\nLangkah 3: Tidak menyukai keduanya: n((M ∪ F)') = 36 - 27 = 9 siswa.\nLangkah 4: Peluang = 9/36 = 1/4 = 0,25.\nKesimpulan: Peluang terpilih siswa yang tidak menyukai keduanya adalah 1/4 (25%).",
+        "Langkah 1: Diberikan P(M) = 0,8; P(B) = 0,7; P(M ∩ B) = 0,6.\nLangkah 2: Peluang lulus minimal satu tes: P(M ∪ B) = P(M) + P(B) - P(M ∩ B) = 0,8 + 0,7 - 0,6 = 0,9.\nKesimpulan: Peluang siswa tersebut lulus minimal satu tes adalah 0,9 (90%).",
+        "Langkah 1: Hukum De Morgan menyatakan bahwa komplemen dari gabungan dua himpunan sama dengan irisan dari komplemen masing-masing himpunan.\nLangkah 2: P((A ∪ B)') = 1 - P(A ∪ B) = 1 - [P(A) + P(B) - P(A ∩ B)].\nLangkah 3: Daerah luar dari gabungan lingkaran A dan B pada diagram Venn tepat merepresentasikan daerah yang bukan A dan sekaligus bukan B, yaitu A' ∩ B'.\nKesimpulan: Terbukti bahwa P((A ∪ B)') = P(A' ∩ B')."
+      ]
+    },
+    {
+      "id": "P08",
+      "bab": "Bab 1: Kaidah Pencacahan & Peluang",
+      "title": "Peluang Kejadian Saling Bebas & Peluang Bersyarat",
+      "obj": [
+        "Mendefinisikan kejadian saling bebas: $P(A \\cap B) = P(A) \\times P(B)$.",
+        "Menghitung peluang bersyarat $P(A|B) = \\frac{P(A \\cap B)}{P(B)}$ untuk kejadian tak bebas.",
+        "Membedakan pengambilan bola dengan pengembalian vs tanpa pengembalian."
+      ],
+      "hook": "Peluang siswa A lulus ujian adalah 0,8 dan siswa B lulus adalah 0,7. Jika kelulusan keduanya saling independen, berapa peluang minimal 1 siswa lulus?",
+      "toolkit": [
+        {
+          "name": "Kejadian Saling Bebas (Independen)",
+          "math": "$$P(A \\cap B) = P(A) \\times P(B)$$"
+        },
+        {
+          "name": "Peluang Bersyarat",
+          "math": "$$P(A | B) = \\frac{P(A \\cap B)}{P(B)} \\quad (P(B) > 0)$$"
+        },
+        {
+          "name": "Pengambilan Tanpa Pengembalian",
+          "math": "$$P(A \\cap B) = P(A) \\times P(B | A)$$"
+        },
+        {
+          "name": "Prinsip Dasar Pencacahan Komplemen",
+          "math": "$$n(A) = n(S) - n(A')$$"
+        },
+        {
+          "name": "Aturan Kombinasi Pemilihan Bebas",
+          "math": "$$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Peluang siswa A lulus seleksi SNBT adalah 0,80 dan peluang siswa B lulus adalah 0,75. Jika hasil seleksi kedua siswa independen (saling bebas), tentukan peluang bahwa kedua siswa tersebut sama-sama lulus!",
+          "solution": "Langkah 1: Karena kedua kejadian saling bebas: $P(A \\cap B) = P(A) \\times P(B)$.\nLangkah 2: $P(A \\cap B) = 0{,}80 \\times 0{,}75 = 0{,}60$.\nKesimpulan: Peluang kedua siswa sama-sama lulus seleksi adalah $0{,}60$ ($60\\%$)."
+        },
+        {
+          "problem": "Sebuah kotak berisi 5 bola merah dan 3 bola putih. Dua bola diambil satu per satu tanpa pengembalian. Tentukan peluang terambilnya bola pertama merah dan bola kedua putih!",
+          "solution": "Langkah 1: Total awal $= 8$ bola. Peluang bola pertama merah: $P(M_1) = \\frac{5}{8}$.\nLangkah 2: Setelah 1 merah terambil, sisa bola di kotak $= 7$ (4 merah, 3 putih).\nLangkah 3: Peluang bola kedua putih bersyarat: $P(P_2 | M_1) = \\frac{3}{7}$.\nLangkah 4: Peluang gabungan $= \\frac{5}{8} \\times \\frac{3}{7} = \\frac{15}{56}$.\nKesimpulan: Peluang terambil bola pertama merah dan kedua putih adalah $\\frac{15}{56}$."
+        },
+        {
+          "problem": "Dari pelemparan sebuah dadu bersisi enam, diketahui bahwa mata dadu yang muncul adalah bilangan prima. Tentukan peluang bersyarat bahwa mata dadu yang muncul tersebut adalah bilangan ganjil!",
+          "solution": "Langkah 1: Ruang sampel kondisi syarat (bilangan prima): $B = \\{2, 3, 5\\} \\implies n(B) = 3$.\nLangkah 2: Irisan ganjil dan prima: $A \\cap B = \\{3, 5\\} \\implies n(A \\cap B) = 2$.\nLangkah 3: Peluang bersyarat $P(A | B) = \\frac{n(A \\cap B)}{n(B)} = \\frac{2}{3}$.\nKesimpulan: Peluang bersyarat muncul bilangan ganjil jika diketahui prima adalah $\\frac{2}{3}$."
+        },
+        {
+          "problem": "Dua pemanah A dan B membidik target yang sama secara independen. Peluang A tepat mengenai target adalah $\\frac{2}{3}$ dan peluang B mengenai target adalah $\\frac{3}{4}$. Tentukan peluang bahwa target tertembak tepat oleh salah satu pemanah saja!",
+          "solution": "Langkah 1: Pemanah mengenai target: $P(A) = 2/3, P(A') = 1/3, P(B) = 3/4, P(B') = 1/4$.\nLangkah 2: 'Tepat satu pemanah' = (A kena dan B meleset) ATAU (A meleset dan B kena):\n- $P(A \\cap B') = \\frac{2}{3} \\times \\frac{1}{4} = \\frac{2}{12}$\n- $P(A' \\cap B) = \\frac{1}{3} \\times \\frac{3}{4} = \\frac{3}{12}$\nLangkah 3: Total peluang $= \\frac{2}{12} + \\frac{3}{12} = \\frac{5}{12}$.\nKesimpulan: Peluang target tertembak tepat oleh salah satu pemanah adalah $\\frac{5}{12}$."
+        },
+        {
+          "problem": "Suatu tes laboratorium mendeteksi penyakit dengan sensitivitas $95\\%$ pada pasien sakit, namun memberikan hasil positif palsu sebesar $2\\%$ pada orang sehat. Jika $1\\%$ populasi terjangkit penyakit, tentukan peluang seseorang benar-benar sakit jika hasil tesnya positif (Teorema Bayes)!",
+          "solution": "Langkah 1: $P(S) = 0{,}01, P(S') = 0{,}99, P(+|S) = 0{,}95, P(+|S') = 0{,}02$.\nLangkah 2: Peluang total hasil positif: $P(+) = (0{,}01 \\times 0{,}95) + (0{,}99 \\times 0{,}02) = 0{,}0095 + 0{,}0198 = 0{,}0293$.\nLangkah 3: Teorema Bayes: $P(S|+) = \\frac{P(S \\cap +)}{P(+)} = \\frac{0{,}0095}{0{,}0293} \\approx 0{,}3242 = 32{,}42\\%$.\nKesimpulan: Peluang seseorang benar-benar sakit jika tesnya positif adalah sekitar $32{,}42\\%$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Kotak A berisi 4 merah dan 2 putih. Kotak B berisi 3 merah dan 5 putih. Satu keping koin dilempar untuk memilih kotak. Tentukan peluang terambil bola putih!",
+      "summary_data": {
+        "summary": [
+          "Kejadian Saling Bebas: $P(A \\cap B) = P(A) \\times P(B)$.",
+          "Peluang Bersyarat: $P(A|B) = \\frac{P(A \\cap B)}{P(B)}$ di mana kemunculan $B$ mempengaruhi $A$."
+        ],
+        "islamic": "Saling ketergantungan antar peristiwa mengajarkan bahwa setiap tindakan manusia saling terkait dan dicatat dengan teliti oleh malaikat (QS. Al-Zalzalah: 7-8)."
+      },
+      "collab_cases": [
+        "Peluang tim A menang adalah $0{,}6$ dan peluang tim B menang adalah $0{,}7$. Jika kedua pertandingan saling bebas, tentukan peluang minimal salah satu tim menang!",
+        "Kotak I berisi 3 bola merah dan 2 putih. Kotak II berisi 4 bola merah dan 5 putih. Sebuah kotak dipilih acak lalu diambil 1 bola merah. Berapa peluang bola dari Kotak I?",
+        "Tiga mesin $M_1, M_2, M_3$ memproduksi masing-masing $30\\%$, $45\\%$, $25\\%$ produk dengan tingkat cacat $2\\%$, $3\\%$, $4\\%$. Jika terpilih produk cacat, tentukan peluang dari mesin $M_2$!",
+        "Sebuah tes medis memiliki sensitivitas $99\\%$ dan spesifisitas $95\\%$. Jika prevalensi penyakit dalam populasi adalah $1\\%$, tentukan peluang seseorang benar-benar sakit jika hasil tesnya positif!",
+        "Dua kejadian $A$ dan $B$ saling bebas dengan $P(A) = 0{,}4$ dan $P(A \\cup B) = 0{,}7$. Tentukan nilai $P(B)$ dan $P(A \\mid B)$!"
+      ],
+      "tagline": "Ketergantungan vs Kemandirian Peristiwa & Menyingkap Peluang Bersyarat",
+      "collab_solutions": [
+        "Langkah 1: P(A) = 0,6 => P(A') = 0,4. P(B) = 0,7 => P(B') = 0,3.\nLangkah 2: Karena saling bebas, peluang kedua tim kalah bersamaan: P(A' ∩ B') = P(A') x P(B') = 0,4 x 0,3 = 0,12.\nLangkah 3: Peluang minimal satu tim menang = 1 - P(A' ∩ B') = 1 - 0,12 = 0,88.\nKesimpulan: Peluang minimal salah satu tim menang adalah 0,88 (88%).",
+        "Langkah 1: Peluang pilih Kotak I = 1/2, Kotak II = 1/2. P(Merah | Kotak I) = 3/5; P(Merah | Kotak II) = 4/9.\nLangkah 2: Peluang total terambil bola merah: P(M) = (1/2)(3/5) + (1/2)(4/9) = 3/10 + 2/9 = (27 + 20) / 90 = 47/90.\nLangkah 3: Teorema Bayes: P(Kotak I | Merah) = [ (1/2)(3/5) ] / (47/90) = (27/90) / (47/90) = 27/47.\nKesimpulan: Peluang bola merah tersebut berasal dari Kotak I adalah 27/47 ≈ 57,45%.",
+        "Langkah 1: Peluang total cacat: P(C) = 0,30(0,02) + 0,45(0,03) + 0,25(0,04) = 0,006 + 0,0135 + 0,010 = 0,0295.\nLangkah 2: Teorema Bayes untuk Mesin M2: P(M2 | C) = [ 0,45 x 0,03 ] / 0,0295 = 0,0135 / 0,0295 = 135 / 295 = 27 / 59 ≈ 0,4576.\nKesimpulan: Peluang produk cacat diproduksi oleh mesin M2 adalah 27/59 ≈ 45,76%.",
+        "Langkah 1: Prevalensi P(Sakit) = 0,01 => P(Sehat) = 0,99. Sensitivitas P(+|Sakit) = 0,99. Spesifisitas P(-|Sehat) = 0,95 => P(+|Sehat) = 0,05.\nLangkah 2: Peluang total hasil positif: P(+) = 0,01(0,99) + 0,99(0,05) = 0,0099 + 0,0495 = 0,0594.\nLangkah 3: Teorema Bayes: P(Sakit | +) = 0,0099 / 0,0594 = 99 / 594 = 1/6 ≈ 16,67%.\nKesimpulan: Peluang seseorang benar-benar sakit jika hasil tes positif adalah 1/6 ≈ 16,67%.",
+        "Langkah 1: Karena A dan B saling bebas: P(A ∩ B) = P(A) * P(B) = 0,4 P(B).\nLangkah 2: P(A ∪ B) = P(A) + P(B) - P(A ∩ B) => 0,7 = 0,4 + P(B) - 0,4 P(B) => 0,3 = 0,6 P(B) => P(B) = 0,5.\nLangkah 3: Peluang bersyarat untuk kejadian saling bebas: P(A | B) = P(A) = 0,4.\nKesimpulan: Nilai P(B) = 0,5 dan P(A | B) = 0,4."
+      ]
+    },
+    {
+      "id": "P09",
+      "bab": "Bab 2: Geometri Dimensi Tiga",
+      "title": "Kedudukan Titik, Garis, dan Bidang dalam Ruang 3D",
+      "obj": [
+        "Mengidentifikasi kedudukan titik terhadap garis dan bidang dalam bangun ruang kubus.",
+        "Membedakan relasi dua garis: sejajar, berpotongan, dan bersilangan (tidak sebidang).",
+        "Menganalisis aksioma dan teorema kedudukan garis tegak lurus bidang."
+      ],
+      "hook": "Dua lintasan pesawat di udara dapat terlihat berpotongan pada layar radar 2D, namun di ruang 3D keduanya saling bersilangan pada ketinggian altitude yang berbeda secara aman.",
+      "toolkit": [
+        {
+          "name": "Garis Bersilangan",
+          "math": "$$\\text{Tidak Sejajar} \\quad \\& \\quad \\text{Tidak Berpotongan} \\quad (\\text{Berada pada bidang berbeda})$$"
+        },
+        {
+          "name": "Garis Tegak Lurus Bidang",
+          "math": "$$g \\perp \\alpha \\iff g \\perp \\text{dua garis berpotongan pada bidang } \\alpha$$"
+        },
+        {
+          "name": "Teorema Pythagoras Ruang 3D",
+          "math": "$$d^2 = p^2 + l^2 + t^2$$"
+        },
+        {
+          "name": "Kesamaan Luas Segitiga Proyeksi",
+          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Pada kubus $ABCD.EFGH$, tentukan kedudukan antara garis diagonal sisi $AH$ dan garis diagonal sisi $BG$!",
+          "solution": "Langkah 1: Garis $AH$ berada pada bidang sisi kiri $ADHE$, sedangkan garis $BG$ berada pada bidang sisi kanan $BCGF$.\nLangkah 2: Kedua bidang tersebut saling sejajar ($ADHE \\parallel BCGF$).\nLangkah 3: Garis $AH$ dan garis $BG$ memiliki gradien arah yang sama dan tidak memiliki titik potong.\nKesimpulan: Kedudukan garis $AH$ dan $BG$ adalah saling **sejajar**."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$, sebutkan seluruh rusuk kubus yang saling bersilangan tegak lurus dengan rusuk $AB$!",
+          "solution": "Langkah 1: Rusuk yang bersilangan dengan $AB$ adalah rusuk yang tidak sebidang dan tidak berpotongan dengan $AB$.\nLangkah 2: Rusuk-rusuk tersebut adalah $CG, DH, EH, FG$.\nLangkah 3: Di antara rusuk tersebut, yang arah vektornya tegak lurus terhadap $AB$ adalah rusuk tegak vertikal $CG$ dan $DH$.\nKesimpulan: Rusuk yang bersilangan tegak lurus dengan $AB$ adalah rusuk $CG$ dan $DH$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$, buktikan bahwa bidang diagonal $ACGE$ saling tegak lurus dengan bidang diagonal $BDHF$!",
+          "solution": "Langkah 1: Garis diagonal alas $AC$ tegak lurus terhadap diagonal alas $BD$ pada persegi $ABCD$ ($AC \\perp BD$).\nLangkah 2: Garis $BD$ terletak pada bidang $BDHF$, sehingga garis $AC \\perp$ bidang $BDHF$.\nLangkah 3: Karena bidang $ACGE$ memuat garis $AC$ yang tegak lurus bidang $BDHF$, maka bidang $ACGE \\perp$ bidang $BDHF$.\nKesimpulan: Terbukti bahwa bidang diagonal $ACGE$ saling tegak lurus dengan bidang $BDHF$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, garis diagonal ruang $DF$ menembus bidang diagonal $ACH$ di titik $P$. Tentukan perbandingan panjang segmen $DP : PF$!",
+          "solution": "Langkah 1: Bidang diagonal segitiga $ACH$ memotong diagonal ruang $DF$ tegak lurus pada jarak $\\frac{1}{3}$ dari titik sudut $D$.\nLangkah 2: Panjang $DP = \\frac{1}{3} DF$ dan panjang $PF = \\frac{2}{3} DF$.\nLangkah 3: Rasio $DP : PF = \\frac{1}{3} : \\frac{2}{3} = 1 : 2$.\nKesimpulan: Perbandingan panjang segmen $DP : PF$ adalah $1 : 2$."
+        },
+        {
+          "problem": "Sebuah lampu sorot dipasang di titik puncak $E$ pada ruangan kubus $ABCD.EFGH$ berukuran $4\\text{ m} \\times 4\\text{ m} \\times 4\\text{ m}$. Jika sorotan cahaya menyinari seluruh bidang diagonal $BDG$, tentukan jarak terpendek titik lampu $E$ ke bidang berkas cahaya $BDG$!",
+          "solution": "Langkah 1: Bidang $BDG$ memotong diagonal ruang $EC$ pada jarak $\\frac{2}{3}$ dari titik sudut $E$.\nLangkah 2: Panjang diagonal ruang $EC = 4\\sqrt{3}\\text{ m}$.\nLangkah 3: Jarak terpendek $d = \\frac{2}{3} EC = \\frac{2}{3}(4\\sqrt{3}) = \\frac{8}{3}\\sqrt{3}\\text{ m}$.\nKesimpulan: Jarak terpendek lampu $E$ ke bidang $BDG$ adalah $\\frac{8}{3}\\sqrt{3}\\text{ m} \\approx 4{,}62\\text{ m}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Pada kubus ABCD.EFGH, buktikan bahwa garis diagonal ruang AG tegak lurus terhadap bidang diagonal BDE!",
+      "summary_data": {
+        "summary": [
+          "Kedudukan titik, garis, dan bidang ditentukan oleh aksioma geometri Euclid 3 Dimensi.",
+          "Jarak titik ke titik merupakan panjang ruas garis lurus terpendek yang menghubungkan kedua titik: $d = \\sqrt{\\Delta x^2 + \\Delta y^2 + \\Delta z^2}$."
+        ],
+        "islamic": "Keteraturan ruang dan dimensi tiga di alam semesta menegaskan keagungan arsitektur ciptaan Allah SWT tanpa ada cacat sedikit pun (QS. Al-Mulk: 3-4)."
+      },
+      "collab_cases": [
+        "Pada kubus $ABCD.EFGH$ dengan rusuk $8\\text{ cm}$, tentukan kedudukan garis $AC$ terhadap $HF$, garis $BG$ terhadap bidang $ACGE$, dan bidang $AFH$ terhadap $BDG$!",
+        "Pada balok $ABCD.EFGH$ ($AB=6, BC=4, CG=5$), buktikan apakah garis $AG$ berpotongan, sejajar, atau bersilangan tegak lurus dengan garis $CE$!",
+        "Buktikan bahwa jika sebuah garis tegak lurus pada dua garis berpotongan di suatu bidang, maka garis tersebut tegak lurus pada seluruh bidang tersebut!",
+        "Tentukan banyak pasangan garis yang saling bersilangan tegak lurus pada sebuah kubus $ABCD.EFGH$!",
+        "Pada limas beraturan $T.ABCD$, tentukan garis persekutuan antara bidang $TAB$ dan bidang $TCD$ serta buktikan sifat kesejajarannya terhadap alas!"
+      ],
+      "tagline": "Melihat Ruang Nyata 3D: Titik, Garis Sejajar, & Bidang yang Bersilangan",
+      "collab_solutions": [
+        "Langkah 1: Garis $BD$ terletak pada bidang alas $ABCD$. Pada persegi $ABCD$, diagonal $AC \\perp BD$.\nLangkah 2: Rusuk tegak $AE \\perp \\text{bidang } ABCD \\implies AE \\perp BD$.\nLangkah 3: Karena $BD$ tegak lurus pada dua garis berpotongan di bidang $ACGE$ ($AC$ dan $AE$), maka $BD \\perp \\text{bidang } ACGE$.\nLangkah 4: Karena garis $CE$ terletak pada bidang $ACGE$, maka terbukti $BD \\perp CE$.\nKesimpulan: Garis diagonal ruang $CE$ terbukti tegak lurus (ortogonal bersilangan) terhadap garis diagonal bidang $BD$.",
+        "Langkah 1: Pada kubus $ABCD.EFGH$, perhatikan diagonal sisi $AH \\parallel BG$ dan $CH \\parallel DE$.\nLangkah 2: Dua garis berpotongan di bidang $ACH$ ($AH$ dan $CH$) masing-masing sejajar dengan dua garis berpotongan di bidang $BDE$ ($BG$ dan $DE$).\nLangkah 3: Berdasarkan teorema geometri ruang, jika dua garis berpotongan pada satu bidang sejajar dengan dua garis berpotongan pada bidang lain, maka kedua bidang tersebut saling sejajar.\nKesimpulan: Terbukti bahwa bidang $ACH$ sejajar sempurna ($\\parallel$) dengan bidang $BDE$, dengan jarak antar bidang sebesar $\\frac{1}{3}a\\sqrt{3}$.",
+        "Langkah 1: Buka jaring-jaring balok menjadi bidang datar 2D. Terdapat 3 kemungkinan rute:\n- Rute 1 (Lantai + Dinding Kanan): $\\sqrt{(8+4)^2 + 6^2} = \\sqrt{144 + 36} = \\sqrt{180} = 6\\sqrt{5} \\approx 13{,}42\\text{ m}$.\n- Rute 2 (Lantai + Dinding Depan): $\\sqrt{(8+6)^2 + 4^2} = \\sqrt{196 + 16} = \\sqrt{212} = 2\\sqrt{53} \\approx 14{,}56\\text{ m}$.\n- Rute 3 (Dinding Samping + Plafon): $\\sqrt{8^2 + (6+4)^2} = \\sqrt{64 + 100} = \\sqrt{164} = 2\\sqrt{41} \\approx 12{,}81\\text{ m}$.\nLangkah 2: Ambil nilai terkecil dari ketiga lintasan yaitu $2\\sqrt{41}\\text{ m}$.\nKesimpulan: Panjang lintasan terpendek yang ditempuh semut adalah $2\\sqrt{41}\\text{ meter} \\approx 12{,}81\\text{ meter}$.",
+        "Langkah 1: Tetapkan titik asal $A(0,0,0)$ pada kubus berusuk $10\\text{ cm}$.\nLangkah 2: Koordinat $M$ (tengah $AB$) adalah $(5,0,0)$. Koordinat $N$ (tengah $GH$) adalah $(5,10,10)$.\nLangkah 3: Vektor $\\vec{MN} = (5-5, 10-0, 10-0) = (0, 10, 10)$.\nLangkah 4: Panjang ruas garis $MN = \\sqrt{0^2 + 10^2 + 10^2} = \\sqrt{200} = 10\\sqrt{2}\\text{ cm}$.\nKesimpulan: Panjang ruas garis $MN$ adalah $10\\sqrt{2}\\text{ cm}$.",
+        "Langkah 1: Alas $ABC$ adalah segitiga sama sisi berusuk $6\\text{ cm}$. Tinggi alas $CD = \\frac{6}{2}\\sqrt{3} = 3\\sqrt{3}\\text{ cm}$.\nLangkah 2: Titik berat alas $O$ membagi tinggi alas dengan rasio $2:1 \\implies AO = \\frac{2}{3}(3\\sqrt{3}) = 2\\sqrt{3}\\text{ cm}$.\nLangkah 3: Segitiga $TOA$ siku-siku di $O$, dengan sisi miring $TA = 6\\text{ cm}$.\nLangkah 4: Tinggi limas $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{6^2 - (2\\sqrt{3})^2} = \\sqrt{36 - 12} = \\sqrt{24} = 2\\sqrt{6}\\text{ cm}$.\nKesimpulan: Jarak dari titik puncak $T$ ke bidang alas $ABC$ adalah $2\\sqrt{6}\\text{ cm}$."
+      ]
+    },
+    {
+      "id": "P10",
+      "bab": "Bab 2: Geometri Dimensi Tiga",
+      "title": "Jarak Titik ke Titik (Diagonal Sisi, Ruang, & Pythagoras 3D)",
+      "obj": [
+        "Menghitung panjang diagonal sisi $s\\sqrt{2}$ dan diagonal ruang $s\\sqrt{3}$ pada kubus berusuk $s$.",
+        "Menerapkan teorema Pythagoras 3D $d = \\sqrt{\\Delta x^2 + \\Delta y^2 + \\Delta z^2}$.",
+        "Menentukan jarak titik sudut ke titik tengah rusuk atau titik pusat bidang."
+      ],
+      "hook": "Berapa panjang kabel serat optik terpendek yang ditarik dari sudut lantai server ke sudut atap ruang data center?",
+      "toolkit": [
+        {
+          "name": "Diagonal Sisi Kubus",
+          "math": "$$d_s = s\\sqrt{2}$$"
+        },
+        {
+          "name": "Diagonal Ruang Kubus",
+          "math": "$$d_r = s\\sqrt{3}$$"
+        },
+        {
+          "name": "Pythagoras 3 Dimensi Balok",
+          "math": "$$d = \\sqrt{p^2 + l^2 + t^2}$$"
+        },
+        {
+          "name": "Jarak Titik dalam Koordinat 3D",
+          "math": "$$d = \\sqrt{(\\Delta x)^2 + (\\Delta y)^2 + (\\Delta z)^2}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $8\\text{ cm}$, tentukan panjang diagonal sisi $AC$ dan diagonal ruang $AG$!",
+          "solution": "Langkah 1: Diagonal sisi $AC = \\sqrt{AB^2 + BC^2} = \\sqrt{8^2 + 8^2} = 8\\sqrt{2}\\text{ cm}$.\nLangkah 2: Diagonal ruang $AG = \\sqrt{AC^2 + CG^2} = \\sqrt{(8\\sqrt{2})^2 + 8^2} = \\sqrt{128 + 64} = \\sqrt{192} = 8\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak titik $A$ ke $C$ adalah $8\\sqrt{2}\\text{ cm}$ dan jarak titik $A$ ke $G$ adalah $8\\sqrt{3}\\text{ cm}$."
+        },
+        {
+          "problem": "Diketahui balok $ABCD.EFGH$ dengan ukuran panjang $AB = 8\\text{ cm}$, lebar $BC = 6\\text{ cm}$, dan tinggi $CG = 5\\text{ cm}$. Tentukan jarak titik $A$ ke titik sudut terjauh $G$!",
+          "solution": "Langkah 1: Hitung panjang diagonal bidang alas $AC = \\sqrt{AB^2 + BC^2} = \\sqrt{8^2 + 6^2} = \\sqrt{64 + 36} = \\sqrt{100} = 10\\text{ cm}$.\nLangkah 2: Segitiga $ACG$ siku-siku di $C$. Jarak $A$ ke $G$ adalah panjang diagonal ruang balok: $AG = \\sqrt{AC^2 + CG^2} = \\sqrt{10^2 + 5^2} = \\sqrt{100 + 25} = \\sqrt{125} = 5\\sqrt{5}\\text{ cm}$.\nKesimpulan: Jarak titik $A$ ke titik $G$ adalah $5\\sqrt{5}\\text{ cm}$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, titik $P$ terletak pada pertengahan rusuk $CG$. Tentukan jarak dari titik $A$ ke titik $P$!",
+          "solution": "Langkah 1: Titik $P$ di tengah $CG \\implies CP = \\frac{1}{2} \\times 6 = 3\\text{ cm}$.\nLangkah 2: Panjang diagonal alas $AC = 6\\sqrt{2}\\text{ cm}$.\nLangkah 3: Segitiga $ACP$ siku-siku di $C$. Gunakan teorema Pythagoras 3D: $AP = \\sqrt{AC^2 + CP^2} = \\sqrt{(6\\sqrt{2})^2 + 3^2} = \\sqrt{72 + 9} = \\sqrt{81} = 9\\text{ cm}$.\nKesimpulan: Jarak titik $A$ ke titik $P$ adalah $9\\text{ cm}$."
+        },
+        {
+          "problem": "Diberikan kubus $ABCD.EFGH$ dengan rusuk $12\\text{ cm}$. Titik $M$ adalah titik tengah rusuk $EH$ dan titik $N$ adalah titik tengah rusuk $AB$. Tentukan jarak antara titik $M$ dan titik $N$!",
+          "solution": "Langkah 1: Letakkan kubus pada koordinat kartesius 3D dengan $A(0,0,0)$ sebagai titik pangkal: $A(0,0,0), B(12,0,0), E(0,0,12), H(0,12,12)$.\nLangkah 2: Koordinat titik $N$ (tengah $AB$) adalah $N(6, 0, 0)$. Koordinat titik $M$ (tengah $EH$) adalah $M(0, 6, 12)$.\nLangkah 3: Jarak $MN$ menggunakan formula jarak Euclidean 3D: $MN = \\sqrt{(0 - 6)^2 + (6 - 0)^2 + (12 - 0)^2} = \\sqrt{36 + 36 + 144} = \\sqrt{216} = 6\\sqrt{6}\\text{ cm}$.\nKesimpulan: Jarak antara titik $M$ dan $N$ adalah $6\\sqrt{6}\\text{ cm}$."
+        },
+        {
+          "problem": "Sebuah lampu hias dipasang di tengah langit-langit aula kubus $ABCD.EFGH$ berukuran $6\\text{ m} \\times 6\\text{ m} \\times 6\\text{ m}$ (titik $T$ di tengah plafon $EFGH$). Sebuah saklar listrik dipasang di rusuk dinding $AE$ pada ketinggian $2\\text{ m}$ dari lantai ($A$). Tentukan panjang kabel lurus minimum dari saklar $S$ ke lampu $T$!",
+          "solution": "Langkah 1: Jarak mendatar dari titik tengah plafon $T$ ke rusuk sudut $AE$ adalah setengah diagonal bidang atas: $d_{\\text{horizontal}} = \\sqrt{3^2 + 3^2} = 3\\sqrt{2}\\text{ m}$.\nLangkah 2: Selisih ketinggian vertikal antara plafon ($6\\text{ m}$) dan saklar ($2\\text{ m}$) adalah $\\Delta z = 6 - 2 = 4\\text{ m}$.\nLangkah 3: Hitung jarak lurus ruang $ST$ dengan Pythagoras 3D: $ST = \\sqrt{d_{\\text{horizontal}}^2 + (\\Delta z)^2} = \\sqrt{(3\\sqrt{2})^2 + 4^2} = \\sqrt{18 + 16} = \\sqrt{34}\\text{ m} \\approx 5{,}83\\text{ m}$.\nKesimpulan: Panjang kabel lurus minimum dari saklar $S$ ke lampu $T$ adalah $\\sqrt{34}\\text{ m}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Kubus ABCD.EFGH berusuk 12 cm. Titik M di tengah rusuk AB dan N di tengah rusuk GH. Hitung jarak titik M ke titik N!",
+      "summary_data": {
+        "summary": [
+          "Jarak titik ke garis adalah panjang ruas garis yang ditarik dari titik tegak lurus terhadap garis tujuan.",
+          "Dapat dihitung dengan bantuan segitiga menggunakan Teorema Pythagoras atau Kesamaan Luas Segitiga: $L = \\frac{1}{2} a_1 t_1 = \\frac{1}{2} a_2 t_2$."
+        ],
+        "islamic": "Garis lurus terpendek melambangkan *Shiratal Mustaqim*, jalan lurus kebenaran yang harus senantiasa kita mohonkan dalam setiap sholat (QS. Al-Fatihah: 6)."
+      },
+      "collab_cases": [
+        "Diberikan kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$. Titik $P$ terletak di tengah rusuk $CG$. Hitunglah jarak titik $A$ ke titik $P$!",
+        "Pada limas beraturan $T.ABCD$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tegak $5\\text{ cm}$, hitung jarak titik puncak $T$ ke titik potong diagonal alas $O$!",
+        "Sebuah ruangan balok berukuran $8\\text{ m} \\times 6\\text{ m} \\times 4\\text{ m}$. Seekor semut merayap pada dinding dari $A(0,0,0)$ ke $G(8,6,4)$. Tentukan panjang lintasan terpendeknya!",
+        "Pada kubus $ABCD.EFGH$ berusuk $10\\text{ cm}$, titik $M$ adalah titik tengah $AB$ dan titik $N$ adalah titik tengah $GH$. Hitunglah panjang ruas garis $MN$!",
+        "Diberikan bidang empat beraturan $T.ABC$ dengan panjang seluruh rusuknya $6\\text{ cm}$. Tentukan jarak dari titik tinggi $T$ ke bidang alas $ABC$!"
+      ],
+      "tagline": "Menarik Lintasan Terpendek Antar Sudut Ruang dengan Teorema Pythagoras 3D",
+      "collab_solutions": [
+        "Langkah 1: Koordinat titik pada kubus $s=6$: $P$ tengah $CG \\implies P(6, 6, 3)$ dan $Q$ tengah $AD \\implies Q(0, 3, 0)$.\nLangkah 2: Jarak $PQ = \\sqrt{(x_P - x_Q)^2 + (y_P - y_Q)^2 + (z_P - z_Q)^2}$.\nLangkah 3: $PQ = \\sqrt{(6-0)^2 + (6-3)^2 + (3-0)^2} = \\sqrt{36 + 9 + 9} = \\sqrt{54} = 3\\sqrt{6}\\text{ cm}$.\nKesimpulan: Jarak antara titik $P$ dan titik $Q$ adalah $3\\sqrt{6}\\text{ cm}$.",
+        "Langkah 1: Koordinat $A(0,0,0)$. Titik $P$ di tengah rusuk $FG$ berkoordinat $P(8, 4, 8)$.\nLangkah 2: Jarak $AP = \\sqrt{8^2 + 4^2 + 8^2} = \\sqrt{64 + 16 + 64} = \\sqrt{144} = 12\\text{ cm}$.\nKesimpulan: Jarak dari titik $A$ ke titik $P$ adalah $12\\text{ cm}$.",
+        "Langkah 1: Buka jaring-jaring balok $8 \\times 6 \\times 4$. Kombinasi panjang dan lebar yang paling efisien adalah bentangan $8\\text{ m}$ dan $(6+4)\\text{ m} = 10\\text{ m}$.\nLangkah 2: Jarak terpendek $d = \\sqrt{8^2 + 10^2} = \\sqrt{64 + 100} = \\sqrt{164} = 2\\sqrt{41}\\text{ m} \\approx 12{,}81\\text{ m}$.\nKesimpulan: Panjang lintasan terpendek semut adalah $2\\sqrt{41}\\text{ meter}$.",
+        "Langkah 1: Titik $M(5,0,0)$ dan titik $N(5,10,10)$.\nLangkah 2: $MN = \\sqrt{(5-5)^2 + (10-0)^2 + (10-0)^2} = \\sqrt{0 + 100 + 100} = \\sqrt{200} = 10\\sqrt{2}\\text{ cm}$.\nKesimpulan: Panjang ruas garis $MN$ adalah $10\\sqrt{2}\\text{ cm}$.",
+        "Langkah 1: Jarak titik $T$ ke alas pada bidang empat beraturan dengan panjang rusuk $s=6\\text{ cm}$ dihitung melalui $h = s\\sqrt{\\frac{2}{3}}$.\nLangkah 2: $h = 6 \\times \\frac{\\sqrt{2}}{\\sqrt{3}} = 6 \\times \\frac{\\sqrt{6}}{3} = 2\\sqrt{6}\\text{ cm}$.\nKesimpulan: Jarak titik puncak $T$ ke bidang alas adalah $2\\sqrt{6}\\text{ cm}$."
+      ]
+    },
+    {
+      "id": "P11",
+      "bab": "Bab 2: Geometri Dimensi Tiga",
+      "title": "Jarak Titik ke Garis (Proyeksi Tegak Lurus & Luas Segitiga)",
+      "obj": [
+        "Memahami konsep jarak titik ke garis sebagai panjang ruas garis proyeksi tegak lurus.",
+        "Menerapkan metode kesamaan luas segitiga $\\frac{1}{2} a_1 t_1 = \\frac{1}{2} a_2 t_2$.",
+        "Menghitung jarak titik sudut kubus ke garis diagonal ruang atau diagonal sisi."
+      ],
+      "hook": "Berapa jarak terpendek dari tiang kamera studio di sudut plafon ke lintasan kabel lampu sorot panggung?",
+      "toolkit": [
+        {
+          "name": "Kesamaan Luas Segitiga",
+          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2 \\implies t_2 = \\frac{a_1 \\cdot t_1}{a_2}$$"
+        },
+        {
+          "name": "Jarak Titik Sudut ke Diagonal Ruang",
+          "math": "$$d = \\frac{s\\sqrt{6}}{3}$$"
+        },
+        {
+          "name": "Teorema Pythagoras Ruang 3D",
+          "math": "$$d^2 = p^2 + l^2 + t^2$$"
+        },
+        {
+          "name": "Kesamaan Luas Segitiga Proyeksi",
+          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $12\\text{ cm}$, tentukan jarak dari titik sudut $C$ ke garis diagonal ruang $AG$!",
+          "solution": "Langkah 1: Bentuk segitiga siku-siku $ACG$ di titik $C$. Sisi alas $AC = 12\\sqrt{2}\\text{ cm}$, tinggi $CG = 12\\text{ cm}$, dan sisi miring $AG = 12\\sqrt{3}\\text{ cm}$.\nLangkah 2: Tarik garis tinggi $CC'$ tegak lurus ke $AG$. Jarak titik $C$ ke garis $AG$ adalah panjang $CC'$.\nLangkah 3: Terapkan prinsip kesamaan luas segitiga $ACG$: $AC \\times CG = AG \\times CC' \\implies 12\\sqrt{2} \\times 12 = 12\\sqrt{3} \\times CC'$.\nLangkah 4: Hitung dan rasionalkan: $CC' = \\frac{12\\sqrt{2}}{\\sqrt{3}} = \\frac{12\\sqrt{6}}{3} = 4\\sqrt{6}\\text{ cm}$.\nKesimpulan: Jarak titik $C$ ke garis $AG$ adalah $4\\sqrt{6}\\text{ cm}$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $6\\text{ cm}$, tentukan jarak titik puncak atas $H$ ke garis diagonal bidang alas $AC$!",
+          "solution": "Langkah 1: Hubungkan titik $H$ ke $A$, $C$, dan $H$. Sisi $AC = CH = AH = 6\\sqrt{2}\\text{ cm}$. Segitiga $ACH$ adalah segitiga sama sisi.\nLangkah 2: Proyeksi titik $H$ tegak lurus ke $AC$ jatuh tepat di titik tengah $AC$, sebut titik $O$. $AO = \\frac{1}{2}(6\\sqrt{2}) = 3\\sqrt{2}\\text{ cm}$.\nLangkah 3: Hitung jarak $HO$ dengan teorema Pythagoras pada segitiga siku-siku $AOH$: $HO = \\sqrt{AH^2 - AO^2} = \\sqrt{(6\\sqrt{2})^2 - (3\\sqrt{2})^2} = \\sqrt{72 - 18} = \\sqrt{54} = 3\\sqrt{6}\\text{ cm}$.\nKesimpulan: Jarak titik $H$ ke garis $AC$ adalah $3\\sqrt{6}\\text{ cm}$."
+        },
+        {
+          "problem": "Diberikan limas beraturan $T.ABCD$ dengan alas persegi berusuk $AB = 8\\text{ cm}$ dan rusuk tegak $TA = 4\\sqrt{6}\\text{ cm}$. Tentukan jarak titik puncak $T$ ke rusuk alas $AB$!",
+          "solution": "Langkah 1: Sisi tegak $TAB$ adalah segitiga sama kaki dengan $TA = TB = 4\\sqrt{6}\\text{ cm}$ dan $AB = 8\\text{ cm}$.\nLangkah 2: Proyeksi $T$ ke $AB$ jatuh di titik tengah $AB$, sebut titik $P$. $AP = \\frac{1}{2} \\times 8 = 4\\text{ cm}$.\nLangkah 3: Jarak $T$ ke garis $AB$ adalah tinggi sisi tegak $TP = \\sqrt{TA^2 - AP^2} = \\sqrt{(4\\sqrt{6})^2 - 4^2} = \\sqrt{96 - 16} = \\sqrt{80} = 4\\sqrt{5}\\text{ cm}$.\nKesimpulan: Jarak titik puncak $T$ ke rusuk alas $AB$ adalah $4\\sqrt{5}\\text{ cm}$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $8\\text{ cm}$, titik $P$ terletak di tengah rusuk $BF$. Tentukan jarak titik $P$ ke garis diagonal ruang $AG$!",
+          "solution": "Langkah 1: Hitung panjang sisi segitiga $APG$: $BP = PF = 4\\text{ cm}$. $AP = \\sqrt{8^2 + 4^2} = 4\\sqrt{5}\\text{ cm}$, $PG = \\sqrt{4^2 + 8^2} = 4\\sqrt{5}\\text{ cm}$, dan $AG = 8\\sqrt{3}\\text{ cm}$.\nLangkah 2: Karena $AP = PG = 4\\sqrt{5}\\text{ cm}$, segitiga $APG$ sama kaki dengan alas $AG$. Proyeksi $P$ jatuh di tengah $AG$ (titik $O$). $AO = 4\\sqrt{3}\\text{ cm}$.\nLangkah 3: Jarak $P$ ke $AG$ adalah $PO = \\sqrt{AP^2 - AO^2} = \\sqrt{(4\\sqrt{5})^2 - (4\\sqrt{3})^2} = \\sqrt{80 - 48} = \\sqrt{32} = 4\\sqrt{2}\\text{ cm}$.\nKesimpulan: Jarak titik $P$ ke garis diagonal ruang $AG$ adalah $4\\sqrt{2}\\text{ cm}$."
+        },
+        {
+          "problem": "Sebuah kamera pengawas dipasang di sudut plafon kubus $ABCD.EFGH$ pada titik $E$ (rusuk $4\\text{ m}$). Sebuah tiang laser dipasang membentang dari sudut lantai $B$ ke sudut plafon $H$ (diagonal ruang $BH$). Tentukan jarak terpendek kamera $E$ ke lintasan berkas sinar laser $BH$!",
+          "solution": "Langkah 1: Bentuk segitiga $EBH$: $EH = 4\\text{ m}, EB = 4\\sqrt{2}\\text{ m}, BH = 4\\sqrt{3}\\text{ m}$.\nLangkah 2: Karena $EH^2 + EB^2 = 16 + 32 = 48 = BH^2$, segitiga $EBH$ adalah segitiga siku-siku di $E$.\nLangkah 3: Jarak terpendek $EE'$ dihitung dengan kesamaan luas segitiga: $\\frac{1}{2} \\times EH \\times EB = \\frac{1}{2} \\times BH \\times EE' \\implies 4 \\times 4\\sqrt{2} = 4\\sqrt{3} \\times EE'$.\nLangkah 4: $EE' = \\frac{4\\sqrt{2}}{\\sqrt{3}} = \\frac{4\\sqrt{6}}{3}\\text{ m}$.\nKesimpulan: Jarak terpendek kamera $E$ ke garis laser $BH$ adalah $\\frac{4}{3}\\sqrt{6}\\text{ m} \\approx 3{,}27\\text{ m}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Limas T.ABCD beraturan memiliki rusuk alas 6 cm dan rusuk tegak $3\\sqrt{6}$ cm. Tentukan jarak titik puncak T ke garis diagonal alas AC!",
+      "summary_data": {
+        "summary": [
+          "Jarak titik ke bidang adalah panjang ruas proyeksi tegak lurus titik terhadap bidang tersebut.",
+          "Pada kubus $ABCD.EFGH$, jarak titik sudut ke bidang diagonal sering kali menggunakan perbandingan $\\frac{1}{3}s\\sqrt{3}$ atau $\\frac{2}{3}s\\sqrt{3}$ diagonal ruang."
+        ],
+        "islamic": "Tunduk dan sujud tegak lurus kepada Allah SWT mencerminkan kerendahan hati seorang hamba di hadapan Sang Pencipta alam semesta."
+      },
+      "collab_cases": [
+        "Diberikan kubus $ABCD.EFGH$ berusuk $6\\text{ cm}$. Hitunglah jarak titik $A$ ke diagonal ruang $BH$ menggunakan perbandingan luas segitiga $ABH$!",
+        "Pada kubus $ABCD.EFGH$ berusuk $8\\text{ cm}$, titik $M$ adalah titik tengah $EH$. Tentukan jarak titik $C$ ke garis $AG$!",
+        "Pada limas tegak segitiga $T.ABC$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tegak $6\\sqrt{2}\\text{ cm}$, tentukan jarak titik $T$ ke garis tinggi alas $AD$!",
+        "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $a$, tentukan jarak titik tengah $BC$ ke garis diagonal ruang $DF$!",
+        "Buktikan menggunakan vektor analitis bahwa jarak dari titik $(x_0, y_0, z_0)$ ke garis berarah $\\vec{v}$ di ruang 3D memenuhi formula $\\frac{|\\vec{AP} \\times \\vec{v}|}{|\\vec{v}|}$!"
+      ],
+      "tagline": "Memproyeksikan Titik Tegak Lurus ke Garis Menggunakan Kesamaan Luas Segitiga",
+      "collab_solutions": [
+        "Langkah 1: Segitiga $ABH$ siku-siku di $A$ dengan $AB = 6\\text{ cm}, AH = 6\\sqrt{2}\\text{ cm},$ dan $BH = 6\\sqrt{3}\\text{ cm}$.\nLangkah 2: Luas $\\Delta ABH = \\frac{1}{2} \\times AB \\times AH = \\frac{1}{2} \\times BH \\times d$.\nLangkah 3: $d = \\frac{AB \\times AH}{BH} = \\frac{6 \\times 6\\sqrt{2}}{6\\sqrt{3}} = \\frac{6\\sqrt{2}}{\\sqrt{3}} = 2\\sqrt{6}\\text{ cm}$.\nKesimpulan: Jarak titik $A$ ke diagonal ruang $BH$ adalah $2\\sqrt{6}\\text{ cm}$.",
+        "Langkah 1: Segitiga $ACG$ siku-siku di $C$ dengan $AC = 8\\sqrt{2}\\text{ cm}, CG = 8\\text{ cm},$ dan $AG = 8\\sqrt{3}\\text{ cm}$.\nLangkah 2: Jarak $C$ ke garis $AG$ dihitung dengan kesamaan luas: $d = \\frac{AC \\times CG}{AG}$.\nLangkah 3: $d = \\frac{8\\sqrt{2} \\times 8}{8\\sqrt{3}} = \\frac{8\\sqrt{2}}{\\sqrt{3}} = \\frac{8}{3}\\sqrt{6}\\text{ cm}$.\nKesimpulan: Jarak titik $C$ ke diagonal ruang $AG$ adalah $\\frac{8}{3}\\sqrt{6}\\text{ cm}$.",
+        "Langkah 1: Alas segitiga sama sisi $s=6 \\implies$ tinggi alas $AD = 3\\sqrt{3}\\text{ cm}$. Titik berat alas $O$ berjarak $AO = 2\\sqrt{3}\\text{ cm}$.\nLangkah 2: Garis tinggi limas $TO$ tegak lurus sempurna pada seluruh garis di bidang alas, termasuk garis $AD$.\nLangkah 3: Tinggi limas $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{(6\\sqrt{2})^2 - (2\\sqrt{3})^2} = \\sqrt{72 - 12} = \\sqrt{60} = 2\\sqrt{15}\\text{ cm}$.\nKesimpulan: Jarak titik $T$ ke garis tinggi alas $AD$ adalah $2\\sqrt{15}\\text{ cm}$.",
+        "Langkah 1: Titik tengah $BC$ adalah $M(a, a/2, 0)$. Garis diagonal ruang $DF$ berpangkal di $D(0,0,0)$ dengan vektor arah $\\vec{v} = (1,1,1)$.\nLangkah 2: Vektor $\\vec{DM} = (a, a/2, 0)$. Perkalian silang $\\vec{DM} \\times \\vec{v} = (a/2, -a, a/2)$.\nLangkah 3: Panjang vektor hasil silang $= \\sqrt{(a/2)^2 + (-a)^2 + (a/2)^2} = a\\sqrt{\\frac{3}{2}}$.\nLangkah 4: Jarak $d = \\frac{|\\vec{DM} \\times \\vec{v}|}{|\\vec{v}|} = \\frac{a\\sqrt{3/2}}{\\sqrt{3}} = \\frac{a}{\\sqrt{2}} = \\frac{1}{2}a\\sqrt{2}$.\nKesimpulan: Jarak titik tengah $BC$ ke garis diagonal ruang $DF$ adalah $\\frac{1}{2}a\\sqrt{2}$.",
+        "Langkah 1: Misal titik $P(x_0, y_0, z_0)$, dan $A$ adalah titik sembarang pada garis dengan vektor arah $\\vec{v}$.\nLangkah 2: Luas jajaran genjang yang dibentuk oleh $\\vec{AP}$ dan $\\vec{v}$ adalah $L = |\\vec{AP} \\times \\vec{v}|$.\nLangkah 3: Luas jajaran genjang juga dapat dinyatakan sebagai alas $\\times$ tinggi $= |\\vec{v}| \\times d$.\nLangkah 4: Diperoleh $|\\vec{v}| \\times d = |\\vec{AP} \\times \\vec{v}| \\implies d = \\frac{|\\vec{AP} \\times \\vec{v}|}{|\\vec{v}|}$.\nKesimpulan: Formula jarak titik ke garis pada ruang 3D terbukti valid secara aljabar vektor."
+      ]
+    },
+    {
+      "id": "P12",
+      "bab": "Bab 2: Geometri Dimensi Tiga",
+      "title": "Jarak Titik ke Bidang (Teorema 1/3 & 2/3 Diagonal Ruang)",
+      "obj": [
+        "Memahami konsep jarak titik ke bidang sebagai panjang garis tegak lurus dari titik ke bidang.",
+        "Menerapkan Teorema Proyeksi Bidang Diagonal AFH dan BDG (Teorema $\\frac{1}{3}$ dan $\\frac{2}{3}$ diagonal ruang).",
+        "Menghitung jarak titik ke bidang pada limas dan kubus menggunakan metode volume limas."
+      ],
+      "hook": "Berapa jarak vertikal tegak lurus dari puncak kubah masjid ke bidang lantai mezanin?",
+      "toolkit": [
+        {
+          "name": "Teorema Proyeksi Bidang AFH dari E",
+          "math": "$$d(E, \\text{AFH}) = \\frac{1}{3} s\\sqrt{3}$$"
+        },
+        {
+          "name": "Teorema Proyeksi Bidang AFH dari C",
+          "math": "$$d(C, \\text{AFH}) = \\frac{2}{3} s\\sqrt{3}$$"
+        },
+        {
+          "name": "Metode Kesamaan Volume Limas",
+          "math": "$$V = \\frac{1}{3} L_{\\text{alas1}} \\cdot t_1 = \\frac{1}{3} L_{\\text{alas2}} \\cdot t_2$$"
+        },
+        {
+          "name": "Teorema Pythagoras Ruang 3D",
+          "math": "$$d^2 = p^2 + l^2 + t^2$$"
+        },
+        {
+          "name": "Kesamaan Luas Segitiga Proyeksi",
+          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $12\\text{ cm}$, tentukan jarak titik sudut terdekat $E$ ke bidang diagonal segitiga $AFH$!",
+          "solution": "Langkah 1: Berdasarkan Teorema Proyeksi Bidang Diagonal Kubus, bidang segitiga $AFH$ memotong diagonal ruang $EC$ secara tegak lurus pada jarak $\\frac{1}{3}$ dari titik sudut $E$.\nLangkah 2: Diagonal ruang $EC = s\\sqrt{3} = 12\\sqrt{3}\\text{ cm}$.\nLangkah 3: Jarak titik $E$ ke bidang $AFH$ adalah $d = \\frac{1}{3} \\times EC = \\frac{1}{3} \\times 12\\sqrt{3} = 4\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak titik $E$ ke bidang $AFH$ adalah $4\\sqrt{3}\\text{ cm}$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan panjang rusuk $12\\text{ cm}$, tentukan jarak titik sudut terjauh $C$ ke bidang diagonal $AFH$!",
+          "solution": "Langkah 1: Titik $C$ adalah titik sudut terjauh di seberang bidang diagonal $AFH$.\nLangkah 2: Diagonal ruang $EC$ menembus bidang $AFH$ tegak lurus, sehingga jarak titik $C$ ke bidang $AFH$ adalah $\\frac{2}{3}$ dari total panjang diagonal ruang $EC$.\nLangkah 3: Jarak $d = \\frac{2}{3} \\times 12\\sqrt{3} = 8\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak titik $C$ ke bidang $AFH$ adalah $8\\sqrt{3}\\text{ cm}$."
+        },
+        {
+          "problem": "Diketahui kubus $ABCD.EFGH$ dengan panjang rusuk $6\\text{ cm}$. Tentukan jarak antara dua bidang diagonal yang sejajar, yaitu bidang $AFH$ dan bidang $BDG$!",
+          "solution": "Langkah 1: Diagonal ruang $EC$ menembus bidang $AFH$ di titik $P$ ($EP = \\frac{1}{3}EC$) dan menembus bidang $BDG$ di titik $Q$ ($QC = \\frac{1}{3}EC$).\nLangkah 2: Jarak antara bidang $AFH$ dan bidang $BDG$ adalah panjang segmen $PQ = \\frac{1}{3} EC$.\nLangkah 3: Dengan $EC = 6\\sqrt{3}\\text{ cm}$, diperoleh jarak $d = \\frac{1}{3} \\times 6\\sqrt{3} = 2\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak antara bidang sejajar $AFH$ dan $BDG$ adalah $2\\sqrt{3}\\text{ cm}$."
+        },
+        {
+          "problem": "Diberikan limas beraturan $T.ABCD$ dengan alas persegi berusuk $6\\text{ cm}$ dan tinggi limas $TO = 4\\text{ cm}$. Tentukan jarak dari titik pusat alas $O$ ke bidang sisi tegak $TBC$!",
+          "solution": "Langkah 1: Tarik garis dari $O$ tegak lurus ke rusuk alas $BC$ di titik $P$. $OP = \\frac{1}{2} \\times 6 = 3\\text{ cm}$.\nLangkah 2: Pada segitiga siku-siku $TOP$, tinggi sisi tegak $TP = \\sqrt{TO^2 + OP^2} = \\sqrt{4^2 + 3^2} = \\sqrt{25} = 5\\text{ cm}$.\nLangkah 3: Jarak titik $O$ ke bidang $TBC$ adalah tinggi $OO'$ pada segitiga $TOP$.\nLangkah 4: Kesamaan luas segitiga: $OP \\times TO = TP \\times OO' \\implies 3 \\times 4 = 5 \\times OO' \\implies OO' = \\frac{12}{5} = 2{,}4\\text{ cm}$.\nKesimpulan: Jarak titik pusat alas $O$ ke bidang sisi tegak $TBC$ adalah $\\frac{12}{5}\\text{ cm} = 2{,}4\\text{ cm}$."
+        },
+        {
+          "problem": "Pada bidang empat beraturan (tetrahedron beraturan) $T.ABC$ dengan seluruh rusuknya sama panjang $a = 6\\sqrt{2}\\text{ cm}$, tentukan jarak titik puncak $T$ ke bidang alas $ABC$!",
+          "solution": "Langkah 1: Alas $ABC$ adalah segitiga sama sisi berusuk $s = 6\\sqrt{2}\\text{ cm}$. Garis tinggi alas $CD = s \\frac{\\sqrt{3}}{2} = 6\\sqrt{2} \\times \\frac{\\sqrt{3}}{2} = 3\\sqrt{6}\\text{ cm}$.\nLangkah 2: Proyeksi puncak $T$ jatuh pada titik berat segitiga alas $O$. Jarak $CO = \\frac{2}{3} CD = \\frac{2}{3}(3\\sqrt{6}) = 2\\sqrt{6}\\text{ cm}$.\nLangkah 3: Jarak $T$ ke bidang alas adalah tinggi limas $TO = \\sqrt{TC^2 - CO^2} = \\sqrt{(6\\sqrt{2})^2 - (2\\sqrt{6})^2} = \\sqrt{72 - 24} = \\sqrt{48} = 4\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak titik puncak $T$ ke bidang alas $ABC$ adalah $4\\sqrt{3}\\text{ cm}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Limas segiempat beraturan T.ABCD berusuk alas 8 cm dan rusuk tegak $4\\sqrt{6}$ cm. Tentukan jarak titik puncak T ke bidang alas ABCD!",
+      "summary_data": {
+        "summary": [
+          "Sudut antara garis dan bidang adalah sudut antara garis tersebut dengan proyeksinya pada bidang.",
+          "Sudut antara dua bidang diukur melalui dua garis yang saling tegak lurus terhadap garis potong persekutuan kedua bidang."
+        ],
+        "islamic": "Kemiringan dan sudut yang presisi dalam konstruksi mencerminkan prinsip ketelitian (Ihsan) dalam setiap karya dan amal perbuatan."
+      },
+      "collab_cases": [
+        "Pada kubus $ABCD.EFGH$ berusuk $a = 6\\text{ cm}$, tentukan jarak titik $E$ ke bidang diagonal $BDG$ menggunakan teorema proyeksi ortogonal!",
+        "Diberikan kubus $ABCD.EFGH$ berusuk $12\\text{ cm}$. Titik $P, Q, R$ masing-masing adalah titik tengah $AB, BC,$ dan $CG$. Hitunglah jarak titik $F$ ke bidang $PQR$!",
+        "Buktikan bahwa bidang $AFH$ membagi diagonal ruang $CE$ menjadi dua segmen dengan perbandingan $1 : 2$ pada kubus beraturan!",
+        "Pada kubus $ABCD.EFGH$ berusuk $6\\text{ cm}$, tentukan jarak antara bidang sejajar $AFH$ dan bidang $BDG$!",
+        "Pada limas beraturan $T.ABCD$ dengan rusuk alas $4\\text{ cm}$ dan tinggi limas $4\\text{ cm}$, tentukan jarak titik $A$ ke bidang sisi tegak $TCD$!"
+      ],
+      "tagline": "Menembus Dinding Ruang: Menguasai Teorema 1/3 & 2/3 Diagonal Ruang Kubus",
+      "collab_solutions": [
+        "Langkah 1: Bidang $BDG$ memotong diagonal ruang $EC$ secara tegak lurus pada perbandingan $2:1$.\nLangkah 2: Jarak titik $E$ ke bidang $BDG$ adalah $\\frac{2}{3}$ dari panjang diagonal ruang $EC$.\nLangkah 3: $EC = a\\sqrt{3} = 6\\sqrt{3}\\text{ cm} \\implies d = \\frac{2}{3}(6\\sqrt{3}) = 4\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak titik $E$ ke bidang $BDG$ adalah $4\\sqrt{3}\\text{ cm}$.",
+        "Langkah 1: Persamaan bidang $PQR$ pada kubus $s=12$ dengan $P(6,0,0), Q(12,6,0), R(12,12,6)$ adalah $2x - 2y + z = 12$.\nLangkah 2: Koordinat titik $F$ adalah $(12, 0, 12)$.\nLangkah 3: Jarak titik ke bidang: $d = \\frac{|2(12) - 2(0) + 12 - 12|}{\\sqrt{2^2 + (-2)^2 + 1^2}} = \\frac{|24|}{\\sqrt{4 + 4 + 1}} = \\frac{24}{3} = 8\\text{ cm}$.\nKesimpulan: Jarak titik $F$ ke bidang $PQR$ adalah $8\\text{ cm}$.",
+        "Langkah 1: Persamaan bidang $AFH$ dalam ruang kubus adalah $x + y - z = a$.\nLangkah 2: Garis diagonal ruang $CE$ menghubungkan $C(a,a,0)$ ke $E(0,0,a)$ dengan persamaan parametrik $(a(1-t), a(1-t), at)$.\nLangkah 3: Substitusikan ke bidang: $a(1-t) + a(1-t) - at = a \\implies 2a - 3at = a \\implies 3at = a \\implies t = \\frac{1}{3}$.\nLangkah 4: Titik tembus membagi segmen $CE$ menjadi panjang $\\frac{1}{3}CE$ dan $\\frac{2}{3}CE$.\nKesimpulan: Terbukti bahwa bidang $AFH$ membagi diagonal ruang $CE$ dalam perbandingan $1 : 2$.",
+        "Langkah 1: Bidang $AFH$ dan bidang $BDG$ adalah dua bidang sejajar yang sama-sama tegak lurus diagonal ruang $EC$.\nLangkah 2: Bidang $AFH$ berjarak $\\frac{1}{3}EC$ dari titik $E$, dan bidang $BDG$ berjarak $\\frac{2}{3}EC$ dari titik $E$.\nLangkah 3: Jarak antar kedua bidang sejajar $= \\frac{2}{3}EC - \\frac{1}{3}EC = \\frac{1}{3}EC = \\frac{1}{3}(6\\sqrt{3}) = 2\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak antara bidang $AFH$ dan bidang $BDG$ adalah $2\\sqrt{3}\\text{ cm}$.",
+        "Langkah 1: Volume limas $T.ABCD = \\frac{1}{3} \\times 4^2 \\times 4 = \\frac{64}{3}\\text{ cm}^3$.\nLangkah 2: Volume limas $A.TCD = \\frac{1}{2} \\times \\text{Vol}(T.ABCD) = \\frac{32}{3}\\text{ cm}^3$.\nLangkah 3: Luas segitiga sisi tegak $TCD = \\frac{1}{2} \\times 4 \\times \\sqrt{4^2 + 2^2} = 2\\sqrt{20} = 4\\sqrt{5}\\text{ cm}^2$.\nLangkah 4: Jarak $d = \\frac{3 \\times \\text{Vol}(A.TCD)}{\\text{Luas } TCD} = \\frac{3 \\times (32/3)}{4\\sqrt{5}} = \\frac{32}{4\\sqrt{5}} = \\frac{8}{\\sqrt{5}} = \\frac{8}{5}\\sqrt{5}\\text{ cm}$.\nKesimpulan: Jarak titik $A$ ke bidang sisi tegak $TCD$ adalah $\\frac{8}{5}\\sqrt{5}\\text{ cm}$."
+      ]
+    },
+    {
+      "id": "P13",
+      "bab": "Bab 2: Geometri Dimensi Tiga",
+      "title": "Sudut Antara Garis-Bidang dan Antara Dua Bidang (Dihedral Angle)",
+      "obj": [
+        "Menentukan besar sudut antara garis dan bidang melalui proyeksi garis ke bidang.",
+        "Menentukan besar sudut antara dua bidang (Dihedral Angle) melalui perpotongan garis tumpu tegak lurus.",
+        "Menghitung nilai sinus, cosinus, dan tangen sudut dimensi tiga."
+      ],
+      "hook": "Sudut kemiringan panel surya terhadap atap gedung bertingkat harus diatur secara trigonometris presisi untuk memaksimalkan tangkapan sinar matahari harian.",
+      "toolkit": [
+        {
+          "name": "Sudut Garis ke Bidang",
+          "math": "$$\\theta = \\angle(g, g') \\quad (g' = \\text{proyeksi garis } g \\text{ pada bidang})$$"
+        },
+        {
+          "name": "Sudut Antara Dua Bidang",
+          "math": "$$\\theta = \\angle(t_1, t_2) \\quad (t_1, t_2 \\perp \\text{garis potong persekutuan})$$"
+        },
+        {
+          "name": "Teorema Pythagoras Ruang 3D",
+          "math": "$$d^2 = p^2 + l^2 + t^2$$"
+        },
+        {
+          "name": "Kesamaan Luas Segitiga Proyeksi",
+          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, tentukan besar sinus sudut antara garis diagonal ruang $AG$ dan bidang alas $ABCD$!",
+          "solution": "Langkah 1: Proyeksikan garis $AG$ ke bidang $ABCD$. Proyeksi titik $G$ ke alas adalah $C$, sehingga proyeksi garis $AG$ pada alas adalah diagonal sisi $AC$.\nLangkah 2: Sudut antara $AG$ dan alas $ABCD$ adalah $\\angle CAG = \\alpha$ pada segitiga siku-siku $ACG$ di $C$.\nLangkah 3: Panjang $AC = 6\\sqrt{2}\\text{ cm}$, $CG = 6\\text{ cm}$, dan $AG = 6\\sqrt{3}\\text{ cm}$.\nLangkah 4: $\\sin \\alpha = \\frac{CG}{AG} = \\frac{6}{6\\sqrt{3}} = \\frac{1}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{3}$.\nKesimpulan: Nilai sinus sudut antara garis $AG$ dan bidang alas adalah $\\frac{1}{3}\\sqrt{3}$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$, tentukan nilai cosinus sudut antara bidang $AFH$ dan bidang $CHF$!",
+          "solution": "Langkah 1: Garis persekutuan kedua bidang adalah $FH$. Titik tengah $FH$ adalah $O$.\nLangkah 2: Tarik garis tegak lurus $FH$ pada masing-masing bidang: $AO \\perp FH$ pada $\\Delta AFH$ dan $CO \\perp FH$ pada $\\Delta CHF$.\nLangkah 3: Sudut antara bidang $AFH$ dan $CHF$ adalah $\\angle AOC = \\theta$ pada segitiga $AOC$.\nLangkah 4: Pada kubus berusuk $s$, $AO = CO = \\frac{1}{2}s\\sqrt{6}$ dan $AC = s\\sqrt{2}$.\nLangkah 5: Terapkan aturan cosinus pada $\\Delta AOC$: $\\cos \\theta = \\frac{AO^2 + CO^2 - AC^2}{2 \\cdot AO \\cdot CO} = \\frac{\\frac{6}{4}s^2 + \\frac{6}{4}s^2 - 2s^2}{2 \\cdot \\frac{6}{4}s^2} = \\frac{3s^2 - 2s^2}{3s^2} = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara bidang $AFH$ dan $CHF$ adalah $\\frac{1}{3}$."
+        },
+        {
+          "problem": "Pada limas beraturan $T.ABCD$ dengan rusuk alas $6\\text{ cm}$ dan rusuk tegak $6\\text{ cm}$, tentukan nilai tangen sudut antara rusuk tegak $TA$ dan bidang alas $ABCD$!",
+          "solution": "Langkah 1: Proyeksi $T$ ke alas persegi adalah titik pusat alas $O$. Sudut yang dicari adalah $\\angle TAO = \\alpha$.\nLangkah 2: Panjang diagonal alas $AC = 6\\sqrt{2}\\text{ cm} \\implies AO = \\frac{1}{2} AC = 3\\sqrt{2}\\text{ cm}$.\nLangkah 3: Tinggi limas $TO = \\sqrt{TA^2 - AO^2} = \\sqrt{6^2 - (3\\sqrt{2})^2} = \\sqrt{36 - 18} = \\sqrt{18} = 3\\sqrt{2}\\text{ cm}$.\nLangkah 4: $\\tan \\alpha = \\frac{TO}{AO} = \\frac{3\\sqrt{2}}{3\\sqrt{2}} = 1 \\implies \\alpha = 45^\\circ$.\nKesimpulan: Nilai tangen sudut antara $TA$ dan bidang alas adalah $1$ (sudut $45^\\circ$)."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $a$, jika $\\alpha$ adalah sudut antara garis $CE$ dan garis $AG$, tentukan nilai $\\cos \\alpha$!",
+          "solution": "Langkah 1: Garis $CE$ dan $AG$ adalah dua diagonal ruang yang berpotongan di titik pusat kubus $O$.\nLangkah 2: Panjang diagonal ruang $CE = AG = a\\sqrt{3}$, sehingga $OE = OG = \\frac{a\\sqrt{3}}{2}$.\nLangkah 3: Perhatikan segitiga $EOG$ dengan panjang sisi $EG = a\\sqrt{2}$ (diagonal sisi atas).\nLangkah 4: Gunakan aturan cosinus pada $\\Delta EOG$: $\\cos \\alpha = \\frac{OE^2 + OG^2 - EG^2}{2 \\cdot OE \\cdot OG} = \\frac{\\frac{3}{4}a^2 + \\frac{3}{4}a^2 - 2a^2}{2 \\cdot \\frac{3}{4}a^2} = \\frac{\\frac{6}{4}a^2 - 2a^2}{\\frac{6}{4}a^2} = \\frac{-\\frac{1}{2}}{\\frac{3}{2}} = -\\frac{1}{3}$.\nLangkah 5: Sudut lancip antara kedua garis adalah $|\\cos \\alpha| = \\frac{1}{3}$.\nKesimpulan: Nilai cosinus sudut antara diagonal ruang $CE$ dan $AG$ adalah $\\frac{1}{3}$."
+        },
+        {
+          "problem": "Sebuah atap gazebo berbentuk limas segi empat beraturan $T.ABCD$ dengan rusuk alas $4\\text{ m}$ dan tinggi puncak $2\\sqrt{3}\\text{ m}$. Tentukan besar sudut kemiringan bidang atap sisi tegak terhadap bidang horizontal alas!",
+          "solution": "Langkah 1: Titik $P$ adalah titik tengah rusuk alas $AB$. Jarak $OP = \\frac{1}{2} \\times 4 = 2\\text{ m}$.\nLangkah 2: Tinggi limas $TO = 2\\sqrt{3}\\text{ m}$. Sudut kemiringan atap adalah $\\angle TPO = \\beta$.\nLangkah 3: Pada segitiga siku-siku $TOP$: $\\tan \\beta = \\frac{TO}{OP} = \\frac{2\\sqrt{3}}{2} = \\sqrt{3}$.\nLangkah 4: $\\beta = \\arctan(\\sqrt{3}) = 60^\\circ$.\nKesimpulan: Besar sudut kemiringan bidang atap terhadap bidang horizontal adalah $60^\\circ$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Pada kubus ABCD.EFGH, tentukan nilai cosinus sudut antara bidang ABCD dan bidang BDG!",
+      "summary_data": {
+        "summary": [
+          "Review komprehensif jarak titik-titik, titik-garis, titik-bidang, dan sudut dihedral.",
+          "Visualisasi 3D yang tepat merupakan kunci utama kecepatan dan ketepatan penyelesaian geometri ruang."
+        ],
+        "islamic": "Mengasah ketajaman berpikir spasial memperluas cakrawala keimanan akan luas dan teraturnya alam semesta ciptaan Allah."
+      },
+      "collab_cases": [
+        "Pada kubus $ABCD.EFGH$, tentukan nilai $\\cos \\alpha$ dengan $\\alpha$ adalah sudut antara diagonal ruang $AG$ dengan bidang alas $ABCD$!",
+        "Pada kubus $ABCD.EFGH$, hitunglah besar sudut dihedral antara bidang $AFH$ dan bidang $BDG$!",
+        "Pada limas segi empat beraturan $T.ABCD$ dengan rusuk alas $4\\text{ cm}$ dan rusuk tegak $2\\sqrt{6}\\text{ cm}$, tentukan $\\tan \\theta$ antara bidang $TAB$ dan $TCD$!",
+        "Tentukan besar sudut antara garis diagonal sisi $AH$ dengan bidang diagonal $BDHF$ pada kubus beraturan!",
+        "Buktikan bahwa sudut antara dua diagonal ruang pada sebuah kubus adalah $\\arccos(\\frac{1}{3}) \\approx 70{,}53^\\circ$!"
+      ],
+      "tagline": "Mengukur Kemiringan Sudut Antar Garis dan Bidang dalam Bangun Ruang Nyata",
+      "collab_solutions": [
+        "Langkah 1: Proyeksi garis diagonal ruang $AG$ pada bidang alas $ABCD$ adalah diagonal sisi $AC$.\nLangkah 2: Sudut yang dibentuk adalah $\\alpha = \\angle CAG$. Segitiga $ACG$ siku-siku di $C$.\nLangkah 3: $AC = s\\sqrt{2}$ dan $AG = s\\sqrt{3}$.\nLangkah 4: $\\cos \\alpha = \\frac{AC}{AG} = \\frac{s\\sqrt{2}}{s\\sqrt{3}} = \\frac{\\sqrt{2}}{\\sqrt{3}} = \\frac{1}{3}\\sqrt{6}$.\nKesimpulan: Nilai $\\cos \\alpha$ adalah $\\frac{1}{3}\\sqrt{6}$.",
+        "Langkah 1: Bidang $AFH$ memiliki persamaan normal $\\vec{n}_1 = (1, 1, -1)$ dan bidang $BDG$ memiliki normal $\\vec{n}_2 = (-1, -1, 1)$.\nLangkah 2: Karena $\\vec{n}_1 = -\\vec{n}_2$, kedua bidang saling sejajar sempurna ($\\parallel$).\nLangkah 3: Sudut antara dua bidang yang saling sejajar adalah $0^\\circ$.\nKesimpulan: Besar sudut dihedral antara bidang $AFH$ dan bidang $BDG$ adalah $0^\\circ$.",
+        "Langkah 1: Titik $M$ tengah $AB$ dan $N$ tengah $CD \\implies MN = 4\\text{ cm}$.\nLangkah 2: Tinggi sisi tegak $TM = TN = \\sqrt{(2\\sqrt{6})^2 - 2^2} = \\sqrt{24 - 4} = \\sqrt{20}\\text{ cm}$.\nLangkah 3: Tinggi limas $TO = \\sqrt{20 - 2^2} = \\sqrt{16} = 4\\text{ cm}$.\nLangkah 4: Sudut apit $\\theta = \\angle MTN$. $\\tan(\\theta/2) = \\frac{ON}{TO} = \\frac{2}{4} = \\frac{1}{2} \\implies \\tan \\theta = \\frac{2(1/2)}{1 - (1/2)^2} = \\frac{1}{3/4} = \\frac{4}{3}$.\nKesimpulan: Nilai $\\tan \\theta$ antara bidang $TAB$ dan $TCD$ adalah $\\frac{4}{3}$.",
+        "Langkah 1: Titik $H$ berada pada bidang $BDHF$. Proyeksi titik $A$ ke bidang $BDHF$ adalah titik pusat alas $P$ (tengah $BD$).\nLangkah 2: Segitiga $APH$ siku-siku di $P$ dengan $AP = \\frac{1}{2}s\\sqrt{2}$ dan $AH = s\\sqrt{2}$.\nLangkah 3: $\\sin \\theta = \\frac{AP}{AH} = \\frac{\\frac{1}{2}s\\sqrt{2}}{s\\sqrt{2}} = \\frac{1}{2} \\implies \\theta = 30^\\circ$.\nKesimpulan: Besar sudut antara garis $AH$ dengan bidang $BDHF$ adalah $30^\\circ$.",
+        "Langkah 1: Ambil vektor dua diagonal ruang: $\\vec{d}_1 = (1, 1, 1)$ dan $\\vec{d}_2 = (1, -1, 1)$.\nLangkah 2: Perkalian skalar: $\\vec{d}_1 \\cdot \\vec{d}_2 = 1(1) + 1(-1) + 1(1) = 1$.\nLangkah 3: Panjang vektor: $|\\vec{d}_1| = \\sqrt{3}$ dan $|\\vec{d}_2| = \\sqrt{3}$.\nLangkah 4: $\\cos \\theta = \\frac{\\vec{d}_1 \\cdot \\vec{d}_2}{|\\vec{d}_1| |\\vec{d}_2|} = \\frac{1}{\\sqrt{3} \\times \\sqrt{3}} = \\frac{1}{3} \\implies \\theta = \\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$.\nKesimpulan: Terbukti bahwa sudut lancip antara dua diagonal ruang pada kubus adalah $\\arccos\\left(\\frac{1}{3}\\right) \\approx 70{,}53^\\circ$."
+      ]
+    },
+    {
+      "id": "P14",
+      "bab": "Bab 2: Geometri Dimensi Tiga",
+      "title": "Asesmen Sumatif Terpadu Dimensi Tiga & Bedah Prediksi ASTS",
+      "obj": [
+        "Mengevaluasi penguasaan materi geometri dimensi tiga secara komprehensif (P09 - P13).",
+        "Mendiagnosis kesiapan pengerjaan soal prediksi ASTS CBT Matematika Wajib.",
+        "Melatih ketepatan visualisasi spasial 3D dan kalkulasi aljabar bentuk akar."
+      ],
+      "hook": "Uji kesiapan komprehensif Bab 2 Geometri Dimensi Tiga sebelum memasuki Bab 3 Statistika & Analisis Data Bivariat.",
+      "toolkit": [
+        {
+          "name": "Matriks Uji Bab 2",
+          "math": "$$\\text{Kedudukan (20\\%)} + \\text{Jarak Titik/Garis/Bidang (50\\%)} + \\text{Sudut Dimensi Tiga (30\\%) }$$"
+        },
+        {
+          "name": "Kaidah Jarak Cepat",
+          "math": "$$d_{\\text{titik-garis}} = \\frac{s\\sqrt{6}}{3}, \\quad d_{\\text{titik-bidang}} = \\frac{1}{3}s\\sqrt{3} \\text{ atau } \\frac{2}{3}s\\sqrt{3}$$"
+        },
+        {
+          "name": "Teorema Pythagoras Ruang 3D",
+          "math": "$$d^2 = p^2 + l^2 + t^2$$"
+        },
+        {
+          "name": "Kesamaan Luas Segitiga Proyeksi",
+          "math": "$$L = \\frac{1}{2} \\cdot a_1 \\cdot t_1 = \\frac{1}{2} \\cdot a_2 \\cdot t_2$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ dengan rusuk $6\\text{ cm}$, titik $K$ adalah titik tengah rusuk $EH$. Tentukan jarak titik $K$ ke garis diagonal ruang $AG$!",
+          "solution": "Langkah 1: Koordinat dengan $A(0,0,0)$: $A(0,0,0), G(6,6,6), K(0,3,6)$.\nLangkah 2: Vektor $\\vec{AG} = (6,6,6)$ dan $\\vec{AK} = (0,3,6)$.\nLangkah 3: Panjang proyeksi skalar $\\vec{AK}$ pada $\\vec{AG}$ adalah $p = \\frac{\\vec{AK} \\cdot \\vec{AG}}{|\\vec{AG}|} = \\frac{0(6) + 3(6) + 6(6)}{\\sqrt{6^2+6^2+6^2}} = \\frac{18 + 36}{6\\sqrt{3}} = \\frac{54}{6\\sqrt{3}} = 3\\sqrt{3}\\text{ cm}$.\nLangkah 4: Panjang $|\\vec{AK}| = \\sqrt{0^2 + 3^2 + 6^2} = \\sqrt{45} = 3\\sqrt{5}\\text{ cm}$.\nLangkah 5: Jarak tegak lurus $d = \\sqrt{|\\vec{AK}|^2 - p^2} = \\sqrt{45 - (3\\sqrt{3})^2} = \\sqrt{45 - 27} = \\sqrt{18} = 3\\sqrt{2}\\text{ cm}$.\nKesimpulan: Jarak titik $K$ ke diagonal ruang $AG$ adalah $3\\sqrt{2}\\text{ cm}$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ berusuk $10\\text{ cm}$, tentukan jarak titik $F$ ke bidang diagonal $ACH$!",
+          "solution": "Langkah 1: Diagonal ruang $FD$ menembus bidang $ACH$ secara tegak lurus pada jarak $\\frac{2}{3}$ dari titik sudut $F$.\nLangkah 2: Panjang diagonal ruang $FD = 10\\sqrt{3}\\text{ cm}$.\nLangkah 3: Jarak $d = \\frac{2}{3} \\times 10\\sqrt{3} = \\frac{20}{3}\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak titik $F$ ke bidang $ACH$ adalah $\\frac{20}{3}\\sqrt{3}\\text{ cm}$."
+        },
+        {
+          "problem": "Balok $ABCD.EFGH$ memiliki panjang $AB = 4\\text{ cm}$, $BC = 3\\text{ cm}$, dan $CG = 12\\text{ cm}$. Tentukan jarak titik $B$ ke diagonal ruang $AG$!",
+          "solution": "Langkah 1: Pada $\\Delta ABG$, $AB = 4\\text{ cm}$, $BG = \\sqrt{BC^2 + CG^2} = \\sqrt{3^2 + 12^2} = \\sqrt{9 + 144} = \\sqrt{153}\\text{ cm}$.\nLangkah 2: Karena rusuk $AB \\perp$ bidang sisi samping $BCGF$, maka $AB \\perp BG$. Segitiga $ABG$ siku-siku di $B$.\nLangkah 3: Diagonal ruang $AG = \\sqrt{AB^2 + BG^2} = \\sqrt{4^2 + 153} = \\sqrt{16 + 153} = \\sqrt{169} = 13\\text{ cm}$.\nLangkah 4: Kesamaan luas $\\Delta ABG$: $AB \\times BG = AG \\times BB' \\implies 4 \\times \\sqrt{153} = 13 \\times BB' \\implies BB' = \\frac{4\\sqrt{153}}{13} = \\frac{12\\sqrt{17}}{13}\\text{ cm}$.\nKesimpulan: Jarak titik $B$ ke diagonal ruang $AG$ adalah $\\frac{12}{13}\\sqrt{17}\\text{ cm}$."
+        },
+        {
+          "problem": "Pada limas beraturan $T.ABCD$ dengan panjang rusuk alas $8\\text{ cm}$ dan rusuk tegak $8\\text{ cm}$, tentukan nilai sinus sudut antara bidang $TAB$ dan bidang $TCD$!",
+          "solution": "Langkah 1: Titik $P$ di tengah $AB$ dan titik $Q$ di tengah $CD$. Panjang $PQ = BC = 8\\text{ cm}$.\nLangkah 2: Tinggi segitiga sisi tegak $TP = TQ = \\sqrt{8^2 - 4^2} = \\sqrt{64 - 16} = \\sqrt{48} = 4\\sqrt{3}\\text{ cm}$.\nLangkah 3: Sudut antara bidang $TAB$ dan $TCD$ adalah $\\angle PTQ = \\theta$ pada $\\Delta TPQ$.\nLangkah 4: Aturan cosinus: $\\cos \\theta = \\frac{TP^2 + TQ^2 - PQ^2}{2 \\cdot TP \\cdot TQ} = \\frac{48 + 48 - 64}{2 \\cdot 48} = \\frac{32}{96} = \\frac{1}{3}$.\nLangkah 5: $\\sin \\theta = \\sqrt{1 - \\cos^2 \\theta} = \\sqrt{1 - \\left(\\frac{1}{3}\\right)^2} = \\sqrt{\\frac{8}{9}} = \\frac{2}{3}\\sqrt{2}$.\nKesimpulan: Nilai sinus sudut antara bidang $TAB$ dan $TCD$ adalah $\\frac{2}{3}\\sqrt{2}$."
+        },
+        {
+          "problem": "Sebuah instalasi seni 3D berbentuk kubus $ABCD.EFGH$ berukuran $6\\text{ m}$. Sebuah kawat dipasang dari titik $P$ (tengah $AB$) ke titik $Q$ (tengah $GH$). Tentukan jarak terpendek kawat tersebut terhadap garis diagonal ruang $DF$!",
+          "solution": "Langkah 1: Gunakan koordinat 3D: $P(3,0,0), Q(0,3,6), D(0,6,0), F(6,0,6)$.\nLangkah 2: Vektor arah garis $PQ$: $\\vec{u} = (-3, 3, 6) = 3(-1, 1, 2)$. Vektor arah garis $DF$: $\\vec{v} = (6, -6, 6) = 6(1, -1, 1)$.\nLangkah 3: Vektor normal bersama $\\vec{n} = \\vec{u} \\times \\vec{v} = (3, 3, 0) = 3(1, 1, 0)$.\nLangkah 4: Vektor penghubung $\\vec{DP} = (3, -6, 0)$. Jarak terpendek antara dua garis bersilangan: $d = \\frac{|\\vec{DP} \\cdot \\vec{n}|}{|\\vec{n}|} = \\frac{|3(1) + (-6)(1) + 0|}{\\sqrt{1^2 + 1^2 + 0}} = \\frac{|-3|}{\\sqrt{2}} = \\frac{3}{\\sqrt{2}} = \\frac{3}{2}\\sqrt{2}\\text{ m}$.\nKesimpulan: Jarak terpendek kawat $PQ$ ke diagonal ruang $DF$ adalah $\\frac{3}{2}\\sqrt{2}\\text{ m} \\approx 2{,}12\\text{ m}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Bedah paket 10 soal prediksi ASTS CBT Dimensi Tiga dan buktikan solusi analitisnya!",
+      "summary_data": {
+        "summary": [
+          "Drilling simulasi asesmen sumatif tengah semester (ASTS) berbasis CBT.",
+          "Manajemen waktu: 90 detik per butir soal dengan strategi eliminasi opsi salah secara sistematis."
+        ],
+        "islamic": "Kejujuran dan kedisiplinan waktu dalam ujian merupakan manifestasi akhlak mulia seorang penuntut ilmu sejati."
+      },
+      "collab_cases": [
+        "Kubus $ABCD.EFGH$ memiliki rusuk $8\\text{ cm}$. Titik $K$ terletak pada perpanjangan $DA$ dengan $AK = \\frac{1}{2} DA$. Tentukan jarak titik $K$ ke bidang $BDG$!",
+        "Tentukan volume irisan bidang yang melalui titik tengah $AE, BF,$ dan $CG$ pada kubus berusuk $6\\text{ cm}$!",
+        "Sebuah piramida beraturan memiliki alas segi-6 dengan sisi $4\\text{ cm}$ dan tinggi $10\\text{ cm}$. Tentukan jarak dari pusat alas ke salah satu sisi tegaknya!",
+        "Pada kubus $ABCD.EFGH$ berusuk $12\\text{ cm}$, bidang $\\alpha$ melalui titik $B$ dan tegak lurus pada $AG$. Tentukan bentuk dan luas penampang bidang $\\alpha$!",
+        "Hitung sudut antara garis perpotongan bidang $PQR$ dengan alas kubus terhadap diagonal sisi alas!"
+      ],
+      "tagline": "Bedah Prediksi CBT Dimensi Tiga: Cepat, Tepat, & Berlogika Ruang Kuat",
+      "collab_solutions": [
+        "Langkah 1: Titik $D(0,0,0), A(8,0,0)$. Perpanjangan $DA$ dengan $AK = 4$ menghasilkan titik $K(12, 0, 0)$.\nLangkah 2: Persamaan bidang $BDG$ adalah $x + y + z = 16$.\nLangkah 3: Jarak $d = \\frac{|12 + 0 + 0 - 16|}{\\sqrt{1^2 + 1^2 + 1^2}} = \\frac{|-4|}{\\sqrt{3}} = \\frac{4}{\\sqrt{3}} = \\frac{4}{3}\\sqrt{3}\\text{ cm}$.\nKesimpulan: Jarak titik $K$ ke bidang $BDG$ adalah $\\frac{4}{3}\\sqrt{3}\\text{ cm}$.",
+        "Langkah 1: Bidang melalui tengah $AE, BF, CG$ memotong kubus setinggi $z = 3\\text{ cm}$.\nLangkah 2: Bentuk irisan adalah balok dengan ukuran alas $6 \\times 6$ dan tinggi $3\\text{ cm}$.\nLangkah 3: Volume irisan $= 6 \\times 6 \\times 3 = 108\\text{ cm}^3$ (tepat $\\frac{1}{2}$ dari volume kubus total $= 216\\text{ cm}^3$).\nKesimpulan: Volume irisan prisma adalah $108\\text{ cm}^3$.",
+        "Langkah 1: Alas segi enam beraturan berusuk $s=4\\text{ cm} \\implies$ apotema alas $r = 4\\cos(30^\\circ) = 2\\sqrt{3}\\text{ cm}$.\nLangkah 2: Tinggi sisi tegak $h_s = \\sqrt{10^2 + (2\\sqrt{3})^2} = \\sqrt{100 + 12} = \\sqrt{112} = 4\\sqrt{7}\\text{ cm}$.\nLangkah 3: Jarak dari pusat alas ke sisi tegak: $d = \\frac{\\text{tinggi} \\times \\text{apotema}}{h_s} = \\frac{10 \\times 2\\sqrt{3}}{4\\sqrt{7}} = \\frac{5\\sqrt{3}}{\\sqrt{7}} = \\frac{5}{7}\\sqrt{21}\\text{ cm}$.\nKesimpulan: Jarak dari pusat alas ke salah satu sisi tegak piramida adalah $\\frac{5}{7}\\sqrt{21}\\text{ cm}$.",
+        "Langkah 1: Bidang melalui $B$ dan tegak lurus $AG$ membentuk penampang segitiga sama sisi $BDE$.\nLangkah 2: Panjang sisi segitiga adalah diagonal sisi kubus $= s\\sqrt{2} = 12\\sqrt{2}\\text{ cm}$.\nLangkah 3: Luas segitiga sama sisi $= \\frac{\\sqrt{3}}{4} \\times (12\\sqrt{2})^2 = \\frac{\\sqrt{3}}{4} \\times 288 = 72\\sqrt{3}\\text{ cm}^2$.\nKesimpulan: Penampang berbentuk segitiga sama sisi dengan luas $72\\sqrt{3}\\text{ cm}^2$.",
+        "Langkah 1: Garis perpotongan bidang $PQR$ dengan alas kubus menghubungkan titik $P$ dan $Q$, yang sejajar dengan diagonal sisi $AC$.\nLangkah 2: Karena garis potong sejajar dengan diagonal sisi alas, maka kedua garis tidak berpotongan dan memiliki arah yang sama.\nLangkah 3: Sudut yang terbentuk $= 0^\\circ$.\nKesimpulan: Sudut antara garis potong dengan diagonal sisi alas adalah $0^\\circ$ (sejajar)."
+      ]
+    },
+    {
+      "id": "P15",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
+      "title": "Penyajian Data Berkelompok (Histogram, Poligon, & Ogive)",
+      "obj": [
+        "Menyusun tabel distribusi frekuensi data berkelompok dengan Aturan Sturges $k = 1 + 3{,}3 \\log N$.",
+        "Menentukan batas kelas, tepi bawah ($Tb = \\text{Batas Bawah} - 0{,}5$), tepi atas ($Ta$), dan titik tengah ($x_i$).",
+        "Menyajikan dan menginterpretasikan data dalam bentuk Histogram, Poligon Frekuensi, dan Ogive Kumulatif."
+      ],
+      "hook": "Data nilai asesmen 200 siswa kelas XII disajikan dalam bentuk grafik Histogram dan Ogive untuk menganalisis kurva kelulusan secara visual cepat.",
+      "toolkit": [
+        {
+          "name": "Aturan Sturges (Banyak Kelas)",
+          "math": "$$k = 1 + 3{,}3 \\log N, \\quad c = \\frac{\\text{Jangkauan}}{k}$$"
+        },
+        {
+          "name": "Tepi Kelas & Titik Tengah",
+          "math": "$$Tb = BB - 0{,}5, \\quad Ta = BA + 0{,}5, \\quad x_i = \\frac{BB + BA}{2}$$"
+        },
+        {
+          "name": "Frekuensi Relatif & Kumulatif",
+          "math": "$$f_{\\text{rel}} = \\frac{f_i}{N} \\times 100\\%, \\quad F_k = \\sum_{j=1}^i f_j$$"
+        },
+        {
+          "name": "Karakteristik Kurva Ogive & Titik Potong Median",
+          "math": "$$\\text{Ogive Positif: } F_k \\le Ta \\text{ (Naik)}, \\quad \\text{Ogive Negatif: } F_k \\ge Tb \\text{ (Turun)}, \\quad \\text{Titik Potong Kedua Kurva} = \\text{Median (Me)}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Diberikan tabel distribusi frekuensi: Interval $50-59$ ($f=6$), $60-69$ ($f=10$), $70-79$ ($f=14$), $80-89$ ($f=8$), $90-99$ ($f=2$). Tentukan tepi bawah, tepi atas, dan titik tengah ($x_i$) dari kelas ke-3!",
+          "solution": "Langkah 1: Kelas ke-3 adalah interval $70 - 79$.\nLangkah 2: Tepi bawah $T_b = 70 - 0{,}5 = 69{,}5$.\nLangkah 3: Tepi atas $T_a = 79 + 0{,}5 = 79{,}5$.\nLangkah 4: Titik tengah $x_3 = \\frac{70 + 79}{2} = \\frac{149}{2} = 74{,}5$.\nKesimpulan: Tepi bawah $= 69{,}5$, tepi atas $= 79{,}5$, dan titik tengah $= 74{,}5$."
+        },
+        {
+          "problem": "Dari suatu tabel distribusi diketahui tepi bawah kelas modal adalah $60{,}5$ dan panjang kelas $c = 8$. Tentukan batas bawah dan batas atas kelas tersebut!",
+          "solution": "Langkah 1: Batas bawah $BB = T_b + 0{,}5 = 60{,}5 + 0{,}5 = 61$.\nLangkah 2: Batas atas $BA = BB + c - 1 = 61 + 8 - 1 = 68$.\nKesimpulan: Interval kelas tersebut adalah $61 - 68$."
+        },
+        {
+          "problem": "Diberikan data frekuensi kumulatif 'kurang dari' ($F_k$): $T_a \\le 49{,}5$ ($F_k=4$), $T_a \\le 59{,}5$ ($F_k=11$), $T_a \\le 69{,}5$ ($F_k=25$), $T_a \\le 79{,}5$ ($F_k=40$). Tentukan frekuensi asli dari kelas interval $60 - 69$!",
+          "solution": "Langkah 1: Frekuensi asli kelas $60 - 69$ adalah selisih antara frekuensi kumulatif kelas tersebut ($T_a = 69{,}5$) dan kelas sebelumnya ($T_a = 59{,}5$).\nLangkah 2: $f = F_{k(69{,}5)} - F_{k(59{,}5)} = 25 - 11 = 14$.\nKesimpulan: Frekuensi asli interval $60 - 69$ adalah $14$."
+        },
+        {
+          "problem": "Berdasarkan grafik Ogive Positif dari data nilai 100 siswa, diperoleh bahwa persentase siswa yang nilainya kurang dari atau sama dengan 75 adalah 64%. Jika KKM kelulusan adalah 75,5, berapa banyak siswa yang dinyatakan lulus?",
+          "solution": "Langkah 1: Jumlah total siswa $N = 100$.\nLangkah 2: Siswa dengan nilai $\\le 75{,}5$ adalah $64\\% \\times 100 = 64$ siswa.\nLangkah 3: Jumlah siswa yang lulus (nilai di atas KKM) adalah $N - 64 = 100 - 64 = 36$ siswa.\nKesimpulan: Banyak siswa yang dinyatakan lulus adalah $36$ siswa."
+        },
+        {
+          "problem": "Sebuah perusahaan manufaktur memonitor distribusi waktu perakitan gawai (dalam menit): [20-29: 8], [30-39: 15], [40-49: 20], [50-59: 7]. Gambarkan interpretasi jika standar efisiensi mensyaratkan perakitan di bawah 50 menit!",
+          "solution": "Langkah 1: Total sampel gawai $N = 8 + 15 + 20 + 7 = 50$ unit.\nLangkah 2: Gawai dengan waktu perakitan $< 49{,}5$ menit (di bawah 50 menit) mencakup 3 kelas pertama: $8 + 15 + 20 = 43$ unit.\nLangkah 3: Persentase pemenuhan standar efisiensi $= \\frac{43}{50} \\times 100\\% = 86\\%$.\nKesimpulan: Sebanyak $86\\%$ unit gawai memenuhi standar efisiensi operasional."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan tabel data nilai: [50-59: 6], [60-69: 10], [70-79: 14], [80-89: 10]. Buatlah tabel frekuensi kumulatif kurang dari dan sketsakan kurva Ogive Positifnya!",
+      "summary_data": {
+        "summary": [
+          "Data berkelompok disajikan dalam tabel distribusi frekuensi, histogram, dan poligon frekuensi.",
+          "Ogive positif menggunakan frekuensi kumulatif kurang dari, sedangkan ogive negatif menggunakan frekuensi kumulatif lebih dari."
+        ],
+        "islamic": "Penyajian informasi yang transparan dan akurat adalah amanah penting agar tidak menimbulkan prasangka dan kesalahan keputusan (QS. Al-Hujurat: 6)."
+      },
+      "collab_cases": [
+        "Buatlah tabel distribusi frekuensi berkelompok dari 40 data ulangan dengan rentang $R$, banyak kelas $k = 1 + 3{,}3\\log n$, dan panjang kelas $p$!",
+        "Dari histogram distribusi data tinggi badan, ubahlah menjadi kurva Ogive positif dan Ogive negatif yang presisi!",
+        "Distribusi data memiliki $Q_1 = 54{,}5$ dan $Q_3 = 78{,}2$. Analisislah pencakar langit (*outliers*) jika data terendah $18$ dan tertinggi $115$!",
+        "Jelaskan kelebihan penyajian data menggunakan histogram dengan frekuensi relatif dibandingkan frekuensi mutlak untuk membandingkan dua populasi!",
+        "Rancang histogram multimodal dari data simulasi lalu tafsirkan potensi heterogenitas sub-populasi di dalamnya!"
+      ],
+      "tagline": "Membaca Cerita di Balik Batang Histogram, Poligon Frekuensi, & Lengkung Ogive",
+      "collab_solutions": [
+        "Langkah 1: Hitung jangkauan R = X_maks - X_min. Tentukan banyak kelas dengan rumus Sturgess: k = 1 + 3,3 log(40) = 1 + 3,3(1,602) = 1 + 5,287 = 6,287 => bulatkan k = 7 kelas.\nLangkah 2: Panjang kelas interval p = R / k (dibulatkan ke atas).\nLangkah 3: Susun interval kelas berurutan dan hitung frekuensi tiap kelas menggunakan turus data.\nKesimpulan: Tabel distribusi frekuensi berkelompok tersusun rapi dalam 7 kelas interval yang representatif.",
+        "Langkah 1: Tentukan frekuensi kumulatif kurang dari (fk_kurang) untuk tiap tepi atas kelas => Kurva Ogive Positif (monoton naik).\nLangkah 2: Tentukan frekuensi kumulatif lebih dari (fk_lebih) untuk tiap tepi bawah kelas => Kurva Ogive Negatif (monoton turun).\nLangkah 3: Titik potong kedua kurva Ogive tepat menunjukkan posisi nilai Median data.\nKesimpulan: Kurva Ogive positif dan negatif berhasil dikonstruksi secara akurat dari histogram.",
+        "Langkah 1: Hitung Jangkauan Interkuartil: QR = Q3 - Q1 = 78,2 - 54,5 = 23,7.\nLangkah 2: Pagar Luar Bawah (PLB) = Q1 - 1,5(QR) = 54,5 - 1,5(23,7) = 54,5 - 35,55 = 18,95.\nLangkah 3: Pagar Luar Atas (PLA) = Q3 + 1,5(QR) = 78,2 + 1,5(23,7) = 78,2 + 35,55 = 113,75.\nLangkah 4: Karena data terendah 18 < 18,95 dan data tertinggi 115 > 113,75, maka kedua nilai tersebut merupakan Outliers.\nKesimpulan: Nilai 18 dan 115 terverifikasi sebagai data pencakar langit (outliers).",
+        "Langkah 1: Frekuensi mutlak dipengaruhi oleh perbedaan ukuran sampel antar populasi, sehingga sulit dibandingkan secara langsung.\nLangkah 2: Frekuensi relatif (fr = f/N x 100%) menstandardisasi data ke dalam skala proporsi 100% yang adil dan sebanding.\nKesimpulan: Histogram frekuensi relatif memungkinkan perbandingan distribusi dua populasi dengan ukuran sampel berbeda secara valid.",
+        "Langkah 1: Pola histogram dengan lebih dari satu puncak (multimodal) mengindikasikan adanya percampuran sub-kelompok yang berbeda karakteristik.\nLangkah 2: Tindakan analitis yang tepat adalah melakukan stratifikasi atau pemisahan data berdasarkan variabel demografis pendukung.\nKesimpulan: Karakteristik multimodal mengonfirmasi adanya heterogenitas populasi yang memerlukan analisis tersegmentasi."
+      ]
+    },
+    {
+      "id": "P16",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
+      "title": "Rata-rata Hitung (Mean) Data Berkelompok",
+      "obj": [
+        "Menghitung mean data berkelompok menggunakan metode titik tengah $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i}$.",
+        "Menghitung mean menggunakan metode rataan sementara $\\bar{x} = x_s + \\frac{\\sum f_i d_i}{\\sum f_i}$.",
+        "Menghitung mean menggunakan metode pengkodean (Coding) $\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) c$."
+      ],
+      "hook": "Bagaimana para peneliti menghitung rata-rata pendapatan per kapita jutaan penduduk dari tabel interval sensus BPS secara cepat dan presisi?",
+      "toolkit": [
+        {
+          "name": "Metode Titik Tengah",
+          "math": "$$\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i}$$"
+        },
+        {
+          "name": "Metode Rataan Sementara",
+          "math": "$$\\bar{x} = x_s + \\frac{\\sum f_i d_i}{\\sum f_i} \\quad (d_i = x_i - x_s)$$"
+        },
+        {
+          "name": "Metode Coding (Senjata Rahasia UTBK)",
+          "math": "$$\\bar{x} = x_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) c \\quad (u_i = \\dots, -2, -1, 0, +1, +2, \\dots)$$"
+        },
+        {
+          "name": "Rata-rata Gabungan",
+          "math": "$$\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2 + \\dots + n_k \\bar{x}_k}{n_1 + n_2 + \\dots + n_k}$$"
+        },
+        {
+          "name": "Sifat Transformasi Linear Mean",
+          "math": "$$\\text{Jika } y_i = ax_i + b \\implies \\bar{y} = a\\bar{x} + b$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Hitung rata-rata hitung (mean) data berkelompok berikut menggunakan metode titik tengah ($x_i$): [30-39: 3], [40-49: 5], [50-59: 8], [60-69: 4]!",
+          "solution": "Langkah 1: Tentukan titik tengah tiap kelas: $x_1 = 34{,}5$, $x_2 = 44{,}5$, $x_3 = 54{,}5$, $x_4 = 64{,}5$.\nLangkah 2: Hitung $f_i x_i$:\n- $3 \\times 34{,}5 = 103{,}5$\n- $5 \\times 44{,}5 = 222{,}5$\n- $8 \\times 54{,}5 = 436{,}0$\n- $4 \\times 64{,}5 = 258{,}0$\nLangkah 3: $\\sum f_i = 3 + 5 + 8 + 4 = 20$. $\\sum f_i x_i = 103{,}5 + 222{,}5 + 436 + 258 = 1020$.\nLangkah 4: $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i} = \\frac{1020}{20} = 51$.\nKesimpulan: Nilai rata-rata hitung data adalah $51$."
+        },
+        {
+          "problem": "Hitung mean data pada tabel [10-19: 4], [20-29: 7], [30-39: 10], [40-49: 6], [50-59: 3] dengan metode rataan sementara ($\\bar{x}_s = 34{,}5$)!",
+          "solution": "Langkah 1: Titik tengah: $14{,}5; 24{,}5; 34{,}5; 44{,}5; 54{,}5$. Deviasi $d_i = x_i - 34{,}5$: $-20, -10, 0, +10, +20$.\nLangkah 2: Hitung $f_i d_i$:\n- $4(-20) = -80$\n- $7(-10) = -70$\n- $10(0) = 0$\n- $6(10) = 60$\n- $3(20) = 60$\nLangkah 3: $\\sum f_i d_i = -80 - 70 + 0 + 60 + 60 = -30$. $\\sum f_i = 4 + 7 + 10 + 6 + 3 = 30$.\nLangkah 4: $\\bar{x} = \\bar{x}_s + \\frac{\\sum f_i d_i}{\\sum f_i} = 34{,}5 + \\frac{-30}{30} = 34{,}5 - 1 = 33{,}5$.\nKesimpulan: Nilai mean data adalah $33{,}5$."
+        },
+        {
+          "problem": "Hitung rata-rata data berikut dengan metode pengkodean (coding $u_i$): [40-49: 6], [50-59: 12], [60-69: 18], [70-79: 10], [80-89: 4] dengan kelas acuan $60-69$ ($c=10$)!",
+          "solution": "Langkah 1: Rataan sementara $\\bar{x}_s = 64{,}5$. Kode $u_i$: $-2, -1, 0, +1, +2$.\nLangkah 2: Hitung $f_i u_i$: $6(-2) = -12$, $12(-1) = -12$, $18(0) = 0$, $10(1) = 10$, $4(2) = 8$.\nLangkah 3: $\\sum f_i u_i = -12 - 12 + 0 + 10 + 8 = -6$. $\\sum f_i = 50$.\nLangkah 4: $\\bar{x} = \\bar{x}_s + \\left( \\frac{\\sum f_i u_i}{\\sum f_i} \\right) c = 64{,}5 + \\left(\\frac{-6}{50}\\right) 10 = 64{,}5 - 1{,}2 = 63{,}3$.\nKesimpulan: Nilai rata-rata data adalah $63{,}3$."
+        },
+        {
+          "problem": "Rata-rata nilai ujian matematika dari 40 siswa yang disajikan dalam tabel distribusi adalah 71,4. Jika frekuensi pada kelas $70-79$ tertutup noda dan dimisalkan $k$, sedangkan total frekuensi kelas lain adalah 32 dengan jumlah $f_i x_i$ selain kelas tersebut adalah 2.260, tentukan nilai $k$!",
+          "solution": "Langkah 1: Total siswa $N = 32 + k = 40 \\implies k = 8$.\nLangkah 2: Titik tengah kelas $70-79$ adalah $x_k = 74{,}5$.\nLangkah 3: Total $f_i x_i = 2260 + 8(74{,}5) = 2260 + 596 = 2856$.\nLangkah 4: Uji mean: $\\bar{x} = \\frac{2856}{40} = 71{,}4$.\nKesimpulan: Banyak frekuensi yang tertutup noda adalah $k = 8$ siswa."
+        },
+        {
+          "problem": "Rata-rata konsumsi listrik 100 rumah tangga di kompleks perumahan adalah $320\\text{ kWh}$. Jika 40 rumah tangga klaster A memiliki rata-rata $350\\text{ kWh}$, tentukan rata-rata konsumsi listrik 60 rumah tangga klaster B!",
+          "solution": "Langkah 1: Gunakan rumus rataan gabungan: $\\bar{x}_{\\text{gab}} = \\frac{n_A \\bar{x}_A + n_B \\bar{x}_B}{n_A + n_B}$.\nLangkah 2: $320 = \\frac{40(350) + 60(\\bar{x}_B)}{100} \\implies 32000 = 14000 + 60\\bar{x}_B$.\nLangkah 3: $60\\bar{x}_B = 32000 - 14000 = 18000 \\implies \\bar{x}_B = \\frac{18000}{60} = 300\\text{ kWh}$.\nKesimpulan: Rata-rata konsumsi listrik rumah tangga klaster B adalah $300\\text{ kWh}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan tabel distribusi frekuensi dengan satu frekuensi tak diketahui bernilai $k$. Jika mean data adalah 68, tentukan nilai $k$!",
+      "summary_data": {
+        "summary": [
+          "Mean Data Berkelompok: $\\bar{x} = \\frac{\\sum f_i x_i}{\\sum f_i}$.",
+          "Metode Rataan Sementara: $\\bar{x} = \\bar{x}_s + \\frac{\\sum f_i d_i}{\\sum f_i}$.",
+          "Metode Pengkodean (Coding): $\\bar{x} = \\bar{x}_s + \\left(\\frac{\\sum f_i u_i}{\\sum f_i}\\right) \\cdot c$."
+        ],
+        "islamic": "Rata-rata mengajarkan pentingnya sikap adil dan proporsional dalam membagi hak serta kewajiban di tengah masyarakat."
+      },
+      "collab_cases": [
+        "Tentukan nilai mean data berkelompok $[40-49: 4], [50-59: 6], [60-69: 10], [70-79: 14], [80-89: 4], [90-99: 2]$ dengan rata-rata sementara ($x_s$)!",
+        "Jika nilai rata-rata tabel distribusi dengan frekuensi kelas ketiga berupa $p$ bernilai $67{,}5$, tentukan nilai frekuensi $p$ yang tepat!",
+        "Buktikan bahwa $\\sum f_i (x_i - \\bar{x}) = 0$ pada data berkelompok dan jelaskan maknanya sebagai titik pusat massa distribusi data!",
+        "Tentukan rata-rata gabungan jika kelas XII-A (30 siswa) rata-ratanya $75$, XII-B (35 siswa) $80$, dan XII-C (35 siswa) $82$!",
+        "Analisislah dampak penambahan data ekstrem sebesar $150$ terhadap nilai rata-rata dibandingkan median pada sampel berukuran $N=50$!"
+      ],
+      "tagline": "Menemukan Titik Keseimbangan Data: Dari Rataan Sementara hingga Metode Coding",
+      "collab_solutions": [
+        "Langkah 1: Titik tengah kelas xi: 44,5; 54,5; 64,5; 74,5; 84,5; 94,5. Frekuensi fi: 4, 6, 10, 14, 4, 2 (Total N=40).\nLangkah 2: Pilih rataan sementara xs = 74,5 (kelas modus/tengah). Deviasi ci: -3, -2, -1, 0, 1, 2.\nLangkah 3: fi * ci = -12, -12, -10, 0, 4, 4 => Total sum(fi*ci) = -26.\nLangkah 4: Rata-rata x_bar = xs + [ sum(fi*ci) / N ] * p = 74,5 + (-26 / 40) * 10 = 74,5 - 6,5 = 68,0.\nKesimpulan: Nilai rata-rata hitung data berkelompok adalah 68,0.",
+        "Langkah 1: Susun perkalian fi * xi dengan variabel p pada kelas ketiga [60-69: p dengan xi = 64,5].\nLangkah 2: Terapkan rumus rata-rata: x_bar = sum(fi * xi) / (N_lain + p) = 67,5.\nLangkah 3: Selesaikan persamaan linear satu variabel hingga diperoleh nilai integer bulat positif p = 12.\nKesimpulan: Nilai frekuensi p yang memenuhi adalah p = 12.",
+        "Langkah 1: Uraikan bentuk sigma: sum(fi * xi - fi * x_bar) = sum(fi * xi) - x_bar * sum(fi).\nLangkah 2: Karena sum(fi * xi) = N * x_bar dan sum(fi) = N, maka diperoleh N * x_bar - x_bar * N = 0 (Terbukti).\nLangkah 3: Makna fisis: Rata-rata bertindak sebagai titik tumpu gravitasi (titik pusat massa) di mana momen deviasi di kiri dan kanan seimbang sempurna.\nKesimpulan: Terbukti matematis bahwa jumlah deviasi berbobot terhadap nilai rata-rata selalu bernilai nol.",
+        "Langkah 1: Rata-rata gabungan: x_gab = (N1*x1 + N2*x2 + N3*x3) / (N1 + N2 + N3).\nLangkah 2: x_gab = (30*75 + 35*80 + 35*82) / (30 + 35 + 35) = (2.250 + 2.800 + 2.870) / 100 = 7.920 / 100 = 79,2.\nKesimpulan: Nilai rata-rata gabungan ketiga kelas adalah 79,2.",
+        "Langkah 1: Rata-rata sangat sensitif terhadap data pencilan (outlier), nilai rata-rata akan bergeser naik sebesar delta_x = 150 / 51 ≈ 2,94.\nLangkah 2: Nilai Median bersifat resisten (kebal) terhadap data ekstrem dan hanya bergeser paling banyak 1 posisi peringkat.\nKesimpulan: Data ekstrem 150 mendistorsi nilai rata-rata secara signifikan, sedangkan nilai median tetap stabil."
+      ]
+    },
+    {
+      "id": "P17",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
+      "title": "Median dan Modus Data Berkelompok",
+      "obj": [
+        "Menentukan letak kelas median $\\frac{1}{2}N$ dan menghitung nilai Median menggunakan rumus interpolasi linier.",
+        "Menentukan kelas modus (frekuensi tertinggi) dan menghitung nilai Modus data berkelompok.",
+        "Menganalisis kemiringan kurva (Skewness) dari perbandingan Mean, Median, dan Modus."
+      ],
+      "hook": "Mengapa dalam laporan ekonomi nilai Median sering lebih dipercaya dibanding Mean untuk menggambarkan pendapatan riil masyarakat? Karena Median tidak terpengaruh oleh pencilan ekstrim!",
+      "toolkit": [
+        {
+          "name": "Median Data Berkelompok",
+          "math": "$$Me = Tb + \\left( \\frac{\\frac{1}{2}N - F_k}{f_{me}} \\right) c$$"
+        },
+        {
+          "name": "Modus Data Berkelompok",
+          "math": "$$Mo = Tb + \\left( \\frac{d_1}{d_1 + d_2} \\right) c \\quad (d_1 = f_{mo} - f_{mo-1}, \\; d_2 = f_{mo} - f_{mo+1})$$"
+        },
+        {
+          "name": "Hubungan Empiris Distribusi Pearson",
+          "math": "$$\\text{Modus} \\approx 3(\\text{Median}) - 2(\\text{Mean})$$"
+        },
+        {
+          "name": "Karakteristik Kemiringan (Skewness)",
+          "math": "$$\\text{Simetris: } \\bar{x} = Me = Mo, \\quad \\text{Miring Kanan: } \\bar{x} > Me > Mo, \\quad \\text{Miring Kiri: } \\bar{x} < Me < Mo$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan median dari tabel data berkelompok: [30-39: 5], [40-49: 8], [50-59: 15], [60-69: 12], [70-79: 10]!",
+          "solution": "Langkah 1: Total frekuensi $N = 5 + 8 + 15 + 12 + 10 = 50$. Letak median $= \\frac{1}{2} N = 25$.\nLangkah 2: Frekuensi kumulatif: $F_{k1} = 5, F_{k2} = 13, F_{k3} = 28$. Kelas median adalah $50 - 59$.\nLangkah 3: $T_b = 49{,}5$, $F_k = 13$, $f_m = 15$, panjang kelas $c = 10$.\nLangkah 4: $\\text{Me} = T_b + \\left( \\frac{\\frac{1}{2}N - F_k}{f_m} \\right) c = 49{,}5 + \\left( \\frac{25 - 13}{15} \\right) 10 = 49{,}5 + \\left( \\frac{12}{15} \\right) 10 = 49{,}5 + 8 = 57{,}5$.\nKesimpulan: Nilai median data adalah $57{,}5$."
+        },
+        {
+          "problem": "Tentukan modus dari tabel distribusi: [20-29: 4], [30-39: 7], [40-49: 16], [50-59: 10], [60-69: 3]!",
+          "solution": "Langkah 1: Frekuensi tertinggi adalah $16$, maka kelas modus adalah $40 - 49$.\nLangkah 2: Tepi bawah $T_b = 39{,}5$, panjang kelas $c = 10$.\nLangkah 3: Selisih frekuensi dengan kelas sebelumnya: $d_1 = 16 - 7 = 9$.\nLangkah 4: Selisih frekuensi dengan kelas setelahnya: $d_2 = 16 - 10 = 6$.\nLangkah 5: $\\text{Mo} = T_b + \\left( \\frac{d_1}{d_1 + d_2} \\right) c = 39{,}5 + \\left( \\frac{9}{9 + 6} \\right) 10 = 39{,}5 + \\left( \\frac{9}{15} \\right) 10 = 39{,}5 + 6 = 45{,}5$.\nKesimpulan: Nilai modus data adalah $45{,}5$."
+        },
+        {
+          "problem": "Jika suatu data berkelompok memiliki kelas modus pada interval $51 - 60$ dengan frekuensi 12, frekuensi kelas sebelumnya 8, frekuensi kelas sesudahnya 6, tentukan nilai modusnya!",
+          "solution": "Langkah 1: $T_b = 50{,}5$, panjang kelas $c = 10$.\nLangkah 2: $d_1 = 12 - 8 = 4$ dan $d_2 = 12 - 6 = 6$.\nLangkah 3: $\\text{Mo} = 50{,}5 + \\left( \\frac{4}{4 + 6} \\right) 10 = 50{,}5 + \\left( \\frac{4}{10} \\right) 10 = 50{,}5 + 4 = 54{,}5$.\nKesimpulan: Nilai modus adalah $54{,}5$."
+        },
+        {
+          "problem": "Dari hasil tes psikotes 80 calon karyawan diperoleh median 68,5. Jika kelas median terletak pada interval $65-74$ ($c=10$) dengan frekuensi kumulatif sebelum kelas median $F_k = 30$, tentukan frekuensi kelas median tersebut!",
+          "solution": "Langkah 1: Letak median $= \\frac{1}{2} N = \\frac{1}{2}(80) = 40$. $T_b = 64{,}5$.\nLangkah 2: Rumus median: $\\text{Me} = T_b + \\left(\\frac{40 - F_k}{f_m}\\right) c \\implies 68{,}5 = 64{,}5 + \\left(\\frac{40 - 30}{f_m}\\right) 10$.\nLangkah 3: $4 = \\frac{100}{f_m} \\implies f_m = \\frac{100}{4} = 25$.\nKesimpulan: Frekuensi kelas median adalah $25$ orang."
+        },
+        {
+          "problem": "Pada distribusi pendapatan pedagang mikro (dalam ratus ribu rupiah per hari): [10-19: 6], [20-29: 14], [30-39: 20], [40-49: 10], analisislah perbandingan antara Median dan Modus untuk menentukan kemiringan kurva distribusi!",
+          "solution": "Langkah 1: Total $N = 50$. Kelas Median pada $30-39$: $\\text{Me} = 29{,}5 + \\left(\\frac{25 - 20}{20}\\right) 10 = 29{,}5 + 2{,}5 = 32{,}0$.\nLangkah 2: Kelas Modus pada $30-39$: $d_1 = 20 - 14 = 6, d_2 = 20 - 10 = 10$. $\\text{Mo} = 29{,}5 + \\left(\\frac{6}{16}\\right)10 = 29{,}5 + 3{,}75 = 33{,}25$.\nLangkah 3: Karena $\\text{Me} < \\text{Mo}$ ($32{,}0 < 33{,}25$), kurva distribusi condong ke kiri (skewness negatif).\nKesimpulan: Median $= 32{,}0$ dan Modus $= 33{,}25$ dengan kemiringan distribusi condong ke kiri."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan histogram nilai matematika. Tentukan nilai median dan modus langsung dari visualisasi grafik batang histogram!",
+      "summary_data": {
+        "summary": [
+          "Median Data Berkelompok: $Me = Tb + \\left(\\frac{\\frac{1}{2}n - f_k}{f_{me}}\\right) \\cdot c$.",
+          "Modus Data Berkelompok: $Mo = Tb + \\left(\\frac{d_1}{d_1 + d_2}\\right) \\cdot c$ dengan $d_1 = f_{mo} - f_{prev}$ dan $d_2 = f_{mo} - f_{next}$."
+        ],
+        "islamic": "Nilai tengah (wasathiyah) adalah identitas umat Islam yang moderat, tidak condong ke ekstrem kanan maupun ekstrem kiri (QS. Al-Baqarah: 143)."
+      },
+      "collab_cases": [
+        "Tentukan median ($Me$) data berkelompok jika tepi bawah kelas median $Tb = 60{,}5$, frekuensi kumulatif $f_k = 12$, frekuensi kelas $f_m = 16$, dan $p = 10$!",
+        "Hitunglah modus ($Mo$) data penjualan jika selisih frekuensi kelas sebelum $d_1 = 6$ dan sesudah $d_2 = 4$ pada kelas $[71-80]$!",
+        "Sebuah distribusi gaji memiliki Modus $= 4{,}5\\text{ juta}$ dan Mean $= 7{,}2\\text{ juta}$. Analisislah kemiringan kurva (*skewness*) dan implikasinya!",
+        "Buktikan secara geometris rumus interpolasi linier untuk menentukan nilai median pada kurva poligon frekuensi kumulatif!",
+        "Tentukan kondisi di mana nilai Mean = Median = Modus pada kurva distribusi simetris Gauss!"
+      ],
+      "tagline": "Membagi Data Menjadi Dua Bagian Seimbang & Menemukan Frekuensi Paling Populer",
+      "collab_solutions": [
+        "Langkah 1: Diberikan Tb = 60,5; fk = 12; fm = 16; p = 10; N = 40 => Letak Me = 1/2 N = 20.\nLangkah 2: Median Me = Tb + [ (1/2 N - fk) / fm ] * p = 60,5 + [ (20 - 12) / 16 ] * 10 = 60,5 + (8/16)*10 = 60,5 + 5 = 65,5.\nKesimpulan: Nilai median data berkelompok adalah 65,5.",
+        "Langkah 1: Kelas modus [71-80] memiliki tepi bawah Tb = 70,5 dan panjang kelas p = 10.\nLangkah 2: Modus Mo = Tb + [ d1 / (d1 + d2) ] * p = 70,5 + [ 6 / (6 + 4) ] * 10 = 70,5 + (6/10)*10 = 70,5 + 6 = 76,5.\nKesimpulan: Nilai modus data penjualan adalah 76,5.",
+        "Langkah 1: Karena Nilai Rata-rata (7,2 juta) > Modus (4,5 juta), maka kurva distribusi menceng ke kanan (Positively Skewed / Ekor Kanan Panjang).\nLangkah 2: Implikasi ekonomi: Sebagian besar karyawan menerima upah di bawah rata-rata, dan angka rata-rata ditarik ke atas oleh segelintir eksekutif bergaji sangat tinggi.\nKesimpulan: Distribusi gaji berdistribusi miring ke kanan (positively skewed).",
+        "Langkah 1: Pada poligon kumulatif, segitiga sebangun terbentuk antara interval kelas median dan fraksi kumulatif frekuensi.\nLangkah 2: Rasio perbandingan sisi tegak dan mendatar menghasilkan persamaan proporsional: (Me - Tb) / p = (0,5 N - fk) / fm.\nLangkah 3: Kalikan silang untuk memperoleh formula standar: Me = Tb + [ (0,5 N - fk) / fm ] * p.\nKesimpulan: Formula median terbukti identik dengan interpolasi linier poligon kumulatif.",
+        "Langkah 1: Pada kurva normal Gauss simetris sempurna, titik puncak frekuensi tertinggi (Modus) berada tepat di sumbu simetri vertikal yang membagi luas kurva menjadi dua bagian 50% (Median) dan menjadi titik pusat keseimbangan momen (Mean).\nKesimpulan: Mean = Median = Modus tercapai jika dan hanya jika distribusi data simetris sempurna tanpa kemiringan (Skewness = 0)."
+      ]
+    },
+    {
+      "id": "P18",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
+      "title": "Ukuran Letak Data: Kuartil, Desil, Persentil, & Deteksi Pencilan (Outlier)",
+      "obj": [
+        "Menghitung Kuartil Bawah ($Q_1$), Kuartil Tengah ($Q_2$ / Median), dan Kuartil Atas ($Q_3$) data berkelompok menggunakan teknik interpolasi tepi kelas secara presisi.",
+        "Menentukan letak dan menghitung nilai Desil ke-$i$ ($D_i$) serta Persentil ke-$i$ ($P_i$) data berkelompok dari tabel distribusi frekuensi.",
+        "Menganalisis ukuran penyebaran posisi: Jangkauan Interkuartil ($QR = Q_3 - Q_1$), Simpangan Kuartil ($Q_d = \\frac{1}{2}QR$), dan Langkah ($L = 1{,}5 \\cdot QR$).",
+        "Menetapkan batas Pagar Dalam ($PD = Q_1 - L$) dan Pagar Luar ($PL = Q_3 + L$) untuk mengidentifikasi keberadaan nilai pencilan ekstrem (*outlier*).",
+        "Mengonstruksi ringkasan lima data (*Five-Number Summary*) dan menginterpretasikan bentuk kemiringan sebaran (*skewness*) melalui Diagram Kotak-Garis (*Box-and-Whisker Plot*).",
+        "Memecahkan masalah kontekstual terapan pemodelan data (analisis passing grade UTBK-SNBT, Service Level Agreement SLA IT, dan efek transformasi linear $Y = aX + b$ pada ukuran letak)."
+      ],
+      "hook": "Dalam seleksi masuk perguruan tinggi bergengsi (UTBK-SNBT) dan penetapan Service Level Agreement (SLA) infrastruktur cloud computing, nilai rata-rata (mean) sering kali menyesatkan karena mudah terdistorsi oleh satu atau dua data ekstrem. Lembaga penguji nasional dan praktisi IT mengandalkan 3 ukuran letak utama: Kuartil ($Q_1, Q_2, Q_3$), Desil ($D_i$), dan Persentil ($P_{90}/P_{99}$) untuk menentukan passing grade, kuota beasiswa, serta mendeteksi anomali kegagalan sistem (outlier) secara akurat.",
+      "apersepsi_items": [
+        {
+          "tag": "Pilar 1: Kuartil",
+          "title": "Jebakan Mean & Passing Grade UTBK-SNBT",
+          "icon": "fa-solid fa-layer-group",
+          "accent": "blue",
+          "problem": "Nilai rata-rata kelas mudah anjlok hanya karena satu siswa memperoleh nilai 0. Bagaimana cara Balai Pengujian Nasional (BPPP) memetakan passing grade PTN impian secara adil dan kebal distorsi ekstrem?",
+          "solution": "Kuartil ($Q_1, Q_2, Q_3$) membagi data terurut menjadi 4 bagian sama besar ($25\\%$ tiap kuadran). Kuartil Bawah ($Q_1$) dan Kuartil Atas ($Q_3$) resisten terhadap pencilan nilai nol, menjadi patokan baku ambang kelulusan program studi favorit."
+        },
+        {
+          "tag": "Pilar 2: Desil",
+          "title": "Alokasi Beasiswa Riset & Desil Kesejahteraan",
+          "icon": "fa-solid fa-percent",
+          "accent": "emerald",
+          "problem": "Sebuah universitas riset dunia hanya menyediakan kuota beasiswa bebas biaya kuliah untuk 20% pendaftar terbaik nasional. Bagaimana menentukan batas minimal skor peserta secara presisi dari ribuan pendaftar?",
+          "solution": "Desil ($D_1$ s.d. $D_9$) membagi sebaran populasi menjadi 10 fraksi setara. Ambang Desil ke-8 ($D_8$) secara eksklusif menyaring tepat $20\\%$ skor tertinggi pendaftar, sedangkan Desil 1–2 digunakan kementerian untuk penyaluran bantuan afirmasi."
+        },
+        {
+          "tag": "Pilar 3: Persentil & Pencilan",
+          "title": "SLA 99% Cloud Computing & Pagar Deteksi Outlier",
+          "icon": "fa-solid fa-shield-halved",
+          "accent": "amber",
+          "problem": "Pusat data kecerdasan buatan IKN Nusantara memantau jutaan request telemetri server. Bagaimana tim engineer mendeteksi anomali latensi atau serangan siber tanpa harus memeriksa jutaan baris log secara manual?",
+          "solution": "Service Level Agreement diukur pada Persentil ke-99 ($P_{99}$). Menggunakan Pagar Tukey ($PD = Q_1 - 1{,}5QR$ dan $PL = Q_3 + 1{,}5QR$), sistem secara otomatis menandai setiap latensi yang melonjak di luar pagar sebagai anomali pencilan (outlier)."
+        }
+      ],
+      "toolkit": [
+        {
+          "name": "Kuartil ke-i (Letak: $\\frac{i}{4}N$)",
+          "math": "$$Q_i = Tb + \\left( \\frac{\\frac{i}{4}N - F_k}{f_{Q_i}} \\right) c$$"
+        },
+        {
+          "name": "Desil ke-i (Letak: $\\frac{i}{10}N$)",
+          "math": "$$D_i = Tb + \\left( \\frac{\\frac{i}{10}N - F_k}{f_{D_i}} \\right) c$$"
+        },
+        {
+          "name": "Persentil ke-i (Letak: $\\frac{i}{100}N$)",
+          "math": "$$P_i = Tb + \\left( \\frac{\\frac{i}{100}N - F_k}{f_{P_i}} \\right) c$$"
+        },
+        {
+          "name": "Dispersi Letak: $QR, Q_d$, & Langkah",
+          "math": "$$\\begin{aligned} QR &= Q_3 - Q_1, \\quad Q_d = \\tfrac{1}{2}QR \\\\[-2pt] L &= 1{,}5(QR) \\end{aligned}$$"
+        },
+        {
+          "name": "Pagar & Pencilan ($x < PD \\text{ / } x > PL$)",
+          "math": "$$\\begin{aligned} PD &= Q_1 - L \\\\[-2pt] PL &= Q_3 + L \\end{aligned}$$"
+        },
+        {
+          "name": "Transformasi Linear $Y = aX + b$",
+          "math": "$$\\begin{aligned} Q_{i,baru} &= a \\cdot Q_{i,lama} + b \\\\[-2pt] QR_{baru} &= |a| \\cdot QR_{lama} \\end{aligned}$$"
+        }
+      ],
+      "examples": [
+        {
+          "pill": "Level 1",
+          "level": "Level 1: Fondasi Konsep",
+          "title": "Kuartil Bawah (Q1) & Kuartil Tengah (Q2)",
+          "problem": "Uji latensi respon 60 node server cloud computing (dalam milidetik) menghasilkan tabel distribusi frekuensi berikut:\n[20-29: 9], [30-39: 12], [40-49: 18], [50-59: 11], [60-69: 10]\nTotal frekuensi $N = 60$. Tentukan nilai Kuartil Bawah ($Q_1$) dan Kuartil Tengah ($Q_2$ / Median) dari waktu respon server tersebut!",
+          "solution": "Langkah 1: Identifikasi parameter dasar: total data $N = 60$, panjang interval kelas $c = 10$.\n\nLangkah 2: Menghitung Kuartil Bawah ($Q_1$):\n- Letak $Q_1$ pada datum ke-$\\frac{1}{4}(60) = 15$.\n- Frekuensi kumulatif: Kelas 1 ($20-29$) = $9$, Kelas 2 ($30-39$) = $9 + 12 = 21$.\n- Datum ke-15 berada pada kelas ke-2 ($30 - 39$).\n- Parameter: Tepi bawah $Tb = 29{,}5$, $F_k = 9$, frekuensi kuartil $f_{Q_1} = 12$, $c = 10$.\n- $Q_1 = 29{,}5 + \\left(\\frac{15 - 9}{12}\\right) \\cdot 10 = 29{,}5 + \\left(\\frac{6}{12}\\right) \\cdot 10 = 29{,}5 + 5{,}0 = 34{,}5\\text{ ms}$.\n\nLangkah 3: Menghitung Kuartil Tengah / Median ($Q_2$):\n- Letak $Q_2$ pada datum ke-$\\frac{2}{4}(60) = 30$.\n- Frekuensi kumulatif: Kelas 2 = $21$, Kelas 3 ($40-49$) = $21 + 18 = 39$.\n- Datum ke-30 berada pada kelas ke-3 ($40 - 49$).\n- Parameter: $Tb = 39{,}5$, $F_k = 21$, $f_{Q_2} = 18$, $c = 10$.\n- $Q_2 = 39{,}5 + \\left(\\frac{30 - 21}{18}\\right) \\cdot 10 = 39{,}5 + \\left(\\frac{9}{18}\\right) \\cdot 10 = 39{,}5 + 5{,}0 = 44{,}5\\text{ ms}$.\n\nKesimpulan: Nilai Kuartil Bawah adalah $Q_1 = 34{,}5\\text{ ms}$ dan Median adalah $Q_2 = 44{,}5\\text{ ms}$."
+        },
+        {
+          "pill": "Level 2",
+          "level": "Level 2: Karakteristik & Analitis",
+          "title": "Kuartil Atas (Q3) & Desil ke-7 (D7)",
+          "problem": "Distribusi skor simulasi Tes Kemampuan Akademik (TKA) 80 siswa Kelas XII disajikan pada tabel berikut:\n[51-60: 8], [61-70: 16], [71-80: 24], [81-90: 20], [91-100: 12]\nTotal frekuensi $N = 80$. Tentukan nilai Kuartil Atas ($Q_3$) dan Desil ke-7 ($D_7$), serta jelaskan interpretasi persentase capaian siswa!",
+          "solution": "Langkah 1: Total frekuensi $N = 80$, panjang interval kelas $c = 10$.\n\nLangkah 2: Menghitung Kuartil Atas ($Q_3$):\n- Letak $Q_3$ pada datum ke-$\\frac{3}{4}(80) = 60$.\n- Frekuensi kumulatif: Kelas 1 = $8$, Kelas 2 = $24$, Kelas 3 = $48$, Kelas 4 ($81-90$) = $68$.\n- Datum ke-60 berada pada kelas ke-4 ($81 - 90$).\n- Parameter: $Tb = 80{,}5$, $F_k = 48$, $f_{Q_3} = 20$, $c = 10$.\n- $Q_3 = 80{,}5 + \\left(\\frac{60 - 48}{20}\\right) \\cdot 10 = 80{,}5 + \\left(\\frac{12}{20}\\right) \\cdot 10 = 80{,}5 + 6{,}0 = 86{,}5$.\n\nLangkah 3: Menghitung Desil ke-7 ($D_7$):\n- Letak $D_7$ pada datum ke-$\\frac{7}{10}(80) = 56$.\n- Datum ke-56 juga berada pada kelas ke-4 ($81 - 90$).\n- Parameter: $Tb = 80{,}5$, $F_k = 48$, $f_{D_7} = 20$, $c = 10$.\n- $D_7 = 80{,}5 + \\left(\\frac{56 - 48}{20}\\right) \\cdot 10 = 80{,}5 + \\left(\\frac{8}{20}\\right) \\cdot 10 = 80{,}5 + 4{,}0 = 84{,}5$.\n\nLangkah 4: Interpretasi Capaian Persentil:\n- Tepat $25\\%$ siswa teratas memperoleh skor TKA $\\ge 86{,}5$ ($Q_3$).\n- Tepat $30\\%$ siswa teratas memperoleh skor TKA $\\ge 84{,}5$ ($D_7$).\n\nKesimpulan: Nilai $Q_3 = 86{,}5$ dan $D_7 = 84{,}5$, memetakan ambang prestasi kuartil dan desil kelas secara terukur."
+        },
+        {
+          "pill": "Level 3",
+          "level": "Level 3: Konstruksi & Sintesis",
+          "title": "Persentil ke-85 (P85) & Standar Waktu SLA",
+          "problem": "Waktu tempuh (dalam menit) pengiriman 100 paket obat farmasi suhu dingin dicatat dalam tabel distribusi berikut:\n[15-24: 12], [25-34: 28], [35-44: 30], [45-54: 20], [55-64: 10]\nManajemen menetapkan Service Level Agreement (SLA) bahwa $85\\%$ armada pengiriman harus tiba tepat waktu sebelum ambang kritis. Tentukan nilai Persentil ke-85 ($P_{85}$) waktu pengiriman tersebut!",
+          "solution": "Langkah 1: Identifikasi parameter: $N = 100$, panjang interval kelas $c = 10$.\n\nLangkah 2: Menentukan letak Persentil ke-85 ($P_{85}$):\n- Letak datum ke-$\\frac{85}{100}(100) = 85$.\n- Frekuensi kumulatif: Kelas 1 = $12$, Kelas 2 = $40$, Kelas 3 = $70$, Kelas 4 ($45-54$) = $90$.\n- Karena $70 < 85 \\le 90$, kelas $P_{85}$ berada pada interval $45 - 54$.\n\nLangkah 3: Komputasi interpolasi Persentil:\n- Tepi bawah kelas $Tb = 44{,}5$.\n- Frekuensi kumulatif sebelum kelas $F_k = 70$.\n- Frekuensi kelas persentil $f_{P_{85}} = 20$.\n- $P_{85} = 44{,}5 + \\left(\\frac{85 - 70}{20}\\right) \\cdot 10 = 44{,}5 + \\left(\\frac{15}{20}\\right) \\cdot 10 = 44{,}5 + 7{,}5 = 52{,}0\\text{ menit}$.\n\nLangkah 4: Evaluasi Kontekstual Operasional:\n- Manajemen dapat menjamin garansi bahwa $85\\%$ pengiriman paket obat tiba dalam waktu maksimal $52{,}0$ menit, memastikan kualitas rantai dingin vaksin tetap steril.\n\nKesimpulan: Ambang batas waktu Persentil ke-85 adalah $P_{85} = 52{,}0\\text{ menit}$."
+        },
+        {
+          "pill": "Level 4",
+          "level": "Level 4: Ukuran Penyebaran Posisi",
+          "title": "Jangkauan Interkuartil (QR), Qd, & Langkah (L)",
+          "problem": "Data skor asesmen literasi numerasi 120 peserta disajikan dalam tabel distribusi frekuensi berikut:\n[31-40: 15], [41-50: 25], [51-60: 40], [61-70: 20], [71-80: 20]\nHitunglah:\na) Nilai Kuartil Bawah ($Q_1$) dan Kuartil Atas ($Q_3$).\nb) Jangkauan Interkuartil ($QR$), Simpangan Kuartil ($Q_d$), dan nilai Langkah ($L$)!",
+          "solution": "Langkah 1: Total frekuensi $N = 120$, panjang interval kelas $c = 10$.\n\nLangkah 2: Menghitung $Q_1$ dan $Q_3$:\n- Letak $Q_1 = \\frac{1}{4}(120) = 30 \\implies$ kelas $41 - 50$ ($F_k = 15, f_{Q_1} = 25, Tb = 40{,}5$).\n  $$Q_1 = 40{,}5 + \\left(\\frac{30 - 15}{25}\\right) \\cdot 10 = 40{,}5 + \\frac{15}{25} \\cdot 10 = 40{,}5 + 6{,}0 = 46{,}5$$\n- Letak $Q_3 = \\frac{3}{4}(120) = 90 \\implies$ kelas $61 - 70$ ($F_k = 80, f_{Q_3} = 20, Tb = 60{,}5$).\n  $$Q_3 = 60{,}5 + \\left(\\frac{90 - 80}{20}\\right) \\cdot 10 = 60{,}5 + \\frac{10}{20} \\cdot 10 = 60{,}5 + 5{,}0 = 65{,}5$$\n\nLangkah 3: Menghitung Ukuran Penyebaran Interkuartil:\n- Jangkauan Interkuartil: $QR = Q_3 - Q_1 = 65{,}5 - 46{,}5 = 19{,}0$.\n- Simpangan Kuartil (Jangkauan Semi-Interkuartil): $Q_d = \\frac{1}{2}QR = \\frac{1}{2}(19{,}0) = 9{,}5$.\n- Nilai Langkah: $L = 1{,}5 \\cdot QR = 1{,}5(19{,}0) = 28{,}5$.\n\nKesimpulan: Diperoleh $Q_1 = 46{,}5$, $Q_3 = 65{,}5$, Jangkauan Interkuartil $QR = 19{,}0$, Simpangan Kuartil $Q_d = 9{,}5$, dan Langkah $L = 28{,}5$."
+        },
+        {
+          "pill": "Level 5",
+          "level": "Level 5: Deteksi Nilai Pencilan (Outlier)",
+          "title": "Pagar Dalam (PD), Pagar Luar (PL), & Uji Pencilan",
+          "problem": "Pada audit emisi gas karbon monoksida 50 cerobong pabrik di kawasan industri, diperoleh Kuartil Bawah $Q_1 = 52{,}0\\text{ ppm}$ dan Kuartil Atas $Q_3 = 76{,}0\\text{ ppm}$. Petugas inspeksi mencatat dua cerobong dengan emisi ekstrem: $x_A = 14{,}0\\text{ ppm}$ dan $x_B = 115{,}0\\text{ ppm}$.\na) Tentukan Jangkauan Interkuartil ($QR$) dan nilai Langkah ($L$).\nb) Hitung batas Pagar Dalam ($PD$) dan Pagar Luar ($PL$).\nc) Selidiki apakah cerobong $A$ atau cerobong $B$ termasuk pencilan ekstrem (*outlier*)!",
+          "solution": "Langkah 1: Menghitung $QR$ dan Langkah ($L$):\n- $QR = Q_3 - Q_1 = 76{,}0 - 52{,}0 = 24{,}0\\text{ ppm}$.\n- $L = 1{,}5 \\times QR = 1{,}5 \\times 24{,}0 = 36{,}0\\text{ ppm}$.\n\nLangkah 2: Menghitung Batas Pagar Dalam dan Pagar Luar:\n- Pagar Dalam (Pagar Bawah): $PD = Q_1 - L = 52{,}0 - 36{,}0 = 16{,}0\\text{ ppm}$.\n- Pagar Luar (Pagar Atas): $PL = Q_3 + L = 76{,}0 + 36{,}0 = 112{,}0\\text{ ppm}$.\n\nLangkah 3: Uji Pencilan Ekstrem (*Outlier*):\n- Kriteria: Data normal berada pada rentang $[PD, PL] = [16{,}0; 112{,}0]$. Data di luar interval tersebut dinyatakan sebagai pencilan.\n- Cerobong A: Nilai $x_A = 14{,}0 < 16{,}0$ ($x_A < PD$) $\\implies$ Cerobong A adalah **pencilan bawah (outlier)**.\n- Cerobong B: Nilai $x_B = 115{,}0 > 112{,}0$ ($x_B > PL$) $\\implies$ Cerobong B adalah **pencilan atas (outlier)**.\n\nKesimpulan: Batas normal emisi adalah $[16{,}0; 112{,}0]\\text{ ppm}$. Kedua cerobong ($x_A$ dan $x_B$) terbukti sah sebagai pencilan ekstrem yang memerlukan investigasi khusus."
+        },
+        {
+          "pill": "Level 6",
+          "level": "Level 6: Diagram Kotak-Garis (Boxplot)",
+          "title": "Five-Number Summary & Analisis Kemiringan (Skewness)",
+          "problem": "Survei durasi belajar mandiri mingguan (jam) dari 150 siswa menghasilkan ringkasan lima data (*Five-Number Summary*):\n$x_{min} = 10\\text{ jam}$, $Q_1 = 20\\text{ jam}$, $Q_2 = 25\\text{ jam}$, $Q_3 = 35\\text{ jam}$, $x_{max} = 52\\text{ jam}$.\na) Tentukan panjang kotak ($QR$) serta panjang kumis kiri dan kumis kanan.\nb) Bandingkan jarak antarkuartil $(Q_2 - Q_1)$ terhadap $(Q_3 - Q_2)$.\nc) Analisis bentuk kemiringan sebaran (*skewness*) dan perbandingan nilai Mean terhadap Median!",
+          "solution": "Langkah 1: Menghitung Panjang Komponen Box-Plot:\n- Panjang Kotak: $QR = Q_3 - Q_1 = 35 - 20 = 15\\text{ jam}$.\n- Kumis Kiri: $Q_1 - x_{min} = 20 - 10 = 10\\text{ jam}$.\n- Kumis Kanan: $x_{max} - Q_3 = 52 - 35 = 17\\text{ jam}$.\n\nLangkah 2: Membandingkan Jarak Median terhadap Kuartil:\n- Jarak kuartil kiri: $Q_2 - Q_1 = 25 - 20 = 5\\text{ jam}$.\n- Jarak kuartil kanan: $Q_3 - Q_2 = 35 - 25 = 10\\text{ jam}$.\n\nLangkah 3: Analisis Kemiringan (*Skewness*) Distribusi:\n- Karena $(Q_3 - Q_2) = 10 > (Q_2 - Q_1) = 5$ dan kumis kanan ($17$) lebih panjang daripada kumis kiri ($10$), separuh data di sisi kanan lebih tersebar renggang.\n- Distribusi data memiliki **kemiringan positif (positively skewed / condong ke kanan / tail to the right)**.\n- Pada distribusi miring positif, nilai rata-rata hitung ditarik oleh nilai-nilai tinggi, sehingga berlaku relasi: $\\text{Mean} > \\text{Median} > \\text{Modus}$.\n\nKesimpulan: Boxplot menunjukkan $QR = 15$, kumis kiri $10$, kumis kanan $17$. Distribusi miring ke kanan dengan $\\text{Mean} > \\text{Median}$."
+        },
+        {
+          "pill": "Level 7",
+          "level": "Level 7: Standar UTBK-SNBT HOTS",
+          "title": "Dampak Transformasi Linear Y = aX + b terhadap Ukuran Letak",
+          "problem": "Hasil try out UTBK Penalaran Matematika memiliki statistik: Kuartil Bawah $Q_1 = 400$, Median $Q_2 = 520$, Kuartil Atas $Q_3 = 640$, Jangkauan Interkuartil $QR = 240$, dan Simpangan Kuartil $Q_d = 120$.\nPanitia memberlakukan standarisasi penskoran baru melalui transformasi linear: $Y = 1{,}25 X + 50$.\na) Tentukan nilai Kuartil Bawah ($Q_1^*$), Median ($Q_2^*$), dan Kuartil Atas ($Q_3^*$) yang baru!\nb) Tentukan Jangkauan Interkuartil ($QR^*$) dan Simpangan Kuartil ($Q_d^*$) yang baru!\nc) Jelaskan mengapa nilai kuartil terpengaruh penambahan $+50$, sedangkan $QR$ tidak terpengaruh!",
+          "solution": "Langkah 1: Sifat Ukuran Letak pada Transformasi Linear $Y = aX + b$:\n- Ukuran letak (posisi data) terpengaruh oleh perkalian skala $a$ dan penambahan translasi $b$:\n  - $Q_1^* = 1{,}25(Q_1) + 50 = 1{,}25(400) + 50 = 500 + 50 = 550$.\n  - $Q_2^* = 1{,}25(Q_2) + 50 = 1{,}25(520) + 50 = 650 + 50 = 700$.\n  - $Q_3^* = 1{,}25(Q_3) + 50 = 1{,}25(640) + 50 = 800 + 50 = 850$.\n\nLangkah 2: Sifat Ukuran Penyebaran Posisi ($QR$ dan $Q_d$):\n- Ukuran jarak/dispersi hanya terpengaruh oleh faktor pengali $|a| = 1{,}25$, dan kebal terhadap penambahan $+b$:\n  - $QR^* = |1{,}25| \\times QR = 1{,}25 \\times 240 = 300$.\n    (Verifikasi: $Q_3^* - Q_1^* = 850 - 550 = 300$. Terbukti konsisten!)\n  - $Q_d^* = \\frac{1}{2} QR^* = 1{,}25 \\times Q_d = 1{,}25 \\times 120 = 150$.\n\nLangkah 3: Alasan Konseptual:\n- $QR = Q_3 - Q_1$. Ketika ditransformasi, $QR^* = (1{,}25 Q_3 + 50) - (1{,}25 Q_1 + 50) = 1{,}25(Q_3 - Q_1) + (50 - 50) = 1{,}25 QR$. Konstanta pergeseran $+50$ saling meniadakan secara aljabar.\n\nKesimpulan: Skor baru adalah $Q_1^* = 550$, $Q_2^* = 700$, $Q_3^* = 850$, $QR^* = 300$, dan $Q_d^* = 150$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan tabel frekuensi distribusi nilai dan diagram Box-Plot komparatif, setiap tim wajib menghitung Kuartil Bawah, Kuartil Atas, menentukan batas Pagar Dalam/Luar, dan membuktikan apakah data ekstrem yang ditemukan merupakan pencilan!",
+      "summary_data": {
+        "summary": [
+          "Kuartil ke-i ($Q_i$), Desil ke-i ($D_i$), dan Persentil ke-i ($P_i$) dihitung dengan interpolasi tepi bawah kelas interval: $L_i = Tb + \\left(\\frac{\\text{fraksi} \\cdot N - F_k}{f}\\right) c$.",
+          "Jangkauan Interkuartil $QR = Q_3 - Q_1$, Simpangan Kuartil $Q_d = \\frac{1}{2}QR$, dan Langkah $L = 1{,}5(QR)$ mengukur dispersi letak 50% data di tengah.",
+          "Nilai Pencilan (Outlier) dideteksi secara objektif menggunakan Pagar Dalam $PD = Q_1 - 1{,}5(QR)$ dan Pagar Luar $PL = Q_3 + 1{,}5(QR)$. Data di luar $[PD, PL]$ adalah pencilan.",
+          "Diagram Kotak-Garis (Boxplot) memvisualisasikan ringkasan lima data (Five-Number Summary) serta mengindikasikan simetri atau kemiringan (skewness) sebaran data.",
+          "Transformasi linear $Y = aX + b$ menggeser seluruh ukuran letak ($Q_{new} = aQ_{old} + b$), namun ukuran penyebaran posisi hanya dipengaruhi faktor skala ($QR_{new} = |a|QR_{old}$)."
+        ],
+        "islamic": "Keteraturan pembagian ukuran letak (kuartil, desil, persentil) dan penetapan batas pagar yang adil merefleksikan prinsip keadilan dan keseimbangan nilai keislaman serta ketetapan ukuran dalam ciptaan Allah SWT: 'Dan segala sesuatu pada sisi-Nya ada ukuran tertentu' (QS. Ar-Ra'd: 8) serta 'Sesungguhnya Kami menciptakan segala sesuatu menurut ukuran' (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tantangan 1 (Meja A • Analisis Kuartil & Desil Lengkap):\nDiberikan tabel distribusi frekuensi nilai ujian 100 siswa:\n[30-39: 10], [40-49: 15], [50-59: 25], [60-69: 30], [70-79: 20]\nTotal $N = 100$. Hitunglah Kuartil Bawah ($Q_1$), Kuartil Atas ($Q_3$), serta Desil ke-4 ($D_4$) dan Desil ke-8 ($D_8$)!",
+        "Tantangan 2 (Meja B • Persentil & Ambang Batas SLA Logistik):\nWaktu pengiriman paket kilat e-commerce (jam) dicatat dalam tabel:\n[10-19: 14], [20-29: 26], [30-39: 35], [40-49: 15], [50-59: 10] ($N = 100$)\nManajemen menjamin 90% pesanan terkirim sebelum batas SLA. Hitunglah nilai Persentil ke-90 ($P_{90}$) waktu pengiriman!",
+        "Tantangan 3 (Meja C • Quality Control & Deteksi Outlier Baterai EV):\nKapasitas daya baterai mobil listrik (kWh) menghasilkan $Q_1 = 82{,}0\\text{ kWh}$ dan $Q_3 = 98{,}0\\text{ kWh}$. Tim QC menguji dua unit baterai dengan kapasitas $x_1 = 54{,}0\\text{ kWh}$ dan $x_2 = 125{,}0\\text{ kWh}$. Hitung batas Pagar Dalam ($PD$) dan Pagar Luar ($PL$), lalu buktikan apakah unit tersebut termasuk produk cacat/outlier!",
+        "Tantangan 4 (Meja D • Rekonstruksi Box-and-Whisker Plot Komparatif):\nDiketahui Five-Number Summary dua kelas paralel:\n- Kelas XII F1: $[x_{min}=40, Q_1=55, Q_2=65, Q_3=75, x_{max}=90]$\n- Kelas XII F2: $[x_{min}=35, Q_1=50, Q_2=60, Q_3=80, x_{max}=98]$\nBandingkan keragaman interkuartil ($QR$), simetri distribusi, dan selidiki apakah nilai 98 pada Kelas XII F2 merupakan outlier!",
+        "Tantangan 5 (Meja E • HOTS Transformasi Linear & Kebijakan Standarisasi):\nHasil tes penalaran numerik memiliki $Q_1 = 48$, $Q_2 = 60$, $Q_3 = 76$, dan $QR = 28$. Jika seluruh nilai ditransformasikan dengan rumus $Y = 1{,}5 X - 10$, tentukan nilai baru $Q_1^*, Q_2^*, Q_3^*$, serta $QR^*$ dan $Q_d^*$!"
+      ],
+      "tagline": "Pemetaan Posisi Data: Menentukan Kuartil, Desil, Persentil, Five-Number Summary, & Deteksi Pencilan Ekstrem (Outlier)",
+      "collab_solutions": [
+        "Langkah 1: Identifikasi parameter data: total $N = 100$, panjang kelas $c = 10$.\nLangkah 2: Letak $Q_1 = \\frac{1}{4}(100) = 25 \\implies$ kelas $40 - 49$ ($F_k = 10, f = 15, Tb = 39{,}5$). $Q_1 = 39{,}5 + \\left(\\frac{25 - 10}{15}\\right)10 = 39{,}5 + 10 = 49{,}5$.\nLangkah 3: Letak $Q_3 = \\frac{3}{4}(100) = 75 \\implies$ kelas $60 - 69$ ($F_k = 50, f = 30, Tb = 59{,}5$). $Q_3 = 59{,}5 + \\left(\\frac{75 - 50}{30}\\right)10 = 59{,}5 + 8{,}33 = 67{,}83$.\nLangkah 4: Letak $D_4 = 40 \\implies$ kelas $50 - 59$ ($F_k = 25, f = 25, Tb = 49{,}5$). $D_4 = 49{,}5 + \\left(\\frac{40 - 25}{25}\\right)10 = 49{,}5 + 6 = 55{,}5$. Letak $D_8 = 80 \\implies$ kelas $70 - 79$ ($F_k = 80, f = 20, Tb = 69{,}5$). Tepat di tepi batas $D_8 = 69{,}5$.\nKesimpulan: Diperoleh $Q_1 = 49{,}5$, $Q_3 = 67{,}83$, $D_4 = 55{,}5$, dan $D_8 = 69{,}5$.",
+        "Langkah 1: Total pengiriman $N = 100$, panjang interval kelas $c = 10$.\nLangkah 2: Letak $P_{90} = \\frac{90}{100}(100) = 90$.\nLangkah 3: Frekuensi kumulatif: Kelas 1 ($10-19$) = 14, Kelas 2 ($20-29$) = 40, Kelas 3 ($30-39$) = 75, Kelas 4 ($40-49$) = 90. Datum ke-90 tepat pada tepi atas kelas ke-4 ($Tb = 39{,}5, F_k = 75, f = 15$).\nLangkah 4: $P_{90} = 39{,}5 + \\left(\\frac{90 - 75}{15}\\right)10 = 39{,}5 + 10 = 49{,}5\\text{ jam}$.\nKesimpulan: Batas waktu Persentil ke-90 adalah $P_{90} = 49{,}5\\text{ jam}$, memenuhi standar toleransi operasional SLA.",
+        "Langkah 1: $QR = Q_3 - Q_1 = 98{,}0 - 82{,}0 = 16{,}0\\text{ kWh}$. Langkah $L = 1{,}5 \\times 16{,}0 = 24{,}0\\text{ kWh}$.\nLangkah 2: Pagar Dalam: $PD = Q_1 - L = 82{,}0 - 24{,}0 = 58{,}0\\text{ kWh}$.\nLangkah 3: Pagar Luar: $PL = Q_3 + L = 98{,}0 + 24{,}0 = 122{,}0\\text{ kWh}$. Rentang normal baterai adalah $[58{,}0; 122{,}0]\\text{ kWh}$.\nLangkah 4: Evaluasi sampel: $x_1 = 54{,}0 < 58{,}0$ ($x_1 < PD$) $\\implies$ $x_1$ adalah outlier bawah (cacat kapasitas rendah). $x_2 = 125{,}0 > 122{,}0$ ($x_2 > PL$) $\\implies$ $x_2$ adalah outlier atas (anomali tegangan lebih).\nKesimpulan: Kedua unit ($x_1$ dan $x_2$) terbukti merupakan pencilan ekstrem yang harus ditarik dari lini produksi.",
+        "Langkah 1: Kelas XII F1: $QR_1 = 75 - 55 = 20$. Jarak $Q_2 - Q_1 = 10$ dan $Q_3 - Q_2 = 10$ $\\implies$ Simetris sempurna tanpa skewness.\nLangkah 2: Kelas XII F2: $QR_2 = 80 - 50 = 30$. Jarak $Q_2 - Q_1 = 10$ dan $Q_3 - Q_2 = 20$ $\\implies$ Miring positif (condong ke kanan) dengan sebaran lebih heterogen.\nLangkah 3: Uji outlier Kelas XII F2: $L = 1{,}5(30) = 45$. Pagar Luar $PL = Q_3 + L = 80 + 45 = 125$. Karena $x_{max} = 98 \\le 125$, nilai 98 BUKAN outlier.\nKesimpulan: Kelas XII F1 memiliki sebaran simetris homogen ($QR=20$), sedangkan Kelas XII F2 lebih bervariasi ($QR=30$) dan miring ke kanan tanpa ada pencilan.",
+        "Langkah 1: Sifat ukuran letak pada $Y = 1{,}5X - 10$:\n$Q_1^* = 1{,}5(48) - 10 = 72 - 10 = 62$.\n$Q_2^* = 1{,}5(60) - 10 = 90 - 10 = 80$.\n$Q_3^* = 1{,}5(76) - 10 = 114 - 10 = 104$.\nLangkah 2: Sifat ukuran penyebaran posisi:\n$QR^* = |1{,}5| \\times QR = 1{,}5 \\times 28 = 42$.\n(Verifikasi: $Q_3^* - Q_1^* = 104 - 62 = 42$. Tepat!)\n$Q_d^* = \\frac{1}{2} QR^* = 1{,}5 \\times 14 = 21$.\nKesimpulan: Nilai baru setelah transformasi adalah $Q_1^* = 62$, $Q_2^* = 80$, $Q_3^* = 104$, $QR^* = 42$, dan $Q_d^* = 21$."
+      ]
+    },
+    {
+      "id": "P19",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
+      "title": "Ukuran Penyebaran Data (Simpangan Rata-rata, Varians, Simpangan Baku)",
+      "obj": [
+        "Menghitung Simpangan Rata-rata ($SR = \\frac{\\sum f_i |x_i - \\bar{x}|}{N}$).",
+        "Menghitung Varians ($S^2$) dan Simpangan Baku ($S$) data tunggal dan berkelompok.",
+        "Menginterpretasikan nilai standar $Z$-Score untuk standardisasi performa nilai siswa."
+      ],
+      "hook": "Dua kelas memiliki rata-rata nilai sama yaitu 80, namun kelas A nilainya seragam ($S=3$) sementara kelas B sangat heterogen ($S=15$). Simpangan baku mengungkap variabilitas tersebut!",
+      "toolkit": [
+        {
+          "name": "Simpangan Rata-rata",
+          "math": "$$SR = \\frac{\\sum f_i |x_i - \\bar{x}|}{N}$$"
+        },
+        {
+          "name": "Varians & Simpangan Baku",
+          "math": "$$S^2 = \\frac{\\sum f_i (x_i - \\bar{x})^2}{N}, \\quad S = \\sqrt{S^2}, \\quad s_{\\text{sampel}}^2 = \\frac{\\sum f_i (x_i - \\bar{x})^2}{N - 1}$$"
+        },
+        {
+          "name": "Standar Z-Score",
+          "math": "$$Z = \\frac{x - \\bar{x}}{S}$$"
+        },
+        {
+          "name": "Koefisien Variasi (KV)",
+          "math": "$$KV = \\frac{S}{\\bar{x}} \\times 100\\%$$"
+        },
+        {
+          "name": "Sifat Transformasi Linear Ukuran Penyebaran",
+          "math": "$$\\text{Jika } y_i = ax_i + b \\implies SR_y = |a| SR_x, \\quad S_y^2 = a^2 S_x^2, \\quad S_y = |a| S_x$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Diberikan data tunggal: $4, 6, 8, 10, 12$. Hitung mean ($\\bar{x}$), simpangan rata-rata ($SR$), dan varians ($S^2$)!",
+          "solution": "Langkah 1: Mean $\\bar{x} = \\frac{4+6+8+10+12}{5} = \\frac{40}{5} = 8$.\nLangkah 2: Deviasi mutlak $|x_i - \\bar{x}|$: $|4-8|=4, |6-8|=2, |8-8|=0, |10-8|=2, |12-8|=4$.\nLangkah 3: $SR = \\frac{4+2+0+2+4}{5} = \\frac{12}{5} = 2{,}4$.\nLangkah 4: Kuadrat deviasi $(x_i - \\bar{x})^2$: $16, 4, 0, 4, 16$. Varians $S^2 = \\frac{16+4+0+4+16}{5} = \\frac{40}{5} = 8$.\nKesimpulan: Mean $= 8$, $SR = 2{,}4$, dan Varians $S^2 = 8$."
+        },
+        {
+          "problem": "Hitung simpangan baku ($S$) dari data: $3, 5, 6, 7, 9$!",
+          "solution": "Langkah 1: $\\bar{x} = \\frac{3+5+6+7+9}{5} = \\frac{30}{5} = 6$.\nLangkah 2: Kuadrat selisih $(x_i - \\bar{x})^2$: $(3-6)^2 = 9, (5-6)^2 = 1, (6-6)^2 = 0, (7-6)^2 = 1, (9-6)^2 = 9$.\nLangkah 3: Varians $S^2 = \\frac{9+1+0+1+9}{5} = \\frac{20}{5} = 4$.\nLangkah 4: Simpangan baku $S = \\sqrt{S^2} = \\sqrt{4} = 2$.\nKesimpulan: Simpangan baku data adalah $2$."
+        },
+        {
+          "problem": "Siswa A memperoleh nilai 85 pada ujian Matematika dengan $\\bar{x} = 75$ dan $S = 5$. Siswa A juga memperoleh nilai 80 pada ujian Fisika dengan $\\bar{x} = 70$ dan $S = 4$. Pada mata pelajaran manakah performa Siswa A relatif lebih unggul?",
+          "solution": "Langkah 1: Hitung Z-Score Matematika: $Z_{\\text{Mat}} = \\frac{85 - 75}{5} = \\frac{10}{5} = +2{,}0$.\nLangkah 2: Hitung Z-Score Fisika: $Z_{\\text{Fis}} = \\frac{80 - 70}{4} = \\frac{10}{4} = +2{,}5$.\nLangkah 3: Bandingkan Z-Score: Karena $Z_{\\text{Fis}} = 2{,}5 > Z_{\\text{Mat}} = 2{,}0$, maka posisi relatif nilai Fisika lebih tinggi terhadap rata-rata kelasnya.\nKesimpulan: Performa Siswa A relatif lebih unggul pada mata pelajaran Fisika."
+        },
+        {
+          "problem": "Jika setiap nilai data pada suatu sampel dikalikan 2 lalu dikurangi 5, tentukan perubahan pada Rata-rata dan Simpangan Baku jika semula $\\bar{x} = 20$ dan $S = 4$!",
+          "solution": "Langkah 1: Operasi perkalian dan pengurangan mempengaruhi rata-rata: $\\bar{x}_{\\text{baru}} = 2(20) - 5 = 40 - 5 = 35$.\nLangkah 2: Ukuran penyebaran (simpangan baku) HANYA dipengaruhi oleh operasi perkalian/pembagian: $S_{\\text{baru}} = |2| \\times S = 2 \\times 4 = 8$.\nKesimpulan: Rata-rata baru adalah $35$ dan Simpangan Baku baru adalah $8$."
+        },
+        {
+          "problem": "Dua mesin pengisi botol otomatis diuji. Mesin 1 mengisi rata-rata $500\\text{ mL}$ dengan $S = 2\\text{ mL}$. Mesin 2 mengisi rata-rata $500\\text{ mL}$ dengan $S = 6\\text{ mL}$. Analisislah mesin mana yang lebih konsisten dan memiliki risiko cacat produksi lebih rendah!",
+          "solution": "Langkah 1: Hitung Koefisien Variasi ($KV = \\frac{S}{\\bar{x}} \\times 100\\%$).\n- Mesin 1: $KV_1 = \\frac{2}{500} \\times 100\\% = 0{,}4\\%$.\n- Mesin 2: $KV_2 = \\frac{6}{500} \\times 100\\% = 1{,}2\\%$.\nLangkah 2: Semakin kecil nilai simpangan baku dan koefisien variasi, semakin tinggi presisi dan konsistensi mesin.\nKesimpulan: Mesin 1 jauh lebih konsisten dengan variabilitas $3\\times$ lebih rendah dibandingkan Mesin 2."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan sekumpulan data dengan rata-rata 60 dan simpangan baku 8. Jika setiap data dikalikan 2 lalu dikurangi 10, tentukan rata-rata dan simpangan baku data baru!",
+      "summary_data": {
+        "summary": [
+          "Varians Sampel: $S^2 = \\frac{\\sum f_i (x_i - \\bar{x})^2}{n - 1}$.",
+          "Simpangan Baku: $S = \\sqrt{S^2}$.",
+          "Koefisien Variasi $KV = \\frac{S}{\\bar{x}} \\times 100\\%$ untuk mengukur homogenitas data."
+        ],
+        "islamic": "Keragaman (variansi) adalah sunnatullah di muka bumi; saling melengkapi dan menyatukan potensi akan melahirkan kekuatan umat."
+      },
+      "collab_cases": [
+        "Hitunglah Simpangan Rata-rata ($SR$) dan Varians ($S^2$) dari data frekuensi berbobot dengan $\\sum f_i = 50$ dan $\\sum f_i (x_i - \\bar{x})^2 = 1.250$!",
+        "Tentukan Standar Deviasi ($S$) data tes potensi akademik dan tentukan rentang nilai normal $\\bar{x} \\pm 1S$!",
+        "Jika seluruh data dikalikan $2$ kemudian ditambah $5$, buktikan perubahan yang terjadi pada rata-rata, varians, dan simpangan baku data baru!",
+        "Tentukan koefisien variasi ($KV = \\frac{S}{\\bar{x}} \\times 100\\%$) untuk membandingkan tingkat konsistensi dua kelompok belajar!",
+        "Buktikan bahwa varians dari sekumpulan data tidak pernah bernilai negatif ($S^2 \\ge 0$) dan bernilai nol jika dan hanya jika semua data bernilai sama!"
+      ],
+      "tagline": "Mengukur Seberapa Menyebar Datamu: Dari Varians, Simpangan Baku, hingga Skor Z",
+      "collab_solutions": [
+        "Langkah 1: Varians data berbobot: S^2 = [ sum(fi * (xi - x_bar)^2) ] / N = 1.250 / 50 = 25.\nLangkah 2: Standar deviasi (Simpangan baku): S = sqrt(25) = 5.\nLangkah 3: Simpangan Rata-rata SR = [ sum(fi * |xi - x_bar|) ] / N ≈ 4,1.\nKesimpulan: Nilai Varians S^2 = 25, Simpangan Baku S = 5, dan Simpangan Rata-rata SR ≈ 4,1.",
+        "Langkah 1: Hitung rata-rata x_bar dan simpangan baku S dari tabel skor TPA.\nLangkah 2: Rentang normal satu deviasi baku: [x_bar - S, x_bar + S] mencakup sekitar 68,2% peserta tes.\nKesimpulan: Rentang nilai normal populasi berada pada interval x_bar ± S.",
+        "Langkah 1: Transformasi linear: Y = 2X + 5.\nLangkah 2: Rata-rata baru: y_bar = 2(x_bar) + 5 (berubah oleh perkalian dan penjumlahan).\nLangkah 3: Simpangan baku baru: S_y = |2| * S_x = 2 S_x (hanya dipengaruhi pengali, tidak terpengaruh pergeseran +5).\nLangkah 4: Varians baru: S_y^2 = (2 S_x)^2 = 4 S_x^2.\nKesimpulan: Rata-rata menjadi 2x_bar + 5, simpangan baku menjadi 2S, dan varians menjadi 4S^2.",
+        "Langkah 1: Hitung Koefisien Variasi masing-masing: KV_A = (S_A / x_bar_A) x 100% dan KV_B = (S_B / x_bar_B) x 100%.\nLangkah 2: Kelompok dengan nilai KV lebih kecil memiliki tingkat persebaran nilai yang lebih homogen (konsisten).\nKesimpulan: Kelompok dengan KV terendah memiliki performa belajar paling stabil dan konsisten.",
+        "Langkah 1: Kuadrat dari setiap bilangan real selalu non-negatif: (xi - x_bar)^2 >= 0 untuk setiap i.\nLangkah 2: Karena fi > 0, maka jumlah berbobot sum(fi * (xi - x_bar)^2) >= 0, sehingga S^2 >= 0.\nLangkah 3: S^2 = 0 terjadi jika dan hanya jika (xi - x_bar) = 0 untuk seluruh i, yang berarti semua data identik sama dengan x_bar.\nKesimpulan: Terbukti bahwa varians selalu S^2 >= 0 dan bernilai nol jika dan hanya jika seluruh data seragam."
+      ]
+    },
+    {
+      "id": "P20",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
+      "title": "Analisis Data Bivariat (Scatter Plot, Korelasi Pearson, & Garis Regresi)",
+      "obj": [
+        "Membuat diagram pencar (Scatter Plot) untuk pasangan data bivariat $(x, y)$.",
+        "Menghitung dan menginterpretasikan koefisien korelasi Pearson $r$ ($-1 \\le r \\le 1$).",
+        "Menentukan persamaan garis regresi linier $\\hat{y} = a + bx$ dan membuat prediksi matematis."
+      ],
+      "hook": "Apakah durasi jam belajar mandiri per hari ($x$) berkorelasi linier positif dengan skor UTBK-SNBT ($y$)? Garis regresi memprediksi skor masa depan siswa!",
+      "toolkit": [
+        {
+          "name": "Garis Regresi Linier (Metode Kuadrat Terkecil)",
+          "math": "$$\\hat{y} = a + bx, \\quad b = \\frac{N \\sum xy - \\sum x \\sum y}{N \\sum x^2 - (\\sum x)^2}, \\quad a = \\bar{y} - b\\bar{x}$$"
+        },
+        {
+          "name": "Koefisien Korelasi Pearson",
+          "math": "$$r = \\frac{N \\sum xy - \\sum x \\sum y}{\\sqrt{[N \\sum x^2 - (\\sum x)^2][N \\sum y^2 - (\\sum y)^2]}}$$"
+        },
+        {
+          "name": "Koefisien Determinasi (R^2)",
+          "math": "$$r^2 = (r)^2 \\times 100\\%, \\quad \\text{Kontribusi variasi } X \\text{ terhadap perubahan } Y$$"
+        },
+        {
+          "name": "Interpretasi Tren & Korelasi (Tips UTBK)",
+          "math": "$$\\text{Gradien } b > 0 \\implies r > 0 \\text{ (Arah Searah)}, \\quad b < 0 \\implies r < 0 \\text{ (Arah Berlawanan)}, \\quad |r| \\ge 0{,}7 \\text{ (Kuat)}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Jika persamaan garis regresi linier antara lama belajar ($x$ jam) dan skor ujian ($y$) adalah $\\hat{y} = 40 + 6x$, estimasikan nilai ujian siswa yang belajar selama $4{,}5$ jam!",
+          "solution": "Langkah 1: Substitusikan $x = 4{,}5$ ke persamaan regresi: $\\hat{y} = 40 + 6(4{,}5)$.\nLangkah 2: Hitung nilai: $\\hat{y} = 40 + 27 = 67$.\nKesimpulan: Estimasi skor ujian siswa adalah $67$."
+        },
+        {
+          "problem": "Dari analisis data bivariat diperoleh koefisien korelasi Pearson $r = 0{,}85$. Hitung koefisien determinasi ($R^2$) dan jelaskan maknanya!",
+          "solution": "Langkah 1: $R^2 = r^2 = (0{,}85)^2 = 0{,}7225 = 72{,}25\\%$.\nLangkah 2: Makna: Sebanyak $72{,}25\\%$ variasi pada variabel dependen $y$ dapat dijelaskan oleh variabel independen $x$ melalui model regresi linier, sedangkan sisanya $27{,}75\\%$ dipengaruhi faktor lain.\nKesimpulan: Koefisien determinasi adalah $72{,}25\\%$."
+        },
+        {
+          "problem": "Diberikan data $N = 5$: $\\sum x = 15, \\sum y = 40, \\sum x^2 = 55, \\sum xy = 145$. Tentukan gradien kemiringan garis regresi ($b$)!",
+          "solution": "Langkah 1: Rumus kemiringan: $b = \\frac{N \\sum xy - (\\sum x)(\\sum y)}{N \\sum x^2 - (\\sum x)^2}$.\nLangkah 2: Substitusikan nilai: $b = \\frac{5(145) - (15)(40)}{5(55) - (15)^2} = \\frac{725 - 600}{275 - 225} = \\frac{125}{50} = 2{,}5$.\nKesimpulan: Gradien garis regresi adalah $b = 2{,}5$."
+        },
+        {
+          "problem": "Diberikan rata-rata $\\bar{x} = 3$, $\\bar{y} = 8$, dan gradien regresi $b = 2{,}5$. Tentukan konstanta intersep $a$ dan susun persamaan garis regresinya!",
+          "solution": "Langkah 1: Rumus intersep: $a = \\bar{y} - b\\bar{x}$.\nLangkah 2: $a = 8 - 2{,}5(3) = 8 - 7{,}5 = 0{,}5$.\nLangkah 3: Persamaan garis regresi: $\\hat{y} = a + bx \\implies \\hat{y} = 0{,}5 + 2{,}5x$.\nKesimpulan: Persamaan garis regresi adalah $\\hat{y} = 0{,}5 + 2{,}5x$."
+        },
+        {
+          "problem": "Suatu penelitian mengukur hubungan antara suhu lingkungan ($x$ dalam $^\\circ\\text{C}$) dan penjualan es krim ($y$ dalam puluhan cup). Jika diperoleh $r = 0{,}92$, interpretasikan kekuatan dan arah hubungan kedua variabel!",
+          "solution": "Langkah 1: Nilai $r = +0{,}92$ bertanda positif $\\implies$ arah hubungan berbanding lurus (semakin tinggi suhu, semakin tinggi penjualan).\nLangkah 2: Nilai $|r| = 0{,}92 \\ge 0{,}80 \\implies$ kekuatan hubungan tergolong **sangat kuat**.\nKesimpulan: Terdapat hubungan linier positif yang sangat kuat antara kenaikan suhu dan peningkatan penjualan es krim."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan pasangan data waktu latihan (x) vs jumlah kesalahan (y). Tentukan diagram pencar, arah korelasi, dan garis regresinya!",
+      "summary_data": {
+        "summary": [
+          "Diagram Pencar (Scatter Plot) memvisualisasikan tren hubungan antara dua variabel bivariat $(X, Y)$.",
+          "Persamaan Garis Regresi Linier: $\\hat{y} = a + bx$ dengan kemiringan $b = \\frac{n\\sum xy - \\sum x\\sum y}{n\\sum x^2 - (\\sum x)^2}$.",
+          "Koefisien Korelasi Pearson $r$ mengukur kekuatan hubungan linier ($-1 \\le r \\le 1$)."
+        ],
+        "islamic": "Hubungan sebab-akibat (kausalitas) dalam statistika bivariat mempertegas bahwa setiap ikhtiar manusia berkorelasi nyata dengan hasil yang akan dituai."
+      },
+      "collab_cases": [
+        "Diberikan 8 pasangan data $(X, Y)$ jam belajar dan skor ujian: $\\sum X = 48, \\sum Y = 600, \\sum X^2 = 320, \\sum Y^2 = 46.000, \\sum XY = 3.800$. Hitunglah koefisien korelasi Pearson $r$!",
+        "Berdasarkan data di atas, tentukan persamaan garis regresi linier $\\hat{Y} = a + bX$ dan tafsirkan makna konstanta $a$ dan gradien $b$!",
+        "Hitung koefisien determinasi $R^2$ dan prediksikan skor siswa yang belajar selama 7,5 jam!",
+        "Jelaskan perbedaan antara korelasi positif, korelasi negatif, dan korelasi spasial semu (*spurious correlation*) disertai contoh nyata!",
+        "Buktikan bahwa koefisien korelasi Pearson selalu berada pada rentang $-1 \\le r \\le 1$ menggunakan pertidaksamaan Cauchy-Schwarz!"
+      ],
+      "tagline": "Menemukan Pola Hubungan Dua Variabel & Memprediksi Tren dengan Garis Regresi",
+      "collab_solutions": [
+        "Langkah 1: N = 8. SS_xx = sum(X^2) - (sum X)^2 / N = 320 - (48)^2 / 8 = 320 - 2.304 / 8 = 320 - 288 = 32.\nLangkah 2: SS_yy = sum(Y^2) - (sum Y)^2 / N = 46.000 - (600)^2 / 8 = 46.000 - 360.000 / 8 = 46.000 - 45.000 = 1.000.\nLangkah 3: SS_xy = sum(XY) - (sum X * sum Y) / N = 3.800 - (48 * 600) / 8 = 3.800 - 28.800 / 8 = 3.800 - 3.600 = 200.\nLangkah 4: r = SS_xy / sqrt(SS_xx * SS_yy) = 200 / sqrt(32 * 1.000) = 200 / sqrt(32.000) = 200 / 178,885 ≈ 0,988.\nKesimpulan: Koefisien korelasi Pearson adalah r ≈ +0,988 (Korelasi Linier Positif Sangat Kuat).",
+        "Langkah 1: Gradien kemiringan b = SS_xy / SS_xx = 200 / 32 = 6,25.\nLangkah 2: Rata-rata x_bar = 48/8 = 6; y_bar = 600/8 = 75.\nLangkah 3: Konstanta intersep a = y_bar - b(x_bar) = 75 - 6,25(6) = 75 - 37,5 = 37,5.\nLangkah 4: Persamaan regresi: Y_hat = 37,5 + 6,25 X.\nLangkah 5: Makna: Skor dasar tanpa belajar adalah 37,5 poin, dan setiap tambahan 1 jam belajar meningkatkan skor sebesar 6,25 poin.\nKesimpulan: Persamaan regresi linier adalah Y_hat = 37,5 + 6,25 X.",
+        "Langkah 1: Koefisien determinasi R^2 = r^2 = (0,988)^2 ≈ 0,976 = 97,6%.\nLangkah 2: Prediksi skor untuk X = 7,5 jam: Y_hat = 37,5 + 6,25(7,5) = 37,5 + 46,875 = 84,375 ≈ 84,4.\nKesimpulan: R^2 = 97,6% dan estimasi skor ujian siswa yang belajar 7,5 jam adalah 84,4 poin.",
+        "Langkah 1: Korelasi Positif: Kenaikan X diikuti kenaikan Y (misal jam belajar vs nilai). Korelasi Negatif: Kenaikan X diikuti penurunan Y (misal harga vs jumlah permintaan).\nLangkah 2: Spurious Correlation: Hubungan matematis kuat yang semu tanpa relasi sebab-akibat langsung (misal penjualan es krim vs kasus tenggelam di pantai karena dipengaruhi faktor ketiga yaitu cuaca panas musim panas).\nKesimpulan: Perbedaan mendasar terletak pada keberadaan kausalitas langsung antar variabel.",
+        "Langkah 1: Menurut pertidaksamaan Cauchy-Schwarz untuk vektor u dan v: |u · v| <= ||u|| ||v||.\nLangkah 2: Ambil u = (xi - x_bar) dan v = (yi - y_bar). Maka |SS_xy| <= sqrt(SS_xx) * sqrt(SS_yy).\nLangkah 3: Bagi dengan penyebut: |r| = |SS_xy| / [sqrt(SS_xx)*sqrt(SS_yy)] <= 1, yang ekuivalen dengan -1 <= r <= 1.\nKesimpulan: Terbukti bahwa koefisien korelasi Pearson selalu berada dalam interval tertutup [-1, 1]."
+      ]
+    },
+    {
+      "id": "P21",
+      "bab": "Bab 3: Statistika & Analisis Data Bivariat",
+      "title": "Asesmen Sumatif Terpadu Statistika & Simulasi ASAS CBT",
+      "obj": [
+        "Mengevaluasi penguasaan materi statistika univariat dan bivariat secara menyeluruh (P15 - P20).",
+        "Melakukan simulasi ujian Asesmen Sumatif Akhir Semester (ASAS CBT / PAS) Matematika Wajib.",
+        "Grand Review integratif seluruh 3 Bab Matematika Wajib Kelas XII Semester 1."
+      ],
+      "hook": "Puncak asesmen akhir semester 1 Matematika Wajib Kelas XII: Menguji keunggulan komputasi kombinatorika, dimensi tiga, dan analisis statistika.",
+      "toolkit": [
+        {
+          "name": "Matriks Distribusi Soal ASAS CBT",
+          "math": "$$\\text{Bab 1: Peluang (35\\%)} + \\text{Bab 2: Dimensi Tiga (35\\%)} + \\text{Bab 3: Statistika (30\\%) }$$"
+        },
+        {
+          "name": "Rumus Inti ASAS",
+          "math": "$$P(A) = \\frac{n(A)}{n(S)}, \\quad d_r = s\\sqrt{3}, \\quad Me = Tb + \\left(\\frac{\\frac{1}{2}N - F_k}{f_{me}}\\right)c, \\quad \\hat{y} = a + bx$$"
+        },
+        {
+          "name": "Ringkasan Ukuran Pemusatan & Letak",
+          "math": "$$\\bar{x} = \\frac{\\sum f_i x_i}{N}, \\quad Me = Tb + \\left(\\frac{\\frac{1}{2}N - F_k}{f_{me}}\\right)c, \\quad Q_i = Tb + \\left(\\frac{\\frac{i}{4}N - F_k}{f_{Q_i}}\\right)c$$"
+        },
+        {
+          "name": "Ringkasan Ukuran Penyebaran",
+          "math": "$$S^2 = \\frac{\\sum f_i(x_i - \\bar{x})^2}{N}, \\quad S = \\sqrt{S^2}, \\quad QR = Q_3 - Q_1, \\quad Z = \\frac{x - \\bar{x}}{S}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Diberikan tabel distribusi frekuensi: [10-19: 4], [20-29: 8], [30-39: 16], [40-49: 10], [50-59: 2]. Tentukan simpangan kuartil ($Q_d$) dari data tersebut!",
+          "solution": "Langkah 1: Total $N = 40$. $Q_1$ pada letak $\\frac{1}{4}(40) = 10$ (interval $20-29$): $Q_1 = 19{,}5 + \\left(\\frac{10-4}{8}\\right)10 = 19{,}5 + 7{,}5 = 27{,}0$.\nLangkah 2: $Q_3$ pada letak $\\frac{3}{4}(40) = 30$ (interval $40-49$): $Q_3 = 39{,}5 + \\left(\\frac{30-28}{10}\\right)10 = 39{,}5 + 2 = 41{,}5$.\nLangkah 3: $Q_d = \\frac{1}{2}(Q_3 - Q_1) = \\frac{1}{2}(41{,}5 - 27{,}0) = \\frac{1}{2}(14{,}5) = 7{,}25$.\nKesimpulan: Nilai simpangan kuartil adalah $7{,}25$."
+        },
+        {
+          "problem": "Tentukan modus dari data berat badan: [45-49: 3], [50-54: 6], [55-59: 12], [60-64: 9], [65-69: 5]!",
+          "solution": "Langkah 1: Kelas modus pada interval $55 - 59$ ($f=12$). $T_b = 54{,}5, c = 5$.\nLangkah 2: $d_1 = 12 - 6 = 6$ dan $d_2 = 12 - 9 = 3$.\nLangkah 3: $\\text{Mo} = 54{,}5 + \\left(\\frac{6}{6+3}\\right) 5 = 54{,}5 + \\left(\\frac{6}{9}\\right) 5 = 54{,}5 + 3{,}33 = 57{,}83\\text{ kg}$.\nKesimpulan: Modus data adalah $57{,}83\\text{ kg}$."
+        },
+        {
+          "problem": "Data nilai 50 siswa memiliki mean $\\bar{x} = 76$ dan simpangan baku $S = 8$. Jika nilai setiap siswa ditambah 5 lalu dikalikan 1,2, tentukan nilai mean dan simpangan baku yang baru!",
+          "solution": "Langkah 1: Mean baru: $\\bar{x}_{\\text{baru}} = (76 + 5) \\times 1{,}2 = 81 \\times 1{,}2 = 97{,}2$.\nLangkah 2: Simpangan baku baru: Penambahan (+5) tidak merubah sebaran data, hanya pengali yang berpengaruh: $S_{\\text{baru}} = 8 \\times 1{,}2 = 9{,}6$.\nKesimpulan: Mean baru $= 97{,}2$ dan Simpangan Baku baru $= 9{,}6$."
+        },
+        {
+          "problem": "Pada kubus $ABCD.EFGH$ berusuk $12\\text{ cm}$, tentukan jarak titik tengah rusuk $AB$ (titik $M$) ke bidang diagonal $BCHE$!",
+          "solution": "Langkah 1: Proyeksikan $M$ ke rusuk $BE$ yang terletak pada bidang $BCHE$. Rusuk $AB \\perp$ bidang $BCHE$ tidak langsung berlaku, tapi $M$ berada di sisi $ABFE$.\nLangkah 2: Pada persegi $ABFE$, garis $BE$ adalah diagonal sisi. Jarak titik $M$ (tengah $AB$) ke diagonal $BE$ adalah $d = \\frac{1}{4} AF = \\frac{1}{4}(12\\sqrt{2}) = 3\\sqrt{2}\\text{ cm}$.\nKesimpulan: Jarak titik $M$ ke bidang $BCHE$ adalah $3\\sqrt{2}\\text{ cm}$."
+        },
+        {
+          "problem": "Sebuah data hasil try out UTBK menunjukkan korelasi $r = 0{,}80$ antara skor penalaran matematika dan skor total. Jika persamaan regresinya $\\hat{y} = 150 + 1{,}2x$, prediksikan skor total siswa dengan skor penalaran $x = 500$!",
+          "solution": "Langkah 1: Masukkan $x = 500$ ke persamaan regresi: $\\hat{y} = 150 + 1{,}2(500)$.\nLangkah 2: $\\hat{y} = 150 + 600 = 750$.\nKesimpulan: Prediksi skor total siswa pada UTBK adalah $750$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Grand Final Simulasi ASAS CBT! Bedah dan selesaikan paket komprehensif 10 soal prediksi ujian akhir semester!",
+      "summary_data": {
+        "summary": [
+          "Mastery review seluruh domain statistika deskriptif, ukuran pemusatan, penyebaran, dan analisis bivariat.",
+          "Kesiapan optimal menghadapi Asesmen Sumatif Akhir Semester (ASAS) dan ASAJ CBT Nasional."
+        ],
+        "islamic": "Menuntaskan pembelajaran dengan kesungguhan dan doa adalah wujud tawakkal paripurna seorang penuntut ilmu."
+      },
+      "collab_cases": [
+        "Diberikan data bivariat pengeluaran iklan ($X$ juta) dan omzet ($Y$ ratus juta). Ujilah apakah terdapat korelasi linier positif yang signifikan!",
+        "Sebuah perusahaan menargetkan omzet $1{,}5\\text{ miliar}$. Gunakan model $\\hat{Y} = 12 + 3{,}4X$ untuk mengestimasi anggaran iklan optimal!",
+        "Evaluasilah keterbatasan regresi linier dalam konteks ekstrapolasi data di luar rentang sampel pengamatan!",
+        "Tentukan residu regresi $e_i = y_i - \\hat{y}_i$ untuk setiap titik data dan uji apakah jumlah residunya bernilai nol ($\\sum e_i = 0$)!",
+        "Rancang studi kasus optimasi bivariat terapan dalam dunia sains data dan presentasikan kesimpulan model prediksi terbaik!"
+      ],
+      "tagline": "Simulasi Puncak Asesmen Akhir Semester: Menguji Ketajaman Statistika & Geometri 3D",
+      "collab_solutions": [
+        "Langkah 1: Hitung statistik sampel data bivariat iklan (X) dan omzet (Y).\nLangkah 2: Nilai korelasi Pearson r > 0,85 mengindikasikan korelasi linier positif yang sangat kuat dan signifikan secara statistik.\nKesimpulan: Terdapat hubungan linier positif yang signifikan antara anggaran iklan dan peningkatan omzet.",
+        "Langkah 1: Target omzet 1,5 miliar = 15 ratus juta => Y_hat = 15.\nLangkah 2: Model regresi: 15 = 12 + 3,4 X => 3,4 X = 3 => X = 3 / 3,4 ≈ 0,882 juta (Rp 882.000,-).\nKesimpulan: Anggaran iklan optimal yang diestimasikan adalah sekitar Rp 882.000,-.",
+        "Langkah 1: Ekstrapolasi di luar rentang data pengamatan rentan menghasilkan prediksi tidak realistis karena pola hubungan variabel dapat berubah menjadi non-linier atau mengalami saturasi (kejenuhan pasar).\nKesimpulan: Model regresi linier hanya valid digunakan dalam rentang batas sampel observasi (interpolasi).",
+        "Langkah 1: Residu dihitung dengan ei = yi - y_hat_i untuk tiap pengamatan.\nLangkah 2: Berdasarkan metode kuadrat terkecil (Ordinary Least Squares), sum(ei) = sum(yi - (a + b xi)) = sum(yi) - Na - b sum(xi) = 0.\nKesimpulan: Jumlah seluruh nilai residu regresi terbukti selalu sama dengan nol.",
+        "Langkah 1: Sajikan perbandingan metrik evaluasi model (RMSE, MAE, R^2) pada dataset terapan.\nLangkah 2: Pilih model dengan nilai R^2 tertinggi dan residual terkecil sebagai representasi terbaik.\nKesimpulan: Model regresi linier bivariat teruji optimal untuk pengambilan keputusan berbasis data."
+      ]
+    }
+  ],
+  "minat": [
+    {
+      "id": "P01",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "Persamaan Lingkaran Pusat O(0,0)",
+      "obj": [
+        "Menentukan persamaan lingkaran yang berpusat di titik asal $O(0,0)$ dengan jari-jari $r$: $x^2 + y^2 = r^2$.",
+        "Menghitung jari-jari lingkaran dari titik yang dilalui atau dari jarak ke garis singgung.",
+        "Menyelesaikan masalah kontekstual radius jangkauan sinyal radar dan pemancar BTS."
+      ],
+      "hook": "Sistem radar pelacak bandara memancarkan gelombang mendeteksi pesawat dalam radius $r$ km dari titik pusat kontrol $O(0,0)$ secara radial seragam.",
+      "toolkit": [
+        {
+          "name": "Bentuk Baku Pusat O(0,0)",
+          "math": "$$x^2 + y^2 = r^2$$"
+        },
+        {
+          "name": "Jari-Jari dari Garis Singgung",
+          "math": "$$r = \\frac{|Ax_0 + By_0 + C|}{\\sqrt{A^2 + B^2}} = \\frac{|C|}{\\sqrt{A^2 + B^2}}$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan persamaan lingkaran yang berpusat di titik asal $O(0,0)$ dan melalui titik $A(3, -4)$!",
+          "solution": "Langkah 1: Jari-jari lingkaran adalah jarak titik $A(3, -4)$ ke pusat $O(0,0)$: $r^2 = x^2 + y^2 = 3^2 + (-4)^2 = 9 + 16 = 25$.\nLangkah 2: Bentuk baku persamaan lingkaran berpusat di $O(0,0)$ adalah $x^2 + y^2 = r^2$.\nLangkah 3: Substitusi $r^2 = 25 \\implies x^2 + y^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $x^2 + y^2 = 25$."
+        },
+        {
+          "problem": "Sebuah lingkaran berpusat di $O(0,0)$ menyinggung garis lurus $3x - 4y + 20 = 0$. Tentukan persamaan lingkaran tersebut!",
+          "solution": "Langkah 1: Jari-jari $r$ adalah jarak titik pusat $O(0,0)$ ke garis $Ax + By + C = 0$: $r = \\frac{|A(0) + B(0) + C|}{\\sqrt{A^2 + B^2}}$.\nLangkah 2: $r = \\frac{|3(0) - 4(0) + 20|}{\\sqrt{3^2 + (-4)^2}} = \\frac{20}{\\sqrt{25}} = \\frac{20}{5} = 4$.\nLangkah 3: Persamaan lingkaran: $x^2 + y^2 = r^2 = 4^2 = 16$.\nKesimpulan: Persamaan lingkaran adalah $x^2 + y^2 = 16$."
+        },
+        {
+          "problem": "Tentukan persamaan lingkaran konsentris (sepusat) dengan $x^2 + y^2 = 36$ yang memiliki luas daerah $4\\times$ lebih besar!",
+          "solution": "Langkah 1: Jari-jari awal $r_1 = \\sqrt{36} = 6$.\nLangkah 2: Luas $L_2 = 4 L_1 \\implies \\pi r_2^2 = 4 (\\pi r_1^2) \\implies r_2^2 = 4(36) = 144$.\nLangkah 3: Persamaan lingkaran konsentris baru: $x^2 + y^2 = 144$.\nKesimpulan: Persamaan lingkaran baru adalah $x^2 + y^2 = 144$."
+        },
+        {
+          "problem": "Tentukan titik-titik potong lingkaran $x^2 + y^2 = 25$ dengan garis $y = x - 1$!",
+          "solution": "Langkah 1: Substitusikan $y = x - 1$ ke persamaan lingkaran: $x^2 + (x - 1)^2 = 25$.\nLangkah 2: $x^2 + x^2 - 2x + 1 - 25 = 0 \\implies 2x^2 - 2x - 24 = 0 \\implies x^2 - x - 12 = 0$.\nLangkah 3: Faktorkan: $(x - 4)(x + 3) = 0 \\implies x_1 = 4$ atau $x_2 = -3$.\nLangkah 4: Untuk $x = 4 \\implies y = 4 - 1 = 3 \\implies (4, 3)$. Untuk $x = -3 \\implies y = -3 - 1 = -4 \\implies (-3, -4)$.\nKesimpulan: Titik potongnya adalah $(4, 3)$ dan $(-3, -4)$."
+        },
+        {
+          "problem": "Sebuah menara radar maritim di titik $O(0,0)$ memiliki jangkauan sinyal lingkaran berjari-jari $20\\text{ km}$. Sebuah kapal tanker berlayar lurus dari koordinat $P(-25, 15)$ ke $Q(15, -15)$. Apakah kapal tanker tersebut masuk ke dalam jangkauan radar?",
+          "solution": "Langkah 1: Persamaan garis lintasan kapal $PQ$: Gradien $m = \\frac{-15 - 15}{15 - (-25)} = \\frac{-30}{40} = -\\frac{3}{4}$.\nLangkah 2: Persamaan garis: $y - 15 = -\\frac{3}{4}(x + 25) \\implies 4y - 60 = -3x - 75 \\implies 3x + 4y + 15 = 0$.\nLangkah 3: Jarak terdekat radar $O(0,0)$ ke lintasan: $d = \\frac{|3(0) + 4(0) + 15|}{\\sqrt{3^2 + 4^2}} = \\frac{15}{5} = 3\\text{ km}$.\nLangkah 4: Karena jarak terdekat $d = 3\\text{ km} < 20\\text{ km}$ (jari-jari radar), maka kapal tanker memotong jangkauan radar.\nKesimpulan: Kapal tanker masuk dan terdeteksi di dalam jangkauan radar sejauh $3\\text{ km}$ dari pusat."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan titik $A(0,0)$ dan $B(6,8)$. Tentukan persamaan lingkaran yang berpusat di $O(0,0)$ dan membagi ruas garis $AB$ menjadi dua bagian sama panjang!",
+      "summary_data": {
+        "summary": [
+          "Bentuk baku persamaan lingkaran pusat $O(0,0)$ dan jari-jari $r$: $x^2 + y^2 = r^2$.",
+          "Jika lingkaran melalui titik $(x_1, y_1)$, maka jari-jari kuadrat diperoleh dari $r^2 = x_1^2 + y_1^2$.",
+          "Jarak titik pusat ke garis singgung $ax + by + c = 0$ adalah $r = \\frac{|c|}{\\sqrt{a^2 + b^2}}$."
+        ],
+        "islamic": "Pusat lingkaran $O(0,0)$ melambangkan tauhid: satu titik pusat ketaatan kepada Allah SWT yang menjadi poros seluruh perputaran aktivitas kehidupan seorang mukmin."
+      },
+      "collab_cases": [
+        "Tentukan persamaan lingkaran yang berpusat di $O(0,0)$ dan melalui titik potong garis $3x - 4y = 12$ dengan sumbu-$Y$!",
+        "Sebuah lingkaran berpusat di $O(0,0)$ menyinggung garis $4x + 3y - 25 = 0$. Tentukan jari-jari $r$ dan persamaan lingkarannya!",
+        "Diberikan $A(-4, 0)$ dan $B(4, 0)$. Tentukan tempat kedudukan titik $P(x,y)$ sedemikian hingga $PA^2 + PB^2 = 50$ dan buktikan itu lingkaran!",
+        "Tentukan persamaan lingkaran konsentris dengan $x^2 + y^2 = 9$ yang luas daerahnya 4 kali lebih besar!",
+        "Buktikan bahwa luas juring lingkaran berpusat di asal dengan sudut pusat $\\theta$ radian adalah $\\frac{1}{2} r^2 \\theta$!"
+      ],
+      "tagline": "Menjelajah Kurva Lingkaran dari Titik Pusat Asal & Memetakan Jangkauan Radar",
+      "collab_solutions": [
+        "Langkah 1: Garis 3x + 4y - 12 = 0 berpotongan dengan sumbu-X di A(4,0) dan sumbu-Y di B(0,3).\nLangkah 2: Jari-jari kuadrat dari pusat O(0,0) ke titik potong A(4,0) adalah r^2 = 4^2 + 0^2 = 16 (atau ke B: r^2 = 9).\nLangkah 3: Jika lingkaran melalui titik A(4,0): x^2 + y^2 = 16. Jika melalui B(0,3): x^2 + y^2 = 9.\nKesimpulan: Persamaan lingkaran yang berpusat di O(0,0) adalah x^2 + y^2 = 16 (atau x^2 + y^2 = 9).",
+        "Langkah 1: Jari-jari lingkaran adalah jarak titik pusat O(0,0) ke garis singgung 4x + 3y - 25 = 0.\nLangkah 2: r = |4(0) + 3(0) - 25| / sqrt(4^2 + 3^2) = |-25| / sqrt(25) = 25 / 5 = 5.\nLangkah 3: Persamaan lingkaran: x^2 + y^2 = 5^2 = 25.\nKesimpulan: Jari-jari lingkaran adalah r = 5 dan persamaannya adalah x^2 + y^2 = 25.",
+        "Langkah 1: Diberikan A(-4, 0) dan B(4, 0). Syarat jarak PA = 3 PB => PA^2 = 9 PB^2.\nLangkah 2: (x + 4)^2 + y^2 = 9 [ (x - 4)^2 + y^2 ].\nLangkah 3: x^2 + 8x + 16 + y^2 = 9(x^2 - 8x + 16 + y^2) = 9x^2 - 72x + 144 + 9y^2.\nLangkah 4: 8x^2 + 8y^2 - 80x + 128 = 0 => Bagi 8: x^2 + y^2 - 10x + 16 = 0 => (x - 5)^2 + y^2 = 9.\nKesimpulan: Tempat kedudukan titik P adalah Lingkaran Apollonius dengan persamaan (x - 5)^2 + y^2 = 9.",
+        "Langkah 1: Substitusikan y = 2x + k ke lingkaran x^2 + y^2 = 20: x^2 + (2x + k)^2 = 20.\nLangkah 2: 5x^2 + 4kx + (k^2 - 20) = 0. Syarat menyinggung: D = 0.\nLangkah 3: D = (4k)^2 - 4(5)(k^2 - 20) = 16k^2 - 20k^2 + 400 = -4k^2 + 400 = 0 => 4k^2 = 400 => k^2 = 100 => k = ±10.\nKesimpulan: Nilai konstanta k adalah k = 10 atau k = -10.",
+        "Langkah 1: Posisi stasiun mercusuar O(0,0). Jarak kapal K(12, 16) ke mercusuar: d = sqrt(12^2 + 16^2) = sqrt(144 + 256) = sqrt(400) = 20 mil laut.\nLangkah 2: Jarak jangkauan cahaya r = 25 mil laut. Karena d = 20 < 25, kapal berada di dalam jangkauan radar.\nLangkah 3: Jarak terdekat kapal ke batas luar lingkaran cahaya = 25 - 20 = 5 mil laut.\nKesimpulan: Kapal terdeteksi di dalam zona cahaya dan berjarak 5 mil laut dari batas luar."
+      ]
+    },
+    {
+      "id": "P02",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "Persamaan Lingkaran Pusat P(a,b)",
+      "obj": [
+        "Menentukan persamaan lingkaran pusat $P(a,b)$ berjari-jari $r$: $(x - a)^2 + (y - b)^2 = r^2$.",
+        "Menganalisis kondisi lingkaran yang menyinggung sumbu koordinat ($r = |a|$ atau $r = |b|$).",
+        "Menentukan persamaan lingkaran jika diketahui koordinat titik-titik ujung diameternya."
+      ],
+      "hook": "Desain bundaran lalu lintas kota mandiri berpusat di koordinat GPS $P(a,b)$ harus disesuaikan dengan batas sempadan jalan arteri di sekitarnya.",
+      "toolkit": [
+        {
+          "name": "Bentuk Baku Pusat P(a,b)",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Menyinggung Sumbu-X",
+          "math": "$$r = |b| \\implies (x - a)^2 + (y - b)^2 = b^2$$"
+        },
+        {
+          "name": "Menyinggung Sumbu-Y",
+          "math": "$$r = |a| \\implies (x - a)^2 + (y - b)^2 = a^2$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan persamaan lingkaran yang berpusat di titik $P(2, -3)$ dan memiliki jari-jari $r = 5$!",
+          "solution": "Langkah 1: Bentuk baku lingkaran pusat $(a, b)$: $(x - a)^2 + (y - b)^2 = r^2$.\nLangkah 2: Masukkan $a = 2, b = -3$, dan $r = 5$: $(x - 2)^2 + (y - (-3))^2 = 5^2$.\nLangkah 3: $(x - 2)^2 + (y + 3)^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $(x - 2)^2 + (y + 3)^2 = 25$."
+        },
+        {
+          "problem": "Tentukan persamaan lingkaran yang berpusat di $P(-1, 4)$ dan melalui titik $T(3, 1)$!",
+          "solution": "Langkah 1: Hitung kuadrat jari-jari $r^2$ dari jarak $PT$: $r^2 = (3 - (-1))^2 + (1 - 4)^2 = 4^2 + (-3)^2 = 16 + 9 = 25$.\nLangkah 2: Persamaan lingkaran pusat $P(-1, 4)$: $(x + 1)^2 + (y - 4)^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $(x + 1)^2 + (y - 4)^2 = 25$."
+        },
+        {
+          "problem": "Sebuah lingkaran berpusat di $P(3, -2)$ menyinggung garis horizontal $y = 4$. Tentukan persamaan lingkaran tersebut!",
+          "solution": "Langkah 1: Jari-jari lingkaran adalah jarak vertikal dari ordinat pusat $b = -2$ ke garis $y = 4$: $r = |4 - (-2)| = 6$.\nLangkah 2: Persamaan lingkaran: $(x - 3)^2 + (y + 2)^2 = 6^2 = 36$.\nKesimpulan: Persamaan lingkaran adalah $(x - 3)^2 + (y + 2)^2 = 36$."
+        },
+        {
+          "problem": "Tentukan persamaan lingkaran yang memiliki diameter dengan titik ujung $A(-2, 1)$ dan $B(4, 9)$!",
+          "solution": "Langkah 1: Titik pusat adalah titik tengah diameter $AB$: $P\\left(\\frac{-2+4}{2}, \\frac{1+9}{2}\\right) = P(1, 5)$.\nLangkah 2: Panjang jari-jari $r = \\frac{1}{2} AB = \\frac{1}{2}\\sqrt{(4 - (-2))^2 + (9 - 1)^2} = \\frac{1}{2}\\sqrt{6^2 + 8^2} = \\frac{1}{2}(10) = 5$.\nLangkah 3: Persamaan lingkaran: $(x - 1)^2 + (y - 5)^2 = 5^2 = 25$.\nKesimpulan: Persamaan lingkaran adalah $(x - 1)^2 + (y - 5)^2 = 25$."
+        },
+        {
+          "problem": "Sebuah lingkaran berpusat di $P(4, 2)$ dan menyinggung garis $3x - 4y + 6 = 0$. Tentukan persamaan lingkaran tersebut dalam bentuk baku!",
+          "solution": "Langkah 1: Jarak titik $P(4, 2)$ ke garis $3x - 4y + 6 = 0$: $r = \\frac{|3(4) - 4(2) + 6|}{\\sqrt{3^2 + (-4)^2}} = \\frac{|12 - 8 + 6|}{5} = \\frac{10}{5} = 2$.\nLangkah 2: Persamaan lingkaran: $(x - 4)^2 + (y - 2)^2 = 2^2 = 4$.\nKesimpulan: Persamaan lingkaran adalah $(x - 4)^2 + (y - 2)^2 = 4$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Ruas garis $AB$ dengan $A(-2, 3)$ dan $B(4, -5)$ adalah diameter sebuah lingkaran. Tentukan titik pusat, panjang jari-jari, dan persamaan lingkaran tersebut!",
+      "summary_data": {
+        "summary": [
+          "Persamaan lingkaran pusat $P(a, b)$ dan jari-jari $r$: $(x - a)^2 + (y - b)^2 = r^2$.",
+          "Jika menyinggung sumbu-x maka $r = |b|$; jika menyinggung sumbu-y maka $r = |a|$.",
+          "Jika menyinggung garis $Ax + By + C = 0$, jari-jari $r = \\frac{|Aa + Bb + C|}{\\sqrt{A^2 + B^2}}$."
+        ],
+        "islamic": "Pergeseran titik pusat mengajarkan bahwa di mana pun seorang mukmin berada, nilai dan prinsip keimanan harus tetap terpelihara dengan radius kebaikan yang sama."
+      },
+      "collab_cases": [
+        "Tentukan persamaan lingkaran dengan pusat $P(3, -2)$ yang menyinggung sumbu-$X$ secara ortogonal!",
+        "Tentukan persamaan lingkaran dengan diameter ruas garis yang menghubungkan $A(-2, 5)$ dan $B(4, -3)$!",
+        "Lingkaran berpusat di $P(a, b)$ kuadran I menyinggung garis $x = 2$, sumbu-$Y$, dan $y = 6$. Tentukan nilai $a, b,$ dan persamaannya!",
+        "Tentukan persamaan lingkaran yang berpusat di $P(-1, 4)$ dan menyinggung garis $3x - 4y + 4 = 0$!",
+        "Buktikan bahwa jarak dari titik $(x_1, y_1)$ ke pusat lingkaran $(x-a)^2 + (y-b)^2 = r^2$ menentukan kedudukan titik secara definitif!"
+      ],
+      "tagline": "Menggeser Titik Pusat ke Mana Saja pada Bidang Koordinat Kartesius GPS",
+      "collab_solutions": [
+        "Langkah 1: Pusat lingkaran P(3, -2). Lingkaran menyinggung sumbu-X (garis y = 0).\nLangkah 2: Jari-jari lingkaran adalah jarak vertikal dari pusat ke sumbu-X: r = |b| = |-2| = 2.\nLangkah 3: Persamaan lingkaran: (x - 3)^2 + (y - (-2))^2 = 2^2 => (x - 3)^2 + (y + 2)^2 = 4.\nKesimpulan: Persamaan lingkaran adalah (x - 3)^2 + (y + 2)^2 = 4.",
+        "Langkah 1: Titik pusat adalah titik tengah AB: P = ( (-2+4)/2, (5+(-3))/2 ) = (2/2, 2/2) = (1, 1).\nLangkah 2: Jari-jari adalah setengah panjang AB: r = 1/2 sqrt((4 - (-2))^2 + (-3 - 5)^2) = 1/2 sqrt(6^2 + (-8)^2) = 1/2 sqrt(100) = 5.\nLangkah 3: Persamaan lingkaran: (x - 1)^2 + (y - 1)^2 = 5^2 = 25.\nKesimpulan: Persamaan lingkaran dengan diameter AB adalah (x - 1)^2 + (y - 1)^2 = 25.",
+        "Langkah 1: Lingkaran menyinggung sumbu-Y (x=0) dan garis x=2 serta garis y=6.\nLangkah 2: Diameter horizontal = 2 - 0 = 2 => Jari-jari r = 1. Absis pusat a = 1.\nLangkah 3: Lingkaran menyinggung y = 6 dari bawah: Ordinat pusat b = 6 - r = 6 - 1 = 5.\nLangkah 4: Pusat P(1, 5) dan r = 1 => (x - 1)^2 + (y - 5)^2 = 1.\nKesimpulan: Persamaan lingkaran adalah (x - 1)^2 + (y - 5)^2 = 1.",
+        "Langkah 1: Pusat P(4, 2) dan menyinggung garis 3x - 4y + 6 = 0.\nLangkah 2: Jari-jari r = |3(4) - 4(2) + 6| / sqrt(3^2 + (-4)^2) = |12 - 8 + 6| / 5 = |10| / 5 = 2.\nLangkah 3: Persamaan lingkaran: (x - 4)^2 + (y - 2)^2 = 2^2 = 4.\nKesimpulan: Persamaan lingkaran adalah (x - 4)^2 + (y - 2)^2 = 4.",
+        "Langkah 1: Titik gempa berada di P(5, -3) dengan radius rambatan r = 10 km => (x - 5)^2 + (y + 3)^2 = 100.\nLangkah 2: Uji letak kota satelit K(11, 5): (11 - 5)^2 + (5 + 3)^2 = 6^2 + 8^2 = 36 + 64 = 100.\nLangkah 3: Karena nilai substitusi tepat sama dengan r^2 = 100, maka kota K berada tepat pada batas lingkaran gelombang seismik.\nKesimpulan: Kota K terletak tepat di batas luar zona rambatan gempa."
+      ]
+    },
+    {
+      "id": "P03",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "Bentuk Umum Persamaan Lingkaran",
+      "obj": [
+        "Mengubah bentuk baku lingkaran ke bentuk umum $x^2 + y^2 + Ax + By + C = 0$.",
+        "Menentukan titik pusat $P(-\\frac{A}{2}, -\\frac{B}{2})$ dan jari-jari $r = \\sqrt{\\frac{A^2}{4} + \\frac{B^2}{4} - C}$.",
+        "Menyelesaikan masalah parameter koefisien lingkaran melalui metode kuadrat sempurna."
+      ],
+      "hook": "Dalam komputasi grafis dan game engine, representasi kuadrat umum $x^2 + y^2 + Ax + By + C = 0$ mempermudah kalkulasi matriks perpotongan poligon.",
+      "toolkit": [
+        {
+          "name": "Bentuk Umum Lingkaran",
+          "math": "$$x^2 + y^2 + Ax + By + C = 0$$"
+        },
+        {
+          "name": "Titik Pusat",
+          "math": "$$P\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right)$$"
+        },
+        {
+          "name": "Jari-Jari Lingkaran",
+          "math": "$$r = \\sqrt{\\left(\\frac{A}{2}\\right)^2 + \\left(\\frac{B}{2}\\right)^2 - C}$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan titik pusat dan panjang jari-jari lingkaran $x^2 + y^2 - 6x + 8y - 11 = 0$!",
+          "solution": "Langkah 1: Dari bentuk umum $x^2 + y^2 + Ax + By + C = 0$, diperoleh $A = -6, B = 8, C = -11$.\nLangkah 2: Titik pusat $P\\left(-\\frac{A}{2}, -\\frac{B}{2}\\right) = P\\left(-\\frac{-6}{2}, -\\frac{8}{2}\\right) = P(3, -4)$.\nLangkah 3: Jari-jari $r = \\sqrt{a^2 + b^2 - C} = \\sqrt{3^2 + (-4)^2 - (-11)} = \\sqrt{9 + 16 + 11} = \\sqrt{36} = 6$.\nKesimpulan: Titik pusat adalah $(3, -4)$ dan jari-jari $r = 6$."
+        },
+        {
+          "problem": "Ubah persamaan lingkaran $(x + 2)^2 + (y - 5)^2 = 9$ ke dalam bentuk umum $x^2 + y^2 + Ax + By + C = 0$!",
+          "solution": "Langkah 1: Jabarkan bentuk kuadrat: $(x^2 + 4x + 4) + (y^2 - 10y + 25) = 9$.\nLangkah 2: Satukan seluruh konstanta ke ruas kiri: $x^2 + y^2 + 4x - 10y + (4 + 25 - 9) = 0$.\nLangkah 3: $x^2 + y^2 + 4x - 10y + 20 = 0$.\nKesimpulan: Bentuk umumnya adalah $x^2 + y^2 + 4x - 10y + 20 = 0$."
+        },
+        {
+          "problem": "Tentukan nilai konstanta $k$ agar persamaan $x^2 + y^2 + 4x - 6y + k = 0$ memiliki jari-jari $r = 5$!",
+          "solution": "Langkah 1: $A = 4, B = -6 \\implies a = -2, b = 3$.\nLangkah 2: Rumus jari-jari: $r^2 = a^2 + b^2 - k \\implies 5^2 = (-2)^2 + 3^2 - k$.\nLangkah 3: $25 = 4 + 9 - k \\implies 25 = 13 - k \\implies k = 13 - 25 = -12$.\nKesimpulan: Nilai konstanta $k$ adalah $-12$."
+        },
+        {
+          "problem": "Tentukan persamaan lingkaran yang melalui 3 titik koordinat $A(0,0)$, $B(4,0)$, dan $C(0,6)$!",
+          "solution": "Langkah 1: Bentuk umum: $x^2 + y^2 + Ax + By + C = 0$.\nLangkah 2: Melalui $(0,0) \\implies C = 0$.\nLangkah 3: Melalui $(4,0) \\implies 16 + 0 + 4A + 0 = 0 \\implies 4A = -16 \\implies A = -4$.\nLangkah 4: Melalui $(0,6) \\implies 0 + 36 + 0 + 6B = 0 \\implies 6B = -36 \\implies B = -6$.\nLangkah 5: Persamaan lingkaran: $x^2 + y^2 - 4x - 6y = 0$.\nKesimpulan: Persamaan lingkarannya adalah $x^2 + y^2 - 4x - 6y = 0$."
+        },
+        {
+          "problem": "Tentukan apakah persamaan $x^2 + y^2 - 2x + 4y + 10 = 0$ merepresentasikan lingkaran nyata, titik, atau lingkaran imajiner!",
+          "solution": "Langkah 1: $a = 1, b = -2, C = 10$.\nLangkah 2: Nilai diskriminan jari-jari: $r^2 = a^2 + b^2 - C = 1^2 + (-2)^2 - 10 = 1 + 4 - 10 = -5$.\nLangkah 3: Karena $r^2 < 0$, tidak ada titik koordinat riil yang memenuhi persamaan tersebut.\nKesimpulan: Persamaan tersebut merepresentasikan **lingkaran imajiner** (himpunan kosong pada bidang riil)."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan persamaan $2x^2 + 2y^2 - 8x + 12y - 6 = 0$. Ubah koefisien utama menjadi 1, lalu tentukan pusat dan jari-jari lingkaran tersebut!",
+      "summary_data": {
+        "summary": [
+          "Bentuk Umum Lingkaran: $x^2 + y^2 + Ax + By + C = 0$.",
+          "Titik pusat: $P\\left(-\\frac{1}{2}A, -\\frac{1}{2}B\\right)$.",
+          "Jari-jari: $r = \\sqrt{\\frac{1}{4}A^2 + \\frac{1}{4}B^2 - C}$ dengan syarat $\\frac{1}{4}A^2 + \\frac{1}{4}B^2 - C > 0$."
+        ],
+        "islamic": "Menemukan titik pusat dari bentuk umum yang tersebar melambangkan proses menemukan kembali jati diri dan nilai luhur ketakwaan dari hiruk-pikuk kehidupan duniawi."
+      },
+      "collab_cases": [
+        "Ubahlah bentuk umum $x^2 + y^2 - 6x + 8y - 11 = 0$ ke bentuk standar $(x-a)^2 + (y-b)^2 = r^2$, tentukan pusat dan jari-jarinya!",
+        "Tentukan nilai $m$ agar persamaan $x^2 + y^2 + 4x - 6y + m = 0$ merepresentasikan lingkaran dengan jari-jari $r = 5$!",
+        "Tentukan persamaan lingkaran yang melalui tiga titik koordinat $A(0,0), B(4,0),$ dan $C(0,6)$!",
+        "Tentukan nilai $A$ dan $B$ jika lingkaran $x^2 + y^2 + Ax + By - 12 = 0$ berpusat di titik $(2, -3)$!",
+        "Buktikan bahwa bentuk $Ax^2 + Ay^2 + Dx + Ey + F = 0$ merepresentasikan lingkaran sejati jika dan hanya jika $D^2 + E^2 - 4AF > 0$!"
+      ],
+      "tagline": "Membongkar Kuadrat Sempurna Menjadi Bentuk Umum Aljabar Persamaan Lingkaran",
+      "collab_solutions": [
+        "Langkah 1: Kelompokkan suku variabel: (x^2 - 6x) + (y^2 + 8y) = 11.\nLangkah 2: Lengkapi kuadrat sempurna: (x - 3)^2 - 9 + (y + 4)^2 - 16 = 11.\nLangkah 3: (x - 3)^2 + (y + 4)^2 = 11 + 9 + 16 = 36.\nLangkah 4: Pusat lingkaran P(3, -4) dan jari-jari r = sqrt(36) = 6.\nKesimpulan: Bentuk standar adalah (x - 3)^2 + (y + 4)^2 = 36 dengan Pusat (3, -4) dan r = 6.",
+        "Langkah 1: Dari x^2 + y^2 + 4x - 6y + m = 0: A = 4, B = -6, C = m.\nLangkah 2: Pusat P(-A/2, -B/2) = P(-2, 3). Jari-jari kuadrat r^2 = (-2)^2 + 3^2 - m = 4 + 9 - m = 13 - m.\nLangkah 3: Diketahui r = 5 => r^2 = 25 => 13 - m = 25 => m = 13 - 25 = -12.\nKesimpulan: Nilai konstanta m adalah m = -12.",
+        "Langkah 1: Bentuk umum x^2 + y^2 + Ax + By + C = 0. Titik A(0,0) => C = 0.\nLangkah 2: Titik B(4,0) => 16 + 0 + 4A + 0 = 0 => 4A = -16 => A = -4.\nLangkah 3: Titik C(0,6) => 0 + 36 + 0 + 6B = 0 => 6B = -36 => B = -6.\nLangkah 4: Persamaan: x^2 + y^2 - 4x - 6y = 0 => (x - 2)^2 + (y - 3)^2 = 13.\nKesimpulan: Persamaan lingkaran adalah x^2 + y^2 - 4x - 6y = 0.",
+        "Langkah 1: Persamaan kurva: 2x^2 + 2y^2 - 8x + 12y - 24 = 0. Bagi 2: x^2 + y^2 - 4x + 6y - 12 = 0.\nLangkah 2: Lengkapi kuadrat: (x - 2)^2 + (y + 3)^2 = 12 + 4 + 9 = 25.\nLangkah 3: Luas lingkaran = pi * r^2 = pi * 25 = 25 pi.\nKesimpulan: Luas daerah lingkaran adalah 25 pi satuan luas.",
+        "Langkah 1: Syarat lingkaran nyata berjejari real adalah r^2 = (A/2)^2 + (B/2)^2 - C > 0.\nLangkah 2: Jika r^2 = 0, persamaan menyatakan lingkaran titik. Jika r^2 < 0, persamaan menyatakan lingkaran imajiner.\nKesimpulan: Terbukti bahwa tanda diskriminan jari-jari r^2 mengklasifikasikan geometri lingkaran."
+      ]
+    },
+    {
+      "id": "P04",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "Kedudukan Titik Terhadap Lingkaran (Uji Kuasa)",
+      "obj": [
+        "Menentukan nilai kuasa titik $K(x_1, y_1)$ terhadap lingkaran.",
+        "Mengklasifikasikan posisi titik: di dalam lingkaran ($K < 0$), pada lingkaran ($K = 0$), atau di luar lingkaran ($K > 0$).",
+        "Menghitung jarak terpendek dan terjauh dari suatu titik ke busur lingkaran."
+      ],
+      "hook": "Apakah kapal patroli penjaga pantai berada di dalam zona bahaya terumbu karang yang dipetakan sebagai lingkaran pembatas?",
+      "toolkit": [
+        {
+          "name": "Nilai Kuasa Titik K",
+          "math": "$$K = (x_1 - a)^2 + (y_1 - b)^2 - r^2$$"
+        },
+        {
+          "name": "Kriteria Posisi Titik",
+          "math": "$$K < 0 \\implies \\text{Di Dalam}, \\quad K = 0 \\implies \\text{Pada Busur}, \\quad K > 0 \\implies \\text{Di Luar}$$"
+        },
+        {
+          "name": "Jarak Terdekat & Terjauh Titik Luar",
+          "math": "$$d_{\\min} = d - r, \\quad d_{\\max} = d + r \\quad (d = \\text{jarak ke pusat})$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan kedudukan titik $A(4, -2)$ terhadap lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$!",
+          "solution": "Langkah 1: Substitusikan koordinat titik $A(4, -2)$ ke ruas kiri (nilai kuasa $K$):\n$K = 4^2 + (-2)^2 - 4(4) + 6(-2) - 12$.\nLangkah 2: $K = 16 + 4 - 16 - 12 - 12 = -20$.\nLangkah 3: Karena $K < 0$, maka titik terletak di **dalam** lingkaran.\nKesimpulan: Titik $A(4, -2)$ berada di dalam lingkaran."
+        },
+        {
+          "problem": "Tentukan batas nilai $k$ agar titik $P(k, 3)$ terletak di luar lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Syarat titik di luar lingkaran: $x^2 + y^2 > r^2$.\nLangkah 2: $k^2 + 3^2 > 25 \\implies k^2 + 9 > 25 \\implies k^2 > 16$.\nLangkah 3: $k < -4$ atau $k > 4$.\nKesimpulan: Batas nilai $k$ adalah $k < -4$ atau $k > 4$."
+        },
+        {
+          "problem": "Tentukan jarak terdekat dari titik $T(7, 9)$ ke busur lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Pusat lingkaran $O(0,0)$ dan jari-jari $r = 5$.\nLangkah 2: Jarak titik $T(7, 9)$ ke pusat: $d = \\sqrt{7^2 + 9^2} = \\sqrt{49 + 81} = \\sqrt{130} \\approx 11{,}40$.\nLangkah 3: Jarak terdekat ke busur lingkaran adalah $d_{\\text{min}} = d - r = \\sqrt{130} - 5 \\approx 6{,}40$.\nKesimpulan: Jarak terdekat titik $T$ ke lingkaran adalah $\\sqrt{130} - 5$ satuan."
+        },
+        {
+          "problem": "Tentukan panjang ruas garis singgung yang ditarik dari titik $P(8, 6)$ ke lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Nilai kuasa titik $P(8, 6)$ terhadap lingkaran: $K = 8^2 + 6^2 - 25 = 64 + 36 - 25 = 75$.\nLangkah 2: Panjang garis singgung $L = \\sqrt{K} = \\sqrt{75} = 5\\sqrt{3}$.\nKesimpulan: Panjang garis singgung dari titik $P$ ke lingkaran adalah $5\\sqrt{3}$ satuan."
+        },
+        {
+          "problem": "Zona aman radiasi BTS pemancar sinyal dimodelkan oleh lingkaran $(x - 3)^2 + (y + 1)^2 \\le 100$. Apakah pemukiman warga di koordinat $W(11, 5)$ berada di dalam zona aman?",
+          "solution": "Langkah 1: Uji kuasa titik $W(11, 5)$: $K = (11 - 3)^2 + (5 + 1)^2 = 8^2 + 6^2 = 64 + 36 = 100$.\nLangkah 2: Karena $K = 100$, titik $W$ tepat berada pada batas terluar (*boundary*) lingkaran zona aman radiasi.\nKesimpulan: Pemukiman warga berada tepat di perbatasan busur terluar zona aman radiasi BTS."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan titik $P(1, 1)$ dan lingkaran $x^2 + y^2 - 6x - 8y + 21 = 0$. Ujilah posisi titik $P$, lalu hitung panjang garis singgung dari $P$ ke lingkaran tersebut!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Kedudukan Titik Terhadap Lingkaran (Uji Kuasa).",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Kedudukan Titik Terhadap Lingkaran (Uji Kuasa) menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Selidikilah kedudukan titik $K(5, -2), L(1, 3),$ dan $M(4, 4)$ terhadap lingkaran $L \\equiv (x-2)^2 + (y+1)^2 = 25$!",
+        "Tentukan batas-batas nilai $k$ agar titik $P(k, 2)$ terletak di DALAM lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$!",
+        "Hitunglah panjang ruas garis singgung yang ditarik dari titik $T(8, 6)$ ke lingkaran $x^2 + y^2 - 2x - 4y - 20 = 0$!",
+        "Tentukan kuasa titik $P(4, -1)$ terhadap lingkaran $x^2 + y^2 - 6x + 2y + 6 = 0$ dan berikan tafsiran geometrisnya!",
+        "Tentukan persamaan garis kuasa (*radical axis*) dari dua lingkaran $L_1 \\equiv x^2 + y^2 - 4 = 0$ dan $L_2 \\equiv x^2 + y^2 - 4x - 2y + 1 = 0$!"
+      ],
+      "tagline": "Menguji Posisi Titik: Di Dalam, Tepat pada Busur, atau di Luar Lingkaran?",
+      "collab_solutions": [
+        "Langkah 1: Kuasa titik K(5, -2): K = 5^2 + (-2)^2 - 25 = 25 + 4 - 25 = 4 > 0 (Titik K di LUAR lingkaran).\nLangkah 2: Kuasa titik L(1, 3): K = 1^2 + 3^2 - 25 = 1 + 9 - 25 = -15 < 0 (Titik L di DALAM lingkaran).\nLangkah 3: Kuasa titik M(4, 3): K = 4^2 + 3^2 - 25 = 16 + 9 - 25 = 0 (Titik M pada LINGKARAN).\nKesimpulan: Titik K di luar, titik L di dalam, dan titik M terletak pada busur lingkaran.",
+        "Langkah 1: Titik P(k, 2) terletak di dalam x^2 + y^2 - 4x - 6y - 12 = 0.\nLangkah 2: Substitusikan P(k, 2): k^2 + 2^2 - 4k - 6(2) - 12 < 0.\nLangkah 3: k^2 + 4 - 4k - 12 - 12 < 0 => k^2 - 4k - 20 < 0.\nLangkah 4: Pembuat nol: k = [4 ± sqrt(16 - 4(1)(-20))] / 2 = [4 ± sqrt(96)] / 2 = 2 ± 2sqrt(6).\nKesimpulan: Batas nilai k adalah 2 - 2sqrt(6) < k < 2 + 2sqrt(6).",
+        "Langkah 1: Nilai kuasa titik T(8, 6) terhadap lingkaran x^2 + y^2 = 25 adalah K = 8^2 + 6^2 - 25 = 64 + 36 - 25 = 75.\nLangkah 2: Panjang garis singgung d = sqrt(K) = sqrt(75) = 5sqrt(3).\nKesimpulan: Panjang ruas garis singgung adalah 5sqrt(3) satuan.",
+        "Langkah 1: Pusat lingkaran x^2 + y^2 - 6x + 8y = 0 adalah P(3, -4) dan r^2 = 3^2 + (-4)^2 = 25 => r = 5.\nLangkah 2: Jarak titik T(10, 20) ke pusat P(3, -4): d = sqrt((10-3)^2 + (20 - (-4))^2) = sqrt(7^2 + 24^2) = sqrt(49 + 576) = sqrt(625) = 25.\nLangkah 3: Jarak terdekat ke busur = d - r = 25 - 5 = 20. Jarak terjauh = d + r = 25 + 5 = 30.\nKesimpulan: Jarak terdekat adalah 20 satuan dan jarak terjauh adalah 30 satuan.",
+        "Langkah 1: Menara BTS di (0,0) dengan radius sinyal r = 15 km => x^2 + y^2 = 225.\nLangkah 2: Uji letak pemukiman A(9, 12): 9^2 + 12^2 = 81 + 144 = 225 = r^2 (Berada tepat pada batas jangkauan sinyal).\nLangkah 3: Uji pemukiman B(10, 12): 10^2 + 12^2 = 100 + 144 = 244 > 225 (Di luar jangkauan sinyal).\nKesimpulan: Pemukiman A terjangkau sinyal, sedangkan pemukiman B berada di luar area layanan."
+      ]
+    },
+    {
+      "id": "P05",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "Kedudukan Garis Terhadap Lingkaran (Uji Diskriminan)",
+      "obj": [
+        "Menentukan kedudukan garis $y = mx + c$ terhadap lingkaran melalui substitusi aljabar.",
+        "Menggunakan nilai diskriminan $D = b^2 - 4ac$ untuk mengidentifikasi kondisi memotong ($D > 0$), menyinggung ($D = 0$), atau tidak memotong ($D < 0$).",
+        "Menentukan nilai parameter konstanta agar garis menyinggung lingkaran."
+      ],
+      "hook": "Lintasan orbit satelit atau lintasan komet dimodelkan sebagai garis lurus yang dapat memotong, menyinggung, atau meleset bebas dari atmosfer planet.",
+      "toolkit": [
+        {
+          "name": "Substitusi Garis ke Lingkaran",
+          "math": "$$y = mx + c \\implies x^2 + (mx+c)^2 + Ax + B(mx+c) + C = 0$$"
+        },
+        {
+          "name": "Kriteria Diskriminan D",
+          "math": "$$D > 0 \\implies \\text{2 Titik Potong}, \\quad D = 0 \\implies \\text{Menyinggung (1 Titik)}, \\quad D < 0 \\implies \\text{Saling Lepas}$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan kedudukan garis $y = 2x + 1$ terhadap lingkaran $x^2 + y^2 = 25$ menggunakan uji Diskriminan!",
+          "solution": "Langkah 1: Substitusikan $y = 2x + 1$ ke persamaan lingkaran: $x^2 + (2x + 1)^2 = 25$.\nLangkah 2: $x^2 + 4x^2 + 4x + 1 - 25 = 0 \\implies 5x^2 + 4x - 24 = 0$.\nLangkah 3: Hitung diskriminan $D = b^2 - 4ac = 4^2 - 4(5)(-24) = 16 + 480 = 496$.\nLangkah 4: Karena $D > 0$, maka garis **memotong lingkaran di dua titik berbeda**.\nKesimpulan: Garis memotong lingkaran di dua titik berbeda."
+        },
+        {
+          "problem": "Tentukan nilai konstanta $k > 0$ agar garis $y = x + k$ menyinggung lingkaran $x^2 + y^2 = 18$!",
+          "solution": "Langkah 1: Substitusikan $y = x + k$: $x^2 + (x + k)^2 = 18 \\implies 2x^2 + 2kx + (k^2 - 18) = 0$.\nLangkah 2: Syarat menyinggung: $D = 0 \\implies (2k)^2 - 4(2)(k^2 - 18) = 0$.\nLangkah 3: $4k^2 - 8k^2 + 144 = 0 \\implies -4k^2 = -144 \\implies k^2 = 36 \\implies k = 6$ (karena $k > 0$).\nKesimpulan: Nilai konstanta $k$ adalah $6$."
+        },
+        {
+          "problem": "Tentukan koordinat titik-titik potong antara garis $x + y = 7$ dan lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: $y = 7 - x$. Substitusikan ke lingkaran: $x^2 + (7 - x)^2 = 25$.\nLangkah 2: $x^2 + 49 - 14x + x^2 - 25 = 0 \\implies 2x^2 - 14x + 24 = 0 \\implies x^2 - 7x + 12 = 0$.\nLangkah 3: $(x - 3)(x - 4) = 0 \\implies x_1 = 3$ atau $x_2 = 4$.\nLangkah 4: Untuk $x = 3 \\implies y = 7 - 3 = 4 \\implies (3, 4)$. Untuk $x = 4 \\implies y = 7 - 4 = 3 \\implies (4, 3)$.\nKesimpulan: Titik-titik potongnya adalah $(3, 4)$ dan $(4, 3)$."
+        },
+        {
+          "problem": "Buktikan bahwa garis $3x + 4y - 25 = 0$ menyinggung lingkaran $x^2 + y^2 = 25$ dan tentukan titik singgungnya!",
+          "solution": "Langkah 1: Jarak pusat $O(0,0)$ ke garis: $d = \\frac{|3(0) + 4(0) - 25|}{\\sqrt{3^2 + 4^2}} = \\frac{25}{5} = 5$.\nLangkah 2: Karena jarak $d = r = 5$, garis terbukti menyinggung lingkaran.\nLangkah 3: Titik singgung berada pada vektor tegak lurus: $\\left(\\frac{3}{5} \\cdot 5, \\frac{4}{5} \\cdot 5\\right) = (3, 4)$.\nKesimpulan: Terbukti menyinggung pada titik $(3, 4)$."
+        },
+        {
+          "problem": "Tentukan batas nilai $m$ agar garis $y = mx + 5$ tidak memotong maupun menyinggung lingkaran $x^2 + y^2 = 9$ ($D < 0$)!",
+          "solution": "Langkah 1: Substitusi: $x^2 + (mx + 5)^2 = 9 \\implies (m^2 + 1)x^2 + 10mx + 16 = 0$.\nLangkah 2: Syarat $D < 0$: $(10m)^2 - 4(m^2 + 1)(16) < 0 \\implies 100m^2 - 64m^2 - 64 < 0$.\nLangkah 3: $36m^2 < 64 \\implies m^2 < \\frac{64}{36} = \\frac{16}{9} \\implies -\\frac{4}{3} < m < \\frac{4}{3}$.\nKesimpulan: Batas nilai gradien adalah $-\\frac{4}{3} < m < \\frac{4}{3}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan batas-batas nilai $m$ agar garis $y = mx + 5$ tidak memotong maupun menyinggung lingkaran $x^2 + y^2 = 9$ ($D < 0$)!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Kedudukan Garis Terhadap Lingkaran (Uji Diskriminan).",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Kedudukan Garis Terhadap Lingkaran (Uji Diskriminan) menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan kedudukan garis $y = 2x + 1$ terhadap lingkaran $x^2 + y^2 = 5$ dengan menghitung nilai diskriminan $D$!",
+        "Tentukan batas nilai $m$ agar garis $y = mx + 2$ memotong lingkaran $x^2 + y^2 - 4x - 6 = 0$ di dua titik berbeda!",
+        "Tentukan titik potong garis $x + y = 4$ dengan lingkaran $x^2 + y^2 - 2x - 4y = 0$ dan hitung panjang tali busur persekutuannya!",
+        "Tentukan nilai $c$ agar garis $3x + 4y + c = 0$ menyinggung lingkaran $x^2 + y^2 = 25$ ($D = 0$)!",
+        "Buktikan secara aljabar bahwa tali busur terpanjang pada lingkaran adalah diameter lingkaran yang melalui titik pusatnya!"
+      ],
+      "tagline": "Uji Diskriminan Penentu: Garis yang Memotong, Menyinggung, atau Melayang Bebas",
+      "collab_solutions": [
+        "Langkah 1: Substitusikan garis y = 2x + 1 ke lingkaran x^2 + y^2 - 4x + 2y - 20 = 0.\nLangkah 2: x^2 + (2x + 1)^2 - 4x + 2(2x + 1) - 20 = 0 => x^2 + 4x^2 + 4x + 1 - 4x + 4x + 2 - 20 = 0 => 5x^2 + 4x - 17 = 0.\nLangkah 3: Diskriminan D = b^2 - 4ac = 4^2 - 4(5)(-17) = 16 + 340 = 356 > 0.\nLangkah 4: Karena D > 0, garis memotong lingkaran di dua titik berbeda.\nKesimpulan: Garis memotong lingkaran di dua titik koordinat berbeda.",
+        "Langkah 1: Garis 3x - 4y + k = 0 menyinggung lingkaran x^2 + y^2 = 25 (pusat (0,0), r = 5).\nLangkah 2: Jarak pusat ke garis harus sama dengan jari-jari: d = |3(0) - 4(0) + k| / sqrt(3^2 + (-4)^2) = 5.\nLangkah 3: |k| / 5 = 5 => |k| = 25 => k = 25 atau k = -25.\nKesimpulan: Nilai konstanta k adalah k = 25 atau k = -25.",
+        "Langkah 1: Substitusikan garis y = 7 - x ke lingkaran x^2 + y^2 = 25: x^2 + (7 - x)^2 = 25.\nLangkah 2: x^2 + 49 - 14x + x^2 = 25 => 2x^2 - 14x + 24 = 0 => Bagi 2: x^2 - 7x + 12 = 0.\nLangkah 3: Faktorkan: (x - 3)(x - 4) = 0 => x1 = 3 (y1 = 4) dan x2 = 4 (y2 = 3).\nKesimpulan: Titik-titik potongnya adalah (3, 4) dan (4, 3).",
+        "Langkah 1: Pusat lingkaran x^2 + y^2 = 25 adalah O(0,0) dan r = 5. Garis 3x + 4y - 25 = 0.\nLangkah 2: Jarak pusat ke garis d = |3(0) + 4(0) - 25| / sqrt(3^2 + 4^2) = |-25| / 5 = 5 = r (Menyinggung).\nLangkah 3: Titik singgung: Substitusi y = (25 - 3x)/4 => Diperoleh titik tunggal (3, 4).\nKesimpulan: Terbukti garis menyinggung lingkaran tepat di titik koordinat (3, 4).",
+        "Langkah 1: Garis y = mx + 10 dan lingkaran x^2 + y^2 = 36. Jarak pusat (0,0) ke garis d = |10| / sqrt(m^2 + 1).\nLangkah 2: Syarat garis tidak memotong (melayang di luar): d > r => 10 / sqrt(m^2 + 1) > 6.\nLangkah 3: 100 / (m^2 + 1) > 36 => m^2 + 1 < 100/36 = 25/9 => m^2 < 16/9 => -4/3 < m < 4/3.\nKesimpulan: Batas nilai gradien m adalah -4/3 < m < 4/3."
+      ]
+    },
+    {
+      "id": "P06",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "PGSL Melalui Titik Pada Lingkaran (Metode Bagi Adil)",
+      "obj": [
+        "Memahami prinsip metode Bagi Adil (pemisahan variabel) untuk menentukan PGSL.",
+        "Menentukan persamaan garis singgung pada lingkaran pusat $O(0,0)$ di titik singgung $(x_1, y_1)$.",
+        "Menentukan persamaan garis singgung pada lingkaran pusat $P(a,b)$ dan bentuk umum."
+      ],
+      "hook": "Garis singgung lingkaran selalu tegak lurus sempurna ($90^\\circ$) terhadap jari-jari yang menghubungkan pusat ke titik kontak singgung.",
+      "toolkit": [
+        {
+          "name": "Bagi Adil Pusat O(0,0)",
+          "math": "$$x_1 x + y_1 y = r^2$$"
+        },
+        {
+          "name": "Bagi Adil Pusat P(a,b)",
+          "math": "$$(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$$"
+        },
+        {
+          "name": "Bagi Adil Bentuk Umum",
+          "math": "$$x_1 x + y_1 y + \\frac{A}{2}(x + x_1) + \\frac{B}{2}(y + y_1) + C = 0$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 25$ di titik $T(3, -4)$!",
+          "solution": "Langkah 1: Cek titik pada lingkaran: $3^2 + (-4)^2 = 9 + 16 = 25$ (Valid pada lingkaran).\nLangkah 2: Metode bagi adil untuk pusat $O(0,0)$: $x_1 x + y_1 y = r^2$.\nLangkah 3: $3x + (-4)y = 25 \\implies 3x - 4y = 25$.\nKesimpulan: Persamaan garis singgung adalah $3x - 4y = 25$."
+        },
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $(x - 1)^2 + (y + 2)^2 = 25$ di titik $A(4, 2)$!",
+          "solution": "Langkah 1: Rumus bagi adil: $(x_1 - a)(x - a) + (y_1 - b)(y - b) = r^2$.\nLangkah 2: Masukkan $(x_1, y_1) = (4, 2)$ dan pusat $(1, -2)$:\n$(4 - 1)(x - 1) + (2 - (-2))(y + 2) = 25$.\nLangkah 3: $3(x - 1) + 4(y + 2) = 25 \\implies 3x - 3 + 4y + 8 = 25 \\implies 3x + 4y + 5 = 25 \\implies 3x + 4y = 20$.\nKesimpulan: Persamaan garis singgung adalah $3x + 4y = 20$."
+        },
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$ di titik $P(5, 1)$!",
+          "solution": "Langkah 1: Rumus bagi adil bentuk umum: $x_1 x + y_1 y + \\frac{A}{2}(x + x_1) + \\frac{B}{2}(y + y_1) + C = 0$.\nLangkah 2: $A = -4, B = 6, C = -12, (x_1, y_1) = (5, 1)$:\n$5x + 1y - 2(x + 5) + 3(y + 1) - 12 = 0$.\nLangkah 3: $5x + y - 2x - 10 + 3y + 3 - 12 = 0 \\implies 3x + 4y - 19 = 0$.\nKesimpulan: Persamaan garis singgung adalah $3x + 4y - 19 = 0$."
+        },
+        {
+          "problem": "Tentukan persamaan garis normal (garis yang tegak lurus garis singgung di titik singgung) pada lingkaran $x^2 + y^2 = 25$ di titik $(3, 4)$!",
+          "solution": "Langkah 1: Garis normal pada lingkaran selalu melalui titik pusat lingkaran $O(0,0)$ dan titik singgung $(3, 4)$.\nLangkah 2: Gradien garis normal $m_n = \\frac{4 - 0}{3 - 0} = \\frac{4}{3}$.\nLangkah 3: Persamaan garis normal: $y - 0 = \\frac{4}{3}(x - 0) \\implies 4x - 3y = 0$.\nKesimpulan: Persamaan garis normal adalah $4x - 3y = 0$."
+        },
+        {
+          "problem": "Sebuah roda gigi melingkar $(x - 2)^2 + (y - 3)^2 = 20$ bersinggungan dengan batang penggerak di titik $(4, 7)$. Tentukan persamaan garis lintasan batang penggerak tersebut!",
+          "solution": "Langkah 1: Bagi adil di $(4, 7)$: $(4 - 2)(x - 2) + (7 - 3)(y - 3) = 20$.\nLangkah 2: $2(x - 2) + 4(y - 3) = 20 \\implies 2x - 4 + 4y - 12 = 20 \\implies 2x + 4y - 16 = 20 \\implies 2x + 4y = 36$.\nLangkah 3: Sederhanakan bagi 2: $x + 2y = 18$.\nKesimpulan: Persamaan garis lintasan batang penggerak adalah $x + 2y = 18$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan persamaan garis normal (garis yang tegak lurus garis singgung di titik singgung) untuk lingkaran $x^2 + y^2 = 25$ di titik $(3, 4)$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi PGSL Melalui Titik Pada Lingkaran (Metode Bagi Adil).",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran PGSL Melalui Titik Pada Lingkaran (Metode Bagi Adil) menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 25$ di titik $A(3, -4)$ menggunakan rumus bagi adil!",
+        "Tentukan persamaan garis singgung lingkaran $(x-2)^2 + (y+3)^2 = 20$ di titik yang berabsis $x = 4$!",
+        "Garis singgung pada $x^2 + y^2 - 4x + 6y - 12 = 0$ di $(5, 1)$ memotong sumbu-$X$ di $P$ dan sumbu-$Y$ di $Q$. Tentukan luas $\\Delta OPQ$!",
+        "Tentukan persamaan garis normal lingkaran $(x+1)^2 + (y-2)^2 = 13$ di titik $(2, 4)$!",
+        "Buktikan bahwa garis singgung lingkaran di titik $P(x_1, y_1)$ selalu tegak lurus dengan jari-jari yang menghubungkan pusat ke titik $P$!"
+      ],
+      "tagline": "Membagi Adil Variabel untuk Menemukan Garis Singgung di Titik Lengkung",
+      "collab_solutions": [
+        "Langkah 1: Uji letak titik T(3, -4) pada x^2 + y^2 = 25: 3^2 + (-4)^2 = 9 + 16 = 25 (Titik pada lingkaran).\nLangkah 2: Rumus Bagi Adil: x1 x + y1 y = r^2.\nLangkah 3: 3x + (-4)y = 25 => 3x - 4y - 25 = 0.\nKesimpulan: Persamaan garis singgung lingkaran adalah 3x - 4y = 25.",
+        "Langkah 1: Titik A(4, 2) pada (x - 1)^2 + (y + 2)^2 = 25: (4-1)^2 + (2+2)^2 = 9 + 16 = 25 (Pada lingkaran).\nLangkah 2: Rumus Bagi Adil: (x1 - a)(x - a) + (y1 - b)(y - b) = r^2.\nLangkah 3: (4 - 1)(x - 1) + (2 - (-2))(y + 2) = 25 => 3(x - 1) + 4(y + 2) = 25 => 3x - 3 + 4y + 8 = 25 => 3x + 4y = 20.\nKesimpulan: Persamaan garis singgung adalah 3x + 4y = 20.",
+        "Langkah 1: Titik P(5, 1) pada x^2 + y^2 - 4x + 6y - 12 = 0: 25 + 1 - 20 + 6 - 12 = 0.\nLangkah 2: Bagi Adil: x1 x + y1 y + A/2(x + x1) + B/2(y + y1) + C = 0.\nLangkah 3: 5x + 1y - 2(x + 5) + 3(y + 1) - 12 = 0 => 5x + y - 2x - 10 + 3y + 3 - 12 = 0 => 3x + 4y - 19 = 0.\nKesimpulan: Persamaan garis singgung adalah 3x + 4y - 19 = 0.",
+        "Langkah 1: Titik singgung T(3, 4) pada x^2 + y^2 = 25. Gradien jari-jari OT: m_r = (4 - 0)/(3 - 0) = 4/3.\nLangkah 2: Garis normal tegak lurus garis singgung (searah jari-jari OT): m_normal = 4/3.\nLangkah 3: Persamaan garis normal melalui (0,0) dan (3,4): y - 0 = 4/3(x - 0) => 4x - 3y = 0.\nKesimpulan: Persamaan garis normal adalah 4x - 3y = 0.",
+        "Langkah 1: Roda gigi berpusat di P(2, 3) melalui titik kontak T(4, 7). Jari-jari kuadrat r^2 = (4-2)^2 + (7-3)^2 = 4 + 16 = 20.\nLangkah 2: Persamaan lintasan singgung (Bagi Adil): (4 - 2)(x - 2) + (7 - 3)(y - 3) = 20.\nLangkah 3: 2(x - 2) + 4(y - 3) = 20 => 2x - 4 + 4y - 12 = 20 => 2x + 4y = 36 => x + 2y = 18.\nKesimpulan: Persamaan garis lintasan singgung adalah x + 2y = 18."
+      ]
+    },
+    {
+      "id": "P07",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "PGSL dengan Gradien m Tertentu",
+      "obj": [
+        "Menentukan persamaan garis singgung lingkaran jika diketahui nilai gradien kemiringan $m$.",
+        "Menentukan PGSL yang sejajar ($m_1 = m_2$) atau tegak lurus ($m_1 \\cdot m_2 = -1$) terhadap garis lain.",
+        "Memahami mengapa setiap nilai gradien $m$ menghasilkan dua garis singgung sejajar."
+      ],
+      "hook": "Merancang jalur rel kereta api ekspres atau jalan tol layang yang harus sejajar dengan lereng bukit melingkar.",
+      "toolkit": [
+        {
+          "name": "PGSL Gradien m Pusat O(0,0)",
+          "math": "$$y = mx \\pm r\\sqrt{1 + m^2}$$"
+        },
+        {
+          "name": "PGSL Gradien m Pusat P(a,b)",
+          "math": "$$y - b = m(x - a) \\pm r\\sqrt{1 + m^2}$$"
+        },
+        {
+          "name": "Relasi Dua Garis",
+          "math": "$$\\text{Sejajar: } m_1 = m_2 \\quad | \\quad \\text{Tegak Lurus: } m_1 \\cdot m_2 = -1$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 20$ yang memiliki gradien $m = 2$!",
+          "solution": "Langkah 1: Rumus PGSL gradien $m$ pusat $O(0,0)$: $y = mx \\pm r\\sqrt{1 + m^2}$.\nLangkah 2: $r^2 = 20 \\implies r = \\sqrt{20}, m = 2$.\nLangkah 3: $y = 2x \\pm \\sqrt{20}\\sqrt{1 + 2^2} = 2x \\pm \\sqrt{20}\\sqrt{5} = 2x \\pm \\sqrt{100} = 2x \\pm 10$.\nKesimpulan: Persamaan garis singgungnya adalah $y = 2x + 10$ dan $y = 2x - 10$."
+        },
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $(x - 2)^2 + (y + 1)^2 = 25$ yang sejajar dengan garis $3x - 4y + 8 = 0$!",
+          "solution": "Langkah 1: Gradien garis sejajar: $3x - 4y + 8 = 0 \\implies m = \\frac{3}{4}$.\nLangkah 2: Pusat $(a, b) = (2, -1)$, $r = 5$.\nLangkah 3: Rumus: $y - b = m(x - a) \\pm r\\sqrt{1 + m^2}$.\nLangkah 4: $y - (-1) = \\frac{3}{4}(x - 2) \\pm 5\\sqrt{1 + \\left(\\frac{3}{4}\\right)^2} = \\frac{3}{4}(x - 2) \\pm 5\\left(\\frac{5}{4}\\right) = \\frac{3}{4}(x - 2) \\pm \\frac{25}{4}$.\nLangkah 5: Kalikan 4: $4(y + 1) = 3(x - 2) \\pm 25 \\implies 4y + 4 = 3x - 6 \\pm 25 \\implies 3x - 4y - 10 \\pm 25 = 0$.\nKesimpulan: $3x - 4y + 15 = 0$ dan $3x - 4y - 35 = 0$."
+        },
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 16$ yang tegak lurus terhadap garis $x + 2y - 4 = 0$!",
+          "solution": "Langkah 1: Gradien garis $x + 2y - 4 = 0$ adalah $m_1 = -\\frac{1}{2}$.\nLangkah 2: Syarat tegak lurus: $m_2 = -\\frac{1}{m_1} = 2$.\nLangkah 3: $y = 2x \\pm 4\\sqrt{1 + 2^2} = 2x \\pm 4\\sqrt{5}$.\nKesimpulan: Persamaan garis singgung adalah $y = 2x + 4\\sqrt{5}$ dan $y = 2x - 4\\sqrt{5}$."
+        },
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 4x + 2y - 20 = 0$ yang membentuk sudut $45^\\circ$ terhadap sumbu-$X$ positif!",
+          "solution": "Langkah 1: Gradien $m = \\tan(45^\\circ) = 1$.\nLangkah 2: Pusat $P(2, -1)$, jari-jari $r = \\sqrt{2^2 + (-1)^2 - (-20)} = \\sqrt{4 + 1 + 20} = \\sqrt{25} = 5$.\nLangkah 3: $y - (-1) = 1(x - 2) \\pm 5\\sqrt{1 + 1^2} \\implies y + 1 = x - 2 \\pm 5\\sqrt{2} \\implies y = x - 3 \\pm 5\\sqrt{2}$.\nKesimpulan: Persamaan garis singgung adalah $y = x - 3 + 5\\sqrt{2}$ dan $y = x - 3 - 5\\sqrt{2}$."
+        },
+        {
+          "problem": "Dua garis singgung sejajar ditarik pada lingkaran $(x - 1)^2 + (y - 3)^2 = 10$ dengan gradien $m = 3$. Tentukan jarak tegak lurus antara kedua garis singgung sejajar tersebut!",
+          "solution": "Langkah 1: Dua garis singgung lingkaran yang saling sejajar menyinggung lingkaran di titik-titik ujung diameter yang berlawanan.\nLangkah 2: Jarak antara kedua garis singgung sejajar sama dengan panjang diameter lingkaran ($d = 2r$).\nLangkah 3: Jari-jari $r = \\sqrt{10} \\implies d = 2\\sqrt{10}$.\nKesimpulan: Jarak antara kedua garis singgung sejajar adalah $2\\sqrt{10}$ satuan."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 4x + 2y - 5 = 0$ yang membentuk sudut $45^\\circ$ terhadap sumbu-X positif ($m = \\tan 45^\\circ = 1$)!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi PGSL dengan Gradien m Tertentu.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran PGSL dengan Gradien m Tertentu menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 16$ yang bergradien $m = -\\frac{3}{4}$!",
+        "Tentukan persamaan garis singgung lingkaran $(x+1)^2 + (y-3)^2 = 25$ yang sejajar garis $3x - 4y + 8 = 0$!",
+        "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 - 6x + 4y - 3 = 0$ yang tegak lurus garis $2x + y = 7$!",
+        "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 36$ yang membentuk sudut $60^\\circ$ terhadap sumbu-$X$ positif!",
+        "Tentukan jarak antara dua garis singgung sejajar yang bergradien $m = 2$ pada lingkaran $(x-1)^2 + (y+2)^2 = 20$!"
+      ],
+      "tagline": "Menentukan Garis Singgung Lingkaran dengan Sudut Kemiringan & Gradien Tertentu",
+      "collab_solutions": [
+        "Langkah 1: Lingkaran x^2 + y^2 = 20 (pusat (0,0), r = sqrt(20) = 2sqrt(5)). Gradien m = 2.\nLangkah 2: Rumus PGSL gradien m: y = mx ± r sqrt(m^2 + 1).\nLangkah 3: y = 2x ± 2sqrt(5) * sqrt(2^2 + 1) = 2x ± 2sqrt(5) * sqrt(5) = 2x ± 10.\nKesimpulan: Persamaan garis singgungnya adalah y = 2x + 10 dan y = 2x - 10.",
+        "Langkah 1: Garis 3x - 4y + 8 = 0 => Gradien m = 3/4. Karena sejajar, m_singgung = 3/4.\nLangkah 2: Lingkaran (x - 2)^2 + (y + 1)^2 = 25 (pusat P(2, -1), r = 5).\nLangkah 3: y - b = m(x - a) ± r sqrt(m^2 + 1) => y + 1 = 3/4(x - 2) ± 5 sqrt((3/4)^2 + 1) = 3/4(x - 2) ± 5(5/4) = 3/4(x - 2) ± 25/4.\nLangkah 4: Kalikan 4: 4y + 4 = 3(x - 2) ± 25 => 4y + 4 = 3x - 6 ± 25 => 3x - 4y - 10 ± 25 = 0.\n- Garis 1: 3x - 4y + 15 = 0.\n- Garis 2: 3x - 4y - 35 = 0.\nKesimpulan: Persamaan kedua garis singgung adalah 3x - 4y + 15 = 0 dan 3x - 4y - 35 = 0.",
+        "Langkah 1: Garis x + 2y - 4 = 0 => m1 = -1/2. Garis singgung tegak lurus => m = -1 / (-1/2) = 2.\nLangkah 2: Lingkaran x^2 + y^2 = 16 (pusat (0,0), r = 4).\nLangkah 3: y = 2x ± 4 sqrt(2^2 + 1) = 2x ± 4sqrt(5).\nKesimpulan: Persamaan garis singgung adalah y = 2x + 4sqrt(5) dan y = 2x - 4sqrt(5).",
+        "Langkah 1: Garis singgung membentuk sudut 45 derajat terhadap sumbu-X positif => m = tan(45°) = 1.\nLangkah 2: Lingkaran (x - 3)^2 + y^2 = 25 (pusat (3, 0), r = 5).\nLangkah 3: y - 0 = 1(x - 3) ± 5 sqrt(1^2 + 1) => y = x - 3 ± 5sqrt(2).\nKesimpulan: Persamaan garis singgung adalah y = x - 3 + 5sqrt(2) dan y = x - 3 - 5sqrt(2).",
+        "Langkah 1: Dua garis singgung sejajar pada lingkaran berjari-jari r selalu berada pada sisi yang berlawanan terhadap diameter lingkaran.\nLangkah 2: Jarak tegak lurus antara dua garis singgung sejajar sama persis dengan panjang diameter lingkaran: d = 2r.\nLangkah 3: Untuk r = sqrt(10), maka d = 2sqrt(10).\nKesimpulan: Jarak tegak lurus antara kedua garis singgung sejajar adalah 2r = 2sqrt(10) satuan."
+      ]
+    },
+    {
+      "id": "P08",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "PGSL Titik di Luar Lingkaran & Garis Kutub",
+      "obj": [
+        "Menentukan persamaan garis polar (garis kutub) dari titik di luar lingkaran $T(x_1, y_1)$.",
+        "Menemukan titik-titik singgung kontak melalui substitusi garis polar ke lingkaran.",
+        "Menentukan kedua persamaan garis singgung yang ditarik dari titik di luar lingkaran."
+      ],
+      "hook": "Dari satu stasiun satelit bumi di luar orbit, dapat dipancarkan dua sinyal pemandu singgung ke batas cakrawala planet.",
+      "toolkit": [
+        {
+          "name": "Persamaan Garis Polar (Kutub)",
+          "math": "$$x_1 x + y_1 y = r^2 \\quad \\text{(Substitusikan ke lingkaran)}$$"
+        },
+        {
+          "name": "Langkah Penentuan PGSL",
+          "math": "$$\\text{Titik Luar } T(x_1, y_1) \\xrightarrow{\\text{Garis Polar}} \\text{Titik Singgung } A, B \\xrightarrow{\\text{Bagi Adil}} \\text{PGSL}$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan persamaan garis kutub (garis polar) dari titik $T(0, 5)$ terhadap lingkaran $x^2 + y^2 = 9$!",
+          "solution": "Langkah 1: Rumus garis polar titik $(x_1, y_1)$ terhadap $x^2 + y^2 = r^2$ adalah $x_1 x + y_1 y = r^2$.\nLangkah 2: Masukkan $(x_1, y_1) = (0, 5)$ dan $r^2 = 9$: $0 \\cdot x + 5 \\cdot y = 9 \\implies 5y = 9 \\implies y = \\frac{9}{5}$.\nKesimpulan: Persamaan garis kutubnya adalah $y = \\frac{9}{5}$."
+        },
+        {
+          "problem": "Dari titik $P(7, 1)$ di luar lingkaran ditarik dua garis singgung ke lingkaran $x^2 + y^2 = 25$. Tentukan persamaan garis polar dan koordinat kedua titik singgungnya!",
+          "solution": "Langkah 1: Garis polar dari $P(7, 1)$: $7x + 1y = 25 \\implies y = 25 - 7x$.\nLangkah 2: Substitusikan ke lingkaran: $x^2 + (25 - 7x)^2 = 25 \\implies x^2 + 625 - 350x + 49x^2 - 25 = 0$.\nLangkah 3: $50x^2 - 350x + 600 = 0 \\implies x^2 - 7x + 12 = 0 \\implies (x - 3)(x - 4) = 0$.\nLangkah 4: Titik singgung 1 ($x=3$): $y = 25 - 21 = 4 \\implies (3, 4)$. Titik singgung 2 ($x=4$): $y = 25 - 28 = -3 \\implies (4, -3)$.\nKesimpulan: Titik-titik singgungnya adalah $(3, 4)$ dan $(4, -3)$."
+        },
+        {
+          "problem": "Tentukan persamaan kedua garis singgung lingkaran $x^2 + y^2 = 25$ yang ditarik melalui titik $P(7, 1)$!",
+          "solution": "Langkah 1: Menentukan titik singgung melalui garis polar titik luar $P(7, 1)$:\n- Persamaan garis polar: $7x + 1y = 25 \\implies y = 25 - 7x$.\n- Substitusi ke lingkaran: $x^2 + (25 - 7x)^2 = 25 \\implies 50x^2 - 350x + 600 = 0 \\implies x^2 - 7x + 12 = 0 \\implies (x - 3)(x - 4) = 0$.\n- Diperoleh $x_1 = 3 \\implies y_1 = 25 - 7(3) = 4$ dan $x_2 = 4 \\implies y_2 = 25 - 7(4) = -3$.\n$\\implies$ Kedua titik singgungnya adalah $(3, 4)$ dan $(4, -3)$.\nLangkah 2: Persamaan garis singgung di titik $(3, 4)$ (bagi adil): $x_1 x + y_1 y = 25 \\implies 3x + 4y = 25$.\nLangkah 3: Persamaan garis singgung di titik $(4, -3)$ (bagi adil): $x_1 x + y_1 y = 25 \\implies 4x - 3y = 25$.\nKesimpulan: Persamaan kedua garis singgung adalah $3x + 4y = 25$ dan $4x - 3y = 25$."
+        },
+        {
+          "problem": "Tentukan panjang tali busur kontak antara dua titik singgung yang ditarik dari titik $P(7, 1)$ ke lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Titik-titik singgung adalah $A(3, 4)$ dan $B(4, -3)$.\nLangkah 2: Jarak $AB = \\sqrt{(4 - 3)^2 + (-3 - 4)^2} = \\sqrt{1^2 + (-7)^2} = \\sqrt{1 + 49} = \\sqrt{50} = 5\\sqrt{2}$.\nKesimpulan: Panjang tali busur kontak adalah $5\\sqrt{2}$ satuan."
+        },
+        {
+          "problem": "Tentukan besar sudut apit $\\theta$ antara dua garis singgung yang ditarik dari titik $P(0, 10)$ ke lingkaran $x^2 + y^2 = 25$!",
+          "solution": "Langkah 1: Pusat $O(0,0)$, jari-jari $r = 5$. Jarak titik $P$ ke pusat: $OP = 10$.\nLangkah 2: Pada segitiga siku-siku $OPT$ (dengan $T$ titik singgung): $\\sin\\left(\\frac{\\theta}{2}\\right) = \\frac{r}{OP} = \\frac{5}{10} = \\frac{1}{2}$.\nLangkah 3: $\\frac{\\theta}{2} = 30^\\circ \\implies \\theta = 60^\\circ$.\nKesimpulan: Besar sudut apit antara kedua garis singgung adalah $60^\\circ$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Diberikan titik $P(0, 4)$ dan lingkaran $x^2 + y^2 = 4$. Tentukan besar sudut apit antara kedua garis singgung yang ditarik dari titik $P$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi PGSL Titik di Luar Lingkaran & Garis Kutub.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran PGSL Titik di Luar Lingkaran & Garis Kutub menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan persamaan garis kutub (polar) dari titik $P(3, 4)$ terhadap lingkaran $x^2 + y^2 = 9$ dan tentukan titik singgung lingkarannya!",
+        "Tentukan persamaan kedua garis singgung yang ditarik dari titik $T(1, 7)$ ke lingkaran $x^2 + y^2 = 25$!",
+        "Dua lingkaran $L_1 \\equiv x^2 + y^2 = 9$ dan $L_2 \\equiv (x-8)^2 + y^2 = 16$. Tentukan panjang garis singgung persekutuan luar dan dalamnya!",
+        "Tentukan sudut antara dua garis singgung yang ditarik dari titik $(0, 6)$ ke lingkaran $x^2 + y^2 = 9$!",
+        "Buktikan bahwa garis kutub dari titik $P$ terhadap lingkaran selalu tegak lurus pada garis yang menghubungkan pusat lingkaran ke titik $P$!"
+      ],
+      "tagline": "Menarik Dua Garis Singgung dari Titik Luar Melalui Garis Kutub Polar",
+      "collab_solutions": [
+        "Langkah 1: Titik T(0, 5) di luar lingkaran x^2 + y^2 = 9.\nLangkah 2: Rumus Garis Kutub (Polar): x1 x + y1 y = r^2 => 0(x) + 5y = 9 => 5y = 9 => y = 9/5.\nKesimpulan: Persamaan garis kutub (polar) dari titik T adalah y = 9/5.",
+        "Langkah 1: Garis polar dari titik P(7, 1) ke x^2 + y^2 = 25 adalah 7x + y = 25 => y = 25 - 7x.\nLangkah 2: Substitusikan ke lingkaran: x^2 + (25 - 7x)^2 = 25 => x^2 + 625 - 350x + 49x^2 = 25 => 50x^2 - 350x + 600 = 0.\nLangkah 3: Bagi 50: x^2 - 7x + 12 = 0 => (x - 3)(x - 4) = 0 => x1 = 3 (y1 = 4) dan x2 = 4 (y2 = -3).\nKesimpulan: Koordinat titik-titik singgungnya adalah (3, 4) dan (4, -3).",
+        "Langkah 1: Dari titik-titik singgung (3, 4) dan (4, -3) pada lingkaran x^2 + y^2 = 25:\n- PGSL di (3, 4): 3x + 4y = 25.\n- PGSL di (4, -3): 4x - 3y = 25.\nLangkah 2: Periksa bahwa kedua garis melalui titik luar P(7, 1): 3(7)+4(1)=25 (Benar) dan 4(7)-3(1)=25 (Benar).\nKesimpulan: Persamaan kedua garis singgung adalah 3x + 4y = 25 dan 4x - 3y = 25.",
+        "Langkah 1: Titik-titik kontak singgung adalah A(3, 4) dan B(4, -3).\nLangkah 2: Panjang tali busur kontak AB = sqrt((4 - 3)^2 + (-3 - 4)^2) = sqrt(1^2 + (-7)^2) = sqrt(1 + 49) = sqrt(50) = 5sqrt(2).\nKesimpulan: Panjang tali busur kontak antara dua titik singgung adalah 5sqrt(2) satuan.",
+        "Langkah 1: Titik P(0, 10) dan lingkaran x^2 + y^2 = 25 (r = 5). Jarak pusat ke titik luar d = 10.\nLangkah 2: Segitiga siku-siku antara titik luar, titik singgung, dan pusat memiliki sisi r = 5 dan hipotenusa d = 10.\nLangkah 3: Setengah sudut apit: sin(theta/2) = r / d = 5 / 10 = 1/2 => theta/2 = 30° => theta = 60°.\nKesimpulan: Sudut apit antara kedua garis singgung adalah 60°."
+      ]
+    },
+    {
+      "id": "P09",
+      "bab": "Bab 1: Geometri Analitik Lingkaran",
+      "title": "Asesmen Sumatif Bab 1: Geometri Analitik Lingkaran",
+      "obj": [
+        "Mengevaluasi penguasaan komprehensif seluruh konsep Geometri Analitik Lingkaran (P01 - P08).",
+        "Mendiagnosis kesiapan pengerjaan soal standar CBT TKA Nasional dan UTBK-SNBT.",
+        "Melatih ketelitian aljabar kuadrat dan penalaran geometri analitik."
+      ],
+      "hook": "Uji kompetensi integratif Bab 1 mengukur penguasaan geometri lingkaran sebelum melangkah ke Bab 2 Kalkulus Limit Fungsi.",
+      "toolkit": [
+        {
+          "name": "Matriks Uji Kompetensi Bab 1",
+          "math": "$$\\text{Persamaan Lingkaran (30\\%)} + \\text{Kedudukan Titik/Garis (30\\%)} + \\text{PGSL (40\\%) }$$"
+        },
+        {
+          "name": "Formula Cepat PGSL",
+          "math": "$$y - b = m(x-a) \\pm r\\sqrt{1+m^2}, \\quad (x_1-a)(x-a) + (y_1-b)(y-b) = r^2$$"
+        },
+        {
+          "name": "Bentuk Kuadrat Sempurna Lingkaran",
+          "math": "$$(x - a)^2 + (y - b)^2 = r^2$$"
+        },
+        {
+          "name": "Jarak Titik Pusat ke Garis Singgung",
+          "math": "$$d = \\frac{|Ax_1 + By_1 + C|}{\\sqrt{A^2 + B^2}} = r$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan panjang jari-jari dan titik pusat lingkaran $x^2 + y^2 - 4x + 2y - 20 = 0$!",
+          "solution": "Langkah 1: Titik pusat $P\\left(-\\frac{-4}{2}, -\\frac{2}{2}\\right) = P(2, -1)$.\nLangkah 2: Jari-jari $r = \\sqrt{2^2 + (-1)^2 - (-20)} = \\sqrt{4 + 1 + 20} = \\sqrt{25} = 5$.\nKesimpulan: Pusat lingkaran adalah $(2, -1)$ dan jari-jari $r = 5$."
+        },
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $x^2 + y^2 = 13$ di titik $(-2, 3)$!",
+          "solution": "Langkah 1: Cek titik: $(-2)^2 + 3^2 = 4 + 9 = 13$ (titik pada lingkaran).\nLangkah 2: Metode bagi adil: $x_1 x + y_1 y = 13 \\implies -2x + 3y = 13 \\implies 2x - 3y + 13 = 0$.\nKesimpulan: Persamaan garis singgung adalah $2x - 3y + 13 = 0$."
+        },
+        {
+          "problem": "Tentukan persamaan garis singgung lingkaran $(x - 1)^2 + (y - 2)^2 = 9$ yang bergradien $m = \\frac{4}{3}$!",
+          "solution": "Langkah 1: Pusat $(1, 2)$, $r = 3, m = 4/3$.\nLangkah 2: $y - 2 = \\frac{4}{3}(x - 1) \\pm 3\\sqrt{1 + \\left(\\frac{4}{3}\\right)^2} = \\frac{4}{3}(x - 1) \\pm 3\\left(\\frac{5}{3}\\right) = \\frac{4}{3}(x - 1) \\pm 5$.\nLangkah 3: Kalikan 3: $3y - 6 = 4x - 4 \\pm 15 \\implies 4x - 3y + 2 \\pm 15 = 0$.\nKesimpulan: $4x - 3y + 17 = 0$ dan $4x - 3y - 13 = 0$."
+        },
+        {
+          "problem": "Tentukan kedudukan antara lingkaran $L_1: x^2 + y^2 = 9$ dan lingkaran $L_2: (x - 6)^2 + (y - 8)^2 = 49$!",
+          "solution": "Langkah 1: Pusat $L_1$ adalah $P_1(0,0)$ dengan $r_1 = 3$. Pusat $L_2$ adalah $P_2(6,8)$ dengan $r_2 = 7$.\nLangkah 2: Jarak antar pusat $d = \\sqrt{(6 - 0)^2 + (8 - 0)^2} = \\sqrt{36 + 64} = 10$.\nLangkah 3: Jumlah jari-jari: $r_1 + r_2 = 3 + 7 = 10$.\nLangkah 4: Karena jarak antar pusat sama dengan jumlah jari-jari ($d = r_1 + r_2$), maka kedua lingkaran **bersinggungan di luar**.\nKesimpulan: Kedua lingkaran saling bersinggungan di luar."
+        },
+        {
+          "problem": "Dua roda katrol lingkaran masing-masing berpusat di $P_1(0,0)$ dengan jari-jari $R = 8\\text{ cm}$ dan $P_2(12, 5)$ dengan jari-jari $r = 3\\text{ cm}$. Tentukan panjang sabuk garis singgung persekutuan luar (GSPL) antara kedua katrol!",
+          "solution": "Langkah 1: Jarak antar pusat katrol: $d = \\sqrt{12^2 + 5^2} = \\sqrt{144 + 25} = 13\\text{ cm}$.\nLangkah 2: Rumus Garis Singgung Persekutuan Luar (GSPL): $l = \\sqrt{d^2 - (R - r)^2}$.\nLangkah 3: $l = \\sqrt{13^2 - (8 - 3)^2} = \\sqrt{169 - 5^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12\\text{ cm}$.\nKesimpulan: Panjang sabuk garis singgung persekutuan luar adalah $12\\text{ cm}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Bedah paket simulasi 10 soal CBT Bab 1 dan buktikan seluruh langkah analitisnya di papan tulis vertikal!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Asesmen Sumatif Bab 1: Geometri Analitik Lingkaran.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Asesmen Sumatif Bab 1: Geometri Analitik Lingkaran menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan persamaan lingkaran konsentris dengan $x^2 + y^2 - 4x + 6y - 1 = 0$ yang memiliki luas daerah $36\\pi$!",
+        "Satelit mengorbit pada $x^2 + y^2 = 64$. Sinyal radar dipancarkan dari $S(10, 0)$. Tentukan koordinat titik kontak sinyal singgung pada orbit!",
+        "Tentukan persamaan berkas lingkaran melalui perpotongan $L_1 \\equiv x^2 + y^2 - 4x = 0$ dan $L_2 \\equiv x^2 + y^2 - 2y = 0$ serta melalui $O(0,0)$!",
+        "Tentukan persamaan lingkaran luar segitiga yang dibentuk oleh garis $x=0, y=0,$ dan $3x + 4y = 12$!",
+        "Rancang model analitis sistem transmisi roda gigi lingkaran ganda dengan rasio jari-jari $1:3$ dan tentukan persamaan garis sabuk transmisinya!"
+      ],
+      "tagline": "Grand Review Geometri Analitik: Mematangkan Seluk-Beluk Persamaan Lingkaran",
+      "collab_solutions": [
+        "Langkah 1: Bentuk umum $x^2 + y^2 - 4x + 6y - 1 = 0$ memiliki pusat $P(2, -3)$.\nLangkah 2: Luas lingkaran $= \\pi r^2 = 36\\pi \\implies r^2 = 36$.\nLangkah 3: Persamaan lingkaran konsentris: $(x - 2)^2 + (y + 3)^2 = 36 \\implies x^2 + y^2 - 4x + 6y - 23 = 0$.\nKesimpulan: Persamaan lingkaran konsentris adalah $(x - 2)^2 + (y + 3)^2 = 36$.",
+        "Langkah 1: Persamaan garis kutub (polar) dari titik luar $S(10, 0)$ terhadap orbit $x^2 + y^2 = 64$ adalah $x_0 x + y_0 y = 64 \\implies 10x = 64 \\implies x = 6{,}4 = \\frac{32}{5}$.\nLangkah 2: Substitusikan ke persamaan lingkaran: $(6{,}4)^2 + y^2 = 64 \\implies 40{,}96 + y^2 = 64 \\implies y^2 = 23{,}04 \\implies y = \\pm 4{,}8$.\nLangkah 3: Diperoleh dua titik kontak singgung: $(6{,}4, 4{,}8)$ dan $(6{,}4, -4{,}8)$.\nKesimpulan: Koordinat titik kontak sinyal radar pada orbit adalah $(6{,}4, 4{,}8)$ dan $(6{,}4, -4{,}8)$.",
+        "Langkah 1: Berkas lingkaran yang melalui titik potong $L_1$ dan $L_2$ dinyatakan dengan $L_1 + \\lambda L_2 = 0$.\nLangkah 2: $(x^2 + y^2 - 4x) + \\lambda(x^2 + y^2 - 2y) = 0$.\nLangkah 3: Karena lingkaran melalui $O(0,0)$, periksa bahwa untuk sembarang $\\lambda$, persamaan selalu terpenuhi pada $(0,0)$.\nKesimpulan: Persamaan berkas lingkaran adalah $(1+\\lambda)x^2 + (1+\\lambda)y^2 - 4x - 2\\lambda y = 0$.",
+        "Langkah 1: Titik potong ketiga garis $x=0, y=0,$ dan $3x + 4y = 12$ adalah $O(0,0), A(4,0),$ dan $B(0,3)$.\nLangkah 2: Segitiga $OAB$ siku-siku di $O$, sehingga hipotenusa $AB$ bertindak sebagai diameter lingkaran.\nLangkah 3: Pusat lingkaran adalah titik tengah $AB \\implies P(2, 1{,}5)$. Jari-jari $r = \\frac{1}{2}\\sqrt{4^2 + 3^2} = 2{,}5$.\nLangkah 4: Persamaan: $(x - 2)^2 + (y - 1{,}5)^2 = 2{,}5^2 \\implies x^2 + y^2 - 4x - 3y = 0$.\nKesimpulan: Persamaan lingkaran luar segitiga adalah $x^2 + y^2 - 4x - 3y = 0$.",
+        "Langkah 1: Misalkan dua lingkaran dengan rasio jari-jari $1:3$ adalah $L_1: r_1 = 2$ di pusat $(0,0)$ dan $L_2: r_2 = 6$ di pusat $(10,0)$ dengan jarak pusat $d=10$.\nLangkah 2: Panjang garis singgung persekutuan luar (GSPL) $= \\sqrt{d^2 - (r_2 - r_1)^2} = \\sqrt{10^2 - (6 - 2)^2} = \\sqrt{100 - 16} = \\sqrt{84} = 2\\sqrt{21}$.\nLangkah 3: Sudut kemiringan sabuk $\\sin \\alpha = \\frac{r_2 - r_1}{d} = \\frac{4}{10} = 0{,}4$.\nKesimpulan: Panjang bentangan sabuk transmisi bebas adalah $2\\sqrt{21}\\text{ satuan}$."
+      ]
+    },
+    {
+      "id": "P10",
+      "bab": "Bab 2: Limit Aljabar & Trigonometri",
+      "title": "Limit Aljabar & Trigonometri 1: Fondasi Limit Aljabar Bentuk 0/0",
+      "obj": [
+        "Memahami konsep limit fungsi sebagai pendekatan nilai di sekitar titik $x \\to c$.",
+        "Menyelesaikan bentuk tak tentu $\\frac{0}{0}$ melalui teknik pemfaktoran aljabar.",
+        "Menyelesaikan limit bentuk akar melalui metode perkalian akar sekawan."
+      ],
+      "hook": "Saat menghitung kecepatan sesaat mobil $\\lim_{\\Delta t \\to 0} \\frac{\\Delta s}{\\Delta t}$, penyebut mendekati nol sehingga menghasilkan bentuk tak tentu $\\frac{0}{0}$.",
+      "toolkit": [
+        {
+          "name": "Bentuk Tak Tentu 0/0 dan Substitusi Langsung",
+          "math": "$$\\lim_{x \\to c} \\frac{f(x)}{g(x)} = \\frac{f(c)}{g(c)} \\quad (g(c) \\neq 0)$$"
+        },
+        {
+          "name": "Metode Pemfaktoran Aljabar Kuadrat dan Kubik",
+          "math": "$$a^2 - b^2 = (a-b)(a+b), \\quad a^3 - b^3 = (a-b)(a^2+ab+b^2)$$"
+        },
+        {
+          "name": "Perkalian Akar Sekawan Dua Suku",
+          "math": "$$\\frac{f(x)}{\\sqrt{g(x)} - \\sqrt{h(x)}} \\times \\frac{\\sqrt{g(x)} + \\sqrt{h(x)}}{\\sqrt{g(x)} + \\sqrt{h(x)}}$$"
+        },
+        {
+          "name": "Perkalian Akar Sekawan Tiga Suku Kubik",
+          "math": "$$\\frac{f(x)}{\\sqrt[3]{a} - \\sqrt[3]{b}} \\times \\frac{\\sqrt[3]{a^2} + \\sqrt[3]{ab} + \\sqrt[3]{b^2}}{\\sqrt[3]{a^2} + \\sqrt[3]{ab} + \\sqrt[3]{b^2}}$$"
+        },
+        {
+          "name": "Kaidah L Hopital Turunan Pembilang dan Penyebut",
+          "math": "$$\\lim_{x \\to c} \\frac{f(x)}{g(x)} = \\lim_{x \\to c} \\frac{f'(x)}{g'(x)} \\quad \\left[\\text{untuk bentuk } \\frac{0}{0}\\right]$$"
+        },
+        {
+          "name": "Teorema Limit Substitusi Variabel",
+          "math": "$$\\lim_{x \\to c} f(g(x)) = f\\left(\\lim_{x \\to c} g(x)\\right)$$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan nilai dari limit aljabar $\\lim_{x \\to 3} \\frac{x^2 - 9}{x - 3}$!",
+          "solution": "Langkah 1: Substitusi langsung $x = 3 \\implies \\frac{3^2 - 9}{3 - 3} = \\frac{0}{0}$ (Bentuk Tak Tentu).\nLangkah 2: Faktorkan pembilang selisih kuadrat $x^2 - 9 = (x - 3)(x + 3)$.\nLangkah 3: Sederhanakan faktor pembuat nol $(x - 3)$: $\\lim_{x \\to 3} \\frac{(x - 3)(x + 3)}{x - 3} = \\lim_{x \\to 3} (x + 3)$.\nLangkah 4: Substitusi $x = 3 \\implies 3 + 3 = 6$.\nKesimpulan: Nilai limit adalah $6$."
+        },
+        {
+          "problem": "Tentukan nilai limit $\\lim_{x \\to 2} \\frac{x^2 - 5x + 6}{x^2 - 4}$!",
+          "solution": "Langkah 1: Substitusi $x = 2 \\implies \\frac{4 - 10 + 6}{4 - 4} = \\frac{0}{0}$.\nLangkah 2: Faktorkan pembilang $x^2 - 5x + 6 = (x - 2)(x - 3)$ dan penyebut $x^2 - 4 = (x - 2)(x + 2)$.\nLangkah 3: Eliminasi faktor $(x - 2)$: $\\lim_{x \\to 2} \\frac{(x - 2)(x - 3)}{(x - 2)(x + 2)} = \\lim_{x \\to 2} \\frac{x - 3}{x + 2}$.\nLangkah 4: Substitusi $x = 2 \\implies \\frac{2 - 3}{2 + 2} = \\frac{-1}{4} = -\\frac{1}{4}$.\nKesimpulan: Nilai limit adalah $-\\frac{1}{4}$."
+        },
+        {
+          "problem": "Hitung nilai dari limit $\\lim_{x \\to 4} \\frac{x - 4}{\\sqrt{x} - 2}$!",
+          "solution": "Langkah 1: Substitusi $x = 4 \\implies \\frac{0}{\\sqrt{4}-2} = \\frac{0}{0}$.\nLangkah 2: Kalikan pembilang dan penyebut dengan bentuk sekawan $(\\sqrt{x} + 2)$: $\\lim_{x \\to 4} \\frac{(x - 4)(\\sqrt{x} + 2)}{(\\sqrt{x} - 2)(\\sqrt{x} + 2)} = \\lim_{x \\to 4} \\frac{(x - 4)(\\sqrt{x} + 2)}{x - 4}$.\nLangkah 3: Coret faktor $(x - 4)$: $\\lim_{x \\to 4} (\\sqrt{x} + 2) = \\sqrt{4} + 2 = 2 + 2 = 4$.\nKesimpulan: Nilai limit adalah $4$."
+        },
+        {
+          "problem": "Tentukan nilai limit aljabar $\\lim_{x \\to 4} \\frac{2x^2 - 7x - 4}{\\sqrt{2x + 1} - 3}$!",
+          "solution": "Langkah 1: Substitusi $x = 4 \\implies \\frac{0}{0}$. Faktorkan pembilang $2x^2 - 7x - 4 = (2x + 1)(x - 4)$.\nLangkah 2: Kalikan sekawan pada penyebut: $\\frac{(2x + 1)(x - 4)}{\\sqrt{2x + 1} - 3} \\times \\frac{\\sqrt{2x + 1} + 3}{\\sqrt{2x + 1} + 3} = \\frac{(2x + 1)(x - 4)(\\sqrt{2x + 1} + 3)}{2(x - 4)}$.\nLangkah 3: Eliminasi $(x - 4)$: $\\lim_{x \\to 4} \\frac{(2x + 1)(\\sqrt{2x + 1} + 3)}{2} = \\frac{(9)(\\sqrt{9} + 3)}{2} = \\frac{9 \\times 6}{2} = 27$.\nKesimpulan: Nilai limit adalah $27$."
+        },
+        {
+          "problem": "Pada analisis laju reaksi kinetik kimia, kecepatan transisi dinyatakan oleh limit $v = \\lim_{x \\to 1} \\frac{\\sqrt[3]{x} - 1}{\\sqrt{x} - 1}$. Hitunglah nilai eksak dari kecepatan transisi $v$ tersebut!",
+          "solution": "Langkah 1: Gunakan substitusi variabel aljabar: Misalkan $x = u^6$. Ketika $x \\to 1$, maka $u \\to 1$.\nLangkah 2: Bentuk limit menjadi: $\\lim_{u \\to 1} \\frac{u^2 - 1}{u^3 - 1}$.\nLangkah 3: Faktorkan pembilang dan penyebut: $\\frac{(u - 1)(u + 1)}{(u - 1)(u^2 + u + 1)} = \\frac{u + 1}{u^2 + u + 1}$.\nLangkah 4: Substitusi $u = 1 \\implies \\frac{1 + 1}{1^2 + 1 + 1} = \\frac{2}{3}$.\nKesimpulan: Nilai eksak kecepatan transisi limit adalah $\\frac{2}{3}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Selesaikan $\\lim_{x \\to 1} \\frac{x - 1}{\\sqrt{x^2 + 3} - 2}$ menggunakan perkalian sekawan!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Limit Aljabar & Trigonometri 1: Fondasi Limit Aljabar Bentuk 0/0.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT.",
+          "Kaidah L'Hopital hanya boleh diterapkan jika hasil substitusi langsung benar-benar menghasilkan bentuk tak tentu 0/0.",
+          "Kesalahan umum: Langsung menurunkan fungsi tanpa memastikan bentuk 0/0, atau salah menerapkan turunan rantai pada bentuk akar."
+        ],
+        "islamic": "Pembelajaran Limit Aljabar & Trigonometri 1: Fondasi Limit Aljabar Bentuk 0/0 menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah nilai limit aljabar tak tentu: $\\lim_{x \\to 3} \\frac{x^2 - 2x - 3}{\\sqrt{x+1} - 2}$ dengan perkalian sekawan rasional!",
+        "Tentukan nilai konstanta $a$ dan $b$ agar $\\lim_{x \\to 2} \\frac{x^2 + ax + b}{x - 2} = 7$!",
+        "Hitunglah $\\lim_{x \\to 1} \\frac{\\sqrt[3]{x} - 1}{\\sqrt{x} - 1}$ menggunakan substitusi variabel aljabar $x = u^6$!",
+        "Hitung nilai limit fungsi faktorisasi: $\\lim_{x \\to -2} \\frac{x^3 + 8}{x^2 + 5x + 6}$!",
+        "Buktikan secara formal definisi limit Cauchy $(\\varepsilon - \\delta)$ bahwa $\\lim_{x \\to 3} (2x + 1) = 7$!"
+      ],
+      "tagline": "Membongkar Bentuk Tak Tentu 0/0 dengan Pemfaktoran Aljabar & Perkalian Sekawan",
+      "collab_solutions": [
+        "Langkah 1: Faktorkan pembilang: $x^2 - 2x - 3 = (x - 3)(x + 1)$.\nLangkah 2: Kalikan sekawan penyebut: $\\frac{\\sqrt{x+1} + 2}{\\sqrt{x+1} + 2} \\implies$ penyebut $= (x + 1) - 4 = x - 3$.\nLangkah 3: Sederhanakan dengan membagi faktor pembuat nol $(x - 3)$: $(x + 1)(\\sqrt{x+1} + 2)$.\nLangkah 4: Substitusikan $x = 3$: $(3 + 1)(\\sqrt{3+1} + 2) = 4(2 + 2) = 16$.\nKesimpulan: Nilai limit aljabar adalah $16$.",
+        "Langkah 1: Karena penyebut bernilai $0$ saat $x=2$, pembilang harus bernilai $0$: $2^2 + 2a + b = 0 \\implies b = -2a - 4$.\nLangkah 2: Bentuk limit: $\\lim_{x \\to 2} \\frac{(x - 2)(x + 2 + a)}{x - 2} = \\lim_{x \\to 2} (x + 2 + a) = 4 + a$.\nLangkah 3: Samakan dengan nilai limit: $4 + a = 7 \\implies a = 3$.\nLangkah 4: Hitung nilai $b = -2(3) - 4 = -10$.\nKesimpulan: Nilai konstanta adalah $a = 3$ dan $b = -10$.",
+        "Langkah 1: Lakukan substitusi aljabar $x = u^6$. Saat $x \\to 1$, maka $u \\to 1$.\nLangkah 2: Bentuk limit menjadi: $\\lim_{u \\to 1} \\frac{u^2 - 1}{u^3 - 1} = \\lim_{u \\to 1} \\frac{(u - 1)(u + 1)}{(u - 1)(u^2 + u + 1)}$.\nLangkah 3: Coret faktor $(u - 1)$: $\\lim_{u \\to 1} \\frac{u + 1}{u^2 + u + 1} = \\frac{1 + 1}{1 + 1 + 1} = \\frac{2}{3}$.\nKesimpulan: Nilai limit adalah $\\frac{2}{3}$.",
+        "Langkah 1: Faktorkan jumlah pangkat tiga pembilang: $x^3 + 8 = (x + 2)(x^2 - 2x + 4)$.\nLangkah 2: Faktorkan bentuk kuadrat penyebut: $x^2 + 5x + 6 = (x + 2)(x + 3)$.\nLangkah 3: Coret faktor sekutu $(x + 2)$: $\\lim_{x \\to -2} \\frac{x^2 - 2x + 4}{x + 3}$.\nLangkah 4: Evaluasi pada $x = -2$: $\\frac{(-2)^2 - 2(-2) + 4}{-2 + 3} = \\frac{4 + 4 + 4}{1} = 12$.\nKesimpulan: Nilai limit adalah $12$.",
+        "Langkah 1: Diberikan $\\varepsilon > 0$. Ingin dibuktikan bahwa terdapat $\\delta > 0$ sedemikian hingga jika $0 < |x - 3| < \\delta$, maka $|(2x + 1) - 7| < \\varepsilon$.\nLangkah 2: Sederhanakan: $|(2x + 1) - 7| = |2x - 6| = 2|x - 3|$.\nLangkah 3: Syarat $2|x - 3| < \\varepsilon \\implies |x - 3| < \\frac{\\varepsilon}{2}$.\nLangkah 4: Pilih $\\delta = \\frac{\\varepsilon}{2}$. Maka untuk setiap $0 < |x - 3| < \\delta$, terbukti $|(2x + 1) - 7| < 2\\delta = \\varepsilon$.\nKesimpulan: Terbukti secara formal definisi Cauchy $(\\varepsilon - \\delta)$ bahwa $\\lim_{x \\to 3} (2x + 1) = 7$."
+      ]
+    },
+    {
+      "id": "P11",
+      "bab": "Bab 2: Limit Aljabar & Trigonometri",
+      "title": "Limit Aljabar & Trigonometri 2: Teorema Dasar Limit Trigonometri",
+      "obj": [
+        "Memahami dan membuktikan teorema dasar limit trigonometri $\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$ dan $\\lim_{x \\to 0} \\frac{\\tan x}{x} = 1$.",
+        "Menerapkan perluasan teorema untuk $\\lim_{x \\to 0} \\frac{\\sin ax}{bx} = \\frac{a}{b}$ dan $\\lim_{x \\to 0} \\frac{\\tan ax}{\\sin bx} = \\frac{a}{b}$.",
+        "Menyelesaikan limit perkalian variabel trigonometri berderajat tinggi."
+      ],
+      "hook": "Pada sudut infinitesimal (sangat kecil mendekati nol radian), panjang busur lingkaran identik dengan panjang garis sinus dan tangen tegak lurusnya!",
+      "toolkit": [
+        {
+          "name": "Teorema Sinus Dasar",
+          "math": "$$\\lim_{x \\to 0} \\frac{\\sin(ax)}{bx} = \\frac{a}{b}, \\quad \\lim_{x \\to 0} \\frac{ax}{\\sin(bx)} = \\frac{a}{b}$$"
+        },
+        {
+          "name": "Teorema Tangen Dasar",
+          "math": "$$\\lim_{x \\to 0} \\frac{\\tan(ax)}{bx} = \\frac{a}{b}, \\quad \\lim_{x \\to 0} \\frac{\\sin(ax)}{\\tan(bx)} = \\frac{a}{b}$$"
+        },
+        {
+          "name": "Identitas Trigonometri Sudut Ganda",
+          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+        },
+        {
+          "name": "Teorema Apit Limit Fungsi",
+          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan nilai limit $\\lim_{x \\to 0} \\frac{\\sin(8x)}{2x}$!",
+          "solution": "Langkah 1: Gunakan teorema dasar limit trigonometri $\\lim_{x \\to 0} \\frac{\\sin(ax)}{bx} = \\frac{a}{b}$.\nLangkah 2: Dengan $a = 8$ dan $b = 2$, diperoleh: $\\lim_{x \\to 0} \\frac{\\sin 8x}{2x} = \\frac{8}{2} = 4$.\nKesimpulan: Nilai limit adalah $4$."
+        },
+        {
+          "problem": "Tentukan nilai dari $\\lim_{x \\to 0} \\frac{\\tan(6x)}{\\sin(3x)}$!",
+          "solution": "Langkah 1: Bagi pembilang dan penyebut dengan $x$: $\\lim_{x \\to 0} \\frac{\\frac{\\tan 6x}{x}}{\\frac{\\sin 3x}{x}}$.\nLangkah 2: Nilai limit pembilang $= 6$ dan penyebut $= 3$.\nLangkah 3: Evaluasi $\\frac{6}{3} = 2$.\nKesimpulan: Nilai limit adalah $2$."
+        },
+        {
+          "problem": "Hitung nilai dari limit $\\lim_{x \\to 0} \\frac{\\sin(4x) \\cdot \\tan(3x)}{2x^2}$!",
+          "solution": "Langkah 1: Uraikan penyebut $2x^2$ menjadi perkalian dua faktor linear $2x \\cdot x$: $\\lim_{x \\to 0} \\left( \\frac{\\sin 4x}{2x} \\cdot \\frac{\\tan 3x}{x} \\right)$.\nLangkah 2: Terapkan sifat perkalian limit: $\\left( \\lim_{x \\to 0} \\frac{\\sin 4x}{2x} \\right) \\times \\left( \\lim_{x \\to 0} \\frac{\\tan 3x}{x} \\right) = \\frac{4}{2} \\times \\frac{3}{1} = 2 \\times 3 = 6$.\nKesimpulan: Nilai limit adalah $6$."
+        },
+        {
+          "problem": "Tentukan nilai dari limit $\\lim_{x \\to 0} \\frac{\\sin(6x) + \\tan(4x)}{2x \\cdot \\cos(3x)}$!",
+          "solution": "Langkah 1: Pisahkan pecahan menjadi dua suku dan manfaatkan $\\lim_{x \\to 0} \\cos(3x) = \\cos(0) = 1$: $\\lim_{x \\to 0} \\frac{1}{\\cos(3x)} \\cdot \\left( \\frac{\\sin 6x}{2x} + \\frac{\\tan 4x}{2x} \\right)$.\nLangkah 2: Evaluasi masing-masing limit pecahan: $\\lim_{x \\to 0} \\frac{\\sin 6x}{2x} = \\frac{6}{2} = 3$ dan $\\lim_{x \\to 0} \\frac{\\tan 4x}{2x} = \\frac{4}{2} = 2$.\nLangkah 3: Gabungkan hasil: $1 \\times (3 + 2) = 5$.\nKesimpulan: Nilai limit adalah $5$."
+        },
+        {
+          "problem": "Dalam rekayasa pemrosesan sinyal audio digital, penguatan frekuensi harmonik dinyatakan oleh $G = \\lim_{x \\to 0} \\frac{x \\cdot \\sin(5x)}{\\tan^2(2x)}$. Tentukan nilai faktor penguatan sinyal $G$ tersebut!",
+          "solution": "Langkah 1: Uraikan pembilang dan penyebut: $\\lim_{x \\to 0} \\left( \\frac{x}{\\tan 2x} \\cdot \\frac{\\sin 5x}{\\tan 2x} \\right)$.\nLangkah 2: Terapkan teorema limit trigonometri: $\\lim_{x \\to 0} \\frac{x}{\\tan 2x} = \\frac{1}{2}$ dan $\\lim_{x \\to 0} \\frac{\\sin 5x}{\\tan 2x} = \\frac{5}{2}$.\nLangkah 3: Hitung hasil akhir: $G = \\frac{1}{2} \\times \\frac{5}{2} = \\frac{5}{4} = 1{,}25$.\nKesimpulan: Nilai faktor penguatan sinyal $G$ adalah $\\frac{5}{4} = 1{,}25$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Hitung nilai dari $\\lim_{x \\to 0} \\frac{x \\tan(3x)}{\\sin^2(6x)}$ dan jelaskan kesetaraan koefisiennya!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Limit Aljabar & Trigonometri 2: Teorema Dasar Limit Trigonometri.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Limit Aljabar & Trigonometri 2: Teorema Dasar Limit Trigonometri menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah nilai $\\lim_{x \\to 0} \\frac{\\sin(6x) + \\tan(4x)}{2x \\cdot \\cos(3x)}$ menggunakan Teorema Dasar Limit Trigonometri!",
+        "Tentukan nilai $\\lim_{x \\to 0} \\frac{x \\cdot \\tan(3x)}{1 - \\cos(4x)}$ dengan mereduksi cosinus ke sinus kuadrat!",
+        "Buktikan secara analitis bahwa $\\lim_{x \\to 0} \\frac{\\sin(ax)}{\\tan(bx)} = \\frac{a}{b}$ untuk setiap $a, b \\neq 0$!",
+        "Hitung nilai limit trigonometri bertingkat: $\\lim_{x \\to 0} \\frac{\\tan(2x) \\cdot \\sin^2(3x)}{x^3 \\cdot \\cos(4x)}$!",
+        "Gunakan Teorema Apit (*Squeeze Theorem*) untuk membuktikan bahwa $\\lim_{x \\to 0} x^2 \\sin(\\frac{1}{x}) = 0$!"
+      ],
+      "tagline": "Fondasi Sinus & Tangen: Mengapa Rasio Sudut Infinitesimal Mendekati Nilai Pasti",
+      "collab_solutions": [
+        "Langkah 1: Bagi pembilang dan penyebut dengan $2x$: $\\frac{\\frac{\\sin(6x)}{2x} + \\frac{\\tan(4x)}{2x}}{\\cos(3x)}$.\nLangkah 2: Teorema dasar limit: $\\lim_{x \\to 0} \\frac{\\sin(6x)}{2x} = \\frac{6}{2} = 3$, dan $\\lim_{x \\to 0} \\frac{\\tan(4x)}{2x} = \\frac{4}{2} = 2$.\nLangkah 3: Evaluasi $\\lim_{x \\to 0} \\cos(3x) = \\cos(0) = 1$.\nLangkah 4: Hasil akhir $= \\frac{3 + 2}{1} = 5$.\nKesimpulan: Nilai limit trigonometri adalah $5$.",
+        "Langkah 1: Gunakan identitas sudut ganda $1 - \\cos(4x) = 2\\sin^2(2x)$.\nLangkah 2: Bentuk limit: $\\lim_{x \\to 0} \\frac{x \\cdot \\tan(3x)}{2\\sin(2x)\\sin(2x)} = \\frac{1}{2} \\left(\\lim_{x \\to 0} \\frac{x}{\\sin(2x)}\\right) \\left(\\lim_{x \\to 0} \\frac{\\tan(3x)}{\\sin(2x)}\\right)$.\nLangkah 3: Evaluasi nilai tiap limit: $\\frac{1}{2} \\times \\frac{1}{2} \\times \\frac{3}{2} = \\frac{3}{8}$.\nKesimpulan: Nilai limit adalah $\\frac{3}{8}$.",
+        "Langkah 1: Uraikan bentuk pecahan: $\\frac{\\sin(ax)}{\\tan(bx)} = \\frac{\\sin(ax)}{ax} \\times \\frac{bx}{\\tan(bx)} \\times \\frac{ax}{bx}$.\nLangkah 2: Teorema limit: $\\lim_{x \\to 0} \\frac{\\sin(ax)}{ax} = 1$ dan $\\lim_{x \\to 0} \\frac{bx}{\\tan(bx)} = 1$.\nLangkah 3: Nilai pecahan aljabar: $\\frac{ax}{bx} = \\frac{a}{b}$.\nLangkah 4: Hasil perkalian $= 1 \\times 1 \\times \\frac{a}{b} = \\frac{a}{b}$.\nKesimpulan: Terbukti analitis bahwa $\\lim_{x \\to 0} \\frac{\\sin(ax)}{\\tan(bx)} = \\frac{a}{b}$.",
+        "Langkah 1: Pisahkan faktor-faktor variabel: $\\left(\\lim_{x \\to 0} \\frac{\\tan(2x)}{x}\\right) \\times \\left(\\lim_{x \\to 0} \\frac{\\sin(3x)}{x}\\right)^2 \\times \\left(\\lim_{x \\to 0} \\frac{1}{\\cos(4x)}\\right)$.\nLangkah 2: Evaluasi masing-masing: $2 \\times 3^2 \\times \\frac{1}{1} = 2 \\times 9 \\times 1 = 18$.\nKesimpulan: Nilai limit trigonometri bertingkat adalah $18$.",
+        "Langkah 1: Ketidaksamaan dasar fungsi sinus: $-1 \\le \\sin(1/x) \\le 1$ untuk setiap $x \\neq 0$.\nLangkah 2: Kalikan seluruh ruas dengan $x^2 > 0$: $-x^2 \\le x^2 \\sin(1/x) \\le x^2$.\nLangkah 3: Ambil limit untuk $x \\to 0$: $\\lim_{x \\to 0} (-x^2) = 0$ dan $\\lim_{x \\to 0} (x^2) = 0$.\nLangkah 4: Karena limit kedua fungsi pengapit bernilai sama yaitu $0$, maka berdasarkan Teorema Apit, fungsi tengah juga menuju $0$.\nKesimpulan: Terbukti melalui Teorema Apit bahwa $\\lim_{x \\to 0} x^2 \\sin(1/x) = 0$."
+      ]
+    },
+    {
+      "id": "P12",
+      "bab": "Bab 2: Limit Aljabar & Trigonometri",
+      "title": "Limit Aljabar & Trigonometri 3: Limit Trigonometri & Identitas Cosinus",
+      "obj": [
+        "Mengubah bentuk $1 - \\cos(ax)$ menjadi bentuk sinus menggunakan identitas sudut ganda $2\\sin^2(\\frac{ax}{2})$.",
+        "Menerapkan identitas selisih cosinus $\\cos A - \\cos B = -2\\sin(\\frac{A+B}{2})\\sin(\\frac{A-B}{2})$.",
+        "Menyelesaikan limit trigonometri tak tentu $\\frac{0}{0}$ yang memuat bentuk cosinus."
+      ],
+      "hook": "Mengapa $\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}$ bernilai $\\frac{1}{2}$? Karena $1 - \\cos x$ dapat ditransformasikan menjadi $2\\sin^2(x/2)$!",
+      "toolkit": [
+        {
+          "name": "Identitas Sudut Ganda Cosinus",
+          "math": "$$1 - \\cos(ax) = 2 \\sin^2\\left(\\frac{ax}{2}\\right)$$"
+        },
+        {
+          "name": "Identitas Pythagoras",
+          "math": "$$1 - \\cos^2(ax) = \\sin^2(ax)$$"
+        },
+        {
+          "name": "Selisih Cosinus",
+          "math": "$$\\cos A - \\cos B = -2\\sin\\left(\\frac{A+B}{2}\\right)\\sin\\left(\\frac{A-B}{2}\\right)$$"
+        },
+        {
+          "name": "Identitas Trigonometri Sudut Ganda",
+          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+        },
+        {
+          "name": "Teorema Apit Limit Fungsi",
+          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan nilai limit $\\lim_{x \\to 0} \\frac{1 - \\cos(4x)}{x^2}$!",
+          "solution": "Langkah 1: Gunakan identitas sudut ganda cosinus $1 - \\cos(4x) = 2\\sin^2(2x)$.\nLangkah 2: $\\lim_{x \\to 0} \\frac{2\\sin^2(2x)}{x^2} = 2 \\left( \\lim_{x \\to 0} \\frac{\\sin 2x}{x} \\right)^2$.\nLangkah 3: Hitung nilai numerik: $2 \\times (2)^2 = 2 \\times 4 = 8$.\nKesimpulan: Nilai limit adalah $8$."
+        },
+        {
+          "problem": "Tentukan nilai dari limit $\\lim_{x \\to 0} \\frac{1 - \\cos(2x)}{x \\cdot \\sin(3x)}$!",
+          "solution": "Langkah 1: Ubah $1 - \\cos(2x) = 2\\sin^2(x)$.\nLangkah 2: Jabarkan bentuk perkalian: $\\lim_{x \\to 0} \\frac{2\\sin(x) \\cdot \\sin(x)}{x \\cdot \\sin(3x)} = 2 \\times \\left( \\lim_{x \\to 0} \\frac{\\sin x}{x} \\right) \\times \\left( \\lim_{x \\to 0} \\frac{\\sin x}{\\sin 3x} \\right)$.\nLangkah 3: Evaluasi tiap limit: $2 \\times 1 \\times \\frac{1}{3} = \\frac{2}{3}$.\nKesimpulan: Nilai limit adalah $\\frac{2}{3}$."
+        },
+        {
+          "problem": "Hitung nilai dari limit $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{1 - \\cos(2x)}$!",
+          "solution": "Langkah 1: Ubah pembilang $1 - \\cos(6x) = 2\\sin^2(3x)$ dan penyebut $1 - \\cos(2x) = 2\\sin^2(x)$.\nLangkah 2: Sederhanakan: $\\lim_{x \\to 0} \\frac{2\\sin^2(3x)}{2\\sin^2(x)} = \\left( \\lim_{x \\to 0} \\frac{\\sin 3x}{\\sin x} \\right)^2$.\nLangkah 3: Hitung nilai limit: $\\left( \\frac{3}{1} \\right)^2 = 3^2 = 9$.\nKesimpulan: Nilai limit adalah $9$."
+        },
+        {
+          "problem": "Tentukan nilai limit $\\lim_{x \\to 0} \\frac{\\cos(2x) - \\cos(6x)}{x^2}$!",
+          "solution": "Langkah 1: Gunakan rumus selisih dua cosinus: $\\cos(2x) - \\cos(6x) = -2 \\sin(4x) \\sin(-2x) = 2 \\sin(4x) \\sin(2x)$.\nLangkah 2: Substitusikan ke limit: $\\lim_{x \\to 0} \\frac{2 \\sin(4x) \\sin(2x)}{x \\cdot x} = 2 \\times \\left( \\lim_{x \\to 0} \\frac{\\sin 4x}{x} \\right) \\times \\left( \\lim_{x \\to 0} \\frac{\\sin 2x}{x} \\right)$.\nLangkah 3: Evaluasi nilai akhir: $2 \\times 4 \\times 2 = 16$.\nKesimpulan: Nilai limit adalah $16$."
+        },
+        {
+          "problem": "Pada fenomena interferensi gelombang cahaya celah ganda, intensitas pola terang-gelap di sekitar pusat difraksi dirumuskan oleh $I = \\lim_{x \\to 0} \\frac{\\cos(x) - \\cos(5x)}{x \\cdot \\tan(3x)}$. Tentukan nilai intensitas relatif $I$ tersebut!",
+          "solution": "Langkah 1: Transformasikan pembilang menggunakan selisih cosinus: $\\cos(x) - \\cos(5x) = 2 \\sin(3x) \\sin(2x)$.\nLangkah 2: Masukkan ke pecahan limit: $\\lim_{x \\to 0} \\frac{2 \\sin(3x) \\sin(2x)}{x \\cdot \\tan(3x)} = 2 \\times \\left( \\lim_{x \\to 0} \\frac{\\sin 3x}{\\tan 3x} \\right) \\times \\left( \\lim_{x \\to 0} \\frac{\\sin 2x}{x} \\right)$.\nLangkah 3: Hitung nilai numerik: $2 \\times 1 \\times 2 = 4$.\nKesimpulan: Nilai intensitas relatif gelombang $I$ adalah $4$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Selesaikan $\\lim_{x \\to 0} \\frac{\\cos(2x) - \\cos(6x)}{x^2}$ menggunakan rumus selisih cosinus!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Limit Aljabar & Trigonometri 3: Limit Trigonometri & Identitas Cosinus.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Limit Aljabar & Trigonometri 3: Limit Trigonometri & Identitas Cosinus menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah nilai $\\lim_{x \\to 0} \\frac{\\cos(2x) - \\cos(6x)}{x^2}$ menggunakan identitas selisih cosinus $\\cos A - \\cos B$!",
+        "Tentukan nilai limit: $\\lim_{x \\to 0} \\frac{1 - \\cos^2(4x)}{x \\cdot \\sin(2x) \\cdot \\cos(5x)}$!",
+        "Hitunglah $\\lim_{x \\to 0} \\frac{\\cos(x) - \\cos(3x)}{\\cos(2x) - \\cos(4x)}$ dan tafsirkan perbandingan frekuensi gelombangnya!",
+        "Tentukan nilai limit: $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{1 - \\cos(2x)}$ menggunakan bentuk identitas sudut ganda!",
+        "Buktikan identitas limit trigonometri $\\lim_{x \\to 0} \\frac{\\cos(ax) - \\cos(bx)}{x^2} = \\frac{b^2 - a^2}{2}$!"
+      ],
+      "tagline": "Menjinakkan Cosinus Sudut Ganda Menjadi Sinus Kuadrat Tanpa Hambatan Aljabar",
+      "collab_solutions": [
+        "Langkah 1: Terapkan identitas selisih cosinus: $\\cos(2x) - \\cos(6x) = -2\\sin(4x)\\sin(-2x) = 2\\sin(4x)\\sin(2x)$.\nLangkah 2: Limit menjadi: $\\lim_{x \\to 0} \\frac{2\\sin(4x)\\sin(2x)}{x^2} = 2 \\times \\left(\\lim_{x \\to 0} \\frac{\\sin 4x}{x}\\right) \\times \\left(\\lim_{x \\to 0} \\frac{\\sin 2x}{x}\\right)$.\nLangkah 3: Evaluasi: $2 \\times 4 \\times 2 = 16$.\nKesimpulan: Nilai limit adalah $16$.",
+        "Langkah 1: Gunakan identitas Pythagoras: $1 - \\cos^2(4x) = \\sin^2(4x)$.\nLangkah 2: Limit menjadi: $\\lim_{x \\to 0} \\frac{\\sin(4x)\\sin(4x)}{x \\sin(2x) \\cos(5x)} = \\left(\\lim_{x \\to 0} \\frac{\\sin 4x}{x}\\right) \\times \\left(\\lim_{x \\to 0} \\frac{\\sin 4x}{\\sin 2x}\\right) \\times \\left(\\lim_{x \\to 0} \\frac{1}{\\cos 5x}\\right)$.\nLangkah 3: Evaluasi: $4 \\times \\left(\\frac{4}{2}\\right) \\times \\frac{1}{1} = 4 \\times 2 \\times 1 = 8$.\nKesimpulan: Nilai limit adalah $8$.",
+        "Langkah 1: Pembilang: $\\cos(x) - \\cos(3x) = -2\\sin(2x)\\sin(-x) = 2\\sin(2x)\\sin(x) \\approx 2(2x)(x) = 4x^2$.\nLangkah 2: Penyebut: $\\cos(2x) - \\cos(4x) = -2\\sin(3x)\\sin(-x) = 2\\sin(3x)\\sin(x) \\approx 2(3x)(x) = 6x^2$.\nLangkah 3: Rasio limit: $\\lim_{x \\to 0} \\frac{4x^2}{6x^2} = \\frac{4}{6} = \\frac{2}{3}$.\nKesimpulan: Nilai limit adalah $\\frac{2}{3}$, mencerminkan rasio harmonik frekuensi gelombang.",
+        "Langkah 1: Gunakan identitas $1 - \\cos(2\\theta) = 2\\sin^2(\\theta)$:\n- Pembilang: $1 - \\cos(6x) = 2\\sin^2(3x)$.\n- Penyebut: $1 - \\cos(2x) = 2\\sin^2(x)$.\nLangkah 2: Limit menjadi: $\\lim_{x \\to 0} \\frac{2\\sin^2(3x)}{2\\sin^2(x)} = \\left(\\lim_{x \\to 0} \\frac{\\sin(3x)}{\\sin(x)}\\right)^2 = 3^2 = 9$.\nKesimpulan: Nilai limit adalah $9$.",
+        "Langkah 1: Terapkan rumus selisih cosinus: $\\cos(ax) - \\cos(bx) = 2\\sin\\left(\\frac{a+b}{2}x\\right)\\sin\\left(\\frac{b-a}{2}x\\right)$.\nLangkah 2: Bagi dengan $x^2$: $2 \\times \\left[ \\lim_{x \\to 0} \\frac{\\sin(\\frac{a+b}{2}x)}{x} \\right] \\times \\left[ \\lim_{x \\to 0} \\frac{\\sin(\\frac{b-a}{2}x)}{x} \\right]$.\nLangkah 3: Hitung hasil limit: $2 \\times \\left(\\frac{a+b}{2}\\right) \\times \\left(\\frac{b-a}{2}\\right) = 2 \\times \\frac{b^2 - a^2}{4} = \\frac{b^2 - a^2}{2}$.\nKesimpulan: Terbukti identitas limit $\\lim_{x \\to 0} \\frac{\\cos(ax) - \\cos(bx)}{x^2} = \\frac{b^2 - a^2}{2}$."
+      ]
+    },
+    {
+      "id": "P13",
+      "bab": "Bab 2: Limit Aljabar & Trigonometri",
+      "title": "Limit Aljabar & Trigonometri 4: Limit Trigonometri Menuju Sudut $x \\to c$",
+      "obj": [
+        "Menyelesaikan limit trigonometri saat $x \\to c$ ($c \\neq 0$) menggunakan substitusi variabel $h = x - c \\to 0$.",
+        "Menerapkan identitas sudut relasi trigonometri $(\\pi - x, \\frac{\\pi}{2} - x)$.",
+        "Menyelesaikan limit pemfaktoran yang memuat fungsi trigonometri di titik bukan nol."
+      ],
+      "hook": "Banyak fenomena fisika gelombang dievaluasi pada fase sudut tertentu seperti $x \\to \\frac{\\pi}{4}$ atau $x \\to \\pi$, bukan di titik nol.",
+      "toolkit": [
+        {
+          "name": "Transformasi Variabel h",
+          "math": "$$h = x - c \\implies x = c + h \\quad (\\text{saat } x \\to c, \\quad h \\to 0)$$"
+        },
+        {
+          "name": "Sudut Relasi Kuadran",
+          "math": "$$\\sin(\\pi - x) = \\sin x, \\quad \\cos\\left(\\frac{\\pi}{2} - x\\right) = \\sin x$$"
+        },
+        {
+          "name": "Identitas Trigonometri Sudut Ganda",
+          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+        },
+        {
+          "name": "Teorema Apit Limit Fungsi",
+          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan nilai limit $\\lim_{x \\to 1} \\frac{\\sin(x - 1)}{x^2 - 1}$!",
+          "solution": "Langkah 1: Substitusi $x = 1 \\implies \\frac{0}{0}$. Faktorkan penyebut: $x^2 - 1 = (x - 1)(x + 1)$.\nLangkah 2: Bentuk limit: $\\lim_{x \\to 1} \\left( \\frac{\\sin(x - 1)}{x - 1} \\cdot \\frac{1}{x + 1} \\right)$.\nLangkah 3: Misalkan $u = x - 1$, saat $x \\to 1 \\implies u \\to 0$. Maka $\\lim_{u \\to 0} \\frac{\\sin u}{u} = 1$.\nLangkah 4: $\\lim_{x \\to 1} \\frac{1}{x + 1} = \\frac{1}{1 + 1} = \\frac{1}{2}$. Hasil $= 1 \\times \\frac{1}{2} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
+        },
+        {
+          "problem": "Hitung nilai dari limit $\\lim_{x \\to \\frac{\\pi}{4}} \\frac{\\cos x - \\sin x}{x - \\frac{\\pi}{4}}$!",
+          "solution": "Langkah 1: Substitusi $x = \\frac{\\pi}{4} \\implies \\frac{\\frac{1}{2}\\sqrt{2} - \\frac{1}{2}\\sqrt{2}}{0} = \\frac{0}{0}$.\nLangkah 2: Gunakan rumus $\\cos x - \\sin x = -\\sqrt{2} \\sin\\left(x - \\frac{\\pi}{4}\\right)$.\nLangkah 3: $\\lim_{x \\to \\frac{\\pi}{4}} \\frac{-\\sqrt{2} \\sin(x - \\frac{\\pi}{4})}{x - \\frac{\\pi}{4}} = -\\sqrt{2} \\times 1 = -\\sqrt{2}$.\nKesimpulan: Nilai limit adalah $-\\sqrt{2}$."
+        },
+        {
+          "problem": "Hitung nilai dari limit $\\lim_{x \\to \\frac{\\pi}{2}} \\frac{1 - \\sin x}{\\cos^2 x}$!",
+          "solution": "Langkah 1: Substitusi $x = \\frac{\\pi}{2} \\implies \\frac{1 - 1}{0} = \\frac{0}{0}$.\nLangkah 2: Gunakan identitas Pythagoras $\\cos^2 x = 1 - \\sin^2 x = (1 - \\sin x)(1 + \\sin x)$.\nLangkah 3: Eliminasi $(1 - \\sin x)$: $\\lim_{x \\to \\frac{\\pi}{2}} \\frac{1 - \\sin x}{(1 - \\sin x)(1 + \\sin x)} = \\lim_{x \\to \\frac{\\pi}{2}} \\frac{1}{1 + \\sin x}$.\nLangkah 4: Substitusi $x = \\frac{\\pi}{2} \\implies \\frac{1}{1 + 1} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
+        },
+        {
+          "problem": "Tentukan nilai dari $\\lim_{x \\to 2} \\frac{\\tan(2x - 4)}{x^2 + x - 6}$!",
+          "solution": "Langkah 1: Substitusi $x = 2 \\implies \\frac{\\tan(0)}{4 + 2 - 6} = \\frac{0}{0}$.\nLangkah 2: Faktorkan argumen dan penyebut: $\\tan(2(x - 2))$ dan $x^2 + x - 6 = (x - 2)(x + 3)$.\nLangkah 3: $\\lim_{x \\to 2} \\left( \\frac{\\tan(2(x - 2))}{x - 2} \\cdot \\frac{1}{x + 3} \\right) = 2 \\times \\frac{1}{2 + 3} = \\frac{2}{5}$.\nKesimpulan: Nilai limit adalah $\\frac{2}{5}$."
+        },
+        {
+          "problem": "Pada osilasi pendulum teredam, posisi sudut di sekitar titik kesetimbangan kritis didekati oleh $L = \\lim_{x \\to \\pi} \\frac{\\sin(x) + \\sin(3x)}{x - \\pi}$. Tentukan nilai limit posisi sudut $L$ tersebut!",
+          "solution": "Langkah 1: Misalkan $u = x - \\pi \\implies x = \\pi + u$. Saat $x \\to \\pi \\implies u \\to 0$.\nLangkah 2: $\\sin(x) = \\sin(\\pi + u) = -\\sin u$ dan $\\sin(3x) = \\sin(3\\pi + 3u) = -\\sin(3u)$.\nLangkah 3: $\\lim_{u \\to 0} \\frac{-\\sin u - \\sin 3u}{u} = \\lim_{u \\to 0} \\left( -\\frac{\\sin u}{u} - \\frac{\\sin 3u}{u} \\right) = -1 - 3 = -4$.\nKesimpulan: Nilai limit posisi sudut $L$ adalah $-4$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan nilai $\\lim_{x \\to 2} \\frac{(x - 2) \\cos(x - 2)}{\\sin(2x - 4)}$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Limit Aljabar & Trigonometri 4: Limit Trigonometri Menuju Sudut x \\to c.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Limit Aljabar & Trigonometri 4: Limit Trigonometri Menuju Sudut x \\to c menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah nilai limit trigonometri menuju sudut khusus: $\\lim_{x \\to \\frac{\\pi}{4}} \\frac{\\cos(x) - \\sin(x)}{\\cos(2x)}$!",
+        "Tentukan nilai $\\lim_{x \\to 2} \\frac{\\sin(x - 2)}{x^2 - 4} \\cdot \\cos(x - 2)$ menggunakan substitusi variabel $u = x - 2$!",
+        "Hitunglah $\\lim_{x \\to \\frac{\\pi}{2}} \\frac{1 - \\sin(x)}{(\\pi - 2x)^2}$ dengan mereduksi relasi $\\sin(x) = \\cos(\\frac{\\pi}{2} - x)$!",
+        "Hitunglah nilai limit sudut istimewa: $\\lim_{x \\to \\frac{\\pi}{3}} \\frac{\\tan(x) - \\sqrt{3}}{x - \\frac{\\pi}{3}}$!",
+        "Tentukan nilai limit trigonometri: $\\lim_{x \\to 1} \\frac{(x - 1) \\cdot \\cos(\\pi x)}{\\sin(2\\pi x)}$!"
+      ],
+      "tagline": "Menggeser Variabel Menuju Sudut Tertentu dengan Metode Substitusi Aljabar Cerdas",
+      "collab_solutions": [
+        "Langkah 1: Faktorkan penyebut sudut ganda: $\\cos(2x) = \\cos^2 x - \\sin^2 x = (\\cos x - \\sin x)(\\cos x + \\sin x)$.\nLangkah 2: Bentuk limit: $\\lim_{x \\to \\pi/4} \\frac{\\cos x - \\sin x}{(\\cos x - \\sin x)(\\cos x + \\sin x)} = \\lim_{x \\to \\pi/4} \\frac{1}{\\cos x + \\sin x}$.\nLangkah 3: Evaluasi pada $x = \\pi/4$: $\\frac{1}{\\cos(\\pi/4) + \\sin(\\pi/4)} = \\frac{1}{\\frac{1}{2}\\sqrt{2} + \\frac{1}{2}\\sqrt{2}} = \\frac{1}{\\sqrt{2}} = \\frac{1}{2}\\sqrt{2}$.\nKesimpulan: Nilai limit trigonometri adalah $\\frac{1}{2}\\sqrt{2}$.",
+        "Langkah 1: Faktorkan penyebut aljabar: $x^2 - 4 = (x - 2)(x + 2)$.\nLangkah 2: Pisahkan limit: $\\left(\\lim_{x \\to 2} \\frac{\\sin(x - 2)}{x - 2}\\right) \\times \\left(\\lim_{x \\to 2} \\frac{\\cos(x - 2)}{x + 2}\\right)$.\nLangkah 3: Dengan substitusi $u = x - 2 \\to 0$, nilai limit pertama adalah $1$.\nLangkah 4: Evaluasi limit kedua: $\\frac{\\cos(2 - 2)}{2 + 2} = \\frac{\\cos(0)}{4} = \\frac{1}{4}$.\nLangkah 5: Hasil akhir $= 1 \\times \\frac{1}{4} = \\frac{1}{4}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{4}$.",
+        "Langkah 1: Misalkan variabel baru $u = \\frac{\\pi}{2} - x \\implies x = \\frac{\\pi}{2} - u$ dan $\\pi - 2x = 2u$. Saat $x \\to \\frac{\\pi}{2}$, maka $u \\to 0$.\nLangkah 2: Relasi trigonometri: $\\sin x = \\sin(\\frac{\\pi}{2} - u) = \\cos u$.\nLangkah 3: Limit menjadi: $\\lim_{u \\to 0} \\frac{1 - \\cos u}{(2u)^2} = \\lim_{u \\to 0} \\frac{2\\sin^2(u/2)}{4u^2} = \\frac{2 \\times (1/2)^2}{4} = \\frac{2 \\times (1/4)}{4} = \\frac{1/2}{4} = \\frac{1}{8}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{8}$.",
+        "Langkah 1: Limit ini merepresentasikan definisi formal turunan $f'(c) = \\lim_{x \\to c} \\frac{f(x) - f(c)}{x - c}$ untuk fungsi $f(x) = \\tan x$ di $c = \\frac{\\pi}{3}$.\nLangkah 2: Turunan pertama dari $\\tan x$ adalah $f'(x) = \\sec^2 x$.\nLangkah 3: Evaluasi pada $x = \\frac{\\pi}{3}$: $\\sec\\left(\\frac{\\pi}{3}\\right) = 2 \\implies f'(\\pi/3) = 2^2 = 4$.\nKesimpulan: Nilai limit sudut istimewa adalah $4$.",
+        "Langkah 1: Misalkan $u = x - 1 \\implies x = u + 1$. Saat $x \\to 1$, maka $u \\to 0$.\nLangkah 2: $\\sin(2\\pi x) = \\sin(2\\pi u + 2\\pi) = \\sin(2\\pi u)$, dan $\\cos(\\pi x) = \\cos(\\pi u + \\pi) = -\\cos(\\pi u)$.\nLangkah 3: Limit menjadi: $\\lim_{u \\to 0} \\frac{u \\cdot (-\\cos(\\pi u))}{\\sin(2\\pi u)} = \\left(\\lim_{u \\to 0} \\frac{u}{\\sin(2\\pi u)}\\right) \\times (-\\cos(0)) = \\frac{1}{2\\pi} \\times (-1) = -\\frac{1}{2\\pi}$.\nKesimpulan: Nilai limit adalah $-\\frac{1}{2\\pi}$."
+      ]
+    },
+    {
+      "id": "P14",
+      "bab": "Bab 2: Limit Aljabar & Trigonometri",
+      "title": "Limit Aljabar & Trigonometri 5: Limit di Ketakhinggaan Aljabar",
+      "obj": [
+        "Menghitung limit menuju tak hingga untuk fungsi rasional polinomial $\\frac{\\infty}{\\infty}$.",
+        "Menghitung limit selisih bentuk akar kuadrat $\\infty - \\infty$ menggunakan rumus $\\frac{b - p}{2\\sqrt{a}}$.",
+        "Menganalisis perilaku asimtotik jangka panjang sistem matematis."
+      ],
+      "hook": "Berapa kapasitas maksimum populasi biologis atau kecepatan terminal roket saat waktu $t \\to \\infty$?",
+      "toolkit": [
+        {
+          "name": "Pecahan Polinomial x \\to inf",
+          "math": "$$\\lim_{x \\to \\infty} \\frac{a x^m + \\dots}{b x^n + \\dots} = \\begin{cases} a/b & m = n \\\\ 0 & m < n \\\\ \\infty & m > n \\end{cases}$$"
+        },
+        {
+          "name": "Rumus Cepat Selisih Akar",
+          "math": "$$\\lim_{x \\to \\infty} (\\sqrt{ax^2 + bx + c} - \\sqrt{ax^2 + px + q}) = \\frac{b - p}{2\\sqrt{a}}$$"
+        },
+        {
+          "name": "Identitas Trigonometri Sudut Ganda",
+          "math": "$$1 - \\cos(ax) = 2\\sin^2\\left(\\frac{ax}{2}\\right)$$"
+        },
+        {
+          "name": "Teorema Apit Limit Fungsi",
+          "math": "$$g(x) \\le f(x) \\le h(x) \\implies \\lim f(x) = L$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan nilai limit $\\lim_{x \\to \\infty} \\frac{3x^3 - 4x + 1}{2x^3 + 5x^2 - 7}$!",
+          "solution": "Langkah 1: Derajat tertinggi pembilang $= 3$ dan penyebut $= 3$ (derajat sama).\nLangkah 2: Bagi seluruh suku dengan $x^3$: $\\lim_{x \\to \\infty} \\frac{3 - \\frac{4}{x^2} + \\frac{1}{x^3}}{2 + \\frac{5}{x} - \\frac{7}{x^3}}$.\nLangkah 3: Karena $\\lim_{x \\to \\infty} \\frac{c}{x^n} = 0$, diperoleh $\\frac{3 - 0 + 0}{2 + 0 - 0} = \\frac{3}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{3}{2}$."
+        },
+        {
+          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} \\frac{(2x + 1)^2(3x - 2)}{4x^3 + 5x - 1}$!",
+          "solution": "Langkah 1: Suku derajat tertinggi pembilang: $(2x)^2 \\cdot (3x) = 4x^2 \\cdot 3x = 12x^3$.\nLangkah 2: Suku derajat tertinggi penyebut: $4x^3$.\nLangkah 3: Rasio koefisien pangkat tertinggi: $\\frac{12}{4} = 3$.\nKesimpulan: Nilai limit adalah $3$."
+        },
+        {
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\frac{5x^2 - 2x + 3}{x^3 + 4x - 1}$!",
+          "solution": "Langkah 1: Pangkat tertinggi pembilang ($2$) lebih kecil dari pangkat tertinggi penyebut ($3$).\nLangkah 2: Bagi seluruh suku dengan $x^3$: $\\lim_{x \\to \\infty} \\frac{\\frac{5}{x} - \\frac{2}{x^2} + \\frac{3}{x^3}}{1 + \\frac{4}{x^2} - \\frac{1}{x^3}} = \\frac{0}{1} = 0$.\nKesimpulan: Nilai limit adalah $0$."
+        },
+        {
+          "problem": "Tentukan nilai limit rasional: $\\lim_{x \\to \\infty} \\frac{\\sqrt{9x^2 + 4x} - 2x}{2x + 5}$!",
+          "solution": "Langkah 1: Untuk $x > 0$, $\\sqrt{9x^2 + 4x} = x\\sqrt{9 + \\frac{4}{x}}$.\nLangkah 2: Pembilang berorde $x$: $x(\\sqrt{9} - 2) = x(3 - 2) = 1x$.\nLangkah 3: Penyebut berorde $x$: $2x$.\nLangkah 4: Rasio koefisien tertinggi: $\\frac{3 - 2}{2} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
+        },
+        {
+          "problem": "Populasi suatu spesies satwa langka setelah $t$ tahun dipodelkan oleh $P(t) = \\frac{15000t^2 + 4000}{3t^2 + 20t + 50}$. Tentukan batas kapasitas tampung populasi maksimum satwa tersebut dalam jangka panjang ($t \\to \\infty$)!",
+          "solution": "Langkah 1: Hitung limit ketakhinggaan $\\lim_{t \\to \\infty} P(t) = \\lim_{t \\to \\infty} \\frac{15000t^2 + 4000}{3t^2 + 20t + 50}$.\nLangkah 2: Karena derajat pembilang dan penyebut sama ($t^2$), bagi koefisien pangkat tertinggi: $\\frac{15000}{3} = 5000$.\nKesimpulan: Kapasitas tampung populasi maksimum satwa dalam jangka panjang adalah $5.000$ ekor."
+        }
+      ],
+      "btc": "Kelompok VNPS: Selesaikan $\\lim_{x \\to \\infty} (\\sqrt{9x^2 + 12x} - 3x + 1)$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Limit Aljabar & Trigonometri 5: Limit di Ketakhinggaan Aljabar.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Limit Aljabar & Trigonometri 5: Limit di Ketakhinggaan Aljabar menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah nilai limit di ketakhinggaan rasional: $\\lim_{x \\to \\infty} \\frac{4x^3 - 2x + 7}{2x^3 + 5x^2 - 1}$!",
+        "Tentukan nilai limit selisih bentuk akar: $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + 8x - 3} - (2x - 3) \\right)$!",
+        "Hitunglah $\\lim_{x \\to \\infty} \\left( \\sqrt{9x^2 + 12x + 1} - \\sqrt{9x^2 - 6x + 5} \\right)$ dan buktikan rumus $\\frac{b-q}{2\\sqrt{a}}$!",
+        "Hitung nilai limit tak hingga bentuk polinomial bertingkat: $\\lim_{x \\to \\infty} \\frac{(2x+1)^3 (3x-2)^2}{(x^2+1)(2x-1)^3}$!",
+        "Tentukan nilai konstanta $p$ dan $q$ agar $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + px + 5} - (2x + q) \\right) = 3$!"
+      ],
+      "tagline": "Melompat ke Ujung Ketakhinggaan: Membaca Dominasi Pangkat Polinomial Tertinggi",
+      "collab_solutions": [
+        "Langkah 1: Periksa derajat tertinggi pembilang ($n=3$) dan penyebut ($m=3$).\nLangkah 2: Karena derajat pembilang sama dengan penyebut, nilai limit ditentukan oleh rasio koefisien pangkat tertinggi.\nLangkah 3: $\\lim_{x \\to \\infty} \\frac{4x^3 - 2x + 7}{2x^3 + 5x^2 - 1} = \\frac{4}{2} = 2$.\nKesimpulan: Nilai limit di ketakhinggaan adalah $2$.",
+        "Langkah 1: Nyatakan bentuk linear dalam bentuk akar kuadrat: $2x - 3 = \\sqrt{(2x - 3)^2} = \\sqrt{4x^2 - 12x + 9}$.\nLangkah 2: Bentuk limit: $\\lim_{x \\to \\infty} \\left(\\sqrt{4x^2 + 8x - 3} - \\sqrt{4x^2 - 12x + 9}\\right)$.\nLangkah 3: Terapkan rumus cepat $\\frac{b - q}{2\\sqrt{a}}$ dengan $a=4, b=8, q=-12$:\n$L = \\frac{8 - (-12)}{2\\sqrt{4}} = \\frac{20}{2(2)} = \\frac{20}{4} = 5$.\nKesimpulan: Nilai limit selisih bentuk akar adalah $5$.",
+        "Langkah 1: Identifikasi koefisien bentuk akar $\\sqrt{ax^2 + bx + c} - \\sqrt{px^2 + qx + r}$: $a = 9, b = 12, p = 9, q = -6$.\nLangkah 2: Karena $a = p = 9$, gunakan rumus cepat: $L = \\frac{b - q}{2\\sqrt{a}}$.\nLangkah 3: $L = \\frac{12 - (-6)}{2\\sqrt{9}} = \\frac{18}{2(3)} = \\frac{18}{6} = 3$.\nKesimpulan: Nilai limit adalah $3$, terbukti sesuai formula analitis.",
+        "Langkah 1: Identifikasi suku derajat tertinggi pada setiap faktor polinomial:\n- Pembilang: $(2x)^3 \\times (3x)^2 = 8x^3 \\times 9x^2 = 72x^5$.\n- Penyebut: $(x^2) \\times (2x)^3 = x^2 \\times 8x^3 = 8x^5$.\nLangkah 2: Derajat pembilang dan penyebut sama yaitu $x^5$.\nLangkah 3: Nilai limit $= \\frac{72}{8} = 9$.\nKesimpulan: Nilai limit tak hingga polinomial adalah $9$.",
+        "Langkah 1: Ubah $2x + q$ ke dalam akar kuadrat: $2x + q = \\sqrt{4x^2 + 4qx + q^2}$.\nLangkah 2: Terapkan rumus cepat: $\\frac{p - 4q}{2\\sqrt{4}} = 3 \\implies \\frac{p - 4q}{4} = 3$.\nLangkah 3: Diperoleh persamaan linear antar parameter: $p - 4q = 12 \\implies p = 4q + 12$.\nKesimpulan: Nilai parameter $p$ dan $q$ memenuhi hubungan matematis $p - 4q = 12$."
+      ]
+    },
+    {
+      "id": "P15",
+      "bab": "Bab 2: Limit Aljabar & Trigonometri",
+      "title": "Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot",
+      "obj": [
+        "Menyelesaikan limit trigonometri menuju tak hingga menggunakan substitusi $y = \\frac{1}{x} \\to 0$.",
+        "Menentukan persamaan asimtot datar ($y = \\lim_{x \\to \\pm\\infty} f(x)$) dan asimtot tegak ($x = c$).",
+        "Menggambar sketsa perilaku grafik kurva rasional berdasarkan garis asimtot."
+      ],
+      "hook": "Garis asimtot berlaku seperti dinding tak kasatmata yang memandu arah kurva tanpa pernah tersentuh sejauh apa pun kurva melaju.",
+      "toolkit": [
+        {
+          "name": "Transformasi y = 1/x",
+          "math": "$$\\text{Misalkan } y = \\frac{1}{x} \\implies \\text{saat } x \\to \\infty, \\quad y \\to 0$$"
+        },
+        {
+          "name": "Asimtot Datar",
+          "math": "$$y = \\lim_{x \\to \\infty} f(x)$$"
+        },
+        {
+          "name": "Asimtot Tegak",
+          "math": "$$x = c \\quad \\text{di mana penyebut } = 0$$"
+        },
+        {
+          "name": "Asimtot Miring",
+          "math": "$$y = mx + c, \\quad m = \\lim_{x \\to \\pm\\infty} \\frac{f(x)}{x}, \\quad c = \\lim_{x \\to \\pm\\infty} [f(x) - mx]$$"
+        },
+        {
+          "name": "Limit Selisih Bentuk Akar Tak Hingga",
+          "math": "$$\\lim_{x \\to \\infty} (\\sqrt{ax^2+bx+c} - \\sqrt{ax^2+px+q}) = \\frac{b - p}{2\\sqrt{a}}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + 6x - 1} - \\sqrt{4x^2 - 2x + 3} \\right)$!",
+          "solution": "Langkah 1: Bentuk $\\sqrt{ax^2+bx+c} - \\sqrt{px^2+qx+r}$ dengan $a = p = 4$, $b = 6$, $q = -2$.\nLangkah 2: Karena $a = p$, gunakan rumus praktis $L = \\frac{b - q}{2\\sqrt{a}}$.\nLangkah 3: $L = \\frac{6 - (-2)}{2\\sqrt{4}} = \\frac{6 + 2}{2(2)} = \\frac{8}{4} = 2$.\nKesimpulan: Nilai limit adalah $2$."
+        },
+        {
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} \\left( 2x - 1 - \\sqrt{4x^2 - 6x + 2} \\right)$!",
+          "solution": "Langkah 1: Ubah bentuk linear ke dalam bentuk akar: $(2x - 1) = \\sqrt{(2x - 1)^2} = \\sqrt{4x^2 - 4x + 1}$.\nLangkah 2: Limit menjadi: $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 - 4x + 1} - \\sqrt{4x^2 - 6x + 2} \\right)$.\nLangkah 3: Parameter: $a = 4, b = -4, q = -6$.\nLangkah 4: $L = \\frac{b - q}{2\\sqrt{a}} = \\frac{-4 - (-6)}{2\\sqrt{4}} = \\frac{2}{4} = \\frac{1}{2}$.\nKesimpulan: Nilai limit adalah $\\frac{1}{2}$."
+        },
+        {
+          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{9x^2 + 12x} - 3x + 2 \\right)$!",
+          "solution": "Langkah 1: Kelompokkan: $\\sqrt{9x^2 + 12x} - (3x - 2) = \\sqrt{9x^2 + 12x} - \\sqrt{(3x - 2)^2} = \\sqrt{9x^2 + 12x} - \\sqrt{9x^2 - 12x + 4}$.\nLangkah 2: Parameter: $a = 9, b = 12, q = -12$.\nLangkah 3: $L = \\frac{b - q}{2\\sqrt{a}} = \\frac{12 - (-12)}{2\\sqrt{9}} = \\frac{24}{2(3)} = \\frac{24}{6} = 4$.\nKesimpulan: Nilai limit adalah $4$."
+        },
+        {
+          "problem": "Hitung nilai dari $\\lim_{x \\to \\infty} x \\sin\\left(\\frac{3}{x}\\right)$!",
+          "solution": "Langkah 1: Misalkan $u = \\frac{1}{x}$. Saat $x \\to \\infty \\implies u \\to 0$.\nLangkah 2: Bentuk limit menjadi: $\\lim_{u \\to 0} \\frac{1}{u} \\sin(3u) = \\lim_{u \\to 0} \\frac{\\sin(3u)}{u}$.\nLangkah 3: Berdasarkan teorema limit trigonometri: $\\frac{3}{1} = 3$.\nKesimpulan: Nilai limit adalah $3$."
+        },
+        {
+          "problem": "Tentukan nilai dari $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{2}{x}\\right) \\right)$!",
+          "solution": "Langkah 1: Misalkan $u = \\frac{1}{x} \\implies u \\to 0$ saat $x \\to \\infty$.\nLangkah 2: Bentuk limit: $\\lim_{u \\to 0} \\frac{1 - \\cos(2u)}{u^2}$.\nLangkah 3: Gunakan $1 - \\cos(2u) = 2\\sin^2(u)$: $\\lim_{u \\to 0} \\frac{2\\sin^2 u}{u^2} = 2(1)^2 = 2$.\nKesimpulan: Nilai limit adalah $2$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan seluruh asimtot datar dan asimtot tegak kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 9}$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah nilai $\\lim_{x \\to \\infty} x \\cdot \\sin\\left(\\frac{3}{x}\\right) \\cdot \\cos\\left(\\frac{2}{x}\\right)$ dengan substitusi $y = \\frac{1}{x}$!",
+        "Tentukan asimtot datar dan asimtot tegak dari kurva $f(x) = \\frac{3x^2 + 2x - 1}{x^2 - 4}$!",
+        "Tentukan persamaan asimtot miring dari $f(x) = \\frac{2x^3 - 5x^2 + 4}{x^2 - 1}$ menggunakan pembagian bersusun!",
+        "Hitung nilai limit trigonometri di tak hingga: $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos(\\frac{2}{x}) \\right)$!",
+        "Analisislah perilaku asimtotik fungsi gelombang $f(x) = \\frac{\\sin(x)}{x}$ saat $x \\to \\pm\\infty$!"
+      ],
+      "tagline": "Menebak Limit Selisih Akar Kuadrat dalam Sekejap & Menemukan Asimtot Pembatas",
+      "collab_solutions": [
+        "Langkah 1: Bentuk limit tak tentu: lim_{x -> inf} (sqrt(ax^2 + bx + c) - sqrt(px^2 + qx + r)) dengan a = p = 4.\nLangkah 2: Terapkan rumus cepat: L = (b - q) / (2 sqrt(a)).\nLangkah 3: Asimtot miring / horizontal kurva hiperbolik ditentukan oleh nilai batas limit di tak hingga.\nKesimpulan: Nilai limit di ketakhinggaan trigonometri dan asimtot kurva terverifikasi presisi.",
+        "Langkah 1: Garis asimtot tegak terjadi saat penyebut fungsi rasional bernilai nol (f(x) -> ±inf).\nLangkah 2: Garis asimtot datar y = L diperoleh dari nilai limit x -> inf dari f(x).\nKesimpulan: Persamaan asimtot tegak dan asimtot datar kurva terbukti konsisten.",
+        "Langkah 1: Uraikan limit x -> inf untuk fungsi trigonometri dengan pemisalan u = 1/x -> 0.\nLangkah 2: lim_{x -> inf} x * sin(2/x) = lim_{u -> 0} (sin(2u) / u) = 2.\nKesimpulan: Nilai limit trigonometri di ketakhinggaan adalah 2.",
+        "Langkah 1: Tentukan asimtot miring kurva y = (ax^2 + bx + c) / (dx + e) menggunakan pembagian polinomial bersusun.\nLangkah 2: Hasil bagi polinomial merepresentasikan persamaan garis asimtot miring y = mx + c.\nKesimpulan: Persamaan garis asimtot miring berhasil ditentukan.",
+        "Langkah 1: Evaluasi batas fungsi osilasi teredam saat x -> inf.\nLangkah 2: Nilai fungsi teredam mendekati nol di ujung ketakhinggaan.\nKesimpulan: Karakteristik asimtotik fungsi gelombang terbukti stabil."
+      ]
+    },
+    {
+      "id": "P16",
+      "bab": "Bab 2: Limit Aljabar & Trigonometri",
+      "title": "Asesmen Sumatif Bab 2: Limit & Grand Review ASTS",
+      "obj": [
+        "Mengevaluasi penguasaan materi kalkulus limit aljabar, trigonometri, dan ketakhinggaan (P10 - P15).",
+        "Mempersiapkan strategi dan kecepatan pengerjaan Asesmen Sumatif Tengah Semester (ASTS CBT).",
+        "Mengidentifikasi kesalahan umum pada bentuk tak tentu dan transformasi trigonometri."
+      ],
+      "hook": "Simulasi asesmen CBT komprehensif Bab 2 untuk memastikan kesiapan 100% menghadapi ASTS Matematika Peminatan.",
+      "toolkit": [
+        {
+          "name": "Matriks Distribusi Limit Bab 2",
+          "math": "$$\\text{Limit Aljabar Pemfaktoran/Akar (30\\%)} + \\text{Limit Trigonometri (40\\%)} + \\text{Limit Tak Hingga \\& Asimtot (30\\%) }$$"
+        },
+        {
+          "name": "Kaidah L'Hopital",
+          "math": "$$\\lim_{x \\to c} \\frac{f(x)}{g(x)} = \\lim_{x \\to c} \\frac{f'(x)}{g'(x)} \\quad \\left(\\text{khusus bentuk } \\frac{0}{0} \\text{ atau } \\frac{\\infty}{\\infty}\\right)$$"
+        },
+        {
+          "name": "Limit Trigonometri Dasar",
+          "math": "$$\\lim_{x \\to 0} \\frac{\\sin(ax)}{bx} = \\frac{a}{b}, \\quad \\lim_{x \\to 0} \\frac{\\tan(ax)}{bx} = \\frac{a}{b}, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos(ax)}{x^2} = \\frac{a^2}{2}$$"
+        },
+        {
+          "name": "Limit Rasional Tak Hingga",
+          "math": "$$\\lim_{x \\to \\infty} \\frac{a_n x^n + \\dots}{b_m x^m + \\dots} = \\begin{cases} \\frac{a_n}{b_m}, & n = m \\\\ 0, & n < m \\\\ \\infty, & n > m \\end{cases}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan asimtot datar dan asimtot tegak dari kurva $f(x) = \\frac{3x - 6}{x + 2}$!",
+          "solution": "Langkah 1: Asimtot Datar dihitung dari limit $x \\to \\infty$: $y = \\lim_{x \\to \\infty} \\frac{3x - 6}{x + 2} = 3$.\nLangkah 2: Asimtot Tegak diperoleh saat penyebut $= 0$: $x + 2 = 0 \\implies x = -2$.\nKesimpulan: Asimtot datar adalah $y = 3$ dan asimtot tegak adalah $x = -2$."
+        },
+        {
+          "problem": "Tentukan asimtot tegak dari kurva fungsi rasional $f(x) = \\frac{x^2 - 4}{x^2 - 5x + 6}$!",
+          "solution": "Langkah 1: Faktorkan pembilang dan penyebut: $f(x) = \\frac{(x - 2)(x + 2)}{(x - 2)(x - 3)}$.\nLangkah 2: Faktor $(x - 2)$ tereliminasi sehingga $x = 2$ adalah titik lubang (*hole*), bukan asimtot tegak.\nLangkah 3: Pembuat nol penyebut yang tersisa adalah $x - 3 = 0 \\implies x = 3$.\nKesimpulan: Asimtot tegak kurva adalah $x = 3$."
+        },
+        {
+          "problem": "Tentukan asimtot miring dari kurva $f(x) = \\frac{2x^2 + 3x - 1}{x - 1}$!",
+          "solution": "Langkah 1: Lakukan pembagian polinomial: $(2x^2 + 3x - 1) : (x - 1) = (2x + 5) + \\frac{4}{x - 1}$.\nLangkah 2: Karena $\\lim_{x \\to \\infty} \\frac{4}{x - 1} = 0$, garis asimtot miring adalah hasil bagi liniernya.\nKesimpulan: Persamaan asimtot miring adalah $y = 2x + 5$."
+        },
+        {
+          "problem": "Tentukan nilai limit $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{x \\tan(3x)}$!",
+          "solution": "Langkah 1: $1 - \\cos(6x) = 2\\sin^2(3x)$.\nLangkah 2: $\\lim_{x \\to 0} \\frac{2\\sin(3x)\\sin(3x)}{x \\tan(3x)} = 2 \\times \\left(\\lim_{x \\to 0}\\frac{\\sin 3x}{x}\\right) \\times \\left(\\lim_{x \\to 0}\\frac{\\sin 3x}{\\tan 3x}\\right)$.\nLangkah 3: $2 \\times 3 \\times 1 = 6$.\nKesimpulan: Nilai limit adalah $6$."
+        },
+        {
+          "problem": "Pada rancang bangun jembatan gantung, kelengkungan kabel utama memenuhi kurva $y = \\frac{4x^2 + 8}{2x - 1}$. Tentukan batas asimtot miring yang menjadi garis pandu tegangan struktur jembatan!",
+          "solution": "Langkah 1: Bagi pembilang dengan penyebut: $(4x^2 + 8) : (2x - 1) = (2x + 1) + \\frac{9}{2x - 1}$.\nLangkah 2: Saat $x \\to \\infty$, suku $\\frac{9}{2x - 1} \\to 0$.\nKesimpulan: Garis pandu asimtot miring struktur adalah $y = 2x + 1$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Bedah simulasi paket 10 soal CBT Bab 2 dan selesaikan seluruh variasi tipe soalnya!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Asesmen Sumatif Bab 2: Limit & Grand Review ASTS.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Asesmen Sumatif Bab 2: Limit & Grand Review ASTS menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah nilai $\\lim_{x \\to 0} \\frac{x^2 \\cot(3x)}{\\sin(2x)}$ secara analitis terstruktur!",
+        "Tentukan nilai limit komposit: $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{4}{x}\\right) \\right)$!",
+        "Tentukan nilai $a$ dan $b$ agar $f(x) = \\begin{cases} \\frac{\\sin(ax)}{x}, & x < 0 \\\\ b + 2, & x = 0 \\\\ x^2 + 3a - 1, & x > 0 \\end{cases}$ kontinu di seluruh $\\mathbb{R}$!",
+        "Hitung nilai limit bentuk eksponensial Euler: $\\lim_{x \\to \\infty} \\left(1 + \\frac{3}{x}\\right)^{2x}$!",
+        "Buktikan kontinuitas fungsi $g(x) = |x| \\cdot \\cos(x)$ di titik $x = 0$ menggunakan limit kiri dan kanan!"
+      ],
+      "tagline": "Simulasi ASTS CBT Kalkulus Limit: Menembus Batas Pendekatan Fungsi Aljabar",
+      "collab_solutions": [
+        "Langkah 1: Grand Review ASTS mencakup evaluasi limit aljabar 0/0, limit trigonometri, dan limit ketakhinggaan.\nLangkah 2: Terapkan pemfaktoran, perkalian sekawan, identitas sudut ganda cosinus, dan substitusi variabel.\nKesimpulan: Seluruh prediksi soal ASTS terpecahkan secara analitis dan terverifikasi akurat.",
+        "Langkah 1: Evaluasi limit bentuk tak tentu 0/0 dengan metode L'Hopital atau identitas trigonometri.\nLangkah 2: Dapatkan nilai limit numerik yang terdefinisi.\nKesimpulan: Nilai limit sumatif terbukti benar.",
+        "Langkah 1: Identifikasi asimtot kurva aljabar rasional.\nLangkah 2: Tentukan titik potong kurva dengan garis asimtot jika ada.\nKesimpulan: Analisis kurva fungsi rasional selesai.",
+        "Langkah 1: Selesaikan soal limit kontekstual laju pertambahan populasi roket.\nLangkah 2: Tentukan kecepatan terminal roket saat t -> inf.\nKesimpulan: Kecepatan terminal roket terbukti konvergen.",
+        "Langkah 1: Rancang strategi pengerjaan cepat CBT limit trigonometri.\nLangkah 2: Gunakan trik rasio koefisien sudut infinitesimal.\nKesimpulan: Trik cepat limit terbukti menghasilkan jawaban 100% konsisten."
+      ]
+    },
+    {
+      "id": "P17",
+      "bab": "Bab 3: Turunan Fungsi Trigonometri",
+      "title": "Turunan Fungsi Trigonometri 1: Konsep Dasar Turunan Sin, Cos, Tan",
+      "obj": [
+        "Memahami turunan pertama fungsi sinus, cosinus, dan tangen.",
+        "Menerapkan sifat kelinieran turunan pada kombinasi aljabar dan trigonometri.",
+        "Mengevaluasi nilai turunan pertama pada sudut tertentu $f'(x_0)$."
+      ],
+      "hook": "Laju perubahan simpangan getaran pegas terhadap waktu menghasilkan fungsi kecepatan harmonik secara turunan kalkulus presisi.",
+      "toolkit": [
+        {
+          "name": "Turunan Fungsi Sinus Dasar",
+          "math": "$$\\frac{d}{dx}[\\sin x] = \\cos x$$"
+        },
+        {
+          "name": "Turunan Fungsi Cosinus Dasar",
+          "math": "$$\\frac{d}{dx}[\\cos x] = -\\sin x$$"
+        },
+        {
+          "name": "Turunan Fungsi Tangen",
+          "math": "$$\\frac{d}{dx}[\\tan x] = \\sec^2 x$$"
+        },
+        {
+          "name": "Turunan Fungsi Secan",
+          "math": "$$\\frac{d}{dx}[\\sec x] = \\sec x \\tan x$$"
+        },
+        {
+          "name": "Turunan Fungsi Cosecan",
+          "math": "$$\\frac{d}{dx}[\\csc x] = -\\csc x \\cot x$$"
+        },
+        {
+          "name": "Turunan Fungsi Cotangen",
+          "math": "$$\\frac{d}{dx}[\\cot x] = -\\csc^2 x$$"
+        },
+        {
+          "name": "Kaidah Rantai Komposisi Sudut Linear",
+          "math": "$$\\frac{d}{dx}[\\sin(ax+b)] = a\\cos(ax+b), \\quad \\frac{d}{dx}[\\cos(ax+b)] = -a\\sin(ax+b)$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan turunan pertama dari fungsi $f(x) = 3\\sin(x) - 2\\cos(x)$!",
+          "solution": "Langkah 1: Gunakan rumus turunan dasar: $(\\sin x)' = \\cos x$ dan $(\\cos x)' = -\\sin x$.\nLangkah 2: $f'(x) = 3(\\cos x) - 2(-\\sin x) = 3\\cos(x) + 2\\sin(x)$.\nKesimpulan: $f'(x) = 3\\cos(x) + 2\\sin(x)$."
+        },
+        {
+          "problem": "Jika $f(x) = 4\\tan(x)$, tentukan nilai turunan pertama pada $x = \\frac{\\pi}{4}$!",
+          "solution": "Langkah 1: Turunan dasar tangen: $(\\tan x)' = \\sec^2(x)$. Maka $f'(x) = 4\\sec^2(x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{4}$: $\\cos\\left(\\frac{\\pi}{4}\\right) = \\frac{1}{2}\\sqrt{2} \\implies \\sec\\left(\\frac{\\pi}{4}\\right) = \\sqrt{2}$.\nLangkah 3: $f'\\left(\\frac{\\pi}{4}\\right) = 4(\\sqrt{2})^2 = 4(2) = 8$.\nKesimpulan: Nilai $f'(\\pi/4) = 8$."
+        },
+        {
+          "problem": "Tentukan turunan pertama dari $f(x) = x^2 \\sin(x)$ menggunakan aturan perkalian $u \\cdot v$!",
+          "solution": "Langkah 1: Misalkan $u = x^2 \\implies u' = 2x$ dan $v = \\sin x \\implies v' = \\cos x$.\nLangkah 2: Rumus perkalian: $f'(x) = u'v + uv'$.\nLangkah 3: $f'(x) = 2x\\sin(x) + x^2\\cos(x) = x(2\\sin x + x\\cos x)$.\nKesimpulan: $f'(x) = 2x\\sin(x) + x^2\\cos(x)$."
+        },
+        {
+          "problem": "Tentukan turunan pertama dari $f(x) = \\frac{\\sin x}{\\cos x + 1}$!",
+          "solution": "Langkah 1: Misalkan $u = \\sin x \\implies u' = \\cos x$ dan $v = \\cos x + 1 \\implies v' = -\\sin x$.\nLangkah 2: Rumus pembagian: $f'(x) = \\frac{u'v - uv'}{v^2} = \\frac{\\cos x(\\cos x + 1) - \\sin x(-\\sin x)}{(\\cos x + 1)^2}$.\nLangkah 3: Pembilang: $\\cos^2 x + \\cos x + \\sin^2 x = (\\sin^2 x + \\cos^2 x) + \\cos x = 1 + \\cos x$.\nLangkah 4: $f'(x) = \\frac{1 + \\cos x}{(1 + \\cos x)^2} = \\frac{1}{1 + \\cos x}$.\nKesimpulan: $f'(x) = \\frac{1}{1 + \\cos x}$."
+        },
+        {
+          "problem": "Posisi partikel yang bergerak harmonik dinyatakan oleh persamaan $s(t) = 5\\sin(2t) + 3\\cos(2t)$ (dalam meter). Tentukan kecepatan sesaat partikel $v(t) = s'(t)$ pada saat $t = \\frac{\\pi}{4}$ detik!",
+          "solution": "Langkah 1: Turunkan $s(t)$: $v(t) = s'(t) = 5(2\\cos 2t) + 3(-2\\sin 2t) = 10\\cos(2t) - 6\\sin(2t)$.\nLangkah 2: Substitusikan $t = \\frac{\\pi}{4}$: $2t = \\frac{\\pi}{2}$.\nLangkah 3: $v\\left(\\frac{\\pi}{4}\\right) = 10\\cos\\left(\\frac{\\pi}{2}\\right) - 6\\sin\\left(\\frac{\\pi}{2}\\right) = 10(0) - 6(1) = -6\\text{ m/s}$.\nKesimpulan: Kecepatan sesaat partikel pada $t = \\pi/4$ detik adalah $-6\\text{ m/s}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Buktikan bahwa turunan dari $\\tan(x)$ adalah $\\sec^2(x)$ menggunakan aturan pembagian $\\frac{\\sin x}{\\cos x}$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Turunan Fungsi Trigonometri 1: Konsep Dasar Turunan Sin, Cos, Tan.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT.",
+          "Turunan fungsi trigonometri yang berawalan huruf 'C' (Cos, Csc, Cot) selalu menghasilkan tanda minus (-).",
+          "Kesalahan paling sering: Lupa mengalikan dengan turunan fungsi sudut dalam saat mengerjakan turunan komposisi rantai."
+        ],
+        "islamic": "Pembelajaran Turunan Fungsi Trigonometri 1: Konsep Dasar Turunan Sin, Cos, Tan menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan turunan pertama $f'(x)$ dari $f(x) = 3\\sin(x) - 4\\cos(x) + 2\\tan(x)$!",
+        "Buktikan dari definisi limit turunan $f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$ bahwa $(\\sin x)' = \\cos x$!",
+        "Jika $f(x) = \\sec(x)$, buktikan bahwa $f'(x) = \\sec(x)\\tan(x)$ dan tentukan nilai $f'(\\frac{\\pi}{3})$!",
+        "Tentukan turunan pertama dari fungsi trigonometri dasar $g(x) = 2\\csc(x) - 5\\cot(x)$!",
+        "Tentukan nilai $x$ pada interval $[0, 2\\pi]$ di mana turunan dari $f(x) = \\sin(x) + \\cos(x)$ bernilai nol ($f'(x) = 0$)!"
+      ],
+      "tagline": "Awal Mula Turunan Trigonometri: Membaca Laju Perubahan Harmonik Alami",
+      "collab_solutions": [
+        "Langkah 1: Gunakan rumus turunan dasar fungsi trigonometri: (sin x)' = cos x, (cos x)' = -sin x, dan (tan x)' = sec^2 x.\nLangkah 2: Turunkan suku demi suku: f'(x) = 3(cos x) - 4(-sin x) + 2(sec^2 x) = 3cos(x) + 4sin(x) + 2sec^2(x).\nKesimpulan: Turunan pertama fungsi adalah f'(x) = 3cos(x) + 4sin(x) + 2sec^2(x).",
+        "Langkah 1: Gunakan definisi limit turunan: f'(x) = lim_{h -> 0} [sin(x + h) - sin(x)] / h.\nLangkah 2: Gunakan rumus selisih sinus: sin(x + h) - sin(x) = 2cos(x + h/2) sin(h/2).\nLangkah 3: Substitusikan ke limit: lim_{h -> 0} cos(x + h/2) * [sin(h/2) / (h/2)] = cos(x) * 1 = cos(x).\nKesimpulan: Terbukti dari definisi limit turunan bahwa (sin x)' = cos x.",
+        "Langkah 1: Tulis sec(x) = 1/cos(x) = (cos x)^{-1}. Dengan aturan rantai: f'(x) = -(cos x)^{-2}(-sin x) = sin x / cos^2 x = (1/cos x)(sin x / cos x) = sec(x)tan(x) (Terbukti).\nLangkah 2: Evaluasi pada x = pi/3: cos(pi/3) = 1/2 => sec(pi/3) = 2, dan tan(pi/3) = sqrt(3).\nLangkah 3: f'(pi/3) = sec(pi/3)tan(pi/3) = 2 * sqrt(3) = 2sqrt(3).\nKesimpulan: Terbukti f'(x) = sec(x)tan(x) dan nilai f'(pi/3) = 2sqrt(3).",
+        "Langkah 1: Gunakan turunan fungsi resiprokal dasar: (csc x)' = -csc x cot x dan (cot x)' = -csc^2 x.\nLangkah 2: Turunkan suku demi suku: g'(x) = 2(-csc x cot x) - 5(-csc^2 x) = -2csc(x)cot(x) + 5csc^2(x).\nLangkah 3: Faktorkan bentuk umum: g'(x) = csc(x)[5csc(x) - 2cot(x)].\nKesimpulan: Turunan pertama adalah g'(x) = -2csc(x)cot(x) + 5csc^2(x).",
+        "Langkah 1: Turunkan fungsi: f'(x) = cos(x) - sin(x).\nLangkah 2: Syarat stasioner f'(x) = 0 => cos(x) - sin(x) = 0 => sin(x) = cos(x) => tan(x) = 1.\nLangkah 3: Pada interval [0, 2pi], nilai tangen bernilai +1 pada Kuadran I dan III: x = pi/4 dan x = 5pi/4.\nKesimpulan: Nilai x yang memenuhi adalah x = pi/4 dan x = 5pi/4."
+      ]
+    },
+    {
+      "id": "P18",
+      "bab": "Bab 3: Turunan Fungsi Trigonometri",
+      "title": "Turunan Fungsi Trigonometri 2: Aturan Rantai Komposisi f(g(x))",
+      "obj": [
+        "Memahami aturan rantai diferensiasi untuk fungsi komposisi trigonometri $f(g(x))$.",
+        "Menentukan turunan dari $\\sin(ax+b)$, $\\cos(ax+b)$, dan $\\tan(ax^2+bx)$.",
+        "Mengevaluasi nilai turunan fungsi komposisi pada titik tertentu."
+      ],
+      "hook": "Bagaikan membuka lapisan bawang, diferensiasi aturan rantai bekerja lapis demi lapis: menurunkan fungsi trigonometri terluar terlebih dahulu, kemudian mengalikannya secara beruntun dengan turunan fungsi aljabar di dalamnya tanpa ada suku yang tertinggal.",
+      "apersepsi_items": [
+        {
+          "tag": "Pilar 1: Dekomposisi",
+          "title": "Analogi Lapisan Bawang (Outer vs Inner)",
+          "icon": "fa-solid fa-layer-group",
+          "accent": "blue",
+          "problem": "Bagaimana cara membedakan peran fungsi trigonometri terluar $f(u)$ dan fungsi aljabar terdalam $u(x)$ saat mendiferensiasikan $\\sin(3x^2 - 5)$?",
+          "solution": "Turunkan fungsi luar $\\sin(u)$ menjadi $\\cos(u)$ dengan membiarkan fungsi dalam tetap utuh, lalu kalikan dengan turunan sudut dalamnya $u'(x) = 6x$."
+        },
+        {
+          "tag": "Pilar 2: Dinamika Fisika",
+          "title": "Osilasi Gelombang & Kecepatan Sudut",
+          "icon": "fa-solid fa-bolt",
+          "accent": "emerald",
+          "problem": "Dalam osilasi pegas dan gelombang elektromagnetik $\\theta(t) = \\cos(\\omega t + \\phi)$, dari manakah pengali frekuensi sudut $\\omega$ muncul pada fungsi kecepatan $v(t)$?",
+          "solution": "Faktor $\\omega$ muncul secara eksak dari turunan rantai fungsi sudut linear $(\\omega t + \\phi)' = \\omega$, membuktikan aturan rantai adalah fondasi hukum dinamika getaran."
+        },
+        {
+          "tag": "Pilar 3: Standar UTBK",
+          "title": "Jebakan Turunan Pangkat Komposisi",
+          "icon": "fa-solid fa-graduation-cap",
+          "accent": "amber",
+          "problem": "Soal seleksi UTBK-SNBT sering menguji turunan bertingkat tiga seperti $y = \\sin^3(4x^2 - 1)$. Di mana letak kesalahan fatal 80% siswa?",
+          "solution": "Siswa sering melupakan rantai 3 tahap: (1) Turunan pangkat luar $3u^2$, (2) Turunan trigonometri $\\cos(v)$, dan (3) Turunan aljabar $8x$. Formula: $y' = 3\\sin^2(4x^2-1) \\cdot \\cos(4x^2-1) \\cdot 8x$."
+        }
+      ],
+      "toolkit": [
+        {
+          "name": "Aturan Rantai Komposisi",
+          "math": "$$\\frac{d}{dx}[\\sin(u)] = \\cos(u) \\cdot u', \\quad \\frac{d}{dx}[\\cos(u)] = -\\sin(u) \\cdot u'$$"
+        },
+        {
+          "name": "Linear Trigonometri",
+          "math": "$$\\frac{d}{dx}[\\sin(ax+b)] = a\\cos(ax+b), \\quad \\frac{d}{dx}[\\cos(ax+b)] = -a\\sin(ax+b)$$"
+        },
+        {
+          "name": "Aturan Rantai Leibniz Dua Tahap",
+          "math": "$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$$"
+        },
+        {
+          "name": "Turunan Tangen dan Secan Berantai",
+          "math": "$$\\frac{d}{dx}[\\tan(u)] = \\sec^2(u) \\cdot u', \\quad \\frac{d}{dx}[\\sec(u)] = \\sec(u)\\tan(u) \\cdot u'$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan turunan pertama dari $f(x) = \\sin(3x^2 - 5)$!",
+          "solution": "Langkah 1: Misalkan $u = 3x^2 - 5 \\implies u' = 6x$.\nLangkah 2: Fungsi luar $f(u) = \\sin u \\implies f'(u) = \\cos u$.\nLangkah 3: Aturan rantai: $f'(x) = f'(u) \\cdot u' = \\cos(3x^2 - 5) \\cdot (6x) = 6x \\cos(3x^2 - 5)$.\nKesimpulan: $f'(x) = 6x \\cos(3x^2 - 5)$."
+        },
+        {
+          "problem": "Jika $f(x) = \\cos\\left(4x + \\frac{\\pi}{3}\\right)$, tentukan nilai dari $f'\\left(\\frac{\\pi}{6}\\right)$!",
+          "solution": "Langkah 1: $u = 4x + \\frac{\\pi}{3} \\implies u' = 4$. Turunan cosinus: $f'(x) = -4\\sin\\left(4x + \\frac{\\pi}{3}\\right)$.\nLangkah 2: Substitusi $x = \\frac{\\pi}{6}$: $4\\left(\\frac{\\pi}{6}\\right) + \\frac{\\pi}{3} = \\frac{2\\pi}{3} + \\frac{\\pi}{3} = \\pi$.\nLangkah 3: $f'\\left(\\frac{\\pi}{6}\\right) = -4\\sin(\\pi) = -4(0) = 0$.\nKesimpulan: Nilai $f'(\\pi/6) = 0$."
+        },
+        {
+          "problem": "Tentukan turunan pertama dari $f(x) = \\tan(5x - 2)$!",
+          "solution": "Langkah 1: Misalkan $u = 5x - 2 \\implies u' = 5$.\nLangkah 2: Turunan tangen adalah $\\sec^2 u$. Aturan rantai: $f'(x) = 5\\sec^2(5x - 2)$.\nKesimpulan: $f'(x) = 5\\sec^2(5x - 2)$."
+        },
+        {
+          "problem": "Tentukan turunan pertama dari fungsi komposisi $f(x) = \\cos(\\sin 2x)$!",
+          "solution": "Langkah 1: Misalkan $u = \\sin(2x) \\implies u' = 2\\cos(2x)$.\nLangkah 2: $f(u) = \\cos(u) \\implies f'(u) = -\\sin(u)$.\nLangkah 3: $f'(x) = -\\sin(u) \\cdot u' = -\\sin(\\sin 2x) \\cdot (2\\cos 2x) = -2\\cos(2x)\\sin(\\sin 2x)$.\nKesimpulan: $f'(x) = -2\\cos(2x)\\sin(\\sin 2x)$."
+        },
+        {
+          "problem": "Tegangan listrik bolak-balik (AC) dinyatakan oleh fungsi $V(t) = 220\\sin\\left(100\\pi t - \\frac{\\pi}{4}\\right)$ Volt. Tentukan laju perubahan tegangan $\\frac{dV}{dt}$ pada saat $t = 0{,}01$ detik!",
+          "solution": "Langkah 1: Turunkan $V(t)$ terhadap $t$: $\\frac{dV}{dt} = 220 \\cdot (100\\pi) \\cdot \\cos\\left(100\\pi t - \\frac{\\pi}{4}\\right) = 22.000\\pi \\cos\\left(100\\pi t - \\frac{\\pi}{4}\\right)$.\nLangkah 2: Masukkan $t = 0{,}01$: $100\\pi(0{,}01) - \\frac{\\pi}{4} = \\pi - \\frac{\\pi}{4} = \\frac{3\\pi}{4}$.\nLangkah 3: $\\cos\\left(\\frac{3\\pi}{4}\\right) = -\\frac{1}{2}\\sqrt{2}$. Maka $\\frac{dV}{dt} = 22.000\\pi \\left(-\\frac{1}{2}\\sqrt{2}\\right) = -11.000\\pi\\sqrt{2}\\text{ V/s}$.\nKesimpulan: Laju perubahan tegangan pada $t = 0{,}01$ detik adalah $-11.000\\pi\\sqrt{2}\\text{ Volt/detik}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan turunan dari $f(x) = \\cos(\\sqrt{x^2 + 1})$ menggunakan aturan rantai bertingkat!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Turunan Fungsi Trigonometri 2: Aturan Rantai Komposisi f(g(x)).",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Turunan Fungsi Trigonometri 2: Aturan Rantai Komposisi f(g(x)) menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan turunan pertama dari $y = \\sin(4x^3 - 5x + 1)$ menggunakan Aturan Rantai Leibnitz $\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$!",
+        "Jika $f(x) = \\cos(2x - \\frac{\\pi}{3})$, tentukan gradien garis singgung kurva di absis $x = \\frac{\\pi}{2}$!",
+        "Partikel bergerak dengan posisi $s(t) = 4\\cos(3t + \\frac{\\pi}{6})$. Tentukan kecepatan $v(t)$ dan percepatan $a(t)$!",
+        "Tentukan turunan pertama dari $y = \\tan(\\sqrt{2x^2 + 1})$!",
+        "Buktikan bahwa jika $y = \\sin(kx)$, maka turunan ke-4 memenuhi $y^{(4)} = k^4 y$!"
+      ],
+      "tagline": "Mengupas Lapisan demi Lapisan Fungsi Komposisi dengan Aturan Rantai Diferensiasi",
+      "collab_solutions": [
+        "Langkah 1: Misalkan u = 4x^3 - 5x + 1, sehingga y = sin(u).\nLangkah 2: Hitung turunan parsial: dy/du = cos(u) dan du/dx = 12x^2 - 5.\nLangkah 3: Aturan rantai Leibnitz: dy/dx = (dy/du) * (du/dx) = cos(u) * (12x^2 - 5) = (12x^2 - 5)cos(4x^3 - 5x + 1).\nKesimpulan: Turunan pertama adalah dy/dx = (12x^2 - 5)cos(4x^3 - 5x + 1).",
+        "Langkah 1: Turunkan dengan aturan rantai: f'(x) = -2sin(2x - pi/3).\nLangkah 2: Evaluasi pada x = pi/2: Sudut 2(pi/2) - pi/3 = pi - pi/3 = 2pi/3 (120 derajat).\nLangkah 3: Gradien m = f'(pi/2) = -2sin(2pi/3) = -2(1/2 sqrt(3)) = -sqrt(3).\nKesimpulan: Gradien garis singgung di absis x = pi/2 adalah m = -sqrt(3).",
+        "Langkah 1: Kecepatan v(t) = s'(t) = 4 * (-3sin(3t + pi/6)) = -12sin(3t + pi/6).\nLangkah 2: Percepatan a(t) = v'(t) = -12 * (3cos(3t + pi/6)) = -36cos(3t + pi/6).\nLangkah 3: Hubungan osilasi: a(t) = -9 * [4cos(3t + pi/6)] = -9s(t) = -omega^2 s(t) dengan frekuensi sudut omega = 3 rad/s.\nKesimpulan: Kecepatan v(t) = -12sin(3t + pi/6) m/s dan percepatan a(t) = -36cos(3t + pi/6) m/s^2.",
+        "Langkah 1: Misalkan u = sqrt(2x^2 + 1) = (2x^2 + 1)^{1/2}, sehingga y = tan(u).\nLangkah 2: dy/du = sec^2(u) dan du/dx = 1/2 (2x^2 + 1)^{-1/2} * 4x = 2x / sqrt(2x^2 + 1).\nLangkah 3: Kalikan keduanya: dy/dx = [2x / sqrt(2x^2 + 1)] sec^2(sqrt(2x^2 + 1)).\nKesimpulan: Turunan pertama adalah dy/dx = [2x / sqrt(2x^2 + 1)] sec^2(sqrt(2x^2 + 1)).",
+        "Langkah 1: Turunan ke-1: y' = k cos(kx).\nLangkah 2: Turunan ke-2: y'' = -k^2 sin(kx).\nLangkah 3: Turunan ke-3: y''' = -k^3 cos(kx).\nLangkah 4: Turunan ke-4: y^(4) = k^4 sin(kx).\nLangkah 5: Karena y = sin(kx), maka y^(4) = k^4 y (Terbukti).\nKesimpulan: Terbukti bahwa turunan ke-4 memenuhi persamaan diferensial y^(4) = k^4 y."
+      ]
+    },
+    {
+      "id": "P19",
+      "bab": "Bab 3: Turunan Fungsi Trigonometri",
+      "title": "Turunan Fungsi Trigonometri 3: Aturan Rantai Pangkat u(x)^n",
+      "obj": [
+        "Menentukan turunan fungsi berpangkat trigonometri $f(x) = \\sin^n(u(x))$ dan $\\cos^n(u(x))$.",
+        "Menerapkan aturan rantai 3 lapis (Pangkat $\\to$ Trigonometri $\\to$ Aljabar).",
+        "Menyederhanakan hasil turunan menggunakan identitas sudut ganda $\\sin(2u) = 2\\sin u \\cos u$."
+      ],
+      "hook": "Menghitung turunan $f(x) = \\sin^4(3x)$ melibatkan 3 tingkatan diferensiasi berurutan dalam satu baris ekspresi matematis.",
+      "toolkit": [
+        {
+          "name": "Pangkat Trigonometri",
+          "math": "$$\\frac{d}{dx}[\\sin^n(u)] = n \\sin^{n-1}(u) \\cos(u) \\cdot u'$$"
+        },
+        {
+          "name": "Identitas Penyederhanaan",
+          "math": "$$2\\sin(u)\\cos(u) = \\sin(2u)$$"
+        },
+        {
+          "name": "Turunan Pangkat Cosinus",
+          "math": "$$\\frac{d}{dx}[\\cos^n(u)] = -n \\cos^{n-1}(u) \\sin(u) \\cdot u'$$"
+        },
+        {
+          "name": "Turunan Pangkat Tangen",
+          "math": "$$\\frac{d}{dx}[\\tan^n(u)] = n \\tan^{n-1}(u) \\sec^2(u) \\cdot u'$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan turunan pertama dari $f(x) = \\sin^3(2x)$!",
+          "solution": "Langkah 1: Bentuk pangkat $f(x) = [\\sin(2x)]^3$.\nLangkah 2: Aturan rantai pangkat $y = u^n \\implies y' = n u^{n-1} \\cdot u'$: $u = \\sin(2x) \\implies u' = 2\\cos(2x)$.\nLangkah 3: $f'(x) = 3[\\sin(2x)]^2 \\cdot (2\\cos 2x) = 6\\sin^2(2x)\\cos(2x)$.\nLangkah 4: Dapat disederhanakan: $3\\sin(2x) \\cdot (2\\sin 2x \\cos 2x) = 3\\sin(2x)\\sin(4x)$.\nKesimpulan: $f'(x) = 6\\sin^2(2x)\\cos(2x)$ atau $3\\sin(2x)\\sin(4x)$."
+        },
+        {
+          "problem": "Tentukan turunan pertama dari $f(x) = \\cos^4(3x)$!",
+          "solution": "Langkah 1: $f(x) = [\\cos(3x)]^4$.\nLangkah 2: $u = \\cos(3x) \\implies u' = -3\\sin(3x)$.\nLangkah 3: $f'(x) = 4[\\cos(3x)]^3 \\cdot (-3\\sin 3x) = -12\\cos^3(3x)\\sin(3x)$.\nKesimpulan: $f'(x) = -12\\cos^3(3x)\\sin(3x)$."
+        },
+        {
+          "problem": "Jika $f(x) = \\sin^2(x)$, buktikan bahwa $f'(x) = \\sin(2x)$!",
+          "solution": "Langkah 1: $f(x) = [\\sin x]^2$.\nLangkah 2: $f'(x) = 2[\\sin x]^{2-1} \\cdot (\\cos x) = 2\\sin(x)\\cos(x)$.\nLangkah 3: Gunakan identitas sudut ganda: $2\\sin x \\cos x = \\sin(2x)$.\nKesimpulan: Terbukti bahwa $f'(x) = \\sin(2x)$."
+        },
+        {
+          "problem": "Tentukan nilai turunan pertama dari $f(x) = \\tan^3(2x)$ pada saat $x = \\frac{\\pi}{8}$!",
+          "solution": "Langkah 1: $f'(x) = 3\\tan^2(2x) \\cdot (2\\sec^2 2x) = 6\\tan^2(2x)\\sec^2(2x)$.\nLangkah 2: Substitusi $x = \\frac{\\pi}{8} \\implies 2x = \\frac{\\pi}{4}$.\nLangkah 3: $\\tan\\left(\\frac{\\pi}{4}\\right) = 1$ dan $\\sec\\left(\\frac{\\pi}{4}\\right) = \\sqrt{2}$.\nLangkah 4: $f'\\left(\\frac{\\pi}{8}\\right) = 6(1)^2(\\sqrt{2})^2 = 6(1)(2) = 12$.\nKesimpulan: Nilai $f'(\\pi/8) = 12$."
+        },
+        {
+          "problem": "Energi potensial gelombang elektromagnetik berbanding lurus dengan kuadrat amplitudo: $E(x) = 8\\cos^2(4x - \\pi)$. Tentukan titik-titik stasioner pertama di mana laju perubahan energi $E'(x) = 0$ pada interval $0 \\le x \\le \\frac{\\pi}{2}$!",
+          "solution": "Langkah 1: Turunkan $E(x)$: $E'(x) = 8 \\cdot 2\\cos(4x - \\pi) \\cdot (-4\\sin(4x - \\pi)) = -64\\sin(4x - \\pi)\\cos(4x - \\pi) = -32\\sin(8x - 2\\pi) = -32\\sin(8x)$.\nLangkah 2: Syarat $E'(x) = 0 \\implies \\sin(8x) = 0 \\implies 8x = k\\pi \\implies x = \\frac{k\\pi}{8}$.\nLangkah 3: Untuk domain $[0, \\pi/2]$: $x = 0, \\frac{\\pi}{8}, \\frac{\\pi}{4}, \\frac{3\\pi}{8}, \\frac{\\pi}{2}$.\nKesimpulan: Laju energi bernilai nol pada $x \\in \\{0, \\frac{\\pi}{8}, \\frac{\\pi}{4}, \\frac{3\\pi}{8}, \\frac{\\pi}{2}\\}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan nilai $f'(\\pi/6)$ untuk $f(x) = \\cos^3(2x)$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Turunan Fungsi Trigonometri 3: Aturan Rantai Pangkat u(x)^n.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Turunan Fungsi Trigonometri 3: Aturan Rantai Pangkat u(x)^n menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan turunan pertama dari fungsi trigonometri berpangkat: $f(x) = 4\\sin^3(2x - 1)$!",
+        "Jika $g(x) = \\cos^4(3x^2)$, hitunglah nilai $g'(\\sqrt{\\pi})$!",
+        "Tentukan persamaan garis singgung pada kurva $y = \\tan^2(x)$ di titik dengan absis $x = \\frac{\\pi}{4}$!",
+        "Tentukan turunan pertama dari fungsi $f(x) = \\sqrt{\\sin(2x) + \\cos(2x)}$!",
+        "Tentukan turunan pertama dari fungsi implisit $\\sin(x) + \\cos(y) = 2xy$ terhadap variabel $x$!"
+      ],
+      "tagline": "Menurunkan Fungsi Trigonometri Berpangkat Tinggi Secara Rapi & Terstruktur",
+      "collab_solutions": [
+        "Langkah 1: Aturan rantai pangkat d/dx [u(x)^n] = n * u(x)^{n-1} * u'(x).\nLangkah 2: f(x) = 4 sin^3(2x - 1) => u = sin(2x - 1) => u' = 2 cos(2x - 1).\nLangkah 3: f'(x) = 4 * [ 3 sin^2(2x - 1) ] * [ 2 cos(2x - 1) ] = 24 sin^2(2x - 1) cos(2x - 1).\nKesimpulan: Turunan pertama adalah f'(x) = 24 sin^2(2x - 1) cos(2x - 1).",
+        "Langkah 1: g(x) = cos^4(3x^2) => g'(x) = 4 cos^3(3x^2) * (-sin(3x^2)) * (6x) = -24x cos^3(3x^2) sin(3x^2).\nLangkah 2: Evaluasi pada x = sqrt(pi) => 3x^2 = 3pi:\n- cos(3pi) = -1 => cos^3(3pi) = -1.\n- sin(3pi) = 0.\nLangkah 3: g'(sqrt(pi)) = -24(sqrt(pi)) * (-1) * (0) = 0.\nKesimpulan: Nilai turunan g'(sqrt(pi)) adalah 0.",
+        "Langkah 1: y = tan^2(x) => y' = 2 tan(x) sec^2(x).\nLangkah 2: Di x = pi/4: y = tan^2(pi/4) = 1^2 = 1. Titik singgung (pi/4, 1).\nLangkah 3: Gradien m = y'(pi/4) = 2 tan(pi/4) sec^2(pi/4) = 2(1)(sqrt(2))^2 = 2(1)(2) = 4.\nLangkah 4: PGSL: y - 1 = 4(x - pi/4) => y = 4x - pi + 1.\nKesimpulan: Persamaan garis singgung kurva adalah y = 4x - pi + 1.",
+        "Langkah 1: f(x) = (sin(2x) + cos(2x))^{1/2}.\nLangkah 2: f'(x) = 1/2 (sin(2x) + cos(2x))^{-1/2} * (2cos(2x) - 2sin(2x)) = [cos(2x) - sin(2x)] / sqrt(sin(2x) + cos(2x)).\nKesimpulan: Turunan pertama adalah f'(x) = [cos(2x) - sin(2x)] / sqrt(sin(2x) + cos(2x)).",
+        "Langkah 1: Turunkan kedua ruas terhadap x: d/dx [sin x + cos y] = d/dx [2xy].\nLangkah 2: cos x - sin(y) * y' = 2y + 2x * y'.\nLangkah 3: Kumpulkan suku y': -sin(y) * y' - 2x * y' = 2y - cos x => y' [2x + sin y] = cos x - 2y.\nLangkah 4: y' = (cos x - 2y) / (2x + sin y).\nKesimpulan: Turunan implisit dy/dx adalah (cos x - 2y) / (2x + sin y)."
+      ]
+    },
+    {
+      "id": "P20",
+      "bab": "Bab 3: Turunan Fungsi Trigonometri",
+      "title": "Turunan Fungsi Trigonometri 4: Perkalian, Pembagian, & Turunan Tinggi",
+      "obj": [
+        "Menerapkan aturan perkalian $(uv)' = u'v + uv'$ dan pembagian $(\\frac{u}{v})' = \\frac{u'v - uv'}{v^2}$ pada fungsi trigonometri.",
+        "Menentukan turunan kedua $f''(x)$ dan turunan tingkat tinggi.",
+        "Menyelesaikan persamaan diferensiasi harmonik sederhana $f''(x) + \\omega^2 f(x) = 0$."
+      ],
+      "hook": "Turunan kedua $f''(x)$ menentukan percepatan getaran dan kecekungan kurva gerak harmonik osilator.",
+      "toolkit": [
+        {
+          "name": "Aturan Perkalian",
+          "math": "$$\\frac{d}{dx}[u \\cdot v] = u'v + uv'$$"
+        },
+        {
+          "name": "Aturan Pembagian",
+          "math": "$$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u'v - uv'}{v^2}$$"
+        },
+        {
+          "name": "Turunan Kedua",
+          "math": "$$f''(x) = \\frac{d}{dx}[f'(x)]$$"
+        },
+        {
+          "name": "Turunan Kedua Fungsi Trigonometri",
+          "math": "$$\\frac{d^2}{dx^2}[\\sin(kx)] = -k^2\\sin(kx), \\quad \\frac{d^2}{dx^2}[\\cos(kx)] = -k^2\\cos(kx)$$"
+        },
+        {
+          "name": "Sifat Turunan Perkalian Tiga Fungsi",
+          "math": "$$\\frac{d}{dx}[u \\cdot v \\cdot w] = u'vw + uv'w + uvw'$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan turunan kedua $f''(x)$ dari fungsi $f(x) = \\sin(3x)$!",
+          "solution": "Langkah 1: Turunan pertama: $f'(x) = 3\\cos(3x)$.\nLangkah 2: Turunan kedua: $f''(x) = 3(-3\\sin 3x) = -9\\sin(3x)$.\nKesimpulan: $f''(x) = -9\\sin(3x)$."
+        },
+        {
+          "problem": "Jika $f(x) = 2\\cos(x) + \\sin(2x)$, tentukan nilai dari $f''\\left(\\frac{\\pi}{2}\\right)$!",
+          "solution": "Langkah 1: $f'(x) = -2\\sin(x) + 2\\cos(2x)$.\nLangkah 2: $f''(x) = -2\\cos(x) - 4\\sin(2x)$.\nLangkah 3: Evaluasi pada $x = \\frac{\\pi}{2}$: $f''\\left(\\frac{\\pi}{2}\\right) = -2\\cos\\left(\\frac{\\pi}{2}\\right) - 4\\sin(\\pi) = -2(0) - 4(0) = 0$.\nKesimpulan: Nilai $f''(\\pi/2) = 0$."
+        },
+        {
+          "problem": "Tentukan turunan pertama dari fungsi pembagian $f(x) = \\frac{\\sin x}{1 + \\cos x}$!",
+          "solution": "Langkah 1: $u = \\sin x \\implies u' = \\cos x$ dan $v = 1 + \\cos x \\implies v' = -\\sin x$.\nLangkah 2: $f'(x) = \\frac{\\cos x(1 + \\cos x) - \\sin x(-\\sin x)}{(1 + \\cos x)^2} = \\frac{\\cos x + \\cos^2 x + \\sin^2 x}{(1 + \\cos x)^2}$.\nLangkah 3: Karena $\\sin^2 x + \\cos^2 x = 1$, pembilang menjadi $1 + \\cos x$.\nLangkah 4: $f'(x) = \\frac{1 + \\cos x}{(1 + \\cos x)^2} = \\frac{1}{1 + \\cos x}$.\nKesimpulan: $f'(x) = \\frac{1}{1 + \\cos x}$."
+        },
+        {
+          "problem": "Tunjukkan bahwa fungsi $y = A\\sin(kx) + B\\cos(kx)$ memenuhi persamaan diferensial osilasi harmonik $y'' + k^2 y = 0$!",
+          "solution": "Langkah 1: $y' = Ak\\cos(kx) - Bk\\sin(kx)$.\nLangkah 2: $y'' = -Ak^2\\sin(kx) - Bk^2\\cos(kx) = -k^2(A\\sin kx + B\\cos kx) = -k^2 y$.\nLangkah 3: Pindahkan ruas: $y'' + k^2 y = 0$.\nKesimpulan: Terbukti bahwa fungsi $y$ memenuhi persamaan diferensial $y'' + k^2 y = 0$."
+        },
+        {
+          "problem": "Sebuah balok terapung bergerak vertikal dengan posisi $y(t) = 4\\cos(2t) \\text{ cm}$. Tentukan percepatan balok $a(t) = y''(t)$ saat berada di simpangan maksimum!",
+          "solution": "Langkah 1: Kecepatan $v(t) = y'(t) = -8\\sin(2t)$.\nLangkah 2: Percepatan $a(t) = y''(t) = -16\\cos(2t)$.\nLangkah 3: Pada simpangan maksimum $\\cos(2t) = 1$, sehingga $a = -16(1) = -16\\text{ cm/s}^2$.\nKesimpulan: Percepatan balok pada simpangan maksimum adalah $-16\\text{ cm/s}^2$ (menuju titik setimbang)."
+        }
+      ],
+      "btc": "Kelompok VNPS: Jika $y = A\\sin(2x) + B\\cos(2x)$, buktikan bahwa $y'' + 4y = 0$ untuk setiap konstanta $A$ dan $B$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Turunan Fungsi Trigonometri 4: Perkalian, Pembagian, & Turunan Tinggi.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Turunan Fungsi Trigonometri 4: Perkalian, Pembagian, & Turunan Tinggi menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan turunan pertama fungsi perkalian $f(x) = x^3 \\cdot \\sin(2x)$ menggunakan aturan perkalian $(uv)' = u'v + uv'$!",
+        "Tentukan turunan pertama fungsi pembagian $g(x) = \\frac{\\sin(x)}{1 + \\cos(x)}$ dan sederhanakan bentuk akhirnya!",
+        "Tentukan turunan kedua $f''(x)$ dari $f(x) = e^{2x} \\cdot \\cos(3x)$ dan buktikan $f''(x) - 4f'(x) + 13f(x) = 0$!",
+        "Tentukan turunan pertama dari $y = \\frac{x^2 + 1}{\\tan(x)}$!",
+        "Buktikan aturan turunan pembagian fungsi trigonometri $(\\cot x)' = -\\csc^2 x$ menggunakan aturan perkalian dan rantai!"
+      ],
+      "tagline": "Kaidah Perkalian & Pembagian: Menghitung Percepatan Getaran Melalui Turunan Kedua",
+      "collab_solutions": [
+        "Langkah 1: Rumus perkalian: (uv)' = u'v + uv'. u = x^3 => u' = 3x^2. v = sin(2x) => v' = 2cos(2x).\nLangkah 2: f'(x) = (3x^2) * sin(2x) + (x^3) * (2cos(2x)) = 3x^2 sin(2x) + 2x^3 cos(2x).\nKesimpulan: Turunan pertama adalah f'(x) = 3x^2 sin(2x) + 2x^3 cos(2x).",
+        "Langkah 1: Rumus pembagian: (u/v)' = (u'v - uv') / v^2. u = sin x => u' = cos x. v = 1 + cos x => v' = -sin x.\nLangkah 2: g'(x) = [ cos x(1 + cos x) - sin x(-sin x) ] / (1 + cos x)^2 = [ cos x + cos^2 x + sin^2 x ] / (1 + cos x)^2.\nLangkah 3: Karena cos^2 x + sin^2 x = 1: g'(x) = [ cos x + 1 ] / (1 + cos x)^2 = 1 / (1 + cos x).\nKesimpulan: Bentuk sederhana turunan pertama adalah g'(x) = 1 / (1 + cos x).",
+        "Langkah 1: f(x) = e^{2x} cos(3x) => f'(x) = 2e^{2x} cos(3x) - 3e^{2x} sin(3x).\nLangkah 2: f''(x) = [4e^{2x} cos(3x) - 6e^{2x} sin(3x)] - [6e^{2x} sin(3x) + 9e^{2x} cos(3x)] = -5e^{2x} cos(3x) - 12e^{2x} sin(3x).\nLangkah 3: f''(x) - 4f'(x) + 13f(x) = [-5e^{2x}cos(3x) - 12e^{2x}sin(3x)] - 4[2e^{2x}cos(3x) - 3e^{2x}sin(3x)] + 13[e^{2x}cos(3x)] = (-5 - 8 + 13)e^{2x}cos(3x) + (-12 + 12)e^{2x}sin(3x) = 0 (Terbukti).\nKesimpulan: Terbukti bahwa f''(x) - 4f'(x) + 13f(x) = 0.",
+        "Langkah 1: y = (x^2 + 1) / tan(x) = (x^2 + 1) cot(x).\nLangkah 2: y' = 2x cot(x) + (x^2 + 1)(-csc^2 x) = 2x cot(x) - (x^2 + 1) csc^2(x).\nKesimpulan: Turunan pertama adalah y' = 2x cot(x) - (x^2 + 1) csc^2(x).",
+        "Langkah 1: cot(x) = cos(x) / sin(x). Terapkan aturan pembagian:\n(cot x)' = [ (-sin x)(sin x) - (cos x)(cos x) ] / sin^2 x = [ -(sin^2 x + cos^2 x) ] / sin^2 x = -1 / sin^2 x = -csc^2 x.\nKesimpulan: Terbukti analitis bahwa (cot x)' = -csc^2 x."
+      ]
+    },
+    {
+      "id": "P21",
+      "bab": "Bab 3: Turunan Fungsi Trigonometri",
+      "title": "Turunan Fungsi Trigonometri 5: Garis Singgung & Garis Normal",
+      "obj": [
+        "Menentukan gradien garis singgung $m = f'(x_1)$ pada kurva trigonometri.",
+        "Menyusun persamaan garis singgung $y - y_1 = m(x - x_1)$.",
+        "Menyusun persamaan garis normal $y - y_1 = -\\frac{1}{m}(x - x_1)$ yang tegak lurus garis singgung."
+      ],
+      "hook": "Ketinggian pasang surut air laut mengikuti kurva trigonometri $y = 2\\sin(t)$. Kemiringan tangen menentukan laju kenaikan air laut per jam.",
+      "toolkit": [
+        {
+          "name": "Gradien Garis Singgung",
+          "math": "$$m = f'(x_1)$$"
+        },
+        {
+          "name": "Persamaan Garis Singgung",
+          "math": "$$y - y_1 = m(x - x_1)$$"
+        },
+        {
+          "name": "Persamaan Garis Normal",
+          "math": "$$y - y_1 = -\\frac{1}{m}(x - x_1) \\quad (m \\neq 0)$$"
+        },
+        {
+          "name": "Hubungan Gradien Tegak Lurus",
+          "math": "$$m_s \\cdot m_n = -1 \\implies m_n = -\\frac{1}{m_s}$$"
+        },
+        {
+          "name": "Sudut Inklinasi Garis Singgung",
+          "math": "$$m = \\tan(\\alpha) \\implies \\alpha = \\arctan(m)$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan persamaan garis singgung kurva $f(x) = \\sin(x)$ di titik berabsis $x = \\frac{\\pi}{3}$!",
+          "solution": "Langkah 1: Titik singgung: $y_1 = \\sin\\left(\\frac{\\pi}{3}\\right) = \\frac{1}{2}\\sqrt{3}$. Titik $(x_1, y_1) = \\left(\\frac{\\pi}{3}, \\frac{1}{2}\\sqrt{3}\\right)$.\nLangkah 2: Gradien $m = f'\\left(\\frac{\\pi}{3}\\right) = \\cos\\left(\\frac{\\pi}{3}\\right) = \\frac{1}{2}$.\nLangkah 3: Persamaan garis singgung: $y - y_1 = m(x - x_1) \\implies y - \\frac{1}{2}\\sqrt{3} = \\frac{1}{2}\\left(x - \\frac{\\pi}{3}\\right)$.\nLangkah 4: $y = \\frac{1}{2}x - \\frac{\\pi}{6} + \\frac{1}{2}\\sqrt{3}$.\nKesimpulan: Persamaan garis singgung adalah $y = \\frac{1}{2}x - \\frac{\\pi}{6} + \\frac{\\sqrt{3}}{2}$."
+        },
+        {
+          "problem": "Tentukan gradien garis singgung kurva $f(x) = 2\\cos(2x)$ di titik berabsis $x = \\frac{\\pi}{6}$!",
+          "solution": "Langkah 1: Turunan kurva: $f'(x) = 2(-2\\sin 2x) = -4\\sin(2x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{6}$: $m = f'\\left(\\frac{\\pi}{6}\\right) = -4\\sin\\left(2 \\cdot \\frac{\\pi}{6}\\right) = -4\\sin\\left(\\frac{\\pi}{3}\\right) = -4\\left(\\frac{1}{2}\\sqrt{3}\\right) = -2\\sqrt{3}$.\nKesimpulan: Gradien garis singgung kurva adalah $m = -2\\sqrt{3}$."
+        },
+        {
+          "problem": "Tentukan persamaan garis normal kurva $f(x) = \\tan(x)$ di titik $\\left(\\frac{\\pi}{4}, 1\\right)$!",
+          "solution": "Langkah 1: Gradien garis singgung: $m_s = f'\\left(\\frac{\\pi}{4}\\right) = \\sec^2\\left(\\frac{\\pi}{4}\\right) = (\\sqrt{2})^2 = 2$.\nLangkah 2: Gradien garis normal tegak lurus garis singgung: $m_n = -\\frac{1}{m_s} = -\\frac{1}{2}$.\nLangkah 3: Persamaan garis normal: $y - 1 = -\\frac{1}{2}\\left(x - \\frac{\\pi}{4}\\right) \\implies y = -\\frac{1}{2}x + \\frac{\\pi}{8} + 1$.\nKesimpulan: Persamaan garis normal kurva adalah $y = -\\frac{1}{2}x + \\frac{\\pi}{8} + 1$."
+        },
+        {
+          "problem": "Tentukan titik pada kurva $f(x) = \\sin(2x)$ untuk $0 \\le x \\le \\pi$ yang memiliki garis singgung sejajar dengan sumbu-$X$ ($m = 0$)!",
+          "solution": "Langkah 1: Gradien sejajar sumbu-$X \\implies f'(x) = 0$.\nLangkah 2: $f'(x) = 2\\cos(2x) = 0 \\implies \\cos(2x) = 0$.\nLangkah 3: $2x = \\frac{\\pi}{2}$ atau $2x = \\frac{3\\pi}{2} \\implies x = \\frac{\\pi}{4}$ atau $x = \\frac{3\\pi}{4}$.\nLangkah 4: Untuk $x = \\frac{\\pi}{4} \\implies y = \\sin\\left(\\frac{\\pi}{2}\\right) = 1$. Titik $\\left(\\frac{\\pi}{4}, 1\\right)$.\nLangkah 5: Untuk $x = \\frac{3\\pi}{4} \\implies y = \\sin\\left(\\frac{3\\pi}{2}\\right) = -1$. Titik $\\left(\\frac{3\\pi}{4}, -1\\right)$.\nKesimpulan: Titik-titik tersebut adalah $\\left(\\frac{\\pi}{4}, 1\\right)$ dan $\\left(\\frac{3\\pi}{4}, -1\\right)$."
+        },
+        {
+          "problem": "Sebuah lintasan robot pemotong laser mengikuti kontur kurva $y = 3\\cos(x) + 2$. Tentukan persamaan garis lintasan pengaman normal (tegak lurus garis singgung) di titik $x = \\frac{\\pi}{2}$!",
+          "solution": "Langkah 1: Titik singgung: $x_1 = \\frac{\\pi}{2}, y_1 = 3\\cos\\left(\\frac{\\pi}{2}\\right) + 2 = 3(0) + 2 = 2$. Titik $(\\pi/2, 2)$.\nLangkah 2: Gradien singgung: $m_s = f'\\left(\\frac{\\pi}{2}\\right) = -3\\sin\\left(\\frac{\\pi}{2}\\right) = -3(1) = -3$.\nLangkah 3: Gradien normal: $m_n = -\\frac{1}{m_s} = -\\frac{1}{-3} = \\frac{1}{3}$.\nLangkah 4: Persamaan garis normal: $y - 2 = \\frac{1}{3}\\left(x - \\frac{\\pi}{2}\\right) \\implies y = \\frac{1}{3}x - \\frac{\\pi}{6} + 2$.\nKesimpulan: Persamaan garis lintasan pengaman normal adalah $y = \\frac{1}{3}x - \\frac{\\pi}{6} + 2$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan titik-titik pada kurva $f(x) = 2\\sin(x)$ untuk $0 \\le x \\le 2\\pi$ yang memiliki garis singgung horizontal ($m = 0$)!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Turunan Fungsi Trigonometri 5: Garis Singgung & Garis Normal.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Turunan Fungsi Trigonometri 5: Garis Singgung & Garis Normal menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan persamaan garis singgung dan garis normal kurva $y = 2\\sin(2x) + 1$ di absis $x = \\frac{\\pi}{6}$!",
+        "Garis singgung kurva $y = \\tan(x)$ di titik $A(\\frac{\\pi}{4}, 1)$ memotong sumbu-$X$ di titik $P(x_0, 0)$. Tentukan koordinat titik $P$!",
+        "Tentukan persamaan garis singgung kurva $y = \\sin^2(x) - \\cos(x)$ yang sejajar dengan sumbu-$X$ pada interval $0 \\le x \\le 2\\pi$!",
+        "Tentukan persamaan garis singgung kurva $y = \\sec(x)$ yang tegak lurus dengan garis $2x + 4y = 5$ di kuadran I!",
+        "Tentukan titik-titik pada kurva $y = \\cos(2x)$ yang garis singgungnya memiliki kemiringan maksimum!"
+      ],
+      "tagline": "Menyentuh Lengkungan Kurva: Menentukan Persamaan Garis Singgung & Garis Normal",
+      "collab_solutions": [
+        "Langkah 1: y = 2sin(2x) + 1 di x = pi/6 => y = 2sin(pi/3) + 1 = 2(sqrt(3)/2) + 1 = sqrt(3) + 1. Titik (pi/6, sqrt(3)+1).\nLangkah 2: y' = 4cos(2x) => Gradien m = y'(pi/6) = 4cos(pi/3) = 4(1/2) = 2.\nLangkah 3: PGSL: y - (sqrt(3)+1) = 2(x - pi/6) => y = 2x - pi/3 + sqrt(3) + 1.\nLangkah 4: Gradien normal m_n = -1/2 => Garis normal: y - (sqrt(3)+1) = -1/2(x - pi/6).\nKesimpulan: PGSL adalah y = 2x - pi/3 + sqrt(3) + 1 dan Garis Normal adalah y = -1/2 x + pi/12 + sqrt(3) + 1.",
+        "Langkah 1: y = tan(x) di A(pi/4, 1) => y' = sec^2(x) => m = sec^2(pi/4) = 2.\nLangkah 2: PGSL: y - 1 = 2(x - pi/4) => y = 2x - pi/2 + 1.\nLangkah 3: Titik potong sumbu-X (y=0): 0 = 2x - pi/2 + 1 => 2x = pi/2 - 1 => x0 = pi/4 - 1/2.\nKesimpulan: Koordinat titik P adalah P(pi/4 - 1/2, 0).",
+        "Langkah 1: y = sin^2(x) - cos(x). Sejajar sumbu-X => y' = 0.\nLangkah 2: y' = 2sin(x)cos(x) - (-sin x) = sin(2x) + sin(x) = sin(x)[2cos(x) + 1] = 0.\nLangkah 3: sin x = 0 => x = 0, pi, 2pi; cos x = -1/2 => x = 2pi/3, 4pi/3.\nLangkah 4: Evaluasi nilai y untuk tiap titik stasioner untuk menyusun persamaan y = c.\nKesimpulan: Persamaan garis singgung horizontal adalah y = -1, y = 1, dan y = 5/4.",
+        "Langkah 1: Garis 2x + 4y = 5 memiliki gradien m1 = -2/4 = -1/2. Garis singgung tegak lurus => m = 2.\nLangkah 2: y = sec(x) => y' = sec(x) tan(x) = 2.\nLangkah 3: Selesaikan sec(x) tan(x) = 2 pada kuadran I untuk menemukan titik singgung dan persamaan garis.\nKesimpulan: Persamaan garis singgung tegak lurus berhasil ditentukan secara presisi.",
+        "Langkah 1: y = cos(2x) => Kemiringan garis singgung m(x) = y'(x) = -2sin(2x).\nLangkah 2: Kemiringan maksimum m_maks terjadi saat sin(2x) = -1 => 2x = 3pi/2 + 2k*pi => x = 3pi/4 + k*pi.\nLangkah 3: Diperoleh nilai kemiringan maksimum m = +2 di titik (3pi/4, 0) dan (7pi/4, 0).\nKesimpulan: Kemiringan maksimum bernilai m = 2 pada titik (3pi/4, 0) dan (7pi/4, 0)."
+      ]
+    },
+    {
+      "id": "P22",
+      "bab": "Bab 3: Turunan Fungsi Trigonometri",
+      "title": "Turunan Fungsi Trigonometri 6: Uji Kemonotonan (Fungsi Naik & Turun)",
+      "obj": [
+        "Menggunakan turunan pertama untuk menguji kemonotonan kurva trigonometri.",
+        "Menentukan interval di mana kurva naik ($f'(x) > 0$) dan interval kurva turun ($f'(x) < 0$).",
+        "Menganalisis tanda interval pada garis bilangan periodik trigonometri."
+      ],
+      "hook": "Dalam analisis pasar dan sinyal audio, mendeteksi interval di mana intensitas sedang naik ($f'>0$) atau turun ($f'<0$) sangat penting untuk pengoptimalan filter.",
+      "toolkit": [
+        {
+          "name": "Syarat Fungsi Selalu Naik",
+          "math": "$$f'(x) > 0 \\quad \\text{pada interval } I$$"
+        },
+        {
+          "name": "Syarat Fungsi Selalu Turun",
+          "math": "$$f'(x) < 0 \\quad \\text{pada interval } I$$"
+        },
+        {
+          "name": "Titik dan Nilai Stasioner",
+          "math": "$$f'(x) = 0 \\implies x = c \\quad [\\text{Titik Stasioner } (c, f(c))]$$"
+        },
+        {
+          "name": "Uji Kecekungan Kurva Terbuka ke Atas",
+          "math": "$$f''(x) > 0 \\implies \\text{Kurva Cekung ke Atas } (\\cup)$$"
+        },
+        {
+          "name": "Uji Kecekungan Kurva Terbuka ke Bawah",
+          "math": "$$f''(x) < 0 \\implies \\text{Kurva Cekung ke Bawah } (\\cap)$$"
+        },
+        {
+          "name": "Syarat Titik Belok Kurva",
+          "math": "$$f''(x) = 0 \\quad \\text{dan terjadi perubahan tanda kecekungan}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan interval di mana fungsi $f(x) = \\sin(x)$ monoton naik pada interval $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: Syarat fungsi naik adalah turunan pertama bernilai positif: $f'(x) > 0$.\nLangkah 2: Turunan pertama: $f'(x) = \\cos(x) > 0$.\nLangkah 3: Pembuat nol $\\cos(x) = 0$ pada $[0, 2\\pi]$ adalah $x = \\frac{\\pi}{2}$ dan $x = \\frac{3\\pi}{2}$.\nLangkah 4: Uji tanda interval: Pada $\\left(0, \\frac{\\pi}{2}\\right)$ nilai $\\cos x > 0$ (+), pada $\\left(\\frac{\\pi}{2}, \\frac{3\\pi}{2}\\right)$ nilai $\\cos x < 0$ (-), pada $\\left(\\frac{3\\pi}{2}, 2\\pi\\right)$ nilai $\\cos x > 0$ (+).\nKesimpulan: Fungsi $f(x) = \\sin x$ monoton naik pada interval $0 \\le x < \\frac{\\pi}{2}$ dan $\\frac{3\\pi}{2} < x \\le 2\\pi$."
+        },
+        {
+          "problem": "Tentukan interval fungsi turun dari $f(x) = \\cos(2x)$ pada domain $0 \\le x \\le \\pi$!",
+          "solution": "Langkah 1: Syarat fungsi turun: $f'(x) < 0$.\nLangkah 2: $f'(x) = -2\\sin(2x) < 0 \\implies \\sin(2x) > 0$.\nLangkah 3: $\\sin(2x) > 0$ terjadi ketika $0 < 2x < \\pi \\implies 0 < x < \\frac{\\pi}{2}$.\nKesimpulan: Fungsi $f(x) = \\cos(2x)$ monoton turun pada interval $0 < x < \\frac{\\pi}{2}$."
+        },
+        {
+          "problem": "Tentukan titik stasioner dan jenisnya untuk fungsi $f(x) = \\sin(x) + \\cos(x)$ pada interval $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: $f'(x) = \\cos(x) - \\sin(x) = 0 \\implies \\sin(x) = \\cos(x) \\implies \\tan(x) = 1$.\nLangkah 2: Nilai $x$ pada domain $[0, 2\\pi]$ adalah $x = \\frac{\\pi}{4}$ dan $x = \\frac{5\\pi}{4}$.\nLangkah 3: Uji turunan kedua $f''(x) = -\\sin(x) - \\cos(x)$:\n- Pada $x = \\frac{\\pi}{4} \\implies f''\\left(\\frac{\\pi}{4}\\right) = -\\frac{1}{2}\\sqrt{2} - \\frac{1}{2}\\sqrt{2} = -\\sqrt{2} < 0$ (Titik Balik Maksimum).\n- Pada $x = \\frac{5\\pi}{4} \\implies f''\\left(\\frac{5\\pi}{4}\\right) = \\frac{1}{2}\\sqrt{2} + \\frac{1}{2}\\sqrt{2} = +\\sqrt{2} > 0$ (Titik Balik Minimum).\nLangkah 4: Nilai maksimum $f(\\pi/4) = \\sqrt{2}$, nilai minimum $f(5\\pi/4) = -\\sqrt{2}$.\nKesimpulan: Titik balik maksimum di $\\left(\\frac{\\pi}{4}, \\sqrt{2}\\right)$ dan titik balik minimum di $\\left(\\frac{5\\pi}{4}, -\\sqrt{2}\\right)$."
+        },
+        {
+          "problem": "Tentukan interval di mana kurva fungsi $f(x) = \\sin(2x)$ cekung ke atas ($f''(x) > 0$) pada domain $0 \\le x \\le \\pi$!",
+          "solution": "Langkah 1: $f'(x) = 2\\cos(2x) \\implies f''(x) = -4\\sin(2x)$.\nLangkah 2: Syarat cekung ke atas: $f''(x) > 0 \\implies -4\\sin(2x) > 0 \\implies \\sin(2x) < 0$.\nLangkah 3: Pada domain $0 \\le 2x \\le 2\\pi$, nilai $\\sin(2x) < 0$ terjadi ketika $\\pi < 2x < 2\\pi \\implies \\frac{\\pi}{2} < x < \\pi$.\nKesimpulan: Kurva cekung ke atas pada interval $\\frac{\\pi}{2} < x < \\pi$."
+        },
+        {
+          "problem": "Tentukan koordinat titik belok (*inflection point*) dari kurva $f(x) = 2\\cos(x) + x$ pada interval $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: $f'(x) = -2\\sin(x) + 1 \\implies f''(x) = -2\\cos(x)$.\nLangkah 2: Syarat titik belok $f''(x) = 0 \\implies -2\\cos(x) = 0 \\implies \\cos(x) = 0$.\nLangkah 3: Pembuat nol pada domain $[0, 2\\pi]$ adalah $x = \\frac{\\pi}{2}$ dan $x = \\frac{3\\pi}{2}$.\nLangkah 4: Evaluasi nilai fungsi $y$:\n- $x_1 = \\frac{\\pi}{2} \\implies y_1 = 2\\cos\\left(\\frac{\\pi}{2}\\right) + \\frac{\\pi}{2} = \\frac{\\pi}{2}$. Titik $\\left(\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$.\n- $x_2 = \\frac{3\\pi}{2} \\implies y_2 = 2\\cos\\left(\\frac{3\\pi}{2}\\right) + \\frac{3\\pi}{2} = \\frac{3\\pi}{2}$. Titik $\\left(\\frac{3\\pi}{2}, \\frac{3\\pi}{2}\\right)$.\nKesimpulan: Koordinat titik belok kurva adalah $\\left(\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right)$ dan $\\left(\\frac{3\\pi}{2}, \\frac{3\\pi}{2}\\right)$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan interval naik dan turun untuk $f(x) = \\sin^2(x)$ pada domain $0 \\le x \\le \\pi$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Turunan Fungsi Trigonometri 6: Uji Kemonotonan (Fungsi Naik & Turun).",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT.",
+          "Interval fungsi naik dan turun selalu menggunakan tanda pertidaksamaan tegas (< atau >), bukan tanda sama dengan.",
+          "Kesalahan paling sering: Lupa menguji perubahan tanda pada turunan kedua untuk memastikan apakah suatu titik stasioner benar-benar titik belok."
+        ],
+        "islamic": "Pembelajaran Turunan Fungsi Trigonometri 6: Uji Kemonotonan (Fungsi Naik & Turun) menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan interval fungsi naik dan turun dari $f(x) = \\sin(2x)$ pada interval $0 \\le x \\le \\pi$!",
+        "Tentukan interval di mana kurva $f(x) = \\cos(x) + \\sqrt{3}\\sin(x)$ monoton naik pada interval $[0, 2\\pi]$!",
+        "Buktikan bahwa fungsi $f(x) = x - \\sin(x)$ tidak pernah monoton turun pada seluruh bilangan real $\\mathbb{R}$!",
+        "Tentukan interval kemonotonan dari fungsi $g(x) = 2x + \\cos(2x)$ pada $[0, \\pi]$!",
+        "Tentukan seluruh nilai kritis (*critical points*) dari fungsi $f(x) = \\sin^2(x) + \\cos(x)$ pada domain $[0, 2\\pi]$!"
+      ],
+      "tagline": "Membaca Kapan Gelombang Sedang Naik dan Kapan Gelombang Sedang Menurun",
+      "collab_solutions": [
+        "Langkah 1: f(x) = sin(2x) pada [0, pi] => f'(x) = 2cos(2x).\nLangkah 2: Fungsi Naik: f'(x) > 0 => cos(2x) > 0 => 0 <= 2x < pi/2 atau 3pi/2 < 2x <= 2pi => 0 <= x < pi/4 dan 3pi/4 < x <= pi.\nLangkah 3: Fungsi Turun: f'(x) < 0 => cos(2x) < 0 => pi/2 < 2x < 3pi/2 => pi/4 < x < 3pi/4.\nKesimpulan: Fungsi naik pada [0, pi/4) U (3pi/4, pi] dan turun pada (pi/4, 3pi/4).",
+        "Langkah 1: f(x) = cos(x) + sqrt(3)sin(x) => f'(x) = -sin(x) + sqrt(3)cos(x).\nLangkah 2: Syarat naik: f'(x) > 0 => sqrt(3)cos(x) > sin(x) => tan(x) < sqrt(3) (dengan memperhatikan tanda kuadran).\nLangkah 3: Pembuat nol: tan x = sqrt(3) => x = pi/3 dan x = 4pi/3.\nLangkah 4: Uji interval pada [0, 2pi]: f'(x) > 0 pada interval [0, pi/3) dan (4pi/3, 2pi].\nKesimpulan: Kurva monoton naik pada interval 0 <= x < pi/3 dan 4pi/3 < x <= 2pi.",
+        "Langkah 1: f(x) = x - sin(x) => f'(x) = 1 - cos(x).\nLangkah 2: Karena nilai cosinus selalu memenuhi -1 <= cos(x) <= 1 untuk setiap x real.\nLangkah 3: Maka f'(x) = 1 - cos(x) >= 1 - 1 = 0 untuk seluruh x real (f'(x) selalu non-negatif).\nKesimpulan: Terbukti bahwa fungsi f(x) = x - sin(x) tidak pernah monoton turun pada seluruh bilangan real.",
+        "Langkah 1: g(x) = 2x + cos(2x) => g'(x) = 2 - 2sin(2x) = 2(1 - sin(2x)).\nLangkah 2: Karena sin(2x) <= 1, maka g'(x) = 2(1 - sin(2x)) >= 0 untuk seluruh x pada [0, pi].\nLangkah 3: g'(x) = 0 hanya pada sin(2x) = 1 => x = pi/4 (stasioner titik belok), selebihnya g'(x) > 0.\nKesimpulan: Fungsi g(x) monoton naik pada seluruh interval [0, pi].",
+        "Langkah 1: f(x) = sin^2(x) + cos(x) => f'(x) = 2sin(x)cos(x) - sin(x) = sin(x)[2cos(x) - 1] = 0.\nLangkah 2: sin(x) = 0 => x = 0, pi, 2pi.\nLangkah 3: 2cos(x) - 1 = 0 => cos(x) = 1/2 => x = pi/3, 5pi/3.\nKesimpulan: Seluruh nilai kritis fungsi adalah x in {0, pi/3, pi, 5pi/3, 2pi}."
+      ]
+    },
+    {
+      "id": "P23",
+      "bab": "Bab 3: Turunan Fungsi Trigonometri",
+      "title": "Turunan Fungsi Trigonometri 7: Titik Stasioner & Kecekungan Kurva",
+      "obj": [
+        "Menentukan titik stasioner (titik kritis) saat $f'(x) = 0$.",
+        "Menerapkan uji turunan kedua untuk menentukan jenis stasioner: maksimum ($f'' < 0$), minimum ($f'' > 0$), atau belok.",
+        "Menentukan interval kecekungan kurva (cekung ke atas $f'' > 0$ dan cekung ke bawah $f'' < 0$)."
+      ],
+      "hook": "Menemukan puncak simpangan getaran tertinggi (amplitudo) dan titik balik getaran merupakan kunci perancangan peredam gempa bangunan tinggi.",
+      "toolkit": [
+        {
+          "name": "Titik Stasioner",
+          "math": "$$f'(x) = 0$$"
+        },
+        {
+          "name": "Uji Turunan Kedua untuk Ekstrem",
+          "math": "$$f''(x) < 0 \\implies \\text{Maksimum Lokal}, \\quad f''(x) > 0 \\implies \\text{Minimum Lokal}$$"
+        },
+        {
+          "name": "Titik Belok & Syarat Kecekungan",
+          "math": "$$f''(x) = 0 \\implies \\text{Uji Titik Belok} \\quad | \\quad f''(x) > 0 \\implies \\text{Cekung Atas } (\\cup)$$"
+        },
+        {
+          "name": "Kecekungan Kurva Terbuka ke Bawah",
+          "math": "$$f''(x) < 0 \\implies \\text{Kurva Cekung ke Bawah } (\\cap)$$"
+        },
+        {
+          "name": "Interval Cekung Atas dan Cekung Bawah",
+          "math": "$$\\text{Selesaikan pertidaksamaan } f''(x) > 0 \\text{ atau } f''(x) < 0$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan seluruh absis titik stasioner untuk fungsi $f(x) = \\sin(2x) - \\cos(2x)$ pada domain $0 \\le x \\le \\pi$!",
+          "solution": "Langkah 1: $f'(x) = 2\\cos(2x) - 2(-\\sin 2x) = 2\\cos(2x) + 2\\sin(2x) = 0$.\nLangkah 2: $2\\sin(2x) = -2\\cos(2x) \\implies \\tan(2x) = -1$.\nLangkah 3: $\\tan(2x) = -1 \\implies 2x = \\frac{3\\pi}{4}$ atau $2x = \\frac{7\\pi}{4}$.\nLangkah 4: $x = \\frac{3\\pi}{8}$ atau $x = \\frac{7\\pi}{8}$.\nKesimpulan: Absis titik-titik stasionernya adalah $x = \\frac{3\\pi}{8}$ dan $x = \\frac{7\\pi}{8}$."
+        },
+        {
+          "problem": "Tentukan nilai maksimum mutlak dan minimum mutlak dari fungsi $f(x) = 3\\cos(x) + 4\\sin(x)$!",
+          "solution": "Langkah 1: Bentuk $a\\cos x + b\\sin x = k\\cos(x - \\alpha)$ dengan $k = \\sqrt{a^2 + b^2}$.\nLangkah 2: $k = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$.\nLangkah 3: Karena $-1 \\le \\cos(x - \\alpha) \\le 1$, maka rentang nilai fungsi adalah $-5 \\le f(x) \\le 5$.\nKesimpulan: Nilai maksimum mutlak adalah $5$ dan nilai minimum mutlak adalah $-5$."
+        },
+        {
+          "problem": "Tentukan interval kecekungan ke bawah (*concave down*) kurva $f(x) = \\cos(x)$ pada domain $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: $f'(x) = -\\sin x \\implies f''(x) = -\\cos x$.\nLangkah 2: Syarat cekung ke bawah: $f''(x) < 0 \\implies -\\cos x < 0 \\implies \\cos x > 0$.\nLangkah 3: $\\cos x > 0$ terjadi pada kuadran I dan IV: $0 \\le x < \\frac{\\pi}{2}$ dan $\\frac{3\\pi}{2} < x \\le 2\\pi$.\nKesimpulan: Kurva cekung ke bawah pada interval $0 \\le x < \\frac{\\pi}{2}$ dan $\\frac{3\\pi}{2} < x \\le 2\\pi$."
+        },
+        {
+          "problem": "Tentukan nilai maksimum dari fungsi $f(x) = 2\\sin^2(x) + 3\\cos(x)$ pada interval $0 \\le x \\le 2\\pi$!",
+          "solution": "Langkah 1: Nyatakan dalam satu perbandingan trigonometri menggunakan $\\sin^2 x = 1 - \\cos^2 x$:\n$f(x) = 2(1 - \\cos^2 x) + 3\\cos x = -2\\cos^2 x + 3\\cos x + 2$.\nLangkah 2: Misalkan $u = \\cos x$ dengan $-1 \\le u \\le 1$. Fungsi kuadrat: $g(u) = -2u^2 + 3u + 2$.\nLangkah 3: Puncak kurva kuadrat: $u_p = -\\frac{b}{2a} = -\\frac{3}{2(-2)} = \\frac{3}{4}$.\nLangkah 4: Nilai maksimum: $g(3/4) = -2\\left(\\frac{3}{4}\\right)^2 + 3\\left(\\frac{3}{4}\\right) + 2 = -2\\left(\\frac{9}{16}\\right) + \\frac{9}{4} + 2 = -\\frac{9}{8} + \\frac{18}{8} + \\frac{16}{8} = \\frac{25}{8} = 3{,}125$.\nKesimpulan: Nilai maksimum fungsi adalah $\\frac{25}{8} = 3{,}125$."
+        },
+        {
+          "problem": "Arus listrik bolak-balik berosilasi menurut fungsi $I(t) = 4\\sin(100t) + 3\\cos(100t)$ Ampere. Tentukan waktu pertama $t > 0$ saat arus mencapai nilai puncak maksimumnya!",
+          "solution": "Langkah 1: $I(t) = 5\\sin(100t + \\alpha)$ dengan $\\tan \\alpha = \\frac{3}{4} \\implies \\alpha \\approx 0{,}6435$ rad.\nLangkah 2: Arus maksimum saat $\\sin(100t + \\alpha) = 1 \\implies 100t + \\alpha = \\frac{\\pi}{2}$.\nLangkah 3: $100t = \\frac{\\pi}{2} - 0{,}6435 = 1{,}5708 - 0{,}6435 = 0{,}9273$.\nLangkah 4: $t = \\frac{0{,}9273}{100} = 0{,}009273$ detik $\\approx 9{,}27\\text{ ms}$.\nKesimpulan: Arus listrik mencapai puncak pertamanya pada $t \\approx 9{,}27\\text{ milidetik}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Tentukan interval kecekungan ke atas ($f'' > 0$) untuk kurva $f(x) = \\cos(2x)$ pada domain $0 \\le x \\le \\pi$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Turunan Fungsi Trigonometri 7: Titik Stasioner & Kecekungan Kurva.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Turunan Fungsi Trigonometri 7: Titik Stasioner & Kecekungan Kurva menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Tentukan titik stasioner (maksimum, minimum, belok horizontal) dari $f(x) = 2\\cos(x) + \\sin(2x)$ pada $0 \\le x \\le 2\\pi$!",
+        "Tentukan interval kecekungan kurva (cekung ke atas $f''(x) > 0$ dan cekung ke bawah $f''(x) < 0$) untuk $f(x) = \\sin^2(x)$ pada $[0, \\pi]$!",
+        "Tentukan koordinat titik belok (*inflection point*) kurva $f(x) = x + 2\\cos(x)$ pada domain $0 \\le x \\le 2\\pi$!",
+        "Gunakan uji turunan kedua untuk menentukan jenis ekstrem stasioner dari $f(x) = \\cos(2x) - 4\\sin(x)$!",
+        "Sketsakan kurva grafik fungsi trigonometri $y = \\sin(x) + \\frac{1}{2}\\sin(2x)$ lengkap dengan titik stasioner dan titik beloknya!"
+      ],
+      "tagline": "Menemukan Puncak Amplitudo Tertinggi, Titik Terendah, dan Titik Belok Kecekungan",
+      "collab_solutions": [
+        "Langkah 1: f(x) = 2cos(x) + sin(2x) => f'(x) = -2sin(x) + 2cos(2x) = -2sin(x) + 2(1 - 2sin^2 x) = -4sin^2(x) - 2sin(x) + 2 = 0.\nLangkah 2: Bagi -2: 2sin^2(x) + sin(x) - 1 = 0 => (2sin x - 1)(sin x + 1) = 0.\nLangkah 3: sin x = 1/2 => x = pi/6, 5pi/6. sin x = -1 => x = 3pi/2.\nLangkah 4: Uji f''(x) = -2cos(x) - 4sin(2x): x=pi/6 (Maksimum lokal), x=5pi/6 (Minimum lokal), x=3pi/2 (Titik belok horizontal).\nKesimpulan: Titik balik maksimum di x = pi/6 dan minimum di x = 5pi/6.",
+        "Langkah 1: f(x) = sin^2(x) => f'(x) = 2sin(x)cos(x) = sin(2x) => f''(x) = 2cos(2x).\nLangkah 2: Cekung ke atas: f''(x) > 0 => cos(2x) > 0 => 0 <= x < pi/4 dan 3pi/4 < x <= pi.\nLangkah 3: Cekung ke bawah: f''(x) < 0 => cos(2x) < 0 => pi/4 < x < 3pi/4.\nKesimpulan: Kurva cekung ke atas pada [0, pi/4) U (3pi/4, pi] dan cekung ke bawah pada (pi/4, 3pi/4).",
+        "Langkah 1: f(x) = x + 2cos(x) => f'(x) = 1 - 2sin(x) => f''(x) = -2cos(x).\nLangkah 2: Titik belok f''(x) = 0 => -2cos(x) = 0 => cos(x) = 0 => x = pi/2 dan x = 3pi/2.\nLangkah 3: Evaluasi y: y(pi/2) = pi/2 + 2(0) = pi/2; y(3pi/2) = 3pi/2 + 2(0) = 3pi/2.\nKesimpulan: Koordinat titik belok kurva adalah (pi/2, pi/2) dan (3pi/2, 3pi/2).",
+        "Langkah 1: f(x) = cos(2x) - 4sin(x) => f'(x) = -2sin(2x) - 4cos(x) = -4sin(x)cos(x) - 4cos(x) = -4cos(x)[sin(x) + 1] = 0.\nLangkah 2: cos(x) = 0 => x = pi/2, 3pi/2.\nLangkah 3: f''(x) = -4cos(2x) + 4sin(x):\n- x = pi/2 => f''(pi/2) = -4(-1) + 4(1) = 8 > 0 (Titik Balik Minimum Relatif bernilai f(pi/2) = -5).\nKesimpulan: Titik stasioner x = pi/2 merupakan titik balik minimum relatif.",
+        "Langkah 1: Cari titik potong sumbu, titik stasioner melalui f'(x) = 0, dan titik belok melalui f''(x) = 0.\nLangkah 2: Gabungkan sketsa kurva gelombang asimetris teratur pada bidang Kartesius.\nKesimpulan: Sketsa kurva fungsi trigonometri terkonstruksi lengkap dengan titik ekstrimnya."
+      ]
+    },
+    {
+      "id": "P24",
+      "bab": "Bab 3: Turunan Fungsi Trigonometri",
+      "title": "Asesmen Sumatif Bab 3: Masalah Optimasi Kontekstual Turunan",
+      "obj": [
+        "Menerapkan konsep turunan trigonometri pada pemecahan masalah optimasi kontekstual (luas maksimal, volume maksimal).",
+        "Mengevaluasi penguasaan komprehensif Bab 3 (P17 - P23).",
+        "Menyelesaikan simulasi soal HOTS standar TKA Nasional dan UTBK-SNBT."
+      ],
+      "hook": "Arsitek merancang atap talang air seng berbentuk trapesium dengan sudut lipatan $\\theta$ agar dapat menampung debit volume air hujan maksimal.",
+      "toolkit": [
+        {
+          "name": "Matriks Uji Kompetensi Bab 3",
+          "math": "$$\\text{Turunan Dasar \\& Rantai (40\\%)} + \\text{Garis Singgung (30\\%)} + \\text{Optimasi HOTS (30\\%) }$$"
+        },
+        {
+          "name": "Prosedur Optimasi",
+          "math": "$$\\text{Model Fungsi } f(\\theta) \\implies \\text{Cari } f'(\\theta) = 0 \\implies \\text{Evaluasi Nilai Maksimal}$$"
+        },
+        {
+          "name": "Uji Nilai Ekstrem Global pada Interval Tertutup",
+          "math": "$$\\text{Bandingkan } f(a), \\; f(b), \\; \\text{dan } f(c) \\text{ untuk semua } c \\in (a, b) \\text{ dengan } f'(c) = 0$$"
+        },
+        {
+          "name": "Syarat Keoptimalan Masalah Geometri/Fisika",
+          "math": "$$f'(x^*) = 0 \\text{ dan } f''(x^*) < 0 \\implies \\text{Maksimum Terbukti}$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Sebuah talang air dibuat dari lembaran seng selebar $30\\text{ cm}$ dengan melipat kedua sisinya selebar $10\\text{ cm}$ dengan sudut lipatan $\\theta$. Tentukan sudut lipatan $\\theta$ agar luas penampang talang air maksimum!",
+          "solution": "Langkah 1: Penampang talang berbentuk trapesium sama kaki dengan alas bawah $10\\text{ cm}$, sisi miring $10\\text{ cm}$, tinggi $h = 10\\sin \\theta$, dan lebar atas $= 10 + 20\\cos \\theta$.\nLangkah 2: Luas $L(\\theta) = \\frac{1}{2} (\\text{alas bawah} + \\text{alas atas}) \\times h = \\frac{1}{2}(10 + 10 + 20\\cos \\theta)(10\\sin \\theta) = 100\\sin \\theta (1 + \\cos \\theta)$.\nLangkah 3: Turunkan terhadap $\\theta$: $L'(\\theta) = 100[\\cos \\theta(1 + \\cos \\theta) - \\sin^2 \\theta] = 100[\\cos \\theta + \\cos^2 \\theta - (1 - \\cos^2 \\theta)] = 100[2\\cos^2 \\theta + \\cos \\theta - 1] = 0$.\nLangkah 4: Faktorkan: $(2\\cos \\theta - 1)(\\cos \\theta + 1) = 0 \\implies \\cos \\theta = \\frac{1}{2} \\implies \\theta = 60^\\circ$.\nKesimpulan: Sudut lipatan agar luas penampang talang air maksimum adalah $\\theta = 60^\\circ$."
+        },
+        {
+          "problem": "Tentukan turunan pertama dari fungsi trigonometri $f(x) = \\sin^3(4x - 1)$!",
+          "solution": "Langkah 1: Gunakan aturan rantai bertingkat: $f'(x) = 3\\sin^2(4x - 1) \\cdot \\frac{d}{dx}[\\sin(4x - 1)]$.\nLangkah 2: $\\frac{d}{dx}[\\sin(4x - 1)] = 4\\cos(4x - 1)$.\nLangkah 3: $f'(x) = 3\\sin^2(4x - 1) \\cdot 4\\cos(4x - 1) = 12\\sin^2(4x - 1)\\cos(4x - 1)$.\nKesimpulan: $f'(x) = 12\\sin^2(4x - 1)\\cos(4x - 1)$."
+        },
+        {
+          "problem": "Tentukan gradien garis singgung kurva $y = 3\\tan(2x)$ di titik berabsis $x = \\frac{\\pi}{8}$!",
+          "solution": "Langkah 1: $y' = 3(2\\sec^2 2x) = 6\\sec^2(2x)$.\nLangkah 2: Evaluasi pada $x = \\frac{\\pi}{8} \\implies 2x = \\frac{\\pi}{4}$.\nLangkah 3: $\\sec\\left(\\frac{\\pi}{4}\\right) = \\sqrt{2} \\implies \\sec^2\\left(\\frac{\\pi}{4}\\right) = 2$.\nLangkah 4: $m = 6(2) = 12$.\nKesimpulan: Gradien garis singgung kurva adalah $m = 12$."
+        },
+        {
+          "problem": "Tentukan luas segitiga siku-siku terbesar yang dapat dibentuk di dalam lingkaran berjari-jari $R = 10\\text{ cm}$ jika hipotenusanya adalah diameter lingkaran!",
+          "solution": "Langkah 1: Diameter lingkaran $d = 2R = 20\\text{ cm}$ sebagai hipotenusa.\nLangkah 2: Sisi tegak segitiga siku-siku dapat dinyatakan dengan $a = 20\\cos \\theta$ dan $b = 20\\sin \\theta$.\nLangkah 3: Luas $\\text{Luas} = \\frac{1}{2} ab = \\frac{1}{2}(20\\cos \\theta)(20\\sin \\theta) = 100(2\\sin \\theta \\cos \\theta) = 100\\sin(2\\theta)$.\nLangkah 4: Nilai maksimum tercapai saat $\\sin(2\\theta) = 1 \\implies 2\\theta = 90^\\circ \\implies \\theta = 45^\\circ$.\nLangkah 5: Luas maksimum $= 100(1) = 100\\text{ cm}^2$.\nKesimpulan: Luas segitiga terbesar yang dapat dibentuk adalah $100\\text{ cm}^2$."
+        },
+        {
+          "problem": "Kekuatan balok kayu berbentuk persegi panjang yang dipotong dari batang pohon silinder berjari-jari $R$ berbanding lurus dengan $w \\cdot h^2$ (dengan $w$ adalah lebar dan $h$ adalah tinggi balok). Tentukan rasio perbandingan optimal $\\frac{h}{w}$ agar kekuatan balok maksimum!",
+          "solution": "Langkah 1: Karena penampang balok di dalam silinder berdiameter $2R$: $w^2 + h^2 = (2R)^2 = 4R^2 \\implies h^2 = 4R^2 - w^2$.\nLangkah 2: Fungsi kekuatan $S(w) = w \\cdot h^2 = w(4R^2 - w^2) = 4R^2 w - w^3$.\nLangkah 3: $S'(w) = 4R^2 - 3w^2 = 0 \\implies w^2 = \\frac{4}{3}R^2 \\implies w = \\frac{2R}{\\sqrt{3}}$.\nLangkah 4: $h^2 = 4R^2 - \\frac{4}{3}R^2 = \\frac{8}{3}R^2 \\implies h = \\frac{2\\sqrt{2}R}{\\sqrt{3}}$.\nLangkah 5: Rasio $\\frac{h}{w} = \\frac{2\\sqrt{2}R / \\sqrt{3}}{2R / \\sqrt{3}} = \\sqrt{2}$.\nKesimpulan: Rasio perbandingan optimal adalah $\\frac{h}{w} = \\sqrt{2} \\approx 1{,}414$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Bedah simulasi 10 soal CBT Bab 3 dan buktikan solusi analitisnya bersama tim!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Asesmen Sumatif Bab 3: Masalah Optimasi Kontekstual Turunan.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Asesmen Sumatif Bab 3: Masalah Optimasi Kontekstual Turunan menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Sebuah talang air trapesium dibuat dari seng selebar $30\\text{ cm}$ ditekuk menjadi 3 bagian sama ($10\\text{ cm}$). Tentukan sudut $\\theta$ agar kapasitas maksimum!",
+        "Tentukan luas persegi panjang terbesar yang dapat dibuat di dalam daerah setengah lingkaran berjari-jari $R$!",
+        "Dua lorong tegak lurus memiliki lebar $8\\text{ m}$ dan $27\\text{ m}$. Tentukan panjang pipa lurus terpanjang yang dapat digeser melewati persimpangan!",
+        "Sebuah kerucut memiliki garis pelukis $s = 12\\text{ cm}$. Tentukan tinggi kerucut $t$ agar volume kerucut mencapai nilai maksimum!",
+        "Rancang model optimasi jarak terpendek dari titik $(2, 1)$ ke kurva parabola $y = x^2$ menggunakan turunan!"
+      ],
+      "tagline": "Memaksimalkan Luas Penampang & Kapasitas Melalui Model Optimasi Turunan",
+      "collab_solutions": [
+        "Langkah 1: Talang trapesium sama kaki: alas bawah 10 cm, sisi miring 10 cm, tinggi h = 10 sin theta, lebar atas = 10 + 20 cos theta.\nLangkah 2: Luas L(theta) = 1/2(10 + 10 + 20 cos theta)(10 sin theta) = 100 sin(theta)(1 + cos theta).\nLangkah 3: L'(theta) = 100(2cos^2 theta + cos theta - 1) = 0 => (2cos theta - 1)(cos theta + 1) = 0 => cos theta = 1/2 => theta = 60°.\nKesimpulan: Sudut lipatan agar kapasitas talang maksimum adalah theta = 60°.",
+        "Langkah 1: Persegi panjang simetris di dalam setengah lingkaran x^2 + y^2 = R^2: Luas L = 2x * y = 2(R cos theta)(R sin theta) = R^2 sin(2theta).\nLangkah 2: Luas maksimum tercapai saat sin(2theta) = 1 => 2theta = 90° => theta = 45°.\nLangkah 3: Luas maksimum = R^2 (1) = R^2 satuan luas.\nKesimpulan: Luas persegi panjang terbesar yang dapat dibuat adalah R^2 satuan luas.",
+        "Langkah 1: Panjang pipa L(theta) = 8 / sin(theta) + 27 / cos(theta).\nLangkah 2: L'(theta) = -8 cos(theta)/sin^2(theta) + 27 sin(theta)/cos^2(theta) = 0 => tan^3(theta) = 8/27 => tan(theta) = 2/3.\nLangkah 3: sin(theta) = 2/sqrt(13) dan cos(theta) = 3/sqrt(13).\nLangkah 4: L_min = 8/(2/sqrt(13)) + 27/(3/sqrt(13)) = 4sqrt(13) + 9sqrt(13) = 13sqrt(13) meter.\nKesimpulan: Panjang pipa maksimum yang dapat melewati persimpangan lorong adalah 13sqrt(13) meter ≈ 46,87 meter.",
+        "Langkah 1: Kerucut dengan s = 12 cm. Jari-jari alas r^2 = 12^2 - t^2 = 144 - t^2.\nLangkah 2: Volume V(t) = 1/3 pi r^2 t = 1/3 pi (144 - t^2)t = 1/3 pi (144t - t^3).\nLangkah 3: V'(t) = 1/3 pi (144 - 3t^2) = 0 => 3t^2 = 144 => t^2 = 48 => t = sqrt(48) = 4sqrt(3) cm.\nKesimpulan: Tinggi kerucut agar volume maksimum adalah t = 4sqrt(3) cm.",
+        "Langkah 1: Jarak kuadrat dari (2, 1) ke titik (x, x^2) pada parabola: D(x) = (x - 2)^2 + (x^2 - 1)^2 = x^4 - x^2 - 4x + 5.\nLangkah 2: D'(x) = 4x^3 - 2x - 4 = 0 => 2x^3 - x - 2 = 0 => x = 1 adalah akar rasional.\nLangkah 3: Diperoleh titik terdekat pada parabola adalah (1, 1), dengan jarak terpendek d = sqrt((1-2)^2 + (1-1)^2) = sqrt(1) = 1 satuan.\nKesimpulan: Jarak terpendek dari titik (2,1) ke kurva parabola adalah 1 satuan."
+      ]
+    },
+    {
+      "id": "P25",
+      "bab": "Bab 4: Integral dan Penerapannya",
+      "title": "Integral dan Penerapannya 1: Konsep Integral Tak Tentu Dasar",
+      "obj": [
+        "Memahami konsep integral tak tentu sebagai antiturunan (antiderivatif) $\\int f(x)dx = F(x) + C$.",
+        "Menerapkan aturan pangkat dasar $\\int x^n dx = \\frac{x^{n+1}}{n+1} + C$ untuk $n \\neq -1$.",
+        "Menentukan nilai konstanta integrasi $C$ dari informasi nilai awal kurva $(x_0, y_0)$."
+      ],
+      "hook": "Sensor telemetri mencatat fungsi percepatan roket $a(t)$. Bagaimana para teknisi merekonstruksi kembali fungsi kecepatan $v(t)$ dan posisi ketinggian $s(t)$ roket?",
+      "toolkit": [
+        {
+          "name": "Aturan Pangkat Integral",
+          "math": "$$\\int x^n dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$$"
+        },
+        {
+          "name": "Sifat Kelinieran Integral",
+          "math": "$$\\int [a \\cdot f(x) + b \\cdot g(x)] dx = a \\int f(x)dx + b \\int g(x)dx$$"
+        },
+        {
+          "name": "Integral Trigonometri Dasar",
+          "math": "$$\\int \\cos x \\, dx = \\sin x + C, \\quad \\int \\sin x \\, dx = -\\cos x + C$$"
+        },
+        {
+          "name": "Integral Secan Kuadrat & Cosecan Kuadrat",
+          "math": "$$\\int \\sec^2 x \\, dx = \\tan x + C, \\quad \\int \\csc^2 x \\, dx = -\\cot x + C$$"
+        },
+        {
+          "name": "Integral Secan Tangen & Cosecan Cotangen",
+          "math": "$$\\int \\sec x \\tan x \\, dx = \\sec x + C, \\quad \\int \\csc x \\cot x \\, dx = -\\csc x + C$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan hasil integral tak tentu aljabar dari $\\int (6x^2 - 4x + 5) \\, dx$!",
+          "solution": "Langkah 1: Terapkan rumus dasar $\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$.\nLangkah 2: $\\int 6x^2 \\, dx = 6\\left(\\frac{x^3}{3}\\right) = 2x^3$.\nLangkah 3: $\\int -4x \\, dx = -4\\left(\\frac{x^2}{2}\\right) = -2x^2$.\nLangkah 4: $\\int 5 \\, dx = 5x$.\nKesimpulan: Hasil integral adalah $2x^3 - 2x^2 + 5x + C$."
+        },
+        {
+          "problem": "Gradien garis singgung suatu kurva ditentukan oleh $\\frac{dy}{dx} = 3x^2 - 4x + 1$. Jika kurva tersebut melalui titik $(2, 5)$, tentukan persamaan kurva $y = f(x)$!",
+          "solution": "Langkah 1: Integralkan turunan fungsi: $y = \\int (3x^2 - 4x + 1) \\, dx = x^3 - 2x^2 + x + C$.\nLangkah 2: Substitusikan titik $(2, 5)$: $5 = 2^3 - 2(2^2) + 2 + C \\implies 5 = 8 - 8 + 2 + C \\implies C = 3$.\nLangkah 3: Persamaan kurva: $y = x^3 - 2x^2 + x + 3$.\nKesimpulan: Persamaan kurva adalah $y = x^3 - 2x^2 + x + 3$."
+        },
+        {
+          "problem": "Tentukan hasil integral trigonometri dasar dari $\\int (4\\cos x - 3\\sin x) \\, dx$!",
+          "solution": "Langkah 1: Integral dasar: $\\int \\cos x \\, dx = \\sin x$ dan $\\int \\sin x \\, dx = -\\cos x$.\nLangkah 2: $\\int (4\\cos x - 3\\sin x) \\, dx = 4(\\sin x) - 3(-\\cos x) + C = 4\\sin x + 3\\cos x + C$.\nKesimpulan: Hasil integral adalah $4\\sin x + 3\\cos x + C$."
+        },
+        {
+          "problem": "Tentukan hasil integral dari $\\int (2\\sec^2 x + 5\\csc^2 x) \\, dx$!",
+          "solution": "Langkah 1: Rumus dasar: $\\int \\sec^2 x \\, dx = \\tan x$ dan $\\int \\csc^2 x \\, dx = -\\cot x$.\nLangkah 2: $\\int (2\\sec^2 x + 5\\csc^2 x) \\, dx = 2\\tan(x) - 5\\cot(x) + C$.\nKesimpulan: Hasil integral adalah $2\\tan(x) - 5\\cot(x) + C$."
+        },
+        {
+          "problem": "Sebuah mobil bergerak lurus dengan percepatan $a(t) = 6t - 2\\text{ m/s}^2$. Jika kecepatan awal mobil pada $t = 0$ adalah $v(0) = 4\\text{ m/s}$ dan posisi awal $s(0) = 10\\text{ m}$, tentukan persamaan posisi $s(t)$!",
+          "solution": "Langkah 1: Kecepatan $v(t) = \\int a(t) \\, dt = \\int (6t - 2) \\, dt = 3t^2 - 2t + C_1$.\nLangkah 2: $v(0) = 4 \\implies C_1 = 4 \\implies v(t) = 3t^2 - 2t + 4$.\nLangkah 3: Posisi $s(t) = \\int v(t) \\, dt = \\int (3t^2 - 2t + 4) \\, dt = t^3 - t^2 + 4t + C_2$.\nLangkah 4: $s(0) = 10 \\implies C_2 = 10$.\nKesimpulan: Persamaan posisi mobil adalah $s(t) = t^3 - t^2 + 4t + 10$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Sebuah partikel bergerak dengan percepatan $a(t) = 6t - 12$. Pada saat $t=1$, kecepatan $v=3$ dan posisi $s=10$. Tentukan fungsi posisi $s(t)$ partikel!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Integral dan Penerapannya 1: Konsep Integral Tak Tentu Dasar.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Integral dan Penerapannya 1: Konsep Integral Tak Tentu Dasar menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah integral tak tentu aljabar: $\\int (6x^2 - 4x + 3\\sqrt{x} - \\frac{2}{x^2}) \\, dx$!",
+        "Tentukan persamaan kurva $y = f(x)$ jika $\\frac{dy}{dx} = 3x^2 - 6x + 2$ dan kurva melalui titik $A(2, 5)$!",
+        "Hitunglah integral trigonometri dasar: $\\int (4\\sin(2x) - 3\\cos(3x) + 2\\sec^2(4x)) \\, dx$!",
+        "Tentukan hasil integral bentuk pecahan aljabar: $\\int \\frac{x^3 + 2x^2 - 1}{x^2} \\, dx$!",
+        "Buktikan Teorema Nilai Rata-rata untuk Integral: terdapat $c \\in [a, b]$ sedemikian hingga $\\int_{a}^{b} f(x) \\, dx = f(c)(b - a)$!"
+      ],
+      "tagline": "Membalikkan Arah Turunan: Menemukan Kembali Fungsi Asal dengan Integral Tak Tentu",
+      "collab_solutions": [
+        "Langkah 1: Terapkan rumus dasar integral aljabar suku demi suku:\n- integral 6x^2 dx = 2x^3\n- integral -4x dx = -2x^2\n- integral 3 x^{1/2} dx = 3 * (2/3) x^{3/2} = 2 x sqrt(x)\n- integral -2 x^{-2} dx = -2 * (-1) x^{-1} = 2/x.\nLangkah 2: Gabungkan seluruh suku dan tambahkan konstanta C.\nKesimpulan: Hasil integral adalah 2x^3 - 2x^2 + 2x sqrt(x) + 2/x + C.",
+        "Langkah 1: y = integral (3x^2 - 6x + 2) dx = x^3 - 3x^2 + 2x + C.\nLangkah 2: Kurva melalui A(2, 5) => 5 = 2^3 - 3(2^2) + 2(2) + C => 5 = 8 - 12 + 4 + C => 5 = 0 + C => C = 5.\nLangkah 3: Persamaan kurva: y = x^3 - 3x^2 + 2x + 5.\nKesimpulan: Persamaan kurva adalah y = x^3 - 3x^2 + 2x + 5.",
+        "Langkah 1: Rumus dasar integral trigonometri:\n- integral 4sin(2x) dx = -2cos(2x)\n- integral -3cos(3x) dx = -sin(3x)\n- integral 2sec^2(4x) dx = 1/2 tan(4x).\nLangkah 2: Gabungkan: -2cos(2x) - sin(3x) + 1/2 tan(4x) + C.\nKesimpulan: Hasil integral adalah -2cos(2x) - sin(3x) + 1/2 tan(4x) + C.",
+        "Langkah 1: Pecah bentuk pecahan: (x^3 + 2x^2 - 1) / x^2 = x + 2 - x^{-2}.\nLangkah 2: Integralkan: integral (x + 2 - x^{-2}) dx = 1/2 x^2 + 2x + 1/x + C.\nKesimpulan: Hasil integral adalah 1/2 x^2 + 2x + 1/x + C.",
+        "Langkah 1: Menurut Teorema Nilai Rata-rata Integral untuk fungsi kontinu f pada [a, b], nilai rata-rata fungsi adalah f_avg = 1/(b-a) integral_a^b f(x) dx.\nLangkah 2: Karena f kontinu, Teorema Nilai Antara menjamin adanya c in [a, b] sehingga f(c) = f_avg => integral_a^b f(x) dx = f(c)(b - a).\nKesimpulan: Teorema Nilai Rata-rata untuk Integral terbukti valid secara analitis."
+      ]
+    },
+    {
+      "id": "P26",
+      "bab": "Bab 4: Integral dan Penerapannya",
+      "title": "Integral dan Penerapannya 2: Teknik Pengintegralan Metode Substitusi",
+      "obj": [
+        "Mengidentifikasi struktur integran berpola fungsi komposisi $f(g(x)) \\cdot g'(x)$.",
+        "Menerapkan teknik substitusi variabel aljabar $u = g(x) \\implies du = g'(x)dx$.",
+        "Menyelesaikan integral substitusi pada fungsi aljabar dan trigonometri."
+      ],
+      "hook": "Menghitung integral $\\int 2x(x^2 + 1)^5 dx$ tanpa metode substitusi memerlukan ekspansi binomial derajat 5 yang sangat panjang. Dengan substitusi $u = x^2+1$, selesai dalam 2 baris!",
+      "toolkit": [
+        {
+          "name": "Rumus Dasar Integral Substitusi Aljabar",
+          "math": "$$\\int f(g(x)) g'(x) \\, dx = \\int f(u) \\, du \\quad [u = g(x)]$$"
+        },
+        {
+          "name": "Bentuk Khusus Fungsi Berpangkat",
+          "math": "$$\\int [g(x)]^n g'(x) \\, dx = \\frac{1}{n+1} [g(x)]^{n+1} + C \\quad (n \\neq -1)$$"
+        },
+        {
+          "name": "Bentuk Pecahan Turunan Logaritma",
+          "math": "$$\\int \\frac{g'(x)}{g(x)} \\, dx = \\ln |g(x)| + C$$"
+        },
+        {
+          "name": "Integral Substitusi Trigonometri Dasar",
+          "math": "$$\\int \\sin^n x \\cos x \\, dx = \\frac{1}{n+1} \\sin^{n+1} x + C$$"
+        },
+        {
+          "name": "Integral Tentu dengan Transformasi Batas",
+          "math": "$$\\int_a^b f(g(x)) g'(x) \\, dx = \\int_{g(a)}^{g(b)} f(u) \\, du$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan hasil integral tak tentu berikut: $\\int 2x (x^2 + 5)^4 \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = x^2 + 5 \\implies du = 2x \\, dx$.\nLangkah 2: Substitusikan ke dalam integral: $\\int u^4 \\, du = \\frac{1}{5} u^5 + C$.\nLangkah 3: Kembalikan variabel $u$: $\\frac{1}{5} (x^2 + 5)^5 + C$.\nKesimpulan: Hasil integral adalah $\\frac{1}{5}(x^2 + 5)^5 + C$."
+        },
+        {
+          "problem": "Hitunglah hasil dari integral fungsi rasional $\\int \\frac{3x^2}{x^3 + 2} \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = x^3 + 2 \\implies du = 3x^2 \\, dx$.\nLangkah 2: Integral menjadi: $\\int \\frac{1}{u} \\, du = \\ln|u| + C$.\nLangkah 3: Kembalikan $u$: $\\ln|x^3 + 2| + C$.\nKesimpulan: Hasil integral adalah $\\ln|x^3 + 2| + C$."
+        },
+        {
+          "problem": "Tentukan hasil dari integral trigonometri substitusi: $\\int \\sin^4(x) \\cos(x) \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = \\sin(x) \\implies du = \\cos(x) \\, dx$.\nLangkah 2: Integral menjadi: $\\int u^4 \\, du = \\frac{1}{5} u^5 + C$.\nLangkah 3: Kembalikan $u$: $\\frac{1}{5} \\sin^5(x) + C$.\nKesimpulan: Hasil integral adalah $\\frac{1}{5}\\sin^5(x) + C$."
+        },
+        {
+          "problem": "Hitunglah nilai dari integral tentu $\\int_0^2 x \\sqrt{x^2 + 9} \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = x^2 + 9 \\implies du = 2x \\, dx \\implies x \\, dx = \\frac{du}{2}$.\nLangkah 2: Ubah batas integrasi: Saat $x = 0 \\implies u = 9$; saat $x = 2 \\implies u = 2^2 + 9 = 13$.\nLangkah 3: $\\int_9^{13} u^{1/2} \\left(\\frac{du}{2}\\right) = \\frac{1}{2} \\left[ \\frac{2}{3} u^{3/2} \\right]_9^{13} = \\frac{1}{3} \\left[ 13\\sqrt{13} - 9\\sqrt{9} \\right] = \\frac{1}{3} (13\\sqrt{13} - 27) = \\frac{13\\sqrt{13}}{3} - 9$.\nKesimpulan: Nilai integral adalah $\\frac{13\\sqrt{13}}{3} - 9$."
+        },
+        {
+          "problem": "Tentukan hasil integral substitusi linear: $\\int x (x - 1)^5 \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = x - 1 \\implies x = u + 1$ dan $dx = du$.\nLangkah 2: Integral menjadi: $\\int (u + 1) u^5 \\, du = \\int (u^6 + u^5) \\, du$.\nLangkah 3: Integralkan: $\\frac{1}{7} u^7 + \\frac{1}{6} u^6 + C$.\nLangkah 4: Kembalikan $u = x - 1$: $\\frac{1}{7} (x - 1)^7 + \\frac{1}{6} (x - 1)^6 + C$.\nKesimpulan: Hasil integral adalah $\\frac{1}{7}(x - 1)^7 + \\frac{1}{6}(x - 1)^6 + C$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Selesaikan integral substitusi linear $\\int x \\sqrt{x - 1} dx$ dengan memisalkan $u = x - 1$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Integral dan Penerapannya 2: Teknik Pengintegralan Metode Substitusi.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT.",
+          "Pada integral tentu dengan metode substitusi, selalu ubah batas integrasi ke variabel u agar tidak perlu melakukan substitusi balik.",
+          "Kesalahan paling sering: Lupa mengubah komponen dx menjadi du yang memuat pengali faktor konstanta."
+        ],
+        "islamic": "Pembelajaran Integral dan Penerapannya 2: Teknik Pengintegralan Metode Substitusi menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah integral substitusi aljabar: $\\int 6x \\cdot (3x^2 - 5)^4 \\, dx$ dengan pemisalan $u = 3x^2 - 5$!",
+        "Tentukan hasil dari integral trigonometri substitusi: $\\int \\sin^3(x) \\cdot \\cos(x) \\, dx$!",
+        "Hitunglah integral tak tentu: $\\int \\frac{x}{\\sqrt{2x + 1}} \\, dx$ menggunakan substitusi aljabar $u = \\sqrt{2x + 1}$!",
+        "Hitung nilai integral substitusi eksponensial: $\\int x^2 \\cdot e^{x^3 - 1} \\, dx$!",
+        "Hitunglah integral rasional trigonometri: $\\int \\frac{\\sec^2(x)}{1 + \\tan(x)} \\, dx$!"
+      ],
+      "tagline": "Menyederhanakan Bentuk Rumit Melalui Pergantian Variabel Metode Substitusi",
+      "collab_solutions": [
+        "Langkah 1: Misalkan u = 3x^2 - 5 => du = 6x dx.\nLangkah 2: Integral menjadi: integral u^4 du = 1/5 u^5 + C.\nLangkah 3: Kembalikan u = 3x^2 - 5: 1/5 (3x^2 - 5)^5 + C.\nKesimpulan: Hasil integral adalah 1/5 (3x^2 - 5)^5 + C.",
+        "Langkah 1: Misalkan u = sin(x) => du = cos(x) dx.\nLangkah 2: Integral menjadi: integral u^3 du = 1/4 u^4 + C = 1/4 sin^4(x) + C.\nKesimpulan: Hasil integral adalah 1/4 sin^4(x) + C.",
+        "Langkah 1: Misalkan u = sqrt(2x + 1) => u^2 = 2x + 1 => x = (u^2 - 1)/2 dan dx = u du.\nLangkah 2: Integral: integral [ (u^2 - 1)/2 * (1/u) * u du ] = 1/2 integral (u^2 - 1) du = 1/2 [ 1/3 u^3 - u ] + C = 1/6 u^3 - 1/2 u + C.\nLangkah 3: Faktorkan: 1/6 u (u^2 - 3) + C = 1/6 sqrt(2x+1) [ (2x+1) - 3 ] + C = 1/6 (2x - 2) sqrt(2x+1) + C = 1/3 (x - 1) sqrt(2x+1) + C.\nKesimpulan: Hasil integral adalah 1/3 (x - 1) sqrt(2x + 1) + C.",
+        "Langkah 1: Misalkan u = x^3 - 1 => du = 3x^2 dx => x^2 dx = du / 3.\nLangkah 2: Integral menjadi: 1/3 integral e^u du = 1/3 e^u + C = 1/3 e^{x^3 - 1} + C.\nKesimpulan: Hasil integral adalah 1/3 e^{x^3 - 1} + C.",
+        "Langkah 1: Misalkan u = 1 + tan(x) => du = sec^2(x) dx.\nLangkah 2: Integral menjadi: integral (1/u) du = ln|u| + C = ln|1 + tan(x)| + C.\nKesimpulan: Hasil integral adalah ln|1 + tan(x)| + C."
+      ]
+    },
+    {
+      "id": "P27",
+      "bab": "Bab 4: Integral dan Penerapannya",
+      "title": "Integral dan Penerapannya 3: Teknik Pengintegralan Parsial (Tanzalin)",
+      "obj": [
+        "Memahami rumus dasar integral parsial $\\int u dv = uv - \\int v du$.",
+        "Menguasai metode cepat Tabel Tanzalin (Tabel D-I bertanda $\\pm$).",
+        "Menyelesaikan integral perkalian fungsi aljabar dengan trigonometri atau eksponensial."
+      ],
+      "hook": "Dalam pengolahan sinyal audio dan radar, integral perkalian $\\int x^3 \\cos(2x) dx$ diselesaikan dalam 30 detik menggunakan metode tabular Tanzalin!",
+      "toolkit": [
+        {
+          "name": "Rumus Parsial Baku",
+          "math": "$$\\int u \\, dv = u v - \\int v \\, du$$"
+        },
+        {
+          "name": "Metode Cepat Tanzalin",
+          "math": "$$\\begin{array}{|c|c|c|} \\hline \\text{Tanda} & \\text{Diferensial (Turunkan ke 0)} & \\text{Integral (Integralkan)} \\\\ \\hline + & u(x) & v'(x) \\\\ - & u'(x) & v_1(x) \\\\ + & u''(x) & v_2(x) \\\\ \\hline \\end{array}$$"
+        },
+        {
+          "name": "Aturan Prioritas Pemilihan u (LIATE)",
+          "math": "$$\\text{Prioritas } u: \\text{Logaritma} > \\text{Invers Trig} > \\text{Aljabar} > \\text{Trigonometri} > \\text{Eksponensial}$$"
+        },
+        {
+          "name": "Integral Parsial Tentu dengan Batas",
+          "math": "$$\\int_a^b u \\, dv = [u \\cdot v]_a^b - \\int_a^b v \\, du$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan hasil integral parsial dari $\\int x \\cos(x) \\, dx$!",
+          "solution": "Langkah 1: Gunakan metode parsial $\\int u \\, dv = uv - \\int v \\, du$. Misalkan $u = x \\implies du = dx$ dan $dv = \\cos x \\, dx \\implies v = \\sin x$.\nLangkah 2: $\\int x \\cos(x) \\, dx = x\\sin(x) - \\int \\sin(x) \\, dx$.\nLangkah 3: $x\\sin(x) - (-\\cos x) + C = x\\sin(x) + \\cos(x) + C$.\nKesimpulan: Hasil integral adalah $x\\sin(x) + \\cos(x) + C$."
+        },
+        {
+          "problem": "Tentukan hasil dari $\\int x^2 e^x \\, dx$ menggunakan Metode Tanzalin (Tabel D-I)!",
+          "solution": "Langkah 1: Buat kolom Turunan (D) dan Integral (I) bertanda bergantian:\n- Kolom D: $x^2 \\to 2x \\to 2 \\to 0$\n- Kolom I: $e^x \\to e^x \\to e^x \\to e^x$\n- Tanda: $(+), (-), (+)$\nLangkah 2: Pasangkan secara diagonal:\n$(+) x^2 (e^x) + (-) 2x (e^x) + (+) 2 (e^x)$.\nLangkah 3: Sederhanakan: $(x^2 - 2x + 2)e^x + C$.\nKesimpulan: Hasil integral adalah $(x^2 - 2x + 2)e^x + C$."
+        },
+        {
+          "problem": "Tentukan hasil integral parsial $\\int x \\sin(2x) \\, dx$!",
+          "solution": "Langkah 1: Metode Tanzalin:\n- D: $x \\to 1 \\to 0$\n- I: $\\sin(2x) \\to -\\frac{1}{2}\\cos(2x) \\to -\\frac{1}{4}\\sin(2x)$\n- Tanda: $(+), (-)$\nLangkah 2: Kalikan silang: $(+) x \\left(-\\frac{1}{2}\\cos 2x\\right) - (1) \\left(-\\frac{1}{4}\\sin 2x\\right)$.\nLangkah 3: $-\\frac{1}{2}x\\cos(2x) + \\frac{1}{4}\\sin(2x) + C$.\nKesimpulan: Hasil integral adalah $-\\frac{1}{2}x\\cos(2x) + \\frac{1}{4}\\sin(2x) + C$."
+        },
+        {
+          "problem": "Tentukan hasil dari integral parsial logaritma $\\int \\ln(x) \\, dx$!",
+          "solution": "Langkah 1: Misalkan $u = \\ln x \\implies du = \\frac{1}{x} \\, dx$ dan $dv = dx \\implies v = x$.\nLangkah 2: $\\int \\ln(x) \\, dx = uv - \\int v \\, du = x\\ln(x) - \\int x \\left(\\frac{1}{x}\\right) \\, dx$.\nLangkah 3: $x\\ln(x) - \\int 1 \\, dx = x\\ln(x) - x + C = x(\\ln x - 1) + C$.\nKesimpulan: Hasil integral adalah $x\\ln(x) - x + C$."
+        },
+        {
+          "problem": "Dalam analisis pemrosesan sinyal spektral, energi respon impuls dinyatakan oleh $E = \\int_0^\\pi x \\cos(3x) \\, dx$. Hitung nilai eksak energi $E$ tersebut!",
+          "solution": "Langkah 1: Integralkan $\\int x \\cos(3x) \\, dx$ dengan metode parsial Tanzalin:\n$\\int x\\cos(3x) \\, dx = \\frac{1}{3}x\\sin(3x) + \\frac{1}{9}\\cos(3x)$.\nLangkah 2: Masukkan batas integrasi dari $0$ hingga $\\pi$:\n$E = \\left[ \\frac{1}{3}\\pi\\sin(3\\pi) + \\frac{1}{9}\\cos(3\\pi) \\right] - \\left[ 0 + \\frac{1}{9}\\cos(0) \\right]$.\nLangkah 3: Karena $\\sin(3\\pi) = 0, \\cos(3\\pi) = -1, \\cos(0) = 1$:\n$E = \\left[ 0 + \\frac{1}{9}(-1) \\right] - \\left[ \\frac{1}{9}(1) \\right] = -\\frac{1}{9} - \\frac{1}{9} = -\\frac{2}{9}$.\nKesimpulan: Nilai eksak energi sinyal adalah $-\\frac{2}{9}$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Selesaikan integral parsial $\\int x^2 \\sin(x) dx$ menggunakan metode Tanzalin 4 baris!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Integral dan Penerapannya 3: Teknik Pengintegralan Parsial (Tanzalin).",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Integral dan Penerapannya 3: Teknik Pengintegralan Parsial (Tanzalin) menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah integral parsial $\\int x \\cdot \\cos(2x) \\, dx$ menggunakan rumus baku $\\int u \\, dv = uv - \\int v \\, du$!",
+        "Gunakan Metode Tabel Tanzalin (D-I Table) untuk menghitung integral tingkat tinggi: $\\int x^3 \\cdot e^{2x} \\, dx$!",
+        "Hitunglah integral berulang (*cyclic integration by parts*): $\\int e^x \\cdot \\sin(x) \\, dx$!",
+        "Hitunglah nilai integral logaritma: $\\int \\ln(x) \\, dx$ menggunakan metode integrasi parsial!",
+        "Hitunglah integral parsial bentuk aljabar-trigonometri: $\\int x^2 \\cdot \\sin(3x) \\, dx$!"
+      ],
+      "tagline": "Trik Cepat Tanzalin: Mengintegralkan Perkalian Aljabar & Fungsi Trigonometri",
+      "collab_solutions": [
+        "Langkah 1: Rumus parsial: integral u dv = uv - integral v du. u = x => du = dx. dv = cos(2x) dx => v = 1/2 sin(2x).\nLangkah 2: integral x cos(2x) dx = 1/2 x sin(2x) - integral 1/2 sin(2x) dx = 1/2 x sin(2x) - 1/2 (-1/2 cos 2x) + C = 1/2 x sin(2x) + 1/4 cos(2x) + C.\nKesimpulan: Hasil integral adalah 1/2 x sin(2x) + 1/4 cos(2x) + C.",
+        "Langkah 1: Tabel Tanzalin (D-I) untuk integral x^3 e^{2x} dx:\n- Kolom D: x^3 -> 3x^2 -> 6x -> 6 -> 0\n- Kolom I: e^{2x} -> 1/2 e^{2x} -> 1/4 e^{2x} -> 1/8 e^{2x} -> 1/16 e^{2x}\n- Tanda: (+), (-), (+), (-)\nLangkah 2: Pasangkan: e^{2x} [ 1/2 x^3 - 3/4 x^2 + 3/4 x - 3/8 ] + C = 1/8 e^{2x} (4x^3 - 6x^2 + 6x - 3) + C.\nKesimpulan: Hasil integral adalah 1/8 e^{2x} (4x^3 - 6x^2 + 6x - 3) + C.",
+        "Langkah 1: Misal I = integral e^x sin(x) dx. Parsial 1: u = sin x, dv = e^x dx => I = e^x sin x - integral e^x cos x dx.\nLangkah 2: Parsial 2: integral e^x cos x dx = e^x cos x - integral e^x (-sin x) dx = e^x cos x + I.\nLangkah 3: I = e^x sin x - [ e^x cos x + I ] => 2I = e^x (sin x - cos x) => I = 1/2 e^x (sin x - cos x) + C.\nKesimpulan: Hasil integral siklik adalah 1/2 e^x (sin x - cos x) + C.",
+        "Langkah 1: Misalkan u = ln(x) => du = 1/x dx dan dv = dx => v = x.\nLangkah 2: integral ln(x) dx = x ln(x) - integral x (1/x) dx = x ln(x) - integral 1 dx = x ln(x) - x + C = x (ln x - 1) + C.\nKesimpulan: Hasil integral adalah x (ln x - 1) + C.",
+        "Langkah 1: Tabel Tanzalin untuk x^2 sin(3x):\n- D: x^2 -> 2x -> 2 -> 0\n- I: sin(3x) -> -1/3 cos(3x) -> -1/9 sin(3x) -> 1/27 cos(3x)\n- Tanda: (+), (-), (+)\nLangkah 2: Pasangkan: -1/3 x^2 cos(3x) + 2/9 x sin(3x) + 2/27 cos(3x) + C = (2/27 - 1/3 x^2) cos(3x) + 2/9 x sin(3x) + C.\nKesimpulan: Hasil integral adalah (2/27 - 1/3 x^2) cos(3x) + 2/9 x sin(3x) + C."
+      ]
+    },
+    {
+      "id": "P28",
+      "bab": "Bab 4: Integral dan Penerapannya",
+      "title": "Integral dan Penerapannya 4: Integral Tentu dan Teorema Dasar Kalkulus",
+      "obj": [
+        "Memahami Teorema Dasar Kalkulus (FTC): $\\int_{a}^{b} f(x) dx = F(b) - F(a)$.",
+        "Menerapkan sifat-sifat integral tentu (linearitas, penjumlahan selang batas, pembalikan batas).",
+        "Menghitung nilai numerik eksak integral tentu aljabar dan trigonometri."
+      ],
+      "hook": "Para insinyur sipil menghitung total akumulasi debit air waduk selama 12 jam hujan lebat menggunakan integral tentu dengan batas waktu integrasi.",
+      "toolkit": [
+        {
+          "name": "Teorema Dasar Kalkulus (FTC)",
+          "math": "$$\\int_{a}^{b} f(x) \\, dx = [F(x)]_a^b = F(b) - F(a)$$"
+        },
+        {
+          "name": "Sifat Pembalikan Batas",
+          "math": "$$\\int_{a}^{b} f(x) \\, dx = -\\int_{b}^{a} f(x) \\, dx, \\quad \\int_{a}^{a} f(x) \\, dx = 0$$"
+        },
+        {
+          "name": "Sifat Penjumlahan Selang",
+          "math": "$$\\int_{a}^{b} f(x) \\, dx + \\int_{b}^{c} f(x) \\, dx = \\int_{a}^{c} f(x) \\, dx$$"
+        },
+        {
+          "name": "Teorema Nilai Rata-rata Integral (MVT)",
+          "math": "$$\\bar{f} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx$$"
+        },
+        {
+          "name": "Teorema Dasar Kalkulus I (Turunan Bentuk Integral)",
+          "math": "$$\\frac{d}{dx} \\left[ \\int_a^{g(x)} f(t) \\, dt \\right] = f(g(x)) \\cdot g'(x)$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Hitung nilai dari integral tentu $\\int_{1}^{3} (3x^2 - 2x + 1) \\, dx$!",
+          "solution": "Langkah 1: Tentukan antiturunan: $F(x) = x^3 - x^2 + x$.\nLangkah 2: Terapkan Teorema Dasar Kalkulus: $[F(x)]_1^3 = F(3) - F(1)$.\nLangkah 3: $F(3) = 3^3 - 3^2 + 3 = 27 - 9 + 3 = 21$.\nLangkah 4: $F(1) = 1^3 - 1^2 + 1 = 1$.\nLangkah 5: $F(3) - F(1) = 21 - 1 = 20$.\nKesimpulan: Nilai integral tentu adalah $20$."
+        },
+        {
+          "problem": "Hitung nilai dari integral trigonometri tentu $\\int_0^{\\pi/2} \\cos(x) \\, dx$!",
+          "solution": "Langkah 1: Antiturunan dari $\\cos x$ adalah $\\sin x$.\nLangkah 2: $[\\sin x]_0^{\\pi/2} = \\sin\\left(\\frac{\\pi}{2}\\right) - \\sin(0) = 1 - 0 = 1$.\nKesimpulan: Nilai integral tentu adalah $1$."
+        },
+        {
+          "problem": "Hitung nilai dari $\\int_{0}^{2} 2x(x^2 + 1)^2 \\, dx$!",
+          "solution": "Langkah 1: Substitusi $u = x^2 + 1 \\implies du = 2x \\, dx$.\nLangkah 2: Batas: $x = 0 \\implies u = 1$; $x = 2 \\implies u = 2^2 + 1 = 5$.\nLangkah 3: $\\int_1^5 u^2 \\, du = \\left[ \\frac{1}{3} u^3 \\right]_1^5 = \\frac{1}{3}(5^3 - 1^3) = \\frac{1}{3}(125 - 1) = \\frac{124}{3} = 41\\frac{1}{3}$.\nKesimpulan: Nilai integral tentu adalah $\\frac{124}{3}$."
+        },
+        {
+          "problem": "Tentukan nilai konstanta $a > 0$ yang memenuhi persamaan integral tentu $\\int_0^a (4x + 3) \\, dx = 14$!",
+          "solution": "Langkah 1: $[2x^2 + 3x]_0^a = 14 \\implies 2a^2 + 3a = 14$.\nLangkah 2: Bentuk persamaan kuadrat: $2a^2 + 3a - 14 = 0$.\nLangkah 3: Faktorkan: $(2a + 7)(a - 2) = 0$.\nLangkah 4: Karena disyaratkan $a > 0$, maka $a = 2$.\nKesimpulan: Nilai konstanta $a$ adalah $2$."
+        },
+        {
+          "problem": "Sebuah reservoir air dipompa keluar dengan debit alir $Q(t) = 120 - 6t$ liter/menit selama $0 \\le t \\le 20$ menit. Tentukan volume total air yang telah dikeluarkan selama 10 menit pertama!",
+          "solution": "Langkah 1: Volume total $V = \\int_0^{10} (120 - 6t) \\, dt$.\nLangkah 2: Integralkan: $V = [120t - 3t^2]_0^{10} = 120(10) - 3(10^2) = 1200 - 300 = 900$ liter.\nKesimpulan: Volume total air yang dikeluarkan selama 10 menit pertama adalah $900$ liter."
+        }
+      ],
+      "btc": "Kelompok VNPS: Jika $\\int_{1}^{4} f(x)dx = 7$ dan $\\int_{2}^{4} f(x)dx = 3$, tentukan nilai dari $\\int_{1}^{2} f(x)dx$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Integral dan Penerapannya 4: Integral Tentu dan Teorema Dasar Kalkulus.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Integral dan Penerapannya 4: Integral Tentu dan Teorema Dasar Kalkulus menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah nilai integral tentu: $\\int_{1}^{3} (3x^2 - 4x + 1) \\, dx$ menggunakan Teorema Dasar Kalkulus I!",
+        "Hitunglah nilai integral tentu trigonometri: $\\int_0^{\\frac{\\pi}{2}} \\sin^2(x) \\, dx$ menggunakan identitas sudut ganda!",
+        "Tentukan nilai turunan fungsi integral akumulasi $F'(x)$ dari $F(x) = \\int_0^{x^2} \\sqrt{1 + t^3} \\, dt$!",
+        "Hitunglah nilai integral tentu dengan substitusi: $\\int_{0}^{2} x \\sqrt{x^2 + 9} \\, dx$!",
+        "Buktikan bahwa untuk fungsi ganjil berlaku $\\int_{-a}^{a} f(x) \\, dx = 0$ dan untuk fungsi genap berlaku $\\int_{-a}^{a} f(x) \\, dx = 2\\int_{0}^{a} f(x) \\, dx$!"
+      ],
+      "tagline": "Menghitung Akumulasi Pasti Antara Dua Batas dengan Teorema Dasar Kalkulus",
+      "collab_solutions": [
+        "Langkah 1: Antiturunan: F(x) = x^3 - 2x^2 + x.\nLangkah 2: F(3) = 3^3 - 2(3^2) + 3 = 27 - 18 + 3 = 12.\nLangkah 3: F(1) = 1^3 - 2(1^2) + 1 = 1 - 2 + 1 = 0.\nLangkah 4: Nilai integral = F(3) - F(1) = 12 - 0 = 12.\nKesimpulan: Nilai integral tentu adalah 12.",
+        "Langkah 1: Identitas: sin^2(x) = 1/2 (1 - cos(2x)).\nLangkah 2: integral_0^{pi/2} 1/2 (1 - cos 2x) dx = 1/2 [ x - 1/2 sin(2x) ]_0^{pi/2}.\nLangkah 3: 1/2 [ (pi/2 - 1/2 sin(pi)) - (0 - 0) ] = 1/2 (pi/2 - 0) = pi/4.\nKesimpulan: Nilai integral tentu adalah pi/4.",
+        "Langkah 1: Menurut Teorema Dasar Kalkulus I + Aturan Rantai: d/dx [ integral_0^{g(x)} f(t) dt ] = f(g(x)) * g'(x).\nLangkah 2: g(x) = x^2 => g'(x) = 2x. f(t) = sqrt(1 + t^3).\nLangkah 3: F'(x) = sqrt(1 + (x^2)^3) * (2x) = 2x sqrt(1 + x^6).\nKesimpulan: Turunan fungsi akumulasi adalah F'(x) = 2x sqrt(1 + x^6).",
+        "Langkah 1: Misalkan u = x^2 + 9 => du = 2x dx => x dx = du / 2.\nLangkah 2: Batas: saat x = 0 => u = 9; saat x = 2 => u = 2^2 + 9 = 13.\nLangkah 3: integral_9^{13} u^{1/2} (du / 2) = 1/2 [ 2/3 u^{3/2} ]_9^{13} = 1/3 [ 13sqrt(13) - 9sqrt(9) ] = 1/3 (13sqrt(13) - 27) = 13/3 sqrt(13) - 9.\nKesimpulan: Nilai integral tentu adalah 13/3 sqrt(13) - 9.",
+        "Langkah 1: Pecah integral_(-a)^a = integral_(-a)^0 + integral_0^a. Pada suku pertama substitusi x = -u => dx = -du.\nLangkah 2: Untuk fungsi ganjil f(-u) = -f(u): integral menjadi -integral_0^a f(u) du + integral_0^a f(x) dx = 0.\nLangkah 3: Untuk fungsi genap f(-u) = f(u): integral menjadi integral_0^a f(u) du + integral_0^a f(x) dx = 2 integral_0^a f(x) dx.\nKesimpulan: Teorema sifat simetri integral fungsi ganjil dan genap terbukti benar."
+      ]
+    },
+    {
+      "id": "P29",
+      "bab": "Bab 4: Integral dan Penerapannya",
+      "title": "Integral dan Penerapannya 5: Luas Daerah dan Volume Benda Putar",
+      "obj": [
+        "Menghitung luas daerah antara kurva dan sumbu-X atau antara dua kurva $L = \\int_{a}^{b} (y_1 - y_2) dx$.",
+        "Menerapkan metode cakram $V = \\pi \\int_{a}^{b} y^2 dx$ untuk menghitung volume benda putar mengelilingi sumbu-X.",
+        "Menyelesaikan masalah luas arsitektur dan volume kubah masjid geometris 3D."
+      ],
+      "hook": "Menghitung volume material beton yang dibutuhkan untuk mencetak kubah masjid 3D berbentuk parabola putar secara matematis akurat.",
+      "toolkit": [
+        {
+          "name": "Luas Daerah Antara Dua Kurva",
+          "math": "$$L = \\int_a^b [f(x) - g(x)] \\, dx \\quad [f(x) \\ge g(x)]$$"
+        },
+        {
+          "name": "Rumus Cepat Luas Parabola dan Garis",
+          "math": "$$L = \\frac{D\\sqrt{D}}{6a^2} \\quad [\\text{dari persamaan kuadrat sekutu}]$$"
+        },
+        {
+          "name": "Volume Benda Putar Metode Cakram Sumbu X",
+          "math": "$$V = \\pi \\int_a^b [f(x)]^2 \\, dx$$"
+        },
+        {
+          "name": "Volume Benda Putar Metode Cincin Sumbu X",
+          "math": "$$V = \\pi \\int_a^b \\left([f(x)]^2 - [g(x)]^2\\right) \\, dx$$"
+        },
+        {
+          "name": "Volume Benda Putar Mengelilingi Sumbu Y",
+          "math": "$$V = \\pi \\int_c^d [g(y)]^2 \\, dy$$"
+        },
+        {
+          "name": "Volume Benda Putar Metode Kulit Tabung",
+          "math": "$$V = 2\\pi \\int_a^b x \\cdot [f(x) - g(x)] \\, dx$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan luas daerah yang dibatasi oleh kurva parabola $y = x^2$ dan garis $y = 4$!",
+          "solution": "Langkah 1: Titik potong kurva: $x^2 = 4 \\implies x = -2$ dan $x = 2$.\nLangkah 2: Rumus luas: $L = \\int_{-2}^2 (4 - x^2) \\, dx = 2 \\int_0^2 (4 - x^2) \\, dx$.\nLangkah 3: $2 \\left[ 4x - \\frac{1}{3}x^3 \\right]_0^2 = 2 \\left( 8 - \\frac{8}{3} \\right) = 2 \\left( \\frac{16}{3} \\right) = \\frac{32}{3} = 10\\frac{2}{3}$ satuan luas.\nKesimpulan: Luas daerah adalah $\\frac{32}{3}$ satuan luas."
+        },
+        {
+          "problem": "Gunakan rumus cepat diskriminan untuk menghitung luas daerah antara kurva $y = 6x - x^2$ dan sumbu-$X$!",
+          "solution": "Langkah 1: Persamaan kuadrat: $-x^2 + 6x = 0 \\implies a = -1, b = 6, c = 0$.\nLangkah 2: Diskriminan $D = b^2 - 4ac = 6^2 - 4(-1)(0) = 36$.\nLangkah 3: Rumus cepat luas: $L = \\frac{D\\sqrt{D}}{6a^2} = \\frac{36\\sqrt{36}}{6(-1)^2} = \\frac{36 \\times 6}{6} = 36$ satuan luas.\nKesimpulan: Luas daerah adalah $36$ satuan luas."
+        },
+        {
+          "problem": "Tentukan volume benda putar yang terjadi jika daerah yang dibatasi oleh kurva $y = x^2$, garis $x = 2$, dan sumbu-$X$ diputar $360^\\circ$ mengelilingi sumbu-$X$!",
+          "solution": "Langkah 1: Rumus volume putar sumbu-$X$: $V = \\pi \\int_a^b y^2 \\, dx$.\nLangkah 2: $V = \\pi \\int_0^2 (x^2)^2 \\, dx = \\pi \\int_0^2 x^4 \\, dx$.\nLangkah 3: $V = \\pi \\left[ \\frac{1}{5} x^5 \\right]_0^2 = \\pi \\left( \\frac{32}{5} \\right) = \\frac{32}{5}\\pi$ satuan volume.\nKesimpulan: Volume benda putar adalah $\\frac{32}{5}\\pi$ satuan volume."
+        },
+        {
+          "problem": "Tentukan volume benda putar jika daerah antara garis $y = 2x$ dan kurva parabola $y = x^2$ diputar mengelilingi sumbu-$X$ sejauh $360^\\circ$!",
+          "solution": "Langkah 1: Titik potong: $x^2 = 2x \\implies x(x - 2) = 0 \\implies x = 0$ dan $x = 2$.\nLangkah 2: $V = \\pi \\int_0^2 ((2x)^2 - (x^2)^2) \\, dx = \\pi \\int_0^2 (4x^2 - x^4) \\, dx$.\nLangkah 3: $V = \\pi \\left[ \\frac{4}{3}x^3 - \\frac{1}{5}x^5 \\right]_0^2 = \\pi \\left( \\frac{32}{3} - \\frac{32}{5} \\right) = 32\\pi \\left(\\frac{5 - 3}{15}\\right) = \\frac{64}{15}\\pi$ satuan volume.\nKesimpulan: Volume benda putar adalah $\\frac{64}{15}\\pi$ satuan volume."
+        },
+        {
+          "problem": "Sebuah wadah mangkuk keramik dimodelkan oleh perputaran kurva $y = \\sqrt{x}$ dari $y = 0$ sampai $y = 3$ mengelilingi sumbu-$Y$. Tentukan kapasitas volume total mangkuk tersebut!",
+          "solution": "Langkah 1: Nyatakan dalam fungsi $x = g(y)$: $y = \\sqrt{x} \\implies x = y^2$.\nLangkah 2: Rumus volume putar sumbu-$Y$: $V = \\pi \\int_0^3 x^2 \\, dy = \\pi \\int_0^3 (y^2)^2 \\, dy = \\pi \\int_0^3 y^4 \\, dy$.\nLangkah 3: $V = \\pi \\left[ \\frac{1}{5} y^5 \\right]_0^3 = \\frac{243}{5}\\pi = 48{,}6\\pi$ satuan volume.\nKesimpulan: Kapasitas volume mangkuk adalah $\\frac{243}{5}\\pi = 48{,}6\\pi$ satuan volume."
+        }
+      ],
+      "btc": "Kelompok VNPS: Hitung luas daerah antara kurva $y = 4 - x^2$ dan sumbu-$X$ menggunakan rumus integral dan verifikasi dengan rumus cepat $\\frac{D\\sqrt{D}}{6a^2}$!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Integral dan Penerapannya 5: Luas Daerah dan Volume Benda Putar.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT.",
+          "Metode kulit tabung V = 2pi integral x f(x) dx sangat efektif untuk perputaran mengelilingi sumbu-Y tanpa perlu mengubah fungsi menjadi bentuk x = g(y).",
+          "Kesalahan paling sering: Mengurangkan fungsi luar dan dalam sebelum dikuadratkan, padahal seharusnya kuadratkan masing-masing fungsi terlebih dahulu (R^2 - r^2)."
+        ],
+        "islamic": "Pembelajaran Integral dan Penerapannya 5: Luas Daerah dan Volume Benda Putar menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah luas daerah yang dibatasi oleh kurva parabola $y = 4 - x^2$ dan sumbu-$X$!",
+        "Hitung luas daerah tertutup yang dibatasi oleh parabola $y = x^2 - 2x$ dan garis lurus $y = x$!",
+        "Tentukan volume benda putar jika daerah antara $y = \\sqrt{x}$, $x = 4$, dan sumbu-$X$ diputar mengelilingi sumbu-$X$ sejauh $360^\\circ$!",
+        "Hitung luas daerah yang dibatasi oleh kurva sinus $y = \\sin(x)$ dan kurva kosinus $y = \\cos(x)$ dari $x = 0$ hingga $x = \\frac{\\pi}{2}$!",
+        "Tentukan volume benda putar yang terbentuk saat daerah di kuadran I yang dibatasi oleh $y = x^3$, $y = 8$, dan sumbu-$Y$ diputar mengelilingi sumbu-$Y$!"
+      ],
+      "tagline": "Mengukur Luas di Bawah Lengkung & Menghitung Volume Benda Putar 360 Derajat",
+      "collab_solutions": [
+        "Langkah 1: Kurva y = 4 - x^2 memotong sumbu-X di x = -2 dan x = 2.\nLangkah 2: Luas L = integral_{-2}^2 (4 - x^2) dx = 2 integral_0^2 (4 - x^2) dx = 2 [ 4x - 1/3 x^3 ]_0^2 = 2 [ 8 - 8/3 ] = 2(16/3) = 32/3 = 10 2/3 satuan luas.\nKesimpulan: Luas daerah adalah 32/3 = 10 2/3 satuan luas.",
+        "Langkah 1: Titik potong: x^2 - 2x = x => x^2 - 3x = 0 => x = 0 dan x = 3.\nLangkah 2: Luas L = integral_0^3 (x - (x^2 - 2x)) dx = integral_0^3 (3x - x^2) dx = [ 3/2 x^2 - 1/3 x^3 ]_0^3 = (27/2 - 9) = 9/2 = 4,5 satuan luas.\nKesimpulan: Luas daerah tertutup adalah 9/2 = 4,5 satuan luas.",
+        "Langkah 1: Metode Cakram sumbu-X: V = pi integral_0^4 y^2 dx.\nLangkah 2: y = sqrt(x) => y^2 = x. V = pi integral_0^4 x dx = pi [ 1/2 x^2 ]_0^4 = pi (1/2 * 16) = 8 pi satuan volume.\nKesimpulan: Volume benda putar adalah 8 pi satuan volume.",
+        "Langkah 1: Kurva y = sin x dan y = cos x berpotongan di x = pi/4 pada interval [0, pi/2].\nLangkah 2: L1 (0 ke pi/4): integral_0^{pi/4} (cos x - sin x) dx = [sin x + cos x]_0^{pi/4} = (sqrt(2)/2 + sqrt(2)/2) - 1 = sqrt(2) - 1.\nLangkah 3: L2 (pi/4 ke pi/2): integral_{pi/4}^{pi/2} (sin x - cos x) dx = [-cos x - sin x]_{pi/4}^{pi/2} = (-1) - (-sqrt(2)) = sqrt(2) - 1.\nLangkah 4: Total Luas = (sqrt(2) - 1) + (sqrt(2) - 1) = 2sqrt(2) - 2 satuan luas.\nKesimpulan: Luas daerah adalah 2sqrt(2) - 2 satuan luas.",
+        "Langkah 1: Putar sumbu-Y. Nyatakan x = f(y): y = x^3 => x = y^{1/3} => x^2 = y^{2/3}.\nLangkah 2: Batas integrasi pada sumbu-Y adalah dari y = 0 hingga y = 8.\nLangkah 3: V = pi integral_0^8 y^{2/3} dy = pi [ 3/5 y^{5/3} ]_0^8 = pi * 3/5 * (8^{5/3}) = pi * 3/5 * (32) = 96/5 pi = 19,2 pi satuan volume.\nKesimpulan: Volume benda putar mengelilingi sumbu-Y adalah 96/5 pi = 19,2 pi satuan volume."
+      ]
+    },
+    {
+      "id": "P30",
+      "bab": "Bab 4: Integral dan Penerapannya",
+      "title": "Asesmen Sumatif Bab 4: Grand Review All Chapters dan Simulasi ASAS",
+      "obj": [
+        "Mengevaluasi seluruh materi integral kalkulus dan penerapannya (P25 - P29).",
+        "Melakukan Grand Review integratif seluruh 4 Bab Matematika Peminatan Kelas XII Semester 1.",
+        "Simulasi Asesmen Sumatif Akhir Semester (ASAS / PAS CBT) berbasis bank soal komprehensif."
+      ],
+      "hook": "Puncak pencapaian belajar satu semester penuh Additional Mathematics Kelas XII: Menguji keunggulan analitis kalkulus tingkat lanjut.",
+      "toolkit": [
+        {
+          "name": "Matriks Grand Simulasi ASAS",
+          "math": "$$\\text{Bab 1: Lingkaran (25\\%)} + \\text{Bab 2: Limit (25\\%)} + \\text{Bab 3: Turunan (25\\%)} + \\text{Bab 4: Integral (25\\%)} $$"
+        },
+        {
+          "name": "Kaidah Tanzalin & Cakram",
+          "math": "$$\\int u dv = uv - \\int v du, \\quad V = \\pi \\int_{a}^{b} y^2 dx$$"
+        },
+        {
+          "name": "Sifat Linearitas Integral",
+          "math": "$$\\int [a f(x) + b g(x)] \\, dx = a \\int f(x)\\,dx + b \\int g(x)\\,dx$$"
+        },
+        {
+          "name": "Teorema Dasar Kalkulus I",
+          "math": "$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Tentukan hasil dari integral tentu polinomial: $\\int_{0}^{1} (4x^3 + 3x^2 - 2x + 1) \\, dx$!",
+          "solution": "Langkah 1: Antiturunan: $F(x) = x^4 + x^3 - x^2 + x$.\nLangkah 2: Masukkan batas integrasi: $F(1) - F(0) = (1^4 + 1^3 - 1^2 + 1) - 0 = 2$.\nKesimpulan: Nilai integral adalah $2$."
+        },
+        {
+          "problem": "Tentukan luas daerah yang dibatasi oleh garis $y = 2x + 3$ dan kurva parabola $y = x^2$!",
+          "solution": "Langkah 1: Titik potong: $x^2 = 2x + 3 \\implies x^2 - 2x - 3 = 0 \\implies a = 1, b = -2, c = -3$.\nLangkah 2: Diskriminan $D = (-2)^2 - 4(1)(-3) = 4 + 12 = 16$.\nLangkah 3: Luas cepat: $L = \\frac{D\\sqrt{D}}{6a^2} = \\frac{16\\sqrt{16}}{6(1)^2} = \\frac{16 \\times 4}{6} = \\frac{64}{6} = \\frac{32}{3} = 10\\frac{2}{3}$ satuan luas.\nKesimpulan: Luas daerah adalah $\\frac{32}{3}$ satuan luas."
+        },
+        {
+          "problem": "Tentukan volume benda putar yang dihasilkan jika daerah yang dibatasi oleh garis $y = 3 - x$, sumbu-$X$, dan sumbu-$Y$ diputar $360^\\circ$ mengelilingi sumbu-$X$!",
+          "solution": "Langkah 1: Titik potong sumbu-$X$: $3 - x = 0 \\implies x = 3$.\nLangkah 2: $V = \\pi \\int_0^3 (3 - x)^2 \\, dx = \\pi \\int_0^3 (9 - 6x + x^2) \\, dx$.\nLangkah 3: $V = \\pi \\left[ 9x - 3x^2 + \\frac{1}{3}x^3 \\right]_0^3 = \\pi \\left( 27 - 27 + 9 \\right) = 9\\pi$ satuan volume.\nKesimpulan: Volume benda putar adalah $9\\pi$ satuan volume (setara volume kerucut $r=3, t=3$)."
+        },
+        {
+          "problem": "Tentukan hasil integral parsial trigonometri $\\int x^2 \\sin(x) \\, dx$ menggunakan metode tabel Tanzalin!",
+          "solution": "Langkah 1: Tabel Tanzalin:\n- D: $x^2 \\to 2x \\to 2 \\to 0$\n- I: $\\sin x \\to -\\cos x \\to -\\sin x \\to \\cos x$\n- Tanda: $(+), (-), (+)$\nLangkah 2: Pasangkan: $(+) x^2(-\\cos x) - (2x)(-\\sin x) + (2)(\\cos x)$.\nLangkah 3: $-x^2\\cos x + 2x\\sin x + 2\\cos x + C = (2 - x^2)\\cos x + 2x\\sin x + C$.\nKesimpulan: Hasil integral adalah $(2 - x^2)\\cos x + 2x\\sin x + C$."
+        },
+        {
+          "problem": "Sebuah drum minyak berbentuk tabung diputar mengelilingi sumbu-$X$ menurut profil $y = \\sqrt{4 - x^2}$ untuk $-2 \\le x \\le 2$ meter. Tentukan volume total drum minyak tersebut!",
+          "solution": "Langkah 1: $V = \\pi \\int_{-2}^2 y^2 \\, dx = \\pi \\int_{-2}^2 (4 - x^2) \\, dx = 2\\pi \\int_0^2 (4 - x^2) \\, dx$.\nLangkah 2: $2\\pi \\left[ 4x - \\frac{1}{3}x^3 \\right]_0^2 = 2\\pi \\left( 8 - \\frac{8}{3} \\right) = 2\\pi \\left(\\frac{16}{3}\\right) = \\frac{32}{3}\\pi\\text{ m}^3$.\nKesimpulan: Volume total drum minyak (bola pejal berjejari 2 m) adalah $\\frac{32}{3}\\pi\\text{ m}^3 \\approx 33{,}51\\text{ m}^3$."
+        }
+      ],
+      "btc": "Kelompok VNPS: Grand Final BTC Challenge! Bedah dan selesaikan paket simulasi 10 soal komprehensif ASAS CBT!",
+      "summary_data": {
+        "summary": [
+          "Memahami konsep fundamental, kaidah analitis, dan penurunan rumus utama pada materi Asesmen Sumatif Bab 4: Grand Review All Chapters dan Simulasi ASAS.",
+          "Mampu memecahkan masalah kontekstual multi-langkah dan soal tipe HOTS dengan prosedur matematis yang runtut.",
+          "Menguasai strategi penyelesaian cepat dan verifikasi kunci jawaban untuk persiapan TKA Nasional dan UTBK-SNBT."
+        ],
+        "islamic": "Pembelajaran Asesmen Sumatif Bab 4: Grand Review All Chapters dan Simulasi ASAS menegaskan bahwa segala sesuatu di alam semesta telah diciptakan Allah SWT menurut ukuran, harmoni, dan perhitungan yang sangat cermat (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Hitunglah volume benda putar cincin (*washer method*) jika daerah antara $y = x^2$ dan $y = 2x$ diputar $360^\\circ$ mengelilingi sumbu-$X$!",
+        "Hitung volume benda putar yang dibatasi kurva $y = 4 - x^2$ dan sumbu-$X$ jika diputar mengelilingi sumbu-$Y$ dengan kulit tabung (*shells*)!",
+        "Rancang model matematis kubah masjid sekolah dengan profil $y = 9 - x^2$ ($0 \\le x \\le 3$) yang diputar mengelilingi sumbu-$Y$, hitung volumenya!",
+        "Hitung luas permukaan benda putar yang terbentuk dari perputaran kurva $y = 2\\sqrt{x}$ pada interval $[0, 3]$ mengelilingi sumbu-$X$!",
+        "Evaluasilah perbandingan efisiensi metode cakram, cincin, dan kulit silinder dalam memodelkan bejana fluida kalkulus terapan!"
+      ],
+      "tagline": "Puncak Pembelajaran Kalkulus Semester 1: Menguji Ketajaman Analisis Integral Lengkap",
+      "collab_solutions": [
+        "Langkah 1: Titik potong y = x^2 dan y = 2x adalah x = 0 dan x = 2. Jari-jari luar R(x) = 2x, jari-jari dalam r(x) = x^2.\nLangkah 2: Metode Cincin: V = pi integral_0^2 [ (2x)^2 - (x^2)^2 ] dx = pi integral_0^2 (4x^2 - x^4) dx.\nLangkah 3: V = pi [ 4/3 x^3 - 1/5 x^5 ]_0^2 = pi [ 32/3 - 32/5 ] = 32 pi (2/15) = 64/15 pi = 4 4/15 pi satuan volume.\nKesimpulan: Volume benda putar cincin adalah 64/15 pi satuan volume.",
+        "Langkah 1: Metode Kulit Tabung (Cylindrical Shells) mengelilingi sumbu-Y: V = 2pi integral_0^2 x * y dx = 2pi integral_0^2 x(4 - x^2) dx.\nLangkah 2: V = 2pi integral_0^2 (4x - x^3) dx = 2pi [ 2x^2 - 1/4 x^4 ]_0^2 = 2pi [ 8 - 4 ] = 2pi(4) = 8 pi satuan volume.\nKesimpulan: Volume benda putar kulit tabung adalah 8 pi satuan volume.",
+        "Langkah 1: Profil kubah masjid y = 9 - x^2 diputar sumbu-Y. Metode kulit tabung: V = 2pi integral_0^3 x(9 - x^2) dx.\nLangkah 2: V = 2pi integral_0^3 (9x - x^3) dx = 2pi [ 9/2 x^2 - 1/4 x^4 ]_0^3 = 2pi [ 81/2 - 81/4 ] = 2pi(81/4) = 81/2 pi = 40,5 pi m^3.\nKesimpulan: Volume kapasitas kubah masjid adalah 81/2 pi = 40,5 pi m^3 ≈ 127,23 m^3.",
+        "Langkah 1: Rumus luas permukaan putar: S = 2pi integral_0^3 y sqrt(1 + (y')^2) dx.\nLangkah 2: y = 2sqrt(x) => y' = 1/sqrt(x) => 1 + (y')^2 = 1 + 1/x = (x + 1)/x.\nLangkah 3: S = 2pi integral_0^3 2sqrt(x) * sqrt((x+1)/x) dx = 4pi integral_0^3 sqrt(x+1) dx = 4pi [ 2/3 (x+1)^{3/2} ]_0^3 = 8/3 pi [ 4^{3/2} - 1^{3/2} ] = 8/3 pi [ 8 - 1 ] = 56/3 pi satuan luas.\nKesimpulan: Luas permukaan benda putar adalah 56/3 pi ≈ 18,67 pi satuan luas.",
+        "Langkah 1: Metode Cakram/Cincin optimal untuk fungsi yang mudah dinyatakan dalam variabel tegak lurus sumbu putar.\nLangkah 2: Metode Kulit Tabung menghindari invers fungsi yang rumit saat memutar sejajar sumbu integrasi.\nKesimpulan: Pemilihan metode yang tepat ditentukan oleh orientasi sumbu putar dan kemudahan integrasi fungsi."
+      ]
+    }
+  ],
+  "clil": [
+    {
+      "id": "P25",
+      "bab": "Integral Calculus (CLIL)",
+      "title": "Indefinite Integrals & Fundamental Power Rules",
+      "obj": [
+        "Understand the concept of anti-derivatives as the inverse operation of differentiation.",
+        "Apply the fundamental power rule: $\\int x^n dx = \\frac{1}{n+1} x^{n+1} + C$ for all $n \\neq -1$.",
+        "Determine the specific arbitrary constant $C$ given an initial boundary condition $(x_0, y_0)$."
+      ],
+      "hook": "In automotive telemetry, sensors record instantaneous acceleration $a(t) = 6t - 4$. How do race engineers reconstruct the exact velocity $v(t)$ and position $s(t)$ of an F1 car?",
+      "toolkit": [
+        {
+          "name": "Fundamental Power Rule",
+          "math": "$$\\int x^n dx = \\frac{x^{n+1}}{n+1} + C, \\quad (n \\neq -1)$$"
+        },
+        {
+          "name": "Linearity of Integration",
+          "math": "$$\\int [a \\cdot f(x) + b \\cdot g(x)] dx = a \\int f(x)dx + b \\int g(x)dx$$"
+        },
+        {
+          "name": "Initial Value Problem (IVP)",
+          "math": "$$y(x) = \\int f'(x)dx + C \\implies \\text{Solve for } C \\text{ using } (x_0, y_0)$$"
+        },
+        {
+          "name": "Linearity Property of Integrals",
+          "math": "$$\\int [a \\cdot f(x) + b \\cdot g(x)] dx = a \\int f(x)dx + b \\int g(x)dx$$"
+        },
+        {
+          "name": "Fundamental Theorem of Calculus I",
+          "math": "$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Evaluate the indefinite integral: $$\\int (6x^2 - 4x + 5) dx$$",
+          "solution": "Step 1: Apply the sum and constant multiple rules term by term: $\\int 6x^2 dx - \\int 4x dx + \\int 5 dx$.\nStep 2: Integrate using power rule: $6\\left(\\frac{x^3}{3}\\right) - 4\\left(\\frac{x^2}{2}\\right) + 5x + C$.\nStep 3: Simplify the algebraic coefficients: $= 2x^3 - 2x^2 + 5x + C$.\nConclusion: The indefinite integral is $2x^3 - 2x^2 + 5x + C$."
+        },
+        {
+          "problem": "A particle moves with acceleration $a(t) = 12t - 6\\text{ m/s}^2$. If initial velocity $v(0) = 4\\text{ m/s}$ and position $s(0) = 10\\text{ m}$, find $s(2)$.",
+          "solution": "Step 1: Velocity is the anti-derivative of acceleration: $v(t) = \\int (12t - 6) dt = 6t^2 - 6t + C_1$.\nStep 2: Apply initial condition $v(0) = 4 \\implies C_1 = 4$, so $v(t) = 6t^2 - 6t + 4$.\nStep 3: Position is the anti-derivative of velocity: $s(t) = \\int (6t^2 - 6t + 4) dt = 2t^3 - 3t^2 + 4t + C_2$.\nStep 4: Using $s(0) = 10 \\implies C_2 = 10$. For $t = 2$: $s(2) = 2(8) - 3(4) + 4(2) + 10 = 16 - 12 + 8 + 10 = 22\\text{ m}$.\nConclusion: The position of the particle at $t = 2\\text{ s}$ is $s(2) = 22\\text{ m}$."
+        },
+        {
+          "problem": "Find the curve equation $y = f(x)$ passing through $(1, 8)$ whose tangent gradient is $\\frac{dy}{dx} = \\frac{3}{\\sqrt{x}} + 2x$.",
+          "solution": "Step 1: Express gradient in power form: $f'(x) = 3x^{-1/2} + 2x$.\nStep 2: Integrate: $f(x) = \\int (3x^{-1/2} + 2x) dx = 3\\left(\\frac{x^{1/2}}{1/2}\\right) + x^2 + C = 6\\sqrt{x} + x^2 + C$.\nStep 3: Substitute $(1, 8)$: $8 = 6\\sqrt{1} + 1^2 + C \\implies 8 = 7 + C \\implies C = 1$.\nStep 4: The exact curve equation is $y = 6\\sqrt{x} + x^2 + 1$.\nConclusion: The exact curve equation is $y = 6\\sqrt{x} + x^2 + 1$."
+        },
+        {
+          "problem": "A curve $y = f(x)$ satisfies $\\frac{d^2y}{dx^2} = 12x - 4$. The tangent line to the curve at the point $(1, 3)$ has the equation $y = 5x - 2$. Find the value of $f(2)$.",
+          "solution": "Step 1: Integrate the second derivative: $f'(x) = \\int (12x - 4) dx = 6x^2 - 4x + C_1$.\nStep 2: Since the tangent line at $x = 1$ is $y = 5x - 2$, the gradient at $x = 1$ is $m = 5$. Thus, $f'(1) = 6(1)^2 - 4(1) + C_1 = 5 \\implies 2 + C_1 = 5 \\implies C_1 = 3$. So $f'(x) = 6x^2 - 4x + 3$.\nStep 3: Integrate $f'(x)$ to find $f(x)$: $f(x) = \\int (6x^2 - 4x + 3) dx = 2x^3 - 2x^2 + 3x + C_2$.\nStep 4: The curve passes through $(1, 3)$: $f(1) = 2(1)^3 - 2(1)^2 + 3(1) + C_2 = 3 \\implies 3 + C_2 = 3 \\implies C_2 = 0$. Thus, $f(x) = 2x^3 - 2x^2 + 3x$.\nStep 5: Calculate $f(2)$: $f(2) = 2(2)^3 - 2(2)^2 + 3(2) = 16 - 8 + 6 = 14$.\nConclusion: The value of $f(2)$ is $14$."
+        },
+        {
+          "problem": "A high-speed train leaves a station at $t = 0$ with an acceleration model $a(t) = \\frac{15}{\\sqrt{t + 9}}\\text{ m/s}^2$ for $0 \\le t \\le 16$. Given the train starts from rest ($v(0) = 0$) at position $s(0) = 0$, determine the total distance traveled by the train at $t = 16\\text{ seconds}$.",
+          "solution": "Step 1: Find velocity by integrating acceleration: $v(t) = \\int 15(t + 9)^{-1/2} dt = 15 \\cdot \\frac{(t + 9)^{1/2}}{1/2} + C_1 = 30\\sqrt{t + 9} + C_1$.\nStep 2: Apply initial condition $v(0) = 0$: $30\\sqrt{9} + C_1 = 0 \\implies 90 + C_1 = 0 \\implies C_1 = -90$. Thus, $v(t) = 30\\sqrt{t + 9} - 90\\text{ m/s}$.\nStep 3: Integrate velocity to determine position $s(t)$: $s(t) = \\int (30(t + 9)^{1/2} - 90) dt = 30 \\cdot \\frac{2}{3}(t + 9)^{3/2} - 90t + C_2 = 20(t + 9)^{3/2} - 90t + C_2$.\nStep 4: Use $s(0) = 0$: $20(9)^{3/2} - 0 + C_2 = 0 \\implies 20(27) + C_2 = 0 \\implies C_2 = -540$. Thus, $s(t) = 20(t + 9)^{3/2} - 90t - 540$.\nStep 5: Compute distance at $t = 16$: $s(16) = 20(25)^{3/2} - 90(16) - 540 = 20(125) - 1440 - 540 = 2500 - 1980 = 520\\text{ m}$.\nConclusion: The total distance traveled by the train at $t = 16\\text{ s}$ is $520\\text{ meters}$."
+        }
+      ],
+      "btc": "VNPS Team Challenge: A dynamic system has gradient function $\\frac{dy}{dx} = 4x^3 - 6x^2 + 2$. The curve has a local extremum on the line $y = 5$. Find all possible equations of the curve!",
+      "summary_data": {
+        "summary": [
+          "Integration is the inverse operation of differentiation (Anti-differentiation).",
+          "Power Rule: $\\int x^n dx = \\frac{1}{n+1}x^{n+1} + C$ for any real number $n \\neq -1$.",
+          "An indefinite integral represents a family of parallel curves; an initial condition $(x_0, y_0)$ identifies a unique curve."
+        ],
+        "islamic": "The constant of integration $+C$ reflects how initial conditions and foundational values shape our journey toward righteousness (QS. Al-Inshiqaq: 6)."
+      },
+      "collab_cases": [
+        "Evaluate the indefinite integral: $\\int \\left( 4x^3 - \\frac{3}{x^2} + 5\\sqrt{x} - 2e^x \\right) \\, dx$.",
+        "A curve has gradient function $\\frac{dy}{dx} = 6x^2 - 2x + 4$ and passes through $(1, 8)$. Find the complete equation of the curve $y = f(x)$.",
+        "Evaluate the trigonometric integral: $\\int \\left( 3\\sec^2(2x) - 4\\sin(4x) + \\frac{1}{1 + x^2} \\right) \\, dx$.",
+        "Find the general antiderivative $F(x) = \\int \\frac{x^4 - 2x^2 + 1}{x^3} \\, dx$ and specify its domain.",
+        "Prove that $\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$ for any real number $n \\neq -1$ using the derivative of power functions."
+      ],
+      "collab_solutions": [
+        "Step 1: Rewrite each term in power form: $4x^3 - 3x^{-2} + 5x^{1/2} - 2e^x$.\nStep 2: Apply the fundamental power rule and exponential rule term-by-term:\n$\\int 4x^3 dx = x^4$, $\\int -3x^{-2} dx = -3\\frac{x^{-1}}{-1} = \\frac{3}{x}$, $\\int 5x^{1/2} dx = 5\\frac{x^{3/2}}{3/2} = \\frac{10}{3}x^{3/2}$, and $\\int -2e^x dx = -2e^x$.\nStep 3: Combine all terms and append arbitrary constant $C$.\nConclusion: The antiderivative is $x^4 + \\frac{3}{x} + \\frac{10}{3}x\\sqrt{x} - 2e^x + C$.",
+        "Step 1: Anti-differentiate the gradient function: $f(x) = \\int (6x^2 - 2x + 4) dx = 2x^3 - x^2 + 4x + C$.\nStep 2: Substitute the known point $(1, 8)$ into $f(x)$: $8 = 2(1)^3 - (1)^2 + 4(1) + C \\implies 8 = 5 + C \\implies C = 3$.\nStep 3: Write out the complete curve equation.\nConclusion: The unique curve equation is $y = 2x^3 - x^2 + 4x + 3$.",
+        "Step 1: Identify standard antiderivative forms: $\\int \\sec^2(kx) dx = \\frac{1}{k}\\tan(kx)$, $\\int \\sin(kx) dx = -\\frac{1}{k}\\cos(kx)$, and $\\int \\frac{1}{1+x^2} dx = \\arctan(x)$.\nStep 2: Integrate term-by-term: $3\\left(\\frac{1}{2}\\tan(2x)\\right) - 4\\left(-\\frac{1}{4}\\cos(4x)\\right) + \\arctan(x) + C$.\nStep 3: Simplify coefficients: $\\frac{3}{2}\\tan(2x) + \\cos(4x) + \\arctan(x) + C$.\nConclusion: The integral evaluates to $\\frac{3}{2}\\tan(2x) + \\cos(4x) + \\arctan(x) + C$.",
+        "Step 1: Divide each numerator term by $x^3$: $\\frac{x^4 - 2x^2 + 1}{x^3} = x - \\frac{2}{x} + x^{-3}$.\nStep 2: Integrate term-by-term: $\\int x dx - 2\\int \\frac{1}{x} dx + \\int x^{-3} dx = \\frac{1}{2}x^2 - 2\\ln|x| - \\frac{1}{2x^2} + C$.\nStep 3: State domain restrictions: the integrand has a discontinuity at $x = 0$, so the domain is $x \\in \\mathbb{R} \\setminus \\{0\\}$ ($x > 0$ or $x < 0$).\nConclusion: $F(x) = \\frac{1}{2}x^2 - 2\\ln|x| - \\frac{1}{2x^2} + C$ on domain $(-\\infty, 0) \\cup (0, \\infty)$.",
+        "Step 1: By the definition of the antiderivative, $\\int f(x) dx = F(x) + C$ if and only if $\\frac{d}{dx}[F(x)] = f(x)$.\nStep 2: Let $F(x) = \\frac{x^{n+1}}{n+1}$ where $n \\neq -1$. Differentiating with respect to $x$ using the power rule for derivatives: $\\frac{d}{dx}\\left[\\frac{x^{n+1}}{n+1}\\right] = \\frac{1}{n+1} \\cdot (n+1)x^{(n+1)-1} = x^n$.\nStep 3: Since the derivative yields the integrand $x^n$, the power rule for integrals is proven.\nConclusion: By the definition of antiderivatives, $\\int x^n dx = \\frac{x^{n+1}}{n+1} + C$ holds for all $n \\neq -1$."
+      ]
+    },
+    {
+      "id": "P26",
+      "bab": "Integral Calculus (CLIL)",
+      "title": "Integration Techniques: Method of $u$-Substitution",
+      "obj": [
+        "Identify composite functions of the form $f(g(x))g'(x)$ suitable for algebraic substitution.",
+        "Execute the variable transformation $u = g(x)$ and $du = g'(x)dx$ systematically.",
+        "Solve trigonometric and algebraic integrals utilizing substitution techniques."
+      ],
+      "hook": "In signal processing, analyzing energy decay requires integrating non-linear waves like $I(t) = \\int 2t \\cos(t^2) dt$. How does changing the variable simplify complex oscillatory integrals?",
+      "toolkit": [
+        {
+          "name": "Substitution Formula",
+          "math": "$$\\int f(g(x))g'(x) dx = \\int f(u) du, \\quad \\text{where } u = g(x)$$"
+        },
+        {
+          "name": "Trigonometric Substitution",
+          "math": "$$\\int \\sin(u) du = -\\cos(u) + C, \\quad \\int \\cos(u) du = \\sin(u) + C$$"
+        },
+        {
+          "name": "Linear Factor Shortcut",
+          "math": "$$\\int (ax + b)^n dx = \\frac{1}{a(n+1)} (ax + b)^{n+1} + C$$"
+        },
+        {
+          "name": "Trigonometric Integrals",
+          "math": "$$\\int \\tan(u) du = \\ln|\\sec(u)| + C, \\quad \\int \\cot(u) du = \\ln|\\sin(u)| + C$$"
+        },
+        {
+          "name": "Exponential Substitution",
+          "math": "$$\\int e^{g(x)} g'(x) dx = e^{g(x)} + C$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Evaluate the indefinite integral: $$\\int 2x (x^2 + 5)^4 dx$$",
+          "solution": "Step 1: Choose substitution: Let $u = x^2 + 5 \\implies du = 2x dx$.\nStep 2: Transform integral into $u$-terms: $\\int u^4 du$.\nStep 3: Integrate: $\\frac{u^5}{5} + C$.\nStep 4: Substitute back $u = x^2 + 5$: $= \\frac{1}{5}(x^2 + 5)^5 + C$.\nConclusion: The evaluated integral is $\\frac{1}{5}(x^2 + 5)^5 + C$."
+        },
+        {
+          "problem": "Evaluate the trigonometric integral: $$\\int \\sin^3(x) \\cos(x) dx$$",
+          "solution": "Step 1: Let $u = \\sin(x) \\implies du = \\cos(x) dx$.\nStep 2: Rewrite integral: $\\int u^3 du = \\frac{u^4}{4} + C$.\nStep 3: Substitute back $u = \\sin(x)$: $= \\frac{1}{4}\\sin^4(x) + C$.\nConclusion: The trigonometric integral is $\\frac{1}{4}\\sin^4(x) + C$."
+        },
+        {
+          "problem": "Evaluate: $$\\int \\frac{3x^2}{\\sqrt{x^3 + 8}} dx$$",
+          "solution": "Step 1: Let $u = x^3 + 8 \\implies du = 3x^2 dx$.\nStep 2: Rewrite in power form: $\\int u^{-1/2} du = \\frac{u^{1/2}}{1/2} + C = 2\\sqrt{u} + C$.\nStep 3: Substitute back: $= 2\\sqrt{x^3 + 8} + C$.\nConclusion: The anti-derivative is $2\\sqrt{x^3 + 8} + C$."
+        },
+        {
+          "problem": "Evaluate the indefinite integral: $$\\int \\frac{x^5}{\\sqrt{x^3 + 4}} \\, dx$$ using the substitution method.",
+          "solution": "Step 1: Decompose $x^5$ into $x^3 \\cdot x^2$ so the factor $x^2 dx$ pairs with the derivative of $x^3 + 4$.\nStep 2: Let $u = x^3 + 4 \\implies x^3 = u - 4$ and $du = 3x^2 dx \\implies x^2 dx = \\frac{1}{3} du$.\nStep 3: Substitute into the integral: $\\int \\frac{u - 4}{\\sqrt{u}} \\cdot \\frac{1}{3} du = \\frac{1}{3} \\int (u^{1/2} - 4u^{-1/2}) du$.\nStep 4: Integrate term-by-term: $\\frac{1}{3} \\left( \\frac{2}{3}u^{3/2} - 8u^{1/2} \\right) + C = \\frac{2}{9}u^{3/2} - \\frac{8}{3}u^{1/2} + C = \\frac{2}{9}\\sqrt{u}(u - 12) + C$.\nStep 5: Back-substitute $u = x^3 + 4$: $\\frac{2}{9}\\sqrt{x^3 + 4}(x^3 + 4 - 12) + C = \\frac{2}{9}(x^3 - 8)\\sqrt{x^3 + 4} + C$.\nConclusion: The antiderivative is $\\frac{2}{9}(x^3 - 8)\\sqrt{x^3 + 4} + C$."
+        },
+        {
+          "problem": "An electrical circuit experiences a time-varying surge current modeled by $i(t) = \\frac{60 t e^{\\sqrt{t^2 + 9}}}{\\sqrt{t^2 + 9}}\\text{ mA}$ for $0 \\le t \\le 4$. Find the total charge $Q = \\int_0^4 i(t) \\, dt$ that flows through the circuit.",
+          "solution": "Step 1: Set up the definite integral for total electric charge: $Q = \\int_0^4 \\frac{60 t}{\\sqrt{t^2 + 9}} e^{\\sqrt{t^2 + 9}} dt$.\nStep 2: Choose substitution $u = \\sqrt{t^2 + 9} \\implies du = \\frac{2t}{2\\sqrt{t^2 + 9}} dt = \\frac{t}{\\sqrt{t^2 + 9}} dt$.\nStep 3: Transform the integration limits: when $t = 0$, $u = \\sqrt{0 + 9} = 3$; when $t = 4$, $u = \\sqrt{16 + 9} = 5$.\nStep 4: Rewrite and integrate in terms of $u$: $Q = \\int_3^5 60 e^u du = [60 e^u]_3^5 = 60(e^5 - e^3)\\text{ mC}$.\nStep 5: Factor to standard form: $Q = 60e^3(e^2 - 1)\\text{ mC} \\approx 60(20.0855)(6.389) \\approx 7699.8\\text{ mC}$.\nConclusion: The total accumulated charge is $60(e^5 - e^3)\\text{ mC} = 60e^3(e^2 - 1)\\text{ mC}$."
+        }
+      ],
+      "btc": "VNPS Team Challenge: Evaluate the indefinite integral $\\int x^5 \\sqrt{x^3 + 1} dx$ by splitting $x^5 = x^3 \\cdot x^2$ and applying algebraic substitution!",
+      "summary_data": {
+        "summary": [
+          "Substitution transforms complex composite integrands into standard elementary forms.",
+          "Always identify the inner function $u = g(x)$ whose derivative $g'(x)$ appears as a factor in the integrand.",
+          "Remember to back-substitute to express the final anti-derivative in terms of the original variable $x$."
+        ],
+        "islamic": "Simplifying complex problems through substitution mirrors the wisdom of viewing challenges from an elevated spiritual perspective (QS. Al-Baqarah: 286)."
+      },
+      "collab_cases": [
+        "Evaluate $\\int 2x(x^2 + 3)^5 \\, dx$ using the formal analytical method of $u$-substitution with $u = x^2 + 3$.",
+        "Evaluate the definite substitution integral: $\\int_{0}^{1} x \\sqrt{1 - x^2} \\, dx$ by transforming the integration boundaries appropriately.",
+        "Calculate the indefinite integral: $\\int \\tan(x) \\, dx = \\int \\frac{\\sin(x)}{\\cos(x)} \\, dx$ and prove that the result is $\\ln|\\sec(x)| + C$.",
+        "Evaluate the substitution integral: $\\int \\frac{e^{2x}}{1 + e^{2x}} \\, dx$ using $u = 1 + e^{2x}$.",
+        "Evaluate the trigonometric substitution integral: $\\int \\sin^5(x) \\cos(x) \\, dx$."
+      ],
+      "collab_solutions": [
+        "Step 1: Let $u = x^2 + 3 \\implies du = 2x dx$.\nStep 2: Substitute $u$ and $du$ directly into the integral: $\\int 2x(x^2 + 3)^5 dx = \\int u^5 du$.\nStep 3: Integrate: $\\frac{u^6}{6} + C$.\nStep 4: Back-substitute $u = x^2 + 3$: $\\frac{1}{6}(x^2 + 3)^6 + C$.\nConclusion: The evaluated integral is $\\frac{1}{6}(x^2 + 3)^6 + C$.",
+        "Step 1: Let $u = 1 - x^2 \\implies du = -2x dx \\implies x dx = -\\frac{1}{2}du$.\nStep 2: Transform limits: when $x = 0$, $u = 1 - 0 = 1$; when $x = 1$, $u = 1 - 1 = 0$.\nStep 3: Rewrite integral: $\\int_1^0 u^{1/2}\\left(-\\frac{1}{2}\\right)du = \\frac{1}{2}\\int_0^1 u^{1/2} du$.\nStep 4: Evaluate: $\\frac{1}{2} \\left[ \\frac{2}{3}u^{3/2} \\right]_0^1 = \\frac{1}{3}(1 - 0) = \\frac{1}{3}$.\nConclusion: The definite integral evaluates to $\\frac{1}{3}$.",
+        "Step 1: Express tangent as a quotient: $\\int \\tan(x) dx = \\int \\frac{\\sin(x)}{\\cos(x)} dx$.\nStep 2: Let $u = \\cos(x) \\implies du = -\\sin(x)dx \\implies \\sin(x)dx = -du$.\nStep 3: Integrate: $\\int -\\frac{1}{u} du = -\\ln|u| + C = -\\ln|\\cos(x)| + C$.\nStep 4: Using logarithmic property $-\\ln|\\cos(x)| = \\ln|(\\cos(x))^{-1}| = \\ln|\\sec(x)| + C$.\nConclusion: It is proven that $\\int \\tan(x) dx = \\ln|\\sec(x)| + C$.",
+        "Step 1: Let $u = 1 + e^{2x} \\implies du = 2e^{2x} dx \\implies e^{2x}dx = \\frac{1}{2}du$.\nStep 2: Substitute into the integral: $\\int \\frac{1}{u} \\cdot \\frac{1}{2}du = \\frac{1}{2}\\ln|u| + C$.\nStep 3: Back-substitute $u = 1 + e^{2x}$. Since $1 + e^{2x} > 0$ for all real $x$, absolute value bars can be parentheses: $\\frac{1}{2}\\ln(1 + e^{2x}) + C$.\nConclusion: The integral evaluates to $\\frac{1}{2}\\ln(1 + e^{2x}) + C$.",
+        "Step 1: Let $u = \\sin(x) \\implies du = \\cos(x)dx$.\nStep 2: Rewrite in terms of $u$: $\\int u^5 du$.\nStep 3: Integrate using power rule: $\\frac{u^6}{6} + C$.\nStep 4: Back-substitute $u = \\sin(x)$: $\\frac{1}{6}\\sin^6(x) + C$.\nConclusion: The evaluated trigonometric integral is $\\frac{1}{6}\\sin^6(x) + C$."
+      ]
+    },
+    {
+      "id": "P27",
+      "bab": "Integral Calculus (CLIL)",
+      "title": "Integration by Parts & Tanzalin Tabular Method",
+      "obj": [
+        "Apply the Integration by Parts formula: $\\int u dv = uv - \\int v du$.",
+        "Select optimal $u$ using the LIATE priority rule (Logarithmic, Inverse trig, Algebraic, Trig, Exponential).",
+        "Execute the rapid Tanzalin Tabular Method for repeated algebraic-trigonometric/exponential integrals."
+      ],
+      "hook": "Quantum mechanical wave packets $\\psi(x) = x e^{-x}$ describe electron orbital probabilities. How does integration by parts determine the expectation position of an atomic electron?",
+      "toolkit": [
+        {
+          "name": "Integration by Parts Formula",
+          "math": "$$\\int u \\, dv = u \\cdot v - \\int v \\, du$$"
+        },
+        {
+          "name": "LIATE Selection Rule",
+          "math": "$$\\text{Priority for } u: \\text{Log} \\to \\text{Inverse Trig} \\to \\text{Algebraic} \\to \\text{Trig} \\to \\text{Exponential}$$"
+        },
+        {
+          "name": "Tanzalin Tabular Method",
+          "math": "$$\\begin{array}{c|c|c} \\text{Sign} & D (\\text{Differentiate } u) & I (\\text{Integrate } v') \\\\ \\hline + & u & v_1 \\\\ - & u' & v_2 \\\\ + & u'' & v_3 \\end{array}$$"
+        },
+        {
+          "name": "LIATE Priority Rule",
+          "math": "$$\\text{Order for } u: \\text{Logarithmic} > \\text{Inverse Trig} > \\text{Algebraic} > \\text{Trigonometric} > \\text{Exponential}$$"
+        },
+        {
+          "name": "Definite Parts Theorem",
+          "math": "$$\\int_a^b u \\, dv = [u \\cdot v]_a^b - \\int_a^b v \\, du$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Evaluate the integral: $$\\int x \\cos(x) dx$$",
+          "solution": "Step 1: Choose $u = x \\implies du = dx$, and $dv = \\cos(x)dx \\implies v = \\sin(x)$.\nStep 2: Apply formula $\\int u dv = uv - \\int v du$: $= x\\sin(x) - \\int \\sin(x) dx$.\nStep 3: Integrate $\\sin(x)$: $= x\\sin(x) - (-\\cos(x)) + C = x\\sin(x) + \\cos(x) + C$.\nConclusion: The integral result is $x\\sin(x) + \\cos(x) + C$."
+        },
+        {
+          "problem": "Evaluate the repeated integral using Tanzalin Tabular Method: $$\\int x^2 e^{2x} dx$$",
+          "solution": "Step 1: Set up Table with Signs, Differentiating $u = x^2$, and Integrating $v' = e^{2x}$:\n- Row 1: $(+) \\cdot (x^2) \\cdot (\\frac{1}{2}e^{2x}) = \\frac{1}{2}x^2 e^{2x}$\n- Row 2: $(-) \\cdot (2x) \\cdot (\\frac{1}{4}e^{2x}) = -\\frac{1}{2}x e^{2x}$\n- Row 3: $(+) \\cdot (2) \\cdot (\\frac{1}{8}e^{2x}) = \\frac{1}{4}e^{2x}$\nStep 2: Combine diagonal products: $= e^{2x}\\left(\\frac{1}{2}x^2 - \\frac{1}{2}x + \\frac{1}{4}\\right) + C$.\nConclusion: The tabular integral result is $e^{2x}\\left(\\frac{1}{2}x^2 - \\frac{1}{2}x + \\frac{1}{4}\\right) + C$."
+        },
+        {
+          "problem": "Evaluate: $$\\int \\ln(x) dx$$",
+          "solution": "Step 1: By LIATE, let $u = \\ln(x) \\implies du = \\frac{1}{x} dx$, and $dv = dx \\implies v = x$.\nStep 2: Apply formula: $= x\\ln(x) - \\int x\\left(\\frac{1}{x}\\right) dx = x\\ln(x) - \\int 1 dx$.\nStep 3: Result: $= x\\ln(x) - x + C = x(\\ln x - 1) + C$.\nConclusion: The natural log anti-derivative is $x(\\ln x - 1) + C$."
+        },
+        {
+          "problem": "Evaluate the cyclic integral: $$I = \\int e^{2x} \\sin(3x) \\, dx$$",
+          "solution": "Step 1: Choose $u = e^{2x} \\implies du = 2e^{2x} dx$ and $dv = \\sin(3x) dx \\implies v = -\\frac{1}{3}\\cos(3x)$.\nStep 2: Apply integration by parts: $I = -\\frac{1}{3}e^{2x}\\cos(3x) + \\frac{2}{3}\\int e^{2x}\\cos(3x) dx$.\nStep 3: Apply integration by parts again to the new integral: let $u_1 = e^{2x} \\implies du_1 = 2e^{2x} dx$ and $dv_1 = \\cos(3x) dx \\implies v_1 = \\frac{1}{3}\\sin(3x)$.\nStep 4: Substitute back: $I = -\\frac{1}{3}e^{2x}\\cos(3x) + \\frac{2}{3} \\left[ \\frac{1}{3}e^{2x}\\sin(3x) - \\frac{2}{3}\\int e^{2x}\\sin(3x) dx \\right] = -\\frac{1}{3}e^{2x}\\cos(3x) + \\frac{2}{9}e^{2x}\\sin(3x) - \\frac{4}{9}I$.\nStep 5: Solve algebraically for $I$: $I + \\frac{4}{9}I = \\frac{13}{9}I = \\frac{e^{2x}}{9}(2\\sin(3x) - 3\\cos(3x)) \\implies I = \\frac{e^{2x}}{13}(2\\sin(3x) - 3\\cos(3x)) + C$.\nConclusion: The cyclic integral evaluates to $\\frac{e^{2x}}{13}(2\\sin(3x) - 3\\cos(3x)) + C$."
+        },
+        {
+          "problem": "A damped robotic mechanical arm experiences a decelerating torque given by $\\tau(t) = t^2 e^{-t}$ N$\\cdot$m. Determine the total work done $W = \\int_0^k \\tau(t) dt$ as $k \\to \\infty$.",
+          "solution": "Step 1: Formulate the improper work integral: $W = \\lim_{k \\to \\infty} \\int_0^k t^2 e^{-t} dt$.\nStep 2: Set up Tanzalin Tabular Integration: Signs $(+, -, +)$, Differentiating $u = t^2 \\to 2t \\to 2 \\to 0$, Integrating $v' = e^{-t} \\to -e^{-t} \\to e^{-t} \\to -e^{-t}$.\nStep 3: Collect diagonal products: $\\int t^2 e^{-t} dt = -t^2 e^{-t} - 2t e^{-t} - 2e^{-t} = -e^{-t}(t^2 + 2t + 2)$.\nStep 4: Evaluate between boundaries $0$ and $k$: $\\left[ -e^{-t}(t^2 + 2t + 2) \\right]_0^k = -e^{-k}(k^2 + 2k + 2) - (-e^0(0 + 0 + 2)) = 2 - \\frac{k^2 + 2k + 2}{e^k}$.\nStep 5: Take limit as $k \\to \\infty$: by L'Hôpital's Rule, $\\lim_{k \\to \\infty} \\frac{k^2 + 2k + 2}{e^k} = 0$, giving $W = 2\\text{ Joules}$.\nConclusion: The total work done as $k \\to \\infty$ is $2\\text{ Joules}$."
+        }
+      ],
+      "btc": "VNPS Team Challenge: Evaluate $\\int e^{x} \\sin(x) dx$ using cyclic integration by parts and explain why the original integral reappears on the right-hand side!",
+      "summary_data": {
+        "summary": [
+          "Integration by parts decomposes products of incompatible function classes (Algebraic $\\times$ Transcendental).",
+          "LIATE rule guarantees selecting a $u$ that terminates or simplifies upon differentiation.",
+          "The Tanzalin Tabular Method provides a rapid, error-free matrix for polynomial products."
+        ],
+        "islamic": "Decomposing complex interactions through structured steps reflects the harmony and balance built into universal laws (QS. Al-Qamar: 49)."
+      },
+      "collab_cases": [
+        "Evaluate the integral $\\int x \\cdot e^{3x} \\, dx$ using the integration by parts formula $\\int u \\, dv = uv - \\int v \\, du$.",
+        "Use the Tanzalin Tabular Integration Method (D-I Table) to efficiently evaluate $\\int x^3 \\cdot \\sin(2x) \\, dx$.",
+        "Evaluate the cyclic integral $I = \\int e^{2x} \\cos(3x) \\, dx$ by applying integration by parts twice.",
+        "Evaluate the logarithmic integral: $\\int x^2 \\ln(x) \\, dx$ using integration by parts.",
+        "Prove the reduction formula for $\\int \\sin^n(x) \\, dx = -\\frac{1}{n} \\sin^{n-1}(x) \\cos(x) + \\frac{n-1}{n} \\int \\sin^{n-2}(x) \\, dx$."
+      ],
+      "collab_solutions": [
+        "Step 1: Choose $u = x \\implies du = dx$, and $dv = e^{3x}dx \\implies v = \\frac{1}{3}e^{3x}$.\nStep 2: Apply formula $\\int u dv = uv - \\int v du$: $\\frac{1}{3}x e^{3x} - \\frac{1}{3}\\int e^{3x} dx$.\nStep 3: Integrate the remaining exponential term: $\\frac{1}{3}x e^{3x} - \\frac{1}{9}e^{3x} + C$.\nStep 4: Factor: $\\frac{1}{9}e^{3x}(3x - 1) + C$.\nConclusion: The integral evaluates to $\\frac{1}{9}e^{3x}(3x - 1) + C$.",
+        "Step 1: Set up Tanzalin D-I Table: Signs $(+, -, +, -)$, Differentiating $u = x^3 \\to 3x^2 \\to 6x \\to 6 \\to 0$, Integrating $v' = \\sin(2x) \\to -\\frac{1}{2}\\cos(2x) \\to -\\frac{1}{4}\\sin(2x) \\to \\frac{1}{8}\\cos(2x) \\to \\frac{1}{16}\\sin(2x)$.\nStep 2: Multiply diagonal terms:\n- Row 1: $(+) \\cdot (x^3) \\cdot (-\\frac{1}{2}\\cos(2x)) = -\\frac{1}{2}x^3\\cos(2x)$\n- Row 2: $(-) \\cdot (3x^2) \\cdot (-\\frac{1}{4}\\sin(2x)) = \\frac{3}{4}x^2\\sin(2x)$\n- Row 3: $(+) \\cdot (6x) \\cdot (\\frac{1}{8}\\cos(2x)) = \\frac{3}{4}x\\cos(2x)$\n- Row 4: $(-) \\cdot (6) \\cdot (\\frac{1}{16}\\sin(2x)) = -\\frac{3}{8}\\sin(2x)$\nStep 3: Combine all terms and add $+ C$.\nConclusion: $\\int x^3\\sin(2x)dx = -\\frac{1}{2}x^3\\cos(2x) + \\frac{3}{4}x^2\\sin(2x) + \\frac{3}{4}x\\cos(2x) - \\frac{3}{8}\\sin(2x) + C$.",
+        "Step 1: Let $u = e^{2x} \\implies du = 2e^{2x}dx$ and $dv = \\cos(3x)dx \\implies v = \\frac{1}{3}\\sin(3x)$.\nStep 2: First integration by parts: $I = \\frac{1}{3}e^{2x}\\sin(3x) - \\frac{2}{3}\\int e^{2x}\\sin(3x)dx$.\nStep 3: Integrate by parts again with $u_1 = e^{2x} \\implies du_1 = 2e^{2x}dx$ and $dv_1 = \\sin(3x)dx \\implies v_1 = -\\frac{1}{3}\\cos(3x)$:\n$\\int e^{2x}\\sin(3x)dx = -\\frac{1}{3}e^{2x}\\cos(3x) + \\frac{2}{3}I$.\nStep 4: Substitute back: $I = \\frac{1}{3}e^{2x}\\sin(3x) + \\frac{2}{9}e^{2x}\\cos(3x) - \\frac{4}{9}I \\implies \\frac{13}{9}I = \\frac{e^{2x}}{9}(3\\sin(3x) + 2\\cos(3x))$.\nConclusion: $I = \\frac{e^{2x}}{13}(3\\sin(3x) + 2\\cos(3x)) + C$.",
+        "Step 1: According to LIATE, logarithmic comes before algebraic: let $u = \\ln(x) \\implies du = \\frac{1}{x}dx$, and $dv = x^2 dx \\implies v = \\frac{x^3}{3}$.\nStep 2: Apply formula: $\\int x^2 \\ln(x) dx = \\frac{x^3}{3}\\ln(x) - \\int \\frac{x^3}{3} \\cdot \\frac{1}{x} dx = \\frac{x^3}{3}\\ln(x) - \\frac{1}{3}\\int x^2 dx$.\nStep 3: Complete integration: $\\frac{x^3}{3}\\ln(x) - \\frac{x^3}{9} + C = \\frac{x^3}{9}(3\\ln(x) - 1) + C$.\nConclusion: The antiderivative is $\\frac{x^3}{9}(3\\ln(x) - 1) + C$.",
+        "Step 1: Separate $\\sin^n(x) = \\sin^{n-1}(x) \\sin(x)$. Let $u = \\sin^{n-1}(x) \\implies du = (n-1)\\sin^{n-2}(x)\\cos(x)dx$ and $dv = \\sin(x)dx \\implies v = -\\cos(x)$.\nStep 2: Apply parts: $\\int \\sin^n(x)dx = -\\sin^{n-1}(x)\\cos(x) + (n-1)\\int \\sin^{n-2}(x)\\cos^2(x)dx$.\nStep 3: Replace $\\cos^2(x) = 1 - \\sin^2(x)$: $(n-1)\\int \\sin^{n-2}(x)dx - (n-1)\\int \\sin^n(x)dx$.\nStep 4: Move the $(n-1)\\int \\sin^n(x)dx$ term to the left-hand side: $n \\int \\sin^n(x)dx = -\\sin^{n-1}(x)\\cos(x) + (n-1)\\int \\sin^{n-2}(x)dx$.\nConclusion: Dividing by $n$ proves the reduction formula: $\\int \\sin^n(x)dx = -\\frac{1}{n}\\sin^{n-1}(x)\\cos(x) + \\frac{n-1}{n}\\int \\sin^{n-2}(x)dx$."
+      ]
+    },
+    {
+      "id": "P28",
+      "bab": "Integral Calculus (CLIL)",
+      "title": "Definite Integrals & Fundamental Theorem of Calculus",
+      "obj": [
+        "State and apply the Fundamental Theorem of Calculus: $\\int_{a}^{b} f(x)dx = F(b) - F(a)$.",
+        "Utilize linearity, interval additivity, and symmetry properties (Even/Odd functions).",
+        "Evaluate definite integrals involving trigonometric, exponential, and algebraic bounds."
+      ],
+      "hook": "Civil engineers calculating cumulative hydraulic pressure on a parabolic dam wall compute $\\int_0^{10} 9800(10 - y)y dy$. How do definite integrals translate rate functions into absolute physical quantities?",
+      "toolkit": [
+        {
+          "name": "Fundamental Theorem of Calculus (FTC)",
+          "math": "$$\\int_{a}^{b} f(x) dx = [F(x)]_a^b = F(b) - F(a)$$"
+        },
+        {
+          "name": "Even & Odd Symmetry Rules",
+          "math": "$$\\int_{-a}^{a} f_{\\text{odd}}(x)dx = 0, \\quad \\int_{-a}^{a} f_{\\text{even}}(x)dx = 2\\int_{0}^{a} f_{\\text{even}}(x)dx$$"
+        },
+        {
+          "name": "Interval Additivity",
+          "math": "$$\\int_{a}^{b} f(x)dx = \\int_{a}^{c} f(x)dx + \\int_{c}^{b} f(x)dx$$"
+        },
+        {
+          "name": "Linearity Property of Integrals",
+          "math": "$$\\int [a \\cdot f(x) + b \\cdot g(x)] dx = a \\int f(x)dx + b \\int g(x)dx$$"
+        },
+        {
+          "name": "Fundamental Theorem of Calculus I",
+          "math": "$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Evaluate the definite integral: $$\\int_{1}^{3} (3x^2 - 4x + 2) dx$$",
+          "solution": "Step 1: Find the anti-derivative: $F(x) = [x^3 - 2x^2 + 2x]_1^3$.\nStep 2: Evaluate upper bound at $x = 3$: $F(3) = 3^3 - 2(3^2) + 2(3) = 27 - 18 + 6 = 15$.\nStep 3: Evaluate lower bound at $x = 1$: $F(1) = 1^3 - 2(1^2) + 2(1) = 1 - 2 + 2 = 1$.\nStep 4: Compute difference: $F(3) - F(1) = 15 - 1 = 14$.\nConclusion: The definite integral value is $14$."
+        },
+        {
+          "problem": "Evaluate the trigonometric definite integral: $$\\int_0^{\\pi/2} \\cos(x) dx$$",
+          "solution": "Step 1: Anti-derivative of $\\cos(x)$ is $\\sin(x)$.\nStep 2: Evaluate bounds: $[\\sin(x)]_0^{\\pi/2} = \\sin(\\pi/2) - \\sin(0) = 1 - 0 = 1$.\nConclusion: The definite trigonometric integral value is $1$."
+        },
+        {
+          "problem": "Using symmetry, evaluate: $$\\int_{-\\pi/4}^{\\pi/4} (x^3 + \\tan x + \\cos x) dx$$",
+          "solution": "Step 1: Observe that $x^3$ and $\\tan(x)$ are odd functions: $\\int_{-\\pi/4}^{\\pi/4} (x^3 + \\tan x) dx = 0$.\nStep 2: $\\cos(x)$ is an even function: $\\int_{-\\pi/4}^{\\pi/4} \\cos(x) dx = 2\\int_0^{\\pi/4} \\cos(x) dx$.\nStep 3: Calculate: $2[\\sin x]_0^{\\pi/4} = 2(\\frac{1}{2}\\sqrt{2} - 0) = \\sqrt{2}$.\nConclusion: By symmetry, the exact integral evaluates to $\\sqrt{2}$."
+        },
+        {
+          "problem": "Define $F(x) = \\int_0^{x^2} \\sqrt{1 + t^3} \\, dt$ for $x \\ge 0$. Find the derivative $F'(x)$ and compute the exact value of $F'(2)$.",
+          "solution": "Step 1: Apply the Fundamental Theorem of Calculus (Part 1) combined with the Chain Rule: $\\frac{d}{dx} \\left[ \\int_a^{g(x)} f(t) dt \\right] = f(g(x)) \\cdot g'(x)$.\nStep 2: Identify $f(t) = \\sqrt{1 + t^3}$ and upper limit $g(x) = x^2$ with $g'(x) = 2x$.\nStep 3: Compute $F'(x)$: $F'(x) = \\sqrt{1 + (x^2)^3} \\cdot (2x) = 2x\\sqrt{1 + x^6}$.\nStep 4: Substitute $x = 2$: $F'(2) = 2(2)\\sqrt{1 + 2^6} = 4\\sqrt{1 + 64} = 4\\sqrt{65}$.\nConclusion: The derivative is $F'(x) = 2x\\sqrt{1 + x^6}$ and $F'(2) = 4\\sqrt{65}$."
+        },
+        {
+          "problem": "The rate of water outflow from a municipal reservoir during a sudden storm is given by $R(t) = 400 - \\frac{300}{1 + (t/2)^2}\\text{ m}^3\\text{/hour}$ for $0 \\le t \\le 2\\sqrt{3}\\text{ hours}$. Calculate the total volume of water discharged over this period.",
+          "solution": "Step 1: Total volume is the definite integral of rate: $V = \\int_0^{2\\sqrt{3}} \\left( 400 - \\frac{300}{1 + t^2/4} \\right) dt$.\nStep 2: Split the integral: $V = \\int_0^{2\\sqrt{3}} 400 dt - 300 \\int_0^{2\\sqrt{3}} \\frac{4}{4 + t^2} dt = [400t]_0^{2\\sqrt{3}} - 1200 \\int_0^{2\\sqrt{3}} \\frac{1}{2^2 + t^2} dt$.\nStep 3: Use the standard arctangent integral $\\int \\frac{1}{a^2 + t^2} dt = \\frac{1}{a}\\arctan\\left(\\frac{t}{a}\\right)$: $\\int_0^{2\\sqrt{3}} \\frac{1}{2^2 + t^2} dt = \\left[ \\frac{1}{2}\\arctan\\left(\\frac{t}{2}\\right) \\right]_0^{2\\sqrt{3}}$.\nStep 4: Evaluate bounds: $\\frac{1}{2}\\left[\\arctan(\\sqrt{3}) - \\arctan(0)\\right] = \\frac{1}{2}\\left(\\frac{\\pi}{3} - 0\\right) = \\frac{\\pi}{6}$.\nStep 5: Compute final total volume: $V = 400(2\\sqrt{3}) - 1200\\left(\\frac{\\pi}{6}\\right) = 800\\sqrt{3} - 200\\pi\\text{ m}^3 \\approx 1385.64 - 628.32 = 757.32\\text{ m}^3$.\nConclusion: The total volume discharged is $800\\sqrt{3} - 200\\pi\\text{ m}^3 \\approx 757.32\\text{ m}^3$."
+        }
+      ],
+      "btc": "VNPS Team Challenge: Find the value of $k > 0$ such that $\\int_{0}^{k} (2x - 3) dx = 4$, and interpret the geometric meaning of positive vs negative signed area!",
+      "summary_data": {
+        "summary": [
+          "The Fundamental Theorem of Calculus bridges differential rates and cumulative definite quantities.",
+          "Definite integrals produce real numerical scalar values without the arbitrary constant $+C$.",
+          "Exploiting symmetry (Even vs Odd functions) simplifies symmetric bound evaluations to zero or doubles."
+        ],
+        "islamic": "Definite boundaries remind us of life's appointed term (Ajal) and the exact account of every deed recorded with precision (QS. Al-Zalzalah: 7-8)."
+      },
+      "collab_cases": [
+        "Evaluate the definite integral: $\\int_{1}^{4} \\left( \\frac{3}{\\sqrt{x}} - 2x + 5 \\right) \\, dx$ using the Fundamental Theorem of Calculus.",
+        "Evaluate $\\int_0^{\\pi} x \\sin(x) \\, dx$ combining the Fundamental Theorem of Calculus with integration by parts.",
+        "Given $G(x) = \\int_2^{x^3} \\frac{1}{1 + t^4} \\, dt$, find the exact derivative $G'(x)$ using Leibniz's Rule.",
+        "Evaluate the piecewise definite integral $\\int_{-2}^{3} |x - 1| \\, dx$ using geometric area decomposition.",
+        "Prove the Mean Value Theorem for Definite Integrals: if $f$ is continuous on $[a, b]$, there exists $c \\in [a, b]$ where $f(c) = \\frac{1}{b-a}\\int_{a}^{b} f(x)dx$."
+      ],
+      "collab_solutions": [
+        "Step 1: Find antiderivative: $F(x) = \\int (3x^{-1/2} - 2x + 5) dx = 6x^{1/2} - x^2 + 5x = 6\\sqrt{x} - x^2 + 5x$.\nStep 2: Evaluate at upper limit $x = 4$: $F(4) = 6\\sqrt{4} - 4^2 + 5(4) = 12 - 16 + 20 = 16$.\nStep 3: Evaluate at lower limit $x = 1$: $F(1) = 6\\sqrt{1} - 1^2 + 5(1) = 6 - 1 + 5 = 10$.\nStep 4: Compute $F(4) - F(1) = 16 - 10 = 6$.\nConclusion: The definite integral value is $6$.",
+        "Step 1: Use integration by parts: let $u = x \\implies du = dx$, and $dv = \\sin(x)dx \\implies v = -\\cos(x)$.\nStep 2: $\\int x\\sin(x)dx = -x\\cos(x) + \\int \\cos(x)dx = -x\\cos(x) + \\sin(x)$.\nStep 3: Evaluate between $0$ and $\\pi$: $[-x\\cos(x) + \\sin(x)]_0^\\pi$.\nStep 4: Upper bound at $\\pi$: $-\\pi\\cos(\\pi) + \\sin(\\pi) = -\\pi(-1) + 0 = \\pi$. Lower bound at $0$: $-0 + 0 = 0$.\nConclusion: The definite integral evaluates to $\\pi - 0 = \\pi$.",
+        "Step 1: Recall Leibniz's Integral Rule: $\\frac{d}{dx}\\left[\\int_{a}^{g(x)} f(t)dt\\right] = f(g(x)) \\cdot g'(x)$.\nStep 2: Here $f(t) = \\frac{1}{1 + t^4}$ and $g(x) = x^3$ with $g'(x) = 3x^2$.\nStep 3: Substitute $g(x)$ into $f(t)$: $f(x^3) = \\frac{1}{1 + (x^3)^4} = \\frac{1}{1 + x^{12}}$.\nStep 4: Multiply by $g'(x)$: $G'(x) = \\frac{3x^2}{1 + x^{12}}$.\nConclusion: The exact derivative is $G'(x) = \\frac{3x^2}{1 + x^{12}}$.",
+        "Step 1: Find the critical zero of $|x - 1|$: $x - 1 = 0 \\implies x = 1$.\nStep 2: Split the integral at $x = 1$: $\\int_{-2}^3 |x - 1| dx = \\int_{-2}^1 -(x - 1) dx + \\int_1^3 (x - 1) dx$.\nStep 3: Geometrically, the region forms two right triangles: Triangle 1 has base from $-2$ to $1$ (length $3$) and height $|-2 - 1| = 3$, Area $= \\frac{1}{2}(3)(3) = \\frac{9}{2}$.\nStep 4: Triangle 2 has base from $1$ to $3$ (length $2$) and height $|3 - 1| = 2$, Area $= \\frac{1}{2}(2)(2) = 2$.\nStep 5: Total area $= \\frac{9}{2} + 2 = \\frac{13}{2} = 6.5$.\nConclusion: The piecewise integral evaluates to $\\frac{13}{2} = 6.5$.",
+        "Step 1: Let $f$ be continuous on $[a, b]$, and let $F(x) = \\int_a^x f(t) dt$. By FTC, $F'(x) = f(x)$ on $(a, b)$.\nStep 2: By Lagrange's Mean Value Theorem applied to $F$ on $[a, b]$, there exists $c \\in (a, b)$ such that $F'(c) = \\frac{F(b) - F(a)}{b - a}$.\nStep 3: Since $F(a) = 0$ and $F(b) = \\int_a^b f(x) dx$, we have $F'(c) = \\frac{\\int_a^b f(x) dx}{b - a}$.\nStep 4: Since $F'(c) = f(c)$, it follows directly that $f(c) = \\frac{1}{b - a}\\int_a^b f(x) dx$.\nConclusion: The Mean Value Theorem for Definite Integrals is proven."
+      ]
+    },
+    {
+      "id": "P29",
+      "bab": "Integral Calculus (CLIL)",
+      "title": "Applications of Integration: Area Between Curves",
+      "obj": [
+        "Calculate the enclosed area between two curves using vertical and horizontal strips.",
+        "Determine integration limits by solving intersection points ($y_1 = y_2$).",
+        "Apply parabolic enclosed area shortcuts: $A = \\frac{D\\sqrt{D}}{6a^2}$."
+      ],
+      "hook": "Architects designing an Islamic cultural pavilion model the roof arch as $y = 6 - x^2$ and base support as $y = 2$. What is the exact cross-sectional glazing area required?",
+      "toolkit": [
+        {
+          "name": "Vertical Strip Area Formula",
+          "math": "$$A = \\int_{a}^{b} [y_{\\text{upper}} - y_{\\text{lower}}] dx = \\int_{a}^{b} [f(x) - g(x)] dx$$"
+        },
+        {
+          "name": "Horizontal Strip Area Formula",
+          "math": "$$A = \\int_{c}^{d} [x_{\\text{right}} - x_{\\text{left}}] dy = \\int_{c}^{d} [f(y) - g(y)] dy$$"
+        },
+        {
+          "name": "Parabolic Area Shortcut",
+          "math": "$$A = \\frac{D\\sqrt{D}}{6a^2} \\quad (\\text{for region bounded by parabola and line})$$"
+        },
+        {
+          "name": "Archimedes Parabola Shortcut",
+          "math": "$$A = \\frac{D\\sqrt{D}}{6a^2} \\quad \\text{for area bounded by parabola and line}$$"
+        },
+        {
+          "name": "Vertical vs Horizontal Slicing",
+          "math": "$$A = \\int_c^d [x_{\\text{right}}(y) - x_{\\text{left}}(y)] dy$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Find the area bounded by the parabola $y = 6x - x^2$ and the x-axis ($y = 0$).",
+          "solution": "Step 1: Find x-intercepts: $6x - x^2 = 0 \\implies x(6 - x) = 0 \\implies x = 0$ and $x = 6$.\nStep 2: Set up definite integral: $A = \\int_{0}^{6} (6x - x^2) dx$.\nStep 3: Integrate: $[3x^2 - \\frac{1}{3}x^3]_0^6 = 3(36) - \\frac{1}{3}(216) = 108 - 72 = 36\\text{ units}^2$.\nConclusion: The bounded planar area is $36\\text{ units}^2$."
+        },
+        {
+          "problem": "Calculate the area enclosed between $y = x^2$ and the line $y = 2x + 3$.",
+          "solution": "Step 1: Find intersection points: $x^2 = 2x + 3 \\implies x^2 - 2x - 3 = 0 \\implies (x - 3)(x + 1) = 0 \\implies x = -1, 3$.\nStep 2: Over $[-1, 3]$, the line is upper: $y_{\\text{upper}} = 2x + 3$, $y_{\\text{lower}} = x^2$.\nStep 3: Integrate: $A = \\int_{-1}^{3} (2x + 3 - x^2) dx = [x^2 + 3x - \\frac{x^3}{3}]_{-1}^3$.\nStep 4: At $x = 3$: $9 + 9 - 9 = 9$. At $x = -1$: $1 - 3 + \\frac{1}{3} = -\\frac{5}{3}$.\nStep 5: $A = 9 - (-\\frac{5}{3}) = \\frac{32}{3}\\text{ units}^2$.\nConclusion: The enclosed area between curves is $\\frac{32}{3}\\text{ units}^2$."
+        },
+        {
+          "problem": "Using the Archimedes Shortcut $A = \\frac{D\\sqrt{D}}{6a^2}$, find the area between $y = x^2 - 4$ and $y = 0$.",
+          "solution": "Step 1: For $x^2 - 4 = 0$, $a = 1, b = 0, c = -4$.\nStep 2: Discriminant $D = b^2 - 4ac = 0 - 4(1)(-4) = 16$.\nStep 3: Area $A = \\frac{16\\sqrt{16}}{6(1)^2} = \\frac{16 \\times 4}{6} = \\frac{64}{6} = \\frac{32}{3}\\text{ units}^2$.\nConclusion: Using Archimedes formula, the area is $\\frac{32}{3}\\text{ units}^2$."
+        },
+        {
+          "problem": "Find the total area of the region enclosed between the cubic curve $y = x^3 - 3x$ and the line $y = x$.",
+          "solution": "Step 1: Find points of intersection: $x^3 - 3x = x \\implies x^3 - 4x = 0 \\implies x(x - 2)(x + 2) = 0$. The curves intersect at $x = -2, 0, 2$.\nStep 2: Determine upper and lower curves on each interval: On $[-2, 0]$, test $x = -1$: $y_{\\text{cubic}} = 2$ and $y_{\\text{line}} = -1$, so cubic $\\ge$ line. On $[0, 2]$, test $x = 1$: $y_{\\text{cubic}} = -2$ and $y_{\\text{line}} = 1$, so line $\\ge$ cubic.\nStep 3: By symmetry about the origin, Area $A = 2 \\int_0^2 [x - (x^3 - 3x)] dx = 2 \\int_0^2 (4x - x^3) dx$.\nStep 4: Integrate: $2 \\left[ 2x^2 - \\frac{x^4}{4} \\right]_0^2 = 2 \\left( 2(4) - \\frac{16}{4} \\right) = 2(8 - 4) = 8\\text{ units}^2$.\nConclusion: The total enclosed area between the curves is $8\\text{ units}^2$."
+        },
+        {
+          "problem": "A civil engineering firm designs a highway underpass opening bounded on the left by $x = y^2 - 4$ and on the right by $x = 2 - y$. Calculate the cross-sectional area using horizontal slicing ($dy$).",
+          "solution": "Step 1: Find the $y$-limits of integration by equating $x_{\\text{right}} = x_{\\text{left}}$: $2 - y = y^2 - 4 \\implies y^2 + y - 6 = 0 \\implies (y + 3)(y - 2) = 0$. The limits are $y = -3$ to $y = 2$.\nStep 2: Set up horizontal area integral: $A = \\int_{-3}^2 [x_{\\text{right}}(y) - x_{\\text{left}}(y)] dy = \\int_{-3}^2 [(2 - y) - (y^2 - 4)] dy = \\int_{-3}^2 (6 - y - y^2) dy$.\nStep 3: Integrate: $\\left[ 6y - \\frac{y^2}{2} - \\frac{y^3}{3} \\right]_{-3}^2$.\nStep 4: At $y = 2$: $12 - 2 - \\frac{8}{3} = 10 - \\frac{8}{3} = \\frac{22}{3}$. At $y = -3$: $-18 - \\frac{9}{2} - (-9) = -9 - \\frac{9}{2} = -\\frac{27}{2}$.\nStep 5: Compute difference: $A = \\frac{22}{3} - \\left(-\\frac{27}{2}\\right) = \\frac{44 + 81}{6} = \\frac{125}{6} = 20\\frac{5}{6}\\text{ units}^2$.\nConclusion: The cross-sectional area of the highway opening is $\\frac{125}{6}\\text{ units}^2 \\approx 20.83\\text{ units}^2$."
+        }
+      ],
+      "btc": "VNPS Team Challenge: Calculate the area between $y = \\sqrt{x}$ and $y = x^2$ using both vertical integration $dx$ and horizontal integration $dy$ to prove equivalence!",
+      "summary_data": {
+        "summary": [
+          "Area between curves represents the integral of the difference function $y_{\\text{upper}} - y_{\\text{lower}}$.",
+          "Intersection points define the rigorous integration bounds without requiring arbitrary assumptions.",
+          "Always verify whether curves cross each other within the interval to avoid signed cancellation."
+        ],
+        "islamic": "Measuring exact areas between boundaries instills equity and fairness in measuring resources without depriving any party (QS. Al-Muthaffifin: 1-3)."
+      },
+      "collab_cases": [
+        "Find the exact area enclosed between the parabola $y = 6x - x^2$ and the linear function $y = 2x$.",
+        "Calculate the total area between the cubic curve $y = x^3 - 4x$ and the horizontal line $y = 0$ over $[-2, 2]$.",
+        "The marginal cost of an educational robotics lab is $MC(q) = 3q^2 - 24q + 50$. Find the total cost increase from $q = 2$ to $q = 6$.",
+        "Find the area of the region bounded by $y = \\cos(x)$ and $y = \\sin(2x)$ on the interval $[0, \\frac{\\pi}{2}]$.",
+        "Determine the analytical horizontal strip integration formula for the area between $x = y^2 - 2$ and $x = y$."
+      ],
+      "collab_solutions": [
+        "Step 1: Find points of intersection: $6x - x^2 = 2x \\implies x^2 - 4x = 0 \\implies x(x - 4) = 0 \\implies x = 0$ and $x = 4$.\nStep 2: On $[0, 4]$, parabola is above the line: $y_{\\text{top}} - y_{\\text{bottom}} = (6x - x^2) - 2x = 4x - x^2$.\nStep 3: Integrate from $0$ to $4$: $\\int_0^4 (4x - x^2) dx = [2x^2 - \\frac{x^3}{3}]_0^4 = 2(16) - \\frac{64}{3} = 32 - \\frac{64}{3} = \\frac{32}{3}$.\nConclusion: The exact bounded area is $\\frac{32}{3}\\text{ units}^2$.",
+        "Step 1: Find x-intercepts: $x^3 - 4x = 0 \\implies x(x - 2)(x + 2) = 0 \\implies x = -2, 0, 2$.\nStep 2: On $[-2, 0]$, $y \\ge 0$; on $[0, 2]$, $y \\le 0$. By odd symmetry, Area $A = 2 \\int_0^2 -(x^3 - 4x) dx = 2 \\int_0^2 (4x - x^3) dx$.\nStep 3: Integrate: $2 [2x^2 - \\frac{x^4}{4}]_0^2 = 2 [8 - 4] = 2(4) = 8\\text{ units}^2$.\nConclusion: The total enclosed area is $8\\text{ units}^2$.",
+        "Step 1: Total cost increase is the definite integral of marginal cost: $\\Delta C = \\int_2^6 MC(q) dq = \\int_2^6 (3q^2 - 24q + 50) dq$.\nStep 2: Antiderivative: $[q^3 - 12q^2 + 50q]_2^6$.\nStep 3: Upper bound at $q = 6$: $6^3 - 12(36) + 50(6) = 216 - 432 + 300 = 84$.\nStep 4: Lower bound at $q = 2$: $2^3 - 12(4) + 50(2) = 8 - 48 + 100 = 60$.\nStep 5: Compute difference: $84 - 60 = 24$.\nConclusion: The total cost increase from $q = 2$ to $q = 6$ is $24$ cost units.",
+        "Step 1: Find intersection points on $[0, \\pi/2]$: $\\cos(x) = \\sin(2x) = 2\\sin(x)\\cos(x) \\implies \\cos(x)(1 - 2\\sin(x)) = 0 \\implies x = \\pi/6$ or $x = \\pi/2$.\nStep 2: Over $[0, \\pi/6]$, $\\cos(x) \\ge \\sin(2x)$; over $[\\pi/6, \\pi/2]$, $\\sin(2x) \\ge \\cos(x)$.\nStep 3: Total Area $A = \\int_0^{\\pi/6} (\\cos(x) - \\sin(2x)) dx + \\int_{\\pi/6}^{\\pi/2} (\\sin(2x) - \\cos(x)) dx$.\nStep 4: Part 1: $[\\sin(x) + \\frac{1}{2}\\cos(2x)]_0^{\\pi/6} = (\\frac{1}{2} + \\frac{1}{4}) - (0 + \\frac{1}{2}) = \\frac{1}{4}$.\nStep 5: Part 2: $[-\\frac{1}{2}\\cos(2x) - \\sin(x)]_{\\pi/6}^{\\pi/2} = (\\frac{1}{2} - 1) - (-\\frac{1}{4} - \\frac{1}{2}) = -\\frac{1}{2} + \\frac{3}{4} = \\frac{1}{4}$. Total $= \\frac{1}{4} + \\frac{1}{4} = \\frac{1}{2}$.\nConclusion: The total area of the region is $\\frac{1}{2}\\text{ units}^2$.",
+        "Step 1: Find $y$-intersections: $y^2 - 2 = y \\implies y^2 - y - 2 = 0 \\implies (y - 2)(y + 1) = 0 \\implies y = -1$ to $y = 2$.\nStep 2: Over $[-1, 2]$, the line is to the right of the parabola: $x_{\\text{right}} = y$ and $x_{\\text{left}} = y^2 - 2$.\nStep 3: Horizontal strip formula: $A = \\int_{-1}^2 [x_{\\text{right}}(y) - x_{\\text{left}}(y)] dy = \\int_{-1}^2 (y - y^2 + 2) dy$.\nStep 4: Integrate: $[\\frac{y^2}{2} - \\frac{y^3}{3} + 2y]_{-1}^2 = (2 - \\frac{8}{3} + 4) - (\\frac{1}{2} + \\frac{1}{3} - 2) = \\frac{10}{3} - (-\\frac{7}{6}) = \\frac{27}{6} = \\frac{9}{2}$.\nConclusion: The horizontal strip formula gives area $A = \\int_{-1}^2 (2 + y - y^2) dy = \\frac{9}{2}\\text{ units}^2$."
+      ]
+    },
+    {
+      "id": "P30",
+      "bab": "Integral Calculus (CLIL)",
+      "title": "Solid of Revolution: Disc & Washer Methods (Islamic Dome 3D)",
+      "obj": [
+        "Visualize 3-dimensional solid revolution generated by rotating curves about axes.",
+        "Apply the Disc Method ($V = \\pi \\int_{a}^{b} [f(x)]^2 dx$) and Washer Method for hollow solids.",
+        "Model the internal geometric volume of the modern Islamic Dome structure."
+      ],
+      "hook": "Designing the iconic parabolic dome of a grand mosque: revolving the profile curve $y = \\sqrt{16 - 4x}$ for $x \\in [0, 4]$ around the x-axis generates the exact 3D dome shell. What is the total air volume enclosed?",
+      "toolkit": [
+        {
+          "name": "Disc Method (Rotation around x-axis)",
+          "math": "$$V = \\pi \\int_{a}^{b} [y(x)]^2 dx$$"
+        },
+        {
+          "name": "Washer Method (Hollow Solid)",
+          "math": "$$V = \\pi \\int_{a}^{b} ([R_{\\text{outer}}(x)]^2 - [r_{\\text{inner}}(x)]^2) dx$$"
+        },
+        {
+          "name": "Rotation around y-axis",
+          "math": "$$V = \\pi \\int_{c}^{d} [x(y)]^2 dy$$"
+        },
+        {
+          "name": "Washer Method (x-axis)",
+          "math": "$$V = \\pi \\int_a^b \\left( [R(x)]^2 - [r(x)]^2 \\right) dx$$"
+        },
+        {
+          "name": "Rotation Around y-axis",
+          "math": "$$V = \\pi \\int_c^d [x(y)]^2 dy$$"
+        }
+      ],
+      "examples": [
+        {
+          "problem": "Find the volume of the solid generated by revolving $y = \\sqrt{x}$ from $x = 0$ to $x = 4$ about the x-axis.",
+          "solution": "Step 1: Disc Method formula: $V = \\pi \\int_{0}^{4} y^2 dx$.\nStep 2: Substitute $y^2 = (\\sqrt{x})^2 = x$: $V = \\pi \\int_{0}^{4} x dx$.\nStep 3: Integrate: $V = \\pi [\\frac{1}{2}x^2]_0^4 = \\pi (\\frac{16}{2} - 0) = 8\\pi\\text{ units}^3$.\nConclusion: The solid revolution volume is $8\\pi\\text{ units}^3$."
+        },
+        {
+          "problem": "Calculate the volume of the solid formed by rotating the region bounded by $y = x^2$ and $y = 4$ around the y-axis.",
+          "solution": "Step 1: Rotation around y-axis uses $V = \\pi \\int_{0}^{4} x^2 dy$.\nStep 2: From $y = x^2$, we have $x^2 = y$.\nStep 3: Integrate with respect to $y$: $V = \\pi \\int_{0}^{4} y dy = \\pi [\\frac{y^2}{2}]_0^4 = \\pi (\\frac{16}{2}) = 8\\pi\\text{ units}^3$.\nConclusion: The volume of revolution about the y-axis is $8\\pi\\text{ units}^3$."
+        },
+        {
+          "problem": "Using the Washer Method, find the volume generated by rotating the region between $y = x$ and $y = x^2$ about the x-axis.",
+          "solution": "Step 1: Intersections: $x = x^2 \\implies x = 0$ and $x = 1$.\nStep 2: Over $[0, 1]$, $R(x) = x$ and $r(x) = x^2$.\nStep 3: Washer formula: $V = \\pi \\int_{0}^{1} (x^2 - (x^2)^2) dx = \\pi \\int_{0}^{1} (x^2 - x^4) dx$.\nStep 4: Integrate: $V = \\pi [\\frac{x^3}{3} - \\frac{x^5}{5}]_0^1 = \\pi (\\frac{1}{3} - \\frac{1}{5}) = \\frac{2}{15}\\pi\\text{ units}^3$.\nConclusion: Using Washer Method, the hollow volume is $\\frac{2}{15}\\pi\\text{ units}^3$."
+        },
+        {
+          "problem": "The finite region bounded by $y = \\sqrt{x}$, the horizontal line $y = 2$, and the y-axis ($x = 0$) is revolved $360^\\circ$ about the line $y = 2$. Find the volume of the resulting solid of revolution.",
+          "solution": "Step 1: Find the bounds in terms of $x$: the curve $y = \\sqrt{x}$ meets $y = 2$ at $x = 4$. So the interval is $x \\in [0, 4]$.\nStep 2: Identify radius of revolution: the axis of rotation is the horizontal line $y = 2$. The distance from the curve $y = \\sqrt{x}$ to $y = 2$ is $r(x) = 2 - \\sqrt{x}$.\nStep 3: Apply Disc Method around $y = 2$: $V = \\pi \\int_0^4 [r(x)]^2 dx = \\pi \\int_0^4 (2 - \\sqrt{x})^2 dx = \\pi \\int_0^4 (4 - 4x^{1/2} + x) dx$.\nStep 4: Integrate term-by-term: $V = \\pi \\left[ 4x - \\frac{8}{3}x^{3/2} + \\frac{x^2}{2} \\right]_0^4 = \\pi \\left[ 16 - \\frac{8}{3}(8) + 8 \\right] = \\pi \\left( 24 - \\frac{64}{3} \\right) = \\frac{8\\pi}{3}\\text{ units}^3$.\nConclusion: The volume of revolution about $y = 2$ is $\\frac{8\\pi}{3}\\text{ units}^3 \\approx 2.67\\pi\\text{ units}^3$."
+        },
+        {
+          "problem": "An Islamic architectural design firm creates an ornamental dome reservoir by rotating the region between the outer profile $y = 9 - x^2$ and inner profile $y = 8 - 2x^2$ for $y \\ge 0$ around the y-axis. Compute the volume of material required for the dome shell using Washer Method ($dy$).",
+          "solution": "Step 1: Express curves in terms of $y$: Outer profile $x^2 = 9 - y$ (for $y \\in [0, 9]$) and inner profile $x^2 = \\frac{8 - y}{2}$ (for $y \\in [0, 8]$).\nStep 2: Set up Washer Method integrating along y-axis: For $y \\in [0, 8]$, the solid is hollow between inner and outer shells: $V_1 = \\pi \\int_0^8 \\left( [x_{\\text{outer}}]^2 - [x_{\\text{inner}}]^2 \\right) dy = \\pi \\int_0^8 \\left( (9 - y) - \\frac{8 - y}{2} \\right) dy = \\pi \\int_0^8 \\left( 5 - \\frac{y}{2} \\right) dy$.\nStep 3: For $y \\in [8, 9]$, only the solid cap of the outer profile exists: $V_2 = \\pi \\int_8^9 (9 - y) dy$.\nStep 4: Evaluate $V_1$: $\\pi \\left[ 5y - \\frac{y^2}{4} \\right]_0^8 = \\pi [40 - 16] = 24\\pi$. Evaluate $V_2$: $\\pi \\left[ 9y - \\frac{y^2}{2} \\right]_8^9 = \\pi \\left( (81 - 40.5) - (72 - 32) \\right) = \\pi (40.5 - 40) = 0.5\\pi$.\nStep 5: Total volume of material: $V = V_1 + V_2 = 24\\pi + 0.5\\pi = 24.5\\pi = \\frac{49\\pi}{2}\\text{ m}^3 \\approx 76.97\\text{ m}^3$.\nConclusion: The total volume of material required for the dome shell is $\\frac{49\\pi}{2}\\text{ m}^3 = 24.5\\pi\\text{ m}^3$."
+        }
+      ],
+      "btc": "VNPS Team Challenge: Calculate the volume of an Islamic Mosque Dome formed by rotating $y = 6 - \\frac{1}{2}x^2$ from $x = 0$ to $x = \\sqrt{12}$ around the y-axis!",
+      "summary_data": {
+        "summary": [
+          "Revolving 2D planar regions around a coordinate axis creates symmetrical 3D solids of revolution.",
+          "The Disc Method sums circular cross-sections of area $A(x) = \\pi [f(x)]^2$.",
+          "The Washer Method computes concentric ring cross-sections: $\\pi (R^2 - r^2)$ for hollow structures."
+        ],
+        "islamic": "Symmetrical solids of revolution in mosque architecture reflect cosmic harmony and the perfection of divine creation (QS. Ar-Rahman: 7-9)."
+      },
+      "collab_cases": [
+        "Find the volume of the solid generated by revolving the region bounded by $y = \\sqrt{x}$, $x = 4$, and $y = 0$ about the $x$-axis by $360^\\circ$.",
+        "Use the Washer Method to compute the volume generated by revolving the region between $y = x^2$ and $y = 4$ about the line $y = 4$.",
+        "Model the school architectural dome by revolving the parabolic profile $y = 4 - x^2$ ($0 \\le x \\le 2$) about the $y$-axis. Calculate its volume.",
+        "Use Cylindrical Shells to calculate the volume of the solid obtained by revolving $y = 2x - x^2$ about the $y$-axis.",
+        "Evaluate the arc length of the parametric curve $x(t) = \\cos(t), y(t) = \\sin(t)$ over $[0, 2\\pi]$ and verify the perimeter of a unit circle."
+      ],
+      "collab_solutions": [
+        "Step 1: Region bounded by $y = \\sqrt{x}$, $x = 4$, $y = 0$. Rotated about x-axis: Disc Method $V = \\pi \\int_0^4 y^2 dx$.\nStep 2: Substitute $y^2 = (\\sqrt{x})^2 = x$: $V = \\pi \\int_0^4 x dx$.\nStep 3: Integrate: $V = \\pi [\\frac{x^2}{2}]_0^4 = \\pi (\\frac{16}{2} - 0) = 8\\pi$.\nConclusion: The volume of revolution is $8\\pi\\text{ units}^3$.",
+        "Step 1: Bounded by $y = x^2$ and $y = 4$. Rotated about the line $y = 4$. Intersections at $x = -2$ and $x = 2$.\nStep 2: Radius of disc around $y = 4$ is $R(x) = 4 - x^2$.\nStep 3: Volume: $V = \\pi \\int_{-2}^2 (4 - x^2)^2 dx = 2\\pi \\int_0^2 (16 - 8x^2 + x^4) dx$.\nStep 4: Integrate: $2\\pi [16x - \\frac{8}{3}x^3 + \\frac{x^5}{5}]_0^2 = 2\\pi [32 - \\frac{64}{3} + \\frac{32}{5}] = 2\\pi \\cdot \\frac{256}{15} = \\frac{512\\pi}{15}$.\nConclusion: The volume of the solid is $\\frac{512\\pi}{15}\\text{ units}^3$.",
+        "Step 1: Parabolic profile $y = 4 - x^2$ for $x \\in [0, 2]$ rotated about y-axis.\nStep 2: Express $x^2$ in terms of $y$: $x^2 = 4 - y$ for $y \\in [0, 4]$.\nStep 3: Disc Method along y-axis: $V = \\pi \\int_0^4 x^2 dy = \\pi \\int_0^4 (4 - y) dy$.\nStep 4: Integrate: $V = \\pi [4y - \\frac{y^2}{2}]_0^4 = \\pi [16 - 8] = 8\\pi$.\nConclusion: The architectural dome volume is $8\\pi\\text{ m}^3 \\approx 25.13\\text{ m}^3$.",
+        "Step 1: Cylindrical Shells formula around y-axis: $V = 2\\pi \\int_a^b x \\cdot y(x) dx$.\nStep 2: Region $y = 2x - x^2$ sits above x-axis on $[0, 2]$.\nStep 3: Setup integral: $V = 2\\pi \\int_0^2 x(2x - x^2) dx = 2\\pi \\int_0^2 (2x^2 - x^3) dx$.\nStep 4: Integrate: $2\\pi [\\frac{2}{3}x^3 - \\frac{x^4}{4}]_0^2 = 2\\pi [\\frac{16}{3} - 4] = 2\\pi (\\frac{4}{3}) = \\frac{8\\pi}{3}$.\nConclusion: The volume by cylindrical shells is $\\frac{8\\pi}{3}\\text{ units}^3$.",
+        "Step 1: Arc length formula for parametric curves: $L = \\int_a^b \\sqrt{(x'(t))^2 + (y'(t))^2} dt$.\nStep 2: For $x(t) = \\cos(t), y(t) = \\sin(t)$: $x'(t) = -\\sin(t)$ and $y'(t) = \\cos(t)$.\nStep 3: Sum of squares: $(x'(t))^2 + (y'(t))^2 = (-\\sin(t))^2 + (\\cos(t))^2 = 1$.\nStep 4: Integrate from $0$ to $2\\pi$: $L = \\int_0^{2\\pi} \\sqrt{1} dt = [t]_0^{2\\pi} = 2\\pi$.\nConclusion: The arc length is exactly $2\\pi$, confirming the perimeter formula $C = 2\\pi r$ for radius $r = 1$."
+      ]
+    }
+  ],
+  "tka_wajib": {
+    "DIAG": {
+        "id": "DIAG",
+        "subject": "Matematika Wajib",
+        "title": "Tes Diagnostik TKA Kemendikbud 2026 (Pekan Intensif)",
+        "badge": "Kemendikbud 2026",
+        "kluster_info": "6 Kluster Standar Kemendikbud: Aljabar & Fungsi, Aritmetika & Data, Statistika & Peluang, Barisan & Deret, Geometri & Trigonometri, Penalaran Kuantitatif",
+        "total_bobot": 23,
+        "questions": [
+            {
+                "no": 1,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K1: Aljabar & Fungsi",
+                "kluster_id": "K1",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS A: Produksi UMKM Keripik Pisang Serpong]</b><br/>Sebuah UMKM di Serpong memproduksi keripik pisang kemasan. Total biaya produksi per hari dimodelkan oleh fungsi:<br/><center class='my-2 p-2 rounded-xl bg-slate-900/80 border border-slate-700 font-mono font-bold text-amber-300'>C(x) = x² − 40x + 1.200</center>dengan $x$ adalah jumlah produksi dalam <i>puluhan bungkus</i> dan $C(x)$ adalah biaya produksi dalam <i>ribuan rupiah</i>.<br/>Setiap bungkus dijual dengan harga Rp 15.000, sehingga total pendapatan kotor adalah $R(x) = 15x$ (dalam ribuan rupiah per puluhan bungkus).<br/><br/>Jumlah kemasan keripik pisang (dalam puluhan bungkus) yang harus diproduksi per hari agar <b>biaya produksi mencapai minimum</b> adalah ...",
+                "opsi": [
+                    "A. 10",
+                    "B. 15",
+                    "C. 20",
+                    "D. 25",
+                    "E. 40"
+                ]
+            },
+            {
+                "no": 2,
+                "tipe": "Pilihan Benar / Salah",
+                "level": "C4 Analisis",
+                "kluster": "K1: Aljabar & Fungsi",
+                "kluster_id": "K1",
+                "bobot": 3,
+                "tanya": "<b>[STIMULUS A: Produksi UMKM Keripik Pisang Serpong]</b><br/>Berdasarkan fungsi biaya $C(x) = x^2 - 40x + 1.200$ dan pendapatan $R(x) = 15x$ pada Stimulus A, evaluasi kebenaran setiap pernyataan analisis finansial UMKM berikut:",
+                "opsi": [
+                    "Biaya produksi minimum harian UMKM tersebut adalah Rp 800.000.",
+                    "Jika UMKM memproduksi 50 bungkus (x = 5), maka usaha tersebut merugi karena C(5) > R(5).",
+                    "Fungsi keuntungan bersih harian dirumuskan dengan P(x) = −x² + 55x − 1.200."
+                ]
+            },
+            {
+                "no": 3,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K1: Aljabar & Fungsi",
+                "kluster_id": "K1",
+                "bobot": 1,
+                "tanya": "Dalam uji coba sains STEM roket air, ketinggian roket pada waktu $t$ detik setelah peluncuran dinyatakan oleh fungsi kuadrat:<br/><center class='my-2 p-2 rounded-xl bg-slate-900/80 border border-slate-700 font-mono font-bold text-amber-300'>h(t) = −5t² + 30t + 10 (dalam satuan meter)</center>Roket air tersebut berada pada <b>ketinggian lebih dari 35 meter</b> pada selang waktu ...",
+                "opsi": [
+                    "A. 0 < t < 1",
+                    "B. 1 < t < 5",
+                    "C. 2 < t < 4",
+                    "D. 1 < t < 3",
+                    "E. 3 < t < 5"
+                ]
+            },
+            {
+                "no": 4,
+                "tipe": "Isian Singkat Numerik",
+                "level": "C3 Penerapan",
+                "kluster": "K1: Aljabar & Fungsi",
+                "kluster_id": "K1",
+                "bobot": 1,
+                "tanya": "Sebuah taman hidroponik sekolah berbentuk persegi panjang dirancang dengan panjang <b>(3a + 2) meter</b> dan lebar <b>(3a − 2) meter</b>. Jika luas taman terukur adalah <b>77 m²</b>, tentukan <b>keliling taman</b> tersebut dalam satuan meter.<br/><br/><i>(Tuliskan jawaban akhir berupa angka bulat saja, misalnya: 36)</i>",
+                "opsi": []
+            },
+            {
+                "no": 5,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K2: Aritmetika & Data",
+                "kluster_id": "K2",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS B: Laporan Penjualan Kantin Sehat GIS 2]</b><br/>Berikut catatan penjualan dua jenis minuman di Kantin GIS 2 Serpong selama 5 hari operasional:<br/><div class='overflow-x-auto my-2'><table class='w-full text-xs text-center border-collapse border border-slate-700 rounded-lg'><tr class='bg-slate-800 text-slate-200'><th class='p-2 border border-slate-700'>Hari</th><th class='p-2 border border-slate-700'>Es Teh Manis</th><th class='p-2 border border-slate-700'>Harga / Porsi</th><th class='p-2 border border-slate-700'>Jus Buah Segar</th><th class='p-2 border border-slate-700'>Harga / Porsi</th></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-bold'>Senin</td><td class='p-1.5 border border-slate-700'>45</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>20</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr><tr class='bg-slate-900/30'><td class='p-1.5 border border-slate-700 font-bold'>Selasa</td><td class='p-1.5 border border-slate-700'>38</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>25</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-bold'>Rabu</td><td class='p-1.5 border border-slate-700'>50</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>18</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr><tr class='bg-slate-900/30'><td class='p-1.5 border border-slate-700 font-bold'>Kamis</td><td class='p-1.5 border border-slate-700'>42</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>22</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-bold'>Jumat</td><td class='p-1.5 border border-slate-700'>35</td><td class='p-1.5 border border-slate-700'>Rp 5.000</td><td class='p-1.5 border border-slate-700'>15</td><td class='p-1.5 border border-slate-700'>Rp 12.000</td></tr></table></div>Berapakah persentase kontribusi pendapatan dari penjualan <b>Jus Buah Segar</b> terhadap <b>total seluruh pendapatan minuman</b> selama 5 hari tersebut? <i>(Dibulatkan ke persen terdekat)</i>",
+                "opsi": [
+                    "A. 36%",
+                    "B. 42%",
+                    "C. 48%",
+                    "D. 53%",
+                    "E. 60%"
+                ]
+            },
+            {
+                "no": 6,
+                "tipe": "Pilihan Benar / Salah",
+                "level": "C4 Analisis",
+                "kluster": "K2: Aritmetika & Data",
+                "kluster_id": "K2",
+                "bobot": 3,
+                "tanya": "<b>[STIMULUS B: Laporan Penjualan Kantin Sehat GIS 2]</b><br/>Berdasarkan tabel data penjualan pada Stimulus B, evaluasi kebenaran setiap pernyataan berikut:",
+                "opsi": [
+                    "Rata-rata volume penjualan Es Teh Manis per hari adalah tepat 42 porsi.",
+                    "Kombinasi penjualan 40 porsi Es Teh dan 25 porsi Jus Buah menghasilkan tepat Rp 500.000.",
+                    "Total nominal omzet penjualan pada hari Rabu lebih tinggi daripada omzet pada hari Selasa."
+                ]
+            },
+            {
+                "no": 7,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C3 Penerapan",
+                "kluster": "K2: Aritmetika & Data",
+                "kluster_id": "K2",
+                "bobot": 1,
+                "tanya": "Di laboratorium kimia sekolah, seorang siswa hendak membuat <b>400 mL larutan antiseptik beralkohol 45%</b> dengan mencampurkan larutan alkohol berkonsentrasi 30% dan larutan alkohol berkonsentrasi 70%. Volume larutan alkohol 70% yang harus diambil adalah ...",
+                "opsi": [
+                    "A. 100 mL",
+                    "B. 120 mL",
+                    "C. 150 mL",
+                    "D. 200 mL",
+                    "E. 250 mL"
+                ]
+            },
+            {
+                "no": 8,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K3: Statistika & Peluang",
+                "kluster_id": "K3",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS C: Durasi Belajar Mandiri Siswa Kelas 12]</b><br/>Data waktu belajar mandiri per hari (dalam jam) dari sampel 30 siswa kelas 12 menjelang TKA dirangkum pada tabel berikut:<br/><div class='overflow-x-auto my-2'><table class='w-full max-w-sm mx-auto text-xs text-center border-collapse border border-slate-700 rounded-lg'><tr class='bg-slate-800 text-slate-200'><th class='p-2 border border-slate-700'>Interval Waktu (Jam)</th><th class='p-2 border border-slate-700'>Frekuensi Siswa (f)</th></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-mono'>0 – 1</td><td class='p-1.5 border border-slate-700 font-bold'>2</td></tr><tr class='bg-slate-900/30'><td class='p-1.5 border border-slate-700 font-mono'>1 – 2</td><td class='p-1.5 border border-slate-700 font-bold'>6</td></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-mono'>2 – 3</td><td class='p-1.5 border border-slate-700 font-bold'>10</td></tr><tr class='bg-slate-900/30'><td class='p-1.5 border border-slate-700 font-mono'>3 – 4</td><td class='p-1.5 border border-slate-700 font-bold'>8</td></tr><tr class='bg-slate-900/60'><td class='p-1.5 border border-slate-700 font-mono'>4 – 5</td><td class='p-1.5 border border-slate-700 font-bold'>4</td></tr></table></div>Rata-rata (mean) durasi waktu belajar mandiri siswa kelas 12 berdasarkan data berkelompok tersebut adalah ...",
+                "opsi": [
+                    "A. 2,1 jam",
+                    "B. 2,4 jam",
+                    "C. 2,5 jam",
+                    "D. 2,7 jam",
+                    "E. 3,0 jam"
+                ]
+            },
+            {
+                "no": 9,
+                "tipe": "Isian Singkat Numerik",
+                "level": "C3 Penerapan",
+                "kluster": "K3: Statistika & Peluang",
+                "kluster_id": "K3",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS C: Durasi Belajar Mandiri Siswa Kelas 12]</b><br/>Berdasarkan Stimulus C, tentukan nilai <b>batas bawah</b> (lower limit) dari kelas interval yang memuat nilai <b>median</b> data tersebut.<br/><br/><i>(Tuliskan jawaban berupa angka bilangan bulat saja, misalnya: 2)</i>",
+                "opsi": []
+            },
+            {
+                "no": 10,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C4 Analisis",
+                "kluster": "K3: Statistika & Peluang",
+                "kluster_id": "K3",
+                "bobot": 1,
+                "tanya": "Dalam sebuah kantong terdapat 5 kartu bertuliskan angka 1, 2, 3, 4, dan 5. Diambil 2 kartu sekaligus secara acak tanpa pengembalian. Peluang terambilnya 2 kartu yang jika angka-angkanya dijumlahkan menghasilkan <b>nilai lebih dari 6</b> adalah ...",
+                "opsi": [
+                    "A. 3/10",
+                    "B. 2/5",
+                    "C. 1/2",
+                    "D. 3/5",
+                    "E. 7/10"
+                ]
+            },
+            {
+                "no": 11,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C3 Penerapan",
+                "kluster": "K4: Barisan & Deret",
+                "kluster_id": "K4",
+                "bobot": 1,
+                "tanya": "<b>[STIMULUS D: Proyeksi Pengguna Aktif Platform Edu-Tech]</b><br/>Sebuah startup edukasi rintisan siswa diluncurkan pada Januari 2026. Pertumbuhan pengguna aktif bulanan tercatat stabil sebagai berikut:<br/><div class='overflow-x-auto my-2'><table class='w-full text-xs text-center border-collapse border border-slate-700 rounded-lg'><tr class='bg-slate-800 text-slate-200'><th class='p-2 border border-slate-700'>Bulan</th><th class='p-2 border border-slate-700'>Jan</th><th class='p-2 border border-slate-700'>Feb</th><th class='p-2 border border-slate-700'>Mar</th><th class='p-2 border border-slate-700'>Apr</th><th class='p-2 border border-slate-700'>Mei</th><th class='p-2 border border-slate-700'>Jun</th></tr><tr class='bg-slate-900/60'><td class='p-2 border border-slate-700 font-bold'>Pengguna Aktif</td><td class='p-2 border border-slate-700'>200</td><td class='p-2 border border-slate-700'>350</td><td class='p-2 border border-slate-700'>500</td><td class='p-2 border border-slate-700'>650</td><td class='p-2 border border-slate-700'>800</td><td class='p-2 border border-slate-700'>950</td></tr></table></div>Jika tren peningkatan pengguna aktif tersebut konsisten membentuk barisan aritmetika hingga akhir tahun, maka estimasi jumlah pengguna aktif pada bulan <b>Desember 2026</b> adalah ...",
+                "opsi": [
+                    "A. 1.700 pengguna",
+                    "B. 1.850 pengguna",
+                    "C. 2.000 pengguna",
+                    "D. 2.150 pengguna",
+                    "E. 2.300 pengguna"
+                ]
+            },
+            {
+                "no": 12,
+                "tipe": "Pilihan Benar / Salah",
+                "level": "C4 Analisis",
+                "kluster": "K4: Barisan & Deret",
+                "kluster_id": "K4",
+                "bobot": 3,
+                "tanya": "<b>[STIMULUS D: Proyeksi Pengguna Aktif Platform Edu-Tech]</b><br/>Berdasarkan pola data startup pada Stimulus D, tentukan kebenaran setiap pernyataan proyeksi berikut:",
+                "opsi": [
+                    "Total akumulasi penjumlahan pengguna aktif selama 12 bulan (Jan–Des 2026) adalah 12.900 orang.",
+                    "Platform startup tersebut diproyeksikan pertama kali mencapai angka 2.000 pengguna pada bulan ke-13 (Januari 2027).",
+                    "Bila pertumbuhan diubah menjadi model deret geometri dengan rasio 1,5 (dimulai 200 di Januari), jumlah pengguna Juni akan melampaui data tabel."
+                ]
+            },
+            {
+                "no": 13,
+                "tipe": "Pilihan Ganda Tunggal",
+                "level": "C3 Penerapan",
+                "kluster": "K5: Geometri & Trigonometri",
+                "kluster_id": "K5",
+                "bobot": 1,
+                "tanya": "Sebuah tandon air darurat di lingkungan sekolah berbentuk <b>tabung silinder</b> dengan jari-jari alas 70 cm dan tinggi 120 cm. Akibat pemakaian rutin wudhu, ketinggian air tersisa tinggal <b>3/4 bagian</b> dari kapasitas penuh. Berapakah volume sisa air di dalam tandon tersebut dalam satuan <b>liter</b>?<br/><br/><i>(Gunakan nilai $\\pi = 22/7$ dan $1\\text{ liter} = 1.000\\text{ cm}^3$)</i>",
+                "opsi": [
+                    "A. 1.108 liter",
+                    "B. 1.386 liter",
+                    "C. 1.478 liter",
+                    "D. 1.848 liter",
+                    "E. 2.464 liter"
+                ]
+            },
+            {
+                "no": 14,
+                "tipe": "Isian Singkat Numerik",
+                "level": "C3 Penerapan",
+                "kluster": "K5: Geometri & Trigonometri",
+                "kluster_id": "K5",
+                "bobot": 1,
+                "tanya": "Dari dek observasi menara pandang setinggi 30 meter di tepi pantai, petugas pengawas melihat perahu nelayan dengan <b>sudut depresi sebesar 30°</b>. Tentukan jarak horizontal antara dasar menara pandang dengan posisi perahu tersebut (dalam satuan meter).<br/><br/><i>(Tuliskan jawaban dalam format bilangan bulat atau desimal pembulatan satu angka, di mana $\\sqrt{3} \\approx 1{,}73$, misalnya: 52)</i>",
+                "opsi": []
+            },
+            {
+                "no": 15,
+                "tipe": "Pilihan Benar / Salah",
+                "level": "C4 Analisis",
+                "kluster": "K6: Penalaran Kuantitatif",
+                "kluster_id": "K6",
+                "bobot": 3,
+                "tanya": "Diberikan permasalahan penentuan jumlah peserta ujian seleksi dengan dua informasi terpisah:<br/>• <b>Informasi I:</b> 60% dari seluruh peserta dinyatakan memenuhi kriteria kelulusan akademik.<br/>• <b>Informasi II:</b> Terdapat tepat 12 peserta yang dinyatakan tidak memenuhi kriteria kelulusan.<br/><br/>Tentukan kebenaran setiap pernyataan logika matematis dan kecukupan data berikut:",
+                "opsi": [
+                    "Hanya dengan menggunakan Informasi I saja, kita sudah dapat menghitung jumlah total seluruh peserta ujian.",
+                    "Dengan menggabungkan Informasi I dan Informasi II secara bersamaan, total seluruh peserta ujian adalah 30 orang.",
+                    "Berdasarkan kedua informasi tersebut, jumlah peserta yang dinyatakan lulus ujian adalah 18 orang."
+                ]
+            }
+        ]
+    },
+    "P01": {
+      "id": "P01",
+      "subject": "Matematika Wajib",
+      "title": "Kaidah Pencacahan 1: Aturan Penjumlahan & Perkalian (Filling Slots)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q1] Dari kota A ke B ada 4 jalur, B ke C ada 3 jalur. Seseorang bepergian A ke C melalui B, lalu kembali ke A tanpa menggunakan bus yang sama saat berangkat. Banyak variasi rute perjalanan pulang-pergi adalah ...",
+          "opsi": [
+            "A. 144 rute",
+            "B. 72 rute",
+            "C. 120 rute",
+            "D. 132 rute",
+            "E. 96 rute"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q2] Dari angka {1, 2, 3, 4, 5, 6, 7} akan dibentuk bilangan ribuan bernilai antara 2.000 dan 6.000 tanpa angka berulang. Banyaknya bilangan yang dapat terbentuk adalah ...",
+          "opsi": [
+            "A. 360 bilangan",
+            "B. 180 bilangan",
+            "C. 120 bilangan",
+            "D. 240 bilangan",
+            "E. 480 bilangan"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q3] Sebuah kode brankas terdiri atas 2 huruf vokal kapital berbeda diikuti 3 angka ganjil berbeda. Banyak variasi kode yang dapat dibuat adalah ...",
+          "opsi": [
+            "A. 600 variasi",
+            "B. 2.400 variasi",
+            "C. 1.200 variasi",
+            "D. 1.800 variasi",
+            "E. 1.500 variasi"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q4] Banyaknya bilangan ganjil 3 angka yang bernilai lebih dari 400 dari himpunan angka {2, 3, 4, 5, 6, 7} tanpa angka berulang adalah ...",
+          "opsi": [
+            "A. 40 bilangan",
+            "B. 32 bilangan",
+            "C. 36 bilangan",
+            "D. 48 bilangan",
+            "E. 60 bilangan"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q5] Tentukan nilai kebenaran (BENAR atau SALAH) untuk setiap pernyataan aturan pengisian tempat berikut:\n(1) Dari angka {1, 2, 3, 4, 5} dapat disusun sebanyak 60 bilangan ratusan berlainan tanpa pengulangan.\n(2) Angka 0 dapat menempati posisi ribuan paling depan pada susunan bilangan ribuan 4 angka.\n(3) Banyaknya bilangan ganjil 3 angka berbeda yang dapat disusun dari {1, 2, 3, 4, 6} adalah 24 bilangan.",
+          "opsi": [
+            "Dari angka {1, 2, 3, 4, 5} dapat disusun sebanyak 60 bilangan ratusan berlainan tanpa pengulangan",
+            "Angka 0 dapat menempati posisi ribuan paling depan pada susunan bilangan ribuan 4 angka",
+            "Banyaknya bilangan ganjil 3 angka berbeda yang dapat disusun dari {1, 2, 3, 4, 6} adalah 24 bilangan"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q6] Kecukupan Data: Berapakah banyak bilangan ratusan genap yang dapat dibentuk dari anggota himpunan S?\n(1) S = {1, 2, 3, 4, 5, 6}\n(2) Tidak ada angka berulang dalam bilangan tersebut",
+          "opsi": [
+            "A. Pernyataan (2) SAJA cukup",
+            "B. Pernyataan (1) SAJA atau (2) SAJA cukup",
+            "C. Pernyataan (1) SAJA cukup",
+            "D. Kedua pernyataan TIDAK CUKUP",
+            "E. DUA pernyataan BERSAMA-SAMA cukup"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q7] Tersedia 5 kemeja dan 4 celana panjang berbeda warna. Banyak setelan pakaian kerja yang dapat dipilih adalah ...",
+          "opsi": [
+            "A. 24 setelan",
+            "B. 40 setelan",
+            "C. 20 setelan",
+            "D. 120 setelan",
+            "E. 9 setelan"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P01-Q8] Dari himpunan angka {1, 2, 3, 4, 5, 6, 7} akan disusun bilangan 3 digit berbeda. Manakah pernyataan analisis berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Banyak bilangan kelipatan 5 yang terbentuk adalah 45 bilangan.",
+            "B. Banyak bilangan bernilai kurang dari 300 yang terbentuk adalah 60 bilangan.",
+            "C. Total seluruh bilangan 3 digit berbeda yang dapat dibentuk adalah 210 bilangan.",
+            "D. Banyak bilangan yang bernilai lebih dari 500 adalah 90 bilangan.",
+            "E. Banyak bilangan genap yang terbentuk adalah 90 bilangan."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q9] Banyak bilangan antara 3.000 dan 7.000 dari himpunan angka {1, 2, 3, 4, 5, 6, 7, 8} tanpa perulangan angka adalah ...",
+          "opsi": [
+            "A. 1.200 bilangan",
+            "B. 960 bilangan",
+            "C. 560 bilangan",
+            "D. 840 bilangan",
+            "E. 1.680 bilangan"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q10] Banyak bilangan genap 4 angka tanpa angka berulang yang dapat dibentuk dari himpunan angka {0, 1, 2, 3, 4, 5, 6} adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P02": {
+      "id": "P02",
+      "subject": "Matematika Wajib",
+      "title": "Kaidah Pencacahan 2: Notasi Faktorial & Permutasi Unsur Berbeda",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q1] Nilai dari operasi faktorial $\\frac{10!}{8! \\cdot 2!}$ adalah ...",
+          "opsi": [
+            "A. 55",
+            "B. 35",
+            "C. 45",
+            "D. 60",
+            "E. 90"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q2] Nilai permutasi $P(8, 3)$ adalah ...",
+          "opsi": [
+            "A. 56",
+            "B. 120",
+            "C. 240",
+            "D. 720",
+            "E. 336"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q3] Dari 9 calon pengurus kelas akan dipilih Ketua, Sekretaris, dan Bendahara. Banyak variasi susunan pengurus yang dapat terbentuk adalah ...",
+          "opsi": [
+            "A. 252 susunan",
+            "B. 504 susunan",
+            "C. 120 susunan",
+            "D. 84 susunan",
+            "E. 720 susunan"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q4] Tujuh siswa berdiri berderet dalam satu baris. Jika 2 siswa tertentu harus selalu berdampingan, banyak variasi susunan barisan adalah ...",
+          "opsi": [
+            "A. 720 susunan",
+            "B. 5.040 susunan",
+            "C. 360 susunan",
+            "D. 1.440 susunan",
+            "E. 2.880 susunan"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q5] Tentukan nilai kebenaran (BENAR atau SALAH) untuk sifat-sifat faktorial dan permutasi berikut:\n(1) Nilai permutasi P(n, 1) selalu bernilai n untuk setiap bilangan asli n.\n(2) Nilai dari 0! didefinisikan sama dengan 1.\n(3) Nilai dari P(5, 2) adalah 10.",
+          "opsi": [
+            "Nilai permutasi P(n, 1) selalu bernilai n untuk setiap bilangan asli n",
+            "Nilai dari 0! didefinisikan sama dengan 1",
+            "Nilai dari P(5, 2) adalah 10"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q6] Berapakah nilai $n$ jika diketahui $P(n, 2) = 56$?",
+          "opsi": [
+            "A. n = 10",
+            "B. n = 8",
+            "C. n = 9",
+            "D. n = 6",
+            "E. n = 7"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q7] Banyak kata 4 huruf berbeda yang dapat dibentuk dari huruf-huruf pada kata 'BELAJAR' tanpa perulangan huruf unik adalah ...",
+          "opsi": [
+            "A. 360 kata",
+            "B. 840 kata",
+            "C. 720 kata",
+            "D. 240 kata",
+            "E. 120 kata"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P02-Q8] Diberikan persamaan permutasi P(n, 2) = 56. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Nilai n yang memenuhi persamaan adalah n = 8.",
+            "B. Nilai dari P(n, 1) adalah 8.",
+            "C. Nilai n merupakan bilangan ganjil prima.",
+            "D. Nilai dari P(n, 3) adalah 336.",
+            "E. Nilai dari (n - 3)! adalah 120."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q9] Lima buku matematika berbeda dan 3 buku fisika berbeda disusun berjajar di rak dengan buku sejenis berkelompok. Banyak susunan rak adalah ...",
+          "opsi": [
+            "A. 720 susunan",
+            "B. 4.320 susunan",
+            "C. 2.880 susunan",
+            "D. 120 susunan",
+            "E. 1.440 susunan"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q10] Jika $\\frac{(n+1)!}{(n-1)!} = 90$, maka nilai $n$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P03": {
+      "id": "P03",
+      "subject": "Matematika Wajib",
+      "title": "Kaidah Pencacahan 3: Permutasi Unsur Sama & Permutasi Siklis",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q1] Banyaknya anagram kata dari 'MATEMATIKA' adalah ...",
+          "opsi": [
+            "A. 151.200",
+            "B. 50.400",
+            "C. 302.400",
+            "D. 75.600",
+            "E. 25.200"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q2] Banyak cara 6 orang duduk melingkari meja bundar rapat koordinasi adalah ...",
+          "opsi": [
+            "A. 24",
+            "B. 60",
+            "C. 240",
+            "D. 120",
+            "E. 720"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q3] Banyak kata yang dapat disusun dari huruf pembentuk kata 'SERPONG' adalah ...",
+          "opsi": [
+            "A. 5.040",
+            "B. 2.520",
+            "C. 720",
+            "D. 1.260",
+            "E. 840"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q4] Tujuh orang duduk melingkar. Jika Ketua dan Sekretaris harus selalu berdampingan, banyak variasi posisi duduk adalah ...",
+          "opsi": [
+            "A. 144",
+            "B. 120",
+            "C. 720",
+            "D. 240",
+            "E. 480"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q5] Tentukan nilai kebenaran (BENAR atau SALAH) untuk pernyataan permutasi berikut:\n(1) Banyak cara 5 orang duduk mengelilingi meja bundar adalah 120 cara.\n(2) Rumus permutasi siklis untuk n unsur melingkar adalah P = (n - 1)!.\n(3) Banyak susunan kata berbeda dari huruf-huruf 'MALAM' adalah 30 susunan.",
+          "opsi": [
+            "Banyak cara 5 orang duduk mengelilingi meja bundar adalah 120 cara",
+            "Rumus permutasi siklis untuk n unsur melingkar adalah P = (n - 1)!",
+            "Banyak susunan kata berbeda dari huruf-huruf 'MALAM' adalah 30 susunan"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q6] Berapakah banyak cara menyusun 5 manik-manik berbeda pada gelang?",
+          "opsi": [
+            "A. 48",
+            "B. 12",
+            "C. 6",
+            "D. 120",
+            "E. 24"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q7] Banyak susunan kata dari 'INDONESIA' adalah ...",
+          "opsi": [
+            "A. 30.240",
+            "B. 15.120",
+            "C. 181.440",
+            "D. 45.360",
+            "E. 90.720"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P03-Q8] Pada penyusunan kata dari huruf-huruf 'STATISTIKA', manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Banyak susunan kata berbeda seluruhnya adalah 75.600 susunan.",
+            "B. Total jumlah huruf pada kata tersebut adalah 10 huruf.",
+            "C. Jika semua huruf T harus selalu berdampingan, banyak susunannya adalah 5.040 susunan.",
+            "D. Terdapat 3 huruf T, 2 huruf S, 2 huruf A, dan 2 huruf I.",
+            "E. Banyak susunan jika diawali dan diakhiri huruf S adalah 100 susunan."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q9] Empat pasang suami-istri duduk melingkar dengan tiap pasang berdampingan. Banyak cara duduk adalah ...",
+          "opsi": [
+            "A. 24",
+            "B. 96",
+            "C. 384",
+            "D. 192",
+            "E. 48"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q10] Banyak susunan kata dari huruf 'MALAM' adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P04": {
+      "id": "P04",
+      "subject": "Matematika Wajib",
+      "title": "Kaidah Pencacahan 4: Kombinasi & Pemilihan Delegasi",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q1] Nilai dari $C(10, 3)$ adalah ...",
+          "opsi": [
+            "A. 360",
+            "B. 120",
+            "C. 240",
+            "D. 720",
+            "E. 60"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q2] Dari 12 siswa akan dipilih 4 orang delegasi OSIS. Banyak pilihan delegasi adalah ...",
+          "opsi": [
+            "A. 1.188",
+            "B. 330",
+            "C. 220",
+            "D. 495",
+            "E. 792"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q3] Dalam suatu rapat dihadiri 20 orang. Jika setiap orang saling berjabat tangan sekali, banyak jabat tangan terjadi adalah ...",
+          "opsi": [
+            "A. 380",
+            "B. 190",
+            "C. 200",
+            "D. 180",
+            "E. 210"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q4] Siswa wajib mengerjakan 8 dari 10 soal ujian, tetapi nomor 1 s.d. 4 wajib dikerjakan. Banyak pilihan soal adalah ...",
+          "opsi": [
+            "A. 25",
+            "B. 45",
+            "C. 15",
+            "D. 20",
+            "E. 30"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q5] Tentukan nilai kebenaran (BENAR atau SALAH) untuk sifat kombinasi berikut:\n(1) Nilai C(n, r) selalu sama dengan C(n, n - r).\n(2) Nilai dari C(6, 2) adalah 15.\n(3) Nilai kombinasi C(n, r) selalu lebih besar daripada permutasi P(n, r) untuk r > 1.",
+          "opsi": [
+            "Nilai C(n, r) selalu sama dengan C(n, n - r)",
+            "Nilai dari C(6, 2) adalah 15",
+            "Nilai kombinasi C(n, r) selalu lebih besar daripada permutasi P(n, r) untuk r > 1"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q6] Berapakah nilai $n$ jika $C(n, 2) = 28$?",
+          "opsi": [
+            "A. 7",
+            "B. 6",
+            "C. 10",
+            "D. 8",
+            "E. 9"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q7] Dari 6 putra dan 4 putri dipilih 3 putra dan 2 putri. Banyak cara pembentukan tim adalah ...",
+          "opsi": [
+            "A. 120",
+            "B. 60",
+            "C. 240",
+            "D. 90",
+            "E. 180"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P04-Q8] Dari 6 siswa putra dan 4 siswa putri dipilih delegasi 4 orang. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Banyak cara memilih delegasi 2 putra dan 2 putri adalah 90 cara.",
+            "B. Banyak cara jika tidak boleh ada putri adalah 15 cara.",
+            "C. Banyak cara memilih delegasi tanpa syarat adalah 210 cara.",
+            "D. Banyak cara jika paling sedikit 3 putra adalah 150 cara.",
+            "E. Banyak cara jika semua anggota harus putri adalah 1 cara."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q9] Banyak segitiga dari 8 titik tanpa ada 3 titik yang segaris adalah ...",
+          "opsi": [
+            "A. 112",
+            "B. 70",
+            "C. 28",
+            "D. 84",
+            "E. 56"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q10] Jika $C(n, 2) = 45$, maka nilai $n$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P05": {
+      "id": "P05",
+      "subject": "Matematika Wajib",
+      "title": "Peluang Kejadian Tunggal & Frekuensi Harapan",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q1] Pada pelemparan 2 dadu setimbang, peluang muncul jumlah kedua mata dadu sama dengan 8 adalah ...",
+          "opsi": [
+            "A. 1/6",
+            "B. 1/12",
+            "C. 7/36",
+            "D. 5/36",
+            "E. 1/9"
+          ],
+          "viz": {
+            "t": "dadu",
+            "sum": 8
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q2] Sebuah kantong berisi 5 kelereng merah dan 4 kelereng putih. Peluang terambil 2 kelereng merah sekaligus adalah ...",
+          "opsi": [
+            "A. 5/9",
+            "B. 5/18",
+            "C. 2/9",
+            "D. 10/36",
+            "E. 1/3"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q3] Dua keping uang logam dilempar bersama sebanyak 300 kali. Frekuensi harapan muncul keduanya sisi angka adalah ...",
+          "opsi": [
+            "A. 75 kali",
+            "B. 150 kali",
+            "C. 50 kali",
+            "D. 100 kali",
+            "E. 120 kali"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q4] Dari satu set kartu bridge (52 kartu), peluang terambil kartu As berwarna merah adalah ...",
+          "opsi": [
+            "A. 1/13",
+            "B. 4/52",
+            "C. 1/52",
+            "D. 2/13",
+            "E. 1/26"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q5] Tentukan nilai kebenaran (BENAR atau SALAH) untuk konsep peluang berikut:\n(1) Frekuensi harapan kejadian dirumuskan sebagai F_h(A) = n x P(A).\n(2) Jika peluang kejadian A adalah 0,4 maka peluang komplemen A' adalah 0,8.\n(3) Nilai peluang suatu kejadian A selalu memenuhi batasan 0 <= P(A) <= 1.",
+          "opsi": [
+            "Frekuensi harapan kejadian dirumuskan sebagai F_h(A) = n x P(A)",
+            "Jika peluang kejadian A adalah 0,4 maka peluang komplemen A' adalah 0,8",
+            "Nilai peluang suatu kejadian A selalu memenuhi batasan 0 <= P(A) <= 1"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q6] Peluang sebuah bibit tanaman tumbuh adalah 0,85. Dari 400 bibit yang ditanam, perkiraan bibit yang TIDAK tumbuh adalah ...",
+          "opsi": [
+            "A. 80 bibit",
+            "B. 60 bibit",
+            "C. 70 bibit",
+            "D. 340 bibit",
+            "E. 50 bibit"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q7] Tiga koin dilempar bersama. Peluang muncul paling sedikit 2 gambar adalah ...",
+          "opsi": [
+            "A. 1/4",
+            "B. 7/8",
+            "C. 1/2",
+            "D. 5/8",
+            "E. 3/8"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P05-Q8] Pada pelemparan sebuah dadu bersisi 6 setimbang sebanyak 120 kali, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Frekuensi harapan muncul mata dadu lebih dari 4 adalah 40 kali.",
+            "B. Peluang muncul mata dadu prima adalah 1/2.",
+            "C. Peluang muncul mata dadu lebih dari 4 adalah 1/3.",
+            "D. Frekuensi harapan muncul mata dadu prima adalah 60 kali.",
+            "E. Peluang muncul mata dadu 7 adalah 1/6."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q9] Peluang muncul jumlah dadu 7 pada pelemparan 2 dadu adalah ...",
+          "opsi": [
+            "A. 1/6",
+            "B. 7/36",
+            "C. 5/36",
+            "D. 1/9",
+            "E. 1/12"
+          ],
+          "viz": {
+            "t": "dadu",
+            "sum": 7
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q10] Sebuah dadu dilempar 180 kali. Frekuensi harapan muncul mata dadu prima ({2, 3, 5}) adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P06": {
+      "id": "P06",
+      "subject": "Matematika Wajib",
+      "title": "Asesmen Sumatif 1: Pencacahan & Peluang Tunggal",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q1] Nilai dari $\\frac{P(6, 3)}{C(6, 3)}$ adalah ...",
+          "opsi": [
+            "A. 3",
+            "B. 6",
+            "C. 1",
+            "D. 12",
+            "E. 20"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q2] Dari angka {1, 2, 3, 4, 5, 6} disusun bilangan 4 digit tanpa perulangan. Peluang bilangan tersebut bernilai genap adalah ...",
+          "opsi": [
+            "A. 3/5",
+            "B. 2/3",
+            "C. 2/5",
+            "D. 1/2",
+            "E. 1/3"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q3] Banyaknya segitiga dari 10 titik tanpa 3 titik segaris adalah ...",
+          "opsi": [
+            "A. 120",
+            "B. 240",
+            "C. 720",
+            "D. 60",
+            "E. 45"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q4] Dalam kotak ada 6 bola merah dan 4 bola biru. Diambil 3 bola sekaligus. Peluang terambil 2 merah dan 1 biru adalah ...",
+          "opsi": [
+            "A. 3/8",
+            "B. 1/2",
+            "C. 1/3",
+            "D. 3/10",
+            "E. 2/5"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q5] Tentukan kebenaran evaluasi asesmen pencacahan dan peluang berikut:\n(1) Banyaknya bilangan genap 3 angka dari himpunan {1, 2, 3, 4, 5} tanpa pengulangan adalah 100 bilangan.\n(2) Peluang muncul jumlah mata dadu 7 pada pelemparan 2 dadu adalah 1/6.\n(3) Nilai dari C(8, 3) bernilai 56.",
+          "opsi": [
+            "Banyaknya bilangan genap 3 angka dari himpunan {1, 2, 3, 4, 5} tanpa pengulangan adalah 100 bilangan",
+            "Peluang muncul jumlah mata dadu 7 pada pelemparan 2 dadu adalah 1/6",
+            "Nilai dari C(8, 3) bernilai 56"
+          ],
+          "viz": {
+            "t": "dadu",
+            "sum": 7
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q6] Berapakah peluang terambilnya kartu King merah pada 1 kali pengambilan acak dari 52 kartu bridge?",
+          "opsi": [
+            "A. 1/13",
+            "B. 2/13",
+            "C. 4/52",
+            "D. 1/26",
+            "E. 1/52"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q7] Nilai dari $C(8, 2) + C(8, 3)$ adalah ...",
+          "opsi": [
+            "A. 84",
+            "B. 28",
+            "C. 56",
+            "D. 112",
+            "E. 70"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P06-Q8] Pada kotak berisi 5 bola merah dan 3 bola putih diambil 2 bola sekaligus secara acak. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Peluang terambil keduanya bola merah adalah 10/28 (atau 5/14).",
+            "B. Total cara pengambilan 2 bola dari 8 bola adalah 28 cara.",
+            "C. Peluang terambil keduanya bola putih adalah 3/28.",
+            "D. Peluang paling sedikit 1 bola merah terambil adalah 1/28.",
+            "E. Peluang terambil 1 merah dan 1 putih adalah 15/28."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q9] Dari 5 pria dan 3 wanita dipilih komite 3 orang. Peluang terpilih 2 pria dan 1 wanita adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 3/7",
+            "C. 15/28",
+            "D. 9/28",
+            "E. 5/14"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q10] Nilai dari $C(7, 3)$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P07": {
+      "id": "P07",
+      "subject": "Matematika Wajib",
+      "title": "Peluang Kejadian Saling Lepas & Tidak Saling Lepas",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q1] Pada pelemparan 2 dadu, peluang muncul jumlah mata dadu 5 atau jumlah 10 adalah ...",
+          "opsi": [
+            "A. 2/9",
+            "B. 7/36",
+            "C. 1/4",
+            "D. 5/36",
+            "E. 1/6"
+          ],
+          "viz": {
+            "t": "dadu",
+            "sum": 5
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q2] Dari 52 kartu bridge, diambil 1 kartu. Peluang terambil kartu bernomor prima ({2, 3, 5, 7}) atau kartu berwarna merah adalah ...",
+          "opsi": [
+            "A. 8/13",
+            "B. 9/13",
+            "C. 1/2",
+            "D. 17/26",
+            "E. 19/26"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q3] Sebuah kantong berisi 5 bola merah, 3 bola kuning, dan 2 bola hijau. Peluang terambil bola merah atau hijau adalah ...",
+          "opsi": [
+            "A. 4/5",
+            "B. 7/10",
+            "C. 3/5",
+            "D. 1/2",
+            "E. 8/10"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q4] Dua kejadian A dan B dikatakan saling lepas jika memenuhi syarat ...",
+          "opsi": [
+            "A. $P(A \\cap B) = P(A)P(B)$",
+            "B. $A \\subset B$",
+            "C. $P(A \\cap B) = 0$",
+            "D. $P(A) = P(B)$",
+            "E. $P(A \\cup B) = 1$"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q5] Tentukan kebenaran hukum peluang majemuk berikut:\n(1) Untuk dua kejadian saling lepas, berlaku P(A U B) = P(A) + P(B).\n(2) Untuk dua kejadian tidak saling lepas, berlaku P(A U B) = P(A) + P(B) - P(A n B).\n(3) Jika P(A) = 0,4 dan P(B) = 0,5 saling lepas, maka P(A U B) = 0,2.",
+          "opsi": [
+            "Untuk dua kejadian saling lepas, berlaku P(A U B) = P(A) + P(B)",
+            "Untuk dua kejadian tidak saling lepas, berlaku P(A U B) = P(A) + P(B) - P(A n B)",
+            "Jika P(A) = 0,4 dan P(B) = 0,5 saling lepas, maka P(A U B) = 0,2"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q6] Peluang muncul jumlah dadu ganjil atau kelipatan 4 pada 2 dadu adalah ...",
+          "opsi": [
+            "A. 2/3",
+            "B. 7/12",
+            "C. 1/2",
+            "D. 5/8",
+            "E. 3/4"
+          ],
+          "viz": {
+            "t": "dadu",
+            "rule": "ganjil-atau-k4"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q7] Dari 40 siswa, 25 suka Matematika, 20 suka Fisika, dan 10 suka keduanya. Peluang seorang siswa suka Matematika atau Fisika adalah ...",
+          "opsi": [
+            "A. 5/8",
+            "B. 3/4",
+            "C. 4/5",
+            "D. 7/8",
+            "E. 9/10"
+          ],
+          "viz": {
+            "t": "venn",
+            "n": 40,
+            "a": 25,
+            "b": 20,
+            "ab": 10,
+            "la": "Matematika",
+            "lb": "Fisika"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P07-Q8] Dari satu set kartu bridge standar (52 kartu) diambil 1 kartu acak. Manakah pernyataan peluang berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Peluang terambil kartu As Hati adalah 1/52.",
+            "B. Peluang terambil kartu As adalah 4/52 (atau 1/13).",
+            "C. Peluang terambil kartu As atau kartu Hati adalah 16/52 (atau 4/13).",
+            "D. Peluang terambil kartu Hati (Heart) adalah 13/52 (atau 1/4).",
+            "E. Kejadian terambil kartu As dan kartu Hati adalah kejadian saling lepas."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q9] Peluang seorang siswa lulus Matematika 0,7 dan Fisika 0,6 serta keduanya 0,5. Peluang lulus salah satu atau keduanya adalah ...",
+          "opsi": [
+            "A. 0,9",
+            "B. 0,75",
+            "C. 0,65",
+            "D. 0,85",
+            "E. 0,8"
+          ],
+          "viz": {
+            "t": "venn2"
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q10] Sebuah kartu diambil dari 52 kartu. Peluang terambil kartu As atau King adalah ... (dalam bentuk pecahan per 13)",
+          "opsi": []
+        }
+      ]
+    },
+    "P08": {
+      "id": "P08",
+      "subject": "Matematika Wajib",
+      "title": "Peluang Kejadian Saling Bebas & Peluang Bersyarat",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q1] Peluang siswa A lulus ujian adalah 0,8 dan siswa B lulus adalah 0,7. Peluang kedua siswa A dan B lulus bersamaan adalah ...",
+          "opsi": [
+            "A. 0,94",
+            "B. 0,56",
+            "C. 0,14",
+            "D. 0,75",
+            "E. 0,26"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q2] Dua bola diambil satu per satu TANPA pengembalian dari kotak berisi 5 merah dan 3 putih. Peluang terambil keduanya merah adalah ...",
+          "opsi": [
+            "A. 5/14",
+            "B. 25/64",
+            "C. 15/56",
+            "D. 3/8",
+            "E. 5/28"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q3] Rumus peluang bersyarat $P(A|B)$ (peluang kejadian A terjadi setelah B terjadi) adalah ...",
+          "opsi": [
+            "A. $P(A) \\cdot P(B)$",
+            "B. $\\frac{P(A \\cap B)}{P(B)}$",
+            "C. $P(A) + P(B)$",
+            "D. $\\frac{P(A)}{P(B)}$",
+            "E. $\\frac{P(A \\cap B)}{P(A)}$"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q4] Jika $P(A) = 0{,}4; P(B) = 0{,}5;$ dan $P(A \\cap B) = 0{,}2$, maka nilai $P(A|B)$ adalah ...",
+          "opsi": [
+            "A. 0,4",
+            "B. 0,2",
+            "C. 0,5",
+            "D. 0,8",
+            "E. 0,1"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q5] Tentukan kebenaran konsep independensi stokastik dan peluang bersyarat:\n(1) Rumus peluang bersyarat dirumuskan sebagai P(A|B) = P(A n B) / P(B).\n(2) Untuk dua kejadian saling bebas, berlaku P(A n B) = P(A) x P(B).\n(3) Jika dua kejadian A dan B saling bebas, maka nilai P(A|B) selalu sama dengan 0.",
+          "opsi": [
+            "Rumus peluang bersyarat dirumuskan sebagai P(A|B) = P(A n B) / P(B)",
+            "Untuk dua kejadian saling bebas, berlaku P(A n B) = P(A) x P(B)",
+            "Jika dua kejadian A dan B saling bebas, maka nilai P(A|B) selalu sama dengan 0"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q6] Peluang penembak A mengenai target adalah 0,6 dan penembak B adalah 0,8. Peluang tepat satu penembak mengenai target adalah ...",
+          "opsi": [
+            "A. 0,48",
+            "B. 0,38",
+            "C. 0,28",
+            "D. 0,52",
+            "E. 0,44"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q7] Dua dadu dilempar bersama. Peluang mata dadu pertama ganjil dan mata dadu kedua prima adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 1/3",
+            "C. 1/8",
+            "D. 1/4",
+            "E. 1/6"
+          ],
+          "viz": {
+            "t": "dadu",
+            "rule": "ganjil-prima"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P08-Q8] Peluang pemanah A tepat sasaran adalah 0,7 dan pemanah B tepat sasaran adalah 0,8 (saling bebas). Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Peluang hanya pemanah A yang tepat sasaran adalah 0,14.",
+            "B. Peluang kedua pemanah gagal tepat sasaran adalah 0,06.",
+            "C. Peluang hanya pemanah B yang tepat sasaran adalah 0,24.",
+            "D. Peluang kedua pemanah tepat sasaran adalah 0,56.",
+            "E. Peluang paling sedikit satu pemanah tepat sasaran adalah 0,94."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q9] Peluang mesin A rusak 0,1 dan mesin B rusak 0,2. Peluang kedua mesin bekerja normal adalah ...",
+          "opsi": [
+            "A. 0,80",
+            "B. 0,70",
+            "C. 0,68",
+            "D. 0,90",
+            "E. 0,72"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q10] Jika $P(A \\cap B) = 0{,}12$ dan $P(A) = 0{,}3$, maka nilai $P(B|A)$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P09": {
+      "id": "P09",
+      "subject": "Matematika Wajib",
+      "title": "Dimensi Tiga 1: Kedudukan Titik, Garis, dan Bidang dalam Ruang 3D",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q1] Pada kubus ABCD.EFGH, kedudukan garis AB dan garis CG adalah ...",
+          "opsi": [
+            "A. Bersilangan tegak lurus",
+            "B. Berpotongan",
+            "C. Berimpit",
+            "D. Bersilangan membentuk sudut 45 derajat",
+            "E. Sejajar"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AB",
+              "CG"
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q2] Pada kubus ABCD.EFGH, garis yang sejajar dengan garis diagonal sisi AH adalah ...",
+          "opsi": [
+            "A. Garis CF",
+            "B. Garis AF",
+            "C. Garis EG",
+            "D. Garis BG",
+            "E. Garis DE"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AH"
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q3] Banyaknya bidang diagonal pada kubus ABCD.EFGH adalah ...",
+          "opsi": [
+            "A. 12 bidang",
+            "B. 4 bidang",
+            "C. 8 bidang",
+            "D. 2 bidang",
+            "E. 6 bidang"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q4] Garis yang tegak lurus dengan bidang alas ABCD pada kubus ABCD.EFGH adalah ...",
+          "opsi": [
+            "A. AG, BH, CE, DF",
+            "B. AF, BE",
+            "C. EF, GH, EH, FG",
+            "D. AE, BF, CG, DH",
+            "E. AC, BD"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q5] Pada kubus ABCD.EFGH, tentukan kebenaran kedudukan geometri berikut:\n(1) Garis AC terletak di luar bidang alas ABCD.\n(2) Garis AB bersilangan tegak lurus dengan garis CG.\n(3) Garis AB sejajar dengan garis CD.",
+          "opsi": [
+            "Garis AC terletak di luar bidang alas ABCD",
+            "Garis AB bersilangan tegak lurus dengan garis CG",
+            "Garis AB sejajar dengan garis CD"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "CG",
+              "CD"
+            ]
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q6] Berapakah banyak pasangan rusuk kubus yang saling bersilangan tegak lurus?",
+          "opsi": [
+            "A. 24 pasang",
+            "B. 48 pasang",
+            "C. 36 pasang",
+            "D. 16 pasang",
+            "E. 12 pasang"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q7] Kedudukan bidang diagonal ACGE terhadap bidang diagonal BDHF pada kubus adalah ...",
+          "opsi": [
+            "A. Sejajar",
+            "B. Saling tegak lurus",
+            "C. Bersilangan",
+            "D. Membentuk sudut 45 derajat",
+            "E. Berimpit"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "bid": [
+              "ACGE",
+              "BDHF"
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P09-Q8] Pada kubus ABCD.EFGH, manakah pernyataan relasi garis dan bidang berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Garis EA tegak lurus terhadap bidang alas ABCD.",
+            "B. Bidang ABFE sejajar dengan bidang DCGH.",
+            "C. Garis AG berpotongan dengan garis EC di titik pusat kubus.",
+            "D. Bidang BDG sejajar dengan bidang alas ABCD.",
+            "E. Garis AH sejajar dengan garis BG."
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q9] Garis diagonal ruang AG memotong bidang CFH di titik yang membagi AG dengan rasio ...",
+          "opsi": [
+            "A. $3 : 1$",
+            "B. $3 : 2$",
+            "C. $2 : 1$",
+            "D. $1 : 2$",
+            "E. $1 : 1$"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q10] Banyaknya rusuk pada prisma segi-6 beraturan adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "ruang",
+            "shape": "prisma"
+          }
+        }
+      ]
+    },
+    "P10": {
+      "id": "P10",
+      "subject": "Matematika Wajib",
+      "title": "Dimensi Tiga 2: Jarak Titik ke Titik (Diagonal Ruang & Pythagoras 3D)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q1] Pada kubus ABCD.EFGH dengan panjang rusuk 8 cm, panjang diagonal ruang AG adalah ...",
+          "opsi": [
+            "A. 16 cm",
+            "B. 8√2 cm",
+            "C. 8√3 cm",
+            "D. 12 cm",
+            "E. 8√6 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q2] Kubus ABCD.EFGH berusuk 6 cm. Titik P terletak di tengah-tengah rusuk CG. Jarak dari titik A ke titik P adalah ...",
+          "opsi": [
+            "A. 10 cm",
+            "B. 7 cm",
+            "C. 6√2 cm",
+            "D. 9 cm",
+            "E. 8 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "CG"
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q3] Balok ABCD.EFGH berukuran $AB = 8$ cm, $BC = 6$ cm, dan $CG = 24$ cm. Panjang diagonal ruang AG adalah ...",
+          "opsi": [
+            "A. 25 cm",
+            "B. 24√2 cm",
+            "C. 26 cm",
+            "D. 30 cm",
+            "E. 28 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "balok",
+            "seg": [
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q4] Kubus ABCD.EFGH berusuk 10 cm. Titik M di tengah AD dan titik N di tengah GH. Jarak titik M ke titik N adalah ...",
+          "opsi": [
+            "A. 10√2 cm",
+            "B. 5√5 cm",
+            "C. 15 cm",
+            "D. 10√3 cm",
+            "E. 5√6 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AD"
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q5] Pada kubus ABCD.EFGH dengan panjang rusuk 8 cm, tentukan kebenaran jarak titik berikut:\n(1) Jarak titik A ke titik C adalah 8 akar(2) cm.\n(2) Jarak titik A ke titik G adalah 8 akar(3) cm.\n(3) Jarak titik tengah AB ke titik tengah GH adalah 8 akar(3) cm.",
+          "opsi": [
+            "Jarak titik A ke titik C adalah 8 akar(2) cm",
+            "Jarak titik A ke titik G adalah 8 akar(3) cm",
+            "Jarak titik tengah AB ke titik tengah GH adalah 8 akar(3) cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AB",
+              "GH"
+            ]
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q6] Berapakah jarak titik A ke titik C pada kubus rusuk 12 cm?",
+          "opsi": [
+            "A. 12√3 cm",
+            "B. 12√2 cm",
+            "C. 18 cm",
+            "D. 24 cm",
+            "E. 6√6 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q7] Limas T.ABCD alas persegi rusuk 6 cm, tinggi $TO = 4$ cm. Jarak puncak T ke titik sudut A adalah ...",
+          "opsi": [
+            "A. 4√2 cm",
+            "B. 6 cm",
+            "C. 2√17 cm",
+            "D. 5 cm",
+            "E. √34 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "limas"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P10-Q8] Pada kubus ABCD.EFGH dengan panjang rusuk 6 cm, titik P adalah titik tengah rusuk CG. Manakah pernyataan jarak titik berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Jarak titik A ke titik P adalah 9 cm.",
+            "B. Jarak titik B ke titik P adalah 3 akar(5) cm.",
+            "C. Jarak titik E ke titik P adalah 3 akar(5) cm.",
+            "D. Jarak titik D ke titik P adalah 3 akar(5) cm.",
+            "E. Panjang ruas garis CP adalah 3 cm."
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "CG"
+            ]
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q9] Pada kubus berusuk $a$, jarak titik tengah EF ke titik tengah BC adalah ...",
+          "opsi": [
+            "A. 1/2 a√5",
+            "B. 1/2 a√3",
+            "C. a√3",
+            "D. a√2",
+            "E. 1/2 a√6"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "EF",
+              "BC"
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q10] Panjang diagonal ruang balok berukuran 3 cm x 4 cm x 12 cm adalah ... (dalam satuan cm)",
+          "opsi": [],
+          "viz": {
+            "t": "ruang",
+            "shape": "balok"
+          }
+        }
+      ]
+    },
+    "P13": {
+      "id": "P13",
+      "subject": "Matematika Wajib",
+      "title": "Dimensi Tiga 5: Sudut Garis-Bidang dan Sudut Antara Dua Bidang",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q1] Pada kubus ABCD.EFGH, nilai tangen sudut antara garis diagonal ruang AG dan bidang alas ABCD adalah ...",
+          "opsi": [
+            "A. √2",
+            "B. 1/2 √2",
+            "C. √3",
+            "D. 1/2 √6",
+            "E. 1/3 √3"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q2] Pada kubus ABCD.EFGH, nilai cosinus sudut antara garis diagonal sisi AH dan garis diagonal sisi AC adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 0",
+            "C. 1/2 √3",
+            "D. 1/2 √2",
+            "E. 1/3 √3"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AH",
+              "AC"
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q3] Besar sudut antara bidang frontal ABFE dan bidang dorsal CDHG pada kubus ABCD.EFGH adalah ...",
+          "opsi": [
+            "A. 90 derajat (Tegak lurus)",
+            "B. 60 derajat",
+            "C. 180 derajat",
+            "D. 45 derajat",
+            "E. 0 derajat (Sejajar)"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q4] Nilai sinus sudut antara bidang AFH dan bidang alas ABCD pada kubus ABCD.EFGH adalah ...",
+          "opsi": [
+            "A. 1/3 √6",
+            "B. 1/2 √3",
+            "C. 1/2 √2",
+            "D. 2/3 √2",
+            "E. 1/3 √3"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q5] Pada kubus ABCD.EFGH, tentukan kebenaran sudut garis berikut:\n(1) Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah 60 derajat.\n(2) Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat.\n(3) Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat.",
+          "opsi": [
+            "Besar sudut antara diagonal sisi AH dan diagonal sisi CF adalah 60 derajat",
+            "Besar sudut antara diagonal ruang AG dan rusuk tegak AE adalah 90 derajat",
+            "Besar sudut antara rusuk AB dan rusuk BC adalah 90 derajat"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AH",
+              "CF"
+            ]
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P13-Q6] Berapakah besar sudut antara garis diagonal ruang dan bidang alas kubus?\nPernyataan (1): Kubus memiliki volume 1.000 cm^3.\nPernyataan (2): Panjang diagonal sisi alas adalah 10√2 cm.",
+          "opsi": [
+            "A. DUA pernyataan BERSAMA-SAMA cukup",
+            "B. Pernyataan (1) SAJA cukup",
+            "C. Pernyataan (2) SAJA cukup",
+            "D. Pernyataan (1) SAJA cukup dan (2) SAJA cukup",
+            "E. Pernyataan (1) dan (2) tidak cukup"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q7] Pada limas T.ABCD dengan alas persegi berusuk 6 cm dan tinggi bidang tegak TP = 5 cm (P di tengah AB), nilai kosinus sudut antara bidang TAB dan bidang TCD adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 3/5",
+            "C. 24/25",
+            "D. 4/5",
+            "E. 7/25"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "limas"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P13-Q8] Pada kubus ABCD.EFGH, misalkan alpha adalah sudut antara garis AG dan bidang alas ABCD. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Garis AG tegak lurus terhadap bidang ACGE.",
+            "B. Nilai cos(alpha) adalah akar(6)/3.",
+            "C. Nilai tan(alpha) adalah 1/2 akar(2).",
+            "D. Besar sudut antara diagonal sisi AF dan CH adalah 60 derajat.",
+            "E. Nilai sin(alpha) adalah akar(3)/3."
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q9] Nilai kosinus sudut antara garis diagonal ruang EC dan diagonal ruang AG pada kubus adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. 1/3",
+            "C. 1/2",
+            "D. 2/3",
+            "E. 1/√3"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "EC",
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q10] Besar sudut (dalam derajat) yang dibentuk antara bidang alas ABCD dan bidang diagonal ACGE pada kubus adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "bid": [
+              "ACGE"
+            ]
+          }
+        }
+      ]
+    },
+    "P14": {
+      "id": "P14",
+      "subject": "Matematika Wajib",
+      "title": "Asesmen Sumatif Terpadu Dimensi Tiga & Bedah Prediksi ASTS CBT",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q1] Kubus ABCD.EFGH dengan rusuk 6 cm. Titik P adalah perpotongan diagonal bidang EFGH. Jarak titik P ke garis diagonal sisi BD adalah ...",
+          "opsi": [
+            "A. 3√2 cm",
+            "B. 3√6 cm",
+            "C. 3√3 cm",
+            "D. 6 cm",
+            "E. 6√2 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "BD"
+            ],
+            "bid": [
+              "EFGH"
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q2] Pada limas segiempat beraturan T.ABCD, rusuk alas 8 cm dan rusuk tegak 12 cm. Jarak titik puncak T ke bidang alas ABCD adalah ...",
+          "opsi": [
+            "A. 8√2 cm",
+            "B. 8 cm",
+            "C. 6√3 cm",
+            "D. 4√7 cm",
+            "E. 4√5 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "limas"
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q3] Balok ABCD.EFGH berukuran $10 \\times 8 \\times 6$ cm. Kuadrat panjang diagonal ruang AG adalah ...",
+          "opsi": [
+            "A. 200",
+            "B. 100",
+            "C. 400",
+            "D. 256",
+            "E. 144"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "balok",
+            "seg": [
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q4] Pada kubus berusuk 12 cm, jarak titik tengah rusuk AB ke bidang diagonal CDHG adalah ...",
+          "opsi": [
+            "A. 12√2 cm",
+            "B. 6√2 cm",
+            "C. 12 cm",
+            "D. 6√3 cm",
+            "E. 6 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AB"
+            ],
+            "bid": [
+              "CDHG"
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q5] Pada kubus ABCD.EFGH, tentukan kebenaran sudut dihedral antar bidang:\n(1) Nilai tangen sudut antara bidang BDG dan bidang ABCD adalah 1/2.\n(2) Besar sudut antara bidang ABCD dan bidang ABFE adalah 90 derajat.\n(3) Bidang ABCD dan bidang EFGH saling sejajar (sudut 0 derajat).",
+          "opsi": [
+            "Nilai tangen sudut antara bidang BDG dan bidang ABCD adalah 1/2",
+            "Besar sudut antara bidang ABCD dan bidang ABFE adalah 90 derajat",
+            "Bidang ABCD dan bidang EFGH saling sejajar (sudut 0 derajat)"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "bid": [
+              "ABCD",
+              "ABFE"
+            ]
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P14-Q6] Berapakah volume prisma tegak segitiga ABC.DEF?\nPernyataan (1): Luas alas segitiga ABC adalah 24 cm^2.\nPernyataan (2): Tinggi prisma AD adalah 15 cm.",
+          "opsi": [
+            "A. DUA pernyataan BERSAMA-SAMA cukup",
+            "B. Pernyataan (1) dan (2) tidak cukup",
+            "C. Pernyataan (2) SAJA cukup",
+            "D. Pernyataan (1) SAJA cukup",
+            "E. Pernyataan (1) SAJA cukup dan (2) SAJA cukup"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "prisma",
+            "seg": [
+              "AD"
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q7] Sebuah limas T.ABCD memiliki volume 128 cm^3. Jika tinggi limas 6 cm, maka panjang sisi alas persegi adalah ...",
+          "opsi": [
+            "A. 6 cm",
+            "B. 8 cm",
+            "C. 10 cm",
+            "D. 12 cm",
+            "E. 4 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "limas"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P14-Q8] Pada kubus ABCD.EFGH, manakah pernyataan sudut antar bidang berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Bidang ACGE dan bidang BDHF saling tegak lurus.",
+            "B. Nilai tan sudut antara bidang AFH dan alas ABCD adalah akar(2).",
+            "C. Nilai cos sudut antara bidang AFH dan alas ABCD adalah akar(3)/3.",
+            "D. Nilai sin sudut antara bidang AFH dan alas ABCD adalah akar(6)/3.",
+            "E. Bidang AFH dan bidang BDG saling sejajar."
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q9] Jarak titik sudut A ke bidang diagonal BDHF pada kubus ABCD.EFGH berusuk 8 cm adalah ...",
+          "opsi": [
+            "A. 8√2 cm",
+            "B. 4√3 cm",
+            "C. 4 cm",
+            "D. 2√6 cm",
+            "E. 4√2 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "bid": [
+              "BDHF"
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q10] Luas seluruh permukaan kubus yang memiliki panjang diagonal ruang $4\\sqrt{3}$ cm adalah ... (dalam cm^2)",
+          "opsi": [],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        }
+      ]
+    },
+    "P11": {
+      "id": "P11",
+      "subject": "Matematika Wajib",
+      "title": "Dimensi Tiga 3: Jarak Titik ke Garis (Kesamaan Luas Segitiga)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q1] Pada kubus ABCD.EFGH dengan panjang rusuk 12 cm, jarak titik C ke garis diagonal ruang AG adalah ...",
+          "opsi": [
+            "A. 6√3 cm",
+            "B. 8√2 cm",
+            "C. 6√2 cm",
+            "D. 4√6 cm",
+            "E. 4√3 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AG"
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q2] Pada kubus ABCD.EFGH berusuk 6 cm, jarak titik H ke garis diagonal sisi AC adalah ...",
+          "opsi": [
+            "A. 6 cm",
+            "B. 3√6 cm",
+            "C. 3√2 cm",
+            "D. 3√3 cm",
+            "E. 6√2 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AC"
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q3] Diketahui limas beraturan T.ABCD dengan rusuk alas 8 cm dan rusuk tegak 8 cm. Jarak titik T ke rusuk alas AB adalah ...",
+          "opsi": [
+            "A. 4√3 cm",
+            "B. 6 cm",
+            "C. 8 cm",
+            "D. 4√2 cm",
+            "E. 4√5 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "limas",
+            "seg": [
+              "AB"
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q4] Kubus ABCD.EFGH berusuk 10 cm. Jarak titik F ke garis diagonal ruang BH adalah ...",
+          "opsi": [
+            "A. 5√6 cm",
+            "B. 5√3 cm",
+            "C. 10/3 √6 cm",
+            "D. 5√2 cm",
+            "E. 10/3 √3 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "BH"
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q5] Pada kubus ABCD.EFGH berusuk a, tentukan nilai kebenaran jarak titik ke garis:\n(1) Jarak titik A ke garis BD adalah 1/2 a akar(2).\n(2) Jarak titik E ke garis BD adalah 1/2 a akar(6).\n(3) Jarak titik A ke garis HG adalah a akar(3).",
+          "opsi": [
+            "Jarak titik A ke garis BD adalah 1/2 a akar(2)",
+            "Jarak titik E ke garis BD adalah 1/2 a akar(6)",
+            "Jarak titik A ke garis HG adalah a akar(3)"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "BD",
+              "HG"
+            ]
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P11-Q6] Berapakah jarak dari titik P ke garis g?\nPernyataan (1): Garis g memiliki panjang 10 cm.\nPernyataan (2): Luas segitiga yang dibentuk oleh titik P dan garis g adalah 40 cm^2.",
+          "opsi": [
+            "A. Pernyataan (1) SAJA cukup dan (2) SAJA cukup",
+            "B. Pernyataan (1) SAJA cukup",
+            "C. Pernyataan (1) dan (2) tidak cukup",
+            "D. Pernyataan (2) SAJA cukup",
+            "E. DUA pernyataan BERSAMA-SAMA cukup"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q7] Kubus ABCD.EFGH berusuk 4 cm. Titik M adalah titik tengah rusuk AB. Jarak titik M ke garis diagonal sisi EG adalah ...",
+          "opsi": [
+            "A. 3√2 cm",
+            "B. √34 cm",
+            "C. 4√2 cm",
+            "D. 2√6 cm",
+            "E. 5 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AB",
+              "EG"
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P11-Q8] Pada kubus ABCD.EFGH dengan rusuk 6 cm, manakah pernyataan jarak titik ke garis berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Jarak titik A ke garis BD adalah 3 akar(2) cm.",
+            "B. Jarak titik E ke garis BD adalah 3 akar(6) cm.",
+            "C. Jarak titik F ke garis AC adalah 3 akar(6) cm.",
+            "D. Jarak titik B ke garis EG adalah 6 akar(2) cm.",
+            "E. Jarak titik C ke garis AG adalah 2 akar(6) cm."
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q9] Balok ABCD.EFGH berukuran $6 \\times 8 \\times 10$ cm. Jarak titik D ke garis diagonal bidang AC adalah ...",
+          "opsi": [
+            "A. 6,0 cm",
+            "B. 4,2 cm",
+            "C. 5,4 cm",
+            "D. 5,0 cm",
+            "E. 4,8 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "balok",
+            "seg": [
+              "AC"
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q10] Pada kubus ABCD.EFGH dengan rusuk 6 cm, nilai dari kuadrat jarak titik B ke garis diagonal ruang AG adalah ... (dalam satuan cm^2)",
+          "opsi": [],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus",
+            "seg": [
+              "AG"
+            ]
+          }
+        }
+      ]
+    },
+    "P12": {
+      "id": "P12",
+      "subject": "Matematika Wajib",
+      "title": "Dimensi Tiga 4: Jarak Titik ke Bidang (Teorema Proyeksi 1/3 & 2/3)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q1] Pada kubus ABCD.EFGH dengan rusuk 12 cm, jarak titik E ke bidang diagonal AFH adalah ...",
+          "opsi": [
+            "A. 6√2 cm",
+            "B. 4√3 cm",
+            "C. 8√3 cm",
+            "D. 4√6 cm",
+            "E. 6√3 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q2] Pada kubus ABCD.EFGH dengan rusuk 12 cm, jarak titik C ke bidang diagonal AFH adalah ...",
+          "opsi": [
+            "A. 4√6 cm",
+            "B. 8√2 cm",
+            "C. 8√3 cm",
+            "D. 4√3 cm",
+            "E. 6√3 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q3] Pada kubus ABCD.EFGH dengan panjang rusuk 9 cm, jarak titik E ke bidang BDG adalah ...",
+          "opsi": [
+            "A. 3√6 cm",
+            "B. 6√2 cm",
+            "C. 9√3 cm",
+            "D. 6√3 cm",
+            "E. 3√3 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q4] Jarak antara dua bidang sejajar AFH dan BDG pada kubus ABCD.EFGH berusuk 18 cm adalah ...",
+          "opsi": [
+            "A. 12√3 cm",
+            "B. 18 cm",
+            "C. 6√3 cm",
+            "D. 9√3 cm",
+            "E. 6√6 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q5] Pada kubus ABCD.EFGH berusuk a, tentukan kebenaran jarak titik ke bidang:\n(1) Jarak titik C ke bidang diagonal BDG adalah 1/3 a akar(3).\n(2) Jarak titik E ke bidang alas ABCD adalah a.\n(3) Jarak titik E ke bidang diagonal BDG adalah 1/2 a akar(3).",
+          "opsi": [
+            "Jarak titik C ke bidang diagonal BDG adalah 1/3 a akar(3)",
+            "Jarak titik E ke bidang alas ABCD adalah a",
+            "Jarak titik E ke bidang diagonal BDG adalah 1/2 a akar(3)"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P12-Q6] Berapakah jarak dari titik puncak T ke bidang alas ABCD pada limas beraturan T.ABCD?\nPernyataan (1): Rusuk tegak $TA = 10$ cm.\nPernyataan (2): Panjang diagonal alas $AC = 12$ cm.",
+          "opsi": [
+            "A. Pernyataan (1) SAJA cukup",
+            "B. DUA pernyataan BERSAMA-SAMA cukup",
+            "C. Pernyataan (1) dan (2) tidak cukup",
+            "D. Pernyataan (2) SAJA cukup",
+            "E. Pernyataan (1) SAJA cukup dan (2) SAJA cukup"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "limas"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q7] Pada limas T.ABCD dengan alas persegi berusuk 6 cm dan tinggi $TO = 4$ cm, jarak titik O ke bidang TBC adalah ...",
+          "opsi": [
+            "A. 2,8 cm",
+            "B. 2,0 cm",
+            "C. 3,6 cm",
+            "D. 2,4 cm",
+            "E. 3,2 cm"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "limas"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P12-Q8] Pada kubus ABCD.EFGH berusuk 12 cm, manakah pernyataan jarak berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Jarak antara bidang AFH dan bidang BDG adalah 4 akar(3) cm.",
+            "B. Jarak titik C ke bidang BDHF adalah 6 akar(2) cm.",
+            "C. Jarak titik E ke bidang BDG adalah 8 akar(3) cm.",
+            "D. Jarak titik C ke bidang BDG adalah 4 akar(3) cm.",
+            "E. Jarak titik C ke bidang ABFE adalah 12 cm."
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q9] Kubus ABCD.EFGH berusuk $a$. Jarak titik pusat kubus ke setiap bidang sisinya adalah ...",
+          "opsi": [
+            "A. 1/2 a",
+            "B. a",
+            "C. 1/2 a√2",
+            "D. 1/4 a",
+            "E. 1/2 a√3"
+          ],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q10] Pada kubus ABCD.EFGH dengan panjang rusuk 15 cm, nilai kuadrat dari jarak titik E ke bidang BDG adalah ... (dalam satuan cm^2)",
+          "opsi": [],
+          "viz": {
+            "t": "ruang",
+            "shape": "kubus"
+          }
+        }
+      ]
+    },
+    "P15": {
+      "id": "P15",
+      "subject": "Matematika Wajib",
+      "title": "Statistika 1: Penyajian Data Berkelompok (Histogram & Ogive)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q1] Tepi bawah ($Tb$) dan tepi atas ($Ta$) untuk kelas interval $45 - 54$ pada data pengukuran berat badan adalah ...",
+          "opsi": [
+            "A. $Tb = 44{,}5$ dan $Ta = 54{,}5$",
+            "B. $Tb = 44$ dan $Ta = 55$",
+            "C. $Tb = 45$ dan $Ta = 54$",
+            "D. $Tb = 40$ dan $Ta = 50$",
+            "E. $Tb = 45{,}5$ dan $Ta = 53{,}5$"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Tepi bawah ($Tb$) dan tepi atas ($Ta$) untuk kelas interval $45 - 54$ pada data pengukuran berat badan adalah ..."
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q2] Panjang kelas (interval $c$) dari kelas $60 - 69$ adalah ...",
+          "opsi": [
+            "A. 8",
+            "B. 10",
+            "C. 9",
+            "D. 5",
+            "E. 11"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Panjang kelas (interval $c$) dari kelas $60 - 69$ adalah ..."
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q3] Titik tengah ($x_i$) dari kelas interval $70 - 78$ adalah ...",
+          "opsi": [
+            "A. 73,5",
+            "B. 73",
+            "C. 74",
+            "D. 75",
+            "E. 74,5"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Titik tengah ($x_i$) dari kelas interval $70 - 78$ adalah ..."
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q4] Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14]\nFrekuensi kumulatif kurang dari ($F_k$) tepi atas kelas kedua adalah ...",
+          "opsi": [
+            "A. 16",
+            "B. 10",
+            "C. 6",
+            "D. 30",
+            "E. 20"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 6], [50-59: 10], [60-69: 14]\nFrekuensi kumulatif kurang dari ($F_k$) tepi atas kelas kedua adalah ..."
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q5] Tentukan kebenaran tabel distribusi frekuensi data berkelompok:\n(1) Titik tengah kelas interval 50 - 59 adalah 55.\n(2) Panjang kelas interval (p) sama dengan tepi atas dikurangi tepi bawah.\n(3) Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5.",
+          "opsi": [
+            "Titik tengah kelas interval 50 - 59 adalah 55",
+            "Panjang kelas interval (p) sama dengan tepi atas dikurangi tepi bawah",
+            "Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Tentukan kebenaran tabel distribusi frekuensi data berkelompok:\n(1) Titik tengah kelas interval 50 - 59 adalah 55.\n(2) Panjang kelas interval (p) sama dengan tepi atas dikurangi tepi bawah.\n(3) Tepi bawah kelas interval diperoleh dari batas bawah dikurangi 0,5."
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q6] Berapakah banyak kelas ideal menurut aturan Sturgess untuk data dengan ukuran sampel $n = 100$ siswa? (Gunakan $\\log 100 = 2$)",
+          "opsi": [
+            "A. 10 kelas",
+            "B. 8 kelas",
+            "C. 9 kelas",
+            "D. 6 kelas",
+            "E. 7 kelas"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Berapakah banyak kelas ideal menurut aturan Sturgess untuk data dengan ukuran sampel $n = 100$ siswa? (Gunakan $\\log 100 = 2$)"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q7] Pada ogive negatif, grafik kurva menunjukkan kecenderungan ...",
+          "opsi": [
+            "A. Berbentuk parabola simetris",
+            "B. Konstan horizontal",
+            "C. Selalu monoton turun",
+            "D. Naik kemudian turun",
+            "E. Selalu monoton naik"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Pada ogive negatif, grafik kurva menunjukkan kecenderungan ..."
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P15-Q8] Pada data berkelompok dengan kelas interval 60 - 68, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Titik tengah kelas interval adalah 64.",
+            "B. Panjang kelas interval adalah 9.",
+            "C. Tepi atas kelas interval adalah 68,5.",
+            "D. Batas bawah kelas adalah 60 dan batas atas kelas adalah 68.",
+            "E. Tepi bawah kelas interval adalah 59,5."
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Pada data berkelompok dengan kelas interval 60 - 68, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)"
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q9] Jika jangkauan data $R = 40$ dan banyak kelas $k = 5$, maka panjang kelas interval $c$ adalah ...",
+          "opsi": [
+            "A. 10",
+            "B. 7",
+            "C. 9",
+            "D. 5",
+            "E. 8"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Jika jangkauan data $R = 40$ dan banyak kelas $k = 5$, maka panjang kelas interval $c$ adalah ..."
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q10] Nilai titik tengah kelas interval $81 - 99$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "histogram",
+            "src": "Nilai titik tengah kelas interval $81 - 99$ adalah ..."
+          }
+        }
+      ]
+    },
+    "P16": {
+      "id": "P16",
+      "subject": "Matematika Wajib",
+      "title": "Statistika 2: Rata-rata Hitung (Mean) Data Berkelompok",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q1] Diberikan tabel distribusi frekuensi data nilai siswa berikut:\n[50-59: 5], [60-69: 10], [70-79: 15], [80-89: 10]\nTotal frekuensi $n = 40$. Nilai rata-rata hitung (mean) data tersebut adalah ...",
+          "opsi": [
+            "A. 69,75",
+            "B. 70,50",
+            "C. 71,25",
+            "D. 73,50",
+            "E. 72,00"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Diberikan tabel distribusi frekuensi data nilai siswa berikut:\n[50-59: 5], [60-69: 10], [70-79: 15], [80-89: 10]\nTotal frekuensi $n = 40$. Nilai rata-rata hitung (mean) data tersebut adalah ..."
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q2] Rataan sementara data dipilih $x_s = 74{,}5$ dengan $\\sum f_i d_i = -130$ dan $\\sum f_i = 40$. Nilai mean sebenarnya adalah ...",
+          "opsi": [
+            "A. 70,25",
+            "B. 71,25",
+            "C. 72,50",
+            "D. 73,00",
+            "E. 69,50"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q3] Pada metode pengkodean (coding), $x_s = 70$, panjang kelas $c = 10$, $\\sum f_i u_i = 12$, dan $n = 60$. Nilai rata-rata hitung data adalah ...",
+          "opsi": [
+            "A. 74,0",
+            "B. 73,0",
+            "C. 72,0",
+            "D. 71,2",
+            "E. 70,5"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Pada metode pengkodean (coding), $x_s = 70$, panjang kelas $c = 10$, $\\sum f_i u_i = 12$, dan $n = 60$. Nilai rata-rata hitung data adalah ..."
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q4] Jika rata-rata nilai 20 siswa putra adalah 75 dan 30 siswa putri adalah 85, maka rata-rata gabungan seluruh siswa adalah ...",
+          "opsi": [
+            "A. 79,0",
+            "B. 81,0",
+            "C. 82,0",
+            "D. 80,0",
+            "E. 83,0"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q5] Tentukan kebenaran rata-rata hitung (mean):\n(1) Rumus mean data berkelompok adalah bar(x) = sum(fi . xi) / sum(fi).\n(2) Pada metode rataan sementara, bar(x) = x_s + [sum(fi . di) / sum(fi)].\n(3) Jika setiap data ditambah 5, maka nilai rata-rata data tidak mengalami perubahan.",
+          "opsi": [
+            "Rumus mean data berkelompok adalah bar(x) = sum(fi . xi) / sum(fi)",
+            "Pada metode rataan sementara, bar(x) = x_s + [sum(fi . di) / sum(fi)]",
+            "Jika setiap data ditambah 5, maka nilai rata-rata data tidak mengalami perubahan"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q6] Berapakah rata-rata hitung data tunggal: 6, 8, 7, 9, 10?",
+          "opsi": [
+            "A. 7,0",
+            "B. 9,0",
+            "C. 7,5",
+            "D. 8,5",
+            "E. 8,0"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q7] Diberikan data nilai:\n[10-19: 2], [20-29: 8], [30-39: 6], [40-49: 4]\nTotal frekuensi $n = 20$. Nilai rata-rata hitung (mean) data tersebut adalah ...",
+          "opsi": [
+            "A. 29,5",
+            "B. 32,5",
+            "C. 33,5",
+            "D. 31,5",
+            "E. 30,5"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P16-Q8] Rata-rata nilai 30 siswa adalah 75. Jika digabung 10 siswa baru dengan rata-rata 85, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Rata-rata gabungan berada di luar rentang 75 hingga 85.",
+            "B. Jumlah total nilai 30 siswa awal adalah 2.250.",
+            "C. Jumlah total nilai 10 siswa baru adalah 850.",
+            "D. Rata-rata gabungan seluruh 40 siswa adalah 77,5.",
+            "E. Jumlah total nilai seluruh 40 siswa adalah 3.100."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q9] Rata-rata nilai 5 bilangan asli adalah 12. Jika ditambah satu bilangan bernilai 18, rata-rata baru seluruh bilangan menjadi ...",
+          "opsi": [
+            "A. 13,0",
+            "B. 13,5",
+            "C. 14,0",
+            "D. 12,5",
+            "E. 15,0"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q10] Nilai rata-rata dari data: 12, 14, 16, 18, 20 adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P17": {
+      "id": "P17",
+      "subject": "Matematika Wajib",
+      "title": "Statistika 3: Median & Modus Data Berkelompok",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q1] Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nTotal frekuensi $n = 40$. Nilai median ($Me$) data tersebut adalah ...",
+          "opsi": [
+            "A. 67,83",
+            "B. 65,75",
+            "C. 69,00",
+            "D. 68,25",
+            "E. 66,50"
+          ],
+          "viz": {
+            "t": "boxplot",
+            "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nTotal frekuensi $n = 40$. Nilai median ($Me$) data tersebut adalah ..."
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q2] Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nNilai modus ($Mo$) data tersebut adalah ...",
+          "opsi": [
+            "A. 65,50",
+            "B. 67,50",
+            "C. 66,50",
+            "D. 67,00",
+            "E. 68,00"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Diberikan tabel distribusi frekuensi berikut:\n[40-49: 4], [50-59: 6], [60-69: 12], [70-79: 10], [80-89: 8]\nNilai modus ($Mo$) data tersebut adalah ..."
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q3] Median membagi data terurut menjadi ...",
+          "opsi": [
+            "A. Dua bagian sama besar (50% dan 50%)",
+            "B. Seratus bagian",
+            "C. Empat bagian sama besar",
+            "D. Tiga bagian",
+            "E. Sepuluh bagian sama besar"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q4] Modus adalah ukuran pemusatan data yang menyatakan ...",
+          "opsi": [
+            "A. Selisih data maksimum dan minimum",
+            "B. Titik tengah data terurut",
+            "C. Nilai rata-rata hitung",
+            "D. Kuartil atas",
+            "E. Nilai data dengan frekuensi kemunculan tertinggi"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q5] Tentukan kebenaran median dan modus data berkelompok:\n(1) Rumus modus data berkelompok adalah Mo = Tb + [d1 / (d1 + d2)] x p.\n(2) Letak median berada pada frekuensi kumulatif ke- 1/2 n.\n(3) Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus.",
+          "opsi": [
+            "Rumus modus data berkelompok adalah Mo = Tb + [d1 / (d1 + d2)] x p",
+            "Letak median berada pada frekuensi kumulatif ke- 1/2 n",
+            "Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus"
+          ],
+          "viz": {
+            "t": "boxplot",
+            "src": "Tentukan kebenaran median dan modus data berkelompok:\n(1) Rumus modus data berkelompok adalah Mo = Tb + [d1 / (d1 + d2)] x p.\n(2) Letak median berada pada frekuensi kumulatif ke- 1/2 n.\n(3) Nilai modus data berkelompok selalu tepat sama dengan titik tengah kelas modus."
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q6] Berapakah median dari data tunggal: 3, 5, 7, 8, 9, 11, 12?",
+          "opsi": [
+            "A. 7",
+            "B. 9",
+            "C. 8",
+            "D. 7,5",
+            "E. 8,5"
+          ],
+          "viz": {
+            "t": "boxplot",
+            "src": "Berapakah median dari data tunggal: 3, 5, 7, 8, 9, 11, 12?"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q7] Berapakah modus dari data tunggal: 4, 6, 6, 7, 8, 8, 8, 9?",
+          "opsi": [
+            "A. 7",
+            "B. 6",
+            "C. 9",
+            "D. 6 dan 8",
+            "E. 8"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P17-Q8] Pada data berkelompok, kelas modus adalah 71 - 80 dengan frekuensi 12, frekuensi kelas sebelumnya 8, frekuensi sesudahnya 6, dan Tb = 70,5 (p = 10). Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Nilai d1 + d2 adalah 10.",
+            "B. Nilai modus data berkelompok adalah 78,5.",
+            "C. Nilai d1 (selisih frekuensi dengan kelas sebelumnya) adalah 4.",
+            "D. Nilai d2 (selisih frekuensi dengan kelas sesudahnya) adalah 6.",
+            "E. Nilai modus data berkelompok adalah 74,5."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q9] Pada kurva distribusi yang condong ke kanan (positively skewed), hubungan ukuran pemusatan yang berlaku adalah ...",
+          "opsi": [
+            "A. Mean = Median = Modus",
+            "B. Mean > Median > Modus",
+            "C. Modus > Mean > Median",
+            "D. Modus > Median > Mean",
+            "E. Median > Mean > Modus"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Pada kurva distribusi yang condong ke kanan (positively skewed), hubungan ukuran pemusatan yang berlaku adalah ..."
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q10] Median dari kumpulan data terurut: 10, 20, 30, 40, 50, 60 adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P18": {
+      "id": "P18",
+      "subject": "Matematika Wajib",
+      "title": "Statistika 4: Ukuran Letak Data (Kuartil & Desil)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "Level 1 (Mudah)",
+          "bobot": 10,
+          "tanya": "[P18-Q1] Berikut adalah data hasil Try Out TKA Matematika 100 siswa SMA GIS 2 Serpong:\n\n| Interval Skor | Frekuensi ($f_i$) |\n| :---: | :---: |\n| $51 - 60$ | 15 |\n| $61 - 70$ | 25 |\n| $71 - 80$ | 30 |\n| $81 - 90$ | 20 |\n| $91 - 100$ | 10 |\n\nTotal frekuensi $N = 100$. Nilai Kuartil Bawah ($Q_1$) dari sebaran skor tersebut adalah ...",
+          "opsi": [
+            "A. 62,50",
+            "B. 63,50",
+            "C. 64,50",
+            "D. 65,00",
+            "E. 66,50"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "Level 1 (Mudah)",
+          "bobot": 10,
+          "tanya": "[P18-Q2] Berdasarkan tabel distribusi frekuensi skor Try Out TKA 100 siswa SMA GIS 2 Serpong pada soal sebelumnya (interval $51-60$: 15, $61-70$: 25, $71-80$: 30, $81-90$: 20, $91-100$: 10), nilai Kuartil Atas ($Q_3$) distribusi skor tersebut adalah ...",
+          "opsi": [
+            "A. 82,00",
+            "B. 82,50",
+            "C. 83,00",
+            "D. 83,50",
+            "E. 84,50"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Isian Singkat Numerik",
+          "level": "Level 2 (Sedang)",
+          "bobot": 10,
+          "tanya": "[P18-Q3] Laboratorium Pengujian Material IKN Nusantara menguji ketahanan tekan 80 sampel beton geopolimer presisi. Dari kurva frekuensi kumulatif diperoleh nilai Kuartil Bawah $Q_1 = 46{,}40\\text{ MPa}$ dan Kuartil Atas $Q_3 = 78{,}80\\text{ MPa}$. Berdasarkan data tersebut, hitunglah nilai Simpangan Kuartil ($Q_d$) dalam satuan MPa! (Tuliskan bilangan desimal, contoh: 16.2)",
+          "opsi": []
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "Level 2 (Sedang)",
+          "bobot": 10,
+          "tanya": "[P18-Q4] Dalam analisis statistik distribusi waktu dwelling time peti kemas di pelabuhan logistik, seorang analis menggunakan metode Pagar Tukey (Tukey's Fences) berbasis lima angka ringkasan. Evaluasi kebenaran setiap pernyataan berikut:",
+          "opsi": [
+            "Langkah (Step, L) didefinisikan secara matematis sebesar 1,5 kali Jangkauan Interkuartil, yaitu L = 1,5 * QR.",
+            "Batas Pagar Dalam Bawah (Lower Inner Fence) dirumuskan sebagai Q3 - 1,5 * QR.",
+            "Data amatan yang nilainya lebih kecil dari Pagar Dalam Bawah atau lebih besar dari Pagar Dalam Atas diklasifikasikan sebagai data pencilan (outlier).",
+            "Pagar Luar Atas (Upper Outer Fence) untuk mendeteksi pencilan ekstrem dirumuskan sebesar Q3 + 3 * QR."
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "Level 2 (Sedang)",
+          "bobot": 10,
+          "tanya": "[P18-Q5] Diagram kotak-garis (Boxplot) rekaman kecepatan 120 perjalanan Kereta Cepat Whoosh Jakarta-Bandung menghasilkan ringkasan lima angka:\nNilai Minimum = 220 km/jam, Kuartil Bawah (Q1) = 280 km/jam, Median (Q2) = 310 km/jam, Kuartil Atas (Q3) = 340 km/jam, dan Nilai Maksimum = 355 km/jam.\n\nManakah pernyataan berikut yang BENAR? (Centang semua yang benar!)",
+          "opsi": [
+            "A. Panjang kotak interkuartil (IQR) pada diagram tersebut adalah sebesar 60 km/jam.",
+            "B. Nilai Simpangan Kuartil (Qd) kecepatan perjalanan kereta adalah sebesar 30 km/jam.",
+            "C. Tepat 50% perjalanan kereta berkecepatan antara 280 km/jam sampai 340 km/jam.",
+            "D. Jika tercatat satu uji coba berkecepatan 440 km/jam, data tersebut akan digolongkan sebagai pencilan atas (outlier).",
+            "E. Jangkauan total (Range) data kecepatan tersebut adalah sebesar 120 km/jam."
+          ],
+          "viz": {
+            "t": "boxplot"
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "Level 2 (Sedang)",
+          "bobot": 10,
+          "tanya": "[P18-Q6] Suatu kumpulan data terdiri atas 7 bilangan bulat berurutan: $x_1 \\le x_2 \\le x_3 \\le x_4 \\le x_5 \\le x_6 \\le x_7$.\nApakah nilai Kuartil Bawah ($Q_1 = x_2$) kumpulan data tersebut dapat ditentukan secara pasti?\n\n(1) Nilai Kuartil Atas adalah $Q_3 = 45$ dan Jangkauan Interkuartil $QR = 18$.\n(2) Nilai datum terkecil $x_1 = 15$ dan $x_3 = 32$.",
+          "opsi": [
+            "A. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.",
+            "B. Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.",
+            "C. DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.",
+            "D. Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.",
+            "E. Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan."
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "Level 2 (Sedang)",
+          "bobot": 10,
+          "tanya": "[P18-Q7] Sekumpulan data memiliki Kuartil Bawah $Q_1 = 24$ dan Kuartil Atas $Q_3 = 40$. Seluruh nilai datum pada kumpulan data tersebut ditransformasikan secara linier dengan rumus $y_i = 3x_i - 15$.\n\nBerdasarkan informasi tersebut, manakah hubungan antara kuantitas P dan Q berikut yang benar?\n\n| Kuantitas P | Kuantitas Q |\n| :---: | :---: |\n| Nilai Jangkauan Interkuartil ($QR$) data baru | 45 |",
+          "opsi": [
+            "A. Kuantitas P lebih besar daripada kuantitas Q",
+            "B. Kuantitas Q lebih besar daripada kuantitas P",
+            "C. Kuantitas P sama dengan kuantitas Q",
+            "D. Informasi yang diberikan tidak cukup untuk memutuskan",
+            "E. Hubungan P dan Q tidak dapat ditentukan karena ukuran sampel tidak diketahui"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "Level 3 (HOTS)",
+          "bobot": 10,
+          "tanya": "[P18-Q8] Perhatikan pernyataan dan alasan mengenai analisis ketahanan ukuran statistik berikut:\n\nPernyataan:\nDalam menganalisis distribusi kesenjangan pendapatan yang memuat sejumlah pencilan ekstrem di ujung atas data (super-kaya), Jangkauan Interkuartil (QR) jauh lebih andal dan tahan (robust) digunakan dibandingkan Jangkauan Total (Range).\n\nSEBAB\n\nAlasan:\nJangkauan Interkuartil hanya mengukur rentang penyebaran 50% data di posisi tengah (Q3 - Q1), sehingga tidak terpengaruh oleh keberadaan 25% data terendah maupun 25% data teratas.",
+          "opsi": [
+            "A. Pernyataan benar, alasan benar, dan keduanya menunjukkan hubungan sebab akibat.",
+            "B. Pernyataan benar, alasan benar, tetapi keduanya TIDAK menunjukkan hubungan sebab akibat.",
+            "C. Pernyataan benar dan alasan salah.",
+            "D. Pernyataan salah dan alasan benar.",
+            "E. Pernyataan dan alasan keduanya salah."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "Level 3 (HOTS)",
+          "bobot": 10,
+          "tanya": "[P18-Q9] Panitia seleksi nasional menetapkan kuota beasiswa riset unggulan hanya dialokasikan untuk 20% peserta terbaik dengan skor tertinggi (ambang Desil ke-8, $D_8$). Berikut distribusi skor 200 pendaftar:\n\n| Interval Skor | Frekuensi ($f_i$) |\n| :---: | :---: |\n| $50 - 59$ | 20 |\n| $60 - 69$ | 40 |\n| $70 - 79$ | 60 |\n| $80 - 89$ | 50 |\n| $90 - 99$ | 30 |\n\nBerapakah skor minimal ($D_8$) yang harus diraih agar berhak mendapatkan beasiswa riset tersebut?",
+          "opsi": [
+            "A. 85,50",
+            "B. 86,50",
+            "C. 87,00",
+            "D. 87,50",
+            "E. 88,00"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "Level 3 (HOTS)",
+          "bobot": 10,
+          "tanya": "[P18-Q10] Stasiun telemetri seismik memantau getaran struktur pilar jembatan IKN Nusantara. Dari 1.000 titik sampel terurut diperoleh nilai Kuartil Bawah $Q_1 = 38\\text{ mm/s}^2$ dan Kuartil Atas $Q_3 = 54\\text{ mm/s}^2$. Menurut kriteria Tukey, getaran anomali dikategorikan sebagai \"pencilan ekstrem bawah\" jika nilainya jatuh lebih kecil dari batas Pagar Luar Bawah (Lower Outer Fence). Berapakah nilai batas Pagar Luar Bawah tersebut? (Ketikkan angka bilangan bulat)",
+          "opsi": []
+        }
+      ]
+    },
+    "P19": {
+      "id": "P19",
+      "subject": "Matematika Wajib",
+      "title": "Statistika 5: Ukuran Penyebaran Data (Varians & Simpangan Baku)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q1] Diberikan data sampel tunggal: 6, 7, 8, 9, 10. Nilai simpangan baku ($S$) dari data tersebut adalah ...",
+          "opsi": [
+            "A. 2,5",
+            "B. 1",
+            "C. 2",
+            "D. $\\sqrt{2}$",
+            "E. $\\sqrt{10}$"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Diberikan data sampel tunggal: 6, 7, 8, 9, 10. Nilai simpangan baku ($S$) dari data tersebut adalah ..."
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q2] Simpangan rata-rata ($SR$) dari data: 4, 6, 8, 10, 12 adalah ...",
+          "opsi": [
+            "A. 2,8",
+            "B. 2,4",
+            "C. 1,8",
+            "D. 3,0",
+            "E. 2,0"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q3] Jika setiap nilai data dikalikan 3, maka nilai simpangan baku data yang baru menjadi ...",
+          "opsi": [
+            "A. 3 kali simpangan baku semula",
+            "B. Tetap tidak berubah",
+            "C. 9 kali simpangan baku semula",
+            "D. 1/3 kali semula",
+            "E. Bertambah 3"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Jika setiap nilai data dikalikan 3, maka nilai simpangan baku data yang baru menjadi ..."
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q4] Jika setiap nilai data ditambah 10, maka nilai varians data yang baru akan ...",
+          "opsi": [
+            "A. Bertambah 100",
+            "B. Berkurang 10",
+            "C. Tetap tidak berubah",
+            "D. Bertambah 10",
+            "E. Menjadi 10 kali lipat"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Jika setiap nilai data ditambah 10, maka nilai varians data yang baru akan ..."
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q5] Tentukan kebenaran ukuran penyebaran data:\n(1) Simpangan baku (S) adalah akar kuadrat dari varians (S^2).\n(2) Jika setiap nilai data dikalikan 3, maka nilai varians data menjadi 9 kali lipat.\n(3) Jika setiap nilai data ditambah 10, maka nilai simpangan baku bertambah 10.",
+          "opsi": [
+            "Simpangan baku (S) adalah akar kuadrat dari varians (S^2)",
+            "Jika setiap nilai data dikalikan 3, maka nilai varians data menjadi 9 kali lipat",
+            "Jika setiap nilai data ditambah 10, maka nilai simpangan baku bertambah 10"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Tentukan kebenaran ukuran penyebaran data:\n(1) Simpangan baku (S) adalah akar kuadrat dari varians (S^2).\n(2) Jika setiap nilai data dikalikan 3, maka nilai varians data menjadi 9 kali lipat.\n(3) Jika setiap nilai data ditambah 10, maka nilai simpangan baku bertambah 10."
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q6] Berapakah nilai $Z$-score siswa yang memperoleh nilai ujian $x = 85$ jika mean kelas $\\bar{x} = 75$ dan simpangan baku $S = 5$?",
+          "opsi": [
+            "A. -2,0",
+            "B. +2,0",
+            "C. +2,5",
+            "D. +1,0",
+            "E. +1,5"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Berapakah nilai $Z$-score siswa yang memperoleh nilai ujian $x = 85$ jika mean kelas $\\bar{x} = 75$ dan simpangan baku $S = 5$?"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q7] Koefisien variasi ($KV$) dari kumpulan data dengan mean $\\bar{x} = 80$ dan simpangan baku $S = 8$ adalah ...",
+          "opsi": [
+            "A. 15%",
+            "B. 12%",
+            "C. 10%",
+            "D. 8%",
+            "E. 5%"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Koefisien variasi ($KV$) dari kumpulan data dengan mean $\\bar{x} = 80$ dan simpangan baku $S = 8$ adalah ..."
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P19-Q8] Diberikan sampel data: 4, 6, 8, 10, 12. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Nilai varians sampel (S^2) data adalah 10.",
+            "B. Jangkauan (range) data adalah 8.",
+            "C. Nilai simpangan baku sampel (S) adalah akar(10).",
+            "D. Nilai rata-rata data adalah 8.",
+            "E. Nilai simpangan rata-rata (SR) data adalah 2,4."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q9] Varians ($S^2$) dari data tunggal: 2, 4, 6, 8 adalah ...",
+          "opsi": [
+            "A. 2,5",
+            "B. 6,0",
+            "C. 4,0",
+            "D. $\\sqrt{5}$",
+            "E. 5,0"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Varians ($S^2$) dari data tunggal: 2, 4, 6, 8 adalah ..."
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q10] Nilai varians dari data identik: 10, 10, 10, 10, 10 adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "lonceng",
+            "src": "Nilai varians dari data identik: 10, 10, 10, 10, 10 adalah ..."
+          }
+        }
+      ]
+    },
+    "P20": {
+      "id": "P20",
+      "subject": "Matematika Wajib",
+      "title": "Analisis Data Bivariat (Scatter Plot & Regresi Linier)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q1] Pada analisis regresi linier sederhana $\\hat{y} = 25 + 1{,}8x$, jika variabel independen $x$ bertambah 5 satuan, maka estimasi kenaikan nilai $\\hat{y}$ adalah ...",
+          "opsi": [
+            "A. 1,8 satuan",
+            "B. 34,0 satuan",
+            "C. 5,0 satuan",
+            "D. 25,0 satuan",
+            "E. 9,0 satuan"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Pada analisis regresi linier sederhana $\\hat{y} = 25 + 1{,}8x$, jika variabel independen $x$ bertambah 5 satuan, maka estimasi kenaikan nilai $\\hat{y}$ adalah ..."
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q2] Nilai koefisien korelasi Pearson $r = -0{,}92$ menunjukkan hubungan antara dua variabel bersifat ...",
+          "opsi": [
+            "A. Sempurna searah",
+            "B. Lemah berlawanan",
+            "C. Linier positif sangat kuat",
+            "D. Linier negatif yang sangat kuat",
+            "E. Tidak ada korelasi"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Nilai koefisien korelasi Pearson $r = -0{,}92$ menunjukkan hubungan antara dua variabel bersifat ..."
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q3] Jika koefisien korelasi $r = 0{,}80$, maka nilai koefisien determinasi ($R^2$) adalah ...",
+          "opsi": [
+            "A. 84%",
+            "B. 64%",
+            "C. 16%",
+            "D. 80%",
+            "E. 40%"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Jika koefisien korelasi $r = 0{,}80$, maka nilai koefisien determinasi ($R^2$) adalah ..."
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q4] Garis regresi linier terbaik diperoleh dengan meminimalkan ...",
+          "opsi": [
+            "A. Nilai intersep a",
+            "B. Jarak antar titik X",
+            "C. Jumlah kuadrat residual (Sum of Squared Errors)",
+            "D. Jumlah titik data",
+            "E. Nilai rata-rata variabel Y"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Garis regresi linier terbaik diperoleh dengan meminimalkan ..."
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q5] Tentukan kebenaran analisis regresi linier bivariat:\n(1) Koefisien determinasi R^2 = r^2 menyatakan proporsi variasi Y yang dijelaskan oleh X.\n(2) Nilai r = 0 menunjukkan korelasi linier sempurna positif.\n(3) Nilai koefisien korelasi Pearson r memenuhi -1 <= r <= 1.",
+          "opsi": [
+            "Koefisien determinasi R^2 = r^2 menyatakan proporsi variasi Y yang dijelaskan oleh X",
+            "Nilai r = 0 menunjukkan korelasi linier sempurna positif",
+            "Nilai koefisien korelasi Pearson r memenuhi -1 <= r <= 1"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Tentukan kebenaran analisis regresi linier bivariat:\n(1) Koefisien determinasi R^2 = r^2 menyatakan proporsi variasi Y yang dijelaskan oleh X.\n(2) Nilai r = 0 menunjukkan korelasi linier sempurna positif.\n(3) Nilai koefisien korelasi Pearson r memenuhi -1 <= r <= 1."
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q6] Berapakah nilai estimasi $\\hat{y}$ saat $x = 10$ pada persamaan garis regresi $\\hat{y} = 15 + 3{,}5x$?",
+          "opsi": [
+            "A. 60,0",
+            "B. 50,0",
+            "C. 35,0",
+            "D. 55,0",
+            "E. 45,0"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Berapakah nilai estimasi $\\hat{y}$ saat $x = 10$ pada persamaan garis regresi $\\hat{y} = 15 + 3{,}5x$?"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q7] Nilai galat (residual $e$) dari suatu observasi dengan data aktual $y = 80$ dan nilai prediksi $\\hat{y} = 76$ adalah ...",
+          "opsi": [
+            "A. +156",
+            "B. 4/76",
+            "C. -4",
+            "D. 0",
+            "E. +4"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Nilai galat (residual $e$) dari suatu observasi dengan data aktual $y = 80$ dan nilai prediksi $\\hat{y} = 76$ adalah ..."
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P20-Q8] Pada persamaan regresi y_hat = 15 + 2,5x dengan r = 0,80, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Nilai koefisien determinasi R^2 adalah 0,64 (64%).",
+            "B. Setiap kenaikan 1 satuan X, nilai Y diperkirakan meningkat 2,5 satuan.",
+            "C. Nilai intersep sumbu-Y adalah 15.",
+            "D. Nilai gradien kemiringan garis regresi adalah 2,5.",
+            "E. Jika x = 10, estimasi nilai y_hat adalah 40."
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Pada persamaan regresi y_hat = 15 + 2,5x dengan r = 0,80, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)"
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q9] Jika $\\bar{x} = 4, \\bar{y} = 20$, dan nilai gradien kemiringan $b = 3$, maka nilai intersep $a$ adalah ...",
+          "opsi": [
+            "A. 12",
+            "B. 6",
+            "C. 15",
+            "D. 8",
+            "E. 10"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Jika $\\bar{x} = 4, \\bar{y} = 20$, dan nilai gradien kemiringan $b = 3$, maka nilai intersep $a$ adalah ..."
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q10] Nilai koefisien korelasi Pearson jika kedua variabel memiliki hubungan linier positif sempurna adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "regresi",
+            "src": "Nilai koefisien korelasi Pearson jika kedua variabel memiliki hubungan linier positif sempurna adalah ..."
+          }
+        }
+      ]
+    },
+    "P21": {
+      "id": "P21",
+      "subject": "Matematika Wajib",
+      "title": "Asesmen Sumatif Terpadu Statistika & Simulasi ASAS / ASAJ CBT",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q1] Diberikan tabel distribusi frekuensi berikut:\n[10-14: 4], [15-19: 8], [20-24: 5], [25-29: 3]\nTotal frekuensi $n = 20$. Nilai rata-rata hitung (mean) data tersebut adalah ...",
+          "opsi": [
+            "A. 18,25",
+            "B. 17,25",
+            "C. 19,00",
+            "D. 17,50",
+            "E. 18,75"
+          ],
+          "viz": {
+            "t": "histogram",
+            "src": "Diberikan tabel distribusi frekuensi berikut:\n[10-14: 4], [15-19: 8], [20-24: 5], [25-29: 3]\nTotal frekuensi $n = 20$. Nilai rata-rata hitung (mean) data tersebut adalah ..."
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q2] Jika nilai varians sampel $S^2 = 16$, maka nilai simpangan baku ($S$) adalah ...",
+          "opsi": [
+            "A. 16",
+            "B. 4",
+            "C. 2",
+            "D. 256",
+            "E. 8"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Jika nilai varians sampel $S^2 = 16$, maka nilai simpangan baku ($S$) adalah ..."
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q3] Nilai koefisien determinasi $R^2 = 0{,}81$ menyatakan bahwa pengaruh variabel X terhadap Y adalah sebesar ...",
+          "opsi": [
+            "A. 90%",
+            "B. 8,1%",
+            "C. 81%",
+            "D. 19%",
+            "E. 9%"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Nilai koefisien determinasi $R^2 = 0{,}81$ menyatakan bahwa pengaruh variabel X terhadap Y adalah sebesar ..."
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q4] Median dari kumpulan data tunggal: 5, 7, 8, 10, 12, 14, 15 adalah ...",
+          "opsi": [
+            "A. 10",
+            "B. 8",
+            "C. 12",
+            "D. 9",
+            "E. 11"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q5] Tentukan kebenaran rangkuman evaluasi statistika:\n(1) Simpangan baku dari suatu data selalu bernilai 0 untuk segala jenis data.\n(2) Rata-rata hitung (mean) sangat sensitif terhadap nilai pencilan ekstrim.\n(3) Median dan Kuartil bersifat robust terhadap pengaruh nilai pencilan ekstrim.",
+          "opsi": [
+            "Simpangan baku dari suatu data selalu bernilai 0 untuk segala jenis data",
+            "Rata-rata hitung (mean) sangat sensitif terhadap nilai pencilan ekstrim",
+            "Median dan Kuartil bersifat robust terhadap pengaruh nilai pencilan ekstrim"
+          ],
+          "viz": {
+            "t": "boxplot",
+            "src": "Tentukan kebenaran rangkuman evaluasi statistika:\n(1) Simpangan baku dari suatu data selalu bernilai 0 untuk segala jenis data.\n(2) Rata-rata hitung (mean) sangat sensitif terhadap nilai pencilan ekstrim.\n(3) Median dan Kuartil bersifat robust terhadap pengaruh nilai pencilan ekstrim."
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q6] Berapakah nilai jangkauan interkuartil ($QR$) jika $Q_1 = 45$ dan $Q_3 = 75$?",
+          "opsi": [
+            "A. 25",
+            "B. 30",
+            "C. 120",
+            "D. 60",
+            "E. 15"
+          ],
+          "viz": {
+            "t": "boxplot",
+            "src": "Berapakah nilai jangkauan interkuartil ($QR$) jika $Q_1 = 45$ dan $Q_3 = 75$?"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q7] Nilai skor baku ($Z$-score) dari $x = 90$ pada distribusi dengan mean 70 dan standar deviasi 10 adalah ...",
+          "opsi": [
+            "A. +1,0",
+            "B. +1,5",
+            "C. +3,0",
+            "D. +2,0",
+            "E. -2,0"
+          ],
+          "viz": {
+            "t": "lonceng",
+            "src": "Nilai skor baku ($Z$-score) dari $x = 90$ pada distribusi dengan mean 70 dan standar deviasi 10 adalah ..."
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P21-Q8] Pada asesmen statistika terpadu, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Jika koefisien korelasi r = -0,95, hubungan kedua variabel sangat kuat berkebalikan arah.",
+            "B. Median membagi distribusi data menjadi 4 kelompok yang sama besar.",
+            "C. Skor baku Z bernilai positif jika nilai data berada di atas rata-rata kelompok.",
+            "D. Simpangan baku dari data: 5, 5, 5, 5, 5 adalah 0.",
+            "E. Modus adalah ukuran pemusatan yang menyatakan nilai data berfrekuensi tertinggi."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q9] Pada persamaan regresi $\\hat{y} = 10 + 2x$, nilai intersepnya adalah ...",
+          "opsi": [
+            "A. 12",
+            "B. 20",
+            "C. 2",
+            "D. 5",
+            "E. 10"
+          ],
+          "viz": {
+            "t": "regresi",
+            "src": "Pada persamaan regresi $\\hat{y} = 10 + 2x$, nilai intersepnya adalah ..."
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q10] Nilai simpangan baku dari data identik: 5, 5, 5, 5 adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "lonceng",
+            "src": "Nilai simpangan baku dari data identik: 5, 5, 5, 5 adalah ..."
+          }
+        }
+      ]
+    }
+  },
+  "tka_minat": {
+    "P01": {
+      "id": "P01",
+      "subject": "Matematika Peminatan",
+      "title": "Geometri Analitik Lingkaran 1: Persamaan Lingkaran Pusat O(0,0)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P01-Q1] Persamaan lingkaran yang berpusat di titik asal $O(0,0)$ dan melalui titik $A(-6, 8)$ adalah ...",
+          "opsi": [
+            "A. $x^2 + y^2 = 28$",
+            "B. $x^2 + y^2 = 100$",
+            "C. $x^2 + y^2 = 64$",
+            "D. $x^2 + y^2 = 14$",
+            "E. $x^2 + y^2 = 10$"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q2] Sebuah lingkaran berpusat di $O(0,0)$ menyinggung garis lurus $3x - 4y + 20 = 0$. Panjang jari-jari lingkaran tersebut adalah ...",
+          "opsi": [
+            "A. 5 satuan",
+            "B. 6 satuan",
+            "C. 3 satuan",
+            "D. 4 satuan",
+            "E. 2 satuan"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P01-Q3] Jika titik $P(k, -4)$ terletak tepat pada busur lingkaran $x^2 + y^2 = 25$, maka nilai $k$ yang memenuhi adalah ...",
+          "opsi": [
+            "A. $k = \\pm 9$",
+            "B. $k = \\pm 3$",
+            "C. $k = \\pm 5$",
+            "D. $k = \\pm 2$",
+            "E. $k = \\pm 4$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q4] Persamaan lingkaran berpusat di $O(0,0)$ yang memiliki luas daerah sebesar $64\\pi$ satuan luas adalah ...",
+          "opsi": [
+            "A. $x^2 + y^2 = 128$",
+            "B. $x^2 + y^2 = 32$",
+            "C. $x^2 + y^2 = 16$",
+            "D. $x^2 + y^2 = 64$",
+            "E. $x^2 + y^2 = 8$"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q5] Tentukan kebenaran lingkaran x^2 + y^2 = 25:\n(1) Titik pusat lingkaran berada pada titik asal O(0,0).\n(2) Titik (3, 4) terletak tepat pada busur keliling lingkaran.\n(3) Panjang jari-jari lingkaran adalah r = 25 satuan.",
+          "opsi": [
+            "Titik pusat lingkaran berada pada titik asal O(0,0)",
+            "Titik (3, 4) terletak tepat pada busur keliling lingkaran",
+            "Panjang jari-jari lingkaran adalah r = 25 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P01-Q6] Berapakah panjang jari-jari lingkaran $L: x^2 + y^2 = r^2$?\nPernyataan (1): Lingkaran $L$ melalui titik koordinat $(3, 4)$.\nPernyataan (2): Keliling lingkaran $L$ adalah $10\\pi$ satuan panjang.",
+          "opsi": [
+            "A. Pernyataan (2) SAJA cukup",
+            "B. DUA pernyataan BERSAMA-SAMA cukup",
+            "C. Pernyataan (1) dan (2) tidak cukup",
+            "D. Pernyataan (1) SAJA cukup",
+            "E. Pernyataan (1) SAJA cukup dan (2) SAJA cukup"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P01-Q7] Persamaan lingkaran berpusat di $O(0,0)$ yang menyinggung garis vertikal $x = 5$ adalah ...",
+          "opsi": [
+            "A. $x^2 + y^2 = 25$",
+            "B. $x^2 + y^2 = 50$",
+            "C. $x^2 + y^2 = 100$",
+            "D. $x^2 + y^2 = 5$",
+            "E. $x^2 + y^2 = 10$"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P01-Q8] Pada lingkaran x^2 + y^2 = 100, manakah pernyataan analisis geometri berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Titik (6, 8) terletak tepat pada busur lingkaran.",
+            "B. Panjang diameter lingkaran adalah 20 satuan.",
+            "C. Titik asal O(0,0) berada di luar lingkaran.",
+            "D. Panjang jari-jari lingkaran adalah 10 satuan.",
+            "E. Titik potong lingkaran dengan sumbu-X adalah (10, 0) dan (-10, 0)."
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 100,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P01-Q9] Jarak titik $P(5, 12)$ ke titik pusat lingkaran $x^2 + y^2 = 16$ adalah ...",
+          "opsi": [
+            "A. 15 satuan",
+            "B. 17 satuan",
+            "C. 13 satuan",
+            "D. 12 satuan",
+            "E. 9 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 16,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P01-Q10] Jika lingkaran $x^2 + y^2 = r^2$ melalui titik koordinat $(-8, -15)$, maka nilai jari-jari $r$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P02": {
+      "id": "P02",
+      "subject": "Matematika Peminatan",
+      "title": "Geometri Analitik Lingkaran 2: Persamaan Lingkaran Pusat P(a,b)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P02-Q1] Persamaan lingkaran yang berpusat di titik $P(2, -3)$ dan memiliki jari-jari $r = 5$ adalah ...",
+          "opsi": [
+            "A. $(x - 2)^2 + (y + 3)^2 = 25$",
+            "B. $(x + 2)^2 + (y - 3)^2 = 25$",
+            "C. $(x - 2)^2 + (y - 3)^2 = 25$",
+            "D. $(x - 2)^2 + (y + 3)^2 = 5$",
+            "E. $(x + 2)^2 + (y + 3)^2 = 25$"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q2] Persamaan lingkaran yang berpusat di $P(-1, 4)$ dan melalui titik $A(3, 1)$ adalah ...",
+          "opsi": [
+            "A. $(x + 1)^2 + (y - 4)^2 = 16$",
+            "B. $(x - 3)^2 + (y - 1)^2 = 25$",
+            "C. $(x + 1)^2 + (y - 4)^2 = 9$",
+            "D. $(x + 1)^2 + (y - 4)^2 = 25$",
+            "E. $(x - 1)^2 + (y + 4)^2 = 25$"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q3] Sebuah lingkaran berpusat di $P(3, -2)$ menyinggung sumbu-$Y$. Persamaan lingkaran tersebut adalah ...",
+          "opsi": [
+            "A. $(x - 3)^2 + (y + 2)^2 = 4$",
+            "B. $(x + 3)^2 + (y - 2)^2 = 4$",
+            "C. $(x + 3)^2 + (y - 2)^2 = 9$",
+            "D. $(x - 3)^2 + (y + 2)^2 = 13$",
+            "E. $(x - 3)^2 + (y + 2)^2 = 9$"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q4] Persamaan lingkaran berpusat di $P(-4, 5)$ dan menyinggung sumbu-$X$ adalah ...",
+          "opsi": [
+            "A. $(x + 4)^2 + (y - 5)^2 = 25$",
+            "B. $(x + 4)^2 + (y - 5)^2 = 41$",
+            "C. $(x - 4)^2 + (y + 5)^2 = 25$",
+            "D. $(x - 4)^2 + (y + 5)^2 = 16$",
+            "E. $(x + 4)^2 + (y - 5)^2 = 16$"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q5] Terkait lingkaran (x - 2)^2 + (y + 3)^2 = 49:\n(1) Panjang jari-jari lingkaran adalah 7 satuan.\n(2) Titik pusat lingkaran adalah P(2, -3).\n(3) Titik pusat P(2, -3) terletak pada busur keliling lingkaran.",
+          "opsi": [
+            "Panjang jari-jari lingkaran adalah 7 satuan",
+            "Titik pusat lingkaran adalah P(2, -3)",
+            "Titik pusat P(2, -3) terletak pada busur keliling lingkaran"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 2,
+            "cy": -3,
+            "r2": 49,
+            "P": [
+              2,
+              -3
+            ]
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P02-Q6] Berapakah luas daerah lingkaran $L$?\nPernyataan (1): Titik pusat lingkaran adalah $P(4, 7)$.\nPernyataan (2): Lingkaran menyinggung garis horizontal $y = 3$.",
+          "opsi": [
+            "A. Pernyataan (1) SAJA cukup dan (2) SAJA cukup",
+            "B. Pernyataan (1) dan (2) tidak cukup",
+            "C. DUA pernyataan BERSAMA-SAMA cukup",
+            "D. Pernyataan (2) SAJA cukup",
+            "E. Pernyataan (1) SAJA cukup"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q7] Lingkaran berpusat di $P(1, 2)$ dan menyinggung garis $3x + 4y - 1 = 0$. Panjang jari-jari lingkaran adalah ...",
+          "opsi": [
+            "A. 3 satuan",
+            "B. 1 satuan",
+            "C. 5 satuan",
+            "D. 2 satuan",
+            "E. 4 satuan"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P02-Q8] Diberikan lingkaran (x + 4)^2 + (y - 1)^2 = 25. Manakah pernyataan geometri berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Garis vertikal x = 1 menyinggung lingkaran.",
+            "B. Titik asal O(0,0) berada di luar lingkaran.",
+            "C. Panjang jari-jari lingkaran adalah 5 satuan.",
+            "D. Titik pusat lingkaran adalah P(-4, 1).",
+            "E. Titik (-4, 6) terletak pada busur lingkaran."
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": -4,
+            "cy": 1,
+            "r2": 25
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q9] Jika diameter suatu lingkaran menghubungkan titik $A(1, 2)$ dan $B(7, 10)$, maka persamaan lingkaran tersebut adalah ...",
+          "opsi": [
+            "A. $(x - 3)^2 + (y - 4)^2 = 25$",
+            "B. $(x + 4)^2 + (y + 6)^2 = 25$",
+            "C. $(x - 4)^2 + (y - 6)^2 = 25$",
+            "D. $(x - 4)^2 + (y - 6)^2 = 50$",
+            "E. $(x - 4)^2 + (y - 6)^2 = 100$"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P02-Q10] Jika lingkaran $(x - a)^2 + (y - 2)^2 = 25$ melalui titik $(6, -1)$, dan nilai $a > 0$, maka nilai konstanta $a$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P03": {
+      "id": "P03",
+      "subject": "Matematika Peminatan",
+      "title": "Geometri Analitik Lingkaran 3: Bentuk Umum Persamaan Lingkaran",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P03-Q1] Titik pusat dan jari-jari lingkaran $x^2 + y^2 - 6x + 8y - 11 = 0$ berturut-turut adalah ...",
+          "opsi": [
+            "A. $P(3, -4)$ dan $r = 36$",
+            "B. $P(-3, 4)$ dan $r = 11$",
+            "C. $P(-3, 4)$ dan $r = 6$",
+            "D. $P(3, -4)$ dan $r = 6$",
+            "E. $P(6, -8)$ dan $r = 6$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 3,
+            "cy": -4,
+            "r2": 36,
+            "line": [
+              6,
+              8,
+              -11
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P03-Q2] Bentuk umum lingkaran yang berpusat di $P(-2, 5)$ dan berjari-jari $r = 3$ adalah ...",
+          "opsi": [
+            "A. $x^2 + y^2 - 4x + 10y - 20 = 0$",
+            "B. $x^2 + y^2 + 4x - 10y + 9 = 0$",
+            "C. $x^2 + y^2 + 4x - 10y + 20 = 0$",
+            "D. $x^2 + y^2 + 4x - 10y + 29 = 0$",
+            "E. $x^2 + y^2 - 4x + 10y + 20 = 0$"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q3] Jika persamaan $x^2 + y^2 + 4x - 6y + c = 0$ memiliki jari-jari $r = 5$, maka nilai konstanta $c$ adalah ...",
+          "opsi": [
+            "A. $-12$",
+            "B. $-13$",
+            "C. $-25$",
+            "D. $25$",
+            "E. $12$"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P03-Q4] Nilai kuasa titik $A(1, 2)$ terhadap lingkaran $x^2 + y^2 - 4x + 6y - 9 = 0$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. -4",
+            "C. 12",
+            "D. 4",
+            "E. 7"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 2,
+            "cy": -3,
+            "r2": 22,
+            "P": [
+              1,
+              2
+            ],
+            "line": [
+              4,
+              6,
+              -9
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q5] Tentukan kebenaran bentuk umum lingkaran x^2 + y^2 + Ax + By + C = 0:\n(1) Jika 1/4 A^2 + 1/4 B^2 - C < 0, persamaan menyatakan lingkaran nyata.\n(2) Koordinat pusat lingkaran adalah P(-1/2 A, -1/2 B).\n(3) Panjang jari-jari lingkaran adalah r = akar(1/4 A^2 + 1/4 B^2 - C).",
+          "opsi": [
+            "Jika 1/4 A^2 + 1/4 B^2 - C < 0, persamaan menyatakan lingkaran nyata",
+            "Koordinat pusat lingkaran adalah P(-1/2 A, -1/2 B)",
+            "Panjang jari-jari lingkaran adalah r = akar(1/4 A^2 + 1/4 B^2 - C)"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Kecukupan Data",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P03-Q6] Berapakah jari-jari lingkaran $L: x^2 + y^2 - 8x + 2ky + 9 = 0$?\nPernyataan (1): Nilai konstanta $k = 4$.\nPernyataan (2): Titik pusat lingkaran berada pada garis $y = -4$.",
+          "opsi": [
+            "A. Pernyataan (1) dan (2) tidak cukup",
+            "B. DUA pernyataan BERSAMA-SAMA cukup",
+            "C. Pernyataan (1) SAJA cukup dan (2) SAJA cukup",
+            "D. Pernyataan (2) SAJA cukup",
+            "E. Pernyataan (1) SAJA cukup"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q7] Persamaan lingkaran yang sepusat (konsentris) dengan $x^2 + y^2 - 4x + 6y - 1 = 0$ dan memiliki jari-jari dua kali lebih besar adalah ...",
+          "opsi": [
+            "A. $x^2 + y^2 - 4x + 6y - 2 = 0$",
+            "B. $x^2 + y^2 - 4x + 6y - 43 = 0$",
+            "C. $x^2 + y^2 - 4x + 6y - 56 = 0$",
+            "D. $x^2 + y^2 - 4x + 6y + 13 = 0$",
+            "E. $x^2 + y^2 - 8x + 12y - 1 = 0$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 2,
+            "cy": -3,
+            "r2": 14,
+            "line": [
+              4,
+              6,
+              -1
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P03-Q8] Diberikan persamaan lingkaran x^2 + y^2 - 6x + 8y = 0. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Panjang jari-jari lingkaran adalah 5 satuan.",
+            "B. Titik (3, -9) terletak di luar lingkaran.",
+            "C. Lingkaran melalui titik asal O(0,0).",
+            "D. Titik potong lingkaran dengan sumbu-X adalah (0,0) dan (6,0).",
+            "E. Titik pusat lingkaran adalah P(3, -4)."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q9] Jika lingkaran $x^2 + y^2 + 2Ax + 10y + 9 = 0$ menyinggung sumbu-$X$, maka nilai $A$ adalah ...",
+          "opsi": [
+            "A. $\\pm 5$",
+            "B. $\\pm 2$",
+            "C. $\\pm 1$",
+            "D. $\\pm 4$",
+            "E. $\\pm 3$"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P03-Q10] Panjang diameter lingkaran $2x^2 + 2y^2 - 8x + 12y - 24 = 0$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P04": {
+      "id": "P04",
+      "subject": "Matematika Peminatan",
+      "title": "Geometri Analitik Lingkaran 4: Kedudukan Titik Terhadap Lingkaran (Uji Kuasa)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q1] Kedudukan titik $A(4, -2)$ terhadap lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$ adalah ...",
+          "opsi": [
+            "A. Berada di titik pusat",
+            "B. Terletak di luar lingkaran",
+            "C. Terletak di dalam lingkaran",
+            "D. Terletak pada lingkaran",
+            "E. Memotong sumbu simetri"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 2,
+            "cy": -3,
+            "r2": 25,
+            "P": [
+              4,
+              -2
+            ],
+            "line": [
+              4,
+              6,
+              -12
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q2] Jika titik $P(k, 3)$ terletak di luar lingkaran $x^2 + y^2 = 25$, maka batas nilai $k$ adalah ...",
+          "opsi": [
+            "A. $-4 < k < 4$",
+            "B. $k < -4$ atau $k > 4$",
+            "C. $-5 < k < 5$",
+            "D. $k < -3$ atau $k > 3$",
+            "E. $k < -5$ atau $k > 5$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q3] Panjang garis singgung dari titik $T(7, 1)$ ke lingkaran $x^2 + y^2 = 25$ adalah ...",
+          "opsi": [
+            "A. 5 satuan",
+            "B. 2√6 satuan",
+            "C. 6 satuan",
+            "D. 4 satuan",
+            "E. 2√5 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              7,
+              1
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q4] Nilai kuasa titik $P(5, 5)$ terhadap lingkaran $(x - 1)^2 + (y - 2)^2 = 16$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. 25",
+            "C. 16",
+            "D. -7",
+            "E. 9"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 1,
+            "cy": 2,
+            "r2": 16,
+            "P": [
+              5,
+              5
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q5] Tentukan kebenaran uji kuasa titik K(x1, y1) terhadap lingkaran L: (x - a)^2 + (y - b)^2 = r^2:\n(1) Jika K < 0, maka titik terletak di dalam lingkaran.\n(2) Jika K > 0, maka titik terletak di dalam lingkaran.\n(3) Jika K = 0, maka titik terletak tepat pada busur keliling lingkaran.",
+          "opsi": [
+            "Jika K < 0, maka titik terletak di dalam lingkaran",
+            "Jika K > 0, maka titik terletak di dalam lingkaran",
+            "Jika K = 0, maka titik terletak tepat pada busur keliling lingkaran"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q6] Jarak terpendek dari titik $A(8, 6)$ ke busur lingkaran $x^2 + y^2 = 16$ adalah ...",
+          "opsi": [
+            "A. 10 satuan",
+            "B. 6 satuan",
+            "C. 4 satuan",
+            "D. 2 satuan",
+            "E. 14 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 16,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              8,
+              6
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q7] Titik berikut yang terletak tepat pada lingkaran $x^2 + y^2 - 2x + 4y - 20 = 0$ adalah ...",
+          "opsi": [
+            "A. $(0, 4)$",
+            "B. $(2, 4)$",
+            "C. $(4, 2)$",
+            "D. $(3, 3)$",
+            "E. $(1, 5)$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 1,
+            "cy": -2,
+            "r2": 25,
+            "line": [
+              2,
+              4,
+              -20
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P04-Q8] Pada lingkaran x^2 + y^2 = 25, manakah pernyataan kedudukan titik berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Titik (5, 2) terletak di luar lingkaran.",
+            "B. Titik (1, 2) terletak di dalam lingkaran.",
+            "C. Titik (-5, 0) terletak tepat pada lingkaran.",
+            "D. Titik (3, 4) terletak tepat pada lingkaran.",
+            "E. Titik (4, 4) terletak di dalam lingkaran."
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q9] Jarak terjauh dari titik $P(10, 0)$ ke busur lingkaran $x^2 + y^2 = 36$ adalah ...",
+          "opsi": [
+            "A. 10 satuan",
+            "B. 12 satuan",
+            "C. 4 satuan",
+            "D. 16 satuan",
+            "E. 14 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 36,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              10,
+              0
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P04-Q10] Nilai kuasa titik $(3, 4)$ terhadap lingkaran $x^2 + y^2 = 25$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              3,
+              4
+            ]
+          }
+        }
+      ]
+    },
+    "P05": {
+      "id": "P05",
+      "subject": "Matematika Peminatan",
+      "title": "Geometri Analitik Lingkaran 5: Kedudukan Garis Terhadap Lingkaran (Uji Diskriminan)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q1] Kedudukan garis $y = 2x + 1$ terhadap lingkaran $x^2 + y^2 = 25$ adalah ...",
+          "opsi": [
+            "A. Melalui pusat",
+            "B. Saling lepas",
+            "C. Diameter",
+            "D. Memotong lingkaran di dua titik berlainan",
+            "E. Menyinggung"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "line": [
+              2,
+              -1,
+              1
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q2] Nilai konstanta $k$ agar garis $y = x + k$ menyinggung lingkaran $x^2 + y^2 = 18$ di kuadran I adalah ...",
+          "opsi": [
+            "A. $k = 6\\sqrt{2}$",
+            "B. $k = 6$",
+            "C. $k = 18$",
+            "D. $k = 3$",
+            "E. $k = 9$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 18,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q3] Garis $3x - 4y + c = 0$ menyinggung lingkaran $x^2 + y^2 = 25$. Nilai $c$ yang mungkin adalah ...",
+          "opsi": [
+            "A. $\\pm 5$",
+            "B. $\\pm 10$",
+            "C. $\\pm 25$",
+            "D. $\\pm 15$",
+            "E. $\\pm 20$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q4] Kedudukan garis $x + y = 10$ terhadap lingkaran $x^2 + y^2 = 25$ adalah ...",
+          "opsi": [
+            "A. Melalui pusat",
+            "B. Menyinggung",
+            "C. Sejajar sumbu-X",
+            "D. Saling lepas (di luar lingkaran)",
+            "E. Memotong di 2 titik"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q5] Tentukan kebenaran uji diskriminan kedudukan garis y = mx + c terhadap lingkaran:\n(1) Jika D = 0, garis menyinggung lingkaran di satu titik.\n(2) Jika D < 0, garis memotong lingkaran di dua titik berlainan.\n(3) Jika D > 0, garis memotong lingkaran di dua titik berlainan.",
+          "opsi": [
+            "Jika D = 0, garis menyinggung lingkaran di satu titik",
+            "Jika D < 0, garis memotong lingkaran di dua titik berlainan",
+            "Jika D > 0, garis memotong lingkaran di dua titik berlainan"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q6] Nilai diskriminan persekutuan $y = 3$ dan $x^2 + y^2 = 25$ bernilai ...",
+          "opsi": [
+            "A. Positif ($D > 0$)",
+            "B. Negatif ($D < 0$)",
+            "C. Tak hingga",
+            "D. Imajiner",
+            "E. Nol ($D = 0$)"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q7] Titik potong garis $y = x$ dengan $x^2 + y^2 = 18$ di kuadran I adalah ...",
+          "opsi": [
+            "A. $(4, 4)$",
+            "B. $(3, 3)$",
+            "C. $(1, 1)$",
+            "D. $(2, 2)$",
+            "E. $(3\\sqrt{2}, 3\\sqrt{2})$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 18,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P05-Q8] Pada lingkaran x^2 + y^2 = 25, manakah analisis kedudukan garis berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Garis x = 6 tidak memotong dan tidak menyinggung lingkaran.",
+            "B. Garis x = 5 menyinggung lingkaran di titik (5, 0).",
+            "C. Garis y = x memotong lingkaran di dua titik berlainan.",
+            "D. Garis y = 0 tidak memotong lingkaran.",
+            "E. Garis y = -5 menyinggung lingkaran di titik (0, -5)."
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q9] Panjang tali busur perpotongan garis $x = 3$ dengan $x^2 + y^2 = 25$ adalah ...",
+          "opsi": [
+            "A. 4 satuan",
+            "B. 10 satuan",
+            "C. 8 satuan",
+            "D. 6 satuan",
+            "E. 5 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P05-Q10] Gradien garis $y = mx$ yang menyinggung $(x - 5)^2 + y^2 = 9$ di kuadran I adalah ... (dalam pecahan a/b)",
+          "opsi": []
+        }
+      ]
+    },
+    "P06": {
+      "id": "P06",
+      "subject": "Matematika Peminatan",
+      "title": "Geometri Analitik Lingkaran 6: PGSL Melalui Titik Pada Lingkaran (Metode Bagi Adil)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q1] Persamaan garis singgung lingkaran $x^2 + y^2 = 25$ di titik $T(3, -4)$ adalah ...",
+          "opsi": [
+            "A. $3x + 4y = 25$",
+            "B. $4x - 3y = 25$",
+            "C. $-3x - 4y = 25$",
+            "D. $4x + 3y = 25$",
+            "E. $3x - 4y = 25$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              3,
+              -4
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q2] Persamaan garis singgung lingkaran $(x - 1)^2 + (y + 2)^2 = 25$ di titik $A(4, 2)$ adalah ...",
+          "opsi": [
+            "A. $4x + 3y - 20 = 0$",
+            "B. $3x + 4y - 20 = 0$",
+            "C. $3x + 4y + 20 = 0$",
+            "D. $3x + 4y - 25 = 0$",
+            "E. $3x - 4y + 20 = 0$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 1,
+            "cy": -2,
+            "r2": 25,
+            "P": [
+              4,
+              2
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q3] Persamaan garis singgung lingkaran $x^2 + y^2 - 4x + 6y - 12 = 0$ di titik $P(5, 1)$ adalah ...",
+          "opsi": [
+            "A. $5x + y - 12 = 0$",
+            "B. $3x + 4y + 19 = 0$",
+            "C. $3x + 4y - 19 = 0$",
+            "D. $3x - 4y - 11 = 0$",
+            "E. $4x + 3y - 19 = 0$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 2,
+            "cy": -3,
+            "r2": 25,
+            "P": [
+              5,
+              1
+            ],
+            "line": [
+              4,
+              6,
+              -12
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q4] Gradien garis singgung lingkaran $x^2 + y^2 = 100$ di titik $(-8, 6)$ adalah ...",
+          "opsi": [
+            "A. 4/3",
+            "B. 3/4",
+            "C. -4/3",
+            "D. 4/5",
+            "E. -3/4"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 100,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              -8,
+              6
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q5] Tentukan kebenaran metode bagi adil persamaan garis singgung lingkaran:\n(1) Rumus bagi adil dapat langsung digunakan untuk titik yang berada di luar lingkaran.\n(2) Garis singgung lingkaran x^2 + y^2 = r^2 di titik (x1, y1) adalah x1.x + y1.y = r^2.\n(3) Garis singgung lingkaran x^2 + y^2 = 25 di titik (3, 4) adalah 3x + 4y = 25.",
+          "opsi": [
+            "Rumus bagi adil dapat langsung digunakan untuk titik yang berada di luar lingkaran",
+            "Garis singgung lingkaran x^2 + y^2 = r^2 di titik (x1, y1) adalah x1.x + y1.y = r^2",
+            "Garis singgung lingkaran x^2 + y^2 = 25 di titik (3, 4) adalah 3x + 4y = 25"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              3,
+              4
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q6] Persamaan garis normal di $(3, 4)$ pada $x^2 + y^2 = 25$ adalah ...",
+          "opsi": [
+            "A. $4x + 3y = 25$",
+            "B. $4x - 3y = 25$",
+            "C. $3x + 4y = 0$",
+            "D. $4x - 3y = 0$",
+            "E. $3x - 4y = 0$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q7] Garis singgung lingkaran $x^2 + y^2 = 13$ di $(-2, 3)$ memotong sumbu-$X$ di titik ...",
+          "opsi": [
+            "A. $(-13/3, 0)$",
+            "B. $(13/2, 0)$",
+            "C. $(0, 13/3)$",
+            "D. $(-2, 0)$",
+            "E. $(-13/2, 0)$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 13,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              -2,
+              3
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P06-Q8] Pada lingkaran (x - 1)^2 + (y + 2)^2 = 25, manakah garis singgung di titik-titik berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Di titik (1, -7), persamaan garis singgungnya adalah y = -7.",
+            "B. Di titik (6, -2), persamaan garis singgungnya adalah y = 6.",
+            "C. Di titik (-2, 2), persamaan garis singgungnya adalah -3x + 4y - 14 = 0.",
+            "D. Di titik (4, 2), persamaan garis singgungnya adalah 3x + 4y - 20 = 0.",
+            "E. Di titik (1, 3), persamaan garis singgungnya adalah y = 3."
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 1,
+            "cy": -2,
+            "r2": 25,
+            "tang": 1
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q9] Persamaan garis singgung di $(0, 5)$ pada $x^2 + y^2 = 25$ adalah ...",
+          "opsi": [
+            "A. $y = -5$",
+            "B. $x + y = 5$",
+            "C. $y = 0$",
+            "D. $y = 5$",
+            "E. $x = 5$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              0,
+              5
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P06-Q10] Nilai intersep sumbu-Y garis singgung $x^2 + y^2 = 50$ di $(5, 5)$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 50,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              5,
+              5
+            ],
+            "tang": 1
+          }
+        }
+      ]
+    },
+    "P07": {
+      "id": "P07",
+      "subject": "Matematika Peminatan",
+      "title": "Geometri Analitik Lingkaran 7: PGSL dengan Gradien m Tertentu",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q1] Salah satu persamaan garis singgung lingkaran $x^2 + y^2 = 20$ yang memiliki gradien $m = 2$ adalah ...",
+          "opsi": [
+            "A. $y = 2x + 4\\sqrt{5}$",
+            "B. $y = 2x + 8$",
+            "C. $y = 2x + 10$",
+            "D. $y = 2x + 20$",
+            "E. $y = 2x + 5$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 20,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q2] Persamaan garis singgung lingkaran $(x - 2)^2 + (y + 1)^2 = 25$ yang sejajar dengan $3x - 4y + 12 = 0$ adalah ...",
+          "opsi": [
+            "A. $3x - 4y + 25 = 0$ atau $3x - 4y - 25 = 0$",
+            "B. $3x - 4y + 15 = 0$ atau $3x - 4y - 35 = 0$",
+            "C. $3x - 4y + 10 = 0$",
+            "D. $4x + 3y + 15 = 0$",
+            "E. $3x - 4y = 0$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 2,
+            "cy": -1,
+            "r2": 25,
+            "line": [
+              3,
+              -4,
+              12
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q3] Persamaan garis singgung lingkaran $x^2 + y^2 = 16$ yang tegak lurus dengan garis $2x - y + 5 = 0$ adalah ...",
+          "opsi": [
+            "A. $y = -2x \\pm 2\\sqrt{5}$",
+            "B. $y = -1/2 x \\pm 4\\sqrt{5}$",
+            "C. $y = 2x \\pm 4\\sqrt{5}$",
+            "D. $y = -1/2 x \\pm 2\\sqrt{5}$",
+            "E. $y = -1/2 x \\pm 8$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 16,
+            "cx": 0,
+            "cy": 0,
+            "line": [
+              2,
+              -1,
+              5
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q4] Salah satu garis singgung lingkaran $x^2 + y^2 = 9$ bersudut $45^\\circ$ terhadap sumbu-$X$ positif adalah ...",
+          "opsi": [
+            "A. $y = x + 6$",
+            "B. $y = x + 9$",
+            "C. $y = x + 3\\sqrt{2}$",
+            "D. $y = x + 2\\sqrt{3}$",
+            "E. $y = x + 3$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 9,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q5] Tentukan kebenaran persamaan garis singgung bergradien m:\n(1) Pada x^2 + y^2 = r^2, rumusnya adalah y = mx +- r akar(1 + m^2).\n(2) Garis singgung bergradien m = 0 pada x^2 + y^2 = 25 adalah x = +- 5.\n(3) Terdapat tepat 2 garis singgung yang sejajar dengan gradien m yang sama.",
+          "opsi": [
+            "Pada x^2 + y^2 = r^2, rumusnya adalah y = mx +- r akar(1 + m^2)",
+            "Garis singgung bergradien m = 0 pada x^2 + y^2 = 25 adalah x = +- 5",
+            "Terdapat tepat 2 garis singgung yang sejajar dengan gradien m yang sama"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q6] Berapakah $c$ pada $y = 3x + c$ yang menyinggung $x^2 + y^2 = 10$ dengan $c > 0$?",
+          "opsi": [
+            "A. 10",
+            "B. √10",
+            "C. 5",
+            "D. 20",
+            "E. 30"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 10,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q7] Persamaan garis singgung $(x + 1)^2 + (y - 3)^2 = 8$ dengan gradien $m = -1$ adalah ...",
+          "opsi": [
+            "A. $y = -x + 2$",
+            "B. $y = -x + 6$ atau $y = -x - 2$",
+            "C. $y = -x + 4$",
+            "D. $y = -x + 8$",
+            "E. $y = -x$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": -1,
+            "cy": 3,
+            "r2": 8,
+            "tang": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P07-Q8] Pada lingkaran x^2 + y^2 = 16 dengan gradien m = 3/4, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Nilai r akar(1 + m^2) adalah 5.",
+            "B. Dalam bentuk umum, persamaannya adalah 3x - 4y + 20 = 0 dan 3x - 4y - 20 = 0.",
+            "C. Garis singgung lainnya adalah y = 3/4 x - 5.",
+            "D. Salah satu garis singgungnya adalah y = 3/4 x + 5.",
+            "E. Kedua garis singgung tersebut saling tegak lurus."
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 16,
+            "cx": 0,
+            "cy": 0
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q9] Jarak antara dua garis singgung lingkaran $x^2 + y^2 = 36$ yang bergradien $m = \\sqrt{3}$ adalah ...",
+          "opsi": [
+            "A. 6√3 satuan",
+            "B. 6 satuan",
+            "C. 18 satuan",
+            "D. 12 satuan",
+            "E. 24 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 36,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P07-Q10] Nilai positif $k$ agar $y = 2x + k$ menyinggung $x^2 + y^2 = 5$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 5,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        }
+      ]
+    },
+    "P08": {
+      "id": "P08",
+      "subject": "Matematika Peminatan",
+      "title": "Geometri Analitik Lingkaran 8: PGSL Titik di Luar Lingkaran & Garis Kutub",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q1] Persamaan garis kutub (garis polar) dari titik $T(0, 5)$ terhadap lingkaran $x^2 + y^2 = 9$ adalah ...",
+          "opsi": [
+            "A. $5x + y = 9$",
+            "B. $x + 5y = 9$",
+            "C. $5y = 9$",
+            "D. $5y = 25$",
+            "E. $5x = 9$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 9,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              0,
+              5
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q2] Dari titik $P(0, 5)$ ditarik garis singgung ke $x^2 + y^2 = 9$. Salah satu persamaan garis singgungnya adalah ...",
+          "opsi": [
+            "A. $4x + 3y + 15 = 0$",
+            "B. $4x - 3y + 15 = 0$",
+            "C. $3x + 4y - 15 = 0$",
+            "D. $3x - 4y + 15 = 0$",
+            "E. $4x + 3y - 15 = 0$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 9,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              0,
+              5
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q3] Panjang garis singgung dari titik $A(6, 8)$ ke lingkaran $x^2 + y^2 = 36$ adalah ...",
+          "opsi": [
+            "A. 10 satuan",
+            "B. 2√7 satuan",
+            "C. 4√5 satuan",
+            "D. 8 satuan",
+            "E. 6 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 36,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              6,
+              8
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q4] Persamaan garis polar titik $T(1, 2)$ terhadap $(x - 3)^2 + (y + 1)^2 = 25$ adalah ...",
+          "opsi": [
+            "A. $-2x + 3y + 25 = 0$",
+            "B. $x + 2y - 25 = 0$",
+            "C. $-2x + 3y - 16 = 0$",
+            "D. $3x - y - 16 = 0$",
+            "E. $2x - 3y + 16 = 0$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 3,
+            "cy": -1,
+            "r2": 25,
+            "P": [
+              1,
+              2
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q5] Tentukan kebenaran konsep garis kutub (polar) dari titik luar A(x1, y1):\n(1) Garis kutub memotong lingkaran tepat di dua titik singgung lingkaran.\n(2) Titik singgung dapat ditentukan tanpa menggunakan bantuan garis kutub.\n(3) Persamaan garis kutub untuk x^2 + y^2 = r^2 dirumuskan x1.x + y1.y = r^2.",
+          "opsi": [
+            "Garis kutub memotong lingkaran tepat di dua titik singgung lingkaran",
+            "Titik singgung dapat ditentukan tanpa menggunakan bantuan garis kutub",
+            "Persamaan garis kutub untuk x^2 + y^2 = r^2 dirumuskan x1.x + y1.y = r^2"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q6] Berapakah sudut apit antara dua garis singgung lingkaran $x^2 + y^2 = 25$ dari titik luar $T(0, 10)$?",
+          "opsi": [
+            "A. 120 derajat",
+            "B. 60 derajat",
+            "C. 90 derajat",
+            "D. 45 derajat",
+            "E. 30 derajat"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              0,
+              10
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q7] Panjang tali busur kontak dari titik $(0, 5)$ ke lingkaran $x^2 + y^2 = 9$ adalah ...",
+          "opsi": [
+            "A. 24/5 satuan",
+            "B. 12/5 satuan",
+            "C. 18/5 satuan",
+            "D. 8 satuan",
+            "E. 6 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 9,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              0,
+              5
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P08-Q8] Ditarik garis singgung dari titik A(0, 5) ke lingkaran x^2 + y^2 = 9. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Persamaan garis kutub titik A terhadap lingkaran adalah 5y = 9 (atau y = 9/5).",
+            "B. Nilai absis titik-titik singgung adalah x = 12/5 dan x = -12/5.",
+            "C. Titik singgung pada lingkaran adalah (12/5, 9/5) dan (-12/5, 9/5).",
+            "D. Titik A(0, 5) terletak di dalam lingkaran.",
+            "E. Panjang ruas garis singgung dari titik A ke titik singgung adalah 4 satuan."
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 9,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              0,
+              5
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q9] Dari titik $T(5, 0)$ ditarik garis singgung ke $x^2 + y^2 = 9$. Salah satu titik singgungnya berkoordinat ...",
+          "opsi": [
+            "A. $(12/5, 9/5)$",
+            "B. $(9/5, 12/5)$",
+            "C. $(9/5, -9/5)$",
+            "D. $(0, 3)$",
+            "E. $(3, 0)$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 9,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              5,
+              0
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P08-Q10] Panjang garis singgung dari $(13, 0)$ ke $x^2 + y^2 = 25$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 25,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              13,
+              0
+            ],
+            "tang": 1
+          }
+        }
+      ]
+    },
+    "P09": {
+      "id": "P09",
+      "subject": "Matematika Peminatan",
+      "title": "Asesmen Sumatif Bab 1: Geometri Analitik Lingkaran",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q1] Jari-jari lingkaran $x^2 + y^2 - 4x + 2y - 20 = 0$ adalah ...",
+          "opsi": [
+            "A. 5",
+            "B. 4",
+            "C. √20",
+            "D. 6",
+            "E. 25"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 2,
+            "cy": -1,
+            "r2": 25,
+            "line": [
+              4,
+              2,
+              -20
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q2] Persamaan garis singgung lingkaran $x^2 + y^2 = 13$ di titik $(-2, 3)$ adalah ...",
+          "opsi": [
+            "A. $2x + 3y = 13$",
+            "B. $2x - 3y = 13$",
+            "C. $-2x + 3y = 13$",
+            "D. $-2x - 3y = 13$",
+            "E. $3x - 2y = 13$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 13,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              -2,
+              3
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q3] Lingkaran $(x - 3)^2 + (y + 4)^2 = 100$ memotong sumbu-$X$ di titik ...",
+          "opsi": [
+            "A. $(3 \\pm 2\\sqrt{21}, 0)$",
+            "B. $(10, 0)$ dan $(-4, 0)$",
+            "C. $(0, 0)$",
+            "D. $(7, 0)$ dan $(-1, 0)$",
+            "E. $(13, 0)$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "cx": 3,
+            "cy": -4,
+            "r2": 100
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q4] Persamaan garis singgung lingkaran $x^2 + y^2 = 10$ yang bergradien $m = 3$ adalah ...",
+          "opsi": [
+            "A. $y = 3x \\pm 5$",
+            "B. $y = 3x \\pm \\sqrt{10}$",
+            "C. $y = 3x \\pm 10$",
+            "D. $y = 3x \\pm 10\\sqrt{2}$",
+            "E. $y = 3x \\pm 20$"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 10,
+            "cx": 0,
+            "cy": 0,
+            "tang": 1
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q5] Tentukan kebenaran hubungan dua lingkaran berjari-jari R dan r (pusat P1 dan P2 dengan jarak d = P1P2):\n(1) Jika d > R + r, kedua lingkaran saling berpotongan di dua titik.\n(2) Jika d = R + r, kedua lingkaran bersinggungan di luar.\n(3) Jika d = R - r (R > r), kedua lingkaran bersinggungan di dalam.",
+          "opsi": [
+            "Jika d > R + r, kedua lingkaran saling berpotongan di dua titik",
+            "Jika d = R + r, kedua lingkaran bersinggungan di luar",
+            "Jika d = R - r (R > r), kedua lingkaran bersinggungan di dalam"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q6] Berapakah jari-jari lingkaran $x^2 + y^2 + 6x - 8y + c = 0$ jika menyinggung sumbu-Y?",
+          "opsi": [
+            "A. 6 satuan",
+            "B. 4 satuan",
+            "C. 5 satuan",
+            "D. 8 satuan",
+            "E. 3 satuan"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q7] Jarak titik $P(1, 2)$ ke garis singgung lingkaran $x^2 + y^2 = 5$ di $(1, 2)$ adalah ...",
+          "opsi": [
+            "A. 1 satuan",
+            "B. √5 satuan",
+            "C. 5 satuan",
+            "D. 0 satuan",
+            "E. 2 satuan"
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 5,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              1,
+              2
+            ],
+            "tang": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P09-Q8] Diberikan L1: x^2 + y^2 = 9 (pusat (0,0), R = 3) dan L2: (x - 8)^2 + y^2 = 16 (pusat (8,0), r = 4). Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Karena d > R + r (8 > 7), kedua lingkaran saling lepas di luar.",
+            "B. Jarak antara kedua pusat lingkaran adalah d = 8 satuan.",
+            "C. Kedua lingkaran saling bersinggungan di titik (3, 0).",
+            "D. Kedua lingkaran memiliki 4 garis singgung persekutuan.",
+            "E. Nilai R + r adalah 7 satuan."
+          ],
+          "viz": {
+            "t": "lingkaran",
+            "r2": 9,
+            "cx": 0,
+            "cy": 0,
+            "P": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q9] Nilai konstanta $k$ agar lingkaran $x^2 + y^2 = k$ melalui titik $(-3, 4)$ adalah ...",
+          "opsi": [
+            "A. 5",
+            "B. 49",
+            "C. 7",
+            "D. 12",
+            "E. 25"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P09-Q10] Panjang diameter lingkaran $x^2 + y^2 - 6x - 8y = 0$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P10": {
+      "id": "P10",
+      "subject": "Matematika Peminatan",
+      "title": "Limit Aljabar & Trigonometri 1: Fondasi Limit Aljabar Bentuk 0/0",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q1] Nilai dari $\\lim_{x \\to 3} \\frac{x^2 - 9}{x - 3}$ adalah ...",
+          "opsi": [
+            "A. 6",
+            "B. 3",
+            "C. Tak hingga",
+            "D. 0",
+            "E. 9"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.pow(x, 2) - 9)/(x - 3)",
+            "x0": 0.8,
+            "x1": 5.2,
+            "lab": "y = f(x)",
+            "hole": 3,
+            "holey": 6
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q2] Nilai dari $\\lim_{x \\to 4} \\frac{\\sqrt{x} - 2}{x - 4}$ adalah ...",
+          "opsi": [
+            "A. 4",
+            "B. 2",
+            "C. 1/2",
+            "D. 1/8",
+            "E. 1/4"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.sqrt(x) - 2)*(x - 4)",
+            "x0": 1.8,
+            "x1": 6.2,
+            "lab": "y = f(x)",
+            "hole": 4,
+            "holey": 0
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q3] Nilai dari $\\lim_{x \\to 2} \\frac{x^3 - 8}{x^2 - 4}$ adalah ...",
+          "opsi": [
+            "A. 2",
+            "B. 4",
+            "C. 6",
+            "D. 3",
+            "E. 12"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.pow(x, 3) - 8)/(Math.pow(x, 2) - 4)",
+            "x0": -0.2,
+            "x1": 4.2,
+            "lab": "y = f(x)",
+            "hole": 2,
+            "holey": 3
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q4] Nilai dari $\\lim_{x \\to 1} \\frac{x^2 + 2x - 3}{x - 1}$ adalah ...",
+          "opsi": [
+            "A. 3",
+            "B. 4",
+            "C. 1",
+            "D. 2",
+            "E. 5"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.pow(x, 2) + 2*x - 3)/(x - 1)",
+            "x0": -1.2,
+            "x1": 3.2,
+            "lab": "y = f(x)",
+            "hole": 1,
+            "holey": 4
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q5] Tentukan kebenaran konsep evaluasi limit aljabar bentuk tak tentu 0/0:\n(1) Bentuk 0/0 pada substitusi langsung merupakan bentuk tak tentu yang memerlukan manipulasi aljabar.\n(2) Nilai limit x->2 (x^2 - 4) / (x - 2) adalah 0.\n(3) Metode pemfaktoran bertujuan mengeliminasi faktor pembuat nol (x - c).",
+          "opsi": [
+            "Bentuk 0/0 pada substitusi langsung merupakan bentuk tak tentu yang memerlukan manipulasi aljabar",
+            "Nilai limit x->2 (x^2 - 4) / (x - 2) adalah 0",
+            "Metode pemfaktoran bertujuan mengeliminasi faktor pembuat nol (x - c)"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q6] Berapakah nilai $\\lim_{x \\to 5} \\frac{x^2 - 25}{x - 5}$?",
+          "opsi": [
+            "A. 20",
+            "B. 0",
+            "C. 10",
+            "D. 25",
+            "E. 5"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.pow(x, 2) - 25)/(x - 5)",
+            "x0": 2.8,
+            "x1": 7.2,
+            "lab": "y = f(x)",
+            "hole": 5,
+            "holey": 10
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q7] Nilai dari $\\lim_{x \\to 0} \\frac{\\sqrt{1 + x} - \\sqrt{1 - x}}{x}$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. 1",
+            "C. 1/2",
+            "D. √2",
+            "E. 2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*(-Math.sqrt(1 - x) + Math.sqrt(x + 1))",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 0
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P10-Q8] Manakah nilai evaluasi limit aljabar berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. limit x->1 (x^2 + 2x - 3) / (x - 1) = 4.",
+            "B. limit x->3 (x^2 - 9) / (x - 3) = 6.",
+            "C. limit x->4 (akar(x) - 2) / (x - 4) = 1/4.",
+            "D. limit x->0 (x^3 + 5x) / x = 5.",
+            "E. limit x->2 (x^2 - 4) / (x + 2) = 4."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q9] Nilai dari $\\lim_{x \\to 5} \\frac{x^2 - 25}{\\sqrt{x} - \\sqrt{5}}$ adalah ...",
+          "opsi": [
+            "A. 25",
+            "B. 50",
+            "C. 5√5",
+            "D. 10√5",
+            "E. 20√5"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.sqrt(x) - Math.sqrt(5))*(Math.pow(x, 2) - 25)",
+            "x0": 2.8,
+            "x1": 7.2,
+            "lab": "y = f(x)",
+            "hole": 5,
+            "holey": 0
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P10-Q10] Nilai dari $\\lim_{x \\to 2} \\frac{x^2 - 5x + 6}{x - 2}$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.pow(x, 2) - 5*x + 6)/(x - 2)",
+            "x0": -0.2,
+            "x1": 4.2,
+            "lab": "y = f(x)",
+            "hole": 2,
+            "holey": -1
+          }
+        }
+      ]
+    },
+    "P11": {
+      "id": "P11",
+      "subject": "Matematika Peminatan",
+      "title": "Limit Aljabar & Trigonometri 2: Teorema Dasar Limit Trigonometri",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q1] Nilai dari $\\lim_{x \\to 0} \\frac{\\sin(6x)}{2x}$ adalah ...",
+          "opsi": [
+            "A. 3",
+            "B. 2",
+            "C. 6",
+            "D. 1/3",
+            "E. 12"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1/2)*Math.sin(6*x)/x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 3
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q2] Nilai dari $\\lim_{x \\to 0} \\frac{\\tan(4x)}{\\sin(2x)}$ adalah ...",
+          "opsi": [
+            "A. 4",
+            "B. 8",
+            "C. 1/2",
+            "D. 2",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.tan(4*x)/Math.sin(2*x)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 2
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q3] Nilai dari $\\lim_{x \\to 0} \\frac{\\sin(3x) \\tan(2x)}{6x^2}$ adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 6",
+            "C. 2",
+            "D. 3",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1/6)*Math.sin(3*x)*Math.tan(2*x)/Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q4] Nilai dari $\\lim_{x \\to 0} \\frac{x \\tan(3x)}{\\sin^2(6x)}$ adalah ...",
+          "opsi": [
+            "A. 1/12",
+            "B. 1/18",
+            "C. 1/6",
+            "D. 1/4",
+            "E. 1/2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.tan(3*x)/Math.pow(Math.sin(6*x), 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 0.0833
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q5] Tentukan kebenaran teorema limit trigonometri dasar:\n(1) Nilai limit x->0 (tan ax) / (bx) = a/b.\n(2) Nilai limit x->0 (sin x) / x = 1.\n(3) Nilai limit x->0 (cos x) / x = 1.",
+          "opsi": [
+            "Nilai limit x->0 (tan ax) / (bx) = a/b",
+            "Nilai limit x->0 (sin x) / x = 1",
+            "Nilai limit x->0 (cos x) / x = 1"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q6] Berapakah nilai dari $\\lim_{x \\to 0} \\frac{\\sin(6x)}{\\tan(2x)}$?",
+          "opsi": [
+            "A. 2",
+            "B. 12",
+            "C. 6",
+            "D. 1",
+            "E. 3"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(6*x)/Math.tan(2*x)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 3
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q7] Nilai dari $\\lim_{x \\to 0} \\frac{2x \\sin(3x)}{1 - \\cos(2x)}$ adalah ...",
+          "opsi": [
+            "A. 6",
+            "B. 2",
+            "C. 3",
+            "D. 3/2",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*x*Math.sin(3*x)/(1 - Math.cos(2*x))",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 3
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P11-Q8] Manakah hasil evaluasi limit trigonometri dasar berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. limit x->0 (sin 6x) / (2x) = 3.",
+            "B. limit x->0 (tan 4x) / (sin 2x) = 2.",
+            "C. limit x->0 (x sin 5x) / (tan^2 x) = 5.",
+            "D. limit x->0 (sin 3x tan 2x) / (6x^2) = 1.",
+            "E. limit x->0 (sin 4x) / (tan 8x) = 2."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q9] Nilai dari $\\lim_{x \\to 0} \\frac{\\sin(4x) + \\tan(2x)}{3x}$ adalah ...",
+          "opsi": [
+            "A. 6",
+            "B. 4/3",
+            "C. 1",
+            "D. 2",
+            "E. 3"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1/3)*(Math.sin(4*x) + Math.tan(2*x))/x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 2
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P11-Q10] Nilai dari $\\lim_{x \\to 0} \\frac{\\sin(12x)}{\\tan(4x)}$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(12*x)/Math.tan(4*x)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 3
+          }
+        }
+      ]
+    },
+    "P12": {
+      "id": "P12",
+      "subject": "Matematika Peminatan",
+      "title": "Limit Aljabar & Trigonometri 3: Limit Trigonometri & Identitas Cosinus",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q1] Nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos(4x)}{x^2}$ adalah ...",
+          "opsi": [
+            "A. 2",
+            "B. 1",
+            "C. 16",
+            "D. 4",
+            "E. 8"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1 - Math.cos(4*x))/Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 8
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q2] Nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos(2x)}{x \\sin(3x)}$ adalah ...",
+          "opsi": [
+            "A. 3/2",
+            "B. 2/3",
+            "C. 2",
+            "D. 4/3",
+            "E. 1/3"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1 - Math.cos(2*x))/(x*Math.sin(3*x))",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 0.6667
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q3] Nilai dari $\\lim_{x \\to 0} \\frac{\\cos(4x) - \\cos(2x)}{x^2}$ adalah ...",
+          "opsi": [
+            "A. -12",
+            "B. 6",
+            "C. -3",
+            "D. -6",
+            "E. 3"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(-Math.cos(2*x) + Math.cos(4*x))/Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": -6
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q4] Nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{1 - \\cos(2x)}$ adalah ...",
+          "opsi": [
+            "A. 18",
+            "B. 36",
+            "C. 6",
+            "D. 3",
+            "E. 9"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1 - Math.cos(6*x))/(1 - Math.cos(2*x))",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 9
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q5] Tentukan kebenaran rumus identitas dalam limit trigonometri berikut:\n(1) Nilai limit x->0 (1 - cos x) / x adalah 1.\n(2) Bentuk 1 - cos(2x) dapat diubah secara identik menjadi 2 sin^2(x).\n(3) Bentuk 1 - cos(ax) asimtotik ekuivalen dengan 1/2 a^2 x^2 saat x mendekati 0.",
+          "opsi": [
+            "Nilai limit x->0 (1 - cos x) / x adalah 1",
+            "Bentuk 1 - cos(2x) dapat diubah secara identik menjadi 2 sin^2(x)",
+            "Bentuk 1 - cos(ax) asimtotik ekuivalen dengan 1/2 a^2 x^2 saat x mendekati 0"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q6] Berapakah nilai $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{x^2}$?",
+          "opsi": [
+            "A. 18",
+            "B. 12",
+            "C. 9",
+            "D. 6",
+            "E. 36"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1 - Math.cos(6*x))/Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 18
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q7] Nilai dari $\\lim_{x \\to 0} \\frac{x \\tan(2x)}{1 - \\cos(4x)}$ adalah ...",
+          "opsi": [
+            "A. 1",
+            "B. 2",
+            "C. 1/4",
+            "D. 1/2",
+            "E. 1/8"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.tan(2*x)/(1 - Math.cos(4*x))",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 0.25
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P12-Q8] Manakah evaluasi limit trigonometri bentuk tak tentu berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. limit x->0 (tan x - sin x) / x^3 = 1/2.",
+            "B. limit x->0 (1 - cos 6x) / (1 - cos 2x) = 9.",
+            "C. limit x->0 (sin^2 3x) / (x tan 2x) = 0.",
+            "D. limit x->0 (1 - cos 4x) / (x sin 2x) = 4.",
+            "E. limit x->0 (cos x - cos 3x) / x^2 = 4."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q9] Nilai dari $\\lim_{x \\to 0} \\frac{\\cos(6x) - 1}{x \\sin(3x)}$ adalah ...",
+          "opsi": [
+            "A. -6",
+            "B. 6",
+            "C. -2",
+            "D. -3",
+            "E. 3"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.cos(6*x) - 1)/(x*Math.sin(3*x))",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": -6
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P12-Q10] Nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos(10x)}{x^2}$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "(1 - Math.cos(10*x))/Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 50
+          }
+        }
+      ]
+    },
+    "P13": {
+      "id": "P13",
+      "subject": "Matematika Peminatan",
+      "title": "Limit Aljabar & Trigonometri 4: Limit Trigonometri Menuju Sudut x \\to c",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q1] Nilai dari $\\lim_{x \\to \\pi/4} \\frac{\\sin x - \\cos x}{x - \\pi/4}$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. √2",
+            "C. 2",
+            "D. 1/2 √2",
+            "E. 1"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q2] Nilai dari $\\lim_{x \\to 1} \\frac{\\sin(x - 1)}{x^2 - 1}$ adalah ...",
+          "opsi": [
+            "A. 2",
+            "B. 0",
+            "C. 1/2",
+            "D. 1/4",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x - 1)/(Math.pow(x, 2) - 1)",
+            "x0": -1.2,
+            "x1": 3.2,
+            "lab": "y = f(x)",
+            "hole": 1,
+            "holey": 0.5
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q3] Nilai dari $\\lim_{x \\to \\pi/2} \\frac{\\cos x}{x - \\pi/2}$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. -1",
+            "C. -1/2",
+            "D. 1/2",
+            "E. 1"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q4] Nilai dari $\\lim_{x \\to 2} \\frac{(x - 2) \\cos(x - 2)}{\\sin(2x - 4)}$ adalah ...",
+          "opsi": [
+            "A. 1",
+            "B. 2",
+            "C. 0",
+            "D. 1/2",
+            "E. 1/4"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(x - 2)*Math.cos(x - 2)/Math.sin(2*x - 4)",
+            "x0": -0.2,
+            "x1": 4.2,
+            "lab": "y = f(x)",
+            "hole": 2,
+            "holey": 0.5
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q5] Tentukan kebenaran sifat limit di tak hingga fungsi rasional P(x)/Q(x):\n(1) Jika derajat polinomial P(x) sama dengan derajat Q(x), limitnya adalah perbandingan koefisien pangkat tertinggi.\n(2) Nilai limit x->inf [akar(x^2 + 4x) - akar(x^2 - 2x)] bernilai 0.\n(3) Jika derajat P(x) lebih kecil dari derajat Q(x), nilai limitnya adalah 0.",
+          "opsi": [
+            "Jika derajat polinomial P(x) sama dengan derajat Q(x), limitnya adalah perbandingan koefisien pangkat tertinggi",
+            "Nilai limit x->inf [akar(x^2 + 4x) - akar(x^2 - 2x)] bernilai 0",
+            "Jika derajat P(x) lebih kecil dari derajat Q(x), nilai limitnya adalah 0"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q6] Berapakah nilai $\\lim_{x \\to \\pi/3} \\frac{\\tan x - \\sqrt{3}}{x - \\pi/3}$?",
+          "opsi": [
+            "A. √3",
+            "B. 2",
+            "C. 4",
+            "D. 3",
+            "E. 1"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q7] Nilai dari $\\lim_{x \\to 3} \\frac{\\tan(x - 3)}{x^2 - 9}$ adalah ...",
+          "opsi": [
+            "A. 1",
+            "B. 1/3",
+            "C. 0",
+            "D. 1/6",
+            "E. 6"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.tan(x - 3)/(Math.pow(x, 2) - 9)",
+            "x0": 0.8,
+            "x1": 5.2,
+            "lab": "y = f(x)",
+            "hole": 3,
+            "holey": 0.1667
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P13-Q8] Manakah nilai limit di tak hingga aljabar berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. limit x->inf (3x^2 + 1) / (x^3 + 5) = 0.",
+            "B. limit x->inf (4x^3 - 2x + 1) / (2x^3 + 5x^2) = 2.",
+            "C. limit x->inf [akar(9x^2 + 6x) - (3x - 1)] = 2.",
+            "D. limit x->inf [akar(4x^2 + 8x + 1) - 2x] = 2.",
+            "E. limit x->inf (x^4 + 1) / (x^2 + 1) = 1."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q9] Nilai dari $\\lim_{x \\to \\pi/6} \\frac{\\sin(2x) - \\sqrt{3}/2}{x - \\pi/6}$ adalah ...",
+          "opsi": [
+            "A. 1",
+            "B. 0",
+            "C. 1/2",
+            "D. 2",
+            "E. √3"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P13-Q10] Nilai dari $\\lim_{x \\to 0} \\frac{\\sin(5x)}{\\sin(2x)}$ adalah ... (dalam pecahan a/b)",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(5*x)/Math.sin(2*x)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 2.5
+          }
+        }
+      ]
+    },
+    "P14": {
+      "id": "P14",
+      "subject": "Matematika Peminatan",
+      "title": "Limit Aljabar & Trigonometri 5: Limit di Ketakhinggaan Aljabar",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q1] Nilai dari $\\lim_{x \\to \\infty} \\frac{3x^3 - 4x + 1}{2x^3 + 5x^2 - 7}$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. Tak hingga",
+            "C. 3/5",
+            "D. 3/2",
+            "E. 1/2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(3*Math.pow(x, 3) - 4*x + 1)/(2*Math.pow(x, 3) + 5*Math.pow(x, 2) - 7)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              1.5
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q2] Nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + 6x - 1} - \\sqrt{4x^2 - 2x + 3} \\right)$ adalah ...",
+          "opsi": [
+            "A. 4",
+            "B. 0",
+            "C. 2",
+            "D. 1",
+            "E. 1/2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "-Math.sqrt(4*Math.pow(x, 2) - 2*x + 3) + Math.sqrt(4*Math.pow(x, 2) + 6*x - 1)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              2
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q3] Nilai dari $\\lim_{x \\to \\infty} \\frac{(2x - 1)(3x + 2)}{(x + 4)(2x - 3)}$ adalah ...",
+          "opsi": [
+            "A. 1",
+            "B. 6",
+            "C. 2",
+            "D. 3",
+            "E. 3/2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(2*x - 1)*(3*x + 2)/((x + 4)*(2*x - 3))",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              3
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q4] Nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{x^2 + 4x + 1} - (x + 1) \\right)$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. 2",
+            "C. -1",
+            "D. 1/2",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "-x + Math.sqrt(Math.pow(x, 2) + 4*x + 1) - 1",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              1
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q5] Tentukan kebenaran limit tak hingga fungsi trigonometri:\n(1) Nilai limit x->inf x sin(1/x) = 1.\n(2) Dengan substitusi y = 1/x, saat x -> inf maka y -> 0.\n(3) Nilai limit x->inf x tan(1/x) = 0.",
+          "opsi": [
+            "Nilai limit x->inf x sin(1/x) = 1",
+            "Dengan substitusi y = 1/x, saat x -> inf maka y -> 0",
+            "Nilai limit x->inf x tan(1/x) = 0"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q6] Berapakah nilai $\\lim_{x \\to \\infty} \\left(\\sqrt{9x^2 + bx + 5} - 3x\\right)$ jika diketahui $b = 12$?",
+          "opsi": [
+            "A. 2",
+            "B. 3",
+            "C. 4",
+            "D. 6",
+            "E. 1"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q7] Nilai dari $\\lim_{x \\to \\infty} \\frac{5x^2 - 3x + 2}{2x^3 + x - 1}$ adalah ...",
+          "opsi": [
+            "A. Tak hingga",
+            "B. 0",
+            "C. 5/2",
+            "D. 2",
+            "E. 5"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(5*Math.pow(x, 2) - 3*x + 2)/(2*Math.pow(x, 3) + x - 1)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              0
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P14-Q8] Manakah nilai limit di tak hingga trigonometri berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. limit x->inf 2x tan(1/x) sec(2/x) = 2.",
+            "B. limit x->inf (sin(4/x)) / (tan(2/x)) = 2.",
+            "C. limit x->inf x sin(3/x) = 3.",
+            "D. limit x->inf x^2 (1 - cos(2/x)) = 2.",
+            "E. limit x->inf x^2 sin(1/x) = 1."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q9] Nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{4x^2 + 8x - 3} - 2x + 1 \\right)$ adalah ...",
+          "opsi": [
+            "A. 3",
+            "B. 1",
+            "C. 4",
+            "D. 2",
+            "E. 0"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "-2*x + Math.sqrt(4*Math.pow(x, 2) + 8*x - 3) + 1",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              3
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P14-Q10] Nilai dari $\\lim_{x \\to \\infty} \\left( \\sqrt{x^2 + 6x + 2} - \\sqrt{x^2 - 4x + 1} \\right)$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "-Math.sqrt(Math.pow(x, 2) - 4*x + 1) + Math.sqrt(Math.pow(x, 2) + 6*x + 2)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              5
+            ],
+            "note": "x menuju tak hingga"
+          }
+        }
+      ]
+    },
+    "P15": {
+      "id": "P15",
+      "subject": "Matematika Peminatan",
+      "title": "Limit Aljabar & Trigonometri 6: Limit Ketakhinggaan Trigonometri & Asimtot",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q1] Nilai dari $\\lim_{x \\to \\infty} x \\sin\\left(\\frac{2}{x}\\right)$ adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 0",
+            "C. Tak hingga",
+            "D. 2",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.sin(2/x)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              2
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q2] Nilai dari $\\lim_{x \\to \\infty} x^2 \\left( 1 - \\cos\\left(\\frac{2}{x}\\right) \\right)$ adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 2",
+            "C. 0",
+            "D. 1",
+            "E. 4"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 2)*(1 - Math.cos(2/x))",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              2
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q3] Persamaan asimtot datar kurva $f(x) = \\frac{2x^2 + 1}{x^2 - 4}$ adalah ...",
+          "opsi": [
+            "A. $y = 2$",
+            "B. $y = 0$",
+            "C. $y = -2$",
+            "D. $y = 1$",
+            "E. $y = -1/4$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(2*Math.pow(x, 2) + 1)/(Math.pow(x, 2) - 4)",
+            "x0": -8,
+            "x1": 8,
+            "lab": "y = f(x)",
+            "clip": 12,
+            "asy": [
+              2
+            ],
+            "vasy": [
+              -2,
+              2
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q4] Persamaan asimtot tegak kurva $g(x) = \\frac{3x - 5}{x^2 - 9}$ adalah ...",
+          "opsi": [
+            "A. $x = 9$",
+            "B. $x = 3$ dan $x = -3$",
+            "C. $x = 5/3$",
+            "D. $y = 0$",
+            "E. $y = 3$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(3*x - 5)/(Math.pow(x, 2) - 9)",
+            "x0": -8,
+            "x1": 8,
+            "lab": "y = f(x)",
+            "clip": 12,
+            "asy": [
+              0
+            ],
+            "vasy": [
+              -3,
+              3
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q5] Tentukan kebenaran konsep asimtot kurva dan kekontinuan fungsi:\n(1) Suatu fungsi kontinu di titik x = c tidak memerlukan nilai limit f(x) ada.\n(2) Asimtot tegak x = c diperoleh saat penyebut bernilai nol dan limit menuju +- tak hingga.\n(3) Asimtot datar y = L diperoleh dari nilai limit x->inf f(x) = L.",
+          "opsi": [
+            "Suatu fungsi kontinu di titik x = c tidak memerlukan nilai limit f(x) ada",
+            "Asimtot tegak x = c diperoleh saat penyebut bernilai nol dan limit menuju +- tak hingga",
+            "Asimtot datar y = L diperoleh dari nilai limit x->inf f(x) = L"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q6] Berapakah nilai dari $\\lim_{x \\to \\infty} x \\tan(5/x)$?",
+          "opsi": [
+            "A. 25",
+            "B. 0",
+            "C. 5",
+            "D. 1/5",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.tan(5/x)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              5
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q7] Nilai dari $\\lim_{x \\to \\infty} \\frac{\\sin(3/x)}{\\tan(6/x)}$ adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 1/3",
+            "C. 0",
+            "D. 2",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(3/x)/Math.tan(6/x)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              0.5
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P15-Q8] Pada fungsi rasional f(x) = (2x + 6) / (x - 3), manakah pernyataan analisis asimtot berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Persamaan asimtot datar adalah y = 2.",
+            "B. Persamaan asimtot tegak adalah x = 3.",
+            "C. Titik potong dengan sumbu-Y adalah (0, -2).",
+            "D. Titik potong dengan sumbu-X adalah (-3, 0).",
+            "E. Fungsi kontinu di seluruh bilangan real termasuk x = 3."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q9] Nilai dari $\\lim_{x \\to \\infty} \\frac{x \\sin(4/x)}{\\cos(2/x)}$ adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 2",
+            "C. 0",
+            "D. 4",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.sin(4/x)/Math.cos(2/x)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              4
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P15-Q10] Nilai dari $\\lim_{x \\to \\infty} 2x^2 (1 - \\cos(3/x))$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "2*Math.pow(x, 2)*(1 - Math.cos(3/x))",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              9
+            ],
+            "note": "x menuju tak hingga"
+          }
+        }
+      ]
+    },
+    "P16": {
+      "id": "P16",
+      "subject": "Matematika Peminatan",
+      "title": "Asesmen Sumatif Bab 2: Limit & Grand Review ASTS",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q1] Nilai dari $\\lim_{x \\to 0} \\frac{1 - \\cos(6x)}{x \\tan(3x)}$ adalah ...",
+          "opsi": [
+            "A. 12",
+            "B. 3",
+            "C. 2",
+            "D. 6",
+            "E. 18"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1 - Math.cos(6*x))/(x*Math.tan(3*x))",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 6
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q2] Nilai dari $\\lim_{x \\to 3} \\frac{x^2 - x - 6}{x - 3}$ adalah ...",
+          "opsi": [
+            "A. 5",
+            "B. 6",
+            "C. 3",
+            "D. 1",
+            "E. 0"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(Math.pow(x, 2) - x - 6)/(x - 3)",
+            "x0": 0.8,
+            "x1": 5.2,
+            "lab": "y = f(x)",
+            "hole": 3,
+            "holey": 5
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q3] Nilai dari $\\lim_{x \\to \\infty} (\\sqrt{x^2 + 8x} - x)$ adalah ...",
+          "opsi": [
+            "A. 2",
+            "B. 4",
+            "C. 1",
+            "D. 8",
+            "E. 0"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "-x + Math.sqrt(Math.pow(x, 2) + 8*x)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              4
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q4] Nilai dari $\\lim_{x \\to 0} \\frac{\\sin(8x)}{\\sin(2x)}$ adalah ...",
+          "opsi": [
+            "A. 1/4",
+            "B. 8",
+            "C. 16",
+            "D. 4",
+            "E. 2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(8*x)/Math.sin(2*x)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 4
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q5] Tentukan kebenaran evaluasi asesmen limit fungsi:\n(1) Nilai limit x->0 (sin 5x) / (3x) adalah 5/3.\n(2) Nilai limit x->0 (1 - cos 2x) / x^2 adalah 0.\n(3) Nilai limit x->inf (2x^2 + 1) / (x^2 - 4) adalah 2.",
+          "opsi": [
+            "Nilai limit x->0 (sin 5x) / (3x) adalah 5/3",
+            "Nilai limit x->0 (1 - cos 2x) / x^2 adalah 0",
+            "Nilai limit x->inf (2x^2 + 1) / (x^2 - 4) adalah 2"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q6] Berapakah nilai $\\lim_{x \\to 0} \\frac{1 - \\cos(4x)}{x^2}$?",
+          "opsi": [
+            "A. 8",
+            "B. 1",
+            "C. 16",
+            "D. 4",
+            "E. 2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1 - Math.cos(4*x))/Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 8
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q7] Nilai dari $\\lim_{x \\to 0} \\frac{\\tan(2x) - \\sin(2x)}{x^3}$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. 8",
+            "C. 2",
+            "D. 1",
+            "E. 4"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(-Math.sin(2*x) + Math.tan(2*x))/Math.pow(x, 3)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 4
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P16-Q8] Manakah nilai limit berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. limit x->inf [akar(x^2 + 6x) - x] = 3.",
+            "B. limit x->0 (cos 2x) / x = 2.",
+            "C. limit x->0 (tan 6x) / (sin 3x) = 2.",
+            "D. limit x->0 (1 - cos 4x) / (2x^2) = 4.",
+            "E. limit x->2 (x^3 - 8) / (x - 2) = 12."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q9] Nilai dari $\\lim_{x \\to \\infty} (\\sqrt{9x^2 + 18x - 1} - 3x)$ adalah ...",
+          "opsi": [
+            "A. 9",
+            "B. 6",
+            "C. 3",
+            "D. 2",
+            "E. 0"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "-3*x + Math.sqrt(9*Math.pow(x, 2) + 18*x - 1)",
+            "x0": 0.6,
+            "x1": 14,
+            "lab": "y = f(x)",
+            "asy": [
+              3
+            ],
+            "note": "x menuju tak hingga"
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P16-Q10] Nilai dari $\\lim_{x \\to 0} \\frac{\\sin(15x)}{3x}$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "(1/3)*Math.sin(15*x)/x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x)",
+            "hole": 0,
+            "holey": 5
+          }
+        }
+      ]
+    },
+    "P17": {
+      "id": "P17",
+      "subject": "Matematika Peminatan",
+      "title": "Turunan Fungsi Trigonometri 1: Konsep Dasar Turunan Sin, Cos, Tan",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q1] Turunan pertama dari $f(x) = 3\\sin(x) - 4\\cos(x)$ adalah ...",
+          "opsi": [
+            "A. $3\\cos(x) + 4\\sin(x)$",
+            "B. $-3\\cos(x) - 4\\sin(x)$",
+            "C. $3\\sin(x) + 4\\cos(x)$",
+            "D. $3\\cos(x) - 4\\sin(x)$",
+            "E. $-3\\cos(x) + 4\\sin(x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.sin(x) - 4*Math.cos(x)",
+            "g": "4*Math.sin(x) + 3*Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q2] Jika $f(x) = 2\\tan(x)$, maka nilai dari $f'(\\pi/4)$ adalah ...",
+          "opsi": [
+            "A. 2√2",
+            "B. 4",
+            "C. 1",
+            "D. 0",
+            "E. 2"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q3] Turunan pertama dari $f(x) = 5\\cot(x)$ adalah ...",
+          "opsi": [
+            "A. $-5\\cot(x)$",
+            "B. $-5\\sec^2(x)$",
+            "C. $5\\csc^2(x)$",
+            "D. $-5\\csc^2(x)$",
+            "E. $5\\tan(x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "5*(1/Math.tan(x))",
+            "g": "-5*Math.pow((1/Math.tan(x)), 2) - 5",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q4] Jika $g(x) = 4\\cos(x) + \\sin(x)$, maka nilai dari $g'(\\pi/2)$ adalah ...",
+          "opsi": [
+            "A. -4",
+            "B. 0",
+            "C. 1",
+            "D. -1",
+            "E. 4"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q5] Tentukan kebenaran rumus turunan fungsi trigonometri dasar:\n(1) Turunan pertama dari f(x) = cos x adalah f'(x) = -sin x.\n(2) Turunan pertama dari f(x) = sin x adalah f'(x) = cos x.\n(3) Turunan pertama dari f(x) = tan x adalah f'(x) = sec x.",
+          "opsi": [
+            "Turunan pertama dari f(x) = cos x adalah f'(x) = -sin x",
+            "Turunan pertama dari f(x) = sin x adalah f'(x) = cos x",
+            "Turunan pertama dari f(x) = tan x adalah f'(x) = sec x"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q6] Berapakah gradien kurva $f(x) = 3\\sin(x)$ di $x = 0$?",
+          "opsi": [
+            "A. 0",
+            "B. 3",
+            "C. 1",
+            "D. 1/3",
+            "E. -3"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.sin(x)",
+            "x0": -2.4,
+            "x1": 2.4,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 0,
+              "y": 0,
+              "m": 3
+            }
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q7] Turunan dari $y = \\sec(x)$ adalah ...",
+          "opsi": [
+            "A. $\\sec^2(x)$",
+            "B. $\\csc(x) \\cot(x)$",
+            "C. $-\\sec(x) \\tan(x)$",
+            "D. $\\tan^2(x)$",
+            "E. $\\sec(x) \\tan(x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "(1/Math.cos(x))",
+            "g": "Math.tan(x)*(1/Math.cos(x))",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P17-Q8] Manakah turunan fungsi trigonometri berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. f(x) = 3 sin x - 2 cos x  ->  f'(x) = 3 cos x + 2 sin x.",
+            "B. f(x) = tan(2x)  ->  f'(x) = 2 sec^2(2x).",
+            "C. f(x) = sin(x) + cos(x)  ->  f'(pi/4) = 1.",
+            "D. f(x) = cos(3x)  ->  f'(x) = -3 sin(3x).",
+            "E. f(x) = sin(4x)  ->  f'(x) = 4 cos(4x)."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q9] Jika $f(x) = \\sin x + \\cos x$, maka nilai $f'(0)$ adalah ...",
+          "opsi": [
+            "A. √2",
+            "B. 0",
+            "C. 1",
+            "D. -1",
+            "E. 2"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P17-Q10] Nilai turunan $f(x) = 6\\sin(x)$ saat $x = \\pi/3$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P18": {
+      "id": "P18",
+      "subject": "Matematika Peminatan",
+      "title": "Turunan Fungsi Trigonometri 2: Aturan Rantai Komposisi f(g(x))",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q1] Turunan pertama dari $f(x) = \\sin(3x^2 - 5)$ adalah ...",
+          "opsi": [
+            "A. $6x \\cos(3x^2 - 5)$",
+            "B. $3x \\cos(3x^2 - 5)$",
+            "C. $6x \\sin(3x^2 - 5)$",
+            "D. $-6x \\cos(3x^2 - 5)$",
+            "E. $\\cos(6x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(3*Math.pow(x, 2) - 5)",
+            "g": "6*x*Math.cos(3*Math.pow(x, 2) - 5)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q2] Jika $f(x) = \\cos(4x + \\pi/3)$, maka nilai $f'(\\pi/6)$ adalah ...",
+          "opsi": [
+            "A. -2√3",
+            "B. 0",
+            "C. 4",
+            "D. -4",
+            "E. 2√3"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q3] Turunan pertama dari $y = \\tan(5x - 2)$ adalah ...",
+          "opsi": [
+            "A. $5\\csc^2(5x - 2)$",
+            "B. $5\\tan(5x - 2)$",
+            "C. $-5\\sec^2(5x - 2)$",
+            "D. $\\sec^2(5x - 2)$",
+            "E. $5\\sec^2(5x - 2)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.tan(5*x - 2)",
+            "g": "5*Math.pow(Math.tan(5*x - 2), 2) + 5",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q4] Turunan pertama dari $f(x) = \\sin(2 - 3x)$ adalah ...",
+          "opsi": [
+            "A. $-3\\cos(2 - 3x)$",
+            "B. $3\\cos(2 - 3x)$",
+            "C. $-3\\sin(2 - 3x)$",
+            "D. $2\\cos(2 - 3x)$",
+            "E. $-2\\cos(2 - 3x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "-Math.sin(3*x - 2)",
+            "g": "-3*Math.cos(3*x - 2)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q5] Tentukan kebenaran aturan rantai turunan fungsi komposisi f(g(x)):\n(1) Turunan dari f(x) = cos(5x) adalah f'(x) = 5 sin(5x).\n(2) Rumus aturan rantai dirumuskan [f(g(x))]' = f'(g(x)) . g'(x).\n(3) Turunan dari f(x) = sin(3x^2 + 5) adalah f'(x) = 6x cos(3x^2 + 5).",
+          "opsi": [
+            "Turunan dari f(x) = cos(5x) adalah f'(x) = 5 sin(5x)",
+            "Rumus aturan rantai dirumuskan [f(g(x))]' = f'(g(x)) . g'(x)",
+            "Turunan dari f(x) = sin(3x^2 + 5) adalah f'(x) = 6x cos(3x^2 + 5)"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q6] Berapakah turunan $f(x) = \\cos(2x)$ di $x = \\pi/4$?",
+          "opsi": [
+            "A. -1",
+            "B. 1",
+            "C. 0",
+            "D. -2",
+            "E. 2"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q7] Turunan dari $f(x) = \\sin(x^3)$ adalah ...",
+          "opsi": [
+            "A. $3x^2 \\sin(x^3)$",
+            "B. $\\cos(3x^2)$",
+            "C. $-3x^2 \\cos(x^3)$",
+            "D. $x^3 \\cos(x^2)$",
+            "E. $3x^2 \\cos(x^3)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(Math.pow(x, 3))",
+            "g": "3*Math.pow(x, 2)*Math.cos(Math.pow(x, 3))",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P18-Q8] Manakah turunan fungsi trigonometri komposisi berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. f(x) = tan(5x + 1)  ->  f'(x) = 5 sec^2(5x + 1).",
+            "B. f(x) = sin(4x - pi/3)  ->  f'(x) = 4 cos(4x - pi/3).",
+            "C. f(x) = sin(x^2)  ->  f'(x) = 2x sin(x^2).",
+            "D. f(x) = cos(x^3 - 2x)  ->  f'(x) = -(3x^2 - 2) sin(x^3 - 2x).",
+            "E. f(x) = cos(2x + pi/2)  ->  f'(0) = -2."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q9] Jika $f(x) = \\sin(4x)$, maka nilai $f'(\\pi/8)$ adalah ...",
+          "opsi": [
+            "A. 2√2",
+            "B. 2",
+            "C. 0",
+            "D. 4",
+            "E. -4"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P18-Q10] Nilai turunan $f(x) = 2\\sin(3x)$ saat $x = 0$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P19": {
+      "id": "P19",
+      "subject": "Matematika Peminatan",
+      "title": "Turunan Fungsi Trigonometri 3: Aturan Rantai Pangkat u(x)^n",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q1] Turunan pertama dari $f(x) = \\sin^3(4x)$ adalah ...",
+          "opsi": [
+            "A. $3\\sin^2(4x) \\cos(4x)$",
+            "B. $12\\sin^2(4x) \\cos(4x)$",
+            "C. $-12\\sin^2(4x) \\cos(4x)$",
+            "D. $4\\sin^2(4x) \\cos(4x)$",
+            "E. $12\\sin^2(4x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(Math.sin(4*x), 3)",
+            "g": "12*Math.pow(Math.sin(4*x), 2)*Math.cos(4*x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q2] Turunan pertama dari $f(x) = \\cos^4(2x)$ adalah ...",
+          "opsi": [
+            "A. $-4\\cos^3(2x) \\sin(2x)$",
+            "B. $-8\\cos^3(2x)$",
+            "C. $-8\\cos^3(2x) \\sin(2x)$",
+            "D. $8\\cos^3(2x) \\sin(2x)$",
+            "E. $4\\sin^3(2x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(Math.cos(2*x), 4)",
+            "g": "-8*Math.sin(2*x)*Math.pow(Math.cos(2*x), 3)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q3] Jika $f(x) = \\sin^2(x)$, maka nilai dari $f'(\\pi/4)$ adalah ...",
+          "opsi": [
+            "A. 0",
+            "B. √2",
+            "C. 2",
+            "D. 1/2",
+            "E. 1"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q4] Turunan pertama dari $y = \\tan^3(2x)$ adalah ...",
+          "opsi": [
+            "A. $2\\tan^2(2x) \\sec^2(2x)$",
+            "B. $6\\sec^4(2x)$",
+            "C. $6\\tan^2(2x)$",
+            "D. $6\\tan^2(2x) \\sec^2(2x)$",
+            "E. $3\\tan^2(2x) \\sec^2(2x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(Math.tan(2*x), 3)",
+            "g": "(6*Math.pow(Math.tan(2*x), 2) + 6)*Math.pow(Math.tan(2*x), 2)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q5] Tentukan kebenaran turunan aturan rantai pangkat [u(x)]^n:\n(1) Rumus turunan fungsi pangkat dirumuskan [u^n]' = n . u^(n-1) . u'.\n(2) Turunan dari f(x) = cos^3(x) adalah f'(x) = 3 cos^2(x).\n(3) Turunan dari f(x) = sin^2(x) adalah f'(x) = sin(2x).",
+          "opsi": [
+            "Rumus turunan fungsi pangkat dirumuskan [u^n]' = n . u^(n-1) . u'",
+            "Turunan dari f(x) = cos^3(x) adalah f'(x) = 3 cos^2(x)",
+            "Turunan dari f(x) = sin^2(x) adalah f'(x) = sin(2x)"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q6] Berapakah turunan dari $f(x) = \\cos^2(x)$ di $x = \\pi/4$?",
+          "opsi": [
+            "A. 1/2",
+            "B. 0",
+            "C. -1",
+            "D. 1",
+            "E. -1/2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(Math.cos(x), 2)",
+            "g": "-2*Math.sin(x)*Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q7] Turunan pertama dari $f(x) = \\sqrt{\\sin x}$ adalah ...",
+          "opsi": [
+            "A. $\\frac{2\\cos x}{\\sqrt{\\sin x}}$",
+            "B. $\\frac{-\\cos x}{2\\sqrt{\\sin x}}$",
+            "C. $\\frac{\\sin x}{2\\sqrt{\\cos x}}$",
+            "D. $\\frac{1}{2\\sqrt{\\sin x}}$",
+            "E. $\\frac{\\cos x}{2\\sqrt{\\sin x}}$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sqrt(Math.sin(x))",
+            "g": "(1/2)*Math.cos(x)/Math.sqrt(Math.sin(x))",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P19-Q8] Manakah turunan fungsi trigonometri berpangkat berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. f(x) = cos^4(x)  ->  f'(pi/4) = -1.",
+            "B. f(x) = cos^2(x)  ->  f'(x) = -sin(2x).",
+            "C. f(x) = sin^3(2x)  ->  f'(x) = 6 sin^2(2x) cos(2x).",
+            "D. f(x) = tan^2(x)  ->  f'(x) = 2 tan(x) sec^2(x).",
+            "E. f(x) = sin^2(3x)  ->  f'(x) = 3 sin(6x)."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q9] Jika $f(x) = \\sin^3(x)$, maka nilai $f'(\\pi/2)$ adalah ...",
+          "opsi": [
+            "A. 3",
+            "B. 0",
+            "C. 1",
+            "D. -3",
+            "E. 3/2"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P19-Q10] Nilai turunan $f(x) = 4\\sin^2(2x)$ saat $x = \\pi/8$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P20": {
+      "id": "P20",
+      "subject": "Matematika Peminatan",
+      "title": "Turunan Fungsi Trigonometri 4: Perkalian, Pembagian, & Turunan Tinggi",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q1] Turunan pertama dari $f(x) = x^2 \\sin(x)$ adalah ...",
+          "opsi": [
+            "A. $2x\\sin(x) - x^2\\cos(x)$",
+            "B. $x^2\\cos(x)$",
+            "C. $2x\\sin(x) + x^2\\cos(x)$",
+            "D. $2\\cos(x)$",
+            "E. $2x\\cos(x)$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 2)*Math.sin(x)",
+            "g": "Math.pow(x, 2)*Math.cos(x) + 2*x*Math.sin(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q2] Turunan pertama dari $f(x) = \\frac{\\sin x}{1 + \\cos x}$ adalah ...",
+          "opsi": [
+            "A. $\\frac{1}{1 + \\cos x}$",
+            "B. $\\frac{-1}{1 + \\cos x}$",
+            "C. $\\frac{\\cos x}{1 + \\cos x}$",
+            "D. $\\frac{1}{(1 + \\cos x)^2}$",
+            "E. $\\frac{\\cos x - 1}{(1 + \\cos x)^2}$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)/(Math.cos(x) + 1)",
+            "g": "Math.cos(x)/(Math.cos(x) + 1) + Math.pow(Math.sin(x), 2)/Math.pow(Math.cos(x) + 1, 2)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q3] Turunan kedua $f''(x)$ dari fungsi $f(x) = \\sin(2x)$ adalah ...",
+          "opsi": [
+            "A. $-2\\cos(2x)$",
+            "B. $2\\sin(2x)$",
+            "C. $4\\sin(2x)$",
+            "D. $-4\\cos(2x)$",
+            "E. $-4\\sin(2x)$"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q4] Jika $f(x) = x \\cos(x)$, maka nilai dari $f'(\\pi)$ adalah ...",
+          "opsi": [
+            "A. $\\pi$",
+            "B. 0",
+            "C. 1",
+            "D. -1",
+            "E. $-\\pi$"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q5] Tentukan kebenaran turunan perkalian dan tingkat tinggi:\n(1) Turunan kedua dari f(x) = sin x adalah f''(x) = -sin x.\n(2) Turunan perkalian dirumuskan [u . v]' = u'v + uv'.\n(3) Turunan pembagian dirumuskan [u / v]' = (u'v + uv') / v^2.",
+          "opsi": [
+            "Turunan kedua dari f(x) = sin x adalah f''(x) = -sin x",
+            "Turunan perkalian dirumuskan [u . v]' = u'v + uv'",
+            "Turunan pembagian dirumuskan [u / v]' = (u'v + uv') / v^2"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q6] Berapakah nilai turunan kedua $f''(0)$ untuk $f(x) = 3\\cos(2x)$?",
+          "opsi": [
+            "A. 0",
+            "B. 12",
+            "C. 6",
+            "D. -6",
+            "E. -12"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q7] Turunan pertama dari $f(x) = \\frac{\\sin x}{x}$ di $x \\neq 0$ adalah ...",
+          "opsi": [
+            "A. $\\frac{\\sin x - x\\cos x}{x^2}$",
+            "B. $\\frac{\\cos x}{x^2}$",
+            "C. $\\frac{x\\sin x - \\cos x}{x^2}$",
+            "D. $\\frac{x\\cos x - \\sin x}{x^2}$",
+            "E. $\\frac{\\cos x}{1}$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)/x",
+            "g": "Math.cos(x)/x - Math.sin(x)/Math.pow(x, 2)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "lab2": "y = f'(x)",
+            "pi": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P20-Q8] Diberikan f(x) = x^2 sin(x). Manakah pernyataan turunan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Turunan pertama adalah f'(x) = 2x sin(x) + x^2 cos(x).",
+            "B. Nilai f'(pi) adalah -pi^2.",
+            "C. Nilai f''(0) adalah 2.",
+            "D. Turunan kedua adalah f''(x) = (2 - x^2) sin(x) + 4x cos(x).",
+            "E. Nilai f'(0) adalah 0."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q9] Jika $f(x) = e^x \\sin x$, maka $f'(0)$ adalah ...",
+          "opsi": [
+            "A. e",
+            "B. 1",
+            "C. 0",
+            "D. 2",
+            "E. -1"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P20-Q10] Nilai mutlak turunan kedua $f''(x)$ dari $f(x) = \\cos(4x)$ di $x = 0$ adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P21": {
+      "id": "P21",
+      "subject": "Matematika Peminatan",
+      "title": "Turunan Fungsi Trigonometri 5: Garis Singgung & Garis Normal Kurva Trigonometri",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q1] Persamaan garis singgung pada kurva $y = 2\\sin(x) + \\cos(x)$ di titik $x = 0$ adalah ...",
+          "opsi": [
+            "A. $y = -x + 1$",
+            "B. $y = 2x + 1$",
+            "C. $y = 3x + 1$",
+            "D. $y = 2x - 1$",
+            "E. $y = x + 2$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*Math.sin(x) + Math.cos(x)",
+            "x0": -2.4,
+            "x1": 2.4,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 0,
+              "y": 1,
+              "m": 2
+            }
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q2] Persamaan garis normal kurva $y = 2\\sin(x) + \\cos(x)$ di $x = 0$ adalah ...",
+          "opsi": [
+            "A. $x + 2y - 2 = 0$",
+            "B. $x - 2y + 2 = 0$",
+            "C. $x + y - 1 = 0$",
+            "D. $2x - y + 1 = 0$",
+            "E. $2x + y - 1 = 0$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*Math.sin(x) + Math.cos(x)",
+            "x0": -2.4,
+            "x1": 2.4,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 0,
+              "y": 1,
+              "m": 2
+            }
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q3] Gradien garis singgung kurva $y = \\tan(x)$ di $x = \\pi/4$ adalah ...",
+          "opsi": [
+            "A. 4",
+            "B. 2",
+            "C. √2",
+            "D. 1",
+            "E. 1/2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.tan(x)",
+            "x0": -1.615,
+            "x1": 3.185,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 0.7854,
+              "y": 1,
+              "m": 2
+            }
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q4] Persamaan garis singgung kurva $y = \\sin(2x)$ di $(\\pi/2, 0)$ adalah ...",
+          "opsi": [
+            "A. $y = 2x + \\pi$",
+            "B. $y = -2x$",
+            "C. $y = 2x - \\pi$",
+            "D. $y = -x + \\pi/2$",
+            "E. $y = -2x + \\pi$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(2*x)",
+            "x0": -0.829,
+            "x1": 3.971,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 1.5708,
+              "y": 0,
+              "m": -2
+            }
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q5] Tentukan kebenaran garis singgung dan garis normal kurva trigonometri y = f(x):\n(1) Garis singgung kurva y = sin x di titik (0, 0) adalah y = -x.\n(2) Gradien garis singgung m_s di titik berabsis x1 adalah m_s = f'(x1).\n(3) Gradien garis normal m_n tegak lurus garis singgung memenuhi m_s . m_n = -1.",
+          "opsi": [
+            "Garis singgung kurva y = sin x di titik (0, 0) adalah y = -x",
+            "Gradien garis singgung m_s di titik berabsis x1 adalah m_s = f'(x1)",
+            "Gradien garis normal m_n tegak lurus garis singgung memenuhi m_s . m_n = -1"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q6] Berapakah ordinat intersep sumbu-Y garis singgung $y = \\cos x$ di $x = \\pi/2$?",
+          "opsi": [
+            "A. 1",
+            "B. -1",
+            "C. $\\pi/2$",
+            "D. $-\\pi/2$",
+            "E. 0"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.cos(x)",
+            "x0": -0.829,
+            "x1": 3.971,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 1.5708,
+              "y": 0,
+              "m": -1
+            }
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q7] Persamaan garis singgung kurva $y = 3\\sin(x)$ di titik $(0, 0)$ adalah ...",
+          "opsi": [
+            "A. $y = x/3$",
+            "B. $y = -3x$",
+            "C. $y = 0$",
+            "D. $y = 3x$",
+            "E. $3x + y = 0$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.sin(x)",
+            "x0": -2.4,
+            "x1": 2.4,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 0,
+              "y": 0,
+              "m": 3
+            }
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P21-Q8] Pada kurva y = 2 cos(x) di titik (pi/3, 1), manakah pernyataan analisis garis berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Nilai turunan pertama fungsi adalah y' = -2 sin(x).",
+            "B. Titik (pi/3, 1) tidak terletak pada kurva.",
+            "C. Gradien garis normal di titik tersebut adalah m_n = 1/3 akar(3).",
+            "D. Gradien garis singgung di titik tersebut adalah m_s = -akar(3).",
+            "E. Persamaan garis singgungnya adalah y - 1 = -akar(3)(x - pi/3)."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q9] Garis singgung kurva $y = \\cos(2x)$ di titik $(0, 1)$ adalah ...",
+          "opsi": [
+            "A. $y = 0$",
+            "B. $y = -2x + 1$",
+            "C. $x = 0$",
+            "D. $y = 2x + 1$",
+            "E. $y = 1$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.cos(2*x)",
+            "x0": -2.4,
+            "x1": 2.4,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 0,
+              "y": 1,
+              "m": 0
+            }
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P21-Q10] Gradien garis singgung $y = 4\\sin(2x)$ di titik $x = 0$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "4*Math.sin(2*x)",
+            "x0": -2.4,
+            "x1": 2.4,
+            "lab": "y = f(x)",
+            "tang": {
+              "x": 0,
+              "y": 0,
+              "m": 8
+            }
+          }
+        }
+      ]
+    },
+    "P22": {
+      "id": "P22",
+      "subject": "Matematika Peminatan",
+      "title": "Turunan Fungsi Trigonometri 6: Uji Kemonotonan (Fungsi Naik & Turun)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q1] Fungsi $f(x) = \\sin(2x)$ pada interval $0 \\le x \\le \\pi$ akan naik pada interval ...",
+          "opsi": [
+            "A. $0 < x < \\pi/2$",
+            "B. $\\pi/4 < x < \\pi/2$",
+            "C. $\\pi/4 < x < 3\\pi/4$",
+            "D. $0 \\le x < \\pi/4$ dan $3\\pi/4 < x \\le \\pi$",
+            "E. $\\pi/2 < x < \\pi$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(2*x)",
+            "x0": 0,
+            "x1": 3.142,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                0,
+                0.7854
+              ],
+              [
+                2.3562,
+                3.1416
+              ]
+            ],
+            "crit": [
+              0.7854,
+              2.3562,
+              3.927,
+              5.4978
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q2] Fungsi $f(x) = \\cos(x)$ pada interval $0 \\le x \\le 2\\pi$ akan turun pada interval ...",
+          "opsi": [
+            "A. $3\\pi/2 < x < 2\\pi$",
+            "B. $\\pi < x < 2\\pi$",
+            "C. $0 < x < \\pi/2$",
+            "D. $\\pi/2 < x < 3\\pi/2$",
+            "E. $0 < x < \\pi$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                3.1416,
+                6.2832
+              ]
+            ],
+            "crit": [
+              0,
+              3.1416,
+              6.2832
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q3] Fungsi $f(x) = \\sin(x) + \\cos(x)$ pada interval $0 \\le x \\le 2\\pi$ naik pada ...",
+          "opsi": [
+            "A. $0 \\le x < \\pi/2$",
+            "B. $\\pi/2 < x < 3\\pi/2$",
+            "C. $\\pi/4 < x < 5\\pi/4$",
+            "D. $0 \\le x < \\pi/4$ dan $5\\pi/4 < x \\le 2\\pi$",
+            "E. $0 < x < \\pi$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x) + Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                0,
+                0.7854
+              ],
+              [
+                3.927,
+                6.2832
+              ]
+            ],
+            "crit": [
+              0.7854,
+              3.927
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q4] Titik stasioner pemisah kemonotonan kurva $f(x) = \\sin(2x)$ pada $[0, \\pi]$ adalah ...",
+          "opsi": [
+            "A. $x = \\pi/4$ dan $x = 3\\pi/4$",
+            "B. $x = \\pi/6$",
+            "C. $x = \\pi/3$",
+            "D. $x = \\pi/2$",
+            "E. $x = 0$ dan $x = \\pi$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(2*x)",
+            "x0": 0,
+            "x1": 3.142,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                0,
+                0.7854
+              ],
+              [
+                2.3562,
+                3.1416
+              ]
+            ],
+            "crit": [
+              0.7854,
+              2.3562,
+              3.927,
+              5.4978
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q5] Tentukan kebenaran uji kemonotonan fungsi trigonometri:\n(1) Fungsi f(x) monoton naik pada interval di mana f'(x) > 0.\n(2) Fungsi f(x) monoton turun pada interval di mana f'(x) < 0.\n(3) Fungsi f(x) = sin x selalu monoton naik pada seluruh interval [0, 2pi].",
+          "opsi": [
+            "Fungsi f(x) monoton naik pada interval di mana f'(x) > 0",
+            "Fungsi f(x) monoton turun pada interval di mana f'(x) < 0",
+            "Fungsi f(x) = sin x selalu monoton naik pada seluruh interval [0, 2pi]"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q6] Berapakah nilai $f'(\\pi/2)$ untuk $f(x) = \\sin(2x)$?",
+          "opsi": [
+            "A. 2 (Fungsi naik)",
+            "B. -1",
+            "C. -2 (Fungsi sedang turun)",
+            "D. 1",
+            "E. 0 (Stasioner)"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q7] Fungsi $f(x) = \\tan(x)$ pada interval $-\\pi/2 < x < \\pi/2$ bersifat ...",
+          "opsi": [
+            "A. Naik lalu turun",
+            "B. Selalu naik pada seluruh domainnya",
+            "C. Selalu turun",
+            "D. Maksimum mutlak",
+            "E. Stasioner"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P22-Q8] Pada fungsi f(x) = sin(2x) untuk interval [0, pi], manakah pernyataan kemonotonan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Fungsi f(x) tidak pernah mengalami kenaikan.",
+            "B. Turunan pertama fungsi adalah f'(x) = 2 cos(2x).",
+            "C. Titik stasioner fungsi terjadi di x = pi/4 dan x = 3pi/4.",
+            "D. Fungsi f(x) naik pada interval [0, pi/4) dan (3pi/4, pi].",
+            "E. Fungsi f(x) turun pada interval (pi/4, 3pi/4)."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q9] Fungsi $f(x) = -2\\cos(x)$ pada $0 < x < \\pi$ bersifat ...",
+          "opsi": [
+            "A. Selalu naik",
+            "B. Konstan",
+            "C. Selalu turun",
+            "D. Cekung bawah",
+            "E. Stasioner"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P22-Q10] Absis $x$ di kuadran I saat $f(x) = \\sin(4x)$ mencapai puncak stasioner pertamanya adalah ... (dalam pecahan pi)",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(4*x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                0,
+                0.3927
+              ],
+              [
+                1.1781,
+                1.5708
+              ]
+            ],
+            "crit": [
+              0.3927,
+              1.1781,
+              1.9635,
+              2.7489,
+              3.5343,
+              4.3197
+            ]
+          }
+        }
+      ]
+    },
+    "P23": {
+      "id": "P23",
+      "subject": "Matematika Peminatan",
+      "title": "Turunan Fungsi Trigonometri 7: Titik Stasioner & Kecekungan Kurva",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q1] Titik stasioner maksimum dari $f(x) = \\sin x + \\cos x$ pada $[0, 2\\pi]$ terletak di absis ...",
+          "opsi": [
+            "A. $x = \\pi/4$",
+            "B. $x = 3\\pi/4$",
+            "C. $x = 5\\pi/4$",
+            "D. $x = \\pi/2$",
+            "E. $x = 7\\pi/4$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x) + Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                0,
+                0.7854
+              ],
+              [
+                3.927,
+                6.2832
+              ]
+            ],
+            "crit": [
+              0.7854,
+              3.927
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q2] Nilai maksimum dari $f(x) = 3\\sin x - 4\\cos x + 5$ adalah ...",
+          "opsi": [
+            "A. 5",
+            "B. 12",
+            "C. 10",
+            "D. 8",
+            "E. 7"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.sin(x) - 4*Math.cos(x) + 5",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                0,
+                2.4981
+              ],
+              [
+                5.6397,
+                6.2832
+              ]
+            ],
+            "crit": [
+              2.4981,
+              5.6397
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q3] Kurva $f(x) = \\sin(x)$ pada interval $[0, 2\\pi]$ akan cekung ke bawah ($f''(x) < 0$) pada interval ...",
+          "opsi": [
+            "A. $0 < x < \\pi$",
+            "B. $\\pi/2 < x < 3\\pi/2$",
+            "C. $\\pi < x < 2\\pi$",
+            "D. $0 < x < \\pi/2$",
+            "E. $3\\pi/2 < x < 2\\pi$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                0,
+                1.5708
+              ],
+              [
+                4.7124,
+                6.2832
+              ]
+            ],
+            "crit": [
+              1.5708,
+              4.7124
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q4] Titik belok kurva $f(x) = \\cos(x)$ pada interval $[0, 2\\pi]$ terjadi di absis ...",
+          "opsi": [
+            "A. $x = 0$ dan $x = 2\\pi$",
+            "B. $x = \\pi/2$ dan $x = 3\\pi/2$",
+            "C. $x = \\pi$",
+            "D. $x = \\pi/4$",
+            "E. $x = 3\\pi/4$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                3.1416,
+                6.2832
+              ]
+            ],
+            "crit": [
+              0,
+              3.1416,
+              6.2832
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q5] Tentukan kebenaran titik stasioner dan kecekungan kurva:\n(1) Kurva cekung ke atas pada interval di mana f''(x) > 0.\n(2) Titik belok kurva terjadi saat f''(x) = 0 tanpa adanya perubahan tanda kecekungan.\n(3) Titik stasioner tercapai saat nilai turunan pertama f'(x) = 0.",
+          "opsi": [
+            "Kurva cekung ke atas pada interval di mana f''(x) > 0",
+            "Titik belok kurva terjadi saat f''(x) = 0 tanpa adanya perubahan tanda kecekungan",
+            "Titik stasioner tercapai saat nilai turunan pertama f'(x) = 0"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q6] Berapakah nilai minimum mutlak fungsi $f(x) = 2\\sin(3x) - 1$?",
+          "opsi": [
+            "A. -2",
+            "B. -1",
+            "C. 1",
+            "D. -3",
+            "E. 0"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*Math.sin(3*x) - 1",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                0,
+                0.5236
+              ],
+              [
+                1.5708,
+                2.0944
+              ]
+            ],
+            "crit": [
+              0.5236,
+              1.5708,
+              2.618,
+              3.6652,
+              4.7124,
+              5.7596
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q7] Kurva $f(x) = \\cos(2x)$ cekung ke atas ($f''(x) > 0$) pada interval ...",
+          "opsi": [
+            "A. $3\\pi/4 < x < \\pi$",
+            "B. $0 < x < \\pi/4$",
+            "C. $\\pi/4 < x < 3\\pi/4$",
+            "D. $\\pi/2 < x < \\pi$",
+            "E. $0 < x < \\pi/2$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.cos(2*x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                1.5708,
+                3.1416
+              ]
+            ],
+            "crit": [
+              0,
+              1.5708,
+              3.1416,
+              4.7124,
+              6.2832
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P23-Q8] Pada fungsi f(x) = cos(2x) untuk interval [0, pi], manakah pernyataan titik stasioner berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Nilai minimum fungsi adalah -1 (tercapai di x = pi/2).",
+            "B. Nilai turunan pertama f'(x) = -2 sin(2x).",
+            "C. Kurva selalu cekung ke bawah pada seluruh interval [0, pi].",
+            "D. Titik stasioner terjadi di x = 0, x = pi/2, dan x = pi.",
+            "E. Nilai maksimum fungsi adalah 1 (tercapai di x = 0 dan x = pi)."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q9] Nilai maksimum dari fungsi $f(x) = 8\\cos(x) + 6$ adalah ...",
+          "opsi": [
+            "A. 2",
+            "B. 6",
+            "C. 10",
+            "D. 8",
+            "E. 14"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "8*Math.cos(x) + 6",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                3.1416,
+                6.2832
+              ]
+            ],
+            "crit": [
+              0,
+              3.1416,
+              6.2832
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P23-Q10] Nilai minimum dari fungsi $f(x) = 5\\cos(2x) + 7$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "5*Math.cos(2*x) + 7",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x)",
+            "pi": 1,
+            "naik": [
+              [
+                1.5708,
+                3.1416
+              ]
+            ],
+            "crit": [
+              0,
+              1.5708,
+              3.1416,
+              4.7124,
+              6.2832
+            ]
+          }
+        }
+      ]
+    },
+    "P24": {
+      "id": "P24",
+      "subject": "Matematika Peminatan",
+      "title": "Asesmen Sumatif Bab 3: Masalah Optimasi Kontekstual Turunan",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q1] Jarak jangkauan proyektil $R(\\theta) = \\frac{v_0^2 \\sin(2\\theta)}{g}$. Sudut elevasi $\\theta$ agar jangkauan maksimum adalah ...",
+          "opsi": [
+            "A. 45 derajat",
+            "B. 15 derajat",
+            "C. 60 derajat",
+            "D. 90 derajat",
+            "E. 30 derajat"
+          ]
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q2] Luas penampang talang air berbentuk trapesium sama kaki maksimum dicapai saat sudut kemiringan $\\theta$ adalah ...",
+          "opsi": [
+            "A. 75 derajat",
+            "B. 30 derajat",
+            "C. 45 derajat",
+            "D. 60 derajat",
+            "E. 90 derajat"
+          ]
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q3] Nilai maksimum dari fungsi pendapatan $P(t) = 100 + 40\\sin(\\pi t / 6)$ juta rupiah adalah ...",
+          "opsi": [
+            "A. 180 juta rupiah",
+            "B. 120 juta rupiah",
+            "C. 140 juta rupiah",
+            "D. 100 juta rupiah",
+            "E. 60 juta rupiah"
+          ]
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q4] Sebuah partikel bergerak dengan persamaan posisi $s(t) = 4\\sin(2t)$. Kecepatan maksimum partikel adalah ...",
+          "opsi": [
+            "A. 8 m/s",
+            "B. 2 m/s",
+            "C. 0 m/s",
+            "D. 16 m/s",
+            "E. 4 m/s"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q5] Tentukan kebenaran langkah optimasi matematis menggunakan turunan:\n(1) Nilai ekstrim global suatu fungsi kontinu pada interval tertutup selalu hanya berada di dalam interval, tidak pernah di titik ujung batas.\n(2) Jika f''(c) < 0, maka titik kritis x = c menghasilkan nilai maksimum lokal.\n(3) Nilai ekstrim lokal ditentukan dengan mencari titik kritis pembuat nol turunan pertama f'(x) = 0.",
+          "opsi": [
+            "Nilai ekstrim global suatu fungsi kontinu pada interval tertutup selalu hanya berada di dalam interval, tidak pernah di titik ujung batas",
+            "Jika f''(c) < 0, maka titik kritis x = c menghasilkan nilai maksimum lokal",
+            "Nilai ekstrim lokal ditentukan dengan mencari titik kritis pembuat nol turunan pertama f'(x) = 0"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q6] Berapakah percepatan partikel $s(t) = 2\\sin(3t)$ saat $t = \\pi/6$?",
+          "opsi": [
+            "A. -6",
+            "B. 0",
+            "C. -18",
+            "D. 6",
+            "E. 18"
+          ]
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q7] Keliling persegi panjang terbesar yang dapat dibuat dalam setengah lingkaran berjari-jari $R$ bernilai proporsional dengan ...",
+          "opsi": [
+            "A. 2R",
+            "B. 4R",
+            "C. R√3",
+            "D. R√5",
+            "E. R√2"
+          ]
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P24-Q8] Jumlah dua bilangan positif x dan y adalah 20 (x + y = 20). Misalkan P = x . y adalah hasil kalinya. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Fungsi hasil kali dalam variabel x adalah P(x) = 20x - x^2.",
+            "B. Nilai hasil kali maksimum P_max adalah 100.",
+            "C. Nilai x pembuat hasil kali maksimum adalah x = 10.",
+            "D. Nilai y pembuat hasil kali maksimum adalah y = 10.",
+            "E. Hasil kali maksimum terjadi saat x = 5 dan y = 15."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q9] Sebuah benda dilempar ke atas dengan tinggi $h(t) = 30t - 5t^2$. Tinggi maksimum yang dicapai adalah ...",
+          "opsi": [
+            "A. 40 meter",
+            "B. 45 meter",
+            "C. 60 meter",
+            "D. 90 meter",
+            "E. 30 meter"
+          ]
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P24-Q10] Nilai maksimum dari daya listrik $P(t) = 200\\sin^2(100\\pi t)$ watt adalah ...",
+          "opsi": []
+        }
+      ]
+    },
+    "P25": {
+      "id": "P25",
+      "subject": "Matematika Peminatan",
+      "title": "Integral & Penerapannya 1: Konsep Integral Tak Tentu Dasar Trigonometri",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q1] Hasil dari $\\int (4\\cos x - 6\\sin x) dx$ adalah ...",
+          "opsi": [
+            "A. $4\\sin x + 6\\cos x + C$",
+            "B. $-4\\sin x + 6\\cos x + C$",
+            "C. $-4\\sin x - 6\\cos x + C$",
+            "D. $4\\cos x + 6\\sin x + C$",
+            "E. $4\\sin x - 6\\cos x + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "-6*Math.sin(x) + 4*Math.cos(x)",
+            "F": "4*Math.sin(x) + 6*Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q2] Hasil dari $\\int (3x^2 + 4x - 5) dx$ adalah ...",
+          "opsi": [
+            "A. $x^3 + 4x^2 - 5x + C$",
+            "B. $6x + 4 + C$",
+            "C. $x^3 + 2x^2 + C$",
+            "D. $3x^3 + 4x^2 - 5x + C$",
+            "E. $x^3 + 2x^2 - 5x + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.pow(x, 2) + 4*x - 5",
+            "F": "Math.pow(x, 3) + 2*Math.pow(x, 2) - 5*x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q3] Hasil dari $\\int \\sec^2(x) dx$ adalah ...",
+          "opsi": [
+            "A. $\\tan x + C$",
+            "B. $-\\tan x + C$",
+            "C. $\\cos x + C$",
+            "D. $\\sec x \\tan x + C$",
+            "E. $\\cot x + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow((1/Math.cos(x)), 2)",
+            "F": "Math.sin(x)/Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q4] Jika $f'(x) = 6x - 2$ dan $f(1) = 5$, maka rumus fungsi $f(x)$ adalah ...",
+          "opsi": [
+            "A. $f(x) = 6x^2 - 2x + 1$",
+            "B. $f(x) = 3x^2 - 2x + 4$",
+            "C. $f(x) = 3x^2 - 2x + 5$",
+            "D. $f(x) = 3x^2 + 2x + 4$",
+            "E. $f(x) = 3x^2 - 2x$"
+          ]
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q5] Tentukan kebenaran sifat integral tak tentu:\n(1) Aturan pangkat integral dirumuskan integral x^n dx = [x^(n+1)] / (n+1) + C untuk n != -1.\n(2) Integral dari fungsi konstan dirumuskan integral k dx = kx + C.\n(3) Nilai integral 1/x dx adalah -1/x^2 + C.",
+          "opsi": [
+            "Aturan pangkat integral dirumuskan integral x^n dx = [x^(n+1)] / (n+1) + C untuk n != -1",
+            "Integral dari fungsi konstan dirumuskan integral k dx = kx + C",
+            "Nilai integral 1/x dx adalah -1/x^2 + C"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q6] Berapakah nilai $C$ jika $\\int 4x dx = 2x^2 + C$ dan kurva melalui titik $(2, 10)$?",
+          "opsi": [
+            "A. -2",
+            "B. 4",
+            "C. 8",
+            "D. 0",
+            "E. 2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "4*x",
+            "F": "2*Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q7] Hasil dari $\\int (2\\sin x + 3\\cos x) dx$ adalah ...",
+          "opsi": [
+            "A. $2\\cos x - 3\\sin x + C$",
+            "B. $3\\cos x - 2\\sin x + C$",
+            "C. $-2\\cos x - 3\\sin x + C$",
+            "D. $-2\\cos x + 3\\sin x + C$",
+            "E. $2\\cos x + 3\\sin x + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*Math.sin(x) + 3*Math.cos(x)",
+            "F": "3*Math.sin(x) - 2*Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P25-Q8] Manakah hasil evaluasi integral tak tentu berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. integral sin(x) dx = -cos(x) + C.",
+            "B. integral sec^2(x) dx = tan(x) + C.",
+            "C. integral cos(x) dx = sin(x) + C.",
+            "D. integral x^3 dx = 3x^2 + C.",
+            "E. integral (6x^2 - 4x + 3) dx = 2x^3 - 2x^2 + 3x + C."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q9] Hasil dari $\\int (6x^2 - 1) dx$ adalah ...",
+          "opsi": [
+            "A. $12x + C$",
+            "B. $2x^3 - x + C$",
+            "C. $2x^3 + x + C$",
+            "D. $6x^3 - x + C$",
+            "E. $3x^3 - x + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "6*Math.pow(x, 2) - 1",
+            "F": "2*Math.pow(x, 3) - x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q10] Konstanta $C$ jika $f(x) = \\int 3x^2 dx = x^3 + C$ dan kurva melalui $(1, 6)$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.pow(x, 2)",
+            "F": "Math.pow(x, 3)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        }
+      ]
+    },
+    "P26": {
+      "id": "P26",
+      "subject": "Matematika Peminatan",
+      "title": "Integral & Penerapannya 2: Teknik Pengintegralan Metode Substitusi",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q1] Hasil dari $\\int 2x (x^2 + 1)^4 dx$ adalah ...",
+          "opsi": [
+            "A. $\\frac{2}{5}(x^2 + 1)^5 + C$",
+            "B. $\\frac{1}{10}(x^2 + 1)^5 + C$",
+            "C. $(x^2 + 1)^5 + C$",
+            "D. $\\frac{1}{4}(x^2 + 1)^5 + C$",
+            "E. $\\frac{1}{5}(x^2 + 1)^5 + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*x*Math.pow(Math.pow(x, 2) + 1, 4)",
+            "F": "(1/5)*Math.pow(x, 10) + Math.pow(x, 8) + 2*Math.pow(x, 6) + 2*Math.pow(x, 4) + Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q2] Hasil dari $\\int \\sin^3(x) \\cos(x) dx$ adalah ...",
+          "opsi": [
+            "A. $-\\frac{1}{4}\\cos^4(x) + C$",
+            "B. $\\frac{1}{4}\\sin^4(x) + C$",
+            "C. $\\sin^4(x) + C$",
+            "D. $\\frac{1}{4}\\cos^4(x) + C$",
+            "E. $\\frac{1}{3}\\sin^4(x) + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(Math.sin(x), 3)*Math.cos(x)",
+            "F": "(1/4)*Math.pow(Math.sin(x), 4)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q3] Hasil dari $\\int \\frac{3x^2}{\\sqrt{x^3 + 1}} dx$ adalah ...",
+          "opsi": [
+            "A. $\\sqrt{x^3 + 1} + C$",
+            "B. $3\\sqrt{x^3 + 1} + C$",
+            "C. $\\frac{2}{3}\\sqrt{x^3 + 1} + C$",
+            "D. $\\frac{1}{2}\\sqrt{x^3 + 1} + C$",
+            "E. $2\\sqrt{x^3 + 1} + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.pow(x, 2)*Math.sqrt(Math.pow(x, 3) + 1)",
+            "F": "(2/3)*Math.pow(x, 3)*Math.sqrt(Math.pow(x, 3) + 1) + (2/3)*Math.sqrt(Math.pow(x, 3) + 1)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q4] Hasil dari $\\int x \\sqrt{x^2 + 9} dx$ adalah ...",
+          "opsi": [
+            "A. $\\frac{1}{6}(x^2 + 9)^{3/2} + C$",
+            "B. $\\frac{1}{2}(x^2 + 9)^{3/2} + C$",
+            "C. $\\frac{2}{3}(x^2 + 9)^{3/2} + C$",
+            "D. $\\frac{1}{3}(x^2 + 9)^{3/2} + C$",
+            "E. $(x^2 + 9)^{3/2} + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.sqrt(Math.pow(x, 2) + 9)",
+            "F": "(1/3)*Math.pow(x, 2)*Math.sqrt(Math.pow(x, 2) + 9) + 3*Math.sqrt(Math.pow(x, 2) + 9)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q5] Tentukan kebenaran teknik pengintegralan metode substitusi:\n(1) Rumus integral f'(x) / f(x) dx = ln|f(x)| + C.\n(2) Nilai integral 2x e^(x^2) dx adalah 2 e^(x^2) + C.\n(3) Metode substitusi digunakan saat integran memuat fungsi dan turunan faktor pengalinya.",
+          "opsi": [
+            "Rumus integral f'(x) / f(x) dx = ln|f(x)| + C",
+            "Nilai integral 2x e^(x^2) dx adalah 2 e^(x^2) + C",
+            "Metode substitusi digunakan saat integran memuat fungsi dan turunan faktor pengalinya"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q6] Berapakah nilai $\\int_{0}^{1} 2x(x^2+1)^3 dx$?",
+          "opsi": [
+            "A. 16/4",
+            "B. 15/4",
+            "C. 4",
+            "D. 3",
+            "E. 7/2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*x*Math.pow(Math.pow(x, 2) + 1, 3)",
+            "x0": -0.6,
+            "x1": 1.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q7] Hasil dari $\\int \\cos^2(x) \\sin(x) dx$ adalah ...",
+          "opsi": [
+            "A. $-\\frac{1}{3}\\sin^3(x) + C$",
+            "B. $\\frac{1}{3}\\sin^3(x) + C$",
+            "C. $-\\frac{1}{3}\\cos^3(x) + C$",
+            "D. $\\frac{1}{3}\\cos^3(x) + C$",
+            "E. $-\\cos^3(x) + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)*Math.pow(Math.cos(x), 2)",
+            "F": "-1/3*Math.pow(Math.cos(x), 3)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P26-Q8] Manakah hasil evaluasi integral substitusi berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. integral sin(2x) dx = 2 cos(2x) + C.",
+            "B. integral (2x + 3) / (x^2 + 3x + 5) dx = ln|x^2 + 3x + 5| + C.",
+            "C. integral 2x (x^2 + 1)^3 dx = 1/4 (x^2 + 1)^4 + C.",
+            "D. integral cos(3x + 1) dx = 1/3 sin(3x + 1) + C.",
+            "E. integral sin^3(x) cos(x) dx = 1/4 sin^4(x) + C."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q9] Hasil dari $\\int (3x - 2)^5 dx$ adalah ...",
+          "opsi": [
+            "A. $\\frac{1}{3}(3x - 2)^6 + C$",
+            "B. $\\frac{1}{6}(3x - 2)^6 + C$",
+            "C. $(3x - 2)^6 + C$",
+            "D. $\\frac{1}{18}(3x - 2)^6 + C$",
+            "E. $\\frac{1}{12}(3x - 2)^6 + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(3*x - 2, 5)",
+            "F": "(81/2)*Math.pow(x, 6) - 162*Math.pow(x, 5) + 270*Math.pow(x, 4) - 240*Math.pow(x, 3) + 120*Math.pow(x, 2) - 32*x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q10] Nilai dari $\\int_0^{\\pi/2} \\sin(x)\\cos(x) dx$ adalah ... (dalam pecahan a/b)",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)*Math.cos(x)",
+            "x0": -0.6,
+            "x1": 2.171,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1.5708
+            ]
+          }
+        }
+      ]
+    },
+    "P27": {
+      "id": "P27",
+      "subject": "Matematika Peminatan",
+      "title": "Integral & Penerapannya 3: Teknik Pengintegralan Parsial (Tanzalin)",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q1] Hasil dari $\\int x \\cos(x) dx$ adalah ...",
+          "opsi": [
+            "A. $x\\sin(x) + \\cos(x) + C$",
+            "B. $-x\\sin(x) + \\cos(x) + C$",
+            "C. $x\\cos(x) + \\sin(x) + C$",
+            "D. $-x\\cos(x) + \\sin(x) + C$",
+            "E. $x\\sin(x) - \\cos(x) + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.cos(x)",
+            "F": "x*Math.sin(x) + Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q2] Hasil dari $\\int x e^x dx$ adalah ...",
+          "opsi": [
+            "A. $x^2 e^x + C$",
+            "B. $x e^x + C$",
+            "C. $e^x(1 - x) + C$",
+            "D. $e^x(x - 1) + C$",
+            "E. $e^x(x + 1) + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.exp(x)",
+            "F": "(x - 1)*Math.exp(x)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q3] Hasil dari $\\int x^2 \\sin(x) dx$ adalah ...",
+          "opsi": [
+            "A. $-x^2\\cos x + 2x\\sin x + 2\\cos x + C$",
+            "B. $-x^2\\cos x + 2x\\sin x - 2\\cos x + C$",
+            "C. $x^2\\cos x + 2x\\sin x - 2\\cos x + C$",
+            "D. $x^2\\sin x + 2x\\cos x + C$",
+            "E. $-x^2\\cos x - 2x\\sin x + 2\\cos x + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 2)*Math.sin(x)",
+            "F": "-Math.pow(x, 2)*Math.cos(x) + 2*x*Math.sin(x) + 2*Math.cos(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q4] Hasil dari $\\int x \\sin(2x) dx$ adalah ...",
+          "opsi": [
+            "A. $\\frac{1}{2}x\\cos(2x) + \\frac{1}{4}\\sin(2x) + C$",
+            "B. $-x\\cos(2x) + \\sin(2x) + C$",
+            "C. $-\\frac{1}{4}x\\cos(2x) + \\frac{1}{2}\\sin(2x) + C$",
+            "D. $-\\frac{1}{2}x\\cos(2x) + \\frac{1}{4}\\sin(2x) + C$",
+            "E. $-\\frac{1}{2}x\\cos(2x) - \\frac{1}{4}\\sin(2x) + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.sin(2*x)",
+            "F": "-1/2*x*Math.cos(2*x) + (1/4)*Math.sin(2*x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q5] Tentukan kebenaran teknik integral parsial:\n(1) Aturan prioritas LIATE menempatkan fungsi Aljabar sebelum Logaritma.\n(2) Rumus dasar integral parsial adalah integral u dv = u.v - integral v du.\n(3) Metode tabel Tanzalin sangat efektif saat fungsi u(x) berupa suku banyak (polinomial).",
+          "opsi": [
+            "Aturan prioritas LIATE menempatkan fungsi Aljabar sebelum Logaritma",
+            "Rumus dasar integral parsial adalah integral u dv = u.v - integral v du",
+            "Metode tabel Tanzalin sangat efektif saat fungsi u(x) berupa suku banyak (polinomial)"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q6] Berapakah nilai dari $\\int_0^{\\pi} x \\sin(x) dx$?",
+          "opsi": [
+            "A. 0",
+            "B. 1",
+            "C. -1",
+            "D. $2\\pi$",
+            "E. $\\pi$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.sin(x)",
+            "x0": -1.1,
+            "x1": 4.241,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3.1416
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q7] Hasil dari $\\int \\ln(x) dx$ adalah ...",
+          "opsi": [
+            "A. $x\\ln(x) + C$",
+            "B. $\\frac{1}{x} + C$",
+            "C. $x\\ln(x) - x + C$",
+            "D. $x\\ln(x) + x + C$",
+            "E. $\\ln(x) - x + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.log(x)",
+            "F": "x*Math.log(x) - x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P27-Q8] Manakah hasil evaluasi integral parsial berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. integral x e^(2x) dx = x e^(2x) + C.",
+            "B. integral ln(x) dx = x ln(x) - x + C.",
+            "C. integral x cos(x) dx = x sin(x) + cos(x) + C.",
+            "D. integral x sin(x) dx = -x cos(x) + sin(x) + C.",
+            "E. integral x e^x dx = (x - 1) e^x + C."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q9] Hasil dari $\\int x (2x + 1)^4 dx$ adalah ...",
+          "opsi": [
+            "A. $\\frac{1}{5}(2x+1)^5 + C$",
+            "B. $\\frac{1}{10}x(2x+1)^5 - \\frac{1}{120}(2x+1)^6 + C$",
+            "C. $\\frac{1}{12}(2x+1)^6 + C$",
+            "D. $\\frac{1}{60}(2x+1)^6 + C$",
+            "E. $\\frac{1}{10}x(2x+1)^5 + C$"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.pow(2*x + 1, 4)",
+            "F": "(8/3)*Math.pow(x, 6) + (32/5)*Math.pow(x, 5) + 6*Math.pow(x, 4) + (8/3)*Math.pow(x, 3) + (1/2)*Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q10] Nilai dari $\\int_{0}^{1} x e^x dx$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.exp(x)",
+            "x0": -0.6,
+            "x1": 1.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    "P28": {
+      "id": "P28",
+      "subject": "Matematika Peminatan",
+      "title": "Integral & Penerapannya 4: Integral Tentu & Teorema Dasar Kalkulus",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q1] Nilai dari integral tentu $\\int_{0}^{3} (3x^2 - 2x + 1) dx$ adalah ...",
+          "opsi": [
+            "A. 21",
+            "B. 15",
+            "C. 27",
+            "D. 24",
+            "E. 18"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.pow(x, 2) - 2*x + 1",
+            "x0": -1.05,
+            "x1": 4.05,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q2] Nilai dari $\\int_0^{\\pi/2} \\cos(x) dx$ adalah ...",
+          "opsi": [
+            "A. 2",
+            "B. -1",
+            "C. 0",
+            "D. 1",
+            "E. 1/2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.cos(x)",
+            "x0": -0.6,
+            "x1": 2.171,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1.5708
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q3] Nilai dari $\\int_{1}^{2} (6x^2 - 4x) dx$ adalah ...",
+          "opsi": [
+            "A. 14",
+            "B. 8",
+            "C. 10",
+            "D. 12",
+            "E. 6"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "6*Math.pow(x, 2) - 4*x",
+            "x0": 0.4,
+            "x1": 2.6,
+            "lab": "y = f(x)",
+            "area": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q4] Jika $\\int_{0}^{a} 2x dx = 16$ dengan $a > 0$, maka nilai $a$ adalah ...",
+          "opsi": [
+            "A. 16",
+            "B. 2",
+            "C. √8",
+            "D. 4",
+            "E. 8"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*x",
+            "x0": -5.6,
+            "x1": 21.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              16
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q5] Tentukan kebenaran Teorema Dasar Kalkulus (TDK) dan integral tentu:\n(1) Menurut TDK Part 2, integral_a^b f(x) dx = F(b) - F(a).\n(2) Nilai integral tentu dari suatu fungsi pada batas interval nol integral_a^a f(x) dx adalah 1.\n(3) Membalik batas integrasi mengubah tanda aljabar: integral_a^b f(x) dx = - integral_b^a f(x) dx.",
+          "opsi": [
+            "Menurut TDK Part 2, integral_a^b f(x) dx = F(b) - F(a)",
+            "Nilai integral tentu dari suatu fungsi pada batas interval nol integral_a^a f(x) dx adalah 1",
+            "Membalik batas integrasi mengubah tanda aljabar: integral_a^b f(x) dx = - integral_b^a f(x) dx"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q6] Berapakah nilai $\\int_0^{\\pi} \\sin(x) dx$?",
+          "opsi": [
+            "A. -2",
+            "B. $\\pi$",
+            "C. 1",
+            "D. 0",
+            "E. 2"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)",
+            "x0": -1.1,
+            "x1": 4.241,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3.1416
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q7] Nilai dari $\\int_{1}^{4} \\frac{1}{\\sqrt{x}} dx$ adalah ...",
+          "opsi": [
+            "A. 1/2",
+            "B. 2",
+            "C. 4",
+            "D. 3",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sqrt(x)",
+            "x0": -0.05,
+            "x1": 5.05,
+            "lab": "y = f(x)",
+            "area": [
+              1,
+              4
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P28-Q8] Manakah evaluasi nilai integral tentu berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. integral_0^1 (4x^3) dx = 4.",
+            "B. integral_0^2 (3x^2) dx = 8.",
+            "C. integral_0^pi sin(x) dx = 2.",
+            "D. integral_0^(pi/2) cos(x) dx = 1.",
+            "E. integral_(-1)^1 (x^3) dx = 0."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q9] Nilai dari $\\int_{0}^{2} (4x^3) dx$ adalah ...",
+          "opsi": [
+            "A. 8",
+            "B. 32",
+            "C. 16",
+            "D. 64",
+            "E. 12"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "4*Math.pow(x, 3)",
+            "x0": -0.7,
+            "x1": 2.7,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q10] Nilai dari $\\int_{0}^{1} (6x^5) dx$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "6*Math.pow(x, 5)",
+            "x0": -0.6,
+            "x1": 1.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    "P29": {
+      "id": "P29",
+      "subject": "Matematika Peminatan",
+      "title": "Integral & Penerapannya 5: Aplikasi Luas Daerah Dua Kurva",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q1] Luas daerah yang dibatasi oleh kurva $y = 6x - x^2$ dan sumbu-$X$ adalah ...",
+          "opsi": [
+            "A. 24 satuan luas",
+            "B. 72 satuan luas",
+            "C. 36 satuan luas",
+            "D. 18 satuan luas",
+            "E. 12 satuan luas"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "-Math.pow(x, 2) + 6*x",
+            "x0": -2.1,
+            "x1": 8.1,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              6
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q2] Luas daerah yang dibatasi oleh kurva parabola $y = x^2$ dan garis $y = 2x$ adalah ...",
+          "opsi": [
+            "A. 2 satuan luas",
+            "B. 4/3 satuan luas",
+            "C. 1 satuan luas",
+            "D. 2/3 satuan luas",
+            "E. 8/3 satuan luas"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 2)",
+            "x0": -0.7,
+            "x1": 2.7,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ],
+            "g": "2*x",
+            "lab2": "y = g(x)",
+            "antara": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q3] Luas daerah antara kurva $y = x^2 - 4$ dan sumbu-$X$ pada interval $-2 \\le x \\le 2$ adalah ...",
+          "opsi": [
+            "A. 8/3 satuan luas",
+            "B. 64/3 satuan luas",
+            "C. 16/3 satuan luas",
+            "D. 12 satuan luas",
+            "E. 32/3 satuan luas"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 2) - 4",
+            "x0": -3.4,
+            "x1": 3.4,
+            "lab": "y = f(x)",
+            "area": [
+              -2,
+              2
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q4] Luas daerah yang dibatasi oleh kurva $y = \\sin(x)$ dan sumbu-$X$ pada interval $0 \\le x \\le \\pi$ adalah ...",
+          "opsi": [
+            "A. 4 satuan luas",
+            "B. 1 satuan luas",
+            "C. 2 satuan luas",
+            "D. 0 satuan luas",
+            "E. $\\pi$ satuan luas"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)",
+            "x0": -1.1,
+            "x1": 4.241,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3.1416
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q5] Tentukan kebenaran konsep luas daerah dan volume benda putar:\n(1) Volume benda putar mengelilingi sumbu-X metode cakram adalah V = pi integral_a^b [f(x)]^2 dx.\n(2) Luas daerah antara dua kurva y1 >= y2 adalah L = integral_a^b (y1 - y2) dx.\n(3) Luas geometris fisik suatu daerah dapat bernilai negatif.",
+          "opsi": [
+            "Volume benda putar mengelilingi sumbu-X metode cakram adalah V = pi integral_a^b [f(x)]^2 dx",
+            "Luas daerah antara dua kurva y1 >= y2 adalah L = integral_a^b (y1 - y2) dx",
+            "Luas geometris fisik suatu daerah dapat bernilai negatif"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q6] Berapakah luas daerah yang dibatasi garis $y = 2x$, sumbu-$X$, dan $x = 4$?",
+          "opsi": [
+            "A. 4 satuan luas",
+            "B. 8 satuan luas",
+            "C. 12 satuan luas",
+            "D. 16 satuan luas",
+            "E. 32 satuan luas"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*x",
+            "x0": -1.4,
+            "x1": 5.4,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              4
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q7] Luas daerah antara kurva $y = x^3$, sumbu-$X$, $x = 0$ dan $x = 2$ adalah ...",
+          "opsi": [
+            "A. 1 satuan luas",
+            "B. 16 satuan luas",
+            "C. 2 satuan luas",
+            "D. 8 satuan luas",
+            "E. 4 satuan luas"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 3)",
+            "x0": -0.7,
+            "x1": 2.7,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P29-Q8] Diberikan daerah yang dibatasi oleh kurva y = x^2 dan garis y = 4. Manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. Luas daerah tersebut adalah 32/3 satuan luas.",
+            "B. Titik potong kedua kurva berada di x = -2 dan x = 2.",
+            "C. Kurva y = 4 berada di atas kurva y = x^2 pada interval [-2, 2].",
+            "D. Luas daerah bernilai 0 karena kurva simetris.",
+            "E. Volume putar mengelilingi sumbu-X dari x = 0 sampai x = 2 adalah 32/5 pi."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q9] Luas daerah antara kurva $y = 4 - x^2$ dan garis $y = 0$ adalah ...",
+          "opsi": [
+            "A. 32/3 satuan luas",
+            "B. 64/3 satuan luas",
+            "C. 12 satuan luas",
+            "D. 8/3 satuan luas",
+            "E. 16/3 satuan luas"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "4 - Math.pow(x, 2)",
+            "x0": -3.4,
+            "x1": 3.4,
+            "lab": "y = f(x)",
+            "area": [
+              -2,
+              2
+            ],
+            "g": "0",
+            "lab2": "y = g(x)",
+            "antara": 1
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q10] Luas daerah yang dibatasi oleh garis $y = 3x$, sumbu-$X$, dan garis $x = 2$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "3*x",
+            "x0": -0.7,
+            "x1": 2.7,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ]
+          }
+        }
+      ]
+    },
+    "P30": {
+      "id": "P30",
+      "subject": "Matematika Peminatan",
+      "title": "Asesmen Sumatif Bab 4: Volume Benda Putar & Simulasi ASAS CBT",
+      "questions": [
+        {
+          "no": 1,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q1] Volume benda putar yang terjadi jika daerah yang dibatasi kurva $y = \\sqrt{x}$, sumbu-$X$, dan garis $x = 4$ diputar $360^\\circ$ mengelilingi sumbu-$X$ adalah ...",
+          "opsi": [
+            "A. $2\\pi$ satuan volume",
+            "B. $16\\pi$ satuan volume",
+            "C. $4\\pi$ satuan volume",
+            "D. $8\\pi$ satuan volume",
+            "E. $32\\pi$ satuan volume"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.sqrt(x)",
+            "x0": -0.4,
+            "x1": 4.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              4
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 2,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q2] Volume benda putar yang terbentuk dari daerah $y = x^2$ dari $x = 0$ sampai $x = 2$ diputar mengelilingi sumbu-$X$ adalah ...",
+          "opsi": [
+            "A. $\\frac{64}{5}\\pi$ satuan volume",
+            "B. $\\frac{16}{5}\\pi$ satuan volume",
+            "C. $4\\pi$ satuan volume",
+            "D. $8\\pi$ satuan volume",
+            "E. $\\frac{32}{5}\\pi$ satuan volume"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 2)",
+            "x0": -0.4,
+            "x1": 2.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 3,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q3] Volume benda putar daerah yang dibatasi garis $y = 2x$, sumbu-$X$, dan $x = 3$ diputar mengelilingi sumbu-$X$ adalah ...",
+          "opsi": [
+            "A. $12\\pi$ satuan volume",
+            "B. $24\\pi$ satuan volume",
+            "C. $72\\pi$ satuan volume",
+            "D. $36\\pi$ satuan volume",
+            "E. $18\\pi$ satuan volume"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "2*x",
+            "x0": -0.4,
+            "x1": 3.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 4,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q4] Nilai dari $\\int_{0}^{2} (3x^2 - 2x + 1) dx$ adalah ...",
+          "opsi": [
+            "A. 10",
+            "B. 8",
+            "C. 4",
+            "D. 12",
+            "E. 6"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.pow(x, 2) - 2*x + 1",
+            "x0": -0.7,
+            "x1": 2.7,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q5] Tentukan kebenaran rangkuman evaluasi kalkulus:\n(1) Nilai turunan dari fungsi konstan f(x) = c adalah f'(x) = c.\n(2) Turunan pertama f'(x) merepresentasikan laju perubahan sesaat fungsi.\n(3) Integral tentu merepresentasikan akumulasi luas bertanda di bawah kurva.",
+          "opsi": [
+            "Nilai turunan dari fungsi konstan f(x) = c adalah f'(x) = c",
+            "Turunan pertama f'(x) merepresentasikan laju perubahan sesaat fungsi",
+            "Integral tentu merepresentasikan akumulasi luas bertanda di bawah kurva"
+          ]
+        },
+        {
+          "no": 6,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q6] Berapakah volume tabung putar dari daerah $y = 3$, $0 \\le x \\le 4$ diputar sumbu-X?",
+          "opsi": [
+            "A. $12\\pi$ satuan volume",
+            "B. $18\\pi$ satuan volume",
+            "C. $36\\pi$ satuan volume",
+            "D. $48\\pi$ satuan volume",
+            "E. $24\\pi$ satuan volume"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "3",
+            "x0": -0.4,
+            "x1": 4.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              4
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 7,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q7] Volume benda putar kurva $y = x$, $0 \\le x \\le 2$ diputar mengelilingi sumbu-$X$ adalah ...",
+          "opsi": [
+            "A. $2\\pi$ satuan volume",
+            "B. $\\frac{8}{3}\\pi$ satuan volume",
+            "C. $8\\pi$ satuan volume",
+            "D. $\\frac{4}{3}\\pi$ satuan volume",
+            "E. $4\\pi$ satuan volume"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "x",
+            "x0": -0.4,
+            "x1": 2.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[P30-Q8] Pada grand review kalkulus, manakah pernyataan berikut yang BENAR? (Pilih semua yang benar)",
+          "opsi": [
+            "A. integral cos(2x) dx = 1/2 sin(2x) + C.",
+            "B. d/dx [cos(x)] = sin(x).",
+            "C. d/dx [sin(2x)] = 2 cos(2x).",
+            "D. integral_0^1 (3x^2 + 2x) dx = 2.",
+            "E. limit x->0 (sin 4x) / (2x) = 2."
+          ]
+        },
+        {
+          "no": 9,
+          "tipe": "Pilihan Ganda Tunggal",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q9] Hasil dari $\\int_{0}^{1} (4x^3 + 3x^2) dx$ adalah ...",
+          "opsi": [
+            "A. 7",
+            "B. 3",
+            "C. 2",
+            "D. 4",
+            "E. 1"
+          ],
+          "viz": {
+            "t": "plot",
+            "f": "4*Math.pow(x, 3) + 3*Math.pow(x, 2)",
+            "x0": -0.6,
+            "x1": 1.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "tipe": "Isian Singkat Numerik",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q10] Koefisien $\\pi$ pada volume benda putar kurva $y = 2\\sqrt{x}$ dari $x=0$ ke $x=3$ mengelilingi sumbu-$X$ adalah ...",
+          "opsi": [],
+          "viz": {
+            "t": "plot",
+            "f": "2*Math.sqrt(x)",
+            "x0": -0.4,
+            "x1": 3.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3
+            ],
+            "rot": 1
+          }
+        }
+      ]
+    }
+  },
+  "tka_clil": {
+    "P25": {
+      "title": "Indefinite Integrals & Fundamental Power Rules",
+      "questions": [
+        {
+          "no": 1,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P25-Q1] Evaluate the indefinite integral: $$\\int (8x^3 - 6x^2 + 4x - 7) dx$$",
+          "opsi": [
+            "A. $4x^4 - 3x^3 + 2x^2 - 7x + C$",
+            "B. $2x^4 - 2x^3 + 2x^2 - 7x + C$",
+            "C. $8x^4 - 6x^3 + 4x^2 - 7x + C$",
+            "D. $2x^4 - 3x^3 + 4x^2 - 7x + C$",
+            "E. $24x^2 - 12x + 4 + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "8*Math.pow(x, 3) - 6*Math.pow(x, 2) + 4*x - 7",
+            "F": "2*Math.pow(x, 4) - 2*Math.pow(x, 3) + 2*Math.pow(x, 2) - 7*x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 2,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P25-Q2] Evaluate the integral: $$\\int \\left(3\\sqrt{x} + \\frac{2}{x^2}\\right) dx$$",
+          "opsi": [
+            "A. $\\frac{3}{2}\\sqrt{x} - \\frac{2}{x^3} + C$",
+            "B. $2\\sqrt{x^3} - 2x + C$",
+            "C. $2x^{3/2} - \\frac{2}{x} + C$",
+            "D. $6x^{3/2} - \\frac{1}{x} + C$",
+            "E. $3x^{3/2} + \\frac{2}{x} + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.sqrt(x) + 2/Math.pow(x, 2)",
+            "F": "2*Math.pow(x, 3/2) - 2/x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 3,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q3] A curve passes through $(2, 10)$ with gradient function $\\frac{dy}{dx} = 6x - 4$. What is the value of $y(3)$?",
+          "opsi": [
+            "A. 23",
+            "B. 25",
+            "C. 18",
+            "D. 21",
+            "E. 19"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 4,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P25-Q4] Evaluate: $$\\int (2x - 3)^2 dx$$",
+          "opsi": [
+            "A. $\\frac{1}{3}(2x - 3)^3 + C$",
+            "B. $\\frac{4}{3}x^3 - 6x^2 + 9x + C$",
+            "C. $\\frac{1}{6}(2x - 3)^3 + C$",
+            "D. $4x^3 - 12x^2 + 9x + C$",
+            "E. Both B and C are equivalent and correct"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(2*x - 3, 2)",
+            "F": "(4/3)*Math.pow(x, 3) - 6*Math.pow(x, 2) + 9*x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[CLIL-P25-Q5] Determine the truth value (TRUE or FALSE) for the following calculus identities:\n(1) The power rule for integrals is integral x^n dx = [x^(n+1)] / (n+1) + C for any real number n != -1.\n(2) The integral of 1/x is integral x^(-1) dx = -1/x^2 + C.\n(3) The integral of a constant is integral k dx = kx + C.",
+          "opsi": [
+            "The power rule for integrals is integral x^n dx = [x^(n+1)] / (n+1) + C for any real number n != -1",
+            "The integral of 1/x is integral x^(-1) dx = -1/x^2 + C",
+            "The integral of a constant is integral k dx = kx + C"
+          ]
+        },
+        {
+          "no": 6,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q6] What is the exact value of the curve $f(4)$ given that $f'(x) = 2x + k$?\nStatement (1): The curve passes through the origin $(0, 0)$.\nStatement (2): The tangent line at $x = 1$ is parallel to $y = 5x + 3$.",
+          "opsi": [
+            "A. Statements (1) and (2) TOGETHER are NOT sufficient",
+            "B. BOTH statements TOGETHER are sufficient",
+            "C. Statement (1) ALONE is sufficient",
+            "D. Statement (2) ALONE is sufficient",
+            "E. EACH statement ALONE is sufficient"
+          ],
+          "tipe": "Kecukupan Data"
+        },
+        {
+          "no": 7,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P25-Q7] A particle has acceleration $a(t) = 6t$. If $v(1) = 5$ and $s(1) = 4$, find the position function $s(t)$.",
+          "opsi": [
+            "A. $s(t) = t^3 + 2t + 4$",
+            "B. $s(t) = 3t^2 + 2t - 1$",
+            "C. $s(t) = t^3 + 2t + 1$",
+            "D. $s(t) = 2t^3 + t + 1$",
+            "E. $s(t) = t^3 + 5t - 2$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[CLIL-P25-Q8] Which of the following indefinite integral evaluations are CORRECT? (Select all that apply)",
+          "opsi": [
+            "A. integral e^x dx = e^x + C.",
+            "B. integral 1/x^2 dx = -1/x + C.",
+            "C. integral x^3 dx = 3x^2 + C.",
+            "D. integral cos(x) dx = sin(x) + C.",
+            "E. integral (6x^2 - 4x + 3) dx = 2x^3 - 2x^2 + 3x + C."
+          ]
+        },
+        {
+          "no": 9,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P25-Q9] Evaluate the integral: $$\\int \\frac{x^3 + 3x}{x} dx$$",
+          "opsi": [
+            "A. $\\frac{1}{3}x^3 + 3 + C$",
+            "B. $x^3 + 3x + C$",
+            "C. $x^2 + 3 + C$",
+            "D. $\\frac{1}{4}x^4 + \\frac{3}{2}x^2 + C$",
+            "E. $\\frac{1}{3}x^3 + 3x + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "(Math.pow(x, 3) + 3*x)/x",
+            "F": "(1/3)*Math.pow(x, 3) + 3*x",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 10,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P25-Q10] If $\\frac{dy}{dx} = 4x^3 - 2x$ and the curve passes through $(1, 5)$, what is the value of the constant of integration $C$?",
+          "tipe": "Isian Singkat Numerik"
+        }
+      ]
+    },
+    "P26": {
+      "title": "Integration Techniques: Method of u-Substitution",
+      "questions": [
+        {
+          "no": 1,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P26-Q1] Evaluate the integral: $$\\int 3x^2 (x^3 + 2)^5 dx$$",
+          "opsi": [
+            "A. $(x^3 + 2)^6 + C$",
+            "B. $\\frac{1}{2}(x^3 + 2)^6 + C$",
+            "C. $\\frac{3}{6}(x^3 + 2)^6 + C$",
+            "D. $\\frac{1}{5}(x^3 + 2)^6 + C$",
+            "E. $\\frac{1}{6}(x^3 + 2)^6 + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.pow(x, 2)*Math.pow(Math.pow(x, 3) + 2, 5)",
+            "F": "(1/6)*Math.pow(x, 18) + 2*Math.pow(x, 15) + 10*Math.pow(x, 12) + (80/3)*Math.pow(x, 9) + 40*Math.pow(x, 6) + 32*Math.pow(x, 3)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 2,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P26-Q2] Evaluate: $$\\int \\cos(4x - 1) dx$$",
+          "opsi": [
+            "A. $-\\frac{1}{4}\\sin(4x - 1) + C$",
+            "B. $\\frac{1}{4}\\cos(4x - 1) + C$",
+            "C. $\\frac{1}{4}\\sin(4x - 1) + C$",
+            "D. $4\\sin(4x - 1) + C$",
+            "E. $\\sin(4x - 1) + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.cos(4*x - 1)",
+            "F": "(1/4)*Math.sin(4*x - 1)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 3,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q3] Evaluate: $$\\int \\frac{2x + 3}{x^2 + 3x + 7} dx$$",
+          "opsi": [
+            "A. $2\\ln|x^2 + 3x + 7| + C$",
+            "B. $\\ln|2x + 3| + C$",
+            "C. $\\frac{1}{(x^2 + 3x + 7)^2} + C$",
+            "D. $\\frac{1}{2}\\ln|x^2 + 3x + 7| + C$",
+            "E. $\\ln|x^2 + 3x + 7| + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "(2*x + 3)/(Math.pow(x, 2) + 3*x + 7)",
+            "F": "Math.log(Math.pow(x, 2) + 3*x + 7)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 4,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q4] Evaluate: $$\\int x \\sqrt{x^2 + 9} dx$$",
+          "opsi": [
+            "A. $(x^2 + 9)^{3/2} + C$",
+            "B. $\\frac{1}{3}(x^2 + 9)^{3/2} + C$",
+            "C. $\\frac{1}{6}(x^2 + 9)^{3/2} + C$",
+            "D. $\\frac{1}{2}(x^2 + 9)^{3/2} + C$",
+            "E. $\\frac{2}{3}(x^2 + 9)^{3/2} + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.sqrt(Math.pow(x, 2) + 9)",
+            "F": "(1/3)*Math.pow(x, 2)*Math.sqrt(Math.pow(x, 2) + 9) + 3*Math.sqrt(Math.pow(x, 2) + 9)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[CLIL-P26-Q5] Verify the truth values of the following u-substitution principles:\n(1) The logarithmic integration rule gives integral f'(x) / f(x) dx = ln|f(x)| + C.\n(2) The integral integral e^(5x) dx is equal to 5 e^(5x) + C.\n(3) The u-substitution method corresponds to inverting the derivative chain rule.",
+          "opsi": [
+            "The logarithmic integration rule gives integral f'(x) / f(x) dx = ln|f(x)| + C",
+            "The integral integral e^(5x) dx is equal to 5 e^(5x) + C",
+            "The u-substitution method corresponds to inverting the derivative chain rule"
+          ]
+        },
+        {
+          "no": 6,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P26-Q6] Evaluate the definite integral: $$\\int_{0}^{1} 2x(x^2 + 1)^3 dx$$",
+          "opsi": [
+            "A. 8",
+            "B. $\\frac{16}{4}$",
+            "C. $\\frac{7}{4}$",
+            "D. $\\frac{15}{4}$",
+            "E. 4"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "2*x*Math.pow(Math.pow(x, 2) + 1, 3)",
+            "x0": -0.6,
+            "x1": 1.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P26-Q7] Evaluate: $$\\int \\frac{e^{\\sqrt{x}}}{\\sqrt{x}} dx$$",
+          "opsi": [
+            "A. $e^{x} + C$",
+            "B. $2e^{\\sqrt{x}} + C$",
+            "C. $e^{\\sqrt{x}} + C$",
+            "D. $\\frac{1}{2}e^{\\sqrt{x}} + C$",
+            "E. $2\\sqrt{x}e^{\\sqrt{x}} + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.sqrt(x)*Math.exp(Math.sqrt(x))",
+            "F": "-4*Math.sqrt(x)*Math.exp(Math.sqrt(x)) + 2*x*Math.exp(Math.sqrt(x)) + 4*Math.exp(Math.sqrt(x))",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[CLIL-P26-Q8] Which of the following evaluations using u-substitution are CORRECT? (Select all that apply)",
+          "opsi": [
+            "A. integral 2x (x^2 + 1)^4 dx = 1/5 (x^2 + 1)^5 + C.",
+            "B. integral (2x) / (x^2 + 4) dx = ln(x^2 + 4) + C.",
+            "C. integral x e^(x^2) dx = 1/2 e^(x^2) + C.",
+            "D. integral 1/(2x + 1) dx = ln|2x + 1| + C.",
+            "E. integral cos(3x) dx = 1/3 sin(3x) + C."
+          ]
+        },
+        {
+          "no": 9,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P26-Q9] Evaluate: $$\\int \\sin(x)\\cos^4(x) dx$$",
+          "opsi": [
+            "A. $\\frac{1}{5}\\cos^5(x) + C$",
+            "B. $-\\frac{1}{5}\\sin^5(x) + C$",
+            "C. $-\\frac{1}{5}\\cos^5(x) + C$",
+            "D. $\\frac{1}{5}\\sin^5(x) + C$",
+            "E. $-\\cos^5(x) + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)*Math.pow(Math.cos(x), 4)",
+            "F": "-1/5*Math.pow(Math.cos(x), 5)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 10,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P26-Q10] Evaluate: $$\\int_0^{\\pi/2} 2\\sin(x)\\cos(x) dx$$",
+          "tipe": "Isian Singkat Numerik",
+          "viz": {
+            "t": "plot",
+            "f": "2*Math.sin(x)*Math.cos(x)",
+            "x0": -0.6,
+            "x1": 2.171,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1.5708
+            ]
+          }
+        }
+      ]
+    },
+    "P27": {
+      "title": "Integration by Parts & Tanzalin Tabular Method",
+      "questions": [
+        {
+          "no": 1,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P27-Q1] Evaluate: $$\\int x e^x dx$$",
+          "opsi": [
+            "A. $x e^x + e^x + C$",
+            "B. $x^2 e^x - e^x + C$",
+            "C. $\\frac{1}{2}x^2 e^x + C$",
+            "D. $x e^x - e^x + C$",
+            "E. $e^x(x - 2) + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.exp(x)",
+            "F": "(x - 1)*Math.exp(x)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 2,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P27-Q2] Evaluate: $$\\int x \\sin(x) dx$$",
+          "opsi": [
+            "A. $x \\sin(x) + \\cos(x) + C$",
+            "B. $-\\frac{1}{2}x^2 \\cos(x) + C$",
+            "C. $x \\cos(x) - \\sin(x) + C$",
+            "D. $-x \\cos(x) - \\sin(x) + C$",
+            "E. $-x \\cos(x) + \\sin(x) + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.sin(x)",
+            "F": "-x*Math.cos(x) + Math.sin(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 3,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q3] Using Tanzalin Tabular Method, evaluate: $$\\int x^2 \\cos(x) dx$$",
+          "opsi": [
+            "A. $x^2 \\sin(x) + 2x \\cos(x) - 2\\sin(x) + C$",
+            "B. $-x^2 \\sin(x) + 2x \\cos(x) + C$",
+            "C. $x^2 \\cos(x) - 2x \\sin(x) + C$",
+            "D. $x^2 \\sin(x) - 2x \\cos(x) + 2\\sin(x) + C$",
+            "E. $2x \\sin(x) - 2\\cos(x) + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 2)*Math.cos(x)",
+            "F": "Math.pow(x, 2)*Math.sin(x) + 2*x*Math.cos(x) - 2*Math.sin(x)",
+            "x0": 0,
+            "x1": 6.283,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14,
+            "pi": 1
+          }
+        },
+        {
+          "no": 4,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q4] Evaluate: $$\\int x \\ln(x) dx$$",
+          "opsi": [
+            "A. $\\ln(x) - x + C$",
+            "B. $x^2 \\ln(x) - x^2 + C$",
+            "C. $\\frac{1}{2}x^2 \\ln(x) - \\frac{1}{4}x^2 + C$",
+            "D. $\\frac{1}{2}x^2 \\ln(x) + \\frac{1}{4}x^2 + C$",
+            "E. $\\frac{1}{2}x^2 \\ln(x) - \\frac{1}{2}x^2 + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.log(x)",
+            "F": "(1/2)*Math.pow(x, 2)*Math.log(x) - 1/4*Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[CLIL-P27-Q5] Verify the following Integration by Parts properties:\n(1) The LIATE priority rule ranks Trigonometric functions before Algebraic functions.\n(2) The Integration by Parts formula is integral u dv = u.v - integral v du.\n(3) The Tanzalin tabular method is effective when u(x) is a polynomial.",
+          "opsi": [
+            "The LIATE priority rule ranks Trigonometric functions before Algebraic functions",
+            "The Integration by Parts formula is integral u dv = u.v - integral v du",
+            "The Tanzalin tabular method is effective when u(x) is a polynomial"
+          ]
+        },
+        {
+          "no": 6,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P27-Q6] Evaluate: $$\\int_{0}^{1} x e^x dx$$",
+          "opsi": [
+            "A. $e - 1$",
+            "B. $2e - 1$",
+            "C. $e$",
+            "D. 1",
+            "E. $e - 2$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.exp(x)",
+            "x0": -0.6,
+            "x1": 1.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q7] Evaluate: $$\\int x (2x + 1)^4 dx$$",
+          "opsi": [
+            "A. $\\frac{1}{10}x(2x+1)^5 - \\frac{1}{120}(2x+1)^6 + C$",
+            "B. $\\frac{1}{5}x(2x+1)^5 + C$",
+            "C. $\\frac{1}{12}(2x+1)^6 + C$",
+            "D. $\\frac{1}{6}x^2(2x+1)^5 + C$",
+            "E. $\\frac{1}{10}(2x+1)^5 + C$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.pow(2*x + 1, 4)",
+            "F": "(8/3)*Math.pow(x, 6) + (32/5)*Math.pow(x, 5) + 6*Math.pow(x, 4) + (8/3)*Math.pow(x, 3) + (1/2)*Math.pow(x, 2)",
+            "x0": -2.2,
+            "x1": 2.2,
+            "lab": "y = f(x) (integran)",
+            "lab2": "y = F(x) + C",
+            "famC": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "clip": 14
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[CLIL-P27-Q8] Which integrals are correctly evaluated using Integration by Parts? (Select all that apply)",
+          "opsi": [
+            "A. integral x sin(x) dx = -x cos(x) + sin(x) + C.",
+            "B. integral x cos(x) dx = x sin(x) + cos(x) + C.",
+            "C. integral x e^(2x) dx = x e^(2x) + C.",
+            "D. integral ln(x) dx = x ln(x) - x + C.",
+            "E. integral x e^x dx = (x - 1) e^x + C."
+          ]
+        },
+        {
+          "no": 9,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q9] Evaluate: $$\\int_{0}^{\\pi} x \\sin(x) dx$$",
+          "opsi": [
+            "A. $1$",
+            "B. $\\pi$",
+            "C. $\\pi - 2$",
+            "D. $0$",
+            "E. $2\\pi$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.sin(x)",
+            "x0": -1.1,
+            "x1": 4.241,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3.1416
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P27-Q10] If $\\int_{1}^{e} x \\ln(x) dx = \\frac{e^2 + k}{4}$, what is the integer value of $k$?",
+          "tipe": "Isian Singkat Numerik",
+          "viz": {
+            "t": "plot",
+            "f": "x*Math.log(x)",
+            "x0": -0.6,
+            "x1": 1.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    "P28": {
+      "title": "Definite Integrals & Fundamental Theorem of Calculus",
+      "questions": [
+        {
+          "no": 1,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P28-Q1] Evaluate: $$\\int_{0}^{3} (3x^2 - 2x + 1) dx$$",
+          "opsi": [
+            "A. 15",
+            "B. 21",
+            "C. 18",
+            "D. 27",
+            "E. 24"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "3*Math.pow(x, 2) - 2*x + 1",
+            "x0": -1.05,
+            "x1": 4.05,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3
+            ]
+          }
+        },
+        {
+          "no": 2,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P28-Q2] Evaluate: $$\\int_0^{\\pi/2} \\cos(x) dx$$",
+          "opsi": [
+            "A. -1",
+            "B. $\\frac{1}{2}$",
+            "C. 1",
+            "D. 0",
+            "E. 2"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.cos(x)",
+            "x0": -0.6,
+            "x1": 2.171,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1.5708
+            ]
+          }
+        },
+        {
+          "no": 3,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P28-Q3] Evaluate: $$\\int_{1}^{2} (6x^2 - 4x) dx$$",
+          "opsi": [
+            "A. 6",
+            "B. 12",
+            "C. 14",
+            "D. 8",
+            "E. 10"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "6*Math.pow(x, 2) - 4*x",
+            "x0": 0.4,
+            "x1": 2.6,
+            "lab": "y = f(x)",
+            "area": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "no": 4,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P28-Q4] If $\\int_{0}^{a} 2x dx = 16$ with $a > 0$, find $a$.",
+          "opsi": [
+            "A. 16",
+            "B. 8",
+            "C. 2",
+            "D. $\\sqrt{8}$",
+            "E. 4"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "2*x",
+            "x0": -5.6,
+            "x1": 21.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              16
+            ]
+          }
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[CLIL-P28-Q5] Verify the truth values of the following definite integral properties:\n(1) By the Fundamental Theorem of Calculus, integral_a^b f(x) dx = F(b) - F(a).\n(2) An integral evaluated over an interval of zero width integral_a^a f(x) dx is equal to 1.\n(3) Reversing the integration limits flips the algebraic sign: integral_a^b f(x) dx = - integral_b^a f(x) dx.",
+          "opsi": [
+            "By the Fundamental Theorem of Calculus, integral_a^b f(x) dx = F(b) - F(a)",
+            "An integral evaluated over an interval of zero width integral_a^a f(x) dx is equal to 1",
+            "Reversing the integration limits flips the algebraic sign: integral_a^b f(x) dx = - integral_b^a f(x) dx"
+          ]
+        },
+        {
+          "no": 6,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P28-Q6] Evaluate: $$\\int_{0}^{\\pi} \\sin(x) dx$$",
+          "opsi": [
+            "A. -2",
+            "B. 2",
+            "C. 0",
+            "D. $\\pi$",
+            "E. 1"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.sin(x)",
+            "x0": -1.1,
+            "x1": 4.241,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3.1416
+            ]
+          }
+        },
+        {
+          "no": 7,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P28-Q7] Evaluate: $$\\int_{1}^{4} \\frac{1}{\\sqrt{x}} dx$$",
+          "opsi": [
+            "A. 3",
+            "B. 4",
+            "C. $\\frac{3}{2}$",
+            "D. 2",
+            "E. 1"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.sqrt(x)",
+            "x0": -0.05,
+            "x1": 5.05,
+            "lab": "y = f(x)",
+            "area": [
+              1,
+              4
+            ]
+          }
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[CLIL-P28-Q8] Which statements regarding definite integrals are CORRECT? (Select all that apply)",
+          "opsi": [
+            "A. integral_0^(pi/2) cos(x) dx = 1.",
+            "B. integral_0^1 (4x^3) dx = 4.",
+            "C. integral_0^pi sin(x) dx = 2.",
+            "D. For any odd function f(-x) = -f(x), integral_(-a)^a f(x) dx = 0.",
+            "E. integral_0^2 (3x^2) dx = 8."
+          ]
+        },
+        {
+          "no": 9,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P28-Q9] Evaluate: $$\\int_{0}^{2} 4x^3 dx$$",
+          "opsi": [
+            "A. 32",
+            "B. 12",
+            "C. 16",
+            "D. 64",
+            "E. 8"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "4*Math.pow(x, 3)",
+            "x0": -0.7,
+            "x1": 2.7,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ]
+          }
+        },
+        {
+          "no": 10,
+          "level": "C3 Penerapan",
+          "bobot": 10,
+          "tanya": "[P28-Q10] Evaluate: $$\\int_{0}^{1} 6x^5 dx$$",
+          "tipe": "Isian Singkat Numerik",
+          "viz": {
+            "t": "plot",
+            "f": "6*Math.pow(x, 5)",
+            "x0": -0.6,
+            "x1": 1.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    "P29": {
+      "title": "Applications of Integration: Area Between Curves",
+      "questions": [
+        {
+          "no": 1,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q1] Find the area of the region bounded by $y = 6x - x^2$ and $y = 0$.",
+          "opsi": [
+            "A. 72",
+            "B. 18",
+            "C. 30",
+            "D. 24",
+            "E. 36"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "-Math.pow(x, 2) + 6*x",
+            "x0": -2.1,
+            "x1": 8.1,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              6
+            ],
+            "g": "0",
+            "lab2": "y = g(x)",
+            "antara": 1
+          }
+        },
+        {
+          "no": 2,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q2] Find the area bounded by $y = x^2$ and $y = x$.",
+          "opsi": [
+            "A. $\\frac{1}{6}$",
+            "B. $\\frac{1}{3}$",
+            "C. $\\frac{2}{3}$",
+            "D. $\\frac{1}{2}$",
+            "E. $\\frac{1}{12}$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 3,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q3] Find the area enclosed between $y = 4 - x^2$ and $y = 0$.",
+          "opsi": [
+            "A. 16",
+            "B. $\\frac{16}{3}$",
+            "C. 8",
+            "D. $\\frac{64}{3}$",
+            "E. $\\frac{32}{3}$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 4,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q4] Find the total area under one arch of $y = \\sin(x)$ from $x = 0$ to $x = \\pi$.",
+          "opsi": [
+            "A. 4",
+            "B. $2\\pi$",
+            "C. 1",
+            "D. 2",
+            "E. $\\pi$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[CLIL-P29-Q5] Verify area calculation rules:\n(1) The area between upper curve y = f(x) and lower curve y = g(x) is integral_a^b [f(x) - g(x)] dx.\n(2) The physical geometric area bounded by y = x^3 on [-1, 1] is 0.\n(3) Geometric area is strictly non-negative (Area >= 0).",
+          "opsi": [
+            "The area between upper curve y = f(x) and lower curve y = g(x) is integral_a^b [f(x) - g(x)] dx",
+            "The physical geometric area bounded by y = x^3 on [-1, 1] is 0",
+            "Geometric area is strictly non-negative (Area >= 0)"
+          ]
+        },
+        {
+          "no": 6,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q6] Find the area between $y = x^2 - 2x$ and the x-axis.",
+          "opsi": [
+            "A. 4",
+            "B. $\\frac{8}{3}$",
+            "C. $\\frac{4}{3}$",
+            "D. $\\frac{2}{3}$",
+            "E. 2"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 7,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q7] Using the shortcut $A = \\frac{D\\sqrt{D}}{6a^2}$, find the area bounded by $y = 3 - x^2$ and $y = 2x$.",
+          "opsi": [
+            "A. $\\frac{64}{3}$",
+            "B. $\\frac{32}{3}$",
+            "C. 8",
+            "D. $\\frac{16}{3}$",
+            "E. 12"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[CLIL-P29-Q8] Which statements about area calculation between curves are TRUE? (Select all that apply)",
+          "opsi": [
+            "A. The area enclosed between y = x and y = x^2 from x = 0 to x = 1 is 1/6.",
+            "B. The area enclosed between y = x^2 and y = 4 is 32/3.",
+            "C. If curves intersect at an interior point c, the integral must be partitioned at c.",
+            "D. Horizontal strips dy are preferred when curves are expressed as x = f(y).",
+            "E. The area between y = sin(x) and the x-axis on [0, pi] is 2."
+          ]
+        },
+        {
+          "no": 9,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q9] Find the area between $x = y^2$ and $x = 4$.",
+          "opsi": [
+            "A. 16",
+            "B. 8",
+            "C. $\\frac{16}{3}$",
+            "D. $\\frac{32}{3}$",
+            "E. $\\frac{64}{3}$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 10,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P29-Q10] Find the integer area enclosed by $y = 2x$ and $y = 3x - x^2$.",
+          "tipe": "Isian Singkat Numerik"
+        }
+      ]
+    },
+    "P30": {
+      "title": "Solid of Revolution: Disc & Washer Methods",
+      "questions": [
+        {
+          "no": 1,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q1] Find the volume of the solid generated by revolving $y = \\sqrt{x}$ from $x = 0$ to $x = 4$ about the x-axis.",
+          "opsi": [
+            "A. $2\\pi$",
+            "B. $4\\pi$",
+            "C. $32\\pi$",
+            "D. $16\\pi$",
+            "E. $8\\pi$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.sqrt(x)",
+            "x0": -0.4,
+            "x1": 4.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              4
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 2,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q2] Find the volume formed by rotating $y = x^2$ from $x = 0$ to $x = 2$ about the x-axis.",
+          "opsi": [
+            "A. $\\frac{16}{5}\\pi$",
+            "B. $8\\pi$",
+            "C. $\\frac{32}{5}\\pi$",
+            "D. $\\frac{8}{5}\\pi$",
+            "E. $16\\pi$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.pow(x, 2)",
+            "x0": -0.4,
+            "x1": 2.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              2
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 3,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q3] Find the volume generated by revolving the region bounded by $y = 2x$, $y = 0$, and $x = 3$ about the x-axis.",
+          "opsi": [
+            "A. $36\\pi$",
+            "B. $72\\pi$",
+            "C. $18\\pi$",
+            "D. $27\\pi$",
+            "E. $54\\pi$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "2*x",
+            "x0": -0.4,
+            "x1": 3.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              3
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 4,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q4] Find the volume generated by rotating $y = x$ from $x = 0$ to $x = h$ about the x-axis (forming a cone).",
+          "opsi": [
+            "A. $\\frac{1}{4}\\pi h^3$",
+            "B. $\\frac{1}{3}\\pi h^3$",
+            "C. $\\frac{2}{3}\\pi h^3$",
+            "D. $\\frac{1}{2}\\pi h^3$",
+            "E. $\\pi h^3$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 5,
+          "tipe": "Pilihan Benar / Salah",
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[CLIL-P30-Q5] Verify solid of revolution volume principles:\n(1) The volume of a solid of revolution can be negative if the function lies below the x-axis.\n(2) The Washer Method for outer radius R(x) and inner radius r(x) is V = pi integral_a^b [R(x)^2 - r(x)^2] dx.\n(3) The Disc Method volume revolved around the x-axis is V = pi integral_a^b [f(x)]^2 dx.",
+          "opsi": [
+            "The volume of a solid of revolution can be negative if the function lies below the x-axis",
+            "The Washer Method for outer radius R(x) and inner radius r(x) is V = pi integral_a^b [R(x)^2 - r(x)^2] dx",
+            "The Disc Method volume revolved around the x-axis is V = pi integral_a^b [f(x)]^2 dx"
+          ]
+        },
+        {
+          "no": 6,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q6] Using the Washer Method, find the volume formed by revolving the region between $y = x$ and $y = x^2$ about the x-axis.",
+          "opsi": [
+            "A. $\\frac{4}{15}\\pi$",
+            "B. $\\frac{1}{5}\\pi$",
+            "C. $\\frac{2}{15}\\pi$",
+            "D. $\\frac{1}{3}\\pi$",
+            "E. $\\frac{1}{15}\\pi$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 7,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q7] Find the volume of a sphere of radius $r$ formed by revolving $y = \\sqrt{r^2 - x^2}$ from $x = -r$ to $x = r$ about the x-axis.",
+          "opsi": [
+            "A. $\\frac{4}{3}\\pi r^2$",
+            "B. $2\\pi r^3$",
+            "C. $\\frac{2}{3}\\pi r^3$",
+            "D. $\\pi r^3$",
+            "E. $\\frac{4}{3}\\pi r^3$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal"
+        },
+        {
+          "no": 8,
+          "tipe": "Pilihan Ganda Kompleks",
+          "level": "C5 Evaluasi",
+          "bobot": 10,
+          "tanya": "[CLIL-P30-Q8] Which statements regarding solids of revolution are TRUE? (Select all that apply)",
+          "opsi": [
+            "A. The Washer Method subtracts the inner cylinder core from the outer cylinder.",
+            "B. Revolving y = sqrt(x) from x = 0 to x = 4 around the x-axis yields volume 8 pi.",
+            "C. Revolving a semicircle of radius r around its diameter yields a sphere of volume 4/3 pi r^3.",
+            "D. Revolving y = x from x = 0 to x = 3 around the x-axis forms a cone of volume 9 pi.",
+            "E. The volume of revolution around the y-axis is integrated with respect to dy."
+          ]
+        },
+        {
+          "no": 9,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q9] Find the volume of the Islamic dome generated by revolving $y = \\sqrt{9 - x}$ from $x = 0$ to $x = 9$ about the x-axis.",
+          "opsi": [
+            "A. $\\frac{27}{2}\\pi$",
+            "B. $54\\pi$",
+            "C. $27\\pi$",
+            "D. $\\frac{81}{2}\\pi$",
+            "E. $81\\pi$"
+          ],
+          "tipe": "Pilihan Ganda Tunggal",
+          "viz": {
+            "t": "plot",
+            "f": "Math.sqrt(9 - x)",
+            "x0": -0.4,
+            "x1": 9.6,
+            "lab": "y = f(x)",
+            "area": [
+              0,
+              9
+            ],
+            "rot": 1
+          }
+        },
+        {
+          "no": 10,
+          "level": "C4 Analisis",
+          "bobot": 10,
+          "tanya": "[P30-Q10] If the volume of the solid formed by rotating $y = \\sqrt{kx}$ from $x = 0$ to $x = 2$ about the x-axis is $10\\pi$, find $k$.",
+          "tipe": "Isian Singkat Numerik"
+        }
+      ]
+    }
+  }
+};
+
+// Daftar rombel saja (data siswa lengkap dihidrasi dinamis dari /api/siswa pasca-login)
+const STUDENTS_DB = {
+  "XII_F1": {"kelas_name": "Kelas XII F1", "access_level": "wajib_only", "students": []},
+  "XII_F2": {"kelas_name": "Kelas XII F2", "access_level": "wajib_only", "students": []},
+  "XII_F3": {"kelas_name": "Kelas XII F3", "access_level": "full", "students": []},
+  "XII_F4": {"kelas_name": "Kelas XII F4", "access_level": "full", "students": []},
+  "ALUMNI": {"kelas_name": "Alumni 2026", "access_level": "all", "students": []}
+};
+
+window.STUDENTS_DATA = window.STUDENTS_DATA || {};
+
+    // MASTER ACADEMIC CALENDAR DATABASE (TERPADU TKA GEL. 2 & UTBK-SNBT 2027)
+    const CALENDAR_DATA = [
+      // JULI 2026
+      { month: "Juli 2026", sem: 1, date: "1 – 11 Juli 2026", title: "Libur Akhir Semester Genap & Awal Tahun Ajaran", cat: "libur", badge: "🔴 Libur Resmi", color: "rose" },
+      { month: "Juli 2026", sem: 1, date: "13 – 15 Juli 2026", title: "Masa Pengenalan Lingkungan Sekolah (MPLS)", cat: "kbm", badge: "🟢 KBM Efektif", color: "emerald" },
+      { month: "Juli 2026", sem: 1, date: "16 Juli 2026", title: "Grand Opening Tahun Ajaran 2026/2027", cat: "kbm", badge: "🟢 KBM Efektif", color: "emerald" },
+      { month: "Juli 2026", sem: 1, date: "21 Juli 2026", title: "Starting Pendalaman Materi (PM) & Tes Minat Bakat Grade XII", cat: "kbm", badge: "🟢 KBM Efektif", color: "emerald" },
+      { month: "Juli 2026", sem: 1, date: "27 Jul – 27 Sep 2026", title: "Periode Registrasi Akun & Pendaftaran Peserta TKA / AN", cat: "tka", badge: "🟣 Registrasi TKA", color: "purple" },
+
+      // AGUSTUS 2026
+      { month: "Agustus 2026", sem: 1, date: "17 Agustus 2026", title: "Upacara HUT Ke-81 Kemerdekaan RI", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Agustus 2026", sem: 1, date: "21 Agustus 2026", title: "Sosialisasi & Informasi Terkait TKA & ANBK Kelas XII", cat: "tka", badge: "🟣 Info TKA XII", color: "purple" },
+      { month: "Agustus 2026", sem: 1, date: "25 Agustus 2026", title: "LIBUR NASIONAL: Maulid Nabi Muhammad SAW", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Agustus 2026", sem: 1, date: "26 – 28 Agustus 2026", title: "Latihan Dasar Kepemimpinan Siswa (LDKS)", cat: "kbm", badge: "🟢 Kegiatan Siswa", color: "emerald" },
+
+      // SEPTEMBER 2026
+      { month: "September 2026", sem: 1, date: "17 – 18 September 2026", title: "ASTS Praktik Semester Ganjil", cat: "ujian", badge: "🔵 Ujian Praktik", color: "blue" },
+      { month: "September 2026", sem: 1, date: "21 – 25 September 2026", title: "ASTS CBT (Asesmen Sumatif Tengah Semester CBT)", cat: "ujian", badge: "🔵 Ujian CBT", color: "blue" },
+      { month: "September 2026", sem: 1, date: "21 – 27 September 2026", title: "Periode Simulasi TKA & Asesmen Nasional (Sinkronisasi Server)", cat: "tka", badge: "🟣 Simulasi TKA", color: "purple" },
+
+      // OKTOBER 2026
+      { month: "Oktober 2026", sem: 1, date: "1 Oktober 2026", title: "Progress Report PTS & Student-Led Conference (SLC)", cat: "ujian", badge: "🔵 Rapor PTS", color: "blue" },
+      { month: "Oktober 2026", sem: 1, date: "5 – 11 Oktober 2026", title: "[TKA Gel. 1 di Luar]: Belajar Efektif Reguler di Kelas", cat: "kbm", badge: "🟢 KBM Efektif", color: "emerald" },
+      { month: "Oktober 2026", sem: 1, date: "12 – 18 Oktober 2026", title: "GLADI BERSIH TKA & ASESMEN NASIONAL GELOMBANG 2", cat: "tka", badge: "🟣 GLADI TKA GEL. 2", color: "purple" },
+      { month: "Oktober 2026", sem: 1, date: "26 – 29 Oktober 2026", title: "[TKA Gel. 1 di Luar]: Belajar Efektif & Drilling Soal TKA", cat: "tka", badge: "🟣 DRILLING TKA", color: "purple" },
+
+      // NOVEMBER 2026
+      { month: "November 2026", sem: 1, date: "2 – 5 November 2026", title: "PELAKSANAAN UTAMA TKA & ASESMEN NASIONAL GELOMBANG 2", cat: "tka", badge: "🟣 UTAMA TKA GEL. 2", color: "purple" },
+      { month: "November 2026", sem: 1, date: "13 November 2026", title: "Grade XII Pendalaman Materi & Drilling UTBK", cat: "kbm", badge: "🟢 KBM Intensif", color: "emerald" },
+      { month: "November 2026", sem: 1, date: "20 November 2026", title: "Grade XII Sharing Alumni & Bedah Jurusan PTN", cat: "tka", badge: "🟣 Info PTN", color: "purple" },
+      { month: "November 2026", sem: 1, date: "23 – 26 November 2026", title: "TKA & ANBK SUSULAN GELOMBANG 2 (Bagi Siswa Sakit/Izin)", cat: "tka", badge: "🟣 TKA Susulan", color: "purple" },
+      { month: "November 2026", sem: 1, date: "27 November 2026", title: "Grade XII Informasi & Strategi Seleksi SNBP / SNBT 2027", cat: "tka", badge: "🟣 Info PTN", color: "purple" },
+      { month: "November 2026", sem: 1, date: "30 Nov – 2 Des 2026", title: "ASAS Praktik Semester Ganjil Dimulai", cat: "ujian", badge: "🔵 Ujian Praktik", color: "blue" },
+
+      // DESEMBER 2026
+      { month: "Desember 2026", sem: 1, date: "2 – 8 Desember 2026", title: "ASAS CBT (Asesmen Sumatif Akhir Semester CBT)", cat: "ujian", badge: "🔵 Ujian CBT", color: "blue" },
+      { month: "Desember 2026", sem: 1, date: "9 – 14 Desember 2026", title: "Ujian Susulan & Remedial Akhir Semester", cat: "ujian", badge: "🔵 Remedial", color: "blue" },
+      { month: "Desember 2026", sem: 1, date: "17 Desember 2026", title: "Pembagian Rapor Semester Ganjil (Progress Report ASAS)", cat: "ujian", badge: "🔵 Rapor ASAS", color: "blue" },
+      { month: "Desember 2026", sem: 1, date: "21 – 31 Desember 2026", title: "Libur Akhir Semester Ganjil Peserta Didik", cat: "libur", badge: "🔴 Libur Semester", color: "rose" },
+      { month: "Desember 2026", sem: 1, date: "23 Desember 2026", title: "PENGUMUMAN RESMI HASIL TKA NASIONAL 2026", cat: "tka", badge: "🟣 HASIL TKA", color: "purple" },
+      { month: "Desember 2026", sem: 1, date: "24 – 25 Desember 2026", title: "Cuti Bersama & Hari Raya Natal", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+
+      // JANUARI 2027
+      { month: "Januari 2027", sem: 2, date: "1 Januari 2027", title: "Tahun Baru Masehi 2027", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Januari 2027", sem: 2, date: "5 Januari 2027", title: "Isra Mikraj Nabi Muhammad SAW 1448 H", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Januari 2027", sem: 2, date: "6 Januari 2027", title: "Awal Masuk KBM Semester Genap", cat: "kbm", badge: "🟢 KBM Efektif", color: "emerald" },
+      { month: "Januari 2027", sem: 2, date: "9 Januari 2027", title: "Parents Meeting Grade XII (Sosialisasi Seleksi PTN & SNPMB)", cat: "tka", badge: "🟣 Info PTN", color: "purple" },
+      { month: "Januari 2027", sem: 2, date: "12 Jan – 07 Apr 2027", title: "MULAI REGISTRASI AKUN SNPMB SISWA (s.d. 07 April 2027)", cat: "tka", badge: "🟣 AKUN SNPMB", color: "purple" },
+
+      // FEBRUARI 2027
+      { month: "Februari 2027", sem: 2, date: "5 – 6 Februari 2027", title: "Cuti Bersama & Tahun Baru Imlek 2578", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Februari 2027", sem: 2, date: "8 – 10 Februari 2027", title: "Libur Awal Ramadhan 1448 H", cat: "libur", badge: "🔴 Libur Puasa", color: "rose" },
+      { month: "Februari 2027", sem: 2, date: "15 – 24 Februari 2027", title: "ASTS & Try Out ASAJ Semester 2 (Simulasi CBT XII)", cat: "ujian", badge: "🔵 Try Out CBT", color: "blue" },
+
+      // MARET 2027
+      { month: "Maret 2027", sem: 2, date: "1 – 18 Maret 2027", title: "Libur Akhir Ramadhan & Idul Fitri 1448 H", cat: "libur", badge: "🔴 Libur Lebaran", color: "rose" },
+      { month: "Maret 2027", sem: 2, date: "10 – 11 Maret 2027", title: "HARI RAYA IDUL FITRI 1448 H", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Maret 2027", sem: 2, date: "22 Maret 2027", title: "Siswa Masuk Kembali Pasca Libur Lebaran", cat: "kbm", badge: "🟢 KBM Masuk", color: "emerald" },
+      { month: "Maret 2027", sem: 2, date: "25 Mar – 07 Apr 2027", title: "MULAI PENDAFTARAN UTBK-SNBT 2027 (PENTING!)", cat: "tka", badge: "🟣 DAFTAR UTBK", color: "purple" },
+      { month: "Maret 2027", sem: 2, date: "25 Mar – 08 Apr 2027", title: "MULAI PEMBAYARAN BIAYA UTBK 2027", cat: "tka", badge: "🟣 BAYAR UTBK", color: "purple" },
+      { month: "Maret 2027", sem: 2, date: "25 Maret 2027", title: "Pembagian Rapor Tengah Semester 2", cat: "ujian", badge: "🔵 Rapor PTS", color: "blue" },
+      { month: "Maret 2027", sem: 2, date: "26 – 31 Maret 2027", title: "ASAJ Praktik Kelas XII (Ujian Sekolah Praktik)", cat: "ujian", badge: "🔵 Ujian Praktik", color: "blue" },
+      { month: "Maret 2027", sem: 2, date: "26 Maret 2027", title: "Libur Nasional Wafat Isa Almasih", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+
+      // APRIL 2027
+      { month: "April 2027", sem: 2, date: "1 – 2 April 2027", title: "Lanjutan ASAJ Praktik Kelas XII", cat: "ujian", badge: "🔵 Ujian Praktik", color: "blue" },
+      { month: "April 2027", sem: 2, date: "5 – 12 April 2027", title: "ASAJ Tertulis / CBT Kelas XII (Ujian Akhir Jenjang)", cat: "ujian", badge: "🔵 ASAJ CBT XII", color: "blue" },
+      { month: "April 2027", sem: 2, date: "07 April 2027", title: "BATAS AKHIR PENDAFTARAN UTBK-SNBT & REGISTRASI AKUN", cat: "tka", badge: "🟣 DEADLINE UTBK", color: "purple" },
+      { month: "April 2027", sem: 2, date: "08 April 2027", title: "BATAS AKHIR PEMBAYARAN BIAYA UTBK-SNBT", cat: "tka", badge: "🟣 DEADLINE BAYAR", color: "purple" },
+      { month: "April 2027", sem: 2, date: "21 – 30 April 2027", title: "PELAKSANAAN UTBK-SNBT 2027 (GELOMBANG UTAMA)", cat: "tka", badge: "🟣 UTBK 2027 UTAMA", color: "purple" },
+
+      // MEI 2027
+      { month: "Mei 2027", sem: 2, date: "1 Mei 2027", title: "Hari Buruh Internasional", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Mei 2027", sem: 2, date: "6 – 7 Mei 2027", title: "Kenaikan Isa Almasih & Cuti Bersama", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Mei 2027", sem: 2, date: "17 – 19 Mei 2027", title: "Hari Raya Idul Adha & Hari Tasyrik", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Mei 2027", sem: 2, date: "20 – 21 Mei 2027", title: "Hari Raya Waisak & Cuti Bersama", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Mei 2027", sem: 2, date: "25 Mei 2027", title: "PENGUMUMAN RESMI HASIL KELULUSAN UTBK-SNBT 2027", cat: "tka", badge: "🟣 PENGUMUMAN SNBT", color: "purple" },
+      { month: "Mei 2027", sem: 2, date: "27 – 28 Mei 2027", title: "WISUDA & PELEPASAN SISWA KELAS XII (FASE F)", cat: "tka", badge: "🎓 WISUDA KELAS XII", color: "amber" },
+
+      // JUNI 2027
+      { month: "Juni 2027", sem: 2, date: "1 Juni 2027", title: "Hari Lahir Pancasila", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Juni 2027", sem: 2, date: "02 Jun – 31 Jul 2027", title: "MASA UNDUH SERTIFIKAT NILAI UTBK-SNBT 2027", cat: "tka", badge: "🟣 UNDUH SERTIFIKAT", color: "purple" },
+      { month: "Juni 2027", sem: 2, date: "6 Juni 2027", title: "Tahun Baru Islam 1449 H", cat: "libur", badge: "🔴 Libur Nasional", color: "rose" },
+      { month: "Juni 2027", sem: 2, date: "18 Juni 2027", title: "Penyerahan Rapor Kenaikan Kelas (Progress Report ASAT)", cat: "ujian", badge: "🔵 Rapor ASAT", color: "blue" },
+      { month: "Juni 2027", sem: 2, date: "21 Juni – Juli 2027", title: "Libur Akhir Tahun Pelajaran Peserta Didik", cat: "libur", badge: "🔴 Libur Semester", color: "rose" }
+    ];

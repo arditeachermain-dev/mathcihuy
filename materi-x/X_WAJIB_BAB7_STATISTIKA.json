@@ -1,0 +1,1451 @@
+{
+  "_catatan": "Bab 7 Statistika, Matematika Wajib Kelas X Fase E (data tunggal; data berkelompok dibahas di kelas XII). 'materi' masuk ke db.wajib (larik), 'soal' masuk ke db.tka_wajib dengan kunci id-nya. Gabungkan dengan: python gabung_materi_x.py",
+  "paket": [
+    {
+      "id": "P39",
+      "judul": "Penyajian Data: Tabel Frekuensi dan Diagram",
+      "materi": {
+        "id": "P39",
+        "bab": "Bab 7: Statistika",
+        "title": "Penyajian Data: Tabel Frekuensi dan Diagram",
+        "obj": [
+          "Menyusun tabel distribusi frekuensi data tunggal, lengkap dengan frekuensi relatif dan frekuensi kumulatif.",
+          "Membaca dan membuat diagram batang, diagram lingkaran, serta diagram batang-daun.",
+          "Memilih bentuk penyajian yang sesuai dengan jenis data dan pertanyaan yang ingin dijawab."
+        ],
+        "hook": "Dua puluh nilai ulangan ditulis berderet: $6, 7, 8, 7, 9, 6, 8, 8, 7, 10, \\dots$ Berapa siswa yang mendapat $8$? Nilai berapa yang paling sering muncul? Adakah yang di bawah $6$? Dari deretan angka, semua pertanyaan itu harus dijawab dengan menghitung ulang satu per satu. Setelah angka yang sama dikumpulkan dalam tabel, atau digambar sebagai batang-batang, jawabannya terlihat dalam sekali pandang. Statistika dimulai dari sini: menata data agar dapat BERBICARA.",
+        "toolkit": [
+          {
+            "name": "Frekuensi",
+            "math": "$$f = \\text{banyak kemunculan suatu nilai},\\qquad \\sum f = n$$"
+          },
+          {
+            "name": "Frekuensi Relatif",
+            "math": "$$f_{\\text{rel}} = \\frac{f}{n} \\times 100\\%$$"
+          },
+          {
+            "name": "Frekuensi Kumulatif",
+            "math": "$$f_{\\text{kum}}(x) = \\text{banyak data yang nilainya} \\le x$$"
+          },
+          {
+            "name": "Sudut Diagram Lingkaran",
+            "math": "$$\\text{sudut} = \\frac{f}{n} \\times 360^\\circ$$"
+          },
+          {
+            "name": "Batang-Daun",
+            "math": "$$\\text{batang} = \\text{puluhan},\\quad \\text{daun} = \\text{satuan}:\\ 4 \\mid 2\\ 5 \\Rightarrow 42,\\ 45$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Nilai ulangan $20$ siswa: $6, 7, 8, 7, 9, 6, 8, 8, 7, 10, 5, 8, 7, 9, 8, 6, 7, 8, 9, 8$. Susunlah tabel distribusi frekuensinya.",
+            "solution": "Langkah 1: Tentukan nilai terkecil dan terbesar: $5$ dan $10$. Tuliskan semua nilai dari $5$ sampai $10$ dalam kolom pertama.\n\nLangkah 2: Bacalah data satu per satu dan beri satu turus pada nilai yang sesuai. Cara ini lebih aman daripada menghitung setiap nilai terpisah, karena setiap data disentuh tepat sekali.\n\nLangkah 3: Hitung turusnya.\n$5$: $1$, $6$: $3$, $7$: $5$, $8$: $7$, $9$: $3$, $10$: $1$\n\nLangkah 4: Periksa jumlah frekuensinya.\n$1 + 3 + 5 + 7 + 3 + 1 = 20$ — sama dengan banyak data\n\nLangkah 5: Dari tabel langsung terbaca: nilai yang paling sering muncul adalah $8$ (tujuh siswa), dan hanya satu siswa yang mendapat $10$.\n\nLangkah 6: Bila jumlah frekuensi tidak sama dengan $n$, pasti ada data yang terlewat atau terhitung dua kali.\n\nKesimpulan: Tabel frekuensinya: $5 \\to 1$, $6 \\to 3$, $7 \\to 5$, $8 \\to 7$, $9 \\to 3$, $10 \\to 1$, dengan jumlah $20$."
+          },
+          {
+            "problem": "Dari tabel pada Contoh 1, tentukan frekuensi relatif nilai $8$ dan banyak siswa yang nilainya paling tinggi $7$.",
+            "solution": "Langkah 1: Frekuensi relatif membandingkan frekuensi dengan seluruh data.\n$\\frac{7}{20} \\times 100\\% = 35\\%$\n\nLangkah 2: Jadi $35\\%$ siswa mendapat nilai $8$.\n\nLangkah 3: \"Paling tinggi $7$\" berarti nilainya $7$ atau kurang, yaitu $5$, $6$, dan $7$.\n\nLangkah 4: Jumlahkan frekuensinya — inilah frekuensi kumulatif sampai nilai $7$.\n$1 + 3 + 5 = 9$\n\nLangkah 5: Periksa dengan sisi lainnya: yang nilainya LEBIH dari $7$ adalah $7 + 3 + 1 = 11$, dan $9 + 11 = 20$ — cocok.\n\nLangkah 6: Perhatikan kata kuncinya: \"paling tinggi $7$\" memuat $7$, sedangkan \"kurang dari $7$\" tidak memuatnya.\n\nKesimpulan: Frekuensi relatif nilai $8$ adalah $35\\%$, dan $9$ siswa nilainya paling tinggi $7$."
+          },
+          {
+            "problem": "Berat badan (kg) $15$ siswa: $42, 45, 47, 51, 53, 53, 55, 58, 60, 61, 61, 61, 64, 68, 72$. Sajikan dalam diagram batang-daun, lalu tentukan banyak siswa yang beratnya $50$ sampai $59$ kg.",
+            "solution": "Langkah 1: Pisahkan setiap data menjadi batang (angka puluhan) dan daun (angka satuan). Contohnya, $42$ menjadi batang $4$ daun $2$.\n\nLangkah 2: Tuliskan batang secara berurutan, lalu daunnya secara urut dari kecil ke besar.\n$4 \\mid 2\\ 5\\ 7$\n$5 \\mid 1\\ 3\\ 3\\ 5\\ 8$\n$6 \\mid 0\\ 1\\ 1\\ 1\\ 4\\ 8$\n$7 \\mid 2$\n\nLangkah 3: Periksa banyaknya daun: $3 + 5 + 6 + 1 = 15$ — sama dengan banyak data.\n\nLangkah 4: Berat $50$ sampai $59$ kg ada pada batang $5$, yang mempunyai $5$ daun.\n\nLangkah 5: Diagram batang-daun tetap menyimpan setiap nilai asli, sekaligus memperlihatkan bentuk sebarannya — baris batang $6$ paling panjang, jadi data paling banyak di rentang $60$-an.\n\nLangkah 6: Dari diagram juga langsung terbaca: berat terkecil $42$ kg, terbesar $72$ kg, dan nilai yang paling sering muncul $61$ kg.\n\nKesimpulan: Ada $5$ siswa yang beratnya $50$ sampai $59$ kg."
+          },
+          {
+            "problem": "Banyak buku yang dipinjam di perpustakaan sekolah dalam sepekan: Senin $12$, Selasa $8$, Rabu $15$, Kamis $10$, Jumat $5$. Tentukan persentase peminjaman hari Rabu dan besar sudutnya bila disajikan dalam diagram lingkaran.",
+            "solution": "Langkah 1: Hitung jumlah seluruhnya.\n$12 + 8 + 15 + 10 + 5 = 50$ buku\n\nLangkah 2: Hitung persentase hari Rabu.\n$\\frac{15}{50} \\times 100\\% = 30\\%$\n\nLangkah 3: Hitung sudutnya pada diagram lingkaran.\n$\\frac{15}{50} \\times 360^\\circ = 108^\\circ$\n\nLangkah 4: Periksa dengan persentase: $30\\%$ dari $360^\\circ$ adalah $0{,}3 \\times 360^\\circ = 108^\\circ$ — cocok.\n\nLangkah 5: Sebagai pemeriksaan menyeluruh, sudut semua hari harus berjumlah $360^\\circ$: $86{,}4^\\circ + 57{,}6^\\circ + 108^\\circ + 72^\\circ + 36^\\circ = 360^\\circ$ — cocok.\n\nLangkah 6: Diagram batang lebih cocok untuk membandingkan BANYAK peminjaman antarhari, sedangkan diagram lingkaran lebih cocok untuk melihat BAGIAN dari keseluruhan.\n\nKesimpulan: Peminjaman hari Rabu $30\\%$ dari seluruhnya, dengan sudut $108^\\circ$ pada diagram lingkaran."
+          },
+          {
+            "problem": "Tentukan bentuk penyajian yang paling sesuai untuk: (a) warna kesukaan siswa satu kelas; (b) suhu udara setiap jam dari pukul $06.00$ sampai $18.00$; (c) nilai ulangan $30$ siswa bila ingin tetap melihat setiap nilainya.",
+            "solution": "Langkah 1: Kenali jenis datanya lebih dahulu: data kategori (berupa nama atau jenis) atau data numerik (berupa bilangan).\n\nLangkah 2: (a) Warna kesukaan adalah data KATEGORI. Diagram batang atau diagram lingkaran cocok; urutan batangnya bebas.\n\nLangkah 3: (b) Suhu setiap jam adalah data yang BERUBAH TERHADAP WAKTU. Diagram garis paling cocok karena memperlihatkan naik-turunnya.\n\nLangkah 4: (c) Nilai ulangan adalah data NUMERIK. Diagram batang-daun cocok karena setiap nilai asli tetap terlihat, sekaligus tampak sebarannya.\n\nLangkah 5: Diagram garis TIDAK cocok untuk (a): garis penghubung antarwarna tidak mempunyai arti apa pun.\n\nLangkah 6: Pemilihan yang keliru tidak membuat datanya salah, tetapi dapat menyesatkan pembaca.\n\nKesimpulan: (a) diagram batang atau lingkaran; (b) diagram garis; (c) diagram batang-daun."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok mengumpulkan satu data kecil dari teman sekelas — misalnya banyak saudara kandung, ukuran sepatu, atau waktu tempuh ke sekolah dalam menit. Di papan, sajikan data yang sama dalam DUA bentuk berbeda: tabel frekuensi dan salah satu diagram. Tuliskan tiga kesimpulan yang dapat dibaca dari penyajian itu. Kelompok lain lalu menilai: diagram mana yang paling cepat menjawab pertanyaan \"nilai berapa yang paling sering muncul?\"",
+        "summary_data": {
+          "summary": [
+            "Frekuensi adalah banyaknya kemunculan suatu nilai; jumlah semua frekuensi sama dengan banyak data $n$.",
+            "Turus membantu menghitung frekuensi tanpa ada data yang terlewat.",
+            "Frekuensi relatif $= \\frac{f}{n} \\times 100\\%$.",
+            "Frekuensi kumulatif suatu nilai adalah banyak data yang nilainya kurang dari atau sama dengan nilai itu.",
+            "\"Paling tinggi $x$\" memuat $x$; \"kurang dari $x$\" tidak memuat $x$.",
+            "Sudut diagram lingkaran $= \\frac{f}{n} \\times 360^\\circ$, dan semua sudut berjumlah $360^\\circ$.",
+            "Diagram batang-daun memisahkan puluhan (batang) dan satuan (daun) sehingga nilai aslinya tetap terlihat.",
+            "Data kategori disajikan dengan diagram batang atau lingkaran.",
+            "Data yang berubah terhadap waktu disajikan dengan diagram garis.",
+            "Selalu periksa: jumlah frekuensi $= n$ dan jumlah sudut $= 360^\\circ$."
+          ],
+          "islamic": "Membaca dengan cermat adalah perintah pertama yang turun kepada Rasulullah ﷺ. \"Bacalah dengan (menyebut) nama Tuhanmu yang menciptakan.\" (QS. Al-'Alaq: 1)"
+        },
+        "collab_cases": [
+          "Susunlah tabel frekuensi dari data banyak saudara kandung $20$ siswa: $1, 2, 0, 3, 2, 1, 1, 2, 4, 2, 3, 1, 2, 0, 2, 1, 3, 2, 1, 2$.",
+          "Dari tabel pada soal nomor 1, tentukan frekuensi relatif siswa yang mempunyai $2$ saudara dan banyak siswa yang saudaranya paling banyak $1$.",
+          "Sajikan data nilai $38, 42, 45, 45, 51, 56, 58, 62, 63, 63, 67, 70, 74$ dalam diagram batang-daun.",
+          "Dari $40$ siswa, $10$ memilih voli, $14$ basket, $6$ bulu tangkis, dan sisanya futsal. Hitunglah sudut setiap bagian pada diagram lingkaran.",
+          "Tentukan diagram yang paling sesuai untuk menyajikan (a) jumlah pengunjung kantin setiap hari selama sebulan, (b) jenis transportasi siswa ke sekolah."
+        ]
+      },
+      "soal": {
+        "id": "P39",
+        "subject": "wajib",
+        "title": "P39 • Penyajian Data: Tabel Frekuensi dan Diagram",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P39-Q1] Data nilai: $7, 8, 6, 8, 9, 7, 8, 10, 8, 7$. Frekuensi nilai $8$ adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $4$",
+              "C. $5$",
+              "D. $2$",
+              "E. $10$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Hitung kemunculan nilai $8$ satu per satu pada data.\n\nLangkah 2: Nilai $8$ muncul pada urutan ke-$2$, ke-$4$, ke-$7$, dan ke-$9$.\n\nLangkah 3: Jadi frekuensinya $4$.\n\nLangkah 4: Periksa dengan menghitung nilai lain: $6$: $1$, $7$: $3$, $9$: $1$, $10$: $1$. Jumlahnya $1 + 3 + 4 + 1 + 1 = 10$ — cocok.\n\nLangkah 5: Opsi A ($3$) adalah frekuensi nilai $7$. Opsi E ($10$) adalah banyak seluruh data.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P39-Q2] Tabel frekuensi nilai $25$ siswa: nilai $5$ ada $2$, nilai $6$ ada $5$, nilai $7$ ada $8$, nilai $8$ ada $x$, dan nilai $9$ ada $4$. Nilai $x$ adalah $\\dots$",
+            "opsi": [
+              "A. $4$",
+              "B. $5$",
+              "C. $7$",
+              "D. $6$",
+              "E. $8$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Jumlah semua frekuensi sama dengan banyak data.\n$2 + 5 + 8 + x + 4 = 25$\n\nLangkah 2: Jumlahkan yang diketahui.\n$19 + x = 25$\n\nLangkah 3: Selesaikan.\n$x = 6$\n\nLangkah 4: Periksa: $2 + 5 + 8 + 6 + 4 = 25$ — cocok.\n\nLangkah 5: Opsi E ($8$) adalah frekuensi nilai $7$, bukan nilai $8$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P39-Q3] Dari $40$ siswa, $14$ siswa memilih basket sebagai olahraga kesukaan. Frekuensi relatif pemilih basket adalah $\\dots$",
+            "opsi": [
+              "A. $14\\%$",
+              "B. $28\\%$",
+              "C. $35\\%$",
+              "D. $40\\%$",
+              "E. $54\\%$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Pakai rumus frekuensi relatif.\n$\\frac{f}{n} \\times 100\\% = \\frac{14}{40} \\times 100\\%$\n\nLangkah 2: Sederhanakan pecahannya.\n$\\frac{14}{40} = \\frac{7}{20} = 0{,}35$\n\nLangkah 3: Jadi frekuensi relatifnya $35\\%$.\n\nLangkah 4: Opsi A ($14\\%$) menganggap frekuensinya sudah berupa persen, padahal banyak data $40$, bukan $100$.\n\nLangkah 5: Opsi E ($54\\%$) menjumlahkan $14 + 40$ — tidak bermakna.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P39-Q4] Dari $36$ siswa, $9$ siswa memilih futsal. Besar sudut bagian futsal pada diagram lingkaran adalah $\\dots$",
+            "opsi": [
+              "A. $90^\\circ$",
+              "B. $9^\\circ$",
+              "C. $36^\\circ$",
+              "D. $45^\\circ$",
+              "E. $120^\\circ$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Pakai rumus sudut.\n$\\frac{f}{n} \\times 360^\\circ = \\frac{9}{36} \\times 360^\\circ$\n\nLangkah 2: Sederhanakan pecahannya.\n$\\frac{9}{36} = \\frac{1}{4}$\n\nLangkah 3: Hitung.\n$\\frac{1}{4} \\times 360^\\circ = 90^\\circ$\n\nLangkah 4: Artinya pemilih futsal menempati seperempat lingkaran — masuk akal karena $9$ adalah seperempat dari $36$.\n\nLangkah 5: Opsi B ($9^\\circ$) menyamakan frekuensi dengan besar sudut.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P39-Q5] Perhatikan diagram batang-daun nilai ulangan berikut. $$\\begin{array}{r|l} 5 & 2\\ \\ 4\\ \\ 4\\ \\ 7 \\\\ 6 & 0\\ \\ 3\\ \\ 5\\ \\ 5\\ \\ 5\\ \\ 8 \\\\ 7 & 1\\ \\ 2\\ \\ 6 \\end{array}$$ Banyak siswa yang nilainya paling sedikit $65$ adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $3$",
+              "C. $4$",
+              "D. $10$",
+              "E. $7$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Uraikan diagramnya menjadi data.\n$52, 54, 54, 57, 60, 63, 65, 65, 65, 68, 71, 72, 76$\n\nLangkah 2: \"Paling sedikit $65$\" berarti $65$ atau lebih.\n\nLangkah 3: Pada batang $6$, nilai yang memenuhi: $65, 65, 65, 68$ — ada $4$.\n\nLangkah 4: Pada batang $7$, semuanya memenuhi: $71, 72, 76$ — ada $3$.\n\nLangkah 5: Jumlahkan.\n$4 + 3 = 7$\n\nLangkah 6: Opsi C ($4$) hanya menghitung batang $6$, dan opsi B ($3$) hanya menghitung batang $7$.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P39-Q6] Perhatikan tabel frekuensi nilai ulangan berikut. [5 : 2], [6 : 5], [7 : 8], [8 : 6], [9 : 4] Banyak siswa yang nilainya kurang dari $8$ adalah $\\dots$",
+            "opsi": [
+              "A. $8$",
+              "B. $15$",
+              "C. $21$",
+              "D. $6$",
+              "E. $10$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: \"Kurang dari $8$\" berarti nilai $5$, $6$, dan $7$ — nilai $8$ sendiri TIDAK termasuk.\n\nLangkah 2: Jumlahkan frekuensinya.\n$2 + 5 + 8 = 15$\n\nLangkah 3: Periksa dengan sisa data: yang nilainya $8$ atau lebih ada $6 + 4 = 10$, dan $15 + 10 = 25$ — cocok.\n\nLangkah 4: Opsi C ($21$) ikut menghitung nilai $8$, yaitu menjawab \"paling tinggi $8$\".\n\nLangkah 5: Opsi A ($8$) hanya mengambil frekuensi nilai $7$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P39-Q7] Hobi $45$ siswa disajikan dalam diagram lingkaran. Bagian \"membaca\" mempunyai sudut $120^\\circ$. Banyak siswa yang hobinya membaca adalah $\\dots$",
+            "opsi": [
+              "A. $12$",
+              "B. $20$",
+              "C. $30$",
+              "D. $15$",
+              "E. $120$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Sudut $120^\\circ$ adalah bagian dari $360^\\circ$.\n$\\frac{120}{360} = \\frac{1}{3}$\n\nLangkah 2: Jadi yang hobi membaca adalah sepertiga dari seluruh siswa.\n\nLangkah 3: Hitung.\n$\\frac{1}{3} \\times 45 = 15$\n\nLangkah 4: Periksa: $\\frac{15}{45} \\times 360^\\circ = 120^\\circ$ — cocok.\n\nLangkah 5: Opsi C ($30$) adalah dua pertiga dari $45$, yaitu siswa yang hobinya BUKAN membaca.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P39-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Jumlah semua frekuensi pada tabel distribusi frekuensi sama dengan banyak data.",
+              "(2) Diagram garis paling tepat untuk menyajikan data warna kesukaan siswa.",
+              "(3) Pada diagram batang-daun, baris $4 \\mid 2\\ 5\\ 7$ menyajikan data $42$, $45$, dan $47$."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): setiap data dihitung tepat sekali pada salah satu baris, jadi jumlah frekuensinya $n$. BENAR.\n\nLangkah 2: Pernyataan (2): warna kesukaan adalah data kategori. Garis penghubung antarwarna tidak bermakna, jadi yang tepat diagram batang atau lingkaran.\n\nLangkah 3: Pernyataan (2) SALAH.\n\nLangkah 4: Pernyataan (3): batang $4$ adalah puluhan dan daun $2$, $5$, $7$ adalah satuan. Datanya $42$, $45$, $47$.\n\nLangkah 5: Pernyataan (3) BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P39-Q9] Perhatikan diagram batang-daun berikut. $$\\begin{array}{r|l} 3 & 5\\ \\ 8 \\\\ 4 & 0\\ \\ 2\\ \\ 2\\ \\ 7 \\\\ 5 & 1\\ \\ 3\\ \\ 3\\ \\ 3\\ \\ 9 \\\\ 6 & 4 \\end{array}$$ Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Banyak datanya $12$.",
+              "B. Nilai terkecilnya $35$.",
+              "C. Nilai yang paling sering muncul adalah $53$.",
+              "D. Nilai terbesarnya $59$.",
+              "E. Ada $3$ data yang nilainya $40$ sampai $49$."
+            ],
+            "kunci": "A, B, C",
+            "bahas": "Langkah 1: Hitung banyak daun: $2 + 4 + 5 + 1 = 12$ — A benar.\n\nLangkah 2: Daun pertama pada batang terkecil: $35$ — B benar.\n\nLangkah 3: Nilai $53$ muncul tiga kali (daun $3$ tiga kali pada batang $5$), lebih sering daripada nilai lain — C benar.\n\nLangkah 4: Nilai terbesar ada pada batang $6$ daun $4$, yaitu $64$, bukan $59$ — D salah.\n\nLangkah 5: Batang $4$ mempunyai empat daun: $40, 42, 42, 47$. Jadi ada $4$ data, bukan $3$ — E salah.\n\nKesimpulan: Kunci Jawaban A, B, C."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P39-Q10] Kegiatan ekstrakurikuler $60$ siswa disajikan dalam diagram lingkaran. Bagian \"sepak bola\" mempunyai sudut $150^\\circ$. Banyak siswa yang mengikuti sepak bola adalah $\\dots$",
+            "opsi": [],
+            "kunci": "25",
+            "bahas": "Langkah 1: Hitung bagian sepak bola dari seluruh lingkaran.\n$\\frac{150}{360} = \\frac{5}{12}$\n\nLangkah 2: Kalikan dengan banyak siswa.\n$\\frac{5}{12} \\times 60 = 25$\n\nLangkah 3: Periksa: $\\frac{25}{60} \\times 360^\\circ = 150^\\circ$ — cocok.\n\nLangkah 4: Hasilnya bilangan cacah, sebagaimana mestinya untuk banyak siswa.\n\nKesimpulan: Kunci Jawaban 25."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P40",
+      "judul": "Ukuran Pemusatan Data Tunggal: Rata-rata, Median, dan Modus",
+      "materi": {
+        "id": "P40",
+        "bab": "Bab 7: Statistika",
+        "title": "Ukuran Pemusatan Data Tunggal: Rata-rata, Median, dan Modus",
+        "obj": [
+          "Menghitung rata-rata, median, dan modus data tunggal, termasuk median untuk banyak data genap maupun ganjil.",
+          "Menentukan data yang belum diketahui dari nilai rata-rata, dan menghitung perubahan rata-rata bila ada data yang ditambahkan.",
+          "Memilih ukuran pemusatan yang paling tepat mewakili data, terutama bila terdapat nilai yang sangat ekstrem."
+        ],
+        "hook": "Lima karyawan sebuah toko bergaji $4$, $4$, $5$, $5$, dan $32$ juta rupiah sebulan — yang terakhir adalah gaji pemiliknya. Iklan lowongan menulis \"rata-rata gaji di toko kami $10$ juta rupiah!\" Perhitungannya benar, tetapi empat dari lima orang di sana bergaji jauh di bawah itu. Satu bilangan yang mewakili sekumpulan data memang sangat berguna, tetapi bilangan yang MANA yang dipakai menentukan apakah kita memberi gambaran yang jujur atau menyesatkan.",
+        "toolkit": [
+          {
+            "name": "Rata-rata (Mean)",
+            "math": "$$\\bar{x} = \\frac{x_1 + x_2 + \\dots + x_n}{n} = \\frac{\\sum x}{n}$$"
+          },
+          {
+            "name": "Median n Ganjil",
+            "math": "$$Me = x_{\\frac{n+1}{2}} \\quad (\\text{data sudah diurutkan})$$"
+          },
+          {
+            "name": "Median n Genap",
+            "math": "$$Me = \\frac{x_{\\frac{n}{2}} + x_{\\frac{n}{2}+1}}{2}$$"
+          },
+          {
+            "name": "Modus",
+            "math": "$$Mo = \\text{nilai dengan frekuensi terbesar}$$"
+          },
+          {
+            "name": "Jumlah dari Rata-rata",
+            "math": "$$\\sum x = n \\cdot \\bar{x}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan rata-rata, median, dan modus data $7, 8, 6, 9, 8, 10, 8, 7$.",
+            "solution": "Langkah 1: Hitung jumlah dan banyak data.\n$\\sum x = 7 + 8 + 6 + 9 + 8 + 10 + 8 + 7 = 63$ dan $n = 8$\n\nLangkah 2: Hitung rata-rata.\n$\\bar{x} = \\frac{63}{8} = 7{,}875$\n\nLangkah 3: Urutkan data untuk median. Langkah ini WAJIB.\n$6, 7, 7, 8, 8, 8, 9, 10$\n\nLangkah 4: Banyak data genap ($n = 8$), jadi median adalah rata-rata data ke-$4$ dan ke-$5$.\n$Me = \\frac{8 + 8}{2} = 8$\n\nLangkah 5: Modus adalah nilai yang paling sering muncul. Nilai $8$ muncul tiga kali.\n$Mo = 8$\n\nLangkah 6: Kekeliruan yang sering terjadi adalah mengambil data tengah SEBELUM diurutkan. Pada urutan asli, data ke-$4$ dan ke-$5$ adalah $9$ dan $8$, yang memberikan median $8{,}5$ — salah.\n\nKesimpulan: Rata-rata $7{,}875$, median $8$, dan modus $8$."
+          },
+          {
+            "problem": "Tentukan rata-rata, median, dan modus data $12, 15, 11, 18, 14$.",
+            "solution": "Langkah 1: Hitung rata-rata.\n$\\bar{x} = \\frac{12 + 15 + 11 + 18 + 14}{5} = \\frac{70}{5} = 14$\n\nLangkah 2: Urutkan data.\n$11, 12, 14, 15, 18$\n\nLangkah 3: Banyak data ganjil ($n = 5$), jadi median adalah data ke-$\\frac{5 + 1}{2} = 3$.\n$Me = 14$\n\nLangkah 4: Setiap nilai muncul tepat satu kali, sehingga tidak ada nilai yang lebih sering daripada yang lain.\n\nLangkah 5: Data seperti ini dikatakan TIDAK mempunyai modus.\n\nLangkah 6: Kebetulan rata-rata dan median sama-sama $14$. Hal itu terjadi bila data tersebar cukup seimbang di kiri dan kanan nilai tengahnya.\n\nKesimpulan: Rata-rata $14$, median $14$, dan data ini tidak mempunyai modus."
+          },
+          {
+            "problem": "Rata-rata lima nilai ulangan Dina adalah $80$. Empat di antaranya $78$, $85$, $72$, dan $90$. Tentukan nilai kelima.",
+            "solution": "Langkah 1: Dari rata-rata, hitung JUMLAH seluruh nilai.\n$\\sum x = n \\cdot \\bar{x} = 5 \\times 80 = 400$\n\nLangkah 2: Jumlahkan empat nilai yang diketahui.\n$78 + 85 + 72 + 90 = 325$\n\nLangkah 3: Nilai kelima adalah selisihnya.\n$400 - 325 = 75$\n\nLangkah 4: Periksa: $\\frac{325 + 75}{5} = \\frac{400}{5} = 80$ — cocok.\n\nLangkah 5: Cara berpikir \"ubah rata-rata menjadi jumlah\" adalah kunci hampir semua soal rata-rata yang memuat data hilang.\n\nKesimpulan: Nilai kelima Dina adalah $75$."
+          },
+          {
+            "problem": "Rata-rata nilai $30$ siswa adalah $75$. Setelah seorang siswa baru ikut ujian susulan, rata-ratanya menjadi $74$. Tentukan nilai siswa baru itu.",
+            "solution": "Langkah 1: Hitung jumlah nilai sebelum siswa baru.\n$30 \\times 75 = 2250$\n\nLangkah 2: Hitung jumlah nilai sesudahnya. Banyak siswa sekarang $31$.\n$31 \\times 74 = 2294$\n\nLangkah 3: Nilai siswa baru adalah selisih kedua jumlah.\n$2294 - 2250 = 44$\n\nLangkah 4: Periksa kemasukakalannya: rata-rata TURUN, jadi nilai siswa baru harus di bawah rata-rata lama. Memang $44 < 75$.\n\nLangkah 5: Kekeliruan yang sering terjadi adalah tetap memakai $30$ sebagai pembagi setelah ada siswa baru.\n\nKesimpulan: Nilai siswa baru itu $44$."
+          },
+          {
+            "problem": "Gaji lima orang di sebuah toko (juta rupiah): $4, 4, 5, 5, 32$. Tentukan rata-rata dan mediannya, lalu tentukan ukuran mana yang lebih jujur mewakili gaji di toko itu.",
+            "solution": "Langkah 1: Hitung rata-rata.\n$\\bar{x} = \\frac{4 + 4 + 5 + 5 + 32}{5} = \\frac{50}{5} = 10$\n\nLangkah 2: Data sudah urut. Median adalah data ke-$3$.\n$Me = 5$\n\nLangkah 3: Bandingkan dengan datanya: empat dari lima orang bergaji $4$ atau $5$ juta, jauh di bawah $10$ juta.\n\nLangkah 4: Rata-rata \"tertarik\" oleh satu nilai ekstrem, yaitu $32$. Median hanya melihat posisi tengah, sehingga tidak terpengaruh besarnya nilai ekstrem itu.\n\nLangkah 5: Bila $32$ diganti $320$, rata-ratanya melonjak menjadi $67{,}6$, sedangkan mediannya tetap $5$.\n\nLangkah 6: Jadi untuk data yang memuat nilai sangat ekstrem, median lebih mewakili sebagian besar data.\n\nKesimpulan: Rata-rata $10$ juta dan median $5$ juta; median lebih jujur mewakili gaji sebagian besar orang di toko itu."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok mencatat satu data dari anggota kelas — misalnya waktu tidur semalam (jam) atau uang jajan harian (ribu rupiah) — minimal $10$ data. Di papan, hitunglah rata-rata, median, dan modusnya. Kemudian tambahkan satu data khayalan yang sangat ekstrem (misalnya uang jajan Rp$500.000$) dan hitung ulang ketiganya. Ukuran mana yang berubah paling jauh? Tuliskan satu kalimat saran: kapan sebaiknya memakai median alih-alih rata-rata.",
+        "summary_data": {
+          "summary": [
+            "Rata-rata $\\bar{x} = \\frac{\\sum x}{n}$ memakai seluruh data.",
+            "Median adalah nilai tengah SETELAH data diurutkan.",
+            "Bila $n$ ganjil, median adalah data ke-$\\frac{n + 1}{2}$.",
+            "Bila $n$ genap, median adalah rata-rata data ke-$\\frac{n}{2}$ dan ke-$\\left(\\frac{n}{2} + 1\\right)$.",
+            "Modus adalah nilai yang paling sering muncul; data boleh mempunyai lebih dari satu modus atau tidak mempunyai modus.",
+            "Dari rata-rata dapat dihitung jumlah data: $\\sum x = n \\cdot \\bar{x}$.",
+            "Soal data hilang diselesaikan dengan mengubah rata-rata menjadi jumlah.",
+            "Bila data bertambah, pembaginya juga bertambah.",
+            "Rata-rata mudah tertarik oleh nilai ekstrem; median tidak.",
+            "Bila setiap data ditambah $k$, rata-rata, median, dan modusnya juga bertambah $k$."
+          ],
+          "islamic": "Sikap pertengahan adalah jalan yang dipuji. \"Dan demikian pula Kami telah menjadikan kamu (umat Islam) umat pertengahan agar kamu menjadi saksi atas (perbuatan) manusia.\" (QS. Al-Baqarah: 143)"
+        },
+        "collab_cases": [
+          "Tentukan rata-rata, median, dan modus data $5, 8, 7, 6, 8, 9, 8, 5, 7, 10$.",
+          "Tentukan median data $23, 19, 27, 21, 25, 30, 18$.",
+          "Rata-rata enam bilangan adalah $15$. Lima di antaranya $12, 18, 14, 16, 20$. Tentukan bilangan keenam.",
+          "Rata-rata nilai $24$ siswa adalah $70$. Bila nilai guru ($100$) ikut dimasukkan secara keliru, berapakah rata-rata yang diperoleh?",
+          "Harga rumah di sebuah jalan (juta rupiah): $350, 400, 380, 420, 390, 2500$. Ukuran pemusatan mana yang lebih tepat dipakai untuk menggambarkan harga rumah di jalan itu? Jelaskan dengan hitungan."
+        ]
+      },
+      "soal": {
+        "id": "P40",
+        "subject": "wajib",
+        "title": "P40 • Ukuran Pemusatan Data Tunggal: Rata-rata, Median, dan Modus",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P40-Q1] Rata-rata data $6, 8, 7, 9, 10$ adalah $\\dots$",
+            "opsi": [
+              "A. $7$",
+              "B. $8$",
+              "C. $9$",
+              "D. $8{,}5$",
+              "E. $40$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Jumlahkan semua data.\n$6 + 8 + 7 + 9 + 10 = 40$\n\nLangkah 2: Bagi dengan banyak data, yaitu $5$.\n$\\frac{40}{5} = 8$\n\nLangkah 3: Periksa kemasukakalannya: $8$ berada di antara data terkecil $6$ dan terbesar $10$.\n\nLangkah 4: Opsi E ($40$) adalah jumlah data yang lupa dibagi.\n\nLangkah 5: Opsi A ($7$) adalah data di urutan tengah SEBELUM data diurutkan.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P40-Q2] Median data $9, 4, 7, 5, 8, 6$ adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $7$",
+              "C. $6{,}5$",
+              "D. $5{,}5$",
+              "E. $7{,}5$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Urutkan data lebih dahulu.\n$4, 5, 6, 7, 8, 9$\n\nLangkah 2: Banyak data genap ($n = 6$), jadi median adalah rata-rata data ke-$3$ dan ke-$4$.\n\nLangkah 3: Hitung.\n$Me = \\frac{6 + 7}{2} = 6{,}5$\n\nLangkah 4: Opsi A ($6$) muncul bila data TIDAK diurutkan: data ke-$3$ dan ke-$4$ pada urutan asli adalah $7$ dan $5$, rata-ratanya $6$.\n\nLangkah 5: Opsi E ($7{,}5$) mengambil data ke-$4$ dan ke-$5$ dari data terurut, yaitu bergeser satu posisi.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P40-Q3] Modus data $3, 5, 4, 5, 6, 4, 5, 7$ adalah $\\dots$",
+            "opsi": [
+              "A. $4$",
+              "B. $6$",
+              "C. $3$",
+              "D. $5$",
+              "E. $7$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Hitung frekuensi setiap nilai.\n$3$: $1$, $4$: $2$, $5$: $3$, $6$: $1$, $7$: $1$\n\nLangkah 2: Frekuensi terbesar adalah $3$, milik nilai $5$.\n\nLangkah 3: Jadi modusnya $5$.\n\nLangkah 4: Opsi A ($4$) muncul dua kali — sering, tetapi tidak paling sering.\n\nLangkah 5: Modus adalah NILAI datanya ($5$), bukan frekuensinya ($3$).\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P40-Q4] Rata-rata enam bilangan adalah $8$. Lima di antaranya $5, 8, 6, 9, 7$. Bilangan keenam adalah $\\dots$",
+            "opsi": [
+              "A. $13$",
+              "B. $8$",
+              "C. $7$",
+              "D. $11$",
+              "E. $35$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Ubah rata-rata menjadi jumlah.\n$6 \\times 8 = 48$\n\nLangkah 2: Jumlahkan lima bilangan yang diketahui.\n$5 + 8 + 6 + 9 + 7 = 35$\n\nLangkah 3: Bilangan keenam.\n$48 - 35 = 13$\n\nLangkah 4: Periksa: $\\frac{35 + 13}{6} = \\frac{48}{6} = 8$ — cocok.\n\nLangkah 5: Opsi E ($35$) adalah jumlah lima bilangan, bukan bilangan keenam.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P40-Q5] Rata-rata nilai $30$ siswa adalah $75$. Setelah seorang siswa mengikuti ujian susulan, rata-rata nilai $31$ siswa itu menjadi $74$. Nilai siswa yang ikut ujian susulan adalah $\\dots$",
+            "opsi": [
+              "A. $74$",
+              "B. $73$",
+              "C. $45$",
+              "D. $60$",
+              "E. $44$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Jumlah nilai $30$ siswa.\n$30 \\times 75 = 2250$\n\nLangkah 2: Jumlah nilai $31$ siswa.\n$31 \\times 74 = 2294$\n\nLangkah 3: Nilai siswa susulan.\n$2294 - 2250 = 44$\n\nLangkah 4: Periksa arah perubahan: rata-rata turun $1$, jadi nilai yang masuk harus jauh di bawah $75$ — memang $44$.\n\nLangkah 5: Opsi A ($74$) mengira nilai siswa baru sama dengan rata-rata baru. Opsi C ($45$) muncul bila $31 \\times 74$ salah dihitung menjadi $2295$ — periksa perkalian dengan cermat.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P40-Q6] Gaji lima orang di sebuah toko (juta rupiah): $4, 4, 5, 5, 32$. Ukuran pemusatan yang paling tepat mewakili gaji sebagian besar orang di toko itu adalah $\\dots$",
+            "opsi": [
+              "A. rata-rata, karena memakai semua data",
+              "B. median, karena tidak terpengaruh oleh nilai yang sangat ekstrem",
+              "C. modus, karena selalu tunggal",
+              "D. rata-rata, karena nilainya paling besar",
+              "E. jangkauan, karena memuat nilai terbesar"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Hitung rata-ratanya: $\\frac{50}{5} = 10$ juta. Empat dari lima orang bergaji jauh di bawah itu.\n\nLangkah 2: Hitung mediannya: data ke-$3$ adalah $5$ juta — dekat dengan gaji sebagian besar orang.\n\nLangkah 3: Rata-rata tertarik ke atas oleh nilai ekstrem $32$, sedangkan median tidak.\n\nLangkah 4: Opsi C keliru: data ini justru mempunyai dua modus, yaitu $4$ dan $5$.\n\nLangkah 5: Opsi E keliru: jangkauan adalah ukuran penyebaran, bukan ukuran pemusatan.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P40-Q7] Data $4, x, 7, 9, 10$ sudah terurut dari kecil ke besar dan mempunyai rata-rata $7$. Nilai $x$ adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $7$",
+              "C. $4$",
+              "D. $5$",
+              "E. $3$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Ubah rata-rata menjadi jumlah.\n$5 \\times 7 = 35$\n\nLangkah 2: Tulis persamaannya.\n$4 + x + 7 + 9 + 10 = 35 \\Rightarrow 30 + x = 35$\n\nLangkah 3: Selesaikan.\n$x = 5$\n\nLangkah 4: Periksa syarat urutan: $4 \\le 5 \\le 7$ — terpenuhi, jadi data tetap terurut.\n\nLangkah 5: Periksa rata-rata: $\\frac{4 + 5 + 7 + 9 + 10}{5} = 7$ — cocok. Opsi B ($7$) mengira $x$ sama dengan rata-rata.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P40-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Median data $3, 9, 4, 8, 5$ adalah $4$.",
+              "(2) Sebuah data boleh mempunyai lebih dari satu modus.",
+              "(3) Jika setiap data ditambah $5$, rata-ratanya juga bertambah $5$."
+            ],
+            "kunci": "S - B - B",
+            "bahas": "Langkah 1: Pernyataan (1): urutkan dulu: $3, 4, 5, 8, 9$. Data tengahnya $5$, bukan $4$. Angka $4$ adalah data tengah SEBELUM diurutkan. SALAH.\n\nLangkah 2: Pernyataan (2): misalnya data $2, 2, 5, 5, 7$ mempunyai dua modus, yaitu $2$ dan $5$. BENAR.\n\nLangkah 3: Pernyataan (3): jumlah data bertambah $5n$, dan pembaginya tetap $n$.\n\nLangkah 4: Jadi rata-ratanya bertambah $\\frac{5n}{n} = 5$. BENAR.\n\nKesimpulan: Kunci Jawaban S - B - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P40-Q9] Diketahui data $5, 7, 7, 8, 9, 10, 10, 10, 6$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Rata-ratanya $8$.",
+              "B. Mediannya $8$.",
+              "C. Modusnya $7$.",
+              "D. Modusnya $10$.",
+              "E. Mediannya $9$."
+            ],
+            "kunci": "A, B, D",
+            "bahas": "Langkah 1: Jumlah data: $5 + 7 + 7 + 8 + 9 + 10 + 10 + 10 + 6 = 72$, dan $n = 9$. Rata-rata $\\frac{72}{9} = 8$ — A benar.\n\nLangkah 2: Urutkan: $5, 6, 7, 7, 8, 9, 10, 10, 10$. Data ke-$5$ adalah $8$ — B benar, E salah.\n\nLangkah 3: Frekuensi: $7$ muncul dua kali, $10$ muncul tiga kali. Modusnya $10$ — D benar, C salah.\n\nLangkah 4: Perhatikan bahwa median diambil setelah pengurutan. Pada urutan asli, data ke-$5$ adalah $9$ — itulah asal opsi E.\n\nKesimpulan: Kunci Jawaban A, B, D."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P40-Q10] Rata-rata lima nilai ulangan adalah $80$. Empat di antaranya $78$, $85$, $72$, dan $90$. Nilai kelima adalah $\\dots$",
+            "opsi": [],
+            "kunci": "75",
+            "bahas": "Langkah 1: Ubah rata-rata menjadi jumlah.\n$5 \\times 80 = 400$\n\nLangkah 2: Jumlahkan empat nilai yang diketahui.\n$78 + 85 + 72 + 90 = 325$\n\nLangkah 3: Nilai kelima.\n$400 - 325 = 75$\n\nLangkah 4: Periksa: $\\frac{400}{5} = 80$ — cocok.\n\nKesimpulan: Kunci Jawaban 75."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P41",
+      "judul": "Ukuran Pemusatan dari Tabel Frekuensi dan Rata-rata Gabungan",
+      "materi": {
+        "id": "P41",
+        "bab": "Bab 7: Statistika",
+        "title": "Ukuran Pemusatan dari Tabel Frekuensi dan Rata-rata Gabungan",
+        "obj": [
+          "Menghitung rata-rata, median, dan modus dari tabel distribusi frekuensi data tunggal memakai frekuensi kumulatif.",
+          "Menghitung rata-rata gabungan dua kelompok yang banyak anggotanya berbeda, serta rata-rata salah satu kelompok bila rata-rata gabungannya diketahui.",
+          "Menentukan frekuensi yang belum diketahui dari rata-rata yang diketahui."
+        ],
+        "hook": "Kelas A yang berisi $20$ siswa mendapat rata-rata $70$, dan kelas B yang berisi $30$ siswa mendapat rata-rata $80$. Berapa rata-rata seluruh $50$ siswa? Jawaban cepat \"$75$, tengah-tengah $70$ dan $80$\" ternyata KELIRU, karena kelas B lebih besar sehingga lebih berat pengaruhnya. Pertemuan ini membahas cara menghitung ukuran pemusatan ketika data sudah tersusun dalam tabel atau terbagi dalam beberapa kelompok — keadaan yang jauh lebih sering dijumpai daripada deretan data mentah.",
+        "toolkit": [
+          {
+            "name": "Rata-rata dari Tabel",
+            "math": "$$\\bar{x} = \\frac{\\sum f \\cdot x}{\\sum f}$$"
+          },
+          {
+            "name": "Letak Median",
+            "math": "$$n \\text{ ganjil: data ke-}\\tfrac{n+1}{2};\\quad n \\text{ genap: rata-rata data ke-}\\tfrac{n}{2} \\text{ dan ke-}\\left(\\tfrac{n}{2}+1\\right)$$"
+          },
+          {
+            "name": "Frekuensi Kumulatif",
+            "math": "$$\\text{dipakai untuk menemukan baris tempat data ke-}k \\text{ berada}$$"
+          },
+          {
+            "name": "Rata-rata Gabungan",
+            "math": "$$\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2}{n_1 + n_2}$$"
+          },
+          {
+            "name": "Modus dari Tabel",
+            "math": "$$Mo = \\text{nilai pada baris dengan } f \\text{ terbesar}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tabel nilai $20$ siswa: nilai $5$ ada $1$, $6$ ada $3$, $7$ ada $5$, $8$ ada $7$, $9$ ada $3$, dan $10$ ada $1$. Tentukan rata-rata, median, dan modusnya.",
+            "solution": "Langkah 1: Rata-rata: kalikan setiap nilai dengan frekuensinya, lalu jumlahkan.\n$5(1) + 6(3) + 7(5) + 8(7) + 9(3) + 10(1) = 5 + 18 + 35 + 56 + 27 + 10 = 151$\n\nLangkah 2: Bagi dengan banyak data.\n$\\bar{x} = \\frac{151}{20} = 7{,}55$\n\nLangkah 3: Median: $n = 20$ genap, jadi median adalah rata-rata data ke-$10$ dan ke-$11$.\n\nLangkah 4: Susun frekuensi kumulatif.\nnilai $5$: $1$; nilai $6$: $4$; nilai $7$: $9$; nilai $8$: $16$\n\nLangkah 5: Data ke-$10$ sampai ke-$16$ semuanya bernilai $8$. Jadi data ke-$10$ dan ke-$11$ keduanya $8$.\n$Me = \\frac{8 + 8}{2} = 8$\n\nLangkah 6: Modus: frekuensi terbesar adalah $7$, milik nilai $8$.\n$Mo = 8$\n\nLangkah 7: Kekeliruan yang sering terjadi adalah membagi $151$ dengan banyak BARIS ($6$) alih-alih banyak data ($20$).\n\nKesimpulan: Rata-rata $7{,}55$, median $8$, dan modus $8$."
+          },
+          {
+            "problem": "Tabel nilai $25$ siswa: nilai $4$ ada $3$, $5$ ada $5$, $6$ ada $8$, $7$ ada $6$, dan $8$ ada $3$. Tentukan rata-rata dan mediannya.",
+            "solution": "Langkah 1: Hitung $\\sum f \\cdot x$.\n$4(3) + 5(5) + 6(8) + 7(6) + 8(3) = 12 + 25 + 48 + 42 + 24 = 151$\n\nLangkah 2: Hitung rata-rata.\n$\\bar{x} = \\frac{151}{25} = 6{,}04$\n\nLangkah 3: Median: $n = 25$ ganjil, jadi median adalah data ke-$\\frac{25 + 1}{2} = 13$.\n\nLangkah 4: Frekuensi kumulatif.\nnilai $4$: $3$; nilai $5$: $8$; nilai $6$: $16$\n\nLangkah 5: Data ke-$9$ sampai ke-$16$ bernilai $6$, dan data ke-$13$ berada di rentang itu.\n$Me = 6$\n\nLangkah 6: Periksa kemasukakalannya: rata-rata $6{,}04$ dan median $6$ berdekatan, sesuai dengan tabel yang frekuensinya cukup seimbang di sekitar nilai $6$.\n\nKesimpulan: Rata-rata $6{,}04$ dan median $6$."
+          },
+          {
+            "problem": "Kelas A berisi $20$ siswa dengan rata-rata $70$, dan kelas B berisi $30$ siswa dengan rata-rata $80$. Tentukan rata-rata gabungan kedua kelas.",
+            "solution": "Langkah 1: Ubah setiap rata-rata menjadi jumlah nilai.\nKelas A: $20 \\times 70 = 1400$\nKelas B: $30 \\times 80 = 2400$\n\nLangkah 2: Jumlahkan seluruh nilai dan seluruh siswa.\n$1400 + 2400 = 3800$ dan $20 + 30 = 50$\n\nLangkah 3: Hitung rata-rata gabungan.\n$\\bar{x}_{\\text{gab}} = \\frac{3800}{50} = 76$\n\nLangkah 4: Hasilnya BUKAN $75$. Kelas B lebih besar sehingga rata-rata gabungan lebih dekat ke $80$.\n\nLangkah 5: Periksa kemasukakalannya: rata-rata gabungan selalu berada di antara kedua rata-rata kelompok, dan $70 < 76 < 80$.\n\nLangkah 6: Rata-rata dari kedua rata-rata, yaitu $75$, hanya benar bila kedua kelompok sama besar.\n\nKesimpulan: Rata-rata gabungan kedua kelas adalah $76$."
+          },
+          {
+            "problem": "Rata-rata nilai $40$ siswa adalah $72$. Rata-rata nilai $15$ siswa putra adalah $68$. Tentukan rata-rata nilai siswa putri.",
+            "solution": "Langkah 1: Banyak siswa putri.\n$40 - 15 = 25$\n\nLangkah 2: Jumlah nilai seluruh siswa.\n$40 \\times 72 = 2880$\n\nLangkah 3: Jumlah nilai siswa putra.\n$15 \\times 68 = 1020$\n\nLangkah 4: Jumlah nilai siswa putri.\n$2880 - 1020 = 1860$\n\nLangkah 5: Rata-rata siswa putri.\n$\\frac{1860}{25} = 74{,}4$\n\nLangkah 6: Periksa arahnya: rata-rata putra ($68$) di bawah rata-rata gabungan ($72$), jadi rata-rata putri harus di atas $72$. Memang $74{,}4 > 72$.\n\nKesimpulan: Rata-rata nilai siswa putri adalah $74{,}4$."
+          },
+          {
+            "problem": "Tabel nilai: nilai $6$ ada $4$ siswa, nilai $7$ ada $x$ siswa, dan nilai $8$ ada $6$ siswa. Rata-ratanya $7{,}1$. Tentukan $x$.",
+            "solution": "Langkah 1: Tulis rumus rata-rata dari tabel.\n$\\frac{6(4) + 7x + 8(6)}{4 + x + 6} = 7{,}1$\n\nLangkah 2: Sederhanakan.\n$\\frac{72 + 7x}{10 + x} = 7{,}1$\n\nLangkah 3: Kalikan silang.\n$72 + 7x = 71 + 7{,}1x$\n\nLangkah 4: Kumpulkan suku $x$.\n$72 - 71 = 7{,}1x - 7x \\Rightarrow 1 = 0{,}1x \\Rightarrow x = 10$\n\nLangkah 5: Periksa: $\\frac{24 + 70 + 48}{20} = \\frac{142}{20} = 7{,}1$ — cocok.\n\nLangkah 6: Perhatikan bahwa $x$ muncul di pembilang DAN di penyebut, karena frekuensi baru ikut menambah banyak data.\n\nKesimpulan: Nilai $x = 10$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Guru membagi kelas menjadi dua kelompok yang TIDAK sama besar, dan setiap siswa menuliskan satu bilangan bulat pilihannya dari $1$ sampai $10$. Setiap kelompok menghitung rata-rata kelompoknya di papan. Sebelum menghitung rata-rata seluruh kelas, setiap kelompok menebak dulu hasilnya, lalu membuktikannya dengan dua cara: menjumlahkan semua bilangan, dan memakai rumus rata-rata gabungan. Mengapa rata-rata dari dua rata-rata kelompok tidak sama dengan rata-rata seluruh kelas?",
+        "summary_data": {
+          "summary": [
+            "Rata-rata dari tabel frekuensi: $\\bar{x} = \\frac{\\sum f \\cdot x}{\\sum f}$.",
+            "Pembaginya adalah banyak DATA ($\\sum f$), bukan banyak baris tabel.",
+            "Letak median ditentukan dengan frekuensi kumulatif: cari baris tempat data ke-$k$ berada.",
+            "Modus dari tabel adalah nilai pada baris dengan frekuensi terbesar.",
+            "Rata-rata gabungan: $\\bar{x}_{\\text{gab}} = \\frac{n_1 \\bar{x}_1 + n_2 \\bar{x}_2}{n_1 + n_2}$.",
+            "Rata-rata gabungan lebih dekat ke rata-rata kelompok yang lebih besar.",
+            "Rata-rata dari dua rata-rata hanya benar bila kedua kelompok sama besar.",
+            "Rata-rata gabungan selalu berada di antara rata-rata kelompok-kelompoknya.",
+            "Untuk mencari rata-rata satu kelompok, kurangkan jumlah kelompok lain dari jumlah seluruhnya.",
+            "Frekuensi yang belum diketahui muncul di pembilang dan penyebut rumus rata-rata."
+          ],
+          "islamic": "Perbedaan kelompok adalah untuk saling mengenal dan saling melengkapi. \"Wahai manusia! Sungguh, Kami telah menciptakan kamu dari seorang laki-laki dan seorang perempuan, kemudian Kami jadikan kamu berbangsa-bangsa dan bersuku-suku agar kamu saling mengenal.\" (QS. Al-Hujurat: 13)"
+        },
+        "collab_cases": [
+          "Tabel ukuran sepatu $30$ siswa: ukuran $37$ ada $4$, $38$ ada $9$, $39$ ada $10$, $40$ ada $5$, $41$ ada $2$. Tentukan rata-rata, median, dan modusnya.",
+          "Kelas X-1 ($32$ siswa) mempunyai rata-rata $78$, dan kelas X-2 ($28$ siswa) mempunyai rata-rata $81$. Tentukan rata-rata gabungannya.",
+          "Rata-rata tinggi $30$ siswa adalah $160$ cm. Rata-rata tinggi $12$ siswa putri adalah $154$ cm. Tentukan rata-rata tinggi siswa putra.",
+          "Tabel nilai: $5$ ada $3$, $6$ ada $x$, $7$ ada $5$. Rata-ratanya $6{,}2$. Tentukan $x$.",
+          "Rata-rata nilai $10$ siswa adalah $60$. Dua siswa yang semula bernilai $40$ dan $50$ mengikuti perbaikan dan keduanya mendapat $70$. Tentukan rata-rata yang baru."
+        ]
+      },
+      "soal": {
+        "id": "P41",
+        "subject": "wajib",
+        "title": "P41 • Ukuran Pemusatan dari Tabel Frekuensi dan Rata-rata Gabungan",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P41-Q1] Perhatikan tabel frekuensi nilai berikut. [6 : 2], [7 : 3], [8 : 4], [9 : 1] Rata-rata nilai itu adalah $\\dots$",
+            "opsi": [
+              "A. $7{,}5$",
+              "B. $7{,}4$",
+              "C. $7$",
+              "D. $8$",
+              "E. $74$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Hitung $\\sum f \\cdot x$.\n$6(2) + 7(3) + 8(4) + 9(1) = 12 + 21 + 32 + 9 = 74$\n\nLangkah 2: Hitung banyak data.\n$2 + 3 + 4 + 1 = 10$\n\nLangkah 3: Hitung rata-rata.\n$\\frac{74}{10} = 7{,}4$\n\nLangkah 4: Opsi A ($7{,}5$) adalah rata-rata keempat nilai $6, 7, 8, 9$ tanpa memperhatikan frekuensinya.\n\nLangkah 5: Opsi E ($74$) lupa membagi dengan banyak data.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P41-Q2] Perhatikan tabel frekuensi nilai berikut. [5 : 2], [6 : 4], [7 : 5], [8 : 6], [9 : 3] Median data itu adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $6{,}5$",
+              "C. $7$",
+              "D. $7{,}5$",
+              "E. $8$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Banyak data.\n$2 + 4 + 5 + 6 + 3 = 20$\n\nLangkah 2: $n$ genap, jadi median adalah rata-rata data ke-$10$ dan ke-$11$.\n\nLangkah 3: Frekuensi kumulatif.\nnilai $5$: $2$; nilai $6$: $6$; nilai $7$: $11$\n\nLangkah 4: Data ke-$7$ sampai ke-$11$ bernilai $7$. Jadi data ke-$10$ dan ke-$11$ keduanya $7$.\n\nLangkah 5: Median $= \\frac{7 + 7}{2} = 7$. Opsi E ($8$) adalah modus, bukan median.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P41-Q3] Perhatikan tabel frekuensi nilai berikut. [5 : 2], [6 : 4], [7 : 5], [8 : 6], [9 : 3] Modus data itu adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $5$",
+              "C. $7$",
+              "D. $9$",
+              "E. $8$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Modus adalah nilai dengan frekuensi terbesar.\n\nLangkah 2: Frekuensi terbesar pada tabel adalah $6$.\n\nLangkah 3: Frekuensi $6$ dimiliki oleh nilai $8$.\n\nLangkah 4: Jadi modusnya $8$.\n\nLangkah 5: Opsi A ($6$) keliru mengambil FREKUENSI terbesar sebagai jawaban, padahal modus adalah nilai datanya.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P41-Q4] Kelas A berisi $20$ siswa dengan rata-rata $70$, dan kelas B berisi $30$ siswa dengan rata-rata $80$. Rata-rata gabungan kedua kelas adalah $\\dots$",
+            "opsi": [
+              "A. $75$",
+              "B. $150$",
+              "C. $74$",
+              "D. $76$",
+              "E. $78$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Jumlah nilai kelas A: $20 \\times 70 = 1400$. Jumlah nilai kelas B: $30 \\times 80 = 2400$.\n\nLangkah 2: Jumlah seluruh nilai: $3800$, dan banyak siswa $50$.\n\nLangkah 3: Rata-rata gabungan.\n$\\frac{3800}{50} = 76$\n\nLangkah 4: Opsi A ($75$) adalah rata-rata dari kedua rata-rata, yang hanya benar bila kedua kelas sama besar.\n\nLangkah 5: Opsi C ($74$) membalik bobotnya, seolah kelas A yang lebih besar.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P41-Q5] Rata-rata nilai $40$ siswa adalah $72$. Rata-rata nilai $15$ siswa putra adalah $68$. Rata-rata nilai siswa putri adalah $\\dots$",
+            "opsi": [
+              "A. $74{,}4$",
+              "B. $76$",
+              "C. $70$",
+              "D. $73{,}5$",
+              "E. $75$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Jumlah nilai seluruh siswa: $40 \\times 72 = 2880$.\n\nLangkah 2: Jumlah nilai putra: $15 \\times 68 = 1020$.\n\nLangkah 3: Jumlah nilai putri: $2880 - 1020 = 1860$, dengan banyak siswa putri $25$.\n\nLangkah 4: Rata-rata putri.\n$\\frac{1860}{25} = 74{,}4$\n\nLangkah 5: Opsi B ($76$) muncul dari anggapan rata-rata gabungan tepat di tengah: $72 = \\frac{68 + 76}{2}$. Anggapan itu keliru karena banyak putra dan putri berbeda.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P41-Q6] Pada sebuah tabel, nilai $6$ diperoleh $4$ siswa, nilai $7$ diperoleh $x$ siswa, dan nilai $8$ diperoleh $6$ siswa. Rata-ratanya $7{,}1$. Nilai $x$ adalah $\\dots$",
+            "opsi": [
+              "A. $5$",
+              "B. $8$",
+              "C. $10$",
+              "D. $12$",
+              "E. $6$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Tulis rumus rata-rata.\n$\\frac{24 + 7x + 48}{10 + x} = 7{,}1$\n\nLangkah 2: Kalikan silang.\n$72 + 7x = 71 + 7{,}1x$\n\nLangkah 3: Selesaikan.\n$1 = 0{,}1x \\Rightarrow x = 10$\n\nLangkah 4: Periksa: $\\frac{24 + 70 + 48}{20} = \\frac{142}{20} = 7{,}1$ — cocok.\n\nLangkah 5: Periksa opsi A: $\\frac{24 + 35 + 48}{15} = \\frac{107}{15} \\approx 7{,}13$ — dekat, tetapi tidak tepat $7{,}1$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P41-Q7] Rata-rata nilai $10$ siswa adalah $60$. Dua siswa yang semula bernilai $40$ dan $50$ mengikuti perbaikan dan keduanya mendapat $70$. Rata-rata nilai yang baru adalah $\\dots$",
+            "opsi": [
+              "A. $62$",
+              "B. $65$",
+              "C. $70$",
+              "D. $64$",
+              "E. $66$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Jumlah nilai semula: $10 \\times 60 = 600$.\n\nLangkah 2: Perubahan jumlah: nilai $40$ naik $30$ dan nilai $50$ naik $20$, jadi jumlah naik $50$.\n\nLangkah 3: Jumlah baru: $600 + 50 = 650$, dengan banyak siswa tetap $10$.\n\nLangkah 4: Rata-rata baru.\n$\\frac{650}{10} = 65$\n\nLangkah 5: Opsi C ($70$) mengira rata-rata ikut menjadi nilai perbaikan. Banyak siswa tidak berubah, jadi pembaginya tetap $10$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P41-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Rata-rata gabungan dua kelas selalu sama dengan rata-rata dari kedua rata-rata kelas itu.",
+              "(2) Pada tabel frekuensi, rata-rata dihitung dengan $\\frac{\\sum f \\cdot x}{\\sum f}$.",
+              "(3) Median dari tabel nilai $6$ ada $3$, $7$ ada $4$, dan $8$ ada $3$ adalah $7{,}5$."
+            ],
+            "kunci": "S - B - S",
+            "bahas": "Langkah 1: Pernyataan (1): contoh kelas $20$ siswa rata-rata $70$ dan $30$ siswa rata-rata $80$ memberikan $76$, bukan $75$. SALAH — hanya benar bila kedua kelas sama besar.\n\nLangkah 2: Pernyataan (2): itulah rumus rata-rata dari tabel frekuensi. BENAR.\n\nLangkah 3: Pernyataan (3): $n = 10$, jadi median adalah rata-rata data ke-$5$ dan ke-$6$. Frekuensi kumulatif: nilai $6$: $3$; nilai $7$: $7$.\n\nLangkah 4: Data ke-$4$ sampai ke-$7$ bernilai $7$, jadi median $\\frac{7 + 7}{2} = 7$, bukan $7{,}5$.\n\nLangkah 5: Pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban S - B - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P41-Q9] Perhatikan tabel frekuensi nilai berikut. [4 : 3], [5 : 5], [6 : 8], [7 : 6], [8 : 3] Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Banyak datanya $25$.",
+              "B. Rata-ratanya $6{,}04$.",
+              "C. Mediannya $6$.",
+              "D. Modusnya $7$.",
+              "E. Ada $9$ siswa yang nilainya paling sedikit $7$."
+            ],
+            "kunci": "A, B, C, E",
+            "bahas": "Langkah 1: A: $3 + 5 + 8 + 6 + 3 = 25$ — benar.\n\nLangkah 2: B: $\\sum f \\cdot x = 12 + 25 + 48 + 42 + 24 = 151$, dan $\\frac{151}{25} = 6{,}04$ — benar.\n\nLangkah 3: C: median data ke-$13$. Frekuensi kumulatif sampai nilai $6$ adalah $16$, dan sampai nilai $5$ adalah $8$. Data ke-$13$ bernilai $6$ — benar.\n\nLangkah 4: D: frekuensi terbesar $8$ milik nilai $6$, jadi modusnya $6$, bukan $7$ — salah.\n\nLangkah 5: E: nilai $7$ dan $8$: $6 + 3 = 9$ siswa — benar.\n\nKesimpulan: Kunci Jawaban A, B, C, E."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P41-Q10] Rata-rata lima bilangan adalah $12$. Setelah satu bilangan dibuang, rata-rata empat bilangan sisanya menjadi $10$. Bilangan yang dibuang adalah $\\dots$",
+            "opsi": [],
+            "kunci": "20",
+            "bahas": "Langkah 1: Jumlah lima bilangan.\n$5 \\times 12 = 60$\n\nLangkah 2: Jumlah empat bilangan sisanya.\n$4 \\times 10 = 40$\n\nLangkah 3: Bilangan yang dibuang.\n$60 - 40 = 20$\n\nLangkah 4: Periksa arahnya: rata-rata turun setelah bilangan dibuang, jadi bilangan itu pasti di atas rata-rata semula. Memang $20 > 12$.\n\nKesimpulan: Kunci Jawaban 20."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P42",
+      "judul": "Kuartil dan Diagram Kotak Garis",
+      "materi": {
+        "id": "P42",
+        "bab": "Bab 7: Statistika",
+        "title": "Kuartil dan Diagram Kotak Garis",
+        "obj": [
+          "Menentukan kuartil bawah $Q_1$, kuartil tengah $Q_2$, dan kuartil atas $Q_3$ data tunggal, baik untuk banyak data ganjil maupun genap.",
+          "Menyusun statistik lima serangkai dan menggambarkannya sebagai diagram kotak garis (boxplot).",
+          "Membaca diagram kotak garis untuk menyimpulkan sebaran data, seperti persentase data di antara dua kuartil."
+        ],
+        "hook": "Median membelah data menjadi dua bagian sama banyak. Bagaimana bila kita ingin tahu lebih jauh: nilai berapa yang menjadi batas seperempat siswa terbawah? Berapa nilai minimal untuk masuk seperempat teratas? Membelah lagi setiap separuh data menghasilkan tiga titik potong yang disebut KUARTIL. Bersama nilai terkecil dan terbesar, kelima bilangan itu dapat digambar sebagai sebuah kotak dengan dua kumis — gambar ringkas yang memperlihatkan pusat sekaligus sebaran data.",
+        "toolkit": [
+          {
+            "name": "Kuartil Tengah",
+            "math": "$$Q_2 = \\text{median seluruh data (terurut)}$$"
+          },
+          {
+            "name": "Kuartil Bawah",
+            "math": "$$Q_1 = \\text{median separuh data di bawah } Q_2$$"
+          },
+          {
+            "name": "Kuartil Atas",
+            "math": "$$Q_3 = \\text{median separuh data di atas } Q_2$$"
+          },
+          {
+            "name": "n Ganjil",
+            "math": "$$\\text{data ke-}Q_2 \\text{ TIDAK ikut ke separuh bawah maupun atas}$$"
+          },
+          {
+            "name": "Statistik Lima Serangkai",
+            "math": "$$x_{\\min},\\ Q_1,\\ Q_2,\\ Q_3,\\ x_{\\max}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan $Q_1$, $Q_2$, dan $Q_3$ dari data $3, 5, 6, 8, 9, 11, 12, 14, 15$.",
+            "solution": "Langkah 1: Data sudah terurut dan $n = 9$ (ganjil).\n\nLangkah 2: $Q_2$ adalah median, yaitu data ke-$5$.\n$Q_2 = 9$\n\nLangkah 3: Karena $n$ ganjil, data ke-$5$ tidak ikut ke separuh mana pun. Separuh bawah: $3, 5, 6, 8$. Separuh atas: $11, 12, 14, 15$.\n\nLangkah 4: $Q_1$ adalah median separuh bawah.\n$Q_1 = \\frac{5 + 6}{2} = 5{,}5$\n\nLangkah 5: $Q_3$ adalah median separuh atas.\n$Q_3 = \\frac{12 + 14}{2} = 13$\n\nLangkah 6: Periksa pembagiannya: di bawah $5{,}5$ ada $2$ data, di antara $5{,}5$ dan $9$ ada $2$ data, di antara $9$ dan $13$ ada $2$ data, dan di atas $13$ ada $2$ data — empat bagian yang sama banyak.\n\nKesimpulan: $Q_1 = 5{,}5$, $Q_2 = 9$, dan $Q_3 = 13$."
+          },
+          {
+            "problem": "Tentukan $Q_1$, $Q_2$, dan $Q_3$ dari data $2, 4, 5, 7, 8, 10, 11, 13$.",
+            "solution": "Langkah 1: Data terurut dan $n = 8$ (genap).\n\nLangkah 2: $Q_2$ adalah rata-rata data ke-$4$ dan ke-$5$.\n$Q_2 = \\frac{7 + 8}{2} = 7{,}5$\n\nLangkah 3: Karena $n$ genap, data terbagi tepat menjadi dua separuh. Separuh bawah: $2, 4, 5, 7$. Separuh atas: $8, 10, 11, 13$.\n\nLangkah 4: $Q_1$ adalah median separuh bawah.\n$Q_1 = \\frac{4 + 5}{2} = 4{,}5$\n\nLangkah 5: $Q_3$ adalah median separuh atas.\n$Q_3 = \\frac{10 + 11}{2} = 10{,}5$\n\nLangkah 6: Perhatikan bahwa ketiga kuartil di sini bukan data asli, melainkan nilai di antara dua data. Hal itu wajar.\n\nKesimpulan: $Q_1 = 4{,}5$, $Q_2 = 7{,}5$, dan $Q_3 = 10{,}5$."
+          },
+          {
+            "problem": "Susunlah statistik lima serangkai data $3, 5, 6, 8, 9, 11, 12, 14, 15$ dan jelaskan bentuk diagram kotak garisnya.",
+            "solution": "Langkah 1: Dari Contoh 1: $Q_1 = 5{,}5$, $Q_2 = 9$, $Q_3 = 13$. Nilai terkecil $3$ dan terbesar $15$.\n\nLangkah 2: Statistik lima serangkai.\n$x_{\\min} = 3$, $Q_1 = 5{,}5$, $Q_2 = 9$, $Q_3 = 13$, $x_{\\max} = 15$\n\nLangkah 3: Gambar sebuah garis bilangan yang memuat $3$ sampai $15$.\n\nLangkah 4: Gambar KOTAK dari $Q_1 = 5{,}5$ sampai $Q_3 = 13$, lalu tarik garis tegak di dalamnya pada $Q_2 = 9$.\n\nLangkah 5: Tarik KUMIS kiri dari $5{,}5$ ke $3$, dan kumis kanan dari $13$ ke $15$.\n\nLangkah 6: Kotak memuat $50\\%$ data yang di tengah, sedangkan setiap kumis memuat $25\\%$ data. Kumis kiri ($2{,}5$ satuan) dan kanan ($2$ satuan) hampir sama panjang, jadi ujung-ujung datanya tersebar cukup seimbang.\n\nKesimpulan: Statistik lima serangkainya $3$; $5{,}5$; $9$; $13$; $15$, digambar sebagai kotak dari $5{,}5$ sampai $13$ dengan garis median di $9$ dan kumis ke $3$ dan $15$."
+          },
+          {
+            "problem": "Diagram kotak garis nilai ujian $80$ siswa menunjukkan: nilai terkecil $40$, $Q_1 = 55$, $Q_2 = 65$, $Q_3 = 75$, dan nilai terbesar $95$. Berapa siswa yang nilainya di antara $55$ dan $75$, dan berapa yang nilainya di atas $75$?",
+            "solution": "Langkah 1: Kuartil membagi data terurut menjadi empat bagian yang masing-masing berisi sekitar $25\\%$ data.\n\nLangkah 2: Di antara $Q_1 = 55$ dan $Q_3 = 75$ terdapat dua bagian, yaitu $50\\%$ data.\n$50\\% \\times 80 = 40$ siswa\n\nLangkah 3: Di atas $Q_3 = 75$ terdapat satu bagian, yaitu $25\\%$ data.\n$25\\% \\times 80 = 20$ siswa\n\nLangkah 4: Perhatikan bahwa kumis kanan ($75$ ke $95$, panjang $20$) lebih panjang daripada kumis kiri ($40$ ke $55$, panjang $15$). Artinya seperempat siswa teratas nilainya lebih tersebar daripada seperempat terbawah — walaupun banyak siswanya SAMA.\n\nLangkah 5: Panjang bagian diagram tidak menunjukkan banyak data; setiap bagian selalu berisi sekitar seperempat data.\n\nKesimpulan: Sekitar $40$ siswa nilainya di antara $55$ dan $75$, dan sekitar $20$ siswa nilainya di atas $75$."
+          },
+          {
+            "problem": "Tabel nilai $20$ siswa: nilai $5$ ada $2$, $6$ ada $4$, $7$ ada $5$, $8$ ada $6$, dan $9$ ada $3$. Tentukan ketiga kuartilnya.",
+            "solution": "Langkah 1: $n = 20$. $Q_2$ adalah rata-rata data ke-$10$ dan ke-$11$; separuh bawah adalah data ke-$1$ sampai ke-$10$, dan separuh atas data ke-$11$ sampai ke-$20$.\n\nLangkah 2: Frekuensi kumulatif.\nnilai $5$: $2$; nilai $6$: $6$; nilai $7$: $11$; nilai $8$: $17$; nilai $9$: $20$\n\nLangkah 3: $Q_2$: data ke-$10$ dan ke-$11$ bernilai $7$.\n$Q_2 = 7$\n\nLangkah 4: $Q_1$ adalah median data ke-$1$ sampai ke-$10$, yaitu rata-rata data ke-$5$ dan ke-$6$. Keduanya bernilai $6$.\n$Q_1 = 6$\n\nLangkah 5: $Q_3$ adalah median data ke-$11$ sampai ke-$20$, yaitu rata-rata data ke-$15$ dan ke-$16$. Keduanya bernilai $8$.\n$Q_3 = 8$\n\nLangkah 6: Frekuensi kumulatif menghindarkan kita dari menuliskan kedua puluh data satu per satu.\n\nKesimpulan: $Q_1 = 6$, $Q_2 = 7$, dan $Q_3 = 8$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok mengukur tinggi badan (cm) anggota kelas atau memakai data tinggi yang disiapkan guru, minimal $15$ data. Di papan, urutkan datanya, tentukan statistik lima serangkai, lalu gambar diagram kotak garisnya di atas garis bilangan berskala. Tempelkan diagram kelompok-kelompok lain di bawahnya pada skala yang sama. Tuliskan dua kalimat perbandingan: mana yang mediannya lebih tinggi, dan mana yang kotaknya lebih lebar?",
+        "summary_data": {
+          "summary": [
+            "Kuartil membagi data terurut menjadi empat bagian yang sama banyak.",
+            "$Q_2$ adalah median seluruh data.",
+            "$Q_1$ adalah median separuh bawah, dan $Q_3$ adalah median separuh atas.",
+            "Bila $n$ ganjil, data tengah ($Q_2$) tidak ikut ke separuh bawah maupun atas.",
+            "Bila $n$ genap, data terbagi tepat menjadi dua separuh yang sama banyak.",
+            "Kuartil boleh bukan data asli, misalnya rata-rata dua data yang berdampingan.",
+            "Statistik lima serangkai: nilai terkecil, $Q_1$, $Q_2$, $Q_3$, nilai terbesar.",
+            "Kotak pada diagram kotak garis memuat sekitar $50\\%$ data yang di tengah.",
+            "Setiap kumis memuat sekitar $25\\%$ data; kumis yang panjang berarti data di bagian itu lebih tersebar.",
+            "Frekuensi kumulatif memudahkan penentuan kuartil dari tabel frekuensi."
+          ],
+          "islamic": "Keadilan menuntut takaran dan pembagian yang tepat. \"Dan sempurnakanlah takaran dan timbangan dengan adil.\" (QS. Al-An'am: 152)"
+        },
+        "collab_cases": [
+          "Tentukan $Q_1$, $Q_2$, dan $Q_3$ dari data $12, 15, 9, 20, 18, 11, 14$.",
+          "Tentukan $Q_1$, $Q_2$, dan $Q_3$ dari data $3, 7, 8, 5, 12, 14, 21, 13, 18, 10$.",
+          "Susunlah statistik lima serangkai data nomor 2 dan gambar diagram kotak garisnya.",
+          "Diagram kotak garis nilai $120$ siswa: terkecil $30$, $Q_1 = 50$, $Q_2 = 62$, $Q_3 = 70$, terbesar $98$. Berapa siswa yang nilainya di bawah $50$? Mana yang lebih tersebar, seperempat terbawah atau teratas?",
+          "Tabel nilai $24$ siswa: $6$ ada $3$, $7$ ada $7$, $8$ ada $8$, $9$ ada $4$, $10$ ada $2$. Tentukan ketiga kuartilnya."
+        ]
+      },
+      "soal": {
+        "id": "P42",
+        "subject": "wajib",
+        "title": "P42 • Kuartil dan Diagram Kotak Garis",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P42-Q1] Kuartil tengah $Q_2$ dari data $4, 7, 9, 10, 12, 15, 18$ adalah $\\dots$",
+            "opsi": [
+              "A. $9$",
+              "B. $10$",
+              "C. $12$",
+              "D. $11$",
+              "E. $7$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Data sudah terurut dan $n = 7$.\n\nLangkah 2: $Q_2$ adalah median, yaitu data ke-$\\frac{7 + 1}{2} = 4$.\n\nLangkah 3: Data ke-$4$ adalah $10$.\n\nLangkah 4: Jadi $Q_2 = 10$.\n\nLangkah 5: Opsi D ($11$) adalah rata-rata semua data ($\\frac{75}{7} \\approx 10{,}7$ dibulatkan) — rata-rata bukan kuartil tengah.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P42-Q2] Kuartil bawah $Q_1$ dari data $4, 7, 9, 10, 12, 15, 18$ adalah $\\dots$",
+            "opsi": [
+              "A. $7$",
+              "B. $8$",
+              "C. $5{,}5$",
+              "D. $9$",
+              "E. $4$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: $Q_2 = 10$ (data ke-$4$). Karena $n$ ganjil, data $10$ tidak ikut ke separuh mana pun.\n\nLangkah 2: Separuh bawah: $4, 7, 9$.\n\nLangkah 3: $Q_1$ adalah median separuh bawah, yaitu data tengahnya.\n$Q_1 = 7$\n\nLangkah 4: Opsi B ($8$) muncul bila $10$ ikut ke separuh bawah: median $4, 7, 9, 10$ adalah $\\frac{7 + 9}{2} = 8$.\n\nLangkah 5: Opsi C ($5{,}5$) adalah rata-rata $4$ dan $7$ — tidak ada alasan mengambil dua data itu.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P42-Q3] Kuartil atas $Q_3$ dari data $2, 4, 5, 7, 8, 10, 11, 13$ adalah $\\dots$",
+            "opsi": [
+              "A. $10$",
+              "B. $11$",
+              "C. $8$",
+              "D. $10{,}5$",
+              "E. $9$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: $n = 8$ genap, jadi data terbagi tepat dua. Separuh atas: $8, 10, 11, 13$.\n\nLangkah 2: $Q_3$ adalah median separuh atas, yaitu rata-rata dua data tengahnya.\n$Q_3 = \\frac{10 + 11}{2} = 10{,}5$\n\nLangkah 3: Periksa: dari $8$ data, ada $2$ data di atas $10{,}5$ — tepat seperempat.\n\nLangkah 4: Opsi A dan B masing-masing hanya mengambil satu dari dua data tengah separuh atas.\n\nLangkah 5: Opsi C ($8$) adalah data pertama separuh atas, bukan mediannya.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P42-Q4] Statistik lima serangkai ($x_{\\min}$; $Q_1$; $Q_2$; $Q_3$; $x_{\\max}$) dari data $3, 5, 6, 8, 9, 11, 12, 14, 15$ adalah $\\dots$",
+            "opsi": [
+              "A. $3$; $5$; $9$; $12$; $15$",
+              "B. $3$; $6$; $9$; $12$; $15$",
+              "C. $3$; $5{,}5$; $9$; $13$; $15$",
+              "D. $3$; $5{,}5$; $8{,}5$; $13$; $15$",
+              "E. $5{,}5$; $9$; $13$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Nilai terkecil $3$ dan terbesar $15$.\n\nLangkah 2: $n = 9$, jadi $Q_2$ adalah data ke-$5$: $9$.\n\nLangkah 3: Separuh bawah $3, 5, 6, 8$: $Q_1 = \\frac{5 + 6}{2} = 5{,}5$.\n\nLangkah 4: Separuh atas $11, 12, 14, 15$: $Q_3 = \\frac{12 + 14}{2} = 13$.\n\nLangkah 5: Opsi E hanya memuat ketiga kuartil — statistik lima serangkai juga memuat nilai terkecil dan terbesar.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P42-Q5] Diagram kotak garis nilai $80$ siswa menunjukkan: terkecil $40$, $Q_1 = 55$, $Q_2 = 65$, $Q_3 = 75$, terbesar $95$. Banyak siswa yang nilainya di antara $55$ dan $75$ kira-kira $\\dots$",
+            "opsi": [
+              "A. $20$",
+              "B. $40$",
+              "C. $60$",
+              "D. $80$",
+              "E. $50$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Nilai $55$ adalah $Q_1$ dan nilai $75$ adalah $Q_3$.\n\nLangkah 2: Di antara $Q_1$ dan $Q_3$ terdapat sekitar $50\\%$ data.\n\nLangkah 3: Hitung.\n$50\\% \\times 80 = 40$\n\nLangkah 4: Opsi A ($20$) hanya mengambil satu bagian ($25\\%$).\n\nLangkah 5: Opsi E ($50$) keliru menganggap $50\\%$ sebagai banyak siswa.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P42-Q6] Diagram kotak garis nilai ujian suatu kelas menunjukkan: terkecil $40$, $Q_1 = 55$, $Q_2 = 65$, $Q_3 = 75$, terbesar $95$. Pernyataan yang BENAR adalah $\\dots$",
+            "opsi": [
+              "A. setengah siswa mendapat nilai di atas $75$",
+              "B. rata-rata nilai kelas itu $65$",
+              "C. tidak ada siswa yang mendapat nilai $50$",
+              "D. jangkauan data itu $40$",
+              "E. sekitar seperempat siswa mendapat nilai di bawah $55$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: $Q_1 = 55$ berarti sekitar $25\\%$ data berada di bawah $55$. Pernyataan E benar.\n\nLangkah 2: Opsi A keliru: di atas $Q_3 = 75$ hanya sekitar $25\\%$, bukan setengah.\n\nLangkah 3: Opsi B keliru: $65$ adalah MEDIAN. Diagram kotak garis tidak menunjukkan rata-rata.\n\nLangkah 4: Opsi C tidak dapat dipastikan: nilai $50$ terletak di antara $40$ dan $55$, jadi mungkin saja ada.\n\nLangkah 5: Opsi D keliru: jangkauan $= 95 - 40 = 55$, bukan $40$.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P42-Q7] Perhatikan tabel frekuensi nilai berikut. [5 : 2], [6 : 4], [7 : 5], [8 : 6], [9 : 3] Kuartil atas $Q_3$ data itu adalah $\\dots$",
+            "opsi": [
+              "A. $7$",
+              "B. $7{,}5$",
+              "C. $9$",
+              "D. $8$",
+              "E. $8{,}5$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: $n = 20$. Separuh atas adalah data ke-$11$ sampai ke-$20$, dan $Q_3$ adalah rata-rata data ke-$15$ dan ke-$16$.\n\nLangkah 2: Frekuensi kumulatif.\nnilai $5$: $2$; $6$: $6$; $7$: $11$; $8$: $17$; $9$: $20$\n\nLangkah 3: Data ke-$12$ sampai ke-$17$ bernilai $8$. Jadi data ke-$15$ dan ke-$16$ keduanya $8$.\n\nLangkah 4: Hitung.\n$Q_3 = \\frac{8 + 8}{2} = 8$\n\nLangkah 5: Opsi A ($7$) adalah $Q_2$. Opsi C ($9$) adalah nilai terbesar.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P42-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Kuartil tengah $Q_2$ sama dengan median.",
+              "(2) Di antara $Q_1$ dan $Q_3$ terdapat sekitar $50\\%$ data.",
+              "(3) Kuartil bawah data $1, 2, 3, 4, 5, 6, 7, 8$ adalah $2$."
+            ],
+            "kunci": "B - B - S",
+            "bahas": "Langkah 1: Pernyataan (1): $Q_2$ membelah data menjadi dua bagian sama banyak — itulah median. BENAR.\n\nLangkah 2: Pernyataan (2): dari $Q_1$ ke $Q_2$ ada $25\\%$ dan dari $Q_2$ ke $Q_3$ ada $25\\%$, jumlahnya $50\\%$. BENAR.\n\nLangkah 3: Pernyataan (3): $n = 8$, separuh bawah $1, 2, 3, 4$.\n\nLangkah 4: $Q_1 = \\frac{2 + 3}{2} = 2{,}5$, bukan $2$.\n\nLangkah 5: Pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban B - B - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P42-Q9] Diketahui data $10, 12, 15, 15, 18, 20, 22, 25, 30, 32$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. $Q_1 = 15$",
+              "B. $Q_2 = 19$",
+              "C. $Q_3 = 25$",
+              "D. $Q_3 = 30$",
+              "E. $Q_2 = 18$"
+            ],
+            "kunci": "A, B, C",
+            "bahas": "Langkah 1: $n = 10$ genap. $Q_2 = \\frac{18 + 20}{2} = 19$ — B benar, E salah.\n\nLangkah 2: Separuh bawah: $10, 12, 15, 15, 18$. Mediannya data ke-$3$: $Q_1 = 15$ — A benar.\n\nLangkah 3: Separuh atas: $20, 22, 25, 30, 32$. Mediannya data ke-$3$: $Q_3 = 25$ — C benar, D salah.\n\nLangkah 4: Opsi E ($18$) hanya mengambil data ke-$5$, padahal $n$ genap sehingga $Q_2$ adalah rata-rata data ke-$5$ dan ke-$6$.\n\nKesimpulan: Kunci Jawaban A, B, C."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P42-Q10] Diketahui data $5, 8, 9, 12, 14, 15, 17, 20, 21$. Nilai $Q_1 + Q_3$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "27",
+            "bahas": "Langkah 1: $n = 9$ ganjil, jadi $Q_2$ adalah data ke-$5$: $14$. Data ini tidak ikut ke separuh mana pun.\n\nLangkah 2: Separuh bawah $5, 8, 9, 12$: $Q_1 = \\frac{8 + 9}{2} = 8{,}5$.\n\nLangkah 3: Separuh atas $15, 17, 20, 21$: $Q_3 = \\frac{17 + 20}{2} = 18{,}5$.\n\nLangkah 4: Jumlahkan.\n$8{,}5 + 18{,}5 = 27$\n\nKesimpulan: Kunci Jawaban 27."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P43",
+      "judul": "Ukuran Penyebaran: Jangkauan, Jangkauan Antarkuartil, Ragam, dan Simpangan Baku",
+      "materi": {
+        "id": "P43",
+        "bab": "Bab 7: Statistika",
+        "title": "Ukuran Penyebaran: Jangkauan, Jangkauan Antarkuartil, Ragam, dan Simpangan Baku",
+        "obj": [
+          "Menghitung jangkauan, jangkauan antarkuartil, dan simpangan kuartil data tunggal.",
+          "Menghitung simpangan rata-rata, ragam, dan simpangan baku data tunggal maupun data dalam tabel frekuensi.",
+          "Membandingkan keseragaman dua kelompok data yang rata-ratanya sama memakai ukuran penyebaran."
+        ],
+        "hook": "Dua pemanah sama-sama memperoleh skor rata-rata $7$. Anak panah pemanah pertama menancap di $6, 7, 7, 8, 7$ — rapat mengelilingi pusat. Anak panah pemanah kedua menancap di $3, 5, 7, 9, 11$ — tercecer ke mana-mana. Rata-rata tidak dapat membedakan keduanya, padahal jelas siapa yang lebih konsisten. Yang dibutuhkan adalah ukuran seberapa jauh data MENYEBAR dari pusatnya.",
+        "toolkit": [
+          {
+            "name": "Jangkauan",
+            "math": "$$J = x_{\\max} - x_{\\min}$$"
+          },
+          {
+            "name": "Jangkauan Antarkuartil",
+            "math": "$$H = Q_3 - Q_1,\\qquad Q_d = \\tfrac{1}{2}(Q_3 - Q_1)$$"
+          },
+          {
+            "name": "Simpangan Rata-rata",
+            "math": "$$SR = \\frac{\\sum |x - \\bar{x}|}{n}$$"
+          },
+          {
+            "name": "Ragam",
+            "math": "$$s^2 = \\frac{\\sum (x - \\bar{x})^2}{n}$$"
+          },
+          {
+            "name": "Simpangan Baku",
+            "math": "$$s = \\sqrt{s^2} = \\sqrt{\\frac{\\sum (x - \\bar{x})^2}{n}}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan jangkauan, jangkauan antarkuartil, dan simpangan kuartil data $4, 7, 9, 10, 12, 15, 18$.",
+            "solution": "Langkah 1: Jangkauan adalah selisih nilai terbesar dan terkecil.\n$J = 18 - 4 = 14$\n\nLangkah 2: Tentukan kuartil. $n = 7$, $Q_2 = 10$ (data ke-$4$). Separuh bawah $4, 7, 9$ dan separuh atas $12, 15, 18$.\n$Q_1 = 7$ dan $Q_3 = 15$\n\nLangkah 3: Jangkauan antarkuartil.\n$H = Q_3 - Q_1 = 15 - 7 = 8$\n\nLangkah 4: Simpangan kuartil adalah setengahnya.\n$Q_d = \\frac{1}{2} \\times 8 = 4$\n\nLangkah 5: Jangkauan hanya memakai dua data paling ujung, sehingga sangat peka terhadap nilai ekstrem. Jangkauan antarkuartil hanya melihat $50\\%$ data di tengah, sehingga lebih stabil.\n\nKesimpulan: Jangkauan $14$, jangkauan antarkuartil $8$, dan simpangan kuartil $4$."
+          },
+          {
+            "problem": "Tentukan ragam dan simpangan baku data $2, 4, 4, 4, 5, 5, 7, 9$.",
+            "solution": "Langkah 1: Hitung rata-rata lebih dahulu.\n$\\bar{x} = \\frac{2 + 4 + 4 + 4 + 5 + 5 + 7 + 9}{8} = \\frac{40}{8} = 5$\n\nLangkah 2: Hitung simpangan setiap data dari rata-rata, $x - \\bar{x}$.\n$-3, -1, -1, -1, 0, 0, 2, 4$\n\nLangkah 3: Periksa: jumlah simpangan selalu nol. $-3 - 1 - 1 - 1 + 0 + 0 + 2 + 4 = 0$ — cocok. Itulah sebabnya simpangan harus dikuadratkan (atau dimutlakkan) sebelum dijumlahkan.\n\nLangkah 4: Kuadratkan setiap simpangan.\n$9, 1, 1, 1, 0, 0, 4, 16$\n\nLangkah 5: Jumlahkan lalu bagi dengan $n$.\n$s^2 = \\frac{32}{8} = 4$\n\nLangkah 6: Simpangan baku adalah akar ragam.\n$s = \\sqrt{4} = 2$\n\nLangkah 7: Simpangan baku mempunyai satuan yang sama dengan datanya, sedangkan ragam bersatuan kuadrat. Karena itu simpangan baku lebih mudah ditafsirkan.\n\nKesimpulan: Ragamnya $4$ dan simpangan bakunya $2$."
+          },
+          {
+            "problem": "Tentukan simpangan rata-rata data $2, 4, 4, 4, 5, 5, 7, 9$.",
+            "solution": "Langkah 1: Rata-ratanya $5$ (lihat Contoh 2).\n\nLangkah 2: Hitung jarak setiap data ke rata-rata dengan nilai mutlak.\n$|{-3}|, |{-1}|, |{-1}|, |{-1}|, 0, 0, |2|, |4| = 3, 1, 1, 1, 0, 0, 2, 4$\n\nLangkah 3: Jumlahkan.\n$3 + 1 + 1 + 1 + 0 + 0 + 2 + 4 = 12$\n\nLangkah 4: Bagi dengan $n$.\n$SR = \\frac{12}{8} = 1{,}5$\n\nLangkah 5: Artinya, secara rata-rata setiap data berjarak $1{,}5$ satuan dari rata-ratanya.\n\nLangkah 6: Simpangan rata-rata ($1{,}5$) lebih kecil daripada simpangan baku ($2$). Pengkuadratan memberi bobot lebih besar pada data yang jauh, seperti $9$.\n\nKesimpulan: Simpangan rata-ratanya $1{,}5$."
+          },
+          {
+            "problem": "Skor dua pemanah: A $= 6, 7, 7, 8, 7$ dan B $= 3, 5, 7, 9, 11$. Bandingkan keseragaman keduanya memakai ragam.",
+            "solution": "Langkah 1: Rata-rata A: $\\frac{35}{5} = 7$. Rata-rata B: $\\frac{35}{5} = 7$. Rata-ratanya sama.\n\nLangkah 2: Ragam A. Simpangan: $-1, 0, 0, 1, 0$. Kuadrat: $1, 0, 0, 1, 0$.\n$s_A^2 = \\frac{2}{5} = 0{,}4$\n\nLangkah 3: Ragam B. Simpangan: $-4, -2, 0, 2, 4$. Kuadrat: $16, 4, 0, 4, 16$.\n$s_B^2 = \\frac{40}{5} = 8$\n\nLangkah 4: Ragam B dua puluh kali ragam A.\n\nLangkah 5: Simpangan baku: $s_A = \\sqrt{0{,}4} \\approx 0{,}63$ dan $s_B = \\sqrt{8} = 2\\sqrt{2} \\approx 2{,}83$.\n\nLangkah 6: Semakin kecil ukuran penyebaran, semakin seragam datanya. Jadi pemanah A jauh lebih konsisten.\n\nKesimpulan: Walaupun rata-ratanya sama, ragam A ($0{,}4$) jauh lebih kecil daripada ragam B ($8$), sehingga skor pemanah A lebih seragam."
+          },
+          {
+            "problem": "Tabel nilai: nilai $2$ ada $1$, nilai $4$ ada $3$, nilai $6$ ada $3$, dan nilai $8$ ada $1$. Tentukan ragam dan simpangan bakunya.",
+            "solution": "Langkah 1: Hitung rata-rata.\n$\\bar{x} = \\frac{2(1) + 4(3) + 6(3) + 8(1)}{8} = \\frac{40}{8} = 5$\n\nLangkah 2: Hitung simpangan kuadrat setiap nilai.\n$(2 - 5)^2 = 9$, $(4 - 5)^2 = 1$, $(6 - 5)^2 = 1$, $(8 - 5)^2 = 9$\n\nLangkah 3: Kalikan setiap simpangan kuadrat dengan frekuensinya.\n$9(1) + 1(3) + 1(3) + 9(1) = 24$\n\nLangkah 4: Bagi dengan banyak data.\n$s^2 = \\frac{24}{8} = 3$\n\nLangkah 5: Simpangan baku.\n$s = \\sqrt{3} \\approx 1{,}73$\n\nLangkah 6: Kekeliruan yang sering terjadi adalah lupa mengalikan dengan frekuensi, sehingga diperoleh $\\frac{9 + 1 + 1 + 9}{8} = 2{,}5$.\n\nKesimpulan: Ragamnya $3$ dan simpangan bakunya $\\sqrt{3} \\approx 1{,}73$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap anggota kelompok melempar kertas yang diremas ke sebuah keranjang dari jarak yang sama sebanyak lima kali, dan mencatat jarak jatuhnya dari pusat keranjang (cm). Di papan, hitung rata-rata, jangkauan, dan simpangan baku setiap anggota. Siapa yang paling konsisten? Apakah orang dengan rata-rata jarak terkecil selalu juga yang paling konsisten? Diskusikan mengapa kedua ukuran itu menjawab pertanyaan yang berbeda.",
+        "summary_data": {
+          "summary": [
+            "Ukuran penyebaran menunjukkan seberapa jauh data tersebar dari pusatnya.",
+            "Jangkauan $J = x_{\\max} - x_{\\min}$ hanya memakai dua data dan sangat peka terhadap nilai ekstrem.",
+            "Jangkauan antarkuartil $H = Q_3 - Q_1$ melihat $50\\%$ data di tengah, dan simpangan kuartil $Q_d = \\frac{1}{2}H$.",
+            "Jumlah simpangan $\\sum (x - \\bar{x})$ selalu nol, sehingga simpangan dimutlakkan atau dikuadratkan.",
+            "Simpangan rata-rata $SR = \\frac{\\sum |x - \\bar{x}|}{n}$.",
+            "Ragam $s^2 = \\frac{\\sum (x - \\bar{x})^2}{n}$ bersatuan kuadrat.",
+            "Simpangan baku $s = \\sqrt{s^2}$ bersatuan sama dengan data.",
+            "Pada tabel frekuensi, setiap simpangan kuadrat dikalikan frekuensinya.",
+            "Semakin kecil ukuran penyebaran, semakin seragam (konsisten) datanya.",
+            "Jika semua data sama, semua ukuran penyebarannya nol."
+          ],
+          "islamic": "Keseimbangan adalah amanah yang tidak boleh dirusak. \"Dan langit telah ditinggikan-Nya dan Dia ciptakan keseimbangan, agar kamu jangan merusak keseimbangan itu.\" (QS. Ar-Rahman: 7–8)"
+        },
+        "collab_cases": [
+          "Tentukan jangkauan, jangkauan antarkuartil, dan simpangan kuartil data $6, 9, 11, 13, 14, 17, 20, 22, 25$.",
+          "Tentukan ragam dan simpangan baku data $3, 5, 6, 8, 8$.",
+          "Tentukan simpangan rata-rata data $10, 12, 14, 16, 18$.",
+          "Nilai dua siswa dalam lima ulangan: Andi $70, 72, 75, 78, 80$ dan Budi $55, 65, 75, 85, 95$. Siapa yang nilainya lebih konsisten? Tunjukkan dengan ragam.",
+          "Tabel nilai: $5$ ada $2$, $7$ ada $6$, $9$ ada $2$. Tentukan ragam dan simpangan bakunya."
+        ]
+      },
+      "soal": {
+        "id": "P43",
+        "subject": "wajib",
+        "title": "P43 • Ukuran Penyebaran: Jangkauan, Jangkauan Antarkuartil, Ragam, dan Simpangan Baku",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P43-Q1] Jangkauan data $12, 7, 15, 9, 20, 11$ adalah $\\dots$",
+            "opsi": [
+              "A. $13$",
+              "B. $8$",
+              "C. $20$",
+              "D. $15$",
+              "E. $5$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Cari nilai terbesar dan terkecil.\n$x_{\\max} = 20$ dan $x_{\\min} = 7$\n\nLangkah 2: Hitung selisihnya.\n$J = 20 - 7 = 13$\n\nLangkah 3: Data tidak perlu diurutkan seluruhnya; cukup temukan kedua ujungnya.\n\nLangkah 4: Opsi B ($8$) adalah selisih data pertama dan kedua ($15 - 7$) — bukan kedua ujung.\n\nLangkah 5: Opsi C ($20$) adalah nilai terbesar saja.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P43-Q2] Jangkauan antarkuartil data $4, 7, 9, 10, 12, 15, 18$ adalah $\\dots$",
+            "opsi": [
+              "A. $14$",
+              "B. $4$",
+              "C. $8$",
+              "D. $7$",
+              "E. $11$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: $n = 7$, $Q_2 = 10$. Separuh bawah $4, 7, 9$: $Q_1 = 7$. Separuh atas $12, 15, 18$: $Q_3 = 15$.\n\nLangkah 2: Hitung.\n$H = Q_3 - Q_1 = 15 - 7 = 8$\n\nLangkah 3: Opsi A ($14$) adalah jangkauan, bukan jangkauan antarkuartil.\n\nLangkah 4: Opsi B ($4$) adalah simpangan kuartil, yaitu setengah dari $H$.\n\nLangkah 5: Periksa: kotak diagram kotak garis membentang dari $7$ ke $15$, panjangnya $8$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P43-Q3] Ragam data $2, 4, 4, 4, 5, 5, 7, 9$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $4$",
+              "C. $32$",
+              "D. $16$",
+              "E. $1{,}5$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Rata-rata: $\\frac{40}{8} = 5$.\n\nLangkah 2: Simpangan kuadrat: $9, 1, 1, 1, 0, 0, 4, 16$, jumlahnya $32$.\n\nLangkah 3: Ragam.\n$s^2 = \\frac{32}{8} = 4$\n\nLangkah 4: Opsi A ($2$) adalah simpangan baku, yaitu akar dari ragam.\n\nLangkah 5: Opsi C ($32$) lupa membagi dengan $n$. Opsi E ($1{,}5$) adalah simpangan rata-rata.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P43-Q4] Simpangan baku data $1, 2, 3, 4, 5$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $1{,}2$",
+              "C. $10$",
+              "D. $\\sqrt{2}$",
+              "E. $2\\sqrt{2}$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Rata-rata: $\\frac{15}{5} = 3$.\n\nLangkah 2: Simpangan: $-2, -1, 0, 1, 2$. Simpangan kuadrat: $4, 1, 0, 1, 4$, jumlahnya $10$.\n\nLangkah 3: Ragam.\n$s^2 = \\frac{10}{5} = 2$\n\nLangkah 4: Simpangan baku.\n$s = \\sqrt{2} \\approx 1{,}41$\n\nLangkah 5: Opsi A ($2$) adalah ragam yang belum diakarkan, dan opsi C ($10$) belum dibagi $n$. Opsi B ($1{,}2$) adalah simpangan rata-rata, $\\frac{2 + 1 + 0 + 1 + 2}{5}$, bukan simpangan baku.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P43-Q5] Simpangan rata-rata data $2, 4, 6, 8, 10$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $12$",
+              "C. $6$",
+              "D. $2{,}8$",
+              "E. $2{,}4$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Rata-rata: $\\frac{30}{5} = 6$.\n\nLangkah 2: Jarak mutlak setiap data ke rata-rata: $4, 2, 0, 2, 4$.\n\nLangkah 3: Jumlahkan.\n$4 + 2 + 0 + 2 + 4 = 12$\n\nLangkah 4: Bagi dengan $n$.\n$SR = \\frac{12}{5} = 2{,}4$\n\nLangkah 5: Opsi B ($12$) lupa membagi. Opsi D ($2{,}8$) adalah simpangan baku ($\\sqrt{8} \\approx 2{,}83$), bukan simpangan rata-rata.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P43-Q6] Kelima kelompok data berikut mempunyai rata-rata sama, yaitu $5$. Kelompok yang datanya PALING seragam adalah $\\dots$",
+            "opsi": [
+              "A. $4, 5, 5, 5, 6$",
+              "B. $3, 4, 5, 6, 7$",
+              "C. $1, 5, 5, 5, 9$",
+              "D. $1, 3, 5, 7, 9$",
+              "E. $2, 5, 5, 5, 8$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Paling seragam berarti ukuran penyebarannya paling kecil. Bandingkan ragamnya.\n\nLangkah 2: A: simpangan kuadrat $1, 0, 0, 0, 1$, ragam $\\frac{2}{5} = 0{,}4$.\n\nLangkah 3: B: $4, 1, 0, 1, 4$, ragam $\\frac{10}{5} = 2$. E: $9, 0, 0, 0, 9$, ragam $3{,}6$.\n\nLangkah 4: C: $16, 0, 0, 0, 16$, ragam $6{,}4$. D: $16, 4, 0, 4, 16$, ragam $8$.\n\nLangkah 5: Ragam terkecil milik A. Perhatikan bahwa C dan E mempunyai tiga data yang sama seperti A, tetapi dua data ujungnya yang jauh membuat ragamnya besar.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P43-Q7] Perhatikan tabel frekuensi nilai berikut. [2 : 1], [4 : 3], [6 : 3], [8 : 1] Ragam data itu adalah $\\dots$",
+            "opsi": [
+              "A. $5$",
+              "B. $24$",
+              "C. $3$",
+              "D. $\\sqrt{3}$",
+              "E. $2{,}5$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Rata-rata: $\\frac{2 + 12 + 18 + 8}{8} = \\frac{40}{8} = 5$.\n\nLangkah 2: Simpangan kuadrat setiap nilai: $9$, $1$, $1$, $9$.\n\nLangkah 3: Kalikan dengan frekuensi lalu jumlahkan.\n$9(1) + 1(3) + 1(3) + 9(1) = 24$\n\nLangkah 4: Ragam.\n$s^2 = \\frac{24}{8} = 3$\n\nLangkah 5: Opsi E ($2{,}5$) lupa mengalikan dengan frekuensi. Opsi D ($\\sqrt{3}$) adalah simpangan baku.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P43-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Jangkauan hanya bergantung pada data terbesar dan data terkecil.",
+              "(2) Simpangan baku selalu lebih besar daripada ragam.",
+              "(3) Jika semua data bernilai sama, simpangan bakunya nol."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): $J = x_{\\max} - x_{\\min}$, jadi data lain tidak berpengaruh. BENAR.\n\nLangkah 2: Pernyataan (2): bila ragam $4$, simpangan baku $2$ — lebih kecil. Bila ragam $0{,}25$, simpangan baku $0{,}5$ — lebih besar. Jadi tidak selalu.\n\nLangkah 3: Pernyataan (2) SALAH.\n\nLangkah 4: Pernyataan (3): semua data sama dengan rata-ratanya, sehingga setiap simpangan nol dan ragamnya nol.\n\nLangkah 5: Pernyataan (3) BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P43-Q9] Diketahui data $3, 5, 7, 9, 11$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Rata-ratanya $7$.",
+              "B. Jangkauannya $8$.",
+              "C. Ragamnya $8$.",
+              "D. Simpangan bakunya $8$.",
+              "E. Simpangan rata-ratanya $2{,}4$."
+            ],
+            "kunci": "A, B, C, E",
+            "bahas": "Langkah 1: A: $\\frac{35}{5} = 7$ — benar.\n\nLangkah 2: B: $11 - 3 = 8$ — benar.\n\nLangkah 3: C: simpangan kuadrat $16, 4, 0, 4, 16$, jumlahnya $40$, dan $\\frac{40}{5} = 8$ — benar.\n\nLangkah 4: D: simpangan baku $\\sqrt{8} = 2\\sqrt{2} \\approx 2{,}83$, bukan $8$ — salah.\n\nLangkah 5: E: jarak mutlak $4, 2, 0, 2, 4$, jumlahnya $12$, dan $\\frac{12}{5} = 2{,}4$ — benar.\n\nKesimpulan: Kunci Jawaban A, B, C, E."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P43-Q10] Ragam data $1, 3, 5, 7, 9$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "8",
+            "bahas": "Langkah 1: Rata-rata: $\\frac{25}{5} = 5$.\n\nLangkah 2: Simpangan: $-4, -2, 0, 2, 4$.\n\nLangkah 3: Simpangan kuadrat: $16, 4, 0, 4, 16$, jumlahnya $40$.\n\nLangkah 4: Ragam.\n$s^2 = \\frac{40}{5} = 8$\n\nKesimpulan: Kunci Jawaban 8."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P44",
+      "judul": "Pencilan, Transformasi Data, dan Membandingkan Kelompok Data",
+      "materi": {
+        "id": "P44",
+        "bab": "Bab 7: Statistika",
+        "title": "Pencilan, Transformasi Data, dan Membandingkan Kelompok Data",
+        "obj": [
+          "Menentukan pencilan memakai batas $Q_1 - 1{,}5H$ dan $Q_3 + 1{,}5H$, serta menjelaskan pengaruh pencilan terhadap rata-rata dan median.",
+          "Menentukan perubahan ukuran pemusatan dan penyebaran bila setiap data ditambah atau dikalikan dengan bilangan yang sama.",
+          "Membandingkan dua kelompok data memakai statistik lima serangkai dan ukuran penyebaran, lalu menarik kesimpulan yang jujur."
+        ],
+        "hook": "Sembilan siswa mengukur waktu tempuh ke sekolah: kebanyakan $12$ sampai $20$ menit, tetapi satu siswa menulis $45$ menit. Apakah ia tinggal sangat jauh, terjebak macet, atau salah menulis $15$? Nilai yang \"menyendiri\" seperti itu disebut PENCILAN. Pencilan tidak boleh diabaikan begitu saja, tetapi juga tidak boleh dibiarkan menguasai kesimpulan. Pertemuan ini menutup bab Statistika dengan cara mengenali pencilan, memahami apa yang terjadi pada ukuran-ukuran data bila datanya diubah, dan membandingkan dua kelompok data secara adil.",
+        "toolkit": [
+          {
+            "name": "Pagar Pencilan",
+            "math": "$$\\text{bawah} = Q_1 - 1{,}5H,\\qquad \\text{atas} = Q_3 + 1{,}5H,\\qquad H = Q_3 - Q_1$$"
+          },
+          {
+            "name": "Pencilan",
+            "math": "$$x < \\text{pagar bawah} \\quad \\text{atau} \\quad x > \\text{pagar atas}$$"
+          },
+          {
+            "name": "Setiap Data Ditambah k",
+            "math": "$$\\bar{x} \\to \\bar{x} + k;\\quad s,\\ J,\\ H \\text{ tetap}$$"
+          },
+          {
+            "name": "Setiap Data Dikali k",
+            "math": "$$\\bar{x} \\to k\\bar{x};\\quad s \\to |k|s;\\quad J \\to |k|J;\\quad s^2 \\to k^2 s^2$$"
+          },
+          {
+            "name": "Bentuk Umum",
+            "math": "$$y = ax + b \\Rightarrow \\bar{y} = a\\bar{x} + b,\\quad s_y = |a| s_x$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Waktu tempuh $9$ siswa (menit): $12, 14, 15, 15, 16, 18, 19, 20, 45$. Tentukan apakah ada pencilan.",
+            "solution": "Langkah 1: Tentukan kuartil. $n = 9$, $Q_2 = 16$ (data ke-$5$). Separuh bawah $12, 14, 15, 15$: $Q_1 = 14{,}5$. Separuh atas $18, 19, 20, 45$: $Q_3 = 19{,}5$.\n\nLangkah 2: Jangkauan antarkuartil.\n$H = 19{,}5 - 14{,}5 = 5$\n\nLangkah 3: Hitung pagar bawah.\n$14{,}5 - 1{,}5(5) = 14{,}5 - 7{,}5 = 7$\n\nLangkah 4: Hitung pagar atas.\n$19{,}5 + 7{,}5 = 27$\n\nLangkah 5: Periksa setiap data. Tidak ada data di bawah $7$. Data $45$ melebihi $27$.\n\nLangkah 6: Jadi $45$ adalah pencilan. Langkah berikutnya bukan membuangnya, melainkan memeriksanya: apakah salah catat, atau memang keadaan istimewa?\n\nKesimpulan: Data $45$ adalah pencilan karena melebihi pagar atas $27$."
+          },
+          {
+            "problem": "Dari data Contoh 1, bandingkan rata-rata dan median sebelum dan sesudah pencilan $45$ disisihkan.",
+            "solution": "Langkah 1: Dengan $45$: jumlah data $174$, jadi rata-rata $\\frac{174}{9} \\approx 19{,}33$, dan median $16$.\n\nLangkah 2: Tanpa $45$: data $12, 14, 15, 15, 16, 18, 19, 20$, jumlahnya $129$.\n\nLangkah 3: Rata-rata tanpa pencilan.\n$\\frac{129}{8} = 16{,}125$\n\nLangkah 4: Median tanpa pencilan: $n = 8$, rata-rata data ke-$4$ dan ke-$5$.\n$\\frac{15 + 16}{2} = 15{,}5$\n\nLangkah 5: Bandingkan perubahannya. Rata-rata berubah sekitar $3{,}2$ menit, sedangkan median hanya berubah $0{,}5$ menit.\n\nLangkah 6: Rata-rata $19{,}33$ bahkan lebih besar daripada delapan dari sembilan data — tidak mewakili kebanyakan siswa. Inilah alasan median lebih disukai bila ada pencilan.\n\nKesimpulan: Pencilan menggeser rata-rata sekitar $3{,}2$ menit tetapi median hanya $0{,}5$ menit; median lebih tahan terhadap pencilan."
+          },
+          {
+            "problem": "Sekelompok data mempunyai rata-rata $60$, simpangan baku $8$, dan jangkauan $30$. Tentukan ketiga ukuran itu bila (a) setiap data ditambah $5$; (b) setiap data dikalikan $2$.",
+            "solution": "Langkah 1: (a) Menambah $5$ menggeser semua data sejauh $5$ ke kanan, tanpa mengubah jarak antardata.\n\nLangkah 2: Rata-rata ikut bergeser.\n$60 + 5 = 65$\n\nLangkah 3: Ukuran penyebaran mengukur JARAK antardata, dan jarak itu tidak berubah.\nsimpangan baku tetap $8$, jangkauan tetap $30$\n\nLangkah 4: (b) Mengalikan $2$ memperbesar semua data sekaligus jarak antardata menjadi dua kali.\n\nLangkah 5: Rata-rata.\n$2 \\times 60 = 120$\nSimpangan baku.\n$2 \\times 8 = 16$\nJangkauan.\n$2 \\times 30 = 60$\n\nLangkah 6: Ragam ikut berubah menjadi $2^2 = 4$ kali: dari $64$ menjadi $256$, karena ragam adalah kuadrat simpangan baku.\n\nKesimpulan: (a) rata-rata $65$, simpangan baku $8$, jangkauan $30$; (b) rata-rata $120$, simpangan baku $16$, jangkauan $60$."
+          },
+          {
+            "problem": "Nilai ujian mempunyai rata-rata $60$ dan simpangan baku $8$. Guru mengubah setiap nilai $x$ menjadi $y = 1{,}5x + 10$. Tentukan rata-rata dan simpangan baku nilai yang baru.",
+            "solution": "Langkah 1: Transformasi $y = ax + b$ terdiri dari dua tahap: dikalikan $a = 1{,}5$, lalu ditambah $b = 10$.\n\nLangkah 2: Rata-rata mengikuti kedua tahap.\n$\\bar{y} = 1{,}5(60) + 10 = 90 + 10 = 100$\n\nLangkah 3: Simpangan baku hanya terpengaruh oleh perkalian.\n$s_y = 1{,}5 \\times 8 = 12$\n\nLangkah 4: Penambahan $10$ tidak mengubah simpangan baku, karena hanya menggeser semua nilai.\n\nLangkah 5: Periksa dengan dua nilai contoh: $52$ dan $68$ (berjarak $16$) menjadi $88$ dan $112$ (berjarak $24 = 1{,}5 \\times 16$) — jaraknya dikali $1{,}5$, bukan ditambah $10$.\n\nKesimpulan: Rata-rata baru $100$ dan simpangan baku baru $12$."
+          },
+          {
+            "problem": "Statistik lima serangkai nilai dua kelas: kelas A $= 50; 60; 70; 80; 90$ dan kelas B $= 40; 65; 72; 76; 98$. Bandingkan kedua kelas.",
+            "solution": "Langkah 1: Pusat data: median A $= 70$ dan median B $= 72$. Siswa \"tengah\" kelas B sedikit lebih tinggi nilainya.\n\nLangkah 2: Sebaran bagian tengah: $H_A = 80 - 60 = 20$ dan $H_B = 76 - 65 = 11$. Separuh siswa yang di tengah kelas B jauh lebih seragam.\n\nLangkah 3: Sebaran keseluruhan: $J_A = 90 - 50 = 40$ dan $J_B = 98 - 40 = 58$. Kelas B mempunyai nilai-nilai ekstrem yang lebih jauh, di bawah maupun di atas.\n\nLangkah 4: Kesimpulan kelas B \"lebih baik\" atau \"lebih buruk\" terlalu sederhana. Yang jujur: kelas B sedikit lebih tinggi di tengah dan lebih seragam di bagian tengah, tetapi mempunyai siswa-siswa di kedua ujung yang jauh dari kelompoknya.\n\nLangkah 5: Kita TIDAK dapat menyimpulkan rata-rata kelas mana yang lebih besar, karena statistik lima serangkai tidak memuat rata-rata.\n\nKesimpulan: Median B sedikit lebih tinggi dan bagian tengahnya lebih seragam ($H$ lebih kecil), tetapi jangkauan B lebih besar karena nilai-nilai ujungnya lebih ekstrem."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok menerima data nyata yang memuat satu pencilan, misalnya harga sepuluh sepeda di sebuah toko, termasuk satu sepeda balap yang sangat mahal. Di papan, (1) tentukan kuartil dan pagar pencilan, (2) hitung rata-rata dan median dengan dan tanpa pencilan, dan (3) tuliskan dua kalimat laporan: satu yang MENYESATKAN tetapi hitungannya benar, dan satu yang jujur. Kelompok lain menebak mana yang menyesatkan dan menjelaskan mengapa.",
+        "summary_data": {
+          "summary": [
+            "Pencilan adalah data yang jauh terpisah dari sebagian besar data.",
+            "Pagar bawah $= Q_1 - 1{,}5H$ dan pagar atas $= Q_3 + 1{,}5H$, dengan $H = Q_3 - Q_1$.",
+            "Data di luar kedua pagar disebut pencilan.",
+            "Pencilan perlu diperiksa (salah catat atau keadaan istimewa), bukan langsung dibuang.",
+            "Pencilan sangat memengaruhi rata-rata, jangkauan, dan simpangan baku, tetapi hampir tidak memengaruhi median dan $H$.",
+            "Bila setiap data ditambah $k$, ukuran pemusatan bertambah $k$ dan ukuran penyebaran tetap.",
+            "Bila setiap data dikali $k$, ukuran pemusatan dan penyebaran ikut dikali $|k|$, sedangkan ragam dikali $k^2$.",
+            "Untuk $y = ax + b$: $\\bar{y} = a\\bar{x} + b$ dan $s_y = |a| s_x$.",
+            "Membandingkan dua kelompok memerlukan ukuran pusat DAN ukuran penyebaran.",
+            "Kesimpulan dari data harus jujur: tidak melebihi apa yang benar-benar ditunjukkan datanya."
+          ],
+          "islamic": "Menyajikan data secara jujur adalah bagian dari menegakkan keadilan. \"Wahai orang-orang yang beriman! Jadilah kamu penegak keadilan, menjadi saksi karena Allah, walaupun terhadap dirimu sendiri.\" (QS. An-Nisa: 135)"
+        },
+        "collab_cases": [
+          "Tentukan pagar pencilan dan pencilan (jika ada) dari data $31, 35, 36, 38, 40, 41, 43, 44, 70$.",
+          "Data harga (ribu rupiah) $15, 18, 20, 20, 22, 25, 150$. Hitunglah rata-rata dan median dengan dan tanpa $150$, lalu jelaskan ukuran mana yang lebih tepat.",
+          "Sekelompok data mempunyai rata-rata $45$ dan simpangan baku $6$. Tentukan rata-rata dan simpangan baku baru bila setiap data dikurangi $5$ lalu dikalikan $3$.",
+          "Suhu rata-rata sebuah kota $25^\\circ$C dengan simpangan baku $2^\\circ$C. Tentukan rata-rata dan simpangan bakunya dalam Fahrenheit, memakai $F = 1{,}8C + 32$.",
+          "Statistik lima serangkai tinggi badan siswa putra $= 150; 160; 166; 170; 182$ dan putri $= 145; 152; 156; 160; 168$. Bandingkan keduanya dengan tiga kalimat."
+        ]
+      },
+      "soal": {
+        "id": "P44",
+        "subject": "wajib",
+        "title": "P44 • Pencilan, Transformasi Data, dan Membandingkan Kelompok Data",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P44-Q1] Suatu data mempunyai $Q_1 = 20$ dan $Q_3 = 30$. Pagar atas untuk menentukan pencilan adalah $\\dots$",
+            "opsi": [
+              "A. $40$",
+              "B. $45$",
+              "C. $35$",
+              "D. $50$",
+              "E. $60$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Hitung jangkauan antarkuartil.\n$H = 30 - 20 = 10$\n\nLangkah 2: Hitung $1{,}5H$.\n$1{,}5 \\times 10 = 15$\n\nLangkah 3: Pagar atas.\n$Q_3 + 1{,}5H = 30 + 15 = 45$\n\nLangkah 4: Opsi A ($40$) memakai $Q_3 + H$, tanpa faktor $1{,}5$.\n\nLangkah 5: Opsi C ($35$) memakai $Q_3 + \\frac{1}{2}H$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P44-Q2] Pencilan pada data $12, 14, 15, 15, 16, 18, 19, 20, 45$ adalah $\\dots$",
+            "opsi": [
+              "A. $12$",
+              "B. $20$",
+              "C. $45$",
+              "D. $12$ dan $45$",
+              "E. tidak ada"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Kuartil: $Q_1 = 14{,}5$, $Q_2 = 16$, $Q_3 = 19{,}5$, sehingga $H = 5$.\n\nLangkah 2: Pagar bawah $14{,}5 - 7{,}5 = 7$ dan pagar atas $19{,}5 + 7{,}5 = 27$.\n\nLangkah 3: Data $12$ tidak kurang dari $7$, jadi bukan pencilan.\n\nLangkah 4: Data $45$ lebih dari $27$, jadi pencilan.\n\nLangkah 5: Opsi D menganggap data terkecil selalu pencilan. Menjadi data terkecil atau terbesar saja tidak cukup; ia harus melewati pagar.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P44-Q3] Sekelompok data mempunyai rata-rata $60$ dan simpangan baku $8$. Bila setiap data ditambah $5$, rata-rata dan simpangan baku yang baru berturut-turut adalah $\\dots$",
+            "opsi": [
+              "A. $65$ dan $8$",
+              "B. $65$ dan $13$",
+              "C. $60$ dan $13$",
+              "D. $300$ dan $40$",
+              "E. $65$ dan $40$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Menambah $5$ pada setiap data menggeser seluruh data ke kanan sejauh $5$.\n\nLangkah 2: Rata-rata ikut bergeser.\n$60 + 5 = 65$\n\nLangkah 3: Jarak antardata tidak berubah, jadi simpangan baku tetap $8$.\n\nLangkah 4: Opsi B keliru menambahkan $5$ juga pada simpangan baku.\n\nLangkah 5: Opsi D dan E keliru mengalikan dengan $5$ padahal datanya ditambah.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P44-Q4] Sekelompok data mempunyai rata-rata $50$ dan simpangan baku $6$. Setiap data dikalikan $2$, lalu dikurangi $10$. Rata-rata dan simpangan baku yang baru berturut-turut adalah $\\dots$",
+            "opsi": [
+              "A. $90$ dan $2$",
+              "B. $100$ dan $12$",
+              "C. $90$ dan $6$",
+              "D. $90$ dan $12$",
+              "E. $40$ dan $12$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Transformasinya $y = 2x - 10$.\n\nLangkah 2: Rata-rata.\n$\\bar{y} = 2(50) - 10 = 90$\n\nLangkah 3: Simpangan baku hanya dipengaruhi perkalian.\n$s_y = 2 \\times 6 = 12$\n\nLangkah 4: Opsi A keliru mengurangkan $10$ dari simpangan baku ($12 - 10 = 2$).\n\nLangkah 5: Opsi B lupa mengurangkan $10$ pada rata-rata.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P44-Q5] Dari data $5, 6, 6, 7, 8, 40$, data $40$ disisihkan. Pernyataan yang BENAR adalah $\\dots$",
+            "opsi": [
+              "A. median turun $5{,}6$",
+              "B. rata-rata tidak berubah",
+              "C. median naik",
+              "D. rata-rata naik",
+              "E. rata-rata turun $5{,}6$, sedangkan median hanya turun $0{,}5$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Sebelum: rata-rata $\\frac{72}{6} = 12$, median $\\frac{6 + 7}{2} = 6{,}5$.\n\nLangkah 2: Sesudah: data $5, 6, 6, 7, 8$, rata-rata $\\frac{32}{5} = 6{,}4$, median $6$.\n\nLangkah 3: Perubahan rata-rata: $12 - 6{,}4 = 5{,}6$ (turun). Perubahan median: $6{,}5 - 6 = 0{,}5$ (turun).\n\nLangkah 4: Jadi pernyataan E benar.\n\nLangkah 5: Opsi A menukar perubahan rata-rata dengan median. Soal ini memperlihatkan bahwa satu pencilan dapat menggeser rata-rata jauh lebih besar daripada median.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P44-Q6] Ukuran pemusatan yang paling tepat dipakai untuk data yang memuat pencilan adalah $\\dots$",
+            "opsi": [
+              "A. rata-rata",
+              "B. median",
+              "C. jangkauan",
+              "D. ragam",
+              "E. nilai terbesar"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Pencilan menarik rata-rata ke arahnya karena rata-rata memakai BESAR setiap nilai.\n\nLangkah 2: Median hanya memakai POSISI tengah, sehingga hampir tidak terpengaruh oleh besarnya pencilan.\n\nLangkah 3: Jadi median paling tepat.\n\nLangkah 4: Opsi C dan D adalah ukuran penyebaran, bukan ukuran pemusatan.\n\nLangkah 5: Opsi E justru bisa merupakan pencilan itu sendiri.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P44-Q7] Statistik lima serangkai nilai kelas A $= 50; 60; 70; 80; 90$ dan kelas B $= 40; 65; 72; 76; 98$. Pernyataan yang BENAR adalah $\\dots$",
+            "opsi": [
+              "A. jangkauan antarkuartil kelas A lebih kecil daripada kelas B",
+              "B. median kelas A lebih tinggi daripada kelas B",
+              "C. jangkauan kelas B lebih besar daripada kelas A",
+              "D. rata-rata kelas A pasti lebih tinggi daripada kelas B",
+              "E. nilai tertinggi terdapat di kelas A"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Jangkauan: $J_A = 90 - 50 = 40$ dan $J_B = 98 - 40 = 58$. Jadi $J_B > J_A$ — C benar.\n\nLangkah 2: Opsi A: $H_A = 20$ dan $H_B = 11$. Justru $H_A$ lebih BESAR.\n\nLangkah 3: Opsi B: median A $= 70$ dan median B $= 72$. Justru B lebih tinggi.\n\nLangkah 4: Opsi D: statistik lima serangkai tidak memuat rata-rata, jadi tidak dapat dipastikan.\n\nLangkah 5: Opsi E: nilai tertinggi $98$ ada di kelas B.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P44-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Jika setiap data dikalikan $3$, simpangan bakunya juga menjadi $3$ kali semula.",
+              "(2) Jika setiap data ditambah $10$, jangkauannya bertambah $10$.",
+              "(3) Pencilan berpengaruh besar terhadap rata-rata, tetapi kecil terhadap median."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): perkalian dengan $3$ membuat setiap simpangan dari rata-rata juga $3$ kali, jadi simpangan baku $3$ kali. BENAR.\n\nLangkah 2: Pernyataan (2): data terbesar dan terkecil sama-sama bertambah $10$, jadi selisihnya tetap.\n\nLangkah 3: Jangkauan tidak berubah. Pernyataan (2) SALAH.\n\nLangkah 4: Pernyataan (3): rata-rata memakai besar setiap data, sedangkan median hanya posisi tengah. BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P44-Q9] Diketahui data $2, 20, 22, 23, 25, 26, 28, 30, 31$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. $Q_1 = 21$",
+              "B. Jangkauan antarkuartilnya $8$.",
+              "C. Data $2$ adalah pencilan.",
+              "D. Data $31$ adalah pencilan.",
+              "E. Pagar atasnya $41$."
+            ],
+            "kunci": "A, B, C, E",
+            "bahas": "Langkah 1: $n = 9$, $Q_2 = 25$. Separuh bawah $2, 20, 22, 23$: $Q_1 = \\frac{20 + 22}{2} = 21$ — A benar.\n\nLangkah 2: Separuh atas $26, 28, 30, 31$: $Q_3 = \\frac{28 + 30}{2} = 29$. Jadi $H = 29 - 21 = 8$ — B benar.\n\nLangkah 3: Pagar bawah $21 - 12 = 9$ dan pagar atas $29 + 12 = 41$ — E benar.\n\nLangkah 4: Data $2 < 9$, jadi pencilan — C benar.\n\nLangkah 5: Data $31 < 41$, jadi bukan pencilan — D salah.\n\nKesimpulan: Kunci Jawaban A, B, C, E."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P44-Q10] Nilai ujian mempunyai rata-rata $60$ dan simpangan baku $8$. Setiap nilai $x$ diubah menjadi $y = 1{,}5x + 10$. Simpangan baku nilai yang baru adalah $\\dots$",
+            "opsi": [],
+            "kunci": "12",
+            "bahas": "Langkah 1: Transformasi $y = ax + b$ dengan $a = 1{,}5$ dan $b = 10$.\n\nLangkah 2: Simpangan baku hanya dipengaruhi oleh perkalian: $s_y = |a| s_x$.\n\nLangkah 3: Hitung.\n$s_y = 1{,}5 \\times 8 = 12$\n\nLangkah 4: Penambahan $10$ hanya menggeser data, jadi tidak mengubah simpangan baku.\n\nKesimpulan: Kunci Jawaban 12."
+          }
+        ]
+      }
+    }
+  ]
+}

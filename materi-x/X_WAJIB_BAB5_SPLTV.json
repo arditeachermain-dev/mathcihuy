@@ -1,0 +1,1451 @@
+{
+  "_catatan": "Bab 5 Sistem Persamaan dan Pertidaksamaan Linear, Matematika Wajib Kelas X Fase E. 'materi' masuk ke db.wajib (larik), 'soal' masuk ke db.tka_wajib dengan kunci id-nya. Gabungkan dengan: python gabung_materi_x.py",
+  "paket": [
+    {
+      "id": "P27",
+      "judul": "Persamaan Linear Tiga Variabel dan Model SPLTV",
+      "materi": {
+        "id": "P27",
+        "bab": "Bab 5: Sistem Persamaan dan Pertidaksamaan Linear",
+        "title": "Persamaan Linear Tiga Variabel dan Model SPLTV",
+        "obj": [
+          "Mengenali persamaan linear tiga variabel $ax + by + cz = d$ dan membedakannya dari persamaan yang bukan linear.",
+          "Memeriksa apakah suatu tripel $(x, y, z)$ merupakan penyelesaian SPLTV dengan menyubstitusikannya ke SETIAP persamaan.",
+          "Menerjemahkan soal cerita yang memuat tiga besaran tak diketahui menjadi sistem tiga persamaan linear."
+        ],
+        "hook": "Satu nota belanja \"$2$ kg apel, $1$ kg jeruk, dan $1$ kg mangga seharga Rp$105.000$\" belum cukup untuk mengetahui harga masing-masing buah — ada banyak sekali pasangan harga yang cocok dengan nota itu. Baru setelah memegang TIGA nota yang berbeda, harga ketiganya dapat dipastikan. Itulah inti Sistem Persamaan Linear Tiga Variabel: tiga besaran yang tidak diketahui memerlukan tiga keterangan yang saling melengkapi.",
+        "toolkit": [
+          {
+            "name": "Bentuk Umum",
+            "math": "$$ax + by + cz = d$$"
+          },
+          {
+            "name": "Syarat Linear",
+            "math": "$$\\text{pangkat tiap variabel } = 1,\\ \\text{tanpa } xy,\\ yz,\\ xz$$"
+          },
+          {
+            "name": "Bentuk SPLTV",
+            "math": "$$\\begin{cases} a_1x + b_1y + c_1z = d_1 \\\\ a_2x + b_2y + c_2z = d_2 \\\\ a_3x + b_3y + c_3z = d_3 \\end{cases}$$"
+          },
+          {
+            "name": "Uji Penyelesaian",
+            "math": "$$(x, y, z) \\text{ memenuhi SEMUA persamaan}$$"
+          },
+          {
+            "name": "Pemodelan",
+            "math": "$$3 \\text{ besaran tak diketahui} \\Rightarrow 3 \\text{ persamaan}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Manakah di antara persamaan berikut yang merupakan persamaan linear tiga variabel? (a) $2x - y + 3z = 7$; (b) $xy + z = 4$; (c) $x^2 + y + z = 1$; (d) $\\frac{x}{2} + y - z = 0$; (e) $\\frac{1}{x} + y + z = 3$.",
+            "solution": "Langkah 1: Ingat syaratnya: setiap variabel hanya boleh berpangkat satu, tidak boleh ada perkalian antarvariabel, dan tidak boleh ada variabel di penyebut.\n\nLangkah 2: Persamaan (a) memuat $x$, $y$, dan $z$ yang masing-masing berpangkat satu. Persamaan (a) LINEAR.\n\nLangkah 3: Persamaan (b) memuat suku $xy$, yaitu perkalian dua variabel. Suku seperti itu berderajat dua, jadi (b) BUKAN linear.\n\nLangkah 4: Persamaan (c) memuat $x^2$, jadi (c) BUKAN linear.\n\nLangkah 5: Persamaan (d) memuat $\\frac{x}{2}$. Bentuk ini sama dengan $\\frac{1}{2}x$ — variabelnya ada di PEMBILANG dan berpangkat satu. Persamaan (d) LINEAR.\n\nLangkah 6: Persamaan (e) memuat $\\frac{1}{x}$, yaitu $x^{-1}$. Variabel di penyebut membuat pangkatnya negatif, jadi (e) BUKAN linear.\n\nLangkah 7: Perhatikan bedanya (d) dan (e): pecahan boleh ada, asalkan variabelnya tidak berada di penyebut.\n\nKesimpulan: Persamaan linear tiga variabel adalah (a) dan (d)."
+          },
+          {
+            "problem": "Periksalah apakah $(1, 2, 3)$ merupakan penyelesaian sistem $x + y + z = 6$, $2x - y + z = 3$, dan $x + 2y - z = 2$.",
+            "solution": "Langkah 1: Tripel $(1, 2, 3)$ berarti $x = 1$, $y = 2$, dan $z = 3$. Urutannya selalu $x$, lalu $y$, lalu $z$.\n\nLangkah 2: Uji persamaan pertama.\n$1 + 2 + 3 = 6$ — cocok\n\nLangkah 3: Uji persamaan kedua.\n$2(1) - 2 + 3 = 2 - 2 + 3 = 3$ — cocok\n\nLangkah 4: Uji persamaan ketiga.\n$1 + 2(2) - 3 = 1 + 4 - 3 = 2$ — cocok\n\nLangkah 5: Ketiga persamaan terpenuhi. Pengujian WAJIB dilakukan pada ketiganya; berhenti setelah satu persamaan cocok adalah kekeliruan yang sering terjadi.\n\nKesimpulan: Tripel $(1, 2, 3)$ merupakan penyelesaian sistem itu."
+          },
+          {
+            "problem": "Periksalah apakah $(2, -1, 1)$ merupakan penyelesaian sistem $x + y + z = 2$, $2x + y - z = 2$, dan $x - y + z = 5$.",
+            "solution": "Langkah 1: Tulis nilainya: $x = 2$, $y = -1$, $z = 1$. Gunakan kurung saat menyubstitusikan bilangan negatif.\n\nLangkah 2: Uji persamaan pertama.\n$2 + (-1) + 1 = 2$ — cocok\n\nLangkah 3: Uji persamaan kedua.\n$2(2) + (-1) - 1 = 4 - 1 - 1 = 2$ — cocok\n\nLangkah 4: Uji persamaan ketiga.\n$2 - (-1) + 1 = 2 + 1 + 1 = 4$\n\nLangkah 5: Hasilnya $4$, padahal ruas kanannya $5$. Persamaan ketiga TIDAK terpenuhi.\n\nLangkah 6: Cukup satu persamaan yang gagal untuk menggugurkan sebuah tripel. Dua persamaan yang cocok tidak ada artinya bila persamaan ketiga tidak cocok.\n\nLangkah 7: Perhatikan tanda pada langkah 4: $-(-1) = +1$. Tanpa kurung, orang sering menulis $2 - 1 + 1 = 2$ lalu keliru menyimpulkan.\n\nKesimpulan: Tripel $(2, -1, 1)$ BUKAN penyelesaian sistem itu, sebab tidak memenuhi persamaan ketiga."
+          },
+          {
+            "problem": "Tiga nota belanja buah (dalam ribu rupiah): $2$ kg apel, $1$ kg jeruk, $1$ kg mangga seharga $105$; $1$ kg apel, $2$ kg jeruk, $1$ kg mangga seharga $95$; $1$ kg apel, $1$ kg jeruk, $2$ kg mangga seharga $100$. Susunlah SPLTV-nya, lalu tentukan harga tiap buah.",
+            "solution": "Langkah 1: Tetapkan variabelnya lebih dahulu. Misalkan $a$ = harga $1$ kg apel, $j$ = harga $1$ kg jeruk, $m$ = harga $1$ kg mangga, semuanya dalam ribu rupiah.\n\nLangkah 2: Terjemahkan tiap nota menjadi satu persamaan.\n$2a + j + m = 105$\n$a + 2j + m = 95$\n$a + j + 2m = 100$\n\nLangkah 3: Perhatikan polanya: setiap buah muncul sekali dengan koefisien $2$ dan dua kali dengan koefisien $1$. Jumlahkan ketiga persamaan.\n$4a + 4j + 4m = 300$\n\nLangkah 4: Bagi dengan $4$.\n$a + j + m = 75$\n\nLangkah 5: Kurangkan hasil ini dari tiap persamaan semula.\n$a = 105 - 75 = 30$\n$j = 95 - 75 = 20$\n$m = 100 - 75 = 25$\n\nLangkah 6: Periksa pada ketiga nota.\n$2(30) + 20 + 25 = 105$, $30 + 2(20) + 25 = 95$, $30 + 20 + 2(25) = 100$ — semuanya cocok\n\nLangkah 7: Cara menjumlahkan semua persamaan ini hanya ampuh bila susunan koefisiennya simetris seperti di sini. Cara umum untuk sistem apa pun dipelajari pada pertemuan berikutnya.\n\nKesimpulan: Harga apel Rp$30.000$/kg, jeruk Rp$20.000$/kg, dan mangga Rp$25.000$/kg."
+          },
+          {
+            "problem": "Jumlah tiga bilangan adalah $20$. Bilangan pertama dua kali bilangan kedua, dan bilangan ketiga $4$ lebih besar daripada bilangan kedua. Tentukan ketiga bilangan itu.",
+            "solution": "Langkah 1: Misalkan ketiga bilangan itu $x$, $y$, dan $z$.\n\nLangkah 2: Terjemahkan setiap kalimat.\n\"Jumlahnya $20$\": $x + y + z = 20$\n\"Pertama dua kali kedua\": $x = 2y$\n\"Ketiga $4$ lebih besar daripada kedua\": $z = y + 4$\n\nLangkah 3: Dua persamaan terakhir sudah menyatakan $x$ dan $z$ dalam $y$. Substitusikan keduanya ke persamaan pertama.\n$2y + y + (y + 4) = 20$\n\nLangkah 4: Sederhanakan lalu selesaikan.\n$4y + 4 = 20 \\Rightarrow 4y = 16 \\Rightarrow y = 4$\n\nLangkah 5: Hitung dua bilangan lainnya.\n$x = 2(4) = 8$ dan $z = 4 + 4 = 8$\n\nLangkah 6: Periksa semua keterangan: $8 + 4 + 8 = 20$, $8 = 2 \\times 4$, dan $8 = 4 + 4$ — semuanya cocok.\n\nLangkah 7: Kekeliruan yang sering terjadi adalah menulis \"$4$ lebih besar daripada kedua\" sebagai $y = z + 4$. Yang lebih besar adalah bilangan KETIGA, jadi $4$ ditambahkan pada $y$.\n\nKesimpulan: Ketiga bilangan itu adalah $8$, $4$, dan $8$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Di papan, setiap kelompok menulis satu SPLTV karangan sendiri yang penyelesaiannya sudah dipilih lebih dahulu, misalnya $(2, -1, 3)$. Tukarkan sistem itu dengan kelompok lain TANPA memberitahukan penyelesaiannya. Kelompok penerima menguji lima tripel tebakan dan harus menemukan mana yang merupakan penyelesaian. Terakhir, setiap kelompok mengubah SATU angka ruas kanan pada sistemnya sendiri, lalu menjelaskan mengapa tripel semula tidak lagi menjadi penyelesaian.",
+        "summary_data": {
+          "summary": [
+            "Persamaan linear tiga variabel berbentuk $ax + by + cz = d$ dengan $a$, $b$, $c$ tidak semuanya nol.",
+            "Setiap variabel berpangkat satu; tidak ada suku $xy$, $yz$, $xz$, $x^2$, atau variabel di penyebut.",
+            "Pecahan seperti $\\frac{x}{2}$ tetap linear karena variabelnya berada di pembilang.",
+            "Satu persamaan tiga variabel mempunyai tak hingga banyak penyelesaian; diperlukan tiga persamaan untuk memastikan satu penyelesaian.",
+            "Tripel $(x, y, z)$ selalu dibaca berurutan: bilangan pertama $x$, kedua $y$, ketiga $z$.",
+            "Sebuah tripel disebut penyelesaian SPLTV hanya bila memenuhi KETIGA persamaan.",
+            "Satu persamaan yang gagal sudah cukup untuk menggugurkan sebuah tripel.",
+            "Saat menyubstitusikan bilangan negatif, selalu gunakan kurung.",
+            "Pemodelan dimulai dengan menetapkan arti setiap variabel beserta satuannya.",
+            "Kalimat \"$A$ lebih besar $4$ daripada $B$\" diterjemahkan menjadi $A = B + 4$, bukan $B = A + 4$."
+          ],
+          "islamic": "Ketelitian dalam memeriksa adalah bagian dari amanah. Allah berfirman: \"Wahai orang-orang yang beriman, jika datang kepadamu orang fasik membawa suatu berita, maka telitilah kebenarannya.\" (QS. Al-Hujurat: 6)"
+        },
+        "collab_cases": [
+          "Tentukan manakah yang merupakan persamaan linear tiga variabel: $3x - y + 2z = 5$, $x + yz = 2$, $\\frac{y}{3} - x + z = 1$, $x^2 - y + z = 0$.",
+          "Periksalah apakah $(3, 1, -2)$ merupakan penyelesaian sistem $x + y + z = 2$, $x - y + 2z = -2$, $2x + y - z = 9$.",
+          "Tentukan nilai $k$ agar $(1, k, 2)$ memenuhi persamaan $4x - 3y + z = 3$.",
+          "Harga $1$ tas, $1$ sepatu, dan $1$ topi berjumlah Rp$350.000$. Harga sepatu Rp$50.000$ lebih mahal daripada tas, dan harga tas tiga kali harga topi. Susunlah SPLTV-nya lalu tentukan harga masing-masing.",
+          "Selesaikan sistem $x + y = 10$, $y + z = 14$, $x + z = 12$ dengan menjumlahkan ketiga persamaan lebih dahulu."
+        ]
+      },
+      "soal": {
+        "id": "P27",
+        "subject": "wajib",
+        "title": "P27 • Persamaan Linear Tiga Variabel dan Model SPLTV",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P27-Q1] Persamaan berikut yang merupakan persamaan linear tiga variabel adalah $\\dots$",
+            "opsi": [
+              "A. $x^2 + y + z = 5$",
+              "B. $xy + 2z = 7$",
+              "C. $3x - 2y + z = 8$",
+              "D. $\\frac{2}{x} + y - z = 1$",
+              "E. $\\sqrt{x} + y + z = 4$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Syarat persamaan linear: setiap variabel berpangkat satu, tidak ada perkalian antarvariabel, dan tidak ada variabel di penyebut atau di bawah tanda akar.\n\nLangkah 2: Opsi A memuat $x^2$ yang berpangkat dua. Bukan linear.\n\nLangkah 3: Opsi B memuat $xy$, perkalian dua variabel yang berderajat dua. Bukan linear.\n\nLangkah 4: Opsi C memuat $3x$, $-2y$, dan $z$ yang masing-masing berpangkat satu. Linear.\n\nLangkah 5: Opsi D memuat $\\frac{2}{x} = 2x^{-1}$, pangkatnya negatif. Bukan linear.\n\nLangkah 6: Opsi E memuat $\\sqrt{x} = x^{\\frac{1}{2}}$, pangkatnya setengah. Bukan linear.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P27-Q2] Penyelesaian sistem $x + y + z = 6$, $x - y + z = 2$, dan $2x + y - z = 1$ adalah $\\dots$",
+            "opsi": [
+              "A. $(3, 2, 1)$",
+              "B. $(2, 1, 3)$",
+              "C. $(2, 2, 2)$",
+              "D. $(1, 2, 3)$",
+              "E. $(1, 3, 2)$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Cara tercepat pada soal pilihan ganda: uji setiap opsi pada KETIGA persamaan.\n\nLangkah 2: Uji opsi D, yaitu $x = 1$, $y = 2$, $z = 3$.\n$1 + 2 + 3 = 6$ — cocok\n$1 - 2 + 3 = 2$ — cocok\n$2 + 2 - 3 = 1$ — cocok\n\nLangkah 3: Opsi A: $3 + 2 + 1 = 6$ dan $3 - 2 + 1 = 2$ cocok, tetapi $6 + 2 - 1 = 7 \\neq 1$. Gugur pada persamaan ketiga.\n\nLangkah 4: Opsi C: $2 + 2 + 2 = 6$ dan $2 - 2 + 2 = 2$ cocok, tetapi $4 + 2 - 2 = 4 \\neq 1$. Gugur pula pada persamaan ketiga.\n\nLangkah 5: Opsi A dan C menunjukkan bahayanya berhenti setelah dua persamaan: keduanya lolos pada dua persamaan pertama.\n\nLangkah 6: Opsi B dan E sudah gugur pada persamaan kedua: $2 - 1 + 3 = 4$ dan $1 - 3 + 2 = 0$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P27-Q3] Tripel $(2, -1, k)$ memenuhi persamaan $3x + 2y - z = 1$. Nilai $k$ adalah $\\dots$",
+            "opsi": [
+              "A. $1$",
+              "B. $-3$",
+              "C. $3$",
+              "D. $5$",
+              "E. $7$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Substitusikan $x = 2$ dan $y = -1$, sedangkan $z = k$.\n\nLangkah 2: Tulis persamaannya.\n$3(2) + 2(-1) - k = 1$\n\nLangkah 3: Sederhanakan.\n$6 - 2 - k = 1 \\Rightarrow 4 - k = 1$\n\nLangkah 4: Selesaikan.\n$k = 4 - 1 = 3$\n\nLangkah 5: Periksa: $6 - 2 - 3 = 1$ — cocok.\n\nLangkah 6: Opsi E ($7$) muncul bila $2(-1)$ ditulis $+2$ sehingga $8 - k = 1$. Opsi B ($-3$) muncul bila tanda $-k$ dilupakan sehingga $4 + k = 1$.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P27-Q4] Ani membeli $2$ buku, $1$ pulpen, dan $1$ pensil seharga Rp$26.000$. Budi membeli $1$ buku, $2$ pulpen, dan $1$ pensil seharga Rp$21.000$. Cici membeli $1$ buku, $1$ pulpen, dan $2$ pensil seharga Rp$18.000$. Bila $x$, $y$, $z$ berturut-turut harga satu buku, satu pulpen, dan satu pensil, model yang tepat adalah $\\dots$",
+            "opsi": [
+              "A. $2x + y + z = 18.000$, $x + 2y + z = 21.000$, $x + y + 2z = 26.000$",
+              "B. $2x + y + z = 26.000$, $x + 2y + z = 21.000$, $x + y + 2z = 18.000$",
+              "C. $x + 2y + 2z = 26.000$, $2x + y + 2z = 21.000$, $2x + 2y + z = 18.000$",
+              "D. $2x + 2y + z = 26.000$, $x + 2y + 2z = 21.000$, $2x + y + 2z = 18.000$",
+              "E. $x + y + z = 26.000$, $x + y + z = 21.000$, $x + y + z = 18.000$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Terjemahkan setiap pembelian menjadi satu persamaan: banyak barang dikali harga satuannya, lalu dijumlahkan.\n\nLangkah 2: Ani: $2$ buku, $1$ pulpen, $1$ pensil.\n$2x + y + z = 26.000$\n\nLangkah 3: Budi: $1$ buku, $2$ pulpen, $1$ pensil.\n$x + 2y + z = 21.000$\n\nLangkah 4: Cici: $1$ buku, $1$ pulpen, $2$ pensil.\n$x + y + 2z = 18.000$\n\nLangkah 5: Opsi A memakai koefisien yang benar tetapi menukar ruas kanan Ani dan Cici. Setiap ruas kanan harus tetap berpasangan dengan pembelinya.\n\nLangkah 6: Opsi E mengabaikan banyaknya barang, dan akibatnya mustahil: $x + y + z$ tidak mungkin sekaligus bernilai $26.000$ dan $18.000$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P27-Q5] Jumlah tiga bilangan adalah $30$. Bilangan pertama sama dengan jumlah dua bilangan lainnya, dan bilangan kedua $3$ lebih besar daripada bilangan ketiga. Bilangan kedua adalah $\\dots$",
+            "opsi": [
+              "A. $15$",
+              "B. $6$",
+              "C. $12$",
+              "D. $3$",
+              "E. $9$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Misalkan bilangan-bilangan itu $x$, $y$, $z$.\n$x + y + z = 30$, $x = y + z$, $y = z + 3$\n\nLangkah 2: Substitusikan $x = y + z$ ke persamaan pertama.\n$(y + z) + y + z = 30 \\Rightarrow 2(y + z) = 30 \\Rightarrow y + z = 15$\n\nLangkah 3: Akibatnya $x = 15$. Inilah opsi A — bilangan PERTAMA, bukan yang ditanyakan.\n\nLangkah 4: Substitusikan $y = z + 3$ ke $y + z = 15$.\n$(z + 3) + z = 15 \\Rightarrow 2z = 12 \\Rightarrow z = 6$\n\nLangkah 5: Hitung bilangan kedua.\n$y = 6 + 3 = 9$\n\nLangkah 6: Periksa: $15 + 9 + 6 = 30$, $15 = 9 + 6$, dan $9 = 6 + 3$ — semuanya cocok. Opsi B ($6$) adalah bilangan ketiga.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P27-Q6] Diketahui $x + y + z = 12$, $y = 2x$, dan $z = 3x$. Nilai $z$ adalah $\\dots$",
+            "opsi": [
+              "A. $6$",
+              "B. $2$",
+              "C. $4$",
+              "D. $12$",
+              "E. $8$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Persamaan kedua dan ketiga menyatakan $y$ dan $z$ dalam $x$. Substitusikan keduanya ke persamaan pertama.\n\nLangkah 2: Tulis persamaannya.\n$x + 2x + 3x = 12$\n\nLangkah 3: Sederhanakan.\n$6x = 12 \\Rightarrow x = 2$\n\nLangkah 4: Hitung $z$.\n$z = 3(2) = 6$\n\nLangkah 5: Periksa: $y = 4$, dan $2 + 4 + 6 = 12$ — cocok.\n\nLangkah 6: Opsi B ($2$) adalah nilai $x$ dan opsi C ($4$) adalah nilai $y$. Bacalah kembali variabel mana yang ditanyakan sebelum memilih.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P27-Q7] Diketahui $x + y = 5$, $y + z = 7$, dan $x + z = 6$. Nilai $x + y + z$ adalah $\\dots$",
+            "opsi": [
+              "A. $18$",
+              "B. $6$",
+              "C. $12$",
+              "D. $9$",
+              "E. $3$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Perhatikan bahwa setiap variabel muncul tepat DUA kali pada ketiga persamaan.\n\nLangkah 2: Jumlahkan ketiga persamaan.\n$(x + y) + (y + z) + (x + z) = 5 + 7 + 6$\n\nLangkah 3: Sederhanakan ruas kiri.\n$2x + 2y + 2z = 18$\n\nLangkah 4: Bagi dengan $2$.\n$x + y + z = 9$\n\nLangkah 5: Opsi A ($18$) adalah jawaban yang lupa dibagi dua, padahal ruas kirinya $2(x + y + z)$.\n\nLangkah 6: Sebagai pemeriksaan: $x = 9 - 7 = 2$, $y = 9 - 6 = 3$, $z = 9 - 5 = 4$, dan $2 + 3 = 5$, $3 + 4 = 7$, $2 + 4 = 6$ — cocok.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P27-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Persamaan $2x + yz = 5$ adalah persamaan linear tiga variabel.",
+              "(2) Tripel $(1, 0, 2)$ adalah penyelesaian sistem $2x + y + z = 4$, $x - y + z = 3$, $x + y - z = -1$.",
+              "(3) Sebuah tripel yang memenuhi dua dari tiga persamaan SPLTV sudah pasti merupakan penyelesaian sistem itu."
+            ],
+            "kunci": "S - B - S",
+            "bahas": "Langkah 1: Periksa pernyataan (1). Suku $yz$ adalah perkalian dua variabel sehingga berderajat dua. Persamaan itu bukan linear, jadi pernyataan (1) SALAH.\n\nLangkah 2: Periksa pernyataan (2) pada persamaan pertama.\n$2(1) + 0 + 2 = 4$ — cocok\n\nLangkah 3: Persamaan kedua dan ketiga.\n$1 - 0 + 2 = 3$ — cocok\n$1 + 0 - 2 = -1$ — cocok\n\nLangkah 4: Ketiganya terpenuhi, jadi pernyataan (2) BENAR.\n\nLangkah 5: Periksa pernyataan (3). Penyelesaian SPLTV harus memenuhi KETIGA persamaan. Contohnya, $(2, -1, 1)$ memenuhi $x + y + z = 2$ dan $2x + y - z = 2$, tetapi tidak memenuhi $x - y + z = 5$.\n\nLangkah 6: Jadi memenuhi dua persamaan belum cukup, dan pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban S - B - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P27-Q9] Pilihlah SEMUA tripel yang memenuhi persamaan $x + y + z = 4$.",
+            "opsi": [
+              "A. $(1, 1, 2)$",
+              "B. $(0, 4, 0)$",
+              "C. $(2, 2, 2)$",
+              "D. $(-1, 3, 2)$",
+              "E. $(3, 2, 1)$"
+            ],
+            "kunci": "A, B, D",
+            "bahas": "Langkah 1: Untuk setiap opsi, jumlahkan ketiga bilangannya lalu bandingkan dengan $4$.\n\nLangkah 2: Opsi A: $1 + 1 + 2 = 4$ — memenuhi.\n\nLangkah 3: Opsi B: $0 + 4 + 0 = 4$ — memenuhi. Nilai nol tetap sah.\n\nLangkah 4: Opsi C: $2 + 2 + 2 = 6$ — tidak memenuhi.\n\nLangkah 5: Opsi D: $-1 + 3 + 2 = 4$ — memenuhi. Nilai negatif pun sah.\n\nLangkah 6: Opsi E: $3 + 2 + 1 = 6$ — tidak memenuhi.\n\nLangkah 7: Soal ini memperlihatkan bahwa SATU persamaan tiga variabel mempunyai banyak sekali penyelesaian. Itulah sebabnya diperlukan tiga persamaan untuk memastikan satu penyelesaian.\n\nKesimpulan: Kunci Jawaban A, B, D."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P27-Q10] Diketahui $x + y = 7$, $y + z = 9$, dan $x + z = 8$. Nilai $x$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "3",
+            "bahas": "Langkah 1: Setiap variabel muncul dua kali, jadi jumlahkan ketiga persamaan.\n$2x + 2y + 2z = 24$\n\nLangkah 2: Bagi dengan $2$.\n$x + y + z = 12$\n\nLangkah 3: Persamaan yang TIDAK memuat $x$ adalah $y + z = 9$.\n\nLangkah 4: Kurangkan.\n$x = (x + y + z) - (y + z) = 12 - 9 = 3$\n\nLangkah 5: Periksa: $y = 7 - 3 = 4$, $z = 8 - 3 = 5$, dan $y + z = 4 + 5 = 9$ — cocok.\n\nKesimpulan: Kunci Jawaban 3."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P28",
+      "judul": "Menyelesaikan SPLTV dengan Metode Substitusi",
+      "materi": {
+        "id": "P28",
+        "bab": "Bab 5: Sistem Persamaan dan Pertidaksamaan Linear",
+        "title": "Menyelesaikan SPLTV dengan Metode Substitusi",
+        "obj": [
+          "Memilih variabel yang paling mudah dinyatakan dalam variabel lain, yaitu yang koefisiennya $1$ atau $-1$.",
+          "Menyubstitusikan bentuk itu ke dua persamaan lainnya untuk memperoleh sistem dua variabel, lalu menyelesaikannya sampai tuntas.",
+          "Memeriksa jawaban akhir pada KETIGA persamaan semula dan melacak kekeliruan tanda saat menyubstitusikan bentuk bertanda minus."
+        ],
+        "hook": "Bayangkan tiga orang yang saling menunjuk: \"tanya saja dia\". Ani berkata umurnya satu tahun di atas Budi, Budi berkata umurnya satu tahun di atas Cici, dan Cici hanya tahu bahwa umur mereka bertiga berjumlah $27$ tahun. Selama setiap orang menunjuk orang lain, tidak ada jawaban. Begitu semua pernyataan dituliskan dalam SATU nama saja, soalnya tiba-tiba menjadi persamaan satu variabel yang mudah. Itulah metode substitusi: mengganti variabel dengan bentuk yang setara sampai hanya tersisa satu variabel.",
+        "toolkit": [
+          {
+            "name": "Langkah 1: Pilih",
+            "math": "$$\\text{pilih variabel berkoefisien } \\pm 1$$"
+          },
+          {
+            "name": "Langkah 2: Nyatakan",
+            "math": "$$x + y + z = 6 \\Rightarrow z = 6 - x - y$$"
+          },
+          {
+            "name": "Langkah 3: Substitusikan",
+            "math": "$$\\text{SPLTV} \\rightarrow \\text{SPLDV} \\rightarrow \\text{satu variabel}$$"
+          },
+          {
+            "name": "Minus di Depan Kurung",
+            "math": "$$-(6 - x - y) = -6 + x + y$$"
+          },
+          {
+            "name": "Langkah 4: Periksa",
+            "math": "$$(x, y, z) \\text{ diuji pada ketiga persamaan semula}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Selesaikan sistem $x + y + z = 9$, $x - y = 1$, dan $y - z = 1$ dengan metode substitusi.",
+            "solution": "Langkah 1: Persamaan kedua dan ketiga masing-masing hanya memuat dua variabel. Nyatakan $x$ dan $z$ dalam $y$.\n$x - y = 1 \\Rightarrow x = y + 1$\n$y - z = 1 \\Rightarrow z = y - 1$\n\nLangkah 2: Substitusikan keduanya ke persamaan pertama.\n$(y + 1) + y + (y - 1) = 9$\n\nLangkah 3: Sederhanakan. Bilangan $+1$ dan $-1$ saling menghapus.\n$3y = 9 \\Rightarrow y = 3$\n\nLangkah 4: Hitung $x$ dan $z$ dari bentuk pada Langkah 1.\n$x = 3 + 1 = 4$ dan $z = 3 - 1 = 2$\n\nLangkah 5: Periksa pada ketiga persamaan semula.\n$4 + 3 + 2 = 9$, $4 - 3 = 1$, $3 - 2 = 1$ — semuanya cocok\n\nLangkah 6: Perhatikan Langkah 1 pada persamaan ketiga: dari $y - z = 1$ diperoleh $z = y - 1$, bukan $z = 1 - y$. Pindahkan suku dengan hati-hati.\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (4, 3, 2)$."
+          },
+          {
+            "problem": "Selesaikan sistem $x + 2y - z = 3$, $2x - y + z = 4$, dan $x + y + z = 4$ dengan metode substitusi.",
+            "solution": "Langkah 1: Pilih variabel yang koefisiennya $1$. Pada persamaan ketiga semua koefisiennya $1$, jadi nyatakan $z$ darinya.\n$z = 4 - x - y$\n\nLangkah 2: Substitusikan ke persamaan pertama. Perhatikan tanda minus di depan kurung.\n$x + 2y - (4 - x - y) = 3$\n$x + 2y - 4 + x + y = 3 \\Rightarrow 2x + 3y = 7$\n\nLangkah 3: Substitusikan ke persamaan kedua.\n$2x - y + (4 - x - y) = 4$\n$x - 2y + 4 = 4 \\Rightarrow x = 2y$\n\nLangkah 4: Sekarang tinggal sistem dua variabel. Substitusikan $x = 2y$ ke $2x + 3y = 7$.\n$4y + 3y = 7 \\Rightarrow y = 1$\n\nLangkah 5: Hitung $x$ dan $z$.\n$x = 2(1) = 2$ dan $z = 4 - 2 - 1 = 1$\n\nLangkah 6: Periksa pada ketiga persamaan semula.\n$2 + 2 - 1 = 3$, $4 - 1 + 1 = 4$, $2 + 1 + 1 = 4$ — semuanya cocok\n\nLangkah 7: Kekeliruan yang paling sering terjadi ada di Langkah 2: menulis $-(4 - x - y)$ sebagai $-4 - x - y$. Tanda minus harus dibagikan ke SETIAP suku di dalam kurung.\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (2, 1, 1)$."
+          },
+          {
+            "problem": "Selesaikan sistem $2x + y - z = 1$, $x - y + 2z = 5$, dan $x + y + z = 6$ dengan menyatakan $z$ dari persamaan pertama.",
+            "solution": "Langkah 1: Pada persamaan pertama koefisien $z$ adalah $-1$. Pindahkan $z$ ke ruas kanan.\n$2x + y - z = 1 \\Rightarrow z = 2x + y - 1$\n\nLangkah 2: Substitusikan ke persamaan kedua.\n$x - y + 2(2x + y - 1) = 5$\n$x - y + 4x + 2y - 2 = 5 \\Rightarrow 5x + y = 7$\n\nLangkah 3: Substitusikan ke persamaan ketiga.\n$x + y + (2x + y - 1) = 6 \\Rightarrow 3x + 2y = 7$\n\nLangkah 4: Dari $5x + y = 7$ diperoleh $y = 7 - 5x$. Substitusikan ke $3x + 2y = 7$.\n$3x + 2(7 - 5x) = 7 \\Rightarrow 3x + 14 - 10x = 7 \\Rightarrow -7x = -7 \\Rightarrow x = 1$\n\nLangkah 5: Hitung $y$ lalu $z$.\n$y = 7 - 5(1) = 2$ dan $z = 2(1) + 2 - 1 = 3$\n\nLangkah 6: Periksa pada ketiga persamaan semula.\n$2 + 2 - 3 = 1$, $1 - 2 + 6 = 5$, $1 + 2 + 3 = 6$ — semuanya cocok\n\nLangkah 7: Pada Langkah 2, angka $2$ di depan kurung dikalikan ke SETIAP suku: $2(2x + y - 1) = 4x + 2y - 2$. Lupa mengalikan $-1$ dengan $2$ adalah kekeliruan yang sering muncul.\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (1, 2, 3)$."
+          },
+          {
+            "problem": "Selesaikan sistem $x + y = 5$, $y + z = 8$, dan $x + z = 7$ dengan metode substitusi.",
+            "solution": "Langkah 1: Setiap persamaan hanya memuat dua variabel. Mulailah dari persamaan pertama dan nyatakan $y$ dalam $x$.\n$y = 5 - x$\n\nLangkah 2: Substitusikan ke persamaan kedua untuk menyatakan $z$ dalam $x$ juga.\n$(5 - x) + z = 8 \\Rightarrow z = 3 + x$\n\nLangkah 3: Sekarang $y$ dan $z$ sama-sama dinyatakan dalam $x$. Substitusikan $z$ ke persamaan ketiga.\n$x + (3 + x) = 7 \\Rightarrow 2x = 4 \\Rightarrow x = 2$\n\nLangkah 4: Hitung $y$ dan $z$.\n$y = 5 - 2 = 3$ dan $z = 3 + 2 = 5$\n\nLangkah 5: Periksa pada ketiga persamaan semula.\n$2 + 3 = 5$, $3 + 5 = 8$, $2 + 5 = 7$ — semuanya cocok\n\nLangkah 6: Pola \"berantai\" seperti ini — $y$ dari persamaan pertama, lalu $z$ dari persamaan kedua — sangat cocok untuk substitusi karena setiap langkah hanya memindahkan satu suku.\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (2, 3, 5)$."
+          },
+          {
+            "problem": "Selesaikan sistem $2x + 3y + z = 11$, $3x - y + 2z = 7$, dan $x + y - z = 0$. Jelaskan pula mengapa pilihan variabel pertama itu penting.",
+            "solution": "Langkah 1: Bandingkan pilihannya. Menyatakan $x$ dari persamaan pertama menghasilkan $x = \\frac{11 - 3y - z}{2}$, yaitu pecahan yang merepotkan. Persamaan ketiga semua koefisiennya $\\pm 1$, jadi pilihlah $z$ darinya.\n$z = x + y$\n\nLangkah 2: Substitusikan ke persamaan pertama.\n$2x + 3y + (x + y) = 11 \\Rightarrow 3x + 4y = 11$\n\nLangkah 3: Substitusikan ke persamaan kedua.\n$3x - y + 2(x + y) = 7 \\Rightarrow 5x + y = 7$\n\nLangkah 4: Dari $5x + y = 7$ diperoleh $y = 7 - 5x$. Substitusikan ke $3x + 4y = 11$.\n$3x + 4(7 - 5x) = 11 \\Rightarrow 3x + 28 - 20x = 11 \\Rightarrow -17x = -17 \\Rightarrow x = 1$\n\nLangkah 5: Hitung $y$ lalu $z$.\n$y = 7 - 5 = 2$ dan $z = 1 + 2 = 3$\n\nLangkah 6: Periksa pada ketiga persamaan semula.\n$2 + 6 + 3 = 11$, $3 - 2 + 6 = 7$, $1 + 2 - 3 = 0$ — semuanya cocok\n\nLangkah 7: Pilihan variabel pertama tidak mengubah jawaban akhir, tetapi sangat menentukan panjang dan rumitnya hitungan. Carilah koefisien $1$ atau $-1$ sebelum mulai.\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (1, 2, 3)$; memilih $z$ dari persamaan ketiga menghindarkan hitungan dari pecahan."
+          }
+        ],
+        "btc": "Kelompok VNPS: Di papan, selesaikan sistem $3x - y + z = 4$, $x + 2y - z = 1$, $2x + y + 2z = 7$ dengan TIGA pilihan awal yang berbeda — satu anggota menyatakan $y$ dari persamaan pertama, satu menyatakan $z$ dari persamaan pertama, dan satu menyatakan $x$ dari persamaan kedua. Bandingkan panjang hitungan ketiganya dan pastikan jawabannya sama. Terakhir, tuliskan satu \"jebakan tanda minus\" yang kalian temui, lalu tunjukkan cara menghindarinya.",
+        "summary_data": {
+          "summary": [
+            "Metode substitusi mengganti satu variabel dengan bentuk yang setara sampai tersisa satu variabel.",
+            "Pilih variabel yang koefisiennya $1$ atau $-1$ agar tidak muncul pecahan.",
+            "Satu substitusi mengubah SPLTV menjadi sistem dua variabel (SPLDV).",
+            "Substitusi kedua mengubah SPLDV menjadi persamaan satu variabel.",
+            "Tanda minus di depan kurung dibagikan ke setiap suku: $-(a - b) = -a + b$.",
+            "Bilangan di depan kurung dikalikan ke setiap suku, termasuk suku konstanta.",
+            "Setelah satu variabel diketahui, hitung variabel lainnya dengan cara mundur.",
+            "Jawaban akhir selalu diuji pada KETIGA persamaan semula, bukan pada persamaan hasil olahan.",
+            "Sistem berpola berantai, seperti $x + y$, $y + z$, $x + z$, sangat cocok diselesaikan dengan substitusi.",
+            "Pilihan variabel pertama tidak mengubah jawaban, tetapi menentukan mudah atau sulitnya hitungan."
+          ],
+          "islamic": "Setiap persoalan yang tampak rumit selalu mempunyai jalan keluar bila dikerjakan langkah demi langkah. \"Maka sesungguhnya beserta kesulitan ada kemudahan. Sesungguhnya beserta kesulitan ada kemudahan.\" (QS. Al-Insyirah: 5–6)"
+        },
+        "collab_cases": [
+          "Selesaikan sistem $x = y + 2$, $z = 2y$, dan $x + y + z = 14$.",
+          "Selesaikan sistem $x + y + z = 6$, $x - y + z = 2$, dan $x + y - z = 0$ dengan menyatakan $z$ dari persamaan pertama.",
+          "Selesaikan sistem $2x + y - z = 3$, $x + y + z = 4$, dan $x - y + z = 0$.",
+          "Selesaikan sistem $x + y = 8$, $y + z = 11$, dan $x + z = 9$ dengan substitusi berantai.",
+          "Selesaikan sistem $3x - y + z = 4$, $x + 2y - z = 1$, dan $2x + y + 2z = 7$. Variabel mana yang paling tepat dipilih lebih dahulu? Jelaskan."
+        ]
+      },
+      "soal": {
+        "id": "P28",
+        "subject": "wajib",
+        "title": "P28 • Menyelesaikan SPLTV dengan Metode Substitusi",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P28-Q1] Pada sistem $2x + 3y + z = 10$, $3x + 2y + 4z = 15$, dan $4x + 5y + 3z = 20$, langkah substitusi yang paling mudah adalah menyatakan $\\dots$",
+            "opsi": [
+              "A. $x$ dari persamaan pertama",
+              "B. $y$ dari persamaan kedua",
+              "C. $z$ dari persamaan pertama",
+              "D. $z$ dari persamaan kedua",
+              "E. $x$ dari persamaan ketiga"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Variabel yang paling mudah dinyatakan adalah yang koefisiennya $1$ atau $-1$, sebab pemindahannya tidak memerlukan pembagian.\n\nLangkah 2: Periksa semua koefisien. Satu-satunya koefisien $1$ adalah koefisien $z$ pada persamaan pertama.\n\nLangkah 3: Menyatakan $z$ dari persamaan pertama menghasilkan bentuk tanpa pecahan.\n$z = 10 - 2x - 3y$\n\nLangkah 4: Opsi A menghasilkan $x = \\frac{10 - 3y - z}{2}$, bentuk pecahan.\n\nLangkah 5: Opsi D menghasilkan $z = \\frac{15 - 3x - 2y}{4}$, juga pecahan.\n\nLangkah 6: Semua pilihan tetap SAH dan menghasilkan jawaban yang sama, tetapi hanya opsi C yang bebas pecahan.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P28-Q2] Diketahui $x + y + z = 6$, $x = 2y$, dan $z = y + 2$. Nilai $y$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $1$",
+              "C. $3$",
+              "D. $4$",
+              "E. $6$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Persamaan kedua dan ketiga sudah menyatakan $x$ dan $z$ dalam $y$.\n\nLangkah 2: Substitusikan keduanya ke persamaan pertama.\n$2y + y + (y + 2) = 6$\n\nLangkah 3: Sederhanakan.\n$4y + 2 = 6$\n\nLangkah 4: Selesaikan.\n$4y = 4 \\Rightarrow y = 1$\n\nLangkah 5: Periksa: $x = 2$, $z = 3$, dan $2 + 1 + 3 = 6$ — cocok.\n\nLangkah 6: Opsi A ($2$) adalah nilai $x$, sedangkan opsi C ($3$) adalah nilai $z$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P28-Q3] Bentuk $z = 5 - x - y$ disubstitusikan ke persamaan $2x - y + 3z = 9$. Hasilnya adalah $\\dots$",
+            "opsi": [
+              "A. $x - 2y = -6$",
+              "B. $5x + 2y = -6$",
+              "C. $x + 4y = -24$",
+              "D. $x + 4y = 6$",
+              "E. $x - 4y = 6$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Ganti $z$ dengan $5 - x - y$.\n$2x - y + 3(5 - x - y) = 9$\n\nLangkah 2: Kalikan $3$ ke SETIAP suku di dalam kurung.\n$2x - y + 15 - 3x - 3y = 9$\n\nLangkah 3: Kumpulkan suku sejenis.\n$-x - 4y + 15 = 9$\n\nLangkah 4: Pindahkan $15$ ke ruas kanan.\n$-x - 4y = -6$\n\nLangkah 5: Kalikan kedua ruas dengan $-1$.\n$x + 4y = 6$\n\nLangkah 6: Opsi A muncul bila $3$ hanya dikalikan ke $5$, yaitu $2x - y + 15 - x - y = 9$. Opsi C muncul bila $15$ dipindahkan tanpa mengubah tandanya.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P28-Q4] Penyelesaian sistem $x + 2y - z = 3$, $2x - y + z = 4$, dan $x + y + z = 4$ adalah $(x, y, z)$. Nilai $x$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $1$",
+              "C. $4$",
+              "D. $3$",
+              "E. $-1$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Nyatakan $z$ dari persamaan ketiga yang semua koefisiennya $1$.\n$z = 4 - x - y$\n\nLangkah 2: Substitusikan ke persamaan pertama.\n$x + 2y - (4 - x - y) = 3 \\Rightarrow 2x + 3y = 7$\n\nLangkah 3: Substitusikan ke persamaan kedua.\n$2x - y + (4 - x - y) = 4 \\Rightarrow x - 2y = 0 \\Rightarrow x = 2y$\n\nLangkah 4: Substitusikan $x = 2y$ ke $2x + 3y = 7$.\n$4y + 3y = 7 \\Rightarrow y = 1$\n\nLangkah 5: Hitung $x$.\n$x = 2(1) = 2$, lalu $z = 4 - 2 - 1 = 1$\n\nLangkah 6: Periksa: $2 + 2 - 1 = 3$, $4 - 1 + 1 = 4$, $2 + 1 + 1 = 4$ — cocok. Opsi B ($1$) adalah nilai $y$ maupun $z$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P28-Q5] Diketahui $x + y = 5$, $y + z = 8$, dan $x + z = 7$. Nilai $z$ adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $10$",
+              "C. $2$",
+              "D. $7$",
+              "E. $5$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Nyatakan $y$ dari persamaan pertama.\n$y = 5 - x$\n\nLangkah 2: Substitusikan ke persamaan kedua.\n$(5 - x) + z = 8 \\Rightarrow z = 3 + x$\n\nLangkah 3: Substitusikan ke persamaan ketiga.\n$x + (3 + x) = 7 \\Rightarrow 2x = 4 \\Rightarrow x = 2$\n\nLangkah 4: Hitung $z$.\n$z = 3 + 2 = 5$\n\nLangkah 5: Periksa: $y = 3$, lalu $2 + 3 = 5$, $3 + 5 = 8$, $2 + 5 = 7$ — cocok.\n\nLangkah 6: Opsi C ($2$) adalah nilai $x$ dan opsi A ($3$) adalah nilai $y$. Opsi B ($10$) adalah jumlah $x + y + z$.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P28-Q6] Penyelesaian sistem $2x + y - z = 1$, $x - y + 2z = 5$, dan $x + y + z = 6$ adalah $(x, y, z)$. Nilai $x + 2y + 3z$ adalah $\\dots$",
+            "opsi": [
+              "A. $12$",
+              "B. $14$",
+              "C. $16$",
+              "D. $10$",
+              "E. $18$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Nyatakan $z$ dari persamaan pertama yang koefisien $z$-nya $-1$.\n$z = 2x + y - 1$\n\nLangkah 2: Substitusikan ke persamaan kedua.\n$x - y + 2(2x + y - 1) = 5 \\Rightarrow 5x + y = 7$\n\nLangkah 3: Substitusikan ke persamaan ketiga.\n$x + y + (2x + y - 1) = 6 \\Rightarrow 3x + 2y = 7$\n\nLangkah 4: Dari $y = 7 - 5x$: $3x + 14 - 10x = 7 \\Rightarrow x = 1$, lalu $y = 2$ dan $z = 2 + 2 - 1 = 3$.\n\nLangkah 5: Periksa pada ketiga persamaan: $2 + 2 - 3 = 1$, $1 - 2 + 6 = 5$, $1 + 2 + 3 = 6$ — cocok.\n\nLangkah 6: Hitung yang ditanyakan.\n$x + 2y + 3z = 1 + 4 + 9 = 14$\n\nLangkah 7: Opsi D ($10$) muncul bila nilai $x$ dan $z$ tertukar: $3 + 2(2) + 3(1) = 10$. Opsi A ($12$) adalah $2(x + y + z)$, bukan bentuk yang ditanyakan.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P28-Q7] Tripel $(a, b, c)$ adalah penyelesaian sistem $2x + 3y + z = 11$, $3x - y + 2z = 7$, dan $x + y - z = 0$. Nilai $a \\cdot b \\cdot c$ adalah $\\dots$",
+            "opsi": [
+              "A. $5$",
+              "B. $12$",
+              "C. $6$",
+              "D. $9$",
+              "E. $3$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Persamaan ketiga semua koefisiennya $\\pm 1$. Nyatakan $z$ darinya.\n$z = x + y$\n\nLangkah 2: Substitusikan ke persamaan pertama.\n$2x + 3y + x + y = 11 \\Rightarrow 3x + 4y = 11$\n\nLangkah 3: Substitusikan ke persamaan kedua.\n$3x - y + 2x + 2y = 7 \\Rightarrow 5x + y = 7$\n\nLangkah 4: Dari $y = 7 - 5x$: $3x + 28 - 20x = 11 \\Rightarrow -17x = -17 \\Rightarrow x = 1$. Maka $y = 2$ dan $z = 3$.\n\nLangkah 5: Periksa: $2 + 6 + 3 = 11$, $3 - 2 + 6 = 7$, $1 + 2 - 3 = 0$ — cocok.\n\nLangkah 6: Hitung hasil kalinya.\n$a \\cdot b \\cdot c = 1 \\times 2 \\times 3 = 6$\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P28-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Pada metode substitusi, sebaiknya dipilih variabel yang koefisiennya $1$ atau $-1$ agar tidak muncul pecahan.",
+              "(2) Menyubstitusikan $z = 4 - x - y$ ke $3x + y - 2z = 1$ menghasilkan $5x + 3y = -7$.",
+              "(3) Sistem $x = y + 1$, $y = z + 1$, $x + y + z = 9$ mempunyai penyelesaian $(4, 3, 2)$."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): menyatakan variabel berkoefisien $\\pm 1$ tidak memerlukan pembagian, jadi tidak muncul pecahan. Pernyataan (1) BENAR.\n\nLangkah 2: Pernyataan (2): substitusikan dengan cermat.\n$3x + y - 2(4 - x - y) = 1 \\Rightarrow 3x + y - 8 + 2x + 2y = 1$\n\nLangkah 3: Sederhanakan.\n$5x + 3y - 8 = 1 \\Rightarrow 5x + 3y = 9$\n\nLangkah 4: Hasil yang benar $5x + 3y = 9$, bukan $-7$. Angka $-7$ muncul bila $-8$ dipindahkan tanpa mengubah tanda. Pernyataan (2) SALAH.\n\nLangkah 5: Pernyataan (3): uji $(4, 3, 2)$. $4 = 3 + 1$, $3 = 2 + 1$, dan $4 + 3 + 2 = 9$ — ketiganya cocok.\n\nLangkah 6: Pernyataan (3) BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P28-Q9] Pada sistem $x + y + z = 6$, $2x - y + z = 3$, dan $x + 2y - z = 2$, bentuk $z = 6 - x - y$ disubstitusikan ke persamaan kedua dan ketiga. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Substitusi ke persamaan kedua menghasilkan $x - 2y = -3$.",
+              "B. Substitusi ke persamaan ketiga menghasilkan $2x + 3y = 8$.",
+              "C. Nilai $y = 2$.",
+              "D. Nilai $x = 2$.",
+              "E. Nilai $z = 3$."
+            ],
+            "kunci": "A, B, C, E",
+            "bahas": "Langkah 1: Periksa A. $2x - y + (6 - x - y) = 3 \\Rightarrow x - 2y + 6 = 3 \\Rightarrow x - 2y = -3$. Pernyataan A benar.\n\nLangkah 2: Periksa B. $x + 2y - (6 - x - y) = 2 \\Rightarrow 2x + 3y - 6 = 2 \\Rightarrow 2x + 3y = 8$. Pernyataan B benar.\n\nLangkah 3: Selesaikan sistem dua variabel itu. Dari A: $x = 2y - 3$.\n$2(2y - 3) + 3y = 8 \\Rightarrow 7y = 14 \\Rightarrow y = 2$\n\nLangkah 4: Pernyataan C benar. Lalu $x = 2(2) - 3 = 1$, jadi pernyataan D ($x = 2$) salah.\n\nLangkah 5: Hitung $z$.\n$z = 6 - 1 - 2 = 3$ — pernyataan E benar\n\nLangkah 6: Periksa $(1, 2, 3)$ pada sistem semula: $1 + 2 + 3 = 6$, $2 - 2 + 3 = 3$, $1 + 4 - 3 = 2$ — cocok.\n\nKesimpulan: Kunci Jawaban A, B, C, E."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P28-Q10] Diketahui $x = 2y$, $y = 3z$, dan $x + y + z = 20$. Nilai $x$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "12",
+            "bahas": "Langkah 1: Nyatakan semua variabel dalam $z$. Dari $y = 3z$ diperoleh $x = 2y = 2(3z) = 6z$.\n\nLangkah 2: Substitusikan ke persamaan ketiga.\n$6z + 3z + z = 20$\n\nLangkah 3: Selesaikan.\n$10z = 20 \\Rightarrow z = 2$\n\nLangkah 4: Hitung $y$ lalu $x$.\n$y = 3(2) = 6$ dan $x = 2(6) = 12$\n\nLangkah 5: Periksa: $12 + 6 + 2 = 20$ — cocok.\n\nKesimpulan: Kunci Jawaban 12."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P29",
+      "judul": "Menyelesaikan SPLTV dengan Metode Eliminasi dan Gabungan",
+      "materi": {
+        "id": "P29",
+        "bab": "Bab 5: Sistem Persamaan dan Pertidaksamaan Linear",
+        "title": "Menyelesaikan SPLTV dengan Metode Eliminasi dan Gabungan",
+        "obj": [
+          "Menyamakan koefisien satu variabel pada dua persamaan, lalu menjumlahkan atau mengurangkannya untuk menghilangkan variabel itu.",
+          "Menyelesaikan SPLTV dengan pola tiga variabel → dua variabel → satu variabel, memakai eliminasi saja atau gabungan eliminasi dan substitusi.",
+          "Mengenali sistem yang tidak mempunyai penyelesaian ketika eliminasi menghasilkan kalimat mustahil seperti $0 = 4$."
+        ],
+        "hook": "Catatan pertama: harga $1$ apel ditambah $1$ jeruk adalah Rp$9.000$. Catatan kedua: $1$ apel lebih mahal Rp$1.000$ daripada $1$ jeruk. Tuliskan keduanya sebagai persamaan, $a + j = 9.000$ dan $a - j = 1.000$, lalu JUMLAHKAN: jeruknya saling meniadakan dan tersisa $2a = 10.000$. Dua pernyataan yang benar tetap menghasilkan pernyataan yang benar bila dijumlahkan atau dikurangkan — dan kita dapat mengaturnya agar satu variabel lenyap. Itulah metode eliminasi, dan pada SPLTV gagasan yang sama dipakai dua kali.",
+        "toolkit": [
+          {
+            "name": "Samakan Koefisien",
+            "math": "$$\\text{kalikan persamaan agar koefisien satu variabel sama atau berlawanan}$$"
+          },
+          {
+            "name": "Koefisien Berlawanan",
+            "math": "$$(+k) + (-k) = 0 \\Rightarrow \\text{JUMLAHKAN}$$"
+          },
+          {
+            "name": "Koefisien Sama",
+            "math": "$$(+k) - (+k) = 0 \\Rightarrow \\text{KURANGKAN}$$"
+          },
+          {
+            "name": "Alur Eliminasi",
+            "math": "$$3 \\text{ persamaan} \\xrightarrow{\\text{eliminasi}} 2 \\text{ persamaan} \\xrightarrow{\\text{eliminasi}} 1 \\text{ persamaan}$$"
+          },
+          {
+            "name": "Kalimat Mustahil",
+            "math": "$$0 = k,\\ k \\neq 0 \\Rightarrow \\text{tidak ada penyelesaian}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Selesaikan sistem $x + y + z = 6$, $x - y + z = 2$, dan $2x + y - z = 1$ dengan metode eliminasi.",
+            "solution": "Langkah 1: Perhatikan koefisien $z$: $+1$, $+1$, dan $-1$. Persamaan ketiga berlawanan tanda dengan dua lainnya, jadi $z$ paling mudah dieliminasi dengan menjumlahkan.\n\nLangkah 2: Jumlahkan persamaan pertama dan ketiga.\n$(x + y + z) + (2x + y - z) = 6 + 1 \\Rightarrow 3x + 2y = 7$\n\nLangkah 3: Jumlahkan persamaan kedua dan ketiga.\n$(x - y + z) + (2x + y - z) = 2 + 1 \\Rightarrow 3x = 3$\n\nLangkah 4: Pada Langkah 3 ternyata $y$ pun ikut hilang. Langsung diperoleh $x = 1$.\n\nLangkah 5: Substitusikan ke $3x + 2y = 7$.\n$3 + 2y = 7 \\Rightarrow y = 2$\n\nLangkah 6: Hitung $z$ dari persamaan pertama.\n$1 + 2 + z = 6 \\Rightarrow z = 3$\n\nLangkah 7: Periksa pada ketiga persamaan semula.\n$1 + 2 + 3 = 6$, $1 - 2 + 3 = 2$, $2 + 2 - 3 = 1$ — semuanya cocok\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (1, 2, 3)$."
+          },
+          {
+            "problem": "Selesaikan sistem $2x + 3y - z = 5$, $x - 2y + 2z = 4$, dan $x + y + z = 5$.",
+            "solution": "Langkah 1: Pilih $z$ untuk dieliminasi. Koefisiennya $-1$, $+2$, dan $+1$ — mudah disamakan.\n\nLangkah 2: Eliminasi $z$ dari persamaan pertama dan kedua. Kalikan persamaan pertama dengan $2$ agar koefisien $z$ menjadi $-2$, lalu jumlahkan.\n$4x + 6y - 2z = 10$\n$(4x + 6y - 2z) + (x - 2y + 2z) = 10 + 4 \\Rightarrow 5x + 4y = 14$\n\nLangkah 3: Eliminasi $z$ dari persamaan pertama dan ketiga. Koefisiennya sudah berlawanan, jadi langsung jumlahkan.\n$(2x + 3y - z) + (x + y + z) = 5 + 5 \\Rightarrow 3x + 4y = 10$\n\nLangkah 4: Sekarang ada dua persamaan dua variabel dengan koefisien $y$ yang sama. Kurangkan.\n$(5x + 4y) - (3x + 4y) = 14 - 10 \\Rightarrow 2x = 4 \\Rightarrow x = 2$\n\nLangkah 5: Substitusikan ke $3x + 4y = 10$.\n$6 + 4y = 10 \\Rightarrow y = 1$\n\nLangkah 6: Hitung $z$ dari persamaan ketiga.\n$2 + 1 + z = 5 \\Rightarrow z = 2$\n\nLangkah 7: Periksa pada ketiga persamaan semula.\n$4 + 3 - 2 = 5$, $2 - 2 + 4 = 4$, $2 + 1 + 2 = 5$ — semuanya cocok\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (2, 1, 2)$."
+          },
+          {
+            "problem": "Selesaikan sistem $3x + 2y - z = -1$, $2x - 3y + 2z = 9$, dan $x + y + 3z = 6$.",
+            "solution": "Langkah 1: Tidak ada dua persamaan yang koefisiennya langsung sama. Pilih $z$ karena persamaan pertama memuat $-z$ yang mudah dikalikan.\n\nLangkah 2: Kalikan persamaan pertama dengan $2$, lalu jumlahkan dengan persamaan kedua.\n$6x + 4y - 2z = -2$\n$(6x + 4y - 2z) + (2x - 3y + 2z) = -2 + 9 \\Rightarrow 8x + y = 7$\n\nLangkah 3: Kalikan persamaan pertama dengan $3$, lalu jumlahkan dengan persamaan ketiga.\n$9x + 6y - 3z = -3$\n$(9x + 6y - 3z) + (x + y + 3z) = -3 + 6 \\Rightarrow 10x + 7y = 3$\n\nLangkah 4: Eliminasi $y$. Kalikan $8x + y = 7$ dengan $7$, lalu kurangkan $10x + 7y = 3$.\n$56x + 7y = 49$\n$(56x + 7y) - (10x + 7y) = 49 - 3 \\Rightarrow 46x = 46 \\Rightarrow x = 1$\n\nLangkah 5: Hitung $y$ dari $8x + y = 7$.\n$8 + y = 7 \\Rightarrow y = -1$\n\nLangkah 6: Hitung $z$ dari persamaan ketiga.\n$1 + (-1) + 3z = 6 \\Rightarrow 3z = 6 \\Rightarrow z = 2$\n\nLangkah 7: Periksa pada ketiga persamaan semula.\n$3 - 2 - 2 = -1$, $2 + 3 + 4 = 9$, $1 - 1 + 6 = 6$ — semuanya cocok\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (1, -1, 2)$."
+          },
+          {
+            "problem": "Selesaikan sistem $x + 2y + z = 8$, $2x + y - z = 1$, dan $x - y + 2z = 5$ dengan metode gabungan eliminasi dan substitusi.",
+            "solution": "Langkah 1: Metode gabungan: eliminasi dipakai untuk menurunkan banyaknya variabel, lalu substitusi dipakai untuk menuntaskan.\n\nLangkah 2: Eliminasi $z$ dari persamaan pertama dan kedua dengan menjumlahkannya.\n$(x + 2y + z) + (2x + y - z) = 8 + 1 \\Rightarrow 3x + 3y = 9 \\Rightarrow x + y = 3$\n\nLangkah 3: Eliminasi $z$ dari persamaan kedua dan ketiga. Kalikan persamaan kedua dengan $2$, lalu jumlahkan.\n$(4x + 2y - 2z) + (x - y + 2z) = 2 + 5 \\Rightarrow 5x + y = 7$\n\nLangkah 4: Sekarang substitusi. Dari $x + y = 3$ diperoleh $y = 3 - x$.\n$5x + (3 - x) = 7 \\Rightarrow 4x = 4 \\Rightarrow x = 1$\n\nLangkah 5: Hitung $y$ lalu $z$.\n$y = 3 - 1 = 2$, dan dari persamaan pertama $1 + 4 + z = 8 \\Rightarrow z = 3$\n\nLangkah 6: Periksa pada ketiga persamaan semula.\n$1 + 4 + 3 = 8$, $2 + 2 - 3 = 1$, $1 - 2 + 6 = 5$ — semuanya cocok\n\nLangkah 7: Pada Langkah 2, persamaan $3x + 3y = 9$ dibagi $3$ lebih dahulu. Menyederhanakan sedini mungkin membuat angka tetap kecil.\n\nKesimpulan: Penyelesaiannya $(x, y, z) = (1, 2, 3)$."
+          },
+          {
+            "problem": "Tunjukkan bahwa sistem $x + y + z = 3$, $2x + 2y + 2z = 10$, dan $x - y + z = 1$ tidak mempunyai penyelesaian.",
+            "solution": "Langkah 1: Perhatikan persamaan kedua. Ruas kirinya tepat dua kali ruas kiri persamaan pertama.\n\nLangkah 2: Kalikan persamaan pertama dengan $2$.\n$2x + 2y + 2z = 6$\n\nLangkah 3: Kurangkan dari persamaan kedua.\n$(2x + 2y + 2z) - (2x + 2y + 2z) = 10 - 6$\n\nLangkah 4: Hasilnya.\n$0 = 4$\n\nLangkah 5: Kalimat $0 = 4$ mustahil benar untuk nilai $x$, $y$, $z$ berapa pun. Artinya tidak ada tripel yang memenuhi kedua persamaan itu sekaligus.\n\nLangkah 6: Maknanya: persamaan pertama menyatakan $x + y + z = 3$, sedangkan persamaan kedua sama dengan $x + y + z = 5$. Jumlah yang sama tidak mungkin bernilai $3$ dan $5$ sekaligus.\n\nLangkah 7: Bandingkan bila ruas kanannya $6$: eliminasi menghasilkan $0 = 0$, yang selalu benar. Sistem seperti itu mempunyai tak hingga banyak penyelesaian, bukan tidak punya.\n\nKesimpulan: Sistem itu tidak mempunyai penyelesaian (himpunan penyelesaiannya kosong), karena eliminasi menghasilkan kalimat mustahil $0 = 4$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Di papan, setiap kelompok menyelesaikan sistem $2x + y + z = 4$, $x - 2y + z = 5$, $3x + y - 2z = 3$ dengan mengeliminasi variabel yang BERBEDA — ada yang mulai dari $x$, ada yang dari $y$, ada yang dari $z$. Bandingkan jawaban dan banyaknya langkah. Selanjutnya, ubahlah satu ruas kanan persamaan kedua sehingga sistemnya menjadi tidak mempunyai penyelesaian — apakah hal itu mungkin untuk sistem ini? Jelaskan alasan kalian.",
+        "summary_data": {
+          "summary": [
+            "Eliminasi berarti menghilangkan satu variabel dengan menjumlahkan atau mengurangkan dua persamaan.",
+            "Koefisien berlawanan tanda dihilangkan dengan MENJUMLAHKAN; koefisien sama dihilangkan dengan MENGURANGKAN.",
+            "Bila koefisiennya belum sama, kalikan satu atau kedua persamaan dengan bilangan yang tepat.",
+            "Mengalikan satu persamaan dengan bilangan tak nol tidak mengubah penyelesaiannya.",
+            "Eliminasi variabel yang SAMA dari dua pasang persamaan untuk memperoleh sistem dua variabel.",
+            "Metode gabungan: eliminasi untuk menurunkan banyaknya variabel, substitusi untuk menuntaskan.",
+            "Sederhanakan persamaan hasil eliminasi sedini mungkin, misalnya membagi $3x + 3y = 9$ menjadi $x + y = 3$.",
+            "Hasil $0 = k$ dengan $k \\neq 0$ berarti sistem tidak mempunyai penyelesaian.",
+            "Hasil $0 = 0$ berarti persamaannya bergantungan dan sistem dapat mempunyai tak hingga banyak penyelesaian.",
+            "Jawaban akhir selalu diperiksa pada ketiga persamaan semula."
+          ],
+          "islamic": "Kejujuran dan ketelitian dalam menimbang adalah perintah langsung. \"Dan sempurnakanlah takaran apabila kamu menakar, dan timbanglah dengan timbangan yang benar.\" (QS. Al-Isra: 35)"
+        },
+        "collab_cases": [
+          "Selesaikan sistem $x + y + z = 9$, $x - y + z = 3$, dan $x + y - z = 1$ dengan metode eliminasi.",
+          "Selesaikan sistem $2x + y + z = 7$, $x + 2y + z = 8$, dan $x + y + 2z = 9$.",
+          "Selesaikan sistem $2x - y + z = 6$, $x + y - 2z = 2$, dan $x - 3y + z = 1$.",
+          "Jelaskan mengapa sistem $x + y + z = 3$, $2x + 2y + 2z = 6$, dan $x - y = 1$ tidak mempunyai tepat satu penyelesaian.",
+          "Selesaikan sistem $4x - y + 2z = 9$, $x + 3y - z = -4$, dan $2x + y + 3z = 7$ dengan metode gabungan."
+        ]
+      },
+      "soal": {
+        "id": "P29",
+        "subject": "wajib",
+        "title": "P29 • Menyelesaikan SPLTV dengan Metode Eliminasi dan Gabungan",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P29-Q1] Untuk mengeliminasi $y$ dari persamaan $x + 2y - z = 4$ dan $3x - y + 2z = 5$ dengan cara menjumlahkan, persamaan kedua harus dikalikan dengan $\\dots$",
+            "opsi": [
+              "A. $\\frac{1}{2}$",
+              "B. $-1$",
+              "C. $2$",
+              "D. $3$",
+              "E. $-2$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Koefisien $y$ pada persamaan pertama $+2$ dan pada persamaan kedua $-1$.\n\nLangkah 2: Agar hilang ketika DIJUMLAHKAN, kedua koefisien harus berlawanan: $+2$ dan $-2$.\n\nLangkah 3: Kalikan persamaan kedua dengan $2$.\n$6x - 2y + 4z = 10$\n\nLangkah 4: Jumlahkan dengan persamaan pertama.\n$(x + 2y - z) + (6x - 2y + 4z) = 4 + 10 \\Rightarrow 7x + 3z = 14$\n\nLangkah 5: Variabel $y$ hilang, sesuai tujuan.\n\nLangkah 6: Opsi E ($-2$) membuat koefisien $y$ menjadi $+2$ pada kedua persamaan; cara itu juga dapat dipakai, tetapi harus DIKURANGKAN, bukan dijumlahkan.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P29-Q2] Diketahui $x + y + z = 10$, $x - y + z = 4$, dan $x + y - z = 2$. Nilai $z$ adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $2$",
+              "C. $6$",
+              "D. $4$",
+              "E. $5$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Persamaan pertama dan ketiga hanya berbeda pada tanda $z$. Kurangkan keduanya untuk mengeliminasi $x$ dan $y$ sekaligus.\n\nLangkah 2: Tulis pengurangannya.\n$(x + y + z) - (x + y - z) = 10 - 2$\n\nLangkah 3: Sederhanakan.\n$2z = 8 \\Rightarrow z = 4$\n\nLangkah 4: Sebagai pemeriksaan, hitung variabel lain. Kurangkan persamaan kedua dari pertama: $2y = 6 \\Rightarrow y = 3$, lalu $x = 10 - 3 - 4 = 3$.\n\nLangkah 5: Periksa: $3 - 3 + 4 = 4$ dan $3 + 3 - 4 = 2$ — cocok.\n\nLangkah 6: Opsi A ($3$) adalah nilai $x$ maupun $y$, bukan $z$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P29-Q3] Hasil eliminasi $z$ dari persamaan $2x + y + z = 7$ dan $x - y + z = 2$ adalah $\\dots$",
+            "opsi": [
+              "A. $x + 2y = 5$",
+              "B. $3x + 2z = 9$",
+              "C. $x = 5$",
+              "D. $x + 2y = 9$",
+              "E. $3x = 9$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Koefisien $z$ pada kedua persamaan sama-sama $+1$, jadi keduanya harus DIKURANGKAN.\n\nLangkah 2: Tulis pengurangannya.\n$(2x + y + z) - (x - y + z) = 7 - 2$\n\nLangkah 3: Kurangkan suku demi suku. Perhatikan $y - (-y) = 2y$.\n$x + 2y + 0 = 5$\n\nLangkah 4: Hasilnya $x + 2y = 5$.\n\nLangkah 5: Opsi B adalah hasil MENJUMLAHKAN, yang justru menghilangkan $y$ dan menyisakan $z$ — kebalikan dari yang diminta.\n\nLangkah 6: Opsi D muncul bila ruas kanannya dijumlahkan ($7 + 2 = 9$) padahal ruas kirinya dikurangkan. Kedua ruas harus diperlakukan sama.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P29-Q4] Penyelesaian sistem $3x + 2y - z = -1$, $2x - 3y + 2z = 9$, dan $x + y + 3z = 6$ adalah $(x, y, z)$. Nilai $x + y + z$ adalah $\\dots$",
+            "opsi": [
+              "A. $0$",
+              "B. $4$",
+              "C. $2$",
+              "D. $-2$",
+              "E. $1$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Eliminasi $z$ dari persamaan pertama dan kedua: kalikan persamaan pertama dengan $2$ lalu jumlahkan.\n$(6x + 4y - 2z) + (2x - 3y + 2z) = -2 + 9 \\Rightarrow 8x + y = 7$\n\nLangkah 2: Eliminasi $z$ dari persamaan pertama dan ketiga: kalikan persamaan pertama dengan $3$ lalu jumlahkan.\n$(9x + 6y - 3z) + (x + y + 3z) = -3 + 6 \\Rightarrow 10x + 7y = 3$\n\nLangkah 3: Eliminasi $y$: kalikan $8x + y = 7$ dengan $7$ lalu kurangkan.\n$56x - 10x = 49 - 3 \\Rightarrow 46x = 46 \\Rightarrow x = 1$\n\nLangkah 4: Hitung $y$ dan $z$.\n$y = 7 - 8 = -1$ dan $1 - 1 + 3z = 6 \\Rightarrow z = 2$\n\nLangkah 5: Periksa: $3 - 2 - 2 = -1$, $2 + 3 + 4 = 9$, $1 - 1 + 6 = 6$ — cocok.\n\nLangkah 6: Hitung yang ditanyakan.\n$x + y + z = 1 + (-1) + 2 = 2$\n\nLangkah 7: Opsi B ($4$) muncul bila $y$ ditulis $+1$; tanda negatif pada $y$ mudah hilang di Langkah 4.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P29-Q5] Sistem berikut yang TIDAK mempunyai penyelesaian adalah $\\dots$",
+            "opsi": [
+              "A. $x + y + z = 2$, $2x + 2y + 2z = 4$, $x - y = 0$",
+              "B. $x + y + z = 2$, $2x + 2y + 2z = 5$, $x - y = 0$",
+              "C. $x + y + z = 3$, $x - y + z = 1$, $x + y - z = 1$",
+              "D. $x + y = 2$, $y + z = 2$, $x + z = 2$",
+              "E. $x = 1$, $y = 1$, $z = 1$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Cari sistem yang eliminasinya menghasilkan kalimat mustahil $0 = k$ dengan $k \\neq 0$.\n\nLangkah 2: Pada opsi B, kalikan persamaan pertama dengan $2$: $2x + 2y + 2z = 4$. Kurangkan dari persamaan kedua.\n$0 = 5 - 4 = 1$ — mustahil\n\nLangkah 3: Jadi opsi B tidak mempunyai penyelesaian: $x + y + z$ tidak mungkin bernilai $2$ dan $2{,}5$ sekaligus.\n\nLangkah 4: Pada opsi A, cara yang sama menghasilkan $0 = 0$. Persamaan kedua hanyalah salinan persamaan pertama, sehingga sistemnya mempunyai tak hingga banyak penyelesaian — bukan tidak punya.\n\nLangkah 5: Opsi C mempunyai penyelesaian $(1, 1, 1)$: $3$, $1$, $1$ — cocok. Opsi D juga dipenuhi $(1, 1, 1)$.\n\nLangkah 6: Opsi E sudah langsung menyebutkan penyelesaiannya, yaitu $(1, 1, 1)$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P29-Q6] Diketahui $2x + y + z = 7$, $x + 2y + z = 8$, dan $x + y + 2z = 9$. Nilai $x + y + z$ adalah $\\dots$",
+            "opsi": [
+              "A. $24$",
+              "B. $12$",
+              "C. $8$",
+              "D. $6$",
+              "E. $3$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Setiap variabel mempunyai koefisien $2$ sekali dan koefisien $1$ dua kali. Jumlahkan ketiga persamaan.\n\nLangkah 2: Tulis penjumlahannya.\n$(2 + 1 + 1)x + (1 + 2 + 1)y + (1 + 1 + 2)z = 7 + 8 + 9$\n\nLangkah 3: Sederhanakan.\n$4x + 4y + 4z = 24$\n\nLangkah 4: Bagi dengan $4$.\n$x + y + z = 6$\n\nLangkah 5: Periksa dengan menghitung tiap variabel: $x = 7 - 6 = 1$, $y = 8 - 6 = 2$, $z = 9 - 6 = 3$, dan $1 + 2 + 3 = 6$ — cocok.\n\nLangkah 6: Opsi A ($24$) adalah jumlah ruas kanan yang lupa dibagi $4$.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P29-Q7] Seorang siswa mengeliminasi sistem $x + y + z = 6$, $x - y + z = 2$, dan $2x + y - z = 1$, lalu memperoleh $3x + 2y = 7$ dan $3x = 3$. Nilai $y$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $1$",
+              "C. $3$",
+              "D. $\\frac{7}{3}$",
+              "E. $\\frac{5}{2}$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Dari $3x = 3$ diperoleh $x = 1$.\n\nLangkah 2: Substitusikan ke $3x + 2y = 7$.\n$3(1) + 2y = 7$\n\nLangkah 3: Selesaikan.\n$2y = 4 \\Rightarrow y = 2$\n\nLangkah 4: Periksa asal kedua persamaan itu. Persamaan pertama ditambah ketiga: $3x + 2y = 7$ — benar. Persamaan kedua ditambah ketiga: $3x = 3$ — benar.\n\nLangkah 5: Periksa penyelesaian lengkapnya: $z = 6 - 1 - 2 = 3$, dan $1 - 2 + 3 = 2$, $2 + 2 - 3 = 1$ — cocok.\n\nLangkah 6: Opsi E ($\\frac{5}{2}$) muncul bila $3 + 2y = 7$ diselesaikan menjadi $2y = 7 - 2$; bilangan yang dipindahkan adalah $3x = 3$, bukan $2$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P29-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Mengalikan satu persamaan dengan bilangan tak nol tidak mengubah penyelesaian sistemnya.",
+              "(2) Menjumlahkan $x + y - z = 2$ dan $x - y + z = 4$ menghasilkan $2x = 6$, sehingga $x = 3$.",
+              "(3) Jika eliminasi menghasilkan $0 = 5$, sistem itu mempunyai tak hingga banyak penyelesaian."
+            ],
+            "kunci": "B - B - S",
+            "bahas": "Langkah 1: Pernyataan (1): bila kedua ruas dikalikan dengan bilangan yang sama dan tak nol, kesamaan tetap berlaku dan dapat dibalik dengan membagi. Pernyataan (1) BENAR.\n\nLangkah 2: Pernyataan (2): jumlahkan suku demi suku.\n$(x + x) + (y - y) + (-z + z) = 2 + 4 \\Rightarrow 2x = 6$\n\nLangkah 3: Jadi $x = 3$. Kebetulan $y$ dan $z$ hilang bersamaan. Pernyataan (2) BENAR.\n\nLangkah 4: Pernyataan (3): kalimat $0 = 5$ tidak pernah benar untuk nilai apa pun.\n\nLangkah 5: Artinya sistem itu TIDAK mempunyai penyelesaian. Yang menandakan tak hingga banyak penyelesaian adalah $0 = 0$. Pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban B - B - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P29-Q9] Diketahui sistem $x + y + z = 6$, $x + 2y + 3z = 14$, dan $2x + y - z = 1$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Persamaan kedua dikurangi persamaan pertama menghasilkan $y + 2z = 8$.",
+              "B. Persamaan pertama ditambah persamaan ketiga menghasilkan $3x + 2y = 7$.",
+              "C. Nilai $x = 2$.",
+              "D. Nilai $z = 3$.",
+              "E. Nilai $x + y = 4$."
+            ],
+            "kunci": "A, B, D",
+            "bahas": "Langkah 1: Periksa A. $(x + 2y + 3z) - (x + y + z) = 14 - 6 \\Rightarrow y + 2z = 8$. Benar.\n\nLangkah 2: Periksa B. $(x + y + z) + (2x + y - z) = 6 + 1 \\Rightarrow 3x + 2y = 7$. Benar.\n\nLangkah 3: Selesaikan. Eliminasi $z$ juga dari persamaan kedua dan ketiga: kalikan persamaan ketiga dengan $3$ lalu jumlahkan.\n$(x + 2y + 3z) + (6x + 3y - 3z) = 14 + 3 \\Rightarrow 7x + 5y = 17$\n\nLangkah 4: Dari $3x + 2y = 7$ dan $7x + 5y = 17$: kalikan yang pertama dengan $5$ dan yang kedua dengan $2$, lalu kurangkan.\n$15x - 14x = 35 - 34 \\Rightarrow x = 1$, sehingga $y = 2$\n\nLangkah 5: Dari $y + 2z = 8$: $2 + 2z = 8 \\Rightarrow z = 3$. Jadi C ($x = 2$) salah dan D benar.\n\nLangkah 6: Nilai $x + y = 1 + 2 = 3$, jadi E salah.\n\nLangkah 7: Periksa $(1, 2, 3)$: $6$, $1 + 4 + 9 = 14$, $2 + 2 - 3 = 1$ — cocok.\n\nKesimpulan: Kunci Jawaban A, B, D."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P29-Q10] Diketahui $x + y + z = 2$, $x - y + z = 4$, dan $x + y - z = 0$. Nilai $2x + 3y + 4z$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "5",
+            "bahas": "Langkah 1: Kurangkan persamaan kedua dari persamaan pertama.\n$(x + y + z) - (x - y + z) = 2 - 4 \\Rightarrow 2y = -2 \\Rightarrow y = -1$\n\nLangkah 2: Kurangkan persamaan ketiga dari persamaan pertama.\n$(x + y + z) - (x + y - z) = 2 - 0 \\Rightarrow 2z = 2 \\Rightarrow z = 1$\n\nLangkah 3: Hitung $x$ dari persamaan pertama.\n$x + (-1) + 1 = 2 \\Rightarrow x = 2$\n\nLangkah 4: Periksa: $2 + 1 + 1 = 4$ dan $2 - 1 - 1 = 0$ — cocok.\n\nLangkah 5: Hitung yang ditanyakan.\n$2(2) + 3(-1) + 4(1) = 4 - 3 + 4 = 5$\n\nKesimpulan: Kunci Jawaban 5."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P30",
+      "judul": "Penerapan SPLTV pada Masalah Nyata",
+      "materi": {
+        "id": "P30",
+        "bab": "Bab 5: Sistem Persamaan dan Pertidaksamaan Linear",
+        "title": "Penerapan SPLTV pada Masalah Nyata",
+        "obj": [
+          "Menetapkan tiga variabel beserta satuannya dari sebuah soal cerita, lalu menerjemahkan setiap keterangan menjadi persamaan.",
+          "Menyelesaikan model SPLTV dan menjawab tepat besaran yang ditanyakan, bukan sekadar menuliskan nilai $x$, $y$, dan $z$.",
+          "Menguji kewajaran jawaban terhadap keadaan nyata — harga tidak negatif, umur dan banyak barang berupa bilangan cacah."
+        ],
+        "hook": "Seorang pedagang lupa mencatat harga tiga jenis kue, tetapi ia masih menyimpan tiga nota penjualan kemarin. Seorang kasir ingin tahu berapa banyak tiket dewasa, pelajar, dan anak yang terjual dari jumlah tiket dan uang di laci. Seorang perancang ingin tahu persamaan lengkung yang melalui tiga titik. Ketiga masalah itu tampak berbeda, tetapi kerangkanya sama: tiga besaran yang tidak diketahui, tiga keterangan yang saling mengikat. Kemampuan terpenting di sini bukan berhitung — melainkan MENERJEMAHKAN kalimat menjadi persamaan dengan tepat.",
+        "toolkit": [
+          {
+            "name": "1. Tetapkan Variabel",
+            "math": "$$x, y, z = \\text{besaran yang dicari (beserta satuannya)}$$"
+          },
+          {
+            "name": "2. Terjemahkan",
+            "math": "$$\\text{satu keterangan} \\Rightarrow \\text{satu persamaan}$$"
+          },
+          {
+            "name": "Kata Kunci",
+            "math": "$$\\text{lebih } k \\text{ daripada} \\Rightarrow +k;\\quad n \\text{ kali} \\Rightarrow \\times n$$"
+          },
+          {
+            "name": "Bilangan Tiga Angka",
+            "math": "$$\\overline{abc} = 100a + 10b + c$$"
+          },
+          {
+            "name": "Parabola Melalui Tiga Titik",
+            "math": "$$y = ax^2 + bx + c \\text{ melalui } (x_1, y_1) \\Rightarrow ax_1^2 + bx_1 + c = y_1$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Harga $2$ roti, $1$ susu, dan $1$ keju adalah Rp$30.000$. Harga $1$ roti, $2$ susu, dan $1$ keju adalah Rp$33.000$. Harga $1$ roti, $1$ susu, dan $2$ keju adalah Rp$37.000$. Tentukan harga masing-masing.",
+            "solution": "Langkah 1: Tetapkan variabel dalam ribu rupiah: $r$ = harga $1$ roti, $s$ = harga $1$ susu, $k$ = harga $1$ keju.\n\nLangkah 2: Terjemahkan ketiga keterangan.\n$2r + s + k = 30$\n$r + 2s + k = 33$\n$r + s + 2k = 37$\n\nLangkah 3: Susunan koefisiennya simetris, jadi jumlahkan ketiganya.\n$4r + 4s + 4k = 100 \\Rightarrow r + s + k = 25$\n\nLangkah 4: Kurangkan $r + s + k = 25$ dari tiap persamaan.\n$r = 30 - 25 = 5$, $s = 33 - 25 = 8$, $k = 37 - 25 = 12$\n\nLangkah 5: Periksa: $10 + 8 + 12 = 30$, $5 + 16 + 12 = 33$, $5 + 8 + 24 = 37$ — semuanya cocok.\n\nLangkah 6: Periksa kewajarannya: ketiga harga positif, dan keju paling mahal — sesuai dengan nota ketiga yang totalnya paling besar ketika keju dibeli dua.\n\nKesimpulan: Harga roti Rp$5.000$, susu Rp$8.000$, dan keju Rp$12.000$."
+          },
+          {
+            "problem": "Jumlah umur ayah, ibu, dan seorang anak adalah $90$ tahun. Ayah $6$ tahun lebih tua daripada ibu, dan umur ibu tiga kali umur anak. Tentukan umur masing-masing.",
+            "solution": "Langkah 1: Tetapkan variabel dalam tahun: $a$ = umur ayah, $i$ = umur ibu, $n$ = umur anak.\n\nLangkah 2: Terjemahkan.\n$a + i + n = 90$\n\"Ayah $6$ tahun lebih tua daripada ibu\": $a = i + 6$\n\"Umur ibu tiga kali umur anak\": $i = 3n$\n\nLangkah 3: Nyatakan semuanya dalam $n$.\n$i = 3n$ dan $a = 3n + 6$\n\nLangkah 4: Substitusikan ke persamaan pertama.\n$(3n + 6) + 3n + n = 90 \\Rightarrow 7n = 84 \\Rightarrow n = 12$\n\nLangkah 5: Hitung umur lainnya.\n$i = 36$ dan $a = 42$\n\nLangkah 6: Periksa: $42 + 36 + 12 = 90$, $42 = 36 + 6$, $36 = 3 \\times 12$ — semuanya cocok, dan umurnya wajar.\n\nLangkah 7: Kekeliruan yang sering terjadi adalah menulis \"umur ibu tiga kali umur anak\" sebagai $n = 3i$. Bacalah: yang BESAR (ibu) sama dengan tiga kali yang KECIL (anak).\n\nKesimpulan: Umur ayah $42$ tahun, ibu $36$ tahun, dan anak $12$ tahun."
+          },
+          {
+            "problem": "Sebuah bilangan tiga angka mempunyai jumlah angka-angka $14$. Angka ratusannya dua kali angka satuan, dan angka puluhannya $2$ lebih besar daripada angka satuan. Tentukan bilangan itu.",
+            "solution": "Langkah 1: Misalkan angka ratusan $a$, puluhan $b$, dan satuan $c$. Bilangannya ditulis $\\overline{abc} = 100a + 10b + c$.\n\nLangkah 2: Terjemahkan.\n$a + b + c = 14$, $a = 2c$, $b = c + 2$\n\nLangkah 3: Substitusikan ke persamaan pertama.\n$2c + (c + 2) + c = 14 \\Rightarrow 4c = 12 \\Rightarrow c = 3$\n\nLangkah 4: Hitung angka lainnya.\n$a = 6$ dan $b = 5$\n\nLangkah 5: Susun bilangannya: ratusan $6$, puluhan $5$, satuan $3$, jadi $653$.\n\nLangkah 6: Periksa: $6 + 5 + 3 = 14$, $6 = 2 \\times 3$, $5 = 3 + 2$ — cocok. Setiap angka juga berada di antara $0$ dan $9$, sebagaimana mestinya.\n\nLangkah 7: Jangan menjumlahkan $a + b + c$ lalu menyebutnya bilangan itu. Yang ditanyakan bilangannya, yaitu $653$, bukan jumlah angkanya.\n\nKesimpulan: Bilangan itu adalah $653$."
+          },
+          {
+            "problem": "Sebuah pertunjukan menjual $100$ tiket: tiket dewasa Rp$20.000$, pelajar Rp$15.000$, dan anak Rp$10.000$. Pendapatannya Rp$1.600.000$, dan banyak tiket pelajar dua kali tiket anak. Berapa banyak tiket setiap jenis?",
+            "solution": "Langkah 1: Tetapkan variabel: $d$, $p$, $a$ = banyak tiket dewasa, pelajar, dan anak. Hitung uang dalam ribu rupiah.\n\nLangkah 2: Terjemahkan.\n$d + p + a = 100$\n$20d + 15p + 10a = 1600$\n$p = 2a$\n\nLangkah 3: Substitusikan $p = 2a$ ke dua persamaan pertama.\n$d + 3a = 100$\n$20d + 30a + 10a = 1600 \\Rightarrow 20d + 40a = 1600 \\Rightarrow d + 2a = 80$\n\nLangkah 4: Kurangkan kedua persamaan dua variabel itu.\n$(d + 3a) - (d + 2a) = 100 - 80 \\Rightarrow a = 20$\n\nLangkah 5: Hitung lainnya.\n$p = 40$ dan $d = 100 - 60 = 40$\n\nLangkah 6: Periksa: $40 + 40 + 20 = 100$ tiket, dan $800 + 600 + 200 = 1600$ ribu — cocok.\n\nLangkah 7: Periksa kewajarannya: semua jawaban bilangan cacah. Bila hitungan menghasilkan $17{,}5$ tiket, pasti ada kekeliruan pada model atau hitungan.\n\nKesimpulan: Terjual $40$ tiket dewasa, $40$ tiket pelajar, dan $20$ tiket anak."
+          },
+          {
+            "problem": "Tentukan fungsi $y = ax^2 + bx + c$ yang grafiknya melalui titik $(1, 2)$, $(2, 3)$, dan $(3, 6)$.",
+            "solution": "Langkah 1: Setiap titik yang dilalui memberikan satu persamaan: masukkan $x$ dan $y$-nya.\n\nLangkah 2: Titik $(1, 2)$: $a + b + c = 2$\nTitik $(2, 3)$: $4a + 2b + c = 3$\nTitik $(3, 6)$: $9a + 3b + c = 6$\n\nLangkah 3: Hasilnya SPLTV dalam $a$, $b$, $c$. Eliminasi $c$: kurangkan persamaan pertama dari kedua, dan kedua dari ketiga.\n$3a + b = 1$\n$5a + b = 3$\n\nLangkah 4: Kurangkan lagi.\n$2a = 2 \\Rightarrow a = 1$, lalu $b = 1 - 3 = -2$\n\nLangkah 5: Hitung $c$.\n$1 - 2 + c = 2 \\Rightarrow c = 3$\n\nLangkah 6: Periksa pada ketiga titik: $1 - 2 + 3 = 2$, $4 - 4 + 3 = 3$, $9 - 6 + 3 = 6$ — semuanya cocok.\n\nLangkah 7: Contoh ini menjadi jembatan ke bab Fungsi Kuadrat: tiga titik menentukan tepat satu parabola, sama seperti tiga persamaan menentukan tepat satu tripel.\n\nKesimpulan: Fungsi yang dicari adalah $y = x^2 - 2x + 3$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok mengarang satu soal cerita SPLTV dari kehidupan sekolah — kantin, koperasi, tiket pentas seni, atau iuran kelas — yang jawabannya bilangan cacah. Tuliskan soalnya di papan tanpa jawaban, lalu kelompok lain menyelesaikannya. Kelompok pengarang menilai: apakah variabelnya ditetapkan dengan satuan, apakah setiap kalimat diterjemahkan tepat, dan apakah jawabannya diperiksa kewajarannya. Diskusikan satu kalimat yang paling mudah salah diterjemahkan.",
+        "summary_data": {
+          "summary": [
+            "Mulailah dengan menetapkan arti setiap variabel beserta satuannya.",
+            "Satu keterangan dalam soal diterjemahkan menjadi satu persamaan.",
+            "\"$A$ lebih $k$ daripada $B$\" berarti $A = B + k$; \"$A$ adalah $n$ kali $B$\" berarti $A = nB$.",
+            "Nyatakan uang dalam satuan ribu agar angkanya kecil, lalu kembalikan ke rupiah di akhir.",
+            "Bilangan tiga angka $\\overline{abc}$ bernilai $100a + 10b + c$, dengan setiap angka di antara $0$ dan $9$.",
+            "Parabola $y = ax^2 + bx + c$ yang melalui tiga titik menghasilkan SPLTV dalam $a$, $b$, $c$.",
+            "Susunan koefisien yang simetris dapat diselesaikan cepat dengan menjumlahkan ketiga persamaan.",
+            "Jawablah TEPAT yang ditanyakan — umur ayah, bilangannya, atau banyak tiket pelajar.",
+            "Harga, umur, dan banyak barang tidak boleh negatif; banyak barang harus bilangan cacah.",
+            "Jawaban yang tidak wajar adalah tanda adanya kekeliruan pada model atau hitungan."
+          ],
+          "islamic": "Ilmu yang dipakai untuk menyelesaikan persoalan nyata mengangkat derajat pemiliknya. \"...niscaya Allah akan mengangkat (derajat) orang-orang yang beriman di antaramu dan orang-orang yang diberi ilmu beberapa derajat.\" (QS. Al-Mujadilah: 11)"
+        },
+        "collab_cases": [
+          "Harga $2$ pensil, $3$ buku, dan $1$ penggaris Rp$23.000$; $3$ pensil, $1$ buku, dan $2$ penggaris Rp$19.000$; $1$ pensil, $2$ buku, dan $3$ penggaris Rp$24.000$. Tentukan harga masing-masing.",
+          "Jumlah umur tiga bersaudara A, B, dan C adalah $58$ tahun. Umur C $6$ tahun lebih muda daripada B, dan umur A dua kali umur C. Tentukan umur masing-masing.",
+          "Sebuah bilangan tiga angka mempunyai jumlah angka $16$. Angka puluhannya dua kali angka satuan, dan angka ratusannya $4$ lebih besar daripada angka satuan. Tentukan bilangan itu.",
+          "Terjual $60$ tiket: dewasa Rp$25.000$, anak Rp$15.000$, lansia Rp$10.000$, dengan pendapatan Rp$1.150.000$. Banyak tiket anak dua kali tiket lansia. Tentukan banyak tiket setiap jenis.",
+          "Tentukan fungsi $y = ax^2 + bx + c$ yang grafiknya melalui $(0, 1)$, $(1, 4)$, dan $(-1, 0)$."
+        ]
+      },
+      "soal": {
+        "id": "P30",
+        "subject": "wajib",
+        "title": "P30 • Penerapan SPLTV pada Masalah Nyata",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P30-Q1] Harga $1$ kg gula, $1$ kg beras, dan $1$ liter minyak berturut-turut $x$, $y$, dan $z$. Kalimat \"harga $2$ kg gula dan $3$ kg beras sama dengan harga $4$ liter minyak\" dimodelkan sebagai $\\dots$",
+            "opsi": [
+              "A. $2x + 3y + 4z = 0$",
+              "B. $2x + 3y = 4z$",
+              "C. $2x = 3y + 4z$",
+              "D. $x + y = z$",
+              "E. $4x + 3y = 2z$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Harga $2$ kg gula adalah $2x$, dan harga $3$ kg beras adalah $3y$.\n\nLangkah 2: \"Harga $2$ kg gula DAN $3$ kg beras\" berarti keduanya dijumlahkan: $2x + 3y$.\n\nLangkah 3: Harga $4$ liter minyak adalah $4z$.\n\nLangkah 4: \"Sama dengan\" menjadi tanda $=$.\n$2x + 3y = 4z$\n\nLangkah 5: Opsi A menyatakan jumlah ketiganya nol, padahal semua harga positif — mustahil.\n\nLangkah 6: Opsi E menukar koefisien gula dan minyak; banyaknya barang harus tetap menempel pada barangnya.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P30-Q2] Jumlah umur ayah, ibu, dan anak adalah $80$ tahun. Ayah $3$ tahun lebih tua daripada ibu, dan umur ibu tiga kali umur anak. Umur ayah adalah $\\dots$",
+            "opsi": [
+              "A. $33$ tahun",
+              "B. $11$ tahun",
+              "C. $36$ tahun",
+              "D. $39$ tahun",
+              "E. $44$ tahun"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Misalkan $a$, $i$, $n$ = umur ayah, ibu, anak.\n$a + i + n = 80$, $a = i + 3$, $i = 3n$\n\nLangkah 2: Nyatakan dalam $n$: $i = 3n$ dan $a = 3n + 3$.\n\nLangkah 3: Substitusikan.\n$(3n + 3) + 3n + n = 80 \\Rightarrow 7n = 77 \\Rightarrow n = 11$\n\nLangkah 4: Hitung.\n$i = 33$ dan $a = 36$\n\nLangkah 5: Periksa: $36 + 33 + 11 = 80$ — cocok.\n\nLangkah 6: Opsi A ($33$) adalah umur ibu dan opsi B ($11$) adalah umur anak. Bacalah lagi siapa yang ditanyakan.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P30-Q3] Harga $2$ roti, $1$ susu, dan $1$ keju Rp$26.000$; $1$ roti, $2$ susu, dan $1$ keju Rp$25.000$; $1$ roti, $1$ susu, dan $2$ keju Rp$29.000$. Harga $1$ keju adalah $\\dots$",
+            "opsi": [
+              "A. Rp$6.000$",
+              "B. Rp$5.000$",
+              "C. Rp$20.000$",
+              "D. Rp$9.000$",
+              "E. Rp$8.000$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Misalkan $r$, $s$, $k$ dalam ribu rupiah.\n$2r + s + k = 26$, $r + 2s + k = 25$, $r + s + 2k = 29$\n\nLangkah 2: Jumlahkan ketiganya.\n$4(r + s + k) = 80 \\Rightarrow r + s + k = 20$\n\nLangkah 3: Kurangkan dari persamaan ketiga.\n$k = 29 - 20 = 9$\n\nLangkah 4: Sebagai pemeriksaan: $r = 26 - 20 = 6$ dan $s = 25 - 20 = 5$. Lalu $12 + 5 + 9 = 26$, $6 + 10 + 9 = 25$, $6 + 5 + 18 = 29$ — cocok.\n\nLangkah 5: Harga keju Rp$9.000$.\n\nLangkah 6: Opsi C (Rp$20.000$) adalah harga $1$ roti, $1$ susu, dan $1$ keju bersama-sama.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P30-Q4] Sebuah bilangan tiga angka mempunyai jumlah angka $15$. Angka ratusannya dua kali angka satuan, dan angka puluhannya $3$ lebih besar daripada angka satuan. Bilangan itu adalah $\\dots$",
+            "opsi": [
+              "A. $636$",
+              "B. $366$",
+              "C. $456$",
+              "D. $663$",
+              "E. $546$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Misalkan angka ratusan $a$, puluhan $b$, satuan $c$.\n$a + b + c = 15$, $a = 2c$, $b = c + 3$\n\nLangkah 2: Substitusikan.\n$2c + (c + 3) + c = 15 \\Rightarrow 4c = 12 \\Rightarrow c = 3$\n\nLangkah 3: Hitung.\n$a = 6$ dan $b = 6$\n\nLangkah 4: Susun: ratusan $6$, puluhan $6$, satuan $3$, yaitu $663$.\n\nLangkah 5: Periksa: $6 + 6 + 3 = 15$, $6 = 2 \\times 3$, $6 = 3 + 3$ — cocok.\n\nLangkah 6: Opsi A ($636$) juga berjumlah angka $15$, tetapi angka ratusannya $6$ dan satuannya $6$, sehingga ratusan bukan dua kali satuan. Memeriksa SEMUA keterangan membedakan keduanya.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P30-Q5] Terjual $100$ tiket: dewasa Rp$20.000$, pelajar Rp$15.000$, dan anak Rp$10.000$, dengan pendapatan Rp$1.600.000$. Banyak tiket pelajar dua kali tiket anak. Banyak tiket pelajar yang terjual adalah $\\dots$",
+            "opsi": [
+              "A. $20$",
+              "B. $30$",
+              "C. $60$",
+              "D. $50$",
+              "E. $40$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Misalkan $d$, $p$, $a$. Dalam ribu rupiah:\n$d + p + a = 100$, $20d + 15p + 10a = 1600$, $p = 2a$\n\nLangkah 2: Substitusikan $p = 2a$.\n$d + 3a = 100$ dan $20d + 40a = 1600 \\Rightarrow d + 2a = 80$\n\nLangkah 3: Kurangkan.\n$a = 20$\n\nLangkah 4: Hitung.\n$p = 2(20) = 40$ dan $d = 100 - 40 - 20 = 40$\n\nLangkah 5: Periksa: $800 + 600 + 200 = 1600$ — cocok.\n\nLangkah 6: Opsi A ($20$) adalah tiket anak. Tiket dewasa kebetulan juga $40$, tetapi yang ditanyakan tiket pelajar.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P30-Q6] Grafik $y = ax^2 + bx + c$ melalui titik $(1, 2)$, $(2, 3)$, dan $(3, 6)$. Nilai $a + b + c$ adalah $\\dots$",
+            "opsi": [
+              "A. $2$",
+              "B. $3$",
+              "C. $6$",
+              "D. $1$",
+              "E. $0$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Perhatikan dulu bentuk yang ditanyakan: $a + b + c$.\n\nLangkah 2: Bentuk itu tepat sama dengan nilai $y$ saat $x = 1$, sebab $a(1)^2 + b(1) + c = a + b + c$.\n\nLangkah 3: Grafiknya melalui $(1, 2)$, artinya saat $x = 1$ nilai $y = 2$.\n$a + b + c = 2$\n\nLangkah 4: Jadi jawabannya dapat diperoleh TANPA menyelesaikan SPLTV-nya.\n\nLangkah 5: Sebagai pemeriksaan, penyelesaian lengkapnya $a = 1$, $b = -2$, $c = 3$, dan $1 - 2 + 3 = 2$ — cocok.\n\nLangkah 6: Opsi B ($3$) adalah nilai $c$, dan opsi C ($6$) adalah nilai $y$ saat $x = 3$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P30-Q7] Tiga kelas mengumpulkan donasi Rp$1.200.000$. Kelas X-A mengumpulkan Rp$100.000$ lebih banyak daripada X-B, dan X-C mengumpulkan dua kali X-B. Donasi kelas X-A adalah $\\dots$",
+            "opsi": [
+              "A. Rp$275.000$",
+              "B. Rp$375.000$",
+              "C. Rp$550.000$",
+              "D. Rp$400.000$",
+              "E. Rp$300.000$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Misalkan $p$, $q$, $r$ = donasi X-A, X-B, X-C dalam ribu rupiah.\n$p + q + r = 1200$, $p = q + 100$, $r = 2q$\n\nLangkah 2: Substitusikan ke persamaan pertama.\n$(q + 100) + q + 2q = 1200$\n\nLangkah 3: Selesaikan.\n$4q = 1100 \\Rightarrow q = 275$\n\nLangkah 4: Hitung donasi X-A.\n$p = 275 + 100 = 375$\n\nLangkah 5: Periksa: $r = 550$, dan $375 + 275 + 550 = 1200$ — cocok.\n\nLangkah 6: Opsi A adalah donasi X-B dan opsi C adalah donasi X-C.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P30-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Jumlah umur tiga bersaudara $30$ tahun dan umur mereka berurutan berselisih $2$ tahun. Umur yang tertua $14$ tahun.",
+              "(2) Parabola $y = ax^2 + bx + c$ yang melalui titik $(0, 5)$ pasti mempunyai $c = 5$.",
+              "(3) Pada soal harga barang, jawaban $x = -2.000$ dapat diterima asalkan memenuhi ketiga persamaan."
+            ],
+            "kunci": "S - B - S",
+            "bahas": "Langkah 1: Pernyataan (1): misalkan umurnya $n$, $n + 2$, $n + 4$.\n$3n + 6 = 30 \\Rightarrow n = 8$\n\nLangkah 2: Umur tertua $8 + 4 = 12$ tahun, bukan $14$. Pernyataan (1) SALAH.\n\nLangkah 3: Pernyataan (2): masukkan $x = 0$.\n$a(0)^2 + b(0) + c = 5 \\Rightarrow c = 5$\n\nLangkah 4: Pernyataan (2) BENAR, apa pun nilai $a$ dan $b$.\n\nLangkah 5: Pernyataan (3): harga tidak mungkin negatif. Jawaban $-2.000$ menandakan ada kekeliruan pada model atau hitungannya, jadi tidak dapat diterima. Pernyataan (3) SALAH.\n\nKesimpulan: Kunci Jawaban S - B - S."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P30-Q9] Harga $2$ kg apel, $1$ kg jeruk, dan $1$ kg mangga Rp$85.000$; $1$ kg apel, $2$ kg jeruk, dan $1$ kg mangga Rp$75.000$; $1$ kg apel, $1$ kg jeruk, dan $2$ kg mangga Rp$80.000$. Pilihlah SEMUA pernyataan yang benar.",
+            "opsi": [
+              "A. Harga $1$ kg apel, $1$ kg jeruk, dan $1$ kg mangga bersama-sama Rp$60.000$.",
+              "B. Jeruk adalah buah yang paling murah.",
+              "C. Selisih harga $1$ kg apel dan $1$ kg mangga Rp$10.000$.",
+              "D. Harga $3$ kg mangga Rp$60.000$.",
+              "E. Harga $1$ kg apel dan $1$ kg jeruk bersama-sama Rp$45.000$."
+            ],
+            "kunci": "A, B, D",
+            "bahas": "Langkah 1: Misalkan $a$, $j$, $m$ dalam ribu rupiah. Jumlahkan ketiga persamaan.\n$4(a + j + m) = 240 \\Rightarrow a + j + m = 60$ — pernyataan A benar\n\nLangkah 2: Hitung tiap harga.\n$a = 85 - 60 = 25$, $j = 75 - 60 = 15$, $m = 80 - 60 = 20$\n\nLangkah 3: Periksa: $50 + 15 + 20 = 85$, $25 + 30 + 20 = 75$, $25 + 15 + 40 = 80$ — cocok.\n\nLangkah 4: Pernyataan B: jeruk Rp$15.000$ adalah yang termurah — benar.\n\nLangkah 5: Pernyataan C: $25 - 20 = 5$ ribu, bukan $10$ ribu — salah.\n\nLangkah 6: Pernyataan D: $3 \\times 20 = 60$ ribu — benar. Pernyataan E: $25 + 15 = 40$ ribu, bukan $45$ ribu — salah.\n\nKesimpulan: Kunci Jawaban A, B, D."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P30-Q10] Grafik $y = ax^2 + bx + c$ melalui titik $(0, 1)$, $(1, 4)$, dan $(-1, 0)$. Nilai $y$ saat $x = 3$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "16",
+            "bahas": "Langkah 1: Titik $(0, 1)$ langsung memberikan $c = 1$.\n\nLangkah 2: Titik $(1, 4)$: $a + b + 1 = 4 \\Rightarrow a + b = 3$. Titik $(-1, 0)$: $a - b + 1 = 0 \\Rightarrow a - b = -1$.\n\nLangkah 3: Jumlahkan kedua persamaan.\n$2a = 2 \\Rightarrow a = 1$, lalu $b = 2$\n\nLangkah 4: Fungsinya $y = x^2 + 2x + 1$. Periksa: $1 + 2 + 1 = 4$ dan $1 - 2 + 1 = 0$ — cocok.\n\nLangkah 5: Hitung nilai saat $x = 3$.\n$9 + 6 + 1 = 16$\n\nKesimpulan: Kunci Jawaban 16."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P31",
+      "judul": "Pertidaksamaan Linear Dua Variabel dan Daerah Penyelesaiannya",
+      "materi": {
+        "id": "P31",
+        "bab": "Bab 5: Sistem Persamaan dan Pertidaksamaan Linear",
+        "title": "Pertidaksamaan Linear Dua Variabel dan Daerah Penyelesaiannya",
+        "obj": [
+          "Menggambar garis batas pertidaksamaan $ax + by \\le c$ dan menentukan apakah garis itu digambar penuh atau putus-putus.",
+          "Menentukan daerah penyelesaian dengan uji titik, termasuk ketika garis batasnya melalui titik $O(0, 0)$.",
+          "Menyusun pertidaksamaan dari grafik daerah penyelesaian maupun dari soal cerita yang memuat kata \"paling banyak\" atau \"tidak lebih dari\"."
+        ],
+        "hook": "Uang saku Rp$100.000$ untuk membeli buku seharga Rp$20.000$ dan pulpen seharga Rp$5.000$. Berapa buku dan pulpen yang dapat dibeli? Jawabannya bukan satu pasangan, melainkan BANYAK: $5$ buku saja, $3$ buku dan $8$ pulpen, $1$ buku dan $10$ pulpen, dan seterusnya. Persamaan menghasilkan satu garis, tetapi batasan \"tidak lebih dari\" menghasilkan satu DAERAH. Pada bab ini, jawaban kita berpindah dari titik dan garis menjadi bidang yang diarsir.",
+        "toolkit": [
+          {
+            "name": "Bentuk Umum",
+            "math": "$$ax + by \\le c,\\quad ax + by < c,\\quad ax + by \\ge c,\\quad ax + by > c$$"
+          },
+          {
+            "name": "Garis Batas",
+            "math": "$$ax + by = c \\text{ melalui } \\left(\\tfrac{c}{a}, 0\\right) \\text{ dan } \\left(0, \\tfrac{c}{b}\\right)$$"
+          },
+          {
+            "name": "Penuh atau Putus-putus",
+            "math": "$$\\le, \\ge \\Rightarrow \\text{garis penuh};\\qquad <, > \\Rightarrow \\text{garis putus-putus}$$"
+          },
+          {
+            "name": "Uji Titik",
+            "math": "$$\\text{uji } O(0, 0):\\ \\text{benar} \\Rightarrow \\text{daerah memuat } O;\\ \\text{salah} \\Rightarrow \\text{daerah seberang}$$"
+          },
+          {
+            "name": "Bentuk y Terisolasi",
+            "math": "$$y \\ge mx + n \\Rightarrow \\text{di ATAS garis};\\qquad y \\le mx + n \\Rightarrow \\text{di BAWAH garis}$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan daerah penyelesaian $2x + 3y \\le 12$ pada bidang koordinat.",
+            "solution": "Langkah 1: Ubah tanda $\\le$ menjadi $=$ untuk memperoleh garis batas.\n$2x + 3y = 12$\n\nLangkah 2: Cari titik potong dengan sumbu.\n$y = 0 \\Rightarrow x = 6$, titik $(6, 0)$\n$x = 0 \\Rightarrow y = 4$, titik $(0, 4)$\n\nLangkah 3: Tanda $\\le$ memuat \"sama dengan\", jadi titik-titik pada garis ikut menjadi penyelesaian. Gambar garis PENUH melalui $(6, 0)$ dan $(0, 4)$.\n\nLangkah 4: Uji titik $O(0, 0)$, yang tidak terletak pada garis.\n$2(0) + 3(0) = 0 \\le 12$ — benar\n\nLangkah 5: Karena benar, daerah penyelesaiannya adalah sisi garis yang MEMUAT $O$, yaitu di bawah garis.\n\nLangkah 6: Periksa dengan titik di seberang, misalnya $(6, 4)$: $12 + 12 = 24 \\le 12$ — salah. Titik itu memang berada di luar daerah.\n\nKesimpulan: Daerah penyelesaiannya adalah sisi garis $2x + 3y = 12$ yang memuat $O(0, 0)$, dengan garisnya sendiri ikut termasuk (digambar penuh)."
+          },
+          {
+            "problem": "Tentukan daerah penyelesaian $x - 2y > 4$.",
+            "solution": "Langkah 1: Garis batasnya $x - 2y = 4$.\n\nLangkah 2: Cari titik potong.\n$y = 0 \\Rightarrow x = 4$, titik $(4, 0)$\n$x = 0 \\Rightarrow -2y = 4 \\Rightarrow y = -2$, titik $(0, -2)$\n\nLangkah 3: Tanda $>$ tidak memuat \"sama dengan\", jadi titik pada garis BUKAN penyelesaian. Gambar garis PUTUS-PUTUS.\n\nLangkah 4: Uji $O(0, 0)$.\n$0 - 0 = 0 > 4$ — salah\n\nLangkah 5: Karena salah, daerah penyelesaiannya adalah sisi garis yang TIDAK memuat $O$, yaitu di sebelah kanan bawah garis.\n\nLangkah 6: Periksa dengan titik $(6, 0)$ di sisi itu: $6 - 0 = 6 > 4$ — benar, cocok.\n\nLangkah 7: Periksa pula titik pada garis, misalnya $(4, 0)$: $4 > 4$ — salah. Itulah alasan garisnya putus-putus.\n\nKesimpulan: Daerah penyelesaiannya adalah sisi garis $x - 2y = 4$ yang tidak memuat $O$, dengan garis batas putus-putus."
+          },
+          {
+            "problem": "Tentukan daerah penyelesaian $3x - y \\ge 0$.",
+            "solution": "Langkah 1: Garis batasnya $3x - y = 0$, atau $y = 3x$. Garis ini melalui $O(0, 0)$ dan $(1, 3)$.\n\nLangkah 2: Tanda $\\ge$, jadi garisnya PENUH.\n\nLangkah 3: Titik $O$ terletak TEPAT pada garis, sehingga tidak dapat dipakai untuk menentukan sisi. Uji $O$ selalu menghasilkan $0 \\ge 0$, benar di sisi mana pun.\n\nLangkah 4: Pilih titik uji lain yang jelas tidak pada garis, misalnya $(1, 0)$.\n$3(1) - 0 = 3 \\ge 0$ — benar\n\nLangkah 5: Jadi daerah penyelesaiannya adalah sisi yang memuat $(1, 0)$, yaitu di sebelah kanan bawah garis $y = 3x$.\n\nLangkah 6: Cara lain: tulis sebagai $y \\le 3x$. Tanda $\\le$ pada bentuk $y$ terisolasi berarti daerah di BAWAH garis — hasilnya sama.\n\nKesimpulan: Daerah penyelesaiannya adalah sisi garis $y = 3x$ yang memuat $(1, 0)$, yaitu di bawah garis, dengan garis penuh."
+          },
+          {
+            "problem": "Sebuah garis batas melalui $(4, 0)$ dan $(0, 2)$ dan digambar penuh. Daerah yang diarsir memuat titik $O(0, 0)$. Tentukan pertidaksamaannya.",
+            "solution": "Langkah 1: Garis yang memotong sumbu $x$ di $(p, 0)$ dan sumbu $y$ di $(0, q)$ mempunyai persamaan $qx + py = pq$.\n\nLangkah 2: Di sini $p = 4$ dan $q = 2$.\n$2x + 4y = 8 \\Rightarrow x + 2y = 4$\n\nLangkah 3: Periksa kedua titik: $4 + 0 = 4$ dan $0 + 4 = 4$ — cocok.\n\nLangkah 4: Garisnya penuh, jadi tandanya $\\le$ atau $\\ge$.\n\nLangkah 5: Tentukan arah tanda dengan titik $O$ yang termasuk daerah.\n$0 + 0 = 0$, dan $0$ lebih KECIL daripada $4$\n\nLangkah 6: Jadi tanda yang benar adalah $\\le$.\n$x + 2y \\le 4$\n\nLangkah 7: Periksa dengan titik di seberang, misalnya $(4, 2)$: $4 + 4 = 8 \\le 4$ — salah, sehingga titik itu memang tidak diarsir.\n\nKesimpulan: Pertidaksamaannya adalah $x + 2y \\le 4$."
+          },
+          {
+            "problem": "Dengan uang paling banyak Rp$100.000$, Rina membeli $x$ buku seharga Rp$20.000$ dan $y$ pulpen seharga Rp$5.000$. Susunlah model pertidaksamaannya, lalu periksa apakah pembelian $3$ buku dan $7$ pulpen serta $4$ buku dan $5$ pulpen memungkinkan.",
+            "solution": "Langkah 1: Dalam ribu rupiah, total belanjanya $20x + 5y$.\n\nLangkah 2: \"Paling banyak Rp$100.000$\" berarti totalnya tidak boleh melebihi $100$, dan boleh tepat $100$.\n$20x + 5y \\le 100$\n\nLangkah 3: Sederhanakan dengan membagi $5$.\n$4x + y \\le 20$\n\nLangkah 4: Banyak barang tidak mungkin negatif, jadi ditambahkan $x \\ge 0$ dan $y \\ge 0$.\n\nLangkah 5: Periksa $3$ buku dan $7$ pulpen.\n$4(3) + 7 = 19 \\le 20$ — memungkinkan, dan masih tersisa Rp$5.000$\n\nLangkah 6: Periksa $4$ buku dan $5$ pulpen.\n$4(4) + 5 = 21 \\le 20$ — salah, uangnya kurang Rp$5.000$\n\nKesimpulan: Modelnya $4x + y \\le 20$ dengan $x \\ge 0$ dan $y \\ge 0$. Pembelian $3$ buku dan $7$ pulpen memungkinkan, sedangkan $4$ buku dan $5$ pulpen tidak."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok menggambar empat daerah di papan — $2x + y \\le 6$, $2x + y < 6$, $2x + y \\ge 6$, dan $y > 2x$ — lengkap dengan titik uji yang dipakai. Lalu, kelompok lain menunjuk satu titik sembarang di papan dan kelompok penggambar harus menyatakan, tanpa menghitung, di daerah mana saja titik itu berada; kemudian buktikan dengan substitusi. Terakhir, jelaskan mengapa titik $O$ tidak dapat dipakai untuk $y > 2x$.",
+        "summary_data": {
+          "summary": [
+            "Pertidaksamaan linear dua variabel berbentuk $ax + by \\le c$ (atau $<$, $\\ge$, $>$).",
+            "Penyelesaiannya bukan satu titik, melainkan satu DAERAH pada bidang koordinat.",
+            "Garis batas diperoleh dengan mengganti tanda ketidaksamaan menjadi $=$.",
+            "Tanda $\\le$ atau $\\ge$ digambar garis penuh; tanda $<$ atau $>$ digambar garis putus-putus.",
+            "Uji titik: bila titik uji memenuhi, daerahnya adalah sisi yang memuat titik itu; bila tidak, sisi seberangnya.",
+            "Titik $O(0, 0)$ adalah titik uji termudah, KECUALI bila garis batasnya melalui $O$.",
+            "Bila garis melalui $O$, pakailah titik uji lain seperti $(1, 0)$ atau $(0, 1)$.",
+            "Pada bentuk $y \\ge mx + n$ daerahnya di atas garis; pada $y \\le mx + n$ di bawah garis.",
+            "Garis yang memotong sumbu di $(p, 0)$ dan $(0, q)$ mempunyai persamaan $qx + py = pq$.",
+            "\"Paling banyak\" dan \"tidak lebih dari\" berarti $\\le$; \"paling sedikit\" dan \"tidak kurang dari\" berarti $\\ge$."
+          ],
+          "islamic": "Setiap kemampuan mempunyai batasnya, dan Allah tidak menuntut melampaui batas itu. \"Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.\" (QS. Al-Baqarah: 286)"
+        },
+        "collab_cases": [
+          "Gambarlah daerah penyelesaian $3x + 4y \\le 24$ lengkap dengan titik potong dan titik ujinya.",
+          "Gambarlah daerah penyelesaian $x - y > 2$. Apakah titik $(3, 1)$ termasuk? Jelaskan.",
+          "Tentukan daerah penyelesaian $2x - y \\ge 0$. Titik uji apa yang kalian pakai, dan mengapa?",
+          "Sebuah garis batas melalui $(6, 0)$ dan $(0, 3)$, digambar putus-putus, dan daerah yang diarsir TIDAK memuat $O$. Tuliskan pertidaksamaannya.",
+          "Periksalah apakah titik $(2, 3)$, $(4, 1)$, dan $(-1, 5)$ memenuhi $2x + y \\le 7$."
+        ]
+      },
+      "soal": {
+        "id": "P31",
+        "subject": "wajib",
+        "title": "P31 • Pertidaksamaan Linear Dua Variabel dan Daerah Penyelesaiannya",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P31-Q1] Titik berikut yang memenuhi pertidaksamaan $2x + 3y \\le 12$ adalah $\\dots$",
+            "opsi": [
+              "A. $(3, 3)$",
+              "B. $(6, 1)$",
+              "C. $(0, 5)$",
+              "D. $(3, 2)$",
+              "E. $(5, 1)$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Substitusikan setiap titik ke ruas kiri, lalu bandingkan dengan $12$.\n\nLangkah 2: Opsi A: $6 + 9 = 15$ — lebih dari $12$.\n\nLangkah 3: Opsi B: $12 + 3 = 15$ — lebih dari $12$. Opsi C: $0 + 15 = 15$ — lebih dari $12$.\n\nLangkah 4: Opsi D: $6 + 6 = 12 \\le 12$ — memenuhi, sebab tanda $\\le$ memuat \"sama dengan\".\n\nLangkah 5: Opsi E: $10 + 3 = 13$ — lebih dari $12$.\n\nLangkah 6: Titik $(3, 2)$ terletak TEPAT pada garis batas. Seandainya tandanya $<$, titik itu tidak akan memenuhi.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P31-Q2] Garis batas daerah penyelesaian $x + y < 5$ digambar $\\dots$",
+            "opsi": [
+              "A. penuh, melalui $(5, 0)$ dan $(0, 5)$",
+              "B. putus-putus, melalui $(5, 0)$ dan $(0, 5)$",
+              "C. penuh, melalui $(1, 0)$ dan $(0, 1)$",
+              "D. putus-putus, melalui $(0, 0)$ dan $(5, 5)$",
+              "E. penuh, melalui $(0, 5)$ dan $(5, 5)$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Garis batasnya $x + y = 5$.\n\nLangkah 2: Titik potongnya: $y = 0 \\Rightarrow x = 5$ dan $x = 0 \\Rightarrow y = 5$. Jadi melalui $(5, 0)$ dan $(0, 5)$.\n\nLangkah 3: Tanda $<$ tidak memuat \"sama dengan\", sehingga titik pada garis bukan penyelesaian. Garisnya PUTUS-PUTUS.\n\nLangkah 4: Opsi A mempunyai titik yang benar tetapi jenis garis yang salah.\n\nLangkah 5: Opsi D melalui $(0, 0)$ dan $(5, 5)$, padahal $0 + 0 \\neq 5$ — titik itu tidak terletak pada garis batas.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P31-Q3] Daerah penyelesaian $3x + 2y \\ge 6$ adalah $\\dots$",
+            "opsi": [
+              "A. sisi yang tidak memuat $O$, dibatasi garis penuh melalui $(2, 0)$ dan $(0, 3)$",
+              "B. sisi yang memuat $O$, dibatasi garis penuh melalui $(2, 0)$ dan $(0, 3)$",
+              "C. sisi yang tidak memuat $O$, dibatasi garis putus-putus melalui $(2, 0)$ dan $(0, 3)$",
+              "D. sisi yang memuat $O$, dibatasi garis penuh melalui $(3, 0)$ dan $(0, 2)$",
+              "E. sisi yang tidak memuat $O$, dibatasi garis penuh melalui $(3, 0)$ dan $(0, 2)$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Garis batasnya $3x + 2y = 6$. Titik potongnya: $y = 0 \\Rightarrow x = 2$ dan $x = 0 \\Rightarrow y = 3$.\n\nLangkah 2: Jadi garis melalui $(2, 0)$ dan $(0, 3)$. Opsi D dan E menukar kedua titik potong itu.\n\nLangkah 3: Tanda $\\ge$ memuat \"sama dengan\", jadi garisnya penuh. Opsi C gugur.\n\nLangkah 4: Uji $O(0, 0)$.\n$0 \\ge 6$ — salah\n\nLangkah 5: Karena salah, daerahnya adalah sisi yang TIDAK memuat $O$. Opsi B gugur.\n\nLangkah 6: Periksa dengan $(2, 3)$: $6 + 6 = 12 \\ge 6$ — benar, dan titik itu memang di seberang $O$.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P31-Q4] Garis batas suatu daerah melalui $(3, 0)$ dan $(0, 6)$ dan digambar penuh. Daerah yang diarsir memuat titik $O(0, 0)$. Pertidaksamaan daerah itu adalah $\\dots$",
+            "opsi": [
+              "A. $2x + y \\ge 6$",
+              "B. $x + 2y \\le 6$",
+              "C. $2x + y < 6$",
+              "D. $x + 2y \\ge 6$",
+              "E. $2x + y \\le 6$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Garis memotong sumbu di $(3, 0)$ dan $(0, 6)$, jadi $p = 3$, $q = 6$. Persamaannya $qx + py = pq$.\n$6x + 3y = 18 \\Rightarrow 2x + y = 6$\n\nLangkah 2: Periksa: $2(3) + 0 = 6$ dan $0 + 6 = 6$ — cocok. Opsi B dan D memakai $x + 2y$, yang justru melalui $(6, 0)$ dan $(0, 3)$.\n\nLangkah 3: Garis penuh, jadi tandanya $\\le$ atau $\\ge$. Opsi C ($<$) gugur.\n\nLangkah 4: Titik $O$ termasuk daerah: $2(0) + 0 = 0$, yang lebih KECIL daripada $6$.\n\nLangkah 5: Jadi tandanya $\\le$.\n$2x + y \\le 6$\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P31-Q5] Titik yang terletak pada daerah penyelesaian $x - 2y \\le 0$ adalah $\\dots$",
+            "opsi": [
+              "A. $(4, 1)$",
+              "B. $(2, 0)$",
+              "C. $(1, 2)$",
+              "D. $(3, 1)$",
+              "E. $(5, 2)$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Garis batasnya $x - 2y = 0$ melalui $O$, jadi pengujian dilakukan langsung pada setiap opsi.\n\nLangkah 2: Opsi A: $4 - 2 = 2 \\le 0$ — salah.\n\nLangkah 3: Opsi B: $2 - 0 = 2 \\le 0$ — salah.\n\nLangkah 4: Opsi C: $1 - 4 = -3 \\le 0$ — benar.\n\nLangkah 5: Opsi D: $3 - 2 = 1$ dan opsi E: $5 - 4 = 1$ — keduanya salah.\n\nLangkah 6: Bentuk lainnya: $x - 2y \\le 0 \\Leftrightarrow y \\ge \\frac{1}{2}x$, yaitu daerah di atas garis. Titik $(1, 2)$ memang tinggi dibanding $x$-nya.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P31-Q6] Dengan uang paling banyak Rp$100.000$, seseorang membeli buku Rp$20.000$ per buah dan pulpen Rp$5.000$ per buah. Pembelian yang MUNGKIN dilakukan adalah $\\dots$",
+            "opsi": [
+              "A. $4$ buku dan $5$ pulpen",
+              "B. $5$ buku dan $1$ pulpen",
+              "C. $2$ buku dan $13$ pulpen",
+              "D. $3$ buku dan $8$ pulpen",
+              "E. $21$ pulpen saja"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Modelnya, dalam ribu rupiah: $20x + 5y \\le 100$.\n\nLangkah 2: Opsi A: $80 + 25 = 105$ — melebihi $100$.\n\nLangkah 3: Opsi B: $100 + 5 = 105$ — melebihi. Opsi C: $40 + 65 = 105$ — melebihi.\n\nLangkah 4: Opsi D: $60 + 40 = 100 \\le 100$ — mungkin, uangnya tepat habis.\n\nLangkah 5: Opsi E: $5 \\times 21 = 105$ — melebihi.\n\nLangkah 6: Keempat opsi yang salah sama-sama kelebihan Rp$5.000$. Soal seperti ini menguji ketelitian, bukan tebakan.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P31-Q7] Lift sebuah gedung mampu mengangkut paling banyak $600$ kg. Berat rata-rata orang dewasa $60$ kg dan anak $30$ kg. Bila $x$ = banyak orang dewasa dan $y$ = banyak anak, model yang tepat adalah $\\dots$",
+            "opsi": [
+              "A. $2x + y \\ge 20$",
+              "B. $2x + y \\le 20$",
+              "C. $x + 2y \\le 20$",
+              "D. $2x + y < 20$",
+              "E. $60x + 30y \\ge 600$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Berat total penumpang $60x + 30y$ kg.\n\nLangkah 2: \"Paling banyak $600$ kg\" berarti tidak boleh melebihi $600$, tetapi boleh tepat $600$.\n$60x + 30y \\le 600$\n\nLangkah 3: Bagi dengan $30$.\n$2x + y \\le 20$\n\nLangkah 4: Opsi D ($<$) menolak beban tepat $600$ kg, padahal \"paling banyak\" mengizinkannya.\n\nLangkah 5: Opsi C menukar koefisien: orang dewasa lebih berat, jadi koefisien $2$ milik $x$.\n\nLangkah 6: Opsi A dan E membalik arah ketidaksamaan.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P31-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Titik $O(0, 0)$ memenuhi pertidaksamaan $x + y > 0$.",
+              "(2) Garis batas daerah penyelesaian $2x - 3y \\ge 6$ digambar penuh.",
+              "(3) Daerah penyelesaian $y \\ge 2x + 1$ terletak di atas garis $y = 2x + 1$."
+            ],
+            "kunci": "S - B - B",
+            "bahas": "Langkah 1: Pernyataan (1): $0 + 0 = 0 > 0$ — salah, karena $0$ tidak lebih besar daripada $0$. Pernyataan (1) SALAH.\n\nLangkah 2: Titik $O$ berada tepat pada garis $x + y = 0$, dan tanda $>$ tidak memuat garis itu.\n\nLangkah 3: Pernyataan (2): tanda $\\ge$ memuat \"sama dengan\", sehingga garisnya penuh. Pernyataan (2) BENAR.\n\nLangkah 4: Pernyataan (3): pada bentuk $y$ terisolasi, tanda $\\ge$ berarti nilai $y$ lebih tinggi daripada garis. Pernyataan (3) BENAR.\n\nLangkah 5: Periksa dengan $(0, 5)$: $5 \\ge 1$ — benar, dan titik itu memang di atas garis.\n\nKesimpulan: Kunci Jawaban S - B - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P31-Q9] Pilihlah SEMUA titik yang terletak pada daerah penyelesaian $3x - y < 6$.",
+            "opsi": [
+              "A. $(0, 0)$",
+              "B. $(2, 0)$",
+              "C. $(3, 4)$",
+              "D. $(4, 5)$",
+              "E. $(1, -2)$"
+            ],
+            "kunci": "A, C, E",
+            "bahas": "Langkah 1: Substitusikan setiap titik ke $3x - y$, lalu bandingkan dengan $6$ memakai tanda $<$.\n\nLangkah 2: A: $0 - 0 = 0 < 6$ — memenuhi.\n\nLangkah 3: B: $6 - 0 = 6 < 6$ — tidak memenuhi. Titik ini tepat pada garis batas, dan tanda $<$ tidak memuatnya.\n\nLangkah 4: C: $9 - 4 = 5 < 6$ — memenuhi.\n\nLangkah 5: D: $12 - 5 = 7 < 6$ — tidak memenuhi.\n\nLangkah 6: E: $3 - (-2) = 5 < 6$ — memenuhi. Perhatikan $-(-2) = +2$.\n\nKesimpulan: Kunci Jawaban A, C, E."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P31-Q10] Banyak pasangan bilangan cacah $(x, y)$ yang memenuhi $x + y \\le 3$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "10",
+            "bahas": "Langkah 1: Bilangan cacah adalah $0, 1, 2, 3, \\dots$ Hitung pasangan menurut nilai $x$.\n\nLangkah 2: $x = 0$: $y \\le 3$, yaitu $y = 0, 1, 2, 3$ — $4$ pasangan.\n\nLangkah 3: $x = 1$: $y \\le 2$ — $3$ pasangan. $x = 2$: $y \\le 1$ — $2$ pasangan.\n\nLangkah 4: $x = 3$: $y \\le 0$ — $1$ pasangan. Untuk $x \\ge 4$ tidak ada lagi.\n\nLangkah 5: Jumlahkan.\n$4 + 3 + 2 + 1 = 10$\n\nKesimpulan: Kunci Jawaban 10."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P32",
+      "judul": "Sistem Pertidaksamaan Linear Dua Variabel dan Penerapannya",
+      "materi": {
+        "id": "P32",
+        "bab": "Bab 5: Sistem Persamaan dan Pertidaksamaan Linear",
+        "title": "Sistem Pertidaksamaan Linear Dua Variabel dan Penerapannya",
+        "obj": [
+          "Menentukan daerah penyelesaian sistem pertidaksamaan linear dua variabel sebagai IRISAN daerah penyelesaian setiap pertidaksamaannya.",
+          "Menentukan titik-titik pojok daerah penyelesaian, termasuk titik potong dua garis batas yang dihitung dengan eliminasi.",
+          "Memodelkan masalah nyata yang memuat beberapa batasan sekaligus menjadi sistem pertidaksamaan, lengkap dengan kendala $x \\ge 0$ dan $y \\ge 0$."
+        ],
+        "hook": "Seorang pengrajin membuat kursi dan meja. Kayunya terbatas, jam kerjanya juga terbatas. Setiap batasan sendiri-sendiri mengizinkan banyak kemungkinan, tetapi rencana produksi yang SAH harus memenuhi SEMUA batasan sekaligus: cukup kayunya DAN cukup waktunya DAN banyak barangnya tidak negatif. Pada gambar, setiap batasan mengarsir satu daerah, dan daerah yang tertutup arsiran dari semua batasan itulah pilihan yang benar-benar mungkin. Daerah itu menjadi bekal utama Program Linear di kelas XI.",
+        "toolkit": [
+          {
+            "name": "Daerah Penyelesaian Sistem",
+            "math": "$$\\text{DP sistem} = \\text{irisan DP semua pertidaksamaan}$$"
+          },
+          {
+            "name": "Kendala Nonnegatif",
+            "math": "$$x \\ge 0,\\ y \\ge 0 \\Rightarrow \\text{kuadran I beserta sumbunya}$$"
+          },
+          {
+            "name": "Titik Pojok",
+            "math": "$$\\text{titik potong dua garis batas yang memenuhi SEMUA pertidaksamaan}$$"
+          },
+          {
+            "name": "Titik Potong Dua Garis",
+            "math": "$$\\begin{cases} a_1x + b_1y = c_1 \\\\ a_2x + b_2y = c_2 \\end{cases} \\Rightarrow \\text{eliminasi}$$"
+          },
+          {
+            "name": "Membaca Kendala",
+            "math": "$$\\text{paling banyak} \\Rightarrow \\le;\\qquad \\text{paling sedikit} \\Rightarrow \\ge$$"
+          }
+        ],
+        "examples": [
+          {
+            "problem": "Tentukan daerah penyelesaian dan titik-titik pojok sistem $x + y \\le 6$, $2x + y \\le 8$, $x \\ge 0$, $y \\ge 0$.",
+            "solution": "Langkah 1: Garis batas pertama $x + y = 6$ melalui $(6, 0)$ dan $(0, 6)$. Uji $O$: $0 \\le 6$ benar, jadi daerahnya di sisi $O$.\n\nLangkah 2: Garis batas kedua $2x + y = 8$ melalui $(4, 0)$ dan $(0, 8)$. Uji $O$: $0 \\le 8$ benar, jadi daerahnya juga di sisi $O$.\n\nLangkah 3: Kendala $x \\ge 0$ dan $y \\ge 0$ membatasi daerah di kuadran I.\n\nLangkah 4: Daerah penyelesaiannya adalah bagian yang memenuhi KEEMPATnya: segi empat di kuadran I, di bawah kedua garis.\n\nLangkah 5: Cari titik potong kedua garis dengan eliminasi.\n$(2x + y) - (x + y) = 8 - 6 \\Rightarrow x = 2$, lalu $y = 4$\n\nLangkah 6: Perhatikan titik potong dengan sumbu. Di sumbu $x$, garis kedua memotong lebih dulu di $(4, 0)$; titik $(6, 0)$ melanggar $2x + y \\le 8$ karena $12 > 8$. Di sumbu $y$, garis pertama memotong lebih dulu di $(0, 6)$; titik $(0, 8)$ melanggar $x + y \\le 6$.\n\nLangkah 7: Jadi titik pojoknya $(0, 0)$, $(4, 0)$, $(2, 4)$, dan $(0, 6)$. Periksa $(2, 4)$: $6 \\le 6$ dan $8 \\le 8$ — memenuhi keduanya.\n\nKesimpulan: Daerah penyelesaiannya berbentuk segi empat dengan titik pojok $(0, 0)$, $(4, 0)$, $(2, 4)$, dan $(0, 6)$."
+          },
+          {
+            "problem": "Periksalah apakah titik $(1, 4)$ dan $(3, 3)$ termasuk daerah penyelesaian sistem $x + y \\le 6$, $2x + y \\le 8$, $x \\ge 0$, $y \\ge 0$.",
+            "solution": "Langkah 1: Sebuah titik termasuk daerah penyelesaian sistem hanya bila memenuhi SETIAP pertidaksamaan.\n\nLangkah 2: Uji $(1, 4)$ pada pertidaksamaan pertama.\n$1 + 4 = 5 \\le 6$ — benar\n\nLangkah 3: Uji $(1, 4)$ pada pertidaksamaan kedua.\n$2 + 4 = 6 \\le 8$ — benar. Koordinatnya juga tidak negatif.\n\nLangkah 4: Jadi $(1, 4)$ termasuk daerah penyelesaian.\n\nLangkah 5: Uji $(3, 3)$ pada pertidaksamaan pertama.\n$3 + 3 = 6 \\le 6$ — benar, titik ini tepat pada garis\n\nLangkah 6: Uji $(3, 3)$ pada pertidaksamaan kedua.\n$6 + 3 = 9 \\le 8$ — salah\n\nLangkah 7: Satu pertidaksamaan yang gagal sudah cukup untuk mengeluarkan $(3, 3)$ dari daerah penyelesaian sistem.\n\nKesimpulan: Titik $(1, 4)$ termasuk daerah penyelesaian, sedangkan $(3, 3)$ tidak."
+          },
+          {
+            "problem": "Suatu daerah di kuadran I dibatasi dari atas oleh garis yang melalui $(4, 0)$ dan $(0, 4)$, serta garis yang melalui $(6, 0)$ dan $(0, 2)$. Daerahnya berada di bawah kedua garis. Tentukan sistem pertidaksamaan dan titik-titik pojoknya.",
+            "solution": "Langkah 1: Garis melalui $(4, 0)$ dan $(0, 4)$: $4x + 4y = 16 \\Rightarrow x + y = 4$.\n\nLangkah 2: Garis melalui $(6, 0)$ dan $(0, 2)$: $2x + 6y = 12 \\Rightarrow x + 3y = 6$.\n\nLangkah 3: Daerah di bawah kedua garis memuat $O$, dan $O$ memberikan ruas kiri $0$ yang lebih kecil. Jadi tandanya $\\le$.\n$x + y \\le 4$, $x + 3y \\le 6$, $x \\ge 0$, $y \\ge 0$\n\nLangkah 4: Titik potong kedua garis.\n$(x + 3y) - (x + y) = 6 - 4 \\Rightarrow 2y = 2 \\Rightarrow y = 1$, lalu $x = 3$\n\nLangkah 5: Di sumbu $x$, pilih titik potong yang lebih dekat ke $O$: $(4, 0)$, sebab $(6, 0)$ melanggar $x + y \\le 4$.\n\nLangkah 6: Di sumbu $y$, pilih $(0, 2)$, sebab $(0, 4)$ melanggar $x + 3y \\le 6$ karena $12 > 6$.\n\nLangkah 7: Titik pojoknya $(0, 0)$, $(4, 0)$, $(3, 1)$, dan $(0, 2)$.\n\nKesimpulan: Sistemnya $x + y \\le 4$, $x + 3y \\le 6$, $x \\ge 0$, $y \\ge 0$, dengan titik pojok $(0, 0)$, $(4, 0)$, $(3, 1)$, dan $(0, 2)$."
+          },
+          {
+            "problem": "Seorang pengrajin membuat $x$ kursi dan $y$ meja. Sebuah kursi memerlukan $2$ unit kayu dan $3$ jam kerja; sebuah meja memerlukan $4$ unit kayu dan $2$ jam kerja. Tersedia paling banyak $40$ unit kayu dan $36$ jam kerja. Susunlah modelnya dan tentukan titik potong kedua garis batas.",
+            "solution": "Langkah 1: Susun tabel: kursi ($2$ kayu, $3$ jam), meja ($4$ kayu, $2$ jam), persediaan ($40$ kayu, $36$ jam).\n\nLangkah 2: Kendala kayu: $2x + 4y \\le 40$, disederhanakan menjadi $x + 2y \\le 20$.\n\nLangkah 3: Kendala waktu: $3x + 2y \\le 36$.\n\nLangkah 4: Banyak barang tidak negatif: $x \\ge 0$ dan $y \\ge 0$.\n\nLangkah 5: Titik potong $x + 2y = 20$ dan $3x + 2y = 36$.\n$(3x + 2y) - (x + 2y) = 36 - 20 \\Rightarrow 2x = 16 \\Rightarrow x = 8$, lalu $y = 6$\n\nLangkah 6: Periksa: $8 + 12 = 20$ kayu (setelah dibagi $2$) dan $24 + 12 = 36$ jam — tepat habis keduanya.\n\nLangkah 7: Artinya, membuat $8$ kursi dan $6$ meja memakai seluruh kayu DAN seluruh jam kerja. Titik pojok seperti ini sering menjadi jawaban soal optimasi di kelas XI.\n\nKesimpulan: Modelnya $x + 2y \\le 20$, $3x + 2y \\le 36$, $x \\ge 0$, $y \\ge 0$, dan titik potong kedua garis batasnya $(8, 6)$."
+          },
+          {
+            "problem": "Tentukan titik-titik pojok daerah penyelesaian sistem $x + y \\ge 4$, $x \\le 5$, $y \\le 3$, $x \\ge 0$, $y \\ge 0$.",
+            "solution": "Langkah 1: Pertidaksamaan $x + y \\ge 4$ bertanda $\\ge$. Uji $O$: $0 \\ge 4$ salah, jadi daerahnya di seberang $O$, yaitu MENJAUHI titik asal.\n\nLangkah 2: Pertidaksamaan $x \\le 5$ adalah daerah di kiri garis tegak $x = 5$, dan $y \\le 3$ adalah daerah di bawah garis mendatar $y = 3$.\n\nLangkah 3: Irisannya adalah segi empat yang \"terpotong\" pada pojok kiri bawahnya oleh garis $x + y = 4$.\n\nLangkah 4: Titik pojok pada garis $x + y = 4$: dengan $y = 3$ diperoleh $x = 1$, titik $(1, 3)$; dengan $y = 0$ diperoleh $x = 4$, titik $(4, 0)$.\n\nLangkah 5: Titik pojok lainnya: $(5, 0)$ dan $(5, 3)$.\n\nLangkah 6: Periksa setiap titik pada semua pertidaksamaan, misalnya $(1, 3)$: $4 \\ge 4$, $1 \\le 5$, $3 \\le 3$ — memenuhi.\n\nLangkah 7: Perhatikan bahwa $O(0, 0)$ BUKAN titik pojok di sini, karena ia melanggar $x + y \\ge 4$.\n\nKesimpulan: Titik pojoknya $(1, 3)$, $(4, 0)$, $(5, 0)$, dan $(5, 3)$."
+          }
+        ],
+        "btc": "Kelompok VNPS: Setiap kelompok merancang soal produksi sendiri — misalnya kue kering dan kue basah dengan batasan tepung dan waktu oven — lalu menyusun sistem pertidaksamaannya. Di papan, gambar daerah penyelesaiannya dengan warna berbeda untuk setiap pertidaksamaan, tandai irisannya, dan hitung semua titik pojoknya. Kelompok lain lalu memilih satu titik pojok dan harus menjelaskan arti titik itu dalam cerita (misalnya: \"semua tepung terpakai habis\").",
+        "summary_data": {
+          "summary": [
+            "Daerah penyelesaian sistem adalah IRISAN daerah penyelesaian setiap pertidaksamaan.",
+            "Sebuah titik termasuk daerah penyelesaian sistem hanya bila memenuhi SEMUA pertidaksamaan.",
+            "Kendala $x \\ge 0$ dan $y \\ge 0$ membatasi daerah di kuadran I; kendala ini hampir selalu ada pada soal cerita.",
+            "Titik pojok adalah titik potong dua garis batas yang tetap memenuhi semua pertidaksamaan.",
+            "Titik potong dua garis batas dihitung dengan eliminasi atau substitusi.",
+            "Di setiap sumbu, titik potong yang dipakai adalah yang tidak melanggar pertidaksamaan lain.",
+            "Titik pojok perlu diperiksa pada semua pertidaksamaan, bukan hanya pada dua garis yang membentuknya.",
+            "Daerah bertanda $\\ge$ dengan ruas kanan positif menjauhi $O$, sehingga $O$ tidak menjadi titik pojok.",
+            "\"Paling banyak\" berarti $\\le$ dan \"paling sedikit\" berarti $\\ge$.",
+            "Titik pojok hasil perpotongan kendala sering berarti \"dua sumber daya habis terpakai bersamaan\"."
+          ],
+          "islamic": "Mengatur sumber daya dengan batas yang wajar adalah ciri hamba Allah yang baik. \"Dan orang-orang yang apabila membelanjakan (harta), mereka tidak berlebihan, dan tidak (pula) kikir, di antara keduanya secara wajar.\" (QS. Al-Furqan: 67)"
+        },
+        "collab_cases": [
+          "Tentukan daerah penyelesaian dan titik-titik pojok sistem $x + y \\le 5$, $x + 2y \\le 8$, $x \\ge 0$, $y \\ge 0$.",
+          "Periksalah apakah titik $(2, 2)$ dan $(4, 2)$ termasuk daerah penyelesaian sistem $2x + y \\le 8$, $x + y \\le 5$, $x \\ge 0$, $y \\ge 0$.",
+          "Tentukan titik potong garis $3x + 2y = 12$ dan $x + 2y = 8$, lalu periksa apakah titik itu memenuhi $x \\ge 0$ dan $y \\ge 0$.",
+          "Sebuah toko menjual tas jenis A (modal Rp$40.000$) dan jenis B (modal Rp$60.000$). Modal yang tersedia paling banyak Rp$1.200.000$ dan tempatnya hanya muat $25$ tas. Susunlah modelnya dan tentukan titik potong kedua garis batas.",
+          "Gambarlah daerah penyelesaian $x + y \\ge 3$, $x \\le 4$, $y \\le 4$, $x \\ge 0$, $y \\ge 0$, lalu tentukan semua titik pojoknya."
+        ]
+      },
+      "soal": {
+        "id": "P32",
+        "subject": "wajib",
+        "title": "P32 • Sistem Pertidaksamaan Linear Dua Variabel dan Penerapannya",
+        "questions": [
+          {
+            "no": 1,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C2 Pemahaman",
+            "bobot": 10,
+            "tanya": "[P32-Q1] Daerah penyelesaian suatu sistem pertidaksamaan linear dua variabel adalah $\\dots$",
+            "opsi": [
+              "A. gabungan daerah penyelesaian semua pertidaksamaannya",
+              "B. daerah penyelesaian pertidaksamaan pertama saja",
+              "C. irisan daerah penyelesaian semua pertidaksamaannya",
+              "D. daerah di luar semua garis batasnya",
+              "E. daerah yang selalu memuat titik $O(0, 0)$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Sebuah titik menjadi penyelesaian sistem bila memenuhi pertidaksamaan pertama DAN kedua DAN seterusnya.\n\nLangkah 2: Kata \"dan\" pada himpunan berarti irisan, yaitu bagian yang dimiliki bersama.\n\nLangkah 3: Opsi A (gabungan) berarti \"atau\": cukup memenuhi salah satu. Itu terlalu longgar.\n\nLangkah 4: Opsi E keliru: daerah bertanda $\\ge$ dengan ruas kanan positif, seperti $x + y \\ge 4$, tidak memuat $O$.\n\nLangkah 5: Jadi daerah penyelesaian sistem adalah irisan semua daerah penyelesaiannya.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 2,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P32-Q2] Titik berikut yang termasuk daerah penyelesaian sistem $x + y \\le 6$, $2x + y \\le 8$, $x \\ge 0$, $y \\ge 0$ adalah $\\dots$",
+            "opsi": [
+              "A. $(3, 3)$",
+              "B. $(1, 4)$",
+              "C. $(4, 1)$",
+              "D. $(0, 7)$",
+              "E. $(5, 0)$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Setiap titik harus memenuhi KEDUA pertidaksamaan utama dan koordinatnya tidak negatif.\n\nLangkah 2: Opsi A: $6 \\le 6$ benar, tetapi $9 \\le 8$ salah.\n\nLangkah 3: Opsi B: $5 \\le 6$ benar dan $6 \\le 8$ benar — memenuhi semuanya.\n\nLangkah 4: Opsi C: $5 \\le 6$ benar, tetapi $9 \\le 8$ salah.\n\nLangkah 5: Opsi D: $7 \\le 6$ salah. Opsi E: $5 \\le 6$ benar, tetapi $10 \\le 8$ salah.\n\nLangkah 6: Perhatikan bahwa opsi A, C, dan E lolos pertidaksamaan pertama tetapi gagal pada yang kedua. Memeriksa satu pertidaksamaan saja tidak cukup.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 3,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P32-Q3] Titik potong garis $x + y = 6$ dan $2x + y = 8$ adalah $\\dots$",
+            "opsi": [
+              "A. $(2, 4)$",
+              "B. $(4, 2)$",
+              "C. $(3, 3)$",
+              "D. $(1, 5)$",
+              "E. $(4, 0)$"
+            ],
+            "kunci": "A",
+            "bahas": "Langkah 1: Koefisien $y$ pada kedua persamaan sama, jadi kurangkan.\n\nLangkah 2: Tulis pengurangannya.\n$(2x + y) - (x + y) = 8 - 6 \\Rightarrow x = 2$\n\nLangkah 3: Substitusikan ke persamaan pertama.\n$2 + y = 6 \\Rightarrow y = 4$\n\nLangkah 4: Periksa pada kedua garis: $2 + 4 = 6$ dan $4 + 4 = 8$ — cocok.\n\nLangkah 5: Opsi B ($(4, 2)$) menukar urutan koordinat: $4 + 2 = 6$ benar, tetapi $8 + 2 = 10 \\neq 8$.\n\nLangkah 6: Opsi E adalah titik potong garis kedua dengan sumbu $x$, bukan dengan garis pertama.\n\nKesimpulan: Kunci Jawaban A."
+          },
+          {
+            "no": 4,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P32-Q4] Daerah penyelesaian sistem $x + y \\le 4$, $x + 3y \\le 6$, $x \\ge 0$, $y \\ge 0$ mempunyai beberapa titik pojok. Titik berikut yang BUKAN titik pojoknya adalah $\\dots$",
+            "opsi": [
+              "A. $(0, 0)$",
+              "B. $(4, 0)$",
+              "C. $(3, 1)$",
+              "D. $(0, 2)$",
+              "E. $(0, 4)$"
+            ],
+            "kunci": "E",
+            "bahas": "Langkah 1: Titik pojok harus memenuhi semua pertidaksamaan.\n\nLangkah 2: Uji $(0, 4)$ pada $x + 3y \\le 6$.\n$0 + 12 = 12 \\le 6$ — salah\n\nLangkah 3: Jadi $(0, 4)$ berada di luar daerah penyelesaian, walaupun ia titik potong garis $x + y = 4$ dengan sumbu $y$.\n\nLangkah 4: Titik $(0, 2)$ adalah titik potong $x + 3y = 6$ dengan sumbu $y$, dan $0 + 2 \\le 4$ — memenuhi.\n\nLangkah 5: Titik $(3, 1)$ adalah perpotongan kedua garis: $3 + 1 = 4$ dan $3 + 3 = 6$ — memenuhi.\n\nLangkah 6: Titik $(0, 0)$ dan $(4, 0)$ juga memenuhi semuanya. Jadi yang bukan titik pojok adalah $(0, 4)$.\n\nKesimpulan: Kunci Jawaban E."
+          },
+          {
+            "no": 5,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P32-Q5] Sebuah kursi memerlukan $3$ unit kayu dan $4$ jam kerja, sedangkan sebuah meja memerlukan $6$ unit kayu dan $2$ jam kerja. Tersedia paling banyak $60$ unit kayu dan $48$ jam kerja. Bila $x$ = banyak kursi dan $y$ = banyak meja, model yang tepat adalah $\\dots$",
+            "opsi": [
+              "A. $2x + y \\le 20$, $x + 2y \\le 24$, $x \\ge 0$, $y \\ge 0$",
+              "B. $x + 2y \\ge 20$, $2x + y \\ge 24$, $x \\ge 0$, $y \\ge 0$",
+              "C. $3x + 6y \\le 48$, $4x + 2y \\le 60$, $x \\ge 0$, $y \\ge 0$",
+              "D. $x + 2y \\le 20$, $2x + y \\le 24$, $x \\ge 0$, $y \\ge 0$",
+              "E. $x + 2y \\le 20$, $2x + y \\le 24$"
+            ],
+            "kunci": "D",
+            "bahas": "Langkah 1: Kendala kayu: $3x + 6y \\le 60$. Bagi dengan $3$: $x + 2y \\le 20$.\n\nLangkah 2: Kendala waktu: $4x + 2y \\le 48$. Bagi dengan $2$: $2x + y \\le 24$.\n\nLangkah 3: Banyak kursi dan meja tidak negatif: $x \\ge 0$, $y \\ge 0$.\n\nLangkah 4: Opsi A menukar koefisien kursi dan meja. Opsi B membalik arah ketidaksamaan, padahal \"paling banyak\" berarti $\\le$.\n\nLangkah 5: Opsi C menukar persediaan kayu dan jam kerja.\n\nLangkah 6: Opsi E benar kendalanya tetapi tidak memuat $x \\ge 0$, $y \\ge 0$. Tanpa itu, $x = -5$ kursi pun ikut dianggap penyelesaian.\n\nKesimpulan: Kunci Jawaban D."
+          },
+          {
+            "no": 6,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C3 Penerapan",
+            "bobot": 10,
+            "tanya": "[P32-Q6] Banyak titik pojok daerah penyelesaian sistem $x + y \\ge 3$, $x \\le 4$, $y \\le 4$, $x \\ge 0$, $y \\ge 0$ adalah $\\dots$",
+            "opsi": [
+              "A. $3$",
+              "B. $4$",
+              "C. $5$",
+              "D. $6$",
+              "E. $7$"
+            ],
+            "kunci": "C",
+            "bahas": "Langkah 1: Daerahnya adalah persegi $0 \\le x \\le 4$, $0 \\le y \\le 4$ yang pojok kiri bawahnya dipotong garis $x + y = 3$.\n\nLangkah 2: Garis $x + y = 3$ memotong sumbu $x$ di $(3, 0)$ dan sumbu $y$ di $(0, 3)$.\n\nLangkah 3: Titik pojoknya: $(3, 0)$, $(4, 0)$, $(4, 4)$, $(0, 4)$, dan $(0, 3)$.\n\nLangkah 4: Periksa $(4, 4)$: $8 \\ge 3$, $4 \\le 4$, $4 \\le 4$ — memenuhi.\n\nLangkah 5: Titik $O(0, 0)$ tidak termasuk karena $0 \\ge 3$ salah. Jadi pojok persegi yang hilang digantikan DUA pojok baru.\n\nLangkah 6: Jumlahnya $5$ titik pojok; daerahnya berbentuk segi lima.\n\nKesimpulan: Kunci Jawaban C."
+          },
+          {
+            "no": 7,
+            "tipe": "Pilihan Ganda Tunggal",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P32-Q7] Suatu daerah di kuadran I terletak di bawah garis yang melalui $(0, 4)$ dan $(8, 0)$, serta di sebelah kiri garis $x = 6$, dengan batas-batasnya ikut termasuk. Sistem pertidaksamaan daerah itu adalah $\\dots$",
+            "opsi": [
+              "A. $2x + y \\le 8$, $x \\le 6$, $x \\ge 0$, $y \\ge 0$",
+              "B. $x + 2y \\le 8$, $x \\le 6$, $x \\ge 0$, $y \\ge 0$",
+              "C. $x + 2y \\ge 8$, $x \\le 6$, $x \\ge 0$, $y \\ge 0$",
+              "D. $x + 2y \\le 8$, $y \\le 6$, $x \\ge 0$, $y \\ge 0$",
+              "E. $2x + y \\le 8$, $y \\le 6$, $x \\ge 0$, $y \\ge 0$"
+            ],
+            "kunci": "B",
+            "bahas": "Langkah 1: Garis melalui $(8, 0)$ dan $(0, 4)$, jadi $p = 8$, $q = 4$.\n$4x + 8y = 32 \\Rightarrow x + 2y = 8$\n\nLangkah 2: Periksa: $8 + 0 = 8$ dan $0 + 8 = 8$ — cocok. Opsi A dan E memakai $2x + y = 8$, yang melalui $(4, 0)$ dan $(0, 8)$.\n\nLangkah 3: \"Di bawah garis\" pada kuadran I memuat $O$, dan $0 < 8$, jadi tandanya $\\le$. Opsi C gugur.\n\nLangkah 4: \"Di sebelah kiri garis $x = 6$\" berarti $x \\le 6$. Opsi D memakai $y \\le 6$, yaitu di bawah garis mendatar — keliru.\n\nLangkah 5: Kuadran I berarti $x \\ge 0$ dan $y \\ge 0$.\n\nKesimpulan: Kunci Jawaban B."
+          },
+          {
+            "no": 8,
+            "tipe": "Pilihan Benar / Salah",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P32-Q8] Tentukan benar atau salah setiap pernyataan berikut.",
+            "opsi": [
+              "(1) Titik $(2, 4)$ termasuk daerah penyelesaian sistem $x + y \\le 6$, $2x + y \\le 8$, $x \\ge 0$, $y \\ge 0$.",
+              "(2) Kalimat \"paling sedikit $10$ buah\" diterjemahkan menjadi $x \\le 10$.",
+              "(3) Kendala $x \\ge 0$ dan $y \\ge 0$ membatasi daerah penyelesaian di kuadran I."
+            ],
+            "kunci": "B - S - B",
+            "bahas": "Langkah 1: Pernyataan (1): $2 + 4 = 6 \\le 6$ dan $4 + 4 = 8 \\le 8$ — keduanya benar, dan koordinatnya tidak negatif.\n\nLangkah 2: Titik itu tepat pada kedua garis sekaligus, dan tanda $\\le$ memuat garisnya. Pernyataan (1) BENAR.\n\nLangkah 3: Pernyataan (2): \"paling sedikit $10$\" berarti $10$ atau lebih, yaitu $x \\ge 10$. Pernyataan (2) SALAH.\n\nLangkah 4: Pernyataan (3): $x \\ge 0$ berarti di kanan sumbu $y$, dan $y \\ge 0$ berarti di atas sumbu $x$. Irisannya kuadran I beserta sumbunya.\n\nLangkah 5: Pernyataan (3) BENAR.\n\nKesimpulan: Kunci Jawaban B - S - B."
+          },
+          {
+            "no": 9,
+            "tipe": "Pilihan Ganda Kompleks",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P32-Q9] Pilihlah SEMUA titik pojok daerah penyelesaian sistem $x + y \\le 5$, $x + 2y \\le 8$, $x \\ge 0$, $y \\ge 0$.",
+            "opsi": [
+              "A. $(0, 0)$",
+              "B. $(5, 0)$",
+              "C. $(0, 5)$",
+              "D. $(2, 3)$",
+              "E. $(8, 0)$"
+            ],
+            "kunci": "A, B, D",
+            "bahas": "Langkah 1: Titik potong kedua garis: $(x + 2y) - (x + y) = 8 - 5 \\Rightarrow y = 3$, lalu $x = 2$. Titik $(2, 3)$.\n\nLangkah 2: Di sumbu $x$: garis pertama memotong di $(5, 0)$ dan garis kedua di $(8, 0)$. Titik $(8, 0)$ melanggar $x + y \\le 5$, jadi yang dipakai $(5, 0)$.\n\nLangkah 3: Di sumbu $y$: garis pertama di $(0, 5)$ dan garis kedua di $(0, 4)$. Titik $(0, 5)$ melanggar $x + 2y \\le 8$ karena $10 > 8$, jadi yang dipakai $(0, 4)$.\n\nLangkah 4: Titik pojoknya $(0, 0)$, $(5, 0)$, $(2, 3)$, dan $(0, 4)$.\n\nLangkah 5: Dari opsi yang tersedia: A, B, dan D adalah titik pojok; C dan E bukan.\n\nKesimpulan: Kunci Jawaban A, B, D."
+          },
+          {
+            "no": 10,
+            "tipe": "Isian Singkat Numerik",
+            "level": "C4 Analisis",
+            "bobot": 10,
+            "tanya": "[P32-Q10] Sebuah toko menjual $x$ tas jenis A dengan modal Rp$40.000$ per buah dan $y$ tas jenis B dengan modal Rp$60.000$ per buah. Modal paling banyak Rp$1.200.000$ dan tempatnya muat paling banyak $25$ tas. Titik potong kedua garis batasnya adalah $(a, b)$. Nilai $a - b$ adalah $\\dots$",
+            "opsi": [],
+            "kunci": "5",
+            "bahas": "Langkah 1: Kendala modal dalam ribu rupiah: $40x + 60y \\le 1200$, disederhanakan menjadi $2x + 3y \\le 60$.\n\nLangkah 2: Kendala tempat: $x + y \\le 25$.\n\nLangkah 3: Titik potong: kalikan $x + y = 25$ dengan $2$, lalu kurangkan dari $2x + 3y = 60$.\n$(2x + 3y) - (2x + 2y) = 60 - 50 \\Rightarrow y = 10$\n\nLangkah 4: Maka $x = 25 - 10 = 15$. Periksa: $30 + 30 = 60$ — cocok.\n\nLangkah 5: Jadi $a = 15$, $b = 10$, dan $a - b = 5$.\n\nKesimpulan: Kunci Jawaban 5."
+          }
+        ]
+      }
+    }
+  ]
+}
