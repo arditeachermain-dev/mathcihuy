@@ -141,6 +141,32 @@
             color: #64748b;
         }
 
+        .pwd-wrap {
+            position: relative;
+        }
+
+        .pwd-wrap input {
+            padding-right: 44px;
+        }
+
+        .pwd-toggle {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 4px 6px;
+            line-height: 1;
+        }
+
+        .pwd-toggle:hover {
+            color: #f8fafc;
+        }
+
         .login-btn {
             width: 100%;
             padding: 12px;
@@ -243,7 +269,10 @@
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="password_siswa" placeholder="Masukkan password" required>
+                    <div class="pwd-wrap">
+                        <input type="password" id="password_siswa" placeholder="Masukkan password" required>
+                        <button type="button" class="pwd-toggle" onclick="togglePasswordVis('password_siswa', this)" aria-label="Tampilkan atau sembunyikan password">👁</button>
+                    </div>
                 </div>
 
                 <!-- Cloudflare Turnstile Siswa -->
@@ -269,7 +298,10 @@
 
                 <div class="form-group">
                     <label>Password Akun Guru</label>
-                    <input type="password" id="password_guru" placeholder="Masukkan password" autocomplete="current-password" required>
+                    <div class="pwd-wrap">
+                        <input type="password" id="password_guru" placeholder="Masukkan password" autocomplete="current-password" required>
+                        <button type="button" class="pwd-toggle" onclick="togglePasswordVis('password_guru', this)" aria-label="Tampilkan atau sembunyikan password">👁</button>
+                    </div>
                 </div>
 
                 <!-- Cloudflare Turnstile Guru -->
@@ -378,6 +410,14 @@
                     renderTurnstileWidgets();
                 });
         };
+
+        function togglePasswordVis(inputId, btn) {
+            var el = document.getElementById(inputId);
+            if (!el) return;
+            var show = el.type === 'password';
+            el.type = show ? 'text' : 'password';
+            if (btn) btn.textContent = show ? '🙈' : '👁';
+        }
 
         // ===== TAB SWITCHING =====
         function switchTab(tab) {
@@ -489,7 +529,7 @@
 
                 successEl.textContent = 'Berhasil masuk. Sebentar, ya...';
                 successEl.style.display = 'block';
-                setTimeout(function () { gotoPortal(finalKelas); }, 500);
+                setTimeout(function () { gotoPortal(finalKelas); }, 120);
 
             } catch (err) {
                 if (typeof turnstile !== 'undefined' && turnstileWidgetSiswa !== null) {
@@ -615,7 +655,7 @@
 
                 successEl.textContent = 'Autentikasi Berhasil! Mengalihkan ke Portal Guru...';
                 successEl.style.display = 'block';
-                setTimeout(function () { gotoPortal('XII'); }, 500);
+                setTimeout(function () { gotoPortal('XII'); }, 120);
 
             } catch (err) {
                 if (typeof turnstile !== 'undefined' && turnstileWidgetGuru !== null) {

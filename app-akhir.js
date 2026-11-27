@@ -25,11 +25,14 @@
             return;
         }
 
-        // Verifikasi Kriptografis Cookie HttpOnly Sisi Server
+        // Verifikasi Kriptografis Cookie HttpOnly Sisi Server + Hidrasi Roster Paralel
         try {
-            const authCheck = await fetch('/api/auth', {
-                credentials: 'same-origin'
-            });
+            const authPromise = fetch('/api/auth', { credentials: 'same-origin' });
+            const hydratePromise = (typeof window.ensureStudentsHydrated === 'function')
+                ? window.ensureStudentsHydrated('guru')
+                : Promise.resolve();
+
+            const [authCheck] = await Promise.all([authPromise, hydratePromise]);
             if (!authCheck.ok) {
                 alert('Sesi guru tidak sah atau telah kedaluwarsa. Silakan login kembali.');
                 localStorage.removeItem('portal_session');
@@ -44,10 +47,6 @@
         } catch (e) {
             alert('Gagal memverifikasi sesi guru ke server. Pastikan koneksi internet aktif.');
             return;
-        }
-
-        if (typeof window.ensureStudentsHydrated === 'function') {
-            await window.ensureStudentsHydrated('guru');
         }
 
         document.getElementById('guru-dashboard-modal').classList.remove('hidden');

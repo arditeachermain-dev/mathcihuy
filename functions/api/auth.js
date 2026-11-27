@@ -12,6 +12,7 @@ import {
   timingSafeEqualStr,
   revokeSubjectTokens,
   getSubjectForSession,
+  getSessionRevokeKey,
   buildAuthCookie
 } from './_auth.js';
 
@@ -65,21 +66,23 @@ export async function onRequestGet(context) {
   }
 }
 
-// DELETE /api/auth: Logout resmi
+// DELETE /api/auth: Logout resmi (hanya menghentikan sesi jti browser ini)
 export async function onRequestDelete(context) {
   const session = await authenticateRequest(context.request, context.env);
   if (session && context.env?.DB) {
-    const subject = getSubjectForSession(session);
-    if (subject) {
-      await revokeSubjectTokens(context.env.DB, subject);
+    const revokeKey = getSessionRevokeKey(session);
+    if (revokeKey) {
+      await revokeSubjectTokens(context.env.DB, revokeKey);
     }
   }
   const clearCookie = buildAuthCookie(context.request, '', 0);
   return jsonResponse({ success: true, message: 'Sesi telah dihentikan.' }, 200, { 'Set-Cookie': clearCookie });
 }
 
-// Rate Limiting Guard: Progressive Tiered Backoff per (IP + Akun) & ambang global per IP
+// Rate Limiting Guard: Progressive Tiered Backoff per (IP + Akun) & ambang aman Wi-Fi Sekolah bersama
+let _rateLimitTableEnsured = false;
 async function ensureRateLimitTable(db) {
+  if (_rateLimitTableEnsured) return;
   await db.prepare(`
     CREATE TABLE IF NOT EXISTS auth_rate_limits (
       ip TEXT PRIMARY KEY,
@@ -88,6 +91,7 @@ async function ensureRateLimitTable(db) {
       blocked_until INTEGER
     )
   `).run();
+  _rateLimitTableEnsured = true;
 }
 
 async function checkRateLimit(keys, env) {
@@ -161,7 +165,7 @@ async function recordFailedAttempt(acctKey, ipKey, env) {
   try {
     await ensureRateLimitTable(env.DB);
     const acctRes = acctKey ? await bumpRateKey(acctKey, 1, env) : { blocked: false, count: 0, remainingSec: 0 };
-    const ipRes = ipKey ? await bumpRateKey(ipKey, 4, env) : { blocked: false, count: 0, remainingSec: 0 };
+    const ipRes = ipKey ? await bumpRateKey(ipKey, 25, env) : { blocked: false, count: 0, remainingSec: 0 };
     if (ipRes.blocked && (!acctRes.blocked || ipRes.remainingSec > acctRes.remainingSec)) {
       return ipRes;
     }
@@ -484,7 +488,8 @@ export async function onRequestPost(context) {
 
     const cleanNisRaw = String(nis || cleanIdentifier || '').trim();
     const canonicalNis = cleanNisRaw.toLowerCase() === 'aunillah' ? '23400016' : cleanNisRaw;
-    const acctRateKey = `${clientIp}:${role === 'guru' ? 'guru' : ('nis:' + canonicalNis.toLowerCase())}`;
+    const isGuruAttempt = role === 'guru' || (!nis && !/^\d+$/.test(cleanIdentifier));
+    const acctRateKey = `${clientIp}:${isGuruAttempt ? ('guru:' + (cleanIdentifier || 'guru')) : ('nis:' + canonicalNis.toLowerCase())}`;
     const ipRateKey = `${clientIp}:*`;
 
     const rateLimitCheck = await checkRateLimit([acctRateKey, ipRateKey], context.env);
@@ -543,6 +548,7 @@ export async function onRequestPost(context) {
       const usernameResult = cleanIdentifier.includes('@') ? cleanIdentifier.split('@')[0] : cleanIdentifier;
 
       const tokenPayload = {
+        jti: crypto.randomUUID(),
         role: 'guru',
         id: 'guru_ardi',
         email: emailResult,
@@ -599,6 +605,7 @@ export async function onRequestPost(context) {
 
       const isAlumni = String(student.kelas || '').toLowerCase().includes('alumni');
       const tokenPayload = {
+        jti: crypto.randomUUID(),
         role: 'siswa',
         nis: String(student.nis),
         nama: String(student.nama),

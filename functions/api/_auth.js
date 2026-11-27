@@ -183,14 +183,18 @@ export async function verifyToken(token, secret) {
   }
 }
 
+let _revocationsTableEnsured = false;
 export async function revokeSubjectTokens(db, subject) {
   if (!db || !subject) return;
-  await db.prepare(`
-    CREATE TABLE IF NOT EXISTS auth_revocations (
-      subject TEXT PRIMARY KEY,
-      min_iat INTEGER NOT NULL
-    )
-  `).run();
+  if (!_revocationsTableEnsured) {
+    await db.prepare(`
+      CREATE TABLE IF NOT EXISTS auth_revocations (
+        subject TEXT PRIMARY KEY,
+        min_iat INTEGER NOT NULL
+      )
+    `).run();
+    _revocationsTableEnsured = true;
+  }
   await db.prepare(`
     INSERT INTO auth_revocations (subject, min_iat) VALUES (?, ?)
     ON CONFLICT(subject) DO UPDATE SET min_iat = excluded.min_iat
@@ -202,6 +206,12 @@ export function getSubjectForSession(session) {
   if (session.role === 'guru') return 'guru';
   if (session.nis) return `siswa:${String(session.nis).trim()}`;
   return null;
+}
+
+export function getSessionRevokeKey(session) {
+  if (!session) return null;
+  if (session.jti) return `jti:${String(session.jti).trim()}`;
+  return getSubjectForSession(session);
 }
 
 export function buildAuthCookie(request, token, maxAgeSec) {
@@ -243,15 +253,19 @@ export async function authenticateRequest(request, env) {
   const payload = await verifyToken(token, secret);
   if (!payload) return null;
 
-  // Periksa tabel revokasi sesi (logout / reset password / ganti password)
+  // Periksa tabel revokasi sesi (per-sesi jti pada logout, dan global subject pada reset/ganti sandi)
   if (env && env.DB) {
     const subject = getSubjectForSession(payload);
-    if (subject) {
+    const jtiKey = payload.jti ? `jti:${String(payload.jti).trim()}` : null;
+    if (subject || jtiKey) {
       try {
-        const rev = await env.DB.prepare(
-          "SELECT min_iat FROM auth_revocations WHERE subject = ?"
-        ).bind(subject).first();
-        if (rev && Number(payload.iat || 0) <= Number(rev.min_iat || 0)) {
+        const querySql = (subject && jtiKey)
+          ? "SELECT MAX(min_iat) as min_iat FROM auth_revocations WHERE subject = ? OR subject = ?"
+          : "SELECT min_iat FROM auth_revocations WHERE subject = ?";
+        const rev = (subject && jtiKey)
+          ? await env.DB.prepare(querySql).bind(subject, jtiKey).first()
+          : await env.DB.prepare(querySql).bind(subject || jtiKey).first();
+        if (rev && rev.min_iat !== null && rev.min_iat !== undefined && Number(payload.iat || 0) <= Number(rev.min_iat || 0)) {
           return null;
         }
       } catch (_) {
